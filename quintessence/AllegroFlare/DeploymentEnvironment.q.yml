@@ -4,8 +4,14 @@ properties:
   - name: environment
     type: std::string
     constructor_arg: true
-    init_with: ENVIRONMENT_PRODUCTION
+    init_with: ENVIRONMENT_UNDEF
     getter: true
+
+  - name: ENVIRONMENT_UNDEF
+    type: char*
+    init_with: '"undefined"'
+    static: true
+    constexpr: true
 
   - name: ENVIRONMENT_TEST
     type: char*
@@ -29,19 +35,71 @@ properties:
 functions:
 
 
+  - name: set_environment
+    parameters:
+      - name: environment
+        type: std::string
+        default_argument: ENVIRONMENT_UNDEF
+    guards: [ is_valid(environment) ]
+    body: |
+      // TODO: If an invalid argument is passed, include the argument value in an error message
+      this->environment = environment;
+      return;
+
+
   - name: is_production
     type: bool
     body: |
       return environment == ENVIRONMENT_PRODUCTION;
+
+
+  - name: is_undefined
+    type: bool
+    body: |
+      return environment == ENVIRONMENT_UNDEF;
+
 
   - name: is_test
     type: bool
     body: |
       return environment == ENVIRONMENT_TEST;
 
+
   - name: is_development
     type: bool
     body: |
       return environment == ENVIRONMENT_DEVELOPMENT;
+
+
+  - name: is_valid
+    static: true
+    type: bool
+    parameters:
+      - name: environment
+        type: std::string
+        default_argument: ENVIRONMENT_UNDEF
+    body: |
+      static std::set<std::string> valid_environments = {
+         ENVIRONMENT_PRODUCTION,
+         ENVIRONMENT_TEST,
+         ENVIRONMENT_DEVELOPMENT,
+      };
+      // NOTE: Should consider an update to -std=c++20 which has `contains` for a std::set
+      // https://en.cppreference.com/w/cpp/container/set/contains
+
+      return valid_environments.find(environment) != valid_environments.end();
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_invalid
+    static: true
+    type: bool
+    parameters:
+      - name: environment
+        type: std::string
+        default_argument: ENVIRONMENT_UNDEF
+    body: |
+      return !is_valid(environment);
 
 

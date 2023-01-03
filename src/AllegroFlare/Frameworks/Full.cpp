@@ -65,6 +65,8 @@ Full::Full()
    , input_hints_backfill_opacity(0.35)
    , input_hints_bar_height(60)
    , fullscreen(true)
+   , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
+   , unset_deployment_environment_warning_on_initialization_is_disabled(false)
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
@@ -215,6 +217,28 @@ bool Full::initialize_without_display()
 
    if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
 
+   if (deployment_environment.is_undefined())
+   {
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Frameworks::Full::initialize_without_display",
+         "The current deployment environment has not been defined. Before calling "
+            "AllegroFlare::Frameworks::Full::initialize(), be sure to set a deployment environment with "
+            "AllegroFlare::Frameworks::Full::set_deployment_environment(). In the mean time, the environemnt will "
+            "automatically be set to ENVIRONMENT_DEVELOPMENT. You can also disable this warning message with "
+            "AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization()."
+      );
+      deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
+   }
+
+   if (deployment_environment.is_invalid())
+   {
+      // TODO: this error message
+      //AllegroFlare::Logger::warn_from("AllegroFlare::Frameworks::Full::initialize_without_display",
+         //"The current deployment environment has not been defined. Before calling Frameworks::Full::initialize(), "
+         //"be sure to set a deployment environment with nn"
+      //);
+   }
+
    srand(time(NULL));
 
    primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
@@ -332,6 +356,28 @@ void Full::disable_fullscreen()
                 << std::endl;
    }
    if (!initialized) fullscreen = false;
+}
+
+
+
+void Full::disable_unset_deployment_environment_warning_on_initialization()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization",
+         "Could not disable because the framework has already been initialized. "
+            "You must call this function before initializing the framework for it to take effect."
+      );
+   }
+   if (!initialized) unset_deployment_environment_warning_on_initialization_is_disabled = true;
+}
+
+
+
+void Full::set_deployment_environment(std::string environment)
+{
+   deployment_environment.set_environment(environment);
 }
 
 

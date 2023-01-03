@@ -22,6 +22,7 @@
 #include <AllegroFlare/AudioRepositoryElement.hpp>
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Profiler.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
 namespace AllegroFlare
@@ -64,6 +65,8 @@ namespace AllegroFlare
          float input_hints_backfill_opacity;
          float input_hints_bar_height;
          bool fullscreen;
+         AllegroFlare::DeploymentEnvironment deployment_environment;
+         bool unset_deployment_environment_warning_on_initialization_is_disabled;
 
          void draw_overlay();
         
@@ -111,6 +114,8 @@ namespace AllegroFlare
          bool is_initialized();
          bool shutdown();
          void disable_fullscreen();
+         void disable_unset_deployment_environment_warning_on_initialization();
+         void set_deployment_environment(std::string);
 
          void enable_escape_key_will_shutdown();
          void disable_escape_key_will_shutdown();

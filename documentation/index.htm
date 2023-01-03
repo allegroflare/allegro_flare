@@ -65,6 +65,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Cubemap.q.yml">quintessence/AllegroFlare/Cubemap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AchievementsList.q.yml">quintessence/AllegroFlare/Elements/AchievementsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml</a></li>
@@ -1174,6 +1175,58 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;GLuint&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_opengl.h&quot;]}</td>
 </tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">environment</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">ENVIRONMENT_UNDEF</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ENVIRONMENT_TEST</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ENVIRONMENT_DEVELOPMENT</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ENVIRONMENT_PRODUCTION</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_environment(std::string environment=ENVIRONMENT_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">is_production()</td>
+</tr>
+<tr>
+  <td class="method">is_undefined()</td>
+</tr>
+<tr>
+  <td class="method">is_test()</td>
+</tr>
+<tr>
+  <td class="method">is_development()</td>
+</tr>
+<tr>
+  <td class="method">is_valid(std::string environment=ENVIRONMENT_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">is_invalid(std::string environment=ENVIRONMENT_UNDEF)</td>
+</tr>
+    </table>
+     <table>
     </table>
   </div>
 </ul>

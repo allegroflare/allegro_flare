@@ -312,3 +312,17 @@ TEST(AllegroFlare_Frameworks_FullTest,
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest,
+   initialize__without_a_development_environment_set__will_output_a_warning_message)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
+   initialize__without_a_development_environment_set__will_default_to_ENVIRONMENT_DEVELOPMENT)
+{
+   // TODO
+}
+
+
