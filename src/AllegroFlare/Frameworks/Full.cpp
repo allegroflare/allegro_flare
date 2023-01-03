@@ -377,8 +377,34 @@ void Full::disable_unset_deployment_environment_warning_on_initialization()
 
 void Full::set_deployment_environment(std::string environment)
 {
+   // TODO: add tests for this function
    deployment_environment.set_environment(environment);
 }
+
+
+
+bool Full::is_deployment_environment_production()
+{
+   // TODO: add tests for this function
+   return deployment_environment.is_production();
+}
+
+
+
+bool Full::is_deployment_environment_development()
+{
+   // TODO: add tests for this function
+   return deployment_environment.is_development();
+}
+
+
+
+bool Full::is_deployment_environment_test()
+{
+   // TODO: add tests for this function
+   return deployment_environment.is_test();
+}
+
 
 
 bool Full::shutdown()

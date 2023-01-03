@@ -116,6 +116,9 @@ namespace AllegroFlare
          void disable_fullscreen();
          void disable_unset_deployment_environment_warning_on_initialization();
          void set_deployment_environment(std::string);
+         bool is_deployment_environment_production();
+         bool is_deployment_environment_development();
+         bool is_deployment_environment_test();
 
          void enable_escape_key_will_shutdown();
          void disable_escape_key_will_shutdown();
