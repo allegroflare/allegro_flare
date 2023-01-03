@@ -35,6 +35,7 @@ namespace Frameworks
 
 Full::Full()
    : screens()
+   , working_directory_before_init(".")
    , initialized(false)
    , config("data/config/config.cfg")
    , profiler()
@@ -198,6 +199,20 @@ bool Full::initialize_without_display()
    if (initialized) return false;
 
    if (!al_init()) std::cerr << "al_init() failed" << std::endl;
+
+   // Before setting the path, we will need to capture the existing path so it can be restores
+   // after destruction.
+
+   // TODO: finish this message with actual working directory, put behind warn levels
+   {
+      std::string info_message = AllegroFlare::Logger::build_info_message(
+         "AllegroFlare::Frameworks::Full::initialize_without_display",
+         "Capturing initial working directory before modifying."
+      );
+      std::cout << info_message << std::endl;
+   }
+   working_directory_before_init = std::filesystem::current_path().string();
+
 
    ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
    al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
@@ -437,6 +452,19 @@ bool Full::shutdown()
    al_uninstall_joystick();
    al_uninstall_keyboard();
    al_uninstall_mouse();
+
+   // restore path
+   // TODO: finish this message with actual working directory, put behind warn levels
+   //if (AllegroFlare::Logger::log_level_low())
+   {
+      std::string info_message = AllegroFlare::Logger::build_info_message(
+         "AllegroFlare::Frameworks::Full::shutdown",
+         "Restoring working directory to initial directory at runtime."
+      );
+      std::cout << info_message << std::endl;
+   }
+   al_change_directory(working_directory_before_init.c_str());
+
 
    al_uninstall_system(); // Note that there is risk of a crash at shutdown if assets have been created outside the
                           // lifecycle of the Framework
