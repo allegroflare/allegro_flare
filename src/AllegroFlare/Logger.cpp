@@ -40,6 +40,26 @@ std::string Logger::build_warning_message(std::string from, std::string message)
    return result.str();
 }
 
+std::string Logger::build_not_included_message(std::string element_not_present, std::vector<std::string> valid_elements)
+{
+   std::stringstream result;
+   result << "The element \"" << element_not_present << "\" is not in the list of valid elements [";
+   for (auto &valid_element : valid_elements)
+   {
+      valid_element = quote_and_escape_inner_quotes(valid_element);
+   }
+   result << join(valid_elements, ", ");
+   result << "]";
+   return result.str();
+}
+
+std::string Logger::build_unhandled_type_message(std::string unhandled_type)
+{
+   std::stringstream result;
+   // TODO
+   return result.str();
+}
+
 std::string Logger::build_info_message(std::string from, std::string message)
 {
    //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
@@ -81,6 +101,54 @@ void Logger::throw_error(std::string from, std::string message)
    std::cout << error_message_for_cout.str();
 
    throw std::runtime_error(error_message.str());
+}
+
+std::string Logger::join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+
+   return result.str();
+}
+
+std::string Logger::quote_and_escape_inner_quotes(std::string subject)
+{
+   return "\"" + replace(subject, "\"", "\\\"") + "\"";
+}
+
+std::string Logger::replace(std::string subject, std::string search, std::string replace)
+{
+   std::string buffer;
+
+   int sealeng = search.length();
+   int strleng = subject.length();
+
+   if (sealeng==0)
+      return subject;//no change
+
+   for(int i=0, j=0; i<strleng; j=0 )
+   {
+      while (i+j<strleng && j<sealeng && subject[i+j]==search[j])
+         j++;
+      if (j==sealeng)//found 'search'
+      {
+         buffer.append(replace);
+         i+=sealeng;
+      }
+      else
+      {
+         buffer.append( &subject[i++], 1);
+      }
+   }
+   subject = buffer;
+   return subject;
 }
 
 

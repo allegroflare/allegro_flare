@@ -43,6 +43,42 @@ functions:
       - std::stringstream
 
 
+  - name: build_not_included_message
+    type: std::string
+    static: true
+    parameters:
+      - name: element_not_present
+        type: std::string
+        default_argument: '"[unset-missing_element]"'
+      - name: valid_elements
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      std::stringstream result;
+      result << "The element \"" << element_not_present << "\" is not in the list of valid elements [";
+      for (auto &valid_element : valid_elements)
+      {
+         valid_element = quote_and_escape_inner_quotes(valid_element);
+      }
+      result << join(valid_elements, ", ");
+      result << "]";
+      return result.str();
+
+
+  - name: build_unhandled_type_message
+    type: std::string
+    static: true
+    parameters:
+      - name: unhandled_type
+        type: std::string
+        default_argument: '"[unset-unhandled_type]"'
+    parameters:
+    body: |
+      std::stringstream result;
+      // TODO
+      return result.str();
+
+
   - name: build_info_message
     static: true
     parameters:
@@ -134,6 +170,88 @@ functions:
       - AllegroFlare::ConsoleColors
       - std::stringstream
       - std::cout
+
+
+  - name: join
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: delimiter
+        type: std::string
+        default_argument: '", "'
+    body: |
+      std::stringstream result;
+      bool last = false;
+
+      for (unsigned i=0; i<tokens.size(); i++)
+      {
+         result << tokens[i];
+         if (i == tokens.size()-1) last = true;
+         if (!last) result << delimiter;
+      }
+
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: quote_and_escape_inner_quotes
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: subject
+        type: std::string
+        default_argument: '"[unset-subject]"'
+    body: |
+      return "\"" + replace(subject, "\"", "\\\"") + "\"";
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: replace
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: subject
+        type: std::string
+        default_argument: '"[unset-subject]"'
+      - name: search
+        type: std::string
+        default_argument: '"[unset-search]"'
+      - name: replace
+        type: std::string
+        default_argument: '"[unset-replace]"'
+    body: |
+      std::string buffer;
+
+      int sealeng = search.length();
+      int strleng = subject.length();
+
+      if (sealeng==0)
+         return subject;//no change
+
+      for(int i=0, j=0; i<strleng; j=0 )
+      {
+         while (i+j<strleng && j<sealeng && subject[i+j]==search[j])
+            j++;
+         if (j==sealeng)//found 'search'
+         {
+            buffer.append(replace);
+            i+=sealeng;
+         }
+         else
+         {
+            buffer.append( &subject[i++], 1);
+         }
+      }
+      subject = buffer;
+      return subject;
 
 
 dependencies:

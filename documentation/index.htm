@@ -1226,7 +1226,7 @@ table td
   <td class="method">is_invalid(std::string environment=ENVIRONMENT_UNDEF)</td>
 </tr>
 <tr>
-  <td class="method">get_data_base_path()</td>
+  <td class="method">get_data_folder_path()</td>
 </tr>
     </table>
      <table>
@@ -6418,6 +6418,12 @@ table td
   <td class="method">build_warning_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">build_not_included_message(std::string element_not_present=&quot;[unset-missing_element]&quot;, std::vector&lt;std::string&gt; valid_elements={})</td>
+</tr>
+<tr>
+  <td class="method">build_unhandled_type_message()</td>
+</tr>
+<tr>
   <td class="method">build_info_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
@@ -6428,6 +6434,15 @@ table td
 </tr>
 <tr>
   <td class="method">throw_error(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">join(std::vector&lt;std::string&gt; tokens={}, std::string delimiter=&quot;, &quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">quote_and_escape_inner_quotes(std::string subject=&quot;[unset-subject]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">replace(std::string subject=&quot;[unset-subject]&quot;, std::string search=&quot;[unset-search]&quot;, std::string replace=&quot;[unset-replace]&quot;)</td>
 </tr>
     </table>
      <table>
