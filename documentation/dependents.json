@@ -2073,6 +2073,9 @@
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "AllegroFlare/DeploymentEnvironment": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh",
     "Tileo/MeshWithNormals",

@@ -1220,10 +1220,13 @@ table td
   <td class="method">is_development()</td>
 </tr>
 <tr>
-  <td class="method">is_valid(std::string environment=ENVIRONMENT_UNDEF)</td>
+  <td class="method">_is_valid(std::string environment=&quot;[unset-environment]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">is_invalid(std::string environment=ENVIRONMENT_UNDEF)</td>
+  <td class="method">is_valid()</td>
+</tr>
+<tr>
+  <td class="method">is_invalid()</td>
 </tr>
 <tr>
   <td class="method">get_data_folder_path()</td>
@@ -14781,6 +14784,14 @@ table td
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin</td>
 </tr>
+<tr>
+  <td class="property">deployment_environment</td>
+  <td class="property">AllegroFlare::DeploymentEnvironment</td>
+</tr>
+<tr>
+  <td class="property">test_snapshots_folder</td>
+  <td class="property">std::string</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -14892,6 +14903,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TerminalColors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TerminalColors.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DeploymentEnvironment&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DeploymentEnvironment.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -19948,6 +19962,9 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/DeploymentEnvironment": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_VERTEX_DECL": [

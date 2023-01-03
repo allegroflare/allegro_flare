@@ -25,6 +25,24 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   SetUp__will_set_the_font_bin_path_to_the_expected_path)
+{
+   std::string expected_font_bin_path = "./tests/fixtures/fonts/";
+   std::string actual_font_bin_path = get_font_bin_ref().get_path();
+   EXPECT_EQ(expected_font_bin_path, actual_font_bin_path);
+}
+
+
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   SetUp__will_set_the_bitmap_bin_path_to_the_expected_path)
+{
+   std::string expected_bitmap_bin_path = "./tests/fixtures/bitmaps/";
+   std::string actual_bitmap_bin_path = get_bitmap_bin_ref().get_path();
+   EXPECT_EQ(expected_bitmap_bin_path, actual_bitmap_bin_path);
+}
+
+
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
    DISABLED__will_set_the_window_title_to_the_test_suite_name_and_test_name)
 {
    // NOTE: cannot currently test this, Allegro5 does not currently have a al_get_window_title() feature

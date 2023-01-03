@@ -58,3 +58,22 @@ TEST(AllegroFlare_BinTest,
 }
 
 
+TEST(AllegroFlare_BinTest, get_path__will_return_the_path)
+{
+   TestBin test_bin;
+   test_bin.set_full_path("./foo/bar/baz/");
+   std::string expected_path = "./foo/bar/baz/";
+   EXPECT_EQ(expected_path, test_bin.get_path());
+}
+
+
+TEST(AllegroFlare_BinTest,
+   set_full_path__when_setting_a_path_that_does_not_end_in_a_directory_separator__one_will_be_appended_automatically)
+{
+   TestBin test_bin;
+   test_bin.set_full_path("./foo/bar/baz");
+   std::string expected_path = "./foo/bar/baz/";
+   EXPECT_EQ(expected_path, test_bin.get_path());
+}
+
+
