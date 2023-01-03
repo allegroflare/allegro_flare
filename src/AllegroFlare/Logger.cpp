@@ -55,10 +55,10 @@ std::string Logger::build_not_included_message(std::string element_not_present, 
    return result.str();
 }
 
-std::string Logger::build_unhandled_type_message(std::string unhandled_type)
+std::string Logger::build_unhandled_case_message(std::string unhandled_case)
 {
    std::stringstream result;
-   // TODO
+   result << "Unhandled case for case " << quote_and_escape_inner_quotes(unhandled_case) << ".";
    return result.str();
 }
 
@@ -95,6 +95,22 @@ void Logger::throw_error(std::string from, std::string message)
 
    //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
    //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
+   std::stringstream error_message_for_cout;
+   error_message_for_cout << CONSOLE_COLOR_RED
+                          << "[" << from << "] error: " << message
+                          << CONSOLE_COLOR_DEFAULT << std::endl;
+
+   std::cout << error_message_for_cout.str();
+
+   throw std::runtime_error(error_message.str());
+}
+
+void Logger::throw_unhandled_case(std::string from, std::string unhandled_case)
+{
+   std::stringstream error_message;
+   std::string message = build_unhandled_case_message(unhandled_case);
+   error_message << "[" << from << "]: error: " << message;
+
    std::stringstream error_message_for_cout;
    error_message_for_cout << CONSOLE_COLOR_RED
                           << "[" << from << "] error: " << message

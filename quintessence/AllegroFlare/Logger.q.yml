@@ -96,17 +96,17 @@ functions:
       return result.str();
 
 
-  - name: build_unhandled_type_message
+  - name: build_unhandled_case_message
     type: std::string
     static: true
     parameters:
-      - name: unhandled_type
+      - name: unhandled_case
         type: std::string
-        default_argument: '"[unset-unhandled_type]"'
+        default_argument: '"[unset-unhandled_case]"'
     parameters:
     body: |
       std::stringstream result;
-      // TODO
+      result << "Unhandled case for case " << quote_and_escape_inner_quotes(unhandled_case) << ".";
       return result.str();
 
 
@@ -189,6 +189,34 @@ functions:
 
       //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
       //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
+      std::stringstream error_message_for_cout;
+      error_message_for_cout << CONSOLE_COLOR_RED
+                             << "[" << from << "] error: " << message
+                             << CONSOLE_COLOR_DEFAULT << std::endl;
+
+      std::cout << error_message_for_cout.str();
+
+      throw std::runtime_error(error_message.str());
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
+      - std::cout
+
+
+  - name: throw_unhandled_case
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: unhandled_case
+        type: std::string
+        default_argument: '"[unset-unhandled_case]"'
+    body: |
+      std::stringstream error_message;
+      std::string message = build_unhandled_case_message(unhandled_case);
+      error_message << "[" << from << "]: error: " << message;
+
       std::stringstream error_message_for_cout;
       error_message_for_cout << CONSOLE_COLOR_RED
                              << "[" << from << "] error: " << message
