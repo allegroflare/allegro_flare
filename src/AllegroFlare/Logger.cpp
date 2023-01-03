@@ -43,7 +43,9 @@ std::string Logger::build_warning_message(std::string from, std::string message)
 std::string Logger::build_not_included_message(std::string element_not_present, std::vector<std::string> valid_elements)
 {
    std::stringstream result;
-   result << "The element \"" << element_not_present << "\" is not in the list of valid elements [";
+   result << "The element "
+          << quote_and_escape_inner_quotes(element_not_present)
+          << " is not in the list of valid elements [";
    for (auto &valid_element : valid_elements)
    {
       valid_element = quote_and_escape_inner_quotes(valid_element);

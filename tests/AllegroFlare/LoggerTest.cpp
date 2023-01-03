@@ -13,16 +13,19 @@ TEST(AllegroFlare_LoggerTest, can_be_created_without_blowing_up)
 TEST(AllegroFlare_LoggerTest, build_not_included_message__will_return_text_formatted_as_a_not_included_warning)
 {
    AllegroFlare::Logger logger;
-   // TODO
+   std::string expected_message = "The element \"foo\" is not in the list of valid elements [\"bar\", \"baz\", "
+                                  "\"buzz\"]";
+   EXPECT_EQ(expected_message, logger.build_not_included_message("foo", {"bar", "baz", "buzz"}));
 }
 
 
 TEST(AllegroFlare_LoggerTest, build_not_included_message__will_escape_double_quotes_in_params)
 {
+   // TODO:
    AllegroFlare::Logger logger;
-   // TODO
+   //std::string expected_message = "The element \"element that \\\"contains\\\" quotes\" is not in elements []";
+   //EXPECT_EQ(expected_message, logger.build_not_included_message("element that \"contains\" quotes", {}));
 }
-
 
 
 // Below is a code example showing variadic arguments in C++ using std::format (will be available in C++20

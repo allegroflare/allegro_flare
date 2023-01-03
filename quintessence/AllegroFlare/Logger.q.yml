@@ -55,7 +55,9 @@ functions:
         default_argument: '{}'
     body: |
       std::stringstream result;
-      result << "The element \"" << element_not_present << "\" is not in the list of valid elements [";
+      result << "The element "
+             << quote_and_escape_inner_quotes(element_not_present)
+             << " is not in the list of valid elements [";
       for (auto &valid_element : valid_elements)
       {
          valid_element = quote_and_escape_inner_quotes(valid_element);
