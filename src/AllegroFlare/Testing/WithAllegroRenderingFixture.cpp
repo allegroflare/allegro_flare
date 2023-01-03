@@ -65,8 +65,6 @@ void WithAllegroRenderingFixture::SetUp()
    ASSERT_EQ(true, al_init_ttf_addon());
    ASSERT_EQ(true, al_init_image_addon());
 
-
-
    //#if defined(_WIN32) || defined(_WIN64)
    //#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
    //#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
