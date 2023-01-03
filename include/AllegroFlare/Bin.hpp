@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <filesystem>
 #include <allegro5/allegro5.h> // for ALLEGRO_PATH
 #include <AllegroFlare/ConsoleColor.hpp>
 
@@ -256,8 +257,9 @@ namespace AllegroFlare
          std::cout << CONSOLE_COLOR_RED
                    << "[" << class_name << "::" << called_through << "] "
                    << "could not load \"" << identifier << "\" "
-                   << "while looking in \"" << al_path_cstr(path, ALLEGRO_NATIVE_PATH_SEP) << "\""
-                   << "Continuing with process."
+                   << "while looking in path \"" << al_path_cstr(path, ALLEGRO_NATIVE_PATH_SEP) << "\" while working "
+                   << "in path \"" << std::filesystem::current_path().string() << "\". "
+                   << "Will continue with process but most likely a crash will occur going forward."
                    << CONSOLE_COLOR_DEFAULT << std::endl;
          //return NULL;
       }
