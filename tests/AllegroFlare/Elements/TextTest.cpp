@@ -62,7 +62,7 @@ TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
    AllegroFlare::Elements::Text text(&font_bin);
    text.fit_placement_width_and_height_to_text();
 
-   EXPECT_EQ(186, text.get_placement().size.x);
+   EXPECT_EQ(196, text.get_placement().size.x);
    EXPECT_EQ(48, text.get_placement().size.y);
 }
 

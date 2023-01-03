@@ -523,7 +523,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Bold.ttf -40");
+      return font_bin->auto_get("Inter-B old.ttf -40");
 
 
   - name: obtain_item_title_font
