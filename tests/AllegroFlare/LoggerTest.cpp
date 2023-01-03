@@ -22,8 +22,14 @@ TEST(AllegroFlare_LoggerTest, build_not_included_message__will_return_text_forma
 TEST(AllegroFlare_LoggerTest, build_not_included_message__will_escape_double_quotes_in_params)
 {
    AllegroFlare::Logger logger;
-   //std::string expected_message = "The element \"element that \\\"contains\\\" quotes\" is not in elements []";
-   //EXPECT_EQ(expected_message, logger.build_not_included_message("element that \"contains\" quotes", {}));
+   std::string expected_message = "The element \"element that \\\"contains\\\" quotes\" is not in the list of valid "
+                                  "elements [\"foo \\\"faux\\\" farm\", \"\\\"flam\\\" floop \\\"flounder\\\"\"]";
+   EXPECT_EQ(expected_message,
+      logger.build_not_included_message(
+         "element that \"contains\" quotes",
+         { "foo \"faux\" farm", "\"flam\" floop \"flounder\"" }
+      )
+   );
 }
 
 
