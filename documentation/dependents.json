@@ -519,6 +519,9 @@
   "GLuint": [
     "AllegroFlare/Cubemap"
   ],
+  "AllegroFlare/Logger": [
+    "AllegroFlare/DeploymentEnvironment"
+  ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",

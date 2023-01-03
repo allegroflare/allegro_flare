@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -79,6 +80,36 @@ bool DeploymentEnvironment::is_valid(std::string environment)
 bool DeploymentEnvironment::is_invalid(std::string environment)
 {
    return !is_valid(environment);
+}
+
+std::string DeploymentEnvironment::get_data_folder_path()
+{
+   if (!(is_valid()))
+   {
+      std::stringstream error_message;
+      error_message << "[DeploymentEnvironment::get_data_folder_path]: error: guard \"is_valid()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DeploymentEnvironment::get_data_folder_path: error: guard \"is_valid()\" not met");
+   }
+   if (environment == ENVIRONMENT_PRODUCTION)
+   {
+      return "./data/";
+   }
+   else if (environment == ENVIRONMENT_TEST)
+   {
+      return "./tests/fixtures/";
+   }
+   else if (environment == ENVIRONMENT_DEVELOPMENT)
+   {
+      return "./bin/programs/data/";
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error("AllegroFlare::DeploymentEnvironment::get_base_data_path",
+         "Unexpected error occurred where a path was requested on an invalid deployment environment."
+         );
+   }
+   return "";
 }
 
 

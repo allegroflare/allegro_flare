@@ -32,6 +32,7 @@ namespace AllegroFlare
       bool is_development();
       static bool is_valid(std::string environment=ENVIRONMENT_UNDEF);
       static bool is_invalid(std::string environment=ENVIRONMENT_UNDEF);
+      std::string get_data_folder_path();
    };
 }
 
