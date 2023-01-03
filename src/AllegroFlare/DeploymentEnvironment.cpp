@@ -93,14 +93,17 @@ std::string DeploymentEnvironment::get_data_folder_path()
    }
    if (environment == ENVIRONMENT_PRODUCTION)
    {
+      // TODO: this paths may not be correct, please review:
       return "./data/";
    }
    else if (environment == ENVIRONMENT_TEST)
    {
+      // TODO: this paths may not be correct, please review:
       return "./tests/fixtures/";
    }
    else if (environment == ENVIRONMENT_DEVELOPMENT)
    {
+      // TODO: this paths may not be correct, please review:
       return "./bin/programs/data/";
    }
    else
