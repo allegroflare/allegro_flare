@@ -26,8 +26,8 @@ namespace AllegroFlare
 
       std::string get_environment() const;
       void set_environment(std::string environment=ENVIRONMENT_UNDEF);
-      bool is_production();
       bool is_undefined();
+      bool is_production();
       bool is_test();
       bool is_development();
       static bool is_valid(std::string environment=ENVIRONMENT_UNDEF);

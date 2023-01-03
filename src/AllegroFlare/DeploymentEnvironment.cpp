@@ -43,14 +43,14 @@ void DeploymentEnvironment::set_environment(std::string environment)
    return;
 }
 
-bool DeploymentEnvironment::is_production()
-{
-   return environment == ENVIRONMENT_PRODUCTION;
-}
-
 bool DeploymentEnvironment::is_undefined()
 {
    return environment == ENVIRONMENT_UNDEF;
+}
+
+bool DeploymentEnvironment::is_production()
+{
+   return environment == ENVIRONMENT_PRODUCTION;
 }
 
 bool DeploymentEnvironment::is_test()

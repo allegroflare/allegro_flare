@@ -47,16 +47,16 @@ functions:
       return;
 
 
-  - name: is_production
-    type: bool
-    body: |
-      return environment == ENVIRONMENT_PRODUCTION;
-
-
   - name: is_undefined
     type: bool
     body: |
       return environment == ENVIRONMENT_UNDEF;
+
+
+  - name: is_production
+    type: bool
+    body: |
+      return environment == ENVIRONMENT_PRODUCTION;
 
 
   - name: is_test
