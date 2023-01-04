@@ -117,7 +117,7 @@ functions:
   - name: get_any_font
     type: ALLEGRO_FONT*
     body: |
-      return font_bin.auto_get("consolas.ttf 32");
+      return font_bin.auto_get("Inter-Medium.ttf -20");
 
 
   - name: get_display_backbuffer

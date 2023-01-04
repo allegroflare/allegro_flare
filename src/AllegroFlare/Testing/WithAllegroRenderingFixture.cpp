@@ -124,7 +124,7 @@ void WithAllegroRenderingFixture::TearDown()
 
 ALLEGRO_FONT* WithAllegroRenderingFixture::get_any_font()
 {
-   return font_bin.auto_get("consolas.ttf 32");
+   return font_bin.auto_get("Inter-Medium.ttf -20");
 }
 
 ALLEGRO_BITMAP* WithAllegroRenderingFixture::get_display_backbuffer()
