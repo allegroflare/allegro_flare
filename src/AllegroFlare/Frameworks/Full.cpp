@@ -214,9 +214,12 @@ bool Full::initialize_without_display()
    working_directory_before_init = std::filesystem::current_path().string();
 
 
-   ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-   al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
-   al_destroy_path(resource_path);
+   //if (!deployment_environment.is_test()) // TODO: Consider this
+   //{
+      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
+      al_destroy_path(resource_path);
+   //}
 
    if (!al_install_mouse()) std::cerr << "al_install_mouse() failed" << std::endl;
    if (!al_install_keyboard()) std::cerr << "al_install_keyboard() failed" << std::endl;

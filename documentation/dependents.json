@@ -518,7 +518,8 @@
     "AllegroFlare/Cubemap"
   ],
   "AllegroFlare/Logger": [
-    "AllegroFlare/DeploymentEnvironment"
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
