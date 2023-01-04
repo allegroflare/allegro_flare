@@ -35,6 +35,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin &get_font_bin_ref();
          AllegroFlare::BitmapBin &get_bitmap_bin_ref();
          virtual void SetUp() override;
+         std::string get_fixtures_path();
          virtual void TearDown() override;
          ALLEGRO_FONT* get_any_font();
          ALLEGRO_BITMAP* get_display_backbuffer();

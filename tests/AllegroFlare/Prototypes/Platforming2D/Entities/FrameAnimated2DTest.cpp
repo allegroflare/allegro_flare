@@ -17,24 +17,15 @@ class AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroR
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
 protected:
-
    AllegroFlare::FrameAnimation::Book animation_book;
 
 private:
    virtual void SetUp() override
    {
-// TODO: improve this:
-#if defined(_WIN32) || defined(_WIN64)
-      std::string TEST_FIXTURE_BITMAP_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/bitmaps";
-#else
-      std::string TEST_FIXTURE_BITMAP_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps";
-#endif
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
-      get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
-      // NOTE: this line crashes
-      //ALLEGRO_FONT *font = al_load_font("./bin/data/fonts/ChronoTrigger.ttf", -50, 0);
-
-      animation_book.initialize(); // note the paths are currently the defaults for the FrameAnimation::Book object
+      animation_book.set_png_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.png");
+      animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.json");
+      animation_book.initialize();
    }
 
 public:
@@ -103,7 +94,6 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
    frame_animated2d_entity.set_animation("blob");
-   //frame_animated2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
 
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
    frame_animated2d_entity.draw();
@@ -193,7 +183,6 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
    fit_to_bitmap__will_set_the_size_of_the_entity_to_match_the_dimentions_of_the_bitmap)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
-   //frame_animated2d_entity.set_bitmap(FIXTURE_get_bitmap("test-sprite-128.png"));
    frame_animated2d_entity.set_animation("blob");
    frame_animated2d_entity.fit_to_bitmap();
 

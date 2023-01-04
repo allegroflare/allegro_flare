@@ -101,6 +101,11 @@ void WithAllegroRenderingFixture::SetUp()
    return;
 }
 
+std::string WithAllegroRenderingFixture::get_fixtures_path()
+{
+   return deployment_environment.get_data_folder_path();
+}
+
 void WithAllegroRenderingFixture::TearDown()
 {
    if (test_name_indicates_it_wants_a_screenshot())

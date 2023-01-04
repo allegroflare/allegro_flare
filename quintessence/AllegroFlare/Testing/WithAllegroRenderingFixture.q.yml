@@ -89,6 +89,12 @@ functions:
       - al_init_primitives_addon
 
 
+  - name: get_fixtures_path
+    type: std::string
+    body: |
+      return deployment_environment.get_data_folder_path();
+
+
   - name: TearDown
     type: void
     virtual: true
