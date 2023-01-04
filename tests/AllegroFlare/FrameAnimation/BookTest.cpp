@@ -3,33 +3,60 @@
 
 #include <AllegroFlare/FrameAnimation/Book.hpp>
 
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_font.h>
+//#include <allegro5/allegro_image.h>
+//#include <allegro5/allegro_ttf.h>
+//#include <allegro5/allegro_font.h>
 
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 using AllegroFlare::FrameAnimation::Book;
 using AllegroFlare::FrameAnimation::Animation;
 
 
+class AllegroFlare_FrameAnimation_BookTest : public ::testing::Test {};
+class AllegroFlare_FrameAnimation_BookTestWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+protected:
+   AllegroFlare::FrameAnimation::Book animation_book;
 
-TEST(AllegroFlare_FrameAnimation_BookTest, can_be_created_without_blowing_up)
+private:
+   virtual void SetUp() override
+   {
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+      animation_book.set_png_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.png");
+      animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.json");
+      animation_book.initialize();
+   }
+};
+
+
+
+
+TEST_F(AllegroFlare_FrameAnimation_BookTest, can_be_created_without_blowing_up)
 {
    Book animation_book;
 }
 
+      //animation_book.set_png_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.png");
+      //animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.json");
+      //animation_book.initialize();
 
-TEST(AllegroFlare_FrameAnimation_BookTest, VISUAL__will_load_an_animation)
+TEST_F(AllegroFlare_FrameAnimation_BookTestWithAllegroRenderingFixture, VISUAL__will_load_an_animation)
 {
-   al_init();
-   al_init_image_addon();
-   al_init_font_addon();
-   al_init_ttf_addon();
-   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
-   ALLEGRO_FONT *font = al_load_font("./bin/data/fonts/ChronoTrigger.ttf", -50, 0);
+   //al_init();
+   //al_init_image_addon();
+   //al_init_font_addon();
+   //al_init_ttf_addon();
+   //ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   //ALLEGRO_FONT *font = al_load_font("./bin/data/fonts/ChronoTrigger.ttf", -50, 0);
+   ALLEGRO_FONT *font = get_any_font();
 
    Book animation_book;
+   animation_book.set_png_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.png");
+   animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.json");
    animation_book.initialize();
+   //animation_book.initialize();
 
    Animation animation = animation_book.find_animation_by_name("blob");
    animation.initialize();
@@ -52,12 +79,12 @@ TEST(AllegroFlare_FrameAnimation_BookTest, VISUAL__will_load_an_animation)
    }
 
 
-   al_destroy_font(font);
-   al_destroy_display(display);
-   al_shutdown_font_addon();
-   al_shutdown_ttf_addon();
-   al_shutdown_image_addon();
-   al_uninstall_system();
+   //al_destroy_font(font);
+   //al_destroy_display(display);
+   //al_shutdown_font_addon();
+   //al_shutdown_ttf_addon();
+   //al_shutdown_image_addon();
+   //al_uninstall_system();
 }
 
 

@@ -27,13 +27,6 @@ private:
       animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.json");
       animation_book.initialize();
    }
-
-public:
-   ALLEGRO_BITMAP *FIXTURE_get_bitmap(std::string filename)
-   {
-      AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-      return bitmap_bin[filename];
-   }
 };
 
 
