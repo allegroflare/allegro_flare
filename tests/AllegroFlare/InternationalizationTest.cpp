@@ -5,27 +5,29 @@
 
 #include <AllegroFlare/Internationalization.hpp>
 
+#include <AllegroFlare/DeploymentEnvironment.hpp>
+#include <filesystem>
 #include <allegro5/allegro.h>
 
 
 
 struct AllegroFlare_InternationalizationTest : public ::testing::Test
 {
-// TODO: improve this:
-#if defined(_WIN32) || defined(_WIN64)
-   const char *TEST_BASE_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
-#else
-   const char *TEST_BASE_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
-#endif
+   std::string initial_working_directory;
+   AllegroFlare::DeploymentEnvironment deployment_environment;
    const char *TEST_FOLDER = "languages/";
-   static AllegroFlare::Internationalization internationalization;
+   AllegroFlare::Internationalization internationalization;
 
    virtual void SetUp() override
    {
+      initial_working_directory = std::filesystem::current_path().string();
+
       ASSERT_EQ(false, al_is_system_installed());
       ASSERT_EQ(true, al_init());
+      deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+      std::string test_data_folder_path = deployment_environment.get_data_folder_path();
 
-      ALLEGRO_PATH *test_working_directory = al_create_path(TEST_BASE_FOLDER);
+      ALLEGRO_PATH *test_working_directory = al_create_path(test_data_folder_path.c_str());
       al_change_directory(al_path_cstr(test_working_directory, ALLEGRO_NATIVE_PATH_SEP));
       al_destroy_path(test_working_directory);
 
@@ -34,11 +36,11 @@ struct AllegroFlare_InternationalizationTest : public ::testing::Test
 
    virtual void TearDown() override
    {
+      al_change_directory(initial_working_directory.c_str());
       al_uninstall_system();
    }
 };
 
-AllegroFlare::Internationalization AllegroFlare_InternationalizationTest::internationalization;
 
 
 

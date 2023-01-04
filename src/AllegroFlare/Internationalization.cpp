@@ -117,6 +117,8 @@ bool Internationalization::load_language_file(
       std::string filename
    )
 {
+   // DEBUG:
+
    if (!al_filename_exists(filename.c_str()))
    {
       std::cout << CONSOLE_COLOR_RED
