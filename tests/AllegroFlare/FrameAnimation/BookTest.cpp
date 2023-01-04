@@ -43,10 +43,10 @@ TEST_F(AllegroFlare_FrameAnimation_BookTestWithAllegroRenderingFixture, VISUAL__
 {
    ALLEGRO_FONT *font = get_any_font();
 
-   Book animation_book;
-   animation_book.set_png_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.png");
-   animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.json");
-   animation_book.initialize();
+   //Book animation_book;
+   //animation_book.set_png_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.png");
+   //animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/sprites_grid-x.json");
+   //animation_book.initialize();
 
    Animation animation = animation_book.find_animation_by_name("blob");
    animation.initialize();
