@@ -40,7 +40,7 @@ functions:
       - name: environment
         type: std::string
         default_argument: ENVIRONMENT_UNDEF
-    guards: [ is_valid(environment) ]
+    guards: [ _is_valid(environment) ]
     body: |
       // TODO: If an invalid argument is passed, include the argument value in an error message
       this->environment = environment;
@@ -71,13 +71,31 @@ functions:
       return environment == ENVIRONMENT_DEVELOPMENT;
 
 
-  - name: is_valid
-    static: true
+  - name: _is_valid
     type: bool
     parameters:
       - name: environment
         type: std::string
-        default_argument: ENVIRONMENT_UNDEF
+        default_argument: '"[unset-environment]"'
+    body: |
+      // TODO: Require a param, and do not have a default
+      static std::set<std::string> valid_environments = {
+         ENVIRONMENT_PRODUCTION,
+         ENVIRONMENT_TEST,
+         ENVIRONMENT_DEVELOPMENT,
+      };
+      // NOTE: Should consider an update to -std=c++20 eventually, which has  for a std::set
+      // https://en.cppreference.com/w/cpp/container/set/contains
+
+      // DEBUG:
+
+      return valid_environments.find(environment) != valid_environments.end();
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_valid
+    type: bool
     body: |
       static std::set<std::string> valid_environments = {
          ENVIRONMENT_PRODUCTION,
@@ -87,20 +105,17 @@ functions:
       // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
       // https://en.cppreference.com/w/cpp/container/set/contains
 
+      // DEBUG:
+
       return valid_environments.find(environment) != valid_environments.end();
     body_dependency_symbols:
       - std::set
 
 
   - name: is_invalid
-    static: true
     type: bool
-    parameters:
-      - name: environment
-        type: std::string
-        default_argument: ENVIRONMENT_UNDEF
     body: |
-      return !is_valid(environment);
+      return !is_valid();
 
 
   - name: get_data_folder_path

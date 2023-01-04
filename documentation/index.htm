@@ -1220,10 +1220,13 @@ table td
   <td class="method">is_development()</td>
 </tr>
 <tr>
-  <td class="method">is_valid(std::string environment=ENVIRONMENT_UNDEF)</td>
+  <td class="method">_is_valid(std::string environment=&quot;[unset-environment]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">is_invalid(std::string environment=ENVIRONMENT_UNDEF)</td>
+  <td class="method">is_valid()</td>
+</tr>
+<tr>
+  <td class="method">is_invalid()</td>
 </tr>
 <tr>
   <td class="method">get_data_folder_path()</td>
@@ -12150,6 +12153,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -13433,25 +13439,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
@@ -14781,10 +14775,21 @@ table td
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin</td>
 </tr>
+<tr>
+  <td class="property">deployment_environment</td>
+  <td class="property">AllegroFlare::DeploymentEnvironment</td>
+</tr>
+<tr>
+  <td class="property">test_snapshots_folder</td>
+  <td class="property">std::string</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="method">SetUp()</td>
+</tr>
+<tr>
+  <td class="method">get_fixtures_path()</td>
 </tr>
 <tr>
   <td class="method">TearDown()</td>
@@ -14892,6 +14897,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TerminalColors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TerminalColors.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DeploymentEnvironment&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DeploymentEnvironment.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -18134,7 +18142,6 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -18213,7 +18220,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -18397,7 +18403,8 @@ table td
     "AllegroFlare/Cubemap"
   ],
   "AllegroFlare/Logger": [
-    "AllegroFlare/DeploymentEnvironment"
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
@@ -18574,7 +18581,6 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -18602,7 +18608,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
@@ -19948,6 +19953,9 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/DeploymentEnvironment": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "ALLEGRO_VERTEX_DECL": [

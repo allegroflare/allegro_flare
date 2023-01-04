@@ -326,3 +326,10 @@ TEST(AllegroFlare_Frameworks_FullTest,
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest,
+   destroy__will_restore_the_initial_working_directory_to_what_it_was_before_being_initializing)
+{
+   // TODO
+}
+
+

@@ -18,6 +18,7 @@ namespace AllegroFlare
       ALLEGRO_SHADER *shader;
       void build();
       void attach_source_code();
+      bool initialized;
 
 
    public:

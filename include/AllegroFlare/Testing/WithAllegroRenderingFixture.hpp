@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
@@ -20,6 +21,8 @@ namespace AllegroFlare
          ALLEGRO_DISPLAY* display;
          AllegroFlare::FontBin font_bin;
          AllegroFlare::BitmapBin bitmap_bin;
+         AllegroFlare::DeploymentEnvironment deployment_environment;
+         std::string test_snapshots_folder;
 
       protected:
 
@@ -32,6 +35,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin &get_font_bin_ref();
          AllegroFlare::BitmapBin &get_bitmap_bin_ref();
          virtual void SetUp() override;
+         std::string get_fixtures_path();
          virtual void TearDown() override;
          ALLEGRO_FONT* get_any_font();
          ALLEGRO_BITMAP* get_display_backbuffer();

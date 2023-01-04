@@ -34,3 +34,12 @@ TEST(AllegroFlare_DeploymentEnvironmentTest, is_development__returns_true_when_t
 }
 
 
+TEST(AllegroFlare_DeploymentEnvironmentTest,
+   is_valid__returns_true_when_the_environment_is_one_of_the_valid_environments)
+{
+   auto ENVIRONMENT_DEVELOPMENT = AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT;
+   AllegroFlare::DeploymentEnvironment deployment_environment(ENVIRONMENT_DEVELOPMENT);
+   EXPECT_EQ(true, deployment_environment.is_valid());
+}
+
+

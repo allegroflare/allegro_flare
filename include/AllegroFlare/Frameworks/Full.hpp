@@ -32,6 +32,7 @@ namespace AllegroFlare
       class Full
       {
       private:
+         std::string working_directory_before_init;
          ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;

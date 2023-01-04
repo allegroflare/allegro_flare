@@ -27,6 +27,8 @@ WithAllegroRenderingFixture::WithAllegroRenderingFixture()
    , display(nullptr)
    , font_bin({})
    , bitmap_bin({})
+   , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST)
+   , test_snapshots_folder("[unset-test_snapshots_folder]")
 {
 }
 
@@ -63,18 +65,20 @@ void WithAllegroRenderingFixture::SetUp()
    ASSERT_EQ(true, al_init_ttf_addon());
    ASSERT_EQ(true, al_init_image_addon());
 
-   #if defined(_WIN32) || defined(_WIN64)
-   #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
-   #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
-   #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
-   #else
-   #define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
-   #define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
-   #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
-   #endif
+   //#if defined(_WIN32) || defined(_WIN64)
+   //#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
+   //#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
+   //#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
+   //#else
+   //#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
+   //#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
+   //#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
+   //#endif
 
-   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
+   test_snapshots_folder = "./tmp/test_snapshots/";
+
+   font_bin.set_full_path(deployment_environment.get_data_folder_path() + "fonts/");
+   bitmap_bin.set_full_path(deployment_environment.get_data_folder_path() + "bitmaps/");
 
    //display = al_create_display(1280 * 2, 720 * 2);
    //al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
@@ -97,6 +101,11 @@ void WithAllegroRenderingFixture::SetUp()
    return;
 }
 
+std::string WithAllegroRenderingFixture::get_fixtures_path()
+{
+   return deployment_environment.get_data_folder_path();
+}
+
 void WithAllegroRenderingFixture::TearDown()
 {
    if (test_name_indicates_it_wants_a_screenshot())
@@ -115,7 +124,7 @@ void WithAllegroRenderingFixture::TearDown()
 
 ALLEGRO_FONT* WithAllegroRenderingFixture::get_any_font()
 {
-   return font_bin.auto_get("consolas.ttf 32");
+   return font_bin.auto_get("Inter-Medium.ttf -20");
 }
 
 ALLEGRO_BITMAP* WithAllegroRenderingFixture::get_display_backbuffer()
@@ -237,7 +246,7 @@ void WithAllegroRenderingFixture::clear()
 void WithAllegroRenderingFixture::capture_screenshot(std::string base_filename)
 {
    // TODO: use AllegroFlare::Testing::TestNameInference for this logic
-   std::string full_file_save_location = TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER + base_filename;
+   std::string full_file_save_location = test_snapshots_folder + base_filename;
 
    al_flip_display(); // this capture_screenshot technique assumes the pixels to capture are currently being
                       // shown on the display.  This al_flip_display is added here in order to flip the

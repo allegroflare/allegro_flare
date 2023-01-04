@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -177,10 +178,7 @@ bool TMJDataLoader::load()
    }
    if (!file_exists(filename))
    {
-      std::stringstream error_message;
-      error_message << "[Platforming2D::TMJDataLoader::load()]: error: The file "
-                    << "\"" << filename << "\" does not exist.";
-      throw std::runtime_error(error_message.str());
+      AllegroFlare::Logger::throw_missing_file_error("Platforming2D::TMJDataLoader::load()", filename, "tmj");
    }
 
    // load and validate the json data to variables

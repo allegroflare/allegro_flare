@@ -15,7 +15,8 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest, can_be_creat
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    load__will_not_blow_up)
 {
-   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader;
+   std::string TEST_FIXTURE_JSON_FILE = "./tests/fixtures/sprites_grid-x.json";
+   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader(TEST_FIXTURE_JSON_FILE);
    loader.load();
 }
 

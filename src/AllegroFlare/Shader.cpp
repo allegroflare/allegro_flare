@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -48,6 +49,7 @@ namespace AllegroFlare
       : vertex_source_code(vertex_source_code)
       , fragment_source_code(fragment_source_code)
       , shader(nullptr)
+      , initialized(false)
    {
    }
 
@@ -55,10 +57,15 @@ namespace AllegroFlare
 
    Shader::~Shader()
    {
+      if (!initialized) return;
+
       if (!al_is_system_installed())
       {
-         throw std::runtime_error("AllegroFlare/Shader: Attempting to destroy a shader but allegro is not installed ."
-                                  "This will probably crash.");
+         AllegroFlare::Logger::warn_from("AllegroFlare::Shader::~Shader()",
+               "Attempting to destroy a shader but Allegro is not installed. It's possible Allegro was never "
+               "initialized, or, Allegro was uninstalled and this shader dtor is being called after the fact. "
+               "There will probably be a crash going forward."
+         );
       }
       al_destroy_shader(shader);
    }
@@ -73,6 +80,8 @@ namespace AllegroFlare
       attach_source_code();
 
       build();
+
+      initialized = true;
    }
 
 

@@ -55,6 +55,11 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
    std::string disclaimer_3 = "During the production of this game, no animals were suject to injury, indignity, "
       "or mistreatment of any kind.";
 
+   // TODO: include this disclaimer (replace FONT):
+   //DISCLAIMER
+   //THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
+
+
    return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>{
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1),
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2),

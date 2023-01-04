@@ -50,6 +50,12 @@ float Animation::get_playspeed_multiplier() const
 }
 
 
+float Animation::get_playhead() const
+{
+   return playhead;
+}
+
+
 bool Animation::get_finished() const
 {
    return finished;

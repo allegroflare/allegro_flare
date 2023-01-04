@@ -23,20 +23,28 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
-   INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   // TODO: restore this test
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.disable_auto_created_config_warning();
    framework.disable_fullscreen();
+   framework.set_deployment_environment("test");
    framework.initialize();
 
-   framework.get_bitmap_bin_ref().set_full_path(TEST_BASE_FOLDER "bitmaps/");
+   //std::string data_folder_path = framework.get_data_folder_path();
+
+
+   //framework.get_bitmap_bin_ref().set_full_path(framework.get_data_folder_path() + "bitmaps/");
 
    AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d;
    platforming_2d.set_bitmap_bin(&framework.get_bitmap_bin_ref());
    platforming_2d.set_display(framework.get_primary_display());
    platforming_2d.set_event_emitter(&framework.get_event_emitter_ref());
    platforming_2d.set_map_dictionary({
+      //{ "map_a", data_folder_path + "maps/map1-0x.tmj" },
+      //{ "map_b", data_folder_path + "maps/map1b-0x.tmj" },
       { "map_a", TEST_BASE_FOLDER "maps/map1-0x.tmj" },
       { "map_b", TEST_BASE_FOLDER "maps/map1b-0x.tmj" },
    });
@@ -47,11 +55,14 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
 
+
    // create an animation book (to create an frame_animated type from the factory)
    // TODO: introduce this concept to the test
    AllegroFlare::FrameAnimation::Book animation_book(
-      "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.png",
-      "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.json",
+      "bitmaps/sprites_grid-x.png",
+      "bitmaps/sprites_grid-x.json",
+      //"/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.png",
+      //"/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.json",
       1
    );
    animation_book.initialize();

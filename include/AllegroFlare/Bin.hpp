@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <filesystem>
 #include <allegro5/allegro5.h> // for ALLEGRO_PATH
 #include <AllegroFlare/ConsoleColor.hpp>
 
@@ -33,6 +34,7 @@ namespace AllegroFlare
       Bin(std::string type="Bin");
       void set_path(std::string directory); // <- hmm
       void set_full_path(std::string directory); // <- hmm
+      std::string get_path();
       virtual ~Bin(); // < should this be a pure virtual funcion that requires clear()?
       Record *get_record(T2 identifier);
       T get(T2 identifier);
@@ -102,6 +104,15 @@ namespace AllegroFlare
       if (file_path) al_destroy_path(file_path);
       // destroy T?
    }
+
+
+   template<class T2, class T>
+   std::string Bin<T2, T>::get_path()
+   {
+      if (!directory) return ""; // TODO: consider throwing error
+      return al_path_cstr(directory, ALLEGRO_NATIVE_PATH_SEP);
+   }
+
 
 
    template<class T2, class T>
@@ -246,8 +257,9 @@ namespace AllegroFlare
          std::cout << CONSOLE_COLOR_RED
                    << "[" << class_name << "::" << called_through << "] "
                    << "could not load \"" << identifier << "\" "
-                   << "while looking in \"" << al_path_cstr(path, ALLEGRO_NATIVE_PATH_SEP) << "\""
-                   << "Continuing with process."
+                   << "while looking in path \"" << al_path_cstr(path, ALLEGRO_NATIVE_PATH_SEP) << "\" while working "
+                   << "in path \"" << std::filesystem::current_path().string() << "\". "
+                   << "Will continue with process but most likely a crash will occur going forward."
                    << CONSOLE_COLOR_DEFAULT << std::endl;
          //return NULL;
       }

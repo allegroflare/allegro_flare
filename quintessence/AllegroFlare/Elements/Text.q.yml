@@ -61,7 +61,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("DroidSans.ttf -48");
+      return font_bin->auto_get("Inter-Medium.ttf -48");
 
 
 dependencies:
