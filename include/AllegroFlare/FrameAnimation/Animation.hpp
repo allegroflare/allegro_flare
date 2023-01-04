@@ -43,6 +43,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::FrameAnimation::Frame> get_frames() const;
          uint32_t get_playmode() const;
          float get_playspeed_multiplier() const;
+         float get_playhead() const;
          bool get_finished() const;
          void initialize();
          void start();

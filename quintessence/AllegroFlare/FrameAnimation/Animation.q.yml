@@ -32,6 +32,7 @@ properties:
   - name: playhead
     type: float
     init_with: 0.0f
+    getter: true
 
   - name: finished
     type: bool
