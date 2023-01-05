@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/SceneGraph/Entities/Base.hpp>
 #include <string>
+#include <utility>
 #include <vector>
 
 
@@ -24,6 +25,8 @@ namespace AllegroFlare
 
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select(std::string attribute="[unset-attribute]");
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select(std::vector<std::string> attributes={});
+         std::vector<AllegroFlare::SceneGraph::Entities::Base*> select(std::string attribute="[unset-attribute]", std::string parameter="[unset-parameter]");
+         std::vector<AllegroFlare::SceneGraph::Entities::Base*> select(std::vector<std::pair<std::string, std::string>> attribute_param_pairs={});
       };
    }
 }

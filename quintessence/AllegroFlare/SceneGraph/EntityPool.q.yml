@@ -43,6 +43,43 @@ functions:
       return result;
 
 
+  - name: select
+    type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+      - name: parameter
+        type: std::string
+        default_argument: '"[unset-parameter]"'
+    body: |
+      std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         if (entity->exists(attribute, parameter)) result.push_back(entity);
+      }
+      return result;
+
+
+  - name: select
+    type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+    parameters:
+      - name: attribute_param_pairs
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    body: |
+      std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         for (auto &attribute_param_pair : attribute_param_pairs)
+         {
+            if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) continue;
+         }
+         result.push_back(entity);
+      }
+      return result;
+
+
 dependencies:
 
 
