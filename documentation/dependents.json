@@ -1974,6 +1974,9 @@
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/SceneGraph/EntityPool"
   ],
+  "std/unordered_set": [
+    "AllegroFlare/SceneGraph/EntityPool"
+  ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements"

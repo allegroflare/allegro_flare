@@ -1,5 +1,6 @@
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <AllegroFlare/SceneGraph/EntityPool.hpp>
 
@@ -11,10 +12,11 @@ class AllegroFlare_SceneGraph_EntityPoolTestWithEntities : public ::testing::Tes
 public:
    AllegroFlare::SceneGraph::EntityPool entity_pool;
 
-private:
-   void SetUp() override
+   AllegroFlare::SceneGraph::Entities::Base* create_entity(std::string tag)
    {
-      entity_pool.add();
+      AllegroFlare::SceneGraph::Entities::Base* result = new AllegroFlare::SceneGraph::Entities::Base();
+      result->set(tag);
+      return result;
    }
 };
 
@@ -26,16 +28,21 @@ TEST_F(AllegroFlare_SceneGraph_EntityPoolTest, can_be_created_without_blowing_up
 }
 
 
-TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, DISABLED__select_A__will_select_entities_with_the_attribute)
+TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_A__will_select_entities_with_the_attribute)
 {
-   using namespace AllegroFlare::SceneGraph;
+   using namespace AllegroFlare::SceneGraph::Entities;
 
-   //AllegroFlare::SceneGraph::EntityPool entity_pool;
+   Base* duck_entity = create_entity("duck");
+   Base* tree_entity1 = create_entity("tree");
+   Base* tree_entity2 = create_entity("tree");
+   Base* piece_of_sky_entity = create_entity("piece_of_sky");
 
-   std::vector<Entities::Base*> expected = {};
-   std::vector<Entities::Base*> actual = entity_pool.select_A("blob");
+   entity_pool.add({ duck_entity, tree_entity1, tree_entity2, piece_of_sky_entity });
 
-   EXPECT_EQ(expected, actual);
+   std::vector<Base*> expected = { tree_entity1, tree_entity2 };
+   std::vector<Base*> actual = entity_pool.select_A("tree");
+
+   EXPECT_THAT(expected, testing::UnorderedElementsAreArray(actual));
 }
 
 

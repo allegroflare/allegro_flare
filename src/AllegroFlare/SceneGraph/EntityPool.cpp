@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/SceneGraph/EntityPool.hpp>
 
-#include <algorithm>
+
 
 
 namespace AllegroFlare
@@ -22,28 +22,43 @@ EntityPool::~EntityPool()
 }
 
 
+void EntityPool::set_entity_pool(std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> entity_pool)
+{
+   this->entity_pool = entity_pool;
+}
+
+
+std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::get_entity_pool() const
+{
+   return entity_pool;
+}
+
+
+std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> &EntityPool::get_entity_pool_ref()
+{
+   return entity_pool;
+}
+
+
 bool EntityPool::add(AllegroFlare::SceneGraph::Entities::Base* entity)
 {
-   entity_pool.push_back(entity);
-   return true;
+   entity_pool.insert(entity);
+}
+
+bool EntityPool::add(std::vector<AllegroFlare::SceneGraph::Entities::Base*> entities)
+{
+   entity_pool.insert(entities.begin(), entities.end());
 }
 
 bool EntityPool::remove(AllegroFlare::SceneGraph::Entities::Base* entity)
 {
-   // NOTE: this assumes there is only one instance of the entity
-   // TODO: update this std::vector to an std::unordered_set and remove the above comment
-   std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
-      std::find(entity_pool.begin(), entity_pool.end(), entity);
-   if (it == entity_pool.end()) return false;
-   entity_pool.erase(it);
-   return true;
+   int num_erased = entity_pool.erase(entity);
+   return (bool)num_erased;
 }
 
 bool EntityPool::exists(AllegroFlare::SceneGraph::Entities::Base* entity)
 {
-   std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
-      std::find(entity_pool.begin(), entity_pool.end(), entity);
-   return (it != entity_pool.end());
+   return (entity_pool.count(entity) > 0);
 }
 
 std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_A(std::string attribute)

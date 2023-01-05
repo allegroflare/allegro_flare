@@ -2,8 +2,11 @@ properties:
 
 
   - name: entity_pool
-    type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+    type: std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*>
     init_with: '{}'
+    getter: true
+    setter: true
+    getter_ref: true
 
 
 functions:
@@ -16,8 +19,17 @@ functions:
         type: AllegroFlare::SceneGraph::Entities::Base*
         default_argument: nullptr
     body: |
-      entity_pool.push_back(entity);
-      return true;
+      entity_pool.insert(entity);
+
+
+  - name: add
+    type: bool
+    parameters:
+      - name: entities
+        type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+        default_argument: ''
+    body: |
+      entity_pool.insert(entities.begin(), entities.end());
 
 
   - name: remove
@@ -27,15 +39,8 @@ functions:
         type: AllegroFlare::SceneGraph::Entities::Base*
         default_argument: nullptr
     body: |
-      // NOTE: this assumes there is only one instance of the entity
-      // TODO: update this std::vector to an std::unordered_set and remove the above comment
-      std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
-         std::find(entity_pool.begin(), entity_pool.end(), entity);
-      if (it == entity_pool.end()) return false;
-      entity_pool.erase(it);
-      return true;
-    body_dependency_symbols:
-      - std::find
+      int num_erased = entity_pool.erase(entity);
+      return (bool)num_erased;
 
 
   - name: exists
@@ -45,11 +50,7 @@ functions:
         type: AllegroFlare::SceneGraph::Entities::Base*
         default_argument: nullptr
     body: |
-      std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
-         std::find(entity_pool.begin(), entity_pool.end(), entity);
-      return (it != entity_pool.end());
-    body_dependency_symbols:
-      - std::find
+      return (entity_pool.count(entity) > 0);
 
 
   - name: select_A
@@ -179,5 +180,7 @@ dependencies:
     headers: [ AllegroFlare/SceneGraph/Entities/Base.hpp ]
   - symbol: std::find
     headers: [ algorithm ]
+  - symbol: std::unordered_set
+    headers: [ unordered_set ]
 
 

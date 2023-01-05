@@ -13101,12 +13101,15 @@ table td
      <table>
 <tr>
   <td class="property">entity_pool</td>
-  <td class="property">std::vector&lt;AllegroFlare::SceneGraph::Entities::Base*&gt;</td>
+  <td class="property">std::unordered_set&lt;AllegroFlare::SceneGraph::Entities::Base*&gt;</td>
 </tr>
     </table>
      <table>
 <tr>
   <td class="method">add(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">add(std::vector&lt;AllegroFlare::SceneGraph::Entities::Base*&gt; entities=)</td>
 </tr>
 <tr>
   <td class="method">remove(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr)</td>
@@ -13139,6 +13142,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::find&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::unordered_set&quot;, &quot;headers&quot;=&gt;[&quot;unordered_set&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -19961,6 +19967,9 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
+    "AllegroFlare/SceneGraph/EntityPool"
+  ],
+  "std/unordered_set": [
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/Achievements": [

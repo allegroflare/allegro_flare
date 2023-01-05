@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/SceneGraph/Entities/Base.hpp>
 #include <string>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -14,7 +15,7 @@ namespace AllegroFlare
       class EntityPool
       {
       private:
-         std::vector<AllegroFlare::SceneGraph::Entities::Base*> entity_pool;
+         std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> entity_pool;
 
       protected:
 
@@ -23,7 +24,11 @@ namespace AllegroFlare
          EntityPool();
          ~EntityPool();
 
+         void set_entity_pool(std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> entity_pool);
+         std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> get_entity_pool() const;
+         std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> &get_entity_pool_ref();
          bool add(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
+         bool add(std::vector<AllegroFlare::SceneGraph::Entities::Base*> entities);
          bool remove(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
          bool exists(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select_A(std::string attribute="[unset-attribute]");
