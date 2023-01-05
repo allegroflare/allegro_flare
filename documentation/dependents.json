@@ -801,6 +801,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Base",
+    "AllegroFlare/SceneGraph/Entities/Base",
     "Wicked/Entities/Base"
   ],
   "al_get_time": [
@@ -1968,6 +1969,9 @@
   ],
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/SceneGraph/Entities/Base": [
+    "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",

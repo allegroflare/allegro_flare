@@ -1,7 +1,9 @@
 #pragma once
 
 
+#include <AllegroFlare/SceneGraph/Entities/Base.hpp>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -11,6 +13,7 @@ namespace AllegroFlare
       class EntityPool
       {
       private:
+         std::vector<AllegroFlare::SceneGraph::Entities::Base*> entity_pool;
 
       protected:
 
@@ -19,7 +22,7 @@ namespace AllegroFlare
          EntityPool();
          ~EntityPool();
 
-         std::string run();
+         std::vector<AllegroFlare::SceneGraph::Entities::Base*> select(std::string attribute="[unset-attribute]");
       };
    }
 }

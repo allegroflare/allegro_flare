@@ -1,9 +1,33 @@
+properties:
+
+
+  - name: entity_pool
+    type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+    init_with: '{}'
+
+
 functions:
 
 
-  - name: run
-    type: std::string
+  - name: select
+    type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
     body: |
-      return "Hello World!";
+      std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         if (entity->exists(attribute)) result.push_back(entity);
+      }
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::SceneGraph::Entities::Base
+    headers: [ AllegroFlare/SceneGraph/Entities/Base.hpp ]
 
 

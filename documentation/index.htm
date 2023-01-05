@@ -241,6 +241,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml">quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ScreenCapture.q.yml">quintessence/AllegroFlare/ScreenCapture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Achievements.q.yml">quintessence/AllegroFlare/Screens/Achievements.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml">quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml</a></li>
@@ -13070,6 +13072,52 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml">quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">entity_pool</td>
+  <td class="property">std::vector&lt;AllegroFlare::SceneGraph::Entities::Base*&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">select(std::string attribute=&quot;[unset-attribute]&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SceneGraph::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SceneGraph/Entities/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/ScreenCapture.q.yml">quintessence/AllegroFlare/ScreenCapture.q.yml</h3>
      <table>
     </table>
@@ -18715,6 +18763,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Base",
+    "AllegroFlare/SceneGraph/Entities/Base",
     "Wicked/Entities/Base"
   ],
   "al_get_time": [
@@ -19882,6 +19931,9 @@ table td
   ],
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/SceneGraph/Entities/Base": [
+    "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/Achievements": [
     "AllegroFlare/Screens/Achievements",
