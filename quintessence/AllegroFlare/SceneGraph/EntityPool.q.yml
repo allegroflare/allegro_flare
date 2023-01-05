@@ -9,7 +9,7 @@ properties:
 functions:
 
 
-  - name: select
+  - name: select_A
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
       - name: attribute
@@ -24,7 +24,7 @@ functions:
       return result;
 
 
-  - name: select
+  - name: select_B
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
       - name: attributes
@@ -43,7 +43,7 @@ functions:
       return result;
 
 
-  - name: select
+  - name: select_C
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
       - name: attribute
@@ -61,7 +61,7 @@ functions:
       return result;
 
 
-  - name: select
+  - name: select_D
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
       - name: attribute_param_pairs
@@ -80,7 +80,7 @@ functions:
       return result;
 
 
-  - name: select
+  - name: select_E
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
       - name: attribute
@@ -103,7 +103,7 @@ functions:
       return result;
 
 
-  - name: select
+  - name: select_F
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
       - name: attributes

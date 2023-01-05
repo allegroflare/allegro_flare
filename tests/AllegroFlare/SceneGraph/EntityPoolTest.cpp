@@ -20,3 +20,16 @@ TEST(AllegroFlare_SceneGraph_EntityPoolTest, select__will_select_entities_with_t
 }
 
 
+TEST(AllegroFlare_SceneGraph_EntityPoolTest, DISABLED__select_A__will_select_entities_with_the_attribute)
+{
+   using namespace AllegroFlare::SceneGraph;
+
+   AllegroFlare::SceneGraph::EntityPool entity_pool;
+
+   std::vector<Entities::Base*> expected = {};
+   std::vector<Entities::Base*> actual = entity_pool.select_A("blob");
+
+   EXPECT_EQ(expected, actual);
+}
+
+
