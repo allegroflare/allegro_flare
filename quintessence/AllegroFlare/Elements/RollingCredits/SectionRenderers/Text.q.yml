@@ -23,6 +23,13 @@ properties:
     setter: true
     constructor_arg: true
 
+  - name: alignment
+    type: std::string
+    init_with: '"[unset-alignment]"'
+    getter: true
+    setter: true
+    constructor_arg: true
+
   - name: x
     type: float
     init_with: 0.0f
@@ -97,7 +104,7 @@ functions:
                y,
                max_width,
                font_line_height,
-               ALLEGRO_ALIGN_LEFT,
+               ALLEGRO_ALIGN_LEFT, // TODO: set alignment here
                text.c_str()
             );
          }

@@ -20,10 +20,11 @@ namespace SectionRenderers
 int Text::_multiline_text_line_number = 0;
 
 
-Text::Text(AllegroFlare::FontBin* font_bin, std::string text)
+Text::Text(AllegroFlare::FontBin* font_bin, std::string text, std::string alignment)
    : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base(AllegroFlare::Elements::RollingCredits::SectionRenderers::Text::TYPE)
    , font_bin(font_bin)
    , text(text)
+   , alignment(alignment)
    , x(0.0f)
    , y(0.0f)
    , max_width(1920.0f/2.0f)
@@ -48,6 +49,12 @@ void Text::set_font_bin(AllegroFlare::FontBin* font_bin)
 void Text::set_text(std::string text)
 {
    this->text = text;
+}
+
+
+void Text::set_alignment(std::string alignment)
+{
+   this->alignment = alignment;
 }
 
 
@@ -96,6 +103,12 @@ AllegroFlare::FontBin* Text::get_font_bin() const
 std::string Text::get_text() const
 {
    return text;
+}
+
+
+std::string Text::get_alignment() const
+{
+   return alignment;
 }
 
 
@@ -164,7 +177,7 @@ float Text::render(bool only_calculate_height_dont_render)
             y,
             max_width,
             font_line_height,
-            ALLEGRO_ALIGN_LEFT,
+            ALLEGRO_ALIGN_LEFT, // TODO: set alignment here
             text.c_str()
          );
       }

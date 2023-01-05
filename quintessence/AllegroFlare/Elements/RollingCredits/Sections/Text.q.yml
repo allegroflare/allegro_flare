@@ -15,6 +15,33 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: alignment
+    type: std::string
+    init_with: ALIGN_LEFT
+    constructor_arg: true
+    getter: true
+
+  - name: ALIGN_LEFT
+    type: char*
+    init_with: '(char*)"left"'
+    static: true
+    const: true
+    constexpr: true
+
+  - name: ALIGN_RIGHT
+    type: char*
+    init_with: '(char*)"right"'
+    static: true
+    const: true
+    constexpr: true
+
+  - name: ALIGN_CENTER
+    type: char*
+    init_with: '(char*)"center"'
+    static: true
+    const: true
+    constexpr: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Sections/Text"'
