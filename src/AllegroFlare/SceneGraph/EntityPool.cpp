@@ -70,6 +70,39 @@ std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select(std::v
    return result;
 }
 
+std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select(std::string attribute, std::vector<std::pair<std::string, std::string>> attribute_param_pairs)
+{
+   std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
+   for (auto &entity : entity_pool)
+   {
+      if (!entity->exists(attribute)) continue;
+      for (auto &attribute_param_pair : attribute_param_pairs)
+      {
+         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) continue;
+      }
+      result.push_back(entity);
+   }
+   return result;
+}
+
+std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select(std::vector<std::string> attributes, std::vector<std::pair<std::string, std::string>> attribute_param_pairs)
+{
+   std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
+   for (auto &entity : entity_pool)
+   {
+      for (auto &attribute : attributes)
+      {
+         if (!entity->exists(attribute)) continue;
+      }
+      for (auto &attribute_param_pair : attribute_param_pairs)
+      {
+         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) continue;
+      }
+      result.push_back(entity);
+   }
+   return result;
+}
+
 
 } // namespace SceneGraph
 } // namespace AllegroFlare
