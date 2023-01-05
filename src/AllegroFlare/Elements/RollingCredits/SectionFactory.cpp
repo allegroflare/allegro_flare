@@ -46,6 +46,8 @@ AllegroFlare::Elements::RollingCredits::Sections::Text* SectionFactory::create_t
 
 std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFactory::create_standard_disclaimers_text(std::string text)
 {
+   auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER;
+
    std::string disclaimer_1 = "This is a work of fiction. Any resemblance to actual persons, living or dead, "
       "or events is purely coincidental.";
    std::string disclaimer_2 = "The views and opinions expressed in this media do not necessarily reflect the "
@@ -61,9 +63,9 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
 
 
    return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>{
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1),
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2),
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3),
+      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3, ALIGN_CENTER),
    };
 }
 
