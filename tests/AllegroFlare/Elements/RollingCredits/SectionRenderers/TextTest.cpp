@@ -9,6 +9,9 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
+
 class AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTest : public ::testing::Test
 {};
 
@@ -16,8 +19,6 @@ class AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegroR
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
-
-#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.hpp>
 
 
 
@@ -69,9 +70,43 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegro
       &get_font_bin_ref(),
       text
    );
+   text_section_renderer.set_x(1920/2);
+   text_section_renderer.set_y(1080/2);
    text_section_renderer.render();
    al_flip_display();
    al_rest(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_respect_a_centered_alignment)
+{
+   // TODO: finish this test
+   std::string text = "This game is a work of fiction. Any resemblance to actual persons, living or dead, "
+      "or events is purely coincidental.";
+   AllegroFlare::Elements::RollingCredits::SectionRenderers::Text text_section_renderer(
+      &get_font_bin_ref(),
+      text,
+      AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER
+   );
+   text_section_renderer.set_x(1920/2);
+   text_section_renderer.set_y(1080/2);
+   text_section_renderer.render();
+   al_flip_display();
+   al_rest(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTestWithAllegroRenderingFixture,
+   CAPTURE__render__with_an_invalid_alignment__will_throw_an_error)
+{
+   // TODO: finish this test
+   AllegroFlare::Elements::RollingCredits::SectionRenderers::Text text_section_renderer(
+      &get_font_bin_ref(),
+      "foobar",
+      "this-is-an-invalid-alignment"
+   );
+   text_section_renderer.render();
 }
 
 

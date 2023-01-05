@@ -207,7 +207,8 @@ float RollingCredits::render_or_calculate_height(bool only_calculate_height_dont
          Sections::Text *typed_section = static_cast<Sections::Text *>(section);
          SectionRenderers::Text renderer(
                font_bin,
-               typed_section->get_text()
+               typed_section->get_text(),
+               typed_section->get_alignment()
             );
          renderer.set_x(surface_center);
          renderer.set_y(cursor_y);

@@ -62,6 +62,8 @@ namespace AllegroFlare
                virtual float render(bool only_calculate_height_dont_render=false) override;
                static bool multiline_text_draw_callback(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
                int count_num_lines_will_render(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text="[unset-text]");
+               int get_al_alignment();
+               float get_x_offset_by_alignment();
             };
          }
       }

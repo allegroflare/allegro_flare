@@ -4354,6 +4354,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">alignment</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">x</td>
   <td class="property">float</td>
 </tr>
@@ -4397,6 +4401,12 @@ table td
   <td class="method">count_num_lines_will_render(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text=&quot;[unset-text]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">get_al_alignment()</td>
+</tr>
+<tr>
+  <td class="method">get_x_offset_by_alignment()</td>
+</tr>
+<tr>
   <td class="private_method">obtain_font()</td>
 </tr>
     </table>
@@ -4412,6 +4422,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Text&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Text.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -18978,7 +18991,8 @@ table td
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Text": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
-    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+    "AllegroFlare/Elements/RollingCredits/SectionFactory",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits"

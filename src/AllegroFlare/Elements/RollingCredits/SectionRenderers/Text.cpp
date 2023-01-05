@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.hpp>
 
+#include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 
@@ -168,16 +170,17 @@ float Text::render(bool only_calculate_height_dont_render)
    float font_line_height = (al_get_font_line_height(font) + 1);
    if (!text.empty())
    {
+      float x_offset_by_alignment = get_x_offset_by_alignment();
       if (!only_calculate_height_dont_render)
       {
          al_draw_multiline_text(
             font,
             text_color,
-            x+-max_width*0.5, // centered in the window crawl
+            x + -max_width*0.5 + x_offset_by_alignment, // box is centered in the window crawl
             y,
             max_width,
             font_line_height,
-            ALLEGRO_ALIGN_LEFT, // TODO: set alignment here
+            get_al_alignment(),
             text.c_str()
          );
       }
@@ -200,6 +203,44 @@ int Text::count_num_lines_will_render(ALLEGRO_FONT* font, float max_width, std::
 
    // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
    return _multiline_text_line_number + 1;
+}
+
+int Text::get_al_alignment()
+{
+   static std::map<std::string, int> alignments = {
+      { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT,   ALLEGRO_ALIGN_LEFT },
+      { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_RIGHT,  ALLEGRO_ALIGN_RIGHT },
+      { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER, ALLEGRO_ALIGN_CENTER },
+   };
+
+   if (alignments.count(alignment) == 0)
+   {
+      // TODO: output a warning
+      return ALLEGRO_ALIGN_LEFT;
+   }
+   else
+   {
+      return alignments[alignment];
+   }
+}
+
+float Text::get_x_offset_by_alignment()
+{
+   std::map<std::string, float> alignment_multipliers = {
+      { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT,   0.0 },
+      { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_RIGHT,  1.0 },
+      { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER, 0.5 },
+   };
+
+   if (alignment_multipliers.count(alignment) == 0)
+   {
+      // TODO: output a warning
+      return 0;
+   }
+   else
+   {
+      return alignment_multipliers[alignment] * max_width;
+   }
 }
 
 ALLEGRO_FONT* Text::obtain_font()

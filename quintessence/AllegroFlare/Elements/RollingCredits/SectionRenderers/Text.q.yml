@@ -95,16 +95,17 @@ functions:
       float font_line_height = (al_get_font_line_height(font) + 1);
       if (!text.empty())
       {
+         float x_offset_by_alignment = get_x_offset_by_alignment();
          if (!only_calculate_height_dont_render)
          {
             al_draw_multiline_text(
                font,
                text_color,
-               x+-max_width*0.5, // centered in the window crawl
+               x + -max_width*0.5 + x_offset_by_alignment, // box is centered in the window crawl
                y,
                max_width,
                font_line_height,
-               ALLEGRO_ALIGN_LEFT, // TODO: set alignment here
+               get_al_alignment(),
                text.c_str()
             );
          }
@@ -155,6 +156,52 @@ functions:
       return _multiline_text_line_number + 1;
 
 
+  - name: get_al_alignment
+    type: int
+    body: |
+      static std::map<std::string, int> alignments = {
+         { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT,   ALLEGRO_ALIGN_LEFT },
+         { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_RIGHT,  ALLEGRO_ALIGN_RIGHT },
+         { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER, ALLEGRO_ALIGN_CENTER },
+      };
+
+      if (alignments.count(alignment) == 0)
+      {
+         // TODO: output a warning
+         return ALLEGRO_ALIGN_LEFT;
+      }
+      else
+      {
+         return alignments[alignment];
+      }
+    body_dependency_symbols:
+      - std::map
+      - AllegroFlare::Elements::RollingCredits::Sections::Text
+
+
+  - name: get_x_offset_by_alignment
+    type: float
+    body: |
+      std::map<std::string, float> alignment_multipliers = {
+         { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT,   0.0 },
+         { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_RIGHT,  1.0 },
+         { AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER, 0.5 },
+      };
+
+      if (alignment_multipliers.count(alignment) == 0)
+      {
+         // TODO: output a warning
+         return 0;
+      }
+      else
+      {
+         return alignment_multipliers[alignment] * max_width;
+      }
+    body_dependency_symbols:
+      - std::map
+      - AllegroFlare::Elements::RollingCredits::Sections::Text
+
+
   - name: obtain_font
     private: true
     type: ALLEGRO_FONT*
@@ -176,4 +223,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Text
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Text.hpp ]
+
 
