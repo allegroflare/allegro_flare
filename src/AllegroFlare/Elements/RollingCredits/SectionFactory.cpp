@@ -37,10 +37,10 @@ AllegroFlare::Elements::RollingCredits::Sections::Header* SectionFactory::create
    return section;
 }
 
-AllegroFlare::Elements::RollingCredits::Sections::Text* SectionFactory::create_text(std::string text)
+AllegroFlare::Elements::RollingCredits::Sections::Text* SectionFactory::create_text(std::string text, std::string alignment)
 {
    AllegroFlare::Elements::RollingCredits::Sections::Text* section =
-     new AllegroFlare::Elements::RollingCredits::Sections::Text(text);
+     new AllegroFlare::Elements::RollingCredits::Sections::Text(text, alignment);
    return section;
 }
 

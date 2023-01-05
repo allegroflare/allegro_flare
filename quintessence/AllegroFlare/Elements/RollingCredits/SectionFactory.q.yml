@@ -31,9 +31,12 @@ functions:
       - name: text
         type: std::string
         default_argument: '{}'
+      - name: alignment
+        type: std::string
+        default_argument: AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT
     body: |
       AllegroFlare::Elements::RollingCredits::Sections::Text* section =
-        new AllegroFlare::Elements::RollingCredits::Sections::Text(text);
+        new AllegroFlare::Elements::RollingCredits::Sections::Text(text, alignment);
       return section;
     
 
