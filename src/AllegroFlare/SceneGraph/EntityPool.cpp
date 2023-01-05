@@ -32,6 +32,20 @@ std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select(std::s
    return result;
 }
 
+std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select(std::vector<std::string> attributes)
+{
+   std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
+   for (auto &entity : entity_pool)
+   {
+      for (auto &attribute : attributes)
+      {
+         if (!entity->exists(attribute)) continue;
+      }
+      result.push_back(entity);
+   }
+   return result;
+}
+
 
 } // namespace SceneGraph
 } // namespace AllegroFlare

@@ -23,6 +23,7 @@ namespace AllegroFlare
          ~EntityPool();
 
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select(std::string attribute="[unset-attribute]");
+         std::vector<AllegroFlare::SceneGraph::Entities::Base*> select(std::vector<std::string> attributes={});
       };
    }
 }

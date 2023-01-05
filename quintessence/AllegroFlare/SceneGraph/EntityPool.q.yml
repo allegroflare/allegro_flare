@@ -24,6 +24,25 @@ functions:
       return result;
 
 
+  - name: select
+    type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+    parameters:
+      - name: attributes
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         for (auto &attribute : attributes)
+         {
+            if (!entity->exists(attribute)) continue;
+         }
+         result.push_back(entity);
+      }
+      return result;
+
+
 dependencies:
 
 
