@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/SceneGraph/EntityPool.hpp>
 
-
+#include <algorithm>
 
 
 namespace AllegroFlare
@@ -21,6 +21,30 @@ EntityPool::~EntityPool()
 {
 }
 
+
+bool EntityPool::add(AllegroFlare::SceneGraph::Entities::Base* entity)
+{
+   entity_pool.push_back(entity);
+   return true;
+}
+
+bool EntityPool::remove(AllegroFlare::SceneGraph::Entities::Base* entity)
+{
+   // NOTE: this assumes there is only one instance of the entity
+   // TODO: update this std::vector to an std::unordered_set and remove the above comment
+   std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
+      std::find(entity_pool.begin(), entity_pool.end(), entity);
+   if (it == entity_pool.end()) return false;
+   entity_pool.erase(it);
+   return true;
+}
+
+bool EntityPool::exists(AllegroFlare::SceneGraph::Entities::Base* entity)
+{
+   std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
+      std::find(entity_pool.begin(), entity_pool.end(), entity);
+   return (it != entity_pool.end());
+}
 
 std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_A(std::string attribute)
 {

@@ -23,6 +23,9 @@ namespace AllegroFlare
          EntityPool();
          ~EntityPool();
 
+         bool add(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
+         bool remove(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
+         bool exists(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select_A(std::string attribute="[unset-attribute]");
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select_B(std::vector<std::string> attributes={});
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select_C(std::string attribute="[unset-attribute]", std::string parameter="[unset-parameter]");

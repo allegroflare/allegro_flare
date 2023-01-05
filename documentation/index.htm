@@ -13106,6 +13106,15 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">add(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">remove(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">exists(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
   <td class="method">select_A(std::string attribute=&quot;[unset-attribute]&quot;)</td>
 </tr>
 <tr>
@@ -13127,6 +13136,9 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SceneGraph::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SceneGraph/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::find&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -19903,6 +19915,7 @@ table td
   ],
   "std/find": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SceneGraph/EntityPool",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Display": [

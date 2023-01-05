@@ -9,6 +9,49 @@ properties:
 functions:
 
 
+  - name: add
+    type: bool
+    parameters:
+      - name: entity
+        type: AllegroFlare::SceneGraph::Entities::Base*
+        default_argument: nullptr
+    body: |
+      entity_pool.push_back(entity);
+      return true;
+
+
+  - name: remove
+    type: bool
+    parameters:
+      - name: entity
+        type: AllegroFlare::SceneGraph::Entities::Base*
+        default_argument: nullptr
+    body: |
+      // NOTE: this assumes there is only one instance of the entity
+      // TODO: update this std::vector to an std::unordered_set and remove the above comment
+      std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
+         std::find(entity_pool.begin(), entity_pool.end(), entity);
+      if (it == entity_pool.end()) return false;
+      entity_pool.erase(it);
+      return true;
+    body_dependency_symbols:
+      - std::find
+
+
+  - name: exists
+    type: bool
+    parameters:
+      - name: entity
+        type: AllegroFlare::SceneGraph::Entities::Base*
+        default_argument: nullptr
+    body: |
+      std::vector<AllegroFlare::SceneGraph::Entities::Base*>::iterator it =
+         std::find(entity_pool.begin(), entity_pool.end(), entity);
+      return (it != entity_pool.end());
+    body_dependency_symbols:
+      - std::find
+
+
   - name: select_A
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
@@ -134,5 +177,7 @@ dependencies:
 
   - symbol: AllegroFlare::SceneGraph::Entities::Base
     headers: [ AllegroFlare/SceneGraph/Entities/Base.hpp ]
+  - symbol: std::find
+    headers: [ algorithm ]
 
 
