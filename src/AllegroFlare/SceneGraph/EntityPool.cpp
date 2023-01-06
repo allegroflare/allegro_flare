@@ -104,9 +104,11 @@ std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_D(std:
    {
       for (auto &attribute_param_pair : attribute_param_pairs)
       {
-         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) continue;
+         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next2;
       }
       result.push_back(entity);
+
+      loop_next2:;
    }
    return result;
 }
@@ -116,12 +118,14 @@ std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_E(std:
    std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
    for (auto &entity : entity_pool)
    {
-      if (!entity->exists(attribute)) continue;
+      if (!entity->exists(attribute)) goto loop_next3;
       for (auto &attribute_param_pair : attribute_param_pairs)
       {
-         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) continue;
+         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next3;
       }
       result.push_back(entity);
+
+      loop_next3:;
    }
    return result;
 }
@@ -133,13 +137,15 @@ std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_F(std:
    {
       for (auto &attribute : attributes)
       {
-         if (!entity->exists(attribute)) continue;
+         if (!entity->exists(attribute)) goto loop_next3;
       }
       for (auto &attribute_param_pair : attribute_param_pairs)
       {
-         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) continue;
+         if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next3;
       }
       result.push_back(entity);
+
+      loop_next3:;
    }
    return result;
 }

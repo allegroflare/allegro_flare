@@ -98,3 +98,32 @@ TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_C__will_select
 }
 
 
+TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_D__will_select_entities_with_the_attribute)
+{
+   // TODO: Add test
+}
+
+
+TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_E__will_select_entities_with_the_attribute)
+{
+   using namespace AllegroFlare::SceneGraph::Entities;
+
+   Base* entity1 = create_entity("entity1", "on_map", "map-a"); //
+   Base* entity2 = create_entity("entity2", "on_map", "map-b"); //
+   Base* entity3 = create_entity("entity3", "on_map", "map-a");
+   Base* entity4 = create_entity("entity4", "on_map", "map-b");
+   Base* entity5 = create_entity("entity5", "on_map", "map-b"); //
+
+   entity1->set("damages_player");
+   entity2->set("damages_player");
+   entity5->set("damages_player");
+
+   entity_pool.add({ entity1, entity2, entity3, entity4, entity5 });
+
+   std::vector<Base*> expected = { entity2, entity5 };
+   std::vector<Base*> actual = entity_pool.select_E("damages_player", { { "on_map", "map-b" } });
+
+   EXPECT_THAT(expected, testing::UnorderedElementsAreArray(actual));
+}
+
+
