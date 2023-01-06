@@ -78,9 +78,11 @@ std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_B(std:
    {
       for (auto &attribute : attributes)
       {
-         if (!entity->exists(attribute)) continue;
+         if (!entity->exists(attribute)) goto loop_next;
       }
       result.push_back(entity);
+
+      loop_next:;
    }
    return result;
 }
