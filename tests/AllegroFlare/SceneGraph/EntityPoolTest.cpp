@@ -106,6 +106,8 @@ TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_D__will_select
 
 TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_E__will_select_entities_with_the_attribute)
 {
+   // TODO: This is a partial test, and does not account for *multiple* attribute<->param pairs used
+   // during selection
    using namespace AllegroFlare::SceneGraph::Entities;
 
    Base* entity1 = create_entity("entity1", "on_map", "map-a"); //
@@ -124,6 +126,12 @@ TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_E__will_select
    std::vector<Base*> actual = entity_pool.select_E("damages_player", { { "on_map", "map-b" } });
 
    EXPECT_THAT(expected, testing::UnorderedElementsAreArray(actual));
+}
+
+
+TEST_F(AllegroFlare_SceneGraph_EntityPoolTestWithEntities, select_F__will_select_entities_with_the_attribute)
+{
+   // TODO: Add test
 }
 
 

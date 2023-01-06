@@ -43,6 +43,21 @@ functions:
       return (bool)num_erased;
 
 
+  - name: remove
+    type: int
+    parameters:
+      - name: entities
+        type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
+        default_argument: '{}'
+    body: |
+      int num_erased = 0;
+      for (auto &entity : entities)
+      {
+         num_erased += entity_pool.erase(entity);
+      }
+      return num_erased;
+
+
   - name: exists
     type: bool
     parameters:
@@ -114,6 +129,8 @@ functions:
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
     body: |
+      // TODO: add test
+
       std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
       for (auto &entity : entity_pool)
       {
@@ -163,20 +180,22 @@ functions:
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
     body: |
+      // TODO: add test
+      
       std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;
       for (auto &entity : entity_pool)
       {
          for (auto &attribute : attributes)
          {
-            if (!entity->exists(attribute)) goto loop_next3;
+            if (!entity->exists(attribute)) goto loop_next4;
          }
          for (auto &attribute_param_pair : attribute_param_pairs)
          {
-            if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next3;
+            if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next4;
          }
          result.push_back(entity);
 
-         loop_next3:;
+         loop_next4:;
       }
       return result;
 
