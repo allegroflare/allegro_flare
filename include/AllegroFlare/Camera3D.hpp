@@ -33,6 +33,9 @@ namespace AllegroFlare
       void set_far_plane(float far_plane=100);
 
       void strafe_xy(float displacement=0.0f);
+
+      float squared_distance_from(float x, float y, float z);
+      float squared_distance_from(AllegroFlare::Vec3D position);
    };
 }
 

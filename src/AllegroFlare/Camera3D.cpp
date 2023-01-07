@@ -116,6 +116,23 @@ void Camera3D::strafe_xy(float displacement)
 }
 
 
+float Camera3D::squared_distance_from(float object_x, float object_y, float object_z)
+{
+   float squared_distance = (object_x - position.x) * (object_x - position.x) +
+                            (object_y - position.y) * (object_y - position.y) +
+                            (object_z - position.z) * (object_z - position.z);
+   return squared_distance;
+}
+
+
+float Camera3D::squared_distance_from(AllegroFlare::Vec3D object_position)
+{
+   float squared_distance = (object_position.x - position.x) * (object_position.x - position.x) +
+                            (object_position.y - position.y) * (object_position.y - position.y) +
+                            (object_position.z - position.z) * (object_position.z - position.z);
+   return squared_distance;
+}
+
 
 } // namespace AllegroFlare
 
