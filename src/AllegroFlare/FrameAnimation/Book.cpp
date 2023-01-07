@@ -16,10 +16,12 @@ namespace FrameAnimation
 {
 
 
-Book::Book(std::string png_source_filename, std::string json_source_filename, int sprite_sheet_scale)
+Book::Book(std::string png_source_filename, std::string json_source_filename, int sprite_sheet_scale, int sprite_sheet_cell_width, int sprite_sheet_cell_height)
    : png_source_filename(png_source_filename)
    , json_source_filename(json_source_filename)
    , sprite_sheet_scale(sprite_sheet_scale)
+   , sprite_sheet_cell_width(sprite_sheet_cell_width)
+   , sprite_sheet_cell_height(sprite_sheet_cell_height)
    , sprite_sheet(nullptr)
    , dictionary({})
    , initialized(false)
@@ -41,6 +43,18 @@ void Book::set_dictionary(std::map<std::string, AllegroFlare::FrameAnimation::An
 int Book::get_sprite_sheet_scale() const
 {
    return sprite_sheet_scale;
+}
+
+
+int Book::get_sprite_sheet_cell_width() const
+{
+   return sprite_sheet_cell_width;
+}
+
+
+int Book::get_sprite_sheet_cell_height() const
+{
+   return sprite_sheet_cell_height;
 }
 
 
@@ -130,7 +144,12 @@ void Book::initialize()
 
    ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(png_source_filename.c_str());
    // TODO: add validation for unloadable sprite_sheet_bitmap
-   sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, sprite_sheet_scale); // auto-inits
+   sprite_sheet = new SpriteSheet(
+      sprite_sheet_bitmap,
+      sprite_sheet_cell_width,
+      sprite_sheet_cell_height,
+      sprite_sheet_scale
+   ); // WARNING: auto-inits
    al_destroy_bitmap(sprite_sheet_bitmap);
 
    // load the data

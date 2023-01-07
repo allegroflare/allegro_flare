@@ -20,6 +20,20 @@ properties:
     setter: false
     getter: true
 
+  - name: sprite_sheet_cell_width
+    type: int
+    init_with: 48
+    constructor_arg: true
+    setter: false
+    getter: true
+
+  - name: sprite_sheet_cell_height
+    type: int
+    init_with: 48
+    constructor_arg: true
+    setter: false
+    getter: true
+
   - name: sprite_sheet
     type: AllegroFlare::FrameAnimation::SpriteSheet*
     init_with: nullptr
@@ -33,6 +47,13 @@ properties:
   - name: initialized
     type: bool
     init_with: false
+
+
+documentation:
+
+
+  - todos:
+     - move "sprite_sheet_scale" property to be listed after "sprite_sheet_cell_width" and "sprite_sheet_cell_height"
 
 
 functions:
@@ -93,7 +114,12 @@ functions:
 
       ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap(png_source_filename.c_str());
       // TODO: add validation for unloadable sprite_sheet_bitmap
-      sprite_sheet = new SpriteSheet(sprite_sheet_bitmap, 48, 48, sprite_sheet_scale); // auto-inits
+      sprite_sheet = new SpriteSheet(
+         sprite_sheet_bitmap,
+         sprite_sheet_cell_width,
+         sprite_sheet_cell_height,
+         sprite_sheet_scale
+      ); // WARNING: auto-inits
       al_destroy_bitmap(sprite_sheet_bitmap);
 
       // load the data
