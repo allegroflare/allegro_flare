@@ -104,6 +104,46 @@ void Book::set_sprite_sheet_scale(int sprite_sheet_scale)
    return;
 }
 
+void Book::set_sprite_sheet_cell_width(int sprite_sheet_cell_width)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_sprite_sheet_cell_width]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_sprite_sheet_cell_width: error: guard \"(!initialized)\" not met");
+   }
+   if (!((sprite_sheet_cell_width > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_sprite_sheet_cell_width]: error: guard \"(sprite_sheet_cell_width > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_sprite_sheet_cell_width: error: guard \"(sprite_sheet_cell_width > 0)\" not met");
+   }
+   this->sprite_sheet_cell_width = sprite_sheet_cell_width;
+   return;
+}
+
+void Book::set_sprite_sheet_cell_height(int sprite_sheet_cell_height)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_sprite_sheet_cell_height]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_sprite_sheet_cell_height: error: guard \"(!initialized)\" not met");
+   }
+   if (!((sprite_sheet_cell_height > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::set_sprite_sheet_cell_height]: error: guard \"(sprite_sheet_cell_height > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::set_sprite_sheet_cell_height: error: guard \"(sprite_sheet_cell_height > 0)\" not met");
+   }
+   this->sprite_sheet_cell_height = sprite_sheet_cell_height;
+   return;
+}
+
 AllegroFlare::FrameAnimation::SpriteSheet* Book::get_sprite_sheet()
 {
    if (!(initialized))

@@ -92,6 +92,28 @@ functions:
       return;
 
 
+  - name: set_sprite_sheet_cell_width
+    parameters:
+      - name: sprite_sheet_cell_width
+        type: int
+        default_argument: 48
+    guards: [ (!initialized), (sprite_sheet_cell_width > 0) ]
+    body: |
+      this->sprite_sheet_cell_width = sprite_sheet_cell_width;
+      return;
+
+
+  - name: set_sprite_sheet_cell_height
+    parameters:
+      - name: sprite_sheet_cell_height
+        type: int
+        default_argument: 48
+    guards: [ (!initialized), (sprite_sheet_cell_height > 0) ]
+    body: |
+      this->sprite_sheet_cell_height = sprite_sheet_cell_height;
+      return;
+
+
   - name: get_sprite_sheet
     type: AllegroFlare::FrameAnimation::SpriteSheet*
     guards: [ initialized ]
