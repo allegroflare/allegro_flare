@@ -39,6 +39,13 @@ TEST_F(AllegroFlare_FrameAnimation_BookTest, can_be_created_without_blowing_up)
 }
 
 
+TEST_F(AllegroFlare_FrameAnimation_BookTestWithAllegroRenderingFixture,
+   find_animation_by_name__before_initialization__will_throw_an_error)
+{
+   // TODO
+}
+
+
 TEST_F(AllegroFlare_FrameAnimation_BookTestWithAllegroRenderingFixture, VISUAL__will_load_an_animation)
 {
    ALLEGRO_FONT *font = get_any_font();

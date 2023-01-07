@@ -125,6 +125,7 @@ functions:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
+    guards: [ initialized ]
     body: |
       return (dictionary.count(name) > 0);
 
@@ -135,6 +136,7 @@ functions:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
+    guards: [ initialized ]
     body: |
       if (dictionary.count(name) == 0)
       {

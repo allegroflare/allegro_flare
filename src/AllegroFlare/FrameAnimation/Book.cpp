@@ -156,11 +156,25 @@ ALLEGRO_BITMAP* Book::get_still_frame(std::string tag_name)
 
 bool Book::animation_exists(std::string name)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::animation_exists]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::animation_exists: error: guard \"initialized\" not met");
+   }
    return (dictionary.count(name) > 0);
 }
 
 AllegroFlare::FrameAnimation::Animation Book::find_animation_by_name(std::string name)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Book::find_animation_by_name]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Book::find_animation_by_name: error: guard \"initialized\" not met");
+   }
    if (dictionary.count(name) == 0)
    {
       std::stringstream error_message;
