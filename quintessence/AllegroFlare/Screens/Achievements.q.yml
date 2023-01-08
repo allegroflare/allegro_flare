@@ -74,9 +74,9 @@ functions:
       std::vector<std::tuple<std::string, std::string, std::string>> result;
       for (auto &achievement : achievements->get_achievements())
       {
-         AllegroFlare::Achievement *ach = std::get<0>(achievement.second);
-         bool unlocked = std::get<1>(achievement.second);
-         bool hidden = std::get<2>(achievement.second);
+         AllegroFlare::Achievement *ach = std::get<1>(achievement);
+         bool unlocked = std::get<2>(achievement);
+         bool hidden = std::get<3>(achievement);
          // TODO: test this
          std::string status = unlocked ? "unlocked" : (hidden ? "hidden" : "locked" );
          result.push_back({ status, ach->get_title(), ach->get_description() });

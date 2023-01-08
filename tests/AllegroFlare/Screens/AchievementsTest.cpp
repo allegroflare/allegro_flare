@@ -115,10 +115,16 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 
    EXPECT_EQ(0, achievements_screen.get_achievements_list_ref().get_achievements().size());
    achievements.set_achievements({
-      { "win_the_day", {
-         new AllegroFlare::Achievement("Win the Day", "Accomplish the task you set out to do"), false, false } },
-      { "add_several_achievements", {
-         new AllegroFlare::Achievement("And Another One", "Add another achievement to the test data"), false, false } },
+      { "win_the_day",
+         new AllegroFlare::Achievement("Win the Day", "Accomplish the task you set out to do"),
+         false,
+         false,
+      },
+      { "add_several_achievements",
+         new AllegroFlare::Achievement("And Another One", "Add another achievement to the test data"),
+         false,
+         false
+      },
    });
    achievements_screen.refresh_achievements_list();
    EXPECT_EQ(2, achievements_screen.get_achievements_list_ref().get_achievements().size());
@@ -126,7 +132,8 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
+   //DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -143,6 +150,20 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+
+   // Add some test data achievements
+   achievements.set_achievements({
+      { "win_the_day",
+         new AllegroFlare::Achievement("Win the Day", "Accomplish the task you set out to do"),
+         false,
+         false,
+      },
+      { "add_several_achievements",
+         new AllegroFlare::Achievement("And Another One", "Add another achievement to the test data"),
+         false,
+         false
+      },
+   });
 
    // initialize test subject
    AllegroFlare::Screens::Achievements achievements_screen;
