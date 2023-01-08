@@ -174,7 +174,7 @@ bool AchievementsList::scrollbar_is_autohidden_because_list_contents_is_smaller_
 std::vector<std::tuple<std::string, std::string, std::string>> AchievementsList::build_placeholder_achievements()
 {
    return {
-      { "unlocked",   "Fade In", "Start out in the world." },
+      { "unlocked", "Fade In", "Start out in the world." },
       { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
       { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
