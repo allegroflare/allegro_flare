@@ -147,9 +147,11 @@ TEST_F(AllegroFlare_Elements_LevelSelectTest,
 
 
 TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
-   DISABLED__activate_selected_menu_option__will_emit_an_ALLEGRO_FLARE_EVENT_SELECT_LEVEL_witH_the_expected_values)
+   DISABLED__activate_selected_menu_option__will_emit_an_ALLEGRO_FLARE_EVENT_SELECT_LEVEL_with_the_expected_values)
+   // TODO: this test
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ASSERT_NE(nullptr, event_queue);
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
