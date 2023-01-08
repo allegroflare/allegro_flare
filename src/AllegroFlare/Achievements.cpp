@@ -12,7 +12,7 @@ namespace AllegroFlare
 {
    Achievements::Achievements(
       EventEmitter *event_emitter,
-      std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements
+      std::vector<std::tuple<std::string, Achievement *, bool, bool>> all_achievements
    )
       : event_emitter(event_emitter)
       , all_achievements(all_achievements)
@@ -23,25 +23,25 @@ namespace AllegroFlare
    {}
 
 
-   bool Achievements::unlock(std::tuple<Achievement *, bool, bool> *achievement)
+   bool Achievements::unlock(std::tuple<std::string, Achievement *, bool, bool> *achievement)
    {
       if (!achievement)
       {
          // TODO: errors
       }
 
-      if (std::get<1>(*achievement) == true)
+      if (std::get<2>(*achievement) == true)
       {
          // TODO: consider outputting a message
          return false;
       }
       else
       {
-         std::get<0>(*achievement)->on_unlocked();
-         std::get<1>(*achievement) = true;
+         std::get<1>(*achievement)->on_unlocked();
+         std::get<2>(*achievement) = true;
          if (event_emitter)
          {
-            Achievement* completed_achievement = std::get<0>(*achievement);
+            Achievement* completed_achievement = std::get<1>(*achievement);
             event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
          }
          return true;
@@ -51,19 +51,32 @@ namespace AllegroFlare
 
    void Achievements::add(std::string identifier, Achievement *achievement)
    {
+      std::tuple<std::string, Achievement *, bool, bool> *existing_achievement = find(identifier);
+      if (existing_achievement)
+      {
+         // throw achievement with this name already exists
+      }
       // TODO: check for overwrite
-      std::get<0>(all_achievements[identifier]) = achievement;
-      std::get<1>(all_achievements[identifier]) = false;
+      all_achievements.push_back(
+         std::tuple<std::string, Achievement *, bool, bool>({
+            identifier,
+            achievement,
+            false,
+            false
+         })
+      );
+      //std::get<1>(*existing_achievement) = achievement; // TODO: here
+      //std::get<2>(*existing_achievement) = false;       // TODO: here
    }
 
 
-   void Achievements::set_achievements(std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements)
+   void Achievements::set_achievements(std::vector<std::tuple<std::string, Achievement *, bool, bool>> all_achievements)
    {
       this->all_achievements = all_achievements;
    }
 
 
-   std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> Achievements::get_achievements()
+   std::vector<std::tuple<std::string, Achievement *, bool, bool>> Achievements::get_achievements()
    {
       return all_achievements;
    }
@@ -73,10 +86,10 @@ namespace AllegroFlare
    {
       for (auto &achievement : all_achievements)
       {
-         bool achievement_already_unlocked = std::get<1>(achievement.second);
-         if (!achievement_already_unlocked && std::get<0>(achievement.second)->test_condition())
+         bool achievement_already_unlocked = std::get<2>(achievement);
+         if (!achievement_already_unlocked && std::get<1>(achievement)->test_condition())
          {
-            unlock(&achievement.second);
+            unlock(&achievement);
          }
       }
    }
@@ -94,11 +107,21 @@ namespace AllegroFlare
    }
 
 
+   std::tuple<std::string, Achievement *, bool, bool>* Achievements::find(std::string identifier)
+   {
+      for (auto &achievement : all_achievements)
+      {
+         if (std::get<0>(achievement) == identifier) return &achievement;
+      }
+      return nullptr;
+   }
+
+
    bool Achievements::all_unlocked()
    {
       for (auto &achievement : all_achievements)
       {
-         if (!std::get<1>(achievement.second)) return false;
+         if (!std::get<2>(achievement)) return false;
       }
       return true;
    }
@@ -106,8 +129,8 @@ namespace AllegroFlare
 
    bool Achievements::unlock_manually(std::string identifier)
    {
-      std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>>::iterator it = all_achievements.find(identifier);
-      if (it == all_achievements.end())
+      std::tuple<std::string, Achievement *, bool, bool> *found_achievement = find(identifier);
+      if (!found_achievement)
       {
          std::stringstream ss;
          ss << "[Achievements::unlock_manually] error: Could not find achievement with identifier \""
@@ -116,9 +139,9 @@ namespace AllegroFlare
          return false;
       }
 
-      std::tuple<Achievement *, bool, bool> &achievement = it->second;
+      //std::tuple<std::string, Achievement *, bool, bool> &achievement = (*it);
 
-      return unlock(&achievement);
+      return unlock(found_achievement);
    }
 
 
@@ -134,9 +157,9 @@ namespace AllegroFlare
       for (auto &achievement : all_achievements)
       {
          result << "achievement: \""
-                << std::get<0>(achievement)    //.first
+                << std::get<1>(achievement)    //.first
                 << "\", unlocked: "
-                << (std::get<1>(achievement.second) ? "true" : "false")
+                << (std::get<2>(achievement) ? "true" : "false")
                 << std::endl;
       }
       return result.str();

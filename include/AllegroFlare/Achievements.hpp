@@ -4,7 +4,7 @@
 #include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <string>
-#include <unordered_map>
+#include <vector>
 #include <tuple>
 
 
@@ -14,13 +14,13 @@ namespace AllegroFlare
    {
    private:
       EventEmitter *event_emitter;
-      std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements;
-      bool unlock(std::tuple<Achievement *, bool, bool> *achievement);
+      std::vector<std::tuple<std::string, Achievement *, bool, bool>> all_achievements;
+      bool unlock(std::tuple<std::string, Achievement *, bool, bool> *achievement);
 
    public:
       Achievements(
          EventEmitter *event_emitter=nullptr,
-         std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements={}
+         std::vector<std::tuple<std::string, Achievement *, bool, bool>> all_achievements={}
       );
       ~Achievements();
 
@@ -31,8 +31,9 @@ namespace AllegroFlare
       bool all_unlocked();
       bool unlock_manually(std::string identifier);
 
-      void set_achievements(std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> all_achievements={});
-      std::unordered_map<std::string, std::tuple<Achievement *, bool, bool>> get_achievements();
+      void set_achievements(std::vector<std::tuple<std::string, Achievement *, bool, bool>> all_achievements={});
+      std::vector<std::tuple<std::string, Achievement *, bool, bool>> get_achievements();
+      std::tuple<std::string, Achievement *, bool, bool>* find(std::string identifier);
 
       void set_event_emitter(EventEmitter *event_emitter=nullptr);
       std::string dump();
