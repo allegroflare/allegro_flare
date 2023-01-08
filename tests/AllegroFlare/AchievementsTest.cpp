@@ -59,7 +59,8 @@ TEST(AllegroFlare_AchievementsTest,
 }
 
 
-TEST(AllegroFlare_AchievementsTest, unlock_manually__when_the_achievement_has_already_been_unlocked__does_nothing_and_returns_false)
+TEST(AllegroFlare_AchievementsTest,
+   unlock_manually__when_the_achievement_has_already_been_unlocked__does_nothing_and_returns_false)
 {
    AllegroFlare::Achievements achievements;
    AchievementTestClass achievement;

@@ -65,8 +65,6 @@ namespace AllegroFlare
             false
          })
       );
-      //std::get<1>(*existing_achievement) = achievement; // TODO: here
-      //std::get<2>(*existing_achievement) = false;       // TODO: here
    }
 
 
@@ -157,7 +155,7 @@ namespace AllegroFlare
       for (auto &achievement : all_achievements)
       {
          result << "achievement: \""
-                << std::get<1>(achievement)    //.first
+                << std::get<0>(achievement)    //.first
                 << "\", unlocked: "
                 << (std::get<2>(achievement) ? "true" : "false")
                 << std::endl;
