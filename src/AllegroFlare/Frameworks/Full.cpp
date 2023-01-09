@@ -60,6 +60,8 @@ Full::Full()
    , input_hints_tokens({})
    , escape_key_will_shutdown(true)
    , output_auto_created_config_warning(true)
+   , clear_to_color_before_calling_primary_timer_funcs(true)
+   , clear_depth_buffer_before_calling_primary_timer_funcs(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
    , input_hints_backfill_color(ALLEGRO_COLOR{0, 0, 0, 0})
@@ -502,6 +504,42 @@ void Full::disable_auto_created_config_warning()
 }
 
 
+void Full::enable_clear_to_color_before_calling_primary_timer_funcs()
+{
+   clear_to_color_before_calling_primary_timer_funcs = true;
+}
+
+
+void Full::disable_clear_to_color_before_calling_primary_timer_funcs()
+{
+   clear_to_color_before_calling_primary_timer_funcs = false;
+}
+
+
+bool Full::is_clear_to_color_before_calling_primary_timer_funcs_enabled()
+{
+   return clear_to_color_before_calling_primary_timer_funcs;
+}
+
+
+void Full::enable_clear_depth_buffer_before_calling_primary_timer_funcs()
+{
+   clear_depth_buffer_before_calling_primary_timer_funcs = true;
+}
+
+
+void Full::disable_clear_depth_buffer_before_calling_primary_timer_funcs()
+{
+   clear_depth_buffer_before_calling_primary_timer_funcs = false;
+}
+
+
+bool Full::is_clear_depth_buffer_before_calling_primary_timer_funcs_enabled()
+{
+   return clear_depth_buffer_before_calling_primary_timer_funcs;
+}
+
+
 bool Full::is_initialized()
 {
    return initialized;
@@ -703,8 +741,8 @@ void Full::primary_render()
    ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
    al_set_target_bitmap(backbuffer_bitmap);
 
-   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-   al_clear_depth_buffer(1);
+   if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+   if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
 
    if (screens.no_active_screens())
    {
