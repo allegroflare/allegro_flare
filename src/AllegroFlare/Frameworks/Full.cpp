@@ -738,6 +738,7 @@ void Full::primary_update()
 
 void Full::primary_render()
 {
+   profiler.start(".primary_render()");
    ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
    al_set_target_bitmap(backbuffer_bitmap);
 
@@ -752,11 +753,13 @@ void Full::primary_render()
    {
       screens.primary_timer_funcs();
    }
+   profiler.stop(".primary_render()");
 
-   al_set_target_bitmap(primary_sub_bitmap);
    draw_overlay();
 
+   profiler.start("al_flip_display()");
    al_flip_display();
+   profiler.stop("al_flip_display()");
 }
 
 
@@ -1180,6 +1183,9 @@ std::string Full::get_allegro_flare_version_string()
 
 void Full::draw_overlay()
 {
+   profiler.start(".draw_overlay()");
+   al_set_target_bitmap(primary_sub_bitmap);
+
    if (drawing_inputs_bar_overlay)
    {
       //if (!input_hints_tokens.empty() || show_input_hints_bar_when_empty) // this feature has not been requested
@@ -1213,6 +1219,7 @@ void Full::draw_overlay()
       AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&bitmaps, &fonts, notifications_to_render);
       notifications_renderer.render();
    }
+   profiler.stop(".draw_overlay()");
 
    if (drawing_profiler_graph)
    {
