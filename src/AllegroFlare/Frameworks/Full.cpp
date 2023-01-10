@@ -328,6 +328,10 @@ bool Full::initialize()
 
    //al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 16, ALLEGRO_REQUIRE);
 
+   // TODO: validate size of display before creating a window that is larger than the display. If so, output a
+   // warning.
+
+
    primary_display = create_display(
          1920,
          1080,
