@@ -20,6 +20,7 @@
 #include <AllegroFlare/EventNames.hpp>
 
 
+
 #include <AllegroFlare/Screens/Base.hpp>
 class ScreenTestClass : public AllegroFlare::Screens::Base
 {
@@ -272,7 +273,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    AllegroFlare::Frameworks::Full framework;
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
-   framework.initialize();
+   framework.initialize(); // <-- TODO: consider running this test under "initialize_without_display()";
 
    //event_emitter.emit_play_sound_effect_event("my-sound-identifier");
 

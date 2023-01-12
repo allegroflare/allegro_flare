@@ -202,6 +202,8 @@ bool Full::initialize_without_display()
 
    if (!al_init()) std::cerr << "al_init() failed" << std::endl;
 
+
+
    // Before setting the path, we will need to capture the existing path so it can be restores
    // after destruction.
 
@@ -214,28 +216,6 @@ bool Full::initialize_without_display()
       std::cout << info_message << std::endl;
    }
    working_directory_before_init = std::filesystem::current_path().string();
-
-
-   //if (!deployment_environment.is_test()) // TODO: Consider this
-   //{
-      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
-      al_destroy_path(resource_path);
-   //}
-
-   if (!al_install_mouse()) std::cerr << "al_install_mouse() failed" << std::endl;
-   if (!al_install_keyboard()) std::cerr << "al_install_keyboard() failed" << std::endl;
-   if (!al_install_joystick()) std::cerr << "al_install_joystick() failed" << std::endl;
-   if (!al_install_audio()) std::cerr << "al_install_audio() failed" << std::endl;
-
-   if (!al_init_native_dialog_addon()) std::cerr << "al_init_native_dialog_addon() failed" << std::endl;
-   if (!al_init_primitives_addon()) std::cerr << "al_init_primitives_addon() failed" << std::endl;
-   if (!al_init_image_addon()) std::cerr << "al_init_image_addon() failed" << std::endl;
-   if (!al_init_font_addon()) std::cerr << "al_init_font_addon() failed" << std::endl;
-   if (!al_init_ttf_addon()) std::cerr << "al_init_ttf_addon() failed" << std::endl;
-   if (!al_init_acodec_addon()) std::cerr << "al_init_acodec_addon() failed" << std::endl;
-
-   if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
 
    if (deployment_environment.is_undefined())
    {
@@ -252,17 +232,51 @@ bool Full::initialize_without_display()
 
    if (deployment_environment.is_invalid())
    {
-      // TODO: this error message
-      //AllegroFlare::Logger::warn_from("AllegroFlare::Frameworks::Full::initialize_without_display",
-         //"The current deployment environment has not been defined. Before calling Frameworks::Full::initialize(), "
-         //"be sure to set a deployment environment with nn"
-      //);
+      AllegroFlare::Logger::throw_error("AllegroFlare::Frameworks::Full::initialize_without_display",
+         "The current deployment environment is invalid. Before calling Frameworks::Full::initialize(), "
+         "be sure to set a deployment environment with set_deployment_environment(...)."
+      );
    }
+
+   if (deployment_environment.is_production() || deployment_environment.is_development()) // TODO: Consider this
+   {
+      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
+      al_destroy_path(resource_path);
+   }
+   else // if deployment_environment is test
+   {
+      // Do nothing. Presume that the executable is being run from the root folder of the project, otherwise there
+      // will be undefined behavior.
+   }
+
+   std::string data_folder_path = deployment_environment.get_data_folder_path();
+
+
+
+   // Initialize Allegro's various parts
+
+   if (!al_install_mouse()) std::cerr << "al_install_mouse() failed" << std::endl;
+   if (!al_install_keyboard()) std::cerr << "al_install_keyboard() failed" << std::endl;
+   if (!al_install_joystick()) std::cerr << "al_install_joystick() failed" << std::endl;
+   if (!al_install_audio()) std::cerr << "al_install_audio() failed" << std::endl;
+
+   if (!al_init_native_dialog_addon()) std::cerr << "al_init_native_dialog_addon() failed" << std::endl;
+   if (!al_init_primitives_addon()) std::cerr << "al_init_primitives_addon() failed" << std::endl;
+   if (!al_init_image_addon()) std::cerr << "al_init_image_addon() failed" << std::endl;
+   if (!al_init_font_addon()) std::cerr << "al_init_font_addon() failed" << std::endl;
+   if (!al_init_ttf_addon()) std::cerr << "al_init_ttf_addon() failed" << std::endl;
+   if (!al_init_acodec_addon()) std::cerr << "al_init_acodec_addon() failed" << std::endl;
+
+   if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
+
+
+
+   // Setup our preferred objects & settings
 
    srand(time(NULL));
 
    primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
-
 
    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
    //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
@@ -295,10 +309,10 @@ bool Full::initialize_without_display()
 
    // TODO: prevent these paths from being hard-coded, or, allow it to be hard-coded in the context of
    // different deployment environments.
-   fonts.set_path("data/fonts");
-   samples.set_path("data/samples");
-   bitmaps.set_path("data/bitmaps");
-   models.set_path("data/models");
+   fonts.set_path(data_folder_path + "fonts");
+   samples.set_path(data_folder_path + "samples");
+   bitmaps.set_path(data_folder_path + "bitmaps");
+   models.set_path(data_folder_path + "models");
 
    config.load_or_create_empty(output_auto_created_config_warning);
 
@@ -310,6 +324,9 @@ bool Full::initialize_without_display()
 
    audio_controller.initialize();
  
+
+
+   // Finalize initialization
 
    initialized = true;
 

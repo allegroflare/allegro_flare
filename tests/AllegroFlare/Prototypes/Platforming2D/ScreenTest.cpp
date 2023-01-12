@@ -33,7 +33,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    framework.set_deployment_environment("test");
    framework.initialize();
 
-   //std::string data_folder_path = framework.get_data_folder_path();
+   std::string data_folder_path = framework.get_data_folder_path();
 
 
    //framework.get_bitmap_bin_ref().set_full_path(framework.get_data_folder_path() + "bitmaps/");
@@ -45,8 +45,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    platforming_2d.set_map_dictionary({
       //{ "map_a", data_folder_path + "maps/map1-0x.tmj" },
       //{ "map_b", data_folder_path + "maps/map1b-0x.tmj" },
-      { "map_a", TEST_BASE_FOLDER "maps/map1-0x.tmj" },
-      { "map_b", TEST_BASE_FOLDER "maps/map1b-0x.tmj" },
+      { "map_a", data_folder_path + "maps/map1-0x.tmj" },
+      { "map_b", data_folder_path + "maps/map1b-0x.tmj" },
    });
    platforming_2d.initialize_maps();
    platforming_2d.set_currently_active_map("map_a");
