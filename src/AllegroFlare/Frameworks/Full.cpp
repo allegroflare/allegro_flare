@@ -402,6 +402,15 @@ void Full::disable_unset_deployment_environment_warning_on_initialization()
 void Full::set_deployment_environment(std::string environment)
 {
    // TODO: add tests for this function
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::set_deployment_environment",
+         "Could not set because the framework has already been initialized. "
+            "You must call this function before initializing the framework for it to take effect."
+      );
+   }
+
    deployment_environment.set_environment(environment);
 }
 
@@ -427,6 +436,22 @@ bool Full::is_deployment_environment_test()
 {
    // TODO: add tests for this function
    return deployment_environment.is_test();
+}
+
+
+
+std::string Full::get_data_folder_path()
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::get_data_folder_path",
+         "Could retrieve because the framework has not yet been initialized. "
+            "You must call this function after initialization so the path has been has been properly set."
+      );
+   }
+
+   return deployment_environment.get_data_folder_path();
 }
 
 

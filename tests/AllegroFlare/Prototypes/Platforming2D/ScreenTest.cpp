@@ -8,11 +8,11 @@
 
 
 // TODO: improve this:
-#if defined(_WIN32) || defined(_WIN64)
-#define TEST_BASE_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/"
-#else
-#define TEST_BASE_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/"
-#endif
+//#if defined(_WIN32) || defined(_WIN64)
+//#define TEST_BASE_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/"
+//#else
+//#define TEST_BASE_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/"
+//#endif
 
 
 
@@ -23,8 +23,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
-   //INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
    // TODO: restore this test
 {
    AllegroFlare::Frameworks::Full framework;

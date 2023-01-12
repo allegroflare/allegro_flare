@@ -122,6 +122,7 @@ namespace AllegroFlare
          bool is_deployment_environment_production();
          bool is_deployment_environment_development();
          bool is_deployment_environment_test();
+         std::string get_data_folder_path();
 
          void enable_escape_key_will_shutdown();
          void disable_escape_key_will_shutdown();
