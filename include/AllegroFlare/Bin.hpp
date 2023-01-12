@@ -120,7 +120,15 @@ namespace AllegroFlare
    {
       std::vector<std::string> path_parts = explode("/", path);
       if (directory) al_destroy_path(directory);
-      directory = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+      char *current_path = al_get_current_directory();
+      if (!current_path)
+      {
+         throw std::runtime_error("[AllegroFlare::Bin::set_path]: critical error: could not get the current path.");
+      }
+      directory = al_create_path_for_directory(current_path);
+      al_free(current_path);
+
+      //directory = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
       for (std::vector<std::string>::iterator it=path_parts.begin(); it!=path_parts.end(); it++)
       {
          al_append_path_component(directory, it->c_str());

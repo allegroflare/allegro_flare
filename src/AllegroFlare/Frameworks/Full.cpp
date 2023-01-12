@@ -253,6 +253,16 @@ bool Full::initialize_without_display()
    std::string data_folder_path = deployment_environment.get_data_folder_path();
 
 
+   // Output current directory that framework is being run from 
+   {
+      std::string info_message = AllegroFlare::Logger::build_info_message(
+         "AllegroFlare::Frameworks::Full::initialize_without_display",
+         "Running from working path: \"" + std::filesystem::current_path().string() + "\". "
+         "Data folder path: \"" + data_folder_path + "\""
+      );
+      std::cout << info_message << std::endl;
+   }
+
 
    // Initialize Allegro's various parts
 

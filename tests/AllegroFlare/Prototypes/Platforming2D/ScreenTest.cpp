@@ -28,9 +28,9 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    // TODO: restore this test
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
    framework.disable_auto_created_config_warning();
    framework.disable_fullscreen();
-   framework.set_deployment_environment("test");
    framework.initialize();
 
    std::string data_folder_path = framework.get_data_folder_path();
