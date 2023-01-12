@@ -7,15 +7,6 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 
 
-// TODO: improve this:
-//#if defined(_WIN32) || defined(_WIN64)
-//#define TEST_BASE_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/"
-//#else
-//#define TEST_BASE_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/"
-//#endif
-
-
-
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Prototypes::Platforming2D::Screen platforming2d;
@@ -23,9 +14,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
-   INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   // TODO: restore this test
+   //INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
@@ -61,8 +51,6 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    AllegroFlare::FrameAnimation::Book animation_book(
       data_folder_path + "bitmaps/sprites_grid-x.png",
       data_folder_path + "bitmaps/sprites_grid-x.json",
-      //"/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.png",
-      //"/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.json",
       1
    );
    animation_book.initialize();
