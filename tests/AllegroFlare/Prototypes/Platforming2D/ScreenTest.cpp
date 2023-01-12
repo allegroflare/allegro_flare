@@ -59,8 +59,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    // create an animation book (to create an frame_animated type from the factory)
    // TODO: introduce this concept to the test
    AllegroFlare::FrameAnimation::Book animation_book(
-      "bitmaps/sprites_grid-x.png",
-      "bitmaps/sprites_grid-x.json",
+      data_folder_path + "bitmaps/sprites_grid-x.png",
+      data_folder_path + "bitmaps/sprites_grid-x.json",
       //"/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.png",
       //"/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/sprites_grid-x.json",
       1

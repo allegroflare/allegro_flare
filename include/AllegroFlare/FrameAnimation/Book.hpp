@@ -29,7 +29,7 @@ namespace AllegroFlare
 
 
       public:
-         Book(std::string png_source_filename="./bin/data/bitmaps/sprites_grid-x.png", std::string json_source_filename="./bin/data/bitmaps/sprites_grid-x.json", int sprite_sheet_scale=5, int sprite_sheet_cell_width=48, int sprite_sheet_cell_height=48);
+         Book(std::string png_source_filename="sprites_grid-x.png", std::string json_source_filename="sprites_grid-x.json", int sprite_sheet_scale=5, int sprite_sheet_cell_width=48, int sprite_sheet_cell_height=48);
          ~Book();
 
          void set_dictionary(std::map<std::string, AllegroFlare::FrameAnimation::Animation> dictionary);
