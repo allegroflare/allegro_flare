@@ -24,3 +24,12 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, height__will_be_set_to_0_b
 }
 
 
+TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, resize__will_set_the_width_and_height_of_the_matrix)
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix filter_matrix;
+   filter_matrix.resize(8, 3);
+   EXPECT_EQ(8, filter_matrix.get_width());
+   EXPECT_EQ(3, filter_matrix.get_height());
+}
+
+
