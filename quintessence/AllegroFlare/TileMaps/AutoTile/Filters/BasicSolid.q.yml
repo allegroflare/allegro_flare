@@ -1,0 +1,87 @@
+parent_classes:
+
+
+  - class: AllegroFlare::TileMaps::AutoTile::Filters::Base
+    scope: public
+    init_with: AllegroFlare::TileMaps::AutoTile::Filters::BasicSolid::TYPE
+
+
+properties:
+
+
+  - name: solid_tile_value
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Filters/BasicSolid"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: process
+    virtual: true
+    override: true
+    type: bool
+    body: |
+      // TODO: rename this class to BasicSolid
+
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+
+
+      // Resize the result matrix
+      result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
+
+      std::vector<std::vector<int>> match_matrix = {
+        { 1 },
+      };
+
+      std::vector<std::vector<int>> apply_this = {
+        { solid_tile_value },
+      };
+
+      // HERE:
+      // TODO: Test if the if_match matrix fits, and if so, apply the apply_this matrix
+      for (int y=0; y<input_matrix.get_height(); y++)
+         for (int x=0; x<input_matrix.get_width(); x++)
+         {
+            if (matrix_matches(match_matrix, x, y)) result_matrix.set_tile(x, y, solid_tile_value);
+         }
+
+      return true;
+
+
+  - name: matrix_matches
+    type: bool
+    parameters:
+      - name: match_matrix
+        type: std::vector<std::vector<int>>
+        default_argument: '{}'
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+    guards: [ AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix) ]
+    body: |
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+      return input_matrix.tile_matches(x, y, match_matrix[0][0]); // WARNING: this is hard-coded (0, 0)
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::TileMaps::AutoTile::Filters::Base
+    headers: [ AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp ]
+  - symbol: AllegroFlare::TileMaps::AutoTile::FilterMatrix
+    headers: [ AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp ]
+
