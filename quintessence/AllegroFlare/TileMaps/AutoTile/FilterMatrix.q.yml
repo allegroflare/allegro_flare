@@ -1,0 +1,64 @@
+properties:
+
+
+  - name: matrix
+    type: std::vector<std::vector<int>>
+    init_with: ''
+
+  - name: axis
+    type: std::pair<int, int>
+    init_with: std::make_pair(0, 0)
+
+
+functions:
+
+
+  - name: resize
+    parameters:
+      - name: width
+        type: int
+        default_argument: 1
+      - name: height
+        type: int
+        default_argument: 1
+    guards: [ (width > 1), (height > 1) ]
+    body: |
+      matrix.resize(height);
+      for (auto &row : matrix)
+      {
+         row.resize(width, 0);
+      }
+      return;
+
+
+  - name: get_width
+    type: int
+    const: true
+    body: |
+      if (matrix.empty()) return 0;
+      return matrix[0].size();
+
+
+  - name: get_height
+    type: int
+    const: true
+    body: |
+      return matrix.size();
+
+
+  - name: set_tile
+    parameters:
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: tile_value
+        type: int
+        default_argument: 0
+    guards: [ (x < get_width()), (y < get_height()), (x >= 0), (y >= 0) ]
+    body: |
+      matrix[y][x] = tile_value;
+
+
