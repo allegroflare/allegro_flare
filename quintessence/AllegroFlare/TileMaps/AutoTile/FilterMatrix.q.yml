@@ -4,6 +4,7 @@ properties:
   - name: matrix
     type: std::vector<std::vector<int>>
     init_with: ''
+    getter: true
 
   - name: axis
     type: std::pair<int, int>

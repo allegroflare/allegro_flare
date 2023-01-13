@@ -27,6 +27,12 @@ FilterMatrix::~FilterMatrix()
 }
 
 
+std::vector<std::vector<int>> FilterMatrix::get_matrix() const
+{
+   return matrix;
+}
+
+
 void FilterMatrix::resize(int width, int height)
 {
    if (!((width > 1)))

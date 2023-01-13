@@ -24,6 +24,7 @@ namespace AllegroFlare
             FilterMatrix();
             ~FilterMatrix();
 
+            std::vector<std::vector<int>> get_matrix() const;
             void resize(int width=1, int height=1);
             int get_width() const;
             int get_height() const;

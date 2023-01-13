@@ -33,3 +33,18 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, resize__will_set_the_width
 }
 
 
+TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, resize__will_clear_all_tiles_to_a_value_of_zero)
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix filter_matrix;
+   filter_matrix.resize(4, 3);
+
+   std::vector<std::vector<int>> expected_matrix = {
+      { 0, 0, 0, 0 },
+      { 0, 0, 0, 0 },
+      { 0, 0, 0, 0 },
+   };
+
+   EXPECT_EQ(expected_matrix, filter_matrix.get_matrix());
+}
+
+
