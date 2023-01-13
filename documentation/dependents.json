@@ -2087,7 +2087,8 @@
     "AllegroFlare/TileMaps/AutoTile/Filters/Base"
   ],
   "AllegroFlare/TileMaps/AutoTile/Filters/Base": [
-    "AllegroFlare/TileMaps/AutoTile/Filters/Basic"
+    "AllegroFlare/TileMaps/AutoTile/Filters/Basic",
+    "AllegroFlare/TileMaps/AutoTile/Filters/Fill"
   ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh",
