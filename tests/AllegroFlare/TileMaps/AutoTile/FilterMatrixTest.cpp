@@ -3,6 +3,8 @@
 
 #include <AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp>
 
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
+
 
 TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, can_be_created_without_blowing_up)
 {
@@ -64,6 +66,19 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, set_tile__will_set_the_til
    };
 
    EXPECT_EQ(expected_matrix, filter_matrix.get_matrix());
+}
+
+
+TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest,
+   set_tile__setting_coordinates_outsize_the_dimensions__will_throw_an_error)
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix filter_matrix;
+   filter_matrix.resize(4, 3);
+
+   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(-1, 0, 999), "FilterMatrix::set_tile", "(x >= 0)");
+   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(4, 0, 999), "FilterMatrix::set_tile", "(x < get_width())");
+   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(0, -1, 999), "FilterMatrix::set_tile", "(y >= 0)");
+   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(0, 3, 999), "FilterMatrix::set_tile", "(y < get_height())");
 }
 
 
