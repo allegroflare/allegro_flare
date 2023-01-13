@@ -48,3 +48,22 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, resize__will_clear_all_til
 }
 
 
+TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, set_tile__will_set_the_tile_at_the_coordinate)
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix filter_matrix;
+   filter_matrix.resize(4, 3);
+
+   filter_matrix.set_tile(1, 2, 7);
+   filter_matrix.set_tile(3, 1, 9);
+   filter_matrix.set_tile(0, 0, 6);
+
+   std::vector<std::vector<int>> expected_matrix = {
+      { 6, 0, 0, 0 },
+      { 0, 0, 0, 9 },
+      { 0, 7, 0, 0 },
+   };
+
+   EXPECT_EQ(expected_matrix, filter_matrix.get_matrix());
+}
+
+
