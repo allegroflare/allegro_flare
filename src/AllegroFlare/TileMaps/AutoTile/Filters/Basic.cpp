@@ -33,9 +33,11 @@ std::string Basic::get_property() const
 }
 
 
-bool Basic::property_is(std::string possible_type)
+bool Basic::process()
 {
-   return (possible_type == get_property());
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   result_matrix.resize(1, 2);
+   return true;
 }
 
 

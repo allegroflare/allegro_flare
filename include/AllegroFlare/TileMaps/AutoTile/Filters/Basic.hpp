@@ -26,10 +26,10 @@ namespace AllegroFlare
 
             public:
                Basic(std::string property="[unset-property]");
-               ~Basic();
+               virtual ~Basic();
 
                std::string get_property() const;
-               bool property_is(std::string possible_type="");
+               virtual bool process() override;
             };
          }
       }

@@ -2082,6 +2082,12 @@
   "AllegroFlare/DeploymentEnvironment": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
+    "AllegroFlare/TileMaps/AutoTile/Filters/Base"
+  ],
+  "AllegroFlare/TileMaps/AutoTile/Filters/Base": [
+    "AllegroFlare/TileMaps/AutoTile/Filters/Basic"
+  ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh",
     "Tileo/MeshWithNormals",

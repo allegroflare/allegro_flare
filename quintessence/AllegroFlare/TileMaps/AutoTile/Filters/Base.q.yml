@@ -7,6 +7,20 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: input_matrix
+    type: AllegroFlare::TileMaps::AutoTile::FilterMatrix
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: result_matrix
+    type: AllegroFlare::TileMaps::AutoTile::FilterMatrix
+    init_with: '{}'
+    getter: true
+    getter_ref: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Filters/Base"'
@@ -17,13 +31,17 @@ properties:
 functions:
 
 
-  - name: is_type
+  - name: process
     type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
+    virtual: true
     body: |
-      return (possible_type == get_type());
+      return true;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::TileMaps::AutoTile::FilterMatrix
+    headers: [ AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp ]
 
 

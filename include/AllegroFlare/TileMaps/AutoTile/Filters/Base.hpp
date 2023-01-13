@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp>
 #include <string>
 
 
@@ -19,16 +20,23 @@ namespace AllegroFlare
 
             private:
                std::string type;
+               AllegroFlare::TileMaps::AutoTile::FilterMatrix input_matrix;
+               AllegroFlare::TileMaps::AutoTile::FilterMatrix result_matrix;
 
             protected:
 
 
             public:
-               Base(std::string type=AllegroFlare::TileMaps::AutoTile::Filters::Base::TYPE);
-               ~Base();
+               Base(std::string type=AllegroFlare::TileMaps::AutoTile::Filters::Base::TYPE, AllegroFlare::TileMaps::AutoTile::FilterMatrix input_matrix={});
+               virtual ~Base();
 
+               void set_input_matrix(AllegroFlare::TileMaps::AutoTile::FilterMatrix input_matrix);
                std::string get_type() const;
-               bool is_type(std::string possible_type="");
+               AllegroFlare::TileMaps::AutoTile::FilterMatrix get_input_matrix() const;
+               AllegroFlare::TileMaps::AutoTile::FilterMatrix get_result_matrix() const;
+               AllegroFlare::TileMaps::AutoTile::FilterMatrix &get_input_matrix_ref();
+               AllegroFlare::TileMaps::AutoTile::FilterMatrix &get_result_matrix_ref();
+               virtual bool process();
             };
          }
       }
