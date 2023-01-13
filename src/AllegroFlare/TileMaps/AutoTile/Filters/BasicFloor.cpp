@@ -62,9 +62,12 @@ bool BasicFloor::process()
 
    // HERE:
    // TODO: Test if the if_match matrix fits, and if so, apply the apply_this matrix
-   //for (int y=0; y<height; y++)
-      //for (int x=0; x<width; x++)
-         //result_matrix.set_tile(x, y, tile_value);
+   for (int y=0; y<input_matrix.get_height(); y++)
+      for (int x=0; x<input_matrix.get_width(); x++)
+      {
+         if (input_matrix.tile_matches(x, y, 1)) result_matrix.set_tile(x, y, solid_tile_value);
+         //if (matrix_matches(match_matrix)) result_matrix.set_tile(x, y, solid_tile_value);
+      }
 
    return true;
 }
@@ -79,7 +82,8 @@ bool BasicFloor::matrix_matches(std::vector<std::vector<int>> match_matrix, int 
       throw std::runtime_error("BasicFloor::matrix_matches: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
    }
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
-   return input_matrix.tile_matches(x, y, match_matrix[0][0]); // WARNING: this is hard-coded (0, 0)
+   return input_matrix.tile_matches(x, y, 1); // WARNING: this is hard-coded (0, 0)
+   //return input_matrix.tile_matches(x, y, match_matrix[0][0]); // WARNING: this is hard-coded (0, 0)
 }
 
 
