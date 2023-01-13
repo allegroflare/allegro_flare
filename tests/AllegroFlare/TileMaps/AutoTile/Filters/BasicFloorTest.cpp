@@ -44,7 +44,7 @@ TEST(AllegroFlare_TileMaps_AutoTile_Filters_BasicFloorTest,
 TEST(AllegroFlare_TileMaps_AutoTile_Filters_BasicFloorTest,
    result_matrix__after_process__will_have_each_value_in_the_result_matrix_filled_with_tile_value)
 {
-   AllegroFlare::TileMaps::AutoTile::Filters::BasicFloor basic_filter(7);
+   AllegroFlare::TileMaps::AutoTile::Filters::BasicFloor basic_filter(9);
    basic_filter.set_input_matrix(
       AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
          { 0, 0, 0, 0 },
@@ -59,8 +59,8 @@ TEST(AllegroFlare_TileMaps_AutoTile_Filters_BasicFloorTest,
 
    std::vector<std::vector<int>> expected_matrix = {
       { 0, 0, 0, 0 },
-      { 0, 7, 7, 7 },
-      { 7, 7, 7, 7 },
+      { 0, 9, 9, 9 },
+      { 9, 0, 0, 0 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());

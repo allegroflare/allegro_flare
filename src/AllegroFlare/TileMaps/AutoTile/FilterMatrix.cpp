@@ -136,6 +136,17 @@ void FilterMatrix::set_tile(int x, int y, int tile_value)
    matrix[y][x] = tile_value;
 }
 
+bool FilterMatrix::set_tile_ignore_if_out_of_bounds(int x, int y, int tile_value)
+{
+   // TODO: test this function
+   if (!(x < get_width())) return false;
+   if (!(y < get_height())) return false;
+   if (!(x >= 0)) return false;
+   if (!(y >= 0)) return false;
+   matrix[y][x] = tile_value;
+   return true;
+}
+
 bool FilterMatrix::tile_matches(int x, int y, int tile_value)
 {
    // TODO: test this function

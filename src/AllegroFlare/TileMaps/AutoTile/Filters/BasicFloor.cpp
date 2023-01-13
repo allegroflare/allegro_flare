@@ -17,9 +17,9 @@ namespace Filters
 {
 
 
-BasicFloor::BasicFloor(int solid_tile_value)
+BasicFloor::BasicFloor(int floor_tile_value)
    : AllegroFlare::TileMaps::AutoTile::Filters::Base(AllegroFlare::TileMaps::AutoTile::Filters::BasicFloor::TYPE)
-   , solid_tile_value(solid_tile_value)
+   , floor_tile_value(floor_tile_value)
 {
 }
 
@@ -29,21 +29,20 @@ BasicFloor::~BasicFloor()
 }
 
 
-void BasicFloor::set_solid_tile_value(int solid_tile_value)
+void BasicFloor::set_floor_tile_value(int floor_tile_value)
 {
-   this->solid_tile_value = solid_tile_value;
+   this->floor_tile_value = floor_tile_value;
 }
 
 
-int BasicFloor::get_solid_tile_value() const
+int BasicFloor::get_floor_tile_value() const
 {
-   return solid_tile_value;
+   return floor_tile_value;
 }
 
 
 bool BasicFloor::process()
 {
-   // TODO: Re-implement this to actually filter on a floor match_filter
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
 
@@ -52,19 +51,23 @@ bool BasicFloor::process()
 
    // Build our match_matrix
    std::vector<std::vector<int>> match_matrix = {
+     { 0 },
      { 1 },
    };
 
    std::vector<std::vector<int>> apply_this = {
-     { solid_tile_value },
+     { 0 },
+     { floor_tile_value },
    };
 
-   // HERE:
-   // TODO: Test if the if_match matrix fits, and if so, apply the apply_this matrix
    for (int y=0; y<input_matrix.get_height(); y++)
       for (int x=0; x<input_matrix.get_width(); x++)
       {
-         if (matrix_matches(match_matrix, x, y)) result_matrix.set_tile(x, y, solid_tile_value);
+         if (matrix_matches(match_matrix, x, y))
+         {
+            //result_matrix.set_tile(x, y, floor_tile_value);
+            result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_value);
+         }
       }
 
    return true;
@@ -80,7 +83,10 @@ bool BasicFloor::matrix_matches(std::vector<std::vector<int>> match_matrix, int 
       throw std::runtime_error("BasicFloor::matrix_matches: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
    }
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
-   return input_matrix.tile_matches(x, y, match_matrix[0][0]); // WARNING: this is hard-coded (0, 0)
+   return (
+         input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
+      && input_matrix.tile_matches(x, y+1, match_matrix[1][0]) // WARNING: this is hard-coded (0, 0)
+   );
 }
 
 
