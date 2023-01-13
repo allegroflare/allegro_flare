@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::TileMaps::AutoTile::Filters::Base
     scope: public
-    init_with: AllegroFlare::TileMaps::AutoTile::Filters::Basic::TYPE
+    init_with: AllegroFlare::TileMaps::AutoTile::Filters::Fill::TYPE
 
 
 properties:
@@ -18,15 +18,9 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"Filters/Basic"'
+    init_with: '(char*)"Filters/Fill"'
     static: true
     constexpr: true
-
-
-documentation:
-
-
-  - body: This class is an example class, not really practical. It's identical to Filters/Fill.
 
 
 functions:
