@@ -2083,6 +2083,7 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
+    "AllegroFlare/TileMaps/AutoTile/FilterMatrix",
     "AllegroFlare/TileMaps/AutoTile/Filters/Base"
   ],
   "AllegroFlare/TileMaps/AutoTile/Filters/Base": [

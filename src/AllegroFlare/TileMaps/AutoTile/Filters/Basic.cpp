@@ -15,9 +15,9 @@ namespace Filters
 {
 
 
-Basic::Basic(std::string property)
+Basic::Basic(int tile_value)
    : AllegroFlare::TileMaps::AutoTile::Filters::Base(AllegroFlare::TileMaps::AutoTile::Filters::Basic::TYPE)
-   , property(property)
+   , tile_value(tile_value)
 {
 }
 
@@ -27,16 +27,30 @@ Basic::~Basic()
 }
 
 
-std::string Basic::get_property() const
+void Basic::set_tile_value(int tile_value)
 {
-   return property;
+   this->tile_value = tile_value;
+}
+
+
+int Basic::get_tile_value() const
+{
+   return tile_value;
 }
 
 
 bool Basic::process()
 {
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
-   result_matrix.resize(1, 2);
+
+   result_matrix = get_input_matrix();
+   int width = result_matrix.get_width();
+   int height = result_matrix.get_height();
+
+   for (int y=0; y<height; y++)
+      for (int x=0; x<width; x++)
+         result_matrix.set_tile(x, y, tile_value);
+
    return true;
 }
 

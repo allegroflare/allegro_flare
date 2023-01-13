@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp>
 #include <utility>
 #include <vector>
 
@@ -25,6 +26,9 @@ namespace AllegroFlare
             ~FilterMatrix();
 
             std::vector<std::vector<int>> get_matrix() const;
+            static AllegroFlare::TileMaps::AutoTile::FilterMatrix build(std::vector<std::vector<int>> matrix={});
+            void set_matrix(std::vector<std::vector<int>> matrix={});
+            static bool STATIC_is_valid(std::vector<std::vector<int>> matrix={});
             void resize(int width=1, int height=1);
             int get_width() const;
             int get_height() const;

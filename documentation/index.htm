@@ -15049,6 +15049,15 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">build(std::vector&lt;std::vector&lt;int&gt;&gt; matrix={})</td>
+</tr>
+<tr>
+  <td class="method">set_matrix(std::vector&lt;std::vector&lt;int&gt;&gt; matrix={})</td>
+</tr>
+<tr>
+  <td class="method">STATIC_is_valid(std::vector&lt;std::vector&lt;int&gt;&gt; matrix={})</td>
+</tr>
+<tr>
   <td class="method">resize(int width=1, int height=1)</td>
 </tr>
 <tr>
@@ -15062,6 +15071,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::FilterMatrix&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -15103,8 +15115,8 @@ table td
     <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml</h3>
      <table>
 <tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
+  <td class="property">tile_value</td>
+  <td class="property">int</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -20187,6 +20199,7 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
+    "AllegroFlare/TileMaps/AutoTile/FilterMatrix",
     "AllegroFlare/TileMaps/AutoTile/Filters/Base"
   ],
   "AllegroFlare/TileMaps/AutoTile/Filters/Base": [

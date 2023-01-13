@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp>
-#include <string>
 
 
 namespace AllegroFlare
@@ -19,16 +18,17 @@ namespace AllegroFlare
                static constexpr char* TYPE = (char*)"Filters/Basic";
 
             private:
-               std::string property;
+               int tile_value;
 
             protected:
 
 
             public:
-               Basic(std::string property="[unset-property]");
+               Basic(int tile_value=0);
                virtual ~Basic();
 
-               std::string get_property() const;
+               void set_tile_value(int tile_value);
+               int get_tile_value() const;
                virtual bool process() override;
             };
          }

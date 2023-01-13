@@ -82,3 +82,22 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest,
 }
 
 
+TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, build__will_build_a_matrix_with_the_expected_data)
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix filter_matrix = 
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
+         { 6, 0, 0, 0 },
+         { 0, 0, 0, 9 },
+         { 0, 7, 0, 0 },
+      });
+
+   std::vector<std::vector<int>> expected_matrix = {
+      { 6, 0, 0, 0 },
+      { 0, 0, 0, 9 },
+      { 0, 7, 0, 0 },
+   };
+
+   EXPECT_EQ(expected_matrix, filter_matrix.get_matrix());
+}
+
+
