@@ -43,15 +43,14 @@ int BasicFloor::get_solid_tile_value() const
 
 bool BasicFloor::process()
 {
-   // TODO: rename this class to BasicSolid
-
+   // TODO: Re-implement this to actually filter on a floor match_filter
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
-
 
    // Resize the result matrix
    result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
+   // Build our match_matrix
    std::vector<std::vector<int>> match_matrix = {
      { 1 },
    };

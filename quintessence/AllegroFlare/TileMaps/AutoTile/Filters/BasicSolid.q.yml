@@ -31,25 +31,23 @@ functions:
     override: true
     type: bool
     body: |
-      // TODO: rename this class to BasicSolid
-
       AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
       AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
-
 
       // Resize the result matrix
       result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
+      // Create our filter match_matrix
       std::vector<std::vector<int>> match_matrix = {
         { 1 },
       };
 
+      // Create our apply matrix
       std::vector<std::vector<int>> apply_this = {
         { solid_tile_value },
       };
 
-      // HERE:
-      // TODO: Test if the if_match matrix fits, and if so, apply the apply_this matrix
+      // Iterate through each tile looking for matches
       for (int y=0; y<input_matrix.get_height(); y++)
          for (int x=0; x<input_matrix.get_width(); x++)
          {
