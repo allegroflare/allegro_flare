@@ -60,7 +60,7 @@ TEST(AllegroFlare_TileMaps_AutoTile_Filters_BasicFloorTest,
    std::vector<std::vector<int>> expected_matrix = {
       { 0, 0, 0, 0 },
       { 0, 7, 7, 7 },
-      { 7, 0, 0, 0 },
+      { 7, 7, 7, 7 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
