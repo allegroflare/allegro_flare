@@ -38,22 +38,23 @@ namespace AllegroFlare
                static constexpr char* TYPE = (char*)"Filters/SixteenEdges";
 
             private:
-               int floor_tile_value;
+               int solid_tile_value;
                std::map<uint32_t, int> sixteen_edges_tiles_definition;
 
             protected:
 
 
             public:
-               SixteenEdges(int floor_tile_value=0, std::map<uint32_t, int> sixteen_edges_tiles_definition=build_default_sixteen_edges_tiles_definition());
+               SixteenEdges(int solid_tile_value=1, std::map<uint32_t, int> sixteen_edges_tiles_definition=build_default_sixteen_edges_tiles_definition());
                virtual ~SixteenEdges();
 
-               void set_floor_tile_value(int floor_tile_value);
+               void set_solid_tile_value(int solid_tile_value);
                void set_sixteen_edges_tiles_definition(std::map<uint32_t, int> sixteen_edges_tiles_definition);
-               int get_floor_tile_value() const;
+               int get_solid_tile_value() const;
                std::map<uint32_t, int> get_sixteen_edges_tiles_definition() const;
                virtual bool process() override;
                bool matrix_matches(std::vector<std::vector<int>> match_matrix={}, int x=0, int y=0);
+               int get_tile_for(uint32_t edge_tile_name=UNDEF);
                static int tile_coord_to_contiguous(int tile_x=0, int tile_y=0, int tile_atlas_num_columns=0);
                static std::map<uint32_t, int> build_default_sixteen_edges_tiles_definition();
             };

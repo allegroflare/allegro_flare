@@ -9,9 +9,9 @@ parent_classes:
 properties:
 
 
-  - name: floor_tile_value
+  - name: solid_tile_value
     type: int
-    init_with: 0
+    init_with: 1
     constructor_arg: true
     getter: true
     setter: true
@@ -164,24 +164,24 @@ functions:
       // Resize the result matrix
       result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
-      // Build our match_matrix
-      std::vector<std::vector<int>> match_matrix = {
-        { 0 },
-        { 1 },
+      // Build our match_matrix for the floor tile
+      std::vector<std::vector<int>> floor_tile_match_matrix = {
+        { 0                },
+        { solid_tile_value },
       };
 
-      std::vector<std::vector<int>> apply_this = {
+      std::vector<std::vector<int>> floor_tile_apply_matrix = {
         { 0 },
-        { floor_tile_value },
+        { get_tile_for(TOP) },
       };
 
       for (int y=0; y<input_matrix.get_height(); y++)
          for (int x=0; x<input_matrix.get_width(); x++)
          {
-            if (matrix_matches(match_matrix, x, y))
+            if (matrix_matches(floor_tile_match_matrix, x, y))
             {
-               //result_matrix.set_tile(x, y, floor_tile_value);
-               result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_value);
+               //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // NOTE: tile not modified
+               result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // WARNING: hard-coded
             }
          }
 
@@ -207,6 +207,17 @@ functions:
             input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
          && input_matrix.tile_matches(x, y+1, match_matrix[1][0]) // WARNING: this is hard-coded (0, 0)
       );
+
+
+  - name: get_tile_for
+    type: int
+    parameters:
+      - name: edge_tile_name
+        type: uint32_t
+        default_argument: UNDEF
+    guards: [ (sixteen_edges_tiles_definition.count(edge_tile_name) != 0) ]
+    body: |
+      return sixteen_edges_tiles_definition[edge_tile_name];
 
 
   - name: tile_coord_to_contiguous

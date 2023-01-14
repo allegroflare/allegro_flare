@@ -51,7 +51,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
 TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
    result_matrix__after_process__will_have_each_value_in_the_result_matrix_filled_with_tile_value)
 {
-   AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges filter(9);
+   AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges filter;
    filter.set_input_matrix(
       AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
          { 0, 0, 0, 0 },
@@ -66,8 +66,8 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
 
    std::vector<std::vector<int>> expected_matrix = {
       { 0, 0, 0, 0 },
-      { 0, 9, 9, 9 },
-      { 9, 0, 0, 0 },
+      { 0, 2, 2, 2 },
+      { 2, 0, 0, 0 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());

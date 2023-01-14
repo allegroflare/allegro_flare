@@ -17,9 +17,9 @@ namespace Filters
 {
 
 
-SixteenEdges::SixteenEdges(int floor_tile_value, std::map<uint32_t, int> sixteen_edges_tiles_definition)
+SixteenEdges::SixteenEdges(int solid_tile_value, std::map<uint32_t, int> sixteen_edges_tiles_definition)
    : AllegroFlare::TileMaps::AutoTile::Filters::Base(AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges::TYPE)
-   , floor_tile_value(floor_tile_value)
+   , solid_tile_value(solid_tile_value)
    , sixteen_edges_tiles_definition(sixteen_edges_tiles_definition)
 {
 }
@@ -30,9 +30,9 @@ SixteenEdges::~SixteenEdges()
 }
 
 
-void SixteenEdges::set_floor_tile_value(int floor_tile_value)
+void SixteenEdges::set_solid_tile_value(int solid_tile_value)
 {
-   this->floor_tile_value = floor_tile_value;
+   this->solid_tile_value = solid_tile_value;
 }
 
 
@@ -42,9 +42,9 @@ void SixteenEdges::set_sixteen_edges_tiles_definition(std::map<uint32_t, int> si
 }
 
 
-int SixteenEdges::get_floor_tile_value() const
+int SixteenEdges::get_solid_tile_value() const
 {
-   return floor_tile_value;
+   return solid_tile_value;
 }
 
 
@@ -63,24 +63,24 @@ bool SixteenEdges::process()
    // Resize the result matrix
    result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
-   // Build our match_matrix
-   std::vector<std::vector<int>> match_matrix = {
-     { 0 },
-     { 1 },
+   // Build our match_matrix for the floor tile
+   std::vector<std::vector<int>> floor_tile_match_matrix = {
+     { 0                },
+     { solid_tile_value },
    };
 
-   std::vector<std::vector<int>> apply_this = {
+   std::vector<std::vector<int>> floor_tile_apply_matrix = {
      { 0 },
-     { floor_tile_value },
+     { get_tile_for(TOP) },
    };
 
    for (int y=0; y<input_matrix.get_height(); y++)
       for (int x=0; x<input_matrix.get_width(); x++)
       {
-         if (matrix_matches(match_matrix, x, y))
+         if (matrix_matches(floor_tile_match_matrix, x, y))
          {
-            //result_matrix.set_tile(x, y, floor_tile_value);
-            result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_value);
+            //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // NOTE: tile not modified
+            result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // WARNING: hard-coded
          }
       }
 
@@ -101,6 +101,18 @@ bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, in
          input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
       && input_matrix.tile_matches(x, y+1, match_matrix[1][0]) // WARNING: this is hard-coded (0, 0)
    );
+}
+
+int SixteenEdges::get_tile_for(uint32_t edge_tile_name)
+{
+   if (!((sixteen_edges_tiles_definition.count(edge_tile_name) != 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[SixteenEdges::get_tile_for]: error: guard \"(sixteen_edges_tiles_definition.count(edge_tile_name) != 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SixteenEdges::get_tile_for: error: guard \"(sixteen_edges_tiles_definition.count(edge_tile_name) != 0)\" not met");
+   }
+   return sixteen_edges_tiles_definition[edge_tile_name];
 }
 
 int SixteenEdges::tile_coord_to_contiguous(int tile_x, int tile_y, int tile_atlas_num_columns)

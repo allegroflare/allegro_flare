@@ -15237,7 +15237,7 @@ table td
     <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml</h3>
      <table>
 <tr>
-  <td class="property">floor_tile_value</td>
+  <td class="property">solid_tile_value</td>
   <td class="property">int</td>
 </tr>
 <tr>
@@ -15323,6 +15323,9 @@ table td
 </tr>
 <tr>
   <td class="method">matrix_matches(std::vector&lt;std::vector&lt;int&gt;&gt; match_matrix={}, int x=0, int y=0)</td>
+</tr>
+<tr>
+  <td class="method">get_tile_for(uint32_t edge_tile_name=UNDEF)</td>
 </tr>
 <tr>
   <td class="method">tile_coord_to_contiguous(int tile_x=0, int tile_y=0, int tile_atlas_num_columns=0)</td>
