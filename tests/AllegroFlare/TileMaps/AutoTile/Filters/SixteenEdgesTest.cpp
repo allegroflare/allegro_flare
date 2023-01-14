@@ -57,7 +57,8 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
          { 0, 0, 0, 0 },
          { 0, 1, 1, 1 },
          { 1, 1, 1, 1 },
-         { 1, 1, 1, 1 },
+         { 1, 1, 1, 1 }, // TODO: test cases for bottom left edge (and other edge case) tiles that take into
+                         // account *_matrix_offset_x and *_matrix_offset_y
       })
    );
 
