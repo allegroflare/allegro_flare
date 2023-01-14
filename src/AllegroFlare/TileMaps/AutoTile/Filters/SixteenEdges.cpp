@@ -178,6 +178,20 @@ bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, in
    }
    // TODO: un-hardcode this function:
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+   int match_matrix_width = match_matrix[0].size();
+   int match_matrix_height = match_matrix.size();
+
+   for (int y=0; y<match_matrix_height; y++)
+      for (int x=0; x<match_matrix_width; x++)
+      {
+         int match_matrix_tile_value = match_matrix[y][x];
+         if (ignore_if_negative_tile_value_on_match_matrix && match_matrix_tile_value < 0) continue;
+
+         // TODO: this logic step here and use it to replace the hard-coded values a few lines down
+         //if (!input_matrix.tile_matches(x, y, match_matrix_tile_value)) return false;
+      }
+   //return true;
+
    return (
          input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
       && input_matrix.tile_matches(x, y+1, match_matrix[1][0]) // WARNING: this is hard-coded (0, 0)
