@@ -71,7 +71,7 @@ bool SixteenEdges::process()
 
    // Build our apply_matrix for the "floor tile filter"
    std::vector<std::vector<int>> floor_tile_apply_matrix = {
-     { 0 },
+     { -1 },
      { get_tile_for(TOP) },
    };
 
@@ -89,9 +89,31 @@ bool SixteenEdges::process()
    return true;
 }
 
-void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int x, int y, bool ignore_if_out_of_bounds_on_result, bool ignore_if_negative_tile_value_on_stamp)
+void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int offset_x, int offset_y, bool ignore_if_out_of_bounds_on_result, bool ignore_if_negative_tile_value_on_stamp)
 {
-   // TODO: this function
+   if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)))
+   {
+      std::stringstream error_message;
+      error_message << "[SixteenEdges::stamp_to_result]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SixteenEdges::stamp_to_result: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)\" not met");
+   }
+   // TODO: consider removing "STATIC_is_valid" guard for performance
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   int stamp_matrix_width = stamp_matrix[0].size();
+   int stamp_matrix_height = stamp_matrix.size();
+
+   for (int y=0; y<stamp_matrix_height; y++)
+      for (int x=0; x<stamp_matrix_width; x++)
+      {
+         // Get the stamp value
+         int stamp_tile_value = stamp_matrix[y][x];
+         // Skip if we don't want negative stamp values
+         if (ignore_if_negative_tile_value_on_stamp && stamp_tile_value < 0) continue;
+
+         result_matrix.set_tile(offset_x + x, offset_y + y, stamp_tile_value);
+      }
+
    return;
 }
 

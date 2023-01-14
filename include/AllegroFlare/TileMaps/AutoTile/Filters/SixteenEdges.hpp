@@ -53,7 +53,7 @@ namespace AllegroFlare
                int get_solid_tile_value() const;
                std::map<uint32_t, int> get_sixteen_edges_tiles_definition() const;
                virtual bool process() override;
-               void stamp_to_result(std::vector<std::vector<int>> stamp_matrix={}, int x=0, int y=0, bool ignore_if_out_of_bounds_on_result=true, bool ignore_if_negative_tile_value_on_stamp=true);
+               void stamp_to_result(std::vector<std::vector<int>> stamp_matrix={}, int offset_x=0, int offset_y=0, bool ignore_if_out_of_bounds_on_result=true, bool ignore_if_negative_tile_value_on_stamp=true);
                bool matrix_matches(std::vector<std::vector<int>> match_matrix={}, int x=0, int y=0);
                int get_tile_for(uint32_t edge_tile_name=UNDEF);
                static int tile_coord_to_contiguous(int tile_x=0, int tile_y=0, int tile_atlas_num_columns=0);

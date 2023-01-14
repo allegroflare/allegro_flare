@@ -172,7 +172,7 @@ functions:
 
       // Build our apply_matrix for the "floor tile filter"
       std::vector<std::vector<int>> floor_tile_apply_matrix = {
-        { 0 },
+        { -1 },
         { get_tile_for(TOP) },
       };
 
@@ -195,10 +195,10 @@ functions:
       - name: stamp_matrix
         type: std::vector<std::vector<int>>
         default_argument: '{}'
-      - name: x
+      - name: offset_x
         type: int
         default_argument: 0
-      - name: y
+      - name: offset_y
         type: int
         default_argument: 0
       - name: ignore_if_out_of_bounds_on_result
@@ -207,8 +207,24 @@ functions:
       - name: ignore_if_negative_tile_value_on_stamp
         type: bool
         default_argument: true
+    guards: [ "AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)" ]
     body: |
-      // TODO: this function
+      // TODO: consider removing "STATIC_is_valid" guard for performance
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+      int stamp_matrix_width = stamp_matrix[0].size();
+      int stamp_matrix_height = stamp_matrix.size();
+
+      for (int y=0; y<stamp_matrix_height; y++)
+         for (int x=0; x<stamp_matrix_width; x++)
+         {
+            // Get the stamp value
+            int stamp_tile_value = stamp_matrix[y][x];
+            // Skip if we don't want negative stamp values
+            if (ignore_if_negative_tile_value_on_stamp && stamp_tile_value < 0) continue;
+
+            result_matrix.set_tile(offset_x + x, offset_y + y, stamp_tile_value);
+         }
+
       return;
 
 
