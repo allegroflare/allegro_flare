@@ -105,7 +105,7 @@ bool SixteenEdges::process()
    return true;
 }
 
-void SixteenEdges::iterate_through_input_and_apply_to_result_if_match(std::vector<std::vector<int>> match_matrix, std::vector<std::vector<int>> apply_matrix)
+void SixteenEdges::iterate_through_input_and_apply_to_result_if_match(std::vector<std::vector<int>> match_matrix, std::vector<std::vector<int>> apply_matrix, bool ignore_if_negative_tile_value_on_match_matrix, bool out_of_bounds_on_input_matrix_is_positive_match, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
@@ -129,15 +129,29 @@ void SixteenEdges::iterate_through_input_and_apply_to_result_if_match(std::vecto
    for (int y=0; y<input_matrix.get_height(); y++)
       for (int x=0; x<input_matrix.get_width(); x++)
       {
-         if (matrix_matches(match_matrix, x, y))
+         bool matrix_match_is_positive = matrix_matches(
+               match_matrix,
+               x,
+               y,
+               ignore_if_negative_tile_value_on_match_matrix,
+               out_of_bounds_on_input_matrix_is_positive_match
+            );
+
+         if (matrix_match_is_positive)
          {
-            stamp_to_result(apply_matrix, x, y);
+            stamp_to_result(
+               apply_matrix,
+               x,
+               y,
+               ignore_write_if_negative_tile_value_on_stamp_tile,
+               ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix
+            );
          }
       }
    return;
 }
 
-void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int offset_x, int offset_y, bool ignore_if_out_of_bounds_on_result, bool ignore_if_negative_tile_value_on_stamp)
+void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int offset_x, int offset_y, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)))
    {
@@ -157,11 +171,17 @@ void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, i
          // Get the stamp value
          int stamp_tile_value = stamp_matrix[y][x];
          // Skip if we don't want negative stamp values
-         if (ignore_if_negative_tile_value_on_stamp && stamp_tile_value < 0) continue;
+         if (ignore_write_if_negative_tile_value_on_stamp_tile && stamp_tile_value < 0) continue;
 
-         result_matrix.set_tile_ignore_if_out_of_bounds(offset_x + x, offset_y + y, stamp_tile_value);
-         // TODO: respect "ignore_if_out_of_bounds_on_result" argument by calling this function instead:
-         //result_matrix.set_tile(offset_x + x, offset_y + y, stamp_tile_value);
+         if (ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
+         {
+            result_matrix.set_tile_ignore_if_out_of_bounds(offset_x + x, offset_y + y, stamp_tile_value);
+         }
+         else
+         {
+            // TODO: test this case
+            result_matrix.set_tile(offset_x + x, offset_y + y, stamp_tile_value);
+         }
       }
 
    return;
@@ -187,7 +207,13 @@ bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, in
          int match_matrix_tile_value = match_matrix[y][x];
          if (ignore_if_negative_tile_value_on_match_matrix && match_matrix_tile_value < 0) continue;
 
-         if (!input_matrix.tile_matches(offset_x + x, offset_y + y, match_matrix_tile_value)) return false;
+         if (!input_matrix.tile_matches(
+                  offset_x + x,
+                  offset_y + y,
+                  match_matrix_tile_value,
+                  out_of_bounds_on_input_is_positive_match
+               )
+         ) return false;
       }
    return true;
 
