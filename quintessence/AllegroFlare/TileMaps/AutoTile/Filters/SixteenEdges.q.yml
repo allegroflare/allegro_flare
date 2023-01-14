@@ -231,7 +231,6 @@ functions:
     static: true
     type: std::map<uint32_t, int>
     body: |
-      
       std::function<decltype(tile_coord_to_contiguous)> tc =
          AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges::tile_coord_to_contiguous;
       int num_columns = 8;

@@ -124,7 +124,6 @@ int SixteenEdges::tile_coord_to_contiguous(int tile_x, int tile_y, int tile_atla
 
 std::map<uint32_t, int> SixteenEdges::build_default_sixteen_edges_tiles_definition()
 {
-
    std::function<decltype(tile_coord_to_contiguous)> tc =
       AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges::tile_coord_to_contiguous;
    int num_columns = 8;
