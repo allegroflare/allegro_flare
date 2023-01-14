@@ -112,36 +112,41 @@ int SixteenEdges::tile_coord_to_contiguous(int tile_x, int tile_y, int tile_atla
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SixteenEdges::tile_coord_to_contiguous: error: guard \"(tile_atlas_num_columns > 0)\" not met");
    }
-   // TODO: this function
-   return 0;
+   if (!((tile_x < tile_atlas_num_columns)))
+   {
+      std::stringstream error_message;
+      error_message << "[SixteenEdges::tile_coord_to_contiguous]: error: guard \"(tile_x < tile_atlas_num_columns)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SixteenEdges::tile_coord_to_contiguous: error: guard \"(tile_x < tile_atlas_num_columns)\" not met");
+   }
+   return tile_x + tile_y * tile_atlas_num_columns;
 }
 
 std::map<uint32_t, int> SixteenEdges::build_default_sixteen_edges_tiles_definition()
 {
 
-   std::function<decltype(tile_coord_to_contiguous)> bitmap =
+   std::function<decltype(tile_coord_to_contiguous)> tc =
       AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges::tile_coord_to_contiguous;
-   //auto bitmap = 0;
-   auto c = 8; // num_columns_in_tilemap
+   int num_columns = 8;
 
    std::map<uint32_t, int> result = {
-      { UNDEF,        bitmap(0, 0, 8) },
-      { TOP_LEFT,     bitmap(1, 0, 8) },
-      { TOP,          bitmap(2, 0, 8) },
-      { TOP_RIGHT,    bitmap(4, 0, 8) },
-      { TOP_TIP,      bitmap(0, 0, 8) },
-      { LEFT,         bitmap(1, 1, 8) },
-      { FULL,         bitmap(2, 1, 8) }, // is this the same as "middle", "full", "center"
-      { RIGHT,        bitmap(3, 1, 8) },
-      { CENTER,       bitmap(2, 1, 8) }, // is this the same as "middle", "full", "center"
-      { BOTTOM_LEFT,  bitmap(1, 2, 8) },
-      { BOTTOM,       bitmap(2, 2, 8) },
-      { BOTTOM_RIGHT, bitmap(3, 2, 8) },
-      { BOTTOM_TIP,   bitmap(0, 2, 8) },
-      { LEFT_TIP,     bitmap(3, 1, 8) },
-      { MIDDLE,       bitmap(2, 1, 8) }, // is this the same as "middle", "full", "center"
-      { RIGHT_TIP,    bitmap(3, 3, 8) },
-      { ISOLATED,     bitmap(0, 3, 8) },
+      { UNDEF,        tc(0, 0, num_columns) },
+      { TOP_LEFT,     tc(1, 0, num_columns) },
+      { TOP,          tc(2, 0, num_columns) },
+      { TOP_RIGHT,    tc(4, 0, num_columns) },
+      { TOP_TIP,      tc(0, 0, num_columns) },
+      { LEFT,         tc(1, 1, num_columns) },
+      { FULL,         tc(2, 1, num_columns) }, // is this the same as "middle", "full", "center"
+      { RIGHT,        tc(3, 1, num_columns) },
+      { CENTER,       tc(2, 1, num_columns) }, // is this the same as "middle", "full", "center"
+      { BOTTOM_LEFT,  tc(1, 2, num_columns) },
+      { BOTTOM,       tc(2, 2, num_columns) },
+      { BOTTOM_RIGHT, tc(3, 2, num_columns) },
+      { BOTTOM_TIP,   tc(0, 2, num_columns) },
+      { LEFT_TIP,     tc(3, 1, num_columns) },
+      { MIDDLE,       tc(2, 1, num_columns) }, // is this the same as "middle", "full", "center"
+      { RIGHT_TIP,    tc(3, 3, num_columns) },
+      { ISOLATED,     tc(0, 3, num_columns) },
    };
    return result;
 }
