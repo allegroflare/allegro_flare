@@ -190,6 +190,28 @@ functions:
       return true;
 
 
+  - name: stamp_to_result
+    parameters:
+      - name: stamp_matrix
+        type: std::vector<std::vector<int>>
+        default_argument: '{}'
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: ignore_if_out_of_bounds_on_result
+        type: bool
+        default_argument: true
+      - name: ignore_if_negative_tile_value_on_stamp
+        type: bool
+        default_argument: true
+    body: |
+      // TODO: this function
+      return;
+
+
   - name: matrix_matches
     type: bool
     parameters:

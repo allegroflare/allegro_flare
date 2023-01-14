@@ -89,6 +89,12 @@ bool SixteenEdges::process()
    return true;
 }
 
+void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int x, int y, bool ignore_if_out_of_bounds_on_result, bool ignore_if_negative_tile_value_on_stamp)
+{
+   // TODO: this function
+   return;
+}
+
 bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, int x, int y)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
