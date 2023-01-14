@@ -63,12 +63,13 @@ bool SixteenEdges::process()
    // Resize the result matrix
    result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
-   // Build our match_matrix for the floor tile
+   // Build our match_matrix for the "floor tile fiter"
    std::vector<std::vector<int>> floor_tile_match_matrix = {
      { 0                },
      { solid_tile_value },
    };
 
+   // Build our apply_matrix for the "floor tile filter"
    std::vector<std::vector<int>> floor_tile_apply_matrix = {
      { 0 },
      { get_tile_for(TOP) },
