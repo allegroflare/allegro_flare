@@ -87,6 +87,7 @@ bool SixteenEdges::process()
 
    // Build our match_matrix for the "deep solid tile fiter"
    std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
+     // TODO: use ignore tile in corner tiles of this matrix
      { s, s, s },
      { s, s, s },
      { s, s, s },
@@ -166,7 +167,7 @@ void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, i
    return;
 }
 
-bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, int x, int y)
+bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, int x, int y, bool ignore_if_negative_tile_value_on_match_matrix)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
@@ -175,6 +176,7 @@ bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, in
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SixteenEdges::matrix_matches: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
    }
+   // TODO: un-hardcode this function:
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    return (
          input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)

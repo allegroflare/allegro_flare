@@ -188,6 +188,7 @@ functions:
 
       // Build our match_matrix for the "deep solid tile fiter"
       std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
         { s, s, s },
         { s, s, s },
         { s, s, s },
@@ -285,8 +286,12 @@ functions:
       - name: y
         type: int
         default_argument: 0
+      - name: ignore_if_negative_tile_value_on_match_matrix
+        type: bool
+        default_argument: true
     guards: [ "AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)" ]
     body: |
+      // TODO: un-hardcode this function:
       AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
       return (
             input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
