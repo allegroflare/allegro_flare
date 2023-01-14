@@ -75,10 +75,30 @@ bool SixteenEdges::process()
      { get_tile_for(TOP) },
    };
 
+   iterate_through_input_and_apply_to_result_if_match(floor_tile_match_matrix, floor_tile_apply_matrix);
 
-   // Using our "floor_tile_[match|apply]_matrix", refer to them as simply "match_matrix" and "apply_matrix"
-   std::vector<std::vector<int>> &match_matrix = floor_tile_match_matrix;
-   std::vector<std::vector<int>> &apply_matrix = floor_tile_apply_matrix;
+   return true;
+}
+
+void SixteenEdges::iterate_through_input_and_apply_to_result_if_match(std::vector<std::vector<int>> match_matrix, std::vector<std::vector<int>> apply_matrix)
+{
+   if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
+   {
+      std::stringstream error_message;
+      error_message << "[SixteenEdges::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SixteenEdges::iterate_through_input_and_apply_to_result_if_match: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
+   }
+   if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)))
+   {
+      std::stringstream error_message;
+      error_message << "[SixteenEdges::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SixteenEdges::iterate_through_input_and_apply_to_result_if_match: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)\" not met");
+   }
+   // TODO: come up with a better name for this function
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
 
    // Comb through the input_matrix and stamp the result if there is a match
    for (int y=0; y<input_matrix.get_height(); y++)
@@ -86,13 +106,10 @@ bool SixteenEdges::process()
       {
          if (matrix_matches(match_matrix, x, y))
          {
-            //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // NOTE: tile not modified
-            //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // WARNING: hard-coded
             stamp_to_result(apply_matrix, x, y);
          }
       }
-
-   return true;
+   return;
 }
 
 void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int offset_x, int offset_y, bool ignore_if_out_of_bounds_on_result, bool ignore_if_negative_tile_value_on_stamp)
