@@ -8,13 +8,19 @@
     ],
     "fileStates": {
     },
+    "last.imagePath": "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps",
     "map.height": 25,
-    "map.lastUsedFormat": "tmx",
+    "map.lastUsedFormat": "json",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
     ],
     "project": "autotile-test-sandbox.tiled-project",
     "recentFiles": [
-    ]
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }

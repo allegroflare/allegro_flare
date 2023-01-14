@@ -2084,11 +2084,17 @@
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
     "AllegroFlare/TileMaps/AutoTile/FilterMatrix",
-    "AllegroFlare/TileMaps/AutoTile/Filters/Base"
+    "AllegroFlare/TileMaps/AutoTile/Filters/Base",
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor",
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
+    "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "AllegroFlare/TileMaps/AutoTile/Filters/Base": [
     "AllegroFlare/TileMaps/AutoTile/Filters/Basic",
-    "AllegroFlare/TileMaps/AutoTile/Filters/Fill"
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor",
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
+    "AllegroFlare/TileMaps/AutoTile/Filters/Fill",
+    "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh",

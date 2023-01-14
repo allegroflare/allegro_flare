@@ -73,7 +73,7 @@ functions:
       - name: y
         type: int
         default_argument: 0
-    guards: [ AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix) ]
+    guards: [ "AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)" ]
     body: |
       AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
       return (

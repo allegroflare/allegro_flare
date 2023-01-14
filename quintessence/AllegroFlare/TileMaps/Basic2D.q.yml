@@ -54,9 +54,10 @@ documentation:
 
   - body: |
       `Basic2D` is a combination of 3 main elements:
-         - `TileMaps::PrimMesh` for rendering tiles.
-         - `TileMaps::PrimMeshAtlas` a managed atlas that copies a bitmap and builds on initialization.
-         - `TileMaps::Tilemap<int>` that contains tile metadata, intended for collision data).
+         - `TileMaps::PrimMesh` used for rendering the tile map.
+         - `TileMaps::PrimMeshAtlas` an atlas for the prim mesh.  Note this is a managed atlas that copies a 
+            bitmap and builds on initialization.
+         - `TileMaps::Tilemap<int>` that contains tile metadata. So far, this is useful for collision info.
 
 
 functions:

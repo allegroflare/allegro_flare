@@ -266,7 +266,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/Basic2D.q.yml">quintessence/AllegroFlare/TileMaps/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml">quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMeshUV.q.yml">quintessence/AllegroFlare/TileMaps/MultiMeshUV.q.yml</a></li>
@@ -15070,6 +15073,12 @@ table td
 <tr>
   <td class="method">set_tile(int x=0, int y=0, int tile_value=0)</td>
 </tr>
+<tr>
+  <td class="method">set_tile_ignore_if_out_of_bounds(int x=0, int y=0, int tile_value=0)</td>
+</tr>
+<tr>
+  <td class="method">tile_matches(int x=0, int y=0, int tile_value=0)</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -15138,6 +15147,68 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">floor_tile_value</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">process()</td>
+</tr>
+<tr>
+  <td class="method">matrix_matches(std::vector&lt;std::vector&lt;int&gt;&gt; match_matrix={}, int x=0, int y=0)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::Filters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::FilterMatrix&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">solid_tile_value</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">process()</td>
+</tr>
+<tr>
+  <td class="method">matrix_matches(std::vector&lt;std::vector&lt;int&gt;&gt; match_matrix={}, int x=0, int y=0)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::Filters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::FilterMatrix&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml</h3>
      <table>
 <tr>
@@ -15157,6 +15228,37 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::Filters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">floor_tile_value</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">process()</td>
+</tr>
+<tr>
+  <td class="method">matrix_matches(std::vector&lt;std::vector&lt;int&gt;&gt; match_matrix={}, int x=0, int y=0)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::Filters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::FilterMatrix&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20226,11 +20328,17 @@ table td
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
     "AllegroFlare/TileMaps/AutoTile/FilterMatrix",
-    "AllegroFlare/TileMaps/AutoTile/Filters/Base"
+    "AllegroFlare/TileMaps/AutoTile/Filters/Base",
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor",
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
+    "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "AllegroFlare/TileMaps/AutoTile/Filters/Base": [
     "AllegroFlare/TileMaps/AutoTile/Filters/Basic",
-    "AllegroFlare/TileMaps/AutoTile/Filters/Fill"
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor",
+    "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
+    "AllegroFlare/TileMaps/AutoTile/Filters/Fill",
+    "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "ALLEGRO_VERTEX_DECL": [
     "AllegroFlare/TileMaps/MultiMesh",
