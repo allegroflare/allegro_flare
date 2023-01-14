@@ -28,6 +28,18 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - body: |
+      Note that a lot of logic in this initial concept is derived from 
+      https://github.com/MarkOates/tilemap/blob/master/include/tilemap, for example
+      https://github.com/MarkOates/tilemap/blob/master/include/tilemap/lib/SixteenEdgeTileSet.hpp
+    todos:
+      - Integrate SixteenEdgeTileSet concept for a quick draft at design
+
+
+
 functions:
 
 
