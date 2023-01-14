@@ -82,7 +82,8 @@ bool SixteenEdges::process()
          if (matrix_matches(floor_tile_match_matrix, x, y))
          {
             //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // NOTE: tile not modified
-            result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // WARNING: hard-coded
+            //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // WARNING: hard-coded
+            stamp_to_result(floor_tile_apply_matrix, x, y);
          }
       }
 
@@ -111,7 +112,9 @@ void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, i
          // Skip if we don't want negative stamp values
          if (ignore_if_negative_tile_value_on_stamp && stamp_tile_value < 0) continue;
 
-         result_matrix.set_tile(offset_x + x, offset_y + y, stamp_tile_value);
+         result_matrix.set_tile_ignore_if_out_of_bounds(offset_x + x, offset_y + y, stamp_tile_value);
+         // TODO: respect "ignore_if_out_of_bounds_on_result" argument by calling this function instead:
+         //result_matrix.set_tile(offset_x + x, offset_y + y, stamp_tile_value);
       }
 
    return;
