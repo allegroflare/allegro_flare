@@ -204,7 +204,9 @@ bool TMJDataLoader::load()
    tile_width = j["tilewidth"]; // get width
    tile_height = j["tileheight"]; // get height
 
-   // get first j["layers"] that is a ["type"] == "tilelayer"
+
+   // Get first layer that is of type "tilelayer" (and not named "collision")
+
    bool tilelayer_type_found = false;
    nlohmann::json tilelayer;
    for (auto &layer : j["layers"].items())
@@ -224,7 +226,8 @@ bool TMJDataLoader::load()
 
 
 
-   // get first j["layers"] that is a ["type"] == "tilelayer"
+   // Get the first layer named "collision"
+
    bool collision_tilelayer_type_found = false;
    nlohmann::json collision_tilelayer;
    for (auto &layer : j["layers"].items())
