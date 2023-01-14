@@ -66,10 +66,10 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
    auto result_matrix = filter.get_result_matrix();
 
    std::vector<std::vector<int>> expected_matrix = {
-      { 0,  0,  0,  0 },
-      { 0,  2,  2,  2 },
-      { 2, 10, 10, 10 },
-      { 0, 10, 10, 10 }, // TODO: the values in this body should be 10.
+      { 0,   0,  0,  0 },
+      { 0,   2,  2,  2 },
+      { 2,  10, 10, 10 },
+      { 10, 10, 10, 10 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
