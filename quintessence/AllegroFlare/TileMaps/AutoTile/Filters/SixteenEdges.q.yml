@@ -294,7 +294,7 @@ functions:
         default_argument: true
     guards: [ "AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)" ]
     body: |
-      // TODO: un-hardcode this function:
+      // TODO: un-hardcode this function (note is done, just leaving commented code preserved in case of needed revert)
       AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
       int match_matrix_width = match_matrix[0].size();
       int match_matrix_height = match_matrix.size();
