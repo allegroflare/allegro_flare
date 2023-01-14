@@ -88,9 +88,9 @@ bool SixteenEdges::process()
    // Build our match_matrix for the "deep solid tile fiter"
    std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
      // TODO: use ignore tile in corner tiles of this matrix
+     { _, s, _ },
      { s, s, s },
-     { s, s, s },
-     { s, s, s },
+     { _, s, _ },
    };
 
    // Build our apply_matrix for the "deep solid tile filter"

@@ -68,7 +68,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
    std::vector<std::vector<int>> expected_matrix = {
       { 0,  0,  0,  0 },
       { 0,  2,  2,  2 },
-      { 2,  0, 10,  0 }, // TODO: the values in this body should be 10. (requires "ignore tile") feature
+      { 2, 10, 10,  0 }, // TODO: the values in this body should be 10. (requires "ignore tile") feature
       { 0,  0,  0,  0 }, // TODO: the values in this body should be 10.
    };
 
