@@ -59,14 +59,19 @@ bool SixteenEdges::process()
    // TODO: this class
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   int &s = solid_tile_value;
+   int _ = -1;
 
    // Resize the result matrix
    result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
+
+   // floor tile
+
    // Build our match_matrix for the "floor tile fiter"
    std::vector<std::vector<int>> floor_tile_match_matrix = {
-     { 0                },
-     { solid_tile_value },
+     { 0 },
+     { s },
    };
 
    // Build our apply_matrix for the "floor tile filter"
@@ -76,6 +81,25 @@ bool SixteenEdges::process()
    };
 
    iterate_through_input_and_apply_to_result_if_match(floor_tile_match_matrix, floor_tile_apply_matrix);
+
+
+   // deep solid tile
+
+   // Build our match_matrix for the "deep solid tile fiter"
+   std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
+     { s, s, s },
+     { s, s, s },
+     { s, s, s },
+   };
+
+   // Build our apply_matrix for the "deep solid tile filter"
+   std::vector<std::vector<int>> deep_solid_tile_apply_matrix = {
+     { _, _,                    _ },
+     { _, get_tile_for(MIDDLE), _ },
+     { _, _,                    _ },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(deep_solid_tile_match_matrix, deep_solid_tile_apply_matrix);
 
    return true;
 }
