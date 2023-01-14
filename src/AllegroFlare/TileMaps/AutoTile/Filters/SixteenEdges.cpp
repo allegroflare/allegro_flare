@@ -82,7 +82,11 @@ bool SixteenEdges::process()
 
    iterate_through_input_and_apply_to_result_if_match(
       floor_tile_match_matrix,
-      floor_tile_apply_matrix
+      floor_tile_apply_matrix,
+      0, // TODO: feed in a match_matrix_offset_x here
+      0, // TODO: feed in a match_matrix_offset_y here
+      0, // TODO: feed in an apply_matrix_offset_x here
+      0  // TODO: feed in an apply_matrix_offset_y here
    );
 
 
@@ -103,7 +107,14 @@ bool SixteenEdges::process()
      { _, _,                    _ },
    };
 
-   iterate_through_input_and_apply_to_result_if_match(deep_solid_tile_match_matrix, deep_solid_tile_apply_matrix);
+   iterate_through_input_and_apply_to_result_if_match(
+      deep_solid_tile_match_matrix,
+      deep_solid_tile_apply_matrix,
+      0, // TODO: feed in a match_matrix_offset_x here
+      0, // TODO: feed in a match_matrix_offset_y here
+      0, // TODO: feed in an apply_matrix_offset_x here
+      0  // TODO: feed in an apply_matrix_offset_y here
+   );
 
    return true;
 }
@@ -136,6 +147,8 @@ void SixteenEdges::iterate_through_input_and_apply_to_result_if_match(std::vecto
                match_matrix,
                x,
                y,
+               match_matrix_offset_x,
+               match_matrix_offset_y,
                ignore_if_negative_tile_value_on_match_matrix,
                out_of_bounds_on_input_matrix_is_positive_match
             );
@@ -146,6 +159,8 @@ void SixteenEdges::iterate_through_input_and_apply_to_result_if_match(std::vecto
                apply_matrix,
                x,
                y,
+               apply_matrix_offset_x,
+               apply_matrix_offset_y,
                ignore_write_if_negative_tile_value_on_stamp_tile,
                ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix
             );
@@ -154,7 +169,7 @@ void SixteenEdges::iterate_through_input_and_apply_to_result_if_match(std::vecto
    return;
 }
 
-bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, int at_coord_x, int at_coord_y, bool ignore_if_negative_tile_value_on_match_matrix, bool out_of_bounds_on_input_is_positive_match)
+bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, int at_coord_x, int at_coord_y, int match_matrix_offset_x, int match_matrix_offset_y, bool ignore_if_negative_tile_value_on_match_matrix, bool out_of_bounds_on_input_is_positive_match)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
@@ -175,6 +190,7 @@ bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, in
          if (ignore_if_negative_tile_value_on_match_matrix && match_matrix_tile_value < 0) continue;
 
          if (!input_matrix.tile_matches(
+                  // TODO: use "match_matrix_offset_x" and "match_matrix_offset_y"
                   at_coord_x + x,
                   at_coord_y + y,
                   match_matrix_tile_value,
@@ -190,7 +206,7 @@ bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, in
    //);
 }
 
-void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int at_coord_x, int at_coord_y, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
+void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int at_coord_x, int at_coord_y, int apply_matrix_offset_x, int apply_matrix_offset_y, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)))
    {
@@ -214,10 +230,12 @@ void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, i
 
          if (ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
          {
+            // TODO: use "apply_matrix_offset_x" and "apply_matrix_offset_y"
             result_matrix.set_tile_ignore_if_out_of_bounds(at_coord_x + x, at_coord_y + y, stamp_tile_value);
          }
          else
          {
+            // TODO: use "apply_matrix_offset_x" and "apply_matrix_offset_y"
             // TODO: test this case
             result_matrix.set_tile(at_coord_x + x, at_coord_y + y, stamp_tile_value);
          }
