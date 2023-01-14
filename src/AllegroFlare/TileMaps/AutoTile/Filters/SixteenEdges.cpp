@@ -75,6 +75,7 @@ bool SixteenEdges::process()
      { get_tile_for(TOP) },
    };
 
+   // Comb through the input_matrix and stamp the result if there is a match
    for (int y=0; y<input_matrix.get_height(); y++)
       for (int x=0; x<input_matrix.get_width(); x++)
       {
