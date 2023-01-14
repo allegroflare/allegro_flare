@@ -176,15 +176,20 @@ functions:
         { get_tile_for(TOP) },
       };
 
+
+      // Using our "floor_tile_[match|apply]_matrix", refer to them as simply "match_matrix" and "apply_matrix"
+      std::vector<std::vector<int>> &match_matrix = floor_tile_match_matrix;
+      std::vector<std::vector<int>> &apply_matrix = floor_tile_apply_matrix;
+
       // Comb through the input_matrix and stamp the result if there is a match
       for (int y=0; y<input_matrix.get_height(); y++)
          for (int x=0; x<input_matrix.get_width(); x++)
          {
-            if (matrix_matches(floor_tile_match_matrix, x, y))
+            if (matrix_matches(match_matrix, x, y))
             {
                //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // NOTE: tile not modified
                //result_matrix.set_tile_ignore_if_out_of_bounds(x, y+1, floor_tile_apply_matrix[1][0] ); // WARNING: hard-coded
-               stamp_to_result(floor_tile_apply_matrix, x, y);
+               stamp_to_result(apply_matrix, x, y);
             }
          }
 
