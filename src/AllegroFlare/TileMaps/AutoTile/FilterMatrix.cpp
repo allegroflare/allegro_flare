@@ -147,13 +147,13 @@ bool FilterMatrix::set_tile_ignore_if_out_of_bounds(int x, int y, int tile_value
    return true;
 }
 
-bool FilterMatrix::tile_matches(int x, int y, int tile_value)
+bool FilterMatrix::tile_matches(int x, int y, int tile_value, bool match_true_if_out_of_bounds)
 {
    // TODO: test this function
-   if (!(x < get_width())) return false;
-   if (!(y < get_height())) return false;
-   if (!(x >= 0)) return false;
-   if (!(y >= 0)) return false;
+   if (!(x < get_width())) return match_true_if_out_of_bounds;
+   if (!(y < get_height())) return match_true_if_out_of_bounds;
+   if (!(x >= 0)) return match_true_if_out_of_bounds;
+   if (!(y >= 0)) return match_true_if_out_of_bounds;
    return (matrix[y][x] == tile_value);
 }
 

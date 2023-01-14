@@ -76,7 +76,7 @@ bool SixteenEdges::process()
 
    // Build our apply_matrix for the "floor tile filter"
    std::vector<std::vector<int>> floor_tile_apply_matrix = {
-     { -1 },
+     { _                 },
      { get_tile_for(TOP) },
    };
 
@@ -167,7 +167,7 @@ void SixteenEdges::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, i
    return;
 }
 
-bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, int x, int y, bool ignore_if_negative_tile_value_on_match_matrix)
+bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, int offset_x, int offset_y, bool ignore_if_negative_tile_value_on_match_matrix, bool out_of_bounds_on_input_is_positive_match)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
@@ -187,15 +187,14 @@ bool SixteenEdges::matrix_matches(std::vector<std::vector<int>> match_matrix, in
          int match_matrix_tile_value = match_matrix[y][x];
          if (ignore_if_negative_tile_value_on_match_matrix && match_matrix_tile_value < 0) continue;
 
-         // TODO: this logic step here and use it to replace the hard-coded values a few lines down
-         //if (!input_matrix.tile_matches(x, y, match_matrix_tile_value)) return false;
+         if (!input_matrix.tile_matches(offset_x + x, offset_y + y, match_matrix_tile_value)) return false;
       }
-   //return true;
+   return true;
 
-   return (
-         input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
-      && input_matrix.tile_matches(x, y+1, match_matrix[1][0]) // WARNING: this is hard-coded (0, 0)
-   );
+   //return (
+         //input_matrix.tile_matches(offset_x, offst_y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
+      //&& input_matrix.tile_matches(offset_x, offset_y+1, match_matrix[1][0]) // WARNING: this is hard-coded (0, 0)
+   //);
 }
 
 int SixteenEdges::get_tile_for(uint32_t edge_tile_name)

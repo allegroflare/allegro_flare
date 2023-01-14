@@ -145,12 +145,15 @@ functions:
       - name: tile_value
         type: int
         default_argument: 0
+      - name: match_true_if_out_of_bounds
+        type: bool
+        default_argument: false
     body: |
       // TODO: test this function
-      if (!(x < get_width())) return false;
-      if (!(y < get_height())) return false;
-      if (!(x >= 0)) return false;
-      if (!(y >= 0)) return false;
+      if (!(x < get_width())) return match_true_if_out_of_bounds;
+      if (!(y < get_height())) return match_true_if_out_of_bounds;
+      if (!(x >= 0)) return match_true_if_out_of_bounds;
+      if (!(y >= 0)) return match_true_if_out_of_bounds;
       return (matrix[y][x] == tile_value);
 
 
