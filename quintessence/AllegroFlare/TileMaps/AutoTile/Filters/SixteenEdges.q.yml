@@ -232,28 +232,30 @@ functions:
     static: true
     type: std::map<uint32_t, int>
     body: |
-      //auto &bitmap = tile_coord_to_contiguous;
-      auto bitmap = 0;
+      
+      std::function<decltype(tile_coord_to_contiguous)> bitmap =
+         AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges::tile_coord_to_contiguous;
+      //auto bitmap = 0;
       auto c = 8; // num_columns_in_tilemap
 
       std::map<uint32_t, int> result = {
-         { UNDEF,    bitmap },
-         { TOP_LEFT, bitmap },
-         { TOP,      bitmap },
-         { TOP_RIGHT, bitmap },
-         { TOP_TIP, bitmap },
-         { LEFT, bitmap },
-         { FULL, bitmap },
-         { RIGHT, bitmap },
-         { CENTER, bitmap },
-         { BOTTOM_LEFT, bitmap },
-         { BOTTOM, bitmap },
-         { BOTTOM_RIGHT, bitmap },
-         { BOTTOM_TIP, bitmap },
-         { LEFT_TIP, bitmap },
-         { MIDDLE, bitmap },
-         { RIGHT_TIP, bitmap },
-         { ISOLATED, bitmap },
+         { UNDEF,        bitmap(0, 0, 8) },
+         { TOP_LEFT,     bitmap(1, 0, 8) },
+         { TOP,          bitmap(2, 0, 8) },
+         { TOP_RIGHT,    bitmap(4, 0, 8) },
+         { TOP_TIP,      bitmap(0, 0, 8) },
+         { LEFT,         bitmap(1, 1, 8) },
+         { FULL,         bitmap(2, 1, 8) }, // is this the same as "middle", "full", "center"
+         { RIGHT,        bitmap(3, 1, 8) },
+         { CENTER,       bitmap(2, 1, 8) }, // is this the same as "middle", "full", "center"
+         { BOTTOM_LEFT,  bitmap(1, 2, 8) },
+         { BOTTOM,       bitmap(2, 2, 8) },
+         { BOTTOM_RIGHT, bitmap(3, 2, 8) },
+         { BOTTOM_TIP,   bitmap(0, 2, 8) },
+         { LEFT_TIP,     bitmap(3, 1, 8) },
+         { MIDDLE,       bitmap(2, 1, 8) }, // is this the same as "middle", "full", "center"
+         { RIGHT_TIP,    bitmap(3, 3, 8) },
+         { ISOLATED,     bitmap(0, 3, 8) },
       };
       return result;
 
