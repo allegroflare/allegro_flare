@@ -16,6 +16,132 @@ properties:
     getter: true
     setter: true
 
+  - name: sixteen_edges_tiles_definition
+    type: std::map<uint32_t, int>
+    constructor_arg: true
+    init_with: build_default_sixteen_edges_tiles_definition()
+    getter: true
+    setter: true
+
+  - name: UNDEF
+    type: uint32_t
+    init_with: 0
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP_LEFT
+    type: uint32_t
+    init_with: 1
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP
+    type: uint32_t
+    init_with: 2
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP_RIGHT
+    type: uint32_t
+    init_with: 3
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP_TIP
+    type: uint32_t
+    init_with: 4
+    const: true
+    constexpr: true
+    static: true
+
+  - name: LEFT
+    type: uint32_t
+    init_with: 5
+    const: true
+    constexpr: true
+    static: true
+
+  - name: FULL
+    type: uint32_t
+    init_with: 6
+    const: true
+    constexpr: true
+    static: true
+
+  - name: RIGHT
+    type: uint32_t
+    init_with: 7
+    const: true
+    constexpr: true
+    static: true
+
+  - name: CENTER
+    type: uint32_t
+    init_with: 8
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM_LEFT
+    type: uint32_t
+    init_with: 9
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM
+    type: uint32_t
+    init_with: 10
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM_RIGHT
+    type: uint32_t
+    init_with: 11
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM_TIP
+    type: uint32_t
+    init_with: 12
+    const: true
+    constexpr: true
+    static: true
+
+  - name: LEFT_TIP
+    type: uint32_t
+    init_with: 13
+    const: true
+    constexpr: true
+    static: true
+
+  - name: MIDDLE
+    type: uint32_t
+    init_with: 14
+    const: true
+    constexpr: true
+    static: true
+
+  - name: RIGHT_TIP
+    type: uint32_t
+    init_with: 15
+    const: true
+    constexpr: true
+    static: true
+
+  - name: ISOLATED
+    type: uint32_t
+    init_with: 16
+    const: true
+    constexpr: true
+    static: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Filters/SixteenEdges"'
@@ -81,6 +207,56 @@ functions:
             input_matrix.tile_matches(x, y,   match_matrix[0][0]) // WARNING: this is hard-coded (0, 0)
          && input_matrix.tile_matches(x, y+1, match_matrix[1][0]) // WARNING: this is hard-coded (0, 0)
       );
+
+
+  - name: tile_coord_to_contiguous
+    type: int
+    static: true
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+      - name: tile_atlas_num_columns
+        type: int
+        default_argument: 0
+    guards: [ (tile_atlas_num_columns > 0) ]
+    body: |
+      // TODO: this function
+      return 0;
+
+
+  - name: build_default_sixteen_edges_tiles_definition
+    static: true
+    type: std::map<uint32_t, int>
+    body: |
+      //auto &bitmap = tile_coord_to_contiguous;
+      auto bitmap = 0;
+      auto c = 8; // num_columns_in_tilemap
+
+      std::map<uint32_t, int> result = {
+         { UNDEF,    bitmap },
+         { TOP_LEFT, bitmap },
+         { TOP,      bitmap },
+         { TOP_RIGHT, bitmap },
+         { TOP_TIP, bitmap },
+         { LEFT, bitmap },
+         { FULL, bitmap },
+         { RIGHT, bitmap },
+         { CENTER, bitmap },
+         { BOTTOM_LEFT, bitmap },
+         { BOTTOM, bitmap },
+         { BOTTOM_RIGHT, bitmap },
+         { BOTTOM_TIP, bitmap },
+         { LEFT_TIP, bitmap },
+         { MIDDLE, bitmap },
+         { RIGHT_TIP, bitmap },
+         { ISOLATED, bitmap },
+      };
+      return result;
+
 
 
 dependencies:

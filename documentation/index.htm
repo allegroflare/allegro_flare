@@ -15241,6 +15241,78 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">sixteen_edges_tiles_definition</td>
+  <td class="property">std::map&lt;uint32_t, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">UNDEF</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP_LEFT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP_RIGHT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">LEFT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">FULL</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">RIGHT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">CENTER</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM_LEFT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM_RIGHT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">LEFT_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">MIDDLE</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">RIGHT_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">ISOLATED</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -15251,6 +15323,12 @@ table td
 </tr>
 <tr>
   <td class="method">matrix_matches(std::vector&lt;std::vector&lt;int&gt;&gt; match_matrix={}, int x=0, int y=0)</td>
+</tr>
+<tr>
+  <td class="method">tile_coord_to_contiguous(int tile_x=0, int tile_y=0, int tile_atlas_num_columns=0)</td>
+</tr>
+<tr>
+  <td class="method">build_default_sixteen_edges_tiles_definition()</td>
 </tr>
     </table>
      <table>
