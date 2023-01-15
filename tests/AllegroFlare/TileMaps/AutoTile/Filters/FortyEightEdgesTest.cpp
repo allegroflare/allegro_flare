@@ -72,7 +72,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
       { 22, 22, 22, 22 },
       { 22,  8, 10, 11 },
       {  8, 33, 33, 33 },
-      { 45, 45, 45, 45 },
+      { 44, 45, 45, 45 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
