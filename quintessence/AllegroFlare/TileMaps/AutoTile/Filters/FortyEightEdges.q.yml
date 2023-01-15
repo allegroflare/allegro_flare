@@ -457,6 +457,30 @@ functions:
       );
 
 
+      // TR BL
+
+      // Build our match_matrix for the "tr bl tile fiter"
+      std::vector<std::vector<int>> tr_bl_tile_match_matrix = {
+        { s, s, 0 },
+        { s, s, s },
+        { 0, s, s },
+      };
+
+      // Build our apply_matrix for the "tr bl tile filter"
+      std::vector<std::vector<int>> tr_bl_tile_apply_matrix = {
+        { get_tile_for(TR_BL) }, // TODO: find edge cases (on result matrix) where it might be improperly stamped
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         tr_bl_tile_match_matrix,
+         tr_bl_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
 
       // top left
 
