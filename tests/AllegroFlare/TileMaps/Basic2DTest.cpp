@@ -56,13 +56,39 @@ TEST_F(AllegroFlare_TileMaps_Basic2DTestWithAllegroRenderingFixture, render__wil
 
 
 TEST_F(AllegroFlare_TileMaps_Basic2DTestWithAllegroRenderingFixture,
+   get_num_rows__will_return_the_number_of_rows_in_the_tile_map)
+{
+   AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&get_bitmap_bin_ref());
+   basic2d_tile_map.set_atlas_configuration("uv.png", 100, 100);
+   basic2d_tile_map.initialize();
+
+   basic2d_tile_map.resize(20, 12);
+
+   EXPECT_EQ(12, basic2d_tile_map.get_num_rows());
+}
+
+
+TEST_F(AllegroFlare_TileMaps_Basic2DTestWithAllegroRenderingFixture,
+   get_num_columns__will_return_the_number_of_rows_in_the_tile_map)
+{
+   AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&get_bitmap_bin_ref());
+   basic2d_tile_map.set_atlas_configuration("uv.png", 100, 100);
+   basic2d_tile_map.initialize();
+
+   basic2d_tile_map.resize(20, 12);
+
+   EXPECT_EQ(20, basic2d_tile_map.get_num_columns());
+}
+
+
+TEST_F(AllegroFlare_TileMaps_Basic2DTestWithAllegroRenderingFixture,
    CAPTURE__render__will_draw_the_mesh_as_expected)
 {
    AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&get_bitmap_bin_ref());
    basic2d_tile_map.set_atlas_configuration("tiles_dungeon_v1.1.png", 16, 16);
    basic2d_tile_map.initialize();
 
-   basic2d_tile_map.resize(12, 32);
+   basic2d_tile_map.resize(20, 12);
    basic2d_tile_map.rescale_tile_dimentions_to(32, 32);
    basic2d_tile_map.random_fill();
 
@@ -81,4 +107,5 @@ TEST_F(AllegroFlare_TileMaps_Basic2DTestWithAllegroRenderingFixture,
    al_flip_display();
    sleep_for(1);
 }
+
 

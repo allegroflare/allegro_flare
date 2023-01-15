@@ -41,6 +41,8 @@ namespace AllegroFlare
          AllegroFlare::TileMaps::TileMap<int> &get_collision_tile_map_ref();
          void set_atlas_configuration(std::string atlas_bitmap_filename="[unset-atlas_bitmap_filename]", int atlas_bitmap_tile_width=1, int atlas_bitmap_tile_height=1);
          void initialize();
+         int get_num_rows();
+         int get_num_columns();
          void resize(int num_columns=1, int num_rows=1);
          void rescale_tile_dimentions_to(float tile_width=1, float tile_height=1);
          void random_fill();

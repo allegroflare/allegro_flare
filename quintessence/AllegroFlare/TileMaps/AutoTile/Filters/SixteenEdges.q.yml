@@ -167,31 +167,56 @@ functions:
       result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
 
-      // floor tile
 
-      // Build our match_matrix for the "floor tile fiter"
-      std::vector<std::vector<int>> floor_tile_match_matrix = {
-        { 0 },
+      // basic solid tile
+
+      // Build our match_matrix for the "basic solid tile fiter"
+      std::vector<std::vector<int>> basic_solid_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
         { s },
       };
 
-      // Build our apply_matrix for the "floor tile filter"
-      std::vector<std::vector<int>> floor_tile_apply_matrix = {
-        { _                 },
-        { get_tile_for(TOP) },
+      // Build our apply_matrix for the "basic solid tile filter"
+      std::vector<std::vector<int>> basic_solid_tile_apply_matrix = {
+        { get_tile_for(MIDDLE) },
       };
 
       iterate_through_input_and_apply_to_result_if_match(
-         floor_tile_match_matrix,
-         floor_tile_apply_matrix,
+         basic_solid_tile_match_matrix,
+         basic_solid_tile_apply_matrix,
          0, // match_matrix_offset_x
-         1, // match_matrix_offset_y
+         0, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         1  // apply_matrix_offset_y
+         0  // apply_matrix_offset_y
       );
 
 
-      // deep solid tile
+
+      // basic empty tile
+
+      // Build our match_matrix for the "basic empty tile fiter"
+      std::vector<std::vector<int>> basic_empty_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
+        { 0 },
+      };
+
+      // Build our apply_matrix for the "basic empty tile filter"
+      std::vector<std::vector<int>> basic_empty_tile_apply_matrix = {
+        { 0 },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         basic_empty_tile_match_matrix,
+         basic_empty_tile_apply_matrix,
+         0, // match_matrix_offset_x
+         0, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+
+      // deep solid tile (this is not practically applied to anything in this case)
 
       // Build our match_matrix for the "deep solid tile fiter"
       std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
@@ -216,6 +241,57 @@ functions:
          1, // apply_matrix_offset_x
          1  // apply_matrix_offset_y
       );
+
+
+
+      // floor tile
+
+      // Build our match_matrix for the "floor tile fiter"
+      std::vector<std::vector<int>> floor_tile_match_matrix = {
+        { 0 },
+        { s },
+      };
+
+      // Build our apply_matrix for the "floor tile filter"
+      std::vector<std::vector<int>> floor_tile_apply_matrix = {
+        { _                 },
+        { get_tile_for(TOP) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         floor_tile_match_matrix,
+         floor_tile_apply_matrix,
+         0, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         1  // apply_matrix_offset_y
+      );
+
+
+
+      // ceiling tile
+
+      // Build our match_matrix for the "ceiling tile fiter"
+      std::vector<std::vector<int>> ceiling_tile_match_matrix = {
+        { s },
+        { 0 },
+      };
+
+      // Build our apply_matrix for the "ceiling tile filter"
+      std::vector<std::vector<int>> ceiling_tile_apply_matrix = {
+        { get_tile_for(BOTTOM) },
+        { _                    },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         ceiling_tile_match_matrix,
+         ceiling_tile_apply_matrix,
+         0, // match_matrix_offset_x
+         0, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
 
       return true;
 

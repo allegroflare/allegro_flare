@@ -136,6 +136,30 @@ void Basic2D::initialize()
    return;
 }
 
+int Basic2D::get_num_rows()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::get_num_rows]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::get_num_rows: error: guard \"initialized\" not met");
+   }
+   return prim_mesh.get_num_rows();
+}
+
+int Basic2D::get_num_columns()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::get_num_columns]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::get_num_columns: error: guard \"initialized\" not met");
+   }
+   return prim_mesh.get_num_columns();
+}
+
 void Basic2D::resize(int num_columns, int num_rows)
 {
    if (!(initialized))

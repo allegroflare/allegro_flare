@@ -103,6 +103,20 @@ functions:
       - AllegroFlare::Random
 
 
+  - name: get_num_rows
+    type: int
+    guards: [ initialized ]
+    body: |
+      return prim_mesh.get_num_rows();
+
+
+  - name: get_num_columns
+    type: int
+    guards: [ initialized ]
+    body: |
+      return prim_mesh.get_num_columns();
+
+
   - name: resize
     guards: [ initialized ]
     parameters:
