@@ -53,6 +53,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
 TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
    result_matrix__after_process__will_have_each_value_in_the_result_matrix_filled_with_tile_expected_value__test_1)
 {
+   // TODO: Modify test to account for "left wall tile"
    AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges filter;
    filter.set_input_matrix(
       AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({

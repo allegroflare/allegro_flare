@@ -215,6 +215,56 @@ bool FortyEightEdges::process()
 
 
 
+   // left wall tile
+
+   // Build our match_matrix for the "left wall fiter"
+   std::vector<std::vector<int>> left_wall_match_matrix = {
+     { _, s, s },
+     { 0, s, s },
+     { _, s, s },
+   };
+
+   // Build our apply_matrix for the "left wall filter"
+   std::vector<std::vector<int>> left_wall_apply_matrix = {
+     { get_tile_for(LEFT) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      left_wall_match_matrix,
+      left_wall_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
+   // TOP BL
+
+   // Build our match_matrix for the "top bl tile fiter"
+   std::vector<std::vector<int>> top_bl_tile_match_matrix = {
+     { _, 0, _ },
+     { s, s, s },
+     { 0, s, s },
+   };
+
+   // Build our apply_matrix for the "top bl tile filter"
+   std::vector<std::vector<int>> top_bl_tile_apply_matrix = {
+     { get_tile_for(TOP_BL) }, // TODO: behaves awkwardly on bottom left tile
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      top_bl_tile_match_matrix,
+      top_bl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
    // top left
 
    // Build our match_matrix for the "basic top_left tile fiter"
@@ -336,11 +386,18 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
    int num_columns = 12;
 
+   // NOTE: The following abbreviations refer to edges only at tips:
+   //    TL == "top left"
+   //    BL == "botom left"
+   //    TR == "top right"
+   //    BR == "bottom right"
+
    std::map<uint32_t, int> result = {
       { UNDEF,        tc( 0,  0, num_columns) },
       { EMPTY,        tc(10,  1, num_columns) },
       { SOLID,        tc( 9,  2, num_columns) },
 
+      // edges
       { TOP,          tc(10,  0, num_columns) },
       { BOTTOM,       tc( 9,  3, num_columns) },
       { RIGHT,        tc(11,  2, num_columns) },
@@ -351,6 +408,15 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { TOP_RIGHT,    tc(11,  0, num_columns) },
       { BOTTOM_LEFT,  tc( 8,  3, num_columns) },
       { BOTTOM_RIGHT, tc(11,  3, num_columns) },
+
+      // edges with tips
+      { TOP_BL,       tc( 5,  0, num_columns) },
+      { TOP_BR,       tc( 6,  0, num_columns) },
+      //{ LEFT,         tc( 8,  1, num_columns) },
+      //{ BOTTOM,       tc( 9,  3, num_columns) },
+      //{ RIGHT,        tc(11,  2, num_columns) },
+      //{ LEFT,         tc( 8,  1, num_columns) },
+
       // TODO: add new mappings for this fourty-eight-edges tileset
       //{ TOP_LEFT,     tc(1+xo, 0, num_columns) },
       //{ TOP,          tc(2+xo, 0, num_columns) },
