@@ -265,6 +265,31 @@ bool FortyEightEdges::process()
 
 
 
+   // bottom right
+
+   // Build our match_matrix for the "basic bottom_right tile fiter"
+   std::vector<std::vector<int>> bottom_right_tile_match_matrix = {
+     { s, s, _ },
+     { s, s, 0 },
+     { _, 0, _ },
+   };
+
+   // Build our apply_matrix for the "basic bottom_right tile filter"
+   std::vector<std::vector<int>> bottom_right_tile_apply_matrix = {
+     { get_tile_for(BOTTOM_RIGHT) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bottom_right_tile_match_matrix,
+      bottom_right_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
    return true;
 }
 
@@ -295,6 +320,7 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { TOP_LEFT,     tc( 8,  0, num_columns) },
       { TOP_RIGHT,    tc(11,  0, num_columns) },
       { BOTTOM_LEFT,  tc( 8,  3, num_columns) },
+      { BOTTOM_RIGHT, tc(11,  3, num_columns) },
       // TODO: add new mappings for this fourty-eight-edges tileset
       //{ TOP_LEFT,     tc(1+xo, 0, num_columns) },
       //{ TOP,          tc(2+xo, 0, num_columns) },
