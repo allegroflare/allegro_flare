@@ -394,6 +394,31 @@ functions:
 
 
 
+      // TOP BR
+
+      // Build our match_matrix for the "top br tile fiter"
+      std::vector<std::vector<int>> top_br_tile_match_matrix = {
+        { _, 0, _ },
+        { s, s, s },
+        { s, s, 0 },
+      };
+
+      // Build our apply_matrix for the "top br tile filter"
+      std::vector<std::vector<int>> top_br_tile_apply_matrix = {
+        { get_tile_for(TOP_BL) }, // TODO: behaves awkwardly on bottom left tile
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         top_br_tile_match_matrix,
+         top_br_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+
       // top left
 
       // Build our match_matrix for the "basic top_left tile fiter"
