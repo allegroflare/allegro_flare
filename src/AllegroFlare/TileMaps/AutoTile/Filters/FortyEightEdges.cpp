@@ -56,7 +56,7 @@ std::map<uint32_t, int> FortyEightEdges::get_forty_eight_edges_tiles_definition(
 
 bool FortyEightEdges::process()
 {
-   // TODO: this class
+   // TODO: Finish this function
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
    int &s = solid_tile_value;
@@ -71,7 +71,6 @@ bool FortyEightEdges::process()
 
    // Build our match_matrix for the "basic solid tile fiter"
    std::vector<std::vector<int>> basic_solid_tile_match_matrix = {
-     // TODO: use ignore tile in corner tiles of this matrix
      { s },
    };
 
@@ -95,7 +94,6 @@ bool FortyEightEdges::process()
 
    // Build our match_matrix for the "basic empty tile fiter"
    std::vector<std::vector<int>> basic_empty_tile_match_matrix = {
-     // TODO: use ignore tile in corner tiles of this matrix
      { 0 },
    };
 
@@ -119,7 +117,6 @@ bool FortyEightEdges::process()
 
    // Build our match_matrix for the "deep solid tile fiter"
    std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
-     // TODO: use ignore tile in corner tiles of this matrix
      { _, s, _ },
      { s, s, s },
      { _, s, _ },
@@ -235,7 +232,6 @@ int FortyEightEdges::get_tile_for(uint32_t edge_tile_name)
 
 std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_definition()
 {
-   // TODO: rename this function (and correlated property) to "*_fourty_eight_edges_*"
    std::function<decltype(tile_coord_to_contiguous)> tc =
       AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
    int num_columns = 12;
