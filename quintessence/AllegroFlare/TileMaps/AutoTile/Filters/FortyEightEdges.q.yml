@@ -1,0 +1,350 @@
+parent_classes:
+
+
+  - class: AllegroFlare::TileMaps::AutoTile::Filters::Base
+    scope: public
+    init_with: AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges::TYPE
+
+
+properties:
+
+
+  - name: solid_tile_value
+    type: int
+    init_with: 1
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: sixteen_edges_tiles_definition
+    type: std::map<uint32_t, int>
+    constructor_arg: true
+    init_with: build_default_sixteen_edges_tiles_definition()
+    getter: true
+    setter: true
+
+  - name: UNDEF
+    type: uint32_t
+    init_with: 0
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP_LEFT
+    type: uint32_t
+    init_with: 1
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP
+    type: uint32_t
+    init_with: 2
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP_RIGHT
+    type: uint32_t
+    init_with: 3
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TOP_TIP
+    type: uint32_t
+    init_with: 4
+    const: true
+    constexpr: true
+    static: true
+
+  - name: LEFT
+    type: uint32_t
+    init_with: 5
+    const: true
+    constexpr: true
+    static: true
+
+  - name: FULL
+    type: uint32_t
+    init_with: 6
+    const: true
+    constexpr: true
+    static: true
+
+  - name: RIGHT
+    type: uint32_t
+    init_with: 7
+    const: true
+    constexpr: true
+    static: true
+
+  - name: CENTER
+    type: uint32_t
+    init_with: 8
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM_LEFT
+    type: uint32_t
+    init_with: 9
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM
+    type: uint32_t
+    init_with: 10
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM_RIGHT
+    type: uint32_t
+    init_with: 11
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM_TIP
+    type: uint32_t
+    init_with: 12
+    const: true
+    constexpr: true
+    static: true
+
+  - name: LEFT_TIP
+    type: uint32_t
+    init_with: 13
+    const: true
+    constexpr: true
+    static: true
+
+  - name: MIDDLE
+    type: uint32_t
+    init_with: 14
+    const: true
+    constexpr: true
+    static: true
+
+  - name: RIGHT_TIP
+    type: uint32_t
+    init_with: 15
+    const: true
+    constexpr: true
+    static: true
+
+  - name: ISOLATED
+    type: uint32_t
+    init_with: 16
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Filters/FortyEightEdges"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: process
+    virtual: true
+    override: true
+    type: bool
+    body: |
+      // TODO: this class
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+      int &s = solid_tile_value;
+      int _ = -1;
+
+      // Resize the result matrix
+      result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
+
+
+
+      // basic solid tile
+
+      // Build our match_matrix for the "basic solid tile fiter"
+      std::vector<std::vector<int>> basic_solid_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
+        { s },
+      };
+
+      // Build our apply_matrix for the "basic solid tile filter"
+      std::vector<std::vector<int>> basic_solid_tile_apply_matrix = {
+        { get_tile_for(MIDDLE) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         basic_solid_tile_match_matrix,
+         basic_solid_tile_apply_matrix,
+         0, // match_matrix_offset_x
+         0, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+
+      // basic empty tile
+
+      // Build our match_matrix for the "basic empty tile fiter"
+      std::vector<std::vector<int>> basic_empty_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
+        { 0 },
+      };
+
+      // Build our apply_matrix for the "basic empty tile filter"
+      std::vector<std::vector<int>> basic_empty_tile_apply_matrix = {
+        { 0 },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         basic_empty_tile_match_matrix,
+         basic_empty_tile_apply_matrix,
+         0, // match_matrix_offset_x
+         0, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+
+      // deep solid tile (this is not practically applied to anything in this case)
+
+      // Build our match_matrix for the "deep solid tile fiter"
+      std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
+        { _, s, _ },
+        { s, s, s },
+        { _, s, _ },
+      };
+
+      // Build our apply_matrix for the "deep solid tile filter"
+      std::vector<std::vector<int>> deep_solid_tile_apply_matrix = {
+        { _, _,                    _ },
+        { _, get_tile_for(MIDDLE), _ },
+        { _, _,                    _ },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         deep_solid_tile_match_matrix,
+         deep_solid_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         1, // apply_matrix_offset_x
+         1  // apply_matrix_offset_y
+      );
+
+
+
+      // floor tile
+
+      // Build our match_matrix for the "floor tile fiter"
+      std::vector<std::vector<int>> floor_tile_match_matrix = {
+        { 0 },
+        { s },
+      };
+
+      // Build our apply_matrix for the "floor tile filter"
+      std::vector<std::vector<int>> floor_tile_apply_matrix = {
+        { _                 },
+        { get_tile_for(TOP) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         floor_tile_match_matrix,
+         floor_tile_apply_matrix,
+         0, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         1  // apply_matrix_offset_y
+      );
+
+
+
+      // ceiling tile
+
+      // Build our match_matrix for the "ceiling tile fiter"
+      std::vector<std::vector<int>> ceiling_tile_match_matrix = {
+        { s },
+        { 0 },
+      };
+
+      // Build our apply_matrix for the "ceiling tile filter"
+      std::vector<std::vector<int>> ceiling_tile_apply_matrix = {
+        { get_tile_for(BOTTOM) },
+        { _                    },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         ceiling_tile_match_matrix,
+         ceiling_tile_apply_matrix,
+         0, // match_matrix_offset_x
+         0, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+      return true;
+
+
+  - name: get_tile_for
+    type: int
+    parameters:
+      - name: edge_tile_name
+        type: uint32_t
+        default_argument: UNDEF
+    guards: [ (sixteen_edges_tiles_definition.count(edge_tile_name) != 0) ]
+    body: |
+      return sixteen_edges_tiles_definition[edge_tile_name];
+
+
+  - name: build_default_sixteen_edges_tiles_definition
+    static: true
+    type: std::map<uint32_t, int>
+    body: |
+      std::function<decltype(tile_coord_to_contiguous)> tc =
+         AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
+      int num_columns = 8;
+      int xo = 4;
+
+      std::map<uint32_t, int> result = {
+         { UNDEF,        tc(0+xo, 0, num_columns) },
+         { TOP_LEFT,     tc(1+xo, 0, num_columns) },
+         { TOP,          tc(2+xo, 0, num_columns) },
+         { TOP_RIGHT,    tc(3+xo, 0, num_columns) },
+         { TOP_TIP,      tc(0+xo, 0, num_columns) },
+         { LEFT,         tc(1+xo, 1, num_columns) },
+         { FULL,         tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+         { RIGHT,        tc(3+xo, 1, num_columns) },
+         { CENTER,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+         { BOTTOM_LEFT,  tc(1+xo, 2, num_columns) },
+         { BOTTOM,       tc(2+xo, 2, num_columns) },
+         { BOTTOM_RIGHT, tc(3+xo, 2, num_columns) },
+         { BOTTOM_TIP,   tc(0+xo, 2, num_columns) },
+         { LEFT_TIP,     tc(3+xo, 1, num_columns) },
+         { MIDDLE,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+         { RIGHT_TIP,    tc(3+xo, 3, num_columns) },
+         { ISOLATED,     tc(0+xo, 3, num_columns) },
+      };
+      return result;
+
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::TileMaps::AutoTile::Filters::Base
+    headers: [ AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp ]
+  - symbol: AllegroFlare::TileMaps::AutoTile::FilterMatrix
+    headers: [ AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp ]
+
+
