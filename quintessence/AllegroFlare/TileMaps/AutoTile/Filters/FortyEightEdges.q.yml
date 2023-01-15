@@ -325,6 +325,7 @@ functions:
     static: true
     type: std::map<uint32_t, int>
     body: |
+      // TODO: rename this function (and correlated property) to "*_fourty_eight_edges_*"
       std::function<decltype(tile_coord_to_contiguous)> tc =
          AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
       int num_columns = 12;

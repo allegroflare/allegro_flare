@@ -209,6 +209,7 @@ int FortyEightEdges::get_tile_for(uint32_t edge_tile_name)
 
 std::map<uint32_t, int> FortyEightEdges::build_default_sixteen_edges_tiles_definition()
 {
+   // TODO: rename this function (and correlated property) to "*_fourty_eight_edges_*"
    std::function<decltype(tile_coord_to_contiguous)> tc =
       AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
    int num_columns = 12;
