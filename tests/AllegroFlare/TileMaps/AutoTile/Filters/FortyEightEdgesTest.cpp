@@ -70,7 +70,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
 
    std::vector<std::vector<int>> expected_matrix = {
       { 22, 22, 22, 22 },
-      { 22, 10, 10, 10 },
+      { 22,  8, 10, 10 },
       { 10, 33, 33, 33 },
       { 45, 45, 45, 45 },
    };
@@ -95,10 +95,12 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRend
    AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges filter;
    filter.set_input_matrix(
       AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
-         { 0, 0, 0, 0 },
-         { 0, 1, 1, 1 },
-         { 1, 1, 1, 1 },
-         { 1, 1, 1, 1 },
+         { 0, 0, 0, 0, 0, 0, 1, 1 },
+         { 0, 1, 1, 1, 0, 0, 1, 1 },
+         { 1, 1, 1, 1, 0, 0, 0, 0 },
+         { 1, 1, 1, 1, 0, 1, 0, 0 },
+         { 1, 1, 1, 1, 1, 1, 0, 0 },
+         { 1, 1, 1, 1, 1, 1, 0, 0 },
       })
    );
 
