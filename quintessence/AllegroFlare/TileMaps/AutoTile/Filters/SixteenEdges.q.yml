@@ -314,25 +314,26 @@ functions:
       std::function<decltype(tile_coord_to_contiguous)> tc =
          AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges::tile_coord_to_contiguous;
       int num_columns = 8;
+      int xo = 4;
 
       std::map<uint32_t, int> result = {
-         { UNDEF,        tc(0, 0, num_columns) },
-         { TOP_LEFT,     tc(1, 0, num_columns) },
-         { TOP,          tc(2, 0, num_columns) },
-         { TOP_RIGHT,    tc(4, 0, num_columns) },
-         { TOP_TIP,      tc(0, 0, num_columns) },
-         { LEFT,         tc(1, 1, num_columns) },
-         { FULL,         tc(2, 1, num_columns) }, // is this the same as "middle", "full", "center"
-         { RIGHT,        tc(3, 1, num_columns) },
-         { CENTER,       tc(2, 1, num_columns) }, // is this the same as "middle", "full", "center"
-         { BOTTOM_LEFT,  tc(1, 2, num_columns) },
-         { BOTTOM,       tc(2, 2, num_columns) },
-         { BOTTOM_RIGHT, tc(3, 2, num_columns) },
-         { BOTTOM_TIP,   tc(0, 2, num_columns) },
-         { LEFT_TIP,     tc(3, 1, num_columns) },
-         { MIDDLE,       tc(2, 1, num_columns) }, // is this the same as "middle", "full", "center"
-         { RIGHT_TIP,    tc(3, 3, num_columns) },
-         { ISOLATED,     tc(0, 3, num_columns) },
+         { UNDEF,        tc(0+xo, 0, num_columns) },
+         { TOP_LEFT,     tc(1+xo, 0, num_columns) },
+         { TOP,          tc(2+xo, 0, num_columns) },
+         { TOP_RIGHT,    tc(3+xo, 0, num_columns) },
+         { TOP_TIP,      tc(0+xo, 0, num_columns) },
+         { LEFT,         tc(1+xo, 1, num_columns) },
+         { FULL,         tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+         { RIGHT,        tc(3+xo, 1, num_columns) },
+         { CENTER,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+         { BOTTOM_LEFT,  tc(1+xo, 2, num_columns) },
+         { BOTTOM,       tc(2+xo, 2, num_columns) },
+         { BOTTOM_RIGHT, tc(3+xo, 2, num_columns) },
+         { BOTTOM_TIP,   tc(0+xo, 2, num_columns) },
+         { LEFT_TIP,     tc(3+xo, 1, num_columns) },
+         { MIDDLE,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+         { RIGHT_TIP,    tc(3+xo, 3, num_columns) },
+         { ISOLATED,     tc(0+xo, 3, num_columns) },
       };
       return result;
 

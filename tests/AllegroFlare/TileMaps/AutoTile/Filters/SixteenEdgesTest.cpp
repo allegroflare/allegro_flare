@@ -70,38 +70,9 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
 
    std::vector<std::vector<int>> expected_matrix = {
       { 0,   0,  0,  0 },
-      { 0,   2,  2,  2 },
-      { 2,  10, 10, 10 },
-      { 18, 18, 18, 18 },
-   };
-
-   EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
-}
-
-
-TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTest,
-   result_matrix__after_process__will_have_each_value_in_the_result_matrix_filled_with_the_expected_tile_value__test_2)
-{
-   AllegroFlare::TileMaps::AutoTile::Filters::SixteenEdges filter;
-   filter.set_input_matrix(
-      AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
-         { 0, 0, 0, 0 },
-         { 0, 1, 1, 1 },
-         { 1, 1, 1, 1 },
-         { 1, 1, 1, 1 }, // TODO: test cases for bottom left edge (and other edge case) tiles that take into
-                         // account *_matrix_offset_x and *_matrix_offset_y
-      })
-   );
-
-   EXPECT_EQ(true, filter.process());
-
-   auto result_matrix = filter.get_result_matrix();
-
-   std::vector<std::vector<int>> expected_matrix = {
-      {  0,  0,  0,  0 },
-      {  0,  2,  2,  2 },
-      {  2, 10, 10, 10 },
-      { 18, 18, 18, 18 },
+      { 0,   6,  6,  6 },
+      { 6,   1,  1,  1 },
+      { 22, 22, 22, 22 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
@@ -114,10 +85,9 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTestWithAllegroRenderi
    // Build our basic tile map
 
    AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&get_bitmap_bin_ref());
-   basic2d_tile_map.set_atlas_configuration("autotile-tileset-1-01.png", 16, 16);
+   basic2d_tile_map.set_atlas_configuration("autotile-tileset-1-02.png", 16, 16);
    basic2d_tile_map.initialize();
    basic2d_tile_map.resize(24, 12);
-   //basic2d_tile_map.random_fill(); // TODO: remove this line
 
 
    // Create our filter and build our input matrix
@@ -151,7 +121,6 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_SixteenEdgesTestWithAllegroRenderi
    for (int y=0; y<result_matrix.get_height(); y++)
       for (int x=0; x<result_matrix.get_width(); x++)
       {
-         // TODO: tweak the "autotile-tileset-1-01.png" to have a reliable "empty" cell
          int result_tile_value = result_matrix.get_tile(x, y);
          prim_mesh.set_tile_id(x, y, result_tile_value);
       }
