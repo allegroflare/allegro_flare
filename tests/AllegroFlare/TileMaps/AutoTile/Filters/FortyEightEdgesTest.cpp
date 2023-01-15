@@ -69,10 +69,10 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
    auto result_matrix = filter.get_result_matrix();
 
    std::vector<std::vector<int>> expected_matrix = {
-      { 0,   0,  0,  0 },
-      { 0,   6,  6,  6 },
-      { 6,   1,  1,  1 },
       { 22, 22, 22, 22 },
+      { 22, 10, 10, 10 },
+      { 10, 33, 33, 33 },
+      { 45, 45, 45, 45 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
@@ -85,7 +85,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRend
    // Build our basic tile map
 
    AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&get_bitmap_bin_ref());
-   basic2d_tile_map.set_atlas_configuration("autotile-tileset-1-02.png", 16, 16);
+   basic2d_tile_map.set_atlas_configuration("autotile-tileset-2-01.png", 16, 16);
    basic2d_tile_map.initialize();
    basic2d_tile_map.resize(24, 12);
 

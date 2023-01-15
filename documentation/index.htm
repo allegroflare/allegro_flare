@@ -269,6 +269,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/Basic2D.q.yml">quintessence/AllegroFlare/TileMaps/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml">quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml</a></li>
@@ -15249,6 +15250,120 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">solid_tile_value</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">sixteen_edges_tiles_definition</td>
+  <td class="property">std::map&lt;uint32_t, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">UNDEF</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP_LEFT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP_RIGHT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TOP_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">LEFT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">FULL</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">RIGHT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">CENTER</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM_LEFT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM_RIGHT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">BOTTOM_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">LEFT_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">MIDDLE</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">RIGHT_TIP</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">ISOLATED</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">EMPTY</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">SOLID</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">process()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_for(uint32_t edge_tile_name=UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">build_default_sixteen_edges_tiles_definition()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::Filters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::FilterMatrix&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/FilterMatrix.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml</h3>
      <table>
 <tr>
@@ -20427,6 +20542,7 @@ table td
     "AllegroFlare/TileMaps/AutoTile/Filters/Base",
     "AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor",
     "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
+    "AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges",
     "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "AllegroFlare/TileMaps/AutoTile/Filters/Base": [
@@ -20434,6 +20550,7 @@ table td
     "AllegroFlare/TileMaps/AutoTile/Filters/BasicFloor",
     "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
     "AllegroFlare/TileMaps/AutoTile/Filters/Fill",
+    "AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges",
     "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "ALLEGRO_VERTEX_DECL": [

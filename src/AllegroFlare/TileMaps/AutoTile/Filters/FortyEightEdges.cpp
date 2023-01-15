@@ -77,7 +77,7 @@ bool FortyEightEdges::process()
 
    // Build our apply_matrix for the "basic solid tile filter"
    std::vector<std::vector<int>> basic_solid_tile_apply_matrix = {
-     { get_tile_for(MIDDLE) },
+     { get_tile_for(SOLID) },
    };
 
    iterate_through_input_and_apply_to_result_if_match(
@@ -101,7 +101,7 @@ bool FortyEightEdges::process()
 
    // Build our apply_matrix for the "basic empty tile filter"
    std::vector<std::vector<int>> basic_empty_tile_apply_matrix = {
-     { 0 },
+     { get_tile_for(EMPTY) },
    };
 
    iterate_through_input_and_apply_to_result_if_match(
@@ -128,7 +128,7 @@ bool FortyEightEdges::process()
    // Build our apply_matrix for the "deep solid tile filter"
    std::vector<std::vector<int>> deep_solid_tile_apply_matrix = {
      { _, _,                    _ },
-     { _, get_tile_for(MIDDLE), _ },
+     { _, get_tile_for(SOLID),  _ },
      { _, _,                    _ },
    };
 
@@ -211,27 +211,31 @@ std::map<uint32_t, int> FortyEightEdges::build_default_sixteen_edges_tiles_defin
 {
    std::function<decltype(tile_coord_to_contiguous)> tc =
       AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
-   int num_columns = 8;
-   int xo = 4;
+   int num_columns = 12;
 
    std::map<uint32_t, int> result = {
-      { UNDEF,        tc(0+xo, 0, num_columns) },
-      { TOP_LEFT,     tc(1+xo, 0, num_columns) },
-      { TOP,          tc(2+xo, 0, num_columns) },
-      { TOP_RIGHT,    tc(3+xo, 0, num_columns) },
-      { TOP_TIP,      tc(0+xo, 0, num_columns) },
-      { LEFT,         tc(1+xo, 1, num_columns) },
-      { FULL,         tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-      { RIGHT,        tc(3+xo, 1, num_columns) },
-      { CENTER,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-      { BOTTOM_LEFT,  tc(1+xo, 2, num_columns) },
-      { BOTTOM,       tc(2+xo, 2, num_columns) },
-      { BOTTOM_RIGHT, tc(3+xo, 2, num_columns) },
-      { BOTTOM_TIP,   tc(0+xo, 2, num_columns) },
-      { LEFT_TIP,     tc(3+xo, 1, num_columns) },
-      { MIDDLE,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-      { RIGHT_TIP,    tc(3+xo, 3, num_columns) },
-      { ISOLATED,     tc(0+xo, 3, num_columns) },
+      { UNDEF,        tc( 0,  0, num_columns) },
+      { EMPTY,        tc(10,  1, num_columns) },
+      { SOLID,        tc( 9,  2, num_columns) },
+      { TOP,          tc(10,  0, num_columns) },
+      { BOTTOM,       tc( 9,  3, num_columns) },
+      // TODO: add new mappings for this fourty-eight-edges tileset
+      //{ TOP_LEFT,     tc(1+xo, 0, num_columns) },
+      //{ TOP,          tc(2+xo, 0, num_columns) },
+      //{ TOP_RIGHT,    tc(3+xo, 0, num_columns) },
+      //{ TOP_TIP,      tc(0+xo, 0, num_columns) },
+      //{ LEFT,         tc(1+xo, 1, num_columns) },
+      //{ FULL,         tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+      //{ RIGHT,        tc(3+xo, 1, num_columns) },
+      //{ CENTER,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+      //{ BOTTOM_LEFT,  tc(1+xo, 2, num_columns) },
+      //{ BOTTOM,       tc(2+xo, 2, num_columns) },
+      //{ BOTTOM_RIGHT, tc(3+xo, 2, num_columns) },
+      //{ BOTTOM_TIP,   tc(0+xo, 2, num_columns) },
+      //{ LEFT_TIP,     tc(3+xo, 1, num_columns) },
+      //{ MIDDLE,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+      //{ RIGHT_TIP,    tc(3+xo, 3, num_columns) },
+      //{ ISOLATED,     tc(0+xo, 3, num_columns) },
    };
    return result;
 }

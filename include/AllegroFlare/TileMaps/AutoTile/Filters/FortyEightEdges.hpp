@@ -34,6 +34,8 @@ namespace AllegroFlare
                static constexpr uint32_t MIDDLE = 14;
                static constexpr uint32_t RIGHT_TIP = 15;
                static constexpr uint32_t ISOLATED = 16;
+               static constexpr uint32_t EMPTY = 17;
+               static constexpr uint32_t SOLID = 18;
                static constexpr char* TYPE = (char*)"Filters/FortyEightEdges";
 
             private:
