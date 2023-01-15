@@ -95,6 +95,20 @@ functions:
       return matrix.size();
 
 
+  - name: get_tile
+    type: int
+    parameters:
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+    guards: [ (x < get_width()), (y < get_height()), (x >= 0), (y >= 0) ]
+    body: |
+      return matrix[y][x];
+
+
   - name: set_tile
     parameters:
       - name: x

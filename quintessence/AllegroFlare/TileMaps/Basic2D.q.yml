@@ -58,6 +58,8 @@ documentation:
          - `TileMaps::PrimMeshAtlas` an atlas for the prim mesh.  Note this is a managed atlas that copies a 
             bitmap and builds on initialization.
          - `TileMaps::Tilemap<int>` that contains tile metadata. So far, this is useful for collision info.
+      The design is essentially similar to AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D but
+      handles the building of the atlas
 
 
 functions:

@@ -103,6 +103,39 @@ int FilterMatrix::get_height() const
    return matrix.size();
 }
 
+int FilterMatrix::get_tile(int x, int y)
+{
+   if (!((x < get_width())))
+   {
+      std::stringstream error_message;
+      error_message << "[FilterMatrix::get_tile]: error: guard \"(x < get_width())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(x < get_width())\" not met");
+   }
+   if (!((y < get_height())))
+   {
+      std::stringstream error_message;
+      error_message << "[FilterMatrix::get_tile]: error: guard \"(y < get_height())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(y < get_height())\" not met");
+   }
+   if (!((x >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[FilterMatrix::get_tile]: error: guard \"(x >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(x >= 0)\" not met");
+   }
+   if (!((y >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[FilterMatrix::get_tile]: error: guard \"(y >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(y >= 0)\" not met");
+   }
+   return matrix[y][x];
+}
+
 void FilterMatrix::set_tile(int x, int y, int tile_value)
 {
    if (!((x < get_width())))
