@@ -290,6 +290,31 @@ bool FortyEightEdges::process()
 
 
 
+   // TL BR
+
+   // Build our match_matrix for the "tl br tile fiter"
+   std::vector<std::vector<int>> tl_br_tile_match_matrix = {
+     { 0, s, s },
+     { s, s, s },
+     { s, s, 0 },
+   };
+
+   // Build our apply_matrix for the "tl br tile filter"
+   std::vector<std::vector<int>> tl_br_tile_apply_matrix = {
+     { get_tile_for(TL_BR) }, // TODO: find edge cases (on result matrix) where it might be improperly stamped
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      tl_br_tile_match_matrix,
+      tl_br_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
    // top left
 
    // Build our match_matrix for the "basic top_left tile fiter"
@@ -437,6 +462,11 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       // edges with tips
       { TOP_BL,       tc( 5,  0, num_columns) },
       { TOP_BR,       tc( 6,  0, num_columns) },
+
+      // tips only
+      { TL_BR,        tc( 9,  1, num_columns) },
+      { TR_BL,        tc(10,  2, num_columns) },
+
       //{ LEFT,         tc( 8,  1, num_columns) },
       //{ BOTTOM,       tc( 9,  3, num_columns) },
       //{ RIGHT,        tc(11,  2, num_columns) },
