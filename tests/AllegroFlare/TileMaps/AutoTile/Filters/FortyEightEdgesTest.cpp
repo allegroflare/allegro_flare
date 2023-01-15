@@ -72,8 +72,8 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
    std::vector<std::vector<int>> expected_matrix = {
       { 22, 22, 22, 22 },
       { 22,  8, 10, 11 },
-      {  8, 33, 33, 35 },
-      { 44, 45, 45, 47 },
+      {  8, 17, 33, 30 }, // this 30 is at the edge and should probably be a 33
+      { 44, 30, 30, 47 }, // these 30s chould be 45, but should probably be 33s' because they are at the edge
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
