@@ -305,6 +305,31 @@ functions:
 
 
 
+      // right wall tile
+
+      // Build our match_matrix for the "right wall fiter"
+      std::vector<std::vector<int>> right_wall_match_matrix = {
+        { s, s, _ },
+        { s, s, 0 },
+        { s, s, _ },
+      };
+
+      // Build our apply_matrix for the "right wall filter"
+      std::vector<std::vector<int>> right_wall_apply_matrix = {
+        { get_tile_for(RIGHT) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         right_wall_match_matrix,
+         right_wall_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+
       // top left
 
       // Build our match_matrix for the "basic top_left tile fiter"
@@ -431,8 +456,13 @@ functions:
          { UNDEF,        tc( 0,  0, num_columns) },
          { EMPTY,        tc(10,  1, num_columns) },
          { SOLID,        tc( 9,  2, num_columns) },
+
          { TOP,          tc(10,  0, num_columns) },
          { BOTTOM,       tc( 9,  3, num_columns) },
+         { RIGHT,        tc(11,  2, num_columns) },
+         { LEFT,         tc( 8,  1, num_columns) },
+
+         // corners
          { TOP_LEFT,     tc( 8,  0, num_columns) },
          { TOP_RIGHT,    tc(11,  0, num_columns) },
          { BOTTOM_LEFT,  tc( 8,  3, num_columns) },
