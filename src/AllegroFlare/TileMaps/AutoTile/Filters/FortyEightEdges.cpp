@@ -17,10 +17,10 @@ namespace Filters
 {
 
 
-FortyEightEdges::FortyEightEdges(int solid_tile_value, std::map<uint32_t, int> sixteen_edges_tiles_definition)
+FortyEightEdges::FortyEightEdges(int solid_tile_value, std::map<uint32_t, int> forty_eight_edges_tiles_definition)
    : AllegroFlare::TileMaps::AutoTile::Filters::Base(AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges::TYPE)
    , solid_tile_value(solid_tile_value)
-   , sixteen_edges_tiles_definition(sixteen_edges_tiles_definition)
+   , forty_eight_edges_tiles_definition(forty_eight_edges_tiles_definition)
 {
 }
 
@@ -36,9 +36,9 @@ void FortyEightEdges::set_solid_tile_value(int solid_tile_value)
 }
 
 
-void FortyEightEdges::set_sixteen_edges_tiles_definition(std::map<uint32_t, int> sixteen_edges_tiles_definition)
+void FortyEightEdges::set_forty_eight_edges_tiles_definition(std::map<uint32_t, int> forty_eight_edges_tiles_definition)
 {
-   this->sixteen_edges_tiles_definition = sixteen_edges_tiles_definition;
+   this->forty_eight_edges_tiles_definition = forty_eight_edges_tiles_definition;
 }
 
 
@@ -48,9 +48,9 @@ int FortyEightEdges::get_solid_tile_value() const
 }
 
 
-std::map<uint32_t, int> FortyEightEdges::get_sixteen_edges_tiles_definition() const
+std::map<uint32_t, int> FortyEightEdges::get_forty_eight_edges_tiles_definition() const
 {
-   return sixteen_edges_tiles_definition;
+   return forty_eight_edges_tiles_definition;
 }
 
 
@@ -197,17 +197,17 @@ bool FortyEightEdges::process()
 
 int FortyEightEdges::get_tile_for(uint32_t edge_tile_name)
 {
-   if (!((sixteen_edges_tiles_definition.count(edge_tile_name) != 0)))
+   if (!((forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)))
    {
       std::stringstream error_message;
-      error_message << "[FortyEightEdges::get_tile_for]: error: guard \"(sixteen_edges_tiles_definition.count(edge_tile_name) != 0)\" not met.";
+      error_message << "[FortyEightEdges::get_tile_for]: error: guard \"(forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FortyEightEdges::get_tile_for: error: guard \"(sixteen_edges_tiles_definition.count(edge_tile_name) != 0)\" not met");
+      throw std::runtime_error("FortyEightEdges::get_tile_for: error: guard \"(forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)\" not met");
    }
-   return sixteen_edges_tiles_definition[edge_tile_name];
+   return forty_eight_edges_tiles_definition[edge_tile_name];
 }
 
-std::map<uint32_t, int> FortyEightEdges::build_default_sixteen_edges_tiles_definition()
+std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_definition()
 {
    // TODO: rename this function (and correlated property) to "*_fourty_eight_edges_*"
    std::function<decltype(tile_coord_to_contiguous)> tc =

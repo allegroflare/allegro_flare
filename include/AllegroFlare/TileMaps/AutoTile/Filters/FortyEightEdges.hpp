@@ -40,22 +40,22 @@ namespace AllegroFlare
 
             private:
                int solid_tile_value;
-               std::map<uint32_t, int> sixteen_edges_tiles_definition;
+               std::map<uint32_t, int> forty_eight_edges_tiles_definition;
 
             protected:
 
 
             public:
-               FortyEightEdges(int solid_tile_value=1, std::map<uint32_t, int> sixteen_edges_tiles_definition=build_default_sixteen_edges_tiles_definition());
+               FortyEightEdges(int solid_tile_value=1, std::map<uint32_t, int> forty_eight_edges_tiles_definition=build_default_forty_eight_edges_tiles_definition());
                virtual ~FortyEightEdges();
 
                void set_solid_tile_value(int solid_tile_value);
-               void set_sixteen_edges_tiles_definition(std::map<uint32_t, int> sixteen_edges_tiles_definition);
+               void set_forty_eight_edges_tiles_definition(std::map<uint32_t, int> forty_eight_edges_tiles_definition);
                int get_solid_tile_value() const;
-               std::map<uint32_t, int> get_sixteen_edges_tiles_definition() const;
+               std::map<uint32_t, int> get_forty_eight_edges_tiles_definition() const;
                virtual bool process() override;
                int get_tile_for(uint32_t edge_tile_name=UNDEF);
-               static std::map<uint32_t, int> build_default_sixteen_edges_tiles_definition();
+               static std::map<uint32_t, int> build_default_forty_eight_edges_tiles_definition();
             };
          }
       }
