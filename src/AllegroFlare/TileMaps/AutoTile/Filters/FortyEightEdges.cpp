@@ -165,6 +165,31 @@ bool FortyEightEdges::process()
 
 
 
+   // ceiling tile
+
+   // Build our match_matrix for the "ceiling tile fiter"
+   std::vector<std::vector<int>> ceiling_tile_match_matrix = {
+     { s },
+     { 0 },
+   };
+
+   // Build our apply_matrix for the "ceiling tile filter"
+   std::vector<std::vector<int>> ceiling_tile_apply_matrix = {
+     { get_tile_for(BOTTOM) },
+     { _                    },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      ceiling_tile_match_matrix,
+      ceiling_tile_apply_matrix,
+      0, // match_matrix_offset_x
+      0, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
    // top left
 
    // Build our match_matrix for the "basic top_left tile fiter"
@@ -188,31 +213,6 @@ bool FortyEightEdges::process()
       0  // apply_matrix_offset_y
    );
 
-
-
-
-   // ceiling tile
-
-   // Build our match_matrix for the "ceiling tile fiter"
-   std::vector<std::vector<int>> ceiling_tile_match_matrix = {
-     { s },
-     { 0 },
-   };
-
-   // Build our apply_matrix for the "ceiling tile filter"
-   std::vector<std::vector<int>> ceiling_tile_apply_matrix = {
-     { get_tile_for(BOTTOM) },
-     { _                    },
-   };
-
-   iterate_through_input_and_apply_to_result_if_match(
-      ceiling_tile_match_matrix,
-      ceiling_tile_apply_matrix,
-      0, // match_matrix_offset_x
-      0, // match_matrix_offset_y
-      0, // apply_matrix_offset_x
-      0  // apply_matrix_offset_y
-   );
 
 
    return true;
