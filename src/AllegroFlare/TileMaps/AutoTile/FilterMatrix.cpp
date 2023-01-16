@@ -190,6 +190,18 @@ bool FilterMatrix::tile_matches(int x, int y, int tile_value, bool match_true_if
    return (matrix[y][x] == tile_value);
 }
 
+bool FilterMatrix::tile_matches_with_extruded_boundaries(int x, int y, int tile_value)
+{
+   if (get_width() <= 0 || get_height() <= 0) return false; // no match if dimensionless
+
+   if (x < 0) x = 0;
+   if (y < 0) y = 0;
+   if (x >= get_width()) x = (get_width() - 1);
+   if (y >= get_height()) y = (get_height() - 1);
+
+   return (matrix[y][x] == tile_value);
+}
+
 
 } // namespace AutoTile
 } // namespace TileMaps

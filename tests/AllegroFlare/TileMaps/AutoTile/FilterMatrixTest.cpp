@@ -101,3 +101,18 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest, build__will_build_a_matrix
 }
 
 
+TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest,
+   tile_matches_with_extruded_boundaries__when_out_of_bounds__will_return_true_if_the_closest_tile_matches)
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix filter_matrix = 
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
+         { 1,  2,  3,  4 },
+         { 12, 0,  0,  5 },
+         { 11, 0,  0,  6 },
+         { 10, 9,  8,  7 },
+      });
+
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(-1, -1, 1));
+}
+
+

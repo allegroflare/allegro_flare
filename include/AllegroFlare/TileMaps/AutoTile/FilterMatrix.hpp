@@ -36,6 +36,7 @@ namespace AllegroFlare
             void set_tile(int x=0, int y=0, int tile_value=0);
             bool set_tile_ignore_if_out_of_bounds(int x=0, int y=0, int tile_value=0);
             bool tile_matches(int x=0, int y=0, int tile_value=0, bool match_true_if_out_of_bounds=false);
+            bool tile_matches_with_extruded_boundaries(int x=0, int y=0, int tile_value=0);
          };
       }
    }

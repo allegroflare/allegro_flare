@@ -171,6 +171,29 @@ functions:
       return (matrix[y][x] == tile_value);
 
 
+  - name: tile_matches_with_extruded_boundaries
+    type: bool
+    parameters:
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: tile_value
+        type: int
+        default_argument: 0
+    body: |
+      if (get_width() <= 0 || get_height() <= 0) return false; // no match if dimensionless
+
+      if (x < 0) x = 0;
+      if (y < 0) y = 0;
+      if (x >= get_width()) x = (get_width() - 1);
+      if (y >= get_height()) y = (get_height() - 1);
+
+      return (matrix[y][x] == tile_value);
+
+
 dependencies:
 
 
