@@ -331,7 +331,6 @@ properties:
     constexpr: true
     static: true
 
-
   - name: TL_TR_BR
     type: uint32_t
     init_with: 44
@@ -367,6 +366,33 @@ properties:
     constexpr: true
     static: true
 
+  - name: TOP_BR_BL
+    type: uint32_t
+    init_with: 49
+    const: true
+    constexpr: true
+    static: true
+
+  - name: RIGHT_BL_TR
+    type: uint32_t
+    init_with: 50
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BOTTOM_TL_TR
+    type: uint32_t
+    init_with: 51
+    const: true
+    constexpr: true
+    static: true
+
+  - name: LEFT_TR_BR
+    type: uint32_t
+    init_with: 52
+    const: true
+    constexpr: true
+    static: true
 
   - name: TYPE
     type: char*
@@ -731,6 +757,10 @@ functions:
 
 
       process_two_edge_with_tip_filters();
+
+
+
+      process_one_face_two_tips();
 
 
 
@@ -1181,9 +1211,6 @@ functions:
       );
 
 
-
-
-
       return;
 
 
@@ -1284,8 +1311,108 @@ functions:
       );
 
 
+      return;
+
+
+  - name: process_one_face_two_tips
+    body: |
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+      int &s = solid_tile_value;
+      int _ = -1;
+
+
+      // TOP_BR_BL
+
+      std::vector<std::vector<int>> top_br_bl_tile_match_matrix = {
+        { _, 0, _ },
+        { s, s, s },
+        { 0, s, 0 },
+      };
+
+      std::vector<std::vector<int>> top_br_bl_tile_apply_matrix = {
+        { get_tile_for(TOP_BR_BL) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         top_br_bl_tile_match_matrix,
+         top_br_bl_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+      // RIGHT_BL_TR
+
+      std::vector<std::vector<int>> right_bl_tr_tile_match_matrix = {
+        { 0, s, _ },
+        { s, s, 0 },
+        { 0, s, _ },
+      };
+
+      std::vector<std::vector<int>> right_bl_tr_tile_apply_matrix = {
+        { get_tile_for(RIGHT_BL_TR) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         right_bl_tr_tile_match_matrix,
+         right_bl_tr_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+      // BOTTOM_TL_TR
+
+      std::vector<std::vector<int>> bottom_tl_tr_tile_match_matrix = {
+        { 0, s, 0 },
+        { s, s, s },
+        { _, 0, _ },
+      };
+
+      std::vector<std::vector<int>> bottom_tl_tr_tile_apply_matrix = {
+        { get_tile_for(BOTTOM_TL_TR) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         bottom_tl_tr_tile_match_matrix,
+         bottom_tl_tr_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+      // LEFT_TR_BR
+
+      std::vector<std::vector<int>> left_tr_br_tile_match_matrix = {
+        { _, s, 0 },
+        { 0, s, s },
+        { _, s, 0 },
+      };
+
+      std::vector<std::vector<int>> left_tr_br_tile_apply_matrix = {
+        { get_tile_for(LEFT_TR_BR) },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         left_tr_br_tile_match_matrix,
+         left_tr_br_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
 
       return;
+
 
 
   - name: process_two_tip_filters
@@ -1535,7 +1662,10 @@ functions:
          { BOTTOM_TR,    tc( 6,  3, num_columns) },
 
          // edges with tips (one edge, two tips)
-         // TODO
+         { TOP_BR_BL,    tc( 2,  0, num_columns) },
+         { RIGHT_BL_TR,  tc( 3,  1, num_columns) },
+         { BOTTOM_TL_TR, tc( 2,  2, num_columns) },
+         { LEFT_TR_BR,   tc( 1,  1, num_columns) },
 
          // edges (two edges, one tips)
          { TOP_LEFT_BR,     tc( 1,  0, num_columns) },
