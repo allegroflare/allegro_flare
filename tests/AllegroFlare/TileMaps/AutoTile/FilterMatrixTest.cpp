@@ -143,8 +143,11 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest,
    EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(-1, 3, 10));
 
    // large number test (TODO: add a few more checks for these)
-   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(  0, -99,  1)); // top left
+   // corners
    EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(-99, -99,  1)); // top left
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(-99,  99, 10)); // bottom left
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries( 99, -99,  4)); // top right
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries( 99,  99,  7)); // bottom right
 }
 
 
