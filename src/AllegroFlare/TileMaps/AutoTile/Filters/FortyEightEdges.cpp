@@ -276,7 +276,7 @@ bool FortyEightEdges::process()
 
    // Build our apply_matrix for the "top br tile filter"
    std::vector<std::vector<int>> top_br_tile_apply_matrix = {
-     { get_tile_for(TOP_BL) }, // TODO: behaves awkwardly on bottom left tile
+     { get_tile_for(TOP_BR) }, // TODO: behaves awkwardly on bottom left tile
    };
 
    iterate_through_input_and_apply_to_result_if_match(
@@ -339,7 +339,7 @@ bool FortyEightEdges::process()
 
 
 
-   process_two_tip_filters();
+   //process_two_tip_filters();
 
 
 
