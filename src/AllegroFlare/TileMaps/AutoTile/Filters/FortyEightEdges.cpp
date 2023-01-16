@@ -339,7 +339,7 @@ bool FortyEightEdges::process()
 
 
 
-   //process_two_tip_filters();
+   process_two_tip_filters();
 
 
 
@@ -552,6 +552,7 @@ void FortyEightEdges::process_two_tip_filters()
    int &s = solid_tile_value;
    int _ = -1;
 
+
    // TL TR
 
    // Build our match_matrix for the "tl tr tile fiter"
@@ -569,6 +570,78 @@ void FortyEightEdges::process_two_tip_filters()
    iterate_through_input_and_apply_to_result_if_match(
       tl_tr_tile_match_matrix,
       tl_tr_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // BL BR
+
+   // Build our match_matrix for the "bl br tile fiter"
+   std::vector<std::vector<int>> bl_br_tile_match_matrix = {
+     { s, s, s },
+     { s, s, s },
+     { 0, s, 0 },
+   };
+
+   // Build our apply_matrix for the "bl br tile filter"
+   std::vector<std::vector<int>> bl_br_tile_apply_matrix = {
+     { get_tile_for(BL_BR) }, // TODO: find edge cases (on result matrix) where it might be improperly stamped
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bl_br_tile_match_matrix,
+      bl_br_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // TL BL
+
+   // Build our match_matrix for the "tl bl tile fiter"
+   std::vector<std::vector<int>> tl_bl_tile_match_matrix = {
+     { 0, s, s },
+     { s, s, s },
+     { 0, s, s },
+   };
+
+   // Build our apply_matrix for the "tl bl tile filter"
+   std::vector<std::vector<int>> tl_bl_tile_apply_matrix = {
+     { get_tile_for(TL_BL) }, // TODO: find edge cases (on result matrix) where it might be improperly stamped
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      tl_bl_tile_match_matrix,
+      tl_bl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // TR BR
+
+   // Build our match_matrix for the "tr br tile fiter"
+   std::vector<std::vector<int>> tr_br_tile_match_matrix = {
+     { s, s, 0 },
+     { s, s, s },
+     { s, s, 0 },
+   };
+
+   // Build our apply_matrix for the "tl bl tile filter"
+   std::vector<std::vector<int>> tr_br_tile_apply_matrix = {
+     { get_tile_for(TR_BR) }, // TODO: find edge cases (on result matrix) where it might be improperly stamped
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      tr_br_tile_match_matrix,
+      tr_br_tile_apply_matrix,
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
