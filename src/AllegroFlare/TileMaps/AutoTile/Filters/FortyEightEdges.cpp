@@ -399,6 +399,10 @@ bool FortyEightEdges::process()
 
 
 
+   process_two_edge_with_tip_filters();
+
+
+
    // TOP_RIGHT_BOTTOM_LEFT
 
    // Build our match_matrix for the "top-right-bottom-left tile fiter"
@@ -722,6 +726,104 @@ void FortyEightEdges::process_three_edge_filters()
    );
 
 
+   return;
+}
+
+void FortyEightEdges::process_two_edge_with_tip_filters()
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   int &s = solid_tile_value;
+   int _ = -1;
+
+
+   // TOP_LEFT_BR
+
+   std::vector<std::vector<int>> top_left_br_tile_match_matrix = {
+     { _, 0, _ },
+     { 0, s, s },
+     { _, s, 0 },
+   };
+
+   std::vector<std::vector<int>> top_left_br_tile_apply_matrix = {
+     { get_tile_for(TOP_LEFT_BR) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      top_left_br_tile_match_matrix,
+      top_left_br_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // TOP_RIGHT_BL
+
+   std::vector<std::vector<int>> top_right_bl_tile_match_matrix = {
+     { _, 0, _ },
+     { s, s, 0 },
+     { 0, s, _ },
+   };
+
+   std::vector<std::vector<int>> top_right_bl_tile_apply_matrix = {
+     { get_tile_for(TOP_RIGHT_BL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      top_right_bl_tile_match_matrix,
+      top_right_bl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // BOTTOM_LEFT_TR
+
+   std::vector<std::vector<int>> bottom_left_tr_tile_match_matrix = {
+     { _, s, 0 },
+     { 0, s, s },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> bottom_left_tr_tile_apply_matrix = {
+     { get_tile_for(BOTTOM_LEFT_TR) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bottom_left_tr_tile_match_matrix,
+      bottom_left_tr_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // BOTTOM_RIGHT_TL
+
+   std::vector<std::vector<int>> bottom_right_tl_tile_match_matrix = {
+     { 0, s, _ },
+     { s, s, 0 },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> bottom_right_tl_tile_apply_matrix = {
+     { get_tile_for(BOTTOM_RIGHT_TL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bottom_right_tl_tile_match_matrix,
+      bottom_right_tl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
 
 
    return;
@@ -924,6 +1026,12 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { TOP_RIGHT,    tc(11,  0, num_columns) },
       { BOTTOM_LEFT,  tc( 8,  3, num_columns) },
       { BOTTOM_RIGHT, tc(11,  3, num_columns) },
+
+      // edges (corners, with tips)
+      { TOP_LEFT_BR,     tc( 1,  0, num_columns) },
+      { TOP_RIGHT_BL,    tc( 3,  0, num_columns) },
+      { BOTTOM_LEFT_TR,  tc( 1,  2, num_columns) },
+      { BOTTOM_RIGHT_TL, tc( 3,  2, num_columns) },
 
       // edges (three edges)
       { TOP_RIGHT_BOTTOM,  tc( 3,  3, num_columns) },
