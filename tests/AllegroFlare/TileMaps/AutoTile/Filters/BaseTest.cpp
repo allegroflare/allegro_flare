@@ -40,3 +40,48 @@ TEST(AllegroFlare_TileMaps_AutoTile_Filters_BaseTest, derived_classes_will_have_
 }
 
 
+TEST(AllegroFlare_TileMaps_AutoTile_Filters_BaseTest,
+   iterate_through_input_and_apply_to_result_if_match__with_out_of_bounds_match_type_of_\
+OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE__will_work_as_expected)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_TileMaps_AutoTile_Filters_BaseTest,
+   iterate_through_input_and_apply_to_result_if_match__with_out_of_bounds_match_type_of_\
+OUT_OF_BOUNDS_MATCH_TYPE_NEGATIVE__will_work_as_expected)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_TileMaps_AutoTile_Filters_BaseTest,
+   iterate_through_input_and_apply_to_result_if_match__with_out_of_bounds_match_type_of_\
+OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE__will_work_as_expected)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_TileMaps_AutoTile_Filters_BaseTest,
+   matrix_matches__with_out_of_bounds_match_type_of__OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE__will_work_as_expected)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_TileMaps_AutoTile_Filters_BaseTest,
+   matrix_matches__with_out_of_bounds_match_type_of__OUT_OF_BOUNDS_MATCH_TYPE_NEGATIVE__will_work_as_expected)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_TileMaps_AutoTile_Filters_BaseTest,
+   matrix_matches__with_out_of_bounds_match_type_of_OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE__will_work_as_expected)
+{
+   // TODO
+}
+
+
