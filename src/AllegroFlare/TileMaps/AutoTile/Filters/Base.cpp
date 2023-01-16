@@ -71,7 +71,7 @@ bool Base::process()
    return true;
 }
 
-void Base::iterate_through_input_and_apply_to_result_if_match(std::vector<std::vector<int>> match_matrix, std::vector<std::vector<int>> apply_matrix, int match_matrix_offset_x, int match_matrix_offset_y, int apply_matrix_offset_x, int apply_matrix_offset_y, bool ignore_if_negative_tile_value_on_match_matrix, bool out_of_bounds_on_input_matrix_is_positive_match, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
+void Base::iterate_through_input_and_apply_to_result_if_match(std::vector<std::vector<int>> match_matrix, std::vector<std::vector<int>> apply_matrix, int match_matrix_offset_x, int match_matrix_offset_y, int apply_matrix_offset_x, int apply_matrix_offset_y, bool ignore_if_negative_tile_value_on_match_matrix, std::string out_of_bounds_match_type, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
@@ -95,7 +95,18 @@ void Base::iterate_through_input_and_apply_to_result_if_match(std::vector<std::v
    for (int y=0; y<input_matrix.get_height(); y++)
       for (int x=0; x<input_matrix.get_width(); x++)
       {
-         bool matrix_match_is_positive = matrix_matches(
+         bool matrix_match_is_positive = false;
+         bool matrix_match_processed = false;
+         if (out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
+               || out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_NEGATIVE
+            )
+         {
+            // NOTE: this logic is a little clunky, assuming that if it's not _MATCH_TYPE_POSITIVE then implicitly
+            // assuming it will be negative.
+            bool out_of_bounds_on_input_matrix_is_positive_match =
+                     (out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE) ? true : false;
+
+            matrix_match_is_positive = matrix_matches(
                match_matrix,
                x,
                y,
@@ -104,6 +115,14 @@ void Base::iterate_through_input_and_apply_to_result_if_match(std::vector<std::v
                ignore_if_negative_tile_value_on_match_matrix,
                out_of_bounds_on_input_matrix_is_positive_match
             );
+            matrix_match_processed = true;
+         }
+
+         if (!matrix_match_processed)
+         {
+            throw std::runtime_error("AutoTile::Filters::Base::iterate_through_input_and_apply_to_result_if_match: "
+                                     "error: Unexpected behavior, matrix match not processed as expected.");
+         }
 
          if (matrix_match_is_positive)
          {

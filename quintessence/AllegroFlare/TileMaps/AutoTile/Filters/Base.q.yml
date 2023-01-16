@@ -27,6 +27,24 @@ properties:
     static: true
     constexpr: true
 
+  - name: OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
+    type: char*
+    init_with: '(char*)"positive"'
+    static: true
+    constexpr: true
+
+  - name: OUT_OF_BOUNDS_MATCH_TYPE_NEGATIVE
+    type: char*
+    init_with: '(char*)"negative"'
+    static: true
+    constexpr: true
+
+  - name: OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE
+    type: char*
+    init_with: '(char*)"extruded_edge"'
+    static: true
+    constexpr: true
+
 
 documentation:
 
@@ -73,9 +91,9 @@ functions:
       - name: ignore_if_negative_tile_value_on_match_matrix
         type: bool
         default_argument: true
-      - name: out_of_bounds_on_input_matrix_is_positive_match
-        type: bool
-        default_argument: true
+      - name: out_of_bounds_match_type
+        type: std::string
+        default_argument: OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
       - name: ignore_write_if_negative_tile_value_on_stamp_tile
         type: bool
         default_argument: true
@@ -94,7 +112,18 @@ functions:
       for (int y=0; y<input_matrix.get_height(); y++)
          for (int x=0; x<input_matrix.get_width(); x++)
          {
-            bool matrix_match_is_positive = matrix_matches(
+            bool matrix_match_is_positive = false;
+            bool matrix_match_processed = false;
+            if (out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
+                  || out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_NEGATIVE
+               )
+            {
+               // NOTE: this logic is a little clunky, assuming that if it's not _MATCH_TYPE_POSITIVE then implicitly
+               // assuming it will be negative.
+               bool out_of_bounds_on_input_matrix_is_positive_match =
+                        (out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE) ? true : false;
+
+               matrix_match_is_positive = matrix_matches(
                   match_matrix,
                   x,
                   y,
@@ -103,6 +132,14 @@ functions:
                   ignore_if_negative_tile_value_on_match_matrix,
                   out_of_bounds_on_input_matrix_is_positive_match
                );
+               matrix_match_processed = true;
+            }
+
+            if (!matrix_match_processed)
+            {
+               throw std::runtime_error("AutoTile::Filters::Base::iterate_through_input_and_apply_to_result_if_match: "
+                                        "error: Unexpected behavior, matrix match not processed as expected.");
+            }
 
             if (matrix_match_is_positive)
             {
