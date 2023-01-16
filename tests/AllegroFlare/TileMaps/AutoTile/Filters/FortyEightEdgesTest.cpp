@@ -71,9 +71,9 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
 
    std::vector<std::vector<int>> expected_matrix = {
       { 22, 22, 22, 22 },
-      { 22,  8, 10, 11 },
-      {  8, 17, 33, 30 }, // this 30 is at the edge and should probably be a 33
-      { 44, 30, 30, 47 }, // these 30s chould be 45, but should probably be 33s' because they are at the edge
+      { 22,  8, 10, 10 },
+      { 10, 17, 33, 33 }, // this 30 is at the edge and should probably be a 33
+      { 33, 33, 33, 33 }, // these 30s chould be 45, but should probably be 33s' because they are at the edge
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());
@@ -81,7 +81,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTest,
 
 
 TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRenderingFixture,
-   CAPTURE__VISUAL__will_be_useful_for_basic_tilemaps)
+   CAPTURE__VISUAL__will_render_as_expected_for_tiles_that_are_not_along_the_edge_of_the_map)
 {
    // Build our basic tile map
 

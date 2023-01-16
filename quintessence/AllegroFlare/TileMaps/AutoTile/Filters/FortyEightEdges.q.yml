@@ -23,6 +23,11 @@ properties:
     getter: true
     setter: true
 
+  - name: out_of_bounds_match_type
+    type: std::string
+    init_with: AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE
+    getter: true
+
   - name: UNDEF
     type: uint32_t
     init_with: 0
@@ -466,7 +471,8 @@ functions:
          0, // match_matrix_offset_x
          0, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -489,7 +495,8 @@ functions:
          0, // match_matrix_offset_x
          0, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -516,7 +523,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          1, // apply_matrix_offset_x
-         1  // apply_matrix_offset_y
+         1, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -541,7 +549,8 @@ functions:
          0, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         1  // apply_matrix_offset_y
+         1, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -566,7 +575,8 @@ functions:
          0, // match_matrix_offset_x
          0, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -591,7 +601,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -616,7 +627,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -640,7 +652,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -664,7 +677,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -691,7 +705,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -716,7 +731,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -740,7 +756,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -764,7 +781,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -815,7 +833,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -840,7 +859,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -864,7 +884,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -889,7 +910,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -914,7 +936,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -939,7 +962,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -964,7 +988,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -989,7 +1014,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1014,7 +1040,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1048,7 +1075,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1070,7 +1098,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1093,7 +1122,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1116,7 +1146,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1150,7 +1181,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1172,7 +1204,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1194,7 +1227,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1216,7 +1250,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1239,7 +1274,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1273,7 +1309,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1295,7 +1332,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1317,7 +1355,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1339,7 +1378,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1372,7 +1412,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1394,7 +1435,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1416,7 +1458,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1438,7 +1481,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1471,7 +1515,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1493,7 +1538,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1515,7 +1561,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1537,7 +1584,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1574,7 +1622,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1598,7 +1647,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1623,7 +1673,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1647,7 +1698,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1671,7 +1723,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 
@@ -1695,7 +1748,8 @@ functions:
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          0, // apply_matrix_offset_x
-         0  // apply_matrix_offset_y
+         0, // apply_matrix_offset_y
+         out_of_bounds_match_type
       );
 
 

@@ -88,12 +88,12 @@ functions:
       - name: apply_matrix_offset_y
         type: int
         default_argument: 0
-      - name: ignore_if_negative_tile_value_on_match_matrix
-        type: bool
-        default_argument: true
       - name: out_of_bounds_match_type
         type: std::string
         default_argument: OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
+      - name: ignore_if_negative_tile_value_on_match_matrix
+        type: bool
+        default_argument: true
       - name: ignore_write_if_negative_tile_value_on_stamp_tile
         type: bool
         default_argument: true

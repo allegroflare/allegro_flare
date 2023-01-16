@@ -71,7 +71,7 @@ bool Base::process()
    return true;
 }
 
-void Base::iterate_through_input_and_apply_to_result_if_match(std::vector<std::vector<int>> match_matrix, std::vector<std::vector<int>> apply_matrix, int match_matrix_offset_x, int match_matrix_offset_y, int apply_matrix_offset_x, int apply_matrix_offset_y, bool ignore_if_negative_tile_value_on_match_matrix, std::string out_of_bounds_match_type, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
+void Base::iterate_through_input_and_apply_to_result_if_match(std::vector<std::vector<int>> match_matrix, std::vector<std::vector<int>> apply_matrix, int match_matrix_offset_x, int match_matrix_offset_y, int apply_matrix_offset_x, int apply_matrix_offset_y, std::string out_of_bounds_match_type, bool ignore_if_negative_tile_value_on_match_matrix, bool ignore_write_if_negative_tile_value_on_stamp_tile, bool ignore_if_stamp_tile_is_out_of_bounds_on_result_matrix)
 {
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
