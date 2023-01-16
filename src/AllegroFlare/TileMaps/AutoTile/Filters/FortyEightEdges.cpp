@@ -492,8 +492,42 @@ bool FortyEightEdges::process()
    );
 
 
-
    return true;
+}
+
+void FortyEightEdges::process_three_edge_filters()
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   int &s = solid_tile_value;
+   int _ = -1;
+
+
+   // TOP_RIGHT_BOTTOM
+
+   std::vector<std::vector<int>> top_right_bottom_tile_match_matrix = {
+     { _, 0, _ },
+     { s, s, 0 },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> top_right_bottom_tile_apply_matrix = {
+     { get_tile_for(TOP_RIGHT_BOTTOM) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      top_right_bottom_tile_match_matrix,
+      top_right_bottom_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
+
+   return;
 }
 
 void FortyEightEdges::process_two_tip_filters()
@@ -690,9 +724,16 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { BOTTOM_LEFT,  tc( 8,  3, num_columns) },
       { BOTTOM_RIGHT, tc(11,  3, num_columns) },
 
-      // edges with tips
+      // three edges
+      { TOP_RIGHT_BOTTOM,  tc( 3,  3, num_columns) },
+      { RIGHT_BOTTOM_LEFT, tc( 0,  2, num_columns) },
+      { BOTTOM_LEFT_TOP,   tc( 1,  3, num_columns) },
+      { LEFT_TOP_RIGHT,    tc( 0,  0, num_columns) },
+
+      // edges with tips (one edge, one tip)
       { TOP_BL,       tc( 5,  0, num_columns) },
       { TOP_BR,       tc( 6,  0, num_columns) },
+      // TODO: more here
 
       // tips only (diagonal tips only)
       { TL_BR,        tc( 9,  1, num_columns) },

@@ -48,6 +48,10 @@ namespace AllegroFlare
                static constexpr uint32_t BL_BR = 28;
                static constexpr uint32_t TL_BL = 29;
                static constexpr uint32_t TR_BR = 30;
+               static constexpr uint32_t TOP_RIGHT_BOTTOM = 31;
+               static constexpr uint32_t RIGHT_BOTTOM_LEFT = 32;
+               static constexpr uint32_t BOTTOM_LEFT_TOP = 33;
+               static constexpr uint32_t LEFT_TOP_RIGHT = 34;
                static constexpr char* TYPE = (char*)"Filters/FortyEightEdges";
 
             private:
@@ -66,6 +70,7 @@ namespace AllegroFlare
                int get_solid_tile_value() const;
                std::map<uint32_t, int> get_forty_eight_edges_tiles_definition() const;
                virtual bool process() override;
+               void process_three_edge_filters();
                void process_two_tip_filters();
                int get_tile_for(uint32_t edge_tile_name=UNDEF);
                static std::map<uint32_t, int> build_default_forty_eight_edges_tiles_definition();
