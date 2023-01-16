@@ -407,7 +407,11 @@ bool FortyEightEdges::process()
 
 
 
-   process_one_face_two_tips();
+   process_one_edge_one_tip();
+
+
+
+   process_one_edge_two_tips();
 
 
 
@@ -958,7 +962,106 @@ void FortyEightEdges::process_two_edge_with_tip_filters()
    return;
 }
 
-void FortyEightEdges::process_one_face_two_tips()
+void FortyEightEdges::process_one_edge_one_tip()
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   int &s = solid_tile_value;
+   int _ = -1;
+
+
+   // LEFT_TR
+
+   std::vector<std::vector<int>> left_tr_tile_match_matrix = {
+     { _, s, 0 },
+     { 0, s, s },
+     { _, s, s },
+   };
+
+   std::vector<std::vector<int>> left_tr_tile_apply_matrix = {
+     { get_tile_for(LEFT_TR) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      left_tr_tile_match_matrix,
+      left_tr_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // LEFT_BR
+
+   std::vector<std::vector<int>> left_br_tile_match_matrix = {
+     { _, s, s },
+     { 0, s, s },
+     { _, s, 0 },
+   };
+
+   std::vector<std::vector<int>> left_br_tile_apply_matrix = {
+     { get_tile_for(LEFT_BR) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      left_br_tile_match_matrix,
+      left_br_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // RIGHT_TL
+
+   std::vector<std::vector<int>> right_tl_tile_match_matrix = {
+     { 0, s, _ },
+     { s, s, 0 },
+     { s, s, _ },
+   };
+
+   std::vector<std::vector<int>> right_tl_tile_apply_matrix = {
+     { get_tile_for(RIGHT_TL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      right_tl_tile_match_matrix,
+      right_tl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // RIGHT_BL
+
+   std::vector<std::vector<int>> right_bl_tile_match_matrix = {
+     { s, s, _ },
+     { s, s, 0 },
+     { 0, s, _ },
+   };
+
+   std::vector<std::vector<int>> right_bl_tile_apply_matrix = {
+     { get_tile_for(RIGHT_BL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      right_bl_tile_match_matrix,
+      right_bl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   return;
+}
+
+void FortyEightEdges::process_one_edge_two_tips()
 {
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
@@ -1301,6 +1404,11 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { TOP_BR,       tc( 6,  0, num_columns) },
       { BOTTOM_TL,    tc( 5,  3, num_columns) },
       { BOTTOM_TR,    tc( 6,  3, num_columns) },
+
+      { LEFT_TR,       tc( 4,  1, num_columns) },
+      { LEFT_BR,       tc( 4,  2, num_columns) },
+      { RIGHT_TL,      tc( 7,  1, num_columns) },
+      { RIGHT_BL,      tc( 7,  2, num_columns) },
 
       // edges with tips (one edge, two tips)
       { TOP_BR_BL,    tc( 2,  0, num_columns) },
