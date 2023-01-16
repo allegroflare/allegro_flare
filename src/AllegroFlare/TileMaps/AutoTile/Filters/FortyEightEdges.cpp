@@ -347,6 +347,31 @@ bool FortyEightEdges::process()
    process_three_edge_filters();
 
 
+
+   // TOP_RIGHT_BOTTOM_LEFT
+
+   // Build our match_matrix for the "top-right-bottom-left tile fiter"
+   std::vector<std::vector<int>> top_right_bottom_left_tile_match_matrix = {
+     { _, 0, _ },
+     { 0, s, 0 },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> top_right_bottom_left_tile_apply_matrix = {
+     { get_tile_for(TOP_RIGHT_BOTTOM_LEFT) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      top_right_bottom_left_tile_match_matrix,
+      top_right_bottom_left_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
    // TL
 
    // Build our match_matrix for the "tl tile fiter"
@@ -854,6 +879,9 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { RIGHT_BOTTOM_LEFT, tc( 0,  2, num_columns) },
       { BOTTOM_LEFT_TOP,   tc( 1,  3, num_columns) },
       { LEFT_TOP_RIGHT,    tc( 0,  0, num_columns) },
+
+      // edges (all edges)
+      { TOP_RIGHT_BOTTOM_LEFT, tc( 0,  3, num_columns) },
 
       // tips only (diagonal tips only)
       { TL_BR,        tc( 9,  1, num_columns) },
