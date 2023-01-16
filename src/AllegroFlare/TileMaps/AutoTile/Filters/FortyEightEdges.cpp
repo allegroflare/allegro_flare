@@ -340,6 +340,57 @@ bool FortyEightEdges::process()
 
 
 
+   // BOTTOM TL
+
+   // Build our match_matrix for the "bottom-tl tile fiter"
+   std::vector<std::vector<int>> bottom_tl_tile_match_matrix = {
+     { 0, s, s },
+     { s, s, s },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> bottom_tl_tile_apply_matrix = {
+     { get_tile_for(BOTTOM_TL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bottom_tl_tile_match_matrix,
+      bottom_tl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
+   // BOTTOM TR
+
+   // Build our match_matrix for the "bottom-tr tile fiter"
+   std::vector<std::vector<int>> bottom_tr_tile_match_matrix = {
+     { s, s, 0 },
+     { s, s, s },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> bottom_tr_tile_apply_matrix = {
+     { get_tile_for(BOTTOM_TR) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bottom_tr_tile_match_matrix,
+      bottom_tr_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
+
+
+
    process_two_tip_filters();
 
 
@@ -902,6 +953,8 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       // edges with tips (one edge, one tip)
       { TOP_BL,       tc( 5,  0, num_columns) },
       { TOP_BR,       tc( 6,  0, num_columns) },
+      { BOTTOM_TL,    tc( 5,  3, num_columns) },
+      { BOTTOM_TR,    tc( 6,  3, num_columns) },
       // TODO: more here
 
       //{ LEFT,         tc( 8,  1, num_columns) },

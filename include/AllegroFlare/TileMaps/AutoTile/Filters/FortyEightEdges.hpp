@@ -55,6 +55,8 @@ namespace AllegroFlare
                static constexpr uint32_t TOP_BOTTOM = 35;
                static constexpr uint32_t LEFT_RIGHT = 36;
                static constexpr uint32_t TOP_RIGHT_BOTTOM_LEFT = 37;
+               static constexpr uint32_t BOTTOM_TL = 38;
+               static constexpr uint32_t BOTTOM_TR = 39;
                static constexpr char* TYPE = (char*)"Filters/FortyEightEdges";
 
             private:
