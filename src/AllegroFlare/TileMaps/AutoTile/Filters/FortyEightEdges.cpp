@@ -294,6 +294,9 @@ bool FortyEightEdges::process()
 
 
 
+   process_three_edge_filters();
+
+
    // TL
 
    // Build our match_matrix for the "tl tile fiter"
@@ -518,6 +521,74 @@ void FortyEightEdges::process_three_edge_filters()
    iterate_through_input_and_apply_to_result_if_match(
       top_right_bottom_tile_match_matrix,
       top_right_bottom_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // RIGHT_BOTTOM_LEFT
+
+   std::vector<std::vector<int>> right_bottom_left_tile_match_matrix = {
+     { _, s, _ },
+     { 0, s, 0 },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> right_bottom_left_tile_apply_matrix = {
+     { get_tile_for(RIGHT_BOTTOM_LEFT) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      right_bottom_left_tile_match_matrix,
+      right_bottom_left_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // BOTTOM_LEFT_TOP
+
+   // Build our match_matrix for the "bottom-left-top tile fiter"
+   std::vector<std::vector<int>> bottom_left_top_tile_match_matrix = {
+     { _, 0, _ },
+     { 0, s, s },
+     { _, 0, _ },
+   };
+
+   std::vector<std::vector<int>> bottom_left_top_tile_apply_matrix = {
+     { get_tile_for(BOTTOM_LEFT_TOP) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bottom_left_top_tile_match_matrix,
+      bottom_left_top_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // LEFT_TOP_RIGHT
+
+   // Build our match_matrix for the "left-top-right tile fiter"
+   std::vector<std::vector<int>> left_top_right_tile_match_matrix = {
+     { _, 0, _ },
+     { 0, s, 0 },
+     { _, s, _ },
+   };
+
+   std::vector<std::vector<int>> left_top_right_tile_apply_matrix = {
+     { get_tile_for(LEFT_TOP_RIGHT) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      left_top_right_tile_match_matrix,
+      left_top_right_tile_apply_matrix,
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
