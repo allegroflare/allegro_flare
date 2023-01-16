@@ -112,7 +112,18 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest,
          { 10, 9,  8,  7 },
       });
 
-   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(-1, -1, 1));
+   // top left extrusion
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(-99, -99,  1));
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries( -1,  -1,  1));
+   //EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries( -1,   0,  1));
+   //EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(  0,  -1,  1));
+
+   // top row extrusion
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(0, -99,  1));
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(0,  -1,  1));
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(1,  -1,  2));
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(2,  -1,  3));
+   EXPECT_EQ(true, filter_matrix.tile_matches_with_extruded_boundaries(3,  -1,  4));
 }
 
 
