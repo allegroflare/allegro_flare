@@ -212,6 +212,34 @@ properties:
     constexpr: true
     static: true
 
+  - name: TL_TR
+    type: uint32_t
+    init_with: 27
+    const: true
+    constexpr: true
+    static: true
+
+  - name: BL_BR
+    type: uint32_t
+    init_with: 28
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TL_BL
+    type: uint32_t
+    init_with: 29
+    const: true
+    constexpr: true
+    static: true
+
+  - name: TR_BR
+    type: uint32_t
+    init_with: 30
+    const: true
+    constexpr: true
+    static: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Filters/FortyEightEdges"'
@@ -510,6 +538,10 @@ functions:
 
 
 
+      process_two_tip_filters();
+
+
+
       // TL
 
       // Build our match_matrix for the "tl tile fiter"
@@ -712,6 +744,39 @@ functions:
       return true;
 
 
+  - name: process_two_tip_filters
+    body: |
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+      int &s = solid_tile_value;
+      int _ = -1;
+
+      // TL TR
+
+      // Build our match_matrix for the "tl tr tile fiter"
+      std::vector<std::vector<int>> tl_tr_tile_match_matrix = {
+        { 0, s, 0 },
+        { s, s, s },
+        { s, s, s },
+      };
+
+      // Build our apply_matrix for the "tl tr tile filter"
+      std::vector<std::vector<int>> tl_tr_tile_apply_matrix = {
+        { get_tile_for(TL_TR) }, // TODO: find edge cases (on result matrix) where it might be improperly stamped
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         tl_tr_tile_match_matrix,
+         tl_tr_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         0, // apply_matrix_offset_x
+         0  // apply_matrix_offset_y
+      );
+
+
+
+
   - name: get_tile_for
     type: int
     parameters:
@@ -758,11 +823,17 @@ functions:
          { TOP_BL,       tc( 5,  0, num_columns) },
          { TOP_BR,       tc( 6,  0, num_columns) },
 
-         // tips only
+         // tips only (diagonal tips only)
          { TL_BR,        tc( 9,  1, num_columns) },
          { TR_BL,        tc(10,  2, num_columns) },
 
-         // tips only
+         // tips only (on same edge)
+         { TL_TR,        tc( 9,  0, num_columns) },
+         { BL_BR,        tc(10,  3, num_columns) },
+         { TL_BL,        tc( 8,  2, num_columns) },
+         { TR_BR,        tc(11,  1, num_columns) },
+
+         // tips only (single tip)
          { TL,           tc( 5,  1, num_columns) },
          { BR,           tc( 6,  2, num_columns) },
          { TR,           tc( 6,  1, num_columns) },

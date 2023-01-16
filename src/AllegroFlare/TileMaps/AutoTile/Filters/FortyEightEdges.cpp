@@ -339,6 +339,10 @@ bool FortyEightEdges::process()
 
 
 
+   process_two_tip_filters();
+
+
+
    // TL
 
    // Build our match_matrix for the "tl tile fiter"
@@ -541,6 +545,37 @@ bool FortyEightEdges::process()
    return true;
 }
 
+void FortyEightEdges::process_two_tip_filters()
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   int &s = solid_tile_value;
+   int _ = -1;
+
+   // TL TR
+
+   // Build our match_matrix for the "tl tr tile fiter"
+   std::vector<std::vector<int>> tl_tr_tile_match_matrix = {
+     { 0, s, 0 },
+     { s, s, s },
+     { s, s, s },
+   };
+
+   // Build our apply_matrix for the "tl tr tile filter"
+   std::vector<std::vector<int>> tl_tr_tile_apply_matrix = {
+     { get_tile_for(TL_TR) }, // TODO: find edge cases (on result matrix) where it might be improperly stamped
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      tl_tr_tile_match_matrix,
+      tl_tr_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+}
+
 int FortyEightEdges::get_tile_for(uint32_t edge_tile_name)
 {
    if (!((forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)))
@@ -586,11 +621,17 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { TOP_BL,       tc( 5,  0, num_columns) },
       { TOP_BR,       tc( 6,  0, num_columns) },
 
-      // tips only
+      // tips only (diagonal tips only)
       { TL_BR,        tc( 9,  1, num_columns) },
       { TR_BL,        tc(10,  2, num_columns) },
 
-      // tips only
+      // tips only (on same edge)
+      { TL_TR,        tc( 9,  0, num_columns) },
+      { BL_BR,        tc(10,  3, num_columns) },
+      { TL_BL,        tc( 8,  2, num_columns) },
+      { TR_BR,        tc(11,  1, num_columns) },
+
+      // tips only (single tip)
       { TL,           tc( 5,  1, num_columns) },
       { BR,           tc( 6,  2, num_columns) },
       { TR,           tc( 6,  1, num_columns) },
