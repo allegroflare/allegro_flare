@@ -399,6 +399,10 @@ bool FortyEightEdges::process()
 
 
 
+   process_three_tip_filters();
+
+
+
    process_two_edge_with_tip_filters();
 
 
@@ -729,6 +733,131 @@ void FortyEightEdges::process_three_edge_filters()
    return;
 }
 
+void FortyEightEdges::process_three_tip_filters()
+{
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
+   int &s = solid_tile_value;
+   int _ = -1;
+
+
+   // TL_TR_BR
+
+   std::vector<std::vector<int>> tl_tr_br_tile_match_matrix = {
+     { 0, s, 0 },
+     { s, s, s },
+     { s, s, 0 },
+   };
+
+   std::vector<std::vector<int>> tl_tr_br_tile_apply_matrix = {
+     { get_tile_for(TL_TR_BR) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      tl_tr_br_tile_match_matrix,
+      tl_tr_br_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // TR_BR_BL
+
+   std::vector<std::vector<int>> tr_br_bl_tile_match_matrix = {
+     { s, s, 0 },
+     { s, s, s },
+     { 0, s, 0 },
+   };
+
+   std::vector<std::vector<int>> tr_br_bl_tile_apply_matrix = {
+     { get_tile_for(TR_BR_BL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      tr_br_bl_tile_match_matrix,
+      tr_br_bl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // BR_BL_TL
+
+   std::vector<std::vector<int>> br_bl_tl_tile_match_matrix = {
+     { 0, s, s },
+     { s, s, s },
+     { 0, s, 0 },
+   };
+
+   std::vector<std::vector<int>> br_bl_tl_tile_apply_matrix = {
+     { get_tile_for(BR_BL_TL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      br_bl_tl_tile_match_matrix,
+      br_bl_tl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+   // BL_TL_TR
+
+   std::vector<std::vector<int>> bl_tl_tr_tile_match_matrix = {
+     { 0, s, 0 },
+     { s, s, s },
+     { 0, s, s },
+   };
+
+   std::vector<std::vector<int>> bl_tl_tr_tile_apply_matrix = {
+     { get_tile_for(BL_TL_TR) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      bl_tl_tr_tile_match_matrix,
+      bl_tl_tr_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
+   // TL_TR_BR_BL
+
+   std::vector<std::vector<int>> tl_tr_br_bl_tile_match_matrix = {
+     { 0, s, 0 },
+     { s, s, s },
+     { 0, s, 0 },
+   };
+
+   std::vector<std::vector<int>> tl_tr_br_bl_tile_apply_matrix = {
+     { get_tile_for(TL_TR_BR_BL) },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      tl_tr_br_bl_tile_match_matrix,
+      tl_tr_br_bl_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      0, // apply_matrix_offset_x
+      0  // apply_matrix_offset_y
+   );
+
+
+
+
+
+   return;
+}
+
 void FortyEightEdges::process_two_edge_with_tip_filters()
 {
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
@@ -1011,6 +1140,8 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { EMPTY,        tc(10,  1, num_columns) },
       { SOLID,        tc( 9,  2, num_columns) },
 
+      // edges (no tips)
+
       // edges (single edge)
       { TOP,          tc(10,  0, num_columns) },
       { BOTTOM,       tc( 9,  3, num_columns) },
@@ -1027,12 +1158,6 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { BOTTOM_LEFT,  tc( 8,  3, num_columns) },
       { BOTTOM_RIGHT, tc(11,  3, num_columns) },
 
-      // edges (corners, with tips)
-      { TOP_LEFT_BR,     tc( 1,  0, num_columns) },
-      { TOP_RIGHT_BL,    tc( 3,  0, num_columns) },
-      { BOTTOM_LEFT_TR,  tc( 1,  2, num_columns) },
-      { BOTTOM_RIGHT_TL, tc( 3,  2, num_columns) },
-
       // edges (three edges)
       { TOP_RIGHT_BOTTOM,  tc( 3,  3, num_columns) },
       { RIGHT_BOTTOM_LEFT, tc( 0,  2, num_columns) },
@@ -1042,15 +1167,7 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       // edges (all edges)
       { TOP_RIGHT_BOTTOM_LEFT, tc( 0,  3, num_columns) },
 
-      // tips only (diagonal tips only)
-      { TL_BR,        tc( 9,  1, num_columns) },
-      { TR_BL,        tc(10,  2, num_columns) },
-
-      // tips only (on same edge)
-      { TL_TR,        tc( 9,  0, num_columns) },
-      { BL_BR,        tc(10,  3, num_columns) },
-      { TL_BL,        tc( 8,  2, num_columns) },
-      { TR_BR,        tc(11,  1, num_columns) },
+      // tips (no edges)
 
       // tips only (single tip)
       { TL,           tc( 5,  1, num_columns) },
@@ -1058,11 +1175,41 @@ std::map<uint32_t, int> FortyEightEdges::build_default_forty_eight_edges_tiles_d
       { TR,           tc( 6,  1, num_columns) },
       { BL,           tc( 5,  2, num_columns) },
 
+      // tips only (on same edge)
+      { TL_TR,        tc( 9,  0, num_columns) },
+      { BL_BR,        tc(10,  3, num_columns) },
+      { TL_BL,        tc( 8,  2, num_columns) },
+      { TR_BR,        tc(11,  1, num_columns) },
+
+      // tips only (diagonal tips only)
+      { TL_BR,        tc( 9,  1, num_columns) },
+      { TR_BL,        tc(10,  2, num_columns) },
+
+      // tips only (3 tips only)
+      { TL_TR_BR,     tc( 4,  3, num_columns) },
+      { TR_BR_BL,     tc( 4,  0, num_columns) },
+      { BR_BL_TL,     tc( 7,  0, num_columns) },
+      { BL_TL_TR,     tc( 7,  3, num_columns) },
+
+      // all tips
+      { TL_TR_BR_BL,  tc( 2,  1, num_columns) },
+
+      // edges and tips
+
       // edges with tips (one edge, one tip)
       { TOP_BL,       tc( 5,  0, num_columns) },
       { TOP_BR,       tc( 6,  0, num_columns) },
       { BOTTOM_TL,    tc( 5,  3, num_columns) },
       { BOTTOM_TR,    tc( 6,  3, num_columns) },
+
+      // edges with tips (one edge, two tips)
+      // TODO
+
+      // edges (two edges, one tips)
+      { TOP_LEFT_BR,     tc( 1,  0, num_columns) },
+      { TOP_RIGHT_BL,    tc( 3,  0, num_columns) },
+      { BOTTOM_LEFT_TR,  tc( 1,  2, num_columns) },
+      { BOTTOM_RIGHT_TL, tc( 3,  2, num_columns) },
    };
    return result;
 }
