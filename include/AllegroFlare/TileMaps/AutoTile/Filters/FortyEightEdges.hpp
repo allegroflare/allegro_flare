@@ -42,6 +42,8 @@ namespace AllegroFlare
                static constexpr uint32_t TR_BL = 22;
                static constexpr uint32_t TL = 23;
                static constexpr uint32_t BR = 24;
+               static constexpr uint32_t TR = 25;
+               static constexpr uint32_t BL = 26;
                static constexpr char* TYPE = (char*)"Filters/FortyEightEdges";
 
             private:
