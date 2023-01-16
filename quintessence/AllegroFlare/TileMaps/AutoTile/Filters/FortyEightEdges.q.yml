@@ -1221,30 +1221,6 @@ functions:
          { TOP_BR,       tc( 6,  0, num_columns) },
          { BOTTOM_TL,    tc( 5,  3, num_columns) },
          { BOTTOM_TR,    tc( 6,  3, num_columns) },
-         // TODO: more here
-
-         //{ LEFT,         tc( 8,  1, num_columns) },
-         //{ BOTTOM,       tc( 9,  3, num_columns) },
-         //{ RIGHT,        tc(11,  2, num_columns) },
-         //{ LEFT,         tc( 8,  1, num_columns) },
-
-         // TODO: add new mappings for this fourty-eight-edges tileset
-         //{ TOP_LEFT,     tc(1+xo, 0, num_columns) },
-         //{ TOP,          tc(2+xo, 0, num_columns) },
-         //{ TOP_RIGHT,    tc(3+xo, 0, num_columns) },
-         //{ TOP_TIP,      tc(0+xo, 0, num_columns) },
-         //{ LEFT,         tc(1+xo, 1, num_columns) },
-         //{ FULL,         tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-         //{ RIGHT,        tc(3+xo, 1, num_columns) },
-         //{ CENTER,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-         //{ BOTTOM_LEFT,  tc(1+xo, 2, num_columns) },
-         //{ BOTTOM,       tc(2+xo, 2, num_columns) },
-         //{ BOTTOM_RIGHT, tc(3+xo, 2, num_columns) },
-         //{ BOTTOM_TIP,   tc(0+xo, 2, num_columns) },
-         //{ LEFT_TIP,     tc(3+xo, 1, num_columns) },
-         //{ MIDDLE,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-         //{ RIGHT_TIP,    tc(3+xo, 3, num_columns) },
-         //{ ISOLATED,     tc(0+xo, 3, num_columns) },
       };
       return result;
 
