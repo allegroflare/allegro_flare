@@ -68,6 +68,11 @@ to determine how out of bounds tiles should be interpreted.
   be matched as if the `input_matrix` tiles were extruded out from the edge to
   accomodate the match.
 
-- Note: May eventually add match types for specific values, for example
-  `_ALWAYS_SOLID_AS_1`, `_ALWAYS_EMPTY_AS_0`, for example, or, even a
-  `_CALLBACK` option.
+Note: May eventually add match types for specific values, for example:
+ - `_ALWAYS_SOLID_AS_1`
+ - `_ALWAYS_EMPTY_AS_0`
+ - `_CALLBACK` (require additional void*) param
+ - `_SPECIFIED_VALUE_IS_POSITIVE` (require additional int) param
+ - `_SAME_IS_POSITIVE` (or identical `_DIFFERENT_IS_NEGATIVE`)
+ - `_DIFFERENT_IS_POSITIVE` from
+   [here](https://github.com/allegroflare/allegro_flare/blob/master/legacy/tilemap/include/tilemap/lib/TileNeighborMatcher.hpp#L10-L12)
