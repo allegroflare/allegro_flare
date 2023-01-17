@@ -21,12 +21,6 @@ properties:
     getter: true
     getter_ref: true
 
-  - name: TYPE
-    type: char*
-    init_with: '(char*)"Filters/Base"'
-    static: true
-    constexpr: true
-
   - name: OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
     type: char*
     init_with: '(char*)"positive"'
@@ -42,6 +36,18 @@ properties:
   - name: OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE
     type: char*
     init_with: '(char*)"extruded_edge"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_OUT_OF_BOUNDS_MATCH_TYPE
+    type: char*
+    init_with: AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE
+    static: true
+    constexpr: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Filters/Base"'
     static: true
     constexpr: true
 
@@ -90,7 +96,7 @@ functions:
         default_argument: 0
       - name: out_of_bounds_match_type
         type: std::string
-        default_argument: OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
+        default_argument: DEFAULT_OUT_OF_BOUNDS_MATCH_TYPE
       - name: ignore_if_negative_tile_value_on_match_matrix
         type: bool
         default_argument: true
@@ -180,7 +186,7 @@ functions:
         default_argument: true
       - name: out_of_bounds_match_type
         type: std::string
-        default_argument: OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE
+        default_argument: DEFAULT_OUT_OF_BOUNDS_MATCH_TYPE
     guards: [ "AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)" ]
     body: |
       // TODO: un-hardcode this function (note is done, just leaving commented code preserved in case of needed revert)

@@ -21,7 +21,6 @@ FortyEightEdges::FortyEightEdges(int solid_tile_value, std::map<uint32_t, int> f
    : AllegroFlare::TileMaps::AutoTile::Filters::Base(AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges::TYPE)
    , solid_tile_value(solid_tile_value)
    , forty_eight_edges_tiles_definition(forty_eight_edges_tiles_definition)
-   , out_of_bounds_match_type(AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE)
 {
 }
 
@@ -55,17 +54,8 @@ std::map<uint32_t, int> FortyEightEdges::get_forty_eight_edges_tiles_definition(
 }
 
 
-std::string FortyEightEdges::get_out_of_bounds_match_type() const
-{
-   return out_of_bounds_match_type;
-}
-
-
 bool FortyEightEdges::process()
 {
-   //out_of_bounds_match_type = AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE;
-   //out_of_bounds_match_type = AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE;
-
    // TODO: Finish this function
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
@@ -95,8 +85,7 @@ bool FortyEightEdges::process()
       0, // match_matrix_offset_x
       0, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -119,8 +108,7 @@ bool FortyEightEdges::process()
       0, // match_matrix_offset_x
       0, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -147,8 +135,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       1, // apply_matrix_offset_x
-      1, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      1 // apply_matrix_offset_y
    );
 
 
@@ -173,8 +160,7 @@ bool FortyEightEdges::process()
       0, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      1, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      1 // apply_matrix_offset_y
    );
 
 
@@ -199,8 +185,7 @@ bool FortyEightEdges::process()
       0, // match_matrix_offset_x
       0, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -225,8 +210,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -251,8 +235,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -276,8 +259,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -301,8 +283,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -329,8 +310,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -355,8 +335,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -380,8 +359,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -405,8 +383,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -457,8 +434,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -483,8 +459,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -508,8 +483,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -534,8 +508,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -560,8 +533,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -586,8 +558,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -612,8 +583,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -638,8 +608,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -664,8 +633,7 @@ bool FortyEightEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -698,8 +666,7 @@ void FortyEightEdges::process_three_edge_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -721,8 +688,7 @@ void FortyEightEdges::process_three_edge_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -745,8 +711,7 @@ void FortyEightEdges::process_three_edge_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -769,8 +734,7 @@ void FortyEightEdges::process_three_edge_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -803,8 +767,7 @@ void FortyEightEdges::process_three_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -826,8 +789,7 @@ void FortyEightEdges::process_three_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -849,8 +811,7 @@ void FortyEightEdges::process_three_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -872,8 +833,7 @@ void FortyEightEdges::process_three_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -896,8 +856,7 @@ void FortyEightEdges::process_three_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -930,8 +889,7 @@ void FortyEightEdges::process_two_edge_with_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -953,8 +911,7 @@ void FortyEightEdges::process_two_edge_with_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -976,8 +933,7 @@ void FortyEightEdges::process_two_edge_with_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -999,8 +955,7 @@ void FortyEightEdges::process_two_edge_with_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1033,8 +988,7 @@ void FortyEightEdges::process_one_edge_one_tip()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1056,8 +1010,7 @@ void FortyEightEdges::process_one_edge_one_tip()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1079,8 +1032,7 @@ void FortyEightEdges::process_one_edge_one_tip()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1102,8 +1054,7 @@ void FortyEightEdges::process_one_edge_one_tip()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1136,8 +1087,7 @@ void FortyEightEdges::process_one_edge_two_tips()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1159,8 +1109,7 @@ void FortyEightEdges::process_one_edge_two_tips()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1182,8 +1131,7 @@ void FortyEightEdges::process_one_edge_two_tips()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1205,8 +1153,7 @@ void FortyEightEdges::process_one_edge_two_tips()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1242,8 +1189,7 @@ void FortyEightEdges::process_two_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1267,8 +1213,7 @@ void FortyEightEdges::process_two_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1293,8 +1238,7 @@ void FortyEightEdges::process_two_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1318,8 +1262,7 @@ void FortyEightEdges::process_two_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1343,8 +1286,7 @@ void FortyEightEdges::process_two_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 
 
@@ -1368,8 +1310,7 @@ void FortyEightEdges::process_two_tip_filters()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0, // apply_matrix_offset_y
-      out_of_bounds_match_type
+      0 // apply_matrix_offset_y
    );
 }
 

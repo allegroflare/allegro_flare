@@ -162,7 +162,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRend
    place.restore_transform();
 
    al_flip_display();
-   //sleep_for(1);
+   sleep_for(1);
 }
 
 

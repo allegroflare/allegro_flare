@@ -4,7 +4,6 @@
 #include <AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp>
 #include <cstdint>
 #include <map>
-#include <string>
 
 
 namespace AllegroFlare
@@ -80,7 +79,6 @@ namespace AllegroFlare
             private:
                int solid_tile_value;
                std::map<uint32_t, int> forty_eight_edges_tiles_definition;
-               std::string out_of_bounds_match_type;
 
             protected:
 
@@ -93,7 +91,6 @@ namespace AllegroFlare
                void set_forty_eight_edges_tiles_definition(std::map<uint32_t, int> forty_eight_edges_tiles_definition);
                int get_solid_tile_value() const;
                std::map<uint32_t, int> get_forty_eight_edges_tiles_definition() const;
-               std::string get_out_of_bounds_match_type() const;
                virtual bool process() override;
                void process_three_edge_filters();
                void process_three_tip_filters();
