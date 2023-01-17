@@ -56,7 +56,7 @@ std::map<uint32_t, int> SixteenEdges::get_sixteen_edges_tiles_definition() const
 
 bool SixteenEdges::process()
 {
-   // TODO: this class
+   // TODO: finish the remaining match rules on this class
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
    int &s = solid_tile_value;
