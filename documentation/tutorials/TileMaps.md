@@ -49,11 +49,16 @@ There are a few more classes in `AutoTile/Filters/*`.
 
 Please note that the system is designed to be very extensible, so if the example
 filters above don't match your use case, it's likely that your preferred use
-case could be accomodated with a different type of filter.
+case could be accomodated with a different type of filter.  For example, in the
+`leacy/tilemap/` folder, there is a class `TileNeighborMatcher` that filters to look for tiles that
+are adjacent and identical, then processes from there.
 
 - Note: Should eventually include a callback option for a `match_type`.
 
 ## Out of Bounds Match type
+
+An `out_of_bounds_match_type` is used in the `iterate_through_input_and_apply_to_result_if_match` function
+to determine how out of bounds tiles should be interpreted.
 
 - `OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE` - If a tile is out of bounds, that tile will
   be matched as a "positive" match.
