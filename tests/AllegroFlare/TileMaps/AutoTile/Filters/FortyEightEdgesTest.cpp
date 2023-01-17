@@ -162,5 +162,86 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRend
    place.restore_transform();
 
    al_flip_display();
+   //sleep_for(1);
+}
+
+
+
+TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRenderingFixture,
+   CAPTURE__VISUAL__will_render_as_expected_for_tiles_along_the_edge_of_the_map)
+{
+   // Build our basic tile map
+
+   AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&get_bitmap_bin_ref());
+   basic2d_tile_map.set_atlas_configuration("autotile-tileset-2-01.png", 16, 16);
+   basic2d_tile_map.initialize();
+   //basic2d_tile_map.resize(24, 12);
+
+
+   // Create our filter and build our input matrix
+
+   AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges filter;
+   filter.set_input_matrix(
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
+         { 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
+         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+         { 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
+      })
+   );
+
+   basic2d_tile_map.resize(filter.get_input_matrix_ref().get_width(), filter.get_input_matrix_ref().get_height());
+
+   // Get our collision tile map from the basic tile map and fill it (skipping this step)
+
+   //AllegroFlare::TileMaps::TileMap<int> &basic2d_tile_map_collision_tile_map =
+      //basic2d_tile_map.get_collision_tile_map_ref();
+
+
+   // Apply the filter to the input matrix
+
+   EXPECT_EQ(true, filter.process());
+
+
+   // Assign the values of our result matrix into the tile map
+
+   AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = filter.get_result_matrix_ref();
+   AllegroFlare::TileMaps::PrimMesh &prim_mesh = basic2d_tile_map.get_prim_mesh_ref();
+   for (int y=0; y<result_matrix.get_height(); y++)
+      for (int x=0; x<result_matrix.get_width(); x++)
+      {
+         int result_tile_value = result_matrix.get_tile(x, y);
+         prim_mesh.set_tile_id(x, y, result_tile_value);
+      }
+
+
+   // Tweak the appearance of the tilemap for clearer presentation
+
+   basic2d_tile_map.rescale_tile_dimentions_to(32, 32);
+   AllegroFlare::Placement2D place = build_centered_placement(
+      basic2d_tile_map.infer_real_width(),
+      basic2d_tile_map.infer_real_height()
+   );
+   place.scale = {2.0, 2.0};
+
+
+   // Render our result
+
+   clear();
+
+   place.start_transform();
+   basic2d_tile_map.render();
+   place.restore_transform();
+
+   al_flip_display();
    sleep_for(1);
 }
+

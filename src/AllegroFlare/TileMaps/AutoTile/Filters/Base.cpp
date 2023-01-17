@@ -154,7 +154,7 @@ bool Base::matrix_matches(std::vector<std::vector<int>> match_matrix, int at_coo
    int match_matrix_width = match_matrix[0].size();
    int match_matrix_height = match_matrix.size();
 
-   bool out_of_bounds_match_type_i = 0;
+   int out_of_bounds_match_type_i = 0;
    if (out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE) out_of_bounds_match_type_i = 1;
    if (out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_NEGATIVE) out_of_bounds_match_type_i = 2;
    if (out_of_bounds_match_type == OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE) out_of_bounds_match_type_i = 3;

@@ -63,6 +63,9 @@ std::string FortyEightEdges::get_out_of_bounds_match_type() const
 
 bool FortyEightEdges::process()
 {
+   //out_of_bounds_match_type = AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGE;
+   //out_of_bounds_match_type = AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE;
+
    // TODO: Finish this function
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
