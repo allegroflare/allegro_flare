@@ -61,6 +61,11 @@ bool SixteenEdges::process()
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
    int &s = solid_tile_value;
    int _ = -1;
+   // NOTE: This match type seems to work for now, but may need to be reviewed (or a new match type introduced
+   // in the future.)  Note that the default is OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGES (and should remain the 
+   // preferred default.)
+   std::string match_type = AllegroFlare::TileMaps::AutoTile::Filters::Base::OUT_OF_BOUNDS_MATCH_TYPE_POSITIVE;
+
 
    // Resize the result matrix
    result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
@@ -86,7 +91,8 @@ bool SixteenEdges::process()
       0, // match_matrix_offset_x
       0, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0  // apply_matrix_offset_y
+      0, // apply_matrix_offset_y
+      match_type
    );
 
 
@@ -110,7 +116,8 @@ bool SixteenEdges::process()
       0, // match_matrix_offset_x
       0, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0  // apply_matrix_offset_y
+      0, // apply_matrix_offset_y
+      match_type
    );
 
 
@@ -138,7 +145,8 @@ bool SixteenEdges::process()
       1, // match_matrix_offset_x
       1, // match_matrix_offset_y
       1, // apply_matrix_offset_x
-      1  // apply_matrix_offset_y
+      1, // apply_matrix_offset_y
+      match_type
    );
 
 
@@ -163,7 +171,8 @@ bool SixteenEdges::process()
       0, // match_matrix_offset_x
       1, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      1  // apply_matrix_offset_y
+      1, // apply_matrix_offset_y
+      match_type
    );
 
 
@@ -188,7 +197,8 @@ bool SixteenEdges::process()
       0, // match_matrix_offset_x
       0, // match_matrix_offset_y
       0, // apply_matrix_offset_x
-      0  // apply_matrix_offset_y
+      0, // apply_matrix_offset_y
+      match_type
    );
 
 
