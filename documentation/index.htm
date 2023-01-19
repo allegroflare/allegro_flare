@@ -14117,6 +14117,34 @@ table td
   <td class="property">menu_option_selection_activation_delay</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">STATE_UNDEF</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">STATE_REVEALING</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">STATE_AWAITING_USER_INPUT</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">STATE_CLOSING_DOWN</td>
+  <td class="property">uint32_t</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -14124,6 +14152,18 @@ table td
 </tr>
 <tr>
   <td class="method">set_font_name(std::string font_name=&quot;[unset-font_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">update_state(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="method">on_activate()</td>

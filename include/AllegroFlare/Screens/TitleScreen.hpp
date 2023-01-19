@@ -7,6 +7,7 @@
 #include <AllegroFlare/Screens/Base.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>
@@ -18,6 +19,12 @@ namespace AllegroFlare
    {
       class TitleScreen : public AllegroFlare::Screens::Base
       {
+      public:
+         static constexpr uint32_t STATE_UNDEF = 0;
+         static constexpr uint32_t STATE_REVEALING = 1;
+         static constexpr uint32_t STATE_AWAITING_USER_INPUT = 2;
+         static constexpr uint32_t STATE_CLOSING_DOWN = 3;
+
       private:
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
@@ -49,6 +56,9 @@ namespace AllegroFlare
          bool menu_option_chosen;
          float menu_option_chosen_at;
          float menu_option_selection_activation_delay;
+         uint32_t state;
+         bool state_is_busy;
+         float state_changed_at;
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
@@ -122,6 +132,10 @@ namespace AllegroFlare
          float get_menu_option_selection_activation_delay() const;
          void TODO();
          void set_font_name(std::string font_name="[unset-font_name]");
+         void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
+         void update_state(float time_now=al_get_time());
+         static bool is_valid_state(uint32_t state=STATE_UNDEF);
+         float infer_current_state_age(float time_now=al_get_time());
          virtual void on_activate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");

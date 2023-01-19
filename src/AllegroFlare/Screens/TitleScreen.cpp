@@ -7,6 +7,7 @@
 #include <AllegroFlare/VirtualControls.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -49,6 +50,9 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_option_chosen(false)
    , menu_option_chosen_at(0.0f)
    , menu_option_selection_activation_delay(1.0f)
+   , state(STATE_UNDEF)
+   , state_is_busy(false)
+   , state_changed_at(0.0f)
 {
 }
 
@@ -377,6 +381,87 @@ void TitleScreen::set_font_name(std::string font_name)
    menu_font_name = font_name;
    copyright_font_name = font_name;
    return;
+}
+
+void TitleScreen::set_state(uint32_t state, bool override_if_busy)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::set_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   if (this->state == state) return;
+   if (!override_if_busy && state_is_busy) return;
+   uint32_t previous_state = this->state;
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   this->state = state;
+   state_changed_at = al_get_time();
+
+   return;
+}
+
+void TitleScreen::update_state(float time_now)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::update_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   float age = infer_current_state_age(time_now);
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   return;
+}
+
+bool TitleScreen::is_valid_state(uint32_t state)
+{
+   std::set<uint32_t> valid_states =
+   {
+      STATE_REVEALING,
+      STATE_AWAITING_USER_INPUT,
+      STATE_CLOSING_DOWN,
+   };
+   return (valid_states.count(state) > 0);
+}
+
+float TitleScreen::infer_current_state_age(float time_now)
+{
+   return (time_now - state_changed_at);
 }
 
 void TitleScreen::on_activate()
