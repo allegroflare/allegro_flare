@@ -9,10 +9,10 @@ namespace AllegroFlare
 {
    namespace Shaders
    {
-      class AllegroDefault : private AllegroFlare::Shaders::Base
+      class AllegroDefault : public AllegroFlare::Shaders::Base
       {
       public:
-         static constexpr char* TYPE = (char*)"Shaders/AllegroDefault";
+         static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/AllegroDefault";
 
       private:
          bool initialized;

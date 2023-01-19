@@ -22,7 +22,7 @@ TEST(AllegroFlare_Shaders_BaseTest, can_be_created_without_blowing_up)
 TEST(AllegroFlare_Shaders_BaseTest, TYPE__has_the_expected_value)
 {
    AllegroFlare::Shaders::Base base;
-   EXPECT_EQ("Shaders/Base", base.get_type());
+   EXPECT_EQ("AllegroFlare/Shaders/Base", base.get_type());
 }
 
 

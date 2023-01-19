@@ -3,38 +3,36 @@ parent_classes:
 
   - class: AllegroFlare::Shaders::Base
     scope: public
-    init_with: "AllegroFlare::Shaders::AllegroDefault::TYPE, obtain_vertex_source(), obtain_fragment_source()"
+    init_with: "AllegroFlare::Shaders::CubeMap::TYPE, obtain_vertex_source(), obtain_fragment_source()"
 
 
 properties:
 
 
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
   - name: TYPE
     type: char*
-    init_with: '(char*)"AllegroFlare/Shaders/AllegroDefault"'
+    init_with: '(char*)"AllegroFlare/Shaders/CubeMap"'
     static: true
     constexpr: true
-
-  - name: initialized
-    type: bool
-    init_with: false
 
 
 functions:
 
 
-  - name: initialize
-    type: void
+  - name: property_is
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
     body: |
-      if (!initialized) AllegroFlare::Shaders::Base::initialize();
-      initialized = true;
-
-
-  - name: activate
-    type: void
-    guards: [ initialized ]
-    body: |
-      AllegroFlare::Shaders::Base::activate();
+      return (possible_type == get_property());
 
 
   - name: obtain_vertex_source
@@ -42,6 +40,7 @@ functions:
     static: true
     private: true
     body: |
+      // TODO: replace this code with CubeMap code
       static const std::string source = R"DELIM(
         attribute vec4 al_pos;
         attribute vec4 al_color;
@@ -71,6 +70,7 @@ functions:
     static: true
     private: true
     body: |
+      // TODO: replace this code with CubeMap code
       static const std::string source = R"DELIM(
         #ifdef GL_ES
         precision lowp float;
@@ -114,12 +114,11 @@ functions:
       return source;
 
 
+
 dependencies:
 
 
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
-  - symbol: ALLEGRO_COLOR
-    headers: [ allegro5/allegro.h ]
 
 

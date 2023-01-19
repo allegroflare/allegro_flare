@@ -15,12 +15,6 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: TYPE
-    type: char*
-    init_with: '(char*)"Shaders/Base"'
-    static: true
-    constexpr: true
-
   - name: vertex_source_code
     type: std::string
     init_with: '""'
@@ -30,6 +24,12 @@ properties:
     type: std::string
     init_with: '""'
     constructor_arg: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Shaders/Base"'
+    static: true
+    constexpr: true
 
 
 functions:

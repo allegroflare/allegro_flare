@@ -1,10 +1,8 @@
 
 
-#include <AllegroFlare/Shaders/AllegroDefault.hpp>
+#include <AllegroFlare/Shaders/CubeMap.hpp>
 
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
+
 
 
 namespace AllegroFlare
@@ -13,38 +11,32 @@ namespace Shaders
 {
 
 
-AllegroDefault::AllegroDefault()
-   : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::AllegroDefault::TYPE, obtain_vertex_source(), obtain_fragment_source())
-   , initialized(false)
+CubeMap::CubeMap(std::string property)
+   : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::CubeMap::TYPE, obtain_vertex_source(), obtain_fragment_source())
+   , property(property)
 {
 }
 
 
-AllegroDefault::~AllegroDefault()
+CubeMap::~CubeMap()
 {
 }
 
 
-void AllegroDefault::initialize()
+std::string CubeMap::get_property() const
 {
-   if (!initialized) AllegroFlare::Shaders::Base::initialize();
-   initialized = true;
+   return property;
 }
 
-void AllegroDefault::activate()
+
+bool CubeMap::property_is(std::string possible_type)
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroDefault::activate]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllegroDefault::activate: error: guard \"initialized\" not met");
-   }
-   AllegroFlare::Shaders::Base::activate();
+   return (possible_type == get_property());
 }
 
-std::string AllegroDefault::obtain_vertex_source()
+std::string CubeMap::obtain_vertex_source()
 {
+   // TODO: replace this code with CubeMap code
    static const std::string source = R"DELIM(
      attribute vec4 al_pos;
      attribute vec4 al_color;
@@ -69,8 +61,9 @@ std::string AllegroDefault::obtain_vertex_source()
    return source;
 }
 
-std::string AllegroDefault::obtain_fragment_source()
+std::string CubeMap::obtain_fragment_source()
 {
+   // TODO: replace this code with CubeMap code
    static const std::string source = R"DELIM(
      #ifdef GL_ES
      precision lowp float;
