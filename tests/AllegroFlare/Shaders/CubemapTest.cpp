@@ -51,7 +51,7 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
    AllegroFlare::Model3D *model;
    AllegroFlare::Placement3D object_placement;
    AllegroFlare::CubemapBuilder builder;
-   std::string cube_map_texture_filename = get_fixtures_path() + "/bitmaps/sky5_with_grid.png";
+   std::string cube_map_texture_filename = get_fixtures_path() + "/bitmaps/black_prism_1-01.png";
    AllegroFlare::Cubemap *cube_map = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
 
    camera.stepout = {0, 0, 4};  // step back from the origin
@@ -59,18 +59,19 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
 
    model_bin.set_path(get_fixtures_path() + "models");
    model = model_bin["rounded_unit_cube-01.obj"];
-   object_placement;
 
    // TODO: setup object
 
    shader.initialize();
 
-   float number_of_seconds = 2.5f;
+   float number_of_seconds = 12.5f;
    int loops = (int)(number_of_seconds * 60.0f);
    for (int i=0; i<loops; i++)
    {
       // update
-      camera.spin += 0.01;
+      //camera.tilt += 0.01;
+      object_placement.rotation.y += 0.001;
+      object_placement.rotation.x += 0.00073;
 
       // draw
       camera.setup_projection_on(get_display_backbuffer());

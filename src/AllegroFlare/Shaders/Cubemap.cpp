@@ -89,16 +89,11 @@ void Cubemap::set_object_placement(AllegroFlare::Placement3D* object_placement)
 
 void Cubemap::set_values_to_activated_shader()
 {
-   //AllegroFlare::Placement3D object_placement; // TESTING: DEBUG:
-   //ALLEGRO_TRANSFORM transform;
-   //object_placement.build_transform(&transform);
-
    set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
    set_vec3("camera_position", camera_position);
    set_mat4("position_transform", &object_placement_transform);
    set_bool("reflecting", reflecting);
-
-   //set_float("tint_intensity", tint_intensity);
+   // TODO: set_float("tint_intensity", tint_intensity);
    return;
 }
 
@@ -108,7 +103,7 @@ std::string Cubemap::obtain_vertex_source()
    // NOTE: this code was formerly in data/shaders/cube_vertex.glsl
    static const std::string source = R"DELIM(
       attribute vec4 al_pos;
-      attribute vec3 al_user_attr_0;
+      attribute vec3 al_user_attr_0; // Not sure if this is needed?
 
       uniform mat4 al_projview_matrix;
       uniform mat4 position_transform;
