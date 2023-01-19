@@ -19,7 +19,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string title_font_name, std::string menu_font_name, std::string copyright_font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, int title_font_size, int menu_font_size, int copyright_font_size)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string title_font_name, std::string menu_font_name, std::string copyright_font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selector_outline_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, float menu_selector_outline_stroke_thickness, int title_font_size, int menu_font_size, int copyright_font_size)
    : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -34,8 +34,10 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_text_color(title_text_color)
    , menu_text_color(menu_text_color)
    , menu_selector_color(menu_selector_color)
+   , menu_selector_outline_color(menu_selector_outline_color)
    , menu_selected_text_color(menu_selected_text_color)
    , copyright_text_color(copyright_text_color)
+   , menu_selector_outline_stroke_thickness(menu_selector_outline_stroke_thickness)
    , title_font_size(title_font_size)
    , menu_font_size(menu_font_size)
    , copyright_font_size(copyright_font_size)
@@ -50,7 +52,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_select_option_sound_effect_identifier("menu_select")
    , menu_select_option_sound_effect_enabled(true)
    , menu_option_selection_activation_delay(1.0f)
-   , reveal_duration(2.0f)
+   , reveal_duration(1.0f)
    , reveal_started_at(0.0f)
    , showing_menu(false)
    , showing_copyright(false)
@@ -144,6 +146,12 @@ void TitleScreen::set_menu_selector_color(ALLEGRO_COLOR menu_selector_color)
 }
 
 
+void TitleScreen::set_menu_selector_outline_color(ALLEGRO_COLOR menu_selector_outline_color)
+{
+   this->menu_selector_outline_color = menu_selector_outline_color;
+}
+
+
 void TitleScreen::set_menu_selected_text_color(ALLEGRO_COLOR menu_selected_text_color)
 {
    this->menu_selected_text_color = menu_selected_text_color;
@@ -153,6 +161,12 @@ void TitleScreen::set_menu_selected_text_color(ALLEGRO_COLOR menu_selected_text_
 void TitleScreen::set_copyright_text_color(ALLEGRO_COLOR copyright_text_color)
 {
    this->copyright_text_color = copyright_text_color;
+}
+
+
+void TitleScreen::set_menu_selector_outline_stroke_thickness(float menu_selector_outline_stroke_thickness)
+{
+   this->menu_selector_outline_stroke_thickness = menu_selector_outline_stroke_thickness;
 }
 
 
@@ -228,6 +242,12 @@ void TitleScreen::set_menu_option_selection_activation_delay(float menu_option_s
 }
 
 
+void TitleScreen::set_reveal_duration(float reveal_duration)
+{
+   this->reveal_duration = reveal_duration;
+}
+
+
 std::string TitleScreen::get_title_text() const
 {
    return title_text;
@@ -288,6 +308,12 @@ ALLEGRO_COLOR TitleScreen::get_menu_selector_color() const
 }
 
 
+ALLEGRO_COLOR TitleScreen::get_menu_selector_outline_color() const
+{
+   return menu_selector_outline_color;
+}
+
+
 ALLEGRO_COLOR TitleScreen::get_menu_selected_text_color() const
 {
    return menu_selected_text_color;
@@ -297,6 +323,12 @@ ALLEGRO_COLOR TitleScreen::get_menu_selected_text_color() const
 ALLEGRO_COLOR TitleScreen::get_copyright_text_color() const
 {
    return copyright_text_color;
+}
+
+
+float TitleScreen::get_menu_selector_outline_stroke_thickness() const
+{
+   return menu_selector_outline_stroke_thickness;
 }
 
 
@@ -381,6 +413,12 @@ bool TitleScreen::get_menu_select_option_sound_effect_enabled() const
 float TitleScreen::get_menu_option_selection_activation_delay() const
 {
    return menu_option_selection_activation_delay;
+}
+
+
+float TitleScreen::get_reveal_duration() const
+{
+   return reveal_duration;
 }
 
 
@@ -752,8 +790,19 @@ void TitleScreen::draw_menu()
          float box_height = al_get_font_line_height(menu_font) + 6;
          float h_box_width = box_width * 0.5;
          float h_box_height = box_height * 0.5;
-         //al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
-         al_draw_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color, 2.0);
+
+         // draw the fill
+         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
+
+         // draw the outline (which is invisible by default)
+         al_draw_rectangle(
+            x-h_box_width,
+            y-h_box_height,
+            x+h_box_width,
+            y+h_box_height,
+            menu_selector_outline_color,
+            menu_selector_outline_stroke_thickness
+         );
       }
 
       al_draw_text(
