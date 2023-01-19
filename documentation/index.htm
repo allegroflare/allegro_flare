@@ -14074,6 +14074,14 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">title_position_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">title_position_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">menu_position_x</td>
   <td class="property">float</td>
 </tr>
@@ -14102,20 +14110,24 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">menu_option_activated</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
-  <td class="property">menu_option_chosen</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
-  <td class="property">menu_option_chosen_at</td>
-  <td class="property">float</td>
-</tr>
-<tr>
   <td class="property">menu_option_selection_activation_delay</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">reveal_duration</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">reveal_started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">showing_menu</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">showing_copyright</td>
+  <td class="property">bool</td>
 </tr>
 <tr>
   <td class="property">state</td>
@@ -14142,7 +14154,7 @@ table td
   <td class="property">uint32_t</td>
 </tr>
 <tr>
-  <td class="property">STATE_CLOSING_DOWN</td>
+  <td class="property">STATE_CHOSE_MENU_OPTION</td>
   <td class="property">uint32_t</td>
 </tr>
     </table>
@@ -14163,10 +14175,22 @@ table td
   <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
 </tr>
 <tr>
-  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
+  <td class="method">infer_age(float time_of_event=0, float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">infer_reveal_age(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">infer_reveal_age_n(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">show_menu()</td>
 </tr>
 <tr>
   <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">skip_to_title()</td>
 </tr>
 <tr>
   <td class="method">set_menu_options(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; menu_options={})</td>
@@ -14277,6 +14301,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
@@ -19624,6 +19651,7 @@ table td
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Entities/Basic2D"
   ],

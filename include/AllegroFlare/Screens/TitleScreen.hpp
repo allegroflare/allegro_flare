@@ -23,7 +23,7 @@ namespace AllegroFlare
          static constexpr uint32_t STATE_UNDEF = 0;
          static constexpr uint32_t STATE_REVEALING = 1;
          static constexpr uint32_t STATE_AWAITING_USER_INPUT = 2;
-         static constexpr uint32_t STATE_CLOSING_DOWN = 3;
+         static constexpr uint32_t STATE_CHOSE_MENU_OPTION = 3;
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -45,6 +45,8 @@ namespace AllegroFlare
          int menu_font_size;
          int copyright_font_size;
          std::vector<std::pair<std::string, std::string>> menu_options;
+         float title_position_x;
+         float title_position_y;
          float menu_position_x;
          float menu_position_y;
          int cursor_position;
@@ -52,10 +54,11 @@ namespace AllegroFlare
          bool menu_move_sound_effect_enabled;
          std::string menu_select_option_sound_effect_identifier;
          bool menu_select_option_sound_effect_enabled;
-         bool menu_option_activated;
-         bool menu_option_chosen;
-         float menu_option_chosen_at;
          float menu_option_selection_activation_delay;
+         float reveal_duration;
+         float reveal_started_at;
+         bool showing_menu;
+         bool showing_copyright;
          uint32_t state;
          bool state_is_busy;
          float state_changed_at;
@@ -76,7 +79,7 @@ namespace AllegroFlare
 
 
       public:
-         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="Untitled Game", std::string copyright_text="Copyright 2022", std::string background_bitmap_name="", std::string title_bitmap_name="", std::string title_font_name="Inter-Medium.ttf", std::string menu_font_name="Inter-Medium.ttf", std::string copyright_font_name="Inter-Medium.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selected_text_color=ALLEGRO_COLOR{0, 0, 0, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, int title_font_size=-90, int menu_font_size=-48, int copyright_font_size=-32);
+         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="Untitled Game", std::string copyright_text="Copyright 2022", std::string background_bitmap_name="", std::string title_bitmap_name="", std::string title_font_name="Inter-Medium.ttf", std::string menu_font_name="Inter-Medium.ttf", std::string copyright_font_name="Inter-Medium.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selected_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, int title_font_size=-90, int menu_font_size=-48, int copyright_font_size=-32);
          virtual ~TitleScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
@@ -97,6 +100,8 @@ namespace AllegroFlare
          void set_title_font_size(int title_font_size);
          void set_menu_font_size(int menu_font_size);
          void set_copyright_font_size(int copyright_font_size);
+         void set_title_position_x(float title_position_x);
+         void set_title_position_y(float title_position_y);
          void set_menu_position_x(float menu_position_x);
          void set_menu_position_y(float menu_position_y);
          void set_menu_move_sound_effect_identifier(std::string menu_move_sound_effect_identifier);
@@ -120,6 +125,8 @@ namespace AllegroFlare
          int get_menu_font_size() const;
          int get_copyright_font_size() const;
          std::vector<std::pair<std::string, std::string>> get_menu_options() const;
+         float get_title_position_x() const;
+         float get_title_position_y() const;
          float get_menu_position_x() const;
          float get_menu_position_y() const;
          int get_cursor_position() const;
@@ -127,16 +134,18 @@ namespace AllegroFlare
          bool get_menu_move_sound_effect_enabled() const;
          std::string get_menu_select_option_sound_effect_identifier() const;
          bool get_menu_select_option_sound_effect_enabled() const;
-         bool get_menu_option_activated() const;
-         bool get_menu_option_chosen() const;
          float get_menu_option_selection_activation_delay() const;
          void TODO();
          void set_font_name(std::string font_name="[unset-font_name]");
          void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
          void update_state(float time_now=al_get_time());
          static bool is_valid_state(uint32_t state=STATE_UNDEF);
-         float infer_current_state_age(float time_now=al_get_time());
+         float infer_age(float time_of_event=0, float time_now=al_get_time());
+         float infer_reveal_age(float time_now=al_get_time());
+         float infer_reveal_age_n(float time_now=al_get_time());
+         void show_menu();
          virtual void on_activate() override;
+         void skip_to_title();
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
          virtual void primary_timer_func() override;

@@ -5,6 +5,7 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
+#include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <set>
@@ -39,17 +40,20 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_font_size(menu_font_size)
    , copyright_font_size(copyright_font_size)
    , menu_options(build_default_menu_options())
+   , title_position_x(1920 / 2)
+   , title_position_y((1080 / 24 * 9))
    , menu_position_x(1920 / 2)
-   , menu_position_y(1080 / 2)
+   , menu_position_y(1080 / 12 * 7)
    , cursor_position(0)
    , menu_move_sound_effect_identifier("menu_move")
    , menu_move_sound_effect_enabled(true)
    , menu_select_option_sound_effect_identifier("menu_select")
    , menu_select_option_sound_effect_enabled(true)
-   , menu_option_activated(false)
-   , menu_option_chosen(false)
-   , menu_option_chosen_at(0.0f)
    , menu_option_selection_activation_delay(1.0f)
+   , reveal_duration(2.0f)
+   , reveal_started_at(0.0f)
+   , showing_menu(false)
+   , showing_copyright(false)
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
@@ -167,6 +171,18 @@ void TitleScreen::set_menu_font_size(int menu_font_size)
 void TitleScreen::set_copyright_font_size(int copyright_font_size)
 {
    this->copyright_font_size = copyright_font_size;
+}
+
+
+void TitleScreen::set_title_position_x(float title_position_x)
+{
+   this->title_position_x = title_position_x;
+}
+
+
+void TitleScreen::set_title_position_y(float title_position_y)
+{
+   this->title_position_y = title_position_y;
 }
 
 
@@ -308,6 +324,18 @@ std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options()
 }
 
 
+float TitleScreen::get_title_position_x() const
+{
+   return title_position_x;
+}
+
+
+float TitleScreen::get_title_position_y() const
+{
+   return title_position_y;
+}
+
+
 float TitleScreen::get_menu_position_x() const
 {
    return menu_position_x;
@@ -350,18 +378,6 @@ bool TitleScreen::get_menu_select_option_sound_effect_enabled() const
 }
 
 
-bool TitleScreen::get_menu_option_activated() const
-{
-   return menu_option_activated;
-}
-
-
-bool TitleScreen::get_menu_option_chosen() const
-{
-   return menu_option_chosen;
-}
-
-
 float TitleScreen::get_menu_option_selection_activation_delay() const
 {
    return menu_option_selection_activation_delay;
@@ -399,12 +415,16 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
    switch (state)
    {
       case STATE_REVEALING:
+         cursor_position = 0;
+         showing_menu = false;
+         showing_copyright = false;
       break;
 
       case STATE_AWAITING_USER_INPUT:
+         show_menu();
       break;
 
-      case STATE_CLOSING_DOWN:
+      case STATE_CHOSE_MENU_OPTION:
       break;
 
       default:
@@ -427,17 +447,27 @@ void TitleScreen::update_state(float time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TitleScreen::update_state: error: guard \"is_valid_state(state)\" not met");
    }
-   float age = infer_current_state_age(time_now);
+   float state_age = infer_age(state_changed_at, time_now);
 
    switch (state)
    {
-      case STATE_REVEALING:
-      break;
+      case STATE_REVEALING: {
+         float reveal_age = infer_reveal_age();
+         if (state_age > reveal_duration)
+         {
+            set_state(STATE_AWAITING_USER_INPUT);
+         }
+      } break;
 
       case STATE_AWAITING_USER_INPUT:
       break;
 
-      case STATE_CLOSING_DOWN:
+      case STATE_CHOSE_MENU_OPTION:
+         if (state_age > menu_option_selection_activation_delay)
+         {
+            std::string current_menu_option_value = infer_current_menu_option_value();
+            activate_menu_option(current_menu_option_value);
+         }
       break;
 
       default:
@@ -454,21 +484,49 @@ bool TitleScreen::is_valid_state(uint32_t state)
    {
       STATE_REVEALING,
       STATE_AWAITING_USER_INPUT,
-      STATE_CLOSING_DOWN,
+      STATE_CHOSE_MENU_OPTION,
    };
    return (valid_states.count(state) > 0);
 }
 
-float TitleScreen::infer_current_state_age(float time_now)
+float TitleScreen::infer_age(float time_of_event, float time_now)
 {
-   return (time_now - state_changed_at);
+   return std::max(0.0f, time_now - time_of_event);
+}
+
+float TitleScreen::infer_reveal_age(float time_now)
+{
+   return std::max(0.0f, infer_age(reveal_started_at, time_now));
+}
+
+float TitleScreen::infer_reveal_age_n(float time_now)
+{
+   if (!((reveal_duration != 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::infer_reveal_age_n]: error: guard \"(reveal_duration != 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::infer_reveal_age_n: error: guard \"(reveal_duration != 0.0f)\" not met");
+   }
+   return std::max(0.0f, std::min(1.0f, infer_reveal_age(time_now) / reveal_duration));
+}
+
+void TitleScreen::show_menu()
+{
+   showing_menu = true;
+   showing_copyright = true;
+   return;
 }
 
 void TitleScreen::on_activate()
 {
-   cursor_position = 0;
-   menu_option_chosen = false;
-   menu_option_activated = false;
+   set_state(STATE_REVEALING);
+   return;
+}
+
+void TitleScreen::skip_to_title()
+{
+   set_state(STATE_AWAITING_USER_INPUT);
    return;
 }
 
@@ -481,8 +539,7 @@ void TitleScreen::set_menu_options(std::vector<std::pair<std::string, std::strin
 
 void TitleScreen::move_cursor_up()
 {
-   if (menu_is_empty()) return;
-   if (menu_option_chosen) return;
+   if (!STATE_AWAITING_USER_INPUT) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -494,8 +551,7 @@ void TitleScreen::move_cursor_up()
 
 void TitleScreen::move_cursor_down()
 {
-   if (menu_is_empty()) return;
-   if (menu_option_chosen) return;
+   if (!STATE_AWAITING_USER_INPUT) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -513,13 +569,8 @@ void TitleScreen::activate_menu_option(std::string menu_option_name)
 
 void TitleScreen::select_menu_option()
 {
-   if (!(event_emitter))
-   {
-      std::stringstream error_message;
-      error_message << "[TitleScreen::select_menu_option]: error: guard \"event_emitter\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::select_menu_option: error: guard \"event_emitter\" not met");
-   }
+   if (!STATE_AWAITING_USER_INPUT) return;
+
    if (menu_is_empty())
    {
       std::cout <<
@@ -529,31 +580,16 @@ void TitleScreen::select_menu_option()
       return;
    }
 
-   menu_option_chosen_at = al_get_time();
-   menu_option_chosen = true;
+   set_state(STATE_CHOSE_MENU_OPTION);
 
-   //if (menu_select_option_sound_effect) play_menu_select_option_sound_effect();
    if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
-
-   //std::string current_menu_option_value = infer_current_menu_option_value();
-   //activate_menu_option(current_menu_option_value);
 
    return;
 }
 
 void TitleScreen::primary_timer_func()
 {
-   if (menu_option_chosen && !menu_option_activated)
-   {
-      float state_age = (al_get_time() - menu_option_chosen_at);
-      if (state_age > menu_option_selection_activation_delay)
-      {
-         std::string current_menu_option_value = infer_current_menu_option_value();
-         activate_menu_option(current_menu_option_value);
-         menu_option_activated = true;
-      }
-   }
-
+   update_state();
    render();
    return;
 }
@@ -581,13 +617,10 @@ void TitleScreen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TitleScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
-   //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS);
-   //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
-
    draw_background();
    draw_title();
-   draw_copyright_text();
-   draw_menu();
+   if (showing_copyright) draw_copyright_text();
+   if (showing_menu) draw_menu();
    return;
 }
 
@@ -609,15 +642,17 @@ void TitleScreen::draw_title()
    if (!title_bitmap_name.empty())
    {
       ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
+      float reveal_opacity = infer_reveal_age_n();
+      ALLEGRO_COLOR tint = ALLEGRO_COLOR{reveal_opacity, reveal_opacity, reveal_opacity, reveal_opacity};
       if (title_bitmap)
       {
          AllegroFlare::Placement2D place;
-         place.position.x = 1920 / 2;
-         place.position.y = 1080 / 3;
+         place.position.x = title_position_x;
+         place.position.y = title_position_y;
          place.size.x = al_get_bitmap_width(title_bitmap);
          place.size.y = al_get_bitmap_height(title_bitmap);
          place.start_transform();
-         al_draw_bitmap(title_bitmap, 0, 0, 0);
+         al_draw_tinted_bitmap(title_bitmap, tint, 0, 0, 0);
          place.restore_transform();
       }
    }
@@ -625,13 +660,20 @@ void TitleScreen::draw_title()
    {
       // TODO: review guards on this function
       ALLEGRO_FONT *title_font = obtain_title_font();
-      int surface_width = 1920;
-      int surface_height = 1080;
+      float reveal_opacity = infer_reveal_age_n();
+      ALLEGRO_COLOR revealed_color = ALLEGRO_COLOR{
+         reveal_opacity * title_text_color.r,
+         reveal_opacity * title_text_color.g,
+         reveal_opacity * title_text_color.b,
+         reveal_opacity * title_text_color.a
+      };
+      //int surface_width = 1920;
+      //int surface_height = 1080;
       al_draw_text(
          title_font,
-         title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-         surface_width / 2,
-         surface_height / 3,
+         revealed_color,
+         title_position_x,
+         title_position_y,
          ALLEGRO_ALIGN_CENTER,
          get_title_text().c_str()
       );
@@ -710,7 +752,8 @@ void TitleScreen::draw_menu()
          float box_height = al_get_font_line_height(menu_font) + 6;
          float h_box_width = box_width * 0.5;
          float h_box_height = box_height * 0.5;
-         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
+         //al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
+         al_draw_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color, 2.0);
       }
 
       al_draw_text(
@@ -831,7 +874,7 @@ ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
 
 void TitleScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
-   if (menu_option_chosen) return;
+   if (!STATE_AWAITING_USER_INPUT) return;
 
    if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
    if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();

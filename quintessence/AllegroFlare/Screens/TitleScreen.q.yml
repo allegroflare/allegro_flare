@@ -99,7 +99,7 @@ properties:
 
   - name: menu_selected_text_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{0, 0, 0, 1}
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
     constructor_arg: true
     getter: true
     setter: true
@@ -137,6 +137,18 @@ properties:
     init_with: 'build_default_menu_options()'
     getter: true
 
+  - name: title_position_x
+    type: float
+    init_with: 1920 / 2
+    getter: true
+    setter: true
+
+  - name: title_position_y
+    type: float
+    init_with: (1080 / 24 * 9)
+    getter: true
+    setter: true
+
   - name: menu_position_x
     type: float
     init_with: 1920 / 2
@@ -145,7 +157,7 @@ properties:
 
   - name: menu_position_y
     type: float
-    init_with: 1080 / 2
+    init_with: 1080 / 12 * 7
     getter: true
     setter: true
 
@@ -178,25 +190,27 @@ properties:
     getter: true
     setter: true
 
-  - name: menu_option_activated
-    type: bool
-    init_with: false
-    getter: true
-
-  - name: menu_option_chosen
-    type: bool
-    init_with: false
-    getter: true
-
-  - name: menu_option_chosen_at
-    type: float
-    init_with: 0.0f
-
   - name: menu_option_selection_activation_delay
     type: float
     init_with: 1.0f
     getter: true
     setter: true
+
+  - name: reveal_duration
+    type: float
+    init_with: 2.0f
+
+  - name: reveal_started_at
+    type: float
+    init_with: 0.0f
+
+  - name: showing_menu
+    type: bool
+    init_with: false
+
+  - name: showing_copyright
+    type: bool
+    init_with: false
 
   - name: state
     type: uint32_t
@@ -231,7 +245,7 @@ properties:
     static: true
     constexpr: true
 
-  - name: STATE_CLOSING_DOWN
+  - name: STATE_CHOSE_MENU_OPTION
     type: uint32_t
     init_with: 3
     const: true
@@ -278,12 +292,16 @@ functions:
       switch (state)
       {
          case STATE_REVEALING:
+            cursor_position = 0;
+            showing_menu = false;
+            showing_copyright = false;
          break;
 
          case STATE_AWAITING_USER_INPUT:
+            show_menu();
          break;
 
-         case STATE_CLOSING_DOWN:
+         case STATE_CHOSE_MENU_OPTION:
          break;
 
          default:
@@ -304,17 +322,27 @@ functions:
         default_argument: al_get_time()
     guards: [ is_valid_state(state) ]
     body: |
-      float age = infer_current_state_age(time_now);
+      float state_age = infer_age(state_changed_at, time_now);
 
       switch (state)
       {
-         case STATE_REVEALING:
-         break;
+         case STATE_REVEALING: {
+            float reveal_age = infer_reveal_age();
+            if (state_age > reveal_duration)
+            {
+               set_state(STATE_AWAITING_USER_INPUT);
+            }
+         } break;
 
          case STATE_AWAITING_USER_INPUT:
          break;
 
-         case STATE_CLOSING_DOWN:
+         case STATE_CHOSE_MENU_OPTION:
+            if (state_age > menu_option_selection_activation_delay)
+            {
+               std::string current_menu_option_value = infer_current_menu_option_value();
+               activate_menu_option(current_menu_option_value);
+            }
          break;
 
          default:
@@ -337,30 +365,72 @@ functions:
       {
          STATE_REVEALING,
          STATE_AWAITING_USER_INPUT,
-         STATE_CLOSING_DOWN,
+         STATE_CHOSE_MENU_OPTION,
       };
       return (valid_states.count(state) > 0);
     body_dependency_symbols:
       - std::set
 
 
-  - name: infer_current_state_age
+  - name: infer_age
+    type: float
+    parameters:
+      - name: time_of_event
+        type: float
+        default_argument: 0
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return std::max(0.0f, time_now - time_of_event);
+    body_dependency_symbols:
+      - std::max
+
+
+  - name: infer_reveal_age
     type: float
     parameters:
       - name: time_now
         type: float
         default_argument: al_get_time()
     body: |
-      return (time_now - state_changed_at);
+      return std::max(0.0f, infer_age(reveal_started_at, time_now));
+    body_dependency_symbols:
+      - std::max
+
+
+  - name: infer_reveal_age_n
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    guards: [ (reveal_duration != 0.0f) ]
+    body: |
+      return std::max(0.0f, std::min(1.0f, infer_reveal_age(time_now) / reveal_duration));
+    body_dependency_symbols:
+      - std::max
+      - std::min
+
+
+  - name: show_menu
+    body: |
+      showing_menu = true;
+      showing_copyright = true;
+      return;
 
 
   - name: on_activate
     virtual: true
     override: true
     body: |
-      cursor_position = 0;
-      menu_option_chosen = false;
-      menu_option_activated = false;
+      set_state(STATE_REVEALING);
+      return;
+
+
+  - name: skip_to_title
+    body: |
+      set_state(STATE_AWAITING_USER_INPUT);
       return;
 
 
@@ -378,8 +448,7 @@ functions:
   - name: move_cursor_up
     private: true
     body: |
-      if (menu_is_empty()) return;
-      if (menu_option_chosen) return;
+      if (!STATE_AWAITING_USER_INPUT) return;
 
       if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -392,8 +461,7 @@ functions:
   - name: move_cursor_down
     private: true
     body: |
-      if (menu_is_empty()) return;
-      if (menu_option_chosen) return;
+      if (!STATE_AWAITING_USER_INPUT) return;
 
       if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -416,9 +484,9 @@ functions:
 
   - name: select_menu_option
     private: true
-    guards: [ event_emitter ]
-    guards: [ (!menu_option_chosen) ]
     body: |
+      if (!STATE_AWAITING_USER_INPUT) return;
+
       if (menu_is_empty())
       {
          std::cout <<
@@ -428,14 +496,9 @@ functions:
          return;
       }
 
-      menu_option_chosen_at = al_get_time();
-      menu_option_chosen = true;
+      set_state(STATE_CHOSE_MENU_OPTION);
 
-      //if (menu_select_option_sound_effect) play_menu_select_option_sound_effect();
       if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
-
-      //std::string current_menu_option_value = infer_current_menu_option_value();
-      //activate_menu_option(current_menu_option_value);
 
       return;
     body_dependency_symbols:
@@ -446,17 +509,7 @@ functions:
     virtual: true
     override: true
     body: |
-      if (menu_option_chosen && !menu_option_activated)
-      {
-         float state_age = (al_get_time() - menu_option_chosen_at);
-         if (state_age > menu_option_selection_activation_delay)
-         {
-            std::string current_menu_option_value = infer_current_menu_option_value();
-            activate_menu_option(current_menu_option_value);
-            menu_option_activated = true;
-         }
-      }
-
+      update_state();
       render();
       return;
 
@@ -464,13 +517,10 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized() ]
     body: |
-      //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS);
-      //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
-
       draw_background();
       draw_title();
-      draw_copyright_text();
-      draw_menu();
+      if (showing_copyright) draw_copyright_text();
+      if (showing_menu) draw_menu();
       return;
 
 
@@ -492,15 +542,17 @@ functions:
       if (!title_bitmap_name.empty())
       {
          ALLEGRO_BITMAP *title_bitmap = obtain_title_bitmap();
+         float reveal_opacity = infer_reveal_age_n();
+         ALLEGRO_COLOR tint = ALLEGRO_COLOR{reveal_opacity, reveal_opacity, reveal_opacity, reveal_opacity};
          if (title_bitmap)
          {
             AllegroFlare::Placement2D place;
-            place.position.x = 1920 / 2;
-            place.position.y = 1080 / 3;
+            place.position.x = title_position_x;
+            place.position.y = title_position_y;
             place.size.x = al_get_bitmap_width(title_bitmap);
             place.size.y = al_get_bitmap_height(title_bitmap);
             place.start_transform();
-            al_draw_bitmap(title_bitmap, 0, 0, 0);
+            al_draw_tinted_bitmap(title_bitmap, tint, 0, 0, 0);
             place.restore_transform();
          }
       }
@@ -508,13 +560,20 @@ functions:
       {
          // TODO: review guards on this function
          ALLEGRO_FONT *title_font = obtain_title_font();
-         int surface_width = 1920;
-         int surface_height = 1080;
+         float reveal_opacity = infer_reveal_age_n();
+         ALLEGRO_COLOR revealed_color = ALLEGRO_COLOR{
+            reveal_opacity * title_text_color.r,
+            reveal_opacity * title_text_color.g,
+            reveal_opacity * title_text_color.b,
+            reveal_opacity * title_text_color.a
+         };
+         //int surface_width = 1920;
+         //int surface_height = 1080;
          al_draw_text(
             title_font,
-            title_text_color, //ALLEGRO_COLOR{1, 1, 1, 1},
-            surface_width / 2,
-            surface_height / 3,
+            revealed_color,
+            title_position_x,
+            title_position_y,
             ALLEGRO_ALIGN_CENTER,
             get_title_text().c_str()
          );
@@ -522,6 +581,8 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D
+      - std::max
+      - std::min
 
 
   - name: draw_copyright_text
@@ -589,7 +650,8 @@ functions:
             float box_height = al_get_font_line_height(menu_font) + 6;
             float h_box_width = box_width * 0.5;
             float h_box_height = box_height * 0.5;
-            al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
+            //al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
+            al_draw_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color, 2.0);
          }
 
          al_draw_text(
@@ -605,6 +667,7 @@ functions:
       }
       return;
     body_dependency_symbols:
+      - al_draw_rectangle
       - al_draw_filled_rectangle
       - al_is_primitives_addon_initialized
 
@@ -709,7 +772,7 @@ functions:
         type: bool
         default_argument: 'false'
     body: |
-      if (menu_option_chosen) return;
+      if (!STATE_AWAITING_USER_INPUT) return;
 
       if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
       if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();
@@ -748,6 +811,7 @@ functions:
 
 dependencies:
 
+
   - symbol: ALLEGRO_EVENT*
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FLARE_EVENT_START_NEW_GAME
@@ -772,11 +836,12 @@ dependencies:
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_filled_rectangle
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
-
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT

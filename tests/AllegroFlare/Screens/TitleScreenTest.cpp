@@ -105,8 +105,8 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
-   //INTERACTIVE__will_work_as_expected)
+   //DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -132,6 +132,9 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
    // run the interactive test
    al_start_timer(primary_timer);
+
+   // activate the screen (typically this is done by the framework)
+   title_screen.on_activate();
    while(!abort)
    {
       al_wait_for_event(event_queue, &event);
