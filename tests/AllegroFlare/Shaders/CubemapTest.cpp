@@ -64,7 +64,7 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
 
    shader.initialize();
 
-   float number_of_seconds = 12.5f;
+   float number_of_seconds = 3.5f;
    int loops = (int)(number_of_seconds * 60.0f);
    for (int i=0; i<loops; i++)
    {

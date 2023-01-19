@@ -141,7 +141,6 @@ std::string Cubemap::obtain_fragment_source()
 
       void main()
       {
-         ///* // TESTING: DEBUG: TODO: restore this
          vec3 reflected_dir = normalize(reflect(eye_dir, normalize(normal)));
 
          vec3 incoming_angle = reflecting ? reflected_dir : eye_dir;
@@ -153,7 +152,6 @@ std::string Cubemap::obtain_fragment_source()
 
          vec4 color = textureCube(cube_map_A, incoming_angle);
          //color = textureCube(cube_map_B, incoming_angle);
-         //*/
        
 
          //vec4 color = vec4(1, 1, 1, 1); // <-- TESTING: DEBUG: TODO: remove this
