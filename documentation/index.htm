@@ -254,6 +254,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Shaders/CubeMap.q.yml">quintessence/AllegroFlare/Shaders/CubeMap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
@@ -14409,6 +14410,37 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Shaders/CubeMap.q.yml">quintessence/AllegroFlare/Shaders/CubeMap.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml</h3>
      <table>
 <tr>
@@ -20727,7 +20759,8 @@ table td
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/Shaders/Base": [
-    "AllegroFlare/Shaders/AllegroDefault"
+    "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/CubeMap"
   ],
   "tsl/ordered_map": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"

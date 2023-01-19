@@ -36,73 +36,66 @@ bool CubeMap::property_is(std::string possible_type)
 
 std::string CubeMap::obtain_vertex_source()
 {
-   // TODO: replace this code with CubeMap code
+   // NOTE: this code was formerly in data/shaders/cube_vertex.glsl
    static const std::string source = R"DELIM(
-     attribute vec4 al_pos;
-     attribute vec4 al_color;
-     attribute vec2 al_texcoord;
-     uniform mat4 al_projview_matrix;
-     uniform bool al_use_tex_matrix;
-     uniform mat4 al_tex_matrix;
-     varying vec4 varying_color;
-     varying vec2 varying_texcoord;
-     void main()
-     {
-       varying_color = al_color;
-       if (al_use_tex_matrix) {
-         vec4 uv = al_tex_matrix * vec4(al_texcoord, 0, 1);
-         varying_texcoord = vec2(uv.x, uv.y);
-       }
-       else
-         varying_texcoord = al_texcoord;
-       gl_Position = al_projview_matrix * al_pos;
-     }
+      attribute vec4 al_pos;
+      attribute vec3 al_user_attr_0;
+
+      uniform mat4 al_projview_matrix;
+      uniform mat4 position_transform;
+      uniform vec3 camera_position;
+
+      varying vec3 normal;
+      varying vec3 eye_dir;
+      uniform samplerCube cube_map_A;
+      uniform samplerCube cube_map_B;
+
+      void main()
+      {
+         gl_Position = al_projview_matrix * position_transform * al_pos;
+         normal = (position_transform * vec4(al_user_attr_0, 0.0)).xyz;
+         // this NORMAL val will probably ned to be multiplied by the position transform
+          //	normal = (al_user_attr_0).xyz;
+         vec3 world_position = (position_transform * al_pos).xyz;
+         eye_dir = vec3(camera_position - world_position);
+      }
    )DELIM";
    return source;
 }
 
 std::string CubeMap::obtain_fragment_source()
 {
-   // TODO: replace this code with CubeMap code
+   // NOTE: this code was formerly in data/shaders/cube_fragment.glsl
    static const std::string source = R"DELIM(
-     #ifdef GL_ES
-     precision lowp float;
-     #endif
-     uniform sampler2D al_tex;
-     uniform bool al_use_tex;
-     uniform bool al_alpha_test;
-     uniform int al_alpha_func;
-     uniform float al_alpha_test_val;
-     varying vec4 varying_color;
-     varying vec2 varying_texcoord;
+      varying vec3 normal;
+      varying vec3 eye_dir;
+      uniform samplerCube cube_map_A;
+      uniform samplerCube cube_map_B;
+      //uniform sampler2D al_tex;
+      uniform bool reflecting;
 
-     bool alpha_test_func(float x, int op, float compare);
+      void main()
+      {
+         vec3 reflected_dir = normalize(reflect(eye_dir, normalize(normal)));
 
-     void main()
-     {
-       vec4 c;
-       if (al_use_tex)
-         c = varying_color * texture2D(al_tex, varying_texcoord);
-       else
-         c = varying_color;
-       if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
-         gl_FragColor = c;
-       else
-         discard;
-     }
+         vec3 incoming_angle = reflecting ? reflected_dir : eye_dir;
+         //vec3 incoming_angle = eye_dir;
 
-     bool alpha_test_func(float x, int op, float compare)
-     {
-       if (op == 0) return false;
-       else if (op == 1) return true;
-       else if (op == 2) return x < compare;
-       else if (op == 3) return x == compare;
-       else if (op == 4) return x <= compare;
-       else if (op == 5) return x > compare;
-       else if (op == 6) return x != compare;
-       else if (op == 7) return x >= compare;
-       return false;
-     }
+         incoming_angle.y = -incoming_angle.y;
+         incoming_angle.x = -incoming_angle.x;
+         //incoming_angle.z = -incoming_angle.z;
+
+         vec4 color = textureCube(cube_map_A, incoming_angle);
+         //color = textureCube(cube_map_B, incoming_angle);
+       
+
+         vec4 golden_color = vec4(1.0, 0.74, 0.0, 1.0);
+
+         color = golden_color * 0.6 + color * 0.7;
+       
+       
+         gl_FragColor = color;
+      }
    )DELIM";
    return source;
 }

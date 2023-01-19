@@ -2008,7 +2008,8 @@
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/Shaders/Base": [
-    "AllegroFlare/Shaders/AllegroDefault"
+    "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/CubeMap"
   ],
   "tsl/ordered_map": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
