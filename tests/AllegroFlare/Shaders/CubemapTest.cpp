@@ -49,7 +49,7 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
    AllegroFlare::Camera3D camera;
    AllegroFlare::ModelBin model_bin;
    AllegroFlare::Model3D *model;
-   AllegroFlare::Placement3D placement;
+   AllegroFlare::Placement3D object_placement;
    AllegroFlare::CubemapBuilder builder;
    std::string cube_map_texture_filename = get_fixtures_path() + "/bitmaps/sky5_with_grid.png";
    AllegroFlare::Cubemap *cube_map = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
@@ -59,13 +59,13 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
 
    model_bin.set_path(get_fixtures_path() + "models");
    model = model_bin["rounded_unit_cube-01.obj"];
-   placement;
+   object_placement;
 
    // TODO: setup object
 
    shader.initialize();
 
-   float number_of_seconds = 3.0f;
+   float number_of_seconds = 2.5f;
    int loops = (int)(number_of_seconds * 60.0f);
    for (int i=0; i<loops; i++)
    {
@@ -77,9 +77,11 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
+      shader.set_object_placement(&object_placement); // NOTE: For now, this has to be set before activating the shader
+                                                      // TODO: Update this behavior so the value can be set
+                                                      // after initialization
       shader.activate();
       shader.set_camera_position(camera.get_real_position());
-      //shader.set_position_transform(camera.get_real_position()); // TODO (if needed)
       model->draw();
       shader.deactivate();
 

@@ -4,6 +4,8 @@
 
 #include <AllegroFlare/Placement3D.hpp>
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -12,10 +14,11 @@ namespace Shaders
 {
 
 
-Cubemap::Cubemap(AllegroFlare::Cubemap* cube_map, AllegroFlare::Vec3D camera_position, bool reflecting)
+Cubemap::Cubemap(AllegroFlare::Cubemap* cube_map, bool reflecting)
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::Cubemap::TYPE, obtain_vertex_source(), obtain_fragment_source())
    , cube_map(cube_map)
-   , camera_position(camera_position)
+   , camera_position(AllegroFlare::Vec3D(0, 0, 0))
+   , object_placement_transform({})
    , reflecting(reflecting)
 {
 }
@@ -69,15 +72,30 @@ void Cubemap::activate()
    return;
 }
 
+void Cubemap::set_object_placement(AllegroFlare::Placement3D* object_placement)
+{
+   if (!(object_placement))
+   {
+      std::stringstream error_message;
+      error_message << "[Cubemap::set_object_placement]: error: guard \"object_placement\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Cubemap::set_object_placement: error: guard \"object_placement\" not met");
+   }
+   object_placement->build_transform(&object_placement_transform);
+
+   // TODO: if this shader is active, send the value to the shader directly
+   return;
+}
+
 void Cubemap::set_values_to_activated_shader()
 {
-   AllegroFlare::Placement3D object_placement; // TESTING: DEBUG:
-   ALLEGRO_TRANSFORM transform;
-   object_placement.build_transform(&transform);
+   //AllegroFlare::Placement3D object_placement; // TESTING: DEBUG:
+   //ALLEGRO_TRANSFORM transform;
+   //object_placement.build_transform(&transform);
 
    set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
    set_vec3("camera_position", camera_position);
-   set_mat4("position_transform", &transform);
+   set_mat4("position_transform", &object_placement_transform);
    set_bool("reflecting", reflecting);
 
    //set_float("tint_intensity", tint_intensity);
@@ -146,9 +164,10 @@ std::string Cubemap::obtain_fragment_source()
          //vec4 color = vec4(1, 1, 1, 1); // <-- TESTING: DEBUG: TODO: remove this
         
 
-         vec4 golden_color = vec4(1.0, 0.74, 0.0, 1.0);
+         // TODO: add this "golden_color" as an optional pass-in-able value
+         //vec4 golden_color = vec4(1.0, 0.74, 0.0, 1.0);
 
-         color = golden_color * 0.6 + color * 0.7;
+         //color = golden_color * 0.6 + color * 0.7;
        
        
          gl_FragColor = color;

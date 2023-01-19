@@ -14421,6 +14421,10 @@ table td
   <td class="property">AllegroFlare::Vec3D</td>
 </tr>
 <tr>
+  <td class="property">object_placement_transform</td>
+  <td class="property">ALLEGRO_TRANSFORM</td>
+</tr>
+<tr>
   <td class="property">reflecting</td>
   <td class="property">bool</td>
 </tr>
@@ -14432,6 +14436,9 @@ table td
      <table>
 <tr>
   <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="method">set_object_placement(AllegroFlare::Placement3D* object_placement=nullptr)</td>
 </tr>
 <tr>
   <td class="private_method">set_values_to_activated_shader()</td>
@@ -14455,6 +14462,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TRANSFORM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20785,6 +20795,9 @@ table td
     "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Cubemap": [
+    "AllegroFlare/Shaders/Cubemap"
+  ],
+  "ALLEGRO_TRANSFORM": [
     "AllegroFlare/Shaders/Cubemap"
   ],
   "tsl/ordered_map": [

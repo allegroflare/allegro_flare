@@ -2,8 +2,10 @@
 
 
 #include <AllegroFlare/Cubemap.hpp>
+#include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 #include <AllegroFlare/Vec3D.hpp>
+#include <allegro5/allegro.h>
 #include <string>
 
 
@@ -19,6 +21,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::Cubemap* cube_map;
          AllegroFlare::Vec3D camera_position;
+         ALLEGRO_TRANSFORM object_placement_transform;
          bool reflecting;
          void set_values_to_activated_shader();
          static std::string obtain_vertex_source();
@@ -28,7 +31,7 @@ namespace AllegroFlare
 
 
       public:
-         Cubemap(AllegroFlare::Cubemap* cube_map=nullptr, AllegroFlare::Vec3D camera_position=AllegroFlare::Vec3D(0, 0, 0), bool reflecting=true);
+         Cubemap(AllegroFlare::Cubemap* cube_map=nullptr, bool reflecting=true);
          virtual ~Cubemap();
 
          void set_cube_map(AllegroFlare::Cubemap* cube_map);
@@ -38,6 +41,7 @@ namespace AllegroFlare
          AllegroFlare::Vec3D get_camera_position() const;
          bool get_reflecting() const;
          virtual void activate() override;
+         void set_object_placement(AllegroFlare::Placement3D* object_placement=nullptr);
       };
    }
 }

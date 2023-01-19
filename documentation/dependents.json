@@ -2016,6 +2016,9 @@
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"
   ],
+  "ALLEGRO_TRANSFORM": [
+    "AllegroFlare/Shaders/Cubemap"
+  ],
   "tsl/ordered_map": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],

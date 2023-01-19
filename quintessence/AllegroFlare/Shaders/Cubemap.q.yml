@@ -19,9 +19,12 @@ properties:
   - name: camera_position
     type: AllegroFlare::Vec3D
     init_with: AllegroFlare::Vec3D(0, 0, 0)
-    constructor_arg: true
     getter: true
     setter: true
+
+  - name: object_placement_transform
+    type: ALLEGRO_TRANSFORM
+    init_with: '{}'
 
   - name: reflecting
     type: bool
@@ -37,6 +40,16 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - definitions:
+      - name: reflecting
+        body: |
+          When set to true, the material being rendered will act as a solid, reflecting the world around it.  When set
+          to false, the material will be rendered as if it were a skybox.
+
+
 functions:
 
 
@@ -50,16 +63,29 @@ functions:
       return;
 
 
+  - name: set_object_placement
+    parameters:
+      - name: object_placement
+        type: AllegroFlare::Placement3D*
+        default_argument: nullptr
+    guards: [ object_placement ]
+    body: |
+      object_placement->build_transform(&object_placement_transform);
+
+      // TODO: if this shader is active, send the value to the shader directly
+      return;
+
+
   - name: set_values_to_activated_shader
     private: true
     body: |
-      AllegroFlare::Placement3D object_placement; // TESTING: DEBUG:
-      ALLEGRO_TRANSFORM transform;
-      object_placement.build_transform(&transform);
+      //AllegroFlare::Placement3D object_placement; // TESTING: DEBUG:
+      //ALLEGRO_TRANSFORM transform;
+      //object_placement.build_transform(&transform);
 
       set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
       set_vec3("camera_position", camera_position);
-      set_mat4("position_transform", &transform);
+      set_mat4("position_transform", &object_placement_transform);
       set_bool("reflecting", reflecting);
       
       //set_float("tint_intensity", tint_intensity);
@@ -137,9 +163,10 @@ functions:
             //vec4 color = vec4(1, 1, 1, 1); // <-- TESTING: DEBUG: TODO: remove this
            
 
-            vec4 golden_color = vec4(1.0, 0.74, 0.0, 1.0);
+            // TODO: add this "golden_color" as an optional pass-in-able value
+            //vec4 golden_color = vec4(1.0, 0.74, 0.0, 1.0);
 
-            color = golden_color * 0.6 + color * 0.7;
+            //color = golden_color * 0.6 + color * 0.7;
           
           
             gl_FragColor = color;
@@ -159,5 +186,7 @@ dependencies:
     headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: AllegroFlare::Placement3D
     headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: ALLEGRO_TRANSFORM
+    headers: [ allegro5/allegro.h ]
 
 
