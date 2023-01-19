@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/Shaders/CubeMap.hpp>
+#include <AllegroFlare/Shaders/Cubemap.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Camera3D.hpp>
@@ -9,42 +9,42 @@
 #include <AllegroFlare/CubemapBuilder.hpp>
 
 
-class AllegroFlare_Shaders_CubeMapTest: public ::testing::Test {};
-class AllegroFlare_Shaders_CubeMapWithAllegroRenderingFixtureTest :
+class AllegroFlare_Shaders_CubemapTest: public ::testing::Test {};
+class AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
 
-TEST_F(AllegroFlare_Shaders_CubeMapTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Shaders_CubemapTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Shaders::CubeMap shader;
+   AllegroFlare::Shaders::Cubemap shader;
 }
 
 
-TEST_F(AllegroFlare_Shaders_CubeMapTest, TYPE__has_the_expected_value)
+TEST_F(AllegroFlare_Shaders_CubemapTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Shaders::CubeMap shader;
-   EXPECT_EQ("AllegroFlare/Shaders/CubeMap", shader.get_type());
+   AllegroFlare::Shaders::Cubemap shader;
+   EXPECT_EQ("AllegroFlare/Shaders/Cubemap", shader.get_type());
 }
 
 
-TEST_F(AllegroFlare_Shaders_CubeMapTest, type__has_the_expected_value_matching_TYPE)
+TEST_F(AllegroFlare_Shaders_CubemapTest, type__has_the_expected_value_matching_TYPE)
 {
-   AllegroFlare::Shaders::CubeMap shader;
-   EXPECT_EQ(AllegroFlare::Shaders::CubeMap::TYPE, shader.get_type());
+   AllegroFlare::Shaders::Cubemap shader;
+   EXPECT_EQ(AllegroFlare::Shaders::Cubemap::TYPE, shader.get_type());
 }
 
 
-TEST_F(AllegroFlare_Shaders_CubeMapWithAllegroRenderingFixtureTest, initialize__will_not_blow_up)
+TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, initialize__will_not_blow_up)
 {
-   AllegroFlare::Shaders::CubeMap shader;
+   AllegroFlare::Shaders::Cubemap shader;
    shader.initialize();
 }
 
 
-TEST_F(AllegroFlare_Shaders_CubeMapWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
+TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
 {
-   AllegroFlare::Shaders::CubeMap shader;
+   AllegroFlare::Shaders::Cubemap shader;
    AllegroFlare::Camera3D camera;
    AllegroFlare::ModelBin model_bin;
    AllegroFlare::Model3D *model;

@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Shaders::Base
     scope: public
-    init_with: "AllegroFlare::Shaders::CubeMap::TYPE, obtain_vertex_source(), obtain_fragment_source()"
+    init_with: "AllegroFlare::Shaders::Cubemap::TYPE, obtain_vertex_source(), obtain_fragment_source()"
 
 
 properties:
@@ -18,7 +18,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"AllegroFlare/Shaders/CubeMap"'
+    init_with: '(char*)"AllegroFlare/Shaders/Cubemap"'
     static: true
     constexpr: true
 

@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Shaders/CubeMap.hpp>
+#include <AllegroFlare/Shaders/Cubemap.hpp>
 
 #include <iostream>
 
@@ -11,45 +11,45 @@ namespace Shaders
 {
 
 
-CubeMap::CubeMap(AllegroFlare::Cubemap* cube_map)
-   : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::CubeMap::TYPE, obtain_vertex_source(), obtain_fragment_source())
+Cubemap::Cubemap(AllegroFlare::Cubemap* cube_map)
+   : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::Cubemap::TYPE, obtain_vertex_source(), obtain_fragment_source())
    , cube_map(cube_map)
 {
 }
 
 
-CubeMap::~CubeMap()
+Cubemap::~Cubemap()
 {
 }
 
 
-void CubeMap::set_cube_map(AllegroFlare::Cubemap* cube_map)
+void Cubemap::set_cube_map(AllegroFlare::Cubemap* cube_map)
 {
    this->cube_map = cube_map;
 }
 
 
-AllegroFlare::Cubemap* CubeMap::get_cube_map() const
+AllegroFlare::Cubemap* Cubemap::get_cube_map() const
 {
    return cube_map;
 }
 
 
-void CubeMap::activate()
+void Cubemap::activate()
 {
    AllegroFlare::Shader::activate();
    set_values_to_activated_shader();
    return;
 }
 
-void CubeMap::set_values_to_activated_shader()
+void Cubemap::set_values_to_activated_shader()
 {
    set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
    //set_float("tint_intensity", tint_intensity);
    return;
 }
 
-std::string CubeMap::obtain_vertex_source()
+std::string Cubemap::obtain_vertex_source()
 {
    // NOTE: this code was formerly in data/shaders/cube_vertex.glsl
    static const std::string source = R"DELIM(
@@ -78,7 +78,7 @@ std::string CubeMap::obtain_vertex_source()
    return source;
 }
 
-std::string CubeMap::obtain_fragment_source()
+std::string Cubemap::obtain_fragment_source()
 {
    // NOTE: this code was formerly in data/shaders/cube_fragment.glsl
    static const std::string source = R"DELIM(

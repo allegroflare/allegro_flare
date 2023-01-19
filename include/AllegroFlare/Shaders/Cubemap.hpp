@@ -10,10 +10,10 @@ namespace AllegroFlare
 {
    namespace Shaders
    {
-      class CubeMap : public AllegroFlare::Shaders::Base
+      class Cubemap : public AllegroFlare::Shaders::Base
       {
       public:
-         static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/CubeMap";
+         static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/Cubemap";
 
       private:
          AllegroFlare::Cubemap* cube_map;
@@ -25,8 +25,8 @@ namespace AllegroFlare
 
 
       public:
-         CubeMap(AllegroFlare::Cubemap* cube_map=nullptr);
-         virtual ~CubeMap();
+         Cubemap(AllegroFlare::Cubemap* cube_map=nullptr);
+         virtual ~Cubemap();
 
          void set_cube_map(AllegroFlare::Cubemap* cube_map);
          AllegroFlare::Cubemap* get_cube_map() const;
