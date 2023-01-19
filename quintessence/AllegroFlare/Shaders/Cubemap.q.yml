@@ -23,6 +23,13 @@ properties:
     getter: true
     setter: true
 
+  - name: reflecting
+    type: bool
+    init_with: true
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Shaders/Cubemap"'
@@ -53,6 +60,7 @@ functions:
       set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
       set_vec3("camera_position", camera_position);
       set_mat4("position_transform", &transform);
+      set_bool("reflecting", reflecting);
       
       //set_float("tint_intensity", tint_intensity);
       return;
@@ -111,7 +119,7 @@ functions:
 
          void main()
          {
-            /* // TESTING: DEBUG: TODO: restore this
+            ///* // TESTING: DEBUG: TODO: restore this
             vec3 reflected_dir = normalize(reflect(eye_dir, normalize(normal)));
  
             vec3 incoming_angle = reflecting ? reflected_dir : eye_dir;
@@ -123,10 +131,10 @@ functions:
  
             vec4 color = textureCube(cube_map_A, incoming_angle);
             //color = textureCube(cube_map_B, incoming_angle);
-            */
+            //*/
           
 
-            vec4 color = vec4(1, 1, 1, 1); // <-- TESTING: DEBUG: TODO: remove this
+            //vec4 color = vec4(1, 1, 1, 1); // <-- TESTING: DEBUG: TODO: remove this
            
 
             vec4 golden_color = vec4(1.0, 0.74, 0.0, 1.0);
