@@ -7,6 +7,7 @@
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/CubemapBuilder.hpp>
+#include <AllegroFlare/Placement3D.hpp>
 
 
 class AllegroFlare_Shaders_CubemapTest: public ::testing::Test {};
@@ -48,6 +49,7 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
    AllegroFlare::Camera3D camera;
    AllegroFlare::ModelBin model_bin;
    AllegroFlare::Model3D *model;
+   AllegroFlare::Placement3D placement;
    AllegroFlare::CubemapBuilder builder;
    std::string cube_map_texture_filename = get_fixtures_path() + "/bitmaps/sky5_with_grid.png";
    AllegroFlare::Cubemap *cube_map = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
@@ -57,6 +59,7 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
 
    model_bin.set_path(get_fixtures_path() + "models");
    model = model_bin["rounded_unit_cube-01.obj"];
+   placement;
 
    // TODO: setup object
 
@@ -75,6 +78,8 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest, VISUAL__will
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
       shader.activate();
+      shader.set_camera_position(camera.get_real_position());
+      //shader.set_position_transform(camera.get_real_position()); // TODO (if needed)
       model->draw();
       shader.deactivate();
 

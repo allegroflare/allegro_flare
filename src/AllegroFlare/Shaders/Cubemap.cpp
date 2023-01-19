@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Shaders/Cubemap.hpp>
 
+#include <AllegroFlare/Placement3D.hpp>
 #include <iostream>
 
 
@@ -11,9 +12,10 @@ namespace Shaders
 {
 
 
-Cubemap::Cubemap(AllegroFlare::Cubemap* cube_map)
+Cubemap::Cubemap(AllegroFlare::Cubemap* cube_map, AllegroFlare::Vec3D camera_position)
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::Cubemap::TYPE, obtain_vertex_source(), obtain_fragment_source())
    , cube_map(cube_map)
+   , camera_position(camera_position)
 {
 }
 
@@ -29,9 +31,21 @@ void Cubemap::set_cube_map(AllegroFlare::Cubemap* cube_map)
 }
 
 
+void Cubemap::set_camera_position(AllegroFlare::Vec3D camera_position)
+{
+   this->camera_position = camera_position;
+}
+
+
 AllegroFlare::Cubemap* Cubemap::get_cube_map() const
 {
    return cube_map;
+}
+
+
+AllegroFlare::Vec3D Cubemap::get_camera_position() const
+{
+   return camera_position;
 }
 
 
@@ -44,13 +58,21 @@ void Cubemap::activate()
 
 void Cubemap::set_values_to_activated_shader()
 {
+   AllegroFlare::Placement3D object_placement; // TESTING: DEBUG:
+   ALLEGRO_TRANSFORM transform;
+   object_placement.build_transform(&transform);
+
    set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
+   set_vec3("camera_position", camera_position);
+   set_mat4("position_transform", &transform);
+
    //set_float("tint_intensity", tint_intensity);
    return;
 }
 
 std::string Cubemap::obtain_vertex_source()
 {
+   // HERE: Finishing this code
    // NOTE: this code was formerly in data/shaders/cube_vertex.glsl
    static const std::string source = R"DELIM(
       attribute vec4 al_pos;
@@ -80,6 +102,7 @@ std::string Cubemap::obtain_vertex_source()
 
 std::string Cubemap::obtain_fragment_source()
 {
+   // HERE: Finishing this code
    // NOTE: this code was formerly in data/shaders/cube_fragment.glsl
    static const std::string source = R"DELIM(
       varying vec3 normal;
@@ -91,6 +114,7 @@ std::string Cubemap::obtain_fragment_source()
 
       void main()
       {
+         /* // TESTING: DEBUG: TODO: restore this
          vec3 reflected_dir = normalize(reflect(eye_dir, normalize(normal)));
 
          vec3 incoming_angle = reflecting ? reflected_dir : eye_dir;
@@ -102,7 +126,11 @@ std::string Cubemap::obtain_fragment_source()
 
          vec4 color = textureCube(cube_map_A, incoming_angle);
          //color = textureCube(cube_map_B, incoming_angle);
+         */
        
+
+         vec4 color = vec4(1, 1, 1, 1); // <-- TESTING: DEBUG: TODO: remove this
+        
 
          vec4 golden_color = vec4(1.0, 0.74, 0.0, 1.0);
 

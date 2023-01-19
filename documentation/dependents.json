@@ -164,6 +164,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Cubemap",
     "Wicked/Entities/Basic3D"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
@@ -1473,7 +1474,8 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -2009,10 +2011,10 @@
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/Shaders/AllegroDefault",
-    "AllegroFlare/Shaders/CubeMap"
+    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Cubemap": [
-    "AllegroFlare/Shaders/CubeMap"
+    "AllegroFlare/Shaders/Cubemap"
   ],
   "tsl/ordered_map": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
