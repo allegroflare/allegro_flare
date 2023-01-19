@@ -14413,8 +14413,8 @@ table td
     <h3 id="quintessence/AllegroFlare/Shaders/CubeMap.q.yml">quintessence/AllegroFlare/Shaders/CubeMap.q.yml</h3>
      <table>
 <tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
+  <td class="property">cube_map</td>
+  <td class="property">AllegroFlare::Cubemap*</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -14423,7 +14423,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="private_method">set_values_to_activated_shader()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_vertex_source()</td>
@@ -14435,6 +14438,9 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Cubemap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Cubemap.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20760,6 +20766,9 @@ table td
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/CubeMap"
+  ],
+  "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/CubeMap"
   ],
   "tsl/ordered_map": [

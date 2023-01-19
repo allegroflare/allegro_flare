@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Cubemap.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 #include <string>
 
@@ -15,7 +16,8 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/CubeMap";
 
       private:
-         std::string property;
+         AllegroFlare::Cubemap* cube_map;
+         void set_values_to_activated_shader();
          static std::string obtain_vertex_source();
          static std::string obtain_fragment_source();
 
@@ -23,11 +25,12 @@ namespace AllegroFlare
 
 
       public:
-         CubeMap(std::string property="[unset-property]");
-         ~CubeMap();
+         CubeMap(AllegroFlare::Cubemap* cube_map=nullptr);
+         virtual ~CubeMap();
 
-         std::string get_property() const;
-         bool property_is(std::string possible_type="");
+         void set_cube_map(AllegroFlare::Cubemap* cube_map);
+         AllegroFlare::Cubemap* get_cube_map() const;
+         virtual void activate() override;
       };
    }
 }

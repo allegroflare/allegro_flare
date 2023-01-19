@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Shaders/CubeMap.hpp>
 
-
+#include <iostream>
 
 
 namespace AllegroFlare
@@ -11,9 +11,9 @@ namespace Shaders
 {
 
 
-CubeMap::CubeMap(std::string property)
+CubeMap::CubeMap(AllegroFlare::Cubemap* cube_map)
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::CubeMap::TYPE, obtain_vertex_source(), obtain_fragment_source())
-   , property(property)
+   , cube_map(cube_map)
 {
 }
 
@@ -23,15 +23,30 @@ CubeMap::~CubeMap()
 }
 
 
-std::string CubeMap::get_property() const
+void CubeMap::set_cube_map(AllegroFlare::Cubemap* cube_map)
 {
-   return property;
+   this->cube_map = cube_map;
 }
 
 
-bool CubeMap::property_is(std::string possible_type)
+AllegroFlare::Cubemap* CubeMap::get_cube_map() const
 {
-   return (possible_type == get_property());
+   return cube_map;
+}
+
+
+void CubeMap::activate()
+{
+   AllegroFlare::Shader::activate();
+   set_values_to_activated_shader();
+   return;
+}
+
+void CubeMap::set_values_to_activated_shader()
+{
+   set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
+   //set_float("tint_intensity", tint_intensity);
+   return;
 }
 
 std::string CubeMap::obtain_vertex_source()

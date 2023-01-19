@@ -9,11 +9,12 @@ parent_classes:
 properties:
 
 
-  - name: property
-    type: std::string
-    init_with: '"[unset-property]"'
+  - name: cube_map
+    type: AllegroFlare::Cubemap*
+    init_with: nullptr
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: TYPE
     type: char*
@@ -25,14 +26,24 @@ properties:
 functions:
 
 
-  - name: property_is
-    type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
+  - name: activate
+    type: void
+    virtual: true
+    override: true
     body: |
-      return (possible_type == get_property());
+      AllegroFlare::Shader::activate();
+      set_values_to_activated_shader();
+      return;
+
+
+  - name: set_values_to_activated_shader
+    private: true
+    body: |
+      set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
+      //set_float("tint_intensity", tint_intensity);
+      return;
+    body_dependency_symbols:
+      - std::cout
 
 
   - name: obtain_vertex_source
@@ -112,5 +123,7 @@ dependencies:
 
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
+  - symbol: AllegroFlare::Cubemap
+    headers: [ AllegroFlare/Cubemap.hpp ]
 
 

@@ -24,3 +24,34 @@ TEST(AllegroFlare_Shaders_AllegroDefaultTest, type__has_the_expected_value_match
 }
 
 
+TEST_F(AllegroFlare_Shaders_CubeMapWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
+{
+   AllegroFlare::Shaders::CubeMap shader;
+   AllegroFlare::Camera3D camera;
+   AllegroFlare::ModelBin model_bin;
+   AllegroFlare::Model3D *model;
+
+   model_bin.set_path(get_fixtures_path() + "models");
+   model = model_bin["rounded_unit_cube-01.obj"];
+
+   // TODO: setup object
+
+   shader.initialize();
+   shader.activate();
+
+   int passes = 60;
+   for (int i=0; i<passes; i++)
+   {
+      camera.setup_projection_on(get_display_backbuffer());
+      clear();
+
+      model->draw();
+
+      // TODO: render object
+      al_flip_display();
+   }
+
+   shader.deactivate();
+}
+
+

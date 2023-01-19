@@ -2011,6 +2011,9 @@
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/CubeMap"
   ],
+  "AllegroFlare/Cubemap": [
+    "AllegroFlare/Shaders/CubeMap"
+  ],
   "tsl/ordered_map": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
