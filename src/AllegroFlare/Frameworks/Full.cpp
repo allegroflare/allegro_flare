@@ -60,6 +60,7 @@ Full::Full()
    , input_hints_tokens({})
    , escape_key_will_shutdown(true)
    , output_auto_created_config_warning(true)
+   , set_display_backbuffer_as_target_before_calling_primary_timer_funcs(true)
    , clear_to_color_before_calling_primary_timer_funcs(true)
    , clear_depth_buffer_before_calling_primary_timer_funcs(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
@@ -560,6 +561,24 @@ void Full::disable_auto_created_config_warning()
 }
 
 
+void Full::enable_set_display_backbuffer_as_target_before_calling_primary_timer_funcs()
+{
+   set_display_backbuffer_as_target_before_calling_primary_timer_funcs = true;
+}
+
+
+void Full::disable_set_display_backbuffer_as_target_before_calling_primary_timer_funcs()
+{
+   set_display_backbuffer_as_target_before_calling_primary_timer_funcs = false;
+}
+
+
+bool Full::is_set_display_backbuffer_as_target_before_calling_primary_timer_funcs_enabled()
+{
+   return set_display_backbuffer_as_target_before_calling_primary_timer_funcs;
+}
+
+
 void Full::enable_clear_to_color_before_calling_primary_timer_funcs()
 {
    clear_to_color_before_calling_primary_timer_funcs = true;
@@ -795,11 +814,16 @@ void Full::primary_update()
 void Full::primary_render()
 {
    profiler.start(".primary_render()");
-   ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
-   al_set_target_bitmap(backbuffer_bitmap);
+   //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+   //al_set_target_bitmap(backbuffer_bitmap);
 
-   if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-   if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
+   if (set_display_backbuffer_as_target_before_calling_primary_timer_funcs)
+   {
+      ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+      al_set_target_bitmap(backbuffer_bitmap);
+      if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
+   }
 
    if (screens.no_active_screens())
    {
