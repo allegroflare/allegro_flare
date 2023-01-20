@@ -1,4 +1,5 @@
 #pragma once
+#define ALLEGRO_UNSTABLE
 
 
 #include <string>
