@@ -37,9 +37,9 @@ namespace AllegroFlare
       , al_display(NULL)
    {
       // set a few options and flags
-      al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
-      al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
-      al_set_new_display_option(ALLEGRO_SAMPLES, 16, ALLEGRO_SUGGEST);
+      al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
+      al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_REQUIRE); // TODO: review these numbers
+      al_set_new_display_option(ALLEGRO_SAMPLES, 4, ALLEGRO_SUGGEST); // TODO: review these numbers
       al_set_new_display_flags(display_flags);
 
       // create the actual display
