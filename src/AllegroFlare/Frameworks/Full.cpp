@@ -52,7 +52,7 @@ Full::Full()
    , textlog(nullptr)
    , joystick(nullptr)
    , primary_display(nullptr)
-   , primary_sub_bitmap(nullptr)
+   , primary_display_sub_bitmap_for_overlay(nullptr)
    , primary_timer(nullptr)
    , camera_2d()
    , drawing_inputs_bar_overlay(false)
@@ -375,7 +375,7 @@ bool Full::initialize()
    ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
 
 
-   primary_sub_bitmap = al_create_sub_bitmap(
+   primary_display_sub_bitmap_for_overlay = al_create_sub_bitmap(
       backbuffer_bitmap,
       0,
       0,
@@ -383,15 +383,19 @@ bool Full::initialize()
       al_get_bitmap_height(backbuffer_bitmap)
    );
 
-   if (!primary_sub_bitmap)
+   if (!primary_display_sub_bitmap_for_overlay)
    {
-      std::cout << "[AllegroFlare::Frameworks::Full::initialize]: ERROR: could not create primary_sub_bitmap" << std::endl;
+      std::cout <<
+         "[AllegroFlare::Frameworks::Full::initialize]: ERROR: "
+         "could not create primary_display_sub_bitmap_for_overlay" << std::endl;
    }
-   camera_2d.setup_dimentional_projection(primary_sub_bitmap); // this should remain the same throughout
-                                                               // the whole program
+   camera_2d.setup_dimentional_projection(primary_display_sub_bitmap_for_overlay);
+                                                               // this should remain the same throughout
+                                                               // the whole program and never be modified
 
    camera_2d.setup_dimentional_projection(backbuffer_bitmap); // this could potentially change depending on the
-                                                              // needs of the game
+                                                              // needs of the game, but is setup here as a reasonable
+                                                              // default
 
    return true;
 }
@@ -498,7 +502,7 @@ bool Full::shutdown()
 
    event_callbacks.clear();
 
-   if (primary_sub_bitmap) al_destroy_bitmap(primary_sub_bitmap);
+   if (primary_display_sub_bitmap_for_overlay) al_destroy_bitmap(primary_display_sub_bitmap_for_overlay);
    if (primary_display) al_destroy_display(primary_display->al_display);
 
    audio_controller.destruct();
@@ -1264,7 +1268,8 @@ std::string Full::get_allegro_flare_version_string()
 void Full::draw_overlay()
 {
    profiler.start(".draw_overlay()");
-   al_set_target_bitmap(primary_sub_bitmap);
+   al_set_target_bitmap(primary_display_sub_bitmap_for_overlay);
+   // TODO: consider setting the shader and render flags
 
    if (drawing_inputs_bar_overlay)
    {

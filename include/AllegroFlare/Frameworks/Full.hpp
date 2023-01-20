@@ -51,7 +51,7 @@ namespace AllegroFlare
          ALLEGRO_TEXTLOG *textlog;
          ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
          Display *primary_display;
-         ALLEGRO_BITMAP *primary_sub_bitmap;
+         ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          ALLEGRO_TIMER *primary_timer;
          Camera2D camera_2d;
          //Camera3D camera_3d; // next
