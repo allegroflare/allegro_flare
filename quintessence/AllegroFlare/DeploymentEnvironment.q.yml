@@ -9,25 +9,25 @@ properties:
 
   - name: ENVIRONMENT_UNDEF
     type: char*
-    init_with: '"undefined"'
+    init_with: '(char*)"undefined"'
     static: true
     constexpr: true
 
   - name: ENVIRONMENT_TEST
     type: char*
-    init_with: '"test"'
+    init_with: '(char*)"test"'
     static: true
     constexpr: true
 
   - name: ENVIRONMENT_DEVELOPMENT
     type: char*
-    init_with: '"development"'
+    init_with: '(char*)"development"'
     static: true
     constexpr: true
 
   - name: ENVIRONMENT_PRODUCTION
     type: char*
-    init_with: '"production"'
+    init_with: '(char*)"production"'
     static: true
     constexpr: true
 

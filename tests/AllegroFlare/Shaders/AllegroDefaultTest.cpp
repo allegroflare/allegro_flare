@@ -24,6 +24,7 @@ TEST(AllegroFlare_Shaders_AllegroDefaultTest, type__has_the_expected_value_match
 }
 
 
+/* // TODO: add in this test environment
 TEST_F(AllegroFlare_Shaders_CubeMapWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
 {
    AllegroFlare::Shaders::CubeMap shader;
@@ -53,5 +54,6 @@ TEST_F(AllegroFlare_Shaders_CubeMapWithAllegroRenderingFixtureTest, VISUAL__will
 
    shader.deactivate();
 }
+*/
 
 

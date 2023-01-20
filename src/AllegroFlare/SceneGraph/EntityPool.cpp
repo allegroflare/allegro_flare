@@ -42,12 +42,16 @@ std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> &EntityPool::get_e
 
 bool EntityPool::add(AllegroFlare::SceneGraph::Entities::Base* entity)
 {
+   // TODO: consider checking for duplicates
    entity_pool.insert(entity);
+   return true;
 }
 
 bool EntityPool::add(std::vector<AllegroFlare::SceneGraph::Entities::Base*> entities)
 {
+   // TODO: consider checking for duplicates
    entity_pool.insert(entities.begin(), entities.end());
+   return true;
 }
 
 bool EntityPool::remove(AllegroFlare::SceneGraph::Entities::Base* entity)

@@ -3,10 +3,26 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "/Users/markoates/Repos/allegro_flare/tests/fixtures/maps/map-for-testing-autotile-1-01.tmj",
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "/Users/markoates/Repos/allegro_flare/tests/fixtures/maps/map-for-testing-autotile-1-01.tmj": {
+            "scale": 1.2739,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 602.4805714734281,
+                "y": 353.2459376717168
+            }
+        },
+        "autotile-tileset-1-01.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 3
+        },
+        "collision-tile-map-01.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 4
+        }
     },
     "last.imagePath": "/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps",
     "map.height": 25,
@@ -14,9 +30,15 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
+        "/Users/markoates/Repos/allegro_flare/tests/fixtures/maps/map-for-testing-autotile-1-01.tmj",
+        "collision-tile-map-01.tsx",
+        "autotile-tileset-1-01.tsx"
     ],
     "project": "autotile-test-sandbox.tiled-project",
     "recentFiles": [
+        "autotile-tileset-1-01.tsx",
+        "collision-tile-map-01.tsx",
+        "/Users/markoates/Repos/allegro_flare/tests/fixtures/maps/map-for-testing-autotile-1-01.tmj"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

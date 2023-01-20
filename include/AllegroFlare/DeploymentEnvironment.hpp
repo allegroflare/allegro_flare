@@ -9,10 +9,10 @@ namespace AllegroFlare
    class DeploymentEnvironment
    {
    public:
-      static constexpr char* ENVIRONMENT_UNDEF = "undefined";
-      static constexpr char* ENVIRONMENT_TEST = "test";
-      static constexpr char* ENVIRONMENT_DEVELOPMENT = "development";
-      static constexpr char* ENVIRONMENT_PRODUCTION = "production";
+      static constexpr char* ENVIRONMENT_UNDEF = (char*)"undefined";
+      static constexpr char* ENVIRONMENT_TEST = (char*)"test";
+      static constexpr char* ENVIRONMENT_DEVELOPMENT = (char*)"development";
+      static constexpr char* ENVIRONMENT_PRODUCTION = (char*)"production";
 
    private:
       std::string environment;

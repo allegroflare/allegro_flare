@@ -19,7 +19,9 @@ functions:
         type: AllegroFlare::SceneGraph::Entities::Base*
         default_argument: nullptr
     body: |
+      // TODO: consider checking for duplicates
       entity_pool.insert(entity);
+      return true;
 
 
   - name: add
@@ -29,7 +31,9 @@ functions:
         type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
         default_argument: ''
     body: |
+      // TODO: consider checking for duplicates
       entity_pool.insert(entities.begin(), entities.end());
+      return true;
 
 
   - name: remove
