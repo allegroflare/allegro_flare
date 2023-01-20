@@ -44,7 +44,7 @@ functions:
       //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
       //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
       std::stringstream result;
-      result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT << std::endl;
+      result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;
       return result.str();
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
@@ -124,7 +124,7 @@ functions:
       //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
       //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
       std::stringstream result;
-      result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT << std::endl;
+      result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
       return result.str();
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
@@ -155,6 +155,23 @@ functions:
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
       - std::filesystem
+
+
+  - name: info_from
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: message
+        type: std::string
+        default_argument: '"[unset-message]"'
+    body: |
+      std::cout << build_info_message(from, message) << std::endl;
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
+      - std::cout
 
 
   - name: warn_from

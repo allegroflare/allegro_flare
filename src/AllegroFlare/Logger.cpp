@@ -27,7 +27,7 @@ std::string Logger::build_error_message(std::string from, std::string message)
    //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
    //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
    std::stringstream result;
-   result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT << std::endl;
+   result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;
    return result.str();
 }
 
@@ -67,7 +67,7 @@ std::string Logger::build_info_message(std::string from, std::string message)
    //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
    //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
    std::stringstream result;
-   result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT << std::endl;
+   result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
    return result.str();
 }
 
@@ -81,6 +81,11 @@ void Logger::throw_missing_file_error(std::string from, std::string filename, st
                  << "\"" << current_path << "\".";
    throw_error(from, error_message.str());
    return;
+}
+
+void Logger::info_from(std::string from, std::string message)
+{
+   std::cout << build_info_message(from, message) << std::endl;
 }
 
 void Logger::warn_from(std::string from, std::string message)

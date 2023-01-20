@@ -3,11 +3,20 @@
 #include <AllegroFlare/Display.hpp>
 
 #include <allegro5/allegro_color.h>
+#include <AllegroFlare/Logger.hpp>
 //#include <AllegroFlare/Framework.hpp>
 
 //#include <allegro_flare/allegro_flare.h>
 
 #include <iostream>
+#include <sstream>
+
+
+static std::string as_yes_no(int val)
+{
+   if (val == 0) return "NO";
+   return "YES";
+}
 
 
 namespace AllegroFlare
@@ -23,6 +32,8 @@ namespace AllegroFlare
 
    Display *Display::find_display(ALLEGRO_DISPLAY *al_display)
    {
+      // TODO: Look into depreciating this; I believe this should be removed entirely and possibly moved into a
+      // manager.
       for (unsigned i=0; i<displays.size(); i++)
          if (al_display == displays[i]->al_display) return displays[i];
       return NULL;
@@ -40,12 +51,29 @@ namespace AllegroFlare
       al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
       al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_REQUIRE); // TODO: review these numbers
       al_set_new_display_option(ALLEGRO_SAMPLES, 4, ALLEGRO_SUGGEST); // TODO: review these numbers
+      al_set_new_display_option(ALLEGRO_VSYNC, 1, ALLEGRO_SUGGEST); // TODO: review compatibility of vsync
+                                                                    // and obtaining info from the driver if it has
+                                                                    // been changed
       al_set_new_display_flags(display_flags);
 
       // create the actual display
-      std::cout << "Display::Display: creating display" << std::endl;
+      AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", "creating display.");
       al_display = al_create_display(width, height);
-      std::cout << "Display::Display: display created" << std::endl;
+
+      std::stringstream display_message;
+      display_message << "Display (" << al_display << ") created with the following configuration:" << std::endl;
+      display_message << "   - sample_buffers: "
+                      << as_yes_no(al_get_display_option(al_display, ALLEGRO_SAMPLE_BUFFERS)) << std::endl;
+      display_message << "         depth_size: "
+                      << al_get_display_option(al_display, ALLEGRO_DEPTH_SIZE) << std::endl;
+      display_message << "            samples: "
+                      << al_get_display_option(al_display, ALLEGRO_SAMPLES) << std::endl;
+      display_message << "              vsync: "
+                      << as_yes_no(al_get_display_option(al_display, ALLEGRO_VSYNC)) << std::endl;
+      display_message << "             OpenGL: "
+                      << as_yes_no(al_get_display_flags(al_display) & ALLEGRO_OPENGL) << std::endl;
+
+      AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", display_message.str().c_str());
  
       // add the display to AllegroFlare's list of displays
       displays.push_back(this);
