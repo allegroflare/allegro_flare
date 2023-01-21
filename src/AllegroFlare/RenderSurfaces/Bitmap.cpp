@@ -64,11 +64,18 @@ void Bitmap::setup_surface(int w, int h, int multisamples, int depth)
 }
 
 
-void Bitmap::set_as_target(bool clear_to_color, bool clear_depth)
+// TODO: find a way to optionally clear_to_color and clear_depth
+//void Bitmap::set_as_target(bool clear_to_color, bool clear_depth)
+bool Bitmap::set_as_target()
 {
+   // TODO: find a way to optionally use clear_to_color and clear_depth
+   bool clear_to_color = true;
+   bool clear_depth = true;
+
    if (!surface_is_setup)
    {
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: not setup");
+      return false;
    }
 
    al_set_target_bitmap(surface);
@@ -76,6 +83,7 @@ void Bitmap::set_as_target(bool clear_to_color, bool clear_depth)
    if (clear_to_color) al_clear_to_color(clear_color);
    if (clear_depth) al_clear_to_color(clear_color); // TODO: actually clear depth buffer
    //al_set_target_bitmap(
+   return true;
 }
 
 
@@ -92,10 +100,24 @@ ALLEGRO_COLOR Bitmap::get_clear_color()
 }
 
 
-ALLEGRO_BITMAP *Bitmap::get_surface_bitmap()
+ALLEGRO_BITMAP *Bitmap::obtain_surface()
 {
    if (!surface_is_setup) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
    return surface;
+}
+
+
+int Bitmap::get_width()
+{
+   if (!surface_is_setup) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_width: error: not setup");
+   return al_get_bitmap_width(surface);
+}
+
+
+int Bitmap::get_height()
+{
+   if (!surface_is_setup) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_height: error: not setup");
+   return al_get_bitmap_height(surface);
 }
 
 

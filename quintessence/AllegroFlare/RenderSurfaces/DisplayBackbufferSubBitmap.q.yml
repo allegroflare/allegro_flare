@@ -90,6 +90,33 @@ functions:
       return true;
 
 
+  - name: obtain_surface
+    type: ALLEGRO_BITMAP*
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return display_backbuffer_sub_bitmap;
+
+
+  - name: get_width
+    type: int
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return al_get_bitmap_width(display_backbuffer_sub_bitmap);
+
+
+  - name: get_height
+    type: int
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return al_get_bitmap_width(display_backbuffer_sub_bitmap);
+
+
 dependencies:
 
 
@@ -99,4 +126,5 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::RenderSurfaces::Base
     headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
+
 

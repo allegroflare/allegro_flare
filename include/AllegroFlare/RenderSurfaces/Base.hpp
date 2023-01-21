@@ -25,10 +25,10 @@ namespace AllegroFlare
          virtual ~Base();
 
          std::string get_type() const;
-         virtual bool set_as_target();
-         virtual ALLEGRO_BITMAP* obtain_surface();
-         virtual int get_width();
-         virtual int get_height();
+         virtual bool set_as_target() = 0;
+         virtual ALLEGRO_BITMAP* obtain_surface() = 0;
+         virtual int get_width() = 0;
+         virtual int get_height() = 0;
          float get_center();
          float get_middle();
       };

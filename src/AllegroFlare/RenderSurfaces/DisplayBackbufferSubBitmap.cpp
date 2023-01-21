@@ -119,6 +119,42 @@ bool DisplayBackbufferSubBitmap::set_as_target()
    return true;
 }
 
+ALLEGRO_BITMAP* DisplayBackbufferSubBitmap::obtain_surface()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DisplayBackbufferSubBitmap::obtain_surface]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DisplayBackbufferSubBitmap::obtain_surface: error: guard \"initialized\" not met");
+   }
+   return display_backbuffer_sub_bitmap;
+}
+
+int DisplayBackbufferSubBitmap::get_width()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DisplayBackbufferSubBitmap::get_width]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DisplayBackbufferSubBitmap::get_width: error: guard \"initialized\" not met");
+   }
+   return al_get_bitmap_width(display_backbuffer_sub_bitmap);
+}
+
+int DisplayBackbufferSubBitmap::get_height()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DisplayBackbufferSubBitmap::get_height]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DisplayBackbufferSubBitmap::get_height: error: guard \"initialized\" not met");
+   }
+   return al_get_bitmap_width(display_backbuffer_sub_bitmap);
+}
+
 
 } // namespace RenderSurfaces
 } // namespace AllegroFlare

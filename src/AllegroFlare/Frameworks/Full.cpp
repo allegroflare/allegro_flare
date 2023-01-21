@@ -386,6 +386,10 @@ bool Full::initialize()
                                                               // TODO: replace this with display_backbuffer
 
 
+   // use the display_backbuffer as our render surface
+   render_surface = &display_backbuffer;
+
+
    // TODO:
    // HERE:
    //render_surface = 

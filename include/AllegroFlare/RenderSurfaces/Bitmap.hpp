@@ -27,13 +27,15 @@ namespace AllegroFlare
          ~Bitmap();
 
          void setup_surface(int w, int h, int multisamples=0, int depth=0);
-         void set_as_target(bool clear_to_color=true, bool clear_depth=true);
+         virtual bool set_as_target() override;
          void restore_previous_target();
 
          void set_clear_color(ALLEGRO_COLOR clear_color);
          ALLEGRO_COLOR get_clear_color();
 
-         ALLEGRO_BITMAP *get_surface_bitmap();
+         virtual ALLEGRO_BITMAP *obtain_surface() override;
+         virtual int get_width() override;
+         virtual int get_height() override;
       };
    }
 }

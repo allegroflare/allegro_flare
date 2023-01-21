@@ -28,25 +28,9 @@ std::string Base::get_type() const
 }
 
 
-bool Base::set_as_target()
-{
-   return true;
-}
 
-ALLEGRO_BITMAP* Base::obtain_surface()
-{
-   return nullptr;
-}
 
-int Base::get_width()
-{
-   return 0;
-}
 
-int Base::get_height()
-{
-   return 0;
-}
 
 float Base::get_center()
 {
