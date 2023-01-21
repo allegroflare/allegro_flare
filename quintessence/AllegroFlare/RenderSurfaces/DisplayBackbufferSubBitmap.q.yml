@@ -1,0 +1,102 @@
+parent_classes:
+
+
+  - class: AllegroFlare::RenderSurfaces::Base
+    scope: public
+    init_with: AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap::TYPE
+
+
+properties:
+
+
+  - name: display
+    type: ALLEGRO_DISPLAY*
+    init_with: nullptr
+    constructor_arg: true
+    setter: false
+    getter: true
+
+  - name: display_backbuffer_sub_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: set_display
+    parameters:
+      - name: display
+        type: ALLEGRO_DISPLAY*
+        default_argument: nullptr
+    guards: [ (!initialized), display ]
+    body: |
+      this->display = display;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), display ]
+    body: |
+      ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(display);
+
+      display_backbuffer_sub_bitmap = al_create_sub_bitmap(
+         backbuffer_bitmap,
+         0,
+         0,
+         al_get_bitmap_width(backbuffer_bitmap),
+         al_get_bitmap_height(backbuffer_bitmap)
+      );
+
+      if (!display_backbuffer_sub_bitmap)
+      {
+         std::cout <<
+            "[AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap::initialize]: ERROR: "
+            "could not create display_backbuffer_sub_bitmap" << std::endl;
+      }
+      //camera_2d.setup_dimentional_projection(display_backbuffer_sub_bitmap);
+                                                                  // this should remain the same throughout
+                                                                  // the whole program and never be modified
+
+      // TODO: Do this in the framework
+      //camera_2d.setup_dimentional_projection(backbuffer_bitmap); // this could potentially change depending on the
+                                                                   // needs of the game, but is setup here as a reasonable
+                                                                   // default
+                                                                   // TODO: replace this with display_backbuffer
+
+      //display_backbuffer = al_get_backbuffer(display);
+      initialized = true;
+      return;
+
+
+  - name: set_as_target
+    type: bool
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      al_set_target_bitmap(display_backbuffer_sub_bitmap);
+      return true;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_DISPLAY
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::RenderSurfaces::Base
+    headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
+

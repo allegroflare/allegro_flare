@@ -450,6 +450,7 @@
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/RenderSurfaces/Base",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -1978,10 +1979,12 @@
   ],
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/Bitmap",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer"
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
   ],
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

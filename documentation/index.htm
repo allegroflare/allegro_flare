@@ -244,6 +244,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml">quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ScreenCapture.q.yml">quintessence/AllegroFlare/ScreenCapture.q.yml</a></li>
@@ -13211,6 +13212,51 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">display</td>
+  <td class="property">ALLEGRO_DISPLAY*</td>
+</tr>
+<tr>
+  <td class="property">display_backbuffer_sub_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_display(ALLEGRO_DISPLAY* display=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">set_as_target()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</h3>
      <table>
 <tr>
@@ -19347,6 +19393,7 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/RenderSurfaces/Base",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -20875,10 +20922,12 @@ table td
   ],
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/Bitmap",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer"
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
   ],
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

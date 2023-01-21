@@ -25,6 +25,8 @@
 #include <AllegroFlare/Profiler.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <AllegroFlare/RenderSurfaces/DisplayBackbuffer.hpp>
+#include <AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.hpp>
+#include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
 
 
 namespace AllegroFlare
@@ -52,11 +54,13 @@ namespace AllegroFlare
          ALLEGRO_TEXTLOG *textlog;
          ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
          Display *primary_display;
-         ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
+         //ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          ALLEGRO_TIMER *primary_timer;
          Camera2D camera_2d;
 
          AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
+         AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap display_backbuffer_sub_bitmap;
+         AllegroFlare::RenderSurfaces::Base *render_surface;
 
          //Camera3D camera_3d; // next
          bool drawing_inputs_bar_overlay;
