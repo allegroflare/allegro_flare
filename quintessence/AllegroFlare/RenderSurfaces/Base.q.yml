@@ -33,6 +33,12 @@ functions:
       return nullptr;
 
 
+  - name: is_target
+    type: bool
+    body: |
+      return (al_get_target_bitmap() == obtain_surface());
+
+
   - name: get_width
     pure_virtual: true
     virtual: true
@@ -59,6 +65,16 @@ functions:
     type: float
     body: |
       return get_height() * 0.5f;
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
 
 
 dependencies:

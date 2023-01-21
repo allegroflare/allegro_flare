@@ -57,13 +57,13 @@ Full::Full()
    , camera_2d()
    , display_backbuffer()
    , display_backbuffer_sub_bitmap()
-   , render_surface(nullptr)
+   , primary_render_surface(nullptr)
    , drawing_inputs_bar_overlay(false)
    , drawing_notifications(true)
    , input_hints_tokens({})
    , escape_key_will_shutdown(true)
    , output_auto_created_config_warning(true)
-   , set_display_backbuffer_as_target_before_calling_primary_timer_funcs(true)
+   , set_primary_render_surface_as_target_before_calling_primary_timer_funcs(true)
    , clear_to_color_before_calling_primary_timer_funcs(true)
    , clear_depth_buffer_before_calling_primary_timer_funcs(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
@@ -385,56 +385,16 @@ bool Full::initialize()
                                                               // default
                                                               // TODO: replace this with display_backbuffer
 
-
    // use the display_backbuffer as our render surface
-   render_surface = &display_backbuffer;
+   primary_render_surface = &display_backbuffer;
 
-
-   // TODO:
-   // HERE:
-   //render_surface = 
-
-
-   // NOTE: this section below should eventually be placed into a RenderSurface::DisplayBackbufferSub and be
-   // swapable with a RenderSurface::Bitmap
-
-
-
-
-
+   // Initialize our backbuffer sub bitmap that is used to display AllegroFlare overlay, like performance graphs,
+   // in-game notificatoins, etc.
    display_backbuffer_sub_bitmap.set_display(primary_display->al_display);
    display_backbuffer_sub_bitmap.initialize();
    camera_2d.setup_dimentional_projection(display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
                                                                // this should remain the same throughout
                                                                // the whole program and never be modified
-
-
-   /*
-   ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
-
-   primary_display_sub_bitmap_for_overlay = al_create_sub_bitmap(
-      backbuffer_bitmap,
-      0,
-      0,
-      al_get_bitmap_width(backbuffer_bitmap),
-      al_get_bitmap_height(backbuffer_bitmap)
-   );
-
-   if (!primary_display_sub_bitmap_for_overlay)
-   {
-      std::cout <<
-         "[AllegroFlare::Frameworks::Full::initialize]: ERROR: "
-         "could not create primary_display_sub_bitmap_for_overlay" << std::endl;
-   }
-   */
-
-
-   //camera_2d.setup_dimentional_projection(primary_display_sub_bitmap_for_overlay);
-                                                               //// this should remain the same throughout
-                                                               //// the whole program and never be modified
-   //camera_2d.setup_dimentional_projection(primary_display_sub_bitmap_for_overlay);
-                                                               //// this should remain the same throughout
-                                                               //// the whole program and never be modified
 
    return true;
 }
@@ -605,21 +565,21 @@ void Full::disable_auto_created_config_warning()
 }
 
 
-void Full::enable_set_display_backbuffer_as_target_before_calling_primary_timer_funcs()
+void Full::enable_set_primary_render_surface_as_target_before_calling_primary_timer_funcs()
 {
-   set_display_backbuffer_as_target_before_calling_primary_timer_funcs = true;
+   set_primary_render_surface_as_target_before_calling_primary_timer_funcs = true;
 }
 
 
-void Full::disable_set_display_backbuffer_as_target_before_calling_primary_timer_funcs()
+void Full::disable_set_primary_render_surface_as_target_before_calling_primary_timer_funcs()
 {
-   set_display_backbuffer_as_target_before_calling_primary_timer_funcs = false;
+   set_primary_render_surface_as_target_before_calling_primary_timer_funcs = false;
 }
 
 
-bool Full::is_set_display_backbuffer_as_target_before_calling_primary_timer_funcs_enabled()
+bool Full::is_set_primary_render_surface_as_target_before_calling_primary_timer_funcs_enabled()
 {
-   return set_display_backbuffer_as_target_before_calling_primary_timer_funcs;
+   return set_primary_render_surface_as_target_before_calling_primary_timer_funcs;
 }
 
 
@@ -861,11 +821,9 @@ void Full::primary_render()
    //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
    //al_set_target_bitmap(backbuffer_bitmap);
 
-   if (set_display_backbuffer_as_target_before_calling_primary_timer_funcs)
+   if (set_primary_render_surface_as_target_before_calling_primary_timer_funcs)
    {
-      //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
-      //al_set_target_bitmap(backbuffer_bitmap);
-      display_backbuffer.set_as_target();
+      primary_render_surface->set_as_target();
       
       if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
@@ -879,6 +837,31 @@ void Full::primary_render()
    {
       screens.primary_timer_funcs();
    }
+
+
+   // TODO: this conditional should be a little more intentional. It should only draw the render surface to the
+   // backbuffer if:
+   //   1) it is not a backbuffer or backbuffer_sub_bitmap (thus it should just flip)
+   //   2) it is the current active target surface (some assumptions are being made here about its usage)
+   //   3) 
+   if (!
+         (
+            primary_render_surface->is_type(AllegroFlare::RenderSurfaces::DisplayBackbuffer::TYPE)
+            || primary_render_surface->is_type(AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap::TYPE)
+         )
+      )
+   //  ^^ TODO: this conditional should be a little more intentional
+   {
+      // render the primary_render_surface to the backbuffer
+      display_backbuffer.set_as_target();
+      ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
+
+      // TODO: consider if disabling a depth buffer (or other flags) are needed here
+      // TODO: activate post-processing shader here
+      al_draw_bitmap(bitmap, 0, 0, 0);
+      // TODO: deactivate post-processing shader here
+   }
+
    profiler.stop(".primary_render()");
 
    draw_overlay();

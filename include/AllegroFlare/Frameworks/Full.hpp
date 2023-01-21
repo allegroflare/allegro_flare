@@ -60,7 +60,7 @@ namespace AllegroFlare
 
          AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
          AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap display_backbuffer_sub_bitmap;
-         AllegroFlare::RenderSurfaces::Base *render_surface;
+         AllegroFlare::RenderSurfaces::Base *primary_render_surface;
 
          //Camera3D camera_3d; // next
          bool drawing_inputs_bar_overlay;
@@ -69,7 +69,7 @@ namespace AllegroFlare
          bool initialize_without_display(); // only use initialize() publically from now on
          bool escape_key_will_shutdown;
          bool output_auto_created_config_warning;
-         bool set_display_backbuffer_as_target_before_calling_primary_timer_funcs;
+         bool set_primary_render_surface_as_target_before_calling_primary_timer_funcs;
          bool clear_to_color_before_calling_primary_timer_funcs;
          bool clear_depth_buffer_before_calling_primary_timer_funcs;
          ALLEGRO_COLOR input_hints_text_color;
@@ -122,6 +122,8 @@ namespace AllegroFlare
          Achievements &get_achievements_ref();
          Display *get_primary_display();
 
+         RenderSurfaces::Base *get_primary_render_surface();
+
 
          bool initialize();
          bool is_initialized();
@@ -138,9 +140,9 @@ namespace AllegroFlare
          void disable_escape_key_will_shutdown();
          void enable_auto_created_config_warning();
          void disable_auto_created_config_warning();
-         void enable_set_display_backbuffer_as_target_before_calling_primary_timer_funcs();
-         void disable_set_display_backbuffer_as_target_before_calling_primary_timer_funcs();
-         bool is_set_display_backbuffer_as_target_before_calling_primary_timer_funcs_enabled();
+         void enable_set_primary_render_surface_as_target_before_calling_primary_timer_funcs();
+         void disable_set_primary_render_surface_as_target_before_calling_primary_timer_funcs();
+         bool is_set_primary_render_surface_as_target_before_calling_primary_timer_funcs_enabled();
          void enable_clear_to_color_before_calling_primary_timer_funcs();
          void disable_clear_to_color_before_calling_primary_timer_funcs();
          bool is_clear_to_color_before_calling_primary_timer_funcs_enabled();

@@ -30,6 +30,11 @@ std::string Base::get_type() const
 
 
 
+bool Base::is_target()
+{
+   return (al_get_target_bitmap() == obtain_surface());
+}
+
 
 
 float Base::get_center()
@@ -40,6 +45,11 @@ float Base::get_center()
 float Base::get_middle()
 {
    return get_height() * 0.5f;
+}
+
+bool Base::is_type(std::string possible_type)
+{
+   return (possible_type == get_type());
 }
 
 

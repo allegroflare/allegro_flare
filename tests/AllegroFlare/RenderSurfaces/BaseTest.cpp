@@ -10,26 +10,18 @@ public:
    RenderSurfacesBaseTestClass()
       : AllegroFlare::RenderSurfaces::Base("RenderSurfacesBaseTestClass")
    {}
+   ~RenderSurfacesBaseTestClass() {};
+
+   virtual bool set_as_target() override { return true; }
+   virtual ALLEGRO_BITMAP* obtain_surface() override { return nullptr; }
+   virtual int get_width() override { return 0; }
+   virtual int get_height() override { return 0; }
 };
 
 
-TEST(AllegroFlare_RenderSurfaces_BaseTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_RenderSurfaces_BaseTest, derived_classes_can_be_created_without_blowing_up)
 {
-   AllegroFlare::RenderSurfaces::Base base;
-}
-
-
-TEST(AllegroFlare_RenderSurfaces_BaseTest, TYPE__has_the_expected_value)
-{
-   AllegroFlare::RenderSurfaces::Base base;
-   EXPECT_EQ("RenderSurfaces/Base", base.get_type());
-}
-
-
-TEST(AllegroFlare_RenderSurfaces_BaseTest, type__has_the_expected_value_matching_TYPE)
-{
-   AllegroFlare::RenderSurfaces::Base base;
-   EXPECT_EQ(AllegroFlare::RenderSurfaces::Base::TYPE, base.get_type());
+   RenderSurfacesBaseTestClass test_class;
 }
 
 
