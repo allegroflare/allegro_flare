@@ -241,6 +241,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml">quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ScreenCapture.q.yml">quintessence/AllegroFlare/ScreenCapture.q.yml</a></li>
@@ -13098,6 +13101,116 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_as_target()</td>
+</tr>
+<tr>
+  <td class="method">obtain_surface()</td>
+</tr>
+<tr>
+  <td class="method">get_width()</td>
+</tr>
+<tr>
+  <td class="method">get_height()</td>
+</tr>
+<tr>
+  <td class="method">get_center()</td>
+</tr>
+<tr>
+  <td class="method">get_middle()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">display</td>
+  <td class="property">ALLEGRO_DISPLAY*</td>
+</tr>
+<tr>
+  <td class="property">display_backbuffer</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_display(ALLEGRO_DISPLAY* display=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">set_as_target()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</h3>
      <table>
 <tr>
@@ -19232,6 +19345,8 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/RenderSurfaces/Base",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -20758,6 +20873,15 @@ table td
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
+  "AllegroFlare/RenderSurfaces/Base": [
+    "AllegroFlare/RenderSurfaces/Bitmap",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer"
+  ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/SceneGraph/EntityPool"
   ],
@@ -20861,10 +20985,6 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_init_image_addon": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "ALLEGRO_DISPLAY": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/chrono/milliseconds": [

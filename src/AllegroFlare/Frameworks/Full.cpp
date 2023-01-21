@@ -372,8 +372,16 @@ bool Full::initialize()
       throw std::runtime_error("[Frameworks::Full::initialize]: FAILURE: unable to create primary_display.");
    }
 
-   ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
 
+   display_backbuffer.set_display(primary_display->al_display);
+   display_backbuffer.initialize();
+
+
+
+   // NOTE: this section below should eventually be placed into a RenderSurface::DisplayBackbufferSub and be
+   // swapable with a RenderSurface::Bitmap
+
+   ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
 
    primary_display_sub_bitmap_for_overlay = al_create_sub_bitmap(
       backbuffer_bitmap,
@@ -396,6 +404,7 @@ bool Full::initialize()
    camera_2d.setup_dimentional_projection(backbuffer_bitmap); // this could potentially change depending on the
                                                               // needs of the game, but is setup here as a reasonable
                                                               // default
+                                                              // TODO: replace this with display_backbuffer
 
    return true;
 }
@@ -823,8 +832,10 @@ void Full::primary_render()
 
    if (set_display_backbuffer_as_target_before_calling_primary_timer_funcs)
    {
-      ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
-      al_set_target_bitmap(backbuffer_bitmap);
+      //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
+      //al_set_target_bitmap(backbuffer_bitmap);
+      display_backbuffer.set_as_target();
+      
       if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
    }

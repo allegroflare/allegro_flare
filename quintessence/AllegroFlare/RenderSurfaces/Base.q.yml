@@ -1,0 +1,66 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::RenderSurfaces::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"RenderSurfaces/Base"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: set_as_target
+    virtual: true
+    type: bool
+    body: |
+      return true;
+
+
+  - name: obtain_surface
+    virtual: true
+    type: ALLEGRO_BITMAP*
+    body: |
+      return nullptr;
+
+
+  - name: get_width
+    virtual: true
+    type: int
+    body: |
+      return 0;
+
+
+  - name: get_height
+    virtual: true
+    type: int
+    body: |
+      return 0;
+
+
+  - name: get_center
+    type: float
+    body: |
+      return get_width() * 0.5f;
+
+
+  - name: get_middle
+    type: float
+    body: |
+      return get_height() * 0.5f;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
+

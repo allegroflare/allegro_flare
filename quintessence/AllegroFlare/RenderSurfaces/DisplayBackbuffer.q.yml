@@ -1,0 +1,77 @@
+parent_classes:
+
+
+  - class: AllegroFlare::RenderSurfaces::Base
+    scope: public
+    init_with: AllegroFlare::RenderSurfaces::DisplayBackbuffer::TYPE
+
+
+properties:
+
+
+  - name: display
+    type: ALLEGRO_DISPLAY*
+    init_with: nullptr
+    constructor_arg: true
+    setter: false
+    getter: true
+
+  - name: display_backbuffer
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/RenderSurfaces/DisplayBackbuffer"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: set_display
+    parameters:
+      - name: display
+        type: ALLEGRO_DISPLAY*
+        default_argument: nullptr
+    guards: [ (!initialized), display ]
+    body: |
+      this->display = display;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), display ]
+    body: |
+      display_backbuffer = al_get_backbuffer(display);
+      initialized = true;
+      return;
+
+
+  - name: set_as_target
+    type: bool
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      al_set_target_bitmap(display_backbuffer);
+      return true;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_DISPLAY
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::RenderSurfaces::Base
+    headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
+
+

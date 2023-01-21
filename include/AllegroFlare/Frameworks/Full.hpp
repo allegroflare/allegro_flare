@@ -24,6 +24,7 @@
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Profiler.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
+#include <AllegroFlare/RenderSurfaces/DisplayBackbuffer.hpp>
 
 
 namespace AllegroFlare
@@ -54,6 +55,9 @@ namespace AllegroFlare
          ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          ALLEGRO_TIMER *primary_timer;
          Camera2D camera_2d;
+
+         AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
+
          //Camera3D camera_3d; // next
          bool drawing_inputs_bar_overlay;
          bool drawing_notifications;

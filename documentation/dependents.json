@@ -448,6 +448,8 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/RenderSurfaces/Base",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -1974,6 +1976,15 @@
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
+  "AllegroFlare/RenderSurfaces/Base": [
+    "AllegroFlare/RenderSurfaces/Bitmap",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer"
+  ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/SceneGraph/EntityPool"
   ],
@@ -2077,10 +2088,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_init_image_addon": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "ALLEGRO_DISPLAY": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/chrono/milliseconds": [
