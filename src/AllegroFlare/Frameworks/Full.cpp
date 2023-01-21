@@ -388,6 +388,12 @@ bool Full::initialize()
    // use the display_backbuffer as our render surface
    primary_render_surface = &display_backbuffer;
 
+   // TODO: Implement this new reality please!
+   //AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
+   //bitmap_render_surface->setup_surface(1920, 1080, 4, 16);
+   //primary_render_surface = bitmap_render_surface;
+
+
    // Initialize our backbuffer sub bitmap that is used to display AllegroFlare overlay, like performance graphs,
    // in-game notificatoins, etc.
    display_backbuffer_sub_bitmap.set_display(primary_display->al_display);
