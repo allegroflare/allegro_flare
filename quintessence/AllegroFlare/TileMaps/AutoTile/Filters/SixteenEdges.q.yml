@@ -346,6 +346,8 @@ functions:
          { ISOLATED,     tc(0+xo, 3, num_columns) },
       };
       return result;
+    body_dependency_symbols:
+      - std::function
 
 
 

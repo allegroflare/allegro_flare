@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges.hpp>
 
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
