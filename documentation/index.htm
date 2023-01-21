@@ -242,7 +242,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
@@ -13142,31 +13141,6 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/Bitmap.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Base.hpp&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
     <h3 id="quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</h3>
      <table>
 <tr>
@@ -20920,16 +20894,15 @@ table td
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "AllegroFlare/RenderSurfaces/Base": [
-    "AllegroFlare/RenderSurfaces/Bitmap",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
-  ],
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/RenderSurfaces/Base": [
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/SceneGraph/EntityPool"

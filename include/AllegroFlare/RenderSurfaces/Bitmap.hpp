@@ -1,6 +1,8 @@
 #pragma once
 
 
+#define ALLEGRO_UNSTABLE // for al_get_new_bitmap_samples
+
 #include <AllegroFlare/RenderSurfaces/Base.hpp>
 #include <string>
 
@@ -15,17 +17,23 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/RenderSurfaces/Bitmap";
 
       private:
-         std::string property;
-
-      protected:
-
+         ALLEGRO_BITMAP* surface;
+         ALLEGRO_COLOR clear_color;
+         ALLEGRO_STATE previous_state;
+         bool surface_is_setup;
 
       public:
-         Bitmap(std::string property="[unset-property]");
+         Bitmap();
          ~Bitmap();
 
-         std::string get_property() const;
-         bool property_is(std::string possible_type="");
+         void setup_surface(int w, int h, int multisamples=0, int depth=0);
+         void set_as_target(bool clear_to_color=true, bool clear_depth=true);
+         void restore_previous_target();
+
+         void set_clear_color(ALLEGRO_COLOR clear_color);
+         ALLEGRO_COLOR get_clear_color();
+
+         ALLEGRO_BITMAP *get_surface_bitmap();
       };
    }
 }
