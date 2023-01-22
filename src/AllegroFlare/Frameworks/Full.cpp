@@ -893,14 +893,13 @@ void Full::primary_render()
    // backbuffer if:
    //   1) it is not a backbuffer or backbuffer_sub_bitmap (thus it should just flip)
    //   2) it is the current active target surface (some assumptions are being made here about its usage)
-   //   3) 
+   //   3) .. something else
    if (!
          (
             primary_render_surface->is_type(AllegroFlare::RenderSurfaces::DisplayBackbuffer::TYPE)
             || primary_render_surface->is_type(AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap::TYPE)
          )
       )
-   //  ^^ TODO: this conditional should be a little more intentional
    {
       // render the primary_render_surface to the backbuffer
       display_backbuffer.set_as_target();
