@@ -126,6 +126,8 @@ namespace AllegroFlare
          Display *get_primary_display();
 
          RenderSurfaces::Base *get_primary_render_surface();
+         AllegroFlare::Shaders::Base *get_post_processing_shader();
+         void set_post_processing_shader(AllegroFlare::Shaders::Base *post_processing_shader);
 
 
          bool initialize();

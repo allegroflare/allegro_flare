@@ -367,6 +367,20 @@ RenderSurfaces::Base *Full::get_primary_render_surface()
 
 
 
+AllegroFlare::Shaders::Base *Full::get_post_processing_shader()
+{
+   return post_processing_shader;
+}
+
+
+
+void Full::set_post_processing_shader(AllegroFlare::Shaders::Base *post_processing_shader)
+{
+   this->post_processing_shader = post_processing_shader;
+}
+
+
+
 bool Full::initialize()
 {
    if (initialized) return false;
