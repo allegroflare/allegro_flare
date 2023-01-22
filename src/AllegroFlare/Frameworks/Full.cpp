@@ -349,6 +349,23 @@ bool Full::initialize_without_display()
 }
 
 
+
+RenderSurfaces::Base *Full::get_primary_render_surface()
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::get_data_folder_path",
+         "Could retrieve because the framework has not yet been initialized. "
+            "You must call this function after initialization so the render surfaces can be set."
+      );
+   }
+
+   return primary_render_surface;
+}
+
+
+
 bool Full::initialize()
 {
    if (initialized) return false;
