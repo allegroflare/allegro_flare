@@ -464,7 +464,7 @@ functions:
   - name: move_cursor_up
     private: true
     body: |
-      if (!STATE_AWAITING_USER_INPUT) return;
+      if (!processing_user_input()) return;
 
       if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -477,7 +477,7 @@ functions:
   - name: move_cursor_down
     private: true
     body: |
-      if (!STATE_AWAITING_USER_INPUT) return;
+      if (!processing_user_input()) return;
 
       if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -501,7 +501,7 @@ functions:
   - name: select_menu_option
     private: true
     body: |
-      if (!STATE_AWAITING_USER_INPUT) return;
+      if (!processing_user_input()) return;
 
       if (menu_is_empty())
       {
@@ -519,6 +519,22 @@ functions:
       return;
     body_dependency_symbols:
       - ALLEGRO_FLARE_EVENT_START_NEW_GAME
+
+
+  - name: processing_user_input
+    type: bool
+    body: |
+      return is_state(STATE_AWAITING_USER_INPUT); 
+
+
+  - name: is_state
+    type: bool
+    parameters:
+      - name: possible_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+     return (state == possible_state);
 
 
   - name: primary_timer_func
@@ -799,7 +815,7 @@ functions:
         type: bool
         default_argument: 'false'
     body: |
-      if (!STATE_AWAITING_USER_INPUT) return;
+      if (!processing_user_input()) return;
 
       if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
       if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();

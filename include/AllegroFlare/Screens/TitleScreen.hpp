@@ -156,6 +156,8 @@ namespace AllegroFlare
          void skip_to_title();
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
+         bool processing_user_input();
+         bool is_state(uint32_t possible_state=STATE_UNDEF);
          virtual void primary_timer_func() override;
          void render();
          void draw_background();

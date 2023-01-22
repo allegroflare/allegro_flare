@@ -577,7 +577,7 @@ void TitleScreen::set_menu_options(std::vector<std::pair<std::string, std::strin
 
 void TitleScreen::move_cursor_up()
 {
-   if (!STATE_AWAITING_USER_INPUT) return;
+   if (!processing_user_input()) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -589,7 +589,7 @@ void TitleScreen::move_cursor_up()
 
 void TitleScreen::move_cursor_down()
 {
-   if (!STATE_AWAITING_USER_INPUT) return;
+   if (!processing_user_input()) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -607,7 +607,7 @@ void TitleScreen::activate_menu_option(std::string menu_option_name)
 
 void TitleScreen::select_menu_option()
 {
-   if (!STATE_AWAITING_USER_INPUT) return;
+   if (!processing_user_input()) return;
 
    if (menu_is_empty())
    {
@@ -623,6 +623,16 @@ void TitleScreen::select_menu_option()
    if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
    return;
+}
+
+bool TitleScreen::processing_user_input()
+{
+   return is_state(STATE_AWAITING_USER_INPUT); 
+}
+
+bool TitleScreen::is_state(uint32_t possible_state)
+{
+   return (state == possible_state);
 }
 
 void TitleScreen::primary_timer_func()
@@ -923,7 +933,7 @@ ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
 
 void TitleScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
-   if (!STATE_AWAITING_USER_INPUT) return;
+   if (!processing_user_input()) return;
 
    if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
    if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();
