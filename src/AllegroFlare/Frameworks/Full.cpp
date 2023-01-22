@@ -914,7 +914,7 @@ void Full::primary_render()
 
    profiler.stop(".primary_render()");
 
-   draw_overlay();
+   draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
 
    profiler.start("al_flip_display()");
    al_flip_display();
@@ -1343,10 +1343,11 @@ std::string Full::get_allegro_flare_version_string()
 void Full::draw_overlay()
 {
    profiler.start(".draw_overlay()");
-   display_backbuffer_sub_bitmap.set_as_target();
 
-   //al_set_target_bitmap(primary_display_sub_bitmap_for_overlay);
-   // TODO: consider setting the shader and render flags
+   // TODO: do a full audit of render flags that should be restored in addition to setting the 
+   // display_backbuffer_sub_bitmap
+   display_backbuffer_sub_bitmap.set_as_target();
+   al_use_shader(NULL); // TODO: consider side-effects of this
 
    if (drawing_inputs_bar_overlay)
    {
@@ -1381,11 +1382,12 @@ void Full::draw_overlay()
       AllegroFlare::Elements::NotificationsRenderer notifications_renderer(&bitmaps, &fonts, notifications_to_render);
       notifications_renderer.render();
    }
+
    profiler.stop(".draw_overlay()");
 
    if (drawing_profiler_graph)
    {
-      profiler.draw(0, 0, obtain_profiler_graph_font()); // TODO: update this font to something much nicer
+      profiler.draw(0, 0, obtain_profiler_graph_font());
    }
 }
 
