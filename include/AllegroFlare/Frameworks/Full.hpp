@@ -27,6 +27,7 @@
 #include <AllegroFlare/RenderSurfaces/DisplayBackbuffer.hpp>
 #include <AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.hpp>
 #include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 
 
 namespace AllegroFlare
@@ -61,6 +62,7 @@ namespace AllegroFlare
          AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
          AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap display_backbuffer_sub_bitmap;
          AllegroFlare::RenderSurfaces::Base *primary_render_surface;
+         AllegroFlare::Shaders::Base *post_processing_shader;
 
          //Camera3D camera_3d; // next
          bool drawing_inputs_bar_overlay;

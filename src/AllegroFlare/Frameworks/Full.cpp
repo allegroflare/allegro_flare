@@ -58,6 +58,7 @@ Full::Full()
    , display_backbuffer()
    , display_backbuffer_sub_bitmap()
    , primary_render_surface(nullptr)
+   , post_processing_shader(nullptr)
    , drawing_inputs_bar_overlay(false)
    , drawing_notifications(true)
    , input_hints_tokens({})
@@ -923,9 +924,9 @@ void Full::primary_render()
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
 
       // TODO: consider if disabling a depth buffer (or other flags) are needed here
-      // TODO: activate post-processing shader here
+      if (post_processing_shader) post_processing_shader->activate();
       al_draw_bitmap(bitmap, 0, 0, 0);
-      // TODO: deactivate post-processing shader here
+      if (post_processing_shader) post_processing_shader->deactivate();
    }
 
    profiler.stop(".primary_render()");
