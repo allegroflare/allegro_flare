@@ -72,6 +72,7 @@ namespace AllegroFlare
          bool set_primary_render_surface_as_target_before_calling_primary_timer_funcs;
          bool clear_to_color_before_calling_primary_timer_funcs;
          bool clear_depth_buffer_before_calling_primary_timer_funcs;
+         bool using_display_backbuffer_as_primary_render_surface;
          ALLEGRO_COLOR input_hints_text_color;
          float input_hints_text_opacity;
          ALLEGRO_COLOR input_hints_backfill_color;
@@ -149,6 +150,9 @@ namespace AllegroFlare
          void enable_clear_depth_buffer_before_calling_primary_timer_funcs();
          void disable_clear_depth_buffer_before_calling_primary_timer_funcs();
          bool is_clear_depth_buffer_before_calling_primary_timer_funcs_enabled();
+         void enable_using_display_backbuffer_as_primary_render_surface();
+         void disable_using_display_backbuffer_as_primary_render_surface();
+         bool is_using_display_backbuffer_as_primary_render_surface();
 
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});

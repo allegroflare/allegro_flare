@@ -66,6 +66,7 @@ Full::Full()
    , set_primary_render_surface_as_target_before_calling_primary_timer_funcs(true)
    , clear_to_color_before_calling_primary_timer_funcs(true)
    , clear_depth_buffer_before_calling_primary_timer_funcs(true)
+   , using_display_backbuffer_as_primary_render_surface(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
    , input_hints_backfill_color(ALLEGRO_COLOR{0, 0, 0, 0})
@@ -385,13 +386,18 @@ bool Full::initialize()
                                                               // default
                                                               // TODO: replace this with display_backbuffer
 
-   // use the display_backbuffer as our render surface
-   primary_render_surface = &display_backbuffer;
-
-   // TODO: Implement this new reality please!
-   //AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
-   //bitmap_render_surface->setup_surface(1920, 1080, 4, 16);
-   //primary_render_surface = bitmap_render_surface;
+   if (using_display_backbuffer_as_primary_render_surface)
+   {
+      // use the display_backbuffer as our render surface
+      primary_render_surface = &display_backbuffer;
+   }
+   else
+   {
+      // TODO: Implement this new reality please!
+      AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
+      bitmap_render_surface->setup_surface(1920, 1080, 4, 16);
+      primary_render_surface = bitmap_render_surface;
+   }
 
 
    // Initialize our backbuffer sub bitmap that is used to display AllegroFlare overlay, like performance graphs,
@@ -623,6 +629,44 @@ bool Full::is_clear_depth_buffer_before_calling_primary_timer_funcs_enabled()
 {
    return clear_depth_buffer_before_calling_primary_timer_funcs;
 }
+
+
+
+void Full::enable_using_display_backbuffer_as_primary_render_surface()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::enable_using_display_backbuffer_as_primary_render_surface",
+         "Could not set because the framework has already been initialized. "
+            "For now, you must call this function before initializing the framework for it to take effect."
+      );
+   }
+   using_display_backbuffer_as_primary_render_surface = true;
+}
+
+
+
+void Full::disable_using_display_backbuffer_as_primary_render_surface()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::disable_using_display_backbuffer_as_primary_render_surface",
+         "Could not set because the framework has already been initialized. "
+            "For now, you must call this function before initializing the framework for it to take effect."
+      );
+   }
+   using_display_backbuffer_as_primary_render_surface = false;
+}
+
+
+
+bool Full::is_using_display_backbuffer_as_primary_render_surface()
+{
+   return using_display_backbuffer_as_primary_render_surface;
+}
+
 
 
 bool Full::is_initialized()
