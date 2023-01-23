@@ -14,10 +14,14 @@ namespace RenderSurfaces
 {
 
 
-Bitmap::Bitmap()
+Bitmap::Bitmap(int surface_width, int surface_height, int multisamples, int depth)
    : AllegroFlare::RenderSurfaces::Base(AllegroFlare::RenderSurfaces::Bitmap::TYPE)
    , surface(nullptr)
-   , surface_is_setup(false)
+   , surface_width(surface_width)
+   , surface_height(surface_height)
+   , multisamples(multisamples)
+   , depth(depth)
+   , initialized(false)
    , clear_color(AllegroFlare::Color::Eigengrau)
 {
 }
@@ -28,8 +32,25 @@ Bitmap::~Bitmap()
 }
 
 
-void Bitmap::setup_surface(int w, int h, int multisamples, int depth)
+static bool ignore_dep_error_NOTE_please_faze_out = false;
+
+void Bitmap::initialize()
 {
+   // TODO: eventually remove this flag
+   ignore_dep_error_NOTE_please_faze_out = true;
+   setup_surface(surface_width, surface_height, multisamples, depth);
+   ignore_dep_error_NOTE_please_faze_out = false;
+}
+
+
+void Bitmap::setup_surface(int surface_width, int surface_height, int multisamples, int depth)
+{
+   if (!ignore_dep_error_NOTE_please_faze_out)
+   {
+      AllegroFlare::Logger::warn_from("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "Using \"setup_surface\" "
+                                      "is depreciated. Please assign the required values and call initialize().");
+   }
+
    int previous_samples = al_get_new_bitmap_samples();
    int previous_depth = al_get_new_bitmap_depth();
 
@@ -37,8 +58,8 @@ void Bitmap::setup_surface(int w, int h, int multisamples, int depth)
 
    // create a new render surface if the proper surface does not exist
    if (!surface
-       || al_get_bitmap_width(surface) != w
-       || al_get_bitmap_height(surface) != h
+       || al_get_bitmap_width(surface) != surface_width
+       || al_get_bitmap_height(surface) != surface_height
        || al_get_bitmap_samples(surface) != multisamples
        || al_get_bitmap_depth(surface) != depth
       )
@@ -47,7 +68,11 @@ void Bitmap::setup_surface(int w, int h, int multisamples, int depth)
       al_set_new_bitmap_samples(multisamples);
       al_set_new_bitmap_depth(depth);
 
-      surface = al_create_bitmap(w, h);
+      surface = al_create_bitmap(surface_width, surface_height);
+      this->surface_width = surface_width;
+      this->surface_height = surface_height;
+      this->multisamples = multisamples;
+      this->depth = depth;
    }
 
 
@@ -60,7 +85,7 @@ void Bitmap::setup_surface(int w, int h, int multisamples, int depth)
    al_clear_to_color(color::transparent);
    al_restore_state(&previous_state);
 
-   surface_is_setup = true;
+   initialized = true;
 }
 
 
@@ -72,9 +97,9 @@ bool Bitmap::set_as_target()
    bool clear_to_color = true;
    bool clear_depth = true;
 
-   if (!surface_is_setup)
+   if (!initialized)
    {
-      throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: not setup");
+      throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: not initialized");
       return false;
    }
 
@@ -102,21 +127,21 @@ ALLEGRO_COLOR Bitmap::get_clear_color()
 
 ALLEGRO_BITMAP *Bitmap::obtain_surface()
 {
-   if (!surface_is_setup) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
+   if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
    return surface;
 }
 
 
 int Bitmap::get_width()
 {
-   if (!surface_is_setup) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_width: error: not setup");
+   if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_width: error: not setup");
    return al_get_bitmap_width(surface);
 }
 
 
 int Bitmap::get_height()
 {
-   if (!surface_is_setup) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_height: error: not setup");
+   if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_height: error: not setup");
    return al_get_bitmap_height(surface);
 }
 
