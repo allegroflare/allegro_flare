@@ -23,9 +23,33 @@ properties:
     getter: true
     setter: false
 
+  - name: direction
+    type: std::string
+    init_with: AllegroFlare::Shaders::PostProcessing::Wipe::DIRECTION_LEFT
+    getter: true
+    setter: false
+
   - name: initialized
     type: bool
     init_with: false
+
+  - name: DIRECTION_UNDEF
+    type: char*
+    init_with: '(char*)"undefined"'
+    static: true
+    constexpr: true
+
+  - name: DIRECTION_LEFT
+    type: char*
+    init_with: '(char*)"left"'
+    static: true
+    constexpr: true
+
+  - name: DIRECTION_RIGHT
+    type: char*
+    init_with: '(char*)"right"'
+    static: true
+    constexpr: true
 
   - name: TYPE
     type: char*
@@ -61,6 +85,42 @@ functions:
     body_dependency_symbols:
       - std::max
       - std::min
+
+
+  - name: set_direction
+    parameters:
+      - name: direction
+        type: std::string
+        default_argument: AllegroFlare::Shaders::PostProcessing::Wipe::DIRECTION_UNDEF
+    guards: [ is_valid_direction(direction) ]
+    body: |
+      this->direction = direction;
+      // TODO: include this condition
+      //if (this_is_the_currently_active_shader)
+      //{
+         set_bool("transition_wiping_left", direction == DIRECTION_LEFT);
+      //}
+      return;
+    body_dependency_symbols:
+      - std::max
+      - std::min
+
+
+  - name: is_valid_direction
+    type: bool
+    static: true
+    parameters:
+      - name: possibly_valid_direction
+        type: std::string
+        default_argument: AllegroFlare::Shaders::PostProcessing::Wipe::DIRECTION_UNDEF
+    body: |
+      std::set<std::string> valid_directions = {
+         DIRECTION_LEFT,
+         DIRECTION_RIGHT,
+      };
+      return (valid_directions.count(possibly_valid_direction) > 0);
+    body_dependency_symbols:
+      - std::set
 
 
   - name: activate
@@ -120,6 +180,7 @@ functions:
         varying vec2 varying_texcoord;
         uniform vec2 surface_dimensions;
         uniform float transition_playhead_position;
+        uniform bool transition_wiping_left;
 
         bool alpha_test_func(float x, int op, float compare);
 
@@ -139,7 +200,17 @@ functions:
           vec2 normalized_coord_xy = gl_FragCoord.xy / surface_dimensions;
           vec2 pixel_xy = gl_FragCoord.xy / surface_dimensions;
 
-          if (normalized_coord_xy.x < transition_playhead_position) { gl_FragColor = vec4(0, 0, 0, 1); return; }
+          if (transition_wiping_left)
+          {
+             if (normalized_coord_xy.x < transition_playhead_position) { gl_FragColor = vec4(0, 0, 0, 1); return; }
+          }
+          else
+          {
+             if (normalized_coord_xy.x > (1.0 - transition_playhead_position))
+             {
+                gl_FragColor = vec4(0, 0, 0, 1); return;
+             }
+          }
 
           vec4 c;
           if (al_use_tex)

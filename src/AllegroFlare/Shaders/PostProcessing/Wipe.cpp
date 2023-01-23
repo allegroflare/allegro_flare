@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -21,6 +22,7 @@ Wipe::Wipe()
    , surface_width(1920)
    , surface_height(1920)
    , transition_playhead_position(0.0f)
+   , direction(AllegroFlare::Shaders::PostProcessing::Wipe::DIRECTION_LEFT)
    , initialized(false)
 {
 }
@@ -34,6 +36,12 @@ Wipe::~Wipe()
 float Wipe::get_transition_playhead_position() const
 {
    return transition_playhead_position;
+}
+
+
+std::string Wipe::get_direction() const
+{
+   return direction;
 }
 
 
@@ -53,6 +61,33 @@ void Wipe::set_transition_playhead_position(float transition_playhead_position)
       set_float("transition_playhead_position", transition_playhead_position);
    //}
    return;
+}
+
+void Wipe::set_direction(std::string direction)
+{
+   if (!(is_valid_direction(direction)))
+   {
+      std::stringstream error_message;
+      error_message << "[Wipe::set_direction]: error: guard \"is_valid_direction(direction)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Wipe::set_direction: error: guard \"is_valid_direction(direction)\" not met");
+   }
+   this->direction = direction;
+   // TODO: include this condition
+   //if (this_is_the_currently_active_shader)
+   //{
+      set_bool("transition_wiping_left", direction == DIRECTION_LEFT);
+   //}
+   return;
+}
+
+bool Wipe::is_valid_direction(std::string possibly_valid_direction)
+{
+   std::set<std::string> valid_directions = {
+      DIRECTION_LEFT,
+      DIRECTION_RIGHT,
+   };
+   return (valid_directions.count(possibly_valid_direction) > 0);
 }
 
 void Wipe::activate()
@@ -111,6 +146,7 @@ std::string Wipe::obtain_fragment_source()
      varying vec2 varying_texcoord;
      uniform vec2 surface_dimensions;
      uniform float transition_playhead_position;
+     uniform bool transition_wiping_left;
 
      bool alpha_test_func(float x, int op, float compare);
 
@@ -130,7 +166,17 @@ std::string Wipe::obtain_fragment_source()
        vec2 normalized_coord_xy = gl_FragCoord.xy / surface_dimensions;
        vec2 pixel_xy = gl_FragCoord.xy / surface_dimensions;
 
-       if (normalized_coord_xy.x < transition_playhead_position) { gl_FragColor = vec4(0, 0, 0, 1); return; }
+       if (transition_wiping_left)
+       {
+          if (normalized_coord_xy.x < transition_playhead_position) { gl_FragColor = vec4(0, 0, 0, 1); return; }
+       }
+       else
+       {
+          if (normalized_coord_xy.x > (1.0 - transition_playhead_position))
+          {
+             gl_FragColor = vec4(0, 0, 0, 1); return;
+          }
+       }
 
        vec4 c;
        if (al_use_tex)

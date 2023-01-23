@@ -569,6 +569,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/PostProcessing/Wipe",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
@@ -2024,7 +2025,8 @@
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/Shaders/AllegroDefault",
-    "AllegroFlare/Shaders/Cubemap"
+    "AllegroFlare/Shaders/Cubemap",
+    "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"

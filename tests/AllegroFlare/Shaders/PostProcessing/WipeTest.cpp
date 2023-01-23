@@ -48,6 +48,7 @@ TEST(AllegroFlare_Shaders_PostProcessing_WipeTest, VISUAL__will_appear_as_expect
 
    AllegroFlare::Shaders::PostProcessing::Wipe *shader = new AllegroFlare::Shaders::PostProcessing::Wipe;
    shader->initialize(); // for now, we'll have to use a pointer due to the way it's structured (should fix eventually)
+   shader->set_direction("right");
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface(
          al_get_display_width(display),
