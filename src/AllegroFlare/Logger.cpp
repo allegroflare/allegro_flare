@@ -33,8 +33,6 @@ std::string Logger::build_error_message(std::string from, std::string message)
 
 std::string Logger::build_guard_error_message(std::string from, std::string guard_statement)
 {
-   //const std::string CONSOLE_COLOR_RED = "[1;31m";
-   //const std::string CONSOLE_COLOR_DEFAULT = "[0m";
    std::stringstream result;
 
    // TODO: I don't think there should be a newline at the end of this statement, but it exists in the blast error

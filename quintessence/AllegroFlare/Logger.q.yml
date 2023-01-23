@@ -62,8 +62,6 @@ functions:
         default_argument: '"[unset-guard_statement]"'
     type: std::string
     body: |
-      //const std::string CONSOLE_COLOR_RED = "[1;31m";
-      //const std::string CONSOLE_COLOR_DEFAULT = "[0m";
       std::stringstream result;
 
       // TODO: I don't think there should be a newline at the end of this statement, but it exists in the blast error

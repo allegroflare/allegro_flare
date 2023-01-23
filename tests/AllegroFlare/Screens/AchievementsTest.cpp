@@ -1,11 +1,6 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
@@ -33,7 +28,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTest, can_be_created_without_blowing_up)
 }
 
 
-TEST_F(AllegroFlare_Screens_AchievementsTest, FOCUS__initialize__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Screens_AchievementsTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Screens::Achievements achievements_screen;
    std::string expected_thrown_error_message =
