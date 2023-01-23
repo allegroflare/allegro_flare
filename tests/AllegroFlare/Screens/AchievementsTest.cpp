@@ -84,14 +84,14 @@ TEST_F(AllegroFlare_Screens_AchievementsTest,
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTest,
-   on_activate__when_the_scrollbar_will_be_showing__sets_the_input_hints_to_include_scrollbar_control_hints)
+   DISABLED__on_activate__when_the_scrollbar_will_be_showing__sets_the_input_hints_to_include_scrollbar_control_hints)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTest,
-   on_activate__when_the_scrollbar_will_not_be_showing__sets_the_input_hints_without_scrollbar_control_hints)
+   DISABLED__on_activate__when_the_scrollbar_will_not_be_showing__sets_the_input_hints_without_scrollbar_control_hints)
 {
    // TODO
 }
@@ -101,9 +101,24 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    primary_timer_func__before_initialization__will_raise_an_exception)
 {
    AllegroFlare::Screens::Achievements achievements_screen;
-   std::string expected_error_message =
+   std::string expected_thrown_error_message =
       "Achievements::primary_timer_func: error: guard \"initialized\" not met";
-   ASSERT_THROW_WITH_MESSAGE(achievements_screen.primary_timer_func(), std::runtime_error, expected_error_message);
+
+   testing::internal::CaptureStdout();
+   testing::internal::CaptureStderr();
+
+   ASSERT_THROW_WITH_MESSAGE(achievements_screen.primary_timer_func(), std::runtime_error, expected_thrown_error_message);
+
+   std::string actual_cout_output = testing::internal::GetCapturedStdout();
+   std::string actual_cerr_output = testing::internal::GetCapturedStderr();
+
+   std::string expected_cerr_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Achievements::primary_timer_func", "initialized");
+   std::string expected_cerr_output = expected_cerr_error_message;
+
+   // TODO: replace below with something like "EXPECT_THAT(expected_cout_output.empty(), ::testing::IsEmpty());"
+   EXPECT_EQ(true, actual_cout_output.empty()) << actual_cout_output;
+   EXPECT_EQ(actual_cerr_output, expected_cerr_output) << actual_cerr_output;
 }
 
 
