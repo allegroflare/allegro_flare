@@ -17,8 +17,10 @@ namespace AllegroFlare
    {
       if (!al_build_shader(shader))
       {
-         std::cerr << "There were errors when building the shader:" << std::endl;
-         std::cerr << al_get_shader_log(shader) << std::endl;
+         std::stringstream error_message;
+         error_message << "There were errors when building the shader. The shader log contained the following message: "
+                       << al_get_shader_log(shader) << std::endl;
+         AllegroFlare::Logger::throw_error("AllegroFlare::Shader::build", error_message.str());
       }
    }
 
@@ -28,6 +30,7 @@ namespace AllegroFlare
    {
       if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
       {
+         // TODO: Replace these messages with AllegroFlare::Logger::throw_from
          std::stringstream error_message;
          error_message << "There was an error attaching the VERTEX shader source code:"
             << std::endl << al_get_shader_log(shader);
@@ -36,6 +39,7 @@ namespace AllegroFlare
 
       if (!al_attach_shader_source(shader, ALLEGRO_PIXEL_SHADER, fragment_source_code.c_str()))
       {
+         // TODO: Replace these messages with AllegroFlare::Logger::throw_from
          std::stringstream error_message;
          error_message << "There was an error attaching the FRAGMENT shader source code:"
             << std::endl << al_get_shader_log(shader);
