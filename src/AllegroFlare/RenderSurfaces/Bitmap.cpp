@@ -36,6 +36,7 @@ static bool ignore_dep_error_NOTE_please_faze_out = false;
 
 void Bitmap::initialize()
 {
+   // TODO: add guard for duplicate initialization
    // TODO: eventually remove this flag
    ignore_dep_error_NOTE_please_faze_out = true;
    setup_surface(surface_width, surface_height, multisamples, depth);
@@ -45,6 +46,7 @@ void Bitmap::initialize()
 
 void Bitmap::setup_surface(int surface_width, int surface_height, int multisamples, int depth)
 {
+   // TODO: add guard for duplicate initialization
    if (!ignore_dep_error_NOTE_please_faze_out)
    {
       AllegroFlare::Logger::warn_from("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "Using \"setup_surface\" "
