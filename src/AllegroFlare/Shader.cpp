@@ -19,7 +19,7 @@ namespace AllegroFlare
       {
          std::stringstream error_message;
          error_message << "There were errors when building the shader. The shader log contained the following message: "
-                       << al_get_shader_log(shader) << std::endl;
+                       << al_get_shader_log(shader);
          AllegroFlare::Logger::throw_error("AllegroFlare::Shader::build", error_message.str());
       }
    }
