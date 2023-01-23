@@ -22,6 +22,7 @@ namespace AllegroFlare
       ~Logger();
 
       static std::string build_error_message(std::string from="[unset-from]", std::string message="[unset-message]");
+      static std::string build_guard_error_message(std::string from="[unset-from]", std::string guard_statement="[unset-guard_statement]");
       static std::string build_warning_message(std::string from="[unset-from]", std::string message="[unset-message]");
       static std::string build_not_included_message(std::string element_not_present="[unset-missing_element]", std::vector<std::string> valid_elements={});
       static std::string build_unhandled_case_message(std::string unhandled_case="[unset-unhandled_case]");
