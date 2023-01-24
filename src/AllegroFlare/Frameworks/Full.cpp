@@ -937,10 +937,15 @@ void Full::primary_render()
       display_backbuffer.set_as_target();
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
 
+      // HERE:
       // TODO: consider if disabling a depth buffer (or other flags) are needed here
       if (post_processing_shader) post_processing_shader->activate();
+      //al_set_render_state(ALLEGRO_DEPTH_TEST, 0); // may want this?
+      //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGB); // may want this?
       al_draw_bitmap(bitmap, 0, 0, 0);
       if (post_processing_shader) post_processing_shader->deactivate();
+      //al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
+      //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // may want this?
    }
 
    profiler.stop(".primary_render()");
