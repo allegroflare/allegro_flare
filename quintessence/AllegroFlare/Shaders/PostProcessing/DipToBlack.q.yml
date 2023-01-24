@@ -151,32 +151,25 @@ functions:
 
         void main()
         {
-          //vec2 normalized_coord_xy = gl_FragCoord.xy / surface_dimensions;
-          //vec2 pixel_xy = gl_FragCoord.xy / surface_dimensions;
-          //float blind_value = mod(normalized_coord_xy.y, 1.0 / num_blinds);
-            ////(normalized_coord_xy.x / num_blinds);
-
-          //float i_transition_playhead_position = 1.0 - transition_playhead_position;
-          //i_transition_playhead_position *= i_transition_playhead_position;
-
-          //if (blind_value > (i_transition_playhead_position / num_blinds))
-          //{
-             //gl_FragColor = vec4(blinds_color, 1);
-             //return;
-          //}
-
           vec4 c;
           if (al_use_tex)
-            c = varying_color * texture2D(al_tex, varying_texcoord);
+          {
+             c = varying_color * texture2D(al_tex, varying_texcoord);
+          }
           else
-            c = varying_color;
+          {
+             c = varying_color;
+          }
+
           if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
           {
             gl_FragColor = mix(c, vec4(color, 1), transition_playhead_position);
             //gl_FragColor = c;
           }
           else
+          {
             discard;
+          }
         }
 
         bool alpha_test_func(float x, int op, float compare)
