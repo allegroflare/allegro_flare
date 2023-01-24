@@ -69,7 +69,8 @@ TEST(AllegroFlare_Shaders_PostProcessing_BlindsTest, VISUAL__will_appear_as_expe
       // Render everything to our temporary render surface
       render_surface.set_as_target();
       // For now, just setting our surface as a color
-      al_clear_to_color(ALLEGRO_COLOR{0.63, 0.9, 0.09, 1.0});
+      al_clear_to_color(ALLEGRO_COLOR{1.0, 0.94, 0.84, 1.0}); // "papaya whip"
+      //al_clear_to_color(ALLEGRO_COLOR{0.63, 0.9, 0.09, 1.0});
 
       float transition_playhead_position = (float)(i) / passes;
       shader->set_transition_playhead_position(transition_playhead_position);

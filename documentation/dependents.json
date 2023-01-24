@@ -570,6 +570,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
+    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -2028,6 +2029,7 @@
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/Cubemap",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
+    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Cubemap": [

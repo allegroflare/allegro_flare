@@ -259,6 +259,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Cubemap.q.yml">quintessence/AllegroFlare/Shaders/Cubemap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/Blinds.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/Blinds.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml</a></li>
@@ -14708,6 +14709,65 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">transition_playhead_position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">set_transition_playhead_position(float transition_playhead_position=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">set_color(ALLEGRO_COLOR color=ALLEGRO_COLOR{0, 0, 0, 1})</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_vertex_source()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_fragment_source()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml</h3>
      <table>
 <tr>
@@ -19662,6 +19722,7 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
+    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -21120,6 +21181,7 @@ table td
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/Cubemap",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
+    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Cubemap": [

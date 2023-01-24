@@ -168,17 +168,6 @@ std::string Blinds::obtain_fragment_source()
 
      bool alpha_test_func(float x, int op, float compare);
 
-     vec4 modify_color(vec4 color)
-     {
-        //float horizontal_intensity = (varying_texcoord.x / surface_dimensions.x);
-
-        vec4 blue = vec4(0.0, 0.06, 0.4, 1.0);
-        float multiplier = 0.6;
-        float inv_multiplier = 1.0 - multiplier;
-
-        return color * inv_multiplier + blue * multiplier;
-     }
-
      void main()
      {
        //float num_blinds = 16.0;
@@ -203,7 +192,6 @@ std::string Blinds::obtain_fragment_source()
          c = varying_color;
        if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
        {
-         c = modify_color(c);
          gl_FragColor = c;
        }
        else
