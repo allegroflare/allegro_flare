@@ -94,13 +94,20 @@ class ScreenTestClass2 : public AllegroFlare::Screens::Base
 {
 private:
    AllegroFlare::BitmapBin *bitmap_bin;
+   AllegroFlare::RenderSurfaces::Base *render_surface;
+
 public:
-   ScreenTestClass2(AllegroFlare::BitmapBin *bitmap_bin)
+   ScreenTestClass2(AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::RenderSurfaces::Base *render_surface)
       : AllegroFlare::Screens::Base("ScreenTestClass2")
       , bitmap_bin(bitmap_bin)
+      , render_surface(render_surface)
    {}
    virtual void on_activate() override {}
-   virtual void primary_timer_func() override {}
+   virtual void primary_timer_func() override
+   {
+      ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get("toy-train-02.png");
+      al_draw_bitmap(bitmap, 0, 0, 0);
+   }
    virtual void key_down_func(ALLEGRO_EVENT *ev) override {}
 };
 
@@ -122,7 +129,7 @@ TEST(FooFooFoo_ScreenTest,
    //std::cout << "DEBUG: current primary_render_surface type: " << primary_render_surface->get_type() << std::endl;
    //framework.get_bitmap_bin_ref().set_full_path(TEST_BASE_FOLDER "bitmaps/");
 
-   ScreenTestClass2 screen(&framework.get_bitmap_bin_ref());
+   ScreenTestClass2 screen(&framework.get_bitmap_bin_ref(), framework.get_primary_render_surface());
    framework.register_screen("screen", &screen);
 
    framework.activate_screen("screen");
