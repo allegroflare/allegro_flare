@@ -85,7 +85,18 @@ int main(int argc, char **argv)
    int test_result = -1;
    ::testing::InitGoogleTest(&argc, argv);
 
+
+
+
    std::string initial_filter_flag = ::testing::GTEST_FLAG(filter);
+
+
+
+
+   ::testing::GTEST_FLAG(filter) = "*FOCUS__*"; //"TestCaseOne.*:TestCaseTwo.Test5:TestCaseTen.Test3";
+
+
+   /*
 
    //NOTE: The default GTEST_FLAG is "*"
    if (initial_filter_flag != GTEST_DEFAULT_FILTER_FLAG)
@@ -113,12 +124,14 @@ int main(int argc, char **argv)
                                "RUN_ALL_TESTS() returned an unexpected response.");
    }
 
-
    std::cout << get_cout_capture() << std::endl;
    ::testing::GTEST_FLAG(list_tests) = false;
 
-
    ::testing::GTEST_FLAG(filter) = initial_filter_flag;
+
+   */
+
+
 
    //// Gets hold of the event listener list.
    //testing::TestEventListeners& listeners =

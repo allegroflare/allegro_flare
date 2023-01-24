@@ -909,6 +909,12 @@ void Full::primary_render()
       
       if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
+      // Maybe will use this:
+      //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
+                                                                                // subsequent renders at the same
+                                                                                // z-level to overwrite. This 
+                                                                                // mimics the rendering of typical
+                                                                                // "traditional" drawing functions
    }
 
    if (screens.no_active_screens())

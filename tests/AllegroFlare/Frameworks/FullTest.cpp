@@ -21,6 +21,7 @@
 
 
 
+
 #include <AllegroFlare/Screens/Base.hpp>
 class ScreenTestClass : public AllegroFlare::Screens::Base
 {
@@ -83,6 +84,68 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
    framework.shutdown();
    ASSERT_EQ(false, al_is_system_installed());
 }
+
+
+
+
+
+#include <AllegroFlare/Screens/Base.hpp>
+class ScreenTestClass2 : public AllegroFlare::Screens::Base
+{
+private:
+   AllegroFlare::EventEmitter *event_emitter;
+public:
+   ScreenTestClass2(AllegroFlare::EventEmitter *event_emitter)
+      : AllegroFlare::Screens::Base("ScreenTestClass2")
+      , event_emitter(event_emitter)
+   {}
+   virtual void on_activate() override {}
+   virtual void primary_timer_func() override {}
+   virtual void key_down_func(ALLEGRO_EVENT *ev) override {}
+};
+
+
+//DEBUG:
+#include <allegro5/allegro_color.h>
+
+TEST(FooFooFoo_ScreenTest,
+   FOCUS__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_using_display_backbuffer_as_primary_render_surface();
+   framework.disable_fullscreen();
+   framework.initialize();
+   AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
+   std::cout << "DEBUG: current primary_render_surface type: " << primary_render_surface->get_type() << std::endl;
+   //framework.get_bitmap_bin_ref().set_full_path(TEST_BASE_FOLDER "bitmaps/");
+
+
+   primary_render_surface->set_as_target();
+   ////AllegroFlare::Camera2D camera;
+   ////camera.setup_dimentional_projection(primary_render_surface->obtain_surface());
+   al_clear_to_color(al_color_html("291d29"));
+
+
+   AllegroFlare::BitmapBin &bitmap_bin = framework.get_bitmap_bin_ref();
+   ALLEGRO_BITMAP* bitmap = bitmap_bin.auto_get("toy-train-02.png");
+
+   al_draw_bitmap(bitmap, 0, 0, 0);
+
+   al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+   ////#include <AllegroFlare/Shaders/PostProcessing/Blinds.hpp>
+
+   al_draw_bitmap(primary_render_surface->obtain_surface(), 0, 0, 0);
+   al_flip_display();
+
+   al_rest(1);
+
+
+   ////al_draw_bitmap(
+}
+
+
 
 
 TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitted__will_shutdown_the_program)
