@@ -19,6 +19,21 @@ public:
 };
 
 
+class RenderSurfacesBase_Display_TestClass : public AllegroFlare::RenderSurfaces::Base
+{
+public:
+   RenderSurfacesBase_Display_TestClass()
+      : AllegroFlare::RenderSurfaces::Base("RenderSurfacesBase_Display_TestClass")
+   {}
+   ~RenderSurfacesBase_Display_TestClass() {};
+
+   virtual bool set_as_target() override { return true; }
+   virtual ALLEGRO_BITMAP* obtain_surface() override { return al_get_backbuffer(al_get_current_display()); }
+   virtual int get_width() override { return 0; }
+   virtual int get_height() override { return 0; }
+};
+
+
 TEST(AllegroFlare_RenderSurfaces_BaseTest, derived_classes_can_be_created_without_blowing_up)
 {
    RenderSurfacesBaseTestClass test_class;
@@ -29,6 +44,20 @@ TEST(AllegroFlare_RenderSurfaces_BaseTest, derived_classes_will_have_the_expecte
 {
    RenderSurfacesBaseTestClass test_class;
    EXPECT_EQ("RenderSurfacesBaseTestClass", test_class.get_type());
+}
+
+
+TEST(AllegroFlare_RenderSurfaces_BaseTest,
+   is_a_display_surface__when_the_surface_is_a_display_backbuffer__will_return_true)
+{
+   al_init();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+
+   RenderSurfacesBase_Display_TestClass display_test_class;
+   EXPECT_EQ(true, display_test_class.is_a_display_surface());
+
+   al_destroy_display(display);
+   al_uninstall_system();
 }
 
 

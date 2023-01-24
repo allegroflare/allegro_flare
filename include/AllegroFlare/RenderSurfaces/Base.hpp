@@ -33,6 +33,7 @@ namespace AllegroFlare
          float get_center();
          float get_middle();
          bool is_type(std::string possible_type="");
+         bool is_a_display_surface();
       };
    }
 }
