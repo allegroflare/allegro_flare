@@ -93,11 +93,11 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
 class ScreenTestClass2 : public AllegroFlare::Screens::Base
 {
 private:
-   AllegroFlare::EventEmitter *event_emitter;
+   AllegroFlare::BitmapBin *bitmap_bin;
 public:
-   ScreenTestClass2(AllegroFlare::EventEmitter *event_emitter)
+   ScreenTestClass2(AllegroFlare::BitmapBin *bitmap_bin)
       : AllegroFlare::Screens::Base("ScreenTestClass2")
-      , event_emitter(event_emitter)
+      , bitmap_bin(bitmap_bin)
    {}
    virtual void on_activate() override {}
    virtual void primary_timer_func() override {}
@@ -117,29 +117,37 @@ TEST(FooFooFoo_ScreenTest,
    framework.disable_using_display_backbuffer_as_primary_render_surface();
    framework.disable_fullscreen();
    framework.initialize();
-   AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
-   std::cout << "DEBUG: current primary_render_surface type: " << primary_render_surface->get_type() << std::endl;
+
+   //AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
+   //std::cout << "DEBUG: current primary_render_surface type: " << primary_render_surface->get_type() << std::endl;
    //framework.get_bitmap_bin_ref().set_full_path(TEST_BASE_FOLDER "bitmaps/");
 
+   ScreenTestClass2 screen(&framework.get_bitmap_bin_ref());
+   framework.register_screen("screen", &screen);
 
-   primary_render_surface->set_as_target();
+   framework.activate_screen("screen");
+
+   framework.run_loop();
+   
+
+
+   //primary_render_surface->set_as_target();
    ////AllegroFlare::Camera2D camera;
    ////camera.setup_dimentional_projection(primary_render_surface->obtain_surface());
-   al_clear_to_color(al_color_html("291d29"));
+   //al_clear_to_color(al_color_html("291d29"));
 
 
-   AllegroFlare::BitmapBin &bitmap_bin = framework.get_bitmap_bin_ref();
-   ALLEGRO_BITMAP* bitmap = bitmap_bin.auto_get("toy-train-02.png");
+   //AllegroFlare::BitmapBin &bitmap_bin = framework.get_bitmap_bin_ref();
+   //ALLEGRO_BITMAP* bitmap = bitmap_bin.auto_get("toy-train-02.png");
 
-   al_draw_bitmap(bitmap, 0, 0, 0);
+   //al_draw_bitmap(bitmap, 0, 0, 0);
 
-   al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+   //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
    ////#include <AllegroFlare/Shaders/PostProcessing/Blinds.hpp>
 
-   al_draw_bitmap(primary_render_surface->obtain_surface(), 0, 0, 0);
-   al_flip_display();
-
-   al_rest(1);
+   //al_draw_bitmap(primary_render_surface->obtain_surface(), 0, 0, 0);
+   //al_flip_display();
+   //al_rest(1);
 
 
    ////al_draw_bitmap(
