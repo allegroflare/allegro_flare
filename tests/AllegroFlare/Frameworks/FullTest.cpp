@@ -95,12 +95,18 @@ class ScreenTestClass2 : public AllegroFlare::Screens::Base
 private:
    AllegroFlare::BitmapBin *bitmap_bin;
    AllegroFlare::RenderSurfaces::Base *render_surface;
+   //AllegroFlare::Shaders::Base *post_processing_shader;
 
 public:
-   ScreenTestClass2(AllegroFlare::BitmapBin *bitmap_bin, AllegroFlare::RenderSurfaces::Base *render_surface)
+   ScreenTestClass2(
+         AllegroFlare::BitmapBin *bitmap_bin,
+         AllegroFlare::RenderSurfaces::Base *render_surface
+         //AllegroFlare::Shaders::Base *post_processing_shader
+      )
       : AllegroFlare::Screens::Base("ScreenTestClass2")
       , bitmap_bin(bitmap_bin)
       , render_surface(render_surface)
+      //, post_processing_shader(post_processing_shader)
    {}
    virtual void on_activate() override {}
    virtual void primary_timer_func() override
