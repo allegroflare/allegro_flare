@@ -79,6 +79,7 @@ functions:
 
   - name: is_a_display_surface
     type: bool
+    guards: [ (obtain_surface() != nullptr) ]
     body: |
       ALLEGRO_BITMAP *parent = al_get_parent_bitmap(obtain_surface());
       ALLEGRO_BITMAP *sanitized = parent ? parent : obtain_surface();
