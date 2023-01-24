@@ -88,3 +88,22 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surfa
 }
 
 
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, set_as_target__will_set_the_surface_as_the_target_bitmap)
+{
+   al_init();
+   // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
+   // can be used along with ALLEGRO_OPENGL.
+   al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+   ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.setup_surface(400, 240, 8, 4);
+
+   render_surface.set_as_target();
+   ALLEGRO_BITMAP *expected_target_bitmap = render_surface.obtain_surface();
+   ALLEGRO_BITMAP *actual_target_bitmap = al_get_target_bitmap();
+   EXPECT_EQ(expected_target_bitmap, actual_target_bitmap);
+
+   al_uninstall_system();
+}
+
+
