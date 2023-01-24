@@ -897,12 +897,10 @@ void Full::primary_update()
 }
 
 
-void Full::primary_render()
+void Full::render_screens_to_primary_render_surface()
 {
-   profiler.start(".primary_render()");
    //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
    //al_set_target_bitmap(backbuffer_bitmap);
-
    if (set_primary_render_surface_as_target_before_calling_primary_timer_funcs)
    {
       primary_render_surface->set_as_target();
@@ -953,8 +951,14 @@ void Full::primary_render()
       //al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
       //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // may want this?
    }
+}
 
-   profiler.stop(".primary_render()");
+
+void Full::primary_render()
+{
+   profiler.start(".render_screens_to_primary_render_surface()");
+   render_screens_to_primary_render_surface();
+   profiler.stop(".render_screens_to_primary_render_surface()");
 
    draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
 

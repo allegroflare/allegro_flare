@@ -188,6 +188,8 @@ namespace AllegroFlare
          Display *create_display(int width, int height, bool fullscreen, int adapter);
          Display *create_display(Display::resolution_t resolution);
 
+         void render_screens_to_primary_render_surface();
+
          void primary_update();
          void primary_render();
          void primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events=true);

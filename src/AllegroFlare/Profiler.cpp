@@ -138,6 +138,7 @@ namespace AllegroFlare
    void Profiler::draw(float x, float y, ALLEGRO_FONT *font)
    {
       if (!font) throw std::runtime_error("cannot Profiler::draw with nullptr font");
+      // TODO: include Profiler "draw" as a metric in the graph, add a bool allowing "hiding" it.
 
       //instance = new Profiler;
       ALLEGRO_COLOR bg_color = al_color_name("black");
