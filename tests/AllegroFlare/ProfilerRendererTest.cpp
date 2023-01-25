@@ -75,6 +75,8 @@ TEST_F(AllegroFlare_ProfilerRendererTest, render__without_a_font_bin__raises_an_
 TEST_F(AllegroFlare_ProfilerRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::ProfilerRenderer profiler_renderer(&get_font_bin_ref());
+   std::map<std::string, AllegroFlare::Timer> timers;
+   profiler_renderer.set_timers(&timers);
    profiler_renderer.render();
    al_flip_display();
    sleep_for(1);

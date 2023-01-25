@@ -9,7 +9,7 @@ properties:
     setter: true
 
   - name: timers
-    type: std::map<std::string, AllegroFlare::Timer*>
+    type: std::map<std::string, AllegroFlare::Timer>*
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -35,14 +35,19 @@ functions:
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+      - timers
     body: |
       ALLEGRO_FONT *font = obtain_font();
       ALLEGRO_COLOR bg_color = al_color_name("black");
       float w = 300;
       float line_height = 25;
       float pad = 20;
-      float h = timers.size()*line_height + pad*2;
+      float h = timers->size()*line_height + pad*2;
       int i=0;
       char buff[32];
       float target_microseconds = 16666;
@@ -51,7 +56,7 @@ functions:
       // draw the background
       al_draw_filled_rounded_rectangle(x, y, x+w, y+h, 8, 8, bg_color);
 
-      if (timers.empty())
+      if (timers->empty())
       {
          // Draw empty state when no timers are present
          int font_line_height = al_get_font_line_height(font);
@@ -74,9 +79,9 @@ functions:
          ALLEGRO_COLOR font_color = al_color_name("white");
          ALLEGRO_COLOR limit_bar_color = al_color_name("lightblue");
 
-         for (auto &timer : timers)
+         for (auto &timer : (*timers))
          {
-            int duration_microseconds = std::get<1>(timer)->get_elapsed_time_microseconds();
+            int duration_microseconds = std::get<1>(timer).get_elapsed_time_microseconds();
             float bar_width = duration_microseconds * horizontal_scale;
             al_draw_filled_rectangle(
                x,

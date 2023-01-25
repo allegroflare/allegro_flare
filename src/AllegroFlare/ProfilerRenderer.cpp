@@ -15,7 +15,7 @@ namespace AllegroFlare
 {
 
 
-ProfilerRenderer::ProfilerRenderer(AllegroFlare::FontBin* font_bin, std::map<std::string, AllegroFlare::Timer*> timers, float x, float y)
+ProfilerRenderer::ProfilerRenderer(AllegroFlare::FontBin* font_bin, std::map<std::string, AllegroFlare::Timer>* timers, float x, float y)
    : font_bin(font_bin)
    , timers(timers)
    , x(x)
@@ -35,7 +35,7 @@ void ProfilerRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void ProfilerRenderer::set_timers(std::map<std::string, AllegroFlare::Timer*> timers)
+void ProfilerRenderer::set_timers(std::map<std::string, AllegroFlare::Timer>* timers)
 {
    this->timers = timers;
 }
@@ -59,7 +59,7 @@ AllegroFlare::FontBin* ProfilerRenderer::get_font_bin() const
 }
 
 
-std::map<std::string, AllegroFlare::Timer*> ProfilerRenderer::get_timers() const
+std::map<std::string, AllegroFlare::Timer>* ProfilerRenderer::get_timers() const
 {
    return timers;
 }
@@ -107,12 +107,19 @@ void ProfilerRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ProfilerRenderer::render: error: guard \"font_bin\" not met");
    }
+   if (!(timers))
+   {
+      std::stringstream error_message;
+      error_message << "[ProfilerRenderer::render]: error: guard \"timers\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ProfilerRenderer::render: error: guard \"timers\" not met");
+   }
    ALLEGRO_FONT *font = obtain_font();
    ALLEGRO_COLOR bg_color = al_color_name("black");
    float w = 300;
    float line_height = 25;
    float pad = 20;
-   float h = timers.size()*line_height + pad*2;
+   float h = timers->size()*line_height + pad*2;
    int i=0;
    char buff[32];
    float target_microseconds = 16666;
@@ -121,7 +128,7 @@ void ProfilerRenderer::render()
    // draw the background
    al_draw_filled_rounded_rectangle(x, y, x+w, y+h, 8, 8, bg_color);
 
-   if (timers.empty())
+   if (timers->empty())
    {
       // Draw empty state when no timers are present
       int font_line_height = al_get_font_line_height(font);
@@ -144,9 +151,9 @@ void ProfilerRenderer::render()
       ALLEGRO_COLOR font_color = al_color_name("white");
       ALLEGRO_COLOR limit_bar_color = al_color_name("lightblue");
 
-      for (auto &timer : timers)
+      for (auto &timer : (*timers))
       {
-         int duration_microseconds = std::get<1>(timer)->get_elapsed_time_microseconds();
+         int duration_microseconds = std::get<1>(timer).get_elapsed_time_microseconds();
          float bar_width = duration_microseconds * horizontal_scale;
          al_draw_filled_rectangle(
             x,
