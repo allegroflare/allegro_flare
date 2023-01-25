@@ -342,7 +342,8 @@ bool Full::initialize_without_display()
 
 
    // TODO: consider replacing this builtin font with Inter (if it is available)
-   system_text_font = al_create_builtin_font();
+   //system_text_font = al_create_builtin_font();
+   fonts.include("system", al_create_builtin_font());
 
 
    // Finalize initialization
@@ -1585,7 +1586,8 @@ ALLEGRO_FONT *Full::obtain_profiler_graph_font()
 
 ALLEGRO_FONT *Full::obtain_system_text_font()
 {
-   return fonts.auto_get("Inter-Medium.ttf -26");
+   return fonts.auto_get("system");
+   //return fonts.auto_get("Inter-Medium.ttf -26");
 }
 
 
