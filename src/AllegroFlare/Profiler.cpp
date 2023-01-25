@@ -117,9 +117,9 @@ void Profiler::emit(std::string name)
 
 
 std::vector<std::chrono::high_resolution_clock::time_point> Profiler::get_event_samples(
-   std::string name,
-   int max_samples
-)
+      std::string name,
+      int max_samples
+   )
 {
    std::vector<std::chrono::high_resolution_clock::time_point> &events_for_this_bucket = event_buckets[name];
    if (max_samples < 0) max_samples = 0;
