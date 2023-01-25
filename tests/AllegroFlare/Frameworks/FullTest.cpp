@@ -6,10 +6,10 @@
 
 #include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
 #include <AllegroFlare/EventNames.hpp>
-
-
-
 #include <AllegroFlare/Screens/Base.hpp>
+
+
+
 class ScreenTestClass : public AllegroFlare::Screens::Base
 {
 private:
@@ -342,7 +342,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
    framework.run_loop(3);
    // TODO: find some way to test for the displayed empty state message
-   // TODO: Capture
+   // TODO: capture this test. Note the display is destroyed when "run_loop" exits
 }
 
 
