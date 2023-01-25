@@ -137,30 +137,25 @@ namespace AllegroFlare
 
    void Profiler::draw(float x, float y, ALLEGRO_FONT *font)
    {
-      if (!font) throw std::runtime_error("cannot Profiler::draw with nullptr font");
       // TODO: include Profiler "draw" as a metric in the graph, add a bool allowing "hiding" it.
+      if (!font) throw std::runtime_error("cannot Profiler::draw with nullptr font");
 
-      //instance = new Profiler;
       ALLEGRO_COLOR bg_color = al_color_name("black");
-
       float w = 300;
       float line_height = 25;
       float pad = 20;
       float h = timers.size()*line_height + pad*2;
-      //fla duration = 0.0;
       int i=0;
       char buff[32];
-
       float target_microseconds = 16666;
       float horizontal_scale = 0.01f;
 
+      // draw the background
       al_draw_filled_rounded_rectangle(x, y, x+w, y+h, 8, 8, bg_color);
-
 
       if (timers.empty())
       {
-         // Draw empty state
-
+         // Draw empty state when no timers are present
          int font_line_height = al_get_font_line_height(font);
          ALLEGRO_COLOR timer_empty_text_color = ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2};
          std::string text = "Profiler is not tracking any timers. [Press F1 to close]";
@@ -181,11 +176,6 @@ namespace AllegroFlare
          ALLEGRO_COLOR font_color = al_color_name("white");
          ALLEGRO_COLOR limit_bar_color = al_color_name("lightblue");
 
-         float target_microseconds = 16666;
-         float horizontal_scale = 0.01f;
-
-
-         //std::vector<profile_timer_class *>::iterator it = Profiler::get_instance()->timer.begin();
          for (auto &timer : timers)
          {
             int duration_microseconds = std::get<1>(timer).get_elapsed_time_microseconds();
@@ -204,6 +194,7 @@ namespace AllegroFlare
             i++;
          }
 
+         // draws our marker at 16666 (the number of microseconds in a frame)
          al_draw_line(
             target_microseconds * horizontal_scale,
             0,
