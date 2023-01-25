@@ -252,8 +252,8 @@ bool Full::initialize_without_display()
    }
    else // if deployment_environment is test
    {
-      // Do nothing. Presume that the executable is being run from the root folder of the project, otherwise there
-      // will be undefined behavior.
+      // Do nothing. Presume that the executable (which is assumed to be a test executable) is being run from the 
+      // root folder of the project, otherwise there will be undefined behavior.
    }
 
    std::string data_folder_path = deployment_environment.get_data_folder_path();
