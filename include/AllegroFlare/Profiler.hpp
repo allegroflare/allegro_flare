@@ -15,6 +15,7 @@ namespace AllegroFlare
    class Profiler
    {
    private:
+      AllegroFlare::Timer profiler_rendering_timer;
       std::map<std::string, AllegroFlare::Timer> timers;
       std::map<std::string, std::vector<std::chrono::high_resolution_clock::time_point>> event_buckets;
 

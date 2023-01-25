@@ -141,6 +141,11 @@ void Profiler::draw(float x, float y, ALLEGRO_FONT *font)
 {
    // TODO: include Profiler "draw" as a metric in the graph, add a bool allowing "hiding" it.
    if (!font) throw std::runtime_error("cannot Profiler::draw with nullptr font");
+   // TODO: include this "previous_profiler_rendering_duration_msec" in the render
+   int previous_profiler_rendering_duration_msec = profiler_rendering_timer.get_elapsed_time_milliseconds();
+
+   profiler_rendering_timer.start();
+
 
    ALLEGRO_COLOR bg_color = al_color_name("black");
    float w = 300;
@@ -206,6 +211,8 @@ void Profiler::draw(float x, float y, ALLEGRO_FONT *font)
          2.0
       );
    }
+
+   profiler_rendering_timer.stop();
 }
 
 
