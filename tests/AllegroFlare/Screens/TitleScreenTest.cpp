@@ -105,8 +105,7 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   //DISABLED__INTERACTIVE__will_work_as_expected)
-   INTERACTIVE__will_work_as_expected)
+   TIMED_INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -135,14 +134,20 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
    // activate the screen (typically this is done by the framework)
    title_screen.on_activate();
+   float duration_until_abort_sec = 3.0f;
+   float interactive_started_at = al_get_time();
+   bool abort_timer_in_effect = true;
    while(!abort)
    {
+      if (abort_timer_in_effect && (al_get_time() - interactive_started_at) > duration_until_abort_sec) break;
+
       al_wait_for_event(event_queue, &event);
 
       switch(event.type)
       {
          case ALLEGRO_EVENT_KEY_CHAR:
          {
+            abort_timer_in_effect = false;
             int button_num = 0;
             if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::BUTTON_UP;
             if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::BUTTON_DOWN;
