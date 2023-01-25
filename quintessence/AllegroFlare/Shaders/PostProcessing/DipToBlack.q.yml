@@ -164,7 +164,6 @@ functions:
           if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
           {
             gl_FragColor = mix(c, vec4(color, 1), transition_playhead_position);
-            //gl_FragColor = c;
           }
           else
           {

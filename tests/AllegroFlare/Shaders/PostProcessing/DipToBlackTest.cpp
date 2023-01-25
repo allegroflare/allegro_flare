@@ -58,18 +58,12 @@ TEST(AllegroFlare_Shaders_PostProcessing_DipToBlackTest, VISUAL__will_appear_as_
       );
    render_surface.initialize();
 
-   //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-   //shader->activate();
-   //shader->set_color(al_color_name("midnightblue"));
-   //shader->set_color(al_color_name("midnightblue"));
-
    int passes = 120;
    for (int i=0; i<passes; i++)
    {
       // Render everything to our temporary render surface
       render_surface.set_as_target();
-      // For now, just setting our surface as a color
-      al_clear_to_color(ALLEGRO_COLOR{1.0, 0.94, 0.84, 1.0}); // "papaya whip"
+      al_clear_to_color(ALLEGRO_COLOR{1.0, 0.94, 0.84, 1.0}); // Fill with the color "papaya whip"
 
       float transition_playhead_position = (float)(i) / passes;
       shader->set_transition_playhead_position(transition_playhead_position);
