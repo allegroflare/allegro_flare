@@ -91,14 +91,13 @@ namespace AllegroFlare
 
          friend class AllegroFlare_Frameworks_FullTest;
          ALLEGRO_FONT *obtain_profiler_graph_font();
-         ALLEGRO_FONT *obtain_system_text_font();
+         ALLEGRO_FONT *obtain_system_text_font_medium();
 
       public:
          Full();
          ~Full();
 
          ALLEGRO_EVENT_QUEUE *event_queue;
-         ALLEGRO_FONT *system_text_font; // TODO: Femove this. There is now an expected Inter font for use
          bool shutdown_program; // set this to true at any time to shutdown the program
          Screens::Base *current_screen;
          ALLEGRO_EVENT *current_event;

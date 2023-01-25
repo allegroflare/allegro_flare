@@ -343,6 +343,20 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
+   CAPTURE__when_no_screens_are_registered__will_display_an_empty_state_message)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.disable_fullscreen();
+   framework.set_deployment_environment("test");
+
+   framework.initialize();
+
+   framework.run_loop(3);
+   // TODO: find some way to test for the displayed empty state message
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
    DISABLED__ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT__when_emitter__will_cause_the_audio_to_play)
    // TODO: Fix this crashing test, needs for all sound-effect and music fixture files to be moved
    // to the correct directory under fixtures/sounds which means updating all the other locations

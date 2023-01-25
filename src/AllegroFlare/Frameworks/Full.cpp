@@ -80,7 +80,6 @@ Full::Full()
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
-   , system_text_font(nullptr)
    , shutdown_program(false)
    , current_screen(nullptr)
    , current_event(nullptr)
@@ -339,12 +338,6 @@ bool Full::initialize_without_display()
 
    audio_controller.initialize();
  
-
-
-   // TODO: consider replacing this builtin font with Inter (if it is available)
-   //system_text_font = al_create_builtin_font();
-   fonts.include("system", al_create_builtin_font());
-
 
    // Finalize initialization
 
@@ -1565,11 +1558,12 @@ void Full::draw_no_active_screens_text()
    if (!primary_display) return;
    int surface_width = 1920; //al_get_display_height();
    int surface_height = 1080; // al_get_display_height(primary_height);
-   int font_height = al_get_font_line_height(system_text_font);
+   ALLEGRO_FONT *font = obtain_system_text_font_medium();
+   int font_height = al_get_font_line_height(font);
 
    al_draw_text(
-      system_text_font,
-      ALLEGRO_COLOR{0.8, 0.8, 0.8, 0.8},
+      font,
+      ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
       surface_width/2,
       surface_height/2 - font_height/2,
       ALLEGRO_ALIGN_CENTER,
@@ -1584,10 +1578,10 @@ ALLEGRO_FONT *Full::obtain_profiler_graph_font()
 }
 
 
-ALLEGRO_FONT *Full::obtain_system_text_font()
+ALLEGRO_FONT *Full::obtain_system_text_font_medium()
 {
-   return fonts.auto_get("system");
-   //return fonts.auto_get("Inter-Medium.ttf -26");
+   //return fonts.auto_get("system");
+   return fonts.auto_get("Inter-Medium.ttf -32");
 }
 
 
