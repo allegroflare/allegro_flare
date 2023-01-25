@@ -80,7 +80,7 @@ Full::Full()
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
-   , builtin_font(nullptr)
+   , system_text_font(nullptr)
    , shutdown_program(false)
    , current_screen(nullptr)
    , current_event(nullptr)
@@ -298,9 +298,6 @@ bool Full::initialize_without_display()
    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
    //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
-   // TODO: consider replacing this builtin font with Inter (if it is available)
-   builtin_font = al_create_builtin_font();
-
    event_queue = al_create_event_queue();
    al_register_event_source(event_queue, al_get_keyboard_event_source());
    al_register_event_source(event_queue, al_get_mouse_event_source());
@@ -342,6 +339,10 @@ bool Full::initialize_without_display()
 
    audio_controller.initialize();
  
+
+
+   // TODO: consider replacing this builtin font with Inter (if it is available)
+   system_text_font = al_create_builtin_font();
 
 
    // Finalize initialization
@@ -537,7 +538,10 @@ bool Full::shutdown()
 {
    if (!initialized) return false;
 
-   al_destroy_font(builtin_font);
+   // TODO: this line is commented out now that we are assuming the "system_text_font" is not allegro's "builtin" font.
+   // Note that if the font *is* created as the builtin font, then it should be deleted. For now, that case is
+   // being ignored. You could possibly consider a case where the builtin font is included in the font bin.
+   //al_destroy_font(system_text_font);
 
    // TODO autit this function
    samples.clear();
@@ -1560,15 +1564,15 @@ void Full::draw_no_active_screens_text()
    if (!primary_display) return;
    int surface_width = 1920; //al_get_display_height();
    int surface_height = 1080; // al_get_display_height(primary_height);
-   int font_height = al_get_font_line_height(builtin_font);
+   int font_height = al_get_font_line_height(system_text_font);
 
    al_draw_text(
-      builtin_font,
+      system_text_font,
       ALLEGRO_COLOR{0.8, 0.8, 0.8, 0.8},
       surface_width/2,
       surface_height/2 - font_height/2,
       ALLEGRO_ALIGN_CENTER,
-      "No screens are currently active"
+      "There are currently no active screens"
    );
 }
 
@@ -1576,6 +1580,12 @@ void Full::draw_no_active_screens_text()
 ALLEGRO_FONT *Full::obtain_profiler_graph_font()
 {
    return fonts.auto_get("Inter-Medium.ttf -22");
+}
+
+
+ALLEGRO_FONT *Full::obtain_system_text_font()
+{
+   return fonts.auto_get("Inter-Medium.ttf -26");
 }
 
 
