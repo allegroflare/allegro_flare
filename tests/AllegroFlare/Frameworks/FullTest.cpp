@@ -7,14 +7,6 @@
    catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
-#ifdef _WIN32
-#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
-#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
-#else
-#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
-#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
-#endif
-
 #include <AllegroFlare/Frameworks/Full.hpp>
 
 #include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
@@ -119,12 +111,10 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
 }
 
 
-//DEBUG:
-#include <allegro5/allegro_color.h>
 
-TEST(FooFooFoo_ScreenTest,
+TEST(AllegroFlare_Framewors_FullTest,
    //FOCUS__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   DISABLED__INTERACTIVE__with_using_display_backbuffer_as_primary_render_surface_set_to_true__bitmap_surface_is_used)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
@@ -187,8 +177,9 @@ TEST(AllegroFlare_Framewors_FullTest,
    ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR__when_emitted__will_enable_drawing_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
    framework.initialize();
-   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
    EXPECT_EQ(false, framework.get_drawing_inputs_bar_overlay());
@@ -204,8 +195,9 @@ TEST(AllegroFlare_Framewors_FullTest,
    ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR__when_emitted__will_disable_drawing_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
    framework.initialize();
-   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
    framework.enable_drawing_inputs_bar_overlay();
@@ -221,8 +213,9 @@ TEST(AllegroFlare_Framewors_FullTest,
    ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR__when_emitted__will_set_the_tokens_for_the_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
    framework.initialize();
-   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
    std::vector<std::string> tokens = { "ENTER", "%SPACE", "LABEL>>", "Do the thing" };
@@ -246,8 +239,9 @@ TEST(AllegroFlare_Framewors_FullTest,
    ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY__when_emitted__will_set_the_opacity_for_the_input_hints_text)
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
    framework.initialize();
-   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
    float opacity = 0.618033;
@@ -265,8 +259,9 @@ TEST(AllegroFlare_Framewors_FullTest,
 _input_hints_bar)
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
    framework.initialize();
-   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
    float opacity = 0.618033;
@@ -369,8 +364,8 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
-   FOCUS__INTERACTIVE__with_a_screen__will_work_as_expected)
-   //DISABLED__INTERACTIVE__will_work_as_expected)
+   //FOCUS__INTERACTIVE__with_a_screen__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
