@@ -297,6 +297,7 @@ bool Full::initialize_without_display()
    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
    //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
+   // TODO: consider replacing this builtin font with Inter (if it is available)
    builtin_font = al_create_builtin_font();
 
    event_queue = al_create_event_queue();
@@ -1348,12 +1349,12 @@ int Full::process_events_in_queue()
 }
 
 
-void Full::run_loop()
+void Full::run_loop(float auto_shutdown_after_seconds)
 {
-   event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
-
    al_wait_for_vsync();
    al_start_timer(primary_timer);
+   event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
+   float loop_started_at = al_get_time();
 
    while(!shutdown_program || Display::displays.empty())
    {
@@ -1365,6 +1366,12 @@ void Full::run_loop()
       //motions.update(time_now); // this was here, and has been moved to below the ALLEGRO_EVENT_TIMER event
 
       primary_process_event(current_event);
+
+      // shutdown the program if an autoshutdown time has been defined.
+      if (auto_shutdown_after_seconds > 0 && (time_now - loop_started_at) > auto_shutdown_after_seconds)
+      {
+         shutdown_program = true;
+      }
    }
 
    al_stop_timer(primary_timer);

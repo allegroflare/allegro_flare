@@ -343,18 +343,19 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
-   DISABLED__emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
+   emitting_an_ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT_will_cause_the_audio_to_play)
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.disable_fullscreen();
+   framework.set_deployment_environment("test");
    AllegroFlare::EventEmitter &event_emitter = framework.get_event_emitter_ref();
 
    framework.initialize(); // <-- TODO: consider running this test under "initialize_without_display()";
 
-   //event_emitter.emit_play_sound_effect_event("my-sound-identifier");
+   event_emitter.emit_play_sound_effect_event("pickup_health-01.ogg");
 
-   //framework.run_loop();
-
-   //sleep(3);
+   framework.run_loop(3); // TODO: add autoshutdown time to several tests
+   // TODO: find some way to test for a played sound effect
 }
 
 

@@ -194,7 +194,7 @@ namespace AllegroFlare
          void primary_render();
          void primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events=true);
          int process_events_in_queue();
-         void run_loop();
+         void run_loop(float auto_shutdown_after_seconds=-1);
 
          bool offset_primary_timer(int microseconds); // 16670 microseconds per frame
 
