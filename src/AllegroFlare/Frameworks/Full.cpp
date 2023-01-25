@@ -925,17 +925,17 @@ void Full::render_screens_to_primary_render_surface()
    }
 
 
-   // TODO: this conditional should be a little more intentional. It should only draw the render surface to the
-   // backbuffer if:
-   //   1) it is not a backbuffer or backbuffer_sub_bitmap (thus it should just flip)
-   //   2) it is the current active target surface (some assumptions are being made here about its usage)
-   //   3) .. something else
-   if (!
-         (
-            primary_render_surface->is_type(AllegroFlare::RenderSurfaces::DisplayBackbuffer::TYPE)
-            || primary_render_surface->is_type(AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap::TYPE)
-         )
-      )
+   // If the primary_render_surface is *not* a display, fully draw it to the backbuffer.
+   // TODO: Consider if the backbuffer surface projection is valid for this rendering, e.g. the "display backbuffer"
+   // render surface should be unmodified through the course of the user's code (any code in screens).
+   // This includes, but is not limited to:
+   //   - ALLEGRO_DEPTH_TEST
+   //   - ALLEGRO_WRITE_MASK
+   //   - the projection that is currently used on the display backbuffer
+   //   - a cleared depth buffer
+   //   - current shader (which in this next block is expected to be set to a post-processing shader)
+   //   - blending modes
+   if (primary_render_surface && !primary_render_surface->is_a_display_surface())
    {
       // render the primary_render_surface to the backbuffer
       display_backbuffer.set_as_target();

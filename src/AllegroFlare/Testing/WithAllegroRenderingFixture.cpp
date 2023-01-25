@@ -225,6 +225,7 @@ void WithAllegroRenderingFixture::draw_horizontal_crosshair(float x, float y, AL
 
 bool WithAllegroRenderingFixture::test_name_indicates_it_wants_a_screenshot()
 {
+   // TODO: This implementation needs to be updated to allow for a FOCUS__ prefix
    return (get_test_name().substr(0, 9) == "CAPTURE__");
 }
 

@@ -77,24 +77,13 @@ public:
 
 
 
-TEST(AllegroFlare_Framewors_FullTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Frameworks_FullTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Frameworks::Full framework;
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest, initialize__will_initialize_allegro)
-{
-   AllegroFlare::Frameworks::Full framework;
-
-   ASSERT_EQ(false, al_is_system_installed());
-   framework.initialize();
-   ASSERT_EQ(true, al_is_system_installed());
-   framework.shutdown();
-}
-
-
-TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
+TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_allegro)
 {
    AllegroFlare::Frameworks::Full framework;
 
@@ -102,11 +91,22 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
    framework.initialize();
    ASSERT_EQ(true, al_is_system_installed());
    framework.shutdown();
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest, shutdown__will_uninitialize_allegro)
+{
+   AllegroFlare::Frameworks::Full framework;
+
+   ASSERT_EQ(false, al_is_system_installed());
+   framework.initialize();
+   ASSERT_EQ(true, al_is_system_installed());
+   framework.shutdown();
    ASSERT_EQ(false, al_is_system_installed());
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest,
+TEST(AllegroFlare_Frameworks_FullTest,
    initialize__when_display_backbuffer_as_primary_render_surface_set_to_false__will_produce_a_bitmap_\
 primary_render_surface)
 {
@@ -122,7 +122,28 @@ primary_render_surface)
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitted__will_shutdown_the_program)
+TEST(AllegroFlare_Frameworks_FullTest,
+   run_loop__when_a_non_display_primary_render_surface_is_in_use__will_render_the_surface_to_the_display)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
+   framework.disable_using_display_backbuffer_as_primary_render_surface();
+   framework.initialize();
+
+   AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
+   ASSERT_EQ(false, primary_render_surface->is_a_display_surface());
+
+   ScreenTestClass2 screen_test_class(&framework.get_bitmap_bin_ref(), primary_render_surface);
+   framework.register_screen("screen_test_class", &screen_test_class);
+   framework.activate_screen("screen_test_class");
+
+   framework.run_loop(3);
+   // TODO: Capture
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitted__will_shutdown_the_program)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
@@ -135,7 +156,7 @@ TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitte
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest,
+TEST(AllegroFlare_Frameworks_FullTest,
    ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR__when_emitted__will_enable_drawing_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
@@ -153,7 +174,7 @@ TEST(AllegroFlare_Framewors_FullTest,
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest,
+TEST(AllegroFlare_Frameworks_FullTest,
    ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR__when_emitted__will_disable_drawing_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
@@ -171,7 +192,7 @@ TEST(AllegroFlare_Framewors_FullTest,
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest,
+TEST(AllegroFlare_Frameworks_FullTest,
    ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR__when_emitted__will_set_the_tokens_for_the_input_hints)
 {
    AllegroFlare::Frameworks::Full framework;
@@ -190,14 +211,14 @@ TEST(AllegroFlare_Framewors_FullTest,
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest, input_hints_text_opacity__has_the_expected_default_value)
+TEST(AllegroFlare_Frameworks_FullTest, input_hints_text_opacity__has_the_expected_default_value)
 {
    AllegroFlare::Frameworks::Full framework;
    EXPECT_EQ(0.4f, framework.get_input_hints_text_opacity());
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest,
+TEST(AllegroFlare_Frameworks_FullTest,
    ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY__when_emitted__will_set_the_opacity_for_the_input_hints_text)
 {
    AllegroFlare::Frameworks::Full framework;
@@ -216,7 +237,7 @@ TEST(AllegroFlare_Framewors_FullTest,
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest,
+TEST(AllegroFlare_Frameworks_FullTest,
    ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY__when_emitted__will_set_the_backfill_opacity_for_the\
 _input_hints_bar)
 {
@@ -236,7 +257,7 @@ _input_hints_bar)
 }
 
 
-TEST(AllegroFlare_Framewors_FullTest,
+TEST(AllegroFlare_Frameworks_FullTest,
    when_emitting_an_unlocked_achievement_notification_event__a_notification_will_be_added_with_the_expected_value)
 {
    AllegroFlare::Frameworks::Full framework;
@@ -311,7 +332,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
-   CAPTURE__when_no_screens_are_registered__will_display_an_empty_state_message)
+   when_no_screens_are_registered__will_display_an_empty_state_message)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
@@ -321,6 +342,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
    framework.run_loop(3);
    // TODO: find some way to test for the displayed empty state message
+   // TODO: Capture
 }
 
 
@@ -343,9 +365,8 @@ TEST(AllegroFlare_Frameworks_FullTest,
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest,
-   //FOCUS__INTERACTIVE__with_a_screen__will_work_as_expected)
-   DISABLED__INTERACTIVE__will_work_as_expected)
+TEST(AllegroFlare_Frameworks_FullTest, INTERACTIVE__with_a_screen__will_work_as_expected)
+   // TODO: consider removing this test (is it redundant?)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
@@ -357,7 +378,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    framework.register_screen("screen_test_class", &screen_test_class);
    framework.activate_screen("screen_test_class");
 
-   framework.run_loop();
+   framework.run_loop(3);
 }
 
 

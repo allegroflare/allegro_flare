@@ -254,6 +254,7 @@ functions:
   - name: test_name_indicates_it_wants_a_screenshot
     type: bool
     body: |
+      // TODO: This implementation needs to be updated to allow for a FOCUS__ prefix
       return (get_test_name().substr(0, 9) == "CAPTURE__");
 
 
