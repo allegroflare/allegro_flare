@@ -24,6 +24,7 @@
 #include <AllegroFlare/Elements/NotificationsRenderer.hpp>
 #include <AllegroFlare/NotificationsFactory.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/ProfilerRenderer.hpp>
 
 
 
@@ -1440,8 +1441,35 @@ void Full::draw_overlay()
 
    if (drawing_profiler_graph)
    {
-      profiler.draw(0, 0, obtain_profiler_graph_font());
+      //int previous_profiler_rendering_duration_msec = profiler_rendering_timer.get_elapsed_time_milliseconds();
+
+      //profiler_rendering_timer.start();
+
+
+      // TODO: include Profiler "draw" as a metric in the graph, add a bool allowing "hiding" it.
+      // TODO: include this "previous_profiler_rendering_duration_msec" in the render
+      //int previous_profiler_rendering_duration_msec = profiler_rendering_timer.get_elapsed_time_milliseconds();
+
+      //profiler_rendering_timer.start();
+
+      //AllegroFlare::ProfilerRenderer profiler_renderer;
+      //profiler_renderer.set_timers(&timers);
+      //profiler_renderer.render();
+
+      //profiler_rendering_timer.stop();
+
+
+
+      AllegroFlare::ProfilerRenderer profiler_renderer(&fonts);
+      profiler_renderer.set_timers(&profiler.get_timers_ref());
+      profiler_renderer.render();
+
+      //profiler_rendering_timer.stop();
    }
+
+
+      //profiler.draw(0, 0, obtain_profiler_graph_font());
+   //}
 }
 
 

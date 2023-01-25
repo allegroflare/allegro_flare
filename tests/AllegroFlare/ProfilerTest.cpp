@@ -42,16 +42,3 @@ TEST_F(AllegroFlare_ProfilerTest, DISABLED__emit__will_add_an_event_time_to_that
 }
 
 
-TEST_F(AllegroFlare_ProfilerTestWithAllegroRenderingFixture,
-   INTERACTIVE__draw_will_render_the_profiling_graph)
-{
-   AllegroFlare::Profiler profiler;
-   al_clear_to_color(al_color_name("dodgerblue"));
-
-   profiler.draw(0, 0, get_any_font());
-
-   al_flip_display();
-   sleep(2);
-}
-
-
