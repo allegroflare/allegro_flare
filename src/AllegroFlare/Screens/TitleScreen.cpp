@@ -19,11 +19,13 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string title_font_name, std::string menu_font_name, std::string copyright_font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selector_outline_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, float menu_selector_outline_stroke_thickness, int title_font_size, int menu_font_size, int copyright_font_size)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::size_t surface_width, std::size_t surface_height, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string title_font_name, std::string menu_font_name, std::string copyright_font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selector_outline_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, float menu_selector_outline_stroke_thickness, int title_font_size, int menu_font_size, int copyright_font_size)
    : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
+   , surface_width(surface_width)
+   , surface_height(surface_height)
    , title_text(title_text)
    , copyright_text(copyright_text)
    , background_bitmap_name(background_bitmap_name)
@@ -83,6 +85,18 @@ void TitleScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 void TitleScreen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    this->bitmap_bin = bitmap_bin;
+}
+
+
+void TitleScreen::set_surface_width(std::size_t surface_width)
+{
+   this->surface_width = surface_width;
+}
+
+
+void TitleScreen::set_surface_height(std::size_t surface_height)
+{
+   this->surface_height = surface_height;
 }
 
 
@@ -245,6 +259,18 @@ void TitleScreen::set_menu_option_selection_activation_delay(float menu_option_s
 void TitleScreen::set_reveal_duration(float reveal_duration)
 {
    this->reveal_duration = reveal_duration;
+}
+
+
+std::size_t TitleScreen::get_surface_width() const
+{
+   return surface_width;
+}
+
+
+std::size_t TitleScreen::get_surface_height() const
+{
+   return surface_height;
 }
 
 
@@ -733,8 +759,8 @@ void TitleScreen::draw_copyright_text()
 {
    // TODO: review guards on this function
    ALLEGRO_FONT *copyright_font = obtain_copyright_font();
-   int surface_width = 1920;
-   int surface_height = 1080;
+   //int surface_width = 1920;
+   //int surface_height = 1080;
    float line_height = al_get_font_line_height(copyright_font);
 
    int number_of_lines = 1;
@@ -764,8 +790,8 @@ void TitleScreen::draw_menu()
    }
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
-   int surface_width = 1920;
-   int surface_height = 1080;
+   //int surface_width = 1920;
+   //int surface_height = 1080;
    float h_font_line_height = (int)(al_get_font_line_height(menu_font) * 0.5f);
    float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
    float h_menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);

@@ -27,6 +27,20 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: surface_width
+    type: std::size_t
+    init_with: 1920
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: std::size_t
+    init_with: 1080
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: title_text
     type: std::string
     init_with: '"Untitled Game"'
@@ -621,8 +635,8 @@ functions:
     body: |
       // TODO: review guards on this function
       ALLEGRO_FONT *copyright_font = obtain_copyright_font();
-      int surface_width = 1920;
-      int surface_height = 1080;
+      //int surface_width = 1920;
+      //int surface_height = 1080;
       float line_height = al_get_font_line_height(copyright_font);
 
       int number_of_lines = 1;
@@ -646,8 +660,8 @@ functions:
     body: |
       // TODO: review guards on this function
       ALLEGRO_FONT *menu_font = obtain_menu_font();
-      int surface_width = 1920;
-      int surface_height = 1080;
+      //int surface_width = 1920;
+      //int surface_height = 1080;
       float h_font_line_height = (int)(al_get_font_line_height(menu_font) * 0.5f);
       float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
       float h_menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
