@@ -87,8 +87,13 @@ public:
 
    void initialize()
    {
-      ALLEGRO_BITMAP *surface = al_create_bitmap(800, 600);
+      surface = al_create_bitmap(800, 600);
       initialized = true;
+   }
+   void destroy()
+   {
+      if (surface) al_destroy_bitmap(surface);
+      initialized = false;
    }
    virtual bool set_as_target() override { return true; }
    virtual ALLEGRO_BITMAP* obtain_surface() override { return surface; }
@@ -132,6 +137,7 @@ TEST(AllegroFlare_RenderSurfaces_BaseTest,
    ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
 
    RenderSurfacesBase_DisplaySubBitmap_TestClass display_sub_bitmap_test_class;
+   display_sub_bitmap_test_class.initialize();
    EXPECT_EQ(true, display_sub_bitmap_test_class.is_a_display_surface());
 
    al_destroy_display(display);
@@ -142,8 +148,18 @@ TEST(AllegroFlare_RenderSurfaces_BaseTest,
 TEST(AllegroFlare_RenderSurfaces_BaseTest,
    is_a_display_surface__when_the_surface_is_not_a_display_backbuffer__will_return_false)
 {
+   al_init();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+
    RenderSurfacesBase_Bitmap_TestClass bitmap_surface_test_class;
+   bitmap_surface_test_class.initialize();
+
    EXPECT_EQ(false, bitmap_surface_test_class.is_a_display_surface());
+
+   bitmap_surface_test_class.destroy();
+
+   al_destroy_display(display);
+   al_uninstall_system();
 }
 
 
