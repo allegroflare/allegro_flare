@@ -106,7 +106,6 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
 }
 
 
-
 TEST(AllegroFlare_Framewors_FullTest,
    initialize__when_display_backbuffer_as_primary_render_surface_set_to_false__will_produce_a_bitmap_\
 primary_render_surface)
@@ -120,43 +119,7 @@ primary_render_surface)
    AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
 
    EXPECT_EQ(true, primary_render_surface->is_type(AllegroFlare::RenderSurfaces::Bitmap::TYPE));
-
-   //AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
-   //std::cout << "DEBUG: current primary_render_surface type: " << primary_render_surface->get_type() << std::endl;
-   //framework.get_bitmap_bin_ref().set_full_path(TEST_BASE_FOLDER "bitmaps/");
-
-   //ScreenTestClass2 screen(&framework.get_bitmap_bin_ref(), framework.get_primary_render_surface());
-   //framework.register_screen("screen", &screen);
-
-   //framework.activate_screen("screen");
-
-   //framework.run_loop(3);
-   
-
-
-   //primary_render_surface->set_as_target();
-   ////AllegroFlare::Camera2D camera;
-   ////camera.setup_dimentional_projection(primary_render_surface->obtain_surface());
-   //al_clear_to_color(al_color_html("291d29"));
-
-
-   //AllegroFlare::BitmapBin &bitmap_bin = framework.get_bitmap_bin_ref();
-   //ALLEGRO_BITMAP* bitmap = bitmap_bin.auto_get("toy-train-02.png");
-
-   //al_draw_bitmap(bitmap, 0, 0, 0);
-
-   //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-   ////#include <AllegroFlare/Shaders/PostProcessing/Blinds.hpp>
-
-   //al_draw_bitmap(primary_render_surface->obtain_surface(), 0, 0, 0);
-   //al_flip_display();
-   //al_rest(1);
-
-
-   ////al_draw_bitmap(
 }
-
-
 
 
 TEST(AllegroFlare_Framewors_FullTest, ALLEGRO_FLARE_EVENT_EXIT_GAME__when_emitted__will_shutdown_the_program)
