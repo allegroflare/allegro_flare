@@ -17,8 +17,8 @@
 
 #include <AllegroFlare/Frameworks/Full.hpp>
 
+#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
 #include <AllegroFlare/EventNames.hpp>
-
 
 
 
@@ -45,16 +45,49 @@ public:
    virtual void primary_timer_func() override {}
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
+      if (ev->keyboard.keycode == ALLEGRO_KEY_N)
+      {
+         std::string achievement_name_to_emit = randomly_select_an_achievement_name();
+         event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
+      }
+   }
+   std::string randomly_select_an_achievement_name()
+   {
       static int i=0; i++;
       std::vector<std::string> achievement_names = {
          "Win the game", "Finish the feature", "Save the day", "Take home the trophy", };
-      std::string achievement_name_to_emit = achievement_names[i % achievement_names.size()];
-      if (ev->keyboard.keycode == ALLEGRO_KEY_N)
-         event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
+      return achievement_names[i % achievement_names.size()];
    }
 };
 
-#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+
+class ScreenTestClass2 : public AllegroFlare::Screens::Base
+{
+private:
+   AllegroFlare::BitmapBin *bitmap_bin;
+   AllegroFlare::RenderSurfaces::Base *render_surface;
+   //AllegroFlare::Shaders::Base *post_processing_shader;
+
+public:
+   ScreenTestClass2(
+         AllegroFlare::BitmapBin *bitmap_bin,
+         AllegroFlare::RenderSurfaces::Base *render_surface
+         //AllegroFlare::Shaders::Base *post_processing_shader
+      )
+      : AllegroFlare::Screens::Base("ScreenTestClass2")
+      , bitmap_bin(bitmap_bin)
+      , render_surface(render_surface)
+      //, post_processing_shader(post_processing_shader)
+   {}
+   virtual void on_activate() override {}
+   virtual void primary_timer_func() override
+   {
+      ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get("toy-train-02.png");
+      al_draw_bitmap(bitmap, 0, 0, 0);
+   }
+   virtual void key_down_func(ALLEGRO_EVENT *ev) override {}
+};
+
 
 
 TEST(AllegroFlare_Framewors_FullTest, can_be_created_without_blowing_up)
@@ -86,44 +119,12 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
 }
 
 
-
-
-
-#include <AllegroFlare/Screens/Base.hpp>
-class ScreenTestClass2 : public AllegroFlare::Screens::Base
-{
-private:
-   AllegroFlare::BitmapBin *bitmap_bin;
-   AllegroFlare::RenderSurfaces::Base *render_surface;
-   //AllegroFlare::Shaders::Base *post_processing_shader;
-
-public:
-   ScreenTestClass2(
-         AllegroFlare::BitmapBin *bitmap_bin,
-         AllegroFlare::RenderSurfaces::Base *render_surface
-         //AllegroFlare::Shaders::Base *post_processing_shader
-      )
-      : AllegroFlare::Screens::Base("ScreenTestClass2")
-      , bitmap_bin(bitmap_bin)
-      , render_surface(render_surface)
-      //, post_processing_shader(post_processing_shader)
-   {}
-   virtual void on_activate() override {}
-   virtual void primary_timer_func() override
-   {
-      ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get("toy-train-02.png");
-      al_draw_bitmap(bitmap, 0, 0, 0);
-   }
-   virtual void key_down_func(ALLEGRO_EVENT *ev) override {}
-};
-
-
 //DEBUG:
 #include <allegro5/allegro_color.h>
 
 TEST(FooFooFoo_ScreenTest,
-   FOCUS__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //FOCUS__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
@@ -367,14 +368,16 @@ TEST(AllegroFlare_Frameworks_FullTest,
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, DISABLED__INTERACTIVE__will_work_as_expected)
+TEST(AllegroFlare_Frameworks_FullTest,
+   FOCUS__INTERACTIVE__with_a_screen__will_work_as_expected)
+   //DISABLED__INTERACTIVE__will_work_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
-   ScreenTestClass screen_test_class(&framework.get_event_emitter_ref());
-
+   framework.disable_fullscreen();
+   framework.set_deployment_environment("test");
    framework.initialize();
-   framework.get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER); // NOTE: have to set path after init (for now)
-   framework.get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER); // NOTE: have to set path after init (for now)
+
+   ScreenTestClass screen_test_class(&framework.get_event_emitter_ref());
 
    framework.register_screen("screen_test_class", &screen_test_class);
    framework.activate_screen("screen_test_class");
