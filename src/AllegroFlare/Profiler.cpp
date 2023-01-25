@@ -10,6 +10,7 @@
 #include <allegro5/allegro_color.h> // for the profiler renderer
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/ProfilerRenderer.hpp>
 
 
 namespace AllegroFlare
@@ -145,6 +146,8 @@ void Profiler::draw(float x, float y, ALLEGRO_FONT *font)
    int previous_profiler_rendering_duration_msec = profiler_rendering_timer.get_elapsed_time_milliseconds();
 
    profiler_rendering_timer.start();
+
+   AllegroFlare::ProfilerRenderer profiler_renderer;
 
 
    ALLEGRO_COLOR bg_color = al_color_name("black");
