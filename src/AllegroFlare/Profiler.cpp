@@ -176,20 +176,10 @@ namespace AllegroFlare
       else
       {
          // Draw the graph
-
          ALLEGRO_COLOR bg_color = al_color_name("black");
          ALLEGRO_COLOR bar_color = al_color_name("orange");
          ALLEGRO_COLOR font_color = al_color_name("white");
          ALLEGRO_COLOR limit_bar_color = al_color_name("lightblue");
-         //ALLEGRO_COLOR font = al_create_builtin_font();
-
-         //float w = 300;
-         //float line_height = 25;
-         //float pad = 20;
-         //float h = timers.size()*line_height + pad*2;
-         ////fla duration = 0.0;
-         //int i=0;
-         //char buff[32];
 
          float target_microseconds = 16666;
          float horizontal_scale = 0.01f;

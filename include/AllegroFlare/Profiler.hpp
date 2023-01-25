@@ -10,9 +10,6 @@
 #include <allegro5/allegro_font.h>
 
 
-// NOTE: See also AllegroFlare/DiscreetProfiler
-
-
 namespace AllegroFlare
 {
    class Profiler
