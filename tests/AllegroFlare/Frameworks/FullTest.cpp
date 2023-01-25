@@ -108,13 +108,12 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
 
 
 TEST(AllegroFlare_Framewors_FullTest,
-   //FOCUS__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   DISABLED__INTERACTIVE__with_using_display_backbuffer_as_primary_render_surface_set_to_true__bitmap_surface_is_used)
+   TIMED_INTERACTIVE__with_using_display_backbuffer_as_primary_render_surface_set_to_false__bitmap_surface_is_used)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
-   framework.disable_using_display_backbuffer_as_primary_render_surface();
    framework.disable_fullscreen();
+   framework.disable_using_display_backbuffer_as_primary_render_surface();
    framework.initialize();
 
    //AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
@@ -126,7 +125,7 @@ TEST(AllegroFlare_Framewors_FullTest,
 
    framework.activate_screen("screen");
 
-   framework.run_loop();
+   framework.run_loop(3);
    
 
 
@@ -308,7 +307,8 @@ TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_the_audio_con
 TEST(AllegroFlare_Frameworks_FullTest, initialize__will_create_a_display_with_the_expected_dimentions)
 {
    AllegroFlare::Frameworks::Full framework;
-
+   framework.disable_fullscreen();
+   framework.set_deployment_environment("test");
    framework.initialize();
 
    ALLEGRO_DISPLAY *current_al_display = al_get_current_display();
