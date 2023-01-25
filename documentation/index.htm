@@ -167,6 +167,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/ProfilerRenderer.q.yml">quintessence/AllegroFlare/ProfilerRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl.q.yml</a></li>
@@ -7734,6 +7735,49 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/ProfilerRenderer.q.yml">quintessence/AllegroFlare/ProfilerRenderer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">quote</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
@@ -19396,6 +19440,7 @@ table td
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
+    "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -19492,6 +19537,7 @@ table td
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
+    "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
@@ -19633,6 +19679,7 @@ table td
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
@@ -19760,6 +19807,7 @@ table td
     "AllegroFlare/Elements/Text",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
@@ -19915,6 +19963,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
@@ -20099,6 +20148,7 @@ table td
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",

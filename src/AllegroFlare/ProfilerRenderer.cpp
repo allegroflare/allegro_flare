@@ -15,15 +15,65 @@ namespace AllegroFlare
 {
 
 
-ProfilerRenderer::ProfilerRenderer(AllegroFlare::FontBin* font_bin, std::string quote)
+ProfilerRenderer::ProfilerRenderer(AllegroFlare::FontBin* font_bin, std::map<std::string, AllegroFlare::Timer*> timers, float x, float y)
    : font_bin(font_bin)
-   , quote(quote)
+   , timers(timers)
+   , x(x)
+   , y(y)
 {
 }
 
 
 ProfilerRenderer::~ProfilerRenderer()
 {
+}
+
+
+void ProfilerRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void ProfilerRenderer::set_timers(std::map<std::string, AllegroFlare::Timer*> timers)
+{
+   this->timers = timers;
+}
+
+
+void ProfilerRenderer::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void ProfilerRenderer::set_y(float y)
+{
+   this->y = y;
+}
+
+
+AllegroFlare::FontBin* ProfilerRenderer::get_font_bin() const
+{
+   return font_bin;
+}
+
+
+std::map<std::string, AllegroFlare::Timer*> ProfilerRenderer::get_timers() const
+{
+   return timers;
+}
+
+
+float ProfilerRenderer::get_x() const
+{
+   return x;
+}
+
+
+float ProfilerRenderer::get_y() const
+{
+   return y;
 }
 
 
@@ -57,13 +107,7 @@ void ProfilerRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ProfilerRenderer::render: error: guard \"font_bin\" not met");
    }
-
-
-
-
-
-   /* HERE:
-
+   ALLEGRO_FONT *font = obtain_font();
    ALLEGRO_COLOR bg_color = al_color_name("black");
    float w = 300;
    float line_height = 25;
@@ -102,7 +146,7 @@ void ProfilerRenderer::render()
 
       for (auto &timer : timers)
       {
-         int duration_microseconds = std::get<1>(timer).get_elapsed_time_microseconds();
+         int duration_microseconds = std::get<1>(timer)->get_elapsed_time_microseconds();
          float bar_width = duration_microseconds * horizontal_scale;
          al_draw_filled_rectangle(
             x,
@@ -112,7 +156,7 @@ void ProfilerRenderer::render()
             bar_color
          );
 
-         al_draw_text(font, font_color, x+pad, y+pad+line_height*i, 0, timer.first.c_str());
+         al_draw_text(font, font_color, x+pad, y+pad+line_height*i, 0, std::get<0>(timer).c_str());
          sprintf(buff, "%d", duration_microseconds);
          al_draw_text(font, font_color, x+pad+300, y+pad+line_height*i, ALLEGRO_ALIGN_RIGHT, buff);
          i++;
@@ -129,41 +173,6 @@ void ProfilerRenderer::render()
       );
    }
 
-
-
-
-   */
-
-
-
-
-
-
-
-
-
-
-
-   float x = 1920/2;
-   float y = 1080/3;
-   ALLEGRO_FONT *font = obtain_font();
-   float text_width = al_get_text_width(font, quote.c_str());
-   float text_height = al_get_font_line_height(font);
-   float h_text_width = text_width/2;
-   float h_text_height = text_height/2;
-   AllegroFlare::Vec2D padding = {30, 20};
-
-   al_draw_rounded_rectangle(
-      x-h_text_width - padding.x,
-      y-h_text_height - padding.y,
-      x+h_text_width + padding.x,
-      y+h_text_height + padding.y,
-      8.0f,
-      8.0f,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      8.0f
-   );
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
    return;
 }
 
@@ -176,7 +185,7 @@ ALLEGRO_FONT* ProfilerRenderer::obtain_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ProfilerRenderer::obtain_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -52");
+   return font_bin->auto_get("Inter-Medium.ttf -26");
 }
 
 
