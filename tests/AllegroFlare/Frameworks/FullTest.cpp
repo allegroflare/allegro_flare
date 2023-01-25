@@ -108,7 +108,8 @@ TEST(AllegroFlare_Framewors_FullTest, shutdown__will_uninitialize_allegro)
 
 
 TEST(AllegroFlare_Framewors_FullTest,
-   TIMED_INTERACTIVE__with_using_display_backbuffer_as_primary_render_surface_set_to_false__bitmap_surface_is_used)
+   initialize__when_display_backbuffer_as_primary_render_surface_set_to_false__will_produce_a_bitmap_\
+primary_render_surface)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
@@ -116,16 +117,20 @@ TEST(AllegroFlare_Framewors_FullTest,
    framework.disable_using_display_backbuffer_as_primary_render_surface();
    framework.initialize();
 
+   AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
+
+   EXPECT_EQ(true, primary_render_surface->is_type(AllegroFlare::RenderSurfaces::Bitmap::TYPE));
+
    //AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
    //std::cout << "DEBUG: current primary_render_surface type: " << primary_render_surface->get_type() << std::endl;
    //framework.get_bitmap_bin_ref().set_full_path(TEST_BASE_FOLDER "bitmaps/");
 
-   ScreenTestClass2 screen(&framework.get_bitmap_bin_ref(), framework.get_primary_render_surface());
-   framework.register_screen("screen", &screen);
+   //ScreenTestClass2 screen(&framework.get_bitmap_bin_ref(), framework.get_primary_render_surface());
+   //framework.register_screen("screen", &screen);
 
-   framework.activate_screen("screen");
+   //framework.activate_screen("screen");
 
-   framework.run_loop(3);
+   //framework.run_loop(3);
    
 
 
