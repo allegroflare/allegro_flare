@@ -106,19 +106,22 @@ Each component has a filename that corresponds with a file in the same folder st
 ## In The Repo
 
 ```
-bin/             <- binary files that have been compiled during build
-demos/           <- source files for games made using AllegroFlare
-docs/            <- individual `.md` documentation files, each correlating to a specific component
-documentation/   <- The documentation
-examples/        <- example program for each component
-include/         <- header `.hpp` files for each component
-legacy/          <- folder containing old dead code that might be of interest for future reference
-lib/             <- compiled `.lib` files of `allegro_flare-x.x.x` files
-quintessence/    <- quintessence file `.q.yml` for each component
-src/             <- source `.cpp` file for each component
-tests/           <- test file for each component
-  test_fixtures/ <- fixture files for tests
-tools/           <- catch-all folder for some helper scripts or random tools
+bin/              <- binary files that have been compiled during build
+  data/           <- data files (bitmaps, fonts, samples, etc used for programs)
+demos/            <- source files for games made using AllegroFlare
+docs/             <- individual `.md` documentation files, each correlating to a specific component
+documentation/    <- The documentation, tutorials, etc
+examples/         <- example programs, each example only demonstrating one component
+include/          <- header `.hpp` files for each component
+legacy/           <- folder containing old dead code that might be of interest for future reference
+lib/              <- compiled `.lib` files of `allegro_flare-x.x.x` files
+quintessence/     <- quintessence file `.q.yml` for each component
+src/              <- source `.cpp` file for each component
+tmp/
+  test_snapshots/ <- screenshots captured during test runs
+tests/            <- test file for each component
+  fixtures/       <- fixture files for tests
+tools/            <- catch-all folder for some helper scripts or random tools
 ```
 
 ## Contributing
