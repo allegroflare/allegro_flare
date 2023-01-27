@@ -988,9 +988,16 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Screen::virtual_control_button_down_func(ALLEGRO_EVENT* event)
+void Screen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
 {
-   int button_num = event->user.data1;
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::virtual_control_button_down_func: error: guard \"initialized\" not met");
+   }
+   //int button_num = event->user.data1;
 
    if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
    {
@@ -1025,9 +1032,16 @@ void Screen::virtual_control_button_down_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Screen::virtual_control_button_up_func(ALLEGRO_EVENT* event)
+void Screen::virtual_control_button_up_func(int player_num, int button_num, bool is_repeat)
 {
-   int button_num = event->user.data1;
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::virtual_control_button_up_func: error: guard \"initialized\" not met");
+   }
+   //int button_num = event->user.data1;
 
    if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
    {
@@ -1085,17 +1099,17 @@ void Screen::user_event_func(ALLEGRO_EVENT* event)
 {
    switch(event->type)
    {
-      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
-        virtual_control_button_up_func(event);
-      break;
+      //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
+        //virtual_control_button_up_func(event);
+      //break;
 
-      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
-        virtual_control_button_down_func(event);
-      break;
+      //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
+        //virtual_control_button_down_func(event);
+      //break;
 
-      case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
-        virtual_control_axis_change_func(event);
-      break;
+      //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
+        //virtual_control_axis_change_func(event);
+      //break;
    }
 
    return;
