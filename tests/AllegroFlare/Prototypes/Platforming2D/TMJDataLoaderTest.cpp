@@ -40,7 +40,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, get_loaded__after_
 {
    std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
-   true, loader.load();
+   loader.load();
    ASSERT_EQ(true, loader.get_loaded());
 }
 

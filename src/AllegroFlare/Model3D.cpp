@@ -17,12 +17,12 @@
 namespace AllegroFlare
 {
    Model3D::Model3D()
-      : vertex_declaration(nullptr)
+      : initialized(false)
+      , vertex_declaration(nullptr)
       , vertexes()
       , vertex_buffer(nullptr)
       , texture(nullptr)
       , named_objects()
-      , initialized(false)
    {
       //build_vertex_declaration();
    }

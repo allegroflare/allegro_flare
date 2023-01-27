@@ -17,12 +17,12 @@ namespace RenderSurfaces
 Bitmap::Bitmap(int surface_width, int surface_height, int multisamples, int depth)
    : AllegroFlare::RenderSurfaces::Base(AllegroFlare::RenderSurfaces::Bitmap::TYPE)
    , surface(nullptr)
+   , clear_color(AllegroFlare::Color::Eigengrau)
    , surface_width(surface_width)
    , surface_height(surface_height)
    , multisamples(multisamples)
    , depth(depth)
    , initialized(false)
-   , clear_color(AllegroFlare::Color::Eigengrau)
 {
 }
 
