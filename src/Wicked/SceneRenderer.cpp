@@ -1,7 +1,23 @@
 #include <Wicked/SceneRenderer.hpp>
 
 
+//#ifdef __APPLE__
+//#ifndef GL_SILENCE_DEPRECATION
+//#define GL_SILENCE_DEPRECATION
+//#define ALLEGRO_FLARE__GL_SILENCE_DEPRECIATION
+//#endif
+//#endif
+
 #include <allegro5/allegro_opengl.h>
+
+//#ifdef __APPLE__
+//#ifndef ALLEGRO_FLARE__GL_SILENCE_DEPRECIATION
+//#undef GL_SILENCE_DEPRECATION
+//#undef ALLEGRO_FLARE__GL_SILENCE_DEPRECIATION
+//#endif
+//#endif
+
+
 #include <iostream> // for cout
 
 #include <AllegroFlare/UsefulPHP.hpp>

@@ -1229,6 +1229,8 @@ functions:
 
 
   - name: virtual_control_axis_change_func
+    virtual: true
+    override: true
     parameters:
       - name: event
         type: ALLEGRO_EVENT*

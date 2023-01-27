@@ -46,10 +46,10 @@ TEST_F(AllegroFlare_MotionComposer_TrackViewTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_the_track_as_expected)
 {
    AllegroFlare::Timeline::Track track("opacity", 1.0, {
-      { new AllegroFlare::Timeline::Keyframe(2.0, 0.4) },
-      { new AllegroFlare::Timeline::Keyframe(4.0, 0.6) },
-      { new AllegroFlare::Timeline::Keyframe(5.0, 0.2) },
-      { new AllegroFlare::Timeline::Keyframe(5.5, 0.3) },
+      new AllegroFlare::Timeline::Keyframe(2.0, 0.4),
+      new AllegroFlare::Timeline::Keyframe(4.0, 0.6),
+      new AllegroFlare::Timeline::Keyframe(5.0, 0.2),
+      new AllegroFlare::Timeline::Keyframe(5.5, 0.3),
    });
    AllegroFlare::MotionComposer::TrackView track_view(&get_font_bin_ref(), &track);
    track_view.set_selection_cursor_x(1);

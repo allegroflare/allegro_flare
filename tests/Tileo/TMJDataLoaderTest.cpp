@@ -41,7 +41,7 @@ TEST(Tileo_TMJDataLoaderTest, get_loaded__after_calling_load__returns_true)
 {
    std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
    Tileo::TMJDataLoader loader(filename);
-   true, loader.load();
+   loader.load();
    ASSERT_EQ(true, loader.get_loaded());
 }
 

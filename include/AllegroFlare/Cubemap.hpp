@@ -1,7 +1,12 @@
 #pragma once
 
 
+#ifdef __APPLE__
+// TODO: Fix or improve this depreciation declaration here
+#define GL_SILENCE_DEPRECATION
 #include <allegro5/allegro_opengl.h>
+#undef GL_SILENCE_DEPRECATION
+#endif
 
 
 namespace AllegroFlare

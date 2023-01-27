@@ -44,7 +44,7 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest, get_loaded_
 {
    std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader(filename);
-   true, loader.load();
+   loader.load();
    ASSERT_EQ(true, loader.get_loaded());
 }
 
