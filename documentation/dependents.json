@@ -521,9 +521,6 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "GLuint": [
-    "AllegroFlare/Cubemap"
-  ],
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader"
