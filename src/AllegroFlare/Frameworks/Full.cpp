@@ -35,8 +35,8 @@ namespace Frameworks
 
 
 Full::Full()
-   : screens()
-   , working_directory_before_init(".")
+   : working_directory_before_init(".")
+   , screens()
    , initialized(false)
    , config("data/config/config.cfg")
    , profiler()
