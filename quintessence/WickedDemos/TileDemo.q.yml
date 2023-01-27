@@ -1136,14 +1136,23 @@ functions:
 
 
   - name: virtual_control_button_down_func
+    virtual: true
+    override: true
     parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
+      - name: player_num
+        type: int
+        default_argument: 0
+      - name: button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: 'false'
+    guards: [ initialized ]
     body: |
-      int button_num = event->user.data1;
+      //int button_num = event->user.data1;
 
-      std::cout << "AAAAAAAAAA" << std::endl;
+      //std::cout << "AAAAAAAAAA" << std::endl;
 
       if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
       {
@@ -1181,12 +1190,21 @@ functions:
 
 
   - name: virtual_control_button_up_func
+    virtual: true
+    override: true
     parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
+      - name: player_num
+        type: int
+        default_argument: 0
+      - name: button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: 'false'
+    guards: [ initialized ]
     body: |
-      int button_num = event->user.data1;
+      //int button_num = event->user.data1;
 
       if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
       {
@@ -1257,17 +1275,20 @@ functions:
     body: |
       switch(event->type)
       {
-         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
-           virtual_control_button_up_func(event);
-         break;
+         // NOTE: This is now handled in Frameworks::Full
 
-         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
-           virtual_control_button_down_func(event);
-         break;
+         //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP:
+           //virtual_control_button_up_func(event);
+         //break;
 
-         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
-           virtual_control_axis_change_func(event);
-         break;
+         //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
+           //virtual_control_button_down_func(event);
+         //break;
+
+         // TODO: look into conflicts for this event
+         //case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
+           //virtual_control_axis_change_func(event);
+         //break;
       }
 
       return;
