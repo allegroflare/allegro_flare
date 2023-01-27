@@ -42,7 +42,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, get_loaded__a
 {
    std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader(filename);
-   true, loader.load();
+   loader.load();
    ASSERT_EQ(true, loader.get_loaded());
 }
 
