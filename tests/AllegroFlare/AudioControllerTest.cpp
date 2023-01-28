@@ -11,7 +11,7 @@
 
 #include <allegro5/allegro_acodec.h>
 
-#define TEST_FIXTURE_FOLDER_NAME "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/"
+#define TEST_FIXTURE_FOLDER_NAME "./tests/fixtures/"
 
 // for usleep on Windows
 #include <unistd.h>
@@ -214,7 +214,7 @@ TEST(AllegroFlare_AudioControllerTest,
    al_reserve_samples(8);
 
    AllegroFlare::SampleBin sample_bin;
-   sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME);
+   sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME "samples/");
    std::string music_identifier = "music-01.ogg";
 
    std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements;
@@ -245,7 +245,7 @@ TEST(AllegroFlare_AudioControllerTest,
    al_reserve_samples(8);
 
    AllegroFlare::SampleBin sample_bin;
-   sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME);
+   sample_bin.set_full_path(TEST_FIXTURE_FOLDER_NAME "samples/");
    AllegroFlare::AudioController audio_controller(&sample_bin);
    audio_controller.initialize();
 

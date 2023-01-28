@@ -72,6 +72,8 @@ void Sound::initialize()
 
    if (!mixer)
    {
+      // TODO: improve this error message. Something like "mixer needed. Typically, a mixer would be auto-created 
+      // when a call to al_reserve_samples(...), occurs."
       AllegroFlare::Errors::throw_error("AllegroFlare::Sound::initialize",
                                         "Was not able to successfully obtain a mixer. AllegroFlare/Sound is "
                                         "currently implemented to rely on the presence of Allegro's auto-created "

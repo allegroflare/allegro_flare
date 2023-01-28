@@ -33,7 +33,7 @@ TEST(AllegroFlare_SoundTest, AUDIBLE__play__will_play_the_sound)
    al_init_acodec_addon();
    al_reserve_samples(32); // used to implicitly create the default mixer and default voice
 
-   ALLEGRO_SAMPLE *sample = al_load_sample("./tests/test_fixtures/music_tracks/music-01.ogg");
+   ALLEGRO_SAMPLE *sample = al_load_sample("./tests/fixtures/samples/music_tracks/music-01.ogg");
    ASSERT_NE(nullptr, sample);
 
    AllegroFlare::Sound sound(sample);
@@ -55,7 +55,7 @@ TEST(AllegroFlare_SoundTest, initialize__without_al_reserve_samples_called__will
    al_init_acodec_addon();
    //al_reserve_samples(32); // used to implicitly create the default mixer and default voice
 
-   ALLEGRO_SAMPLE *sample = al_load_sample("./tests/test_fixtures/music_tracks/music-01.ogg");
+   ALLEGRO_SAMPLE *sample = al_load_sample("./tests/fixtures/samples/music_tracks/music-01.ogg");
    ASSERT_NE(nullptr, sample);
 
    AllegroFlare::Sound sound(sample);

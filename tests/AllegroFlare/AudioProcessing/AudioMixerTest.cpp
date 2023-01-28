@@ -7,12 +7,7 @@
 #include <AllegroFlare/SampleBin.hpp>
 
 
-#if defined(_WIN32) || defined(_WIN64)
-// TODO: fix this test fixture path from "test_fixtures/" folder to "fixtures/"
-#define TEST_FIXTURES_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/test_fixtures/"
-#else
-#define TEST_FIXTURES_PATH "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/"
-#endif
+#define TEST_FIXTURES_PATH "./tests/fixtures/"
 
 
 TEST(AllegroFlare_AudioProcessing_AudioMixerTest, can_be_created_without_blowing_up)
@@ -29,7 +24,7 @@ TEST(AllegroFlare_AudioProcessing_AudioMixerTest, initialize__will_not_blow_up)
    al_reserve_samples(32); // used to implicitly create the default mixer and default voice
 
    AllegroFlare::SampleBin sample_bin;
-   sample_bin.set_full_path(TEST_FIXTURES_PATH);
+   sample_bin.set_full_path(TEST_FIXTURES_PATH "samples/");
 
    ALLEGRO_SAMPLE *sample = sample_bin.auto_get("music_tracks/test-bips-short-130bpm-01.ogg");
    ASSERT_NE(nullptr, sample);
