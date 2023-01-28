@@ -87,6 +87,8 @@ int main(int argc, char **argv)
 
    // run the loop
    full_framework.run_loop();
+
+   return 0;
 }
 
 

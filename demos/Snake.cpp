@@ -413,6 +413,8 @@ int main(int argc, char **argv)
    framework.activate_screen("title_screen");
 
    framework.run_loop();
+
+   return 0;
 }
 
 
