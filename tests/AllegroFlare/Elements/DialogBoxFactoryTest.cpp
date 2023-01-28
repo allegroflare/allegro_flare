@@ -11,13 +11,6 @@
 #include <allegro5/allegro.h>
 
 
-#ifdef _WIN32
-#define TEST_FIXTURE_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tests/test_fixtures/"
-#else
-#define TEST_FIXTURE_FOLDER "/Users/markoates/Repos/allegro_flare/tests/test_fixtures/"
-#endif
-
-
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
