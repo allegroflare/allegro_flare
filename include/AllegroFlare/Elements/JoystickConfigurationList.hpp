@@ -18,7 +18,7 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::FontBin* font_bin;
-         std::vector<std::tuple<std::string, std::string, std::string>> achievements;
+         std::vector<std::tuple<std::string, std::string>> joystick_configuration_mapping;
          float list_item_box_width;
          float list_item_box_height;
          int surface_width;
@@ -26,13 +26,13 @@ namespace AllegroFlare
          float scrollbar_position;
          float box_gutter_y;
          void draw_header_title_backfill();
-         int count_num_achievements();
-         void draw_achievements_list_title_text_and_completed_title_text();
+         int count_num_joystick_configuration_mapping();
+         void draw_joystick_configuration_mapping_list_title_text_and_completed_title_text();
          float infer_container_height();
          float infer_container_contents_height();
          float infer_container_scroll_range();
          void limit_scrollbar_position();
-         void draw_achievements_list_items_and_scrollbar();
+         void draw_joystick_configuration_mapping_list_items_and_scrollbar();
          void draw_joystick_configuration_item_box(float x=0.0f, float y=0.0f, std::string action_name="[unset-title]", std::string mapped_button_name="[unset-description]");
          int32_t infer_icon_character_by_status(std::string status="[unset-status]");
          ALLEGRO_COLOR infer_icon_color_by_status(std::string status="[unset-status]", ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
@@ -48,17 +48,17 @@ namespace AllegroFlare
 
 
       public:
-         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string, std::string>> achievements={}, float list_item_box_width=940.0f, float list_item_box_height=80.0f);
+         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string>> joystick_configuration_mapping={}, float list_item_box_width=940.0f, float list_item_box_height=80.0f);
          ~JoystickConfigurationList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
-         void set_achievements(std::vector<std::tuple<std::string, std::string, std::string>> achievements);
+         void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, std::string>> joystick_configuration_mapping);
          void set_list_item_box_width(float list_item_box_width);
          void set_list_item_box_height(float list_item_box_height);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);
          void set_box_gutter_y(float box_gutter_y);
-         std::vector<std::tuple<std::string, std::string, std::string>> get_achievements() const;
+         std::vector<std::tuple<std::string, std::string>> get_joystick_configuration_mapping() const;
          float get_list_item_box_width() const;
          float get_list_item_box_height() const;
          int get_surface_width() const;
@@ -71,7 +71,7 @@ namespace AllegroFlare
          void set_scrollbar_position_to_max();
          float infer_scrollbar_max_position();
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
-         static std::vector<std::tuple<std::string, std::string, std::string>> build_placeholder_achievements();
+         static std::vector<std::tuple<std::string, std::string>> build_placeholder_joystick_configuration_mapping();
       };
    }
 }

@@ -7,8 +7,8 @@ properties:
     constructor_arg: true
     setter: true
 
-  - name: achievements
-    type: std::vector<std::tuple<std::string, std::string, std::string>>
+  - name: joystick_configuration_mapping
+    type: std::vector<std::tuple<std::string, std::string>>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -60,8 +60,8 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      draw_achievements_list_items_and_scrollbar();
-      draw_achievements_list_title_text_and_completed_title_text();
+      draw_joystick_configuration_mapping_list_items_and_scrollbar();
+      draw_joystick_configuration_mapping_list_title_text_and_completed_title_text();
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D
@@ -107,12 +107,12 @@ functions:
       return infer_container_scroll_range() <= 0;
 
 
-  - name: build_placeholder_achievements
-    type: std::vector<std::tuple<std::string, std::string, std::string>>
+  - name: build_placeholder_joystick_configuration_mapping
+    type: std::vector<std::tuple<std::string, std::string>>
     static: true
     body: |
       return {
-         { "Action Name", "A", "this_element_is_discarded" },
+         { "Action Name", "A" },
          //{ "unlocked", "Fade In", "Start out in the world." },
          //{ "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
          //{ "locked",   "Save the Cat", "Define the hero and make the audience like them." },
@@ -137,14 +137,14 @@ functions:
       - al_draw_filled_rectangle
      
 
-  - name: count_num_achievements
+  - name: count_num_joystick_configuration_mapping
     type: int
     private: true
     body: |
-      return achievements.size();
+      return joystick_configuration_mapping.size();
 
 
-  - name: draw_achievements_list_title_text_and_completed_title_text
+  - name: draw_joystick_configuration_mapping_list_title_text_and_completed_title_text
     private: true
     body: |
       ALLEGRO_FONT *font = obtain_title_font();
@@ -171,7 +171,7 @@ functions:
          //1920-surface_padding_x,
          //100,
          //ALLEGRO_ALIGN_RIGHT,
-         //build_achievements_count_string().c_str()
+         //build_joystick_configuration_mapping_count_string().c_str()
       //);
 
       return;
@@ -190,7 +190,7 @@ functions:
     private: true
     body: |
       float y_spacing = list_item_box_height + box_gutter_y;
-      return achievements.size() * y_spacing - box_gutter_y; // <- this should be revised
+      return joystick_configuration_mapping.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                              // to take into account
                                                              // lists of size 0; E.g.
                                                              // Box gutter y should not
@@ -216,19 +216,19 @@ functions:
       return;
 
 
-  - name: draw_achievements_list_items_and_scrollbar
+  - name: draw_joystick_configuration_mapping_list_items_and_scrollbar
     private: true
     body: |
-      float achievements_list_x = surface_width/2;
-      float achievements_list_y = surface_height/2 + 40;
-      float achievements_list_width = list_item_box_width;
+      float joystick_configuration_mapping_list_x = surface_width/2;
+      float joystick_configuration_mapping_list_y = surface_height/2 + 40;
+      float joystick_configuration_mapping_list_width = list_item_box_width;
       float scrollbar_x_padding = 70;
       float scrollbar_y_padding = 26;
-      ALLEGRO_COLOR achievements_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+      ALLEGRO_COLOR joystick_configuration_mapping_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       ALLEGRO_COLOR scrollbar_bar_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       ALLEGRO_COLOR scrollbar_handle_color = ALLEGRO_COLOR{0.5, 0.505, 0.51, 1.0};
-      float achievements_box_list_x = 0;
-      float achievements_box_list_y = 0;
+      float joystick_configuration_mapping_box_list_x = 0;
+      float joystick_configuration_mapping_box_list_y = 0;
       float y_spacing = list_item_box_height + box_gutter_y;
       float frame_thickness = 6.0;
       float frame_outset = box_gutter_y + 2;
@@ -238,32 +238,32 @@ functions:
       float normalized_scrollbar_position = scrollbar_position / container_scroll_range;
 
       AllegroFlare::Placement2D place(
-         achievements_list_x,
-         achievements_list_y,
-         achievements_list_width,
+         joystick_configuration_mapping_list_x,
+         joystick_configuration_mapping_list_y,
+         joystick_configuration_mapping_list_width,
          container_height
       );
 
       place.start_transform();
 
       // draw the items in the list
-      for (int i=0; i<achievements.size(); i++)
+      for (int i=0; i<joystick_configuration_mapping.size(); i++)
       {
-         std::string action_label = std::get<0>(achievements[i]);
-         std::string mapped_button_label = std::get<1>(achievements[i]);
-         //std::string description = std::get<2>(achievements[i]);
+         std::string action_label = std::get<0>(joystick_configuration_mapping[i]);
+         std::string mapped_button_label = std::get<1>(joystick_configuration_mapping[i]);
+         //std::string description = std::get<2>(joystick_configuration_mapping[i]);
          // TODO:
          // HERE: render
          draw_joystick_configuration_item_box(
-            achievements_box_list_x,
-            achievements_box_list_y + i * y_spacing - scrollbar_position,
+            joystick_configuration_mapping_box_list_x,
+            joystick_configuration_mapping_box_list_y + i * y_spacing - scrollbar_position,
             action_label,
             mapped_button_label
          );
 
          //draw_achievement_box(
-            //achievements_box_list_x,
-            //achievements_box_list_y + i * y_spacing - scrollbar_position,
+            //joystick_configuration_mapping_box_list_x,
+            //joystick_configuration_mapping_box_list_y + i * y_spacing - scrollbar_position,
             //status,
             //title,
             //description
@@ -274,11 +274,11 @@ functions:
       //al_draw_rounded_rectangle(
       //   0 - frame_outset,
       //   0 - frame_outset,
-      //   achievements_list_width + frame_outset,
-      //   achievements_list_container_height + frame_outset,
+      //   joystick_configuration_mapping_list_width + frame_outset,
+      //   joystick_configuration_mapping_list_container_height + frame_outset,
       //   5.0,
       //   5.0,
-      //   achievements_list_frame_color,
+      //   joystick_configuration_mapping_list_frame_color,
       //   frame_thickness
       //);
 
@@ -286,7 +286,7 @@ functions:
       if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
       {
          AllegroFlare::Elements::Scrollbar scrollbar(
-            achievements_list_width + scrollbar_x_padding,
+            joystick_configuration_mapping_list_width + scrollbar_x_padding,
             scrollbar_y_padding,
             container_height - scrollbar_y_padding * 2,
             normalized_scrollbar_position,

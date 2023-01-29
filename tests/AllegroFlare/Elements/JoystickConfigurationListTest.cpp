@@ -49,7 +49,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    CAPTURE__render__will_render_as_expected)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
-   achievements.set_achievements(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_achievements());
+   achievements.set_joystick_configuration_mapping(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping());
    achievements.render();
    al_flip_display();
    sleep_for(1);
@@ -60,7 +60,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    CAPTURE__render__will_offset_the_list_of_items_by__scrollbar_position)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
-   achievements.set_achievements(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_achievements());
+   achievements.set_joystick_configuration_mapping(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping());
 
    int num_scrolls = 120;
    float amount_per_scroll = 2.6;
@@ -78,8 +78,8 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_hide_the_scrollbar_if_the_height_of_items_in_the_list_is_smaller_than_the_container_height)
 {
-   std::vector<std::tuple<std::string, std::string, std::string>> achievements =
-      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_achievements();
+   std::vector<std::tuple<std::string, std::string>> achievements =
+      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping();
    achievements.resize(4);
    AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref(), achievements);
 
@@ -110,7 +110,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
    // initialize test subject
    AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref());
-   achievements_list.set_achievements(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_achievements());
+   achievements_list.set_joystick_configuration_mapping(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping());
 
    // run the interactive test
    al_start_timer(primary_timer);
