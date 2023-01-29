@@ -3591,7 +3591,7 @@ table td
 </tr>
 <tr>
   <td class="property">joystick_configuration_mapping</td>
-  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt;</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, uint32_t&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">list_item_box_width</td>
@@ -3710,9 +3710,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
@@ -20142,7 +20139,6 @@ table td
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/Scrollbar": [

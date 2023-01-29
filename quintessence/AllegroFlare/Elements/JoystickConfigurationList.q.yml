@@ -8,7 +8,7 @@ properties:
     setter: true
 
   - name: joystick_configuration_mapping
-    type: std::vector<std::tuple<std::string, std::string>>
+    type: std::vector<std::tuple<std::string, uint32_t>>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -108,11 +108,17 @@ functions:
 
 
   - name: build_placeholder_joystick_configuration_mapping
-    type: std::vector<std::tuple<std::string, std::string>>
+    type: std::vector<std::tuple<std::string, uint32_t>>
     static: true
     body: |
       return {
-         { "Action Name", "A" },
+         { "Primary Action", 1 },
+         { "Secondary Action", 2 },
+         { "Back", 3 },
+         { "Up", 4 },
+         { "Down", 5 },
+         { "Left", 6 },
+         { "Right", 7 },
          //{ "unlocked", "Fade In", "Start out in the world." },
          //{ "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
          //{ "locked",   "Save the Cat", "Define the hero and make the audience like them." },
@@ -161,7 +167,8 @@ functions:
          surface_padding_x,
          100,
          ALLEGRO_ALIGN_LEFT,
-         "J O Y S T I C K   C O N F I G U R A T I O N"
+         "Joystick Configuration"
+         //"J O Y S T I C K   C O N F I G U R A T I O N"
       );
 
       //// draw the number achieved
@@ -250,7 +257,7 @@ functions:
       for (int i=0; i<joystick_configuration_mapping.size(); i++)
       {
          std::string action_label = std::get<0>(joystick_configuration_mapping[i]);
-         std::string mapped_button_label = std::get<1>(joystick_configuration_mapping[i]);
+         uint32_t mapped_button_num = std::get<1>(joystick_configuration_mapping[i]);
          //std::string description = std::get<2>(joystick_configuration_mapping[i]);
          // TODO:
          // HERE: render
@@ -258,7 +265,7 @@ functions:
             joystick_configuration_mapping_box_list_x,
             joystick_configuration_mapping_box_list_y + i * y_spacing - scrollbar_position,
             action_label,
-            mapped_button_label
+            "Button " + std::to_string(mapped_button_num)
          );
 
          //draw_achievement_box(
@@ -347,7 +354,7 @@ functions:
          x+column_2_x,
          y+box_padding_y,
          ALLEGRO_ALIGN_LEFT,
-         action_name.c_str()
+         mapped_button_name.c_str()
       );
       return;
     body_dependency_symbols:
@@ -495,8 +502,6 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
-  - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
-    headers: [ vector, tuple, string ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Elements::Scrollbar

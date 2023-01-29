@@ -17,7 +17,7 @@ namespace Elements
 {
 
 
-JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<std::string, std::string>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
+JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
    : font_bin(font_bin)
    , joystick_configuration_mapping(joystick_configuration_mapping)
    , list_item_box_width(list_item_box_width)
@@ -41,7 +41,7 @@ void JoystickConfigurationList::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<std::tuple<std::string, std::string>> joystick_configuration_mapping)
+void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping)
 {
    this->joystick_configuration_mapping = joystick_configuration_mapping;
 }
@@ -77,7 +77,7 @@ void JoystickConfigurationList::set_box_gutter_y(float box_gutter_y)
 }
 
 
-std::vector<std::tuple<std::string, std::string>> JoystickConfigurationList::get_joystick_configuration_mapping() const
+std::vector<std::tuple<std::string, uint32_t>> JoystickConfigurationList::get_joystick_configuration_mapping() const
 {
    return joystick_configuration_mapping;
 }
@@ -170,10 +170,16 @@ bool JoystickConfigurationList::scrollbar_is_autohidden_because_list_contents_is
    return infer_container_scroll_range() <= 0;
 }
 
-std::vector<std::tuple<std::string, std::string>> JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+std::vector<std::tuple<std::string, uint32_t>> JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
 {
    return {
-      { "Action Name", "A" },
+      { "Primary Action", 1 },
+      { "Secondary Action", 2 },
+      { "Back", 3 },
+      { "Up", 4 },
+      { "Down", 5 },
+      { "Left", 6 },
+      { "Right", 7 },
       //{ "unlocked", "Fade In", "Start out in the world." },
       //{ "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       //{ "locked",   "Save the Cat", "Define the hero and make the audience like them." },
@@ -216,7 +222,8 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_t
       surface_padding_x,
       100,
       ALLEGRO_ALIGN_LEFT,
-      "J O Y S T I C K   C O N F I G U R A T I O N"
+      "Joystick Configuration"
+      //"J O Y S T I C K   C O N F I G U R A T I O N"
    );
 
    //// draw the number achieved
@@ -297,7 +304,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
    for (int i=0; i<joystick_configuration_mapping.size(); i++)
    {
       std::string action_label = std::get<0>(joystick_configuration_mapping[i]);
-      std::string mapped_button_label = std::get<1>(joystick_configuration_mapping[i]);
+      uint32_t mapped_button_num = std::get<1>(joystick_configuration_mapping[i]);
       //std::string description = std::get<2>(joystick_configuration_mapping[i]);
       // TODO:
       // HERE: render
@@ -305,7 +312,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
          joystick_configuration_mapping_box_list_x,
          joystick_configuration_mapping_box_list_y + i * y_spacing - scrollbar_position,
          action_label,
-         mapped_button_label
+         "Button " + std::to_string(mapped_button_num)
       );
 
       //draw_achievement_box(
@@ -376,7 +383,7 @@ void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, fl
       x+column_2_x,
       y+box_padding_y,
       ALLEGRO_ALIGN_LEFT,
-      action_name.c_str()
+      mapped_button_name.c_str()
    );
    return;
 }

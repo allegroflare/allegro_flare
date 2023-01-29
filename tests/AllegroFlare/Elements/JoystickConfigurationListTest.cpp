@@ -82,7 +82,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_hide_the_scrollbar_if_the_height_of_items_in_the_list_is_smaller_than_the_container_height)
 {
-   std::vector<std::tuple<std::string, std::string>> achievements =
+   std::vector<std::tuple<std::string, uint32_t>> achievements =
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping();
    achievements.resize(4);
    AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref(), achievements);
