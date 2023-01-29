@@ -174,6 +174,7 @@ bool JoystickConfigurationList::scrollbar_is_autohidden_because_list_contents_is
 std::vector<std::tuple<std::string, std::string, std::string>> JoystickConfigurationList::build_placeholder_achievements()
 {
    return {
+      { "aciton_name", "mapping", "discarded" },
       //{ "unlocked", "Fade In", "Start out in the world." },
       //{ "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       //{ "locked",   "Save the Cat", "Define the hero and make the audience like them." },
