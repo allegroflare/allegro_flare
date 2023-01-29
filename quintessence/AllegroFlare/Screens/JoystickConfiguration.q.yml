@@ -24,16 +24,6 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: sample_bin
-    type: AllegroFlare::SampleBin*
-    init_with: nullptr
-    constructor_arg: true
-
-  - name: model_bin
-    type: AllegroFlare::ModelBin*
-    init_with: nullptr
-    constructor_arg: true
-
   - name: initialized
     type: bool
     init_with: false
@@ -81,28 +71,6 @@ functions:
       return;
 
 
-  - name: set_sample_bin
-    guards: [ (!initialized) ]
-    parameters:
-      - name: sample_bin
-        type: AllegroFlare::SampleBin*
-        default_argument: nullptr
-    body: |
-      this->sample_bin = sample_bin;
-
-
-  - name: set_model_bin
-    guards: [ (!initialized) ]
-    parameters:
-      - name: model_bin
-        type: AllegroFlare::ModelBin*
-        default_argument: nullptr
-    body: |
-      this->model_bin = model_bin;
-      return;
-      return;
-
-
   - name: initialize
     guards:
       - (!initialized)
@@ -112,11 +80,11 @@ functions:
       - event_emitter
       - bitmap_bin
       - font_bin
-      - sample_bin
-      - model_bin
     body: |
       initialized = true;
       return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
 
 
   - name: on_activate
@@ -174,5 +142,7 @@ dependencies:
     headers: [ AllegroFlare/ModelBin.hpp ]
   - symbol: AllegroFlare::SampleBin
     headers: [ AllegroFlare/SampleBin.hpp ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
 
 

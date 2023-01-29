@@ -13821,14 +13821,6 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">sample_bin</td>
-  <td class="property">AllegroFlare::SampleBin*</td>
-</tr>
-<tr>
-  <td class="property">model_bin</td>
-  <td class="property">AllegroFlare::ModelBin*</td>
-</tr>
-<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -13846,12 +13838,6 @@ table td
 </tr>
 <tr>
   <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -13890,6 +13876,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -19660,6 +19649,7 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
