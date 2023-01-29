@@ -34,7 +34,6 @@ namespace AllegroFlare
          void limit_scrollbar_position();
          void draw_achievements_list_items_and_scrollbar();
          void draw_joystick_configuration_item_box(float x=0.0f, float y=0.0f, std::string action_name="[unset-title]", std::string mapped_button_name="[unset-description]");
-         void draw_achievement_box(float x=0.0f, float y=0.0f, std::string status="[unset-status]", std::string title="[unset-title]", std::string description="[unset-description]");
          int32_t infer_icon_character_by_status(std::string status="[unset-status]");
          ALLEGRO_COLOR infer_icon_color_by_status(std::string status="[unset-status]", ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
          std::string filter_item_title_through_status(std::string title="[unset-title]", std::string status="[unset-status]");

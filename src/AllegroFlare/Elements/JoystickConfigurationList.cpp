@@ -5,7 +5,6 @@
 #include <AllegroFlare/Elements/Scrollbar.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <algorithm>
-#include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -174,7 +173,7 @@ bool JoystickConfigurationList::scrollbar_is_autohidden_because_list_contents_is
 std::vector<std::tuple<std::string, std::string, std::string>> JoystickConfigurationList::build_placeholder_achievements()
 {
    return {
-      { "aciton_name", "mapping", "discarded" },
+      { "Action Name", "A", "this_element_is_discarded" },
       //{ "unlocked", "Fade In", "Start out in the world." },
       //{ "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       //{ "locked",   "Save the Cat", "Define the hero and make the audience like them." },
@@ -297,16 +296,16 @@ void JoystickConfigurationList::draw_achievements_list_items_and_scrollbar()
    // draw the items in the list
    for (int i=0; i<achievements.size(); i++)
    {
-      std::string status = std::get<0>(achievements[i]);
-      std::string title = std::get<1>(achievements[i]);
-      std::string description = std::get<2>(achievements[i]);
+      std::string action_label = std::get<0>(achievements[i]);
+      std::string mapped_button_label = std::get<1>(achievements[i]);
+      //std::string description = std::get<2>(achievements[i]);
       // TODO:
       // HERE: render
       draw_joystick_configuration_item_box(
          achievements_box_list_x,
          achievements_box_list_y + i * y_spacing - scrollbar_position,
-         "Button Action",
-         "A"
+         action_label,
+         mapped_button_label
       );
 
       //draw_achievement_box(
@@ -379,123 +378,6 @@ void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, fl
       ALLEGRO_ALIGN_LEFT,
       action_name.c_str()
    );
-   return;
-}
-
-void JoystickConfigurationList::draw_achievement_box(float x, float y, std::string status, std::string title, std::string description)
-{
-   ALLEGRO_FONT *item_title_font = obtain_item_title_font();
-   ALLEGRO_FONT *description_font = obtain_item_description_font();
-   ALLEGRO_FONT *icon_font = obtain_icon_font();
-   //float list_item_box_width = 800.0f;
-   //float list_item_box_height = 150.0f;
-   float box_padding_x = 20;
-   float box_padding_y = 20;
-   float title_padding_y = 10;
-   ALLEGRO_COLOR title_text_color_normal = ALLEGRO_COLOR{1, 1, 1, 1};
-   ALLEGRO_COLOR description_text_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
-   ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
-   ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
-   ALLEGRO_COLOR icon_locked_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1};
-   ALLEGRO_COLOR icon_hidden_color = icon_container_box_color;
-   ALLEGRO_COLOR icon_achieved_color = ALLEGRO_COLOR{1, 1, 1, 1};
-   ALLEGRO_COLOR title_text_color_hidden = icon_locked_color;
-   float item_title_font_line_height = al_get_font_line_height(item_title_font);
-   float description_font_line_height = al_get_font_line_height(description_font);
-   float icon_font_line_height = al_get_font_line_height(icon_font);
-   float icon_container_box_size = list_item_box_height - box_padding_x*2;
-   float text_y_offset = 2;
-   float icon_container_box_text_x_padding = 30;
-   float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
-
-   ALLEGRO_COLOR title_text_color = (status == "hidden") ? title_text_color_hidden : title_text_color_normal;
-
-   float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
-   float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
-   int32_t icon_character = infer_icon_character_by_status(status);
-   ALLEGRO_COLOR icon_color = infer_icon_color_by_status(
-      status,
-      icon_locked_color,
-      icon_hidden_color,
-      icon_achieved_color
-   );
-
-   // draw the filled rectangle
-   if (status == "hidden")
-   {
-      float hidden_box_stroke_thickness = 4.0f;
-      float h_thickness = hidden_box_stroke_thickness * 0.5;
-      al_draw_rectangle(
-         x + h_thickness,
-         y + h_thickness,
-         x + list_item_box_width - h_thickness,
-         y + list_item_box_height - h_thickness,
-         box_color,
-         hidden_box_stroke_thickness
-      );
-   }
-   else
-   {
-      al_draw_filled_rectangle(x, y, x + list_item_box_width, y + list_item_box_height, box_color);
-   }
-
-   // draw the icon container box rectangle
-   if (status == "hidden")
-   {
-      float hidden_icon_box_stroke_thickness = 4.0f;
-      float h_thickness = hidden_icon_box_stroke_thickness * 0.5;
-      al_draw_rectangle(
-         x + box_padding_x + h_thickness,
-         y + box_padding_y + h_thickness,
-         x + box_padding_x + icon_container_box_size - h_thickness,
-         y + box_padding_y + icon_container_box_size - h_thickness,
-         icon_container_box_color,
-         hidden_icon_box_stroke_thickness
-      );
-   }
-   else
-   {
-      al_draw_filled_rectangle(
-         x + box_padding_x,
-         y + box_padding_y,
-         x + box_padding_x + icon_container_box_size,
-         y + box_padding_y + icon_container_box_size,
-         icon_container_box_color
-      );
-   }
-
-   // draw the icon
-   draw_unicode_character(
-      icon_font,
-      icon_color,
-      icon_box_center_x,
-      icon_box_center_y - icon_font_line_height / 2,
-      icon_character,
-      ALLEGRO_ALIGN_CENTER
-   );
-
-   // draw the title text
-   al_draw_text(
-      item_title_font,
-      title_text_color,
-      x + box_padding_x + text_x_offset,
-      y + box_padding_y + text_y_offset,
-      ALLEGRO_ALIGN_LEFT,
-      filter_item_title_through_status(title, status).c_str()
-   );
-
-   // draw the description text
-   al_draw_multiline_text(
-      description_font,
-      description_text_color,
-      x + box_padding_x + text_x_offset,
-      y + box_padding_y + item_title_font_line_height + title_padding_y + text_y_offset,
-      list_item_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
-      description_font_line_height,
-      ALLEGRO_ALIGN_LEFT,
-      filter_item_description_through_status(description, status).c_str()
-   );
-
    return;
 }
 
