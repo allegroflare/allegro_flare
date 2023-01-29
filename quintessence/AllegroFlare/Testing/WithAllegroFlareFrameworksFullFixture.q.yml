@@ -45,6 +45,7 @@ functions:
     type: void
     virtual: true
     override: true
+    guards: [ (!initialized) ]
     body: |
       framework.set_deployment_environment("test");
       framework.disable_auto_created_config_warning();
@@ -52,10 +53,6 @@ functions:
       framework.initialize();
 
       test_snapshots_folder = "./tmp/test_snapshots/";
-
-      //event_emitter = &framework.get_event_emitter_ref();
-      //bitmap_bin = &framework.get_bitmap_bin_ref();
-      //font_bin = &framework.get_font_bin_ref();
 
       // TODO: consider setting this value in the framework
       //al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.055f, 1.0f});
@@ -73,17 +70,37 @@ functions:
     type: void
     virtual: true
     override: true
+    guards: [ initialized ]
     body: |
       framework.shutdown();
       initialized = false;
       return;
 
 
-  - name: run_framework_loop
+  - name: framework_register_and_activate_screen
     type: void
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: screen
+        type: AllegroFlare::Screens::Base*
+        default_argument: nullptr
+    guards: [ initialized ]
     body: |
-      framework.run_loop(4); // TODO: make this number of seconds a more comprehensive argument
-      initialized = false;
+      framework.register_and_activate_screen(name, screen);
+      return;
+
+
+  - name: framework_run_loop
+    type: void
+    parameters:
+      - name: num_seconds_to_auto_abort
+        type: float
+        default_argument: 3
+    guards: [ initialized ]
+    body: |
+      framework.run_loop(num_seconds_to_auto_abort);
       return;
 
 
@@ -123,6 +140,8 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
 

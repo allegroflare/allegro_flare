@@ -681,6 +681,7 @@
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventEmitter": [

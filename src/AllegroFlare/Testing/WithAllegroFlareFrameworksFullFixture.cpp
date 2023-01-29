@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 
-
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -54,16 +56,19 @@ AllegroFlare::FontBin &WithAllegroFlareFrameworksFullFixture::get_font_bin_ref()
 
 void WithAllegroFlareFrameworksFullFixture::SetUp()
 {
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroFlareFrameworksFullFixture::SetUp]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::SetUp: error: guard \"(!initialized)\" not met");
+   }
    framework.set_deployment_environment("test");
    framework.disable_auto_created_config_warning();
    framework.disable_fullscreen();
    framework.initialize();
 
    test_snapshots_folder = "./tmp/test_snapshots/";
-
-   //event_emitter = &framework.get_event_emitter_ref();
-   //bitmap_bin = &framework.get_bitmap_bin_ref();
-   //font_bin = &framework.get_font_bin_ref();
 
    // TODO: consider setting this value in the framework
    //al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.055f, 1.0f});
@@ -79,15 +84,41 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
 
 void WithAllegroFlareFrameworksFullFixture::TearDown()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroFlareFrameworksFullFixture::TearDown]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::TearDown: error: guard \"initialized\" not met");
+   }
    framework.shutdown();
    initialized = false;
    return;
 }
 
-void WithAllegroFlareFrameworksFullFixture::run_framework_loop()
+void WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_screen(std::string name, AllegroFlare::Screens::Base* screen)
 {
-   framework.run_loop(4); // TODO: make this number of seconds a more comprehensive argument
-   initialized = false;
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_screen]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_screen: error: guard \"initialized\" not met");
+   }
+   framework.register_and_activate_screen(name, screen);
+   return;
+}
+
+void WithAllegroFlareFrameworksFullFixture::framework_run_loop(float num_seconds_to_auto_abort)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroFlareFrameworksFullFixture::framework_run_loop]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::framework_run_loop: error: guard \"initialized\" not met");
+   }
+   framework.run_loop(num_seconds_to_auto_abort);
    return;
 }
 

@@ -5,6 +5,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Screens/Base.hpp>
 #include <gtest/gtest.h>
 #include <string>
 
@@ -36,7 +37,8 @@ namespace AllegroFlare
          AllegroFlare::FontBin &get_font_bin_ref();
          virtual void SetUp() override;
          virtual void TearDown() override;
-         void run_framework_loop();
+         void framework_register_and_activate_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);
+         void framework_run_loop(float num_seconds_to_auto_abort=3);
          std::string get_test_name();
          std::string get_test_suite_name();
          std::string build_full_test_name_str();

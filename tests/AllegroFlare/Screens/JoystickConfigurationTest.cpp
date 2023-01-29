@@ -122,27 +122,15 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Screens_JoystickConfigurationTestWithAllegroFrameworksFullFixture,
    TIMED_INTERACTIVE__will_run_as_expected)
 {
-   //AllegroFlare::Frameworks::Full framework;
-   //framework.set_deployment_environment("test");
-   //framework.disable_auto_created_config_warning();
-   //framework.disable_fullscreen();
-   //framework.initialize();
-
-   //std::string data_folder_path = framework.get_data_folder_path();
-
-   //AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
-   //ASSERT_EQ(false, primary_render_surface->is_a_display_surface());
-
-
    AllegroFlare::Screens::JoystickConfiguration joystick_configuration_screen;
-   joystick_configuration_screen.set_event_emitter(get_event_emitter_ref());
-   joystick_configuration_screen.set_bitmap_bin(get_bitmap_bin_ref());
-   joystick_configuration_screen.set_font_bin(get_font_bin_ref());
+   joystick_configuration_screen.set_event_emitter(&get_event_emitter_ref());
+   joystick_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
+   joystick_configuration_screen.set_font_bin(&get_font_bin_ref());
    joystick_configuration_screen.initialize();
 
-   framework.register_and_activate_screen("joystick_configuration_screen", &joystick_configuration_screen);
+   framework_register_and_activate_screen("joystick_configuration_screen", &joystick_configuration_screen);
 
-   framework.run_loop(3);
+   framework_run_loop(3);
 }
 
 
