@@ -27,7 +27,7 @@ namespace AllegroFlare
          float box_gutter_y;
          void draw_header_title_backfill();
          int count_num_joystick_configuration_mapping();
-         void draw_joystick_configuration_mapping_list_title_text_and_completed_title_text();
+         void draw_joystick_configuration_mapping_list_title_text();
          float infer_container_height();
          float infer_container_contents_height();
          float infer_container_scroll_range();
@@ -48,7 +48,7 @@ namespace AllegroFlare
 
 
       public:
-         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=940.0f, float list_item_box_height=80.0f);
+         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=740.0f, float list_item_box_height=80.0f);
          ~JoystickConfigurationList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);

@@ -16,7 +16,7 @@ properties:
 
   - name: list_item_box_width
     type: float
-    init_with: 940.0f
+    init_with: 740.0f
     constructor_arg: true
     getter: true
     setter: true
@@ -61,7 +61,7 @@ functions:
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       draw_joystick_configuration_mapping_list_items_and_scrollbar();
-      draw_joystick_configuration_mapping_list_title_text_and_completed_title_text();
+      draw_joystick_configuration_mapping_list_title_text();
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D
@@ -150,7 +150,7 @@ functions:
       return joystick_configuration_mapping.size();
 
 
-  - name: draw_joystick_configuration_mapping_list_title_text_and_completed_title_text
+  - name: draw_joystick_configuration_mapping_list_title_text
     private: true
     body: |
       ALLEGRO_FONT *font = obtain_title_font();
@@ -332,8 +332,6 @@ functions:
       float box_padding_x = 20;
       float box_padding_y = 20;
 
-      float column_2_x = 400;
-
       // draw the backfill box
       al_draw_filled_rectangle(x, y, x + list_item_box_width, y + list_item_box_height, box_color);
 
@@ -348,12 +346,28 @@ functions:
       );
 
       // draw the mapped_button_name
+      // draw the mapped_button_name background box
+      float column_2_x = 550;
+      float mapped_button_background_box_width = 160;
+      float mapped_button_background_box_height = 70;
+      float mapped_button_name_x = x + list_item_box_width - mapped_button_background_box_width - box_padding_x;
+      float mapped_button_name_y = y + box_padding_y;
+
+      al_draw_filled_rectangle(
+         mapped_button_name_x - mapped_button_background_box_width,
+         y,
+         mapped_button_name_x + mapped_button_background_box_width,
+         y + mapped_button_background_box_height,
+         ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3}
+      );
+
+      // draw the mapped_button_name text
       al_draw_text(
          item_title_font,
          ALLEGRO_COLOR{1, 1, 1, 1},
-         x+column_2_x,
-         y+box_padding_y,
-         ALLEGRO_ALIGN_LEFT,
+         mapped_button_name_x,
+         mapped_button_name_y,
+         ALLEGRO_ALIGN_CENTER,
          mapped_button_name.c_str()
       );
       return;
