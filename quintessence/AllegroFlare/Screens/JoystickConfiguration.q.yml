@@ -13,16 +13,33 @@ properties:
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: false
+
+  - name: surface_width
+    type: std::size_t
+    init_with: 1920
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: std::size_t
+    init_with: 1090
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: initialized
     type: bool

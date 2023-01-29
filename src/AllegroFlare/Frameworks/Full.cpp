@@ -737,6 +737,13 @@ void Full::activate_screen(std::string name)
 }
 
 
+void Full::register_and_activate_screen(std::string name, AllegroFlare::Screens::Base *screen)
+{
+   register_screen(name, screen);
+   activate_screen(name);
+}
+
+
 std::string Full::get_currently_active_screen_name()
 {
    return screens.get_currently_active_screen_name();

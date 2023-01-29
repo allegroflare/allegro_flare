@@ -14,11 +14,13 @@ namespace Screens
 {
 
 
-JoystickConfiguration::JoystickConfiguration(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+JoystickConfiguration::JoystickConfiguration(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::size_t surface_width, std::size_t surface_height)
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::JoystickConfiguration::TYPE)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , surface_width(surface_width)
+   , surface_height(surface_height)
    , initialized(false)
 {
 }
@@ -26,6 +28,30 @@ JoystickConfiguration::JoystickConfiguration(AllegroFlare::EventEmitter* event_e
 
 JoystickConfiguration::~JoystickConfiguration()
 {
+}
+
+
+void JoystickConfiguration::set_surface_width(std::size_t surface_width)
+{
+   this->surface_width = surface_width;
+}
+
+
+void JoystickConfiguration::set_surface_height(std::size_t surface_height)
+{
+   this->surface_height = surface_height;
+}
+
+
+std::size_t JoystickConfiguration::get_surface_width() const
+{
+   return surface_width;
+}
+
+
+std::size_t JoystickConfiguration::get_surface_height() const
+{
+   return surface_height;
 }
 
 

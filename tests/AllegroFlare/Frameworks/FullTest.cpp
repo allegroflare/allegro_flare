@@ -135,8 +135,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    ASSERT_EQ(false, primary_render_surface->is_a_display_surface());
 
    ScreenTestClass2 screen_test_class(&framework.get_bitmap_bin_ref(), primary_render_surface);
-   framework.register_screen("screen_test_class", &screen_test_class);
-   framework.activate_screen("screen_test_class");
+   framework.register_and_activate_screen("screen_test_class", &screen_test_class);
 
    framework.run_loop(3);
    // TODO: Capture
@@ -375,8 +374,7 @@ TEST(AllegroFlare_Frameworks_FullTest, INTERACTIVE__with_a_screen__will_work_as_
 
    ScreenTestClass screen_test_class(&framework.get_event_emitter_ref());
 
-   framework.register_screen("screen_test_class", &screen_test_class);
-   framework.activate_screen("screen_test_class");
+   framework.register_and_activate_screen("screen_test_class", &screen_test_class);
 
    framework.run_loop(3);
 }

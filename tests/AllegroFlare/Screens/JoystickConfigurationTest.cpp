@@ -4,6 +4,7 @@
 #include <AllegroFlare/Screens/JoystickConfiguration.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
 
 class AllegroFlare_Screens_JoystickConfigurationTest : public ::testing::Test {};
 class AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture
@@ -111,6 +112,34 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    al_destroy_event_queue(event_queue);
    al_destroy_timer(primary_timer);
    al_uninstall_keyboard();
+}
+
+
+TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
+   INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_auto_created_config_warning();
+   framework.disable_fullscreen();
+   framework.initialize();
+
+   std::string data_folder_path = framework.get_data_folder_path();
+
+   //AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
+   //ASSERT_EQ(false, primary_render_surface->is_a_display_surface());
+
+
+   AllegroFlare::Screens::JoystickConfiguration joystick_configuration_screen;
+   joystick_configuration_screen.set_event_emitter(&framework.get_event_emitter_ref());
+   joystick_configuration_screen.set_bitmap_bin(&framework.get_bitmap_bin_ref());
+   joystick_configuration_screen.set_font_bin(&framework.get_font_bin_ref());
+   joystick_configuration_screen.initialize();
+
+   framework.register_and_activate_screen("joystick_configuration_screen", &joystick_configuration_screen);
+
+   framework.run_loop(3);
 }
 
 
