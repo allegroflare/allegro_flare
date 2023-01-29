@@ -222,7 +222,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_t
       surface_padding_x,
       100,
       ALLEGRO_ALIGN_LEFT,
-      "Joystick Configuration"
+      "Joystick Configuration (Generic)"
       //"J O Y S T I C K   C O N F I G U R A T I O N"
    );
 
@@ -358,8 +358,9 @@ void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, fl
 {
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
-   float box_padding_x = 20;
-   float box_padding_y = 20;
+   float box_padding_x = 26;
+   float box_padding_y = 10;
+   int text_y = (list_item_box_height / 2) - (al_get_font_line_height(item_title_font) / 2);
 
    // draw the backfill box
    al_draw_filled_rectangle(x, y, x + list_item_box_width, y + list_item_box_height, box_color);
@@ -368,8 +369,8 @@ void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, fl
    al_draw_text(
       item_title_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
-      x+box_padding_x,
-      y+box_padding_y,
+      x + box_padding_x,
+      y + text_y, // update this to be vertical-centered
       ALLEGRO_ALIGN_LEFT,
       action_name.c_str()
    );
@@ -378,16 +379,16 @@ void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, fl
    // draw the mapped_button_name background box
    float column_2_x = 550;
    float mapped_button_background_box_width = 160;
-   float mapped_button_background_box_height = 70;
+   float mapped_button_background_box_height = list_item_box_height - box_padding_y*2;
    float mapped_button_name_x = x + list_item_box_width - mapped_button_background_box_width - box_padding_x;
-   float mapped_button_name_y = y + box_padding_y;
+   float mapped_button_name_y = text_y;
 
    al_draw_filled_rectangle(
       mapped_button_name_x - mapped_button_background_box_width,
-      y,
+      y + box_padding_y,
       mapped_button_name_x + mapped_button_background_box_width,
-      y + mapped_button_background_box_height,
-      ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3}
+      y + box_padding_y + mapped_button_background_box_height,
+      ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}
    );
 
    // draw the mapped_button_name text
@@ -395,7 +396,7 @@ void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, fl
       item_title_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
       mapped_button_name_x,
-      mapped_button_name_y,
+      y + mapped_button_name_y,
       ALLEGRO_ALIGN_CENTER,
       mapped_button_name.c_str()
    );
