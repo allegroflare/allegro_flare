@@ -157,3 +157,5 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    al_destroy_timer(primary_timer);
    al_uninstall_keyboard();
 }
+
+
