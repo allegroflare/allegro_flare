@@ -49,7 +49,9 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    CAPTURE__render__will_render_as_expected)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
-   achievements.set_joystick_configuration_mapping(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping());
+   achievements.set_joystick_configuration_mapping(
+      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+   );
    achievements.render();
    al_flip_display();
    sleep_for(1);
@@ -60,7 +62,9 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    CAPTURE__render__will_offset_the_list_of_items_by__scrollbar_position)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
-   achievements.set_joystick_configuration_mapping(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping());
+   achievements.set_joystick_configuration_mapping(
+      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+   );
 
    int num_scrolls = 120;
    float amount_per_scroll = 2.6;
