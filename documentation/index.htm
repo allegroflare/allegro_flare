@@ -251,6 +251,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml">quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameWonScreen.q.yml">quintessence/AllegroFlare/Screens/GameWonScreen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/JoystickConfiguration.q.yml">quintessence/AllegroFlare/Screens/JoystickConfiguration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/PauseScreen.q.yml">quintessence/AllegroFlare/Screens/PauseScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/RollingCredits.q.yml">quintessence/AllegroFlare/Screens/RollingCredits.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
@@ -13805,6 +13806,96 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/JoystickConfiguration.q.yml">quintessence/AllegroFlare/Screens/JoystickConfiguration.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">sample_bin</td>
+  <td class="property">AllegroFlare::SampleBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_sample_bin(AllegroFlare::SampleBin* sample_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SampleBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SampleBin.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/PauseScreen.q.yml">quintessence/AllegroFlare/Screens/PauseScreen.q.yml</h3>
      <table>
 <tr>
@@ -19209,7 +19300,8 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Screens/JoystickConfiguration"
   ],
   "AllegroFlare/AudioRepositoryElement": [
     "AllegroFlare/AudioController"
@@ -19339,6 +19431,7 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -19458,6 +19551,7 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -19868,6 +19962,7 @@ table td
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
@@ -19903,6 +19998,7 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -20694,7 +20790,8 @@ table td
   "AllegroFlare/ModelBin": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
-    "AllegroFlare/Prototypes/CubeShooter/Screen"
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Screens/JoystickConfiguration"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Screen": [
     "AllegroFlare/Prototypes/CubeShooter/Runner"

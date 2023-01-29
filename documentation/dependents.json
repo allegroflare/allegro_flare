@@ -10,7 +10,8 @@
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Screens/JoystickConfiguration"
   ],
   "AllegroFlare/AudioRepositoryElement": [
     "AllegroFlare/AudioController"
@@ -140,6 +141,7 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -259,6 +261,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -669,6 +672,7 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
@@ -704,6 +708,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -1495,7 +1500,8 @@
   "AllegroFlare/ModelBin": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
-    "AllegroFlare/Prototypes/CubeShooter/Screen"
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Screens/JoystickConfiguration"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Screen": [
     "AllegroFlare/Prototypes/CubeShooter/Runner"
