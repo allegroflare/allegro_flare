@@ -350,11 +350,15 @@ void JoystickConfigurationList::draw_achievements_list_items_and_scrollbar()
 
 void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, float y, std::string action_name, std::string mapped_button_name)
 {
+   ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
    float box_padding_x = 20;
    float box_padding_y = 20;
 
-   float column_2_x = 100;
+   float column_2_x = 400;
+
+   // draw the backfill box
+   al_draw_filled_rectangle(x, y, x + list_item_box_width, y + list_item_box_height, box_color);
 
    // draw the action_name
    al_draw_text(

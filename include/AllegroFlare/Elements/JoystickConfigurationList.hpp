@@ -49,7 +49,7 @@ namespace AllegroFlare
 
 
       public:
-         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string, std::string>> achievements={}, float list_item_box_width=940.0f, float list_item_box_height=130.0f);
+         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string, std::string>> achievements={}, float list_item_box_width=940.0f, float list_item_box_height=80.0f);
          ~JoystickConfigurationList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
