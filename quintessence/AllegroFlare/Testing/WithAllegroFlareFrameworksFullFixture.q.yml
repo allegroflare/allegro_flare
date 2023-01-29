@@ -1,0 +1,129 @@
+parent_classes:
+
+
+  - class: ::testing::Test
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: framework
+    type: AllegroFlare::Frameworks::Full
+    getter_ref: true
+    init_with: '{}'
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter
+    init_with: framework.get_event_emitter_ref()
+    getter_ref: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin
+    init_with: framework.get_bitmap_bin_ref()
+    getter_ref: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin
+    init_with: framework.get_font_bin_ref()
+    getter_ref: true
+
+  - name: test_snapshots_folder
+    type: std::string
+    init_with: '"[unset-test_snapshots_folder]"'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: SetUp
+    type: void
+    virtual: true
+    override: true
+    body: |
+      framework.set_deployment_environment("test");
+      framework.disable_auto_created_config_warning();
+      framework.disable_fullscreen();
+      framework.initialize();
+
+      test_snapshots_folder = "./tmp/test_snapshots/";
+
+      //event_emitter = &framework.get_event_emitter_ref();
+      //bitmap_bin = &framework.get_bitmap_bin_ref();
+      //font_bin = &framework.get_font_bin_ref();
+
+      // TODO: consider setting this value in the framework
+      //al_clear_to_color(ALLEGRO_COLOR{0.05f, 0.05f, 0.055f, 1.0f});
+
+      // TODO: set the window title to the current test name
+      //std::string new_window_title = build_full_test_name_str();
+      //al_set_window_title(display, new_window_title.c_str());
+
+      initialized = true;
+
+      return;
+
+
+  - name: TearDown
+    type: void
+    virtual: true
+    override: true
+    body: |
+      framework.shutdown();
+      initialized = false;
+      return;
+
+
+  - name: run_framework_loop
+    type: void
+    body: |
+      framework.run_loop(4); // TODO: make this number of seconds a more comprehensive argument
+      initialized = false;
+      return;
+
+
+  - name: get_test_name
+    type: std::string
+    body: |
+      // TODO: use AllegroFlare::Testing::TestNameInference for this logic
+      const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+      return test_info->name();
+
+
+  - name: get_test_suite_name
+    type: std::string
+    body: |
+      // TODO: use AllegroFlare::Testing::TestNameInference for this logic
+      const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
+      return test_info->test_suite_name();
+
+
+  - name: build_full_test_name_str
+    type: std::string
+    body: |
+      // TODO: use AllegroFlare::Testing::TestNameInference for this logic
+      return get_test_suite_name() + " - " + get_test_name();
+
+
+dependencies:
+
+
+  - symbol: ::testing::Test
+    headers: [ gtest/gtest.h ]
+  - symbol: AllegroFlare::Frameworks::Full
+    headers: [ AllegroFlare/Frameworks/Full.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+

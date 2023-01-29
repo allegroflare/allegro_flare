@@ -270,6 +270,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/Rulers.q.yml">quintessence/AllegroFlare/Testing/Rulers.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/TestNameInference.q.yml">quintessence/AllegroFlare/Testing/TestNameInference.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml</a></li>
@@ -15539,6 +15540,77 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">framework</td>
+  <td class="property">AllegroFlare::Frameworks::Full</td>
+</tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin</td>
+</tr>
+<tr>
+  <td class="property">test_snapshots_folder</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">SetUp()</td>
+</tr>
+<tr>
+  <td class="method">TearDown()</td>
+</tr>
+<tr>
+  <td class="method">run_framework_loop()</td>
+</tr>
+<tr>
+  <td class="method">get_test_name()</td>
+</tr>
+<tr>
+  <td class="method">get_test_suite_name()</td>
+</tr>
+<tr>
+  <td class="method">build_full_test_name_str()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:testing::Test&quot;, &quot;headers&quot;=&gt;[&quot;gtest/gtest.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Frameworks::Full&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Frameworks/Full.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</h3>
      <table>
 <tr>
@@ -19433,6 +19505,7 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/Timeline/ActorFactory",
@@ -19561,6 +19634,7 @@ table td
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
@@ -19708,6 +19782,7 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "Wicked/CameraControlStrategies2D/Base",
     "Wicked/Entities/Basic2D",
@@ -20007,6 +20082,7 @@ table td
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -20552,6 +20628,7 @@ table td
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Screen": [
@@ -20578,6 +20655,7 @@ table td
   ":testing/Test": [
     "AllegroFlare/Integrations/Network",
     "AllegroFlare/Testing/TestNameInference",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Network2/Client": [

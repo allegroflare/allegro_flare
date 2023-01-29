@@ -146,6 +146,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/Timeline/ActorFactory",
@@ -274,6 +275,7 @@
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
@@ -421,6 +423,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "Wicked/CameraControlStrategies2D/Base",
     "Wicked/Entities/Basic2D",
@@ -720,6 +723,7 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -1265,6 +1269,7 @@
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Screen": [
@@ -1291,6 +1296,7 @@
   ":testing/Test": [
     "AllegroFlare/Integrations/Network",
     "AllegroFlare/Testing/TestNameInference",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Network2/Client": [
