@@ -19,8 +19,8 @@ namespace Elements
 
 
 SelectionCursorBox::SelectionCursorBox()
-   : cursor_location({})
-   , cursor_location_destination({})
+   : cursor_position({})
+   , cursor_position_destination({})
    , cursor_size(80, 80)
    , cursor_size_destination(80, 80)
    , cursor_reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
@@ -46,17 +46,38 @@ float SelectionCursorBox::get_last_repositioned_at() const
 }
 
 
+void SelectionCursorBox::set_position(float x, float y, float time_now)
+{
+   cursor_position_destination = AllegroFlare::Vec2D(x, y);
+   cursor_position = cursor_position_destination;
+   last_repositioned_at = time_now;
+}
+
+void SelectionCursorBox::set_size(float x, float y, float time_now)
+{
+   cursor_size_destination = AllegroFlare::Vec2D(x, y);
+   cursor_size = cursor_size_destination;
+   last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+}
+
 void SelectionCursorBox::reposition_to(float x, float y, float time_now)
 {
-   cursor_location_destination = AllegroFlare::Vec2D(x, y);
+   cursor_position_destination = AllegroFlare::Vec2D(x, y);
    last_repositioned_at = time_now;
+   return;
+}
+
+void SelectionCursorBox::resize_to(float x, float y, float time_now)
+{
+   cursor_size_destination = AllegroFlare::Vec2D(x, y);
+   last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
    return;
 }
 
 void SelectionCursorBox::update()
 {
-   cursor_location = (cursor_location_destination - cursor_location)
-                   * cursor_reposition_multiplier + cursor_location;
+   cursor_position = (cursor_position_destination - cursor_position)
+                   * cursor_reposition_multiplier + cursor_position;
    cursor_size = (cursor_size_destination - cursor_size)
                * cursor_reposition_multiplier + cursor_size;
    return;
@@ -104,7 +125,7 @@ void SelectionCursorBox::draw_cursor_rectangle(float x, float y, float w, float 
 
 void SelectionCursorBox::draw_cursor()
 {
-   draw_cursor_rectangle(cursor_location.x, cursor_location.y, cursor_size.x, cursor_size.y);
+   draw_cursor_rectangle(cursor_position.x, cursor_position.y, cursor_size.x, cursor_size.y);
    return;
 }
 

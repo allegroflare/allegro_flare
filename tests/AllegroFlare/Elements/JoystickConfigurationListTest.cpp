@@ -37,6 +37,14 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTest, render__without_alle
 }
 
 
+TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture, update__will_not_blow_up)
+{
+   AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
+   achievements.update();
+   SUCCEED();
+}
+
+
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());

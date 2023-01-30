@@ -26,11 +26,13 @@ JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font
    , surface_width(1920)
    , surface_height(1080)
    , cursor_pos(0)
+   , selection_cursor_box({})
    , scrollbar_position(0.0f)
    , box_gutter_y(10.0f)
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
+   , initialized(false)
 {
 }
 
@@ -124,6 +126,26 @@ float JoystickConfigurationList::get_box_gutter_y() const
 }
 
 
+void JoystickConfigurationList::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::initialize: error: guard \"(!initialized)\" not met");
+   }
+   selection_cursor_box.set_position(0, 0);
+   selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
+   return;
+}
+
+void JoystickConfigurationList::upate()
+{
+   selection_cursor_box.update();
+   return;
+}
+
 void JoystickConfigurationList::render()
 {
    if (!(al_is_system_installed()))
@@ -172,7 +194,24 @@ bool JoystickConfigurationList::move_cursor_down()
       cursor_pos -= joystick_configuration_mapping.size();
    }
 
-   return (previous_cursor_pos != cursor_pos);
+   bool cursor_moved = (previous_cursor_pos != cursor_pos);
+   if (cursor_moved) move_selection_cursor_box_to_cursor_location();
+
+   return cursor_moved;
+}
+
+void JoystickConfigurationList::move_selection_cursor_box_to_cursor_location()
+{
+   // TODO: this function
+   AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_given_cursor_pos(cursor_pos);
+   selection_cursor_box.reposition_to(new_position.x, new_position.y);
+   return;
+}
+
+AllegroFlare::Vec2D JoystickConfigurationList::build_selection_cursor_box_position_given_cursor_pos(int cursor_pos)
+{
+   // TODO: this function
+   return {};
 }
 
 bool JoystickConfigurationList::set_current_cursor_selection_option(uint32_t value)
@@ -296,6 +335,11 @@ float JoystickConfigurationList::infer_container_contents_height()
    return joystick_configuration_mapping.size() * y_spacing - box_gutter_y;
 }
 
+float JoystickConfigurationList::infer_list_item_height()
+{
+   return list_item_box_height;
+}
+
 float JoystickConfigurationList::infer_container_scroll_range()
 {
    return infer_container_contents_height() - infer_container_height();
@@ -410,6 +454,8 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       );
       scrollbar.render();
    }
+
+   selection_cursor_box.render();
 
    place.restore_transform();
    return;

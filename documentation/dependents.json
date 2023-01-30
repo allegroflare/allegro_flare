@@ -483,6 +483,7 @@
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -1058,6 +1059,9 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Elements/SelectionCursorBox": [
+    "AllegroFlare/Elements/JoystickConfigurationList"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"

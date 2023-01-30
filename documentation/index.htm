@@ -3615,6 +3615,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">selection_cursor_box</td>
+  <td class="property">AllegroFlare::Elements::SelectionCursorBox</td>
+</tr>
+<tr>
   <td class="property">scrollbar_position</td>
   <td class="property">float</td>
 </tr>
@@ -3635,6 +3639,10 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">STATE_UNDEF</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -3649,6 +3657,12 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">upate()</td>
+</tr>
+<tr>
   <td class="method">render()</td>
 </tr>
 <tr>
@@ -3659,6 +3673,12 @@ table td
 </tr>
 <tr>
   <td class="method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="method">move_selection_cursor_box_to_cursor_location()</td>
+</tr>
+<tr>
+  <td class="method">build_selection_cursor_box_position_given_cursor_pos(int cursor_pos=0)</td>
 </tr>
 <tr>
   <td class="method">set_current_cursor_selection_option(uint32_t value=0)</td>
@@ -3695,6 +3715,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">infer_container_contents_height()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_list_item_height()</td>
 </tr>
 <tr>
   <td class="private_method">infer_container_scroll_range()</td>
@@ -3753,7 +3776,13 @@ table td
     </table>
      <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -4849,11 +4878,11 @@ table td
     <h3 id="quintessence/AllegroFlare/Elements/SelectionCursorBox.q.yml">quintessence/AllegroFlare/Elements/SelectionCursorBox.q.yml</h3>
      <table>
 <tr>
-  <td class="property">cursor_location</td>
+  <td class="property">cursor_position</td>
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
-  <td class="property">cursor_location_destination</td>
+  <td class="property">cursor_position_destination</td>
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
@@ -4869,13 +4898,26 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">last_repositioned_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_CURSOR_REPOSITION_MULTIPLIER</td>
   <td class="property">float</td>
 </tr>
     </table>
      <table>
 <tr>
-  <td class="method">reposition_to(float x=0.0f, float y=0.0f)</td>
+  <td class="method">set_position(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">set_size(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">resize_to(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -4891,6 +4933,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">draw_cursor()</td>
+</tr>
+<tr>
+  <td class="method">infer_cursor_change_age(float time_now=al_get_time())</td>
 </tr>
     </table>
      <table>
@@ -20147,6 +20192,7 @@ table td
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -20722,6 +20768,9 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Elements/SelectionCursorBox": [
+    "AllegroFlare/Elements/JoystickConfigurationList"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"

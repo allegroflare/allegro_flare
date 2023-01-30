@@ -45,6 +45,10 @@ properties:
     init_with: 0
     getter: true
 
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox
+    init_with: '{}'
+
   - name: scrollbar_position
     type: float
     init_with: 0.0f
@@ -69,6 +73,10 @@ properties:
   - name: state_changed_at
     type: float
     init_with: 0.0f
+
+  - name: initialized
+    type: bool
+    init_with: false
 
   - name: STATE_UNDEF
     type: uint32_t
@@ -103,6 +111,20 @@ documentation:
 
 
 functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      selection_cursor_box.set_position(0, 0);
+      selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
+      return;
+
+
+  - name: upate
+    body: |
+      selection_cursor_box.update();
+      return;
 
 
   - name: render
@@ -149,7 +171,29 @@ functions:
          cursor_pos -= joystick_configuration_mapping.size();
       }
 
-      return (previous_cursor_pos != cursor_pos);
+      bool cursor_moved = (previous_cursor_pos != cursor_pos);
+      if (cursor_moved) move_selection_cursor_box_to_cursor_location();
+
+      return cursor_moved;
+
+
+  - name: move_selection_cursor_box_to_cursor_location
+    body: |
+      // TODO: this function
+      AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_given_cursor_pos(cursor_pos);
+      selection_cursor_box.reposition_to(new_position.x, new_position.y);
+      return;
+
+
+  - name: build_selection_cursor_box_position_given_cursor_pos
+    type: AllegroFlare::Vec2D
+    parameters:
+      - name: cursor_pos
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: this function
+      return {};
 
 
   - name: set_current_cursor_selection_option
@@ -301,6 +345,13 @@ functions:
       return joystick_configuration_mapping.size() * y_spacing - box_gutter_y;
 
 
+  - name: infer_list_item_height
+    type: float
+    private: true
+    body: |
+      return list_item_box_height;
+
+
   - name: infer_container_scroll_range
     type: float
     private: true
@@ -419,6 +470,8 @@ functions:
          );
          scrollbar.render();
       }
+
+      selection_cursor_box.render();
 
       place.restore_transform();
       return;
@@ -706,8 +759,12 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT*

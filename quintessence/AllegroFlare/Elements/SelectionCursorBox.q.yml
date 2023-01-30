@@ -1,21 +1,25 @@
 properties:
 
 
-  - name: cursor_location
+  - name: cursor_position
     type: AllegroFlare::Vec2D
     init_with: '{}'
+    setter: false
 
-  - name: cursor_location_destination
+  - name: cursor_position_destination
     type: AllegroFlare::Vec2D
     init_with: '{}'
+    setter: false
 
   - name: cursor_size
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
+    setter: false
 
   - name: cursor_size_destination
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
+    setter: false
 
   - name: cursor_reposition_multiplier
     type: float
@@ -38,6 +42,40 @@ properties:
 functions:
 
 
+  - name: set_position
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      cursor_position_destination = AllegroFlare::Vec2D(x, y);
+      cursor_position = cursor_position_destination;
+      last_repositioned_at = time_now;
+
+
+  - name: set_size
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      cursor_size_destination = AllegroFlare::Vec2D(x, y);
+      cursor_size = cursor_size_destination;
+      last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+
+
   - name: reposition_to
     parameters:
       - name: x
@@ -50,8 +88,27 @@ functions:
         type: float
         default_argument: al_get_time()
     body: |
-      cursor_location_destination = AllegroFlare::Vec2D(x, y);
+      cursor_position_destination = AllegroFlare::Vec2D(x, y);
       last_repositioned_at = time_now;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+
+
+  - name: resize_to
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      cursor_size_destination = AllegroFlare::Vec2D(x, y);
+      last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
@@ -59,8 +116,8 @@ functions:
 
   - name: update
     body: |
-      cursor_location = (cursor_location_destination - cursor_location)
-                      * cursor_reposition_multiplier + cursor_location;
+      cursor_position = (cursor_position_destination - cursor_position)
+                      * cursor_reposition_multiplier + cursor_position;
       cursor_size = (cursor_size_destination - cursor_size)
                   * cursor_reposition_multiplier + cursor_size;
       return;
@@ -119,7 +176,7 @@ functions:
   - name: draw_cursor
     private: true
     body: |
-      draw_cursor_rectangle(cursor_location.x, cursor_location.y, cursor_size.x, cursor_size.y);
+      draw_cursor_rectangle(cursor_position.x, cursor_position.y, cursor_size.x, cursor_size.y);
       return;
 
 

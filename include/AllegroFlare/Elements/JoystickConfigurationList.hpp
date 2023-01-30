@@ -1,7 +1,9 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
@@ -29,16 +31,19 @@ namespace AllegroFlare
          int surface_width;
          int surface_height;
          int cursor_pos;
+         AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          float scrollbar_position;
          float box_gutter_y;
          uint32_t state;
          bool state_is_busy;
          float state_changed_at;
+         bool initialized;
          void draw_header_title_backfill();
          int count_num_joystick_configuration_mapping();
          void draw_joystick_configuration_mapping_list_title_text();
          float infer_container_height();
          float infer_container_contents_height();
+         float infer_list_item_height();
          float infer_container_scroll_range();
          void limit_scrollbar_position();
          void draw_joystick_configuration_mapping_list_items_and_scrollbar();
@@ -76,10 +81,14 @@ namespace AllegroFlare
          int get_cursor_pos() const;
          float get_scrollbar_position() const;
          float get_box_gutter_y() const;
+         void initialize();
+         void upate();
          void render();
          void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
          bool move_cursor_up();
          bool move_cursor_down();
+         void move_selection_cursor_box_to_cursor_location();
+         AllegroFlare::Vec2D build_selection_cursor_box_position_given_cursor_pos(int cursor_pos=0);
          bool set_current_cursor_selection_option(uint32_t value=0);
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
