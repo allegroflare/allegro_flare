@@ -193,8 +193,18 @@ void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<s
 bool JoystickConfigurationList::move_cursor_up()
 {
    if (joystick_configuration_mapping.empty()) return false;
-   // TODO: this function
-   // TODO: add option to "wrap"
+
+   int previous_cursor_pos = cursor_pos;
+   cursor_pos--;
+   // TODO: add optional "wrap"
+   while (cursor_pos < 0)
+   {
+      cursor_pos += joystick_configuration_mapping.size();
+   }
+
+   bool cursor_moved = (previous_cursor_pos != cursor_pos);
+   if (cursor_moved) move_selection_cursor_box_to_current_cursor_location();
+
    return true;
 }
 
@@ -403,6 +413,13 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       joystick_configuration_mapping_list_height
    );
 
+   AllegroFlare::Placement2D scrollarea_contents(
+      0,
+      -scrollbar_position,
+      0,
+      0
+   );
+
    place.start_transform();
 
    // draw the empty state (if there is no configuration)
@@ -426,6 +443,10 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       );
    }
 
+   // scrollarea contents
+
+   scrollarea_contents.start_transform();
+
    // draw the items in the list
    for (int i=0; i<joystick_configuration_mapping.size(); i++)
    {
@@ -436,7 +457,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       // HERE: render
       draw_joystick_configuration_item_box(
          joystick_configuration_mapping_box_list_x,
-         joystick_configuration_mapping_box_list_y + i * y_spacing - scrollbar_position,
+         joystick_configuration_mapping_box_list_y + i * y_spacing,
          action_label,
          "Button " + std::to_string(mapped_button_num)
       );
@@ -449,6 +470,10 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
          //description
       //);
    }
+
+   selection_cursor_box.render();
+
+   scrollarea_contents.restore_transform();
 
    //// draw the frame
    //al_draw_rounded_rectangle(
@@ -475,8 +500,6 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       );
       scrollbar.render();
    }
-
-   selection_cursor_box.render();
 
    place.restore_transform();
    return;

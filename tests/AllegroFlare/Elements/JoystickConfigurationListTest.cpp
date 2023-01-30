@@ -177,15 +177,19 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-               case ALLEGRO_KEY_PGUP:
                   achievements_list.move_cursor_up();
-                  //achievements_list.move_scrollbar_position(-20.0);
                break;
 
                case ALLEGRO_KEY_DOWN:
-               case ALLEGRO_KEY_PGDN:
                   achievements_list.move_cursor_down();
-                  //achievements_list.move_scrollbar_position(20.0);
+               break;
+
+               case ALLEGRO_KEY_PGUP:
+                  achievements_list.move_scrollbar_position(-20.0);
+               break;
+
+               case ALLEGRO_KEY_PGDN:
+                  achievements_list.move_scrollbar_position(20.0);
                break;
             }
          }
