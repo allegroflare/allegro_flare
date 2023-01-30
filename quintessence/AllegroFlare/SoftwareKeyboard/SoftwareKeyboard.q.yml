@@ -47,6 +47,12 @@ properties:
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
 
+  - name: cursor_reposition_multiplier
+    type: float
+    init_with: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
+    getter: true
+    setter: false
+
   - name: initialized
     type: bool
     init_with: false
@@ -140,6 +146,19 @@ properties:
     static: true
     init_with: '(char*)"Inter-Medium.ttf"'
 
+  - name: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
+    type: float
+    constexpr: true
+    static: true
+    init_with: 0.6f
+
+
+documentation:
+
+
+  - todos:
+      - Find a more technically proper name for "cursor_reposition_multiplier", "DEFAULT_CURSOR_REPOSITION_MULTIPLIER"
+
 
 functions:
 
@@ -162,6 +181,17 @@ functions:
       cursor_location = cursor_destination;
       cursor_size = cursor_size_destination;
       cursor_pos = 0;
+      return;
+
+
+  - name: set_cursor_reposition_multiplier
+    parameters:
+      - name: cursor_reposition_multiplier
+        type: float
+        default_argument: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
+    guards: [ (cursor_reposition_multiplier > 0.1f), (cursor_reposition_multiplier <= 1.0f) ]
+    body: |
+      this->cursor_reposition_multiplier = cursor_reposition_multiplier;
       return;
 
 
@@ -528,8 +558,8 @@ functions:
     guards: [ initialized ]
     body: |
       // this is a soft "update" here to update the live-moving cursor location
-      cursor_location = (cursor_destination - cursor_location) * 0.55 + cursor_location;
-      cursor_size = (cursor_size_destination - cursor_size) * 0.55 + cursor_size;
+      cursor_location = (cursor_destination - cursor_location) * cursor_reposition_multiplier + cursor_location;
+      cursor_size = (cursor_size_destination - cursor_size) * cursor_reposition_multiplier + cursor_size;
 
       keyboard_placement.start_transform();
 

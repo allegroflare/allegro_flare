@@ -30,6 +30,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , cursor_pos(0)
    , cursor_destination({})
    , cursor_size_destination(80, 80)
+   , cursor_reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
    , initialized(false)
    , show_rectangle_outline_on_keys(false)
    , keyboard_placement({})
@@ -135,6 +136,12 @@ int SoftwareKeyboard::get_font_size() const
 }
 
 
+float SoftwareKeyboard::get_cursor_reposition_multiplier() const
+{
+   return cursor_reposition_multiplier;
+}
+
+
 bool SoftwareKeyboard::get_initialized() const
 {
    return initialized;
@@ -209,6 +216,26 @@ void SoftwareKeyboard::reset()
    cursor_location = cursor_destination;
    cursor_size = cursor_size_destination;
    cursor_pos = 0;
+   return;
+}
+
+void SoftwareKeyboard::set_cursor_reposition_multiplier(float cursor_reposition_multiplier)
+{
+   if (!((cursor_reposition_multiplier > 0.1f)))
+   {
+      std::stringstream error_message;
+      error_message << "[SoftwareKeyboard::set_cursor_reposition_multiplier]: error: guard \"(cursor_reposition_multiplier > 0.1f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SoftwareKeyboard::set_cursor_reposition_multiplier: error: guard \"(cursor_reposition_multiplier > 0.1f)\" not met");
+   }
+   if (!((cursor_reposition_multiplier <= 1.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[SoftwareKeyboard::set_cursor_reposition_multiplier]: error: guard \"(cursor_reposition_multiplier <= 1.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SoftwareKeyboard::set_cursor_reposition_multiplier: error: guard \"(cursor_reposition_multiplier <= 1.0f)\" not met");
+   }
+   this->cursor_reposition_multiplier = cursor_reposition_multiplier;
    return;
 }
 
@@ -559,8 +586,8 @@ void SoftwareKeyboard::render()
       throw std::runtime_error("SoftwareKeyboard::render: error: guard \"initialized\" not met");
    }
    // this is a soft "update" here to update the live-moving cursor location
-   cursor_location = (cursor_destination - cursor_location) * 0.55 + cursor_location;
-   cursor_size = (cursor_size_destination - cursor_size) * 0.55 + cursor_size;
+   cursor_location = (cursor_destination - cursor_location) * cursor_reposition_multiplier + cursor_location;
+   cursor_size = (cursor_size_destination - cursor_size) * cursor_reposition_multiplier + cursor_size;
 
    keyboard_placement.start_transform();
 

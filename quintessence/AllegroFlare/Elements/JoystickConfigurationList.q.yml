@@ -96,8 +96,7 @@ documentation:
 
 
   - todos:
-      - Add an "exit screen" button command (this should probably belong in Screens/JoystickConfiguration)
-      - Add a "start configuration" step-by-step process
+      - Consider adding a "start configuration" step-by-step process
       - Add a "reset to default" option
       - Add cursor movement up and down to select current option to modify
       - Modify a current selected button

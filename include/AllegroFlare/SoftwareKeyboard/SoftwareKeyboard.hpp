@@ -25,6 +25,7 @@ namespace AllegroFlare
          static constexpr const char* DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER = (char*)"menu-click-01.ogg";
          static constexpr const char* DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER = (char*)"delete-item-01.ogg";
          static constexpr const char* DEFAULT_FONT_NAME = (char*)"Inter-Medium.ttf";
+         static constexpr float DEFAULT_CURSOR_REPOSITION_MULTIPLIER = 0.6f;
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -35,6 +36,7 @@ namespace AllegroFlare
          int cursor_pos;
          AllegroFlare::Vec2D cursor_destination;
          AllegroFlare::Vec2D cursor_size_destination;
+         float cursor_reposition_multiplier;
          bool initialized;
          bool show_rectangle_outline_on_keys;
          AllegroFlare::Placement2D keyboard_placement;
@@ -83,6 +85,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_font_name() const;
          int get_font_size() const;
+         float get_cursor_reposition_multiplier() const;
          bool get_initialized() const;
          std::string get_prompt_text() const;
          std::string get_result_string() const;
@@ -94,6 +97,7 @@ namespace AllegroFlare
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void reset();
+         void set_cursor_reposition_multiplier(float cursor_reposition_multiplier=DEFAULT_CURSOR_REPOSITION_MULTIPLIER);
          void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void set_keyboard_dimentions(float width=1, float height=1);
          void set_keyboard_position(float x=0, float y=0);
