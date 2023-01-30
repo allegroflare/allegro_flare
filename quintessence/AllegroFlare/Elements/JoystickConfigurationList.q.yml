@@ -12,7 +12,7 @@ properties:
     init_with: '{}'
     constructor_arg: true
     getter: true
-    setter: true
+    setter: false
 
   - name: list_item_box_width
     type: float
@@ -117,28 +117,51 @@ functions:
       - AllegroFlare::Placement2D
 
 
-  - name: move_cursor_up
+  - name: set_joystick_configuration_mapping
+    parameters:
+      - name: joystick_configuration_mapping
+        type: std::vector<std::tuple<std::string, uint32_t>>
+        default_argument: '{}'
     body: |
+      this->joystick_configuration_mapping = joystick_configuration_mapping;
+      cursor_pos = 0;
+      return;
+
+
+  - name: move_cursor_up
+    type: bool
+    body: |
+      if (joystick_configuration_mapping.empty()) return false;
       // TODO: this function
       // TODO: add option to "wrap"
-      return;
+      return true;
 
 
   - name: move_cursor_down
+    type: bool
     body: |
-      // TODO: this function
-      // TODO: add option to "wrap"
-      return;
+      if (joystick_configuration_mapping.empty()) return false;
+
+      int previous_cursor_pos = cursor_pos;
+      cursor_pos++;
+      // TODO: add optional "wrap"
+      while (cursor_pos >= joystick_configuration_mapping.size())
+      {
+         cursor_pos -= joystick_configuration_mapping.size();
+      }
+
+      return (previous_cursor_pos != cursor_pos);
 
 
   - name: set_current_cursor_selection_option
+    type: bool
     parameters:
       - name: value
         type: uint32_t
         default_argument: 0
     body: |
       // TODO: this function
-      return;
+      return true;
 
 
   - name: move_scrollbar_position

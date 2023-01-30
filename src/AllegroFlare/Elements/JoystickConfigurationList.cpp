@@ -46,12 +46,6 @@ void JoystickConfigurationList::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping)
-{
-   this->joystick_configuration_mapping = joystick_configuration_mapping;
-}
-
-
 void JoystickConfigurationList::set_list_item_box_width(float list_item_box_width)
 {
    this->list_item_box_width = list_item_box_width;
@@ -151,24 +145,40 @@ void JoystickConfigurationList::render()
    return;
 }
 
-void JoystickConfigurationList::move_cursor_up()
+void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping)
 {
-   // TODO: this function
-   // TODO: add option to "wrap"
+   this->joystick_configuration_mapping = joystick_configuration_mapping;
+   cursor_pos = 0;
    return;
 }
 
-void JoystickConfigurationList::move_cursor_down()
+bool JoystickConfigurationList::move_cursor_up()
 {
+   if (joystick_configuration_mapping.empty()) return false;
    // TODO: this function
    // TODO: add option to "wrap"
-   return;
+   return true;
 }
 
-void JoystickConfigurationList::set_current_cursor_selection_option(uint32_t value)
+bool JoystickConfigurationList::move_cursor_down()
+{
+   if (joystick_configuration_mapping.empty()) return false;
+
+   int previous_cursor_pos = cursor_pos;
+   cursor_pos++;
+   // TODO: add optional "wrap"
+   while (cursor_pos >= joystick_configuration_mapping.size())
+   {
+      cursor_pos -= joystick_configuration_mapping.size();
+   }
+
+   return (previous_cursor_pos != cursor_pos);
+}
+
+bool JoystickConfigurationList::set_current_cursor_selection_option(uint32_t value)
 {
    // TODO: this function
-   return;
+   return true;
 }
 
 void JoystickConfigurationList::move_scrollbar_position(float distance_y)

@@ -46,6 +46,28 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
 
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
+   set_joystick_configuration_mapping__will_reset_the_cursor_pos_back_to_0)
+{
+   AllegroFlare::Elements::JoystickConfigurationList achievements(
+      &get_font_bin_ref(),
+      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+   );
+
+   achievements.move_cursor_down();
+   achievements.move_cursor_down();
+   achievements.move_cursor_down();
+
+   ASSERT_NE(0, achievements.get_cursor_pos()); // TODO: remove this assertion and have this case tested in another test
+
+   achievements.set_joystick_configuration_mapping(
+      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+   );
+
+   EXPECT_EQ(0, achievements.get_cursor_pos());
+}
+
+
+TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_as_expected)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());

@@ -63,7 +63,6 @@ namespace AllegroFlare
          ~JoystickConfigurationList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
-         void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping);
          void set_list_item_box_width(float list_item_box_width);
          void set_list_item_box_height(float list_item_box_height);
          void set_surface_width(int surface_width);
@@ -78,9 +77,10 @@ namespace AllegroFlare
          float get_scrollbar_position() const;
          float get_box_gutter_y() const;
          void render();
-         void move_cursor_up();
-         void move_cursor_down();
-         void set_current_cursor_selection_option(uint32_t value=0);
+         void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
+         bool move_cursor_up();
+         bool move_cursor_down();
+         bool set_current_cursor_selection_option(uint32_t value=0);
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
          void set_scrollbar_position_to_max();
