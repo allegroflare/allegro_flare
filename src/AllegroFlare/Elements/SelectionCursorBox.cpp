@@ -24,6 +24,7 @@ SelectionCursorBox::SelectionCursorBox()
    , cursor_size(80, 80)
    , cursor_size_destination(80, 80)
    , cursor_reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
+   , last_repositioned_at(0.0f)
 {
 }
 
@@ -39,9 +40,16 @@ float SelectionCursorBox::get_cursor_reposition_multiplier() const
 }
 
 
-void SelectionCursorBox::reposition_to(float x, float y)
+float SelectionCursorBox::get_last_repositioned_at() const
+{
+   return last_repositioned_at;
+}
+
+
+void SelectionCursorBox::reposition_to(float x, float y, float time_now)
 {
    cursor_location_destination = AllegroFlare::Vec2D(x, y);
+   last_repositioned_at = time_now;
    return;
 }
 
@@ -79,7 +87,7 @@ ALLEGRO_COLOR SelectionCursorBox::build_cursor_color()
    ALLEGRO_COLOR color_a = al_color_name("aquamarine");
    ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
    float speed_multiplier = 0.9;
-   float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
+   float mix_factor = AllegroFlare::interpolator::slow_in(fmod(infer_cursor_change_age() * speed_multiplier, 1.0));
    return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
 }
 
@@ -98,6 +106,11 @@ void SelectionCursorBox::draw_cursor()
 {
    draw_cursor_rectangle(cursor_location.x, cursor_location.y, cursor_size.x, cursor_size.y);
    return;
+}
+
+float SelectionCursorBox::infer_cursor_change_age(float time_now)
+{
+   return (time_now - last_repositioned_at);
 }
 
 

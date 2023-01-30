@@ -23,6 +23,11 @@ properties:
     getter: true
     setter: false
 
+  - name: last_repositioned_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
   - name: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
     type: float
     constexpr: true
@@ -41,8 +46,12 @@ functions:
       - name: y
         type: float
         default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
     body: |
       cursor_location_destination = AllegroFlare::Vec2D(x, y);
+      last_repositioned_at = time_now;
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
@@ -74,7 +83,7 @@ functions:
       ALLEGRO_COLOR color_a = al_color_name("aquamarine");
       ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
       float speed_multiplier = 0.9;
-      float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
+      float mix_factor = AllegroFlare::interpolator::slow_in(fmod(infer_cursor_change_age() * speed_multiplier, 1.0));
       return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
 
 
@@ -112,6 +121,16 @@ functions:
     body: |
       draw_cursor_rectangle(cursor_location.x, cursor_location.y, cursor_size.x, cursor_size.y);
       return;
+
+
+  - name: infer_cursor_change_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return (time_now - last_repositioned_at);
 
 
 dependencies:
