@@ -28,11 +28,11 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTest, can_be_created_witho
 }
 
 
-TEST_F(AllegroFlare_Elements_JoystickConfigurationListTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_JoystickConfigurationListTest, render__before_initialization__raises_an_error)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements;
    std::string expected_error_message =
-      "JoystickConfigurationList::render: error: guard \"al_is_system_installed()\" not met";
+      "JoystickConfigurationList::render: error: guard \"initialized\" not met";
    ASSERT_THROW_WITH_MESSAGE(achievements.render(), std::runtime_error, expected_error_message);
 }
 
@@ -40,6 +40,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTest, render__without_alle
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture, update__will_not_blow_up)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
+   achievements.initialize();
    achievements.update();
    SUCCEED();
 }
@@ -48,6 +49,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
+   achievements.initialize();
    achievements.render();
    SUCCEED();
 }
@@ -82,6 +84,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    achievements.set_joystick_configuration_mapping(
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
    );
+   achievements.initialize();
    achievements.render();
    al_flip_display();
    sleep_for(1);

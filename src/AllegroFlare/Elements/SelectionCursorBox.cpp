@@ -23,6 +23,9 @@ SelectionCursorBox::SelectionCursorBox()
    , cursor_position_destination({})
    , cursor_size(80, 80)
    , cursor_size_destination(80, 80)
+   , cursor_padding(4.0f, 4.0f)
+   , roundness(8.0f)
+   , thickness(6.0f)
    , cursor_reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
    , last_repositioned_at(0.0f)
 {
@@ -58,6 +61,12 @@ void SelectionCursorBox::set_size(float x, float y, float time_now)
    cursor_size_destination = AllegroFlare::Vec2D(x, y);
    cursor_size = cursor_size_destination;
    last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+}
+
+void SelectionCursorBox::set_padding(float padding_x, float padding_y, float time_now)
+{
+   cursor_padding = AllegroFlare::Vec2D(padding_x, padding_y);
+   return;
 }
 
 void SelectionCursorBox::reposition_to(float x, float y, float time_now)
@@ -112,20 +121,34 @@ ALLEGRO_COLOR SelectionCursorBox::build_cursor_color()
    return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
 }
 
-void SelectionCursorBox::draw_cursor_rectangle(float x, float y, float w, float h)
+void SelectionCursorBox::draw_cursor_rectangle(float x, float y, float w, float h, float padding_x, float padding_y)
 {
    // color
    ALLEGRO_COLOR color = build_cursor_color();
-   float roundness = 8;
-   float thickness = 6.0;
 
-   al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
+   al_draw_rounded_rectangle(
+      x - padding_x,
+      y - padding_y,
+      x + w + padding_x,
+      y + h + padding_y,
+      roundness,
+      roundness,
+      color,
+      thickness
+   );
    return;
 }
 
 void SelectionCursorBox::draw_cursor()
 {
-   draw_cursor_rectangle(cursor_position.x, cursor_position.y, cursor_size.x, cursor_size.y);
+   draw_cursor_rectangle(
+      cursor_position.x,
+      cursor_position.y,
+      cursor_size.x,
+      cursor_size.y,
+      cursor_padding.x,
+      cursor_padding.y
+   );
    return;
 }
 

@@ -82,7 +82,7 @@ namespace AllegroFlare
          float get_scrollbar_position() const;
          float get_box_gutter_y() const;
          void initialize();
-         void upate();
+         void update();
          void render();
          void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
          bool move_cursor_up();

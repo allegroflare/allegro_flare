@@ -3660,7 +3660,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">upate()</td>
+  <td class="method">update()</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -4894,6 +4894,18 @@ table td
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
+  <td class="property">cursor_padding</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">roundness</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">thickness</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">cursor_reposition_multiplier</td>
   <td class="property">float</td>
 </tr>
@@ -4914,6 +4926,9 @@ table td
   <td class="method">set_size(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
 </tr>
 <tr>
+  <td class="method">set_padding(float padding_x=0.0f, float padding_y=0.0f, float time_now=0 /* this arg currently not used */)</td>
+</tr>
+<tr>
   <td class="method">reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
 </tr>
 <tr>
@@ -4929,7 +4944,7 @@ table td
   <td class="private_method">build_cursor_color()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f)</td>
+  <td class="private_method">draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, float padding_x=0.0f, float padding_y=0.0f)</td>
 </tr>
 <tr>
   <td class="private_method">draw_cursor()</td>

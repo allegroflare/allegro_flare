@@ -114,14 +114,17 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       selection_cursor_box.set_position(0, 0);
       selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
+      selection_cursor_box.set_padding(6.0f, 6.0f);
+      initialized = true;
       return;
 
 
-  - name: upate
+  - name: update
+    guards: [ initialized ]
     body: |
       selection_cursor_box.update();
       return;
@@ -129,7 +132,7 @@ functions:
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ initialized ]
     body: |
       draw_joystick_configuration_mapping_list_items_and_scrollbar();
       draw_joystick_configuration_mapping_list_title_text();

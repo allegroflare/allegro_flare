@@ -21,6 +21,23 @@ properties:
     init_with: '80, 80'
     setter: false
 
+  - name: cursor_padding
+    type: AllegroFlare::Vec2D
+    init_with: '4.0f, 4.0f'
+    setter: false
+
+  - name: roundness
+    type: float
+    init_with: 8.0f
+    getter: false
+    setter: false
+
+  - name: thickness
+    type: float
+    init_with: 6.0f
+    getter: false
+    setter: false
+
   - name: cursor_reposition_multiplier
     type: float
     init_with: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
@@ -74,6 +91,22 @@ functions:
       cursor_size_destination = AllegroFlare::Vec2D(x, y);
       cursor_size = cursor_size_destination;
       last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+
+
+  - name: set_padding
+    parameters:
+      - name: padding_x
+        type: float
+        default_argument: 0.0f
+      - name: padding_y
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: '0 /* this arg currently not used */'
+    body: |
+      cursor_padding = AllegroFlare::Vec2D(padding_x, padding_y);
+      return;
 
 
   - name: reposition_to
@@ -159,13 +192,26 @@ functions:
       - name: h
         type: float
         default_argument: 0.0f
+      - name: padding_x
+        type: float
+        default_argument: 0.0f
+      - name: padding_y
+        type: float
+        default_argument: 0.0f
     body: |
       // color
       ALLEGRO_COLOR color = build_cursor_color();
-      float roundness = 8;
-      float thickness = 6.0;
 
-      al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
+      al_draw_rounded_rectangle(
+         x - padding_x,
+         y - padding_y,
+         x + w + padding_x,
+         y + h + padding_y,
+         roundness,
+         roundness,
+         color,
+         thickness
+      );
       return;
     body_dependency_symbols:
       - fmod
@@ -176,7 +222,14 @@ functions:
   - name: draw_cursor
     private: true
     body: |
-      draw_cursor_rectangle(cursor_position.x, cursor_position.y, cursor_size.x, cursor_size.y);
+      draw_cursor_rectangle(
+         cursor_position.x,
+         cursor_position.y,
+         cursor_size.x,
+         cursor_size.y,
+         cursor_padding.x,
+         cursor_padding.y
+      );
       return;
 
 

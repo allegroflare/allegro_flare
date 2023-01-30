@@ -135,32 +135,48 @@ void JoystickConfigurationList::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("JoystickConfigurationList::initialize: error: guard \"(!initialized)\" not met");
    }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::initialize: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+   }
    selection_cursor_box.set_position(0, 0);
    selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
+   selection_cursor_box.set_padding(6.0f, 6.0f);
+   initialized = true;
    return;
 }
 
-void JoystickConfigurationList::upate()
+void JoystickConfigurationList::update()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::update]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::update: error: guard \"initialized\" not met");
+   }
    selection_cursor_box.update();
    return;
 }
 
 void JoystickConfigurationList::render()
 {
-   if (!(al_is_system_installed()))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[JoystickConfigurationList::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::render: error: guard \"al_is_system_installed()\" not met");
-   }
-   if (!(al_is_font_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("JoystickConfigurationList::render: error: guard \"initialized\" not met");
    }
    draw_joystick_configuration_mapping_list_items_and_scrollbar();
    draw_joystick_configuration_mapping_list_title_text();
