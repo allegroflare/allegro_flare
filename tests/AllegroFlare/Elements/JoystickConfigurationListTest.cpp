@@ -95,6 +95,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    CAPTURE__render__when_no_joystick_configuration_mapping_elements_are_present__will_show_an_empty_state)
 {
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
+   achievements.initialize();
    achievements.render();
    al_flip_display();
    sleep_for(1);
@@ -108,6 +109,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    achievements.set_joystick_configuration_mapping(
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
    );
+   achievements.initialize();
 
    int num_scrolls = 120;
    float amount_per_scroll = 2.6;
@@ -129,6 +131,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping();
    achievements.resize(4);
    AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref(), achievements);
+   achievements_list.initialize();
 
    clear();
    achievements_list.render();
@@ -137,7 +140,8 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
 
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
+   //DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -158,6 +162,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    // initialize test subject
    AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref());
    achievements_list.set_joystick_configuration_mapping(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping());
+   achievements_list.initialize();
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -173,12 +178,14 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
             {
                case ALLEGRO_KEY_UP:
                case ALLEGRO_KEY_PGUP:
-                  achievements_list.move_scrollbar_position(-20.0);
+                  achievements_list.move_cursor_up();
+                  //achievements_list.move_scrollbar_position(-20.0);
                break;
 
                case ALLEGRO_KEY_DOWN:
                case ALLEGRO_KEY_PGDN:
-                  achievements_list.move_scrollbar_position(20.0);
+                  achievements_list.move_cursor_down();
+                  //achievements_list.move_scrollbar_position(20.0);
                break;
             }
          }
