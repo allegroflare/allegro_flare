@@ -279,16 +279,16 @@ bool JoystickConfigurationList::scrollbar_is_autohidden_because_list_contents_is
 std::vector<std::tuple<std::string, uint32_t>> JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
 {
    return {
+      { "Up", 7 },
+      { "Down", 8 },
+      { "Left", 9 },
+      { "Right", 10 },
       { "Primary Action", 1 },
       { "Secondary Action", 2 },
       { "Back", 3 },
       { "Start / Menu", 4 },
       { "Right Bumper", 5 },
       { "Left Bumper", 6 },
-      { "Up", 7 },
-      { "Down", 8 },
-      { "Left", 9 },
-      { "Right", 10 },
       //{ "unlocked", "Fade In", "Start out in the world." },
       //{ "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       //{ "locked",   "Save the Cat", "Define the hero and make the audience like them." },
