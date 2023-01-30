@@ -176,10 +176,13 @@ std::vector<std::tuple<std::string, uint32_t>> JoystickConfigurationList::build_
       { "Primary Action", 1 },
       { "Secondary Action", 2 },
       { "Back", 3 },
-      { "Up", 4 },
-      { "Down", 5 },
-      { "Left", 6 },
-      { "Right", 7 },
+      { "Start / Menu", 4 },
+      { "Right Bumper", 5 },
+      { "Left Bumper", 6 },
+      { "Up", 7 },
+      { "Down", 8 },
+      { "Left", 9 },
+      { "Right", 10 },
       //{ "unlocked", "Fade In", "Start out in the world." },
       //{ "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
       //{ "locked",   "Save the Cat", "Define the hero and make the audience like them." },
@@ -247,13 +250,9 @@ float JoystickConfigurationList::infer_container_height()
 
 float JoystickConfigurationList::infer_container_contents_height()
 {
+   if (joystick_configuration_mapping.empty()) return 0;
    float y_spacing = list_item_box_height + box_gutter_y;
-   return joystick_configuration_mapping.size() * y_spacing - box_gutter_y; // <- this should be revised
-                                                          // to take into account
-                                                          // lists of size 0; E.g.
-                                                          // Box gutter y should not
-                                                          // be subtracted in that
-                                                          // case
+   return joystick_configuration_mapping.size() * y_spacing - box_gutter_y;
 }
 
 float JoystickConfigurationList::infer_container_scroll_range()
@@ -286,7 +285,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
    float y_spacing = list_item_box_height + box_gutter_y;
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
-   float container_height = infer_container_height();
+   float joystick_configuration_mapping_list_height = infer_container_height();
    float container_contents_height = infer_container_contents_height();
    float container_scroll_range = infer_container_scroll_range();
    float normalized_scrollbar_position = scrollbar_position / container_scroll_range;
@@ -295,10 +294,19 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       joystick_configuration_mapping_list_x,
       joystick_configuration_mapping_list_y,
       joystick_configuration_mapping_list_width,
-      container_height
+      joystick_configuration_mapping_list_height
    );
 
    place.start_transform();
+
+   // draw the empty state (if there is no configuration)
+   if (joystick_configuration_mapping.empty())
+   {
+      ALLEGRO_FONT *empty_state_text_font = obtain_empty_state_text_font();
+      float empty_state_text_x = joystick_configuration_mapping_list_width / 2;
+      float empty_state_text_y = joystick_configuration_mapping_list_height / 2
+                               - al_get_font_line_height(empty_state_text_font) / 2;
+   }
 
    // draw the items in the list
    for (int i=0; i<joystick_configuration_mapping.size(); i++)
@@ -342,7 +350,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       AllegroFlare::Elements::Scrollbar scrollbar(
          joystick_configuration_mapping_list_width + scrollbar_x_padding,
          scrollbar_y_padding,
-         container_height - scrollbar_y_padding * 2,
+         joystick_configuration_mapping_list_height - scrollbar_y_padding * 2,
          normalized_scrollbar_position,
          scrollbar_bar_color,
          scrollbar_handle_color
@@ -453,6 +461,18 @@ ALLEGRO_FONT* JoystickConfigurationList::obtain_item_title_font()
       throw std::runtime_error("JoystickConfigurationList::obtain_item_title_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -34");
+}
+
+ALLEGRO_FONT* JoystickConfigurationList::obtain_empty_state_text_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::obtain_empty_state_text_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::obtain_empty_state_text_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-Medium.ttf -34");
 }
 
 ALLEGRO_FONT* JoystickConfigurationList::obtain_item_description_font()
