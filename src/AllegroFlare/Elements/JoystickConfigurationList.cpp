@@ -302,10 +302,22 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
    // draw the empty state (if there is no configuration)
    if (joystick_configuration_mapping.empty())
    {
+      std::string empty_state_text_string = "There are no items to configure";
       ALLEGRO_FONT *empty_state_text_font = obtain_empty_state_text_font();
+      // TODO: Consider if this empty_state_text_color value might correlate with the empty state text color
+      // in the framework (for example, the "No screens are currently showing" message).
+      ALLEGRO_COLOR empty_state_text_color = ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4};
       float empty_state_text_x = joystick_configuration_mapping_list_width / 2;
       float empty_state_text_y = joystick_configuration_mapping_list_height / 2
-                               - al_get_font_line_height(empty_state_text_font) / 2;
+                               - al_get_font_line_height(empty_state_text_font);
+      al_draw_text(
+         empty_state_text_font,
+         empty_state_text_color,
+         empty_state_text_x,
+         empty_state_text_y,
+         ALLEGRO_ALIGN_CENTER,
+         empty_state_text_string.c_str()
+      );
    }
 
    // draw the items in the list
