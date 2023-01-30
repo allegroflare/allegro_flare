@@ -40,6 +40,11 @@ properties:
     getter: true
     setter: true
 
+  - name: cursor_pos
+    type: int
+    init_with: 0
+    getter: true
+
   - name: scrollbar_position
     type: float
     init_with: 0.0f
@@ -112,6 +117,30 @@ functions:
       - AllegroFlare::Placement2D
 
 
+  - name: move_cursor_up
+    body: |
+      // TODO: this function
+      // TODO: add option to "wrap"
+      return;
+
+
+  - name: move_cursor_down
+    body: |
+      // TODO: this function
+      // TODO: add option to "wrap"
+      return;
+
+
+  - name: set_current_cursor_selection_option
+    parameters:
+      - name: value
+        type: uint32_t
+        default_argument: 0
+    body: |
+      // TODO: this function
+      return;
+
+
   - name: move_scrollbar_position
     parameters:
       - name: distance_y
@@ -144,6 +173,7 @@ functions:
     type: float
     body: |
       return infer_container_scroll_range();
+
 
 
   - name: scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container

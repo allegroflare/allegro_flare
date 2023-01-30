@@ -25,6 +25,7 @@ JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font
    , list_item_box_height(list_item_box_height)
    , surface_width(1920)
    , surface_height(1080)
+   , cursor_pos(0)
    , scrollbar_position(0.0f)
    , box_gutter_y(10.0f)
    , state(STATE_UNDEF)
@@ -111,6 +112,12 @@ int JoystickConfigurationList::get_surface_height() const
 }
 
 
+int JoystickConfigurationList::get_cursor_pos() const
+{
+   return cursor_pos;
+}
+
+
 float JoystickConfigurationList::get_scrollbar_position() const
 {
    return scrollbar_position;
@@ -141,6 +148,26 @@ void JoystickConfigurationList::render()
    }
    draw_joystick_configuration_mapping_list_items_and_scrollbar();
    draw_joystick_configuration_mapping_list_title_text();
+   return;
+}
+
+void JoystickConfigurationList::move_cursor_up()
+{
+   // TODO: this function
+   // TODO: add option to "wrap"
+   return;
+}
+
+void JoystickConfigurationList::move_cursor_down()
+{
+   // TODO: this function
+   // TODO: add option to "wrap"
+   return;
+}
+
+void JoystickConfigurationList::set_current_cursor_selection_option(uint32_t value)
+{
+   // TODO: this function
    return;
 }
 

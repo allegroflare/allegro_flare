@@ -28,6 +28,7 @@ namespace AllegroFlare
          float list_item_box_height;
          int surface_width;
          int surface_height;
+         int cursor_pos;
          float scrollbar_position;
          float box_gutter_y;
          uint32_t state;
@@ -73,9 +74,13 @@ namespace AllegroFlare
          float get_list_item_box_height() const;
          int get_surface_width() const;
          int get_surface_height() const;
+         int get_cursor_pos() const;
          float get_scrollbar_position() const;
          float get_box_gutter_y() const;
          void render();
+         void move_cursor_up();
+         void move_cursor_down();
+         void set_current_cursor_selection_option(uint32_t value=0);
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
          void set_scrollbar_position_to_max();

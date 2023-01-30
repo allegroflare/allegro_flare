@@ -3610,6 +3610,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">cursor_pos</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">scrollbar_position</td>
   <td class="property">float</td>
 </tr>
@@ -3645,6 +3649,15 @@ table td
      <table>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="method">set_current_cursor_selection_option(uint32_t value=0)</td>
 </tr>
 <tr>
   <td class="method">move_scrollbar_position(float distance_y=0.0f)</td>
@@ -3704,7 +3717,7 @@ table td
   <td class="private_method">filter_item_description_through_status(std::string description=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+  <td class="private_method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
 </tr>
 <tr>
   <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
