@@ -87,8 +87,8 @@ namespace AllegroFlare
          void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
          bool move_cursor_up();
          bool move_cursor_down();
-         void move_selection_cursor_box_to_cursor_location();
-         AllegroFlare::Vec2D build_selection_cursor_box_position_given_cursor_pos(int cursor_pos=0);
+         void move_selection_cursor_box_to_current_cursor_location();
+         AllegroFlare::Vec2D build_selection_cursor_box_position_of_current_cursor_pos();
          bool set_current_cursor_selection_option(uint32_t value=0);
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
@@ -96,6 +96,7 @@ namespace AllegroFlare
          float infer_scrollbar_max_position();
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          static std::vector<std::tuple<std::string, uint32_t>> build_placeholder_joystick_configuration_mapping();
+         float infer_list_item_spacing_y();
          static bool is_valid_state(uint32_t state=STATE_UNDEF);
          bool is_state(uint32_t possible_state=STATE_UNDEF);
          float infer_current_state_age(float time_now=al_get_time());

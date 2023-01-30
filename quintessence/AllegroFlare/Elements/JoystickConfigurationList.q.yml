@@ -175,28 +175,24 @@ functions:
       }
 
       bool cursor_moved = (previous_cursor_pos != cursor_pos);
-      if (cursor_moved) move_selection_cursor_box_to_cursor_location();
+      if (cursor_moved) move_selection_cursor_box_to_current_cursor_location();
 
       return cursor_moved;
 
 
-  - name: move_selection_cursor_box_to_cursor_location
+  - name: move_selection_cursor_box_to_current_cursor_location
     body: |
       // TODO: this function
-      AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_given_cursor_pos(cursor_pos);
+      AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
       selection_cursor_box.reposition_to(new_position.x, new_position.y);
       return;
 
 
-  - name: build_selection_cursor_box_position_given_cursor_pos
+  - name: build_selection_cursor_box_position_of_current_cursor_pos
     type: AllegroFlare::Vec2D
-    parameters:
-      - name: cursor_pos
-        type: int
-        default_argument: 0
     body: |
-      // TODO: this function
-      return {};
+      //return AllegroFlare::Vec2D(100, 100);
+      return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
 
 
   - name: set_current_cursor_selection_option
@@ -242,7 +238,6 @@ functions:
     type: float
     body: |
       return infer_container_scroll_range();
-
 
 
   - name: scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container
@@ -355,6 +350,12 @@ functions:
       return list_item_box_height;
 
 
+  - name: infer_list_item_spacing_y
+    type: float
+    body: |
+      return list_item_box_height + box_gutter_y;
+
+
   - name: infer_container_scroll_range
     type: float
     private: true
@@ -386,7 +387,7 @@ functions:
       ALLEGRO_COLOR scrollbar_handle_color = ALLEGRO_COLOR{0.5, 0.505, 0.51, 1.0};
       float joystick_configuration_mapping_box_list_x = 0;
       float joystick_configuration_mapping_box_list_y = 0;
-      float y_spacing = list_item_box_height + box_gutter_y;
+      float y_spacing = infer_list_item_spacing_y();
       float frame_thickness = 6.0;
       float frame_outset = box_gutter_y + 2;
       float joystick_configuration_mapping_list_height = infer_container_height();

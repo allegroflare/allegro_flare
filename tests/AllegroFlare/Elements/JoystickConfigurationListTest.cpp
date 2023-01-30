@@ -140,7 +140,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
 
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
+   FOCUS__INTERACTIVE__will_work_as_expected)
    //DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
@@ -193,6 +193,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
          case ALLEGRO_EVENT_TIMER:
             clear();
+            achievements_list.update();
             achievements_list.render();
             al_flip_display();
          break;
