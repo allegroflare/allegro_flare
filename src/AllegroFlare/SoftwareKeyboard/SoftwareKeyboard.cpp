@@ -563,10 +563,10 @@ void SoftwareKeyboard::draw_cursor_rectangle(float x, float y, float w, float h)
 {
    // color
    ALLEGRO_COLOR color = build_cursor_color();
-   float r = 8;
+   float roundness = 8;
    float thickness = 6.0;
 
-   al_draw_rounded_rectangle(x, y, x + w, y + h, r, r, color, thickness);
+   al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
    return;
 }
 

@@ -116,6 +116,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Text.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Score.q.yml">quintessence/AllegroFlare/Elements/Score.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Scrollbar.q.yml">quintessence/AllegroFlare/Elements/Scrollbar.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/SelectionCursorBox.q.yml">quintessence/AllegroFlare/Elements/SelectionCursorBox.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Stopwatch.q.yml">quintessence/AllegroFlare/Elements/Stopwatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Storyboard.q.yml">quintessence/AllegroFlare/Elements/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml</a></li>
@@ -4839,6 +4840,83 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/SelectionCursorBox.q.yml">quintessence/AllegroFlare/Elements/SelectionCursorBox.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">cursor_location</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">cursor_location_destination</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">cursor_size</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">cursor_size_destination</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">cursor_reposition_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_CURSOR_REPOSITION_MULTIPLIER</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">reposition_to(float x=0.0f, float y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">build_cursor_color()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">draw_cursor()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -19803,6 +19881,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -19903,6 +19982,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
@@ -20068,6 +20148,7 @@ table td
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/ProfilerRenderer",
@@ -20142,6 +20223,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -20246,6 +20328,7 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -20358,6 +20441,7 @@ table td
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -20383,6 +20467,7 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -20581,6 +20666,7 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "char": [
