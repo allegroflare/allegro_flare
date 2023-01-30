@@ -1,0 +1,58 @@
+properties:
+
+
+  - name: cursor_destination
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
+  - name: cursor_size_destination
+    type: AllegroFlare::Vec2D
+    init_with: '80, 80'
+
+  - name: cursor_reposition_multiplier
+    type: float
+    init_with: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
+    getter: true
+    setter: false
+
+  - name: cursor_location
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
+  - name: cursor_size
+    type: AllegroFlare::Vec2D
+    init_with: '80, 80'
+
+  - name: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
+    type: float
+    constexpr: true
+    static: true
+    init_with: 0.6f
+
+
+functions:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+
