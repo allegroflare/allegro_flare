@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -26,6 +27,9 @@ JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font
    , surface_height(1080)
    , scrollbar_position(0.0f)
    , box_gutter_y(10.0f)
+   , state(STATE_UNDEF)
+   , state_is_busy(false)
+   , state_changed_at(0.0f)
 {
 }
 
@@ -449,6 +453,60 @@ std::string JoystickConfigurationList::filter_item_description_through_status(st
 {
    if (status == "hidden") return "";
    return description;
+}
+
+void JoystickConfigurationList::set_state(uint32_t state, bool override_if_busy)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::set_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   if (this->state == state) return;
+   if (!override_if_busy && state_is_busy) return;
+   uint32_t previous_state = this->state;
+
+   switch (state)
+   {
+      case STATE_MOVING_CURSOR:
+      break;
+
+      case STATE_AWAITING_USER_INPUT_ON_OPTION:
+      break;
+
+      default:
+         throw std::runtime_error("JoystickConfigurationList: weird error");
+      break;
+   }
+
+   this->state = state;
+   state_changed_at = al_get_time();
+
+   return;
+}
+
+bool JoystickConfigurationList::is_valid_state(uint32_t state)
+{
+   std::set<uint32_t> valid_states =
+   {
+      //STATE_REVEALING, <-- TODO: add this eventually
+      STATE_MOVING_CURSOR,
+      STATE_AWAITING_USER_INPUT_ON_OPTION,
+      //STATE_CLOSING_DOWN, <-- TODO: add this eventually
+   };
+   return (valid_states.count(state) > 0);
+}
+
+bool JoystickConfigurationList::is_state(uint32_t possible_state)
+{
+   return (state == possible_state);
+}
+
+float JoystickConfigurationList::infer_current_state_age(float time_now)
+{
+   return (time_now - state_changed_at);
 }
 
 ALLEGRO_FONT* JoystickConfigurationList::obtain_title_font()

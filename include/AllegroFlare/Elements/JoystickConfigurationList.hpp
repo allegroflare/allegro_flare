@@ -16,6 +16,11 @@ namespace AllegroFlare
    {
       class JoystickConfigurationList
       {
+      public:
+         static constexpr uint32_t STATE_UNDEF = 0;
+         static constexpr uint32_t STATE_MOVING_CURSOR = 1;
+         static constexpr uint32_t STATE_AWAITING_USER_INPUT_ON_OPTION = 2;
+
       private:
          AllegroFlare::FontBin* font_bin;
          std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping;
@@ -25,6 +30,9 @@ namespace AllegroFlare
          int surface_height;
          float scrollbar_position;
          float box_gutter_y;
+         uint32_t state;
+         bool state_is_busy;
+         float state_changed_at;
          void draw_header_title_backfill();
          int count_num_joystick_configuration_mapping();
          void draw_joystick_configuration_mapping_list_title_text();
@@ -38,6 +46,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR infer_icon_color_by_status(std::string status="[unset-status]", ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
          std::string filter_item_title_through_status(std::string title="[unset-title]", std::string status="[unset-status]");
          std::string filter_item_description_through_status(std::string description="[unset-title]", std::string status="[unset-status]");
+         void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_item_title_font();
          ALLEGRO_FONT* obtain_empty_state_text_font();
@@ -73,6 +82,9 @@ namespace AllegroFlare
          float infer_scrollbar_max_position();
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          static std::vector<std::tuple<std::string, uint32_t>> build_placeholder_joystick_configuration_mapping();
+         static bool is_valid_state(uint32_t state=STATE_UNDEF);
+         bool is_state(uint32_t possible_state=STATE_UNDEF);
+         float infer_current_state_age(float time_now=al_get_time());
       };
    }
 }
