@@ -3623,6 +3623,14 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">scrollbar_position_destination</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_reposition_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">scrollbar_movement_mode</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -3666,6 +3674,10 @@ table td
   <td class="property">SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL</td>
   <td class="property">uint32_t</td>
 </tr>
+<tr>
+  <td class="property">DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER</td>
+  <td class="property">float</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -3703,6 +3715,9 @@ table td
 </tr>
 <tr>
   <td class="method">set_scrollbar_position(float scrollbar_position=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier=DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER)</td>
 </tr>
 <tr>
   <td class="method">set_scrollbar_position_to_max()</td>

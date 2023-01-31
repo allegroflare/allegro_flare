@@ -28,6 +28,8 @@ JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font
    , cursor_pos(0)
    , selection_cursor_box({})
    , scrollbar_position(0.0f)
+   , scrollbar_position_destination(0.0f)
+   , scrollbar_reposition_multiplier(DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER)
    , scrollbar_movement_mode(SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL)
    , box_gutter_y(10.0f)
    , state(STATE_UNDEF)
@@ -121,6 +123,18 @@ float JoystickConfigurationList::get_scrollbar_position() const
 }
 
 
+float JoystickConfigurationList::get_scrollbar_position_destination() const
+{
+   return scrollbar_position_destination;
+}
+
+
+float JoystickConfigurationList::get_scrollbar_reposition_multiplier() const
+{
+   return scrollbar_reposition_multiplier;
+}
+
+
 float JoystickConfigurationList::get_box_gutter_y() const
 {
    return box_gutter_y;
@@ -166,6 +180,9 @@ void JoystickConfigurationList::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("JoystickConfigurationList::update: error: guard \"initialized\" not met");
    }
+   // HERE:
+   scrollbar_position = (scrollbar_position_destination - scrollbar_position)
+                      * scrollbar_reposition_multiplier + scrollbar_position;
    selection_cursor_box.update();
    return;
 }
@@ -236,8 +253,9 @@ void JoystickConfigurationList::move_selection_cursor_box_to_current_cursor_loca
    if (scrollbar_movement_mode_is_follow_proportional())
    {
       float new_scrollbar_position = build_scrollbar_position_at_current_cursor_pos();
+      scrollbar_position_destination = new_scrollbar_position;
       // TODO: replace this logic with a "scrollbar_position_destination" type logic
-      scrollbar_position = new_scrollbar_position;
+      //scrollbar_position = new_scrollbar_position;
    }
 
    return;
@@ -273,6 +291,27 @@ void JoystickConfigurationList::set_scrollbar_position(float scrollbar_position)
 {
    this->scrollbar_position = scrollbar_position;
    limit_scrollbar_position();
+   return;
+}
+
+void JoystickConfigurationList::set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier)
+{
+   if (!((scrollbar_reposition_multiplier > 0.001)))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met");
+   }
+   if (!((scrollbar_reposition_multiplier <= 1.0)))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met");
+   }
+   // TODO: test this function
+   this->scrollbar_reposition_multiplier = scrollbar_reposition_multiplier;
    return;
 }
 

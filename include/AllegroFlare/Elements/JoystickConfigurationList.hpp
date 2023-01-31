@@ -24,6 +24,7 @@ namespace AllegroFlare
          static constexpr uint32_t STATE_AWAITING_USER_INPUT_ON_OPTION = 2;
          static constexpr uint32_t SCROLLBAR_MOVEMENT_NONE = 0;
          static constexpr uint32_t SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL = 1;
+         static constexpr float DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER = 0.1f;
 
       private:
          AllegroFlare::FontBin* font_bin;
@@ -35,6 +36,8 @@ namespace AllegroFlare
          int cursor_pos;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          float scrollbar_position;
+         float scrollbar_position_destination;
+         float scrollbar_reposition_multiplier;
          uint32_t scrollbar_movement_mode;
          float box_gutter_y;
          uint32_t state;
@@ -83,6 +86,8 @@ namespace AllegroFlare
          int get_surface_height() const;
          int get_cursor_pos() const;
          float get_scrollbar_position() const;
+         float get_scrollbar_position_destination() const;
+         float get_scrollbar_reposition_multiplier() const;
          float get_box_gutter_y() const;
          void initialize();
          void update();
@@ -96,6 +101,7 @@ namespace AllegroFlare
          bool set_current_cursor_selection_option(uint32_t value=0);
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
+         void set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier=DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER);
          void set_scrollbar_position_to_max();
          float infer_scrollbar_max_position();
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
