@@ -99,6 +99,8 @@ namespace AllegroFlare
          bool move_cursor_up();
          bool move_cursor_down();
          bool set_current_cursor_selection_option(uint32_t value=0);
+         bool select_current_option_for_remapping();
+         bool abort_current_option_for_remapping();
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
          void set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier=DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER);
@@ -108,6 +110,7 @@ namespace AllegroFlare
          static std::vector<std::tuple<std::string, uint32_t>> build_placeholder_joystick_configuration_mapping();
          float infer_list_item_spacing_y();
          bool scrollbar_movement_mode_is_follow_proportional();
+         bool is_waiting_user_input_for_remap();
          static bool is_valid_state(uint32_t state=STATE_UNDEF);
          bool is_state(uint32_t possible_state=STATE_UNDEF);
          float infer_current_state_age(float time_now=al_get_time());

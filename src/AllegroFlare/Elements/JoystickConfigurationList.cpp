@@ -211,6 +211,7 @@ void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<s
 bool JoystickConfigurationList::move_cursor_up()
 {
    if (joystick_configuration_mapping.empty()) return false;
+   if (is_waiting_user_input_for_remap()) return false; // TODO: test this logic
 
    int previous_cursor_pos = cursor_pos;
    cursor_pos--;
@@ -229,6 +230,7 @@ bool JoystickConfigurationList::move_cursor_up()
 bool JoystickConfigurationList::move_cursor_down()
 {
    if (joystick_configuration_mapping.empty()) return false;
+   if (is_waiting_user_input_for_remap()) return false; // TODO: test this logic
 
    int previous_cursor_pos = cursor_pos;
    cursor_pos++;
@@ -276,6 +278,30 @@ float JoystickConfigurationList::build_scrollbar_position_at_current_cursor_pos(
 
 bool JoystickConfigurationList::set_current_cursor_selection_option(uint32_t value)
 {
+   if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+
+   // TODO: this function
+   return true;
+}
+
+bool JoystickConfigurationList::select_current_option_for_remapping()
+{
+   if (joystick_configuration_mapping.empty()) return false;
+   if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+
+   set_state(STATE_AWAITING_USER_INPUT_ON_OPTION);
+
+   // TODO: this function
+   return true;
+}
+
+bool JoystickConfigurationList::abort_current_option_for_remapping()
+{
+   if (joystick_configuration_mapping.empty()) return true;
+   if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+
+   set_state(STATE_MOVING_CURSOR);
+
    // TODO: this function
    return true;
 }
@@ -561,6 +587,11 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
 
    place.restore_transform();
    return;
+}
+
+bool JoystickConfigurationList::is_waiting_user_input_for_remap()
+{
+   return is_state(STATE_AWAITING_USER_INPUT_ON_OPTION);
 }
 
 void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, float y, std::string action_name, std::string mapped_button_name)

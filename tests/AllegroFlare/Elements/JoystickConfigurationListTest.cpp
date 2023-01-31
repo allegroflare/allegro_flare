@@ -174,23 +174,44 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
       {
          case ALLEGRO_EVENT_KEY_CHAR:
          {
-            switch(event.keyboard.keycode)
+            if (achievements_list.is_waiting_user_input_for_remap())
             {
-               case ALLEGRO_KEY_UP:
-                  achievements_list.move_cursor_up();
-               break;
+               switch(event.keyboard.keycode)
+               {
+                  case ALLEGRO_KEY_ESCAPE:
+                     achievements_list.abort_current_option_for_remapping();
+                  break;
+               }
+               // TODO: handle the case of submittting a mapping
+            }
+            else
+            {
+               switch(event.keyboard.keycode)
+               {
+                  case ALLEGRO_KEY_UP:
+                     achievements_list.move_cursor_up();
+                  break;
 
-               case ALLEGRO_KEY_DOWN:
-                  achievements_list.move_cursor_down();
-               break;
+                  case ALLEGRO_KEY_DOWN:
+                     achievements_list.move_cursor_down();
+                  break;
 
-               case ALLEGRO_KEY_PGUP:
-                  achievements_list.move_scrollbar_position(-20.0);
-               break;
+                  case ALLEGRO_KEY_PGUP:
+                     // NOTE: Note the scrollbar will be repositioned on any cursor movement - when the screen's
+                     // scrollbar_movement_mode is in SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL, which it is by default
+                     achievements_list.move_scrollbar_position(-20.0);
+                  break;
 
-               case ALLEGRO_KEY_PGDN:
-                  achievements_list.move_scrollbar_position(20.0);
-               break;
+                  case ALLEGRO_KEY_PGDN:
+                     // NOTE: Note the scrollbar will be repositioned on any cursor movement - when the screen's
+                     // scrollbar_movement_mode is in SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL, which it is by default
+                     achievements_list.move_scrollbar_position(20.0);
+                  break;
+
+                  case ALLEGRO_KEY_ENTER:
+                     achievements_list.select_current_option_for_remapping();
+                  break;
+               }
             }
          }
          break;
@@ -203,6 +224,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
          break;
       }
 
+      // TODO: fix this test case when in the middle of remapping a key
       if (event.type == ALLEGRO_EVENT_KEY_CHAR && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) abort = true;
    }
    

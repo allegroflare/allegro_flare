@@ -198,6 +198,7 @@ functions:
     type: bool
     body: |
       if (joystick_configuration_mapping.empty()) return false;
+      if (is_waiting_user_input_for_remap()) return false; // TODO: test this logic
 
       int previous_cursor_pos = cursor_pos;
       cursor_pos--;
@@ -217,6 +218,7 @@ functions:
     type: bool
     body: |
       if (joystick_configuration_mapping.empty()) return false;
+      if (is_waiting_user_input_for_remap()) return false; // TODO: test this logic
 
       int previous_cursor_pos = cursor_pos;
       cursor_pos++;
@@ -274,6 +276,32 @@ functions:
         type: uint32_t
         default_argument: 0
     body: |
+      if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+
+      // TODO: this function
+      return true;
+
+
+  - name: select_current_option_for_remapping
+    type: bool
+    body: |
+      if (joystick_configuration_mapping.empty()) return false;
+      if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+      
+      set_state(STATE_AWAITING_USER_INPUT_ON_OPTION);
+
+      // TODO: this function
+      return true;
+
+
+  - name: abort_current_option_for_remapping
+    type: bool
+    body: |
+      if (joystick_configuration_mapping.empty()) return true;
+      if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+
+      set_state(STATE_MOVING_CURSOR);
+
       // TODO: this function
       return true;
 
@@ -583,6 +611,12 @@ functions:
     body_dependency_symbols:
       - AllegroFlare::Elements::Scrollbar
       - std::min, std::max
+
+
+  - name: is_waiting_user_input_for_remap
+    type: bool
+    body: |
+      return is_state(STATE_AWAITING_USER_INPUT_ON_OPTION);
 
 
   - name: draw_joystick_configuration_item_box
