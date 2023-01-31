@@ -236,9 +236,8 @@ void JoystickConfigurationList::move_selection_cursor_box_to_current_cursor_loca
    if (scrollbar_movement_mode_is_follow_proportional())
    {
       float new_scrollbar_position = build_scrollbar_position_at_current_cursor_pos();
-      // TODO: here
-      //scrollbar_position = 
       // TODO: replace this logic with a "scrollbar_position_destination" type logic
+      scrollbar_position = new_scrollbar_position;
    }
 
    return;
@@ -251,8 +250,10 @@ AllegroFlare::Vec2D JoystickConfigurationList::build_selection_cursor_box_positi
 
 float JoystickConfigurationList::build_scrollbar_position_at_current_cursor_pos()
 {
-   // TODO: this function
-   return 0;
+   if (joystick_configuration_mapping.size() <= 1) return 0;
+   float normalized_cursor_position = (float)cursor_pos / (joystick_configuration_mapping.size() - 1);
+   float container_scroll_range = infer_container_scroll_range();
+   return normalized_cursor_position * container_scroll_range;
 }
 
 bool JoystickConfigurationList::set_current_cursor_selection_option(uint32_t value)
@@ -393,9 +394,7 @@ float JoystickConfigurationList::infer_container_scroll_range()
 
 void JoystickConfigurationList::limit_scrollbar_position()
 {
-   float y_spacing = list_item_box_height + box_gutter_y;
    float container_height = infer_container_height();
-   float container_contents_height = infer_container_contents_height();
    float container_scroll_range = infer_container_scroll_range();
    scrollbar_position = std::max(0.0f, std::min(container_scroll_range, scrollbar_position));
    return;
