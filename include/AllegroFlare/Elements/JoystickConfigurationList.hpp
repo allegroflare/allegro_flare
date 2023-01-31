@@ -44,6 +44,9 @@ namespace AllegroFlare
          bool state_is_busy;
          float state_changed_at;
          bool initialized;
+         void move_selection_cursor_box_to_current_cursor_location();
+         AllegroFlare::Vec2D build_selection_cursor_box_position_of_current_cursor_pos();
+         float build_scrollbar_position_at_current_cursor_pos();
          void draw_header_title_backfill();
          int count_num_joystick_configuration_mapping();
          void draw_joystick_configuration_mapping_list_title_text();
@@ -95,9 +98,6 @@ namespace AllegroFlare
          void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
          bool move_cursor_up();
          bool move_cursor_down();
-         void move_selection_cursor_box_to_current_cursor_location();
-         AllegroFlare::Vec2D build_selection_cursor_box_position_of_current_cursor_pos();
-         float build_scrollbar_position_at_current_cursor_pos();
          bool set_current_cursor_selection_option(uint32_t value=0);
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);

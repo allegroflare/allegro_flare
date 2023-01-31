@@ -233,6 +233,7 @@ functions:
 
 
   - name: move_selection_cursor_box_to_current_cursor_location
+    private: true
     body: |
       // TODO: this function
       AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
@@ -250,12 +251,14 @@ functions:
 
 
   - name: build_selection_cursor_box_position_of_current_cursor_pos
+    private: true
     type: AllegroFlare::Vec2D
     body: |
       return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
 
 
   - name: build_scrollbar_position_at_current_cursor_pos
+    private: true
     type: float
     body: |
       if (joystick_configuration_mapping.size() <= 1) return 0;
