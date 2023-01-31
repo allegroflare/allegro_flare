@@ -302,7 +302,7 @@ bool Full::initialize_without_display()
    al_register_event_source(event_queue, al_get_mouse_event_source());
    al_register_event_source(event_queue, al_get_joystick_event_source());
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-   al_register_event_source(event_queue, al_get_joystick_event_source());
+   //al_register_event_source(event_queue, al_get_joystick_event_source());
    al_register_event_source(event_queue, al_get_default_menu_event_source());
 
    event_emitter.initialize();

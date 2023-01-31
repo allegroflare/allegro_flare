@@ -269,14 +269,20 @@ functions:
       return normalized_cursor_position * container_scroll_range;
 
 
-  - name: set_current_cursor_selection_option
+  - name: submit_mapping_on_currently_selected_option
     type: bool
     parameters:
-      - name: value
+      - name: button_num
         type: uint32_t
         default_argument: 0
     body: |
-      if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+      if (joystick_configuration_mapping.empty()) return false;
+      if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+
+      std::cout << "BBBBBBBBBBB" << std::endl;
+      std::get<1>(joystick_configuration_mapping[cursor_pos]) = button_num;
+
+      set_state(STATE_MOVING_CURSOR);
 
       // TODO: this function
       return true;

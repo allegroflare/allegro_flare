@@ -98,7 +98,7 @@ namespace AllegroFlare
          void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
          bool move_cursor_up();
          bool move_cursor_down();
-         bool set_current_cursor_selection_option(uint32_t value=0);
+         bool submit_mapping_on_currently_selected_option(uint32_t button_num=0);
          bool select_current_option_for_remapping();
          bool abort_current_option_for_remapping();
          void move_scrollbar_position(float distance_y=0.0f);

@@ -149,6 +149,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
    al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_joystick_event_source());
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    bool abort = false;
@@ -172,6 +173,19 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
       switch(event.type)
       {
+         case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+         {
+            if (achievements_list.is_waiting_user_input_for_remap())
+            {
+               int button_pressed = event.joystick.button;
+               if (achievements_list.is_waiting_user_input_for_remap())
+               {
+                  std::cout << "AAAAAAAAAAA" << std::endl;
+                  achievements_list.submit_mapping_on_currently_selected_option(button_pressed);
+               }
+            }
+         }
+
          case ALLEGRO_EVENT_KEY_CHAR:
          {
             if (achievements_list.is_waiting_user_input_for_remap())

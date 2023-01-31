@@ -276,9 +276,15 @@ float JoystickConfigurationList::build_scrollbar_position_at_current_cursor_pos(
    return normalized_cursor_position * container_scroll_range;
 }
 
-bool JoystickConfigurationList::set_current_cursor_selection_option(uint32_t value)
+bool JoystickConfigurationList::submit_mapping_on_currently_selected_option(uint32_t button_num)
 {
-   if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+   if (joystick_configuration_mapping.empty()) return false;
+   if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
+
+   std::cout << "BBBBBBBBBBB" << std::endl;
+   std::get<1>(joystick_configuration_mapping[cursor_pos]) = button_num;
+
+   set_state(STATE_MOVING_CURSOR);
 
    // TODO: this function
    return true;
