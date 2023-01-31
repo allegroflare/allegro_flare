@@ -281,12 +281,10 @@ bool JoystickConfigurationList::submit_mapping_on_currently_selected_option(uint
    if (joystick_configuration_mapping.empty()) return false;
    if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
 
-   std::cout << "BBBBBBBBBBB" << std::endl;
    std::get<1>(joystick_configuration_mapping[cursor_pos]) = button_num;
 
+   // TODO: add sound effect
    set_state(STATE_MOVING_CURSOR);
-
-   // TODO: this function
    return true;
 }
 
@@ -295,9 +293,8 @@ bool JoystickConfigurationList::select_current_option_for_remapping()
    if (joystick_configuration_mapping.empty()) return false;
    if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
 
+   // TODO: add sound effect
    set_state(STATE_AWAITING_USER_INPUT_ON_OPTION);
-
-   // TODO: this function
    return true;
 }
 
@@ -306,9 +303,8 @@ bool JoystickConfigurationList::abort_current_option_for_remapping()
    if (joystick_configuration_mapping.empty()) return true;
    if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
 
+   // TODO: add sound effect
    set_state(STATE_MOVING_CURSOR);
-
-   // TODO: this function
    return true;
 }
 

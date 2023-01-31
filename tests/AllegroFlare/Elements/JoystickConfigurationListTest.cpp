@@ -180,7 +180,6 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
                int button_pressed = event.joystick.button;
                if (achievements_list.is_waiting_user_input_for_remap())
                {
-                  std::cout << "AAAAAAAAAAA" << std::endl;
                   achievements_list.submit_mapping_on_currently_selected_option(button_pressed);
                }
             }
