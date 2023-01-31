@@ -56,6 +56,10 @@ properties:
     getter_ref: false
     setter: false
 
+  - name: scrollbar_movement_mode
+    type: uint32_t
+    init_with: SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL
+
   - name: box_gutter_y
     type: float
     init_with: 10.0f
@@ -95,6 +99,20 @@ properties:
   - name: STATE_AWAITING_USER_INPUT_ON_OPTION
     type: uint32_t
     init_with: 2
+    const: true
+    static: true
+    constexpr: true
+
+  - name: SCROLLBAR_MOVEMENT_NONE
+    type: uint32_t
+    init_with: 0
+    const: true
+    static: true
+    constexpr: true
+
+  - name: SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL
+    type: uint32_t
+    init_with: 1
     const: true
     static: true
     constexpr: true
@@ -195,14 +213,29 @@ functions:
       // TODO: this function
       AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
       selection_cursor_box.reposition_to(new_position.x, new_position.y);
+
+      if (scrollbar_movement_mode_is_follow_proportional())
+      {
+         float new_scrollbar_position = build_scrollbar_position_at_current_cursor_pos();
+         // TODO: here
+         //scrollbar_position = 
+         // TODO: replace this logic with a "scrollbar_position_destination" type logic
+      }
+
       return;
 
 
   - name: build_selection_cursor_box_position_of_current_cursor_pos
     type: AllegroFlare::Vec2D
     body: |
-      //return AllegroFlare::Vec2D(100, 100);
       return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
+
+
+  - name: build_scrollbar_position_at_current_cursor_pos
+    type: float
+    body: |
+      // TODO: this function
+      return 0;
 
 
   - name: set_current_cursor_selection_option
@@ -382,6 +415,12 @@ functions:
       float container_scroll_range = infer_container_scroll_range();
       scrollbar_position = std::max(0.0f, std::min(container_scroll_range, scrollbar_position));
       return;
+
+
+  - name: scrollbar_movement_mode_is_follow_proportional
+    type: bool
+    body: |
+      return scrollbar_movement_mode == SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL;
 
 
   - name: draw_joystick_configuration_mapping_list_items_and_scrollbar

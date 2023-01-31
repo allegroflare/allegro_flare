@@ -22,6 +22,8 @@ namespace AllegroFlare
          static constexpr uint32_t STATE_UNDEF = 0;
          static constexpr uint32_t STATE_MOVING_CURSOR = 1;
          static constexpr uint32_t STATE_AWAITING_USER_INPUT_ON_OPTION = 2;
+         static constexpr uint32_t SCROLLBAR_MOVEMENT_NONE = 0;
+         static constexpr uint32_t SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL = 1;
 
       private:
          AllegroFlare::FontBin* font_bin;
@@ -33,6 +35,7 @@ namespace AllegroFlare
          int cursor_pos;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          float scrollbar_position;
+         uint32_t scrollbar_movement_mode;
          float box_gutter_y;
          uint32_t state;
          bool state_is_busy;
@@ -89,6 +92,7 @@ namespace AllegroFlare
          bool move_cursor_down();
          void move_selection_cursor_box_to_current_cursor_location();
          AllegroFlare::Vec2D build_selection_cursor_box_position_of_current_cursor_pos();
+         float build_scrollbar_position_at_current_cursor_pos();
          bool set_current_cursor_selection_option(uint32_t value=0);
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);
@@ -97,6 +101,7 @@ namespace AllegroFlare
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          static std::vector<std::tuple<std::string, uint32_t>> build_placeholder_joystick_configuration_mapping();
          float infer_list_item_spacing_y();
+         bool scrollbar_movement_mode_is_follow_proportional();
          static bool is_valid_state(uint32_t state=STATE_UNDEF);
          bool is_state(uint32_t possible_state=STATE_UNDEF);
          float infer_current_state_age(float time_now=al_get_time());

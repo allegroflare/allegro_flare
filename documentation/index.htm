@@ -3623,6 +3623,10 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">scrollbar_movement_mode</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
   <td class="property">box_gutter_y</td>
   <td class="property">float</td>
 </tr>
@@ -3654,6 +3658,14 @@ table td
   <td class="property">STATE_AWAITING_USER_INPUT_ON_OPTION</td>
   <td class="property">uint32_t</td>
 </tr>
+<tr>
+  <td class="property">SCROLLBAR_MOVEMENT_NONE</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL</td>
+  <td class="property">uint32_t</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -3679,6 +3691,9 @@ table td
 </tr>
 <tr>
   <td class="method">build_selection_cursor_box_position_of_current_cursor_pos()</td>
+</tr>
+<tr>
+  <td class="method">build_scrollbar_position_at_current_cursor_pos()</td>
 </tr>
 <tr>
   <td class="method">set_current_cursor_selection_option(uint32_t value=0)</td>
@@ -3727,6 +3742,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">limit_scrollbar_position()</td>
+</tr>
+<tr>
+  <td class="method">scrollbar_movement_mode_is_follow_proportional()</td>
 </tr>
 <tr>
   <td class="private_method">draw_joystick_configuration_mapping_list_items_and_scrollbar()</td>
