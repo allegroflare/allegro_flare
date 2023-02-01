@@ -74,6 +74,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__does_not_blow_up)
 
 TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible_defaults_to_the_keyboard_button_map)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
@@ -94,13 +96,16 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible
    };
 
    EXPECT_EQ(expected_keyboard_button_map, virtual_control_processor.get_keyboard_button_map());
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible_defaults_to_the_joystick_button_map)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-
    virtual_control_processor.initialize();
 
    std::map<int, int> expected_joystick_button_map = {
@@ -114,19 +119,27 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible
    };
 
    EXPECT_EQ(expected_joystick_button_map, virtual_control_processor.get_joystick_button_map());
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_set_initialized_to_true)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
    EXPECT_EQ(true, virtual_control_processor.get_initialized());
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__when_called_more_than_once__throws_an_error)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
@@ -136,6 +149,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__when_called_more_tha
       std::runtime_error,
       "VirtualControlsProcessor::initialize: error: guard \"(!initialized)\" not met"
    );
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
@@ -156,6 +171,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_button_down_event__without_an_event_emitter__throws_an_error)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
@@ -166,6 +183,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
       std::runtime_error,
       expected_error_message
    );
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
@@ -186,6 +205,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_button_up_event__without_an_event_emitter__throws_an_error)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
@@ -196,6 +217,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
       std::runtime_error,
       expected_error_message
    );
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
@@ -216,6 +239,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_axis_change_event__without_an_event_emitter__throws_an_error)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
@@ -226,6 +251,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
       std::runtime_error,
       expected_error_message
    );
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
@@ -246,6 +273,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_keyboard_key_down_event__without_an_event_emitter__throws_an_error)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
@@ -256,6 +285,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
       std::runtime_error,
       expected_error_message
    );
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
@@ -276,6 +307,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_keyboard_key_up_event__without_an_event_emitter__throws_an_error)
 {
+   al_init();
+   al_install_joystick();
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
@@ -286,6 +319,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
       std::runtime_error,
       expected_error_message
    );
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
@@ -293,6 +328,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_button_down_event__on_an_event_with_a_mapped_button__will_emit_a_ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN)
 {
    al_init();
+   al_install_joystick();
+
    ALLEGRO_EVENT_QUEUE *event_queue;
    event_queue = al_create_event_queue();
    ASSERT_NE(nullptr, event_queue);
@@ -317,6 +354,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
+   al_uninstall_joystick();
    al_uninstall_system();
 }
 
@@ -325,6 +363,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_button_up_event__on_an_event_with_a_mapped_button__will_emit_a_ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP)
 {
    al_init();
+   al_install_joystick();
+
    ALLEGRO_EVENT_QUEUE *event_queue;
    event_queue = al_create_event_queue();
    ASSERT_NE(nullptr, event_queue);
@@ -349,6 +389,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
+   al_uninstall_joystick();
    al_uninstall_system();
 }
 
@@ -357,6 +398,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_axis_change_event__will_emit_a_ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE)
 {
    al_init();
+   al_install_joystick();
+
    ALLEGRO_EVENT_QUEUE *event_queue;
    event_queue = al_create_event_queue();
    ASSERT_NE(nullptr, event_queue);
@@ -384,6 +427,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    ASSERT_EQ(2, actual_emitted_event.user.data3);
    ASSERT_EQ(127, actual_emitted_event.user.data4);
 
+   al_uninstall_joystick();
    al_uninstall_system();
 }
 
@@ -392,6 +436,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_keyboard_key_down_event__on_an_event_with_a_mapped_button__will_emit_a_ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN)
 {
    al_init();
+   al_install_joystick();
+
    ALLEGRO_EVENT_QUEUE *event_queue;
    event_queue = al_create_event_queue();
    ASSERT_NE(nullptr, event_queue);
@@ -416,6 +462,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
+   al_uninstall_joystick();
    al_uninstall_system();
 }
 
@@ -424,6 +471,8 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_keyboard_key_up_event__on_an_event_with_a_mapped_button__will_emit_a_ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP)
 {
    al_init();
+   al_install_joystick();
+
    ALLEGRO_EVENT_QUEUE *event_queue;
    event_queue = al_create_event_queue();
    ASSERT_NE(nullptr, event_queue);
@@ -448,6 +497,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
+   al_uninstall_joystick();
    al_uninstall_system();
 }
 
