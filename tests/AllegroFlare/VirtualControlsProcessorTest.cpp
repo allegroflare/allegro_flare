@@ -21,8 +21,11 @@ class AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest : publ
 
    virtual void TearDown() override
    {
+      std::cout << "XXX" << std::endl;
       al_uninstall_joystick();
+      std::cout << "YYY" << std::endl;
       al_uninstall_system();
+      std::cout << "ZZZ" << std::endl;
    }
 };
 
@@ -316,26 +319,40 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    ALLEGRO_EVENT_QUEUE *event_queue;
    event_queue = al_create_event_queue();
    ASSERT_NE(nullptr, event_queue);
+
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
+
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
    AllegroFlare::VirtualControlsProcessor virtual_control_processor(&event_emitter);
    virtual_control_processor.initialize();
 
    ALLEGRO_EVENT raw_event;
    raw_event.type = ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN;
+   raw_event.joystick.id = (ALLEGRO_JOYSTICK*)(nullptr);
    raw_event.joystick.button = 1;
 
    virtual_control_processor.handle_raw_joystick_button_down_event(&raw_event);
 
    int expected_mapped_button = AllegroFlare::VirtualControls::BUTTON_A;
+      std::cout << "GG" << std::endl;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));
+      std::cout << "HH" << std::endl;
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.type);
+      std::cout << "II" << std::endl;
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
+      std::cout << "JJ" << std::endl;
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+      std::cout << "KK" << std::endl;
+
+   // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
+   // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
+   // on MacMini).
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   al_destroy_event_queue(event_queue);
 }
 
 
@@ -365,6 +382,12 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+
+   // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
+   // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
+   // on MacMini).
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   al_destroy_event_queue(event_queue);
 }
 
 
@@ -398,6 +421,12 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    ASSERT_EQ(3, actual_emitted_event.user.data2);
    ASSERT_EQ(2, actual_emitted_event.user.data3);
    ASSERT_EQ(127, actual_emitted_event.user.data4);
+
+   // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
+   // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
+   // on MacMini).
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   al_destroy_event_queue(event_queue);
 }
 
 
@@ -427,6 +456,12 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+
+   // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
+   // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
+   // on MacMini).
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   al_destroy_event_queue(event_queue);
 }
 
 
@@ -456,6 +491,12 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+
+   // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
+   // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
+   // on MacMini).
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   al_destroy_event_queue(event_queue);
 }
 
 

@@ -246,11 +246,16 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
    }
+   std::cout << "A" << std::endl;
    int player_num = find_player_num_from_al_joystick(event->joystick.id);
+   std::cout << "B" << std::endl;
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
+   std::cout << "C" << std::endl;
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+   std::cout << "D" << std::endl;
 
    emit_virtual_controls_button_down_event(player_num, virtual_button);
+   std::cout << "E" << std::endl;
    return;
 }
 
