@@ -144,9 +144,8 @@ documentation:
 
   - todos:
       - Consider adding a "start configuration" step-by-step process
-      - Add a "reset to default" option
-      - Add cursor movement up and down to select current option to modify
-      - Modify a current selected button
+      - Add visual feedback on changed mapping
+      - Reposition cursor to mapped button when waiting for button input
 
 
 functions:
