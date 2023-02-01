@@ -294,7 +294,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/VirtualControlDevice.q.yml">quintessence/AllegroFlare/VirtualControlDevice.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
   <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
@@ -17315,73 +17314,59 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/VirtualControlDevice.q.yml">quintessence/AllegroFlare/VirtualControlDevice.q.yml</h3>
-     <table>
-    </table>
-     <table>
-<tr>
-  <td class="method">run()</td>
-</tr>
-    </table>
-     <table>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
     <h3 id="quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</h3>
      <table>
 <tr>
   <td class="property">BUTTON_UP</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_DOWN</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_LEFT</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_RIGHT</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_A</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_B</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_X</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_Y</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_START</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_RIGHT_BUMPER</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">BUTTON_LEFT_BUMPER</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">PRIMARY_STICK</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">SECONDARY_STICK</td>
-  <td class="property">int</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">right_button_pressed</td>
@@ -17458,7 +17443,7 @@ table td
 </tr>
 <tr>
   <td class="property">keyboard_button_map</td>
-  <td class="property">std::map&lt;int, std::pair&lt;int, int&gt;&gt;</td>
+  <td class="property">std::map&lt;uint32_t, std::pair&lt;int, int&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">joystick_button_map</td>
@@ -17537,15 +17522,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, std::pair&lt;int, int&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;, &quot;utility&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::pair&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -21274,7 +21250,6 @@ table td
   ],
   "std/pair<int, int>": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/VirtualControlsProcessor",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "AllegroFlare/TileMaps/TileMap": [
@@ -21724,7 +21699,6 @@ table td
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/VirtualControls": [
@@ -21991,9 +21965,6 @@ table td
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "std/map<int, std/pair<int, int>>": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

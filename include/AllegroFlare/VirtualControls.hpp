@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Vec2D.hpp>
+#include <cstdint>
 
 
 namespace AllegroFlare
@@ -9,19 +10,19 @@ namespace AllegroFlare
    class VirtualControls
    {
    public:
-      static constexpr int BUTTON_UP = 1;
-      static constexpr int BUTTON_DOWN = 2;
-      static constexpr int BUTTON_LEFT = 3;
-      static constexpr int BUTTON_RIGHT = 4;
-      static constexpr int BUTTON_A = 5;
-      static constexpr int BUTTON_B = 6;
-      static constexpr int BUTTON_X = 7;
-      static constexpr int BUTTON_Y = 8;
-      static constexpr int BUTTON_START = 9;
-      static constexpr int BUTTON_RIGHT_BUMPER = 10;
-      static constexpr int BUTTON_LEFT_BUMPER = 11;
-      static constexpr int PRIMARY_STICK = 0;
-      static constexpr int SECONDARY_STICK = 1;
+      static constexpr uint32_t BUTTON_UP = 1;
+      static constexpr uint32_t BUTTON_DOWN = 2;
+      static constexpr uint32_t BUTTON_LEFT = 3;
+      static constexpr uint32_t BUTTON_RIGHT = 4;
+      static constexpr uint32_t BUTTON_A = 5;
+      static constexpr uint32_t BUTTON_B = 6;
+      static constexpr uint32_t BUTTON_X = 7;
+      static constexpr uint32_t BUTTON_Y = 8;
+      static constexpr uint32_t BUTTON_START = 9;
+      static constexpr uint32_t BUTTON_RIGHT_BUMPER = 10;
+      static constexpr uint32_t BUTTON_LEFT_BUMPER = 11;
+      static constexpr uint32_t PRIMARY_STICK = 0;
+      static constexpr uint32_t SECONDARY_STICK = 1;
 
    private:
       bool right_button_pressed;

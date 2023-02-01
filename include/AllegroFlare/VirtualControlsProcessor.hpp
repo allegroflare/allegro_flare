@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/EventEmitter.hpp>
 #include <allegro5/allegro.h>
+#include <cstdint>
 #include <map>
 #include <utility>
 
@@ -13,7 +14,7 @@ namespace AllegroFlare
    {
    private:
       AllegroFlare::EventEmitter* event_emitter;
-      std::map<int, std::pair<int, int>> keyboard_button_map;
+      std::map<uint32_t, std::pair<int, int>> keyboard_button_map;
       std::map<int, int> joystick_button_map;
       bool initialized;
       int get_joystick_mapped_virtual_button(int native_button_num=-1);
@@ -27,12 +28,12 @@ namespace AllegroFlare
       ~VirtualControlsProcessor();
 
       void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
-      std::map<int, std::pair<int, int>> get_keyboard_button_map() const;
+      std::map<uint32_t, std::pair<int, int>> get_keyboard_button_map() const;
       std::map<int, int> get_joystick_button_map() const;
       bool get_initialized() const;
       void initialize();
       std::map<int, int> build_sensible_joystick_button_map();
-      std::map<int, std::pair<int, int>> build_sensible_keyboard_button_map();
+      std::map<uint32_t, std::pair<int, int>> build_sensible_keyboard_button_map();
       void handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event=nullptr);
       void handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* event=nullptr);
       void handle_raw_joystick_button_down_event(ALLEGRO_EVENT* event=nullptr);

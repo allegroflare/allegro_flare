@@ -35,7 +35,7 @@ void VirtualControlsProcessor::set_event_emitter(AllegroFlare::EventEmitter* eve
 }
 
 
-std::map<int, std::pair<int, int>> VirtualControlsProcessor::get_keyboard_button_map() const
+std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::get_keyboard_button_map() const
 {
    return keyboard_button_map;
 }
@@ -84,11 +84,11 @@ std::map<int, int> VirtualControlsProcessor::build_sensible_joystick_button_map(
    return result_button_map;
 }
 
-std::map<int, std::pair<int, int>> VirtualControlsProcessor::build_sensible_keyboard_button_map()
+std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::build_sensible_keyboard_button_map()
 {
    static int PLAYER_0 = 0;
           // { keyboard_key, { player_num, virtual_button } }
-   std::map<int, std::pair<int, int>> result_button_map = {
+   std::map<uint32_t, std::pair<int, int>> result_button_map = {
      { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_START } },
      { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },
      { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },

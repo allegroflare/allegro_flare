@@ -1,79 +1,79 @@
 properties:
 
   - name: BUTTON_UP
-    type: int
+    type: uint32_t
     init_with: 1
     constexpr: true
     static: true
 
   - name: BUTTON_DOWN
-    type: int
+    type: uint32_t
     init_with: 2
     constexpr: true
     static: true
 
   - name: BUTTON_LEFT
-    type: int
+    type: uint32_t
     init_with: 3
     constexpr: true
     static: true
 
   - name: BUTTON_RIGHT
-    type: int
+    type: uint32_t
     init_with: 4
     constexpr: true
     static: true
 
   - name: BUTTON_A
-    type: int
+    type: uint32_t
     init_with: 5
     constexpr: true
     static: true
 
   - name: BUTTON_B
-    type: int
+    type: uint32_t
     init_with: 6
     constexpr: true
     static: true
 
   - name: BUTTON_X
-    type: int
+    type: uint32_t
     init_with: 7
     constexpr: true
     static: true
 
   - name: BUTTON_Y
-    type: int
+    type: uint32_t
     init_with: 8
     constexpr: true
     static: true
 
   - name: BUTTON_START
-    type: int
+    type: uint32_t
     init_with: 9
     constexpr: true
     static: true
 
   - name: BUTTON_RIGHT_BUMPER
-    type: int
+    type: uint32_t
     init_with: 10
     constexpr: true
     static: true
 
   - name: BUTTON_LEFT_BUMPER
-    type: int
+    type: uint32_t
     init_with: 11
     constexpr: true
     static: true
 
   - name: PRIMARY_STICK
-    type: int
+    type: uint32_t
     init_with: 0
     constexpr: true
     static: true
 
   - name: SECONDARY_STICK
-    type: int
+    type: uint32_t
     init_with: 1
     constexpr: true
     static: true

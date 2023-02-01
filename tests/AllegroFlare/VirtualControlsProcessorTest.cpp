@@ -56,7 +56,7 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible
    virtual_control_processor.initialize();
 
    int PLAYER_0 = 0;
-   std::map<int, std::pair<int, int>> expected_keyboard_button_map = {
+   std::map<uint32_t, std::pair<int, int>> expected_keyboard_button_map = {
      { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_START } },
      { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },
      { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },

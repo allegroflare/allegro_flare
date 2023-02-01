@@ -1484,7 +1484,6 @@
   ],
   "std/pair<int, int>": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/VirtualControlsProcessor",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "AllegroFlare/TileMaps/TileMap": [
@@ -1934,7 +1933,6 @@
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/VirtualControls": [
@@ -2201,9 +2199,6 @@
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "std/map<int, std/pair<int, int>>": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

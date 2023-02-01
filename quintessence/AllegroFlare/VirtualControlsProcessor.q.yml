@@ -8,7 +8,7 @@ properties:
     setter: true
 
   - name: keyboard_button_map
-    type: std::map<int, std::pair<int, int>>
+    type: std::map<uint32_t, std::pair<int, int>>
     init_with: ''
     getter: true
 
@@ -53,11 +53,11 @@ functions:
 
 
   - name: build_sensible_keyboard_button_map
-    type: std::map<int, std::pair<int, int>>
+    type: std::map<uint32_t, std::pair<int, int>>
     body: |
       static int PLAYER_0 = 0;
              // { keyboard_key, { player_num, virtual_button } }
-      std::map<int, std::pair<int, int>> result_button_map = {
+      std::map<uint32_t, std::pair<int, int>> result_button_map = {
         { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_START } },
         { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },
         { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_A } },
@@ -321,11 +321,5 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::VirtualControls
     headers: [ AllegroFlare/VirtualControls.hpp ]
-  - symbol: std::map<int, std::pair<int, int>>
-    headers: [ map, utility ]
-  - symbol: std::pair<int, int>
-    headers: [ utility ]
-  - symbol: std::map<int, int>
-    headers: [ map ]
 
 
