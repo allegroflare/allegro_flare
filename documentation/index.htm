@@ -17450,6 +17450,10 @@ table td
   <td class="property">std::map&lt;int, int&gt;</td>
 </tr>
 <tr>
+  <td class="property">joystick_devices</td>
+  <td class="property">std::vector&lt;ALLEGRO_JOYSTICK*&gt;</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -17457,6 +17461,12 @@ table td
      <table>
 <tr>
   <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="private_method">setup_configuration_of_connected_joystick_devices()</td>
+</tr>
+<tr>
+  <td class="method">infer_num_joystick_devices_connected()</td>
 </tr>
 <tr>
   <td class="method">build_sensible_joystick_button_map()</td>
@@ -17516,6 +17526,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_JOYSTICK&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_KEY_&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -21963,6 +21976,9 @@ table td
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "ALLEGRO_JOYSTICK": [
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"

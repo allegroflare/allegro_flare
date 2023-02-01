@@ -17,6 +17,10 @@ properties:
     init_with: ''
     getter: true
 
+  - name: joystick_devices
+    type: std::vector<ALLEGRO_JOYSTICK*>
+    init_with: '{}'
+
   - name: initialized
     type: bool
     init_with: false
@@ -27,12 +31,35 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
     body: |
+      // guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
       keyboard_button_map = build_sensible_keyboard_button_map();
       joystick_button_map = build_sensible_joystick_button_map();
+      setup_configuration_of_connected_joystick_devices();
       initialized = true;
       return;
+
+
+  - name: setup_configuration_of_connected_joystick_devices
+    private: true
+    body: |
+      // NOTE: There may need to be a "path to reconfiguration" for existing devices that may get lost
+      // during reconfiguration.
+      al_reconfigure_joysticks();
+      joystick_devices.clear();
+      for (int i=0; i<al_get_num_joysticks(); i++)
+      {
+         joystick_devices.push_back(al_get_joystick(i));
+      }
+      return;
+
+
+  - name: infer_num_joystick_devices_connected
+    type: int
+    guards: [ initialized ]
+    body: |
+      return joystick_devices.size();
 
 
   - name: build_sensible_joystick_button_map
@@ -184,8 +211,8 @@ functions:
          "Joystick configuration changed on the system. A device has been connected or disconnected."
       );
 
-      // TODO: this logic here
-      al_reconfigure_joysticks();
+      setup_configuration_of_connected_joystick_devices();
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
@@ -316,6 +343,8 @@ dependencies:
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_JOYSTICK
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_KEY_
     headers: [ allegro5/allegro.h ]

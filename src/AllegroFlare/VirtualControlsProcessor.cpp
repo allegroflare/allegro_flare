@@ -19,6 +19,7 @@ VirtualControlsProcessor::VirtualControlsProcessor(AllegroFlare::EventEmitter* e
    : event_emitter(event_emitter)
    , keyboard_button_map()
    , joystick_button_map()
+   , joystick_devices({})
    , initialized(false)
 {
 }
@@ -62,10 +63,51 @@ void VirtualControlsProcessor::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"(!initialized)\" not met");
    }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_joystick_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"al_is_joystick_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_joystick_installed()\" not met");
+   }
+   // guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
    keyboard_button_map = build_sensible_keyboard_button_map();
    joystick_button_map = build_sensible_joystick_button_map();
+   setup_configuration_of_connected_joystick_devices();
    initialized = true;
    return;
+}
+
+void VirtualControlsProcessor::setup_configuration_of_connected_joystick_devices()
+{
+   // NOTE: There may need to be a "path to reconfiguration" for existing devices that may get lost
+   // during reconfiguration.
+   al_reconfigure_joysticks();
+   joystick_devices.clear();
+   for (int i=0; i<al_get_num_joysticks(); i++)
+   {
+      joystick_devices.push_back(al_get_joystick(i));
+   }
+   return;
+}
+
+int VirtualControlsProcessor::infer_num_joystick_devices_connected()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::infer_num_joystick_devices_connected]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::infer_num_joystick_devices_connected: error: guard \"initialized\" not met");
+   }
+   return joystick_devices.size();
 }
 
 std::map<int, int> VirtualControlsProcessor::build_sensible_joystick_button_map()
@@ -298,8 +340,8 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
       "Joystick configuration changed on the system. A device has been connected or disconnected."
    );
 
-   // TODO: this logic here
-   al_reconfigure_joysticks();
+   setup_configuration_of_connected_joystick_devices();
+
    return;
 }
 

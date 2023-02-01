@@ -1,14 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
-
 
 #include <AllegroFlare/VirtualControls.hpp>
 #include <AllegroFlare/EventNames.hpp>
@@ -41,18 +36,45 @@ TEST(AllegroFlare_VirtualControlsProcessorTest, joystick_button_map__is_empty_be
 }
 
 
-TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__does_not_blow_up)
+TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__when_allegro_is_not_installed__will_throw_an_error)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   EXPECT_THROW_GUARD_ERROR(
+      virtual_control_processor.initialize(),
+      "VirtualControlsProcessor::initialize",
+      "al_is_system_installed()"
+   );
+}
+
+
+TEST(AllegroFlare_VirtualControlsProcessorTest,
+   initialize__when_allegro_joysticks_have_not_been_installed__will_throw_an_error)
+{
+   al_init();
+   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   EXPECT_THROW_GUARD_ERROR(
+      virtual_control_processor.initialize(),
+      "VirtualControlsProcessor::initialize",
+      "al_is_joystick_installed()"
+   );
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__does_not_blow_up)
+{
+   al_init();
+   al_install_joystick();
+   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
-   SUCCEED();
+   al_uninstall_joystick();
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_VirtualControlsProcessorTest, initialize__will_assign_sensible_defaults_to_the_keyboard_button_map)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-
    virtual_control_processor.initialize();
 
    int PLAYER_0 = 0;

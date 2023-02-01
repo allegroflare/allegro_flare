@@ -2198,6 +2198,9 @@
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
+  "ALLEGRO_JOYSTICK": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
