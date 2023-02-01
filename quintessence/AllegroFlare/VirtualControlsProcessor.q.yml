@@ -172,16 +172,11 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      std::cout << "A" << std::endl;
       int player_num = find_player_num_from_al_joystick(event->joystick.id);
-      std::cout << "B" << std::endl;
       int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
-      std::cout << "C" << std::endl;
       if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-      std::cout << "D" << std::endl;
 
       emit_virtual_controls_button_down_event(player_num, virtual_button);
-      std::cout << "E" << std::endl;
       return;
     body_dependency_symbols:
       - std::cout

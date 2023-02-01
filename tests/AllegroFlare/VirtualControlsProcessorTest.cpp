@@ -21,11 +21,8 @@ class AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest : publ
 
    virtual void TearDown() override
    {
-      std::cout << "XXX" << std::endl;
       al_uninstall_joystick();
-      std::cout << "YYY" << std::endl;
       al_uninstall_system();
-      std::cout << "ZZZ" << std::endl;
    }
 };
 
@@ -335,18 +332,13 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    virtual_control_processor.handle_raw_joystick_button_down_event(&raw_event);
 
    int expected_mapped_button = AllegroFlare::VirtualControls::BUTTON_A;
-      std::cout << "GG" << std::endl;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));
-      std::cout << "HH" << std::endl;
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.type);
-      std::cout << "II" << std::endl;
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
-      std::cout << "JJ" << std::endl;
    ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
-      std::cout << "KK" << std::endl;
 
    // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
    // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
