@@ -140,8 +140,9 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
 
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
-   FOCUS__INTERACTIVE__will_work_as_expected)
-   //DISABLED__INTERACTIVE__will_work_as_expected)
+   // TODO: modify this test to a TIMED_INTERACTIVE
+   //INTERACTIVE__will_work_as_expected)
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
