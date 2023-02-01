@@ -77,7 +77,6 @@ void VirtualControlsProcessor::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_joystick_installed()\" not met");
    }
-   // guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
    keyboard_button_map = build_sensible_keyboard_button_map();
    joystick_button_map = build_sensible_joystick_button_map();
    setup_configuration_of_connected_joystick_devices();
