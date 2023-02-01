@@ -51,7 +51,6 @@ Full::Full()
    , notifications()
    , virtual_controls_processor()
    , textlog(nullptr)
-   , joystick(nullptr)
    , primary_display(nullptr)
    //, primary_display_sub_bitmap_for_overlay(nullptr)
    , primary_timer(nullptr)
@@ -302,7 +301,6 @@ bool Full::initialize_without_display()
    al_register_event_source(event_queue, al_get_mouse_event_source());
    al_register_event_source(event_queue, al_get_joystick_event_source());
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-   //al_register_event_source(event_queue, al_get_joystick_event_source());
    al_register_event_source(event_queue, al_get_default_menu_event_source());
 
    event_emitter.initialize();
@@ -312,14 +310,6 @@ bool Full::initialize_without_display()
    virtual_controls_processor.initialize();
 
    achievements.set_event_emitter(&event_emitter);
-
-   //if (al_get_num_joysticks()) joystick = al_get_joystick(0); // make this better eventually
-   //else
-   //{
-      //std::cout << "[AllegroFlare::Full::initialize] Info: No joystick(s) detected." << std::endl;
-   //}
-
-   //instance = new Full(config_filename);
 
    // TODO: prevent these paths from being hard-coded, or, allow it to be hard-coded in the context of
    // different deployment environments.
@@ -1080,6 +1070,11 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
       break;
 
+      case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
+         screens.joy_config_funcs(&this_event);
+         virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
+      break;
+
       case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
       case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
          // currently ignored
@@ -1096,17 +1091,6 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
          //screens.display_switch_in_funcs();
          if (textlog) close_log_window();
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
-         std::cout << "a joystick was added/removed" << std::endl;
-         al_reconfigure_joysticks();
-         // note: a bug in allegro causes a crash when al_get_joystick(0) if there
-         // are 0 joysticks.  So this extra check has been added to prevent
-         // the crash from occuring, though it should be corrected in future
-         // versions when this bug in allegro is fixed.
-         joystick = (al_get_num_joysticks() == 0) ? NULL : al_get_joystick(0);
-         screens.joy_config_funcs(&this_event);
       break;
 
       case ALLEGRO_EVENT_MENU_CLICK:
@@ -1181,6 +1165,13 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
                     // TODO: extract more relevant data and inject into this function
+                    // HERE:
+                    //int player_num = this_event.user.data1;
+                    //int button_num = this_event.user.data2;
+                    //bool is_repeat = this_event.user.data3;
+                    //screens.virtual_control_button_down_funcs(&this_event);
+                    //screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
+
                     screens.virtual_control_axis_change_funcs(&this_event);
                   break;
 

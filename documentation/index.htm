@@ -294,6 +294,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualControlDevice.q.yml">quintessence/AllegroFlare/VirtualControlDevice.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
   <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
@@ -17314,6 +17315,20 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/VirtualControlDevice.q.yml">quintessence/AllegroFlare/VirtualControlDevice.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">run()</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</h3>
      <table>
 <tr>
@@ -17480,6 +17495,9 @@ table td
   <td class="method">handle_raw_joystick_axis_change_event(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">handle_joystick_device_configuration_change_event(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
   <td class="private_method">get_joystick_mapped_virtual_button(int native_button_num=-1)</td>
 </tr>
 <tr>
@@ -17492,7 +17510,7 @@ table td
   <td class="method">emit_virtual_controls_button_down_event(int player_num=0, int virtual_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_axis_change_event(int stick=0, int axis=0, float position=0.0f)</td>
+  <td class="method">emit_virtual_controls_axis_change_event(int player_num=0, int stick=0, int axis=0, float position=0.0f)</td>
 </tr>
     </table>
      <table>
@@ -17501,6 +17519,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -20308,7 +20329,8 @@ table td
   ],
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader"
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",

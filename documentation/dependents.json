@@ -539,7 +539,8 @@
   ],
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader"
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",

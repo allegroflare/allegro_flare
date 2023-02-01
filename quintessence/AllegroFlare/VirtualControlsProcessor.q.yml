@@ -126,9 +126,9 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
+      int player_num = 0; // assume player 0 for now
       int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
       if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-      int player_num = 0; // assume player 0 for now
 
       emit_virtual_controls_button_down_event(player_num, virtual_button);
       return;
@@ -143,9 +143,9 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
+      int player_num = 0; // assume player 0 for now
       int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
       if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-      int player_num = 0; // assume player 0 for now
 
       emit_virtual_controls_button_up_event(player_num, virtual_button);
       return;
@@ -160,9 +160,35 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      emit_virtual_controls_axis_change_event(event->joystick.stick, event->joystick.axis, event->joystick.pos);
+      int player_num = 0; // assume player 0 for now
+      emit_virtual_controls_axis_change_event(
+         player_num,
+         event->joystick.stick,
+         event->joystick.axis,
+         event->joystick.pos
+      );
       return;
     body_dependency_symbols:
+      - std::cout
+
+
+  - name: handle_joystick_device_configuration_change_event
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter, event ]
+    body: |
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event",
+         "Joystick configuration changed on the system. A device has been connected or disconnected."
+      );
+
+      // TODO: this logic here
+      al_reconfigure_joysticks();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
       - std::cout
 
 
@@ -249,6 +275,9 @@ functions:
 
   - name: emit_virtual_controls_axis_change_event
     parameters:
+      - name: player_num
+        type: int
+        default_argument: 0
       - name: stick
         type: int
         default_argument: 0
@@ -261,7 +290,13 @@ functions:
     guards: [ initialized, event_emitter ]
     body: |
       // TODO: consider using non-global event names for these types, or a better design for this scope
-      event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));
+      event_emitter->emit_event(
+         ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE,
+         player_num,
+         stick,
+         axis,
+         (int)(position * 255)
+      );
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
@@ -274,6 +309,8 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
   - symbol: ALLEGRO_EVENT*
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::EventEmitter

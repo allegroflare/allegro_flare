@@ -53,7 +53,6 @@ namespace AllegroFlare
          Notifications notifications;
          VirtualControlsProcessor virtual_controls_processor;
          ALLEGRO_TEXTLOG *textlog;
-         ALLEGRO_JOYSTICK *joystick; // this needs some updating to allow for multiple joysticks
          Display *primary_display;
          //ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          ALLEGRO_TIMER *primary_timer;

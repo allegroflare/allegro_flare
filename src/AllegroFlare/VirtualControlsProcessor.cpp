@@ -3,6 +3,7 @@
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/VirtualControls.hpp>
 #include <allegro5/allegro.h>
 #include <iostream>
@@ -197,9 +198,9 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
    }
+   int player_num = 0; // assume player 0 for now
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-   int player_num = 0; // assume player 0 for now
 
    emit_virtual_controls_button_down_event(player_num, virtual_button);
    return;
@@ -228,9 +229,9 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"event\" not met");
    }
+   int player_num = 0; // assume player 0 for now
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-   int player_num = 0; // assume player 0 for now
 
    emit_virtual_controls_button_up_event(player_num, virtual_button);
    return;
@@ -259,7 +260,46 @@ void VirtualControlsProcessor::handle_raw_joystick_axis_change_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"event\" not met");
    }
-   emit_virtual_controls_axis_change_event(event->joystick.stick, event->joystick.axis, event->joystick.pos);
+   int player_num = 0; // assume player 0 for now
+   emit_virtual_controls_axis_change_event(
+      player_num,
+      event->joystick.stick,
+      event->joystick.axis,
+      event->joystick.pos
+   );
+   return;
+}
+
+void VirtualControlsProcessor::handle_joystick_device_configuration_change_event(ALLEGRO_EVENT* event)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"initialized\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"event_emitter\" not met");
+   }
+   if (!(event))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"event\" not met");
+   }
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event",
+      "Joystick configuration changed on the system. A device has been connected or disconnected."
+   );
+
+   // TODO: this logic here
+   al_reconfigure_joysticks();
    return;
 }
 
@@ -334,7 +374,7 @@ void VirtualControlsProcessor::emit_virtual_controls_button_down_event(int playe
    return;
 }
 
-void VirtualControlsProcessor::emit_virtual_controls_axis_change_event(int stick, int axis, float position)
+void VirtualControlsProcessor::emit_virtual_controls_axis_change_event(int player_num, int stick, int axis, float position)
 {
    if (!(initialized))
    {
@@ -351,7 +391,13 @@ void VirtualControlsProcessor::emit_virtual_controls_axis_change_event(int stick
       throw std::runtime_error("VirtualControlsProcessor::emit_virtual_controls_axis_change_event: error: guard \"event_emitter\" not met");
    }
    // TODO: consider using non-global event names for these types, or a better design for this scope
-   event_emitter->emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));
+   event_emitter->emit_event(
+      ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE,
+      player_num,
+      stick,
+      axis,
+      (int)(position * 255)
+   );
    return;
 }
 

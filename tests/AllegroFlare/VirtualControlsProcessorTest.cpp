@@ -357,9 +357,10 @@ TEST(AllegroFlare_VirtualControlsProcessorTest,
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, actual_emitted_event.user.type);
-   ASSERT_EQ(3, actual_emitted_event.user.data1);
-   ASSERT_EQ(2, actual_emitted_event.user.data2);
-   ASSERT_EQ(127, actual_emitted_event.user.data3);
+   ASSERT_EQ(0, actual_emitted_event.user.data1); // TODO: handle the mapping of the player number
+   ASSERT_EQ(3, actual_emitted_event.user.data2);
+   ASSERT_EQ(2, actual_emitted_event.user.data3);
+   ASSERT_EQ(127, actual_emitted_event.user.data4);
 
    al_uninstall_system();
 }
