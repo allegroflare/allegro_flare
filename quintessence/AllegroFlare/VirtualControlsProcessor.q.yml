@@ -18,13 +18,21 @@ properties:
     getter: true
 
   - name: joystick_devices
-    type: std::vector<ALLEGRO_JOYSTICK*>
+    type: std::map<ALLEGRO_JOYSTICK*, int>
     init_with: '{}'
 
   - name: initialized
     type: bool
     init_with: false
     getter: true
+
+
+documentation:
+
+
+  - properties:
+      - name: joystick_devices
+        description: a map, the second value representing the player num (starting from 0).
 
 
 functions:
@@ -43,13 +51,13 @@ functions:
   - name: setup_configuration_of_connected_joystick_devices
     private: true
     body: |
-      // NOTE: There may need to be a "path to reconfiguration" for existing devices that may get lost
+      // NOTE: There may need to be a "migration path to reconfiguration" for existing devices that may get lost
       // during reconfiguration.
       al_reconfigure_joysticks();
       joystick_devices.clear();
       for (int i=0; i<al_get_num_joysticks(); i++)
       {
-         joystick_devices.push_back(al_get_joystick(i));
+         joystick_devices[al_get_joystick(i)] = i;
       }
       return;
 
@@ -103,6 +111,18 @@ functions:
       - ALLEGRO_KEY_
 
 
+  - name: find_player_num_from_al_joystick
+    type: int
+    parameters:
+      - name: al_joystick
+        type: ALLEGRO_JOYSTICK*
+        default_argument: nullptr
+    body: |
+      // returns -1 when the joystick is not found
+      if (joystick_devices.count(al_joystick) == 0) return -1;
+      return joystick_devices[al_joystick];
+
+
   - name: handle_raw_keyboard_key_down_event
     parameters:
       - name: event
@@ -152,7 +172,7 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int player_num = 0; // assume player 0 for now
+      int player_num = find_player_num_from_al_joystick(event->joystick.id);
       int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
       if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
 
@@ -169,7 +189,7 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int player_num = 0; // assume player 0 for now
+      int player_num = find_player_num_from_al_joystick(event->joystick.id);
       int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
       if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
 
@@ -186,7 +206,7 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int player_num = 0; // assume player 0 for now
+      int player_num = find_player_num_from_al_joystick(event->joystick.id);
       emit_virtual_controls_axis_change_event(
          player_num,
          event->joystick.stick,

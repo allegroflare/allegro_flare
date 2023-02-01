@@ -86,13 +86,13 @@ void VirtualControlsProcessor::initialize()
 
 void VirtualControlsProcessor::setup_configuration_of_connected_joystick_devices()
 {
-   // NOTE: There may need to be a "path to reconfiguration" for existing devices that may get lost
+   // NOTE: There may need to be a "migration path to reconfiguration" for existing devices that may get lost
    // during reconfiguration.
    al_reconfigure_joysticks();
    joystick_devices.clear();
    for (int i=0; i<al_get_num_joysticks(); i++)
    {
-      joystick_devices.push_back(al_get_joystick(i));
+      joystick_devices[al_get_joystick(i)] = i;
    }
    return;
 }
@@ -144,6 +144,13 @@ std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::build_sensible
      { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualControls::BUTTON_LEFT_BUMPER } },
    };
    return result_button_map;
+}
+
+int VirtualControlsProcessor::find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
+{
+   // returns -1 when the joystick is not found
+   if (joystick_devices.count(al_joystick) == 0) return -1;
+   return joystick_devices[al_joystick];
 }
 
 void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event)
@@ -239,7 +246,7 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
    }
-   int player_num = 0; // assume player 0 for now
+   int player_num = find_player_num_from_al_joystick(event->joystick.id);
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
 
@@ -270,7 +277,7 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"event\" not met");
    }
-   int player_num = 0; // assume player 0 for now
+   int player_num = find_player_num_from_al_joystick(event->joystick.id);
    int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
    if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
 
@@ -301,7 +308,7 @@ void VirtualControlsProcessor::handle_raw_joystick_axis_change_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"event\" not met");
    }
-   int player_num = 0; // assume player 0 for now
+   int player_num = find_player_num_from_al_joystick(event->joystick.id);
    emit_virtual_controls_axis_change_event(
       player_num,
       event->joystick.stick,

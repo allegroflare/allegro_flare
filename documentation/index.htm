@@ -17451,7 +17451,7 @@ table td
 </tr>
 <tr>
   <td class="property">joystick_devices</td>
-  <td class="property">std::vector&lt;ALLEGRO_JOYSTICK*&gt;</td>
+  <td class="property">std::map&lt;ALLEGRO_JOYSTICK*, int&gt;</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -17473,6 +17473,9 @@ table td
 </tr>
 <tr>
   <td class="method">build_sensible_keyboard_button_map()</td>
+</tr>
+<tr>
+  <td class="method">find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr)</td>
 </tr>
 <tr>
   <td class="method">handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event=nullptr)</td>
