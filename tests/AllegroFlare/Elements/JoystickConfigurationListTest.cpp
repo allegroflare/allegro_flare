@@ -178,6 +178,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
       {
          case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
          {
+            abort_timer_in_effect = false;
             if (achievements_list.is_waiting_user_input_for_remap())
             {
                int button_pressed = event.joystick.button;
@@ -190,6 +191,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
          case ALLEGRO_EVENT_KEY_CHAR:
          {
+            abort_timer_in_effect = false;
             if (achievements_list.is_waiting_user_input_for_remap())
             {
                switch(event.keyboard.keycode)
