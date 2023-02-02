@@ -140,9 +140,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
 
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
-   // TODO: modify this test to a TIMED_INTERACTIVE
-   //INTERACTIVE__will_work_as_expected)
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   TIMED_INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -168,8 +166,12 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
    // run the interactive test
    al_start_timer(primary_timer);
+   float duration_until_abort_sec = 3.0f;
+   float interactive_started_at = al_get_time();
+   bool abort_timer_in_effect = true;
    while(!abort)
    {
+      if (abort_timer_in_effect && (al_get_time() - interactive_started_at) > duration_until_abort_sec) break;
       al_wait_for_event(event_queue, &event);
 
       switch(event.type)
