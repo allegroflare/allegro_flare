@@ -12,6 +12,7 @@ namespace AllegroFlare
       static constexpr char* ENVIRONMENT_UNDEF = (char*)"undefined";
       static constexpr char* ENVIRONMENT_TEST = (char*)"test";
       static constexpr char* ENVIRONMENT_DEVELOPMENT = (char*)"development";
+      static constexpr char* ENVIRONMENT_DEMO = (char*)"demo";
       static constexpr char* ENVIRONMENT_PRODUCTION = (char*)"production";
 
    private:
@@ -29,6 +30,7 @@ namespace AllegroFlare
       bool is_undefined();
       bool is_production();
       bool is_test();
+      bool is_demo();
       bool is_development();
       bool _is_valid(std::string environment="[unset-environment]");
       bool is_valid();

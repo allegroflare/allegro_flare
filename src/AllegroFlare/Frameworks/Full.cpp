@@ -249,7 +249,7 @@ bool Full::initialize_without_display()
       al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
       al_destroy_path(resource_path);
    }
-   else // if deployment_environment is test
+   else // if deployment_environment is ENVIRONMENT_TEST ("test") or ENVIRONMENT_DEMO ("demo")
    {
       // Do nothing. Presume that the executable (which is assumed to be a test executable) is being run from the 
       // root folder of the project, otherwise there will be undefined behavior.

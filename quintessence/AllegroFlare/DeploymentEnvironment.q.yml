@@ -25,6 +25,12 @@ properties:
     static: true
     constexpr: true
 
+  - name: ENVIRONMENT_DEMO
+    type: char*
+    init_with: '(char*)"demo"'
+    static: true
+    constexpr: true
+
   - name: ENVIRONMENT_PRODUCTION
     type: char*
     init_with: '(char*)"production"'
@@ -65,6 +71,12 @@ functions:
       return environment == ENVIRONMENT_TEST;
 
 
+  - name: is_demo
+    type: bool
+    body: |
+      return environment == ENVIRONMENT_DEMO;
+
+
   - name: is_development
     type: bool
     body: |
@@ -82,6 +94,7 @@ functions:
       static std::set<std::string> valid_environments = {
          ENVIRONMENT_PRODUCTION,
          ENVIRONMENT_TEST,
+         ENVIRONMENT_DEMO,
          ENVIRONMENT_DEVELOPMENT,
       };
       // NOTE: Should consider an update to -std=c++20 eventually, which has  for a std::set
@@ -100,6 +113,7 @@ functions:
       static std::set<std::string> valid_environments = {
          ENVIRONMENT_PRODUCTION,
          ENVIRONMENT_TEST,
+         ENVIRONMENT_DEMO,
          ENVIRONMENT_DEVELOPMENT,
       };
       // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
@@ -124,18 +138,15 @@ functions:
     body: |
       if (environment == ENVIRONMENT_PRODUCTION)
       {
-         // TODO: this paths may not be correct, please review:
          return "./data/";
       }
       else if (environment == ENVIRONMENT_TEST)
       {
-         // TODO: this paths may not be correct, please review:
          return "./tests/fixtures/";
       }
-      else if (environment == ENVIRONMENT_DEVELOPMENT)
+      else if (environment == ENVIRONMENT_DEVELOPMENT || environment == ENVIRONMENT_DEMO)
       {
-         // TODO: this paths may not be correct, please review:
-         return "./bin/programs/data/";
+         return "./bin/data/";
       }
       else
       {

@@ -39,15 +39,11 @@ public:
 int main(int argc, char **argv)
 {
    AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEMO);
    framework.initialize();
 
-   AllegroFlare::FontBin &font_bin = framework.get_font_bin_ref();
-   font_bin.set_full_path("/Users/markoates/Repos/allegro_flare/bin/data/fonts");
-
-   FontAwesomeExample font_awesome_example(&font_bin);
-   framework.register_screen("font_awesome_example", &font_awesome_example);
-
-   framework.activate_screen("font_awesome_example");
+   FontAwesomeExample font_awesome_example(&framework.get_font_bin_ref());
+   framework.register_and_activate_screen("font_awesome_example", &font_awesome_example);
 
    framework.run_loop();
 

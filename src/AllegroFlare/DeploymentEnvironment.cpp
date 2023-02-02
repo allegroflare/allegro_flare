@@ -59,6 +59,11 @@ bool DeploymentEnvironment::is_test()
    return environment == ENVIRONMENT_TEST;
 }
 
+bool DeploymentEnvironment::is_demo()
+{
+   return environment == ENVIRONMENT_DEMO;
+}
+
 bool DeploymentEnvironment::is_development()
 {
    return environment == ENVIRONMENT_DEVELOPMENT;
@@ -70,6 +75,7 @@ bool DeploymentEnvironment::_is_valid(std::string environment)
    static std::set<std::string> valid_environments = {
       ENVIRONMENT_PRODUCTION,
       ENVIRONMENT_TEST,
+      ENVIRONMENT_DEMO,
       ENVIRONMENT_DEVELOPMENT,
    };
    // NOTE: Should consider an update to -std=c++20 eventually, which has  for a std::set
@@ -85,6 +91,7 @@ bool DeploymentEnvironment::is_valid()
    static std::set<std::string> valid_environments = {
       ENVIRONMENT_PRODUCTION,
       ENVIRONMENT_TEST,
+      ENVIRONMENT_DEMO,
       ENVIRONMENT_DEVELOPMENT,
    };
    // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
@@ -111,18 +118,15 @@ std::string DeploymentEnvironment::get_data_folder_path()
    }
    if (environment == ENVIRONMENT_PRODUCTION)
    {
-      // TODO: this paths may not be correct, please review:
       return "./data/";
    }
    else if (environment == ENVIRONMENT_TEST)
    {
-      // TODO: this paths may not be correct, please review:
       return "./tests/fixtures/";
    }
-   else if (environment == ENVIRONMENT_DEVELOPMENT)
+   else if (environment == ENVIRONMENT_DEVELOPMENT || environment == ENVIRONMENT_DEMO)
    {
-      // TODO: this paths may not be correct, please review:
-      return "./bin/programs/data/";
+      return "./bin/data/";
    }
    else
    {
