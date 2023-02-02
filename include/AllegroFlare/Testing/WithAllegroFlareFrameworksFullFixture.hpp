@@ -5,6 +5,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <gtest/gtest.h>
 #include <string>
@@ -21,6 +22,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter event_emitter;
          AllegroFlare::BitmapBin bitmap_bin;
          AllegroFlare::FontBin font_bin;
+         AllegroFlare::ModelBin model_bin;
          std::string test_snapshots_folder;
          bool initialized;
 
@@ -35,6 +37,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter &get_event_emitter_ref();
          AllegroFlare::BitmapBin &get_bitmap_bin_ref();
          AllegroFlare::FontBin &get_font_bin_ref();
+         AllegroFlare::ModelBin &get_model_bin_ref();
          virtual void SetUp() override;
          virtual void TearDown() override;
          void framework_register_and_activate_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);

@@ -19,6 +19,7 @@ WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    , event_emitter(framework.get_event_emitter_ref())
    , bitmap_bin(framework.get_bitmap_bin_ref())
    , font_bin(framework.get_font_bin_ref())
+   , model_bin(framework.get_model_bin_ref())
    , test_snapshots_folder("[unset-test_snapshots_folder]")
    , initialized(false)
 {
@@ -51,6 +52,12 @@ AllegroFlare::BitmapBin &WithAllegroFlareFrameworksFullFixture::get_bitmap_bin_r
 AllegroFlare::FontBin &WithAllegroFlareFrameworksFullFixture::get_font_bin_ref()
 {
    return font_bin;
+}
+
+
+AllegroFlare::ModelBin &WithAllegroFlareFrameworksFullFixture::get_model_bin_ref()
+{
+   return model_bin;
 }
 
 

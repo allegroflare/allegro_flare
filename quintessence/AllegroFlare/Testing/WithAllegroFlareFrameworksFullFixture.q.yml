@@ -29,6 +29,11 @@ properties:
     init_with: framework.get_font_bin_ref()
     getter_ref: true
 
+  - name: model_bin
+    type: AllegroFlare::ModelBin
+    init_with: framework.get_model_bin_ref()
+    getter_ref: true
+
   - name: test_snapshots_folder
     type: std::string
     init_with: '"[unset-test_snapshots_folder]"'
@@ -140,6 +145,8 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Placement2D

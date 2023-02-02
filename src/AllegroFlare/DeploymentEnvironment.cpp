@@ -83,7 +83,7 @@ bool DeploymentEnvironment::_is_valid(std::string environment)
       ENVIRONMENT_DEMO,
       ENVIRONMENT_DEVELOPMENT,
    };
-   // NOTE: Should consider an update to -std=c++20 eventually, which has  for a std::set
+   // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
    // https://en.cppreference.com/w/cpp/container/set/contains
 
    // DEBUG:
