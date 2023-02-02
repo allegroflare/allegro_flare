@@ -438,13 +438,24 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
+   get_data_folder_path__when_in_demo_mode__will_return_the_expected_path)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("demo");
+   framework.initialize();
+
+   EXPECT_EQ("./bin/data/", framework.get_data_folder_path());
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
    get_data_folder_path__when_in_development_mode__will_return_the_expected_path)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("development");
    framework.initialize();
 
-   EXPECT_EQ("./bin/programs/data/", framework.get_data_folder_path());
+   EXPECT_EQ("./bin/data/", framework.get_data_folder_path());
 }
 
 

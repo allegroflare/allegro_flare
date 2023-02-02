@@ -43,3 +43,12 @@ TEST(AllegroFlare_DeploymentEnvironmentTest,
 }
 
 
+TEST(AllegroFlare_DeploymentEnvironmentTest,
+   environment_should_set_path_to_resources_path__returns_true_when_the_environment_path_is_expected_to_be_rebased)
+{
+   auto ENVIRONMENT_PRODUCTION = AllegroFlare::DeploymentEnvironment::ENVIRONMENT_PRODUCTION;
+   AllegroFlare::DeploymentEnvironment deployment_environment(ENVIRONMENT_PRODUCTION);
+   EXPECT_EQ(true, deployment_environment.environment_should_set_path_to_resources_path());
+}
+
+

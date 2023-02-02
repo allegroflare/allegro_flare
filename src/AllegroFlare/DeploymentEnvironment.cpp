@@ -69,6 +69,11 @@ bool DeploymentEnvironment::is_development()
    return environment == ENVIRONMENT_DEVELOPMENT;
 }
 
+bool DeploymentEnvironment::environment_should_set_path_to_resources_path()
+{
+   return environment == ENVIRONMENT_PRODUCTION;
+}
+
 bool DeploymentEnvironment::_is_valid(std::string environment)
 {
    // TODO: Require a param, and do not have a default
@@ -116,17 +121,19 @@ std::string DeploymentEnvironment::get_data_folder_path()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DeploymentEnvironment::get_data_folder_path: error: guard \"is_valid()\" not met");
    }
-   if (environment == ENVIRONMENT_PRODUCTION)
-   {
-      return "./data/";
-   }
-   else if (environment == ENVIRONMENT_TEST)
+   if (environment == ENVIRONMENT_TEST)
    {
       return "./tests/fixtures/";
    }
    else if (environment == ENVIRONMENT_DEVELOPMENT || environment == ENVIRONMENT_DEMO)
    {
       return "./bin/data/";
+   }
+   else if (environment == ENVIRONMENT_PRODUCTION)
+   {
+      // NOTE: With the production environment, it's expected to have the executable set the path. The data folder
+      // will be the "./data" folder that is relative to that.
+      return "./data/";
    }
    else
    {

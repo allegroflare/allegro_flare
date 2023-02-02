@@ -83,6 +83,12 @@ functions:
       return environment == ENVIRONMENT_DEVELOPMENT;
 
 
+  - name: environment_should_set_path_to_resources_path
+    type: bool
+    body: |
+      return environment == ENVIRONMENT_PRODUCTION;
+
+
   - name: _is_valid
     type: bool
     parameters:
@@ -136,17 +142,19 @@ functions:
     type: std::string
     guards: [ is_valid() ]
     body: |
-      if (environment == ENVIRONMENT_PRODUCTION)
-      {
-         return "./data/";
-      }
-      else if (environment == ENVIRONMENT_TEST)
+      if (environment == ENVIRONMENT_TEST)
       {
          return "./tests/fixtures/";
       }
       else if (environment == ENVIRONMENT_DEVELOPMENT || environment == ENVIRONMENT_DEMO)
       {
          return "./bin/data/";
+      }
+      else if (environment == ENVIRONMENT_PRODUCTION)
+      {
+         // NOTE: With the production environment, it's expected to have the executable set the path. The data folder
+         // will be the "./data" folder that is relative to that.
+         return "./data/";
       }
       else
       {
