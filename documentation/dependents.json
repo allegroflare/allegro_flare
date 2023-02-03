@@ -1533,7 +1533,8 @@
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Screens/JoystickConfiguration"
+    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Screen": [
     "AllegroFlare/Prototypes/CubeShooter/Runner"
