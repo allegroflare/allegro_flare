@@ -18,11 +18,14 @@ namespace AllegroFlare
          bool finished;
          bool initialized;
 
+      protected:
+
+
       public:
          Base(float duration_sec=1.0f);
          virtual ~Base();
 
-         bool get_finished();
+         bool get_finished() const;
          void initialize();
          ALLEGRO_BITMAP* get_pasteboard_a();
          ALLEGRO_BITMAP* get_pasteboard_b();

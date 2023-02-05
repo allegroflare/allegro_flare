@@ -36,6 +36,9 @@ functions:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
+      
+      // IMPORTANT: Design does not currently work effectively in conjunction with AllegroFlare
+      // TODO: this needs to be modified to expect and work with existing and active AllegroFlare rendering surface
       ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
 
       pasteboard_a = al_create_bitmap(al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
@@ -83,7 +86,7 @@ functions:
 dependencies:
 
 
-  - symbol: ALLEGRO_BITMAP*
+  - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
  
 

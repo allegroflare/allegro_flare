@@ -258,6 +258,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/RollingCredits.q.yml">quintessence/AllegroFlare/Screens/RollingCredits.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Transition.q.yml">quintessence/AllegroFlare/Screens/Transition.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Cubemap.q.yml">quintessence/AllegroFlare/Shaders/Cubemap.q.yml</a></li>
@@ -290,6 +291,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TransitionFX/Base.q.yml">quintessence/AllegroFlare/TransitionFX/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/UnicodeFontViewer.q.yml">quintessence/AllegroFlare/UnicodeFontViewer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
@@ -15051,6 +15053,76 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Transition.q.yml">quintessence/AllegroFlare/Screens/Transition.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">from_screen</td>
+  <td class="property">AllegroFlare::Screens::Base*</td>
+</tr>
+<tr>
+  <td class="property">to_screen</td>
+  <td class="property">AllegroFlare::Screens::Base*</td>
+</tr>
+<tr>
+  <td class="property">transition_fx</td>
+  <td class="property">AllegroFlare::TransitionFX::Base*</td>
+</tr>
+<tr>
+  <td class="property">game_event_name_to_emit_after_completing</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">target</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">finished</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_backbuffer_to_pasteboard_a_bitmap()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_backbuffer_to_pasteboard_b_bitmap()</td>
+</tr>
+<tr>
+  <td class="private_method">emit_completion_event()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TransitionFX::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TransitionFX/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</h3>
      <table>
 <tr>
@@ -17151,6 +17223,59 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timeline::Actors::Actor2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timeline/Actors/Actor2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/TransitionFX/Base.q.yml">quintessence/AllegroFlare/TransitionFX/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">pasteboard_a</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">pasteboard_b</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">duration_sec</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">finished</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">get_pasteboard_a()</td>
+</tr>
+<tr>
+  <td class="method">get_pasteboard_b()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20271,12 +20396,14 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
+    "AllegroFlare/TransitionFX/Base",
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
@@ -20499,6 +20626,7 @@ table td
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
@@ -20539,6 +20667,7 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
@@ -21865,6 +21994,9 @@ table td
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/TransitionFX/Base": [
+    "AllegroFlare/Screens/Transition"
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/Shaders/AllegroDefault",

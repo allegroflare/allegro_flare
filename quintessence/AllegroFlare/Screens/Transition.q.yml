@@ -56,8 +56,14 @@ functions:
 
 
   - name: initialize
-    guards: [ al_is_system_installed(), (!initialized), al_get_current_display() ]
+    guards: 
+      - (!initialized)
+      - al_is_system_installed()
+      - al_get_current_display()
+      - event_emitter
     body: |
+      // IMPORTANT: Design does not currently work effectively in conjunction with AllegroFlare
+      // TODO: this needs to be modified to expect and work with existing and active AllegroFlare rendering surface
       ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
 
       target = al_create_sub_bitmap(
@@ -85,6 +91,8 @@ functions:
          draw_backbuffer_to_pasteboard_b_bitmap();
       }
       
+      // IMPORTANT: Design does not currently work effectively in conjunction with AllegroFlare
+      // TODO: this needs to be modified to expect and work with existing and active AllegroFlare rendering surface
       transition_fx->update();
       ALLEGRO_STATE previous_render_state;
       al_store_state(&previous_render_state, ALLEGRO_STATE_TARGET_BITMAP);
@@ -138,7 +146,7 @@ functions:
     body: |
       if (!game_event_name_to_emit_after_completing.empty())
       {
-         //event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+         event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
       }
       return;
 
@@ -146,15 +154,13 @@ functions:
 dependencies:
 
 
-  - symbol: ALLEGRO_BITMAP*
+  - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::Screens::Base*
-    headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::TransitionFX::Base*
+  - symbol: AllegroFlare::TransitionFX::Base
     headers: [ AllegroFlare/TransitionFX/Base.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
+  - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
 
 

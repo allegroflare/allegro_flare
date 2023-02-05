@@ -23,6 +23,12 @@ namespace AllegroFlare
          ALLEGRO_BITMAP* target;
          bool finished;
          bool initialized;
+         void draw_backbuffer_to_pasteboard_a_bitmap();
+         void draw_backbuffer_to_pasteboard_b_bitmap();
+         void emit_completion_event();
+
+      protected:
+
 
       public:
          Transition(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Screens::Base* from_screen=nullptr, AllegroFlare::Screens::Base* to_screen=nullptr, AllegroFlare::TransitionFX::Base* transition_fx=nullptr, std::string game_event_name_to_emit_after_completing="transition_finished");
@@ -30,13 +36,10 @@ namespace AllegroFlare
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing);
-         std::string get_game_event_name_to_emit_after_completing();
-         bool get_finished();
+         std::string get_game_event_name_to_emit_after_completing() const;
+         bool get_finished() const;
          void initialize();
          virtual void primary_timer_func() override;
-         void draw_backbuffer_to_pasteboard_a_bitmap();
-         void draw_backbuffer_to_pasteboard_b_bitmap();
-         void emit_completion_event();
       };
    }
 }

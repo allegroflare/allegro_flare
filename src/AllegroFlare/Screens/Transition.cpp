@@ -1,10 +1,10 @@
 
 
 #include <AllegroFlare/Screens/Transition.hpp>
-#include <stdexcept>
+
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
-#include <sstream>
 
 
 namespace AllegroFlare
@@ -44,13 +44,13 @@ void Transition::set_game_event_name_to_emit_after_completing(std::string game_e
 }
 
 
-std::string Transition::get_game_event_name_to_emit_after_completing()
+std::string Transition::get_game_event_name_to_emit_after_completing() const
 {
    return game_event_name_to_emit_after_completing;
 }
 
 
-bool Transition::get_finished()
+bool Transition::get_finished() const
 {
    return finished;
 }
@@ -58,24 +58,36 @@ bool Transition::get_finished()
 
 void Transition::initialize()
 {
-   if (!(al_is_system_installed()))
-      {
-         std::stringstream error_message;
-         error_message << "Transition" << "::" << "initialize" << ": error: " << "guard \"al_is_system_installed()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
    if (!((!initialized)))
-      {
-         std::stringstream error_message;
-         error_message << "Transition" << "::" << "initialize" << ": error: " << "guard \"(!initialized)\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "[Transition::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Transition::initialize: error: guard \"(!initialized)\" not met");
+   }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Transition::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Transition::initialize: error: guard \"al_is_system_installed()\" not met");
+   }
    if (!(al_get_current_display()))
-      {
-         std::stringstream error_message;
-         error_message << "Transition" << "::" << "initialize" << ": error: " << "guard \"al_get_current_display()\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "[Transition::initialize]: error: guard \"al_get_current_display()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Transition::initialize: error: guard \"al_get_current_display()\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Transition::initialize]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Transition::initialize: error: guard \"event_emitter\" not met");
+   }
+   // IMPORTANT: Design does not currently work effectively in conjunction with AllegroFlare
+   // TODO: this needs to be modified to expect and work with existing and active AllegroFlare rendering surface
    ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
 
    target = al_create_sub_bitmap(
@@ -87,17 +99,19 @@ void Transition::initialize()
 void Transition::primary_timer_func()
 {
    if (!(initialized))
-      {
-         std::stringstream error_message;
-         error_message << "Transition" << "::" << "primary_timer_func" << ": error: " << "guard \"initialized\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "[Transition::primary_timer_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Transition::primary_timer_func: error: guard \"initialized\" not met");
+   }
    if (!(transition_fx))
-      {
-         std::stringstream error_message;
-         error_message << "Transition" << "::" << "primary_timer_func" << ": error: " << "guard \"transition_fx\" not met";
-         throw std::runtime_error(error_message.str());
-      }
+   {
+      std::stringstream error_message;
+      error_message << "[Transition::primary_timer_func]: error: guard \"transition_fx\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Transition::primary_timer_func: error: guard \"transition_fx\" not met");
+   }
    if (to_screen)
    {
       //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
@@ -112,6 +126,8 @@ void Transition::primary_timer_func()
       draw_backbuffer_to_pasteboard_b_bitmap();
    }
 
+   // IMPORTANT: Design does not currently work effectively in conjunction with AllegroFlare
+   // TODO: this needs to be modified to expect and work with existing and active AllegroFlare rendering surface
    transition_fx->update();
    ALLEGRO_STATE previous_render_state;
    al_store_state(&previous_render_state, ALLEGRO_STATE_TARGET_BITMAP);
@@ -161,10 +177,12 @@ void Transition::emit_completion_event()
 {
    if (!game_event_name_to_emit_after_completing.empty())
    {
-      //event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
    }
    return;
 }
+
+
 } // namespace Screens
 } // namespace AllegroFlare
 
