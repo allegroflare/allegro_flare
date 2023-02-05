@@ -1,0 +1,89 @@
+properties:
+
+
+  - name: pasteboard_a
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: explicit
+
+  - name: pasteboard_b
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: explicit
+
+  - name: duration_sec
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+
+  - name: position
+    type: float
+    init_with: 0.0f
+
+  - name: finished
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+
+      pasteboard_a = al_create_bitmap(al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
+      pasteboard_b = al_create_bitmap(al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
+
+      initialized = true;
+      return;
+
+
+  - name: get_pasteboard_a
+    type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
+    body: |
+      return pasteboard_a;
+
+
+  - name: get_pasteboard_b
+    type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
+    body: |
+      return pasteboard_b;
+
+
+  - name: update
+    virtual: true
+    guards: [ initialized ]
+    body: |
+      position += 1.0 / 60.0;
+      if (position >= duration_sec) finished = true;
+      return;
+
+
+  - name: render
+    virtual: true
+    guards: [ initialized ]
+    body: |
+      float alpha = 1.0 - (duration_sec - position) / duration_sec;
+      if (alpha >= 1.0) alpha = 1.0f;
+      if (alpha <= 0.0) alpha = 0.0f;
+      al_draw_bitmap(pasteboard_a, 0, 0, 0);
+      al_draw_tinted_bitmap(pasteboard_b, ALLEGRO_COLOR{alpha, alpha, alpha, alpha}, 0, 0, 0);
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP*
+    headers: [ allegro5/allegro.h ]
+ 
+
