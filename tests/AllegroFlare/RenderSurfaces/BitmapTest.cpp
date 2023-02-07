@@ -160,13 +160,16 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
    al_set_new_display_option(ALLEGRO_SAMPLES, num_samples, ALLEGRO_REQUIRE);
    al_set_new_display_option(ALLEGRO_DEPTH_SIZE, num_depth, ALLEGRO_REQUIRE);
 
-   ALLEGRO_DISPLAY *display = al_create_display(500*3, 320*3);
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
    ASSERT_NE(nullptr, display);
    ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
    ASSERT_EQ(num_depth, al_get_display_option(display, ALLEGRO_DEPTH_SIZE));
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
-   render_surface.setup_surface_with_settings_that_match_display(display, 500, 320);
+   //render_surface.setup_surface_with_settings_that_match_display(display, 500, 320);
+   //render_surface.setup_surface_with_settings_that_match_display(display, 1920, 1080);
+   //render_surface.setup_surface(1920/3, 1080/3, num_samples, num_depth); // <-- NOTE: will be slow performance
+   render_surface.setup_surface_with_settings_that_match_display(display, 1920/3, 1080/3);
 
    EXPECT_EQ(num_samples, al_get_bitmap_samples(render_surface.obtain_surface()));
    EXPECT_EQ(num_depth, al_get_bitmap_depth(render_surface.obtain_surface()));
@@ -184,12 +187,34 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 
       // blit the render surface to the display backbuffer
       al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+
+      // setup a transform on our surface
+      {
+         ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+         ALLEGRO_TRANSFORM transform;
+         al_identity_transform(&transform);
+         al_orthographic_transform(
+            &transform,
+            0,
+            0,
+            -1.0,
+            // OPTION A:
+               //al_get_bitmap_width(backbuffer),
+               //al_get_bitmap_height(backbuffer),
+            // OPTION B:
+               al_get_bitmap_width(render_surface.obtain_surface()),
+               al_get_bitmap_height(render_surface.obtain_surface()),
+            1.0
+         );
+         al_use_projection_transform(&transform);
+      }
+
       al_draw_bitmap(render_surface.obtain_surface(), i, i, 0);
       al_flip_display();
    }
 
 
-   al_rest(2);
+   al_rest(1);
 
    bitmap_bin.clear();
    al_destroy_display(display);
