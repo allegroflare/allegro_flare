@@ -16,10 +16,10 @@ namespace Testing
 WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    : ::testing::Test()
    , framework({})
-   , event_emitter(framework.get_event_emitter_ref())
-   , bitmap_bin(framework.get_bitmap_bin_ref())
-   , font_bin(framework.get_font_bin_ref())
-   , model_bin(framework.get_model_bin_ref())
+   , framework_event_emitter(nullptr)
+   , framework_bitmap_bin(nullptr)
+   , framework_font_bin(nullptr)
+   , framework_model_bin(nullptr)
    , test_snapshots_folder("[unset-test_snapshots_folder]")
    , initialized(false)
 {
@@ -31,33 +31,33 @@ WithAllegroFlareFrameworksFullFixture::~WithAllegroFlareFrameworksFullFixture()
 }
 
 
+AllegroFlare::EventEmitter* WithAllegroFlareFrameworksFullFixture::get_framework_event_emitter() const
+{
+   return framework_event_emitter;
+}
+
+
+AllegroFlare::BitmapBin* WithAllegroFlareFrameworksFullFixture::get_framework_bitmap_bin() const
+{
+   return framework_bitmap_bin;
+}
+
+
+AllegroFlare::FontBin* WithAllegroFlareFrameworksFullFixture::get_framework_font_bin() const
+{
+   return framework_font_bin;
+}
+
+
+AllegroFlare::ModelBin* WithAllegroFlareFrameworksFullFixture::get_framework_model_bin() const
+{
+   return framework_model_bin;
+}
+
+
 AllegroFlare::Frameworks::Full &WithAllegroFlareFrameworksFullFixture::get_framework_ref()
 {
    return framework;
-}
-
-
-AllegroFlare::EventEmitter &WithAllegroFlareFrameworksFullFixture::get_event_emitter_ref()
-{
-   return event_emitter;
-}
-
-
-AllegroFlare::BitmapBin &WithAllegroFlareFrameworksFullFixture::get_bitmap_bin_ref()
-{
-   return bitmap_bin;
-}
-
-
-AllegroFlare::FontBin &WithAllegroFlareFrameworksFullFixture::get_font_bin_ref()
-{
-   return font_bin;
-}
-
-
-AllegroFlare::ModelBin &WithAllegroFlareFrameworksFullFixture::get_model_bin_ref()
-{
-   return model_bin;
 }
 
 
@@ -74,6 +74,11 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    framework.disable_auto_created_config_warning();
    framework.disable_fullscreen();
    framework.initialize();
+
+   this->framework_event_emitter = &framework.get_event_emitter_ref();
+   this->framework_bitmap_bin = &framework.get_bitmap_bin_ref();
+   this->framework_font_bin = &framework.get_font_bin_ref();
+   this->framework_model_bin = &framework.get_model_bin_ref();
 
    test_snapshots_folder = "./tmp/test_snapshots/";
 
@@ -99,6 +104,10 @@ void WithAllegroFlareFrameworksFullFixture::TearDown()
       throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::TearDown: error: guard \"initialized\" not met");
    }
    framework.shutdown();
+   this->framework_event_emitter = nullptr;
+   this->framework_bitmap_bin = nullptr;
+   this->framework_font_bin = nullptr;
+   this->framework_model_bin = nullptr;
    initialized = false;
    return;
 }

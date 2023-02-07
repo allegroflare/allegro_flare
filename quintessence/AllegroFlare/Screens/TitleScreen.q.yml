@@ -658,6 +658,8 @@ functions:
   - name: draw_menu
     guards: [ al_is_primitives_addon_initialized() ]
     body: |
+      return; // DEBUG
+
       // TODO: review guards on this function
       ALLEGRO_FONT *menu_font = obtain_menu_font();
       //int surface_width = 1920;

@@ -19,10 +19,10 @@ namespace AllegroFlare
       {
       private:
          AllegroFlare::Frameworks::Full framework;
-         AllegroFlare::EventEmitter event_emitter;
-         AllegroFlare::BitmapBin bitmap_bin;
-         AllegroFlare::FontBin font_bin;
-         AllegroFlare::ModelBin model_bin;
+         AllegroFlare::EventEmitter* framework_event_emitter;
+         AllegroFlare::BitmapBin* framework_bitmap_bin;
+         AllegroFlare::FontBin* framework_font_bin;
+         AllegroFlare::ModelBin* framework_model_bin;
          std::string test_snapshots_folder;
          bool initialized;
 
@@ -33,11 +33,11 @@ namespace AllegroFlare
          WithAllegroFlareFrameworksFullFixture();
          virtual ~WithAllegroFlareFrameworksFullFixture();
 
+         AllegroFlare::EventEmitter* get_framework_event_emitter() const;
+         AllegroFlare::BitmapBin* get_framework_bitmap_bin() const;
+         AllegroFlare::FontBin* get_framework_font_bin() const;
+         AllegroFlare::ModelBin* get_framework_model_bin() const;
          AllegroFlare::Frameworks::Full &get_framework_ref();
-         AllegroFlare::EventEmitter &get_event_emitter_ref();
-         AllegroFlare::BitmapBin &get_bitmap_bin_ref();
-         AllegroFlare::FontBin &get_font_bin_ref();
-         AllegroFlare::ModelBin &get_model_bin_ref();
          virtual void SetUp() override;
          virtual void TearDown() override;
          void framework_register_and_activate_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);

@@ -14,25 +14,25 @@ properties:
     getter_ref: true
     init_with: '{}'
 
-  - name: event_emitter
-    type: AllegroFlare::EventEmitter
-    init_with: framework.get_event_emitter_ref()
-    getter_ref: true
+  - name: framework_event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    getter: true
 
-  - name: bitmap_bin
-    type: AllegroFlare::BitmapBin
-    init_with: framework.get_bitmap_bin_ref()
-    getter_ref: true
+  - name: framework_bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    getter: true
 
-  - name: font_bin
-    type: AllegroFlare::FontBin
-    init_with: framework.get_font_bin_ref()
-    getter_ref: true
+  - name: framework_font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    getter: true
 
-  - name: model_bin
-    type: AllegroFlare::ModelBin
-    init_with: framework.get_model_bin_ref()
-    getter_ref: true
+  - name: framework_model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    getter: true
 
   - name: test_snapshots_folder
     type: std::string
@@ -57,6 +57,11 @@ functions:
       framework.disable_fullscreen();
       framework.initialize();
 
+      this->framework_event_emitter = &framework.get_event_emitter_ref();
+      this->framework_bitmap_bin = &framework.get_bitmap_bin_ref();
+      this->framework_font_bin = &framework.get_font_bin_ref();
+      this->framework_model_bin = &framework.get_model_bin_ref();
+
       test_snapshots_folder = "./tmp/test_snapshots/";
 
       // TODO: consider setting this value in the framework
@@ -78,6 +83,10 @@ functions:
     guards: [ initialized ]
     body: |
       framework.shutdown();
+      this->framework_event_emitter = nullptr;
+      this->framework_bitmap_bin = nullptr;
+      this->framework_font_bin = nullptr;
+      this->framework_model_bin = nullptr;
       initialized = false;
       return;
 

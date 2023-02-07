@@ -123,9 +123,9 @@ TEST_F(AllegroFlare_Screens_JoystickConfigurationTestWithAllegroFrameworksFullFi
    TIMED_INTERACTIVE__will_run_as_expected)
 {
    AllegroFlare::Screens::JoystickConfiguration joystick_configuration_screen;
-   joystick_configuration_screen.set_event_emitter(&get_event_emitter_ref());
-   joystick_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
-   joystick_configuration_screen.set_font_bin(&get_font_bin_ref());
+   joystick_configuration_screen.set_event_emitter(get_framework_event_emitter());
+   joystick_configuration_screen.set_bitmap_bin(get_framework_bitmap_bin());
+   joystick_configuration_screen.set_font_bin(get_framework_font_bin());
    joystick_configuration_screen.initialize();
 
    framework_register_and_activate_screen("joystick_configuration_screen", &joystick_configuration_screen);

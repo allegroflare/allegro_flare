@@ -320,6 +320,10 @@ bool Full::initialize_without_display()
 
    // TODO: prevent these paths from being hard-coded, or, allow it to be hard-coded in the context of
    // different deployment environments.
+
+
+   // DEBUG:
+
    fonts.set_path(data_folder_path + "fonts");
    samples.set_path(data_folder_path + "samples");
    bitmaps.set_path(data_folder_path + "bitmaps");

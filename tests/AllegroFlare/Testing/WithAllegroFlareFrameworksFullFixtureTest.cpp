@@ -33,6 +33,22 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
+   SetUp__will_set_the_bins_pointers_to_the_bins_of_the_framework)
+{
+   EXPECT_EQ(get_framework_bitmap_bin(), &get_framework_ref().get_bitmap_bin_ref());
+   EXPECT_EQ(get_framework_font_bin(), &get_framework_ref().get_font_bin_ref());
+   EXPECT_EQ(get_framework_model_bin(), &get_framework_ref().get_model_bin_ref());
+}
+
+
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
+   SetUp__will_set_event_emitter_pointer_to_the_pointer_of_the_framework)
+{
+   EXPECT_EQ(get_framework_event_emitter(), &get_framework_ref().get_event_emitter_ref());
+}
+
+
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
    DISABLED__will_set_the_window_title_to_the_test_suite_name_and_test_name)
 {
    // NOTE: cannot currently test this, Allegro5 does not currently have a al_get_window_title() feature

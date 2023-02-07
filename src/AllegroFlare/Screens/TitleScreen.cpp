@@ -788,6 +788,8 @@ void TitleScreen::draw_menu()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TitleScreen::draw_menu: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   return; // DEBUG
+
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
    //int surface_width = 1920;

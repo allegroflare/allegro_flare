@@ -34,6 +34,7 @@ namespace AllegroFlare
       Bin(std::string type="Bin");
       void set_path(std::string directory); // <- hmm
       void set_full_path(std::string directory); // <- hmm
+      bool is_initialized();
       std::string get_path();
       virtual ~Bin(); // < should this be a pure virtual funcion that requires clear()?
       Record *get_record(T2 identifier);
@@ -143,6 +144,13 @@ namespace AllegroFlare
       if (directory) al_destroy_path(directory);
       directory = al_create_path_for_directory(path.c_str());
       initialized = true;
+   }
+
+
+   template<class T2, class T>
+   bool Bin<T2, T>::is_initialized()
+   {
+      return initialized;
    }
 
 
