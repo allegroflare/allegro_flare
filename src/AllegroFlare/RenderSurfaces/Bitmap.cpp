@@ -111,6 +111,34 @@ void Bitmap::setup_surface(int surface_width, int surface_height, int multisampl
 }
 
 
+void Bitmap::setup_surface_with_settings_that_match_display(
+      ALLEGRO_DISPLAY* display,
+      int surface_width,
+      int surface_height
+   )
+{
+   if (display)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::RenderSurfaces::Bitmap::setup_surface_with_settings_that_match_display",
+         "A valid display must be present."
+      );
+   }
+   if (surface_width < 1 || surface_height < 1)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::RenderSurfaces::Bitmap::setup_surface_with_settings_that_match_display",
+         "Surface cannot have neither width or height less than 1."
+      );
+   }
+
+   int display_num_samples = al_get_display_option(display, ALLEGRO_SAMPLES);
+   int display_depth_size = al_get_display_option(display, ALLEGRO_DEPTH_SIZE);
+
+   setup_surface(surface_width, surface_height, display_num_samples, display_depth_size);
+}
+
+
 // TODO: find a way to optionally clear_to_color and clear_depth
 //void Bitmap::set_as_target(bool clear_to_color, bool clear_depth)
 bool Bitmap::set_as_target()

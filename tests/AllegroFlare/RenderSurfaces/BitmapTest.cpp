@@ -121,8 +121,15 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, FOCUS__the_surface_will_render_to
    // can be used along with ALLEGRO_OPENGL.
    al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
    ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
-   AllegroFlare::RenderSurfaces::Bitmap render_surface(400, 240, 8, 4); // NOTE: this should be identical to the display
-                                                                        // for the purpose of blitting with speed.
+   int display_num_samples = al_get_display_option(display, ALLEGRO_SAMPLES);
+   int display_depth_size = al_get_display_option(display, ALLEGRO_DEPTH_SIZE);
+   AllegroFlare::RenderSurfaces::Bitmap render_surface(
+         400,
+         240,
+         display_num_samples,
+         display_depth_size
+   ); // NOTE: this should be identical to the display
+      // for the purpose of blitting with speed.
    render_surface.initialize();
 
    render_surface.set_as_target();
