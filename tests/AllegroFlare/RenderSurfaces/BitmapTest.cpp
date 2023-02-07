@@ -108,7 +108,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, set_as_target__will_set_the_surfa
 
 
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
-   FOCUS__setup_surface_with_settings_that_match_display__will_create_a_surface_with_the_same_settings_as_a_display)
+   DISABLED__FOCUS__setup_surface_with_settings_that_match_display__will_create_a_surface_with_the_same_settings_as_a_display)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    al_init();
@@ -141,7 +141,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 // DEBUGGING:
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
-   DISABLED__FOCUS__the_surface_will_render_to_the_display_backbuffer_as_expected)
+   FOCUS__the_surface_will_render_to_the_display_backbuffer_as_expected)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    al_init();
@@ -149,31 +149,45 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
    AllegroFlare::BitmapBin bitmap_bin;
    bitmap_bin.set_path(deployment_environment.get_data_folder_path() + "bitmaps");
 
+
+   int num_samples = 4;
+   int num_depth = 32;
+
    // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
    // can be used along with ALLEGRO_OPENGL.
    al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
-   ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
-   int display_num_samples = al_get_display_option(display, ALLEGRO_SAMPLES);
-   int display_depth_size = al_get_display_option(display, ALLEGRO_DEPTH_SIZE);
-   AllegroFlare::RenderSurfaces::Bitmap render_surface(
-         400,
-         240,
-         display_num_samples,
-         display_depth_size
-   ); // NOTE: this should be identical to the display
-      // for the purpose of blitting with speed.
-   render_surface.initialize();
+   al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
+   al_set_new_display_option(ALLEGRO_SAMPLES, num_samples, ALLEGRO_REQUIRE);
+   al_set_new_display_option(ALLEGRO_DEPTH_SIZE, num_depth, ALLEGRO_REQUIRE);
 
-   render_surface.set_as_target();
+   ALLEGRO_DISPLAY *display = al_create_display(500*3, 320*3);
+   ASSERT_NE(nullptr, display);
+   ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
+   ASSERT_EQ(num_depth, al_get_display_option(display, ALLEGRO_DEPTH_SIZE));
 
-   ALLEGRO_BITMAP *toy_train_bitmap = bitmap_bin.auto_get("toy-train-02.png");
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.setup_surface_with_settings_that_match_display(display, 500, 320);
 
-   al_draw_bitmap(toy_train_bitmap, 100, 100, 0);
+   EXPECT_EQ(num_samples, al_get_bitmap_samples(render_surface.obtain_surface()));
+   EXPECT_EQ(num_depth, al_get_bitmap_depth(render_surface.obtain_surface()));
 
-   al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
 
-   al_draw_bitmap(render_surface.obtain_surface(), 0, 0, 0);
-   al_flip_display();
+
+   int loops = 120;
+   for (int i=0; i<loops; i++)
+   {
+      // draw to the render surface
+      render_surface.set_as_target();
+      al_clear_to_color(ALLEGRO_COLOR{0.025, 0.03, 0.08, 1});
+      ALLEGRO_BITMAP *toy_train_bitmap = bitmap_bin.auto_get("toy-train-02.png");
+      al_draw_bitmap(toy_train_bitmap, 100+i, 100, 0);
+
+      // blit the render surface to the display backbuffer
+      al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+      al_draw_bitmap(render_surface.obtain_surface(), i, i, 0);
+      al_flip_display();
+   }
+
 
    al_rest(2);
 

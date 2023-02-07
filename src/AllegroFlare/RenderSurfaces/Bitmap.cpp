@@ -156,8 +156,8 @@ bool Bitmap::set_as_target()
    al_set_target_bitmap(surface);
 
    if (clear_to_color) al_clear_to_color(clear_color);
-   if (clear_depth) al_clear_to_color(clear_color); // TODO: actually clear depth buffer
-   //al_set_target_bitmap(
+   if (clear_depth) al_clear_depth_buffer(1);
+
    return true;
 }
 
