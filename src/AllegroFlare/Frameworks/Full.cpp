@@ -822,6 +822,9 @@ void Full::render_screens_to_primary_render_surface()
    {
       primary_render_surface->set_as_target();
       
+      // TODO: consider that these two clearing steps might be redundant if the primary_render_surface
+      // handles any clearing when it is set as target.  Probably the SurfaceRender::Base should have
+      // an interface for clear(), and otherwise there is no expected side-effect behavior.
       if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
       // Maybe will use this:
@@ -829,7 +832,8 @@ void Full::render_screens_to_primary_render_surface()
                                                                                 // subsequent renders at the same
                                                                                 // z-level to overwrite. This 
                                                                                 // mimics the rendering of typical
-                                                                                // "traditional" drawing functions
+                                                                                // traditional 2D drawing behavior
+                                                                                // like Illustrator, HTML, etc.
    }
 
    if (screens.no_active_screens())
