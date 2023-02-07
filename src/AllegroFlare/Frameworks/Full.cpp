@@ -392,14 +392,7 @@ bool Full::initialize()
 
    // TODO: validate size of display before creating a window that is larger than the display. If so, output a
    // warning.
-
-
-   primary_display = create_display(
-         1920,
-         1080,
-         display_flags
-         //ALLEGRO_FULLSCREEN_WINDOW | ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE
-      );
+   primary_display = create_display(1920, 1080, display_flags);
 
    if (!primary_display || !primary_display->al_display)
    {
@@ -414,7 +407,6 @@ bool Full::initialize()
                                                               // ^^ NOTE: this could potentially change depending on the
                                                               // needs of the game, but is setup here as a reasonable
                                                               // default
-                                                              // TODO: replace this with display_backbuffer
 
    if (using_display_backbuffer_as_primary_render_surface)
    {
@@ -425,7 +417,7 @@ bool Full::initialize()
    {
       // TODO: Implement this new reality please!
       AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
-      bitmap_render_surface->setup_surface(1920, 1080, 4, 16);
+      bitmap_render_surface->setup_surface_with_settings_that_match_display(primary_display->al_display, 1920, 1080);
       primary_render_surface = bitmap_render_surface;
    }
 
@@ -788,95 +780,12 @@ bool Full::get_drawing_inputs_bar_overlay()
 }
 
 
-Display *Full::create_display(int width, int height)
-{
-   return create_display(width, height, false, -1);
-}
-
-
-Display *Full::create_display(int width, int height, int display_flags)
-{
-   Display *display = new Display(width, height, display_flags);
-   al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
-   return display;
-}
-
-
 Display *Full::create_display(int width, int height, int display_flags, int adapter)
 {
    if (adapter!=-1) al_set_new_display_adapter(adapter);
    Display *display = new Display(width, height, display_flags);
    al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
    return display;
-}
-
-
-Display *Full::create_display(int width, int height, bool fullscreen)
-{
-   Display *display = new Display(width, height, fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED);
-   al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
-   return display;
-}
-
-
-Display *Full::create_display(int width, int height, bool fullscreen, int adapter)
-{
-   if (adapter!=-1) al_set_new_display_adapter(adapter);
-   Display *display = new Display(width, height, fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED);
-
-   al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
-   return display;
-}
-
-
-Display *Full::create_display(Display::resolution_t resolution)
-{
-   int w, h;
-   int screen_flags = ALLEGRO_FLAGS_EMPTY;
-   int display_adapter_to_use = 0;
-
-   switch(resolution)
-   {
-   case Display::RESOLUTION_XGA:
-      w = 1024;
-      h = 768;
-      break;
-   case Display::RESOLUTION_WXGA:
-      w = 1280;
-      h = 800;
-      break;
-   case Display::RESOLUTION_WXGA_PLUS:
-      w = 1440;
-      h = 900;
-      break;
-   case Display::RESOLUTION_HD_1080:
-      w = 1920;
-      h = 1080;
-      break;
-   case Display::RESOLUTION_HD_720:
-      w = 1280;
-      h = 720;
-      break;
-   case Display::RESOLUTION_RETINA:
-      w = 2880;
-      h = 1800;
-      break;
-   case Display::FULLSCREEN_AUTO:
-      {
-         ALLEGRO_MONITOR_INFO monitor_info;
-         al_get_monitor_info(display_adapter_to_use, &monitor_info);
-         w = monitor_info.x2 - monitor_info.x1;
-         h = monitor_info.y2 - monitor_info.y1;
-         screen_flags = ALLEGRO_FULLSCREEN;
-      }
-      break;
-   default:
-      w = 1024;
-      h = 768;
-      break;
-   }
-
-   return create_display(w, h, screen_flags, display_adapter_to_use);
 }
 
 
