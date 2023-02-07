@@ -107,3 +107,40 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, set_as_target__will_set_the_surfa
 }
 
 
+// DEBUGGING:
+#include <AllegroFlare/DeploymentEnvironment.hpp>
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, FOCUS__the_surface_will_render_to_the_display_backbuffer_as_expected)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   al_init();
+   al_init_image_addon();
+   AllegroFlare::BitmapBin bitmap_bin;
+   bitmap_bin.set_path(deployment_environment.get_data_folder_path() + "bitmaps");
+
+   // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
+   // can be used along with ALLEGRO_OPENGL.
+   al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+   ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
+   AllegroFlare::RenderSurfaces::Bitmap render_surface(400, 240, 8, 4); // NOTE: this should be identical to the display
+                                                                        // for the purpose of blitting with speed.
+   render_surface.initialize();
+
+   render_surface.set_as_target();
+
+   ALLEGRO_BITMAP *toy_train_bitmap = bitmap_bin.auto_get("toy-train-02.png");
+
+   al_draw_bitmap(toy_train_bitmap, 100, 100, 0);
+
+   al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+
+   al_draw_bitmap(render_surface.obtain_surface(), 0, 0, 0);
+   al_flip_display();
+
+   al_rest(2);
+
+   bitmap_bin.clear();
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+

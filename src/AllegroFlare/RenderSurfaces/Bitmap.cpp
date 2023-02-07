@@ -47,6 +47,12 @@ void Bitmap::initialize()
 void Bitmap::setup_surface(int surface_width, int surface_height, int multisamples, int depth)
 {
    // TODO: add guard for duplicate initialization
+   if (surface_width < 1 || surface_height < 1)
+   {
+      AllegroFlare::Logger::throw_error("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "Surface cannot have "
+                                        "width or height less than 1.");
+   }
+
    if (!ignore_dep_error_NOTE_please_faze_out)
    {
       AllegroFlare::Logger::warn_from("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "Using \"setup_surface\" "
@@ -71,6 +77,20 @@ void Bitmap::setup_surface(int surface_width, int surface_height, int multisampl
       al_set_new_bitmap_depth(depth);
 
       surface = al_create_bitmap(surface_width, surface_height);
+      int surface_bitmap_flags = al_get_bitmap_flags(surface);
+
+      //bool memory_bitmap = surface_bitmap_flags & ALLEGRO_MEMORY_BITMAP;
+      bool video_bitmap = surface_bitmap_flags & ALLEGRO_VIDEO_BITMAP;
+
+      if (!video_bitmap)
+      {
+         AllegroFlare::Logger::warn_from("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "The surface "
+                                         "was not created as a video_bitmap. It's expected that the surface will be "
+                                         "a video bitmap for optimized rendering for post-processing contexts. It's "
+                                         "possible in the future that this RenderSurface could be permitted to be "
+                                         "a non-video bitmap, but for now it is not.");
+      }
+
       this->surface_width = surface_width;
       this->surface_height = surface_height;
       this->multisamples = multisamples;
