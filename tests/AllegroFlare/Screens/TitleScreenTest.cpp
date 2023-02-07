@@ -188,7 +188,7 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroFlareFrameworksFullFixture,
-   DISABLED__FOCUS__TIMED_INTERACTIVE__will_work_in_a_frameworks_full_context)
+   TIMED_INTERACTIVE__will_work_in_a_frameworks_full_context)
 {
    AllegroFlare::Screens::TitleScreen title_screen;
    title_screen.set_event_emitter(get_framework_event_emitter());
