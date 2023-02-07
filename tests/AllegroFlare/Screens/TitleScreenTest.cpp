@@ -7,6 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 
 class AllegroFlare_Screens_TitleScreenTest : public ::testing::Test
 {};
@@ -14,6 +15,11 @@ class AllegroFlare_Screens_TitleScreenTest : public ::testing::Test
 class AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
+
+class AllegroFlare_Screens_TitleScreenTestWithAllegroFlareFrameworksFullFixture :
+   public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
+{};
+//#include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 
 
 #include <AllegroFlare/Screens/TitleScreen.hpp>
@@ -180,5 +186,13 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
    al_destroy_timer(primary_timer);
    al_uninstall_keyboard();
 }
+
+
+TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroFlareFrameworksFullFixture,
+   TIMED_INTERACTIVE__will_work_in_a_frameworks_full_context)
+{
+   // TODO
+}
+
 
 
