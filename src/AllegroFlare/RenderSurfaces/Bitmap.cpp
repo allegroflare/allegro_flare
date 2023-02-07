@@ -98,7 +98,7 @@ void Bitmap::setup_surface(int surface_width, int surface_height, int multisampl
    }
 
 
-   // TODO:
+   // TODO: validate the bitmap was created with the expected settings
    //al_get_bitmap_depth(surface);
    //al_get_bitmap_samples(surface);
 
@@ -117,7 +117,7 @@ void Bitmap::setup_surface_with_settings_that_match_display(
       int surface_height
    )
 {
-   if (display)
+   if (!display)
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::RenderSurfaces::Bitmap::setup_surface_with_settings_that_match_display",

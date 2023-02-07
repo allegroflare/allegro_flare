@@ -107,9 +107,41 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, set_as_target__will_set_the_surfa
 }
 
 
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
+   FOCUS__setup_surface_with_settings_that_match_display__will_create_a_surface_with_the_same_settings_as_a_display)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   al_init();
+   int num_samples = 4;
+   int num_depth = 32;
+
+   // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
+   // can be used along with ALLEGRO_OPENGL.
+   al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+   al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
+   al_set_new_display_option(ALLEGRO_SAMPLES, num_samples, ALLEGRO_REQUIRE);
+   al_set_new_display_option(ALLEGRO_DEPTH_SIZE, num_depth, ALLEGRO_REQUIRE);
+
+   ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
+   ASSERT_NE(nullptr, display);
+   ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
+   ASSERT_EQ(num_depth, al_get_display_option(display, ALLEGRO_DEPTH_SIZE));
+
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.setup_surface_with_settings_that_match_display(display, 400, 240);
+
+   EXPECT_EQ(num_samples, al_get_bitmap_samples(render_surface.obtain_surface()));
+   EXPECT_EQ(num_depth, al_get_bitmap_depth(render_surface.obtain_surface()));
+
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
 // DEBUGGING:
 #include <AllegroFlare/DeploymentEnvironment.hpp>
-TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, FOCUS__the_surface_will_render_to_the_display_backbuffer_as_expected)
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
+   DISABLED__FOCUS__the_surface_will_render_to_the_display_backbuffer_as_expected)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    al_init();
