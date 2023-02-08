@@ -18,7 +18,14 @@ class AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture :
 
 class AllegroFlare_Screens_TitleScreenTestWithAllegroFlareFrameworksFullFixture :
    public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
-{};
+{
+   virtual void SetUp() override
+   {
+      // HERE:
+      //get_framework_ref().disable_using_display_backbuffer_as_primary_render_surface();
+      AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::SetUp();
+   }
+};
 
 
 #include <AllegroFlare/Screens/TitleScreen.hpp>
