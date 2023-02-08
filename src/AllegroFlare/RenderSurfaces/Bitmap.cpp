@@ -139,14 +139,8 @@ void Bitmap::setup_surface_with_settings_that_match_display(
 }
 
 
-// TODO: find a way to optionally clear_to_color and clear_depth
-//void Bitmap::set_as_target(bool clear_to_color, bool clear_depth)
 bool Bitmap::set_as_target()
 {
-   // TODO: find a way to optionally use clear_to_color and clear_depth
-   bool clear_to_color = false;
-   bool clear_depth = false;
-
    if (!initialized)
    {
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: not initialized");
@@ -154,11 +148,6 @@ bool Bitmap::set_as_target()
    }
 
    al_set_target_bitmap(surface);
-
-   // TODO: move this to a 'clear" method on base
-   if (clear_to_color) al_clear_to_color(clear_color);
-   if (clear_depth) al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
-
    return true;
 }
 
@@ -180,6 +169,16 @@ ALLEGRO_BITMAP *Bitmap::obtain_surface()
 {
    if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
    return surface;
+}
+
+
+void Bitmap::clear_surface()
+{
+   if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
+
+   al_clear_to_color(clear_color);
+   al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
+                             // TODO: Ask if bitmaps can have their depth buffer cleared
 }
 
 

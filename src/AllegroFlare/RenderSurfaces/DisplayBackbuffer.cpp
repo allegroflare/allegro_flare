@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/RenderSurfaces/DisplayBackbuffer.hpp>
 
+#include <AllegroFlare/Color.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -91,6 +92,20 @@ bool DisplayBackbuffer::set_as_target()
    }
    al_set_target_bitmap(display_backbuffer);
    return true;
+}
+
+void DisplayBackbuffer::clear_surface()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DisplayBackbuffer::clear_surface]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DisplayBackbuffer::clear_surface: error: guard \"initialized\" not met");
+   }
+   al_clear_to_color(AllegroFlare::Color::Eigengrau);
+   al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
+                             // TODO: Ask if bitmaps can have their depth buffer cleared
 }
 
 ALLEGRO_BITMAP* DisplayBackbuffer::obtain_surface()

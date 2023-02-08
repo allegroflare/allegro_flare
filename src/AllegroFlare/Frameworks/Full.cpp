@@ -65,8 +65,7 @@ Full::Full()
    , escape_key_will_shutdown(true)
    , output_auto_created_config_warning(true)
    , set_primary_render_surface_as_target_before_calling_primary_timer_funcs(true)
-   , clear_to_color_before_calling_primary_timer_funcs(true)
-   , clear_depth_buffer_before_calling_primary_timer_funcs(true)
+   , clear_render_surface_before_calling_primary_timer_funcs(true)
    , using_display_backbuffer_as_primary_render_surface(true)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
@@ -620,41 +619,22 @@ bool Full::is_set_primary_render_surface_as_target_before_calling_primary_timer_
 }
 
 
-void Full::enable_clear_to_color_before_calling_primary_timer_funcs()
+void Full::enable_clear_render_surface_before_calling_primary_timer_funcs()
 {
-   clear_to_color_before_calling_primary_timer_funcs = true;
+   clear_render_surface_before_calling_primary_timer_funcs = true;
 }
 
 
-void Full::disable_clear_to_color_before_calling_primary_timer_funcs()
+void Full::disable_clear_render_surface_before_calling_primary_timer_funcs()
 {
-   clear_to_color_before_calling_primary_timer_funcs = false;
+   clear_render_surface_before_calling_primary_timer_funcs = false;
 }
 
 
-bool Full::is_clear_to_color_before_calling_primary_timer_funcs_enabled()
+bool Full::is_clear_render_surface_before_calling_primary_timer_funcs_enabled()
 {
-   return clear_to_color_before_calling_primary_timer_funcs;
+   return clear_render_surface_before_calling_primary_timer_funcs;
 }
-
-
-void Full::enable_clear_depth_buffer_before_calling_primary_timer_funcs()
-{
-   clear_depth_buffer_before_calling_primary_timer_funcs = true;
-}
-
-
-void Full::disable_clear_depth_buffer_before_calling_primary_timer_funcs()
-{
-   clear_depth_buffer_before_calling_primary_timer_funcs = false;
-}
-
-
-bool Full::is_clear_depth_buffer_before_calling_primary_timer_funcs_enabled()
-{
-   return clear_depth_buffer_before_calling_primary_timer_funcs;
-}
-
 
 
 void Full::enable_using_display_backbuffer_as_primary_render_surface()
@@ -826,19 +806,14 @@ void Full::render_screens_to_primary_render_surface()
    if (set_primary_render_surface_as_target_before_calling_primary_timer_funcs)
    {
       primary_render_surface->set_as_target();
-      
-      // TODO: consider that these two clearing steps might be redundant if the primary_render_surface
-      // handles any clearing when it is set as target.  Probably the SurfaceRender::Base should have
-      // an interface for clear(), and otherwise there is no expected side-effect behavior.
-      if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-      if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
-      // Maybe will use this:
+      if (clear_render_surface_before_calling_primary_timer_funcs) primary_render_surface->clear_surface();
+
       al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
                                                                               // subsequent renders at the same
                                                                               // z-level to overwrite. This 
-                                                                                // mimics the rendering of typical
-                                                                                // traditional 2D drawing behavior
-                                                                                // like Illustrator, HTML, etc.
+                                                                              // mimics the rendering of typical
+                                                                              // traditional 2D drawing behavior
+                                                                              // like Illustrator, HTML, etc.
    }
 
    if (screens.no_active_screens())
@@ -868,7 +843,7 @@ void Full::render_screens_to_primary_render_surface()
       al_use_shader(NULL); // TODO: consider side-effects of this
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
 
-
+      al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
 
       /* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
          // fit the display

@@ -31,6 +31,7 @@ namespace AllegroFlare
          void set_display(ALLEGRO_DISPLAY* display=nullptr);
          void initialize();
          virtual bool set_as_target() override;
+         virtual void clear_surface() override;
          virtual ALLEGRO_BITMAP* obtain_surface() override;
          virtual int get_width() override;
          virtual int get_height() override;

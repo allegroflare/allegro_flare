@@ -44,6 +44,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR get_clear_color();
 
          virtual ALLEGRO_BITMAP *obtain_surface() override;
+         virtual void clear_surface() override;
          virtual int get_width() override;
          virtual int get_height() override;
       };

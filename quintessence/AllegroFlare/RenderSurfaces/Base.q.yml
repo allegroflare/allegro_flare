@@ -33,6 +33,13 @@ functions:
       return nullptr;
 
 
+  - name: clear_surface
+    pure_virtual: true
+    virtual: true
+    body: |
+      return;
+
+
   - name: is_target
     type: bool
     body: |

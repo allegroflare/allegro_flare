@@ -25,6 +25,7 @@ public:
    }
    virtual bool set_as_target() override { return true; }
    virtual ALLEGRO_BITMAP* obtain_surface() override { return surface; }
+   virtual void clear_surface() override { al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.11, 1.0}); }
    virtual int get_width() override { return 0; }
    virtual int get_height() override { return 0; }
 };
@@ -40,6 +41,7 @@ public:
 
    virtual bool set_as_target() override { return true; }
    virtual ALLEGRO_BITMAP* obtain_surface() override { return al_get_backbuffer(al_get_current_display()); }
+   virtual void clear_surface() override { al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.11, 1.0}); }
    virtual int get_width() override { return 0; }
    virtual int get_height() override { return 0; }
 };
@@ -66,6 +68,7 @@ public:
    }
    virtual bool set_as_target() override { return true; }
    virtual ALLEGRO_BITMAP* obtain_surface() override { return surface; }
+   virtual void clear_surface() override { al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.11, 1.0}); }
    virtual int get_width() override { return 0; }
    virtual int get_height() override { return 0; }
 };
@@ -97,6 +100,7 @@ public:
    }
    virtual bool set_as_target() override { return true; }
    virtual ALLEGRO_BITMAP* obtain_surface() override { return surface; }
+   virtual void clear_surface() override { al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.11, 1.0}); }
    virtual int get_width() override { return 0; }
    virtual int get_height() override { return 0; }
 };

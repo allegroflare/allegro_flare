@@ -90,6 +90,18 @@ functions:
       return true;
 
 
+  - name: clear_surface
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      al_clear_to_color(AllegroFlare::Color::Eigengrau);
+      al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
+                                // TODO: Ask if bitmaps can have their depth buffer cleared
+    body_dependency_symbols:
+      - AllegroFlare::Color
+
+
   - name: obtain_surface
     type: ALLEGRO_BITMAP*
     virtual: true
@@ -126,5 +138,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::RenderSurfaces::Base
     headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
 
 

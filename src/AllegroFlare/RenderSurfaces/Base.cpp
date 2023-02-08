@@ -32,6 +32,7 @@ std::string Base::get_type() const
 
 
 
+
 bool Base::is_target()
 {
    return (al_get_target_bitmap() == obtain_surface());
