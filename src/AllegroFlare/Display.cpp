@@ -41,20 +41,40 @@ namespace AllegroFlare
 
 
 
-   Display::Display(int width, int height, int display_flags)
-      : _background_color(al_color_name("black"))
-      , _width(width)
+   //Display(int width, int height, int display_flags, int samples=4, int depth_size=32, int adapter=-1);
+   Display::Display(int width, int height, int display_flags, int samples, int depth_size, int adapter)
+   //Display::Display(int width, int height, int display_flags)
+      //: _background_color(al_color_name("black"))
+      : _width(width)
       , _height(height)
-      , al_display(NULL)
+      , display_flags(display_flags)
+      , samples(samples)
+      , depth_size(depth_size)
+      , adapter(adapter)
+      , al_display(nullptr)
    {
+      if (width < 120 || height < 120)
+      {
+         // TODO: improve this error message
+         throw std::runtime_error("AllegroFlare/Display: Cannot create display: width and height are not valid.");
+      }
+      if (depth_size < 0) // TODO: improve this error condition to compare against "valid_depth_sizes"
+      {
+         throw std::runtime_error("AllegroFlare/Display: Cannot create display: depth size cannot be less than zero.");
+      }
+      if (samples < 0) // TODO: improve this error condition to compare against "valid_depth_sizes"
+      {
+         throw std::runtime_error("AllegroFlare/Display: Cannot create display: samples cannot be less than zero.");
+      }
       // set a few options and flags
       al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
-      al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_REQUIRE); // TODO: review these numbers
-      al_set_new_display_option(ALLEGRO_SAMPLES, 4, ALLEGRO_SUGGEST); // TODO: review these numbers
+      al_set_new_display_option(ALLEGRO_SAMPLES, samples, ALLEGRO_SUGGEST); // TODO: review these numbers
+      al_set_new_display_option(ALLEGRO_DEPTH_SIZE, depth_size, ALLEGRO_REQUIRE); // TODO: review these numbers
       al_set_new_display_option(ALLEGRO_VSYNC, 1, ALLEGRO_SUGGEST); // TODO: review compatibility of vsync
                                                                     // and obtaining info from the driver if it has
-                                                                    // been changed
       al_set_new_display_flags(display_flags);
+
+      if (adapter!=-1) al_set_new_display_adapter(adapter);
 
       // create the actual display
       AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", "creating display.");
@@ -141,12 +161,6 @@ namespace AllegroFlare
    {
       al_flip_display();
    }
-
-
-   void Display::background_color(const ALLEGRO_COLOR &color)
-   {
-      _background_color = color;
-   }
-}
+} // namespace AllegroFlare
 
 

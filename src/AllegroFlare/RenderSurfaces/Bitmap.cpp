@@ -144,8 +144,8 @@ void Bitmap::setup_surface_with_settings_that_match_display(
 bool Bitmap::set_as_target()
 {
    // TODO: find a way to optionally use clear_to_color and clear_depth
-   bool clear_to_color = true;
-   bool clear_depth = true;
+   bool clear_to_color = false;
+   bool clear_depth = false;
 
    if (!initialized)
    {
@@ -155,8 +155,9 @@ bool Bitmap::set_as_target()
 
    al_set_target_bitmap(surface);
 
+   // TODO: move this to a 'clear" method on base
    if (clear_to_color) al_clear_to_color(clear_color);
-   if (clear_depth) al_clear_depth_buffer(1);
+   if (clear_depth) al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
 
    return true;
 }

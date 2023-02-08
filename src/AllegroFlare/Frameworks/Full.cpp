@@ -780,10 +780,15 @@ bool Full::get_drawing_inputs_bar_overlay()
 }
 
 
-Display *Full::create_display(int width, int height, int display_flags, int adapter)
+Display *Full::create_display(int width, int height, int display_flags)
 {
-   if (adapter!=-1) al_set_new_display_adapter(adapter);
-   Display *display = new Display(width, height, display_flags);
+   //if (adapter!=-1) al_set_new_display_adapter(adapter);
+
+   int samples = 4;
+   int depth_size = 32;
+   int adapter = -1;
+
+   Display *display = new Display(width, height, display_flags, samples, depth_size, adapter);
    al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
    return display;
 }
@@ -825,12 +830,12 @@ void Full::render_screens_to_primary_render_surface()
       // TODO: consider that these two clearing steps might be redundant if the primary_render_surface
       // handles any clearing when it is set as target.  Probably the SurfaceRender::Base should have
       // an interface for clear(), and otherwise there is no expected side-effect behavior.
-      if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-      if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
+      //if (clear_to_color_before_calling_primary_timer_funcs) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      //if (clear_depth_buffer_before_calling_primary_timer_funcs) al_clear_depth_buffer(1);
       // Maybe will use this:
-      //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
-                                                                                // subsequent renders at the same
-                                                                                // z-level to overwrite. This 
+      al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
+                                                                              // subsequent renders at the same
+                                                                              // z-level to overwrite. This 
                                                                                 // mimics the rendering of typical
                                                                                 // traditional 2D drawing behavior
                                                                                 // like Illustrator, HTML, etc.
@@ -860,7 +865,33 @@ void Full::render_screens_to_primary_render_surface()
    {
       // render the primary_render_surface to the backbuffer
       display_backbuffer.set_as_target();
+      al_use_shader(NULL); // TODO: consider side-effects of this
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
+
+
+
+      /* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
+         // fit the display
+         //ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+         ALLEGRO_TRANSFORM transform;
+         al_identity_transform(&transform);
+         al_orthographic_transform(
+            &transform,
+            0,
+            0,
+            -1.0,
+            // OPTION A:
+               //al_get_bitmap_width(backbuffer),
+               //al_get_bitmap_height(backbuffer),
+            // OPTION B:
+               al_get_bitmap_width(primary_render_surface->obtain_surface()),
+               al_get_bitmap_height(primary_render_surface->obtain_surface()),
+            1.0
+         );
+         al_use_projection_transform(&transform);
+      */
+
+
 
       // TODO: setup the post-process shader
       // TODO: consider if disabling a depth buffer (or other flags) are needed here

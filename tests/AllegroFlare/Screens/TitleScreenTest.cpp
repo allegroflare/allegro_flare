@@ -22,7 +22,7 @@ class AllegroFlare_Screens_TitleScreenTestWithAllegroFlareFrameworksFullFixture 
    virtual void SetUp() override
    {
       // HERE:
-      //get_framework_ref().disable_using_display_backbuffer_as_primary_render_surface();
+      get_framework_ref().disable_using_display_backbuffer_as_primary_render_surface();
       AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::SetUp();
    }
 };

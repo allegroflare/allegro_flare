@@ -72,7 +72,7 @@ namespace AllegroFlare
       Display *create_display(int width, int height, int display_flags, int adapter);
       Display *create_display(int width, int height, bool fullscreen);
       Display *create_display(int width, int height, bool fullscreen, int adapter);
-      Display *create_display(Display::resolution_t resolution);
+      //Display *create_display(Display::resolution_t resolution);
 
       void run_loop();
 

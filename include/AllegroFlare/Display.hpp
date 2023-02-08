@@ -17,16 +17,7 @@ namespace AllegroFlare
    class Display
    {
    public:
-      enum resolution_t
-      {
-         RESOLUTION_XGA,
-         RESOLUTION_WXGA,
-         RESOLUTION_WXGA_PLUS, // WXGA+
-         RESOLUTION_HD_1080,
-         RESOLUTION_HD_720,
-         RESOLUTION_RETINA,
-         FULLSCREEN_AUTO
-      };
+      //TODO: int DEFAULT_DISPLAY_FLAGS
 
    private:
       friend class Framework;
@@ -34,11 +25,15 @@ namespace AllegroFlare
       friend class ScreenManager; // <- eh for now, because of the display <-> screen relationship
       static std::vector<Display *> displays; // used to be "instance"
       static Display *find_display(ALLEGRO_DISPLAY *display);
-      ALLEGRO_COLOR _background_color;
+      //ALLEGRO_COLOR _background_color;
       int _width, _height;
+      int display_flags;
+      int samples;
+      int depth_size;
+      int adapter;
 
    public:
-      Display(int width=1920, int height=1080, int display_flags=0);
+      Display(int width=1920, int height=1080, int display_flags=0, int samples=4, int depth_size=32, int adapter=-1);
       virtual ~Display();
 
       ALLEGRO_DISPLAY *al_display;
@@ -53,7 +48,6 @@ namespace AllegroFlare
       float get_center();
 
       void flip();
-      void background_color(const ALLEGRO_COLOR &color);
    };
 }
 

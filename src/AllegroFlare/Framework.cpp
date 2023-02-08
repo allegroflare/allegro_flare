@@ -275,6 +275,12 @@ namespace AllegroFlare
 
    Display *Framework::create_display(int width, int height, int display_flags, int adapter)
    {
+      // TODO: this is not longer valid, the signature has changed for the Display constructor.
+      throw std::runtime_error("AllegroFlare::Framework::create_display: depreciation error: "
+         "This method is not longer valid. The signature has changed for the Display constructor. "
+         "If this method is essential, you can update the call to Display(...) using the updated argument list."
+      );
+
       if (adapter!=-1) al_set_new_display_adapter(adapter);
       Display *display = new Display(width, height, display_flags);
       al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
@@ -306,55 +312,62 @@ namespace AllegroFlare
 
 
 
-   Display *Framework::create_display(Display::resolution_t resolution)
-   {
-      int w, h;
-      int screen_flags = ALLEGRO_FLAGS_EMPTY;
-      int display_adapter_to_use = 0;
+   //Display *Framework::create_display(Display::resolution_t resolution)
+   //{
+      // NOTE: this is not longer valid, the signature has changed for the Display constructor.
+      // TODO: Depreciate, remove if possible
+      //throw std::runtime_error("AllegroFlare::Framework::create_display: depreciation error: "
+         //"This method is not longer valid. The signature has changed for the Display constructor. "
+         //"If this method is essential, you can update the call to Display(...) using the updated argument list."
+      //);
 
-      switch(resolution)
-      {
-      case Display::RESOLUTION_XGA:
-         w = 1024;
-         h = 768;
-         break;
-      case Display::RESOLUTION_WXGA:
-         w = 1280;
-         h = 800;
-         break;
-      case Display::RESOLUTION_WXGA_PLUS:
-         w = 1440;
-         h = 900;
-         break;
-      case Display::RESOLUTION_HD_1080:
-         w = 1920;
-         h = 1080;
-         break;
-      case Display::RESOLUTION_HD_720:
-         w = 1280;
-         h = 720;
-         break;
-      case Display::RESOLUTION_RETINA:
-         w = 2880;
-         h = 1800;
-         break;
-      case Display::FULLSCREEN_AUTO:
-         {
-            ALLEGRO_MONITOR_INFO monitor_info;
-            al_get_monitor_info(display_adapter_to_use, &monitor_info);
-            w = monitor_info.x2 - monitor_info.x1;
-            h = monitor_info.y2 - monitor_info.y1;
-            screen_flags = ALLEGRO_FULLSCREEN;
-         }
-         break;
-      default:
-         w = 1024;
-         h = 768;
-         break;
-      }
+      //int w, h;
+      //int screen_flags = ALLEGRO_FLAGS_EMPTY;
+      //int display_adapter_to_use = 0;
 
-      return create_display(w, h, screen_flags, display_adapter_to_use);
-   }
+      //switch(resolution)
+      //{
+      //case Display::RESOLUTION_XGA:
+         //w = 1024;
+         //h = 768;
+         //break;
+      //case Display::RESOLUTION_WXGA:
+         //w = 1280;
+         //h = 800;
+         //break;
+      //case Display::RESOLUTION_WXGA_PLUS:
+         //w = 1440;
+         //h = 900;
+         //break;
+      //case Display::RESOLUTION_HD_1080:
+         //w = 1920;
+         //h = 1080;
+         //break;
+      //case Display::RESOLUTION_HD_720:
+         //w = 1280;
+         //h = 720;
+         //break;
+      //case Display::RESOLUTION_RETINA:
+         //w = 2880;
+         //h = 1800;
+         //break;
+      //case Display::FULLSCREEN_AUTO:
+         //{
+            //ALLEGRO_MONITOR_INFO monitor_info;
+            //al_get_monitor_info(display_adapter_to_use, &monitor_info);
+            //w = monitor_info.x2 - monitor_info.x1;
+            //h = monitor_info.y2 - monitor_info.y1;
+            //screen_flags = ALLEGRO_FULLSCREEN;
+         //}
+         //break;
+      //default:
+         //w = 1024;
+         //h = 768;
+         //break;
+      //}
+
+      //return create_display(w, h, screen_flags, display_adapter_to_use);
+   //}
 
 
 
