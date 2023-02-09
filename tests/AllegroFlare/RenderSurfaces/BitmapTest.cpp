@@ -108,7 +108,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, set_as_target__will_set_the_surfa
 
 
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
-   DISABLED__FOCUS__setup_surface_with_settings_that_match_display__will_create_a_surface_with_the_same_settings_as_a_display)
+   setup_surface_with_settings_that_match_display__will_create_a_surface_with_the_same_settings_as_a_display)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    al_init();
@@ -141,7 +141,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 // DEBUGGING:
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
-   FOCUS__the_surface_will_render_to_the_display_backbuffer_as_expected)
+   the_surface_will_render_to_the_display_backbuffer_as_expected)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    al_init();

@@ -46,6 +46,8 @@ void Bitmap::initialize()
 
 void Bitmap::setup_surface(int surface_width, int surface_height, int multisamples, int depth)
 {
+   // NOTE: For context, this technique sets up an FBO. In Allegro, this is done here:
+   // https://github.com/liballeg/allegro5/blob/master/src/opengl/ogl_fbo.c#L474
    // TODO: add guard for duplicate initialization
    if (surface_width < 1 || surface_height < 1)
    {
