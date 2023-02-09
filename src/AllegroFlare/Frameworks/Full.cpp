@@ -51,6 +51,9 @@ Full::Full()
    , notifications()
    , virtual_controls_processor()
    , textlog(nullptr)
+   , render_surface_multisamples(4)
+   , render_surface_depth_size(32)
+   , render_surface_adapter(-1)
    , primary_display(nullptr)
    //, primary_display_sub_bitmap_for_overlay(nullptr)
    , primary_timer(nullptr)
@@ -344,6 +347,21 @@ bool Full::initialize_without_display()
    initialized = true;
 
    return true;
+}
+
+
+
+void Full::set_render_surface_multisamples(int render_surface_multisamples)
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::set_render_surface_multisamples",
+         "Could not set because the framework has already been initialized. You must call this function before init."
+      );
+   }
+
+   this->render_surface_multisamples = render_surface_multisamples;
 }
 
 
@@ -764,11 +782,18 @@ Display *Full::create_display(int width, int height, int display_flags)
 {
    //if (adapter!=-1) al_set_new_display_adapter(adapter);
 
-   int samples = 4;
-   int depth_size = 32;
-   int adapter = -1;
+   //int multisamples = 4;
+   //int depth_size = 32;
+   //int adapter = -1;
 
-   Display *display = new Display(width, height, display_flags, samples, depth_size, adapter);
+   Display *display = new Display(
+      width,
+      height,
+      display_flags,
+      render_surface_multisamples,
+      render_surface_depth_size,
+      render_surface_adapter
+   );
    al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
    return display;
 }

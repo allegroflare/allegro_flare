@@ -53,6 +53,9 @@ namespace AllegroFlare
          Notifications notifications;
          VirtualControlsProcessor virtual_controls_processor;
          ALLEGRO_TEXTLOG *textlog;
+         int render_surface_multisamples;
+         int render_surface_depth_size;
+         int render_surface_adapter;
          Display *primary_display;
          //ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          ALLEGRO_TIMER *primary_timer;
@@ -123,6 +126,7 @@ namespace AllegroFlare
          Achievements &get_achievements_ref();
          Display *get_primary_display();
 
+         void set_render_surface_multisamples(int render_surface_multisamples=4);
          RenderSurfaces::Base *get_primary_render_surface();
          AllegroFlare::Shaders::Base *get_post_processing_shader();
          void set_post_processing_shader(AllegroFlare::Shaders::Base *post_processing_shader);
