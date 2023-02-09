@@ -868,8 +868,6 @@ void Full::render_screens_to_primary_render_surface()
       al_use_shader(NULL); // TODO: consider side-effects of this
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
 
-      al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
-
       /* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
          // fit the display
          //ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
@@ -895,11 +893,14 @@ void Full::render_screens_to_primary_render_surface()
 
       // TODO: setup the post-process shader
       // TODO: consider if disabling a depth buffer (or other flags) are needed here
-      //if (post_processing_shader) post_processing_shader->activate();
+      if (post_processing_shader) post_processing_shader->activate();
+
+      //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // may want this?
       //al_set_render_state(ALLEGRO_DEPTH_TEST, 0); // may want this?
       //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGB); // may want this?
       al_draw_bitmap(bitmap, 0, 0, 0);
-      //if (post_processing_shader) post_processing_shader->deactivate();
+      if (post_processing_shader) post_processing_shader->deactivate();
+
       //al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
       //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // may want this?
    }
