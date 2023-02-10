@@ -50,23 +50,22 @@ void Base::hotload(std::string vertex_source_code, std::string fragment_source_c
    al_use_shader(nullptr); // TODO: only disable the shader if it is the currently active one. Restore otherwise
                            // TODO: consider doing the thing
 
-   //if (shader) al_destroy_shader(shader);
-   this->vertex_source_code = vertex_source_code;
-   this->fragment_source_code = fragment_source_code;
-
+   // Destroy our current shader
+   // TODO: determine if the shader can actually be re-used
    if (shader) al_destroy_shader(shader);
    shader = al_create_shader(ALLEGRO_SHADER_GLSL);
    if (!shader) throw std::runtime_error("Could not create Shader");
 
+   // set our local copy of the code
    this->vertex_source_code = vertex_source_code;
    this->fragment_source_code = fragment_source_code;
 
-   AllegroFlare::Shaders::Base::attach_source_code();
-   AllegroFlare::Shaders::Base::build();
+   // set our base copy of the code
+   AllegroFlare::Shader::vertex_source_code = vertex_source_code;
+   AllegroFlare::Shader::fragment_source_code = fragment_source_code;
 
-   //shader = al_create_shader(ALLEGRO_SHADER_GLSL);
-   //if (!shader) throw std::runtime_error("Could not create Shader");
-   //initialized = false;
+   attach_source_code();
+   build();
 
    return;
 }
