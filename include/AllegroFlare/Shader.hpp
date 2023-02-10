@@ -27,6 +27,7 @@ namespace AllegroFlare
 
       // initialize
       void initialize();
+      void rebuild_with_new_source(std::string vertex_source_code, std::string fragment_source_code);
 
       // set uniforms and attributes
       // (these apply only to the /currently active/ shader, and not necessairly

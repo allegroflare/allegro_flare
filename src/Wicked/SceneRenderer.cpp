@@ -61,7 +61,7 @@ namespace Wicked
       fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_fragment.glsl";
       fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
 
-      depth_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+      depth_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
       depth_shader->initialize();
 
       initialized = true;
@@ -255,7 +255,7 @@ namespace Wicked
 
 
       //Shader::stop();
-      Shader::global_deactivate();
+      AllegroFlare::Shaders::Base::global_deactivate();
    }
 
 

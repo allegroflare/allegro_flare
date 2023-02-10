@@ -78,21 +78,21 @@ void EntityFactory::initialize()
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/cube_fragment.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
-   cubemap_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+   cubemap_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
 
 
    vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/simple_map_vertex_with_light.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/simple_map_fragment_with_light.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
-   simple_map_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+   simple_map_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
 
 
    vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/standard_compound_vertex.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
    fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/standard_compound_fragment.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
-   standard_compound_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+   standard_compound_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
 
    //, cubemap_shader("data/shaders/cube_vertex.glsl", "data/shaders/cube_fragment.glsl")
    //, simple_map_shader("data/shaders/simple_map_vertex_with_light.glsl", "data/shaders/simple_map_fragment_with_light.glsl")

@@ -36,11 +36,11 @@ namespace Wicked
      , type("unset")
   {}
 
-  void Entity::draw_for_depth_pass(AllegroFlare::Shader *shader_for_depth_pass)
+  void Entity::draw_for_depth_pass(AllegroFlare::Shaders::Base *shader_for_depth_pass)
   {
      ALLEGRO_TRANSFORM transform;
      place.build_transform(&transform);
-     AllegroFlare::Shader::set_mat4("position_transform", &transform);
+     AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
 
      if (model) model->draw();
 
@@ -77,12 +77,12 @@ namespace Wicked
          // Now apply it to the shader
          //shader->use();
          shader->activate();
-         AllegroFlare::Shader::set_vec3("camera_position", camera_position);
-         AllegroFlare::Shader::set_vec3("light_position", light_position);
-         AllegroFlare::Shader::set_mat4("position_transform", &transform);
+         AllegroFlare::Shaders::Base::set_vec3("camera_position", camera_position);
+         AllegroFlare::Shaders::Base::set_vec3("light_position", light_position);
+         AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
 
-         AllegroFlare::Shader::set_bool("reflecting", cube_map_reflecting);
-         AllegroFlare::Shader::set_bool("is_selected_with_cursor", is_selected_with_cursor);
+         AllegroFlare::Shaders::Base::set_bool("reflecting", cube_map_reflecting);
+         AllegroFlare::Shaders::Base::set_bool("is_selected_with_cursor", is_selected_with_cursor);
 
 
 
@@ -92,23 +92,23 @@ namespace Wicked
          ////ALLEGRO_COLOR cube_box_color = ALLEGRO_COLOR{1.0, 0.74, 0.0, 1.0}; // original golden color
          //float cube_box_opacity = 0.6;// get_identity_tint_intensity();
          
-         AllegroFlare::Shader::set_vec3("cube_box_color", cube_box_color.r, cube_box_color.g, cube_box_color.b);
-         AllegroFlare::Shader::set_float("cube_box_opacity", cube_box_opacity);
+         AllegroFlare::Shaders::Base::set_vec3("cube_box_color", cube_box_color.r, cube_box_color.g, cube_box_color.b);
+         AllegroFlare::Shaders::Base::set_float("cube_box_opacity", cube_box_opacity);
 
 
-         AllegroFlare::Shader::set_sampler("diffuse_texture", diffuse_texture, 0);
+         AllegroFlare::Shaders::Base::set_sampler("diffuse_texture", diffuse_texture, 0);
 
          if (shadow_map_depth_pass_transform && shadow_map_depth_pass_surface)
          {
-            AllegroFlare::Shader::set_sampler("depth_pass_surface", shadow_map_depth_pass_surface, 1);
-            AllegroFlare::Shader::set_mat4("depth_pass_transform", shadow_map_depth_pass_transform);
-            AllegroFlare::Shader::set_float("texture_offset_x", texture_offset.x);
-            AllegroFlare::Shader::set_float("texture_offset_y", texture_offset.y);
+            AllegroFlare::Shaders::Base::set_sampler("depth_pass_surface", shadow_map_depth_pass_surface, 1);
+            AllegroFlare::Shaders::Base::set_mat4("depth_pass_transform", shadow_map_depth_pass_transform);
+            AllegroFlare::Shaders::Base::set_float("texture_offset_x", texture_offset.x);
+            AllegroFlare::Shaders::Base::set_float("texture_offset_y", texture_offset.y);
          }
-         //Shader::set_sampler("specular_texture", specular_texture, 3);
-         //Shader::set_sampler("normal_texture", normal_texture, 4);
-         AllegroFlare::Shader::set_sampler_cube("cube_map_A", cube_map_A, 5);
-         AllegroFlare::Shader::set_sampler_cube("cube_map_B", cube_map_B, 6);
+         //Shaders::Base::set_sampler("specular_texture", specular_texture, 3);
+         //Shaders::Base::set_sampler("normal_texture", normal_texture, 4);
+         AllegroFlare::Shaders::Base::set_sampler_cube("cube_map_A", cube_map_A, 5);
+         AllegroFlare::Shaders::Base::set_sampler_cube("cube_map_B", cube_map_B, 6);
          if (diffuse_texture && model) model->set_texture(diffuse_texture);
       }
       else
