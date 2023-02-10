@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 #include <string>
 
 
@@ -13,7 +13,7 @@ namespace AllegroFlare
       {
          namespace Shaders
          {
-            class DepthDarken : private AllegroFlare::Shader
+            class DepthDarken : public AllegroFlare::Shaders::Base
             {
             private:
                int torch_type;

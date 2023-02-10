@@ -18,7 +18,7 @@ namespace Shaders
 
 
 Fog::Fog()
-   : AllegroFlare::Shader(obtain_vertex_source(), obtain_fragment_source())
+   : AllegroFlare::Shaders::Base("CubeShooter/Shaders/Fog", obtain_vertex_source(), obtain_fragment_source())
    , initialized(false)
    , tint(ALLEGRO_COLOR{1, 1, 1, 1})
    , tint_intensity(1.0f)
@@ -64,7 +64,7 @@ void Fog::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Fog::initialize: error: guard \"(!initialized)\" not met");
    }
-   AllegroFlare::Shader::initialize();
+   AllegroFlare::Shaders::Base::initialize();
    initialized = true;
    return;
 }
@@ -73,10 +73,10 @@ void Fog::activate()
 {
    if (!initialized)
    {
-      throw std::runtime_error("[CatDetective::Shaders::Multiply] Attempting to activate() "
+      throw std::runtime_error("[CubeShooter::Shaders::Fog] Attempting to activate() "
                                "shader before it has been initialized");
    }
-   AllegroFlare::Shader::activate();
+   AllegroFlare::Shaders::Base::activate();
    set_values_to_activated_shader();
    return;
 }

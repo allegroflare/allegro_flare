@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 
@@ -14,7 +14,7 @@ namespace AllegroFlare
       {
          namespace Shaders
          {
-            class Multiply : public AllegroFlare::Shader
+            class Multiply : public AllegroFlare::Shaders::Base
             {
             private:
                bool initialized;

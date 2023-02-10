@@ -16,7 +16,7 @@ namespace Shaders
 
 
 DepthDarken::DepthDarken()
-   : AllegroFlare::Shader(obtain_vertex_source(), obtain_fragment_source())
+   : AllegroFlare::Shaders::Base("CubeShooter/Shaders/DepthDarken", obtain_vertex_source(), obtain_fragment_source())
    , torch_type(0)
    , initialized(false)
 {
@@ -30,7 +30,7 @@ DepthDarken::~DepthDarken()
 
 void DepthDarken::initialize()
 {
-   if (!initialized) AllegroFlare::Shader::initialize();
+   if (!initialized) AllegroFlare::Shaders::Base::initialize();
    initialized = true;
 }
 
@@ -51,14 +51,14 @@ void DepthDarken::set_torch_off()
 
 void DepthDarken::activate()
 {
-   if (!initialized) throw std::runtime_error("[LabyrinthOfLore::Shader::ClampedColor] Attempting to activate() shader before it has been initialized");
-   AllegroFlare::Shader::activate();
-   Shader::set_int("torch_type", torch_type);
+   if (!initialized) throw std::runtime_error("[CubeShooter::Shaders::DepthDarken] Attempting to activate() shader before it has been initialized");
+   AllegroFlare::Shaders::Base::activate();
+   AllegroFlare::Shaders::Base::set_int("torch_type", torch_type);
 }
 
 void DepthDarken::deactivate()
 {
-   AllegroFlare::Shader::deactivate();
+   AllegroFlare::Shaders::Base::deactivate();
 }
 
 std::string DepthDarken::obtain_vertex_source()

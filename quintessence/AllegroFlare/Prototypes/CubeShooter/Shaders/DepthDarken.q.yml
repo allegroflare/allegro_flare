@@ -1,9 +1,9 @@
 parent_classes:
 
 
-  - class: AllegroFlare::Shader
-    scope: private
-    init_with: "obtain_vertex_source(), obtain_fragment_source()"
+  - class: AllegroFlare::Shaders::Base
+    scope: public
+    init_with: "\"CubeShooter/Shaders/DepthDarken\", obtain_vertex_source(), obtain_fragment_source()"
 
 
 properties:
@@ -24,7 +24,7 @@ functions:
   - name: initialize
     type: void
     body: |
-      if (!initialized) AllegroFlare::Shader::initialize();
+      if (!initialized) AllegroFlare::Shaders::Base::initialize();
       initialized = true;
 
 
@@ -47,9 +47,9 @@ functions:
   - name: activate
     type: void
     body: |
-      if (!initialized) throw std::runtime_error("[LabyrinthOfLore::Shader::ClampedColor] Attempting to activate() shader before it has been initialized");
-      AllegroFlare::Shader::activate();
-      Shader::set_int("torch_type", torch_type);
+      if (!initialized) throw std::runtime_error("[CubeShooter::Shaders::DepthDarken] Attempting to activate() shader before it has been initialized");
+      AllegroFlare::Shaders::Base::activate();
+      AllegroFlare::Shaders::Base::set_int("torch_type", torch_type);
     body_dependency_symbols:
       - std::runtime_error
 
@@ -57,7 +57,7 @@ functions:
   - name: deactivate
     type: void
     body: |
-      AllegroFlare::Shader::deactivate();
+      AllegroFlare::Shaders::Base::deactivate();
 
 
   - name: obtain_vertex_source
@@ -143,8 +143,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Shader
-    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: AllegroFlare::Shaders::Base
+    headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
 

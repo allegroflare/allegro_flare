@@ -8748,7 +8748,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -8792,7 +8792,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -8860,7 +8860,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -21506,12 +21506,19 @@ table td
   ],
   "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Shaders/Base",
     "Tileo/Shaders/Base"
+  ],
+  "AllegroFlare/Shaders/Base": [
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/Cubemap",
+    "AllegroFlare/Shaders/PostProcessing/Blinds",
+    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
+    "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -22014,13 +22021,6 @@ table td
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
-  ],
-  "AllegroFlare/Shaders/Base": [
-    "AllegroFlare/Shaders/AllegroDefault",
-    "AllegroFlare/Shaders/Cubemap",
-    "AllegroFlare/Shaders/PostProcessing/Blinds",
-    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
-    "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"

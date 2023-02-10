@@ -1567,12 +1567,19 @@
   ],
   "AllegroFlare/Shader": [
     "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Shaders/Base",
     "Tileo/Shaders/Base"
+  ],
+  "AllegroFlare/Shaders/Base": [
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/Cubemap",
+    "AllegroFlare/Shaders/PostProcessing/Blinds",
+    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
+    "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -2075,13 +2082,6 @@
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
-  ],
-  "AllegroFlare/Shaders/Base": [
-    "AllegroFlare/Shaders/AllegroDefault",
-    "AllegroFlare/Shaders/Cubemap",
-    "AllegroFlare/Shaders/PostProcessing/Blinds",
-    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
-    "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"
