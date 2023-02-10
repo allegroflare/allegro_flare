@@ -91,26 +91,16 @@ namespace AllegroFlare
 
 
 
-   void Shader::rebuild_with_new_source(std::string vertex_source_code, std::string fragment_source_code)
+   bool Shader::get_initialized()
    {
-                              // HERE:
-      al_use_shader(nullptr); // TODO: only disable the current shader is the active one.
-                              // TODO: consider doing the thing
-                              // HERE:
+      return initialized;
+   }
 
-      if (!initialized) throw std::runtime_error("AllegroFlare::Shader::rebuild_with_new_source: must be initialized.");
 
-      if (shader) al_destroy_shader(shader);
-      this->vertex_source_code = vertex_source_code;
-      this->fragment_source_code = fragment_source_code;
 
-      attach_source_code();
-
-      build();
-
-      //shader = al_create_shader(ALLEGRO_SHADER_GLSL);
-      //if (!shader) throw std::runtime_error("Could not create Shader");
-      //initialized = false;
+   ALLEGRO_SHADER *Shader::get_al_shader()
+   {
+      return shader;
    }
 
 

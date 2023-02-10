@@ -45,6 +45,40 @@ functions:
       return (possible_type == get_type());
 
 
+  - name: hotload
+    parameters:
+      - name: vertex_source_code
+        type: std::string
+        default_argument: '""'
+      - name: fragment_source_code
+        type: std::string
+        default_argument: '""'
+    guards: [ initialized ]
+    body: |
+      al_use_shader(nullptr); // TODO: only disable the shader if it is the currently active one. Restore otherwise
+                              // TODO: consider doing the thing
+
+      //if (shader) al_destroy_shader(shader);
+      this->vertex_source_code = vertex_source_code;
+      this->fragment_source_code = fragment_source_code;
+
+      if (shader) al_destroy_shader(shader);
+      shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+      if (!shader) throw std::runtime_error("Could not create Shader");
+
+      this->vertex_source_code = vertex_source_code;
+      this->fragment_source_code = fragment_source_code;
+
+      AllegroFlare::Shaders::Base::attach_source_code();
+      AllegroFlare::Shaders::Base::build();
+
+      //shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+      //if (!shader) throw std::runtime_error("Could not create Shader");
+      //initialized = false;
+
+      return;
+
+
 dependencies:
 
 

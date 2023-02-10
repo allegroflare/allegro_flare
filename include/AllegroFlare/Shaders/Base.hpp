@@ -28,6 +28,7 @@ namespace AllegroFlare
 
          std::string get_type() const;
          bool is_type(std::string possible_type="");
+         void hotload(std::string vertex_source_code="", std::string fragment_source_code="");
       };
    }
 }
