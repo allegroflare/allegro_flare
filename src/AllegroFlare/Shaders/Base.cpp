@@ -52,7 +52,11 @@ void Base::hotload(std::string vertex_source_code, std::string fragment_source_c
 
    // Destroy our current shader
    // TODO: determine if the shader can actually be re-used
-   if (shader) al_destroy_shader(shader);
+   if (shader)
+   {
+      al_destroy_shader(shader);
+      shader = nullptr;
+   }
    shader = al_create_shader(ALLEGRO_SHADER_GLSL);
    if (!shader) throw std::runtime_error("Could not create Shader");
 
