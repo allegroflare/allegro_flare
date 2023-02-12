@@ -17,7 +17,7 @@ namespace AllegroFlare
       std::string fragment_source_code;
       ALLEGRO_SHADER *shader;
       void build();
-      void attach_source_code();
+      bool attach_source_code(bool throw_on_error=true);
       bool initialized;
 
 

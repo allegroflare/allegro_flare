@@ -187,3 +187,17 @@ bool alpha_test_func(float x, int op, float compare)
 }
 
 
+TEST_F(AllegroFlare_Shaders_BaseWithAllegroRenderingFixtureTest,
+   hotload__when_the_vertex_source_does_not_compile__will_revert_the_shader_to_the_default_allegro_shader)
+{
+   // TODO:
+}
+
+
+TEST_F(AllegroFlare_Shaders_BaseWithAllegroRenderingFixtureTest,
+   hotload__when_the_fragment_source_does_not_compile__will_revert_the_shader_to_the_default_allegro_shader)
+{
+   // TODO:
+}
+
+

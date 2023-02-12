@@ -77,7 +77,7 @@ functions:
       AllegroFlare::Shader::vertex_source_code = vertex_source_code;
       AllegroFlare::Shader::fragment_source_code = fragment_source_code;
 
-      attach_source_code();
+      attach_source_code(false);
       build();
 
       return;
