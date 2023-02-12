@@ -1285,7 +1285,15 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      }
                   break;
 
+                  case ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING: {
+                     // TODO: add test for this event
+                     AllegroFlare::Shaders::Base* shader =
+                        static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data1);
+                     set_shader_target_for_hotloading(shader);
+                  } break;
+
                   case ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE: {
+                     // TODO: add test for this event
                      std::string *vertex_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data1);
                      std::string *fragment_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data2);
                      AllegroFlare::Shaders::Base* shader =

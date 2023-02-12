@@ -139,6 +139,19 @@ functions:
       - ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT
 
 
+  - name: emit_set_shader_target_for_hotloading_event
+    parameters:
+      - name: shader
+        type: AllegroFlare::Shaders::Base*
+        default_argument: nullptr
+    body: |
+      // TODO: add test for this function
+      intptr_t data_to_pass = (intptr_t)(void *)(shader);
+      emit_event(ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING, data_to_pass);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING
+
+
   - name: emit_hotload_shader_source_event
     parameters:
       - name: vertex_shader_source
@@ -151,6 +164,7 @@ functions:
         type: AllegroFlare::Shaders::Base*
         default_argument: nullptr
     body: |
+      // TODO: add test for this function
       intptr_t vertex_shader_source_data = (intptr_t)(void *)(new std::string(vertex_shader_source));
       intptr_t fragment_shader_source_data = (intptr_t)(void *)(new std::string(fragment_shader_source));
       emit_event(
@@ -274,6 +288,8 @@ functions:
 dependencies:
 
 
+  - symbol: ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING
+    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION
