@@ -84,6 +84,7 @@ namespace AllegroFlare
          bool fullscreen;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          bool unset_deployment_environment_warning_on_initialization_is_disabled;
+         AllegroFlare::Shaders::Base *shader_target_for_hotloading;
 
          void draw_overlay();
         
@@ -131,6 +132,8 @@ namespace AllegroFlare
          AllegroFlare::Shaders::Base *get_post_processing_shader();
          void set_post_processing_shader(AllegroFlare::Shaders::Base *post_processing_shader);
 
+         void set_shader_target_for_hotloading(AllegroFlare::Shaders::Base *shader_target_for_hotloading=nullptr);
+         AllegroFlare::Shaders::Base *get_shader_target_for_hotloading();
 
          bool initialize();
          bool is_initialized();

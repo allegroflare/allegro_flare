@@ -78,6 +78,7 @@ Full::Full()
    , fullscreen(true)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
+   , shader_target_for_hotloading(nullptr)
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
@@ -392,6 +393,20 @@ AllegroFlare::Shaders::Base *Full::get_post_processing_shader()
 void Full::set_post_processing_shader(AllegroFlare::Shaders::Base *post_processing_shader)
 {
    this->post_processing_shader = post_processing_shader;
+}
+
+
+
+void Full::set_shader_target_for_hotloading(AllegroFlare::Shaders::Base *shader_target_for_hotloading)
+{
+   this->shader_target_for_hotloading = shader_target_for_hotloading;
+}
+
+
+
+AllegroFlare::Shaders::Base *Full::get_shader_target_for_hotloading()
+{
+   return shader_target_for_hotloading;
 }
 
 
@@ -1275,9 +1290,6 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      std::string *fragment_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data2);
                      AllegroFlare::Shaders::Base* shader =
                            static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data3);
-                     // HERE:
-                     AllegroFlare::Shaders::Base *shader_target_for_hotloading = nullptr;
-                        // TODO: ^^ add this as a member to Frameworks/Full. Make it modifyable and assignable.
  
                      if (shader)
                      {
