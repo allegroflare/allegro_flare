@@ -127,6 +127,8 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
    ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
    //ASSERT_EQ(num_depth, al_get_display_option(display, ALLEGRO_DEPTH_SIZE)); // NOTE: This fails on MacMini
                                            // bug filed here: https://github.com/liballeg/allegro5/issues/1407
+                                           // TODO: consider modifying this test to include returning
+                                           // "possible values" like 16, 24, 32
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
    render_surface.setup_surface_with_settings_that_match_display(display, 400, 240);
@@ -166,6 +168,8 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
    ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
    //ASSERT_EQ(num_depth, al_get_display_option(display, ALLEGRO_DEPTH_SIZE)); // NOTE: This fails on MacMini
                                            // bug filed here: https://github.com/liballeg/allegro5/issues/1407
+                                           // TODO: consider modifying this test to include returning
+                                           // "possible values" like 16, 24, 32
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
    //render_surface.setup_surface_with_settings_that_match_display(display, 500, 320);
