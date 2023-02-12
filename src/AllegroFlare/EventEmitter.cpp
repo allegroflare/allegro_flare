@@ -139,6 +139,18 @@ void EventEmitter::emit_set_input_hints_bar_height_event(float height)
    emit_event(ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT, data_to_pass);
 }
 
+void EventEmitter::emit_hotload_shader_source_event(std::string vertex_shader_source, std::string fragment_shader_source, AllegroFlare::Shaders::Base* shader)
+{
+   intptr_t vertex_shader_source_data = (intptr_t)(void *)(new std::string(vertex_shader_source));
+   intptr_t fragment_shader_source_data = (intptr_t)(void *)(new std::string(fragment_shader_source));
+   emit_event(
+      ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE,
+      vertex_shader_source_data,
+      fragment_shader_source_data,
+      (intptr_t)shader
+   );
+}
+
 void EventEmitter::emit_post_unlocked_achievement_notification_event(std::string achievement_name)
 {
    if (!(initialized))

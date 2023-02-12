@@ -1270,6 +1270,34 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      }
                   break;
 
+                  case ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE: {
+                     std::string *vertex_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data1);
+                     std::string *fragment_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data2);
+                     AllegroFlare::Shaders::Base* shader =
+                           static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data3);
+                     // HERE:
+                     AllegroFlare::Shaders::Base *shader_target_for_hotloading = nullptr;
+                        // TODO: ^^ add this as a member to Frameworks/Full. Make it modifyable and assignable.
+ 
+                     if (shader)
+                     {
+                        shader->hotload(*vertex_shader_source_ptr, *fragment_shader_source_ptr);
+                     }
+                     else if (shader_target_for_hotloading)
+                     {
+                        shader_target_for_hotloading->hotload(*vertex_shader_source_ptr, *fragment_shader_source_ptr);
+                     }
+                     else
+                     {
+                        // TODO: throw an error
+                     }
+
+                     delete vertex_shader_source_ptr;
+                     delete fragment_shader_source_ptr;
+                     // NOTE: do not delete shader, it remains active
+                  } break;
+
+
                   default:
                      screens.user_event_funcs(&this_event);
                   break;

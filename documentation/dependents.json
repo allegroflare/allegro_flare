@@ -1174,6 +1174,9 @@
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
   ],
+  "ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
@@ -1230,6 +1233,17 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Shaders/Base": [
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
+    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/Cubemap",
+    "AllegroFlare/Shaders/PostProcessing/Blinds",
+    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
+    "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
@@ -1570,16 +1584,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Shaders/Base",
     "Tileo/Shaders/Base"
-  ],
-  "AllegroFlare/Shaders/Base": [
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
-    "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
-    "AllegroFlare/Shaders/AllegroDefault",
-    "AllegroFlare/Shaders/Cubemap",
-    "AllegroFlare/Shaders/PostProcessing/Blinds",
-    "AllegroFlare/Shaders/PostProcessing/DipToBlack",
-    "AllegroFlare/Shaders/PostProcessing/Wipe"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
