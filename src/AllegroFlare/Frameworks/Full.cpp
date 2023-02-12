@@ -1289,7 +1289,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      }
                      else
                      {
-                        // TODO: throw an error
+                        AllegroFlare::Logger::throw_error(
+                           "AllegroFlare::Frameworks::Full::primary_process_event",
+                           "Could not hotload the shader because there is no shader target provided. Either a shader "
+                           "is included in the ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE event data or the "
+                           "\"shader_target_for_hotloading\" property is set in Frameworks/Full."
+                        );
                      }
 
                      delete vertex_shader_source_ptr;
