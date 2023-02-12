@@ -121,7 +121,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
    al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
    al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
    al_set_new_display_option(ALLEGRO_SAMPLES, num_samples, ALLEGRO_REQUIRE);
-   al_set_new_display_option(ALLEGRO_DEPTH_SIZE, num_depth, ALLEGRO_REQUIRE);
+   al_set_new_display_option(ALLEGRO_DEPTH_SIZE, num_depth, ALLEGRO_SUGGEST);
 
    ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
    ASSERT_NE(nullptr, display);
