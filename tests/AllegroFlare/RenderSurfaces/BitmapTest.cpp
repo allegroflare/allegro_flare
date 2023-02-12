@@ -1,5 +1,6 @@
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h> // for ::testing::Contains
 
 #include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
 
@@ -124,17 +125,21 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 
    ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
    ASSERT_NE(nullptr, display);
+
+   int actual_display_depth = al_get_display_option(display, ALLEGRO_DEPTH_SIZE);
    ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
-   //ASSERT_EQ(num_depth, al_get_display_option(display, ALLEGRO_DEPTH_SIZE)); // NOTE: This fails on MacMini
-                                           // bug filed here: https://github.com/liballeg/allegro5/issues/1407
-                                           // TODO: consider modifying this test to include returning
-                                           // "possible values" like 16, 24, 32
+   //ASSERT_EQ(num_depth, actual_display_depth); // NOTE: This fails on my MacMini
+                                                 // bug filed here: https://github.com/liballeg/allegro5/issues/1407
+   std::vector<int> possible_permissible_depth_sizes = { 16, 24, 32 };
+   ASSERT_THAT(possible_permissible_depth_sizes, ::testing::Contains(actual_display_depth)); // TODO: consider revising
+                                                 // this test once https://github.com/liballeg/allegro5/issues/1407 is
+                                                 // addressed and a fix is applied
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
    render_surface.setup_surface_with_settings_that_match_display(display, 400, 240);
 
    EXPECT_EQ(num_samples, al_get_bitmap_samples(render_surface.obtain_surface()));
-   EXPECT_EQ(num_depth, al_get_bitmap_depth(render_surface.obtain_surface()));
+   EXPECT_EQ(actual_display_depth, al_get_bitmap_depth(render_surface.obtain_surface()));
 
    al_destroy_display(display);
    al_uninstall_system();
@@ -165,22 +170,9 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 
    ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
    ASSERT_NE(nullptr, display);
-   ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
-   //ASSERT_EQ(num_depth, al_get_display_option(display, ALLEGRO_DEPTH_SIZE)); // NOTE: This fails on MacMini
-                                           // bug filed here: https://github.com/liballeg/allegro5/issues/1407
-                                           // TODO: consider modifying this test to include returning
-                                           // "possible values" like 16, 24, 32
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
-   //render_surface.setup_surface_with_settings_that_match_display(display, 500, 320);
-   //render_surface.setup_surface_with_settings_that_match_display(display, 1920, 1080);
-   //render_surface.setup_surface(1920/3, 1080/3, num_samples, num_depth); // <-- NOTE: will be slow performance
    render_surface.setup_surface_with_settings_that_match_display(display, 1920/3, 1080/3);
-
-   EXPECT_EQ(num_samples, al_get_bitmap_samples(render_surface.obtain_surface()));
-   EXPECT_EQ(num_depth, al_get_bitmap_depth(render_surface.obtain_surface()));
-
-
 
    int loops = 120;
    for (int i=0; i<loops; i++)
