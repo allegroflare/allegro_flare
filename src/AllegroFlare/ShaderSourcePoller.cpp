@@ -91,11 +91,25 @@ ALLEGRO_TIMER* ShaderSourcePoller::get_polling_timer() const
 }
 
 
-bool ShaderSourcePoller::get_polling_active() const
+void ShaderSourcePoller::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
 {
-   return polling_active;
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::set_event_queue]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::set_event_queue: error: guard \"(!initialized)\" not met");
+   }
+   if (!(event_queue))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::set_event_queue]: error: guard \"event_queue\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::set_event_queue: error: guard \"event_queue\" not met");
+   }
+   this->event_queue = event_queue;
+   return;
 }
-
 
 void ShaderSourcePoller::initialize()
 {
@@ -105,6 +119,13 @@ void ShaderSourcePoller::initialize()
       error_message << "[ShaderSourcePoller::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"(!initialized)\" not met");
+   }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(event_queue))
    {
@@ -119,21 +140,21 @@ void ShaderSourcePoller::initialize()
    return;
 }
 
-void ShaderSourcePoller::begin_polling()
+void ShaderSourcePoller::start_polling()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::begin_polling]: error: guard \"initialized\" not met.";
+      error_message << "[ShaderSourcePoller::start_polling]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::begin_polling: error: guard \"initialized\" not met");
+      throw std::runtime_error("ShaderSourcePoller::start_polling: error: guard \"initialized\" not met");
    }
    if (!((!polling_active)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::begin_polling]: error: guard \"(!polling_active)\" not met.";
+      error_message << "[ShaderSourcePoller::start_polling]: error: guard \"(!polling_active)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::begin_polling: error: guard \"(!polling_active)\" not met");
+      throw std::runtime_error("ShaderSourcePoller::start_polling: error: guard \"(!polling_active)\" not met");
    }
    al_register_event_source(event_queue, al_get_timer_event_source(polling_timer));
    al_start_timer(polling_timer);

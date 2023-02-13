@@ -19,11 +19,13 @@ TEST(AllegroFlare_ShaderSourcePollerTest, poll__before_initialization__will_thro
 
 TEST(AllegroFlare_ShaderSourcePollerTest, DISABLED__poll__does_not_blow_up)
 {
+   al_init();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string fixture_path = deployment_environment.get_data_folder_path();
    std::string vertex_source_path = "/shaders/allegro_default_vertex.glsl";
    std::string fragment_source_path = "/shaders/allegro_default_fragment.glsl";
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
    AllegroFlare::ShaderSourcePoller shader_source_poller(
       event_queue,
@@ -35,17 +37,20 @@ TEST(AllegroFlare_ShaderSourcePollerTest, DISABLED__poll__does_not_blow_up)
    shader_source_poller.poll();
 
    al_destroy_event_queue(event_queue);
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_ShaderSourcePollerTest,
    poll__if_the_polled_source_time_has_not_changed_from_the_previous__will_return_false)
 {
+   al_init();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string fixture_path = deployment_environment.get_data_folder_path();
    std::string vertex_source_path = "/shaders/allegro_default_vertex.glsl";
    std::string fragment_source_path = "/shaders/allegro_default_fragment.glsl";
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
    AllegroFlare::ShaderSourcePoller shader_source_poller(
       event_queue,
@@ -58,6 +63,7 @@ TEST(AllegroFlare_ShaderSourcePollerTest,
    EXPECT_EQ(false, shader_source_poller.poll());
 
    al_destroy_event_queue(event_queue);
+   al_uninstall_system();
 }
 
 
@@ -65,11 +71,13 @@ TEST(AllegroFlare_ShaderSourcePollerTest,
 TEST(AllegroFlare_ShaderSourcePollerTest,
    poll__if_the_last_modified_time_of_the_vertex_source_file_has_changed__will_return_true)
 {
+   al_init();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string fixture_path = deployment_environment.get_data_folder_path();
    std::string vertex_source_path = "/shaders/allegro_default_vertex.glsl";
    std::string fragment_source_path = "/shaders/allegro_default_fragment.glsl";
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
    AllegroFlare::ShaderSourcePoller shader_source_poller(
       event_queue,
@@ -87,17 +95,20 @@ TEST(AllegroFlare_ShaderSourcePollerTest,
    EXPECT_EQ(true, shader_source_poller.poll());
 
    al_destroy_event_queue(event_queue);
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_ShaderSourcePollerTest,
    poll__if_the_last_modified_time_of_the_fragment_source_file_has_changed__will_return_true)
 {
+   al_init();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string fixture_path = deployment_environment.get_data_folder_path();
    std::string vertex_source_path = "/shaders/allegro_default_vertex.glsl";
    std::string fragment_source_path = "/shaders/allegro_default_fragment.glsl";
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
    AllegroFlare::ShaderSourcePoller shader_source_poller(
       event_queue,
@@ -115,17 +126,20 @@ TEST(AllegroFlare_ShaderSourcePollerTest,
    EXPECT_EQ(true, shader_source_poller.poll());
 
    al_destroy_event_queue(event_queue);
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_ShaderSourcePollerTest,
    poll__when_the_vertex_file_last_modified_time_has_been_changed__will_update_its_last_modified_time)
 {
+   al_init();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string fixture_path = deployment_environment.get_data_folder_path();
    std::string vertex_source_path = "/shaders/allegro_default_vertex.glsl";
    std::string fragment_source_path = "/shaders/allegro_default_fragment.glsl";
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
    AllegroFlare::ShaderSourcePoller shader_source_poller(
       event_queue,
@@ -151,17 +165,20 @@ TEST(AllegroFlare_ShaderSourcePollerTest,
    EXPECT_EQ(false, shader_source_poller.poll());
 
    al_destroy_event_queue(event_queue);
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_ShaderSourcePollerTest,
    poll__when_the_fragment_file_last_modified_time_has_been_changed__will_update_its_last_modified_time)
 {
+   al_init();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string fixture_path = deployment_environment.get_data_folder_path();
    std::string vertex_source_path = "/shaders/allegro_default_vertex.glsl";
    std::string fragment_source_path = "/shaders/allegro_default_fragment.glsl";
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
    AllegroFlare::ShaderSourcePoller shader_source_poller(
       event_queue,
@@ -187,6 +204,7 @@ TEST(AllegroFlare_ShaderSourcePollerTest,
    EXPECT_EQ(false, shader_source_poller.poll());
 
    al_destroy_event_queue(event_queue);
+   al_uninstall_system();
 }
 
 

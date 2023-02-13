@@ -6,6 +6,7 @@ properties:
     init_with: nullptr
     constructor_arg: true
     getter: true
+    setter: false
 
   - name: vertex_source_filename
     type: std::string
@@ -46,7 +47,7 @@ properties:
   - name: polling_active
     type: bool
     init_with: false
-    getter: true
+    getter: false
 
   - name: initialized
     type: bool
@@ -56,8 +57,19 @@ properties:
 functions:
 
 
-  - name: initialize
+  - name: set_event_queue
+    parameters:
+      - name: event_queue
+        type: ALLEGRO_EVENT_QUEUE*
+        default_argument: nullptr
     guards: [ (!initialized), event_queue ]
+    body: |
+      this->event_queue = event_queue;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed(), event_queue ]
     body: |
       polling_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(1)); // one poll per second
       initialized = true;
@@ -65,7 +77,7 @@ functions:
       return;
 
 
-  - name: begin_polling
+  - name: start_polling
     guards: [ initialized, (!polling_active) ]
     body: |
       al_register_event_source(event_queue, al_get_timer_event_source(polling_timer));

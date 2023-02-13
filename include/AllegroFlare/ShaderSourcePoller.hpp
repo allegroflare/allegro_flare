@@ -38,9 +38,9 @@ namespace AllegroFlare
       std::filesystem::file_time_type get_last_recorded_vertex_source_file_changed_at() const;
       std::filesystem::file_time_type get_last_recorded_fragment_source_file_changed_at() const;
       ALLEGRO_TIMER* get_polling_timer() const;
-      bool get_polling_active() const;
+      void set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue=nullptr);
       void initialize();
-      void begin_polling();
+      void start_polling();
       void stop_polling();
       bool poll();
    };

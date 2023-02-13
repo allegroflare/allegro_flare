@@ -15163,8 +15163,8 @@ table td
     <h3 id="quintessence/AllegroFlare/ShaderSourcePoller.q.yml">quintessence/AllegroFlare/ShaderSourcePoller.q.yml</h3>
      <table>
 <tr>
-  <td class="property">event_source_queue</td>
-  <td class="property">std::string</td>
+  <td class="property">event_queue</td>
+  <td class="property">ALLEGRO_EVENT_QUEUE*</td>
 </tr>
 <tr>
   <td class="property">vertex_source_filename</td>
@@ -15201,10 +15201,13 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue=nullptr)</td>
+</tr>
+<tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">begin_polling()</td>
+  <td class="method">start_polling()</td>
 </tr>
 <tr>
   <td class="method">stop_polling()</td>
@@ -15219,6 +15222,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::last_write_time&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_QUEUE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TIMER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -21793,7 +21799,8 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "ALLEGRO_EVENT_QUEUE": [
-    "AllegroFlare/Prototypes/MindDive/Hypersync"
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
+    "AllegroFlare/ShaderSourcePoller"
   ],
   "ALLEGRO_AUDIO_STREAM": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"

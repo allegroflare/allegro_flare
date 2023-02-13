@@ -305,7 +305,6 @@ bool Full::initialize_without_display()
    primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
 
    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
-   //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
    event_queue = al_create_event_queue();
    al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -314,6 +313,9 @@ bool Full::initialize_without_display()
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    al_register_event_source(event_queue, al_get_default_menu_event_source());
 
+
+   // Register our higher level objects
+
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
@@ -321,6 +323,20 @@ bool Full::initialize_without_display()
    virtual_controls_processor.initialize();
 
    achievements.set_event_emitter(&event_emitter);
+
+   // Setup our experimental live-polling of shader source code tool
+   if (!deployment_environment.is_production()) // TODO: figure out what environment(s) are reasonable
+   {
+      std::string live_source_code_for_fragment_shader = "tmp/live_fragment.glsl";
+      std::string live_source_code_for_vertex_shader = "tmp/live_vertex.glsl";
+      shader_source_poller.set_path("/Users/markoates/Repos/allegro_flare/");
+      shader_source_poller.set_event_queue(event_queue);
+      shader_source_poller.set_fragment_source_filename(live_source_code_for_fragment_shader);
+      shader_source_poller.set_vertex_source_filename(live_source_code_for_vertex_shader);
+      shader_source_poller.initialize();
+      shader_source_poller.start_polling();
+   }
+
 
    // TODO: prevent these paths from being hard-coded, or, allow it to be hard-coded in the context of
    // different deployment environments.
@@ -1312,6 +1328,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      std::string *fragment_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data2);
                      AllegroFlare::Shaders::Base* shader =
                            static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data3);
+
+                     // NOTE: DEBUGGING: The shader for hotloading is hard-coded here to the post_processing_shader
+                     shader_target_for_hotloading = post_processing_shader; // TODO: make a better place for this
  
                      if (shader)
                      {
