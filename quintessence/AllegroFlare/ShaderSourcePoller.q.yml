@@ -30,19 +30,34 @@ properties:
     type: std::filesystem::file_time_type
     init_with: ''
 
+  - name: initialized
+    type: bool
+    init_with: false
+
 
 functions:
 
 
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      initialized = true;
+      poll();
+      return;
+
+
   - name: poll
     type: bool
-    guards: [ std::filesystem::exists(vertex_source_filename), std::filesystem::exists(fragment_source_filename) ]
+    guards:
+      - initialized
+      - std::filesystem::exists(path + vertex_source_filename)
+      - std::filesystem::exists(path + fragment_source_filename)
     body: |
       bool files_have_changed = true;
       std::filesystem::file_time_type vertex_polled_source_time =
-         std::filesystem::last_write_time(vertex_source_filename);
+         std::filesystem::last_write_time(path + vertex_source_filename);
       std::filesystem::file_time_type fragment_polled_source_time =
-         std::filesystem::last_write_time(fragment_source_filename);
+         std::filesystem::last_write_time(path + fragment_source_filename);
 
       if (last_recorded_vertex_source_file_changed_at < vertex_polled_source_time)
       {
@@ -56,10 +71,6 @@ functions:
          files_have_changed = true;
       }
 
-      // Get actual last modified time of vertex_source_file
-      // if actual last modified time is more recent, prepare an event to update, set return value to true;
-      // Get actual last modified time of fragment_source_file
-      // if actual last modified time is more recent, prepare an event to update, set return value to true;
       return files_have_changed;
     body_dependency_symbols:
       - std::filesystem::last_write_time

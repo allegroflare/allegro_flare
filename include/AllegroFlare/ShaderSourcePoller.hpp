@@ -15,6 +15,7 @@ namespace AllegroFlare
       std::string path;
       std::filesystem::file_time_type last_recorded_vertex_source_file_changed_at;
       std::filesystem::file_time_type last_recorded_fragment_source_file_changed_at;
+      bool initialized;
 
    protected:
 
@@ -29,6 +30,7 @@ namespace AllegroFlare
       std::string get_vertex_source_filename() const;
       std::string get_fragment_source_filename() const;
       std::string get_path() const;
+      void initialize();
       bool poll();
    };
 }

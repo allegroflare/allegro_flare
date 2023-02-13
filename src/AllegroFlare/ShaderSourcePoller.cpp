@@ -18,6 +18,7 @@ ShaderSourcePoller::ShaderSourcePoller(std::string vertex_source_filename, std::
    , path(path)
    , last_recorded_vertex_source_file_changed_at()
    , last_recorded_fragment_source_file_changed_at()
+   , initialized(false)
 {
 }
 
@@ -63,27 +64,48 @@ std::string ShaderSourcePoller::get_path() const
 }
 
 
+void ShaderSourcePoller::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"(!initialized)\" not met");
+   }
+   initialized = true;
+   poll();
+   return;
+}
+
 bool ShaderSourcePoller::poll()
 {
-   if (!(std::filesystem::exists(vertex_source_filename)))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(vertex_source_filename)\" not met.";
+      error_message << "[ShaderSourcePoller::poll]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"std::filesystem::exists(vertex_source_filename)\" not met");
+      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"initialized\" not met");
    }
-   if (!(std::filesystem::exists(fragment_source_filename)))
+   if (!(std::filesystem::exists(path + vertex_source_filename)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(fragment_source_filename)\" not met.";
+      error_message << "[ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"std::filesystem::exists(fragment_source_filename)\" not met");
+      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met");
+   }
+   if (!(std::filesystem::exists(path + fragment_source_filename)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met");
    }
    bool files_have_changed = true;
    std::filesystem::file_time_type vertex_polled_source_time =
-      std::filesystem::last_write_time(vertex_source_filename);
+      std::filesystem::last_write_time(path + vertex_source_filename);
    std::filesystem::file_time_type fragment_polled_source_time =
-      std::filesystem::last_write_time(fragment_source_filename);
+      std::filesystem::last_write_time(path + fragment_source_filename);
 
    if (last_recorded_vertex_source_file_changed_at < vertex_polled_source_time)
    {
@@ -97,10 +119,6 @@ bool ShaderSourcePoller::poll()
       files_have_changed = true;
    }
 
-   // Get actual last modified time of vertex_source_file
-   // if actual last modified time is more recent, prepare an event to update, set return value to true;
-   // Get actual last modified time of fragment_source_file
-   // if actual last modified time is more recent, prepare an event to update, set return value to true;
    return files_have_changed;
 }
 
