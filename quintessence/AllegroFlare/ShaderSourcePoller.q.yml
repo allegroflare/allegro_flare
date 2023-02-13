@@ -1,0 +1,76 @@
+properties:
+
+
+  - name: vertex_source_filename
+    type: std::string
+    init_with: '"[unset-vertex_source_filename]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: fragment_source_filename
+    type: std::string
+    init_with: '"[unset-vertex_source_filename]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: path
+    type: std::string
+    init_with: '"[unset-path]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: last_recorded_vertex_source_file_changed_at
+    type: std::filesystem::file_time_type
+    init_with: ''
+
+  - name: last_recorded_fragment_source_file_changed_at
+    type: std::filesystem::file_time_type
+    init_with: ''
+
+
+functions:
+
+
+  - name: poll
+    type: bool
+    guards: [ std::filesystem::exists(vertex_source_filename), std::filesystem::exists(fragment_source_filename) ]
+    body: |
+      bool files_have_changed = true;
+      std::filesystem::file_time_type vertex_polled_source_time =
+         std::filesystem::last_write_time(vertex_source_filename);
+      std::filesystem::file_time_type fragment_polled_source_time =
+         std::filesystem::last_write_time(fragment_source_filename);
+
+      if (last_recorded_vertex_source_file_changed_at < vertex_polled_source_time)
+      {
+         last_recorded_vertex_source_file_changed_at = vertex_polled_source_time;
+         files_have_changed = true;
+      }
+
+      if (last_recorded_fragment_source_file_changed_at < fragment_polled_source_time)
+      {
+         last_recorded_fragment_source_file_changed_at = fragment_polled_source_time;
+         files_have_changed = true;
+      }
+
+      // Get actual last modified time of vertex_source_file
+      // if actual last modified time is more recent, prepare an event to update, set return value to true;
+      // Get actual last modified time of fragment_source_file
+      // if actual last modified time is more recent, prepare an event to update, set return value to true;
+      return files_have_changed;
+    body_dependency_symbols:
+      - std::filesystem::last_write_time
+
+
+dependencies:
+
+
+  - symbol: std::filesystem::file_time_type
+    headers: [ filesystem ]
+  - symbol: std::filesystem::last_write_time
+    headers: [ filesystem ]
+
+

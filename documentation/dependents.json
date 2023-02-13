@@ -1174,6 +1174,9 @@
   "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
     "AllegroFlare/Elements/Storyboard"
   ],
+  "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING": [
     "AllegroFlare/EventEmitter"
   ],

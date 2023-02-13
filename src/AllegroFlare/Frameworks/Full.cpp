@@ -78,6 +78,7 @@ Full::Full()
    , fullscreen(true)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
+   , shader_source_poller()
    , shader_target_for_hotloading(nullptr)
    , event_callbacks()
    , next_event_callback_id(1)
@@ -1290,6 +1291,10 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      AllegroFlare::Shaders::Base* shader =
                         static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data1);
                      set_shader_target_for_hotloading(shader);
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE: {
+                     shader_source_poller.poll();
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE: {

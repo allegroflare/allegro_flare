@@ -152,6 +152,14 @@ functions:
       - ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING
 
 
+  - name: emit_poll_hotload_shader_source_for_change_event
+    body: |
+      // TODO: add test for this function
+      emit_event(ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE
+
+
   - name: emit_hotload_shader_source_event
     parameters:
       - name: vertex_shader_source
@@ -288,6 +296,8 @@ functions:
 dependencies:
 
 
+  - symbol: ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE
+    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE

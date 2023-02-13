@@ -146,6 +146,12 @@ void EventEmitter::emit_set_shader_target_for_hotloading_event(AllegroFlare::Sha
    emit_event(ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING, data_to_pass);
 }
 
+void EventEmitter::emit_poll_hotload_shader_source_for_change_event()
+{
+   // TODO: add test for this function
+   emit_event(ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE);
+}
+
 void EventEmitter::emit_hotload_shader_source_event(std::string vertex_shader_source, std::string fragment_shader_source, AllegroFlare::Shaders::Base* shader)
 {
    // TODO: add test for this function

@@ -27,6 +27,7 @@
 #include <AllegroFlare/RenderSurfaces/DisplayBackbuffer.hpp>
 #include <AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.hpp>
 #include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
+#include <AllegroFlare/ShaderSourcePoller.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 
 
@@ -84,6 +85,7 @@ namespace AllegroFlare
          bool fullscreen;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          bool unset_deployment_environment_warning_on_initialization_is_disabled;
+         AllegroFlare::ShaderSourcePoller shader_source_poller;
          AllegroFlare::Shaders::Base *shader_target_for_hotloading;
 
          void draw_overlay();
