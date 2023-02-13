@@ -1,6 +1,12 @@
 properties:
 
 
+  - name: event_queue
+    type: ALLEGRO_EVENT_QUEUE*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+
   - name: vertex_source_filename
     type: std::string
     init_with: '"[unset-vertex_source_filename]"'
@@ -32,6 +38,16 @@ properties:
     init_with: ''
     getter: true
 
+  - name: polling_timer
+    type: ALLEGRO_TIMER*
+    init_with: nullptr
+    getter: true
+
+  - name: polling_active
+    type: bool
+    init_with: false
+    getter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -41,10 +57,29 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), event_queue ]
     body: |
+      polling_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(1)); // one poll per second
       initialized = true;
       poll();
+      return;
+
+
+  - name: begin_polling
+    guards: [ initialized, (!polling_active) ]
+    body: |
+      al_register_event_source(event_queue, al_get_timer_event_source(polling_timer));
+      al_start_timer(polling_timer);
+      polling_active = true;
+      return;
+
+
+  - name: stop_polling
+    guards: [ initialized, polling_active ]
+    body: |
+      al_stop_timer(polling_timer);
+      al_unregister_event_source(event_queue, al_get_timer_event_source(polling_timer));
+      polling_active = false;
       return;
 
 
@@ -86,5 +121,9 @@ dependencies:
     headers: [ filesystem ]
   - symbol: std::filesystem::last_write_time
     headers: [ filesystem ]
+  - symbol: ALLEGRO_EVENT_QUEUE
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_TIMER
+    headers: [ allegro5/allegro.h ]
 
 

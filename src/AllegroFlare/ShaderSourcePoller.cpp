@@ -12,12 +12,15 @@ namespace AllegroFlare
 {
 
 
-ShaderSourcePoller::ShaderSourcePoller(std::string vertex_source_filename, std::string fragment_source_filename, std::string path)
-   : vertex_source_filename(vertex_source_filename)
+ShaderSourcePoller::ShaderSourcePoller(ALLEGRO_EVENT_QUEUE* event_queue, std::string vertex_source_filename, std::string fragment_source_filename, std::string path)
+   : event_queue(event_queue)
+   , vertex_source_filename(vertex_source_filename)
    , fragment_source_filename(fragment_source_filename)
    , path(path)
    , last_recorded_vertex_source_file_changed_at()
    , last_recorded_fragment_source_file_changed_at()
+   , polling_timer(nullptr)
+   , polling_active(false)
    , initialized(false)
 {
 }
@@ -43,6 +46,12 @@ void ShaderSourcePoller::set_fragment_source_filename(std::string fragment_sourc
 void ShaderSourcePoller::set_path(std::string path)
 {
    this->path = path;
+}
+
+
+ALLEGRO_EVENT_QUEUE* ShaderSourcePoller::get_event_queue() const
+{
+   return event_queue;
 }
 
 
@@ -76,6 +85,18 @@ std::filesystem::file_time_type ShaderSourcePoller::get_last_recorded_fragment_s
 }
 
 
+ALLEGRO_TIMER* ShaderSourcePoller::get_polling_timer() const
+{
+   return polling_timer;
+}
+
+
+bool ShaderSourcePoller::get_polling_active() const
+{
+   return polling_active;
+}
+
+
 void ShaderSourcePoller::initialize()
 {
    if (!((!initialized)))
@@ -85,8 +106,60 @@ void ShaderSourcePoller::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"(!initialized)\" not met");
    }
+   if (!(event_queue))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::initialize]: error: guard \"event_queue\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"event_queue\" not met");
+   }
+   polling_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(1)); // one poll per second
    initialized = true;
    poll();
+   return;
+}
+
+void ShaderSourcePoller::begin_polling()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::begin_polling]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::begin_polling: error: guard \"initialized\" not met");
+   }
+   if (!((!polling_active)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::begin_polling]: error: guard \"(!polling_active)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::begin_polling: error: guard \"(!polling_active)\" not met");
+   }
+   al_register_event_source(event_queue, al_get_timer_event_source(polling_timer));
+   al_start_timer(polling_timer);
+   polling_active = true;
+   return;
+}
+
+void ShaderSourcePoller::stop_polling()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::stop_polling]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::stop_polling: error: guard \"initialized\" not met");
+   }
+   if (!(polling_active))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::stop_polling]: error: guard \"polling_active\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::stop_polling: error: guard \"polling_active\" not met");
+   }
+   al_stop_timer(polling_timer);
+   al_unregister_event_source(event_queue, al_get_timer_event_source(polling_timer));
+   polling_active = false;
    return;
 }
 

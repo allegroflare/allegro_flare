@@ -15163,6 +15163,10 @@ table td
     <h3 id="quintessence/AllegroFlare/ShaderSourcePoller.q.yml">quintessence/AllegroFlare/ShaderSourcePoller.q.yml</h3>
      <table>
 <tr>
+  <td class="property">event_source_queue</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">vertex_source_filename</td>
   <td class="property">std::string</td>
 </tr>
@@ -15183,6 +15187,14 @@ table td
   <td class="property">std::filesystem::file_time_type</td>
 </tr>
 <tr>
+  <td class="property">polling_timer</td>
+  <td class="property">ALLEGRO_TIMER*</td>
+</tr>
+<tr>
+  <td class="property">polling_active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -15190,6 +15202,12 @@ table td
      <table>
 <tr>
   <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">begin_polling()</td>
+</tr>
+<tr>
+  <td class="method">stop_polling()</td>
 </tr>
 <tr>
   <td class="method">poll()</td>
@@ -15201,6 +15219,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::last_write_time&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TIMER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -22108,6 +22129,9 @@ table td
     "AllegroFlare/ShaderSourcePoller"
   ],
   "std/filesystem/last_write_time": [
+    "AllegroFlare/ShaderSourcePoller"
+  ],
+  "ALLEGRO_TIMER": [
     "AllegroFlare/ShaderSourcePoller"
   ],
   "AllegroFlare/Cubemap": [
