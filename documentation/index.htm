@@ -259,6 +259,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Transition.q.yml">quintessence/AllegroFlare/Screens/Transition.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/ShaderSourcePoller.q.yml">quintessence/AllegroFlare/ShaderSourcePoller.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Cubemap.q.yml">quintessence/AllegroFlare/Shaders/Cubemap.q.yml</a></li>
@@ -15159,6 +15160,53 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/ShaderSourcePoller.q.yml">quintessence/AllegroFlare/ShaderSourcePoller.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">vertex_source_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">fragment_source_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">last_recorded_vertex_source_file_changed_at</td>
+  <td class="property">std::filesystem::file_time_type</td>
+</tr>
+<tr>
+  <td class="property">last_recorded_fragment_source_file_changed_at</td>
+  <td class="property">std::filesystem::file_time_type</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">poll()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::file_time_type&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::last_write_time&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</h3>
      <table>
 <tr>
@@ -22055,6 +22103,12 @@ table td
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
+  ],
+  "std/filesystem/file_time_type": [
+    "AllegroFlare/ShaderSourcePoller"
+  ],
+  "std/filesystem/last_write_time": [
+    "AllegroFlare/ShaderSourcePoller"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"

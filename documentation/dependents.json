@@ -2093,6 +2093,12 @@
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
   ],
+  "std/filesystem/file_time_type": [
+    "AllegroFlare/ShaderSourcePoller"
+  ],
+  "std/filesystem/last_write_time": [
+    "AllegroFlare/ShaderSourcePoller"
+  ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"
   ],

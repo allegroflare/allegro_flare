@@ -342,7 +342,7 @@ bool Full::initialize_without_display()
    );
 
    audio_controller.initialize();
- 
+
 
    // Finalize initialization
 
@@ -1294,7 +1294,16 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE: {
-                     shader_source_poller.poll();
+                     // NOTE: this will require initialization
+                     bool files_have_changed = shader_source_poller.poll();
+                     if (files_have_changed)
+                     {
+                        // TODO: emit event to hotload shader source
+                        event_emitter.emit_hotload_shader_source_event(
+                           shader_source_poller.get_path() + shader_source_poller.get_vertex_source_filename(),
+                           shader_source_poller.get_path() + shader_source_poller.get_fragment_source_filename()
+                        );
+                     }
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE: {
