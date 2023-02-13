@@ -25,10 +25,12 @@ properties:
   - name: last_recorded_vertex_source_file_changed_at
     type: std::filesystem::file_time_type
     init_with: ''
+    getter: true
 
   - name: last_recorded_fragment_source_file_changed_at
     type: std::filesystem::file_time_type
     init_with: ''
+    getter: true
 
   - name: initialized
     type: bool
@@ -53,19 +55,19 @@ functions:
       - std::filesystem::exists(path + vertex_source_filename)
       - std::filesystem::exists(path + fragment_source_filename)
     body: |
-      bool files_have_changed = true;
+      bool files_have_changed = false;
       std::filesystem::file_time_type vertex_polled_source_time =
          std::filesystem::last_write_time(path + vertex_source_filename);
       std::filesystem::file_time_type fragment_polled_source_time =
          std::filesystem::last_write_time(path + fragment_source_filename);
 
-      if (last_recorded_vertex_source_file_changed_at < vertex_polled_source_time)
+      if (last_recorded_vertex_source_file_changed_at != vertex_polled_source_time)
       {
          last_recorded_vertex_source_file_changed_at = vertex_polled_source_time;
          files_have_changed = true;
       }
 
-      if (last_recorded_fragment_source_file_changed_at < fragment_polled_source_time)
+      if (last_recorded_fragment_source_file_changed_at != fragment_polled_source_time)
       {
          last_recorded_fragment_source_file_changed_at = fragment_polled_source_time;
          files_have_changed = true;

@@ -30,6 +30,8 @@ namespace AllegroFlare
       std::string get_vertex_source_filename() const;
       std::string get_fragment_source_filename() const;
       std::string get_path() const;
+      std::filesystem::file_time_type get_last_recorded_vertex_source_file_changed_at() const;
+      std::filesystem::file_time_type get_last_recorded_fragment_source_file_changed_at() const;
       void initialize();
       bool poll();
    };
