@@ -55,6 +55,7 @@ functions:
       - std::filesystem::exists(path + vertex_source_filename)
       - std::filesystem::exists(path + fragment_source_filename)
     body: |
+      // TODO: consider adding better error messages on exists() that would also include the current path
       bool files_have_changed = false;
       std::filesystem::file_time_type vertex_polled_source_time =
          std::filesystem::last_write_time(path + vertex_source_filename);

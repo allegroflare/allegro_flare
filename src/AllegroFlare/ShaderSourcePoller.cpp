@@ -113,6 +113,7 @@ bool ShaderSourcePoller::poll()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met");
    }
+   // TODO: consider adding better error messages on exists() that would also include the current path
    bool files_have_changed = false;
    std::filesystem::file_time_type vertex_polled_source_time =
       std::filesystem::last_write_time(path + vertex_source_filename);
