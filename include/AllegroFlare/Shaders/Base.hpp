@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Shader.hpp>
+#include <allegro5/allegro.h>
 #include <string>
 
 
@@ -28,6 +29,8 @@ namespace AllegroFlare
 
          std::string get_type() const;
          bool is_type(std::string possible_type="");
+         static bool set_sampler(std::string name="[unset-name]", ALLEGRO_BITMAP* bitmap=nullptr, int unit=0);
+         static bool set_mat4(std::string name="[unset-name]", ALLEGRO_TRANSFORM* transform=nullptr);
          void hotload(std::string vertex_source_code="", std::string fragment_source_code="");
       };
    }

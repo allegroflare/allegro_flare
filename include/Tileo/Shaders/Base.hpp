@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 #include <string>
 
 
@@ -9,7 +9,7 @@ namespace Tileo
 {
    namespace Shaders
    {
-      class Base : public AllegroFlare::Shader
+      class Base : public AllegroFlare::Shaders::Base
       {
       private:
          std::string vertex_source_code;

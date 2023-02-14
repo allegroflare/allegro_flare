@@ -38,6 +38,16 @@ bool Base::is_type(std::string possible_type)
    return (possible_type == get_type());
 }
 
+bool Base::set_sampler(std::string name, ALLEGRO_BITMAP* bitmap, int unit)
+{
+   return al_set_shader_sampler(name.c_str(), bitmap, unit);
+}
+
+bool Base::set_mat4(std::string name, ALLEGRO_TRANSFORM* transform)
+{
+   return al_set_shader_matrix(name.c_str(), transform);
+}
+
 void Base::hotload(std::string vertex_source_code, std::string fragment_source_code)
 {
    if (!(initialized))

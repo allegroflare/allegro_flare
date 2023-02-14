@@ -70,13 +70,13 @@ void MeshWithNormals::set_light_attenuation(float light_attenuation)
 
 void MeshWithNormals::set_primary_texture(ALLEGRO_BITMAP* primary_texture_bitmap)
 {
-   Shader::set_sampler("primary_texture", primary_texture_bitmap, 1);
+   AllegroFlare::Shaders::Base::set_sampler("primary_texture", primary_texture_bitmap, 1);
    return;
 }
 
 void MeshWithNormals::set_normal_texture(ALLEGRO_BITMAP* normal_texture_bitmap)
 {
-   Shader::set_sampler("normal_texture", normal_texture_bitmap, 2);
+   AllegroFlare::Shaders::Base::set_sampler("normal_texture", normal_texture_bitmap, 2);
    return;
 }
 

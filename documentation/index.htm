@@ -15304,12 +15304,24 @@ table td
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
 <tr>
+  <td class="method">set_sampler(std::string name=&quot;[unset-name]&quot;, ALLEGRO_BITMAP* bitmap=nullptr, int unit=0)</td>
+</tr>
+<tr>
+  <td class="method">set_mat4(std::string name=&quot;[unset-name]&quot;, ALLEGRO_TRANSFORM* transform=nullptr)</td>
+</tr>
+<tr>
   <td class="method">hotload(std::string vertex_source_code=&quot;&quot;, std::string fragment_source_code=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TRANSFORM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -17958,7 +17970,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20520,6 +20532,7 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
+    "AllegroFlare/Shaders/Base",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
@@ -21298,7 +21311,8 @@ table td
     "AllegroFlare/Shaders/Cubemap",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
-    "AllegroFlare/Shaders/PostProcessing/Wipe"
+    "AllegroFlare/Shaders/PostProcessing/Wipe",
+    "Tileo/Shaders/Base"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
@@ -22150,13 +22164,13 @@ table td
     "AllegroFlare/ShaderSourcePoller"
   ],
   "AllegroFlare/Shader": [
-    "AllegroFlare/Shaders/Base",
-    "Tileo/Shaders/Base"
-  ],
-  "AllegroFlare/Cubemap": [
-    "AllegroFlare/Shaders/Cubemap"
+    "AllegroFlare/Shaders/Base"
   ],
   "ALLEGRO_TRANSFORM": [
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
+  ],
+  "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"
   ],
   "tsl/ordered_map": [

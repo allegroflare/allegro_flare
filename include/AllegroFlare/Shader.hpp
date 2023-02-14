@@ -34,9 +34,9 @@ namespace AllegroFlare
       // set uniforms and attributes
       // (these apply only to the /currently active/ shader, and not necessairly
       // this Shader object)
-      static bool set_sampler(const char *name, ALLEGRO_BITMAP *bitmap, int unit);
+      //FLATTENED: static bool set_sampler(const char *name, ALLEGRO_BITMAP *bitmap, int unit);
       static bool set_sampler_cube(const char *name, AllegroFlare::Cubemap *cubemap, int unit);
-      static bool set_mat4(const char *name, ALLEGRO_TRANSFORM *t);
+      //FLATTENED: static bool set_mat4(const char *name, ALLEGRO_TRANSFORM *t);
       static bool set_int(const char *name, int i);
       static bool set_float(const char *name, float f);
       static bool set_bool(const char *name, bool b);

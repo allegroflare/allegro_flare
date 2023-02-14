@@ -45,6 +45,37 @@ functions:
       return (possible_type == get_type());
 
 
+  - name: set_sampler
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: unit
+        type: int
+        default_argument: 0
+    body: |
+      return al_set_shader_sampler(name.c_str(), bitmap, unit);
+
+
+  - name: set_mat4
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: transform
+        type: ALLEGRO_TRANSFORM*
+        default_argument: nullptr
+    body: |
+      return al_set_shader_matrix(name.c_str(), transform);
+
+
   - name: hotload
     parameters:
       - name: vertex_source_code
@@ -88,5 +119,9 @@ dependencies:
 
   - symbol: AllegroFlare::Shader
     headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_TRANSFORM
+    headers: [ allegro5/allegro.h ]
 
 
