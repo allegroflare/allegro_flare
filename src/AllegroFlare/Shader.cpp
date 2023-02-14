@@ -140,24 +140,24 @@ ALLEGRO_SHADER *Shader::get_al_shader()
 
 
 
-bool Shader::set_int(const char *name, int i)
-{
-   return al_set_shader_int(name, i);
-}
+//bool Shader::set_int(const char *name, int i)
+//{
+   //return al_set_shader_int(name, i);
+//}
 
 
 
-bool Shader::set_float(const char *name, float f)
-{
-   return al_set_shader_float(name, f);
-}
+//bool Shader::set_float(const char *name, float f)
+//{
+   //return al_set_shader_float(name, f);
+//}
 
 
 
-bool Shader::set_bool(const char *name, bool b)
-{
-   return al_set_shader_bool(name, b);
-}
+//bool Shader::set_bool(const char *name, bool b)
+//{
+   //return al_set_shader_bool(name, b);
+//}
 
 
 

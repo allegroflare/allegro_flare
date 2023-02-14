@@ -48,6 +48,21 @@ bool Base::set_mat4(std::string name, ALLEGRO_TRANSFORM* transform)
    return al_set_shader_matrix(name.c_str(), transform);
 }
 
+bool Base::set_int(std::string name, int value)
+{
+   return al_set_shader_int(name.c_str(), value);
+}
+
+bool Base::set_float(std::string name, float value)
+{
+   return al_set_shader_float(name.c_str(), value);
+}
+
+bool Base::set_bool(std::string name, bool value)
+{
+   return al_set_shader_bool(name.c_str(), value);
+}
+
 void Base::hotload(std::string vertex_source_code, std::string fragment_source_code)
 {
    if (!(initialized))

@@ -76,6 +76,48 @@ functions:
       return al_set_shader_matrix(name.c_str(), transform);
 
 
+  - name: set_int
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: value
+        type: int
+        default_argument: 0
+    body: |
+      return al_set_shader_int(name.c_str(), value);
+
+
+  - name: set_float
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: value
+        type: float
+        default_argument: 0.0f
+    body: |
+      return al_set_shader_float(name.c_str(), value);
+
+
+  - name: set_bool
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: value
+        type: bool
+        default_argument: false
+    body: |
+      return al_set_shader_bool(name.c_str(), value);
+
+
   - name: hotload
     parameters:
       - name: vertex_source_code

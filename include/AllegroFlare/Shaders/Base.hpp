@@ -31,6 +31,9 @@ namespace AllegroFlare
          bool is_type(std::string possible_type="");
          static bool set_sampler(std::string name="[unset-name]", ALLEGRO_BITMAP* bitmap=nullptr, int unit=0);
          static bool set_mat4(std::string name="[unset-name]", ALLEGRO_TRANSFORM* transform=nullptr);
+         static bool set_int(std::string name="[unset-name]", int value=0);
+         static bool set_float(std::string name="[unset-name]", float value=0.0f);
+         static bool set_bool(std::string name="[unset-name]", bool value=false);
          void hotload(std::string vertex_source_code="", std::string fragment_source_code="");
       };
    }
