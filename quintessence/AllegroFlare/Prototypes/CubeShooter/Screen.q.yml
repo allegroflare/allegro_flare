@@ -55,7 +55,7 @@ properties:
     init_with: ''
 
   - name: shader
-    type: AllegroFlare::Shader*
+    type: AllegroFlare::Shaders::Base*
     init_with: ''
 
   - name: multiply_shader
@@ -522,7 +522,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.hpp ]
   - symbol: AllegroFlare::Prototypes::CubeShooter::Shaders::Fog
     headers: [ AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.hpp ]
-  - symbol: AllegroFlare::Shader
-    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: AllegroFlare::Shaders::Base
+    headers: [ AllegroFlare/Shaders/Base.hpp ]
 
 

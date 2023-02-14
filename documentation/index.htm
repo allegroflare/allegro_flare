@@ -8595,7 +8595,7 @@ table td
 </tr>
 <tr>
   <td class="property">shader</td>
-  <td class="property">AllegroFlare::Shader*</td>
+  <td class="property">AllegroFlare::Shaders::Base*</td>
 </tr>
 <tr>
   <td class="property">multiply_shader</td>
@@ -8724,7 +8724,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::CubeShooter::Shaders::Fog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/CubeShooter/Shaders/Fog.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -9631,7 +9631,7 @@ table td
 </tr>
 <tr>
   <td class="property">room_shader</td>
-  <td class="property">AllegroFlare::Shader*</td>
+  <td class="property">AllegroFlare::Shaders::Base*</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -9834,7 +9834,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp&quot;]}</td>
@@ -21289,9 +21289,11 @@ table td
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/Cubemap",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
@@ -21631,12 +21633,6 @@ table td
   ],
   "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog": [
     "AllegroFlare/Prototypes/CubeShooter/Screen"
-  ],
-  "AllegroFlare/Shader": [
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Shaders/Base",
-    "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -22152,6 +22148,10 @@ table td
   ],
   "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/ShaderSourcePoller"
+  ],
+  "AllegroFlare/Shader": [
+    "AllegroFlare/Shaders/Base",
+    "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"

@@ -7,9 +7,9 @@
 
 
 
-AllegroFlare::Shader *standard_compound_shader = nullptr;
+AllegroFlare::Shaders::Base *standard_compound_shader = nullptr;
 
-AllegroFlare::Shader *__get_standard_compound_shader()
+AllegroFlare::Shaders::Base *__get_standard_compound_shader()
 {
    if (standard_compound_shader) return standard_compound_shader;
 
@@ -21,7 +21,7 @@ AllegroFlare::Shader *__get_standard_compound_shader()
 
    std::cout << "Building Entity::standard_compound_shader." << std::endl;
 
-   standard_compound_shader = new AllegroFlare::Shader(vertex_file_content, fragment_file_content);
+   standard_compound_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
    standard_compound_shader->initialize();
 
    if (!standard_compound_shader)

@@ -15,7 +15,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
-#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 #include <map>
 #include <set>
 #include <string>
@@ -45,7 +45,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper;
             std::string starting_room_identifier;
             AllegroFlare::Prototypes::FixedRoom2D::Room* current_room;
-            AllegroFlare::Shader* room_shader;
+            AllegroFlare::Shaders::Base* room_shader;
             bool initialized;
             AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
             bool paused;
@@ -62,8 +62,8 @@ namespace AllegroFlare
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
-            void set_room_shader(AllegroFlare::Shader* room_shader);
-            AllegroFlare::Shader* get_room_shader() const;
+            void set_room_shader(AllegroFlare::Shaders::Base* room_shader);
+            AllegroFlare::Shaders::Base* get_room_shader() const;
             AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner &get_script_runner_ref();
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &get_entity_collection_helper_ref();
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

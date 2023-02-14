@@ -65,7 +65,7 @@ properties:
     init_with: nullptr
 
   - name: room_shader
-    type: AllegroFlare::Shader*
+    type: AllegroFlare::Shaders::Base*
     init_with: nullptr
     getter: true
     setter: true
@@ -773,8 +773,8 @@ dependencies:
     headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
-  - symbol: AllegroFlare::Shader
-    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: AllegroFlare::Shaders::Base
+    headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Entities::Base
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Script

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 
 
-extern AllegroFlare::Shader *standard_compound_shader;
+extern AllegroFlare::Shaders::Base *standard_compound_shader;
 
-AllegroFlare::Shader *__get_standard_compound_shader();
+AllegroFlare::Shaders::Base *__get_standard_compound_shader();
 

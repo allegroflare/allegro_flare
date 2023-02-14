@@ -1242,9 +1242,11 @@
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/Cubemap",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
@@ -1584,12 +1586,6 @@
   ],
   "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog": [
     "AllegroFlare/Prototypes/CubeShooter/Screen"
-  ],
-  "AllegroFlare/Shader": [
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Shaders/Base",
-    "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -2105,6 +2101,10 @@
   ],
   "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/ShaderSourcePoller"
+  ],
+  "AllegroFlare/Shader": [
+    "AllegroFlare/Shaders/Base",
+    "Tileo/Shaders/Base"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"

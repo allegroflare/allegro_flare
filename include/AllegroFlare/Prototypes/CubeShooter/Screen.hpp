@@ -15,7 +15,7 @@
 #include <AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
-#include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
 
@@ -42,7 +42,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::CubeShooter::Entity* player_controlled_entity;
             AllegroFlare::Prototypes::CubeShooter::PlayerMovementControl player_movement_control;
             AllegroFlare::Camera3D camera;
-            AllegroFlare::Shader* shader;
+            AllegroFlare::Shaders::Base* shader;
             AllegroFlare::Prototypes::CubeShooter::Shaders::Multiply multiply_shader;
             AllegroFlare::Prototypes::CubeShooter::Shaders::Fog fog_shader;
             AllegroFlare::Prototypes::CubeShooter::Shaders::DepthDarken depth_darken_shader;
