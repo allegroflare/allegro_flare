@@ -976,6 +976,10 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             primary_update();
             primary_render();
          }
+         else if (this_event.timer.source == shader_source_poller.get_polling_timer())
+         {
+            event_emitter.emit_poll_hotload_shader_source_for_change_event();
+         }
          else
          {
             screens.timer_funcs();
@@ -1312,12 +1316,14 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   case ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE: {
                      // NOTE: this will require initialization
                      bool files_have_changed = shader_source_poller.poll();
+                     std::cout << "poll (" << (files_have_changed ? "files changed" : "no change") << ")" << std::endl;
+
                      if (files_have_changed)
                      {
                         // TODO: emit event to hotload shader source
                         event_emitter.emit_hotload_shader_source_event(
-                           shader_source_poller.get_path() + shader_source_poller.get_vertex_source_filename(),
-                           shader_source_poller.get_path() + shader_source_poller.get_fragment_source_filename()
+                           shader_source_poller.read_vertex_source_code_from_file(),
+                           shader_source_poller.read_fragment_source_code_from_file()
                         );
                      }
                   } break;
@@ -1328,6 +1334,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      std::string *fragment_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data2);
                      AllegroFlare::Shaders::Base* shader =
                            static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data3);
+
+                     // DEBUG:
 
                      // NOTE: DEBUGGING: The shader for hotloading is hard-coded here to the post_processing_shader
                      shader_target_for_hotloading = post_processing_shader; // TODO: make a better place for this

@@ -42,6 +42,8 @@ namespace AllegroFlare
       void initialize();
       void start_polling();
       void stop_polling();
+      std::string read_vertex_source_code_from_file();
+      std::string read_fragment_source_code_from_file();
       bool poll();
    };
 }

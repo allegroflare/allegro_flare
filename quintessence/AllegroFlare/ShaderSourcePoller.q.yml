@@ -95,6 +95,28 @@ functions:
       return;
 
 
+  - name: read_vertex_source_code_from_file
+    type: std::string
+    guards:
+      - initialized
+      - std::filesystem::exists(path + vertex_source_filename)
+    body: |
+      return AllegroFlare::php::file_get_contents(path + vertex_source_filename);
+    body_dependency_symbols:
+      - AllegroFlare::php::file_get_contents
+
+
+  - name: read_fragment_source_code_from_file
+    type: std::string
+    guards:
+      - initialized
+      - std::filesystem::exists(path + fragment_source_filename)
+    body: |
+      return AllegroFlare::php::file_get_contents(path + fragment_source_filename);
+    body_dependency_symbols:
+      - AllegroFlare::php::file_get_contents
+
+
   - name: poll
     type: bool
     guards:
@@ -137,5 +159,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_TIMER
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::php::file_get_contents
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 

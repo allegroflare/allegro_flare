@@ -2103,6 +2103,9 @@
   "ALLEGRO_TIMER": [
     "AllegroFlare/ShaderSourcePoller"
   ],
+  "AllegroFlare/php/file_get_contents": [
+    "AllegroFlare/ShaderSourcePoller"
+  ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Cubemap"
   ],

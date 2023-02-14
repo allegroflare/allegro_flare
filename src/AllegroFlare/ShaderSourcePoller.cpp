@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/ShaderSourcePoller.hpp>
 
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <filesystem>
 #include <iostream>
 #include <sstream>
@@ -182,6 +183,44 @@ void ShaderSourcePoller::stop_polling()
    al_unregister_event_source(event_queue, al_get_timer_event_source(polling_timer));
    polling_active = false;
    return;
+}
+
+std::string ShaderSourcePoller::read_vertex_source_code_from_file()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::read_vertex_source_code_from_file: error: guard \"initialized\" not met");
+   }
+   if (!(std::filesystem::exists(path + vertex_source_filename)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::read_vertex_source_code_from_file: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met");
+   }
+   return AllegroFlare::php::file_get_contents(path + vertex_source_filename);
+}
+
+std::string ShaderSourcePoller::read_fragment_source_code_from_file()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::read_fragment_source_code_from_file: error: guard \"initialized\" not met");
+   }
+   if (!(std::filesystem::exists(path + fragment_source_filename)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShaderSourcePoller::read_fragment_source_code_from_file: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met");
+   }
+   return AllegroFlare::php::file_get_contents(path + fragment_source_filename);
 }
 
 bool ShaderSourcePoller::poll()
