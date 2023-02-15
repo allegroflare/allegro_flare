@@ -45,6 +45,21 @@ functions:
       return (possible_type == get_type());
 
 
+  - name: activate
+    body: |
+      al_use_shader(shader);
+
+
+  - name: deactivate
+    body: |
+      al_use_shader(nullptr);
+
+
+  - name: global_deactivate
+    body: |
+      al_use_shader(nullptr);
+
+
   - name: set_sampler
     static: true
     type: bool

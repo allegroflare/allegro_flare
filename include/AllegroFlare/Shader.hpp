@@ -48,11 +48,11 @@ namespace AllegroFlare
       //static bool set_vec4(const char *name, float x, float y, float z, float a);
 
       // activate and deactivate
-      virtual void activate();
-      virtual void deactivate();
+      //virtual void activate();
+      //virtual void deactivate();
 
       // force deactivate
-      static void global_deactivate(); // needed for one case in WickedDemos/SceneRenderer, please factor out
+      //static void global_deactivate(); // needed for one case in WickedDemos/SceneRenderer, please factor out
    };
 }
 

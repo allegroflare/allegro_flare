@@ -39,6 +39,21 @@ bool Base::is_type(std::string possible_type)
    return (possible_type == get_type());
 }
 
+void Base::activate()
+{
+   al_use_shader(shader);
+}
+
+void Base::deactivate()
+{
+   al_use_shader(nullptr);
+}
+
+void Base::global_deactivate()
+{
+   al_use_shader(nullptr);
+}
+
 bool Base::set_sampler(std::string name, ALLEGRO_BITMAP* bitmap, int unit)
 {
    return al_set_shader_sampler(name.c_str(), bitmap, unit);

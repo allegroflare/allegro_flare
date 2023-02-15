@@ -31,6 +31,9 @@ namespace AllegroFlare
 
          std::string get_type() const;
          bool is_type(std::string possible_type="");
+         void activate();
+         void deactivate();
+         void global_deactivate();
          static bool set_sampler(std::string name="[unset-name]", ALLEGRO_BITMAP* bitmap=nullptr, int unit=0);
          static bool set_mat4(std::string name="[unset-name]", ALLEGRO_TRANSFORM* transform=nullptr);
          static bool set_int(std::string name="[unset-name]", int value=0);

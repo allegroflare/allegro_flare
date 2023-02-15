@@ -202,24 +202,24 @@ ALLEGRO_SHADER *Shader::get_al_shader()
 
 
 
-void Shader::activate()
-{
-   al_use_shader(shader);
-}
+//void Shader::activate()
+//{
+   //al_use_shader(shader);
+//}
 
 
 
-void Shader::deactivate()
-{
-   al_use_shader(nullptr);
-}
+//void Shader::deactivate()
+//{
+   //al_use_shader(nullptr);
+//}
 
 
 
-void Shader::global_deactivate()
-{
-   al_use_shader(nullptr);
-}
+//void Shader::global_deactivate()
+//{
+   //al_use_shader(nullptr);
+//}
 
 
 
