@@ -4,7 +4,9 @@
 
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Vec3D.hpp>
-#include <AllegroFlare/Cubemap.hpp>
+
+
+namespace AllegroFlare { class Cubemap; }
 
 
 

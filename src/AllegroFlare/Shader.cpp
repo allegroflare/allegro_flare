@@ -9,6 +9,8 @@
 #include <sstream>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/Cubemap.hpp>
+
 
 
 namespace AllegroFlare
