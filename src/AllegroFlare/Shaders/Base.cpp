@@ -19,6 +19,7 @@ Base::Base(std::string type, std::string vertex_source_code, std::string fragmen
    , type(type)
    , vertex_source_code(vertex_source_code)
    , fragment_source_code(fragment_source_code)
+   , initialized(false)
 {
 }
 
@@ -34,9 +35,32 @@ std::string Base::get_type() const
 }
 
 
+bool Base::get_initialized() const
+{
+   return initialized;
+}
+
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
+}
+
+bool Base::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::initialize: error: guard \"(!initialized)\" not met");
+   }
+   shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+   if (!shader) throw std::runtime_error("Could not create Shader");
+   attach_source_code();
+   build();
+   initialized = true;
+   return true;
 }
 
 void Base::activate()

@@ -77,7 +77,7 @@ Shader::Shader(std::string vertex_source_code, std::string fragment_source_code)
    : vertex_source_code(vertex_source_code)
    , fragment_source_code(fragment_source_code)
    , shader(nullptr)
-   , initialized(false)
+   //, initialized(false)
 {
 }
 
@@ -85,7 +85,7 @@ Shader::Shader(std::string vertex_source_code, std::string fragment_source_code)
 
 Shader::~Shader()
 {
-   if (!initialized) return;
+   //if (!initialized) return;
 
    if (!al_is_system_installed())
    {
@@ -100,25 +100,25 @@ Shader::~Shader()
 
 
 
-void Shader::initialize()
-{
+//void Shader::initialize()
+//{
    // DEBUG:
-   shader = al_create_shader(ALLEGRO_SHADER_GLSL);
-   if (!shader) throw std::runtime_error("Could not create Shader");
+   //shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+   //if (!shader) throw std::runtime_error("Could not create Shader");
 
-   attach_source_code();
+   //attach_source_code();
 
-   build();
+   //build();
 
-   initialized = true;
-}
+   //initialized = true;
+//}
 
 
 
-bool Shader::get_initialized()
-{
-   return initialized;
-}
+//bool Shader::get_initialized()
+//{
+   //return initialized;
+//}
 
 
 

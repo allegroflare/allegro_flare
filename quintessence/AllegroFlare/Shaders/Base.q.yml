@@ -25,6 +25,11 @@ properties:
     init_with: '""'
     constructor_arg: true
 
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Shaders/Base"'
@@ -43,6 +48,18 @@ functions:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+  - name: initialize
+    type: bool
+    guards: [ (!initialized) ]
+    body: |
+      shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+      if (!shader) throw std::runtime_error("Could not create Shader");
+      attach_source_code();
+      build();
+      initialized = true;
+      return true;
 
 
   - name: activate

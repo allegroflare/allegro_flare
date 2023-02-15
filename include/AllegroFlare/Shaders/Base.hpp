@@ -21,6 +21,7 @@ namespace AllegroFlare
          std::string type;
          std::string vertex_source_code;
          std::string fragment_source_code;
+         bool initialized;
 
       protected:
 
@@ -30,7 +31,9 @@ namespace AllegroFlare
          ~Base();
 
          std::string get_type() const;
+         bool get_initialized() const;
          bool is_type(std::string possible_type="");
+         bool initialize();
          void activate();
          void deactivate();
          void global_deactivate();
