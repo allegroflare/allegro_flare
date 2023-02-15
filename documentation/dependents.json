@@ -2113,7 +2113,11 @@
     "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Cubemap": [
+    "AllegroFlare/Shaders/Base",
     "AllegroFlare/Shaders/Cubemap"
+  ],
+  "AllegroFlare/CubemapTextureBinder": [
+    "AllegroFlare/Shaders/Base"
   ],
   "tsl/ordered_map": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"

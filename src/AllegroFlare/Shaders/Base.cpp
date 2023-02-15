@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Shaders/Base.hpp>
 
+#include <AllegroFlare/CubemapTextureBinder.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -84,6 +85,12 @@ bool Base::set_vec4(std::string name, float x, float y, float z, float a)
 {
    float vec4[4] = {x, y, z, a};
    return al_set_shader_float_vector(name.c_str(), 4, &vec4[0], 1);
+}
+
+bool Base::set_sampler_cube(std::string name, AllegroFlare::Cubemap* cubemap, int unit)
+{
+   AllegroFlare::CubemapTextureBinder cubemap_texture_binder(name, cubemap, unit);
+   return cubemap_texture_binder.bind();
 }
 
 void Base::hotload(std::string vertex_source_code, std::string fragment_source_code)

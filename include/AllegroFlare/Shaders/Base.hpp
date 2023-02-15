@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Cubemap.hpp>
 #include <AllegroFlare/Shader.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
@@ -39,6 +40,7 @@ namespace AllegroFlare
          static bool set_vec3(std::string name="[unset-name]", float x=0.0f, float y=0.0f, float z=0.0f);
          static bool set_vec3(std::string name="[unset-name]", AllegroFlare::Vec3D vec={});
          static bool set_vec4(std::string name="[unset-name]", float x=0.0f, float y=0.0f, float z=0.0f, float a=0.0f);
+         static bool set_sampler_cube(std::string name="[unset-name]", AllegroFlare::Cubemap* cubemap=nullptr, int unit=0);
          void hotload(std::string vertex_source_code="", std::string fragment_source_code="");
       };
    }

@@ -15331,6 +15331,9 @@ table td
   <td class="method">set_vec4(std::string name=&quot;[unset-name]&quot;, float x=0.0f, float y=0.0f, float z=0.0f, float a=0.0f)</td>
 </tr>
 <tr>
+  <td class="method">set_sampler_cube(std::string name=&quot;[unset-name]&quot;, AllegroFlare::Cubemap* cubemap=nullptr, int unit=0)</td>
+</tr>
+<tr>
   <td class="method">hotload(std::string vertex_source_code=&quot;&quot;, std::string fragment_source_code=&quot;&quot;)</td>
 </tr>
     </table>
@@ -15346,6 +15349,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Cubemap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Cubemap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::CubemapTextureBinder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/CubemapTextureBinder.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -22196,7 +22205,11 @@ table td
     "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Cubemap": [
+    "AllegroFlare/Shaders/Base",
     "AllegroFlare/Shaders/Cubemap"
+  ],
+  "AllegroFlare/CubemapTextureBinder": [
+    "AllegroFlare/Shaders/Base"
   ],
   "tsl/ordered_map": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"

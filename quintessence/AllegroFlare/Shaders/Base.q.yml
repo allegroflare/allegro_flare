@@ -195,6 +195,26 @@ functions:
       return al_set_shader_float_vector(name.c_str(), 4, &vec4[0], 1);
 
 
+  - name: set_sampler_cube
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: cubemap
+        type: AllegroFlare::Cubemap*
+        default_argument: nullptr
+      - name: unit
+        type: int
+        default_argument: 0
+    body: |
+      AllegroFlare::CubemapTextureBinder cubemap_texture_binder(name, cubemap, unit);
+      return cubemap_texture_binder.bind();
+    body_dependency_symbols:
+      - AllegroFlare::CubemapTextureBinder
+
+
   - name: hotload
     parameters:
       - name: vertex_source_code
@@ -244,5 +264,9 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Cubemap
+    headers: [ AllegroFlare/Cubemap.hpp ]
+  - symbol: AllegroFlare::CubemapTextureBinder
+    headers: [ AllegroFlare/CubemapTextureBinder.hpp ]
 
 
