@@ -63,6 +63,29 @@ bool Base::set_bool(std::string name, bool value)
    return al_set_shader_bool(name.c_str(), value);
 }
 
+bool Base::set_vec2(std::string name, float x, float y)
+{
+   float vec2[2] = {x, y};
+   return al_set_shader_float_vector(name.c_str(), 2, &vec2[0], 1);
+}
+
+bool Base::set_vec3(std::string name, float x, float y, float z)
+{
+   float vec3[3] = {x, y, z};
+   return al_set_shader_float_vector(name.c_str(), 3, &vec3[0], 1);
+}
+
+bool Base::set_vec3(std::string name, AllegroFlare::Vec3D vec)
+{
+   return set_vec3(name.c_str(), vec.x, vec.y, vec.z);
+}
+
+bool Base::set_vec4(std::string name, float x, float y, float z, float a)
+{
+   float vec4[4] = {x, y, z, a};
+   return al_set_shader_float_vector(name.c_str(), 4, &vec4[0], 1);
+}
+
 void Base::hotload(std::string vertex_source_code, std::string fragment_source_code)
 {
    if (!(initialized))

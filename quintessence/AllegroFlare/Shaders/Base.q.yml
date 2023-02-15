@@ -118,6 +118,83 @@ functions:
       return al_set_shader_bool(name.c_str(), value);
 
 
+  - name: set_vec2
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      float vec2[2] = {x, y};
+      return al_set_shader_float_vector(name.c_str(), 2, &vec2[0], 1);
+
+
+  - name: set_vec3
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: z
+        type: float
+        default_argument: 0.0f
+    body: |
+      float vec3[3] = {x, y, z};
+      return al_set_shader_float_vector(name.c_str(), 3, &vec3[0], 1);
+
+
+  - name: set_vec3
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: vec
+        type: AllegroFlare::Vec3D
+        default_argument: '{}'
+    body: |
+      return set_vec3(name.c_str(), vec.x, vec.y, vec.z);
+
+
+  - name: set_vec4
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: z
+        type: float
+        default_argument: 0.0f
+      - name: a
+        type: float
+        default_argument: 0.0f
+    body: |
+      float vec4[4] = {x, y, z, a};
+      return al_set_shader_float_vector(name.c_str(), 4, &vec4[0], 1);
+
+
   - name: hotload
     parameters:
       - name: vertex_source_code
@@ -165,5 +242,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_TRANSFORM
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
 
 

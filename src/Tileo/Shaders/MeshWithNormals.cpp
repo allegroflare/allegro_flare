@@ -45,14 +45,14 @@ void MeshWithNormals::activate()
 
 void MeshWithNormals::set_flat_color(ALLEGRO_COLOR flat_color, float intensity)
 {
-   Shader::set_vec3("tint", flat_color.r, flat_color.g, flat_color.b);
+   AllegroFlare::Shaders::Base::set_vec3("tint", flat_color.r, flat_color.g, flat_color.b);
    AllegroFlare::Shaders::Base::set_float("tint_intensity", intensity);
    return;
 }
 
 void MeshWithNormals::set_light_direction(AllegroFlare::vec3d light_direction)
 {
-   Shader::set_vec3("light_direction", light_direction.x, light_direction.y, light_direction.z);
+   AllegroFlare::Shaders::Base::set_vec3("light_direction", light_direction.x, light_direction.y, light_direction.z);
    return;
 }
 

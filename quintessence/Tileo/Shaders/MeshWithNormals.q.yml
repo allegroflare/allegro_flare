@@ -40,7 +40,7 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
-      Shader::set_vec3("tint", flat_color.r, flat_color.g, flat_color.b);
+      AllegroFlare::Shaders::Base::set_vec3("tint", flat_color.r, flat_color.g, flat_color.b);
       AllegroFlare::Shaders::Base::set_float("tint_intensity", intensity);
       return;
 
@@ -51,7 +51,7 @@ functions:
         type: AllegroFlare::vec3d
         default_argument: '{0, 0, 0}'
     body: |
-      Shader::set_vec3("light_direction", light_direction.x, light_direction.y, light_direction.z);
+      AllegroFlare::Shaders::Base::set_vec3("light_direction", light_direction.x, light_direction.y, light_direction.z);
       return;
 
 

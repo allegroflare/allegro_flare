@@ -1552,6 +1552,7 @@
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Base",
     "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [

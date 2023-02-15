@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Shader.hpp>
+#include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 
@@ -34,6 +35,10 @@ namespace AllegroFlare
          static bool set_int(std::string name="[unset-name]", int value=0);
          static bool set_float(std::string name="[unset-name]", float value=0.0f);
          static bool set_bool(std::string name="[unset-name]", bool value=false);
+         static bool set_vec2(std::string name="[unset-name]", float x=0.0f, float y=0.0f);
+         static bool set_vec3(std::string name="[unset-name]", float x=0.0f, float y=0.0f, float z=0.0f);
+         static bool set_vec3(std::string name="[unset-name]", AllegroFlare::Vec3D vec={});
+         static bool set_vec4(std::string name="[unset-name]", float x=0.0f, float y=0.0f, float z=0.0f, float a=0.0f);
          void hotload(std::string vertex_source_code="", std::string fragment_source_code="");
       };
    }
