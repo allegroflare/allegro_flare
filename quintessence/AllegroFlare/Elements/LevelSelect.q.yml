@@ -72,6 +72,7 @@ functions:
 
   - name: opaquify
     type: ALLEGRO_COLOR
+    private: true
     parameters:
       - name: color
         type: ALLEGRO_COLOR
@@ -82,6 +83,7 @@ functions:
 
   - name: change_a
     type: ALLEGRO_COLOR
+    private: true
     parameters:
       - name: color
         type: ALLEGRO_COLOR
@@ -261,7 +263,7 @@ functions:
 
 
   - name: draw_selection_cursor
-    xprivate: true
+    private: true
     parameters:
       - name: x
         type: float
@@ -383,18 +385,21 @@ functions:
 
 
   - name: obtain_title_font
+    private: true
     type: ALLEGRO_FONT*
     body: |
       return font_bin->auto_get("Inter-Bold.ttf -70");
 
 
   - name: obtain_description_font
+    private: true
     type: ALLEGRO_FONT*
     body: |
       return font_bin->auto_get("Inter-Medium.ttf -59");
 
 
   - name: obtain_item_name_font
+    private: true
     type: ALLEGRO_FONT*
     body: |
       return font_bin->auto_get("Inter-Bold.ttf -46");

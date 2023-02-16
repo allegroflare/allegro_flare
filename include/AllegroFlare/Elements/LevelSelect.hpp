@@ -30,13 +30,19 @@ namespace AllegroFlare
          int selection_box_spacing_y;
          int num_columns;
          int num_rows;
+         ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0});
+         ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
          void draw_backfill_and_frame();
          void draw_level_select_title_text();
          void draw_level_select_boxes_and_cursor();
          bool has_valid_size();
          bool list_is_empty();
+         void draw_selection_cursor(float x=0.0f, float y=0.0f);
          void draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label="[unlabeled]");
          std::string infer_current_menu_option_value();
+         ALLEGRO_FONT* obtain_title_font();
+         ALLEGRO_FONT* obtain_description_font();
+         ALLEGRO_FONT* obtain_item_name_font();
 
       protected:
 
@@ -59,18 +65,12 @@ namespace AllegroFlare
          int get_selection_box_spacing_y() const;
          int get_num_columns() const;
          int get_num_rows() const;
-         ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0});
-         ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
          void render();
          void move_cursor_up();
          void move_cursor_down();
          void move_cursor_left();
          void move_cursor_right();
-         void draw_selection_cursor(float x=0.0f, float y=0.0f);
          void activate_selected_menu_option();
-         ALLEGRO_FONT* obtain_title_font();
-         ALLEGRO_FONT* obtain_description_font();
-         ALLEGRO_FONT* obtain_item_name_font();
       };
    }
 }

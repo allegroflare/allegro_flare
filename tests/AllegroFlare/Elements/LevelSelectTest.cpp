@@ -64,23 +64,25 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
 }
 
 
-TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
-   //VISUAL__draw_selection_cursor__renders_an_animated_style)
-   DISABLED__VISUAL__draw_selection_cursor__renders_an_animated_style)
-{
-   AllegroFlare::EventEmitter event_emitter;
-   std::vector<std::pair<std::string, std::string>> levels_list;
-   AllegroFlare::Elements::LevelSelect level_select(&event_emitter, &get_font_bin_ref(), levels_list);
-   int passes = 60 * 2;
-   //int passes = 0;
-   for (int i=0; i<passes; i++)
-   {
-      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0});
-      level_select.draw_selection_cursor(1920/2, 1080/2);
-      al_flip_display();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
-   }
-}
+// NOTE: This test was removed when "draw_selection_cursor" was moved to private.  Ideally, this would be replaced with
+// an AllegroFlare/Elements/SelectionCursorBox object
+//TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
+   ////VISUAL__draw_selection_cursor__renders_an_animated_style)
+   //DISABLED__VISUAL__draw_selection_cursor__renders_an_animated_style)
+//{
+   //AllegroFlare::EventEmitter event_emitter;
+   //std::vector<std::pair<std::string, std::string>> levels_list;
+   //AllegroFlare::Elements::LevelSelect level_select(&event_emitter, &get_font_bin_ref(), levels_list);
+   //int passes = 60 * 2;
+   ////int passes = 0;
+   //for (int i=0; i<passes; i++)
+   //{
+      //al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0});
+      //level_select.draw_selection_cursor(1920/2, 1080/2);
+      //al_flip_display();
+      //std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+   //}
+//}
 
 
 TEST_F(AllegroFlare_Elements_LevelSelectTest, move_cursor_left__wraps_the_cursor_when_at_the_edge)
