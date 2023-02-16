@@ -151,6 +151,7 @@ void Base::activate()
       throw std::runtime_error("Base::activate: error: guard \"initialized\" not met");
    }
    al_use_shader(shader);
+   //set_values_to_activated_shader(); // TODO: <-- introduce this function here
 }
 
 void Base::deactivate()

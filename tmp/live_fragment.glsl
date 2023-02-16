@@ -41,6 +41,8 @@ void main()
 
     float a = 1.0;
     gl_FragColor = vec4(color, a); 
+
+    //gl_FragColor = vec4(color, a); //vec4(0.5, 0.5, 0.5, gl_FragCoord.a);
   }
   else
   {

@@ -138,6 +138,7 @@ functions:
     guards: [ initialized ]
     body: |
       al_use_shader(shader);
+      //set_values_to_activated_shader(); // TODO: <-- introduce this function here
 
 
   - name: deactivate
