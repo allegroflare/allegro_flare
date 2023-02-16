@@ -58,7 +58,7 @@ functions:
     virtual: true
     override: true
     body: |
-      AllegroFlare::Shader::activate();
+      AllegroFlare::Shaders::Base::activate();
       set_values_to_activated_shader();
       return;
 

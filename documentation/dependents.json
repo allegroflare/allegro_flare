@@ -543,6 +543,7 @@
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_COLOR": [
@@ -2105,7 +2106,7 @@
   "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/ShaderSourcePoller"
   ],
-  "AllegroFlare/Shader": [
+  "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
   ],
   "ALLEGRO_TRANSFORM": [

@@ -15,23 +15,23 @@ namespace AllegroFlare
    class Shader
    {
    protected:
-      std::string vertex_source_code;
-      std::string fragment_source_code;
-      ALLEGRO_SHADER *shader;
-      void build();
-      bool attach_source_code(bool throw_on_error=true);
+      //std::string vertex_source_code;
+      //std::string fragment_source_code;
+      //ALLEGRO_SHADER *shader;
+      //void build();
+      //bool attach_source_code(bool throw_on_error=true);
       //bool initialized;
 
 
    public:
-      Shader(std::string vertex_source_code="", std::string fragment_source_code="");
-      virtual ~Shader();
+      //Shader(std::string vertex_source_code="", std::string fragment_source_code="");
+      //virtual ~Shader();
 
       // initialize
       //void initialize();
       //void rebuild_with_new_source(std::string vertex_source_code, std::string fragment_source_code);
       //bool get_initialized();
-      ALLEGRO_SHADER *get_al_shader();
+      //ALLEGRO_SHADER *get_al_shader();
 
       // set uniforms and attributes
       // (these apply only to the /currently active/ shader, and not necessairly

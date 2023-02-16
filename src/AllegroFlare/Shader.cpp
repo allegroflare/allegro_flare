@@ -19,19 +19,20 @@ namespace AllegroFlare
 
 
 
-void Shader::build()
-{
-   if (!al_build_shader(shader))
-   {
-      std::stringstream error_message;
-      error_message << "There were errors when building the shader. The shader log contained the following message: "
-                    << al_get_shader_log(shader);
-      AllegroFlare::Logger::throw_error("AllegroFlare::Shader::build", error_message.str());
-   }
-}
+//void Shader::build()
+//{
+   //if (!al_build_shader(shader))
+   //{
+      //std::stringstream error_message;
+      //error_message << "There were errors when building the shader. The shader log contained the following message: "
+                    //<< al_get_shader_log(shader);
+      //AllegroFlare::Logger::throw_error("AllegroFlare::Shader::build", error_message.str());
+   //}
+//}
 
 
 
+/*
 bool Shader::attach_source_code(bool throw_on_error)
 {
    if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
@@ -70,19 +71,24 @@ bool Shader::attach_source_code(bool throw_on_error)
 
    return true;
 }
+*/
 
 
 
+
+/*
 Shader::Shader(std::string vertex_source_code, std::string fragment_source_code)
    : vertex_source_code(vertex_source_code)
    , fragment_source_code(fragment_source_code)
-   , shader(nullptr)
+   //, shader(nullptr)
    //, initialized(false)
 {
 }
+*/
 
 
 
+/*
 Shader::~Shader()
 {
    //if (!initialized) return;
@@ -97,6 +103,7 @@ Shader::~Shader()
    }
    if (shader) al_destroy_shader(shader);
 }
+*/
 
 
 
@@ -122,10 +129,10 @@ Shader::~Shader()
 
 
 
-ALLEGRO_SHADER *Shader::get_al_shader()
-{
-   return shader;
-}
+//ALLEGRO_SHADER *Shader::get_al_shader()
+//{
+   //return shader;
+//}
 
 
 

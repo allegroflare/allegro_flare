@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/Cubemap.hpp>
-#include <AllegroFlare/Shader.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
 #include <string>
@@ -12,7 +11,7 @@ namespace AllegroFlare
 {
    namespace Shaders
    {
-      class Base : public AllegroFlare::Shader
+      class Base
       {
       public:
          static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/Base";
@@ -21,22 +20,28 @@ namespace AllegroFlare
          std::string type;
          std::string vertex_source_code;
          std::string fragment_source_code;
+         ALLEGRO_SHADER* shader;
          bool initialized;
+         void build();
 
       protected:
 
 
       public:
          Base(std::string type=AllegroFlare::Shaders::Base::TYPE, std::string vertex_source_code="", std::string fragment_source_code="");
-         ~Base();
+         virtual ~Base();
 
          std::string get_type() const;
+         ALLEGRO_SHADER* get_shader() const;
          bool get_initialized() const;
          bool is_type(std::string possible_type="");
+         ALLEGRO_SHADER* get_al_shader();
          bool initialize();
-         void activate();
-         void deactivate();
-         void global_deactivate();
+         bool attach_source_code(bool throw_on_error=true);
+         void destroy();
+         virtual void activate();
+         virtual void deactivate();
+         static void global_deactivate();
          static bool set_sampler(std::string name="[unset-name]", ALLEGRO_BITMAP* bitmap=nullptr, int unit=0);
          static bool set_mat4(std::string name="[unset-name]", ALLEGRO_TRANSFORM* transform=nullptr);
          static bool set_int(std::string name="[unset-name]", int value=0);

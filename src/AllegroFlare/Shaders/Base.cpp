@@ -3,6 +3,7 @@
 #include <AllegroFlare/Shaders/Base.hpp>
 
 #include <AllegroFlare/CubemapTextureBinder.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -15,10 +16,10 @@ namespace Shaders
 
 
 Base::Base(std::string type, std::string vertex_source_code, std::string fragment_source_code)
-   : AllegroFlare::Shader(vertex_source_code, fragment_source_code)
-   , type(type)
+   : type(type)
    , vertex_source_code(vertex_source_code)
    , fragment_source_code(fragment_source_code)
+   , shader(nullptr)
    , initialized(false)
 {
 }
@@ -35,6 +36,12 @@ std::string Base::get_type() const
 }
 
 
+ALLEGRO_SHADER* Base::get_shader() const
+{
+   return shader;
+}
+
+
 bool Base::get_initialized() const
 {
    return initialized;
@@ -44,6 +51,12 @@ bool Base::get_initialized() const
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
+}
+
+ALLEGRO_SHADER* Base::get_al_shader()
+{
+   // TODO: remove dependent calls to this function and remove this function, rename "shader" to "al_shader"
+   return shader;
 }
 
 bool Base::initialize()
@@ -63,8 +76,80 @@ bool Base::initialize()
    return true;
 }
 
+bool Base::attach_source_code(bool throw_on_error)
+{
+   if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
+   {
+      // TODO: Replace these messages with AllegroFlare::Logger::throw_from
+      std::stringstream error_message;
+      error_message << "There was an error attaching the VERTEX shader source code:"
+         << std::endl << al_get_shader_log(shader);
+      if (throw_on_error)
+      {
+         throw std::runtime_error(error_message.str());
+      }
+      else
+      {
+         // TODO: improve the formatting of this error message
+         std::cout << error_message.str() << std::endl;
+      }
+   }
+
+   if (!al_attach_shader_source(shader, ALLEGRO_PIXEL_SHADER, fragment_source_code.c_str()))
+   {
+      // TODO: Replace these messages with AllegroFlare::Logger::throw_from
+      std::stringstream error_message;
+      error_message << "There was an error attaching the FRAGMENT shader source code:"
+         << std::endl << al_get_shader_log(shader);
+      if (throw_on_error)
+      {
+         throw std::runtime_error(error_message.str());
+      }
+      else
+      {
+         // TODO: improve the formatting of this error message
+         std::cout << error_message.str() << std::endl;
+      }
+   }
+
+   return true;
+}
+
+void Base::build()
+{
+   if (!al_build_shader(shader))
+   {
+      std::stringstream error_message;
+      error_message << "There were errors when building the shader. The shader log contained the following message: "
+                    << al_get_shader_log(shader);
+      AllegroFlare::Logger::throw_error("AllegroFlare::Shaders::Base::build", error_message.str());
+   }
+}
+
+void Base::destroy()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::destroy]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::destroy: error: guard \"initialized\" not met");
+   }
+   // TODO: find a safer usage of this function.  Some examples
+   //   - prevent function calls after destruction
+   //   - find callers and besure destroy is called
+   if (shader) al_destroy_shader(shader);
+}
+
 void Base::activate()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::activate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::activate: error: guard \"initialized\" not met");
+   }
    al_use_shader(shader);
 }
 
@@ -75,6 +160,8 @@ void Base::deactivate()
 
 void Base::global_deactivate()
 {
+   // NOTE: needed for one case in WickedDemos/SceneRenderer
+   // TODO: please factor out this function
    al_use_shader(nullptr);
 }
 
@@ -160,8 +247,8 @@ void Base::hotload(std::string vertex_source_code, std::string fragment_source_c
 
    // set our base copy of the code
    // TODO: after flattening AllegroFlare::Shader into AllegroFlare::Shaders::Base, this line should be removed
-   AllegroFlare::Shader::vertex_source_code = vertex_source_code;
-   AllegroFlare::Shader::fragment_source_code = fragment_source_code;
+   //AllegroFlare::Shader::vertex_source_code = vertex_source_code;
+   //AllegroFlare::Shader::fragment_source_code = fragment_source_code;
 
    attach_source_code(false);
    build();

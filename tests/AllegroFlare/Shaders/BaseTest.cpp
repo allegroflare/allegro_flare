@@ -64,6 +64,7 @@ TEST_F(AllegroFlare_Shaders_BaseTest, hotload__before_initialization__will_throw
 
 TEST_F(AllegroFlare_Shaders_BaseWithAllegroRenderingFixtureTest, hotload__will_not_blow_up)
 {
+   // DEBUG:
    ShadersBaseTestClass test_class(
       al_get_default_shader_source(ALLEGRO_SHADER_GLSL, ALLEGRO_VERTEX_SHADER),
       al_get_default_shader_source(ALLEGRO_SHADER_GLSL, ALLEGRO_PIXEL_SHADER)

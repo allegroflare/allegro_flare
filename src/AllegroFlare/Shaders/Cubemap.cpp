@@ -67,7 +67,7 @@ bool Cubemap::get_reflecting() const
 
 void Cubemap::activate()
 {
-   AllegroFlare::Shader::activate();
+   AllegroFlare::Shaders::Base::activate();
    set_values_to_activated_shader();
    return;
 }

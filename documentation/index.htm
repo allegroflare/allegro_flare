@@ -15295,6 +15295,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">shader</td>
+  <td class="property">ALLEGRO_SHADER*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -15302,6 +15310,30 @@ table td
      <table>
 <tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+<tr>
+  <td class="method">get_al_shader()</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">attach_source_code(bool throw_on_error=true)</td>
+</tr>
+<tr>
+  <td class="private_method">build()</td>
+</tr>
+<tr>
+  <td class="method">destroy()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="method">deactivate()</td>
+</tr>
+<tr>
+  <td class="method">global_deactivate()</td>
 </tr>
 <tr>
   <td class="method">set_sampler(std::string name=&quot;[unset-name]&quot;, ALLEGRO_BITMAP* bitmap=nullptr, int unit=0)</td>
@@ -15339,7 +15371,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shader.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_SHADER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -15355,6 +15387,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::CubemapTextureBinder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/CubemapTextureBinder.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20635,6 +20670,7 @@ table td
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_COLOR": [
@@ -22197,7 +22233,7 @@ table td
   "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/ShaderSourcePoller"
   ],
-  "AllegroFlare/Shader": [
+  "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
   ],
   "ALLEGRO_TRANSFORM": [

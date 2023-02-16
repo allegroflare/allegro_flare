@@ -1,11 +1,3 @@
-parent_classes:
-
-
-  - class: AllegroFlare::Shader
-    scope: public
-    init_with: "vertex_source_code, fragment_source_code"
-
-
 properties:
 
 
@@ -24,6 +16,11 @@ properties:
     type: std::string
     init_with: '""'
     constructor_arg: true
+
+  - name: shader
+    type: ALLEGRO_SHADER*
+    init_with: nullptr
+    getter: true
 
   - name: initialized
     type: bool
@@ -50,6 +47,13 @@ functions:
       return (possible_type == get_type());
 
 
+  - name: get_al_shader
+    type: ALLEGRO_SHADER*
+    body: |
+      // TODO: remove dependent calls to this function and remove this function, rename "shader" to "al_shader"
+      return shader;
+
+
   - name: initialize
     type: bool
     guards: [ (!initialized) ]
@@ -62,18 +66,91 @@ functions:
       return true;
 
 
+  - name: attach_source_code
+    type: bool
+    parameters:
+      - name: throw_on_error
+        type: bool
+        default_argument: true
+    body: |
+      if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
+      {
+         // TODO: Replace these messages with AllegroFlare::Logger::throw_from
+         std::stringstream error_message;
+         error_message << "There was an error attaching the VERTEX shader source code:"
+            << std::endl << al_get_shader_log(shader);
+         if (throw_on_error)
+         {
+            throw std::runtime_error(error_message.str());
+         }
+         else
+         {
+            // TODO: improve the formatting of this error message
+            std::cout << error_message.str() << std::endl;
+         }
+      }
+
+      if (!al_attach_shader_source(shader, ALLEGRO_PIXEL_SHADER, fragment_source_code.c_str()))
+      {
+         // TODO: Replace these messages with AllegroFlare::Logger::throw_from
+         std::stringstream error_message;
+         error_message << "There was an error attaching the FRAGMENT shader source code:"
+            << std::endl << al_get_shader_log(shader);
+         if (throw_on_error)
+         {
+            throw std::runtime_error(error_message.str());
+         }
+         else
+         {
+            // TODO: improve the formatting of this error message
+            std::cout << error_message.str() << std::endl;
+         }
+      }
+
+      return true;
+
+
+  - name: build
+    private: true
+    body: |
+      if (!al_build_shader(shader))
+      {
+         std::stringstream error_message;
+         error_message << "There were errors when building the shader. The shader log contained the following message: "
+                       << al_get_shader_log(shader);
+         AllegroFlare::Logger::throw_error("AllegroFlare::Shaders::Base::build", error_message.str());
+      }
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: destroy
+    guards: [ initialized ]
+    body: |
+      // TODO: find a safer usage of this function.  Some examples
+      //   - prevent function calls after destruction
+      //   - find callers and besure destroy is called
+      if (shader) al_destroy_shader(shader);
+
+
   - name: activate
+    virtual: true
+    guards: [ initialized ]
     body: |
       al_use_shader(shader);
 
 
   - name: deactivate
+    virtual: true
     body: |
       al_use_shader(nullptr);
 
 
   - name: global_deactivate
+    static: true
     body: |
+      // NOTE: needed for one case in WickedDemos/SceneRenderer
+      // TODO: please factor out this function
       al_use_shader(nullptr);
 
 
@@ -276,8 +353,8 @@ functions:
 
       // set our base copy of the code
       // TODO: after flattening AllegroFlare::Shader into AllegroFlare::Shaders::Base, this line should be removed
-      AllegroFlare::Shader::vertex_source_code = vertex_source_code;
-      AllegroFlare::Shader::fragment_source_code = fragment_source_code;
+      //AllegroFlare::Shader::vertex_source_code = vertex_source_code;
+      //AllegroFlare::Shader::fragment_source_code = fragment_source_code;
 
       attach_source_code(false);
       build();
@@ -288,8 +365,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Shader
-    headers: [ AllegroFlare/Shader.hpp ]
+  - symbol: ALLEGRO_SHADER
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_TRANSFORM
@@ -300,5 +377,7 @@ dependencies:
     headers: [ AllegroFlare/Cubemap.hpp ]
   - symbol: AllegroFlare::CubemapTextureBinder
     headers: [ AllegroFlare/CubemapTextureBinder.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
