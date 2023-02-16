@@ -10,7 +10,7 @@ TEST(AllegroFlare_Prototypes_CubeShooter_RunnerTest, can_be_created_without_blow
 }
 
 
-TEST(AllegroFlare_Prototypes_CubeShooter_RunnerTest, DISABLE__INTERACTIVE__run__returns_the_expected_response)
+TEST(AllegroFlare_Prototypes_CubeShooter_RunnerTest, DISABLED__INTERACTIVE__run__returns_the_expected_response)
 {
    AllegroFlare::Prototypes::CubeShooter::Runner runner;
    runner.RUN("test");
