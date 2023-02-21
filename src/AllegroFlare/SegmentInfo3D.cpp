@@ -12,6 +12,7 @@ namespace AllegroFlare
       this->start = start;
       this->end = end;
       from_start = end - start;
+      tangent_vector = from_start.normalized();
       middle = from_start/2 + start; // TODO: address: divide by 2?
       length = distance(start, end);
       radius = length/2; // TODO: address: divide by 2?

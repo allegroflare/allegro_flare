@@ -12,6 +12,7 @@ namespace AllegroFlare
       AllegroFlare::Vec3D start;
       AllegroFlare::Vec3D end;
       AllegroFlare::Vec3D from_start;
+      AllegroFlare::Vec3D tangent_vector;
       AllegroFlare::Vec3D perpendicular;
       AllegroFlare::Vec3D normal;
       AllegroFlare::Vec3D middle;

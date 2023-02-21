@@ -266,6 +266,37 @@ namespace AllegroFlare
 
 
 
+   AllegroFlare::Vec3D Path3D::tangent_vector_at(float dist)
+   {
+      // this can be optimized
+      float len = 0.0f;
+
+      if (point.size() <= 1) return AllegroFlare::Vec3D(0, 0, 0);
+      //if (dist < 0) return point.front();
+      //if (dist >= _length) return point.back();
+
+      for (int i=1; i<(int)point.size(); i++)
+      {
+         len += segment[i-1]->length;
+         if (dist < len)
+         {
+            // NOTE: if you wanted to smooth step the points, you'd do something like commented here:
+            // if (smoothstep)
+            // {
+               //float percentage = (segment[i-1]->length - (len - dist)) / segment[i-1]->length;
+               //return segment[i-1]->from_start * percentage + point[i-1];
+            // }
+
+            // HERE
+            return segment[i-1]->tangent_vector;
+         }
+      }
+
+      return AllegroFlare::Vec3D(0, 0, 0);
+   }
+
+
+
 
    Path3D &Path3D::rotate(float angle, float anchor_x, float anchor_y)
    {

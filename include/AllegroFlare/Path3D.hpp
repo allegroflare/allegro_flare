@@ -28,6 +28,7 @@ namespace AllegroFlare
       std::vector<AllegroFlare::Vec3D> get_points();
       std::vector<AllegroFlare::Vec3D> &get_points_ref();
       AllegroFlare::Vec3D coordinate_at(float dist); // returns the point along the line, after traveling a distance of dist
+      AllegroFlare::Vec3D tangent_vector_at(float dist);
 
       // filesys
       bool load(std::string filename); // should be extracted to a Path3DLoader
