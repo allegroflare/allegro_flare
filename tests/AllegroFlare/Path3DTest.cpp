@@ -16,16 +16,31 @@ TEST(AllegroFlare_Path3DTest, add_points__will_append_the_points_to_the_path)
          AllegroFlare::Vec3D;
 
    std::vector<AllegroFlare::Vec3D> points = {
-      Vec3D(0, 0,  0),
-      Vec3D(20, 0, 10),
-      Vec3D(0, 43, 30),
+      AllegroFlare::Vec3D(0, 0,  0),
+      AllegroFlare::Vec3D(20, 0, 10),
+      AllegroFlare::Vec3D(0, 43, 30),
    };
 
-   Path3D path3d;
+   AllegroFlare::Path3D path3d;
    path3d.add_points(points);
 
    EXPECT_EQ(3, path3d.num_points());
    EXPECT_EQ(points, path3d.get_points());
+}
+
+
+TEST(AllegroFlare_Path3DTest, length__will_return_the_length_of_the_entire_path)
+{
+   std::vector<AllegroFlare::Vec3D> points = {
+      AllegroFlare::Vec3D(0,   0, 0),
+      AllegroFlare::Vec3D(100, 0, 0),
+      AllegroFlare::Vec3D(100, 0, 100),
+      AllegroFlare::Vec3D(100, 100, 100),
+   };
+   AllegroFlare::Path3D path3d;
+   path3d.add_points(points);
+
+   EXPECT_EQ(300, path3d.length());
 }
 
 
