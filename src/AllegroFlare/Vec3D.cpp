@@ -36,6 +36,16 @@ namespace AllegroFlare
 
 
 
+   Vec3D Vec3D::cross_product(const Vec3D& other) const
+   {
+      // Implementation provided by ChatGPT
+      float result_x = y * other.z - z * other.y;
+      float result_y = z * other.x - x * other.z;
+      float result_z = x * other.y - y * other.x;
+      return Vec3D(result_x, result_y, result_z);
+   }
+
+
 
    Vec3D Vec3D::normalized() const
    {

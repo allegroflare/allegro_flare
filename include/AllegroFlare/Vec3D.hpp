@@ -19,6 +19,9 @@ namespace AllegroFlare
       // return the magnitude squared of the vector
       float get_magnitude_squared() const;
 
+      // returns the cross product
+      Vec3D cross_product(const Vec3D& other) const;
+
       // returns the normalized value of the vector where the length = 1
       Vec3D normalized() const;
 
