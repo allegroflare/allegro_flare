@@ -60,6 +60,20 @@ namespace AllegroFlare
 
 
 
+   Path3D &Path3D::add_points(std::vector<AllegroFlare::Vec3D> points_to_add, bool refresh)
+   {
+      for (auto &point_to_add : points_to_add)
+      {
+         add_point(point_to_add.x, point_to_add.y, point_to_add.z, false);
+      }
+
+      if (refresh) refresh_segment_info();
+
+      return *this;
+   }
+
+
+
 
    Path3D &Path3D::add_arc(float center_x, float center_y, float radius_x, float radius_y, float start_theta, float delta_theta, int num_segments, bool refresh)
       // this is a little dirty, might be able to speed it up somehow
@@ -380,6 +394,13 @@ namespace AllegroFlare
 
 
 
+   int Path3D::num_points()
+   {
+      return point.size();
+   }
+
+
+
    float Path3D::length()
    {
       return _length;
@@ -661,6 +682,19 @@ namespace AllegroFlare
       return point.at(index);
    }
 
+
+
+   std::vector<AllegroFlare::Vec3D> Path3D::get_points()
+   {
+      return point;
+   }
+
+
+
+   std::vector<AllegroFlare::Vec3D> &Path3D::get_points_ref()
+   {
+      return point;
+   }
 
 
 

@@ -12,16 +12,21 @@ namespace AllegroFlare
 {
    class Path3D
    {
-   public:
+   private:
       // with this current method, "point" carries duplicate data also in "segment"
 
       std::vector<ALLEGRO_VERTEX> vertex;
 
+   public:
+
+      int num_points();
       float length();
       float length_along(int first_index, int last_index);
       float length_to(int index);
       AllegroFlare::Vec3D at(int index);
-      AllegroFlare::Vec3D &get_point(int index);
+      //AllegroFlare::Vec3D &get_point(int index);
+      std::vector<AllegroFlare::Vec3D> get_points();
+      std::vector<AllegroFlare::Vec3D> &get_points_ref();
       AllegroFlare::Vec3D coordinate_at(float dist); // returns the point along the line, after traveling a distance of dist
 
       // filesys
@@ -36,6 +41,7 @@ namespace AllegroFlare
 
       // manipulations
       Path3D &add_point(float x, float y, float z, bool refresh=true);
+      Path3D &add_points(std::vector<AllegroFlare::Vec3D> points_to_add, bool refresh=true);
       Path3D &add_arc(float center_x, float center_y, float radius_x, float radius_y, float start_theta, float delta_theta, int num_segments, bool refresh=true);
       Path3D &make_arc(int first_index, float arc_strength, int num_segments, bool refresh=true);
       Path3D &concat(Path3D &path);
@@ -80,6 +86,12 @@ namespace AllegroFlare
       // modifiers
       void set_shape_color(ALLEGRO_COLOR col);
 
+      Path3D();
+      Path3D(std::string filename);
+      ~Path3D();
+
+   private:
+
       // all of these things should be considered internal
       AllegroFlare::Vec3D _top_front_left;
       AllegroFlare::Vec3D _bottom_back_right;
@@ -94,10 +106,6 @@ namespace AllegroFlare
       void draw_shape(float x, float y, float z, ALLEGRO_COLOR color);
       void draw_outline(const ALLEGRO_COLOR &color, float thickness);
       void draw_outline(float x, float y, float z, const ALLEGRO_COLOR &color, float thickness);
-
-      Path3D();
-      Path3D(std::string filename);
-      ~Path3D();
 
       void refresh_segment_info();
    };
