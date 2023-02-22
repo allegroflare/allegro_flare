@@ -6,6 +6,7 @@
 
 #define ALLEGRO_UNSTABLE
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
 class AllegroFlare_RenderSurfaces_BitmapTest : public ::testing::Test {};
@@ -146,8 +147,6 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 }
 
 
-// DEBUGGING:
-#include <AllegroFlare/DeploymentEnvironment.hpp>
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
    the_surface_will_render_to_the_display_backbuffer_as_expected)
 {

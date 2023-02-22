@@ -106,8 +106,6 @@ functions:
       // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
       // https://en.cppreference.com/w/cpp/container/set/contains
 
-      // DEBUG:
-
       return valid_environments.find(environment) != valid_environments.end();
     body_dependency_symbols:
       - std::set
@@ -124,8 +122,6 @@ functions:
       };
       // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
       // https://en.cppreference.com/w/cpp/container/set/contains
-
-      // DEBUG:
 
       return valid_environments.find(environment) != valid_environments.end();
     body_dependency_symbols:

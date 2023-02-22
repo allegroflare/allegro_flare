@@ -86,8 +86,6 @@ bool DeploymentEnvironment::_is_valid(std::string environment)
    // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
    // https://en.cppreference.com/w/cpp/container/set/contains
 
-   // DEBUG:
-
    return valid_environments.find(environment) != valid_environments.end();
 }
 
@@ -101,8 +99,6 @@ bool DeploymentEnvironment::is_valid()
    };
    // NOTE: Should consider an update to -std=c++20 eventually, which has `contains` for a std::set
    // https://en.cppreference.com/w/cpp/container/set/contains
-
-   // DEBUG:
 
    return valid_environments.find(environment) != valid_environments.end();
 }

@@ -342,8 +342,6 @@ bool Full::initialize_without_display()
    // different deployment environments.
 
 
-   // DEBUG:
-
    fonts.set_path(data_folder_path + "fonts");
    samples.set_path(data_folder_path + "samples");
    bitmaps.set_path(data_folder_path + "bitmaps");
@@ -1335,9 +1333,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      AllegroFlare::Shaders::Base* shader =
                            static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data3);
 
-                     // DEBUG:
-
-                     // NOTE: DEBUGGING: The shader for hotloading is hard-coded here to the post_processing_shader
+                     // NOTE: The shader for hotloading is currently *hard-coded* here to be the post_processing_shader
                      shader_target_for_hotloading = post_processing_shader; // TODO: make a better place for this
  
                      if (shader)
