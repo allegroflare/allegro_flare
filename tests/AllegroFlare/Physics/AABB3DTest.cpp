@@ -34,3 +34,9 @@ TEST(AllegroFlare_Physics_AABB3DTest, collides__will_work_as_expected)
 }
 
 
+TEST(AllegroFlare_Physics_AABB3DTest, draw__will_render_the_outline_of_the_bounding_box)
+{
+   // TODO: add tests for this case
+}
+
+

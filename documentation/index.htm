@@ -164,6 +164,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/AABB2D.q.yml">quintessence/AllegroFlare/Physics/AABB2D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/AABB3D.q.yml">quintessence/AllegroFlare/Physics/AABB3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
@@ -7901,6 +7902,43 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/AABB3D.q.yml">quintessence/AllegroFlare/Physics/AABB3D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">min</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">max</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">expand(float amount=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">collides(AllegroFlare::Physics::AABB3D* other=nullptr, AllegroFlare::Vec3D self_offset=AllegroFlare::Vec3D(), AllegroFlare::Vec3D other_offset=AllegroFlare::Vec3D())</td>
+</tr>
+<tr>
+  <td class="method">draw(ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, AllegroFlare::Vec3D offset=AllegroFlare::Vec3D())</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB3D.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -20706,6 +20744,7 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
@@ -21629,6 +21668,21 @@ table td
   "std/copy_if": [
     "AllegroFlare/Notifications"
   ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
+  ],
+  "AllegroFlare/Physics/AABB3D": [
+    "AllegroFlare/Physics/AABB3D"
+  ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "Wicked/Physics/TileMapCollisionStepper"
@@ -21671,17 +21725,6 @@ table td
   ],
   "AllegroFlare/Model3D": [
     "AllegroFlare/Prototypes/CubeShooter/Entity"
-  ],
-  "AllegroFlare/Vec3D": [
-    "AllegroFlare/Prototypes/CubeShooter/Entity",
-    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",

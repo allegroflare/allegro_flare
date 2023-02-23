@@ -66,9 +66,44 @@ functions:
       );
 
 
+  - name: draw
+    parameters:
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}
+      - name: offset
+        type: AllegroFlare::Vec3D
+        default_argument: AllegroFlare::Vec3D()
+    body: |
+      // TODO: this function
+
+      //float x, float y, float z, ALLEGRO_COLOR col, float size)
+
+      //ALLEGRO_VERTEX v[6];
+      //float hsize = size/2;
+
+      //for (unsigned i=0; i<6; i++)
+         //v[i] = build_vertex(x, y, z, col, 0, 0);
+
+      //v[0].x -= hsize;
+      //v[1].x += hsize;
+
+      //v[2].y -= hsize;
+      //v[3].y += hsize;
+
+      //v[4].z -= hsize;
+      //v[5].z += hsize;
+
+      //al_draw_prim(&v, NULL, NULL, 0, 6, ALLEGRO_PRIM_LINE_LIST);
+
+      return;
+
+
 dependencies:
 
 
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: AllegroFlare::Physics::AABB3D

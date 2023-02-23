@@ -93,6 +93,32 @@ bool AABB3D::collides(AllegroFlare::Physics::AABB3D* other, AllegroFlare::Vec3D 
    );
 }
 
+void AABB3D::draw(ALLEGRO_COLOR color, AllegroFlare::Vec3D offset)
+{
+   // TODO: this function
+
+   //float x, float y, float z, ALLEGRO_COLOR col, float size)
+
+   //ALLEGRO_VERTEX v[6];
+   //float hsize = size/2;
+
+   //for (unsigned i=0; i<6; i++)
+      //v[i] = build_vertex(x, y, z, col, 0, 0);
+
+   //v[0].x -= hsize;
+   //v[1].x += hsize;
+
+   //v[2].y -= hsize;
+   //v[3].y += hsize;
+
+   //v[4].z -= hsize;
+   //v[5].z += hsize;
+
+   //al_draw_prim(&v, NULL, NULL, 0, 6, ALLEGRO_PRIM_LINE_LIST);
+
+   return;
+}
+
 
 } // namespace Physics
 } // namespace AllegroFlare

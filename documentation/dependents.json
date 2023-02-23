@@ -579,6 +579,7 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
@@ -1502,6 +1503,21 @@
   "std/copy_if": [
     "AllegroFlare/Notifications"
   ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
+  ],
+  "AllegroFlare/Physics/AABB3D": [
+    "AllegroFlare/Physics/AABB3D"
+  ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "Wicked/Physics/TileMapCollisionStepper"
@@ -1544,17 +1560,6 @@
   ],
   "AllegroFlare/Model3D": [
     "AllegroFlare/Prototypes/CubeShooter/Entity"
-  ],
-  "AllegroFlare/Vec3D": [
-    "AllegroFlare/Prototypes/CubeShooter/Entity",
-    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
