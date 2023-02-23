@@ -96,6 +96,7 @@ bool AABB3D::collides(AllegroFlare::Physics::AABB3D* other, AllegroFlare::Vec3D 
 void AABB3D::draw(ALLEGRO_COLOR color, AllegroFlare::Vec3D offset)
 {
    // TODO: this function
+   // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
 
    //float x, float y, float z, ALLEGRO_COLOR col, float size)
 

@@ -76,6 +76,7 @@ functions:
         default_argument: AllegroFlare::Vec3D()
     body: |
       // TODO: this function
+      // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
 
       //float x, float y, float z, ALLEGRO_COLOR col, float size)
 
