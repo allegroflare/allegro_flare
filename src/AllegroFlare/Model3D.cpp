@@ -434,6 +434,13 @@ namespace AllegroFlare
       }
       return max_coord;
    }
+
+
+
+   AllegroFlare::Physics::AABB3D Model3D::build_bounding_box()
+   {
+      return AllegroFlare::Physics::AABB3D(get_min_vertex_coordinate(), get_max_vertex_coordinate());
+   }
 }
 
 

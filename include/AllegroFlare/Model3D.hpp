@@ -5,6 +5,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/Physics/AABB3D.hpp>
 
 
 
@@ -73,6 +74,7 @@ namespace AllegroFlare
 
       vec3d get_min_vertex_coordinate(); // should be renamed "calc_min_vertex..."
       vec3d get_max_vertex_coordinate(); // should be renamed "calc_min_vertex..."
+      AllegroFlare::Physics::AABB3D build_bounding_box();
 
       void draw();
       bool draw_object(int index);

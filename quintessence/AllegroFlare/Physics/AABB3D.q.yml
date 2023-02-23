@@ -1,0 +1,77 @@
+properties:
+
+
+  - name: min
+    type: AllegroFlare::Vec3D
+    constructor_arg: true
+    init_with: AllegroFlare::Vec3D()
+    getter: true
+    setter: true
+
+  - name: max
+    type: AllegroFlare::Vec3D
+    constructor_arg: true
+    init_with: AllegroFlare::Vec3D()
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: expand
+    parameters:
+      - name: amount
+        type: float
+        default_argument: 0.0f
+    guards: [ (amount > 0.0f) ]
+    body: |
+      min.x -= amount;
+      min.y -= amount;
+      min.z -= amount;
+      max.x += amount;
+      max.y += amount;
+      max.z += amount;
+      return;
+
+
+  - name: collides
+    type: bool
+    parameters:
+      - name: other
+        type: AllegroFlare::Physics::AABB3D*
+        default_argument: nullptr
+      - name: self_offset
+        type: AllegroFlare::Vec3D
+        default_argument: AllegroFlare::Vec3D()
+      - name: other_offset
+        type: AllegroFlare::Vec3D
+        default_argument: AllegroFlare::Vec3D()
+    guards: [ other ]
+    body: |
+      // TODO: consider less assignment, add values directly into the conditional
+
+      AllegroFlare::Vec3D a_min = min + self_offset;
+      AllegroFlare::Vec3D a_max = max + self_offset;
+      AllegroFlare::Vec3D b_min = other->min + other_offset;
+      AllegroFlare::Vec3D b_max = other->max + other_offset;
+
+      return (
+         a_min.x <= b_max.x &&
+         a_max.x >= b_min.x &&
+         a_min.y <= b_max.y &&
+         a_max.y >= b_min.y &&
+         a_min.z <= b_max.z &&
+         a_max.z >= b_min.z
+      );
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Physics::AABB3D
+    headers: [ AllegroFlare/Physics/AABB3D.hpp ]
+
+
