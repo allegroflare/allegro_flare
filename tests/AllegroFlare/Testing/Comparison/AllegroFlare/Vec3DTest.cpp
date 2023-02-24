@@ -8,11 +8,11 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Vec3DTest,
    PrintTo__with_an_AllegroFlare_Vec3D__will_output_as_expected)
 {
    std::stringstream ss;
-   AllegroFlare::Vec3D vec = {0.1, 0.2};
+   AllegroFlare::Vec3D vec = {0.1, 0.2, 0.4};
 
    PrintTo(vec, &ss);
 
-   std::string expected_output = "AllegroFlare::Vec3D(0.1, 0.2)";
+   std::string expected_output = "AllegroFlare::Vec3D(0.1, 0.2, 0.4)";
    std::string actual_output = ss.str();
    EXPECT_EQ(expected_output, actual_output);
 }
