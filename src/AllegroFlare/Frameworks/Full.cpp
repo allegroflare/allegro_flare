@@ -327,14 +327,14 @@ bool Full::initialize_without_display()
    // Setup our experimental live-polling of shader source code tool
    if (!deployment_environment.is_production()) // TODO: figure out what environment(s) are reasonable
    {
-      std::string live_source_code_for_fragment_shader = "tmp/live_fragment.glsl";
-      std::string live_source_code_for_vertex_shader = "tmp/live_vertex.glsl";
-      shader_source_poller.set_path("/Users/markoates/Repos/allegro_flare/");
-      shader_source_poller.set_event_queue(event_queue);
-      shader_source_poller.set_fragment_source_filename(live_source_code_for_fragment_shader);
-      shader_source_poller.set_vertex_source_filename(live_source_code_for_vertex_shader);
-      shader_source_poller.initialize();
-      shader_source_poller.start_polling();
+      //std::string live_source_code_for_fragment_shader = "tmp/live_fragment.glsl";
+      //std::string live_source_code_for_vertex_shader = "tmp/live_vertex.glsl";
+      //shader_source_poller.set_path("/Users/markoates/Repos/allegro_flare/");
+      //shader_source_poller.set_event_queue(event_queue);
+      //shader_source_poller.set_fragment_source_filename(live_source_code_for_fragment_shader);
+      //shader_source_poller.set_vertex_source_filename(live_source_code_for_vertex_shader);
+      //shader_source_poller.initialize();
+      //shader_source_poller.start_polling();
    }
 
 
@@ -974,10 +974,10 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             primary_update();
             primary_render();
          }
-         else if (this_event.timer.source == shader_source_poller.get_polling_timer())
-         {
-            event_emitter.emit_poll_hotload_shader_source_for_change_event();
-         }
+         //else if (this_event.timer.source == shader_source_poller.get_polling_timer())
+         //{
+            //event_emitter.emit_poll_hotload_shader_source_for_change_event();
+         //}
          else
          {
             screens.timer_funcs();
