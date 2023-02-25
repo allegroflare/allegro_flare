@@ -69,7 +69,7 @@ namespace AllegroFlare
       // set a few options and flags
       al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
       al_set_new_display_option(ALLEGRO_SAMPLES, samples, ALLEGRO_SUGGEST); // TODO: review these numbers
-      al_set_new_display_option(ALLEGRO_DEPTH_SIZE, depth_size, ALLEGRO_REQUIRE); // TODO: review these numbers
+      al_set_new_display_option(ALLEGRO_DEPTH_SIZE, depth_size, ALLEGRO_SUGGEST); // TODO: review these numbers
       al_set_new_display_option(ALLEGRO_VSYNC, 1, ALLEGRO_SUGGEST); // TODO: review compatibility of vsync
                                                                     // and obtaining info from the driver if it has
       al_set_new_display_flags(display_flags);
@@ -79,6 +79,11 @@ namespace AllegroFlare
       // create the actual display
       AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", "creating display.");
       al_display = al_create_display(width, height);
+
+      if (!al_display)
+      {
+         AllegroFlare::Logger::throw_error("AllegroFlare::Display::Display()", "Display could not be created.");
+      }
 
       std::stringstream display_message;
       display_message << "Display (" << al_display << ") created with the following configuration:" << std::endl;
