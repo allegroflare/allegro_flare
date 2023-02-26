@@ -587,6 +587,13 @@ bool Full::shutdown()
 
    // TODO: destroy sub-bitmap here on new render surface:
    //if (primary_display_sub_bitmap_for_overlay) al_destroy_bitmap(primary_display_sub_bitmap_for_overlay);
+   if (!using_display_backbuffer_as_primary_render_surface)
+   {
+      al_destroy_bitmap(primary_render_surface->obtain_surface()); // NOTE: this step is required to not crash on Windows.
+                                                                   // TODO: please review a better way/place to destroy this
+                                                                   // object, possibly in a destruct function on the base
+                                                                   // class that is overridden in child classes
+   }
    if (primary_display) al_destroy_display(primary_display->al_display);
 
    audio_controller.destruct();
