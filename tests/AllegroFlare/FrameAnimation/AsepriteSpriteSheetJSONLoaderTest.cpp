@@ -24,12 +24,18 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    load__on_a_filename_that_does_not_exist__throws_an_error)
 {
-   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader("./foo/bar/file_that_does_not_exist.json");
-   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error,
-      "[AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader::load]: error: "
+   std::string expected_error_message = "[AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader::load]: error: "
       "The expected json file does not exist. Looking for \"./foo/bar/file_that_does_not_exist.json\" "
-      "from the current path \"/Users/markoates/Repos/allegro_flare\"."
-   )
+      "from the current path \"/Users/markoates/Repos/allegro_flare\".";
+
+//TODO: improve this technique, which is currently needed for Windows tests to pass. The difference is a
+// different current path in the error message.
+#if defined(_WIN32) || defined(_WIN64)
+   expected_error_message = "[AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader::load]: error: The expected json file does not exist. Looking for \"./foo/bar/file_that_does_not_exist.json\" from the current path \"C:\\msys64\\home\\Mark\\Repos\\allegro_flare\".";
+#endif
+
+   AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader("./foo/bar/file_that_does_not_exist.json");
+   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
 
 
