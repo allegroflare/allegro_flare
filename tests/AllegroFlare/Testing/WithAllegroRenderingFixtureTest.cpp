@@ -28,10 +28,11 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
    SetUp__will_set_the_font_bin_path_to_the_expected_path)
 {
-   std::filesystem::path expected_path("./tests/fixtures/fonts/");
-   //std::string expected_font_bin_path = "./tests/fixtures/fonts/";
+   //std::filesystem::path expected_path("./tests/fixtures/fonts/");
+   std::string expected_font_bin_path = "./tests/fixtures/fonts/";
    std::string actual_font_bin_path = get_font_bin_ref().get_path();
-   EXPECT_EQ(expected_path.string(), actual_font_bin_path);
+   //EXPECT_EQ(expected_path.string(), actual_font_bin_path);
+   EXPECT_EQ(expected_font_bin_path, actual_font_bin_path);
 }
 
 

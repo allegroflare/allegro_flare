@@ -35,7 +35,7 @@ namespace AllegroFlare
       void set_path(std::string directory); // <- hmm
       void set_full_path(std::string directory); // <- hmm
       bool is_initialized();
-      std::string get_path();
+      std::string get_path(bool use_native_path_sep=false);
       virtual ~Bin(); // < should this be a pure virtual funcion that requires clear()?
       Record *get_record(T2 identifier);
       T get(T2 identifier);
@@ -108,10 +108,10 @@ namespace AllegroFlare
 
 
    template<class T2, class T>
-   std::string Bin<T2, T>::get_path()
+   std::string Bin<T2, T>::get_path(bool use_native_path_sep)
    {
       if (!directory) return ""; // TODO: consider throwing error
-      return al_path_cstr(directory, ALLEGRO_NATIVE_PATH_SEP);
+      return al_path_cstr(directory, use_native_path_sep ? ALLEGRO_NATIVE_PATH_SEP : '/');
    }
 
 
