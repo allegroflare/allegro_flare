@@ -1,1 +1,1 @@
-../../union/tests/TestRunner.cpp
+../../blast/tests/TestRunner.cpp
