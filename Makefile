@@ -1,1 +1,1 @@
-../union/Makefile
+../blast/Makefile
