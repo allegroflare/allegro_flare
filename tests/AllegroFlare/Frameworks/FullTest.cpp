@@ -425,7 +425,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    framework.set_deployment_environment("test");
    framework.initialize();
 
-   EXPECT_EQ("./tests/fixtures/", framework.get_data_folder_path());
+   EXPECT_EQ("tests/fixtures/", framework.get_data_folder_path());
 }
 
 
@@ -436,7 +436,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    framework.set_deployment_environment("production");
    framework.initialize();
 
-   EXPECT_EQ("./data/", framework.get_data_folder_path());
+   EXPECT_EQ("data/", framework.get_data_folder_path());
 }
 
 
@@ -447,7 +447,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    framework.set_deployment_environment("demo");
    framework.initialize();
 
-   EXPECT_EQ("./bin/data/", framework.get_data_folder_path());
+   EXPECT_EQ("bin/data/", framework.get_data_folder_path());
 }
 
 
@@ -458,7 +458,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    framework.set_deployment_environment("development");
    framework.initialize();
 
-   EXPECT_EQ("./bin/data/", framework.get_data_folder_path());
+   EXPECT_EQ("bin/data/", framework.get_data_folder_path());
 }
 
 
