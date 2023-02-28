@@ -67,10 +67,11 @@ TEST(AllegroFlare_DeploymentEnvironmentTest,
    deployment_environment.setup_current_working_directory();
    std::string current_path = std::filesystem::current_path().string();
 
-   // NOTE: This test is coupled with the systems that run it. It should be updated to be more agnostic
+   // NOTE: This test is coupled with the systems that run it. It should be updated to be more agnostic.
+   // Also, each test case data must be tested on the host machine to ensure it's valid, which is not great.
    std::vector<std::string> possible_valid_paths = {
       "/Users/markoates/Repos/allegro_flare/bin/tests/AllegroFlare", // if test is being run in isolation (mac)
-      "/Users/markoates/Repos/allegro_flare/bin/",                   // if test is being run in bin/run_all_tests (mac)
+      "/Users/markoates/Repos/allegro_flare/bin",                    // if test is being run in bin/run_all_tests (mac)
       "C:\\msys64\\home\\Mark\\Repos\\allegro_flare\\bin\\tests\\AllegroFlare", // if test is run in isolation (win)
       "C:\\msys64\\home\\Mark\\Repos\\allegro_flare\\bin",           // if being run as bin/run_all_tests (win)
    };
