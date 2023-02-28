@@ -7,6 +7,17 @@ properties:
     init_with: ENVIRONMENT_UNDEF
     getter: true
 
+  - name: current_working_directory_before_setup
+    type: std::string
+    constructor_arg: true
+    init_with: '"[unset-current_working_directory_before_setup]"'
+    getter: true
+
+  - name: working_directory_has_been_setup
+    type: bool
+    init_with: false
+    getter: true
+
   - name: ENVIRONMENT_UNDEF
     type: char*
     init_with: '(char*)"undefined"'
@@ -90,6 +101,7 @@ functions:
 
 
   - name: setup_current_working_directory
+    guards: [ (!working_directory_has_been_setup), al_is_system_installed() ]
     body: |
       if (is_undefined())
       {
@@ -98,6 +110,8 @@ functions:
             "The current deployment environment has not been defined. You must define one before calling this function."
          );
       }
+
+      // DEBUG:
 
       if (is_invalid())
       {
@@ -108,10 +122,7 @@ functions:
          );
       }
 
-      AllegroFlare::Logger::info_from(
-         "AllegroFlare::DeploymentEnvironment::setup",
-         "Deployment environment is " + get_environment()
-      );
+      current_working_directory_before_setup = std::filesystem::current_path().string();
 
       if (environment_should_set_path_to_resources_path()) // NOTE: this happens in PRODUCTION
       {
@@ -124,9 +135,32 @@ functions:
          // Do nothing. Presume that the executable (which is assumed to be a test executable) is being run from the
          // root folder of the project, otherwise there will be undefined behavior.
       }
+
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::DeploymentEnvironment::setup",
+         "Deployment environment is \"" + get_environment() + "\". "
+            "Initial working directory was \"" + current_working_directory_before_setup + "\". "
+            "Current working directory is now \"" + std::filesystem::current_path().string() + "\"."
+      );
+
+      working_directory_has_been_setup = true;
+
       return;
     body_dependency_symbols:
       - ALLEGRO_PATH
+      - std::filesystem
+
+
+  - name: restore_initial_working_directory
+    body: |
+      if (working_directory_has_been_setup)
+      {
+         al_change_directory(current_working_directory_before_setup.c_str());
+         working_directory_has_been_setup = false;
+      }
+      return;
+    body_dependency_symbols:
+      - std::filesystem
 
 
   - name: _is_valid
@@ -211,5 +245,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: ALLEGRO_PATH
     headers: [ allegro5/allegro.h ]
+  - symbol: std::filesystem
+    headers: [ filesystem ]
 
 

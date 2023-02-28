@@ -549,6 +549,10 @@
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
   ],
+  "std/filesystem": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Logger"
+  ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
@@ -1392,9 +1396,6 @@
   ],
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
-  ],
-  "std/filesystem": [
-    "AllegroFlare/Logger"
   ],
   "AllegroFlare/ConsoleColors": [
     "AllegroFlare/Logger"

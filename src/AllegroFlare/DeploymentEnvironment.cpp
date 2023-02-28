@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro.h>
+#include <filesystem>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -14,8 +15,10 @@ namespace AllegroFlare
 {
 
 
-DeploymentEnvironment::DeploymentEnvironment(std::string environment)
+DeploymentEnvironment::DeploymentEnvironment(std::string environment, std::string current_working_directory_before_setup)
    : environment(environment)
+   , current_working_directory_before_setup(current_working_directory_before_setup)
+   , working_directory_has_been_setup(false)
 {
 }
 
@@ -28,6 +31,18 @@ DeploymentEnvironment::~DeploymentEnvironment()
 std::string DeploymentEnvironment::get_environment() const
 {
    return environment;
+}
+
+
+std::string DeploymentEnvironment::get_current_working_directory_before_setup() const
+{
+   return current_working_directory_before_setup;
+}
+
+
+bool DeploymentEnvironment::get_working_directory_has_been_setup() const
+{
+   return working_directory_has_been_setup;
 }
 
 
@@ -77,6 +92,20 @@ bool DeploymentEnvironment::environment_should_set_path_to_resources_path()
 
 void DeploymentEnvironment::setup_current_working_directory()
 {
+   if (!((!working_directory_has_been_setup)))
+   {
+      std::stringstream error_message;
+      error_message << "[DeploymentEnvironment::setup_current_working_directory]: error: guard \"(!working_directory_has_been_setup)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DeploymentEnvironment::setup_current_working_directory: error: guard \"(!working_directory_has_been_setup)\" not met");
+   }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[DeploymentEnvironment::setup_current_working_directory]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DeploymentEnvironment::setup_current_working_directory: error: guard \"al_is_system_installed()\" not met");
+   }
    if (is_undefined())
    {
       AllegroFlare::Logger::throw_error(
@@ -84,6 +113,8 @@ void DeploymentEnvironment::setup_current_working_directory()
          "The current deployment environment has not been defined. You must define one before calling this function."
       );
    }
+
+   // DEBUG:
 
    if (is_invalid())
    {
@@ -94,10 +125,7 @@ void DeploymentEnvironment::setup_current_working_directory()
       );
    }
 
-   AllegroFlare::Logger::info_from(
-      "AllegroFlare::DeploymentEnvironment::setup",
-      "Deployment environment is " + get_environment()
-   );
+   current_working_directory_before_setup = std::filesystem::current_path().string();
 
    if (environment_should_set_path_to_resources_path()) // NOTE: this happens in PRODUCTION
    {
@@ -109,6 +137,26 @@ void DeploymentEnvironment::setup_current_working_directory()
    {
       // Do nothing. Presume that the executable (which is assumed to be a test executable) is being run from the
       // root folder of the project, otherwise there will be undefined behavior.
+   }
+
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::DeploymentEnvironment::setup",
+      "Deployment environment is \"" + get_environment() + "\". "
+         "Initial working directory was \"" + current_working_directory_before_setup + "\". "
+         "Current working directory is now \"" + std::filesystem::current_path().string() + "\"."
+   );
+
+   working_directory_has_been_setup = true;
+
+   return;
+}
+
+void DeploymentEnvironment::restore_initial_working_directory()
+{
+   if (working_directory_has_been_setup)
+   {
+      al_change_directory(current_working_directory_before_setup.c_str());
+      working_directory_has_been_setup = false;
    }
    return;
 }

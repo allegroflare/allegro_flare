@@ -1194,6 +1194,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">current_working_directory_before_setup</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">working_directory_has_been_setup</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">ENVIRONMENT_UNDEF</td>
   <td class="property">char*</td>
 </tr>
@@ -1240,6 +1248,9 @@ table td
   <td class="method">setup_current_working_directory()</td>
 </tr>
 <tr>
+  <td class="method">restore_initial_working_directory()</td>
+</tr>
+<tr>
   <td class="method">_is_valid(std::string environment=&quot;[unset-environment]&quot;)</td>
 </tr>
 <tr>
@@ -1258,6 +1269,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_PATH&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20720,6 +20734,10 @@ table td
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
   ],
+  "std/filesystem": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Logger"
+  ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
@@ -21563,9 +21581,6 @@ table td
   ],
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
-  ],
-  "std/filesystem": [
-    "AllegroFlare/Logger"
   ],
   "AllegroFlare/ConsoleColors": [
     "AllegroFlare/Logger"

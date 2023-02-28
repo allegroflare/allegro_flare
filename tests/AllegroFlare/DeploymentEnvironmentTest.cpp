@@ -2,6 +2,9 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/DeploymentEnvironment.hpp>
+#include <allegro5/allegro.h> // for al_init(), al_uninstall_system()
+
+#include <filesystem>
 
 
 TEST(AllegroFlare_DeploymentEnvironmentTest, can_be_created_without_blowing_up)
@@ -49,6 +52,28 @@ TEST(AllegroFlare_DeploymentEnvironmentTest,
    auto ENVIRONMENT_PRODUCTION = AllegroFlare::DeploymentEnvironment::ENVIRONMENT_PRODUCTION;
    AllegroFlare::DeploymentEnvironment deployment_environment(ENVIRONMENT_PRODUCTION);
    EXPECT_EQ(true, deployment_environment.environment_should_set_path_to_resources_path());
+}
+
+
+TEST(AllegroFlare_DeploymentEnvironmentTest,
+   setup_current_working_directory__will_set_the_working_directory_to_the_expected_value)
+{
+   std::string working_directory_at_start_of_test = std::filesystem::current_path().string();
+   al_init();
+
+   auto ENVIRONMENT_PRODUCTION = AllegroFlare::DeploymentEnvironment::ENVIRONMENT_PRODUCTION;
+   AllegroFlare::DeploymentEnvironment deployment_environment(ENVIRONMENT_PRODUCTION);
+   deployment_environment.setup_current_working_directory();
+   std::string current_path = std::filesystem::current_path().string();
+   EXPECT_EQ("/Users/markoates/Repos/allegro_flare/bin/tests/AllegroFlare", current_path);
+   deployment_environment.restore_initial_working_directory();
+
+   al_uninstall_system();
+   std::string working_directory_at_end_of_test = std::filesystem::current_path().string();
+   ASSERT_EQ(
+      working_directory_at_start_of_test,
+      working_directory_at_end_of_test
+   ) << "This failure could indicate a leaky test.";
 }
 
 
