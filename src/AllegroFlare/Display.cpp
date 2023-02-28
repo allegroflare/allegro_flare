@@ -67,8 +67,11 @@ namespace AllegroFlare
          throw std::runtime_error("AllegroFlare/Display: Cannot create display: samples cannot be less than zero.");
       }
       // set a few options and flags
-      al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
-      al_set_new_display_option(ALLEGRO_SAMPLES, samples, ALLEGRO_SUGGEST); // TODO: review these numbers
+      if (samples != 0)
+      {
+         al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
+         al_set_new_display_option(ALLEGRO_SAMPLES, samples, ALLEGRO_SUGGEST); // TODO: review these numbers
+      }
       al_set_new_display_option(ALLEGRO_DEPTH_SIZE, depth_size, ALLEGRO_SUGGEST); // TODO: review these numbers
       al_set_new_display_option(ALLEGRO_VSYNC, 1, ALLEGRO_SUGGEST); // TODO: review compatibility of vsync
                                                                     // and obtaining info from the driver if it has
