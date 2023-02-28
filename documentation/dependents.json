@@ -546,6 +546,9 @@
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor"
   ],
+  "ALLEGRO_PATH": [
+    "AllegroFlare/DeploymentEnvironment"
+  ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",

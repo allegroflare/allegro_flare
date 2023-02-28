@@ -3,6 +3,7 @@
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <allegro5/allegro.h>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -72,6 +73,44 @@ bool DeploymentEnvironment::is_development()
 bool DeploymentEnvironment::environment_should_set_path_to_resources_path()
 {
    return environment == ENVIRONMENT_PRODUCTION;
+}
+
+void DeploymentEnvironment::setup_current_working_directory()
+{
+   if (is_undefined())
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DeploymentEnvironment::setup_current_working_directory",
+         "The current deployment environment has not been defined. You must define one before calling this function."
+      );
+   }
+
+   if (is_invalid())
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DeploymentEnvironment::setup_current_working_directory",
+         "The current deployment environment is invalid. You must define a valid environment before calling "
+            "this function."
+      );
+   }
+
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::DeploymentEnvironment::setup",
+      "Deployment environment is " + get_environment()
+   );
+
+   if (environment_should_set_path_to_resources_path()) // NOTE: this happens in PRODUCTION
+   {
+      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
+      al_destroy_path(resource_path);
+   }
+   else
+   {
+      // Do nothing. Presume that the executable (which is assumed to be a test executable) is being run from the
+      // root folder of the project, otherwise there will be undefined behavior.
+   }
+   return;
 }
 
 bool DeploymentEnvironment::_is_valid(std::string environment)

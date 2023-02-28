@@ -33,6 +33,7 @@ namespace AllegroFlare
       bool is_demo();
       bool is_development();
       bool environment_should_set_path_to_resources_path();
+      void setup_current_working_directory();
       bool _is_valid(std::string environment="[unset-environment]");
       bool is_valid();
       bool is_invalid();
