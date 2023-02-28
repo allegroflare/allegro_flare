@@ -1,5 +1,6 @@
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <allegro5/allegro.h> // for al_init(), al_uninstall_system()
@@ -65,7 +66,16 @@ TEST(AllegroFlare_DeploymentEnvironmentTest,
    AllegroFlare::DeploymentEnvironment deployment_environment(ENVIRONMENT_PRODUCTION);
    deployment_environment.setup_current_working_directory();
    std::string current_path = std::filesystem::current_path().string();
-   EXPECT_EQ("/Users/markoates/Repos/allegro_flare/bin/tests/AllegroFlare", current_path);
+
+   // NOTE: This test is coupled with the systems that run it. It should be updated to be more agnostic
+   std::vector<std::string> possible_valid_paths = {
+      "/Users/markoates/Repos/allegro_flare/bin/tests/AllegroFlare", // if test is being run in isolation (mac)
+      "/Users/markoates/Repos/allegro_flare/bin/",                   // if test is being run in bin/run_all_tests (mac)
+      "C:\\msys64\\home\\Mark\\Repos\\allegro_flare\\bin\\tests\\AllegroFlare", // if test is run in isolation (win)
+      "C:\\msys64\\home\\Mark\\Repos\\allegro_flare\\bin",           // if being run as bin/run_all_tests (win)
+   };
+   EXPECT_THAT(possible_valid_paths, testing::Contains(current_path));
+
    deployment_environment.restore_initial_working_directory();
 
    al_uninstall_system();
