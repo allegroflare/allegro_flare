@@ -114,8 +114,6 @@ void DeploymentEnvironment::setup_current_working_directory()
       );
    }
 
-   // DEBUG:
-
    if (is_invalid())
    {
       AllegroFlare::Logger::throw_error(

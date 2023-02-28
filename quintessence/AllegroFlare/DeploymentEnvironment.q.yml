@@ -111,8 +111,6 @@ functions:
          );
       }
 
-      // DEBUG:
-
       if (is_invalid())
       {
          AllegroFlare::Logger::throw_error(
