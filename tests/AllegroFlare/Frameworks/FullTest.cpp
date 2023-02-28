@@ -54,6 +54,7 @@ private:
    AllegroFlare::BitmapBin *bitmap_bin;
    AllegroFlare::RenderSurfaces::Base *render_surface;
    //AllegroFlare::Shaders::Base *post_processing_shader;
+   int choo_choo_coordinate;
 
 public:
    ScreenTestClass2(
@@ -64,13 +65,15 @@ public:
       : AllegroFlare::Screens::Base("ScreenTestClass2")
       , bitmap_bin(bitmap_bin)
       , render_surface(render_surface)
+      , choo_choo_coordinate(0)
       //, post_processing_shader(post_processing_shader)
    {}
    virtual void on_activate() override {}
    virtual void primary_timer_func() override
    {
       ALLEGRO_BITMAP* bitmap = bitmap_bin->auto_get("toy-train-02.png");
-      al_draw_bitmap(bitmap, 0, 0, 0);
+      al_draw_bitmap(bitmap, choo_choo_coordinate*2, choo_choo_coordinate, 0);
+      choo_choo_coordinate++;
    }
    virtual void key_down_func(ALLEGRO_EVENT *ev) override {}
 };
