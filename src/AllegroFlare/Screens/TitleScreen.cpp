@@ -663,7 +663,7 @@ bool TitleScreen::is_state(uint32_t possible_state)
 
 void TitleScreen::primary_timer_func()
 {
-   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0}); // TODO: revise this to take into account different render surfaces
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1}); // TODO: revise this to take into account different render surfaces
    update_state();
    render();
    return;
