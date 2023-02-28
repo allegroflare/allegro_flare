@@ -139,9 +139,10 @@ void DeploymentEnvironment::setup_current_working_directory()
 
    AllegroFlare::Logger::info_from(
       "AllegroFlare::DeploymentEnvironment::setup",
-      "Deployment environment is \"" + get_environment() + "\". "
-         "Initial working directory was \"" + current_working_directory_before_setup + "\". "
-         "Current working directory is now \"" + std::filesystem::current_path().string() + "\"."
+      "\n    - Deployment environment is \"" + get_environment() + "\". "
+         "\n    - Initial working directory: \"" + current_working_directory_before_setup + "\". "
+         "\n    - Current working directory: \"" + std::filesystem::current_path().string() + "\"."
+         "\n    - Data folder path: \"" + get_data_folder_path() + "\"."
    );
 
    working_directory_has_been_setup = true;
@@ -204,17 +205,17 @@ std::string DeploymentEnvironment::get_data_folder_path()
    }
    if (environment == ENVIRONMENT_TEST)
    {
-      return "./tests/fixtures/";
+      return "tests/fixtures/";
    }
    else if (environment == ENVIRONMENT_DEVELOPMENT || environment == ENVIRONMENT_DEMO)
    {
-      return "./bin/data/";
+      return "bin/data/";
    }
    else if (environment == ENVIRONMENT_PRODUCTION)
    {
       // NOTE: With the production environment, it's expected to have the executable set the path. The data folder
       // will be the "./data" folder that is relative to that.
-      return "./data/";
+      return "data/";
    }
    else
    {

@@ -35,8 +35,7 @@ namespace Frameworks
 
 
 Full::Full()
-   : working_directory_before_init(".")
-   , screens()
+   : screens()
    , initialized(false)
    , config("data/config/config.cfg")
    , profiler()
@@ -154,7 +153,6 @@ BitmapBin &Full::get_bitmap_bin_ref()
 }
 
 
-
 SampleBin &Full::get_sample_bin_ref()
 {
    return samples;
@@ -171,7 +169,6 @@ Camera2D &Full::get_camera_2d_ref()
 {
    return camera_2d;
 }
-
 
 
 AudioController &Full::get_audio_controller_ref()
@@ -216,15 +213,6 @@ bool Full::initialize_without_display()
    // Before setting the path, we will need to capture the existing path so it can be restores
    // after destruction.
 
-   // TODO: finish this message with actual working directory, put behind warn levels
-   {
-      std::string info_message = AllegroFlare::Logger::build_info_message(
-         "AllegroFlare::Frameworks::Full::initialize_without_display",
-         "Capturing initial working directory before modifying."
-      );
-      std::cout << info_message << std::endl;
-   }
-   working_directory_before_init = std::filesystem::current_path().string();
 
    if (deployment_environment.is_undefined())
    {
@@ -239,45 +227,22 @@ bool Full::initialize_without_display()
       deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
    }
 
-   if (deployment_environment.is_invalid())
-   {
-      AllegroFlare::Logger::throw_error("AllegroFlare::Frameworks::Full::initialize_without_display",
-         "The current deployment environment is invalid. Before calling Frameworks::Full::initialize(), "
-         "be sure to set a deployment environment with set_deployment_environment(...)."
-      );
-   }
 
-   std::string deployment_environment_message = "Deployment environment is " + deployment_environment.get_environment();
-   std::string info_message = AllegroFlare::Logger::build_info_message(
-      "AllegroFlare::Frameworks::Full::initialize_without_display",
-      deployment_environment_message
-   );
-   std::cout << info_message << std::endl;
+   deployment_environment.setup_current_working_directory();
 
-   if (deployment_environment.environment_should_set_path_to_resources_path()) // NOTE: this happens in PRODUCTION
-   {
-      ALLEGRO_PATH *resource_path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
-      al_change_directory(al_path_cstr(resource_path, ALLEGRO_NATIVE_PATH_SEP));
-      al_destroy_path(resource_path);
-   }
-   else
-   {
-      // Do nothing. Presume that the executable (which is assumed to be a test executable) is being run from the
-      // root folder of the project, otherwise there will be undefined behavior.
-   }
 
    std::string data_folder_path = deployment_environment.get_data_folder_path();
 
 
    // Output current directory that framework is being run from 
-   {
-      std::string info_message = AllegroFlare::Logger::build_info_message(
-         "AllegroFlare::Frameworks::Full::initialize_without_display",
-         "Running from working path: \"" + std::filesystem::current_path().string() + "\". "
-         "Data folder path: \"" + data_folder_path + "\""
-      );
-      std::cout << info_message << std::endl;
-   }
+   //{
+      //std::string info_message = AllegroFlare::Logger::build_info_message(
+         //"AllegroFlare::Frameworks::Full::initialize_without_display",
+         //"Running from working path: \"" + std::filesystem::current_path().string() + "\". "
+         //"Data folder path: \"" + data_folder_path + "\""
+      //);
+      //std::cout << info_message << std::endl;
+   //}
 
 
    // Initialize Allegro's various parts
@@ -613,14 +578,17 @@ bool Full::shutdown()
    // restore path
    // TODO: finish this message with actual working directory, put behind warn levels
    //if (AllegroFlare::Logger::log_level_low())
-   {
-      std::string info_message = AllegroFlare::Logger::build_info_message(
-         "AllegroFlare::Frameworks::Full::shutdown",
-         "Restoring working directory to initial directory at runtime."
-      );
-      std::cout << info_message << std::endl;
-   }
-   al_change_directory(working_directory_before_init.c_str());
+   //{
+      //std::string info_message = AllegroFlare::Logger::build_info_message(
+         //"AllegroFlare::Frameworks::Full::shutdown",
+         //"Restoring working directory to initial directory at runtime."
+      //);
+      //std::cout << info_message << std::endl;
+   //}
+   //al_change_directory(working_directory_before_init.c_str());
+
+
+   deployment_environment.restore_initial_working_directory();
 
 
    al_uninstall_system(); // Note that there is risk of a crash at shutdown if assets have been created outside the
