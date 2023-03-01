@@ -1,5 +1,4 @@
 
-
 #include <iostream>
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Generators/LoremIpsumGenerator.hpp>
@@ -14,8 +13,5 @@ int main(int argc, char **argv)
    std::cout << std::endl;
    return 0;
 }
-
-
-
 
 
