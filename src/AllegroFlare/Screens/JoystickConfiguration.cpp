@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/JoystickConfiguration.hpp>
 
+#include <AllegroFlare/VirtualController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -21,6 +22,7 @@ JoystickConfiguration::JoystickConfiguration(AllegroFlare::EventEmitter* event_e
    , font_bin(font_bin)
    , surface_width(surface_width)
    , surface_height(surface_height)
+   , joystick_configuration_element()
    , initialized(false)
 {
 }
@@ -52,6 +54,12 @@ std::size_t JoystickConfiguration::get_surface_width() const
 std::size_t JoystickConfiguration::get_surface_height() const
 {
    return surface_height;
+}
+
+
+AllegroFlare::Elements::JoystickConfigurationList &JoystickConfiguration::get_joystick_configuration_element_ref()
+{
+   return joystick_configuration_element;
 }
 
 
@@ -90,6 +98,7 @@ void JoystickConfiguration::set_font_bin(AllegroFlare::FontBin* font_bin)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("JoystickConfiguration::set_font_bin: error: guard \"(!initialized)\" not met");
    }
+   joystick_configuration_element.set_font_bin(font_bin);
    this->font_bin = font_bin;
    return;
 }
@@ -145,6 +154,7 @@ void JoystickConfiguration::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("JoystickConfiguration::initialize: error: guard \"font_bin\" not met");
    }
+   joystick_configuration_element.initialize();
    initialized = true;
    return;
 }
@@ -178,11 +188,13 @@ void JoystickConfiguration::on_deactivate()
 
 void JoystickConfiguration::update()
 {
+   joystick_configuration_element.update();
    return;
 }
 
 void JoystickConfiguration::render()
 {
+   joystick_configuration_element.render();
    return;
 }
 
@@ -197,6 +209,55 @@ void JoystickConfiguration::primary_timer_func()
    }
    update();
    render();
+   return;
+}
+
+void JoystickConfiguration::virtual_control_button_up_func(int player_num, int button_num, bool repeat)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfiguration::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfiguration::virtual_control_button_up_func: error: guard \"initialized\" not met");
+   }
+   // TODO: consider if this function needs implementing
+   return;
+}
+
+void JoystickConfiguration::virtual_control_button_down_func(int player_num, int button_num, bool repeat)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfiguration::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfiguration::virtual_control_button_down_func: error: guard \"initialized\" not met");
+   }
+   // TODO: Have this function account for state of hte joystick_configuration_element
+   switch(button_num)
+   {
+      case AllegroFlare::VirtualController::BUTTON_UP:
+         joystick_configuration_element.move_cursor_up();
+      break;
+
+      case AllegroFlare::VirtualController::BUTTON_DOWN:
+         joystick_configuration_element.move_cursor_down();
+      break;
+   }
+   return;
+}
+
+void JoystickConfiguration::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfiguration::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfiguration::virtual_control_axis_change_func: error: guard \"initialized\" not met");
+   }
+   // TODO: this function
    return;
 }
 

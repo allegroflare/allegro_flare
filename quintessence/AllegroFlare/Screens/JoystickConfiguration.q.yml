@@ -41,6 +41,11 @@ properties:
     getter: true
     setter: true
 
+  - name: joystick_configuration_element
+    type: AllegroFlare::Elements::JoystickConfigurationList
+    init_with: ''
+    getter_ref: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -92,6 +97,7 @@ functions:
         type: AllegroFlare::FontBin*
         default_argument: nullptr
     body: |
+      joystick_configuration_element.set_font_bin(font_bin);
       this->font_bin = font_bin;
       return;
 
@@ -106,6 +112,7 @@ functions:
       - bitmap_bin
       - font_bin
     body: |
+      joystick_configuration_element.initialize();
       initialized = true;
       return;
     body_dependency_symbols:
@@ -133,11 +140,13 @@ functions:
 
   - name: update
     body: |
+      joystick_configuration_element.update();
       return;
 
 
   - name: render
     body: |
+      joystick_configuration_element.render();
       return;
 
 
@@ -151,9 +160,74 @@ functions:
       return;
 
 
+  - name: virtual_control_button_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player_num
+        type: int
+        default_argument: 0
+      - name: button_num
+        type: int
+        default_argument: 0
+      - name: repeat
+        type: bool
+        default_argument: false
+    guards: [ initialized ]
+    body: |
+      // TODO: consider if this function needs implementing
+      return;
+
+
+  - name: virtual_control_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player_num
+        type: int
+        default_argument: 0
+      - name: button_num
+        type: int
+        default_argument: 0
+      - name: repeat
+        type: bool
+        default_argument: false
+    guards: [ initialized ]
+    body: |
+      // TODO: Have this function account for state of hte joystick_configuration_element
+      switch(button_num)
+      {
+         case AllegroFlare::VirtualController::BUTTON_UP:
+            joystick_configuration_element.move_cursor_up();
+         break;
+
+         case AllegroFlare::VirtualController::BUTTON_DOWN:
+            joystick_configuration_element.move_cursor_down();
+         break;
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualController
+
+
+  - name: virtual_control_axis_change_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      // TODO: this function
+      return;
+
+
 dependencies:
 
 
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::BitmapBin
@@ -168,5 +242,9 @@ dependencies:
     headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::JoystickConfigurationList
+    headers: [ AllegroFlare/Elements/JoystickConfigurationList.hpp ]
+  - symbol: AllegroFlare::VirtualController
+    headers: [ AllegroFlare/VirtualController.hpp ]
 
 

@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_Screens_JoystickConfigurationTest, type__has_the_expected_va
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
-   TIMED_INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -61,6 +61,11 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    joystick_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
    joystick_configuration_screen.set_event_emitter(&event_emitter);
    joystick_configuration_screen.initialize();
+
+   // set some default placeholder button mappings for this test
+   joystick_configuration_screen.get_joystick_configuration_element_ref().set_joystick_configuration_mapping(
+      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+   );
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -93,7 +98,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
          break;
 
          case ALLEGRO_EVENT_TIMER:
-            al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+            al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
             joystick_configuration_screen.primary_timer_func();
             al_flip_display();
          break;
