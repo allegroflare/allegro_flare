@@ -70,7 +70,8 @@ namespace AllegroFlare
          bool drawing_inputs_bar_overlay;
          bool drawing_notifications;
          std::vector<std::string> input_hints_tokens;
-         bool initialize_without_display(); // only use initialize() publically from now on
+         bool initialize_core_system(); // only use initialize() publically from now on
+         bool initialize_display_and_render_pipeline();
          bool escape_key_will_shutdown;
          bool output_auto_created_config_warning;
          bool set_primary_render_surface_as_target_before_calling_primary_timer_funcs;

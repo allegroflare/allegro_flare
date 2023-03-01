@@ -42,17 +42,44 @@ namespace AllegroFlare
 
 
    //Display(int width, int height, int display_flags, int samples=4, int depth_size=32, int adapter=-1);
-   Display::Display(int width, int height, int display_flags, int samples, int depth_size, int adapter)
-   //Display::Display(int width, int height, int display_flags)
-      //: _background_color(al_color_name("black"))
-      : _width(width)
-      , _height(height)
-      , display_flags(display_flags)
+   Display::Display(int width, int height, int display_flags__depreciated, int samples, int depth_size, int adapter, bool fullscreen)
+      : width(width)
+      , height(height)
+      , display_flags__depreciated(display_flags__depreciated)
+      , samples_requested_at_creation(samples)
       , samples(samples)
       , depth_size(depth_size)
       , adapter(adapter)
+      , fullscreen(fullscreen)
+      , initialized(false)
+      , destroyed(false)
       , al_display(nullptr)
+   {}
+
+
+   Display::~Display()
    {
+      if (initialized && !destroyed)
+      {
+         throw std::runtime_error("[AllegroFlare::Display::~Display()]: error: You must call destroy() before the "
+                                  "destructor is called. This will most certainly result in a crash. Continuing.");
+      }
+   }
+
+
+   void Display::display_close_func()
+   {
+      //Framework::shutdown_program = true;
+   }
+
+
+   void Display::initialize()
+   {
+      if (initialized) throw std::runtime_error("[AllegroFlare::Display::initialize()]: error: already initialized.");
+
+
+      // DEBUG:
+
       if (width < 120 || height < 120)
       {
          // TODO: improve this error message
@@ -75,6 +102,10 @@ namespace AllegroFlare
       al_set_new_display_option(ALLEGRO_DEPTH_SIZE, depth_size, ALLEGRO_SUGGEST); // TODO: review these numbers
       al_set_new_display_option(ALLEGRO_VSYNC, 1, ALLEGRO_SUGGEST); // TODO: review compatibility of vsync
                                                                     // and obtaining info from the driver if it has
+
+      int display_flags = ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE;
+      if (fullscreen) display_flags |= ALLEGRO_FULLSCREEN_WINDOW;
+
       al_set_new_display_flags(display_flags);
 
       if (adapter!=-1) al_set_new_display_adapter(adapter);
@@ -87,6 +118,8 @@ namespace AllegroFlare
       {
          AllegroFlare::Logger::throw_error("AllegroFlare::Display::Display()", "Display could not be created.");
       }
+
+      samples = al_get_display_option(al_display, ALLEGRO_SAMPLES);
 
       std::stringstream display_message;
       display_message << "Display (" << al_display << ") created with the following configuration:" << std::endl;
@@ -104,34 +137,55 @@ namespace AllegroFlare
       AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", display_message.str().c_str());
  
       // add the display to AllegroFlare's list of displays
+      // TODO: consider removing this concept of multiple displays?
       displays.push_back(this);
+
+
+      initialized = true;
    }
 
 
-   Display::~Display()
+   void Display::destroy()
    {
-   }
+      // TODO: unregister display from "displays"
+      // TODO: improve guards before and after initialization and destruction
+      if (al_display)
+      {
+         al_destroy_display(al_display);
+         al_display = nullptr;
+      }
 
-
-   void Display::display_close_func()
-   {
-      //Framework::shutdown_program = true;
+      destroyed = true;
    }
 
 
    std::vector<Display *> Display::displays;
 
 
-   int Display::get_width() { return _width; }
+   int Display::get_width() { return width; }
 
 
-   int Display::get_height() { return _height; }
+   int Display::get_height() { return height; }
 
 
-   float Display::get_middle() { return _height/2; }
+   float Display::get_middle() { return height/2; }
 
 
-   float Display::get_center() { return _width/2; }
+   float Display::get_center() { return width/2; }
+
+
+   int Display::get_samples_requested_at_creation()
+   {
+      return samples_requested_at_creation;
+   }
+
+
+   int Display::get_samples()
+   {
+      if (!al_is_system_installed() || !al_display) throw std::runtime_error("Display::get_samples() not initialized");
+
+      return al_get_display_option(al_display, ALLEGRO_SAMPLES);
+   }
 
 
    void Display::set_as_target_bitmap()

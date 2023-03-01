@@ -202,22 +202,19 @@ Display *Full::get_primary_display()
 
 
 
-bool Full::initialize_without_display()
+bool Full::initialize_core_system()
 {
    if (initialized) return false;
 
    if (!al_init()) std::cerr << "al_init() failed" << std::endl;
 
 
-
-   // Before setting the path, we will need to capture the existing path so it can be restores
-   // after destruction.
-
+   // Setup our deployment environment and working directory
 
    if (deployment_environment.is_undefined())
    {
       AllegroFlare::Logger::warn_from(
-         "AllegroFlare::Frameworks::Full::initialize_without_display",
+         "AllegroFlare::Frameworks::Full::initialize_core_system",
          "The current deployment environment has not been defined. Before calling "
             "AllegroFlare::Frameworks::Full::initialize(), be sure to set a deployment environment with "
             "AllegroFlare::Frameworks::Full::set_deployment_environment(). In the mean time, the environemnt will "
@@ -227,22 +224,7 @@ bool Full::initialize_without_display()
       deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
    }
 
-
    deployment_environment.setup_current_working_directory();
-
-
-   std::string data_folder_path = deployment_environment.get_data_folder_path();
-
-
-   // Output current directory that framework is being run from 
-   //{
-      //std::string info_message = AllegroFlare::Logger::build_info_message(
-         //"AllegroFlare::Frameworks::Full::initialize_without_display",
-         //"Running from working path: \"" + std::filesystem::current_path().string() + "\". "
-         //"Data folder path: \"" + data_folder_path + "\""
-      //);
-      //std::cout << info_message << std::endl;
-   //}
 
 
    // Initialize Allegro's various parts
@@ -260,7 +242,6 @@ bool Full::initialize_without_display()
    if (!al_init_acodec_addon()) std::cerr << "al_init_acodec_addon() failed" << std::endl;
 
    if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
-
 
 
    // Setup our preferred objects & settings
@@ -303,16 +284,20 @@ bool Full::initialize_without_display()
    }
 
 
-   // TODO: prevent these paths from being hard-coded, or, allow it to be hard-coded in the context of
-   // different deployment environments.
+   // Setup the paths for our asset bins
 
+   std::string data_folder_path = deployment_environment.get_data_folder_path();
 
    fonts.set_path(data_folder_path + "fonts");
    samples.set_path(data_folder_path + "samples");
    bitmaps.set_path(data_folder_path + "bitmaps");
    models.set_path(data_folder_path + "models");
 
+
+   // Add our config (which is currently unused)
+
    config.load_or_create_empty(output_auto_created_config_warning);
+
 
    Attributes::create_datatype_definition(
       AllegroColorAttributeDatatype::IDENTIFIER,
@@ -330,6 +315,83 @@ bool Full::initialize_without_display()
    return true;
 }
 
+
+
+bool Full::initialize_display_and_render_pipeline()
+{
+   // TODO: validate size of display before creating a window that is potentially larger than the display. If so,
+   // output a warning.
+
+
+   // Create our primary display
+
+   if (primary_display) throw std::runtime_error("AllegroFlare/Frameworks/Full:: odd error expecting uinit value");
+
+   // DEBUG:
+
+   primary_display = new Display(
+      1920,
+      1080,
+      0, // legacy argument is depreciated
+      render_surface_multisamples,
+      render_surface_depth_size,
+      render_surface_adapter,
+      fullscreen
+   );
+
+   if (!primary_display)
+   {
+      throw std::runtime_error("[Frameworks::Full::initialize_display_and_render_pipeline]: FAILURE: unable to create "
+                               "primary_display.");
+   }
+
+   primary_display->initialize();
+
+   if (!primary_display->al_display)
+   {
+      throw std::runtime_error("[Frameworks::Full::initialize_display_and_render_pipeline]: FAILURE: When initializing "
+                               "the primary_display, was unable to create an al_display.");
+   }
+
+
+   // Register our display with the event_queue
+
+   al_register_event_source(event_queue, al_get_display_event_source(primary_display->al_display));
+
+
+   // Setup our graphics pipeline
+
+   display_backbuffer.set_display(primary_display->al_display);
+   display_backbuffer.initialize();
+
+   camera_2d.setup_dimentional_projection(display_backbuffer.get_display_backbuffer());
+                                                              // ^^ NOTE: this could potentially change depending on the
+                                                              // needs of the game, but is setup here as a reasonable
+                                                              // default
+
+   if (using_display_backbuffer_as_primary_render_surface)
+   {
+      // use the display_backbuffer as our render surface
+      primary_render_surface = &display_backbuffer;
+   }
+   else
+   {
+      // TODO: Implement this new reality please!
+      AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
+      bitmap_render_surface->setup_surface_with_settings_that_match_display(primary_display->al_display, 1920, 1080);
+      primary_render_surface = bitmap_render_surface;
+   }
+
+
+   // Initialize our backbuffer sub bitmap that is used to display AllegroFlare overlay, like performance graphs,
+   // in-game notificatoins, etc.
+   display_backbuffer_sub_bitmap.set_display(primary_display->al_display);
+   display_backbuffer_sub_bitmap.initialize();
+   camera_2d.setup_dimentional_projection(display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
+                                                               // this should remain the same throughout
+                                                               // the whole program and never be modified
+   return true;
+}
 
 
 void Full::set_render_surface_multisamples(int render_surface_multisamples)
@@ -395,52 +457,8 @@ bool Full::initialize()
 {
    if (initialized) return false;
 
-   initialize_without_display();
-
-   int display_flags = ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE;
-   if (fullscreen) display_flags |= ALLEGRO_FULLSCREEN_WINDOW;
-
-   //al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 16, ALLEGRO_REQUIRE);
-
-   // TODO: validate size of display before creating a window that is larger than the display. If so, output a
-   // warning.
-   primary_display = create_display(1920, 1080, display_flags);
-
-   if (!primary_display || !primary_display->al_display)
-   {
-      throw std::runtime_error("[Frameworks::Full::initialize]: FAILURE: unable to create primary_display.");
-   }
-
-
-   display_backbuffer.set_display(primary_display->al_display);
-   display_backbuffer.initialize();
-   // setup a nice projection on our backbuffer
-   camera_2d.setup_dimentional_projection(display_backbuffer.get_display_backbuffer());
-                                                              // ^^ NOTE: this could potentially change depending on the
-                                                              // needs of the game, but is setup here as a reasonable
-                                                              // default
-
-   if (using_display_backbuffer_as_primary_render_surface)
-   {
-      // use the display_backbuffer as our render surface
-      primary_render_surface = &display_backbuffer;
-   }
-   else
-   {
-      // TODO: Implement this new reality please!
-      AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
-      bitmap_render_surface->setup_surface_with_settings_that_match_display(primary_display->al_display, 1920, 1080);
-      primary_render_surface = bitmap_render_surface;
-   }
-
-
-   // Initialize our backbuffer sub bitmap that is used to display AllegroFlare overlay, like performance graphs,
-   // in-game notificatoins, etc.
-   display_backbuffer_sub_bitmap.set_display(primary_display->al_display);
-   display_backbuffer_sub_bitmap.initialize();
-   camera_2d.setup_dimentional_projection(display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
-                                                               // this should remain the same throughout
-                                                               // the whole program and never be modified
+   initialize_core_system();
+   initialize_display_and_render_pipeline();
 
    return true;
 }
@@ -559,7 +577,8 @@ bool Full::shutdown()
                                                                    // object, possibly in a destruct function on the base
                                                                    // class that is overridden in child classes
    }
-   if (primary_display) al_destroy_display(primary_display->al_display);
+
+   if (primary_display) primary_display->destroy();
 
    audio_controller.destruct();
 
