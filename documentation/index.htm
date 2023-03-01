@@ -298,8 +298,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualController.q.yml">quintessence/AllegroFlare/VirtualController.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualControllerProcessor.q.yml">quintessence/AllegroFlare/VirtualControllerProcessor.q.yml</a></li>
   <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/AllegroDefault.q.yml">quintessence/Tileo/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/Base.q.yml">quintessence/Tileo/Shaders/Base.q.yml</a></li>
@@ -12384,7 +12384,7 @@ table td
 </tr>
 <tr>
   <td class="property">player_controls</td>
-  <td class="property">AllegroFlare::VirtualControls</td>
+  <td class="property">AllegroFlare::VirtualController</td>
 </tr>
 <tr>
   <td class="property">camera_control_strategy</td>
@@ -12540,10 +12540,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControlsProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControlsProcessor.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllerProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllerProcessor.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
@@ -14024,7 +14024,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
@@ -14135,7 +14135,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare:::VirtualControls::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare:::VirtualControls::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14226,7 +14226,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
@@ -14291,7 +14291,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
@@ -14579,7 +14579,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
@@ -14777,7 +14777,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_multiline_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
@@ -15117,7 +15117,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
@@ -17717,7 +17717,7 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/VirtualControls.q.yml">quintessence/AllegroFlare/VirtualControls.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/VirtualController.q.yml">quintessence/AllegroFlare/VirtualController.q.yml</h3>
      <table>
 <tr>
   <td class="property">BUTTON_UP</td>
@@ -17838,7 +17838,7 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/VirtualControllerProcessor.q.yml">quintessence/AllegroFlare/VirtualControllerProcessor.q.yml</h3>
      <table>
 <tr>
   <td class="property">event_emitter</td>
@@ -17940,7 +17940,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_KEY_&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -19825,11 +19825,11 @@ table td
 </tr>
 <tr>
   <td class="property">player_controls</td>
-  <td class="property">AllegroFlare::VirtualControls</td>
+  <td class="property">AllegroFlare::VirtualController</td>
 </tr>
 <tr>
   <td class="property">XXvirtual_controls_processor</td>
-  <td class="property">AllegroFlare::VirtualControlsProcessor</td>
+  <td class="property">AllegroFlare::VirtualControllerProcessor</td>
 </tr>
 <tr>
   <td class="property">showing_player_reticle</td>
@@ -20021,10 +20021,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControls&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControls.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControlsProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControlsProcessor.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllerProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllerProcessor.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
@@ -20729,7 +20729,7 @@ table td
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControllerProcessor"
   ],
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
@@ -20945,8 +20945,8 @@ table td
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
-    "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -20964,8 +20964,8 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -22070,7 +22070,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveInDirection",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControls",
+    "AllegroFlare/VirtualController",
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Entities/MovementStrategies2D/Anchored",
     "Wicked/Entities/MovementStrategies2D/Flapping",
@@ -22154,7 +22154,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
-  "AllegroFlare/VirtualControls": [
+  "AllegroFlare/VirtualController": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
@@ -22162,16 +22162,16 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo"
   ],
-  "AllegroFlare/VirtualControlsProcessor": [
+  "AllegroFlare/VirtualControllerProcessor": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [
@@ -22434,10 +22434,10 @@ table td
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControllerProcessor"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControllerProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [
     "Tileo/MeshWithNormals"

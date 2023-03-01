@@ -832,16 +832,16 @@ functions:
     body: |
       if (!processing_user_input()) return;
 
-      if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
-      if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();
-      if (button_num == VirtualControls::BUTTON_A
-         || button_num == VirtualControls::BUTTON_START
+      if (button_num == VirtualController::BUTTON_UP) move_cursor_up();
+      if (button_num == VirtualController::BUTTON_DOWN) move_cursor_down();
+      if (button_num == VirtualController::BUTTON_A
+         || button_num == VirtualController::BUTTON_START
          )
       {
          select_menu_option();
       }
     body_dependency_symbols:
-      - AllegroFlare::VirtualControls
+      - AllegroFlare::VirtualController
 
 
   - name: menu_is_empty
@@ -892,8 +892,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
-  - symbol: AllegroFlare::VirtualControls
-    headers: [ AllegroFlare/VirtualControls.hpp ]
+  - symbol: AllegroFlare::VirtualController
+    headers: [ AllegroFlare/VirtualController.hpp ]
   - symbol: al_draw_rectangle
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_filled_rectangle

@@ -999,33 +999,33 @@ void Screen::virtual_control_button_down_func(int player_num, int button_num, bo
    }
    //int button_num = event->user.data1;
 
-   if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
+   if (button_num == AllegroFlare::VirtualController::BUTTON_B)
    {
       player_controls.set_a_button_pressed(true);
       set_player_controlled_entity_jump();
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_X)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_X)
    {
       reverse_gravity();
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_Y)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_Y)
    {
       player_emit_projectile();
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
    {
       player_controls.set_right_button_pressed(true);
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_LEFT)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_LEFT)
    {
       player_controls.set_left_button_pressed(true);
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_UP)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_UP)
    {
       player_controls.set_up_button_pressed(true);
       check_player_collisions_with_doors();
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER)
    {
       player_controls.set_right_bumper_pressed(true);
    }
@@ -1043,19 +1043,19 @@ void Screen::virtual_control_button_up_func(int player_num, int button_num, bool
    }
    //int button_num = event->user.data1;
 
-   if (button_num == AllegroFlare::VirtualControls::BUTTON_B)
+   if (button_num == AllegroFlare::VirtualController::BUTTON_B)
    {
       player_controls.set_a_button_pressed(false);
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
    {
       player_controls.set_right_button_pressed(false);
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_LEFT)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_LEFT)
    {
       player_controls.set_left_button_pressed(false);
    }
-   else if (button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT_BUMPER)
+   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER)
    {
       player_controls.set_right_bumper_pressed(false);
    }
@@ -1068,7 +1068,7 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
    int axis = event->user.data2;
    float position = event->user.data3 / 255.0f;
 
-   if (stick == AllegroFlare::VirtualControls::PRIMARY_STICK)
+   if (stick == AllegroFlare::VirtualController::PRIMARY_STICK)
    {
       if (axis == 0)
       {

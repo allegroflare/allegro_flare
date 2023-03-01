@@ -16,7 +16,7 @@ class AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Achievements.hpp>
-#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualController.hpp>
 
 
 #include <AllegroFlare/Screens/Achievements.hpp>
@@ -211,9 +211,9 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
          case ALLEGRO_EVENT_KEY_CHAR:
          {
             int button_num = 0;
-            if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::BUTTON_UP;
-            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::BUTTON_DOWN;
-            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::BUTTON_A;
+            if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualController::BUTTON_UP;
+            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualController::BUTTON_DOWN;
+            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::BUTTON_A;
             if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) abort = true;
 
             if (button_num != 0) achievements_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);

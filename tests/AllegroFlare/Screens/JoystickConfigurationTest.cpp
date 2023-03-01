@@ -82,9 +82,9 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
          {
             abort_timer_in_effect = false;
             int button_num = 0;
-            //if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::BUTTON_UP;
-            //if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::BUTTON_DOWN;
-            //if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::BUTTON_A;
+            //if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualController::BUTTON_UP;
+            //if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualController::BUTTON_DOWN;
+            //if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::BUTTON_A;
             if (button_num != 0)
             {
                joystick_configuration_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);

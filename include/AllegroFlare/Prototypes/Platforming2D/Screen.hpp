@@ -13,7 +13,7 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
-#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualController.hpp>
 #include <allegro5/allegro.h>
 #include <map>
 #include <string>
@@ -46,7 +46,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity;
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
-            AllegroFlare::VirtualControls player_controls;
+            AllegroFlare::VirtualController player_controls;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             void initialize_camera();

@@ -4,7 +4,7 @@
 
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Placement2D.hpp>
-#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualController.hpp>
 #include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -962,10 +962,10 @@ void TitleScreen::virtual_control_button_down_func(int player_num, int button_nu
 {
    if (!processing_user_input()) return;
 
-   if (button_num == VirtualControls::BUTTON_UP) move_cursor_up();
-   if (button_num == VirtualControls::BUTTON_DOWN) move_cursor_down();
-   if (button_num == VirtualControls::BUTTON_A
-      || button_num == VirtualControls::BUTTON_START
+   if (button_num == VirtualController::BUTTON_UP) move_cursor_up();
+   if (button_num == VirtualController::BUTTON_DOWN) move_cursor_down();
+   if (button_num == VirtualController::BUTTON_A
+      || button_num == VirtualController::BUTTON_START
       )
    {
       select_menu_option();

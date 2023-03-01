@@ -118,9 +118,9 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
          case ALLEGRO_EVENT_KEY_CHAR:
          {
             //int button_num = 0;
-            //if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::get_BUTTON_UP();
-            //if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::get_BUTTON_DOWN();
-            //if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::get_BUTTON_A();
+            //if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualController::get_BUTTON_UP();
+            //if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualController::get_BUTTON_DOWN();
+            //if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::get_BUTTON_A();
             //if (button_num != 0) game_over_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
             abort = true;
          }

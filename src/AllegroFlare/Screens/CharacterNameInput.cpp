@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Screens/CharacterNameInput.hpp>
 
-#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualController.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -158,27 +158,27 @@ void CharacterNameInput::virtual_control_button_down_func(int player_num, int bu
 
    switch(button_num)
    {
-      case AllegroFlare::VirtualControls::BUTTON_UP:
+      case AllegroFlare::VirtualController::BUTTON_UP:
          software_keyboard.move_cursor_up();
       break;
 
-      case AllegroFlare::VirtualControls::BUTTON_DOWN:
+      case AllegroFlare::VirtualController::BUTTON_DOWN:
          software_keyboard.move_cursor_down();
       break;
 
-      case AllegroFlare::VirtualControls::BUTTON_LEFT:
+      case AllegroFlare::VirtualController::BUTTON_LEFT:
          software_keyboard.decrement_cursor_pos();
       break;
 
-      case AllegroFlare::VirtualControls::BUTTON_RIGHT:
+      case AllegroFlare::VirtualController::BUTTON_RIGHT:
          software_keyboard.increment_cursor_pos();
       break;
 
-      case AllegroFlare::VirtualControls::BUTTON_A:
+      case AllegroFlare::VirtualController::BUTTON_A:
          software_keyboard.press_key_under_cursor();
       break;
 
-      case AllegroFlare::VirtualControls::BUTTON_X:
+      case AllegroFlare::VirtualController::BUTTON_X:
          software_keyboard.press_key_by_name("BACKSPACE");
       break;
    }

@@ -544,7 +544,7 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControllerProcessor"
   ],
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
@@ -760,8 +760,8 @@
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
-    "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -779,8 +779,8 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -1885,7 +1885,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveInDirection",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControls",
+    "AllegroFlare/VirtualController",
     "Wicked/Entities/Basic2DFactory",
     "Wicked/Entities/MovementStrategies2D/Anchored",
     "Wicked/Entities/MovementStrategies2D/Flapping",
@@ -1969,7 +1969,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
-  "AllegroFlare/VirtualControls": [
+  "AllegroFlare/VirtualController": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
@@ -1977,16 +1977,16 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo"
   ],
-  "AllegroFlare/VirtualControlsProcessor": [
+  "AllegroFlare/VirtualControllerProcessor": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControllerProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [
@@ -2249,10 +2249,10 @@
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControllerProcessor"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControllerProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [
     "Tileo/MeshWithNormals"

@@ -10,7 +10,7 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
-#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualController.hpp>
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 #include <Wicked/CameraControlStrategies2D/Base.hpp>
 #include <Wicked/Entities/Basic2D.hpp>
@@ -42,7 +42,7 @@ namespace WickedDemos
       Wicked::Entities::Basic2D* player_controlled_entity;
       bool show_tile_mesh;
       bool show_collision_tile_mesh;
-      AllegroFlare::VirtualControls player_controls;
+      AllegroFlare::VirtualController player_controls;
       AllegroFlare::VirtualControlsProcessor XXvirtual_controls_processor;
       bool showing_player_reticle;
       AllegroFlare::vec2d player_reticle_vector;

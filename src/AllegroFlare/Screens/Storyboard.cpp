@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Screens/Storyboard.hpp>
 
-#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualController.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -172,9 +172,9 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
    }
    if (storyboard_element.get_finished()) return;
 
-   if (button_num == AllegroFlare::VirtualControls::BUTTON_A
-     || button_num == AllegroFlare::VirtualControls::BUTTON_START
-     || button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT)
+   if (button_num == AllegroFlare::VirtualController::BUTTON_A
+     || button_num == AllegroFlare::VirtualController::BUTTON_START
+     || button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
    {
       advance();
    }

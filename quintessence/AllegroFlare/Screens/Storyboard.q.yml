@@ -122,16 +122,16 @@ functions:
     body: |
       if (storyboard_element.get_finished()) return;
 
-      if (button_num == AllegroFlare::VirtualControls::BUTTON_A
-        || button_num == AllegroFlare::VirtualControls::BUTTON_START
-        || button_num == AllegroFlare::VirtualControls::BUTTON_RIGHT)
+      if (button_num == AllegroFlare::VirtualController::BUTTON_A
+        || button_num == AllegroFlare::VirtualController::BUTTON_START
+        || button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
       {
          advance();
       }
 
       return;
     body_dependency_symbols:
-      - AllegroFlare::VirtualControls
+      - AllegroFlare::VirtualController
 
 
 dependencies:
@@ -147,8 +147,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: al_draw_multiline_text
     headers: [ allegro5/allegro_font.h ]
-  - symbol: AllegroFlare::VirtualControls
-    headers: [ AllegroFlare/VirtualControls.hpp ]
+  - symbol: AllegroFlare::VirtualController
+    headers: [ AllegroFlare/VirtualController.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter

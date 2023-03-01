@@ -7,7 +7,7 @@
 
 namespace AllegroFlare
 {
-   class VirtualControls
+   class VirtualController
    {
    public:
       static constexpr uint32_t BUTTON_UP = 1;
@@ -43,8 +43,8 @@ namespace AllegroFlare
 
 
    public:
-      VirtualControls();
-      ~VirtualControls();
+      VirtualController();
+      ~VirtualController();
 
       void set_right_button_pressed(bool right_button_pressed);
       void set_left_button_pressed(bool left_button_pressed);

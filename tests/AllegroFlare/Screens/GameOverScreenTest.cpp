@@ -19,7 +19,7 @@ class AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture :
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/VirtualControls.hpp>
+#include <AllegroFlare/VirtualController.hpp>
 
 
 TEST_F(AllegroFlare_Screens_GameOverScreenTest, can_be_created_without_blowing_up)
@@ -107,9 +107,9 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
          case ALLEGRO_EVENT_KEY_CHAR:
          {
             int button_num = 0;
-            if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualControls::BUTTON_UP;
-            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualControls::BUTTON_DOWN;
-            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualControls::BUTTON_A;
+            if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualController::BUTTON_UP;
+            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualController::BUTTON_DOWN;
+            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::BUTTON_A;
             if (button_num != 0) game_over_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
          }
          break;
