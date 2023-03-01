@@ -1,5 +1,6 @@
 properties:
 
+
   - name: BUTTON_UP
     type: uint32_t
     init_with: 1
