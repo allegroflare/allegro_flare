@@ -544,7 +544,7 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControllerProcessor"
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
@@ -760,8 +760,8 @@
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
-    "AllegroFlare/VirtualControllerProcessor",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -777,10 +777,11 @@
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControllerProcessor",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -1974,19 +1975,20 @@
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
-  "AllegroFlare/VirtualControllerProcessor": [
+  "AllegroFlare/VirtualControlsProcessor": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [
@@ -2086,6 +2088,9 @@
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
+  ],
+  "AllegroFlare/Elements/JoystickConfigurationList": [
+    "AllegroFlare/Screens/JoystickConfiguration"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
@@ -2249,10 +2254,10 @@
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/VirtualControllerProcessor"
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControllerProcessor"
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [
     "Tileo/MeshWithNormals"

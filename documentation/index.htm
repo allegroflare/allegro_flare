@@ -299,7 +299,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualController.q.yml">quintessence/AllegroFlare/VirtualController.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/VirtualControllerProcessor.q.yml">quintessence/AllegroFlare/VirtualControllerProcessor.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
   <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/AllegroDefault.q.yml">quintessence/Tileo/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/Base.q.yml">quintessence/Tileo/Shaders/Base.q.yml</a></li>
@@ -12543,7 +12543,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllerProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllerProcessor.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControlsProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControlsProcessor.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
@@ -14330,6 +14330,10 @@ table td
   <td class="property">std::size_t</td>
 </tr>
 <tr>
+  <td class="property">joystick_configuration_element</td>
+  <td class="property">AllegroFlare::Elements::JoystickConfigurationList</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -14366,8 +14370,20 @@ table td
 <tr>
   <td class="method">primary_timer_func()</td>
 </tr>
+<tr>
+  <td class="method">virtual_control_button_up_func(int player_num=0, int button_num=0, bool repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
@@ -14388,6 +14404,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::JoystickConfigurationList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/JoystickConfigurationList.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -17838,7 +17860,7 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/VirtualControllerProcessor.q.yml">quintessence/AllegroFlare/VirtualControllerProcessor.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</h3>
      <table>
 <tr>
   <td class="property">event_emitter</td>
@@ -19829,7 +19851,7 @@ table td
 </tr>
 <tr>
   <td class="property">XXvirtual_controls_processor</td>
-  <td class="property">AllegroFlare::VirtualControllerProcessor</td>
+  <td class="property">AllegroFlare::VirtualControlsProcessor</td>
 </tr>
 <tr>
   <td class="property">showing_player_reticle</td>
@@ -20024,7 +20046,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllerProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllerProcessor.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControlsProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControlsProcessor.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
@@ -20729,7 +20751,7 @@ table td
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControllerProcessor"
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
@@ -20945,8 +20967,8 @@ table td
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
-    "AllegroFlare/VirtualControllerProcessor",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -20962,10 +20984,11 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControllerProcessor",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
@@ -22159,19 +22182,20 @@ table td
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
-  "AllegroFlare/VirtualControllerProcessor": [
+  "AllegroFlare/VirtualControlsProcessor": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControllerProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [
@@ -22271,6 +22295,9 @@ table td
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
+  ],
+  "AllegroFlare/Elements/JoystickConfigurationList": [
+    "AllegroFlare/Screens/JoystickConfiguration"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
@@ -22434,10 +22461,10 @@ table td
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/VirtualControllerProcessor"
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_KEY_": [
-    "AllegroFlare/VirtualControllerProcessor"
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [
     "Tileo/MeshWithNormals"
