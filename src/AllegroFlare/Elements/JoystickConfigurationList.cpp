@@ -59,12 +59,6 @@ void JoystickConfigurationList::set_player_num(int player_num)
 }
 
 
-void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device)
-{
-   this->physical_input_device = physical_input_device;
-}
-
-
 void JoystickConfigurationList::set_list_item_box_width(float list_item_box_width)
 {
    this->list_item_box_width = list_item_box_width;
@@ -231,6 +225,14 @@ void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<s
 {
    this->joystick_configuration_mapping = joystick_configuration_mapping;
    cursor_pos = 0;
+   return;
+}
+
+void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device)
+{
+   this->physical_input_device = physical_input_device;
+   cursor_pos = 0;
+   // TODO: consider what other context-changing impliciations there might be when setting a physical_input_device
    return;
 }
 

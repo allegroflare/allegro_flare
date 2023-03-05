@@ -19,7 +19,7 @@ properties:
     constructor_arg: true
     init_with: nullptr
     getter: true
-    setter: true
+    setter: false
 
   - name: joystick_configuration_mapping
     type: std::vector<std::tuple<std::string, uint32_t>>
@@ -204,6 +204,18 @@ functions:
     body: |
       this->joystick_configuration_mapping = joystick_configuration_mapping;
       cursor_pos = 0;
+      return;
+
+
+  - name: set_physical_input_device
+    parameters:
+      - name: physical_input_device
+        type: AllegroFlare::PhysicalInputDevice::Base*
+        default_argument: nullptr
+    body: |
+      this->physical_input_device = physical_input_device;
+      cursor_pos = 0;
+      // TODO: consider what other context-changing impliciations there might be when setting a physical_input_device
       return;
 
 

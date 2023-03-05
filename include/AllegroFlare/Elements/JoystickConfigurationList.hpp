@@ -82,7 +82,6 @@ namespace AllegroFlare
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_player_num(int player_num);
-         void set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device);
          void set_list_item_box_width(float list_item_box_width);
          void set_list_item_box_height(float list_item_box_height);
          void set_surface_width(int surface_width);
@@ -104,6 +103,7 @@ namespace AllegroFlare
          void update();
          void render();
          void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
+         void set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device=nullptr);
          bool move_cursor_up();
          bool move_cursor_down();
          bool submit_mapping_on_currently_selected_option(uint32_t button_num=0);
