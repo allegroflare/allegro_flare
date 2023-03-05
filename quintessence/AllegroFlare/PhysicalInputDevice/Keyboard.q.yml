@@ -1,0 +1,25 @@
+parent_classes:
+
+
+  - class: AllegroFlare::PhysicalInputDevice::Base
+    scope: public
+    init_with: 'AllegroFlare::PhysicalInputDevice::Keyboard::TYPE, "Keyboard"'
+
+
+properties:
+
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/PhysicalInputDevice/Keyboard"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::PhysicalInputDevice::Base
+    headers: [ AllegroFlare/PhysicalInputDevice/Base.hpp ]
+
+

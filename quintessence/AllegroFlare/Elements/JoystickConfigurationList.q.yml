@@ -7,6 +7,20 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: player_num
+    type: int
+    constructor_arg: true
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: physical_input_device
+    type: AllegroFlare::PhysicalInputDevice::Base*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: joystick_configuration_mapping
     type: std::vector<std::tuple<std::string, uint32_t>>
     init_with: '{}'
@@ -429,7 +443,7 @@ functions:
          surface_padding_x,
          100,
          ALLEGRO_ALIGN_LEFT,
-         "Joystick Configuration (Generic)"
+         build_heading_label().c_str()
          //"J O Y S T I C K   C O N F I G U R A T I O N"
       );
 
@@ -444,6 +458,19 @@ functions:
       //);
 
       return;
+
+
+  - name: build_heading_label
+    type: std::string
+    guards: [ physical_input_device ]
+    body: |
+      std::stringstream ss;
+      ss << "Player " << (player_num+1) << " ";
+      ss << "Input Configuration ";
+      ss << "(Using " << physical_input_device->get_name() << ")";
+      return ss.str();
+    body_dependency_symbols:
+      - std::stringstream
 
 
   - name: infer_container_height
@@ -917,5 +944,8 @@ dependencies:
     headers: [ algorithm ]
   - symbol: std::max
     headers: [ algorithm ]
+  - symbol: AllegroFlare::PhysicalInputDevice::Base
+    headers: [ AllegroFlare/PhysicalInputDevice/Base.hpp ]
+
 
 

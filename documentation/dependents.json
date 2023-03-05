@@ -1081,6 +1081,11 @@
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/Elements/JoystickConfigurationList"
   ],
+  "AllegroFlare/PhysicalInputDevice/Base": [
+    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/PhysicalInputDevice/GenericJoystick",
+    "AllegroFlare/PhysicalInputDevice/Keyboard"
+  ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],

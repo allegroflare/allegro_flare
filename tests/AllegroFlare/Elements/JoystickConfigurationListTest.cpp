@@ -9,7 +9,8 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 #include <AllegroFlare/EventEmitter.hpp>
-
+#include <AllegroFlare/PhysicalInputDevice/GenericJoystick.hpp> // TODO: replace this usage with an in-test defined
+                                                                // child class of PhysicalInputDevice/Base
 
 class AllegroFlare_Elements_JoystickConfigurationListTest : public ::testing::Test
 {};
@@ -48,7 +49,9 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
+   AllegroFlare::PhysicalInputDevice::GenericJoystick generic_joystick_physical_input_device;
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
+   achievements.set_physical_input_device(&generic_joystick_physical_input_device);
    achievements.initialize();
    achievements.render();
    SUCCEED();
@@ -58,8 +61,11 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    set_joystick_configuration_mapping__will_reset_the_cursor_pos_back_to_0)
 {
-   AllegroFlare::Elements::JoystickConfigurationList achievements(
-      &get_font_bin_ref(),
+   AllegroFlare::PhysicalInputDevice::GenericJoystick generic_joystick_physical_input_device;
+   AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
+   achievements.set_physical_input_device(&generic_joystick_physical_input_device);
+
+   achievements.set_joystick_configuration_mapping(
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
    );
 
@@ -80,10 +86,12 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_as_expected)
 {
+   AllegroFlare::PhysicalInputDevice::GenericJoystick generic_joystick_physical_input_device;
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
    achievements.set_joystick_configuration_mapping(
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
    );
+   achievements.set_physical_input_device(&generic_joystick_physical_input_device);
    achievements.initialize();
    achievements.render();
    al_flip_display();
@@ -95,7 +103,9 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__when_no_joystick_configuration_mapping_elements_are_present__will_show_an_empty_state)
 {
+   AllegroFlare::PhysicalInputDevice::GenericJoystick generic_joystick_physical_input_device;
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
+   achievements.set_physical_input_device(&generic_joystick_physical_input_device);
    achievements.initialize();
    achievements.render();
    al_flip_display();
@@ -107,10 +117,12 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_offset_the_list_of_items_by__scrollbar_position)
 {
+   AllegroFlare::PhysicalInputDevice::GenericJoystick generic_joystick_physical_input_device;
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
    achievements.set_joystick_configuration_mapping(
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
    );
+   achievements.set_physical_input_device(&generic_joystick_physical_input_device);
    achievements.initialize();
 
    int num_scrolls = 120;
@@ -129,10 +141,13 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_hide_the_scrollbar_if_the_height_of_items_in_the_list_is_smaller_than_the_container_height)
 {
+   AllegroFlare::PhysicalInputDevice::GenericJoystick generic_joystick_physical_input_device;
    std::vector<std::tuple<std::string, uint32_t>> achievements =
       AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping();
    achievements.resize(4);
-   AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref(), achievements);
+   AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref());
+   achievements_list.set_physical_input_device(&generic_joystick_physical_input_device);
+   achievements_list.set_joystick_configuration_mapping(achievements);
    achievements_list.initialize();
 
    clear();
@@ -162,8 +177,12 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
+   AllegroFlare::PhysicalInputDevice::GenericJoystick generic_joystick_physical_input_device;
    AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref());
-   achievements_list.set_joystick_configuration_mapping(AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping());
+   achievements_list.set_joystick_configuration_mapping(
+      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+   );
+   achievements_list.set_physical_input_device(&generic_joystick_physical_input_device);
    achievements_list.initialize();
 
    // run the interactive test

@@ -18,8 +18,10 @@ namespace Elements
 {
 
 
-JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
+JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, int player_num, AllegroFlare::PhysicalInputDevice::Base* physical_input_device, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
    : font_bin(font_bin)
+   , player_num(player_num)
+   , physical_input_device(physical_input_device)
    , joystick_configuration_mapping(joystick_configuration_mapping)
    , list_item_box_width(list_item_box_width)
    , list_item_box_height(list_item_box_height)
@@ -51,6 +53,18 @@ void JoystickConfigurationList::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void JoystickConfigurationList::set_player_num(int player_num)
+{
+   this->player_num = player_num;
+}
+
+
+void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device)
+{
+   this->physical_input_device = physical_input_device;
+}
+
+
 void JoystickConfigurationList::set_list_item_box_width(float list_item_box_width)
 {
    this->list_item_box_width = list_item_box_width;
@@ -78,6 +92,18 @@ void JoystickConfigurationList::set_surface_height(int surface_height)
 void JoystickConfigurationList::set_box_gutter_y(float box_gutter_y)
 {
    this->box_gutter_y = box_gutter_y;
+}
+
+
+int JoystickConfigurationList::get_player_num() const
+{
+   return player_num;
+}
+
+
+AllegroFlare::PhysicalInputDevice::Base* JoystickConfigurationList::get_physical_input_device() const
+{
+   return physical_input_device;
 }
 
 
@@ -419,7 +445,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_t
       surface_padding_x,
       100,
       ALLEGRO_ALIGN_LEFT,
-      "Joystick Configuration (Generic)"
+      build_heading_label().c_str()
       //"J O Y S T I C K   C O N F I G U R A T I O N"
    );
 
@@ -434,6 +460,22 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_t
    //);
 
    return;
+}
+
+std::string JoystickConfigurationList::build_heading_label()
+{
+   if (!(physical_input_device))
+   {
+      std::stringstream error_message;
+      error_message << "[JoystickConfigurationList::build_heading_label]: error: guard \"physical_input_device\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("JoystickConfigurationList::build_heading_label: error: guard \"physical_input_device\" not met");
+   }
+   std::stringstream ss;
+   ss << "Player " << (player_num+1) << " ";
+   ss << "Input Configuration ";
+   ss << "(Using " << physical_input_device->get_name() << ")";
+   return ss.str();
 }
 
 float JoystickConfigurationList::infer_container_height()

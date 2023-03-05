@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/PhysicalInputDevice/Base.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -28,6 +29,8 @@ namespace AllegroFlare
 
       private:
          AllegroFlare::FontBin* font_bin;
+         int player_num;
+         AllegroFlare::PhysicalInputDevice::Base* physical_input_device;
          std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping;
          float list_item_box_width;
          float list_item_box_height;
@@ -74,15 +77,19 @@ namespace AllegroFlare
 
 
       public:
-         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=740.0f, float list_item_box_height=80.0f);
+         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, int player_num=0, AllegroFlare::PhysicalInputDevice::Base* physical_input_device=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=740.0f, float list_item_box_height=80.0f);
          ~JoystickConfigurationList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
+         void set_player_num(int player_num);
+         void set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device);
          void set_list_item_box_width(float list_item_box_width);
          void set_list_item_box_height(float list_item_box_height);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);
          void set_box_gutter_y(float box_gutter_y);
+         int get_player_num() const;
+         AllegroFlare::PhysicalInputDevice::Base* get_physical_input_device() const;
          std::vector<std::tuple<std::string, uint32_t>> get_joystick_configuration_mapping() const;
          float get_list_item_box_width() const;
          float get_list_item_box_height() const;
@@ -109,6 +116,7 @@ namespace AllegroFlare
          float infer_scrollbar_max_position();
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
          static std::vector<std::tuple<std::string, uint32_t>> build_placeholder_joystick_configuration_mapping();
+         std::string build_heading_label();
          float infer_list_item_spacing_y();
          bool scrollbar_movement_mode_is_follow_proportional();
          bool is_waiting_user_input_for_remap();

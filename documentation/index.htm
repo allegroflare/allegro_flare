@@ -163,6 +163,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/Network2/URLTokenizer.q.yml">quintessence/AllegroFlare/Network2/URLTokenizer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PhysicalInputDevice/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevice/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PhysicalInputDevice/GenericJoystick.q.yml">quintessence/AllegroFlare/PhysicalInputDevice/GenericJoystick.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PhysicalInputDevice/Keyboard.q.yml">quintessence/AllegroFlare/PhysicalInputDevice/Keyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/AABB2D.q.yml">quintessence/AllegroFlare/Physics/AABB2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/AABB3D.q.yml">quintessence/AllegroFlare/Physics/AABB3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</a></li>
@@ -3625,6 +3628,14 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">player_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">physical_input_device</td>
+  <td class="property">AllegroFlare::PhysicalInputDevice::Base*</td>
+</tr>
+<tr>
   <td class="property">joystick_configuration_mapping</td>
   <td class="property">std::vector&lt;std::tuple&lt;std::string, uint32_t&gt;&gt;</td>
 </tr>
@@ -3784,6 +3795,9 @@ table td
   <td class="private_method">draw_joystick_configuration_mapping_list_title_text()</td>
 </tr>
 <tr>
+  <td class="method">build_heading_label()</td>
+</tr>
+<tr>
   <td class="private_method">infer_container_height()</td>
 </tr>
 <tr>
@@ -3898,6 +3912,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevice::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevice/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -7865,6 +7882,68 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::AchievementUnlocked*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/PhysicalInputDevice/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevice/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/PhysicalInputDevice/GenericJoystick.q.yml">quintessence/AllegroFlare/PhysicalInputDevice/GenericJoystick.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevice::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevice/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/PhysicalInputDevice/Keyboard.q.yml">quintessence/AllegroFlare/PhysicalInputDevice/Keyboard.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevice::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevice/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -21290,6 +21369,11 @@ table td
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/Elements/JoystickConfigurationList"
+  ],
+  "AllegroFlare/PhysicalInputDevice/Base": [
+    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/PhysicalInputDevice/GenericJoystick",
+    "AllegroFlare/PhysicalInputDevice/Keyboard"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
