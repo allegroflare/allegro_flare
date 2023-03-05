@@ -513,7 +513,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
 
    place.start_transform();
 
-   // draw the empty state (if there is no configuration)
+   // Draw the empty state (if there is no configuration)
    if (joystick_configuration_mapping.empty())
    {
       std::string empty_state_text_string = "There are no items to configure";
@@ -533,48 +533,47 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
          empty_state_text_string.c_str()
       );
    }
-
-   // Draw the scrollarea contents
-   scrollarea_contents.start_transform();
-
-   // Draw the items in the list
-   for (int i=0; i<joystick_configuration_mapping.size(); i++)
+   else // There are items to render in the configuration list
    {
-      std::string action_label = std::get<0>(joystick_configuration_mapping[i]);
-      uint32_t mapped_button_num = std::get<1>(joystick_configuration_mapping[i]);
-      //std::string description = std::get<2>(joystick_configuration_mapping[i]);
-      // TODO:
-      // HERE: render
-      draw_joystick_configuration_item_box(
-         joystick_configuration_mapping_box_list_x,
-         joystick_configuration_mapping_box_list_y + i * y_spacing,
-         action_label,
-         "Button " + std::to_string(mapped_button_num)
-      );
-   }
+      // Draw the scrollarea contents
+      scrollarea_contents.start_transform();
 
-   // Show the selection cursor (or hide it if there are no items in the mapping)
-   if (!joystick_configuration_mapping.empty())
-   {
+      // Draw the items in the list
+      for (int i=0; i<joystick_configuration_mapping.size(); i++)
+      {
+         std::string action_label = std::get<0>(joystick_configuration_mapping[i]);
+         uint32_t mapped_button_num = std::get<1>(joystick_configuration_mapping[i]);
+         //std::string description = std::get<2>(joystick_configuration_mapping[i]);
+         // TODO:
+         // HERE: render
+         draw_joystick_configuration_item_box(
+            joystick_configuration_mapping_box_list_x,
+            joystick_configuration_mapping_box_list_y + i * y_spacing,
+            action_label,
+            "Button " + std::to_string(mapped_button_num)
+         );
+      }
+
+      // Show the selection cursor
       selection_cursor_box.render();
+
+      scrollarea_contents.restore_transform();
+
+      // draw the scrollbar
+      if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
+      {
+         AllegroFlare::Elements::Scrollbar scrollbar(
+            joystick_configuration_mapping_list_width + scrollbar_x_padding,
+            scrollbar_y_padding,
+            joystick_configuration_mapping_list_height - scrollbar_y_padding * 2,
+            normalized_scrollbar_position,
+            scrollbar_bar_color,
+            scrollbar_handle_color
+         );
+         scrollbar.render();
+      }
    }
 
-   scrollarea_contents.restore_transform();
-
-
-   // draw the scrollbar
-   if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
-   {
-      AllegroFlare::Elements::Scrollbar scrollbar(
-         joystick_configuration_mapping_list_width + scrollbar_x_padding,
-         scrollbar_y_padding,
-         joystick_configuration_mapping_list_height - scrollbar_y_padding * 2,
-         normalized_scrollbar_position,
-         scrollbar_bar_color,
-         scrollbar_handle_color
-      );
-      scrollbar.render();
-   }
 
    place.restore_transform();
    return;
