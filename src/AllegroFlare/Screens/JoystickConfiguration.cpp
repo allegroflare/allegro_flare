@@ -234,7 +234,7 @@ void JoystickConfiguration::virtual_control_button_down_func(int player_num, int
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("JoystickConfiguration::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
-   // TODO: Have this function account for state of hte joystick_configuration_element
+   // TODO: Have this function account for state of the joystick_configuration_element
    switch(button_num)
    {
       case AllegroFlare::VirtualController::BUTTON_UP:

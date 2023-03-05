@@ -398,6 +398,11 @@ int JoystickConfigurationList::count_num_joystick_configuration_mapping()
    return joystick_configuration_mapping.size();
 }
 
+bool JoystickConfigurationList::joystick_configuration_mapping_is_empty()
+{
+   return joystick_configuration_mapping.empty();
+}
+
 void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_text()
 {
    ALLEGRO_FONT *font = obtain_title_font();
@@ -529,11 +534,10 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
       );
    }
 
-   // scrollarea contents
-
+   // Draw the scrollarea contents
    scrollarea_contents.start_transform();
 
-   // draw the items in the list
+   // Draw the items in the list
    for (int i=0; i<joystick_configuration_mapping.size(); i++)
    {
       std::string action_label = std::get<0>(joystick_configuration_mapping[i]);
@@ -547,31 +551,16 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
          action_label,
          "Button " + std::to_string(mapped_button_num)
       );
-
-      //draw_achievement_box(
-         //joystick_configuration_mapping_box_list_x,
-         //joystick_configuration_mapping_box_list_y + i * y_spacing - scrollbar_position,
-         //status,
-         //title,
-         //description
-      //);
    }
 
-   selection_cursor_box.render();
+   // Show the selection cursor (or hide it if there are no items in the mapping)
+   if (!joystick_configuration_mapping.empty())
+   {
+      selection_cursor_box.render();
+   }
 
    scrollarea_contents.restore_transform();
 
-   //// draw the frame
-   //al_draw_rounded_rectangle(
-   //   0 - frame_outset,
-   //   0 - frame_outset,
-   //   joystick_configuration_mapping_list_width + frame_outset,
-   //   joystick_configuration_mapping_list_container_height + frame_outset,
-   //   5.0,
-   //   5.0,
-   //   joystick_configuration_mapping_list_frame_color,
-   //   frame_thickness
-   //);
 
    // draw the scrollbar
    if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())

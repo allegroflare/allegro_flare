@@ -91,6 +91,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    SUCCEED();
 }
 
+
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__when_no_joystick_configuration_mapping_elements_are_present__will_show_an_empty_state)
 {
@@ -101,6 +102,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    sleep_for(1);
    SUCCEED();
 }
+
 
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_offset_the_list_of_items_by__scrollbar_position)

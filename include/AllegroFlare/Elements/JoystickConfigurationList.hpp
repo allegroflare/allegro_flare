@@ -49,6 +49,7 @@ namespace AllegroFlare
          float build_scrollbar_position_at_current_cursor_pos();
          void draw_header_title_backfill();
          int count_num_joystick_configuration_mapping();
+         bool joystick_configuration_mapping_is_empty();
          void draw_joystick_configuration_mapping_list_title_text();
          float infer_container_height();
          float infer_container_contents_height();

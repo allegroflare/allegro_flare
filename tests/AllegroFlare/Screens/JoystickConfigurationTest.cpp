@@ -125,7 +125,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_JoystickConfigurationTestWithAllegroFrameworksFullFixture,
-   TIMED_INTERACTIVE__will_run_as_expected)
+   FOCUS__TIMED_INTERACTIVE__will_run_as_expected)
 {
    AllegroFlare::Screens::JoystickConfiguration joystick_configuration_screen;
    joystick_configuration_screen.set_event_emitter(get_framework_event_emitter());
