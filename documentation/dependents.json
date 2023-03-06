@@ -1513,6 +1513,10 @@
   "std/copy_if": [
     "AllegroFlare/Notifications"
   ],
+  "ALLEGRO_JOYSTICK": [
+    "AllegroFlare/PhysicalInputDevice/GenericJoystick",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "AllegroFlare/Vec3D": [
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
@@ -2257,9 +2261,6 @@
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
-  ],
-  "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"

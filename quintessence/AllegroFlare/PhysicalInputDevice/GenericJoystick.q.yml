@@ -9,6 +9,18 @@ parent_classes:
 properties:
 
 
+  - name: al_joystick
+    type: ALLEGRO_JOYSTICK*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: connected
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/PhysicalInputDevice/GenericJoystick"'
@@ -21,5 +33,7 @@ dependencies:
 
   - symbol: AllegroFlare::PhysicalInputDevice::Base
     headers: [ AllegroFlare/PhysicalInputDevice/Base.hpp ]
+  - symbol: ALLEGRO_JOYSTICK
+    headers: [ allegro5/allegro.h ]
 
 

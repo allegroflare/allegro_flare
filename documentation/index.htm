@@ -7920,6 +7920,14 @@ table td
     <h3 id="quintessence/AllegroFlare/PhysicalInputDevice/GenericJoystick.q.yml">quintessence/AllegroFlare/PhysicalInputDevice/GenericJoystick.q.yml</h3>
      <table>
 <tr>
+  <td class="property">al_joystick</td>
+  <td class="property">ALLEGRO_JOYSTICK*</td>
+</tr>
+<tr>
+  <td class="property">connected</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -7929,6 +7937,9 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevice::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevice/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_JOYSTICK&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -21805,6 +21816,10 @@ table td
   "std/copy_if": [
     "AllegroFlare/Notifications"
   ],
+  "ALLEGRO_JOYSTICK": [
+    "AllegroFlare/PhysicalInputDevice/GenericJoystick",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "AllegroFlare/Vec3D": [
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
@@ -22549,9 +22564,6 @@ table td
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
-  ],
-  "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"
