@@ -38,7 +38,7 @@ namespace AllegroFlare
       void set_mapping(uint32_t physical_input_button_id=0, uint32_t virtual_input_button_id=0);
       bool mapping_exists_on_physical_device_button(uint32_t physical_input_button_id=0);
       bool physical_input_device_is_keyboard();
-      bool get_mapping(uint32_t physical_input_button_id=0);
+      int get_mapping(uint32_t physical_input_button_id=0);
       bool mapping_exists_on_virtual_controller_button(uint32_t virtual_controller_button_id=0);
    };
 }

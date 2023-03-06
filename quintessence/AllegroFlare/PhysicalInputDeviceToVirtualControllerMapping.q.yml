@@ -73,7 +73,7 @@ functions:
 
 
   - name: get_mapping
-    type: bool
+    type: int
     parameters:
       - name: physical_input_button_id
         type: uint32_t

@@ -93,7 +93,7 @@ bool PhysicalInputDeviceToVirtualControllerMapping::physical_input_device_is_key
    return physical_input_device && physical_input_device->is_keyboard();
 }
 
-bool PhysicalInputDeviceToVirtualControllerMapping::get_mapping(uint32_t physical_input_button_id)
+int PhysicalInputDeviceToVirtualControllerMapping::get_mapping(uint32_t physical_input_button_id)
 {
    if (!(mapping_exists_on_physical_device_button(physical_input_button_id)))
    {

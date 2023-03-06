@@ -5,6 +5,8 @@
 
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 
+#include <AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.hpp> // TODO: Remove this as dependency
+#include <AllegroFlare/VirtualControllers/GenericController.hpp> // TODO: Remove this as dependency
 #include <AllegroFlare/VirtualController.hpp>
 #include <AllegroFlare/EventNames.hpp>
 
@@ -293,25 +295,29 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor(&event_emitter);
    virtual_control_processor.initialize();
 
+   // Create our devices and their mappings
+   AllegroFlare::PhysicalInputDeviceToVirtualControllerMappingFactory factory; // TODO: remove factory as dependency
+   AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping mapping =
+      factory.create_single_player_keyboard_mapping_from_scratch();
 
-   //set_physical_input_device_to_virtual_control_mappings
+   // Add our mapping to the virtual control processor
+   virtual_control_processor.get_physical_input_device_to_virtual_control_mappings_ref() = { mapping };
 
-
-
+   // Build a raw event
    ALLEGRO_EVENT raw_event;
    raw_event.type = ALLEGRO_EVENT_KEY_DOWN;
    raw_event.keyboard.keycode = ALLEGRO_KEY_R;
 
    virtual_control_processor.handle_raw_keyboard_key_down_event(&raw_event);
 
-   int expected_mapped_button = AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER;
+   int expected_mapped_button = AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
-   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+   EXPECT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
    // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
    // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
@@ -333,20 +339,31 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor(&event_emitter);
    virtual_control_processor.initialize();
 
+   // Create our devices and their mappings
+   AllegroFlare::PhysicalInputDeviceToVirtualControllerMappingFactory factory; // TODO: remove factory as dependency
+   AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping mapping =
+      factory.create_single_player_keyboard_mapping_from_scratch();
+
+   // Add our mapping to the virtual control processor
+   virtual_control_processor.get_physical_input_device_to_virtual_control_mappings_ref() = { mapping };
+
    ALLEGRO_EVENT raw_event;
    raw_event.type = ALLEGRO_EVENT_KEY_UP;
    raw_event.keyboard.keycode = ALLEGRO_KEY_SPACE;
 
+   // DEBUG:
+
    virtual_control_processor.handle_raw_keyboard_key_up_event(&raw_event);
 
-   int expected_mapped_button = AllegroFlare::VirtualController::BUTTON_A;
+   //int expected_mapped_button = AllegroFlare::VirtualController::BUTTON_A;
+   int expected_mapped_button = AllegroFlare::VirtualControllers::GenericController::BUTTON_A;
 
    ALLEGRO_EVENT actual_emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_emitted_event));
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
-   ASSERT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+   EXPECT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
 
    // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
    // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
