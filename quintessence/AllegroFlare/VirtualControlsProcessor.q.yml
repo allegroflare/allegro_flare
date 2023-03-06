@@ -12,13 +12,8 @@ properties:
     init_with: ''
     getter: true
 
-  - name: joystick_button_map
-    type: std::map<int, int>
-    init_with: ''
-    getter: true
-
-  - name: joystick_devices
-    type: std::map<ALLEGRO_JOYSTICK*, int>
+  - name: physical_input_devices
+    type: std::map<AllegroFlare::PhysicalInputDevice::Base*, int>
     init_with: '{}'
 
   - name: initialized
@@ -42,7 +37,6 @@ functions:
     guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
     body: |
       keyboard_button_map = build_sensible_keyboard_button_map();
-      joystick_button_map = build_sensible_joystick_button_map();
       setup_configuration_of_connected_joystick_devices();
       initialized = true;
       return;
@@ -51,39 +45,29 @@ functions:
   - name: setup_configuration_of_connected_joystick_devices
     private: true
     body: |
-      // NOTE: There may need to be a "migration path to reconfiguration" for existing devices that may get lost
-      // during reconfiguration.
       al_reconfigure_joysticks();
-      joystick_devices.clear();
+      //joystick_devices.clear();
       for (int i=0; i<al_get_num_joysticks(); i++)
       {
-         joystick_devices[al_get_joystick(i)] = i;
+         // 
+         //joystick_devices[al_get_joystick(i)] = i;
       }
       return;
 
 
-  - name: infer_num_joystick_devices_connected
+  - name: infer_num_physical_input_devices
     type: int
     guards: [ initialized ]
     body: |
-      return joystick_devices.size();
+      return physical_input_devices.size();
 
 
-  - name: build_sensible_joystick_button_map
-    type: std::map<int, int>
+  - name: infer_num_physical_input_devices_connected
+    type: int
+    guards: [ initialized ]
     body: |
-      std::map<int, int> result_button_map = {
-        { 1, AllegroFlare::VirtualController::BUTTON_A }, // for x-box controller, but buttons named like SNES layout
-        { 0, AllegroFlare::VirtualController::BUTTON_B },
-        { 4, AllegroFlare::VirtualController::BUTTON_X },
-        { 3, AllegroFlare::VirtualController::BUTTON_Y },
-
-        { 6, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER },
-        { 7, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER },
-
-        { 11, AllegroFlare::VirtualController::BUTTON_START },
-      };
-      return result_button_map;
+      // TODO: implement this function
+      return 0;
 
 
   - name: build_sensible_keyboard_button_map
@@ -118,9 +102,14 @@ functions:
         type: ALLEGRO_JOYSTICK*
         default_argument: nullptr
     body: |
-      // returns -1 when the joystick is not found
-      if (joystick_devices.count(al_joystick) == 0) return -1;
-      return joystick_devices[al_joystick];
+      throw std::runtime_error("VirtualControlsProcessor::find_player_num_from_al_joystick");
+      // TODO: implement this function
+      for (auto &physical_input_device : physical_input_devices)
+      {
+         // TODO: This logic
+         //if (physical_input_device->is_joystick()) {}
+      }
+      return 0;
 
 
   - name: handle_raw_keyboard_key_down_event
@@ -246,10 +235,12 @@ functions:
         type: int
         default_argument: -1
     body: |
-      bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
-      if (!map_value_exists) return -1;
-      int virtual_button = joystick_button_map[native_button_num];
-      return virtual_button;
+      throw std::runtime_error("VirtualControlsProcessor::get_joystick_mapped_virtual_button: not implemented");
+      //bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
+      //if (!map_value_exists) return -1;
+      //int virtual_button = joystick_button_map[native_button_num];
+      //return virtual_button;
+      return 0;
 
 
   - name: get_keyboard_mapped_player_num_and_virtual_button
@@ -369,5 +360,9 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::VirtualController
     headers: [ AllegroFlare/VirtualController.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevice::GenericJoystick
+    headers: [ AllegroFlare/PhysicalInputDevice/GenericJoystick.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevice::Base
+    headers: [ AllegroFlare/PhysicalInputDevice/Base.hpp ]
 
 

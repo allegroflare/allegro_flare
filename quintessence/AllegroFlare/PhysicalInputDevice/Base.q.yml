@@ -23,6 +23,20 @@ properties:
 functions:
 
 
+  - name: is_keyboard
+    virtual: true
+    type: bool
+    body: |
+      return false;
+
+
+  - name: is_joystick
+    virtual: true
+    type: bool
+    body: |
+      return false;
+
+
   - name: is_type
     type: bool
     parameters:

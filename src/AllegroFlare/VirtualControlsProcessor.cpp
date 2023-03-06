@@ -18,8 +18,7 @@ namespace AllegroFlare
 VirtualControlsProcessor::VirtualControlsProcessor(AllegroFlare::EventEmitter* event_emitter)
    : event_emitter(event_emitter)
    , keyboard_button_map()
-   , joystick_button_map()
-   , joystick_devices({})
+   , physical_input_devices({})
    , initialized(false)
 {
 }
@@ -39,12 +38,6 @@ void VirtualControlsProcessor::set_event_emitter(AllegroFlare::EventEmitter* eve
 std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::get_keyboard_button_map() const
 {
    return keyboard_button_map;
-}
-
-
-std::map<int, int> VirtualControlsProcessor::get_joystick_button_map() const
-{
-   return joystick_button_map;
 }
 
 
@@ -78,7 +71,6 @@ void VirtualControlsProcessor::initialize()
       throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_joystick_installed()\" not met");
    }
    keyboard_button_map = build_sensible_keyboard_button_map();
-   joystick_button_map = build_sensible_joystick_button_map();
    setup_configuration_of_connected_joystick_devices();
    initialized = true;
    return;
@@ -86,43 +78,39 @@ void VirtualControlsProcessor::initialize()
 
 void VirtualControlsProcessor::setup_configuration_of_connected_joystick_devices()
 {
-   // NOTE: There may need to be a "migration path to reconfiguration" for existing devices that may get lost
-   // during reconfiguration.
    al_reconfigure_joysticks();
-   joystick_devices.clear();
+   //joystick_devices.clear();
    for (int i=0; i<al_get_num_joysticks(); i++)
    {
-      joystick_devices[al_get_joystick(i)] = i;
+      // 
+      //joystick_devices[al_get_joystick(i)] = i;
    }
    return;
 }
 
-int VirtualControlsProcessor::infer_num_joystick_devices_connected()
+int VirtualControlsProcessor::infer_num_physical_input_devices()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::infer_num_joystick_devices_connected]: error: guard \"initialized\" not met.";
+      error_message << "[VirtualControlsProcessor::infer_num_physical_input_devices]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::infer_num_joystick_devices_connected: error: guard \"initialized\" not met");
+      throw std::runtime_error("VirtualControlsProcessor::infer_num_physical_input_devices: error: guard \"initialized\" not met");
    }
-   return joystick_devices.size();
+   return physical_input_devices.size();
 }
 
-std::map<int, int> VirtualControlsProcessor::build_sensible_joystick_button_map()
+int VirtualControlsProcessor::infer_num_physical_input_devices_connected()
 {
-   std::map<int, int> result_button_map = {
-     { 1, AllegroFlare::VirtualController::BUTTON_A }, // for x-box controller, but buttons named like SNES layout
-     { 0, AllegroFlare::VirtualController::BUTTON_B },
-     { 4, AllegroFlare::VirtualController::BUTTON_X },
-     { 3, AllegroFlare::VirtualController::BUTTON_Y },
-
-     { 6, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER },
-     { 7, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER },
-
-     { 11, AllegroFlare::VirtualController::BUTTON_START },
-   };
-   return result_button_map;
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::infer_num_physical_input_devices_connected]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::infer_num_physical_input_devices_connected: error: guard \"initialized\" not met");
+   }
+   // TODO: implement this function
+   return 0;
 }
 
 std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::build_sensible_keyboard_button_map()
@@ -148,9 +136,14 @@ std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::build_sensible
 
 int VirtualControlsProcessor::find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
 {
-   // returns -1 when the joystick is not found
-   if (joystick_devices.count(al_joystick) == 0) return -1;
-   return joystick_devices[al_joystick];
+   throw std::runtime_error("VirtualControlsProcessor::find_player_num_from_al_joystick");
+   // TODO: implement this function
+   for (auto &physical_input_device : physical_input_devices)
+   {
+      // TODO: This logic
+      //if (physical_input_device->is_joystick()) {}
+   }
+   return 0;
 }
 
 void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event)
@@ -353,10 +346,12 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
 
 int VirtualControlsProcessor::get_joystick_mapped_virtual_button(int native_button_num)
 {
-   bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
-   if (!map_value_exists) return -1;
-   int virtual_button = joystick_button_map[native_button_num];
-   return virtual_button;
+   throw std::runtime_error("VirtualControlsProcessor::get_joystick_mapped_virtual_button: not implemented");
+   //bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
+   //if (!map_value_exists) return -1;
+   //int virtual_button = joystick_button_map[native_button_num];
+   //return virtual_button;
+   return 0;
 }
 
 std::pair<int, int> VirtualControlsProcessor::get_keyboard_mapped_player_num_and_virtual_button(int native_key_num)

@@ -16,6 +16,17 @@ properties:
     constexpr: true
 
 
+functions:
+
+
+  - name: is_keyboard
+    type: bool
+    virtual: true
+    override: true
+    body: |
+      return true;
+
+
 dependencies:
 
 

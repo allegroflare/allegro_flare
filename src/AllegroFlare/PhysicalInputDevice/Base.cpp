@@ -35,6 +35,16 @@ std::string Base::get_name() const
 }
 
 
+bool Base::is_keyboard()
+{
+   return false;
+}
+
+bool Base::is_joystick()
+{
+   return false;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());

@@ -172,6 +172,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Player.q.yml">quintessence/AllegroFlare/Player.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ProfilerRenderer.q.yml">quintessence/AllegroFlare/ProfilerRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml</a></li>
@@ -7908,6 +7909,12 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">is_keyboard()</td>
+</tr>
+<tr>
+  <td class="method">is_joystick()</td>
+</tr>
+<tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
@@ -7924,15 +7931,14 @@ table td
   <td class="property">ALLEGRO_JOYSTICK*</td>
 </tr>
 <tr>
-  <td class="property">connected</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">is_keyboard()</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -7954,6 +7960,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">is_keyboard()</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -8303,6 +8312,25 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Player.q.yml">quintessence/AllegroFlare/Player.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">id</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
     </table>
   </div>
 </ul>
@@ -17967,12 +17995,8 @@ table td
   <td class="property">std::map&lt;uint32_t, std::pair&lt;int, int&gt;&gt;</td>
 </tr>
 <tr>
-  <td class="property">joystick_button_map</td>
-  <td class="property">std::map&lt;int, int&gt;</td>
-</tr>
-<tr>
-  <td class="property">joystick_devices</td>
-  <td class="property">std::map&lt;ALLEGRO_JOYSTICK*, int&gt;</td>
+  <td class="property">physical_input_devices</td>
+  <td class="property">std::map&lt;AllegroFlare::PhysicalInputDevice::Base*, int&gt;</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -17987,10 +18011,10 @@ table td
   <td class="private_method">setup_configuration_of_connected_joystick_devices()</td>
 </tr>
 <tr>
-  <td class="method">infer_num_joystick_devices_connected()</td>
+  <td class="method">infer_num_physical_input_devices()</td>
 </tr>
 <tr>
-  <td class="method">build_sensible_joystick_button_map()</td>
+  <td class="method">infer_num_physical_input_devices_connected()</td>
 </tr>
 <tr>
   <td class="method">build_sensible_keyboard_button_map()</td>
@@ -18059,6 +18083,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevice::GenericJoystick&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevice/GenericJoystick.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevice::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevice/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -21387,7 +21417,8 @@ table td
   "AllegroFlare/PhysicalInputDevice/Base": [
     "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/PhysicalInputDevice/GenericJoystick",
-    "AllegroFlare/PhysicalInputDevice/Keyboard"
+    "AllegroFlare/PhysicalInputDevice/Keyboard",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -22566,6 +22597,9 @@ table td
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_KEY_": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/PhysicalInputDevice/GenericJoystick": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

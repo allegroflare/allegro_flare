@@ -16,19 +16,17 @@ namespace AllegroFlare
 
       private:
          ALLEGRO_JOYSTICK* al_joystick;
-         bool connected;
 
       protected:
 
 
       public:
          GenericJoystick();
-         ~GenericJoystick();
+         virtual ~GenericJoystick();
 
          void set_al_joystick(ALLEGRO_JOYSTICK* al_joystick);
-         void set_connected(bool connected);
          ALLEGRO_JOYSTICK* get_al_joystick() const;
-         bool get_connected() const;
+         virtual bool is_keyboard() override;
       };
    }
 }

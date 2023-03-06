@@ -22,6 +22,10 @@ Keyboard::~Keyboard()
 }
 
 
+bool Keyboard::is_keyboard()
+{
+   return true;
+}
 
 
 } // namespace PhysicalInputDevice

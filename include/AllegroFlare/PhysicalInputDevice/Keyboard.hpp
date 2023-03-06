@@ -20,8 +20,9 @@ namespace AllegroFlare
 
       public:
          Keyboard();
-         ~Keyboard();
+         virtual ~Keyboard();
 
+         virtual bool is_keyboard() override;
       };
    }
 }

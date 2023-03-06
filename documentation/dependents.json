@@ -1084,7 +1084,8 @@
   "AllegroFlare/PhysicalInputDevice/Base": [
     "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/PhysicalInputDevice/GenericJoystick",
-    "AllegroFlare/PhysicalInputDevice/Keyboard"
+    "AllegroFlare/PhysicalInputDevice/Keyboard",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -2263,6 +2264,9 @@
     "AllegroFlare/Useful3D/Triangle"
   ],
   "ALLEGRO_KEY_": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/PhysicalInputDevice/GenericJoystick": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [
