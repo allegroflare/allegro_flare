@@ -16,6 +16,10 @@ properties:
     type: std::map<AllegroFlare::PhysicalInputDevices::Base*, int>
     init_with: '{}'
 
+  - name: physical_input_device_to_virtual_control_mappings
+    type: std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping>
+    init_with: '{}'
+
   - name: initialized
     type: bool
     init_with: false
@@ -360,9 +364,11 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::VirtualController
     headers: [ AllegroFlare/VirtualController.hpp ]
-  - symbol: AllegroFlare::PhysicalInputDevices::GenericJoystick
-    headers: [ AllegroFlare/PhysicalInputDevices/GenericJoystick.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Joysticks::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp ]
   - symbol: AllegroFlare::PhysicalInputDevices::Base
     headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping
+    headers: [ AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp ]
 
 

@@ -2,11 +2,13 @@
 
 
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp>
 #include <AllegroFlare/PhysicalInputDevices/Base.hpp>
 #include <allegro5/allegro.h>
 #include <cstdint>
 #include <map>
 #include <utility>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -17,6 +19,7 @@ namespace AllegroFlare
       AllegroFlare::EventEmitter* event_emitter;
       std::map<uint32_t, std::pair<int, int>> keyboard_button_map;
       std::map<AllegroFlare::PhysicalInputDevices::Base*, int> physical_input_devices;
+      std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> physical_input_device_to_virtual_control_mappings;
       bool initialized;
       void setup_configuration_of_connected_joystick_devices();
       int get_joystick_mapped_virtual_button(int native_button_num=-1);

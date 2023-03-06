@@ -164,7 +164,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Base.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/GenericJoystick.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/GenericJoystick.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/Joysticks/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Joysticks/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/Keyboard.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Keyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/AABB2D.q.yml">quintessence/AllegroFlare/Physics/AABB2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/AABB3D.q.yml">quintessence/AllegroFlare/Physics/AABB3D.q.yml</a></li>
@@ -7924,7 +7924,7 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/PhysicalInputDevices/GenericJoystick.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/GenericJoystick.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/PhysicalInputDevices/Joysticks/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Joysticks/Base.q.yml</h3>
      <table>
 <tr>
   <td class="property">al_joystick</td>
@@ -18085,7 +18085,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::GenericJoystick&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/GenericJoystick.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Joysticks::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
@@ -21416,7 +21416,7 @@ table td
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/PhysicalInputDevices/GenericJoystick",
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/PhysicalInputDevices/Keyboard",
     "AllegroFlare/VirtualControlsProcessor"
   ],
@@ -21848,7 +21848,7 @@ table td
     "AllegroFlare/Notifications"
   ],
   "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/PhysicalInputDevices/GenericJoystick",
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Vec3D": [
@@ -22599,7 +22599,7 @@ table td
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
-  "AllegroFlare/PhysicalInputDevices/GenericJoystick": [
+  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

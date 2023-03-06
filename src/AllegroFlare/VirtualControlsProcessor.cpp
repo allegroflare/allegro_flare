@@ -19,6 +19,7 @@ VirtualControlsProcessor::VirtualControlsProcessor(AllegroFlare::EventEmitter* e
    : event_emitter(event_emitter)
    , keyboard_button_map()
    , physical_input_devices({})
+   , physical_input_device_to_virtual_control_mappings({})
    , initialized(false)
 {
 }

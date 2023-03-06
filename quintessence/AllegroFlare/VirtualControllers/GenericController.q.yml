@@ -1,0 +1,77 @@
+parent_classes:
+
+
+  - class: AllegroFlare::VirtualControllers::Base
+    scope: public
+    init_with: AllegroFlare::VirtualControllers::GenericController::TYPE, AllegroFlare::VirtualControllers::GenericController::DEFAULT_NAME
+
+
+enums:
+
+
+  - scope: public
+    type: uint32_t
+    enumerators:
+      - BUTTON_UNDEF
+      - BUTTON_UP
+      - BUTTON_DOWN
+      - BUTTON_LEFT
+      - BUTTON_RIGHT
+      - BUTTON_A
+      - BUTTON_B
+      - BUTTON_X
+      - BUTTON_Y
+      - BUTTON_MENU
+      - BUTTON_RIGHT_BUMPER
+      - BUTTON_LEFT_BUMPER
+
+
+properties:
+
+
+  - name: PRIMARY_STICK
+    type: uint32_t
+    init_with: 0
+    constexpr: true
+    static: true
+
+  - name: SECONDARY_STICK
+    type: uint32_t
+    init_with: 1
+    constexpr: true
+    static: true
+
+  - name: primary_stick_position
+    type: AllegroFlare::Vec2D
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: secondary_stick_position
+    type: AllegroFlare::Vec2D
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/VirtualControllers/GenericController"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_NAME
+    type: char*
+    init_with: '(char*)"Generic AllegroFlare Controller"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+

@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::PhysicalInputDevices::Base
     scope: public
-    init_with: 'AllegroFlare::PhysicalInputDevices::GenericJoystick::TYPE, "Generic Joystick"'
+    init_with: 'AllegroFlare::PhysicalInputDevices::Joysticks::Base::TYPE, "Generic Joystick"'
 
 
 properties:
@@ -17,7 +17,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"AllegroFlare/PhysicalInputDevices/GenericJoystick"'
+    init_with: '(char*)"AllegroFlare/PhysicalInputDevices/Joysticks/Base"'
     static: true
     constexpr: true
 

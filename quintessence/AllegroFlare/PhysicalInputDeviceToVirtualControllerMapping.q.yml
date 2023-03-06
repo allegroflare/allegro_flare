@@ -1,0 +1,80 @@
+properties:
+
+
+  - name: physical_input_device
+    type: AllegroFlare::PhysicalInputDevices::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: virtual_controller
+    type: AllegroFlare::VirtualControllers::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: mapping
+    type: std::map<int, int>
+    init_with: '{}'
+    getter: true
+    setter: false
+
+
+functions:
+
+
+  - name: set_multiple_mappings
+    parameters:
+      - name: mappings
+        type: std::vector<std::pair<int, int>>
+        default_argument: '{}'
+    body: |
+      for (auto &mappings_element : mappings)
+      {
+         set_mapping(mappings_element.first, mappings_element.second);
+      }
+      return;
+
+
+  - name: set_mapping
+    parameters:
+      - name: physical_input_button_id
+        type: uint32_t
+        default_argument: 0
+      - name: virtual_input_button_id
+        type: uint32_t
+        default_argument: 0
+    body: |
+      mapping[physical_input_button_id] = virtual_input_button_id;
+      return;
+
+
+  - name: mapping_exists_on_physical_device_button
+    type: bool
+    parameters:
+      - name: physical_input_button_id
+        type: uint32_t
+        default_argument: 0
+    body: |
+      return (mapping.count(physical_input_button_id) > 0);
+
+
+  - name: mapping_exists_on_virtual_controller_button
+    type: bool
+    parameters:
+      - name: virtual_controller_button_id
+        type: uint32_t
+        default_argument: 0
+    body: |
+      return (mapping.count(virtual_controller_button_id) > 0);
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::PhysicalInputDevices::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+
+
