@@ -293,6 +293,11 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor(&event_emitter);
    virtual_control_processor.initialize();
 
+
+   //set_physical_input_device_to_virtual_control_mappings
+
+
+
    ALLEGRO_EVENT raw_event;
    raw_event.type = ALLEGRO_EVENT_KEY_DOWN;
    raw_event.keyboard.keycode = ALLEGRO_KEY_R;

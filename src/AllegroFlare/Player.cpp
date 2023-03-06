@@ -9,9 +9,9 @@ namespace AllegroFlare
 {
 
 
-Player::Player(uint32_t id, std::string name)
-   : id(id)
-   , name(name)
+Player::Player(std::string name, uint32_t id)
+   : name(name)
+   , id(id)
 {
 }
 
@@ -21,27 +21,27 @@ Player::~Player()
 }
 
 
-void Player::set_id(uint32_t id)
-{
-   this->id = id;
-}
-
-
 void Player::set_name(std::string name)
 {
    this->name = name;
 }
 
 
-uint32_t Player::get_id() const
+void Player::set_id(uint32_t id)
 {
-   return id;
+   this->id = id;
 }
 
 
 std::string Player::get_name() const
 {
    return name;
+}
+
+
+uint32_t Player::get_id() const
+{
+   return id;
 }
 
 

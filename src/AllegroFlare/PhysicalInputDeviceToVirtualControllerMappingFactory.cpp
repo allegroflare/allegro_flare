@@ -21,10 +21,13 @@ PhysicalInputDeviceToVirtualControllerMappingFactory::~PhysicalInputDeviceToVirt
 }
 
 
-AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping PhysicalInputDeviceToVirtualControllerMappingFactory::create_single_player_keyboard_mapping()
+AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping PhysicalInputDeviceToVirtualControllerMappingFactory::create_single_player_keyboard_mapping_from_scratch()
 {
    AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping mapping;
 
+   AllegroFlare::Player *player = new AllegroFlare::Player("Player 1");
+
+   mapping.set_player(player);
    mapping.set_physical_input_device(new AllegroFlare::PhysicalInputDevices::Keyboard);
    mapping.set_virtual_controller(new AllegroFlare::VirtualControllers::GenericController);
 

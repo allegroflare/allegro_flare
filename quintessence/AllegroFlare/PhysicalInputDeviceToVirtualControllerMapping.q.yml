@@ -1,6 +1,12 @@
 properties:
 
 
+  - name: player
+    type: AllegroFlare::Player*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: physical_input_device
     type: AllegroFlare::PhysicalInputDevices::Base*
     init_with: nullptr
@@ -59,6 +65,25 @@ functions:
       return (mapping.count(physical_input_button_id) > 0);
 
 
+  - name: physical_input_device_is_keyboard
+    type: bool
+    body: |
+      // TODO: add a test for this
+      return physical_input_device && physical_input_device->is_keyboard();
+
+
+  - name: get_mapping
+    type: bool
+    parameters:
+      - name: physical_input_button_id
+        type: uint32_t
+        default_argument: 0
+    guards: [ mapping_exists_on_physical_device_button(physical_input_button_id) ]
+    body: |
+      // TODO: Add optional throw on guard or ignore
+      return mapping[physical_input_button_id];
+
+
   - name: mapping_exists_on_virtual_controller_button
     type: bool
     parameters:
@@ -72,6 +97,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
   - symbol: AllegroFlare::PhysicalInputDevices::Base
     headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::Base

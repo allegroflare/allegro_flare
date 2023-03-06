@@ -17,7 +17,7 @@ namespace AllegroFlare
       PhysicalInputDeviceToVirtualControllerMappingFactory();
       ~PhysicalInputDeviceToVirtualControllerMappingFactory();
 
-      AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping create_single_player_keyboard_mapping();
+      AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping create_single_player_keyboard_mapping_from_scratch();
    };
 }
 

@@ -48,6 +48,12 @@ bool VirtualControlsProcessor::get_initialized() const
 }
 
 
+std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> &VirtualControlsProcessor::get_physical_input_device_to_virtual_control_mappings_ref()
+{
+   return physical_input_device_to_virtual_control_mappings;
+}
+
+
 void VirtualControlsProcessor::initialize()
 {
    if (!((!initialized)))
@@ -355,15 +361,41 @@ int VirtualControlsProcessor::get_joystick_mapped_virtual_button(int native_butt
    return 0;
 }
 
-std::pair<int, int> VirtualControlsProcessor::get_keyboard_mapped_player_num_and_virtual_button(int native_key_num)
+std::pair<int, int> VirtualControlsProcessor::get_keyboard_mapped_player_num_and_virtual_button(int al_keyboard_keycode)
 {
-   bool map_value_exists = keyboard_button_map.find(native_key_num) != keyboard_button_map.end();
-   if (!map_value_exists) return { -1, -1 };
+   // TODO: Do a better job of grabbing and passing back AllegroFlare::Player from mapping
 
-   std::pair<int, int> virtual_player_num_and_virtual_button = keyboard_button_map[native_key_num];
-   //int virtual_button = keyboard_button_map[native_key_num].second;
+   bool player_num_found = false; // TODO: likey this "player_num_found" will be removed.
+   bool player_found = false;
+   bool virtual_button_found = false;
 
-   return virtual_player_num_and_virtual_button;
+   AllegroFlare::Player *player = nullptr;
+   int player_num = 0; // TODO: Resolve player num (Actually, need to update the signature of these functions
+                       // so they take an AllegroFlare::Player* and not a "player num")
+   int virtual_button_num = -1; // TODO: have virtual button num *also* pass along the device
+
+   for (auto &physical_input_device_to_virtual_control_mapping : physical_input_device_to_virtual_control_mappings)
+   {
+      // This mapping should only be looked up if it is a keyboard, continue on if this mapping is not to the
+      // physical keyboard
+      if (!physical_input_device_to_virtual_control_mapping.physical_input_device_is_keyboard()) continue;
+
+      // If there is no mapping for this keyboard key, continue to the next one.
+      if (!physical_input_device_to_virtual_control_mapping
+            .mapping_exists_on_physical_device_button(al_keyboard_keycode)
+      ) continue;
+
+      virtual_button_num = physical_input_device_to_virtual_control_mapping.get_mapping(al_keyboard_keycode);
+      AllegroFlare::Player *player = physical_input_device_to_virtual_control_mapping.get_player();
+
+      player_num_found = true; // TODO: Do a better job of grabbing AllegroFlare::Player from mapping
+      player_found = true; // TODO: Do a better job of grabbing AllegroFlare::Player from mapping
+      virtual_button_found = true;
+   }
+
+   if (player_num_found && player_found && virtual_button_found) return { player_num, virtual_button_num };
+
+   return { -1, -1 };
 }
 
 void VirtualControlsProcessor::emit_virtual_controls_button_up_event(int player_num, int virtual_button_num, bool is_repeat)

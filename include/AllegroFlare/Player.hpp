@@ -10,20 +10,20 @@ namespace AllegroFlare
    class Player
    {
    private:
-      uint32_t id;
       std::string name;
+      uint32_t id;
 
    protected:
 
 
    public:
-      Player(uint32_t id=0, std::string name="Player");
+      Player(std::string name="Player", uint32_t id=0);
       ~Player();
 
-      void set_id(uint32_t id);
       void set_name(std::string name);
-      uint32_t get_id() const;
+      void set_id(uint32_t id);
       std::string get_name() const;
+      uint32_t get_id() const;
    };
 }
 
