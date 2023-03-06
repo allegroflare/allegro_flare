@@ -36,24 +36,3 @@ TEST(AllegroFlare_EventEmitterTest,
 }
 
 
-TEST(AllegroFlare_EventEmitterTest,
-   emit_virtual_controls_button_down_event__will_push_a_WICKED_EVENT_VIRTUAL_BUTTON_DOWN_event_with_the_expected_params)
-{
-   // TODO
-}
-
-
-TEST(AllegroFlare_EventEmitterTest,
-   emit_virtual_controls_axis_change_event__will_push_a_WICKED_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE_event_with_the_expected_params)
-{
-   // TODO
-}
-
-
-TEST(AllegroFlare_EventEmitterTest,
-   emit_game_event__will_push_a_ALLEGRO_FLARE_EVENT_GAME_EVENT_event_with_the_expected_params)
-{
-   // TODO
-}
-
-

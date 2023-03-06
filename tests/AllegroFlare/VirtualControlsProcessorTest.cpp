@@ -5,6 +5,8 @@
 
 #include <AllegroFlare/VirtualControlsProcessor.hpp>
 
+#include <AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp>
+#include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
 #include <AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.hpp> // TODO: Remove this as dependency
 #include <AllegroFlare/VirtualControllers/GenericController.hpp> // TODO: Remove this as dependency
 #include <AllegroFlare/VirtualController.hpp>
@@ -318,7 +320,32 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, actual_emitted_event.user.type);
-   EXPECT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+
+   // Extract our event_data at data1
+   void *data1 = (void*)actual_emitted_event.user.data1;
+   ASSERT_NE(nullptr, data1);
+   AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData
+      *data_as_virtual_controller_button_pressed_event_data =
+        static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData*>(data1);
+
+   // Verify the event_data is of the expected type
+   ASSERT_EQ(
+      AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData::TYPE,
+      data_as_virtual_controller_button_pressed_event_data->get_type()
+   );
+
+   // Test our event_data
+   EXPECT_EQ(
+      expected_mapped_button,
+      data_as_virtual_controller_button_pressed_event_data->get_virtual_controller_button_num()
+   );
+
+   // TODO: test additional data passed in through the event data
+
+   // Cleanup
+   delete data_as_virtual_controller_button_pressed_event_data;
+
+   // TODO: add proper cleanup for remaining items (items created by factory)
 
    // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
    // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test
@@ -352,11 +379,8 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    raw_event.type = ALLEGRO_EVENT_KEY_UP;
    raw_event.keyboard.keycode = ALLEGRO_KEY_SPACE;
 
-   // DEBUG:
-
    virtual_control_processor.handle_raw_keyboard_key_up_event(&raw_event);
 
-   //int expected_mapped_button = AllegroFlare::VirtualController::BUTTON_A;
    int expected_mapped_button = AllegroFlare::VirtualControllers::GenericController::BUTTON_A;
 
    ALLEGRO_EVENT actual_emitted_event;
@@ -364,7 +388,30 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
 
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.type);
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, actual_emitted_event.user.type);
-   EXPECT_EQ(expected_mapped_button, actual_emitted_event.user.data2);
+
+   // Extract our event_data at data1
+   void *data1 = (void*)actual_emitted_event.user.data1;
+   ASSERT_NE(nullptr, data1);
+   AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData
+      *data_as_virtual_controller_button_pressed_event_data =
+        static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData*>(data1);
+
+   // Verify the event_data is of the expected type
+   ASSERT_EQ(
+      AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData::TYPE,
+      data_as_virtual_controller_button_pressed_event_data->get_type()
+   );
+
+   // Test our event_data
+   EXPECT_EQ(
+      expected_mapped_button,
+      data_as_virtual_controller_button_pressed_event_data->get_virtual_controller_button_num()
+   );
+
+   // TODO: test additional data passed in through the event data
+
+   // Cleanup
+   delete data_as_virtual_controller_button_pressed_event_data;
 
    // NOTE: not sure why this unregister line below is needed, but it seems that the deletion of one of the event 
    // emitting objects is not scheduled correctly, causing a crash (seems to only be happening during this test

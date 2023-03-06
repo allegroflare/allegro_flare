@@ -10,7 +10,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"GameEventDatas/Base"'
+    init_with: '(char*)"AllegroFlare/GameEventDatas/Base"'
     static: true
     constexpr: true
 
