@@ -7,11 +7,6 @@ properties:
     constructor_arg: true
     setter: true
 
-  - name: keyboard_button_map
-    type: std::map<uint32_t, std::pair<int, int>>
-    init_with: ''
-    getter: true
-
   - name: physical_input_devices
     type: std::map<AllegroFlare::PhysicalInputDevices::Base*, int>
     init_with: '{}'
@@ -41,7 +36,6 @@ functions:
   - name: initialize
     guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
     body: |
-      keyboard_button_map = build_sensible_keyboard_button_map();
       setup_configuration_of_connected_joystick_devices();
       initialized = true;
       return;
@@ -73,31 +67,6 @@ functions:
     body: |
       // TODO: implement this function
       return 0;
-
-
-  - name: build_sensible_keyboard_button_map
-    type: std::map<uint32_t, std::pair<int, int>>
-    body: |
-      static int PLAYER_0 = 0;
-             // { keyboard_key, { player_num, virtual_button } }
-      std::map<uint32_t, std::pair<int, int>> result_button_map = {
-        { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_START } },
-        { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-        { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-        { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_B } },
-        { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_X } },
-        { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_Y } },
-        { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualController::BUTTON_UP } },
-        { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_DOWN } },
-        { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT } },
-        { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT } },
-        { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER } },
-        { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER } },
-      };
-      return result_button_map;
-    body_dependency_symbols:
-      - AllegroFlare::VirtualController
-      - ALLEGRO_KEY_
 
 
   - name: find_player_num_from_al_joystick

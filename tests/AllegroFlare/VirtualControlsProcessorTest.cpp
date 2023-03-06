@@ -42,10 +42,11 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest, initialized__has_the_expected_
 }
 
 
-TEST_F(AllegroFlare_VirtualControlsProcessorTest, keyboard_button_map__is_empty_before_initialization)
+TEST_F(AllegroFlare_VirtualControlsProcessorTest, 
+   physical_input_device_to_virtual_control_mappings__is_empty_before_initialization)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   EXPECT_EQ(true, virtual_control_processor.get_keyboard_button_map().empty());
+   EXPECT_EQ(true, virtual_control_processor.get_physical_input_device_to_virtual_control_mappings_ref().empty());
 }
 
 

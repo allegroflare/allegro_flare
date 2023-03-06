@@ -5,7 +5,6 @@
 #include <AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp>
 #include <AllegroFlare/PhysicalInputDevices/Base.hpp>
 #include <allegro5/allegro.h>
-#include <cstdint>
 #include <map>
 #include <utility>
 #include <vector>
@@ -17,7 +16,6 @@ namespace AllegroFlare
    {
    private:
       AllegroFlare::EventEmitter* event_emitter;
-      std::map<uint32_t, std::pair<int, int>> keyboard_button_map;
       std::map<AllegroFlare::PhysicalInputDevices::Base*, int> physical_input_devices;
       std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> physical_input_device_to_virtual_control_mappings;
       bool initialized;
@@ -33,13 +31,11 @@ namespace AllegroFlare
       ~VirtualControlsProcessor();
 
       void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
-      std::map<uint32_t, std::pair<int, int>> get_keyboard_button_map() const;
       bool get_initialized() const;
       std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> &get_physical_input_device_to_virtual_control_mappings_ref();
       void initialize();
       int infer_num_physical_input_devices();
       int infer_num_physical_input_devices_connected();
-      std::map<uint32_t, std::pair<int, int>> build_sensible_keyboard_button_map();
       int find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr);
       void handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event=nullptr);
       void handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* event=nullptr);

@@ -4,8 +4,6 @@
 
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Logger.hpp>
-#include <AllegroFlare/VirtualController.hpp>
-#include <allegro5/allegro.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -17,7 +15,6 @@ namespace AllegroFlare
 
 VirtualControlsProcessor::VirtualControlsProcessor(AllegroFlare::EventEmitter* event_emitter)
    : event_emitter(event_emitter)
-   , keyboard_button_map()
    , physical_input_devices({})
    , physical_input_device_to_virtual_control_mappings({})
    , initialized(false)
@@ -33,12 +30,6 @@ VirtualControlsProcessor::~VirtualControlsProcessor()
 void VirtualControlsProcessor::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
-}
-
-
-std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::get_keyboard_button_map() const
-{
-   return keyboard_button_map;
 }
 
 
@@ -77,7 +68,6 @@ void VirtualControlsProcessor::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_joystick_installed()\" not met");
    }
-   keyboard_button_map = build_sensible_keyboard_button_map();
    setup_configuration_of_connected_joystick_devices();
    initialized = true;
    return;
@@ -118,27 +108,6 @@ int VirtualControlsProcessor::infer_num_physical_input_devices_connected()
    }
    // TODO: implement this function
    return 0;
-}
-
-std::map<uint32_t, std::pair<int, int>> VirtualControlsProcessor::build_sensible_keyboard_button_map()
-{
-   static int PLAYER_0 = 0;
-          // { keyboard_key, { player_num, virtual_button } }
-   std::map<uint32_t, std::pair<int, int>> result_button_map = {
-     { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_START } },
-     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-     { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-     { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_B } },
-     { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_X } },
-     { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_Y } },
-     { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualController::BUTTON_UP } },
-     { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_DOWN } },
-     { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT } },
-     { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT } },
-     { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER } },
-     { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER } },
-   };
-   return result_button_map;
 }
 
 int VirtualControlsProcessor::find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
