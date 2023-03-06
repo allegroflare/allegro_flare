@@ -474,12 +474,19 @@ functions:
 
   - name: build_heading_label
     type: std::string
-    guards: [ physical_input_device ]
     body: |
       std::stringstream ss;
-      ss << "Player " << (player_num+1) << " ";
-      ss << "Input Configuration ";
-      ss << "(Using " << physical_input_device->get_name() << ")";
+      if (!physical_input_device)
+      {
+         ss << "Input Configuration (no input devices connected)";
+         // TODO: add case/conditional for when the input device is disconnected
+      }
+      else
+      {
+         ss << "Player " << (player_num+1) << " ";
+         ss << "Input Configuration ";
+         ss << "(Using " << physical_input_device->get_name() << ")";
+      }
       return ss.str();
     body_dependency_symbols:
       - std::stringstream

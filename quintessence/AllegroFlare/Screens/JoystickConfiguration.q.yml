@@ -113,6 +113,7 @@ functions:
       - font_bin
     body: |
       joystick_configuration_element.initialize();
+
       initialized = true;
       return;
     body_dependency_symbols:

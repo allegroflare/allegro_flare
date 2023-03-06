@@ -155,6 +155,7 @@ void JoystickConfiguration::initialize()
       throw std::runtime_error("JoystickConfiguration::initialize: error: guard \"font_bin\" not met");
    }
    joystick_configuration_element.initialize();
+
    initialized = true;
    return;
 }

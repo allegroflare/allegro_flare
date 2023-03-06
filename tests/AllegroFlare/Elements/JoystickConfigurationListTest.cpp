@@ -103,6 +103,9 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
 TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFixture,
    CAPTURE__render__when_no_joystick_configuration_mapping_elements_are_present__will_show_an_empty_state)
 {
+   // NOTE: When in empty state:
+   //  - Will render text in the center of the screen with a empty state message
+   //  - Will not render the cursor
    AllegroFlare::PhysicalInputDevices::Joysticks::Base generic_joystick_physical_input_device;
    AllegroFlare::Elements::JoystickConfigurationList achievements(&get_font_bin_ref());
    achievements.set_physical_input_device(&generic_joystick_physical_input_device);
@@ -176,7 +179,7 @@ TEST_F(AllegroFlare_Elements_JoystickConfigurationListTestWithAllegroRenderingFi
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
-   // initialize test subject
+   // initialize test subject (add a joystick configuration mapping)
    AllegroFlare::PhysicalInputDevices::Joysticks::Base generic_joystick_physical_input_device;
    AllegroFlare::Elements::JoystickConfigurationList achievements_list(&get_font_bin_ref());
    achievements_list.set_joystick_configuration_mapping(
