@@ -3,7 +3,7 @@
 
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/PhysicalInputDevice/Base.hpp>
+#include <AllegroFlare/PhysicalInputDevices/Base.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -30,7 +30,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          int player_num;
-         AllegroFlare::PhysicalInputDevice::Base* physical_input_device;
+         AllegroFlare::PhysicalInputDevices::Base* physical_input_device;
          std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping;
          float list_item_box_width;
          float list_item_box_height;
@@ -77,7 +77,7 @@ namespace AllegroFlare
 
 
       public:
-         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, int player_num=0, AllegroFlare::PhysicalInputDevice::Base* physical_input_device=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=740.0f, float list_item_box_height=80.0f);
+         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, int player_num=0, AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=740.0f, float list_item_box_height=80.0f);
          ~JoystickConfigurationList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -88,7 +88,7 @@ namespace AllegroFlare
          void set_surface_height(int surface_height);
          void set_box_gutter_y(float box_gutter_y);
          int get_player_num() const;
-         AllegroFlare::PhysicalInputDevice::Base* get_physical_input_device() const;
+         AllegroFlare::PhysicalInputDevices::Base* get_physical_input_device() const;
          std::vector<std::tuple<std::string, uint32_t>> get_joystick_configuration_mapping() const;
          float get_list_item_box_width() const;
          float get_list_item_box_height() const;
@@ -103,7 +103,7 @@ namespace AllegroFlare
          void update();
          void render();
          void set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={});
-         void set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device=nullptr);
+         void set_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr);
          bool move_cursor_up();
          bool move_cursor_down();
          bool submit_mapping_on_currently_selected_option(uint32_t button_num=0);

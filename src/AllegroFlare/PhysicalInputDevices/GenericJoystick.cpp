@@ -1,18 +1,18 @@
 
 
-#include <AllegroFlare/PhysicalInputDevice/GenericJoystick.hpp>
+#include <AllegroFlare/PhysicalInputDevices/GenericJoystick.hpp>
 
 
 
 
 namespace AllegroFlare
 {
-namespace PhysicalInputDevice
+namespace PhysicalInputDevices
 {
 
 
 GenericJoystick::GenericJoystick()
-   : AllegroFlare::PhysicalInputDevice::Base(AllegroFlare::PhysicalInputDevice::GenericJoystick::TYPE, "Generic Joystick")
+   : AllegroFlare::PhysicalInputDevices::Base(AllegroFlare::PhysicalInputDevices::GenericJoystick::TYPE, "Generic Joystick")
    , al_joystick(nullptr)
 {
 }
@@ -41,7 +41,7 @@ bool GenericJoystick::is_keyboard()
 }
 
 
-} // namespace PhysicalInputDevice
+} // namespace PhysicalInputDevices
 } // namespace AllegroFlare
 
 

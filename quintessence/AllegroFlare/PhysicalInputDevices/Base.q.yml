@@ -3,7 +3,7 @@ properties:
 
   - name: type
     type: std::string
-    init_with: AllegroFlare::PhysicalInputDevice::Base::TYPE
+    init_with: AllegroFlare::PhysicalInputDevices::Base::TYPE
     constructor_arg: true
     getter: true
 

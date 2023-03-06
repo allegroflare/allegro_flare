@@ -1081,10 +1081,10 @@
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/Elements/JoystickConfigurationList"
   ],
-  "AllegroFlare/PhysicalInputDevice/Base": [
+  "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/PhysicalInputDevice/GenericJoystick",
-    "AllegroFlare/PhysicalInputDevice/Keyboard",
+    "AllegroFlare/PhysicalInputDevices/GenericJoystick",
+    "AllegroFlare/PhysicalInputDevices/Keyboard",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
@@ -1515,7 +1515,7 @@
     "AllegroFlare/Notifications"
   ],
   "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/PhysicalInputDevice/GenericJoystick",
+    "AllegroFlare/PhysicalInputDevices/GenericJoystick",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Vec3D": [
@@ -2266,7 +2266,7 @@
   "ALLEGRO_KEY_": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
-  "AllegroFlare/PhysicalInputDevice/GenericJoystick": [
+  "AllegroFlare/PhysicalInputDevices/GenericJoystick": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

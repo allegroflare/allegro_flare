@@ -18,7 +18,7 @@ namespace Elements
 {
 
 
-JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, int player_num, AllegroFlare::PhysicalInputDevice::Base* physical_input_device, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
+JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, int player_num, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
    : font_bin(font_bin)
    , player_num(player_num)
    , physical_input_device(physical_input_device)
@@ -95,7 +95,7 @@ int JoystickConfigurationList::get_player_num() const
 }
 
 
-AllegroFlare::PhysicalInputDevice::Base* JoystickConfigurationList::get_physical_input_device() const
+AllegroFlare::PhysicalInputDevices::Base* JoystickConfigurationList::get_physical_input_device() const
 {
    return physical_input_device;
 }
@@ -228,7 +228,7 @@ void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<s
    return;
 }
 
-void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device)
+void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device)
 {
    this->physical_input_device = physical_input_device;
    cursor_pos = 0;

@@ -1,13 +1,13 @@
 
 
-#include <AllegroFlare/PhysicalInputDevice/Base.hpp>
+#include <AllegroFlare/PhysicalInputDevices/Base.hpp>
 
 
 
 
 namespace AllegroFlare
 {
-namespace PhysicalInputDevice
+namespace PhysicalInputDevices
 {
 
 
@@ -51,7 +51,7 @@ bool Base::is_type(std::string possible_type)
 }
 
 
-} // namespace PhysicalInputDevice
+} // namespace PhysicalInputDevices
 } // namespace AllegroFlare
 
 

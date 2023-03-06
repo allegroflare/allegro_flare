@@ -15,7 +15,7 @@ properties:
     setter: true
 
   - name: physical_input_device
-    type: AllegroFlare::PhysicalInputDevice::Base*
+    type: AllegroFlare::PhysicalInputDevices::Base*
     constructor_arg: true
     init_with: nullptr
     getter: true
@@ -210,7 +210,7 @@ functions:
   - name: set_physical_input_device
     parameters:
       - name: physical_input_device
-        type: AllegroFlare::PhysicalInputDevice::Base*
+        type: AllegroFlare::PhysicalInputDevices::Base*
         default_argument: nullptr
     body: |
       this->physical_input_device = physical_input_device;
@@ -956,8 +956,8 @@ dependencies:
     headers: [ algorithm ]
   - symbol: std::max
     headers: [ algorithm ]
-  - symbol: AllegroFlare::PhysicalInputDevice::Base
-    headers: [ AllegroFlare/PhysicalInputDevice/Base.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
 
 
 

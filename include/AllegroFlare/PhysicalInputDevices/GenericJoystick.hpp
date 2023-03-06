@@ -1,18 +1,18 @@
 #pragma once
 
 
-#include <AllegroFlare/PhysicalInputDevice/Base.hpp>
+#include <AllegroFlare/PhysicalInputDevices/Base.hpp>
 #include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
 {
-   namespace PhysicalInputDevice
+   namespace PhysicalInputDevices
    {
-      class GenericJoystick : public AllegroFlare::PhysicalInputDevice::Base
+      class GenericJoystick : public AllegroFlare::PhysicalInputDevices::Base
       {
       public:
-         static constexpr char* TYPE = (char*)"AllegroFlare/PhysicalInputDevice/GenericJoystick";
+         static constexpr char* TYPE = (char*)"AllegroFlare/PhysicalInputDevices/GenericJoystick";
 
       private:
          ALLEGRO_JOYSTICK* al_joystick;
