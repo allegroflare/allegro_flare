@@ -201,21 +201,26 @@ functions:
     virtual: true
     override: true
     parameters:
-      - name: player_num
-        type: int
-        default_argument: 0
-      - name: button_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
         type: int
         default_argument: 0
       - name: is_repeat
         type: bool
-        default_argument: 'false'
+        default_argument: false
     body: |
-      if (button_num == VirtualController::BUTTON_UP) move_scrollbar_position_up();
-      if (button_num == VirtualController::BUTTON_DOWN) move_scrollbar_position_down();
+      if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP)
+         move_scrollbar_position_up();
+      if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN)
+         move_scrollbar_position_down();
       else event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
     body_dependency_symbols:
-      - AllegroFlare::VirtualController
+      - AllegroFlare::VirtualControllers::GenericController
 
 
   - name: render
@@ -278,22 +283,16 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Achievements*
-    headers: [ AllegroFlare/Achievements.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Elements::AchievementsList
     headers: [ AllegroFlare/Elements/AchievementsList.hpp ]
   - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
     headers: [ vector, tuple, string ]
-  - symbol: AllegroFlare::Screens::Base
-    headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::VirtualController
     headers: [ AllegroFlare/VirtualController.hpp ]
   - symbol: std::min, std::max
     headers: [ algorithm ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
 
   - symbol: AllegroFlare::Achievements
     headers: [ AllegroFlare/Achievements.hpp ]
@@ -301,4 +300,11 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+
 

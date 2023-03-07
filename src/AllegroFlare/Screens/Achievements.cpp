@@ -3,7 +3,7 @@
 #include <AllegroFlare/Screens/Achievements.hpp>
 
 #include <AllegroFlare/Elements/AchievementsList.hpp>
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -257,10 +257,12 @@ void Achievements::move_scrollbar_position_down()
    return;
 }
 
-void Achievements::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+void Achievements::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
-   if (button_num == VirtualController::BUTTON_UP) move_scrollbar_position_up();
-   if (button_num == VirtualController::BUTTON_DOWN) move_scrollbar_position_down();
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP)
+      move_scrollbar_position_up();
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN)
+      move_scrollbar_position_down();
    else event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
 }
 

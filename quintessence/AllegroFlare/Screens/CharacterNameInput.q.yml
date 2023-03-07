@@ -143,49 +143,54 @@ functions:
     virtual: true
     override: true
     parameters:
-      - name: player_num
-        type: int
-        default_argument: 0
-      - name: button_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
         type: int
         default_argument: 0
       - name: is_repeat
         type: bool
-        default_argument: 'false'
+        default_argument: false
     guards: [ initialized ]
     body: |
       if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
 
-      switch(button_num)
+      // TODO: validate VirtualControllers::GenericController type
+
+      switch(virtual_controller_button_num)
       {
-         case AllegroFlare::VirtualController::BUTTON_UP:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
             software_keyboard.move_cursor_up();
          break;
 
-         case AllegroFlare::VirtualController::BUTTON_DOWN:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
             software_keyboard.move_cursor_down();
          break;
 
-         case AllegroFlare::VirtualController::BUTTON_LEFT:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
             software_keyboard.decrement_cursor_pos();
          break;
 
-         case AllegroFlare::VirtualController::BUTTON_RIGHT:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
             software_keyboard.increment_cursor_pos();
          break;
 
-         case AllegroFlare::VirtualController::BUTTON_A:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_A:
             software_keyboard.press_key_under_cursor();
          break;
 
-         case AllegroFlare::VirtualController::BUTTON_X:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_X:
             software_keyboard.press_key_by_name("BACKSPACE");
          break;
       }
 
       return;
     body_dependency_symbols:
-      - "AllegroFlare:::VirtualControls::"
+      - AllegroFlare::VirtualControllers::GenericController
 
 
   - name: key_char_func
@@ -261,7 +266,11 @@ dependencies:
     headers: [ AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp ]
   - symbol: ALLEGRO_EVENT
     headers: [ allegro5/allegro.h ]
-  - symbol: "AllegroFlare:::VirtualControls::"
-    headers: [ AllegroFlare/VirtualController.hpp ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
 
 

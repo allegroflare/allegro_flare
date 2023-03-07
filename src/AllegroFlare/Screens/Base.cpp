@@ -65,8 +65,18 @@ void Base::joy_config_func(ALLEGRO_EVENT *ev) {}
 void Base::user_event_func(ALLEGRO_EVENT *ev) {}
 void Base::event_emitter_event_func(ALLEGRO_EVENT *ev) {}
 void Base::game_event_func(AllegroFlare::GameEvent *game_event) {}
-void Base::virtual_control_button_up_func(int player_num, int button_num, bool repeat) {}
-void Base::virtual_control_button_down_func(int player_num, int button_num, bool repeat) {}
+void Base::virtual_control_button_up_func(
+      AllegroFlare::Player* player,
+      AllegroFlare::VirtualControllers::Base* virtual_controller,
+      int virtual_controller_button_num,
+      bool is_repeat
+) {}
+void Base::virtual_control_button_down_func(
+      AllegroFlare::Player* player,
+      AllegroFlare::VirtualControllers::Base* virtual_controller,
+      int virtual_controller_button_num,
+      bool is_repeat
+) {}
 void Base::virtual_control_axis_change_func(ALLEGRO_EVENT *ev) {};
 void Base::native_menu_click_func() {}
 

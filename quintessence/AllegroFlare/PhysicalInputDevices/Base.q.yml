@@ -1,0 +1,49 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::PhysicalInputDevices::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: name
+    type: std::string
+    init_with: '"Unknown Input Device"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"PhysicalInputDevice/Base"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: is_keyboard
+    virtual: true
+    type: bool
+    body: |
+      return false;
+
+
+  - name: is_joystick
+    virtual: true
+    type: bool
+    body: |
+      return false;
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+

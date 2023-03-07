@@ -1,0 +1,57 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameEventDatas::Base
+    scope: public
+    init_with: AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData::TYPE
+
+
+documentation:
+
+
+  - todos:
+      - consider adding "is_repeat"
+
+
+properties:
+
+
+  - name: player
+    type: AllegroFlare::Player*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: virtual_controller
+    type: AllegroFlare::VirtualControllers::Base*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: virtual_controller_button_num
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+
+

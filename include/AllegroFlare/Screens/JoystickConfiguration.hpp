@@ -5,7 +5,9 @@
 #include <AllegroFlare/Elements/JoystickConfigurationList.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <cstddef>
 
@@ -49,8 +51,8 @@ namespace AllegroFlare
          void update();
          void render();
          virtual void primary_timer_func() override;
-         virtual void virtual_control_button_up_func(int player_num=0, int button_num=0, bool repeat=false) override;
-         virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool repeat=false) override;
+         virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
+         virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr) override;
       };
    }

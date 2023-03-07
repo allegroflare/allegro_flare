@@ -25,6 +25,8 @@
 #include <AllegroFlare/NotificationsFactory.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/ProfilerRenderer.hpp>
+#include <AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp>
+#include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
 
 
 
@@ -1130,22 +1132,52 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP: {
-                     int player_num = this_event.user.data1;
-                     int button_num = this_event.user.data2;
-                     bool is_repeat = this_event.user.data3;
-                      //screens.virtual_control_button_up_funcs(&this_event);
-                     screens.virtual_control_button_up_funcs(player_num, button_num, is_repeat);
+                     AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData *event_data =
+                        static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData*>(
+                           (void*)this_event.user.data1
+                        );
+
+                     AllegroFlare::Player *player = event_data->get_player();
+                     AllegroFlare::VirtualControllers::Base *virtual_controller =
+                        event_data->get_virtual_controller();
+                     int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
+                     bool is_repeat = false;
+
+                     // TODO: Update this method. Currently the signature is:
+                     // screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
+                     screens.virtual_control_button_down_funcs(
+                        player,
+                        virtual_controller,
+                        virtual_controller_button_num,
+                        is_repeat
+                     );
+
+                     delete event_data;
                   } break;
 
-                  case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN:
-                     {
-                        int player_num = this_event.user.data1;
-                        int button_num = this_event.user.data2;
-                        bool is_repeat = this_event.user.data3;
-                        //screens.virtual_control_button_down_funcs(&this_event);
-                        screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
-                     }
-                  break;
+                  case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN: {
+                     AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData *event_data =
+                        static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData*>(
+                           (void*)this_event.user.data1
+                        );
+
+                     AllegroFlare::Player *player = event_data->get_player();
+                     AllegroFlare::VirtualControllers::Base *virtual_controller =
+                        event_data->get_virtual_controller();
+                     int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
+                     bool is_repeat = false;
+
+                     // TODO: Update this method. Currently the signature is:
+                     // screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
+                     screens.virtual_control_button_down_funcs(
+                        player,
+                        virtual_controller,
+                        virtual_controller_button_num,
+                        is_repeat
+                      );
+
+                     delete event_data;
+                  } break;
 
                   case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
                     // TODO: extract more relevant data and inject into this function

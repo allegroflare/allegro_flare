@@ -6,6 +6,7 @@
 #include <AllegroFlare/CameraControlStrategies2D/Base.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
@@ -14,6 +15,7 @@
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <map>
 #include <string>
@@ -103,8 +105,8 @@ namespace AllegroFlare
             virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
             virtual void key_up_func(ALLEGRO_EVENT* event=nullptr) override;
             virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
-            virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
-            virtual void virtual_control_button_up_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
+            virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
+            virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
             virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr) override;
             virtual void user_event_func(ALLEGRO_EVENT* event=nullptr) override;
             void render_collision_tile_mesh();

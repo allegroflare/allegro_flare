@@ -219,32 +219,6 @@ void EventEmitter::emit_stop_all_music_tracks_event()
    return;
 }
 
-void EventEmitter::emit_virtual_controls_button_up_event(int virtual_button_num)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[EventEmitter::emit_virtual_controls_button_up_event]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_virtual_controls_button_up_event: error: guard \"initialized\" not met");
-   }
-   emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, virtual_button_num);
-   return;
-}
-
-void EventEmitter::emit_virtual_controls_button_down_event(int virtual_button_num)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[EventEmitter::emit_virtual_controls_button_down_event]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_virtual_controls_button_down_event: error: guard \"initialized\" not met");
-   }
-   emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, virtual_button_num);
-   return;
-}
-
 void EventEmitter::emit_game_event(AllegroFlare::GameEvent game_event)
 {
    if (!(initialized))
@@ -256,20 +230,6 @@ void EventEmitter::emit_game_event(AllegroFlare::GameEvent game_event)
    }
    AllegroFlare::GameEvent *game_event_copy = new AllegroFlare::GameEvent(game_event);
    emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, (intptr_t)game_event_copy);
-   return;
-}
-
-void EventEmitter::emit_virtual_controls_axis_change_event(int stick, int axis, float position)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[EventEmitter::emit_virtual_controls_axis_change_event]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_virtual_controls_axis_change_event: error: guard \"initialized\" not met");
-   }
-   // TODO: not implemented (not tested!)
-   emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));
    return;
 }
 

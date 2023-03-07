@@ -19,7 +19,7 @@ class AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture :
 #include <AllegroFlare/Screens/GameWonScreen.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 
 
 TEST_F(AllegroFlare_Screens_GameWonScreenTest, can_be_created_without_blowing_up)
@@ -105,10 +105,14 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
          case ALLEGRO_EVENT_KEY_CHAR:
          {
             int button_num = 0;
-            if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualController::BUTTON_UP;
-            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualController::BUTTON_DOWN;
-            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::BUTTON_A;
-            if (button_num != 0) game_over_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
+            if (event.keyboard.keycode == ALLEGRO_KEY_UP)
+               button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_UP;
+            if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
+               button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN;
+            if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+               button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_A;
+            if (button_num != 0)
+               game_over_screen.virtual_control_button_down_func(nullptr, nullptr, button_num, event.keyboard.repeat);
          }
          break;
 

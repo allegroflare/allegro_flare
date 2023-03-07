@@ -18,7 +18,7 @@ namespace Elements
 {
 
 
-JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, int player_num, AllegroFlare::PhysicalInputDevice::Base* physical_input_device, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
+JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, int player_num, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
    : font_bin(font_bin)
    , player_num(player_num)
    , physical_input_device(physical_input_device)
@@ -95,7 +95,7 @@ int JoystickConfigurationList::get_player_num() const
 }
 
 
-AllegroFlare::PhysicalInputDevice::Base* JoystickConfigurationList::get_physical_input_device() const
+AllegroFlare::PhysicalInputDevices::Base* JoystickConfigurationList::get_physical_input_device() const
 {
    return physical_input_device;
 }
@@ -228,7 +228,7 @@ void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<s
    return;
 }
 
-void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevice::Base* physical_input_device)
+void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device)
 {
    this->physical_input_device = physical_input_device;
    cursor_pos = 0;
@@ -466,17 +466,18 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_t
 
 std::string JoystickConfigurationList::build_heading_label()
 {
-   if (!(physical_input_device))
-   {
-      std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::build_heading_label]: error: guard \"physical_input_device\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::build_heading_label: error: guard \"physical_input_device\" not met");
-   }
    std::stringstream ss;
-   ss << "Player " << (player_num+1) << " ";
-   ss << "Input Configuration ";
-   ss << "(Using " << physical_input_device->get_name() << ")";
+   if (!physical_input_device)
+   {
+      ss << "Input Configuration (no input devices connected)";
+      // TODO: add case/conditional for when the input device is disconnected
+   }
+   else
+   {
+      ss << "Player " << (player_num+1) << " ";
+      ss << "Input Configuration ";
+      ss << "(Using " << physical_input_device->get_name() << ")";
+   }
    return ss.str();
 }
 

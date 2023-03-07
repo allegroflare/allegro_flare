@@ -113,6 +113,7 @@ functions:
       - font_bin
     body: |
       joystick_configuration_element.initialize();
+
       initialized = true;
       return;
     body_dependency_symbols:
@@ -164,13 +165,16 @@ functions:
     virtual: true
     override: true
     parameters:
-      - name: player_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
         type: int
         default_argument: 0
-      - name: button_num
-        type: int
-        default_argument: 0
-      - name: repeat
+      - name: is_repeat
         type: bool
         default_argument: false
     guards: [ initialized ]
@@ -183,31 +187,34 @@ functions:
     virtual: true
     override: true
     parameters:
-      - name: player_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
         type: int
         default_argument: 0
-      - name: button_num
-        type: int
-        default_argument: 0
-      - name: repeat
+      - name: is_repeat
         type: bool
         default_argument: false
     guards: [ initialized ]
     body: |
       // TODO: Have this function account for state of the joystick_configuration_element
-      switch(button_num)
+      switch(virtual_controller_button_num)
       {
-         case AllegroFlare::VirtualController::BUTTON_UP:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
             joystick_configuration_element.move_cursor_up();
          break;
 
-         case AllegroFlare::VirtualController::BUTTON_DOWN:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
             joystick_configuration_element.move_cursor_down();
          break;
       }
       return;
     body_dependency_symbols:
-      - AllegroFlare::VirtualController
+      - AllegroFlare::VirtualControllers::GenericController
 
 
   - name: virtual_control_axis_change_func
@@ -244,7 +251,11 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Elements::JoystickConfigurationList
     headers: [ AllegroFlare/Elements/JoystickConfigurationList.hpp ]
-  - symbol: AllegroFlare::VirtualController
-    headers: [ AllegroFlare/VirtualController.hpp ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
 
 

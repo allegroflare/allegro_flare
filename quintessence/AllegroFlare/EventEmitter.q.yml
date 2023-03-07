@@ -235,28 +235,6 @@ functions:
       - ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS
 
 
-  - name: emit_virtual_controls_button_up_event
-    parameters:
-      - name: virtual_button_num
-        type: int
-        default_argument: 0
-    guards: [ initialized ]
-    body: |
-      emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP, virtual_button_num);
-      return;
- 
-
-  - name: emit_virtual_controls_button_down_event
-    parameters:
-      - name: virtual_button_num
-        type: int
-        default_argument: 0
-    guards: [ initialized ]
-    body: |
-      emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN, virtual_button_num);
-      return;
- 
-
   - name: emit_game_event
     parameters:
       - name: game_event
@@ -266,24 +244,6 @@ functions:
     body: |
       AllegroFlare::GameEvent *game_event_copy = new AllegroFlare::GameEvent(game_event);
       emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, (intptr_t)game_event_copy);
-      return;
-
-
-  - name: emit_virtual_controls_axis_change_event
-    parameters:
-      - name: stick
-        type: int
-        default_argument: 0
-      - name: axis
-        type: int
-        default_argument: 0
-      - name: position
-        type: float
-        default_argument: 0.0f
-    guards: [ initialized ]
-    body: |
-      // TODO: not implemented (not tested!)
-      emit_event(ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE, stick, axis, (int)(position * 255));
       return;
 
 

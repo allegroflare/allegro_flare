@@ -260,7 +260,6 @@
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
@@ -497,7 +496,8 @@
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/VirtualControllers/GenericController"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -741,7 +741,6 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -1081,10 +1080,12 @@
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/Elements/JoystickConfigurationList"
   ],
-  "AllegroFlare/PhysicalInputDevice/Base": [
+  "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/PhysicalInputDevice/GenericJoystick",
-    "AllegroFlare/PhysicalInputDevice/Keyboard"
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/PhysicalInputDevices/Keyboard",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -1244,6 +1245,9 @@
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog",
@@ -1309,6 +1313,43 @@
   ],
   "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
     "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/Player": [
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControllers/GenericController",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
@@ -1512,6 +1553,35 @@
   ],
   "std/copy_if": [
     "AllegroFlare/Notifications"
+  ],
+  "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Keyboard": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
+  ],
+  "AllegroFlare/VirtualControllers/GenericController": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "WickedDemos/TileDemo"
+  ],
+  "ALLEGRO_KEY_": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_JOYSTICK": [
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Vec3D": [
     "AllegroFlare/Physics/AABB3D",
@@ -1979,9 +2049,6 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
-    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
@@ -2078,17 +2145,13 @@
   "std/unordered_set": [
     "AllegroFlare/SceneGraph/EntityPool"
   ],
-  "AllegroFlare/Achievements": [
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/Achievements"
-  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
-  "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
-    "AllegroFlare/Screens/CharacterNameInput"
+  "AllegroFlare/Achievements": [
+    "AllegroFlare/Screens/Achievements"
   ],
-  "AllegroFlare/:VirtualControls/": [
+  "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
@@ -2258,10 +2321,16 @@
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
-  "ALLEGRO_JOYSTICK": [
+  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
-  "ALLEGRO_KEY_": [
+  "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

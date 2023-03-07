@@ -6,7 +6,7 @@
 
 namespace AllegroFlare
 {
-   namespace PhysicalInputDevice
+   namespace PhysicalInputDevices
    {
       class Base
       {
@@ -21,11 +21,13 @@ namespace AllegroFlare
 
 
       public:
-         Base(std::string type=AllegroFlare::PhysicalInputDevice::Base::TYPE, std::string name="Unknown Input Device");
-         ~Base();
+         Base(std::string type=AllegroFlare::PhysicalInputDevices::Base::TYPE, std::string name="Unknown Input Device");
+         virtual ~Base();
 
          std::string get_type() const;
          std::string get_name() const;
+         virtual bool is_keyboard();
+         virtual bool is_joystick();
          bool is_type(std::string possible_type="");
       };
    }

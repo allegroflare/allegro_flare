@@ -3,7 +3,9 @@
 
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
 
@@ -36,7 +38,7 @@ namespace AllegroFlare
          void render();
          void draw_primary_text();
          void draw_instruction_text();
-         virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
+         virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
       };
    }
 }

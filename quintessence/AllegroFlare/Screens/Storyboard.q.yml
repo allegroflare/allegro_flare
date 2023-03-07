@@ -109,29 +109,34 @@ functions:
     virtual: true
     override: true
     parameters:
-      - name: player_num
-        type: int
-        default_argument: 0
-      - name: button_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
         type: int
         default_argument: 0
       - name: is_repeat
         type: bool
-        default_argument: 'false'
+        default_argument: false
     guards: [ initialized, event_emitter ]
     body: |
       if (storyboard_element.get_finished()) return;
 
-      if (button_num == AllegroFlare::VirtualController::BUTTON_A
-        || button_num == AllegroFlare::VirtualController::BUTTON_START
-        || button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
+      // TODO: validate controller type
+
+      if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_A
+        || virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_MENU
+        || virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
       {
          advance();
       }
 
       return;
     body_dependency_symbols:
-      - AllegroFlare::VirtualController
+      - AllegroFlare::VirtualControllers::GenericController
 
 
 dependencies:
@@ -153,5 +158,11 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
 
 

@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"Player"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: id
+    type: uint32_t
+    constructor_arg: true
+    init_with: 0
+    getter: true
+    setter: true
+
+

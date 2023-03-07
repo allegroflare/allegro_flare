@@ -4,6 +4,8 @@
 #include <allegro5/allegro.h>
 #include <string>
 #include <vector>
+#include <AllegroFlare/Player.hpp>
+#include <AllegroFlare/VirtualControllers/Base.hpp>
 
 
 namespace AllegroFlare
@@ -49,8 +51,18 @@ namespace AllegroFlare
          void joy_config_funcs(ALLEGRO_EVENT *ev);
          void user_event_funcs(ALLEGRO_EVENT *ev);
          void event_emitter_event_funcs(ALLEGRO_EVENT *ev);
-         void virtual_control_button_up_funcs(int player_num, int button_num, bool is_repeat=false);
-         void virtual_control_button_down_funcs(int player_num, int button_num, bool is_repeat=false);
+         void virtual_control_button_up_funcs(
+            AllegroFlare::Player* player,
+            AllegroFlare::VirtualControllers::Base* virtual_controller,
+            int virtual_controller_button_num,
+            bool is_repeat=false
+         );
+         void virtual_control_button_down_funcs(
+            AllegroFlare::Player* player,
+            AllegroFlare::VirtualControllers::Base* virtual_controller,
+            int virtual_controller_button_num,
+            bool is_repeat=false
+         );
          void virtual_control_axis_change_funcs(ALLEGRO_EVENT *ev);
          void native_menu_click_funcs();
       };

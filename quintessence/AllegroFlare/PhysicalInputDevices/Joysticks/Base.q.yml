@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::PhysicalInputDevices::Base
+    scope: public
+    init_with: 'AllegroFlare::PhysicalInputDevices::Joysticks::Base::TYPE, "Generic Joystick"'
+
+
+properties:
+
+
+  - name: al_joystick
+    type: ALLEGRO_JOYSTICK*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/PhysicalInputDevices/Joysticks/Base"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: is_keyboard
+    type: bool
+    virtual: true
+    override: true
+    body: |
+      return true;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::PhysicalInputDevices::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
+  - symbol: ALLEGRO_JOYSTICK
+    headers: [ allegro5/allegro.h ]
+
+

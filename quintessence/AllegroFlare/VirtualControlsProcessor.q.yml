@@ -7,19 +7,14 @@ properties:
     constructor_arg: true
     setter: true
 
-  - name: keyboard_button_map
-    type: std::map<uint32_t, std::pair<int, int>>
-    init_with: ''
-    getter: true
-
-  - name: joystick_button_map
-    type: std::map<int, int>
-    init_with: ''
-    getter: true
-
-  - name: joystick_devices
-    type: std::map<ALLEGRO_JOYSTICK*, int>
+  - name: physical_input_devices
+    type: std::map<AllegroFlare::PhysicalInputDevices::Base*, int>
     init_with: '{}'
+
+  - name: physical_input_device_to_virtual_control_mappings
+    type: std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping>
+    init_with: '{}'
+    getter_ref: true
 
   - name: initialized
     type: bool
@@ -41,8 +36,6 @@ functions:
   - name: initialize
     guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
     body: |
-      keyboard_button_map = build_sensible_keyboard_button_map();
-      joystick_button_map = build_sensible_joystick_button_map();
       setup_configuration_of_connected_joystick_devices();
       initialized = true;
       return;
@@ -51,64 +44,29 @@ functions:
   - name: setup_configuration_of_connected_joystick_devices
     private: true
     body: |
-      // NOTE: There may need to be a "migration path to reconfiguration" for existing devices that may get lost
-      // during reconfiguration.
       al_reconfigure_joysticks();
-      joystick_devices.clear();
+      //joystick_devices.clear();
       for (int i=0; i<al_get_num_joysticks(); i++)
       {
-         joystick_devices[al_get_joystick(i)] = i;
+         // 
+         //joystick_devices[al_get_joystick(i)] = i;
       }
       return;
 
 
-  - name: infer_num_joystick_devices_connected
+  - name: infer_num_physical_input_devices
     type: int
     guards: [ initialized ]
     body: |
-      return joystick_devices.size();
+      return physical_input_devices.size();
 
 
-  - name: build_sensible_joystick_button_map
-    type: std::map<int, int>
+  - name: infer_num_physical_input_devices_connected
+    type: int
+    guards: [ initialized ]
     body: |
-      std::map<int, int> result_button_map = {
-        { 1, AllegroFlare::VirtualController::BUTTON_A }, // for x-box controller, but buttons named like SNES layout
-        { 0, AllegroFlare::VirtualController::BUTTON_B },
-        { 4, AllegroFlare::VirtualController::BUTTON_X },
-        { 3, AllegroFlare::VirtualController::BUTTON_Y },
-
-        { 6, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER },
-        { 7, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER },
-
-        { 11, AllegroFlare::VirtualController::BUTTON_START },
-      };
-      return result_button_map;
-
-
-  - name: build_sensible_keyboard_button_map
-    type: std::map<uint32_t, std::pair<int, int>>
-    body: |
-      static int PLAYER_0 = 0;
-             // { keyboard_key, { player_num, virtual_button } }
-      std::map<uint32_t, std::pair<int, int>> result_button_map = {
-        { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_START } },
-        { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-        { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-        { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_B } },
-        { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_X } },
-        { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_Y } },
-        { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualController::BUTTON_UP } },
-        { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_DOWN } },
-        { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT } },
-        { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT } },
-        { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER } },
-        { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER } },
-      };
-      return result_button_map;
-    body_dependency_symbols:
-      - AllegroFlare::VirtualController
-      - ALLEGRO_KEY_
+      // TODO: implement this function
+      return 0;
 
 
   - name: find_player_num_from_al_joystick
@@ -118,9 +76,14 @@ functions:
         type: ALLEGRO_JOYSTICK*
         default_argument: nullptr
     body: |
-      // returns -1 when the joystick is not found
-      if (joystick_devices.count(al_joystick) == 0) return -1;
-      return joystick_devices[al_joystick];
+      throw std::runtime_error("VirtualControlsProcessor::find_player_num_from_al_joystick");
+      // TODO: implement this function
+      for (auto &physical_input_device : physical_input_devices)
+      {
+         // TODO: This logic
+         //if (physical_input_device->is_joystick()) {}
+      }
+      return 0;
 
 
   - name: handle_raw_keyboard_key_down_event
@@ -130,15 +93,17 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      std::pair<int, int> player_num_and_virtual_button =
-         get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
-      if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
-         // ^^ TODO: this behavior should be a little better; Maybe "has_mapping" first
+      AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping *mapping =
+         get_keyboard_mapped_physical_input_device_to_virtual_controller_mapping(event->keyboard.keycode);
 
-      int player_num = player_num_and_virtual_button.first;
-      int virtual_button = player_num_and_virtual_button.second;
+      if (!mapping) return;
 
-      emit_virtual_controls_button_down_event(player_num, virtual_button);
+      emit_virtual_controls_button_down_event(
+         mapping->get_player(),
+         mapping->get_virtual_controller(),
+         mapping->get_mapping(event->keyboard.keycode),
+         event->keyboard.repeat // NOTE: this will not fire unless the event is a "ALLEGRO_EVENT_KEY_CHAR" event
+      );
       return;
     body_dependency_symbols:
       - std::cout
@@ -151,15 +116,17 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      std::pair<int, int> player_num_and_virtual_button =
-         get_keyboard_mapped_player_num_and_virtual_button(event->keyboard.keycode);
-      if (player_num_and_virtual_button == std::pair<int, int>{-1, -1}) return;
-         // ^^ TODO: this behavior should be a little better; Maybe "has_mapping" first
+      AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping *mapping =
+         get_keyboard_mapped_physical_input_device_to_virtual_controller_mapping(event->keyboard.keycode);
 
-      int player_num = player_num_and_virtual_button.first;
-      int virtual_button = player_num_and_virtual_button.second;
-   
-      emit_virtual_controls_button_up_event(player_num, virtual_button);
+      if (!mapping) return;
+
+      emit_virtual_controls_button_up_event(
+         mapping->get_player(),
+         mapping->get_virtual_controller(),
+         mapping->get_mapping(event->keyboard.keycode),
+         event->keyboard.repeat // NOTE: this will not fire unless the event is a "ALLEGRO_EVENT_KEY_CHAR" event
+      );
       return;
     body_dependency_symbols:
       - std::cout
@@ -176,7 +143,10 @@ functions:
       int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
       if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
 
-      emit_virtual_controls_button_down_event(player_num, virtual_button);
+      // TODO: Remove this throw
+      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: not implemented");
+      // TODO: Update this call:
+      //emit_virtual_controls_button_down_event(player_num, virtual_button);
       return;
     body_dependency_symbols:
       - std::cout
@@ -189,11 +159,19 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int player_num = find_player_num_from_al_joystick(event->joystick.id);
-      int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
-      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+      // TODO: Remove this throw
+      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
+      // TODO: Implement this function
 
-      emit_virtual_controls_button_up_event(player_num, virtual_button);
+      AllegroFlare::Player *player = nullptr; // TODO: find player, old technique is:
+      //int player_num = find_player_num_from_al_joystick(event->joystick.id);
+      AllegroFlare::VirtualControllers::Base *virtual_controller = nullptr; // TODO: find player, old technique is:
+      int virtual_controller_button_num = 0; // TODO: find this button
+
+      //int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
+      //if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+
+      emit_virtual_controls_button_up_event(player, virtual_controller, virtual_controller_button_num);
       return;
     body_dependency_symbols:
       - std::cout
@@ -206,13 +184,17 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int player_num = find_player_num_from_al_joystick(event->joystick.id);
-      emit_virtual_controls_axis_change_event(
-         player_num,
-         event->joystick.stick,
-         event->joystick.axis,
-         event->joystick.pos
-      );
+      // TODO: Remove this throw
+      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
+      // TODO: Implement this function
+
+      AllegroFlare::Player *player = nullptr; // TODO: find player, old technique is:
+      //emit_virtual_controls_axis_change_event(
+         //player,
+         //event->joystick.stick,
+         //event->joystick.axis,
+         //event->joystick.pos
+      //);
       return;
     body_dependency_symbols:
       - std::cout
@@ -246,35 +228,52 @@ functions:
         type: int
         default_argument: -1
     body: |
-      bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
-      if (!map_value_exists) return -1;
-      int virtual_button = joystick_button_map[native_button_num];
-      return virtual_button;
+      throw std::runtime_error("VirtualControlsProcessor::get_joystick_mapped_virtual_button: not implemented");
+      //bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
+      //if (!map_value_exists) return -1;
+      //int virtual_button = joystick_button_map[native_button_num];
+      //return virtual_button;
+      return 0;
 
 
-  - name: get_keyboard_mapped_player_num_and_virtual_button
-    type: std::pair<int, int>
+  - name: get_keyboard_mapped_physical_input_device_to_virtual_controller_mapping
+    type: AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping*
     private: true
     parameters:
-      - name: native_key_num
+      - name: al_keyboard_keycode
         type: int
         default_argument: -1
     body: |
-      bool map_value_exists = keyboard_button_map.find(native_key_num) != keyboard_button_map.end();
-      if (!map_value_exists) return { -1, -1 };
+      AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping *mapping = nullptr;
 
-      std::pair<int, int> virtual_player_num_and_virtual_button = keyboard_button_map[native_key_num];
-      //int virtual_button = keyboard_button_map[native_key_num].second;
+      for (auto &physical_input_device_to_virtual_control_mapping : physical_input_device_to_virtual_control_mappings)
+      {
+         // This mapping should only be looked up if it is a keyboard, continue on if this mapping is not to the
+         // physical keyboard
+         if (!physical_input_device_to_virtual_control_mapping.physical_input_device_is_keyboard()) continue;
 
-      return virtual_player_num_and_virtual_button;
+         // If there is no mapping for this keyboard key, continue to the next one.
+         if (!physical_input_device_to_virtual_control_mapping
+               .mapping_exists_on_physical_device_button(al_keyboard_keycode)
+         ) continue;
+
+         // We found a mapping for that keyboard
+         mapping = &physical_input_device_to_virtual_control_mapping;
+         break;
+      }
+
+      return mapping;
 
 
   - name: emit_virtual_controls_button_up_event
     parameters:
-      - name: player_num
-        type: int
-        default_argument: 0
-      - name: virtual_button_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
         type: int
         default_argument: 0
       - name: is_repeat
@@ -282,24 +281,33 @@ functions:
         default_argument: false
     guards: [ initialized, event_emitter ]
     body: |
-      // TODO: consider using non-global event names for these types, or a better design for this scope
+      AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData *event_data = new
+         AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData();
+
+      event_data->set_player(player);
+      event_data->set_virtual_controller(virtual_controller);
+      event_data->set_virtual_controller_button_num(virtual_controller_button_num);
+      // TODO: Consider adding "is_repeat"
+
       event_emitter->emit_event(
          ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP,
-         player_num,
-         virtual_button_num,
-         is_repeat
+         (intptr_t)event_data
       );
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
+      - AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData
  
 
   - name: emit_virtual_controls_button_down_event
     parameters:
-      - name: player_num
-        type: int
-        default_argument: 0
-      - name: virtual_button_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
         type: int
         default_argument: 0
       - name: is_repeat
@@ -307,45 +315,65 @@ functions:
         default_argument: false
     guards: [ initialized, event_emitter ]
     body: |
-      // TODO: consider using non-global event names for these types, or a better design for this scope
+      AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData *event_data = new
+         AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData();
+
+      event_data->set_player(player);
+      event_data->set_virtual_controller(virtual_controller);
+      event_data->set_virtual_controller_button_num(virtual_controller_button_num);
+      // TODO: Consider adding "is_repeat"
+
       event_emitter->emit_event(
          ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN,
-         player_num,
-         virtual_button_num,
-         is_repeat
+         (intptr_t)event_data
       );
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
+      - AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData
  
 
   - name: emit_virtual_controls_axis_change_event
     parameters:
-      - name: player_num
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_stick
         type: int
         default_argument: 0
-      - name: stick
+      - name: virtual_controller_axis
         type: int
         default_argument: 0
-      - name: axis
-        type: int
-        default_argument: 0
-      - name: position
+      - name: virtual_controller_position
         type: float
         default_argument: 0.0f
     guards: [ initialized, event_emitter ]
     body: |
       // TODO: consider using non-global event names for these types, or a better design for this scope
+      AllegroFlare::GameEventDatas::VirtualControllerAxisChangeEventData *event_data = new
+         AllegroFlare::GameEventDatas::VirtualControllerAxisChangeEventData();
+
+      event_data->set_player(player);
+      event_data->set_virtual_controller(virtual_controller);
+      event_data->set_virtual_controller_stick(virtual_controller_stick);
+      event_data->set_virtual_controller_axis(virtual_controller_axis);
+      event_data->set_virtual_controller_position(virtual_controller_position);
+
       event_emitter->emit_event(
          ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE,
-         player_num,
-         stick,
-         axis,
-         (int)(position * 255)
+         (intptr_t)event_data
+         //player_num,
+         //stick,
+         //axis,
+         //(int)(position * 255)
       );
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
+      - AllegroFlare::GameEventDatas::VirtualControllerAxisChangeEventData
 
 
 dependencies:
@@ -369,5 +397,21 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::VirtualController
     headers: [ AllegroFlare/VirtualController.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Joysticks::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping
+    headers: [ AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::VirtualControllerAxisChangeEventData
+    headers: [ AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData
+    headers: [ AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData
+    headers: [ AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp ]
 
 

@@ -3,19 +3,19 @@ properties:
 
   - name: type
     type: std::string
-    init_with: AllegroFlare::PhysicalInputDevice::Base::TYPE
+    init_with: AllegroFlare::VirtualControllers::Base::TYPE
     constructor_arg: true
     getter: true
 
   - name: name
     type: std::string
-    init_with: '"Unknown Input Device"'
+    init_with: '"Virtual Controller"'
     constructor_arg: true
     getter: true
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"PhysicalInputDevice/Base"'
+    init_with: '(char*)"VirtualControllers/Base"'
     static: true
     constexpr: true
 
