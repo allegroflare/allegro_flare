@@ -3595,7 +3595,7 @@ table td
 </tr>
 <tr>
   <td class="property">input_devices</td>
-  <td class="property">std::vector&lt;std::tuple&lt;AllegroFlare::PhysicalInputDevices::Base*, std::string, std::string, std::string&gt;&gt;</td>
+  <td class="property">std::vector&lt;std::tuple&lt;AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">input_devices_box_width</td>
@@ -3645,7 +3645,10 @@ table td
   <td class="method">build_placeholder_input_devices()</td>
 </tr>
 <tr>
-  <td class="private_method">count_num_input_devices_completed()</td>
+  <td class="private_method">count_num_input_devices_connected()</td>
+</tr>
+<tr>
+  <td class="private_method">count_num_input_devices_disconnected()</td>
 </tr>
 <tr>
   <td class="private_method">draw_header_title_backfill()</td>
@@ -3675,19 +3678,19 @@ table td
   <td class="private_method">draw_input_devices_list_items_and_scrollbar()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_achievement_box(float x=0.0f, float y=0.0f, AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr, std::string status=&quot;[unset-status]&quot;, std::string title=&quot;[unset-title]&quot;, std::string description=&quot;[unset-description]&quot;)</td>
+  <td class="private_method">draw_input_device_box(float x=0.0f, float y=0.0f, AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr, uint32_t connection_status=CONNECTION_STATUS_UNDEFINED, std::string title=&quot;[unset-title]&quot;, std::string device_id=&quot;[unset-device_id]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">infer_icon_character_for_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr)</td>
 </tr>
 <tr>
-  <td class="private_method">infer_icon_color_by_status(std::string status=&quot;[unset-status]&quot;, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+  <td class="private_method">infer_icon_color_by_connection_status(uint32_t connection_status=CONNECTION_STATUS_UNDEFINED, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
 </tr>
 <tr>
-  <td class="private_method">filter_item_title_through_status(std::string title=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
+  <td class="private_method">filter_item_title_through_connection_status(std::string title=&quot;[unset-title]&quot;, uint32_t connection_status=CONNECTION_STATUS_UNDEFINED)</td>
 </tr>
 <tr>
-  <td class="private_method">filter_item_description_through_status(std::string description=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
+  <td class="private_method">build_item_description(std::string device_id=&quot;&quot;, uint32_t connection_status=CONNECTION_STATUS_UNDEFINED)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_title_font()</td>
@@ -3716,9 +3719,6 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -3741,6 +3741,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Keyboard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Keyboard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Joysticks::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;connection_status_t&quot;, &quot;headers&quot;=&gt;[]}</td>
 </tr>
     </table>
   </div>
@@ -8292,7 +8301,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">is_keyboard()</td>
+  <td class="method">is_joystick()</td>
 </tr>
     </table>
      <table>
@@ -21491,7 +21500,6 @@ table td
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/Scrollbar": [
@@ -21913,6 +21921,17 @@ table td
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/PhysicalInputDevices/Keyboard",
     "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Keyboard": [
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "connection_status_t": [
+    "AllegroFlare/Elements/InputDevicesList"
   ],
   "X": [
     "AllegroFlare/Elements/Inventory",
@@ -22417,9 +22436,6 @@ table td
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
     "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "AllegroFlare/PhysicalInputDevices/Keyboard": [
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
   ],
   "AllegroFlare/VirtualControllers/GenericController": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
@@ -23180,9 +23196,6 @@ table td
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
-  ],
-  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData": [
     "AllegroFlare/VirtualControlsProcessor"

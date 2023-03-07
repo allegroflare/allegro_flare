@@ -643,7 +643,6 @@
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/Scrollbar": [
@@ -1065,6 +1064,17 @@
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/PhysicalInputDevices/Keyboard",
     "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Keyboard": [
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "connection_status_t": [
+    "AllegroFlare/Elements/InputDevicesList"
   ],
   "X": [
     "AllegroFlare/Elements/Inventory",
@@ -1569,9 +1579,6 @@
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
     "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "AllegroFlare/PhysicalInputDevices/Keyboard": [
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
   ],
   "AllegroFlare/VirtualControllers/GenericController": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
@@ -2332,9 +2339,6 @@
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
-  ],
-  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData": [
     "AllegroFlare/VirtualControlsProcessor"
