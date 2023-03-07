@@ -407,7 +407,7 @@ functions:
       float description_font_line_height = al_get_font_line_height(description_font);
       float icon_font_line_height = al_get_font_line_height(icon_font);
       float icon_container_box_size = input_devices_box_height - box_padding_x*2;
-      float text_y_offset = 2;
+      float text_y_offset = 10;
       float icon_container_box_text_x_padding = 30;
       float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
 
