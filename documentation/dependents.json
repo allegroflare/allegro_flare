@@ -204,9 +204,9 @@
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
@@ -306,9 +306,9 @@
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -411,8 +411,8 @@
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Storyboard",
@@ -485,7 +485,7 @@
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -564,8 +564,8 @@
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -615,7 +615,7 @@
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -624,7 +624,7 @@
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/Text",
@@ -641,13 +641,13 @@
   ],
   "AllegroFlare/Elements/Scrollbar": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/JoystickConfigurationList"
+    "AllegroFlare/Elements/InputDeviceConfigurationList"
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -657,7 +657,7 @@
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -667,7 +667,7 @@
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image"
@@ -1044,6 +1044,16 @@
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
+  "AllegroFlare/Elements/SelectionCursorBox": [
+    "AllegroFlare/Elements/InputDeviceConfigurationList"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Base": [
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/PhysicalInputDevices/Keyboard",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "X": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
@@ -1076,16 +1086,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Elements/SelectionCursorBox": [
-    "AllegroFlare/Elements/JoystickConfigurationList"
-  ],
-  "AllegroFlare/PhysicalInputDevices/Base": [
-    "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
-    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
-    "AllegroFlare/PhysicalInputDevices/Keyboard",
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -2157,7 +2157,7 @@
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
-  "AllegroFlare/Elements/JoystickConfigurationList": [
+  "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [

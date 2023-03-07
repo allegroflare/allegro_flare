@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Elements/JoystickConfigurationList.hpp>
+#include <AllegroFlare/Elements/InputDeviceConfigurationList.hpp>
 
 #include <AllegroFlare/Elements/Scrollbar.hpp>
 #include <AllegroFlare/Placement2D.hpp>
@@ -18,7 +18,7 @@ namespace Elements
 {
 
 
-JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font_bin, int player_num, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
+InputDeviceConfigurationList::InputDeviceConfigurationList(AllegroFlare::FontBin* font_bin, int player_num, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping, float list_item_box_width, float list_item_box_height)
    : font_bin(font_bin)
    , player_num(player_num)
    , physical_input_device(physical_input_device)
@@ -42,147 +42,147 @@ JoystickConfigurationList::JoystickConfigurationList(AllegroFlare::FontBin* font
 }
 
 
-JoystickConfigurationList::~JoystickConfigurationList()
+InputDeviceConfigurationList::~InputDeviceConfigurationList()
 {
 }
 
 
-void JoystickConfigurationList::set_font_bin(AllegroFlare::FontBin* font_bin)
+void InputDeviceConfigurationList::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
 }
 
 
-void JoystickConfigurationList::set_player_num(int player_num)
+void InputDeviceConfigurationList::set_player_num(int player_num)
 {
    this->player_num = player_num;
 }
 
 
-void JoystickConfigurationList::set_list_item_box_width(float list_item_box_width)
+void InputDeviceConfigurationList::set_list_item_box_width(float list_item_box_width)
 {
    this->list_item_box_width = list_item_box_width;
 }
 
 
-void JoystickConfigurationList::set_list_item_box_height(float list_item_box_height)
+void InputDeviceConfigurationList::set_list_item_box_height(float list_item_box_height)
 {
    this->list_item_box_height = list_item_box_height;
 }
 
 
-void JoystickConfigurationList::set_surface_width(int surface_width)
+void InputDeviceConfigurationList::set_surface_width(int surface_width)
 {
    this->surface_width = surface_width;
 }
 
 
-void JoystickConfigurationList::set_surface_height(int surface_height)
+void InputDeviceConfigurationList::set_surface_height(int surface_height)
 {
    this->surface_height = surface_height;
 }
 
 
-void JoystickConfigurationList::set_box_gutter_y(float box_gutter_y)
+void InputDeviceConfigurationList::set_box_gutter_y(float box_gutter_y)
 {
    this->box_gutter_y = box_gutter_y;
 }
 
 
-int JoystickConfigurationList::get_player_num() const
+int InputDeviceConfigurationList::get_player_num() const
 {
    return player_num;
 }
 
 
-AllegroFlare::PhysicalInputDevices::Base* JoystickConfigurationList::get_physical_input_device() const
+AllegroFlare::PhysicalInputDevices::Base* InputDeviceConfigurationList::get_physical_input_device() const
 {
    return physical_input_device;
 }
 
 
-std::vector<std::tuple<std::string, uint32_t>> JoystickConfigurationList::get_joystick_configuration_mapping() const
+std::vector<std::tuple<std::string, uint32_t>> InputDeviceConfigurationList::get_joystick_configuration_mapping() const
 {
    return joystick_configuration_mapping;
 }
 
 
-float JoystickConfigurationList::get_list_item_box_width() const
+float InputDeviceConfigurationList::get_list_item_box_width() const
 {
    return list_item_box_width;
 }
 
 
-float JoystickConfigurationList::get_list_item_box_height() const
+float InputDeviceConfigurationList::get_list_item_box_height() const
 {
    return list_item_box_height;
 }
 
 
-int JoystickConfigurationList::get_surface_width() const
+int InputDeviceConfigurationList::get_surface_width() const
 {
    return surface_width;
 }
 
 
-int JoystickConfigurationList::get_surface_height() const
+int InputDeviceConfigurationList::get_surface_height() const
 {
    return surface_height;
 }
 
 
-int JoystickConfigurationList::get_cursor_pos() const
+int InputDeviceConfigurationList::get_cursor_pos() const
 {
    return cursor_pos;
 }
 
 
-float JoystickConfigurationList::get_scrollbar_position() const
+float InputDeviceConfigurationList::get_scrollbar_position() const
 {
    return scrollbar_position;
 }
 
 
-float JoystickConfigurationList::get_scrollbar_position_destination() const
+float InputDeviceConfigurationList::get_scrollbar_position_destination() const
 {
    return scrollbar_position_destination;
 }
 
 
-float JoystickConfigurationList::get_scrollbar_reposition_multiplier() const
+float InputDeviceConfigurationList::get_scrollbar_reposition_multiplier() const
 {
    return scrollbar_reposition_multiplier;
 }
 
 
-float JoystickConfigurationList::get_box_gutter_y() const
+float InputDeviceConfigurationList::get_box_gutter_y() const
 {
    return box_gutter_y;
 }
 
 
-void JoystickConfigurationList::initialize()
+void InputDeviceConfigurationList::initialize()
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[InputDeviceConfigurationList::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::initialize: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[InputDeviceConfigurationList::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[InputDeviceConfigurationList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    selection_cursor_box.set_position(0, 0);
    selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
@@ -191,14 +191,14 @@ void JoystickConfigurationList::initialize()
    return;
 }
 
-void JoystickConfigurationList::update()
+void InputDeviceConfigurationList::update()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::update]: error: guard \"initialized\" not met.";
+      error_message << "[InputDeviceConfigurationList::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::update: error: guard \"initialized\" not met");
    }
    // HERE:
    scrollbar_position = (scrollbar_position_destination - scrollbar_position)
@@ -207,28 +207,28 @@ void JoystickConfigurationList::update()
    return;
 }
 
-void JoystickConfigurationList::render()
+void InputDeviceConfigurationList::render()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::render]: error: guard \"initialized\" not met.";
+      error_message << "[InputDeviceConfigurationList::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::render: error: guard \"initialized\" not met");
    }
    draw_joystick_configuration_mapping_list_items_and_scrollbar();
    draw_joystick_configuration_mapping_list_title_text();
    return;
 }
 
-void JoystickConfigurationList::set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping)
+void InputDeviceConfigurationList::set_joystick_configuration_mapping(std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping)
 {
    this->joystick_configuration_mapping = joystick_configuration_mapping;
    cursor_pos = 0;
    return;
 }
 
-void JoystickConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device)
+void InputDeviceConfigurationList::set_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device)
 {
    this->physical_input_device = physical_input_device;
    cursor_pos = 0;
@@ -236,7 +236,7 @@ void JoystickConfigurationList::set_physical_input_device(AllegroFlare::Physical
    return;
 }
 
-bool JoystickConfigurationList::move_cursor_up()
+bool InputDeviceConfigurationList::move_cursor_up()
 {
    if (joystick_configuration_mapping.empty()) return false;
    if (is_waiting_user_input_for_remap()) return false; // TODO: test this logic
@@ -255,7 +255,7 @@ bool JoystickConfigurationList::move_cursor_up()
    return true;
 }
 
-bool JoystickConfigurationList::move_cursor_down()
+bool InputDeviceConfigurationList::move_cursor_down()
 {
    if (joystick_configuration_mapping.empty()) return false;
    if (is_waiting_user_input_for_remap()) return false; // TODO: test this logic
@@ -274,7 +274,7 @@ bool JoystickConfigurationList::move_cursor_down()
    return cursor_moved;
 }
 
-void JoystickConfigurationList::move_selection_cursor_box_to_current_cursor_location()
+void InputDeviceConfigurationList::move_selection_cursor_box_to_current_cursor_location()
 {
    // TODO: this function
    AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
@@ -291,12 +291,12 @@ void JoystickConfigurationList::move_selection_cursor_box_to_current_cursor_loca
    return;
 }
 
-AllegroFlare::Vec2D JoystickConfigurationList::build_selection_cursor_box_position_of_current_cursor_pos()
+AllegroFlare::Vec2D InputDeviceConfigurationList::build_selection_cursor_box_position_of_current_cursor_pos()
 {
    return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
 }
 
-float JoystickConfigurationList::build_scrollbar_position_at_current_cursor_pos()
+float InputDeviceConfigurationList::build_scrollbar_position_at_current_cursor_pos()
 {
    if (joystick_configuration_mapping.size() <= 1) return 0;
    float normalized_cursor_position = (float)cursor_pos / (joystick_configuration_mapping.size() - 1);
@@ -304,7 +304,7 @@ float JoystickConfigurationList::build_scrollbar_position_at_current_cursor_pos(
    return normalized_cursor_position * container_scroll_range;
 }
 
-bool JoystickConfigurationList::submit_mapping_on_currently_selected_option(uint32_t button_num)
+bool InputDeviceConfigurationList::submit_mapping_on_currently_selected_option(uint32_t button_num)
 {
    if (joystick_configuration_mapping.empty()) return false;
    if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
@@ -316,7 +316,7 @@ bool JoystickConfigurationList::submit_mapping_on_currently_selected_option(uint
    return true;
 }
 
-bool JoystickConfigurationList::select_current_option_for_remapping()
+bool InputDeviceConfigurationList::select_current_option_for_remapping()
 {
    if (joystick_configuration_mapping.empty()) return false;
    if (is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
@@ -326,7 +326,7 @@ bool JoystickConfigurationList::select_current_option_for_remapping()
    return true;
 }
 
-bool JoystickConfigurationList::abort_current_option_for_remapping()
+bool InputDeviceConfigurationList::abort_current_option_for_remapping()
 {
    if (joystick_configuration_mapping.empty()) return true;
    if (!is_state(STATE_AWAITING_USER_INPUT_ON_OPTION)) return false; // TODO: test this condition
@@ -336,58 +336,58 @@ bool JoystickConfigurationList::abort_current_option_for_remapping()
    return true;
 }
 
-void JoystickConfigurationList::move_scrollbar_position(float distance_y)
+void InputDeviceConfigurationList::move_scrollbar_position(float distance_y)
 {
    scrollbar_position += distance_y;
    limit_scrollbar_position();
    return;
 }
 
-void JoystickConfigurationList::set_scrollbar_position(float scrollbar_position)
+void InputDeviceConfigurationList::set_scrollbar_position(float scrollbar_position)
 {
    this->scrollbar_position = scrollbar_position;
    limit_scrollbar_position();
    return;
 }
 
-void JoystickConfigurationList::set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier)
+void InputDeviceConfigurationList::set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier)
 {
    if (!((scrollbar_reposition_multiplier > 0.001)))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met.";
+      error_message << "[InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met");
    }
    if (!((scrollbar_reposition_multiplier <= 1.0)))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met.";
+      error_message << "[InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met");
    }
    // TODO: test this function
    this->scrollbar_reposition_multiplier = scrollbar_reposition_multiplier;
    return;
 }
 
-void JoystickConfigurationList::set_scrollbar_position_to_max()
+void InputDeviceConfigurationList::set_scrollbar_position_to_max()
 {
    this->scrollbar_position = infer_container_scroll_range();
    return;
 }
 
-float JoystickConfigurationList::infer_scrollbar_max_position()
+float InputDeviceConfigurationList::infer_scrollbar_max_position()
 {
    return infer_container_scroll_range();
 }
 
-bool JoystickConfigurationList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
+bool InputDeviceConfigurationList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
 {
    return infer_container_scroll_range() <= 0;
 }
 
-std::vector<std::tuple<std::string, uint32_t>> JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+std::vector<std::tuple<std::string, uint32_t>> InputDeviceConfigurationList::build_placeholder_joystick_configuration_mapping()
 {
    return {
       { "Up", 7 },
@@ -411,7 +411,7 @@ std::vector<std::tuple<std::string, uint32_t>> JoystickConfigurationList::build_
    };
 }
 
-void JoystickConfigurationList::draw_header_title_backfill()
+void InputDeviceConfigurationList::draw_header_title_backfill()
 {
    // draw inputs
    float backfill_opacity = 0.35;
@@ -421,17 +421,17 @@ void JoystickConfigurationList::draw_header_title_backfill()
    return;
 }
 
-int JoystickConfigurationList::count_num_joystick_configuration_mapping()
+int InputDeviceConfigurationList::count_num_joystick_configuration_mapping()
 {
    return joystick_configuration_mapping.size();
 }
 
-bool JoystickConfigurationList::joystick_configuration_mapping_is_empty()
+bool InputDeviceConfigurationList::joystick_configuration_mapping_is_empty()
 {
    return joystick_configuration_mapping.empty();
 }
 
-void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_text()
+void InputDeviceConfigurationList::draw_joystick_configuration_mapping_list_title_text()
 {
    ALLEGRO_FONT *font = obtain_title_font();
    ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
@@ -464,7 +464,7 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_title_t
    return;
 }
 
-std::string JoystickConfigurationList::build_heading_label()
+std::string InputDeviceConfigurationList::build_heading_label()
 {
    std::stringstream ss;
    if (!physical_input_device)
@@ -481,35 +481,35 @@ std::string JoystickConfigurationList::build_heading_label()
    return ss.str();
 }
 
-float JoystickConfigurationList::infer_container_height()
+float InputDeviceConfigurationList::infer_container_height()
 {
    return 800;
    //return (list_item_box_height + box_gutter_y) * 5.5;
 }
 
-float JoystickConfigurationList::infer_container_contents_height()
+float InputDeviceConfigurationList::infer_container_contents_height()
 {
    if (joystick_configuration_mapping.empty()) return 0;
    float y_spacing = list_item_box_height + box_gutter_y;
    return joystick_configuration_mapping.size() * y_spacing - box_gutter_y;
 }
 
-float JoystickConfigurationList::infer_list_item_height()
+float InputDeviceConfigurationList::infer_list_item_height()
 {
    return list_item_box_height;
 }
 
-float JoystickConfigurationList::infer_list_item_spacing_y()
+float InputDeviceConfigurationList::infer_list_item_spacing_y()
 {
    return list_item_box_height + box_gutter_y;
 }
 
-float JoystickConfigurationList::infer_container_scroll_range()
+float InputDeviceConfigurationList::infer_container_scroll_range()
 {
    return infer_container_contents_height() - infer_container_height();
 }
 
-void JoystickConfigurationList::limit_scrollbar_position()
+void InputDeviceConfigurationList::limit_scrollbar_position()
 {
    float container_height = infer_container_height();
    float container_scroll_range = infer_container_scroll_range();
@@ -517,12 +517,12 @@ void JoystickConfigurationList::limit_scrollbar_position()
    return;
 }
 
-bool JoystickConfigurationList::scrollbar_movement_mode_is_follow_proportional()
+bool InputDeviceConfigurationList::scrollbar_movement_mode_is_follow_proportional()
 {
    return scrollbar_movement_mode == SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL;
 }
 
-void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_and_scrollbar()
+void InputDeviceConfigurationList::draw_joystick_configuration_mapping_list_items_and_scrollbar()
 {
    float joystick_configuration_mapping_list_x = surface_width/2;
    float joystick_configuration_mapping_list_y = surface_height/2 + 40;
@@ -624,12 +624,12 @@ void JoystickConfigurationList::draw_joystick_configuration_mapping_list_items_a
    return;
 }
 
-bool JoystickConfigurationList::is_waiting_user_input_for_remap()
+bool InputDeviceConfigurationList::is_waiting_user_input_for_remap()
 {
    return is_state(STATE_AWAITING_USER_INPUT_ON_OPTION);
 }
 
-void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, float y, std::string action_name, std::string mapped_button_name)
+void InputDeviceConfigurationList::draw_joystick_configuration_item_box(float x, float y, std::string action_name, std::string mapped_button_name)
 {
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
@@ -678,7 +678,7 @@ void JoystickConfigurationList::draw_joystick_configuration_item_box(float x, fl
    return;
 }
 
-int32_t JoystickConfigurationList::infer_icon_character_by_status(std::string status)
+int32_t InputDeviceConfigurationList::infer_icon_character_by_status(std::string status)
 {
    if (status == "unlocked") return 0xf091;
    else if (status == "locked") return 0xf023;
@@ -686,7 +686,7 @@ int32_t JoystickConfigurationList::infer_icon_character_by_status(std::string st
    return 0xe1fe;
 }
 
-ALLEGRO_COLOR JoystickConfigurationList::infer_icon_color_by_status(std::string status, ALLEGRO_COLOR icon_locked_color, ALLEGRO_COLOR icon_hidden_color, ALLEGRO_COLOR icon_achieved_color)
+ALLEGRO_COLOR InputDeviceConfigurationList::infer_icon_color_by_status(std::string status, ALLEGRO_COLOR icon_locked_color, ALLEGRO_COLOR icon_hidden_color, ALLEGRO_COLOR icon_achieved_color)
 {
    if (status == "unlocked") return icon_achieved_color;
    else if (status == "locked") return icon_locked_color;
@@ -694,26 +694,26 @@ ALLEGRO_COLOR JoystickConfigurationList::infer_icon_color_by_status(std::string 
    return ALLEGRO_COLOR{1, 0, 0, 1};
 }
 
-std::string JoystickConfigurationList::filter_item_title_through_status(std::string title, std::string status)
+std::string InputDeviceConfigurationList::filter_item_title_through_status(std::string title, std::string status)
 {
    if (status == "hidden") return "Hidden Achievement";
    return title;
 }
 
-std::string JoystickConfigurationList::filter_item_description_through_status(std::string description, std::string status)
+std::string InputDeviceConfigurationList::filter_item_description_through_status(std::string description, std::string status)
 {
    if (status == "hidden") return "";
    return description;
 }
 
-void JoystickConfigurationList::set_state(uint32_t state, bool override_if_busy)
+void InputDeviceConfigurationList::set_state(uint32_t state, bool override_if_busy)
 {
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[InputDeviceConfigurationList::set_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::set_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::set_state: error: guard \"is_valid_state(state)\" not met");
    }
    if (this->state == state) return;
    if (!override_if_busy && state_is_busy) return;
@@ -738,7 +738,7 @@ void JoystickConfigurationList::set_state(uint32_t state, bool override_if_busy)
    return;
 }
 
-bool JoystickConfigurationList::is_valid_state(uint32_t state)
+bool InputDeviceConfigurationList::is_valid_state(uint32_t state)
 {
    std::set<uint32_t> valid_states =
    {
@@ -750,77 +750,77 @@ bool JoystickConfigurationList::is_valid_state(uint32_t state)
    return (valid_states.count(state) > 0);
 }
 
-bool JoystickConfigurationList::is_state(uint32_t possible_state)
+bool InputDeviceConfigurationList::is_state(uint32_t possible_state)
 {
    return (state == possible_state);
 }
 
-float JoystickConfigurationList::infer_current_state_age(float time_now)
+float InputDeviceConfigurationList::infer_current_state_age(float time_now)
 {
    return (time_now - state_changed_at);
 }
 
-ALLEGRO_FONT* JoystickConfigurationList::obtain_title_font()
+ALLEGRO_FONT* InputDeviceConfigurationList::obtain_title_font()
 {
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::obtain_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[InputDeviceConfigurationList::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::obtain_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::obtain_title_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -40");
 }
 
-ALLEGRO_FONT* JoystickConfigurationList::obtain_item_title_font()
+ALLEGRO_FONT* InputDeviceConfigurationList::obtain_item_title_font()
 {
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::obtain_item_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[InputDeviceConfigurationList::obtain_item_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::obtain_item_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::obtain_item_title_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -34");
 }
 
-ALLEGRO_FONT* JoystickConfigurationList::obtain_empty_state_text_font()
+ALLEGRO_FONT* InputDeviceConfigurationList::obtain_empty_state_text_font()
 {
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::obtain_empty_state_text_font]: error: guard \"font_bin\" not met.";
+      error_message << "[InputDeviceConfigurationList::obtain_empty_state_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::obtain_empty_state_text_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::obtain_empty_state_text_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf -34");
 }
 
-ALLEGRO_FONT* JoystickConfigurationList::obtain_item_description_font()
+ALLEGRO_FONT* InputDeviceConfigurationList::obtain_item_description_font()
 {
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::obtain_item_description_font]: error: guard \"font_bin\" not met.";
+      error_message << "[InputDeviceConfigurationList::obtain_item_description_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::obtain_item_description_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::obtain_item_description_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf -26");
 }
 
-ALLEGRO_FONT* JoystickConfigurationList::obtain_icon_font()
+ALLEGRO_FONT* InputDeviceConfigurationList::obtain_icon_font()
 {
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[JoystickConfigurationList::obtain_icon_font]: error: guard \"font_bin\" not met.";
+      error_message << "[InputDeviceConfigurationList::obtain_icon_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("JoystickConfigurationList::obtain_icon_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("InputDeviceConfigurationList::obtain_icon_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("fa-solid-900.ttf -50");
 }
 
-void JoystickConfigurationList::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, int x, int y, uint32_t icon, int flags)
+void InputDeviceConfigurationList::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, int x, int y, uint32_t icon, int flags)
 {
    static ALLEGRO_USTR *ustr = NULL;
    if (!ustr) ustr = al_ustr_new("");

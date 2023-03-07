@@ -57,7 +57,7 @@ std::size_t InputDeviceConfiguration::get_surface_height() const
 }
 
 
-AllegroFlare::Elements::JoystickConfigurationList &InputDeviceConfiguration::get_joystick_configuration_element_ref()
+AllegroFlare::Elements::InputDeviceConfigurationList &InputDeviceConfiguration::get_joystick_configuration_element_ref()
 {
    return joystick_configuration_element;
 }

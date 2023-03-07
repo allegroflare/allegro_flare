@@ -67,7 +67,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 
    // set some default placeholder button mappings for this test
    joystick_configuration_screen.get_joystick_configuration_element_ref().set_joystick_configuration_mapping(
-      AllegroFlare::Elements::JoystickConfigurationList::build_placeholder_joystick_configuration_mapping()
+      AllegroFlare::Elements::InputDeviceConfigurationList::build_placeholder_joystick_configuration_mapping()
    );
 
    // run the interactive test

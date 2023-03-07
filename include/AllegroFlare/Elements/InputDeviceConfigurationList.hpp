@@ -17,7 +17,7 @@ namespace AllegroFlare
 {
    namespace Elements
    {
-      class JoystickConfigurationList
+      class InputDeviceConfigurationList
       {
       public:
          static constexpr uint32_t STATE_UNDEF = 0;
@@ -77,8 +77,8 @@ namespace AllegroFlare
 
 
       public:
-         JoystickConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, int player_num=0, AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=740.0f, float list_item_box_height=80.0f);
-         ~JoystickConfigurationList();
+         InputDeviceConfigurationList(AllegroFlare::FontBin* font_bin=nullptr, int player_num=0, AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr, std::vector<std::tuple<std::string, uint32_t>> joystick_configuration_mapping={}, float list_item_box_width=740.0f, float list_item_box_height=80.0f);
+         ~InputDeviceConfigurationList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_player_num(int player_num);

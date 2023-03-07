@@ -93,8 +93,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml">quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Elements/JoystickConfigurationList.q.yml">quintessence/AllegroFlare/Elements/JoystickConfigurationList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml</a></li>
@@ -3283,6 +3283,309 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml">quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">player_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">physical_input_device</td>
+  <td class="property">AllegroFlare::PhysicalInputDevices::Base*</td>
+</tr>
+<tr>
+  <td class="property">joystick_configuration_mapping</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, uint32_t&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">list_item_box_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">list_item_box_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cursor_pos</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">selection_cursor_box</td>
+  <td class="property">AllegroFlare::Elements::SelectionCursorBox</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_position_destination</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_reposition_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_movement_mode</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">box_gutter_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">STATE_UNDEF</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">STATE_MOVING_CURSOR</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">STATE_AWAITING_USER_INPUT_ON_OPTION</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">SCROLLBAR_MOVEMENT_NONE</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">set_joystick_configuration_mapping(std::vector&lt;std::tuple&lt;std::string, uint32_t&gt;&gt; joystick_configuration_mapping={})</td>
+</tr>
+<tr>
+  <td class="method">set_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="private_method">move_selection_cursor_box_to_current_cursor_location()</td>
+</tr>
+<tr>
+  <td class="private_method">build_selection_cursor_box_position_of_current_cursor_pos()</td>
+</tr>
+<tr>
+  <td class="private_method">build_scrollbar_position_at_current_cursor_pos()</td>
+</tr>
+<tr>
+  <td class="method">submit_mapping_on_currently_selected_option(uint32_t button_num=0)</td>
+</tr>
+<tr>
+  <td class="method">select_current_option_for_remapping()</td>
+</tr>
+<tr>
+  <td class="method">abort_current_option_for_remapping()</td>
+</tr>
+<tr>
+  <td class="method">move_scrollbar_position(float distance_y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">set_scrollbar_position(float scrollbar_position=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier=DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER)</td>
+</tr>
+<tr>
+  <td class="method">set_scrollbar_position_to_max()</td>
+</tr>
+<tr>
+  <td class="method">infer_scrollbar_max_position()</td>
+</tr>
+<tr>
+  <td class="method">scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()</td>
+</tr>
+<tr>
+  <td class="method">build_placeholder_joystick_configuration_mapping()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_header_title_backfill()</td>
+</tr>
+<tr>
+  <td class="private_method">count_num_joystick_configuration_mapping()</td>
+</tr>
+<tr>
+  <td class="private_method">joystick_configuration_mapping_is_empty()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_joystick_configuration_mapping_list_title_text()</td>
+</tr>
+<tr>
+  <td class="method">build_heading_label()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_container_height()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_container_contents_height()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_list_item_height()</td>
+</tr>
+<tr>
+  <td class="method">infer_list_item_spacing_y()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_container_scroll_range()</td>
+</tr>
+<tr>
+  <td class="private_method">limit_scrollbar_position()</td>
+</tr>
+<tr>
+  <td class="method">scrollbar_movement_mode_is_follow_proportional()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_joystick_configuration_mapping_list_items_and_scrollbar()</td>
+</tr>
+<tr>
+  <td class="method">is_waiting_user_input_for_remap()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_joystick_configuration_item_box(float x=0.0f, float y=0.0f, std::string action_name=&quot;[unset-title]&quot;, std::string mapped_button_name=&quot;[unset-description]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">infer_icon_character_by_status(std::string status=&quot;[unset-status]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">infer_icon_color_by_status(std::string status=&quot;[unset-status]&quot;, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="private_method">filter_item_title_through_status(std::string title=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">filter_item_description_through_status(std::string description=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">is_state(uint32_t possible_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_title_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_item_title_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_empty_state_text_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_item_description_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_icon_font()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Scrollbar&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Scrollbar.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</h3>
      <table>
 <tr>
@@ -3623,309 +3926,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
-</tr>
-    </table>
-  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Elements/JoystickConfigurationList.q.yml">quintessence/AllegroFlare/Elements/JoystickConfigurationList.q.yml</h3>
-     <table>
-<tr>
-  <td class="property">font_bin</td>
-  <td class="property">AllegroFlare::FontBin*</td>
-</tr>
-<tr>
-  <td class="property">player_num</td>
-  <td class="property">int</td>
-</tr>
-<tr>
-  <td class="property">physical_input_device</td>
-  <td class="property">AllegroFlare::PhysicalInputDevices::Base*</td>
-</tr>
-<tr>
-  <td class="property">joystick_configuration_mapping</td>
-  <td class="property">std::vector&lt;std::tuple&lt;std::string, uint32_t&gt;&gt;</td>
-</tr>
-<tr>
-  <td class="property">list_item_box_width</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">list_item_box_height</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">surface_width</td>
-  <td class="property">int</td>
-</tr>
-<tr>
-  <td class="property">surface_height</td>
-  <td class="property">int</td>
-</tr>
-<tr>
-  <td class="property">cursor_pos</td>
-  <td class="property">int</td>
-</tr>
-<tr>
-  <td class="property">selection_cursor_box</td>
-  <td class="property">AllegroFlare::Elements::SelectionCursorBox</td>
-</tr>
-<tr>
-  <td class="property">scrollbar_position</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">scrollbar_position_destination</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">scrollbar_reposition_multiplier</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">scrollbar_movement_mode</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
-  <td class="property">box_gutter_y</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">state</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
-  <td class="property">state_is_busy</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
-  <td class="property">state_changed_at</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">initialized</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
-  <td class="property">STATE_UNDEF</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
-  <td class="property">STATE_MOVING_CURSOR</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
-  <td class="property">STATE_AWAITING_USER_INPUT_ON_OPTION</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
-  <td class="property">SCROLLBAR_MOVEMENT_NONE</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
-  <td class="property">SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
-  <td class="property">DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER</td>
-  <td class="property">float</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="method">initialize()</td>
-</tr>
-<tr>
-  <td class="method">update()</td>
-</tr>
-<tr>
-  <td class="method">render()</td>
-</tr>
-<tr>
-  <td class="method">set_joystick_configuration_mapping(std::vector&lt;std::tuple&lt;std::string, uint32_t&gt;&gt; joystick_configuration_mapping={})</td>
-</tr>
-<tr>
-  <td class="method">set_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">move_cursor_up()</td>
-</tr>
-<tr>
-  <td class="method">move_cursor_down()</td>
-</tr>
-<tr>
-  <td class="private_method">move_selection_cursor_box_to_current_cursor_location()</td>
-</tr>
-<tr>
-  <td class="private_method">build_selection_cursor_box_position_of_current_cursor_pos()</td>
-</tr>
-<tr>
-  <td class="private_method">build_scrollbar_position_at_current_cursor_pos()</td>
-</tr>
-<tr>
-  <td class="method">submit_mapping_on_currently_selected_option(uint32_t button_num=0)</td>
-</tr>
-<tr>
-  <td class="method">select_current_option_for_remapping()</td>
-</tr>
-<tr>
-  <td class="method">abort_current_option_for_remapping()</td>
-</tr>
-<tr>
-  <td class="method">move_scrollbar_position(float distance_y=0.0f)</td>
-</tr>
-<tr>
-  <td class="method">set_scrollbar_position(float scrollbar_position=0.0f)</td>
-</tr>
-<tr>
-  <td class="method">set_scrollbar_reposition_multiplier(float scrollbar_reposition_multiplier=DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER)</td>
-</tr>
-<tr>
-  <td class="method">set_scrollbar_position_to_max()</td>
-</tr>
-<tr>
-  <td class="method">infer_scrollbar_max_position()</td>
-</tr>
-<tr>
-  <td class="method">scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()</td>
-</tr>
-<tr>
-  <td class="method">build_placeholder_joystick_configuration_mapping()</td>
-</tr>
-<tr>
-  <td class="private_method">draw_header_title_backfill()</td>
-</tr>
-<tr>
-  <td class="private_method">count_num_joystick_configuration_mapping()</td>
-</tr>
-<tr>
-  <td class="private_method">joystick_configuration_mapping_is_empty()</td>
-</tr>
-<tr>
-  <td class="private_method">draw_joystick_configuration_mapping_list_title_text()</td>
-</tr>
-<tr>
-  <td class="method">build_heading_label()</td>
-</tr>
-<tr>
-  <td class="private_method">infer_container_height()</td>
-</tr>
-<tr>
-  <td class="private_method">infer_container_contents_height()</td>
-</tr>
-<tr>
-  <td class="private_method">infer_list_item_height()</td>
-</tr>
-<tr>
-  <td class="method">infer_list_item_spacing_y()</td>
-</tr>
-<tr>
-  <td class="private_method">infer_container_scroll_range()</td>
-</tr>
-<tr>
-  <td class="private_method">limit_scrollbar_position()</td>
-</tr>
-<tr>
-  <td class="method">scrollbar_movement_mode_is_follow_proportional()</td>
-</tr>
-<tr>
-  <td class="private_method">draw_joystick_configuration_mapping_list_items_and_scrollbar()</td>
-</tr>
-<tr>
-  <td class="method">is_waiting_user_input_for_remap()</td>
-</tr>
-<tr>
-  <td class="private_method">draw_joystick_configuration_item_box(float x=0.0f, float y=0.0f, std::string action_name=&quot;[unset-title]&quot;, std::string mapped_button_name=&quot;[unset-description]&quot;)</td>
-</tr>
-<tr>
-  <td class="private_method">infer_icon_character_by_status(std::string status=&quot;[unset-status]&quot;)</td>
-</tr>
-<tr>
-  <td class="private_method">infer_icon_color_by_status(std::string status=&quot;[unset-status]&quot;, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
-</tr>
-<tr>
-  <td class="private_method">filter_item_title_through_status(std::string title=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
-</tr>
-<tr>
-  <td class="private_method">filter_item_description_through_status(std::string description=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
-</tr>
-<tr>
-  <td class="private_method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
-</tr>
-<tr>
-  <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
-</tr>
-<tr>
-  <td class="method">is_state(uint32_t possible_state=STATE_UNDEF)</td>
-</tr>
-<tr>
-  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_title_font()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_item_title_font()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_empty_state_text_font()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_item_description_font()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_icon_font()</td>
-</tr>
-<tr>
-  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0)</td>
-</tr>
-    </table>
-     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Scrollbar&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Scrollbar.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14679,7 +14679,7 @@ table td
 </tr>
 <tr>
   <td class="property">joystick_configuration_element</td>
-  <td class="property">AllegroFlare::Elements::JoystickConfigurationList</td>
+  <td class="property">AllegroFlare::Elements::InputDeviceConfigurationList</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -14754,7 +14754,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::JoystickConfigurationList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/JoystickConfigurationList.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::InputDeviceConfigurationList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/InputDeviceConfigurationList.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
@@ -20891,9 +20891,9 @@ table td
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
@@ -20993,9 +20993,9 @@ table td
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -21098,8 +21098,8 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Storyboard",
@@ -21172,7 +21172,7 @@ table td
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -21251,8 +21251,8 @@ table td
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/JoystickConfigurationList",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -21302,7 +21302,7 @@ table td
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -21311,7 +21311,7 @@ table td
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/Text",
@@ -21328,13 +21328,13 @@ table td
   ],
   "AllegroFlare/Elements/Scrollbar": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/JoystickConfigurationList"
+    "AllegroFlare/Elements/InputDeviceConfigurationList"
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -21344,7 +21344,7 @@ table td
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -21354,7 +21354,7 @@ table td
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image"
@@ -21731,6 +21731,16 @@ table td
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
+  "AllegroFlare/Elements/SelectionCursorBox": [
+    "AllegroFlare/Elements/InputDeviceConfigurationList"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Base": [
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/PhysicalInputDevices/Keyboard",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "X": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect"
@@ -21763,16 +21773,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Elements/SelectionCursorBox": [
-    "AllegroFlare/Elements/JoystickConfigurationList"
-  ],
-  "AllegroFlare/PhysicalInputDevices/Base": [
-    "AllegroFlare/Elements/JoystickConfigurationList",
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
-    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
-    "AllegroFlare/PhysicalInputDevices/Keyboard",
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
@@ -22844,7 +22844,7 @@ table td
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
-  "AllegroFlare/Elements/JoystickConfigurationList": [
+  "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [

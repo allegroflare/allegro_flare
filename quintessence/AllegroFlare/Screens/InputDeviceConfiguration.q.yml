@@ -42,7 +42,7 @@ properties:
     setter: true
 
   - name: joystick_configuration_element
-    type: AllegroFlare::Elements::JoystickConfigurationList
+    type: AllegroFlare::Elements::InputDeviceConfigurationList
     init_with: ''
     getter_ref: true
 
@@ -249,8 +249,8 @@ dependencies:
     headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
-  - symbol: AllegroFlare::Elements::JoystickConfigurationList
-    headers: [ AllegroFlare/Elements/JoystickConfigurationList.hpp ]
+  - symbol: AllegroFlare::Elements::InputDeviceConfigurationList
+    headers: [ AllegroFlare/Elements/InputDeviceConfigurationList.hpp ]
   - symbol: AllegroFlare::Player
     headers: [ AllegroFlare/Player.hpp ]
   - symbol: AllegroFlare::VirtualControllers::Base
