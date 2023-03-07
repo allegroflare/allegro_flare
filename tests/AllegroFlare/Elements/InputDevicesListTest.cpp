@@ -77,8 +77,8 @@ TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
    CAPTURE__render__will_hide_the_scrollbar_if_the_height_of_items_in_the_list_is_smaller_than_the_container_height)
 {
-   std::vector<std::tuple<std::string, std::string, std::string>> input_devices_elements =
-      AllegroFlare::Elements::InputDevicesList::build_placeholder_input_devices();
+   std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>>
+      input_devices_elements = AllegroFlare::Elements::InputDevicesList::build_placeholder_input_devices();
    input_devices_elements.resize(4);
    AllegroFlare::Elements::InputDevicesList input_devices_list_list(&get_font_bin_ref(), input_devices_elements);
 

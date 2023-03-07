@@ -3595,7 +3595,7 @@ table td
 </tr>
 <tr>
   <td class="property">input_devices</td>
-  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;</td>
+  <td class="property">std::vector&lt;std::tuple&lt;AllegroFlare::PhysicalInputDevices::Base*, std::string, std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">input_devices_box_width</td>
@@ -3675,10 +3675,10 @@ table td
   <td class="private_method">draw_input_devices_list_items_and_scrollbar()</td>
 </tr>
 <tr>
-  <td class="private_method">draw_achievement_box(float x=0.0f, float y=0.0f, std::string status=&quot;[unset-status]&quot;, std::string title=&quot;[unset-title]&quot;, std::string description=&quot;[unset-description]&quot;)</td>
+  <td class="private_method">draw_achievement_box(float x=0.0f, float y=0.0f, AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr, std::string status=&quot;[unset-status]&quot;, std::string title=&quot;[unset-title]&quot;, std::string description=&quot;[unset-description]&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">infer_icon_character_by_status(std::string status=&quot;[unset-status]&quot;)</td>
+  <td class="private_method">infer_icon_character_for_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr)</td>
 </tr>
 <tr>
   <td class="private_method">infer_icon_color_by_status(std::string status=&quot;[unset-status]&quot;, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
@@ -3707,13 +3707,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
@@ -3744,6 +3738,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -21058,7 +21055,6 @@ table td
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
-    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
@@ -21161,7 +21157,6 @@ table td
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
-    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -21913,6 +21908,7 @@ table td
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/PhysicalInputDevices/Keyboard",

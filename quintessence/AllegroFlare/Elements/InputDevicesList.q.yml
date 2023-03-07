@@ -8,7 +8,7 @@ properties:
     setter: true
 
   - name: input_devices
-    type: std::vector<std::tuple<std::string, std::string, std::string>>
+    type: std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -16,14 +16,14 @@ properties:
 
   - name: input_devices_box_width
     type: float
-    init_with: 940.0f
+    init_with: 1140.0f
     constructor_arg: true
     getter: true
     setter: true
 
   - name: input_devices_box_height
     type: float
-    init_with: 130.0f
+    init_with: 160.0f
     constructor_arg: true
     getter: true
     setter: true
@@ -52,6 +52,19 @@ properties:
     init_with: 10.0f
     getter: true
     setter: true
+
+
+
+enums:
+
+
+  - name: connection_status_t
+    type: uint32_t
+    enumerators:
+      - CONNECTION_STATUS_UNDEFINED
+      - CONNECTION_STATUS_CONNECTED
+      - CONNECTION_STATUS_DISCONNECTED
+
 
 functions:
 
@@ -108,30 +121,66 @@ functions:
 
 
   - name: build_placeholder_input_devices
-    type: std::vector<std::tuple<std::string, std::string, std::string>>
+    type: std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>>
     static: true
     body: |
+      // HAVE:
+      //AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
+      //std::string status = std::get<1>(input_devices[i]);
+      //std::string title = std::get<2>(input_devices[i]);
+      //std::string description = std::get<3>(input_devices[i]);
+
+      // WANT:
+      // device_name
+      // connected_status
+      // connected_since?
+      // device_id
+
+      // TODO: Don't use created pointers for these devices here. Find a better location to produce the
+      // objects in memory, possibly just a raw AllegroFlare/InputDevicesList;
+
+      AllegroFlare::PhysicalInputDevices::Base* keyboard = new AllegroFlare::PhysicalInputDevices::Keyboard();
+
       return {
-         { "unlocked", "Fade In", "Start out in the world." },
-         { "locked",   "Call to Adventure", "Leave what you know in order to take on a challenge you must face." },
-         { "locked",   "Save the Cat", "Define the hero and make the audience like them." },
-         { "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
-         { "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
-         { "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
-         { "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
-         { "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
+         { new AllegroFlare::PhysicalInputDevices::Keyboard(),
+            CONNECTION_STATUS_CONNECTED,
+            "Keyboard",
+            ""
+         },
+         //{ new AllegroFlare::PhysicalInputDevices::Keyboard(),
+               //CONNECTION_STATUS_CONNECTED, "Keyboard", "" },
+         { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+            CONNECTION_STATUS_CONNECTED,
+            "Joystick 1",
+            "159295b"
+         },
+         { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+            CONNECTION_STATUS_DISCONNECTED,
+            "Joystick 2",
+            "af97a9c"
+         },
+
+         //{ nullptr, "locked",   "Save the Cat", "Define the hero and make the audience like them." },
+         //{ nullptr, "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
+         //{ nullptr, "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
+         //{ nullptr, "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
+         //{ nullptr, "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
+         //{ nullptr, "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
       };
+    body_dependency_symbols:
+      - AllegroFlare::PhysicalInputDevices::Keyboard
+      - AllegroFlare::PhysicalInputDevices::Joysticks::Base
 
 
-  - name: count_num_input_devices_completed
+  - name: count_num_input_devices_connected
     type: int
     private: true
     body: |
       int count = 0;
       for (int i=0; i<input_devices.size(); i++)
       {
-         bool is_achieved = (std::get<0>(input_devices[i]) == "unlocked");
-         if (is_achieved) count++;
+         bool is_connected = (std::get<1>(input_devices[i]) == CONNECTION_STATUS_CONNECTED);
+         if (is_connected) count++;
       }
       return count;
 
@@ -159,8 +208,8 @@ functions:
     private: true
     body: |
       std::stringstream result;
-      result << count_num_input_devices_completed() << " of " << count_num_input_devices()
-             << " achieved";
+      result << count_num_input_devices_connected() << " connected (" << count_num_input_devices()
+             << " known)";
       return result.str();
 
 
@@ -268,13 +317,16 @@ functions:
       // draw the items in the list
       for (int i=0; i<input_devices.size(); i++)
       {
-         std::string status = std::get<0>(input_devices[i]);
-         std::string title = std::get<1>(input_devices[i]);
-         std::string description = std::get<2>(input_devices[i]);
+         AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
+         uint32_t connected_status = std::get<1>(input_devices[i]);
+         std::string title = std::get<2>(input_devices[i]);
+         std::string description = std::get<3>(input_devices[i]);
+
          draw_achievement_box(
             input_devices_box_list_x,
             input_devices_box_list_y + i * y_spacing - scrollbar_position,
-            status,
+            physical_input_device,
+            connected_status,
             title,
             description
          );
@@ -323,9 +375,12 @@ functions:
       - name: y
         type: float
         default_argument: 0.0f
-      - name: status
-        type: std::string
-        default_argument: '"[unset-status]"'
+      - name: physical_input_device
+        type: AllegroFlare::PhysicalInputDevices::Base*
+        default_argument: nullptr
+      - name: connection_status
+        type: uint32_t
+        default_argument: CONNECTION_STATUS_UNDEFINED
       - name: title
         type: std::string
         default_argument: '"[unset-title]"'
@@ -357,20 +412,20 @@ functions:
       float icon_container_box_text_x_padding = 30;
       float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
 
-      ALLEGRO_COLOR title_text_color = (status == "hidden") ? title_text_color_hidden : title_text_color_normal;
+      ALLEGRO_COLOR title_text_color = (connection_status == CONNECTION_STATUS_DISCONNECTED) ? title_text_color_hidden : title_text_color_normal;
  
       float icon_box_center_x = x + box_padding_x + icon_container_box_size / 2;
       float icon_box_center_y = y + box_padding_y + icon_container_box_size / 2;
-      int32_t icon_character = infer_icon_character_by_status(status);
-      ALLEGRO_COLOR icon_color = infer_icon_color_by_status(
-         status,
+      int32_t icon_character = infer_icon_character_for_physical_input_device(physical_input_device);
+      ALLEGRO_COLOR icon_color = infer_icon_color_by_connection_status(
+         connection_status,
          icon_locked_color,
          icon_hidden_color,
          icon_achieved_color
       );
 
       // draw the filled rectangle
-      if (status == "hidden")
+      if (connection_status == CONNECTION_STATUS_DISCONNECTED)
       {
          float hidden_box_stroke_thickness = 4.0f;
          float h_thickness = hidden_box_stroke_thickness * 0.5;
@@ -389,7 +444,7 @@ functions:
       }
 
       // draw the icon container box rectangle
-      if (status == "hidden")
+      if (connection_status == CONNECTION_STATUS_DISCONNECTED)
       {
          float hidden_icon_box_stroke_thickness = 4.0f;
          float h_thickness = hidden_icon_box_stroke_thickness * 0.5;
@@ -430,7 +485,7 @@ functions:
          x + box_padding_x + text_x_offset,
          y + box_padding_y + text_y_offset,
          ALLEGRO_ALIGN_LEFT,
-         filter_item_title_through_status(title, status).c_str()
+         filter_item_title_through_connection_status(title, connection_status).c_str()
       );
 
       // draw the description text
@@ -442,7 +497,7 @@ functions:
          input_devices_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
          description_font_line_height,
          ALLEGRO_ALIGN_LEFT,
-         filter_item_description_through_status(description, status).c_str()
+         filter_item_description_through_connection_status(description, connection_status).c_str()
       );
 
       return;
@@ -451,27 +506,29 @@ functions:
       - al_draw_text
 
 
-  - name: infer_icon_character_by_status
+  - name: infer_icon_character_for_physical_input_device
     type: int32_t
     private: true
     parameters:
-      - name: status
-        type: std::string
-        default_argument: '"[unset-status]"'
+      - name: physical_input_device
+        type: AllegroFlare::PhysicalInputDevices::Base*
+        default_argument: nullptr
     body: |
-      if (status == "unlocked") return 0xf091;
-      else if (status == "locked") return 0xf023;
-      else if (status == "hidden") return 0x3f;
-      return 0xe1fe;
+      if (!physical_input_device) return 0xf127; // a "broken link" icon (TODO: consider another icon)
+
+      if (physical_input_device->is_keyboard()) return 0xf11c; // a "keyboard" icon
+      if (physical_input_device->is_joystick()) return 0xf11b; // a "gamepad" controller icon
+
+      return 0xf2fd; // a question with a box around it
 
 
-  - name: infer_icon_color_by_status
+  - name: infer_icon_color_by_connection_status
     type: ALLEGRO_COLOR
     private: true
     parameters:
-      - name: status
-        type: std::string
-        default_argument: '"[unset-status]"'
+      - name: connection_status
+        type: uint32_t
+        default_argument: CONNECTION_STATUS_UNDEFINED
       - name: icon_locked_color
         type: ALLEGRO_COLOR
         default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
@@ -482,39 +539,42 @@ functions:
         type: ALLEGRO_COLOR
         default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
     body: |
-      if (status == "unlocked") return icon_achieved_color;
-      else if (status == "locked") return icon_locked_color;
-      else if (status == "hidden") return icon_hidden_color;
+      // TODO: finish these status changes
+      if (connection_status == CONNECTION_STATUS_CONNECTED) return icon_achieved_color;
+      if (connection_status == CONNECTION_STATUS_DISCONNECTED) return icon_locked_color;
+      //else if (status == "locked") return icon_locked_color;
+      //else if (status == "hidden") return icon_hidden_color;
       return ALLEGRO_COLOR{1, 0, 0, 1};
 
 
-  - name: filter_item_title_through_status
+  - name: filter_item_title_through_connection_status
     type: std::string
     private: true
     parameters:
       - name: title
         type: std::string
         default_argument: '"[unset-title]"'
-      - name: status
-        type: std::string
-        default_argument: '"[unset-status]"'
+      - name: connection_status
+        type: uint32_t
+        default_argument: CONNECTION_STATUS_UNDEFINED
     body: |
-      if (status == "hidden") return "Hidden Achievement";
+      // TODO: This function is obsolete, remove it (actually, no, should append "(Disconnected)" to device name
       return title;
 
 
-  - name: filter_item_description_through_status
+  - name: filter_item_description_through_connection_status
     type: std::string
     private: true
     parameters:
       - name: description
         type: std::string
         default_argument: '"[unset-title]"'
-      - name: status
-        type: std::string
-        default_argument: '"[unset-status]"'
+      - name: connection_status
+        type: uint32_t
+        default_argument: CONNECTION_STATUS_UNDEFINED
     body: |
-      if (status == "hidden") return "";
+      // TODO: This function is obsolete, remove it
+      //if (connection_status == CONNECTION_STATUS_HIDDEN) return "";
       return description;
 
 
@@ -547,7 +607,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("fa-solid-900.ttf -50");
+      return font_bin->auto_get("Font_Awesome_6_Free-Solid-900.otf -50");
 
 
   - name: draw_unicode_character
@@ -582,18 +642,12 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: al_draw_filled_rectangle
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
-  - symbol: std::vector<std::tuple<std::string, std::string, std::string>>
-    headers: [ vector, tuple, string ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Elements::Scrollbar
@@ -609,4 +663,13 @@ dependencies:
     headers: [ algorithm ]
   - symbol: std::max
     headers: [ algorithm ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Keyboard
+    headers: [ AllegroFlare/PhysicalInputDevices/Keyboard.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Joysticks::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp ]
+  - symbol: connection_status_t
+    headers: [ ]
+
 
