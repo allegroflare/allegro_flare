@@ -37,7 +37,7 @@ ALLEGRO_JOYSTICK* Base::get_al_joystick() const
 }
 
 
-bool Base::is_keyboard()
+bool Base::is_joystick()
 {
    return true;
 }

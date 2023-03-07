@@ -179,7 +179,6 @@ std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std:
    //AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
    //std::string status = std::get<1>(input_devices[i]);
    //std::string title = std::get<2>(input_devices[i]);
-   //std::string description = std::get<3>(input_devices[i]);
 
    // WANT:
    // device_name
@@ -352,7 +351,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
       AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
       uint32_t connected_status = std::get<1>(input_devices[i]);
       std::string title = std::get<2>(input_devices[i]);
-      std::string description = std::get<3>(input_devices[i]);
+      std::string device_id = std::get<3>(input_devices[i]);
 
       draw_achievement_box(
          input_devices_box_list_x,
@@ -360,7 +359,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
          physical_input_device,
          connected_status,
          title,
-         description
+         device_id
       );
    }
 
@@ -394,7 +393,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
    return;
 }
 
-void InputDevicesList::draw_achievement_box(float x, float y, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, uint32_t connection_status, std::string title, std::string description)
+void InputDevicesList::draw_achievement_box(float x, float y, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, uint32_t connection_status, std::string title, std::string device_id)
 {
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
    ALLEGRO_FONT *description_font = obtain_item_description_font();
@@ -505,7 +504,7 @@ void InputDevicesList::draw_achievement_box(float x, float y, AllegroFlare::Phys
       input_devices_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
       description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
-      filter_item_description_through_connection_status(description, connection_status).c_str()
+      build_item_description(device_id, connection_status).c_str()
    );
 
    return;
@@ -533,15 +532,14 @@ ALLEGRO_COLOR InputDevicesList::infer_icon_color_by_connection_status(uint32_t c
 
 std::string InputDevicesList::filter_item_title_through_connection_status(std::string title, uint32_t connection_status)
 {
-   // TODO: This function is obsolete, remove it (actually, no, should append "(Disconnected)" to device name
+   if (connection_status != CONNECTION_STATUS_CONNECTED) return title + " (disconnected)";
    return title;
 }
 
-std::string InputDevicesList::filter_item_description_through_connection_status(std::string description, uint32_t connection_status)
+std::string InputDevicesList::build_item_description(std::string device_id, uint32_t connection_status)
 {
-   // TODO: This function is obsolete, remove it
-   //if (connection_status == CONNECTION_STATUS_HIDDEN) return "";
-   return description;
+   if (device_id.empty()) return "";
+   return "Device ID: " + device_id;
 }
 
 ALLEGRO_FONT* InputDevicesList::obtain_title_font()

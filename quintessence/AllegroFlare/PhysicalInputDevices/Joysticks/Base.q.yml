@@ -25,7 +25,7 @@ properties:
 functions:
 
 
-  - name: is_keyboard
+  - name: is_joystick
     type: bool
     virtual: true
     override: true
