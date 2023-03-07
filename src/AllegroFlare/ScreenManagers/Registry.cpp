@@ -164,18 +164,52 @@ void Registry::event_emitter_event_funcs(ALLEGRO_EVENT *ev)
 }
 
 
-void Registry::virtual_control_button_up_funcs(int player_num, int button_num, bool is_repeat)
+void Registry::virtual_control_button_up_funcs(
+   AllegroFlare::Player* player,
+   AllegroFlare::VirtualControllers::Base* virtual_controller,
+   int virtual_controller_button_num,
+   bool is_repeat
+)
 {
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->virtual_control_button_up_func(player_num, button_num, is_repeat);
+   for (auto &screen : screens)
+      screen->virtual_control_button_up_func(
+            player,
+            virtual_controller,
+            virtual_controller_button_num,
+            is_repeat
+      );
 }
 
 
-void Registry::virtual_control_button_down_funcs(int player_num, int button_num, bool is_repeat)
+void Registry::virtual_control_button_down_funcs(
+   AllegroFlare::Player* player,
+   AllegroFlare::VirtualControllers::Base* virtual_controller,
+   int virtual_controller_button_num,
+   bool is_repeat
+)
 {
-   for (unsigned i=0; i<screens.size(); i++)
-      screens[i]->virtual_control_button_down_func(player_num, button_num, is_repeat);
+   for (auto &screen : screens)
+      screen->virtual_control_button_down_func(
+            player,
+            virtual_controller,
+            virtual_controller_button_num,
+            is_repeat
+      );
 }
+
+
+//void Registry::virtual_control_button_up_funcs(int player_num, int button_num, bool is_repeat)
+//{
+   //for (unsigned i=0; i<screens.size(); i++)
+      //screens[i]->virtual_control_button_up_func(player_num, button_num, is_repeat);
+//}
+
+
+//void Registry::virtual_control_button_down_funcs(int player_num, int button_num, bool is_repeat)
+//{
+   //for (unsigned i=0; i<screens.size(); i++)
+      //screens[i]->virtual_control_button_down_func(player_num, button_num, is_repeat);
+//}
 
 
 void Registry::virtual_control_axis_change_funcs(ALLEGRO_EVENT *ev)

@@ -11,7 +11,7 @@
 #include <AllegroFlare/EventNames.hpp>
 
 #include <AllegroFlare/GameEvent.hpp>
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 
 
 class AllegroFlare_Screens_StoryboardTest : public ::testing::Test
@@ -142,7 +142,11 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    int expected_advances_needed = 6;
    while (!storyboard.get_storyboard_element_ref().get_finished())
    {
-      storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualController::BUTTON_A, 0);
+      storyboard.virtual_control_button_down_func(
+            nullptr,
+            nullptr,
+            AllegroFlare::VirtualControllers::GenericController::BUTTON_A
+      );
       tries_to_bail--;
       if (tries_to_bail < 0) FAIL();
    }
@@ -174,12 +178,21 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    storyboard.initialize();
 
    // first page should not trigger an event
-   storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualController::BUTTON_A, 0);
+   storyboard.virtual_control_button_down_func(
+         nullptr,
+         nullptr,
+         AllegroFlare::VirtualControllers::GenericController::BUTTON_A
+   );
+
    //storyboard.virtual_control_button_down_func();
    ASSERT_EQ(false, al_get_next_event(event_queue, &event));
 
    // now at the last page, this should trigger an event
-   storyboard.virtual_control_button_down_func(0, AllegroFlare::VirtualController::BUTTON_A, 0);
+   storyboard.virtual_control_button_down_func(
+         nullptr,
+         nullptr,
+         AllegroFlare::VirtualControllers::GenericController::BUTTON_A
+   );
    //storyboard.virtual_control_button_down_func();
    ASSERT_EQ(true, al_get_next_event(event_queue, &event));
 

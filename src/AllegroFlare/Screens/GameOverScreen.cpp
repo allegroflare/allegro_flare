@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
 
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -226,12 +226,12 @@ ALLEGRO_FONT* GameOverScreen::obtain_menu_font()
    return font_bin->auto_get("Inter-Medium.ttf -38");
 }
 
-void GameOverScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+void GameOverScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
-   if (button_num == VirtualController::BUTTON_UP) move_cursor_up();
-   if (button_num == VirtualController::BUTTON_DOWN) move_cursor_down();
-   if (button_num == VirtualController::BUTTON_A
-      || button_num == VirtualController::BUTTON_START
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
+      || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
       )
    {
       select_menu_option();

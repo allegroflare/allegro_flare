@@ -5,7 +5,9 @@
 #include <AllegroFlare/Elements/AchievementsList.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -53,7 +55,7 @@ namespace AllegroFlare
          virtual void on_deactivate() override;
          void initialize();
          virtual void primary_timer_func() override;
-         virtual void virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false) override;
+         virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          void render();
          void set_placeholder_achievements();
          std::vector<std::tuple<std::string, std::string, std::string>> build_achievements();

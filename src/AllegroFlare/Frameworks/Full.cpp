@@ -1141,10 +1141,16 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      AllegroFlare::VirtualControllers::Base *virtual_controller =
                         event_data->get_virtual_controller();
                      int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
+                     bool is_repeat = false;
 
                      // TODO: Update this method. Currently the signature is:
                      // screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
-                     screens.virtual_control_button_down_funcs(0, virtual_controller_button_num, false);
+                     screens.virtual_control_button_down_funcs(
+                        player,
+                        virtual_controller,
+                        virtual_controller_button_num,
+                        is_repeat
+                     );
 
                      delete event_data;
                   } break;
@@ -1159,10 +1165,16 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      AllegroFlare::VirtualControllers::Base *virtual_controller =
                         event_data->get_virtual_controller();
                      int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
+                     bool is_repeat = false;
 
                      // TODO: Update this method. Currently the signature is:
                      // screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
-                     screens.virtual_control_button_down_funcs(0, virtual_controller_button_num, false);
+                     screens.virtual_control_button_down_funcs(
+                        player,
+                        virtual_controller,
+                        virtual_controller_button_num,
+                        is_repeat
+                      );
 
                      delete event_data;
                   } break;

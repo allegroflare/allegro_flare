@@ -132,6 +132,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Frame.q.yml">quintessence/AllegroFlare/FrameAnimation/Frame.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEvent.q.yml">quintessence/AllegroFlare/GameEvent.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/Base.q.yml">quintessence/AllegroFlare/GameEventDatas/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml">quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml</a></li>
@@ -163,6 +166,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Network2/URLTokenizer.q.yml">quintessence/AllegroFlare/Network2/URLTokenizer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/NotificationsFactory.q.yml">quintessence/AllegroFlare/NotificationsFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.q.yml">quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.q.yml">quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/Joysticks/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Joysticks/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/Keyboard.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Keyboard.q.yml</a></li>
@@ -303,6 +308,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualController.q.yml">quintessence/AllegroFlare/VirtualController.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualControllers/Base.q.yml">quintessence/AllegroFlare/VirtualControllers/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
   <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/AllegroDefault.q.yml">quintessence/Tileo/Shaders/AllegroDefault.q.yml</a></li>
@@ -5777,16 +5784,7 @@ table td
   <td class="method">emit_stop_all_music_tracks_event()</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_button_up_event(int virtual_button_num=0)</td>
-</tr>
-<tr>
-  <td class="method">emit_virtual_controls_button_down_event(int virtual_button_num=0)</td>
-</tr>
-<tr>
   <td class="method">emit_game_event(AllegroFlare::GameEvent game_event={})</td>
-</tr>
-<tr>
-  <td class="method">emit_virtual_controls_axis_change_event(int stick=0, int axis=0, float position=0.0f)</td>
 </tr>
 <tr>
   <td class="method">TODO()</td>
@@ -6192,6 +6190,122 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">player</td>
+  <td class="property">AllegroFlare::Player*</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller</td>
+  <td class="property">AllegroFlare::VirtualControllers::Base*</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller_stick</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller_axis</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller_position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">player</td>
+  <td class="property">AllegroFlare::Player*</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller</td>
+  <td class="property">AllegroFlare::VirtualControllers::Base*</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller_button_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">player</td>
+  <td class="property">AllegroFlare::Player*</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller</td>
+  <td class="property">AllegroFlare::VirtualControllers::Base*</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller_button_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -7892,6 +8006,86 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.q.yml">quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">player</td>
+  <td class="property">AllegroFlare::Player*</td>
+</tr>
+<tr>
+  <td class="property">physical_input_device</td>
+  <td class="property">AllegroFlare::PhysicalInputDevices::Base*</td>
+</tr>
+<tr>
+  <td class="property">virtual_controller</td>
+  <td class="property">AllegroFlare::VirtualControllers::Base*</td>
+</tr>
+<tr>
+  <td class="property">mapping</td>
+  <td class="property">std::map&lt;int, int&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_multiple_mappings(std::vector&lt;std::pair&lt;int, int&gt;&gt; mappings={})</td>
+</tr>
+<tr>
+  <td class="method">set_mapping(uint32_t physical_input_button_id=0, uint32_t virtual_input_button_id=0)</td>
+</tr>
+<tr>
+  <td class="method">mapping_exists_on_physical_device_button(uint32_t physical_input_button_id=0)</td>
+</tr>
+<tr>
+  <td class="method">physical_input_device_is_keyboard()</td>
+</tr>
+<tr>
+  <td class="method">get_mapping(uint32_t physical_input_button_id=0)</td>
+</tr>
+<tr>
+  <td class="method">mapping_exists_on_virtual_controller_button(uint32_t virtual_controller_button_id=0)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.q.yml">quintessence/AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">create_single_player_keyboard_mapping_from_scratch()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Keyboard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Keyboard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_KEY_&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/PhysicalInputDevices/Base.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Base.q.yml</h3>
      <table>
 <tr>
@@ -8320,12 +8514,12 @@ table td
     <h3 id="quintessence/AllegroFlare/Player.q.yml">quintessence/AllegroFlare/Player.q.yml</h3>
      <table>
 <tr>
-  <td class="property">id</td>
-  <td class="property">uint32_t</td>
-</tr>
-<tr>
   <td class="property">name</td>
   <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">id</td>
+  <td class="property">uint32_t</td>
 </tr>
     </table>
      <table>
@@ -12626,10 +12820,10 @@ table td
   <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_up_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr)</td>
@@ -12761,6 +12955,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14110,7 +14313,7 @@ table td
   <td class="private_method">move_scrollbar_position_down()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -14133,10 +14336,7 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Achievements*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Achievements.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::AchievementsList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/AchievementsList.hpp&quot;]}</td>
@@ -14145,16 +14345,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Achievements&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Achievements.hpp&quot;]}</td>
@@ -14164,6 +14358,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14233,7 +14436,7 @@ table td
   <td class="method">set_mode_to_using_virtual_controls()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="method">key_char_func(ALLEGRO_EVENT* event=nullptr)</td>
@@ -14259,7 +14462,13 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare:::VirtualControls::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14327,7 +14536,7 @@ table td
   <td class="private_method">obtain_menu_font()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
     </table>
      <table>
@@ -14360,6 +14569,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14401,7 +14619,7 @@ table td
   <td class="private_method">obtain_instruction_font()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
     </table>
      <table>
@@ -14415,9 +14633,6 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
@@ -14425,6 +14640,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14495,10 +14719,10 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_up_func(int player_num=0, int button_num=0, bool repeat=false)</td>
+  <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
@@ -14533,7 +14757,13 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::JoystickConfigurationList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/JoystickConfigurationList.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14678,7 +14908,7 @@ table td
   <td class="private_method">obtain_title_bitmap()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="private_method">menu_is_empty()</td>
@@ -14725,9 +14955,6 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualController.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
@@ -14747,6 +14974,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -14903,7 +15139,7 @@ table td
   <td class="private_method">advance()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
     </table>
      <table>
@@ -14930,6 +15166,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15216,7 +15461,7 @@ table td
   <td class="private_method">obtain_title_bitmap()</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="private_method">menu_is_empty()</td>
@@ -15288,6 +15533,24 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -17984,6 +18247,73 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/VirtualControllers/Base.q.yml">quintessence/AllegroFlare/VirtualControllers/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">PRIMARY_STICK</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">SECONDARY_STICK</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">primary_stick_position</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">secondary_stick_position</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_NAME</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</h3>
      <table>
 <tr>
@@ -17991,12 +18321,12 @@ table td
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
-  <td class="property">keyboard_button_map</td>
-  <td class="property">std::map&lt;uint32_t, std::pair&lt;int, int&gt;&gt;</td>
-</tr>
-<tr>
   <td class="property">physical_input_devices</td>
   <td class="property">std::map&lt;AllegroFlare::PhysicalInputDevices::Base*, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">physical_input_device_to_virtual_control_mappings</td>
+  <td class="property">std::vector&lt;AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping&gt;</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -18015,9 +18345,6 @@ table td
 </tr>
 <tr>
   <td class="method">infer_num_physical_input_devices_connected()</td>
-</tr>
-<tr>
-  <td class="method">build_sensible_keyboard_button_map()</td>
 </tr>
 <tr>
   <td class="method">find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr)</td>
@@ -18044,16 +18371,16 @@ table td
   <td class="private_method">get_joystick_mapped_virtual_button(int native_button_num=-1)</td>
 </tr>
 <tr>
-  <td class="private_method">get_keyboard_mapped_player_num_and_virtual_button(int native_key_num=-1)</td>
+  <td class="private_method">get_keyboard_mapped_physical_input_device_to_virtual_controller_mapping(int al_keyboard_keycode=-1)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_button_up_event(int player_num=0, int virtual_button_num=0, bool is_repeat=false)</td>
+  <td class="method">emit_virtual_controls_button_up_event(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_button_down_event(int player_num=0, int virtual_button_num=0, bool is_repeat=false)</td>
+  <td class="method">emit_virtual_controls_button_down_event(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">emit_virtual_controls_axis_change_event(int player_num=0, int stick=0, int axis=0, float position=0.0f)</td>
+  <td class="method">emit_virtual_controls_axis_change_event(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_stick=0, int virtual_controller_axis=0, float virtual_controller_position=0.0f)</td>
 </tr>
     </table>
      <table>
@@ -18089,6 +18416,24 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::VirtualControllerAxisChangeEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20131,10 +20476,10 @@ table td
   <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_down_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
-  <td class="method">virtual_control_button_up_func(int player_num=0, int button_num=0, bool is_repeat=false)</td>
+  <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr)</td>
@@ -20290,6 +20635,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20593,7 +20947,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
@@ -20830,7 +21183,8 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/VirtualControllers/GenericController"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -21074,7 +21428,6 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -21416,6 +21769,7 @@ table td
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/JoystickConfigurationList",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/PhysicalInputDevices/Keyboard",
     "AllegroFlare/VirtualControlsProcessor"
@@ -21578,6 +21932,9 @@ table td
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog",
@@ -21643,6 +22000,43 @@ table td
   ],
   "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
     "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/Player": [
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/VirtualControllers/GenericController",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
@@ -21846,6 +22240,31 @@ table td
   ],
   "std/copy_if": [
     "AllegroFlare/Notifications"
+  ],
+  "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/PhysicalInputDevices/Keyboard": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
+  ],
+  "AllegroFlare/VirtualControllers/GenericController": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "WickedDemos/TileDemo"
+  ],
+  "ALLEGRO_KEY_": [
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
@@ -22317,9 +22736,6 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
-    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
@@ -22416,17 +22832,13 @@ table td
   "std/unordered_set": [
     "AllegroFlare/SceneGraph/EntityPool"
   ],
-  "AllegroFlare/Achievements": [
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/Achievements"
-  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
-  "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
-    "AllegroFlare/Screens/CharacterNameInput"
+  "AllegroFlare/Achievements": [
+    "AllegroFlare/Screens/Achievements"
   ],
-  "AllegroFlare/:VirtualControls/": [
+  "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
@@ -22596,10 +23008,16 @@ table td
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
-  "ALLEGRO_KEY_": [
+  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
-  "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
+  "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData": [
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

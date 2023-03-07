@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Screens/Storyboard.hpp>
 
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -154,7 +154,7 @@ void Storyboard::advance()
    return;
 }
 
-void Storyboard::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+void Storyboard::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
    {
@@ -172,9 +172,11 @@ void Storyboard::virtual_control_button_down_func(int player_num, int button_num
    }
    if (storyboard_element.get_finished()) return;
 
-   if (button_num == AllegroFlare::VirtualController::BUTTON_A
-     || button_num == AllegroFlare::VirtualController::BUTTON_START
-     || button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
+   // TODO: validate controller type
+
+   if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_A
+     || virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_MENU
+     || virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
    {
       advance();
    }

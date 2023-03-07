@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Screens/JoystickConfiguration.hpp>
 
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -213,7 +213,7 @@ void JoystickConfiguration::primary_timer_func()
    return;
 }
 
-void JoystickConfiguration::virtual_control_button_up_func(int player_num, int button_num, bool repeat)
+void JoystickConfiguration::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
    {
@@ -226,7 +226,7 @@ void JoystickConfiguration::virtual_control_button_up_func(int player_num, int b
    return;
 }
 
-void JoystickConfiguration::virtual_control_button_down_func(int player_num, int button_num, bool repeat)
+void JoystickConfiguration::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
    {
@@ -236,13 +236,13 @@ void JoystickConfiguration::virtual_control_button_down_func(int player_num, int
       throw std::runtime_error("JoystickConfiguration::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
    // TODO: Have this function account for state of the joystick_configuration_element
-   switch(button_num)
+   switch(virtual_controller_button_num)
    {
-      case AllegroFlare::VirtualController::BUTTON_UP:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
          joystick_configuration_element.move_cursor_up();
       break;
 
-      case AllegroFlare::VirtualController::BUTTON_DOWN:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
          joystick_configuration_element.move_cursor_down();
       break;
    }

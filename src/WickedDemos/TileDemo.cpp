@@ -6,6 +6,7 @@
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <Tileo/TMJMeshLoader.hpp>
 #include <Wicked/CameraControlStrategies2D/HorizontalRail.hpp>
 #include <Wicked/CameraControlStrategies2D/SmoothSnap.hpp>
@@ -1267,7 +1268,7 @@ void TileDemo::key_down_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void TileDemo::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+void TileDemo::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
    {
@@ -1276,37 +1277,37 @@ void TileDemo::virtual_control_button_down_func(int player_num, int button_num, 
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TileDemo::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
-   //int button_num = event->user.data1;
+   // TODO: Validate controller type
 
    //std::cout << "AAAAAAAAAA" << std::endl;
 
-   if (button_num == AllegroFlare::VirtualController::BUTTON_B)
+   if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
    {
       player_controls.set_a_button_pressed(true);
       set_player_controlled_entity_jump();
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_X)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
    {
       reverse_gravity();
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_Y)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
    {
       player_emit_projectile();
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
    {
       player_controls.set_right_button_pressed(true);
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_LEFT)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
    {
       player_controls.set_left_button_pressed(true);
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_UP)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_UP)
    {
       player_controls.set_up_button_pressed(true);
       check_player_collisions_with_doors();
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
    {
       player_controls.set_right_bumper_pressed(true);
       set_showing_player_reticle(true);
@@ -1315,7 +1316,7 @@ void TileDemo::virtual_control_button_down_func(int player_num, int button_num, 
    return;
 }
 
-void TileDemo::virtual_control_button_up_func(int player_num, int button_num, bool is_repeat)
+void TileDemo::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
    {
@@ -1324,21 +1325,21 @@ void TileDemo::virtual_control_button_up_func(int player_num, int button_num, bo
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TileDemo::virtual_control_button_up_func: error: guard \"initialized\" not met");
    }
-   //int button_num = event->user.data1;
+   // TODO: Validate controller type
 
-   if (button_num == AllegroFlare::VirtualController::BUTTON_B)
+   if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
    {
       player_controls.set_a_button_pressed(false);
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
    {
       player_controls.set_right_button_pressed(false);
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_LEFT)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
    {
       player_controls.set_left_button_pressed(false);
    }
-   else if (button_num == AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER)
+   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
    {
       if (bow.at_max()) player_emit_projectile(15.0f);
       bow.stop_draw();
@@ -1354,7 +1355,7 @@ void TileDemo::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
    int axis = event->user.data2;
    float position = event->user.data3 / 255.0f;
 
-   if (stick == AllegroFlare::VirtualController::PRIMARY_STICK)
+   if (stick == AllegroFlare::VirtualControllers::GenericController::PRIMARY_STICK)
    {
       if (axis == 0)
       {

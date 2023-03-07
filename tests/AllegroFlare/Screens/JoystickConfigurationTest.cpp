@@ -92,7 +92,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
             //if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::BUTTON_A;
             if (button_num != 0)
             {
-               joystick_configuration_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
+               joystick_configuration_screen.virtual_control_button_down_func(nullptr, nullptr, button_num, event.keyboard.repeat);
             }
          }
          break;

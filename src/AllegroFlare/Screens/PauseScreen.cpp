@@ -4,7 +4,7 @@
 
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Placement2D.hpp>
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -563,12 +563,12 @@ ALLEGRO_BITMAP* PauseScreen::obtain_title_bitmap()
    return bitmap_bin->auto_get(title_bitmap_name);
 }
 
-void PauseScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+void PauseScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
-   if (button_num == VirtualController::BUTTON_UP) move_cursor_up();
-   if (button_num == VirtualController::BUTTON_DOWN) move_cursor_down();
-   if (button_num == VirtualController::BUTTON_A
-      || button_num == VirtualController::BUTTON_START
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
+      || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
       )
    {
       select_menu_option();

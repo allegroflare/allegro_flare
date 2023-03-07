@@ -16,7 +16,7 @@ class AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture
 
 #include <AllegroFlare/Screens/CharacterNameInput.hpp>
 #include <AllegroFlare/EventNames.hpp> // for ALLEGRO_FLARE_EVENT_GAME_EVENT
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 
 
 TEST_F(AllegroFlare_Screens_CharacterNameInputTest, can_be_created_without_blowing_up)
@@ -87,15 +87,26 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTestWithAllegroRenderingFixture,
             else if (character_name_input_screen.mode_is_using_virtual_controls())
             {
                int button_num = 0;
-               if (event.keyboard.keycode == ALLEGRO_KEY_UP) button_num = AllegroFlare::VirtualController::BUTTON_UP;
-               if (event.keyboard.keycode == ALLEGRO_KEY_DOWN) button_num = AllegroFlare::VirtualController::BUTTON_DOWN;
-               if (event.keyboard.keycode == ALLEGRO_KEY_LEFT) button_num = AllegroFlare::VirtualController::BUTTON_LEFT;
-               if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT) button_num = AllegroFlare::VirtualController::BUTTON_RIGHT;
-               if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::BUTTON_A;
-               if (event.keyboard.keycode == ALLEGRO_KEY_X) button_num = AllegroFlare::VirtualController::BUTTON_X;
+               if (event.keyboard.keycode == ALLEGRO_KEY_UP)
+                  button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_UP;
+               if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
+                  button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN;
+               if (event.keyboard.keycode == ALLEGRO_KEY_LEFT)
+                  button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT;
+               if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT)
+                  button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT;
+               if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+                  button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_A;
+               if (event.keyboard.keycode == ALLEGRO_KEY_X)
+                  button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_X;
                if (button_num != 0) 
                {
-                  character_name_input_screen.virtual_control_button_down_func(0, button_num, event.keyboard.repeat);
+                  character_name_input_screen.virtual_control_button_down_func(
+                     nullptr,
+                     nullptr,
+                     button_num,
+                     event.keyboard.repeat
+                  );
                }
             }
          break;

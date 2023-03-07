@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Screens/CharacterNameInput.hpp>
 
-#include <AllegroFlare/VirtualController.hpp>
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -145,7 +145,7 @@ void CharacterNameInput::set_mode_to_using_virtual_controls()
    return;
 }
 
-void CharacterNameInput::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+void CharacterNameInput::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
    {
@@ -156,29 +156,31 @@ void CharacterNameInput::virtual_control_button_down_func(int player_num, int bu
    }
    if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
 
-   switch(button_num)
+   // TODO: validate VirtualControllers::GenericController type
+
+   switch(virtual_controller_button_num)
    {
-      case AllegroFlare::VirtualController::BUTTON_UP:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
          software_keyboard.move_cursor_up();
       break;
 
-      case AllegroFlare::VirtualController::BUTTON_DOWN:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
          software_keyboard.move_cursor_down();
       break;
 
-      case AllegroFlare::VirtualController::BUTTON_LEFT:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
          software_keyboard.decrement_cursor_pos();
       break;
 
-      case AllegroFlare::VirtualController::BUTTON_RIGHT:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
          software_keyboard.increment_cursor_pos();
       break;
 
-      case AllegroFlare::VirtualController::BUTTON_A:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_A:
          software_keyboard.press_key_under_cursor();
       break;
 
-      case AllegroFlare::VirtualController::BUTTON_X:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_X:
          software_keyboard.press_key_by_name("BACKSPACE");
       break;
    }

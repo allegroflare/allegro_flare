@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/Screens/GameWonScreen.hpp>
 
-#include <AllegroFlare/VirtualController.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -143,12 +142,9 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
    return font_bin->auto_get("Inter-Medium.ttf -48");
 }
 
-void GameWonScreen::virtual_control_button_down_func(int player_num, int button_num, bool is_repeat)
+void GameWonScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
-   //if (button_num == VirtualController::BUTTON_UP) move_cursor_up();
-   //if (button_num == VirtualController::BUTTON_DOWN) move_cursor_down();
-   //if (button_num == VirtualController::BUTTON_A) select_menu_option();
 }
 
 

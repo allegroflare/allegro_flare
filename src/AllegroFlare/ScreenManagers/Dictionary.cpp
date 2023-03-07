@@ -372,19 +372,39 @@ void Dictionary::game_event_funcs(AllegroFlare::GameEvent *game_event)
 }
 
 
-void Dictionary::virtual_control_button_up_funcs(int player_num, int button_num, bool is_repeat)
+void Dictionary::virtual_control_button_up_funcs(
+   AllegroFlare::Player* player,
+   AllegroFlare::VirtualControllers::Base* virtual_controller,
+   int virtual_controller_button_num,
+   bool is_repeat
+)
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
-         screen.second.screen->virtual_control_button_up_func(player_num, button_num, is_repeat);
+         screen.second.screen->virtual_control_button_up_func(
+               player,
+               virtual_controller,
+               virtual_controller_button_num,
+               is_repeat
+         );
 }
 
 
-void Dictionary::virtual_control_button_down_funcs(int player_num, int button_num, bool is_repeat)
+void Dictionary::virtual_control_button_down_funcs(
+   AllegroFlare::Player* player,
+   AllegroFlare::VirtualControllers::Base* virtual_controller,
+   int virtual_controller_button_num,
+   bool is_repeat
+)
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
-         screen.second.screen->virtual_control_button_down_func(player_num, button_num, is_repeat);
+         screen.second.screen->virtual_control_button_down_func(
+               player,
+               virtual_controller,
+               virtual_controller_button_num,
+               is_repeat
+         );
 }
 
 
