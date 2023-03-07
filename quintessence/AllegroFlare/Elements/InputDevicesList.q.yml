@@ -23,7 +23,7 @@ properties:
 
   - name: input_devices_box_height
     type: float
-    init_with: 160.0f
+    init_with: 148.0f
     constructor_arg: true
     getter: true
     setter: true
@@ -229,7 +229,7 @@ functions:
          surface_padding_x,
          100,
          ALLEGRO_ALIGN_LEFT,
-         "A C H I E V E M E N T S"
+         "I N P U T   D E V I C E S"
       );
 
       // draw the number achieved
@@ -321,7 +321,7 @@ functions:
          std::string title = std::get<2>(input_devices[i]);
          std::string device_id = std::get<3>(input_devices[i]);
 
-         draw_achievement_box(
+         draw_input_device_box(
             input_devices_box_list_x,
             input_devices_box_list_y + i * y_spacing - scrollbar_position,
             physical_input_device,
@@ -364,7 +364,7 @@ functions:
       - std::min, std::max
 
 
-  - name: draw_achievement_box
+  - name: draw_input_device_box
     type: void
     private: true
     parameters:
@@ -589,7 +589,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Bold.ttf -34");
+      return font_bin->auto_get("Inter-Bold.ttf -45");
 
 
   - name: obtain_item_description_font

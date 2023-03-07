@@ -269,7 +269,7 @@ void InputDevicesList::draw_input_devices_list_title_text_and_completed_title_te
       surface_padding_x,
       100,
       ALLEGRO_ALIGN_LEFT,
-      "A C H I E V E M E N T S"
+      "I N P U T   D E V I C E S"
    );
 
    // draw the number achieved
@@ -353,7 +353,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
       std::string title = std::get<2>(input_devices[i]);
       std::string device_id = std::get<3>(input_devices[i]);
 
-      draw_achievement_box(
+      draw_input_device_box(
          input_devices_box_list_x,
          input_devices_box_list_y + i * y_spacing - scrollbar_position,
          physical_input_device,
@@ -393,7 +393,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
    return;
 }
 
-void InputDevicesList::draw_achievement_box(float x, float y, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, uint32_t connection_status, std::string title, std::string device_id)
+void InputDevicesList::draw_input_device_box(float x, float y, AllegroFlare::PhysicalInputDevices::Base* physical_input_device, uint32_t connection_status, std::string title, std::string device_id)
 {
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
    ALLEGRO_FONT *description_font = obtain_item_description_font();
@@ -563,7 +563,7 @@ ALLEGRO_FONT* InputDevicesList::obtain_item_title_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDevicesList::obtain_item_title_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Bold.ttf -34");
+   return font_bin->auto_get("Inter-Bold.ttf -45");
 }
 
 ALLEGRO_FONT* InputDevicesList::obtain_item_description_font()
