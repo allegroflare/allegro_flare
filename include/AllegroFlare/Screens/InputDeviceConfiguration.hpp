@@ -16,10 +16,10 @@ namespace AllegroFlare
 {
    namespace Screens
    {
-      class JoystickConfiguration : public AllegroFlare::Screens::Base
+      class InputDeviceConfiguration : public AllegroFlare::Screens::Base
       {
       public:
-         static constexpr char* TYPE = (char*)"AllegroFlare/Screens/JoystickConfiguration";
+         static constexpr char* TYPE = (char*)"AllegroFlare/Screens/InputDeviceConfiguration";
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -34,8 +34,8 @@ namespace AllegroFlare
 
 
       public:
-         JoystickConfiguration(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::size_t surface_width=1920, std::size_t surface_height=1090);
-         virtual ~JoystickConfiguration();
+         InputDeviceConfiguration(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::size_t surface_width=1920, std::size_t surface_height=1090);
+         virtual ~InputDeviceConfiguration();
 
          void set_surface_width(std::size_t surface_width);
          void set_surface_height(std::size_t surface_height);

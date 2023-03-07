@@ -11,7 +11,7 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Screens/JoystickConfiguration"
+    "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
   "AllegroFlare/AudioRepositoryElement": [
     "AllegroFlare/AudioController"
@@ -141,7 +141,7 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -264,7 +264,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -377,7 +377,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/MotionComposer/TrackView",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -709,7 +709,7 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
@@ -746,7 +746,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
@@ -776,7 +776,7 @@
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/VirtualControlsProcessor",
@@ -1324,7 +1324,7 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -1342,7 +1342,7 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -1568,7 +1568,7 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -1650,7 +1650,7 @@
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Screens/JoystickConfiguration",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Screen": [
@@ -2158,7 +2158,7 @@
     "AllegroFlare/Screens/GameWonScreen"
   ],
   "AllegroFlare/Elements/JoystickConfigurationList": [
-    "AllegroFlare/Screens/JoystickConfiguration"
+    "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",

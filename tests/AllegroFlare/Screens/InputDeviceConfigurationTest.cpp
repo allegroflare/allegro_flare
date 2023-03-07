@@ -1,38 +1,38 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/Screens/JoystickConfiguration.hpp>
+#include <AllegroFlare/Screens/InputDeviceConfiguration.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 //#include <AllegroFlare/Frameworks/Full.hpp>
 
-class AllegroFlare_Screens_JoystickConfigurationTest : public ::testing::Test {};
+class AllegroFlare_Screens_InputDeviceConfigurationTest : public ::testing::Test {};
 class AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
-class AllegroFlare_Screens_JoystickConfigurationTestWithAllegroFrameworksFullFixture
+class AllegroFlare_Screens_InputDeviceConfigurationTestWithAllegroFrameworksFullFixture
    : public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
 {};
 
 
-TEST_F(AllegroFlare_Screens_JoystickConfigurationTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Screens::JoystickConfiguration joystick_configuration;
+   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration;
 }
 
 
-TEST_F(AllegroFlare_Screens_JoystickConfigurationTest, TYPE__has_the_expected_value)
+TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Screens::JoystickConfiguration joystick_configuration;
-   EXPECT_EQ("AllegroFlare/Screens/JoystickConfiguration", joystick_configuration.get_type());
+   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration;
+   EXPECT_EQ("AllegroFlare/Screens/InputDeviceConfiguration", joystick_configuration.get_type());
 }
 
 
-TEST_F(AllegroFlare_Screens_JoystickConfigurationTest, type__has_the_expected_value_matching_TYPE)
+TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, type__has_the_expected_value_matching_TYPE)
 {
-   AllegroFlare::Screens::JoystickConfiguration joystick_configuration;
-   EXPECT_EQ(AllegroFlare::Screens::JoystickConfiguration::TYPE, joystick_configuration.get_type());
+   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration;
+   EXPECT_EQ(AllegroFlare::Screens::InputDeviceConfiguration::TYPE, joystick_configuration.get_type());
 }
 
 
@@ -56,7 +56,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
-   AllegroFlare::Screens::JoystickConfiguration joystick_configuration_screen;
+   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration_screen;
    joystick_configuration_screen.set_font_bin(&get_font_bin_ref());
    joystick_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
    joystick_configuration_screen.set_event_emitter(&event_emitter);
@@ -124,10 +124,10 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Screens_JoystickConfigurationTestWithAllegroFrameworksFullFixture,
+TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTestWithAllegroFrameworksFullFixture,
    FOCUS__TIMED_INTERACTIVE__will_run_as_expected)
 {
-   AllegroFlare::Screens::JoystickConfiguration joystick_configuration_screen;
+   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration_screen;
    joystick_configuration_screen.set_event_emitter(get_framework_event_emitter());
    joystick_configuration_screen.set_bitmap_bin(get_framework_bitmap_bin());
    joystick_configuration_screen.set_font_bin(get_framework_font_bin());
