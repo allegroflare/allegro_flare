@@ -33,6 +33,7 @@ namespace AllegroFlare
          float scrollbar_position;
          float box_gutter_y;
          int count_num_input_devices_connected();
+         int count_num_input_devices_disconnected();
          void draw_header_title_backfill();
          int count_num_input_devices();
          std::string build_input_devices_count_string();
@@ -57,7 +58,7 @@ namespace AllegroFlare
 
 
       public:
-         InputDevicesList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices={}, float input_devices_box_width=1140.0f, float input_devices_box_height=148.0f);
+         InputDevicesList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices={}, float input_devices_box_width=960.0f, float input_devices_box_height=148.0f);
          ~InputDevicesList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);

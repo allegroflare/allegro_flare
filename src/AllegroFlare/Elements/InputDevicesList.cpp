@@ -230,6 +230,11 @@ int InputDevicesList::count_num_input_devices_connected()
    return count;
 }
 
+int InputDevicesList::count_num_input_devices_disconnected()
+{
+   return count_num_input_devices() - count_num_input_devices_connected();
+}
+
 void InputDevicesList::draw_header_title_backfill()
 {
    // draw inputs
@@ -248,8 +253,8 @@ int InputDevicesList::count_num_input_devices()
 std::string InputDevicesList::build_input_devices_count_string()
 {
    std::stringstream result;
-   result << count_num_input_devices_connected() << " connected (" << count_num_input_devices()
-          << " known)";
+   result << count_num_input_devices_connected() << " connected (" << count_num_input_devices_disconnected()
+          << " disconnected)";
    return result.str();
 }
 
@@ -404,12 +409,12 @@ void InputDevicesList::draw_input_device_box(float x, float y, AllegroFlare::Phy
    float box_padding_y = 20;
    float title_padding_y = 10;
    ALLEGRO_COLOR title_text_color_normal = ALLEGRO_COLOR{1, 1, 1, 1};
-   ALLEGRO_COLOR description_text_color = ALLEGRO_COLOR{0.7, 0.705, 0.71, 1.0};
    ALLEGRO_COLOR box_color = ALLEGRO_COLOR{0.1, 0.105, 0.11, 1.0};
    ALLEGRO_COLOR icon_container_box_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR icon_locked_color = ALLEGRO_COLOR{0.4, 0.405, 0.41, 1};
    ALLEGRO_COLOR icon_hidden_color = icon_container_box_color;
    ALLEGRO_COLOR icon_achieved_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR description_text_color = icon_locked_color;
    ALLEGRO_COLOR title_text_color_hidden = icon_locked_color;
    float item_title_font_line_height = al_get_font_line_height(item_title_font);
    float description_font_line_height = al_get_font_line_height(description_font);
@@ -450,7 +455,8 @@ void InputDevicesList::draw_input_device_box(float x, float y, AllegroFlare::Phy
       al_draw_filled_rectangle(x, y, x + input_devices_box_width, y + input_devices_box_height, box_color);
    }
 
-   // draw the icon container box rectangle
+   // Draw the icon container box rectangle
+   // TODO: Consider always making this a solid box, with a darker color
    if (connection_status == CONNECTION_STATUS_DISCONNECTED)
    {
       float hidden_icon_box_stroke_thickness = 4.0f;
