@@ -16,6 +16,9 @@ class AllegroFlare_Screens_InputDeviceConfigurationTestWithAllegroFrameworksFull
 {};
 
 
+// TODO: Rename variable names "joystick_configuration" -> "input_device_configuration"
+
+
 TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration;
