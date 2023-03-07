@@ -94,6 +94,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml">quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/InputDevicesList.q.yml">quintessence/AllegroFlare/Elements/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml</a></li>
@@ -3580,6 +3581,169 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/InputDevicesList.q.yml">quintessence/AllegroFlare/Elements/InputDevicesList.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">input_devices</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">input_devices_box_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">input_devices_box_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">box_gutter_y</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">move_scrollbar_position(float distance_y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">set_scrollbar_position(float scrollbar_position=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">set_scrollbar_position_to_max()</td>
+</tr>
+<tr>
+  <td class="method">infer_scrollbar_max_position()</td>
+</tr>
+<tr>
+  <td class="method">scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()</td>
+</tr>
+<tr>
+  <td class="method">build_placeholder_input_devices()</td>
+</tr>
+<tr>
+  <td class="private_method">count_num_input_devices_completed()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_header_title_backfill()</td>
+</tr>
+<tr>
+  <td class="private_method">count_num_input_devices()</td>
+</tr>
+<tr>
+  <td class="private_method">build_input_devices_count_string()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_input_devices_list_title_text_and_completed_title_text()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_container_height()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_container_contents_height()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_container_scroll_range()</td>
+</tr>
+<tr>
+  <td class="private_method">limit_scrollbar_position()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_input_devices_list_items_and_scrollbar()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_achievement_box(float x=0.0f, float y=0.0f, std::string status=&quot;[unset-status]&quot;, std::string title=&quot;[unset-title]&quot;, std::string description=&quot;[unset-description]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">infer_icon_character_by_status(std::string status=&quot;[unset-status]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">infer_icon_color_by_status(std::string status=&quot;[unset-status]&quot;, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="private_method">filter_item_title_through_status(std::string title=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">filter_item_description_through_status(std::string description=&quot;[unset-title]&quot;, std::string status=&quot;[unset-status]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_title_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_item_title_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_item_description_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_icon_font()</td>
+</tr>
+<tr>
+  <td class="private_method">draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Scrollbar&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Scrollbar.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -20893,6 +21057,8 @@ table td
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderer",
@@ -20995,6 +21161,8 @@ table td
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
@@ -21099,6 +21267,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationsRenderer",
@@ -21252,6 +21421,7 @@ table td
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
@@ -21303,6 +21473,7 @@ table td
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -21312,6 +21483,7 @@ table td
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/Text",
@@ -21324,17 +21496,20 @@ table td
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Elements/Scrollbar": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/InputDeviceConfigurationList"
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList"
   ],
   "std/min, std/max": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -21345,6 +21520,7 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -21355,6 +21531,7 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image"
