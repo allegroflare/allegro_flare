@@ -86,6 +86,7 @@ int InputDevicesList::count_num_joystick_devices()
 
 void InputDevicesList::handle_reconfigured_joystick()
 {
+   // TODO: Implement this function
    return;
 }
 

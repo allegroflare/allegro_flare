@@ -107,6 +107,38 @@ TEST(AllegroFlare_InputDevicesListTest,
    // This test assumes that a new device becomes connected.
    // TODO: Consider having a test that interactively prompts the interactive tester to connect one (or some) devices.
 
+   al_init();
+   al_install_joystick();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   al_register_event_source(event_queue, al_get_joystick_event_source());
+
+   AllegroFlare::InputDevicesList input_device_list;
+   input_device_list.initialize();
+   int num_joystick_devices_at_start = input_device_list.count_num_joystick_devices();
+   int num_joystick_devices_after_reconfiguration = 0;
+
+   // TODO: Output a notification for the interactive test user to plug in a controller
+   // TODO: Add a countdown timer to abort the test
+
+   ALLEGRO_EVENT allegro_event;
+   al_wait_for_event(event_queue, &allegro_event);
+
+   if (allegro_event.type == ALLEGRO_EVENT_JOYSTICK_CONFIGURATION)
+   {
+      input_device_list.handle_reconfigured_joystick();
+      int num_joystick_devices_after_reconfiguration = input_device_list.count_num_joystick_devices();
+      int expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start + 1;
+      EXPECT_EQ(num_joystick_devices_after_reconfiguration, expected_num_joysticks_after_reconfiguration);
+   }
+   else
+   {
+      GTEST_SKIP() << "This test did not have a joystick configuration change. Please look into the test comments.";
+   }
+
+   al_destroy_event_queue(event_queue);
+   al_uninstall_joystick();
+   al_uninstall_system();
+
    // TODO: this test
 }
 
