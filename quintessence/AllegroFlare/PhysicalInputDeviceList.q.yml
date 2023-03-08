@@ -1,0 +1,28 @@
+properties:
+
+
+  - name: devices
+    type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
+    init_with: '{}'
+
+
+functions:
+
+
+  - name: initialize
+    guards: [ al_is_system_installed() ]
+    body: |
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::PhysicalInputDevices::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+
+
