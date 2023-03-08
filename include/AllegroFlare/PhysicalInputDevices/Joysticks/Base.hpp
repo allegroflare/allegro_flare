@@ -29,6 +29,7 @@ namespace AllegroFlare
             void set_al_joystick(ALLEGRO_JOYSTICK* al_joystick);
             ALLEGRO_JOYSTICK* get_al_joystick() const;
             virtual bool is_joystick() override;
+            bool is_using_al_joystick(ALLEGRO_JOYSTICK* possibly_same_al_joystick=nullptr);
          };
       }
    }

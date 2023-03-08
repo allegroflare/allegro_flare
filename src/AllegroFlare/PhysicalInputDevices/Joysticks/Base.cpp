@@ -42,6 +42,11 @@ bool Base::is_joystick()
    return true;
 }
 
+bool Base::is_using_al_joystick(ALLEGRO_JOYSTICK* possibly_same_al_joystick)
+{
+   return (possibly_same_al_joystick == al_joystick);
+}
+
 
 } // namespace Joysticks
 } // namespace PhysicalInputDevices

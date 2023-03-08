@@ -33,6 +33,16 @@ functions:
       return true;
 
 
+  - name: is_using_al_joystick
+    type: bool
+    parameters:
+      - name: possibly_same_al_joystick
+        type: ALLEGRO_JOYSTICK*
+        default_argument: nullptr
+    body: |
+      return (possibly_same_al_joystick == al_joystick);
+
+
 dependencies:
 
 

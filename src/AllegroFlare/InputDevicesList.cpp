@@ -42,6 +42,7 @@ void InputDevicesList::initialize()
    }
 
    // Create joysticks (for any that are connected)
+   al_reconfigure_joysticks();
    int num_joysticks = al_get_num_joysticks();
    for (int i=0; i<num_joysticks; i++)
    {
@@ -64,8 +65,6 @@ void InputDevicesList::initialize()
       joystick->set_al_joystick(al_joystick);
 
       devices.push_back(joystick);
-
-      al_get_joystick(i);
    }
    return;
 }
@@ -84,9 +83,63 @@ int InputDevicesList::count_num_joystick_devices()
    return joystick_count;
 }
 
+AllegroFlare::PhysicalInputDevices::Joysticks::Base* InputDevicesList::find_joystick_device_by_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
+{
+   // TODO: Test this function
+   for (auto &device : devices)
+   {
+      if (device->is_joystick())
+      {
+         // TODO: Catch this statement below if dynamic_cast fails (which it should not, but never hurts)
+         AllegroFlare::PhysicalInputDevices::Joysticks::Base *device_as_joystick =
+            dynamic_cast<AllegroFlare::PhysicalInputDevices::Joysticks::Base*>(device);
+
+         if (device_as_joystick->is_using_al_joystick(al_joystick)) return device_as_joystick;
+      }
+   }
+   return nullptr;
+}
+
+bool InputDevicesList::joystick_device_exists_with_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
+{
+   return (find_joystick_device_by_al_joystick(al_joystick) != nullptr);
+}
+
 void InputDevicesList::handle_reconfigured_joystick()
 {
    // TODO: Implement this function
+
+   // Handle *new* joysticks added
+   al_reconfigure_joysticks();
+   int num_joysticks = al_get_num_joysticks();
+   for (int i=0; i<num_joysticks; i++)
+   {
+      ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(i);
+
+      // TODO: consider the following data
+      //al_get_joystick_active
+      //al_get_joystick_name
+      //al_get_joystick_stick_name
+      //al_get_joystick_axis_name
+      //al_get_joystick_button_name
+      //al_get_joystick_stick_flags
+      //al_get_joystick_num_sticks
+      //al_get_joystick_num_axes
+      //al_get_joystick_num_buttons
+      //al_get_joystick_state
+
+      bool joystick_already_exists = joystick_device_exists_with_al_joystick(al_joystick);
+      if (!joystick_already_exists)
+      {
+         AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
+            new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+         joystick->set_al_joystick(al_joystick);
+         devices.push_back(joystick);
+      }
+   }
+
+   // Handle *existing* joysticks that have disconnected
+   // TODO ^^
    return;
 }
 
