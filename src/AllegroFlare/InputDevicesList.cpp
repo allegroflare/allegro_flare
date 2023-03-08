@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/PhysicalInputDeviceList.hpp>
+#include <AllegroFlare/InputDevicesList.hpp>
 
 #include <AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp>
 #include <AllegroFlare/PhysicalInputDevices/Keyboard.hpp>
@@ -14,31 +14,31 @@ namespace AllegroFlare
 {
 
 
-PhysicalInputDeviceList::PhysicalInputDeviceList()
+InputDevicesList::InputDevicesList()
    : devices({})
 {
 }
 
 
-PhysicalInputDeviceList::~PhysicalInputDeviceList()
+InputDevicesList::~InputDevicesList()
 {
 }
 
 
-std::vector<AllegroFlare::PhysicalInputDevices::Base*> &PhysicalInputDeviceList::get_devices_ref()
+std::vector<AllegroFlare::PhysicalInputDevices::Base*> &InputDevicesList::get_devices_ref()
 {
    return devices;
 }
 
 
-void PhysicalInputDeviceList::initialize()
+void InputDevicesList::initialize()
 {
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[PhysicalInputDeviceList::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PhysicalInputDeviceList::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("InputDevicesList::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    // create a keyboard (if it is installed)
    if (al_is_keyboard_installed())
@@ -76,12 +76,12 @@ void PhysicalInputDeviceList::initialize()
    return;
 }
 
-void PhysicalInputDeviceList::handle_reconfigured_joystick()
+void InputDevicesList::handle_reconfigured_joystick()
 {
    return;
 }
 
-int PhysicalInputDeviceList::num_known_devices()
+int InputDevicesList::num_known_devices()
 {
    return devices.size();
 }

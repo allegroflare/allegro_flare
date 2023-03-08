@@ -7,7 +7,7 @@
 
 namespace AllegroFlare
 {
-   class PhysicalInputDeviceList
+   class InputDevicesList
    {
    private:
       std::vector<AllegroFlare::PhysicalInputDevices::Base*> devices;
@@ -16,8 +16,8 @@ namespace AllegroFlare
 
 
    public:
-      PhysicalInputDeviceList();
-      ~PhysicalInputDeviceList();
+      InputDevicesList();
+      ~InputDevicesList();
 
       std::vector<AllegroFlare::PhysicalInputDevices::Base*> &get_devices_ref();
       void initialize();
