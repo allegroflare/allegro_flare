@@ -20,6 +20,8 @@ namespace AllegroFlare
       ~PhysicalInputDeviceList();
 
       void initialize();
+      void handle_reconfigured_joystick();
+      int num_known_devices();
    };
 }
 

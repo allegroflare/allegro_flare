@@ -12,9 +12,55 @@ functions:
   - name: initialize
     guards: [ al_is_system_installed() ]
     body: |
+      // create a keyboard (if it is installed)
+      if (al_is_keyboard_installed())
+      {
+         AllegroFlare::PhysicalInputDevices::Keyboard *keyboard = new AllegroFlare::PhysicalInputDevices::Keyboard();
+         devices.push_back(keyboard);
+      }
+
+      // Create joysticks (for any that are connected)
+      int num_joysticks = al_get_num_joysticks();
+      for (int i=0; i<num_joysticks; i++)
+      {
+         ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(i);
+
+         // TODO: consider the following data
+         //al_get_joystick_active
+         //al_get_joystick_name
+         //al_get_joystick_stick_name
+         //al_get_joystick_axis_name
+         //al_get_joystick_button_name
+         //al_get_joystick_stick_flags
+         //al_get_joystick_num_sticks
+         //al_get_joystick_num_axes
+         //al_get_joystick_num_buttons
+         //al_get_joystick_state
+
+         AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
+            new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+         joystick->set_al_joystick(al_joystick);
+
+         devices.push_back(joystick);
+
+         al_get_joystick(i);
+      }
       return;
     body_dependency_symbols:
       - al_is_system_installed
+      - AllegroFlare::PhysicalInputDevices::Keyboard
+      - AllegroFlare::PhysicalInputDevices::Joysticks::Base
+
+
+  - name: handle_reconfigured_joystick
+    body: |
+      return;
+
+
+  - name: num_known_devices
+    type: int
+    body: |
+      return devices.size();
 
 
 dependencies:
@@ -24,5 +70,9 @@ dependencies:
     headers: [ AllegroFlare/PhysicalInputDevices/Base.hpp ]
   - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Keyboard
+    headers: [ AllegroFlare/PhysicalInputDevices/Keyboard.hpp ]
+  - symbol: AllegroFlare::PhysicalInputDevices::Joysticks::Base
+    headers: [ AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp ]
 
 
