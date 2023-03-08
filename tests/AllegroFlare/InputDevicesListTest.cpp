@@ -18,7 +18,7 @@ TEST(AllegroFlare_InputDevicesListTest, initialize__without_allegro_installed__w
 {
    AllegroFlare::InputDevicesList physical_input_device_list;
    std::string expected_error_message =
-      "InputDeviceList::initialize: error: guard \"al_is_system_installed()\" not met";
+      "InputDevicesList::initialize: error: guard \"al_is_system_installed()\" not met";
    EXPECT_THROW_WITH_MESSAGE(physical_input_device_list.initialize(), std::runtime_error, expected_error_message);
 }
 
