@@ -32,3 +32,46 @@ TEST(AllegroFlare_PhysicalInputDeviceListTest, initialize__will_not_blow_up)
 }
 
 
+TEST(AllegroFlare_PhysicalInputDeviceListTest,
+   initialize__when_the_keyboard_is_not_installed__will_not_create_a_keybord_device)
+{
+   al_init();
+   AllegroFlare::PhysicalInputDeviceList physical_input_device_list;
+   physical_input_device_list.initialize();
+   std::vector<AllegroFlare::PhysicalInputDevices::Base*> devices = physical_input_device_list.get_devices_ref();
+   bool contains_keyboard = false;
+   for (auto &device : devices)
+   {
+      if (device->is_keyboard())
+      {
+         contains_keyboard = true;
+         break;
+      }
+   }
+   EXPECT_EQ(false, contains_keyboard);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_PhysicalInputDeviceListTest, initialize__when_the_keyboard_is_installed__will_create_a_keybord_device)
+{
+   al_init();
+   al_install_keyboard();
+   AllegroFlare::PhysicalInputDeviceList physical_input_device_list;
+   physical_input_device_list.initialize();
+   std::vector<AllegroFlare::PhysicalInputDevices::Base*> devices = physical_input_device_list.get_devices_ref();
+   bool contains_keyboard = false;
+   for (auto &device : devices)
+   {
+      if (device->is_keyboard())
+      {
+         contains_keyboard = true;
+         break;
+      }
+   }
+   EXPECT_EQ(true, contains_keyboard);
+   al_uninstall_keyboard();
+   al_uninstall_system();
+}
+
+

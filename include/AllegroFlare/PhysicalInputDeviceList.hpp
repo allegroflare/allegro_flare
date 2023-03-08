@@ -19,6 +19,7 @@ namespace AllegroFlare
       PhysicalInputDeviceList();
       ~PhysicalInputDeviceList();
 
+      std::vector<AllegroFlare::PhysicalInputDevices::Base*> &get_devices_ref();
       void initialize();
       void handle_reconfigured_joystick();
       int num_known_devices();

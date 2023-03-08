@@ -4,6 +4,14 @@ properties:
   - name: devices
     type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
     init_with: '{}'
+    getter_ref: true
+
+
+documentation:
+
+
+  - todos:
+      - Consider renaming this to InputDeviceList, it could contain virtual or screen-based keyboards in future.
 
 
 functions:

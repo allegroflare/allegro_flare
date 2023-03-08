@@ -25,6 +25,12 @@ PhysicalInputDeviceList::~PhysicalInputDeviceList()
 }
 
 
+std::vector<AllegroFlare::PhysicalInputDevices::Base*> &PhysicalInputDeviceList::get_devices_ref()
+{
+   return devices;
+}
+
+
 void PhysicalInputDeviceList::initialize()
 {
    if (!(al_is_system_installed()))
