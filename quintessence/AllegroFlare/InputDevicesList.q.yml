@@ -4,7 +4,6 @@ properties:
   - name: devices
     type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
     init_with: '{}'
-    getter_ref: true
 
 
 functions:
@@ -51,6 +50,22 @@ functions:
       - al_is_system_installed
       - AllegroFlare::PhysicalInputDevices::Keyboard
       - AllegroFlare::PhysicalInputDevices::Joysticks::Base
+
+
+  - name: count_num_keyboard_devices
+    type: int
+    body: |
+      int keyboard_count = 0;
+      for (auto &device : devices) { if (device->is_keyboard()) keyboard_count++; }
+      return keyboard_count;
+
+
+  - name: count_num_joystick_devices
+    type: int
+    body: |
+      int joystick_count = 0;
+      for (auto &device : devices) { if (device->is_joystick()) joystick_count++; }
+      return joystick_count;
 
 
   - name: handle_reconfigured_joystick

@@ -25,12 +25,6 @@ InputDevicesList::~InputDevicesList()
 }
 
 
-std::vector<AllegroFlare::PhysicalInputDevices::Base*> &InputDevicesList::get_devices_ref()
-{
-   return devices;
-}
-
-
 void InputDevicesList::initialize()
 {
    if (!(al_is_system_installed()))
@@ -74,6 +68,20 @@ void InputDevicesList::initialize()
       al_get_joystick(i);
    }
    return;
+}
+
+int InputDevicesList::count_num_keyboard_devices()
+{
+   int keyboard_count = 0;
+   for (auto &device : devices) { if (device->is_keyboard()) keyboard_count++; }
+   return keyboard_count;
+}
+
+int InputDevicesList::count_num_joystick_devices()
+{
+   int joystick_count = 0;
+   for (auto &device : devices) { if (device->is_joystick()) joystick_count++; }
+   return joystick_count;
 }
 
 void InputDevicesList::handle_reconfigured_joystick()
