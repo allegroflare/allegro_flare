@@ -13,7 +13,20 @@ properties:
     type: ALLEGRO_JOYSTICK*
     init_with: nullptr
     getter: true
-    setter: true
+
+  - name: name
+    type: std::string
+    init_with: '""'
+    getter: true
+
+  - name: buttons
+    type: std::map<uint32_t, std::string>
+    init_with: '{}'
+    getter: true
+
+  - name: has_been_setup
+    type: bool
+    init_with: false
 
   - name: TYPE
     type: char*
@@ -23,6 +36,49 @@ properties:
 
 
 functions:
+
+
+  - name: set_al_joystick
+    parameters:
+      - name: al_joystick
+        type: ALLEGRO_JOYSTICK*
+        default_argument: nullptr
+    guards: [ (!has_been_setup) ]
+    body: |
+      this->al_joystick = al_joystick;
+      return;
+
+
+  - name: get_name
+    type: std::string
+    guards: [ has_been_setup ]
+    body: |
+      return name;
+
+
+  - name: get_buttons
+    type: std::map<uint32_t, std::string>
+    guards: [ has_been_setup ]
+    body: |
+      return buttons;
+
+
+  - name: setup
+    type: bool
+    guards: [ al_joystick ]
+    body: |
+      // Grab the joystick name
+      name = al_get_joystick_name(al_joystick);
+
+      // Grab the buttons and their names
+      int num_buttons = al_get_joystick_num_buttons(al_joystick);
+      for (int i=0; i<num_buttons; i++)
+      {
+         buttons[i] = al_get_joystick_button_name(al_joystick, i);
+      }
+
+      has_been_setup = true;
+      return true;
 
 
   - name: is_joystick
