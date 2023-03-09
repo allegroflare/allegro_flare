@@ -72,7 +72,8 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
    {
       al_uninstall_joystick();
       al_uninstall_system();
-      GTEST_SKIP() << "This test requires a joystick that is acitvely plugged in.";
+      //GTEST_SKIP() << "This test requires a joystick that is acitvely plugged in.";
+      GTEST_FAIL() << "This test requires a joystick that is acitvely plugged in.";
    }
 
    ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(0);
@@ -84,13 +85,25 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
                           // https://github.com/liballeg/allegro5/blob/master/src/macosx/hidjoy.m#L733-L738
 
    EXPECT_EQ(expected_joystick_name, generic_joystick.get_name());
-   
-   // TODO: This assertion:
-   //std::map<uint32_t, std::string> expected_buttons = {
-      //{ 0, "foo" },
-      //{ 1, "bar" },
-   //};
-   //EXPECT_EQ(expected_buttons, generic_joystick.get_buttons());
+
+   std::map<uint32_t, std::string> expected_buttons = {
+      { 0,  "Button 0"  },
+      { 1,  "Button 1"  },
+      { 2,  "Button 2"  },
+      { 3,  "Button 3"  },
+      { 4,  "Button 4"  },
+      { 5,  "Button 5"  },
+      { 6,  "Button 6"  },
+      { 7,  "Button 7"  },
+      { 8,  "Button 8"  },
+      { 9,  "Button 9"  },
+      { 10, "Button 10" },
+      { 11, "Button 11" },
+      { 12, "Button 12" },
+      { 13, "Button 13" },
+      { 14, "Button 14" },
+   };
+   EXPECT_EQ(expected_buttons, generic_joystick.get_buttons());
 
    al_uninstall_joystick();
    al_uninstall_system();
