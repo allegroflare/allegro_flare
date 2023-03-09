@@ -72,6 +72,10 @@ TEST(AllegroFlare_InputDevicesListTest,
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that *no* joystick devices are currently connected on the OS.
 
+   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
+   // some bug in Allegro5. Needs to be investigated.
+   // TODO: Fix this flakey test
+
    al_init();
    al_install_joystick();
    AllegroFlare::InputDevicesList input_device_list;
@@ -90,6 +94,10 @@ TEST(AllegroFlare_InputDevicesListTest,
    // TODO: Consider having a test that interactively prompts the interactive tester to disconnect all devices
    // before running the test.
 
+   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
+   // some bug in Allegro5. Needs to be investigated.
+   // TODO: Fix this flakey test
+
    al_init();
    al_install_joystick();
    AllegroFlare::InputDevicesList input_device_list;
@@ -106,6 +114,10 @@ TEST(AllegroFlare_InputDevicesListTest,
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
    // TODO: Consider having a test that interactively prompts the interactive tester to connect one (or some) devices.
+
+   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
+   // some bug in Allegro5. Needs to be investigated.
+   // TODO: Fix this flakey test
 
    al_init();
    al_install_joystick();
@@ -138,8 +150,6 @@ TEST(AllegroFlare_InputDevicesListTest,
    al_destroy_event_queue(event_queue);
    al_uninstall_joystick();
    al_uninstall_system();
-
-   // TODO: this test
 }
 
 

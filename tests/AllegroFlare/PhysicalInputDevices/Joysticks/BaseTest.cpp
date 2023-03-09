@@ -34,18 +34,63 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest, setup__without_an_al_
 
 
 TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
-   INTERACTIVE__setup__will_fill_the_properties_with_the_expected_values)
+   DISABLED__INTERACTIVE__setup__will_not_blow_up)
 {
+   // NOTE: These tests appear flakey!  They will work, then not work, then stall.  I think it's related to
+   // some bug in Allegro5. Needs to be investigated.
+   // TODO: Fix this flakey test
+
    al_init();
    al_install_joystick();
    if (al_get_num_joysticks() == 0)
    {
+      al_uninstall_joystick();
+      al_uninstall_system();
       GTEST_SKIP() << "This test requires a joystick that is acitvely plugged in.";
    }
 
    ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(0);
    AllegroFlare::PhysicalInputDevices::Joysticks::Base generic_joystick;
    generic_joystick.set_al_joystick(al_joystick);
+   generic_joystick.setup();
+
+   al_uninstall_joystick();
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
+   INTERACTIVE__setup__will_fill_the_properties_with_the_expected_values)
+{
+   // NOTE: These tests appear flakey!  They will work, then not work, then stall.  I think it's related to
+   // some bug in Allegro5. Needs to be investigated.
+   // TODO: Fix this flakey test
+
+   al_init();
+   al_install_joystick();
+   if (al_get_num_joysticks() == 0)
+   {
+      al_uninstall_joystick();
+      al_uninstall_system();
+      GTEST_SKIP() << "This test requires a joystick that is acitvely plugged in.";
+   }
+
+   ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(0);
+   AllegroFlare::PhysicalInputDevices::Joysticks::Base generic_joystick;
+   generic_joystick.set_al_joystick(al_joystick);
+   generic_joystick.setup();
+
+   std::string expected_joystick_name = "Joystick"; // TODO: Update Allegro5 to have better names for devices, see:
+                          // https://github.com/liballeg/allegro5/blob/master/src/macosx/hidjoy.m#L733-L738
+
+   EXPECT_EQ(expected_joystick_name, generic_joystick.get_name());
+   
+   // TODO: This assertion:
+   //std::map<uint32_t, std::string> expected_buttons = {
+      //{ 0, "foo" },
+      //{ 1, "bar" },
+   //};
+   //EXPECT_EQ(expected_buttons, generic_joystick.get_buttons());
 
    al_uninstall_joystick();
    al_uninstall_system();
