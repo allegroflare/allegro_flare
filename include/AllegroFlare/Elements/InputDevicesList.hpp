@@ -1,8 +1,10 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/PhysicalInputDevices/Base.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
@@ -17,6 +19,11 @@ namespace AllegroFlare
    {
       class InputDevicesList
       {
+      public:
+         static constexpr uint32_t SCROLLBAR_MOVEMENT_NONE = 0;
+         static constexpr uint32_t SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL = 1;
+         static constexpr float DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER = 0.1f;
+
       private:
          enum connection_status_t : uint32_t
          {
@@ -26,12 +33,20 @@ namespace AllegroFlare
          };
          AllegroFlare::FontBin* font_bin;
          std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices;
-         float input_devices_box_width;
-         float input_devices_box_height;
+         float list_item_box_width;
+         float list_item_box_height;
          int surface_width;
          int surface_height;
+         int cursor_pos;
+         AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          float scrollbar_position;
+         float scrollbar_position_destination;
+         uint32_t scrollbar_movement_mode;
          float box_gutter_y;
+         bool initialized;
+         void move_selection_cursor_box_to_current_cursor_location();
+         AllegroFlare::Vec2D build_selection_cursor_box_position_of_current_cursor_pos();
+         float build_scrollbar_position_at_current_cursor_pos();
          int count_num_input_devices_connected();
          int count_num_input_devices_disconnected();
          void draw_header_title_backfill();
@@ -58,23 +73,31 @@ namespace AllegroFlare
 
 
       public:
-         InputDevicesList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices={}, float input_devices_box_width=960.0f, float input_devices_box_height=148.0f);
+         InputDevicesList(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices={}, float list_item_box_width=960.0f, float list_item_box_height=148.0f);
          ~InputDevicesList();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
-         void set_input_devices(std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices);
-         void set_input_devices_box_width(float input_devices_box_width);
-         void set_input_devices_box_height(float input_devices_box_height);
+         void set_list_item_box_width(float list_item_box_width);
+         void set_list_item_box_height(float list_item_box_height);
          void set_surface_width(int surface_width);
          void set_surface_height(int surface_height);
          void set_box_gutter_y(float box_gutter_y);
          std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> get_input_devices() const;
-         float get_input_devices_box_width() const;
-         float get_input_devices_box_height() const;
+         float get_list_item_box_width() const;
+         float get_list_item_box_height() const;
          int get_surface_width() const;
          int get_surface_height() const;
+         int get_cursor_pos() const;
          float get_scrollbar_position() const;
+         float get_scrollbar_position_destination() const;
          float get_box_gutter_y() const;
+         bool get_initialized() const;
+         void set_input_devices(std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices={});
+         void initialize();
+         bool move_cursor_up();
+         bool move_cursor_down();
+         float infer_list_item_spacing_y();
+         bool scrollbar_movement_mode_is_follow_proportional();
          void render();
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);

@@ -67,6 +67,9 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
    // TODO: Fix this flakey test
 
    al_init();
+
+   // DEBUG:
+
    al_install_joystick();
    if (al_get_num_joysticks() == 0)
    {
@@ -79,6 +82,7 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
    ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(0);
    AllegroFlare::PhysicalInputDevices::Joysticks::Base generic_joystick;
    generic_joystick.set_al_joystick(al_joystick);
+
    generic_joystick.setup();
 
    std::string expected_joystick_name = "Joystick"; // TODO: Update Allegro5 to have better names for devices, see:

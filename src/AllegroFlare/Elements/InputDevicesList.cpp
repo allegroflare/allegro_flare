@@ -20,15 +20,20 @@ namespace Elements
 {
 
 
-InputDevicesList::InputDevicesList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices, float input_devices_box_width, float input_devices_box_height)
+InputDevicesList::InputDevicesList(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices, float list_item_box_width, float list_item_box_height)
    : font_bin(font_bin)
    , input_devices(input_devices)
-   , input_devices_box_width(input_devices_box_width)
-   , input_devices_box_height(input_devices_box_height)
+   , list_item_box_width(list_item_box_width)
+   , list_item_box_height(list_item_box_height)
    , surface_width(1920)
    , surface_height(1080)
+   , cursor_pos(0)
+   , selection_cursor_box({})
    , scrollbar_position(0.0f)
+   , scrollbar_position_destination(0.0f)
+   , scrollbar_movement_mode(SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL)
    , box_gutter_y(10.0f)
+   , initialized(false)
 {
 }
 
@@ -44,21 +49,15 @@ void InputDevicesList::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void InputDevicesList::set_input_devices(std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices)
+void InputDevicesList::set_list_item_box_width(float list_item_box_width)
 {
-   this->input_devices = input_devices;
+   this->list_item_box_width = list_item_box_width;
 }
 
 
-void InputDevicesList::set_input_devices_box_width(float input_devices_box_width)
+void InputDevicesList::set_list_item_box_height(float list_item_box_height)
 {
-   this->input_devices_box_width = input_devices_box_width;
-}
-
-
-void InputDevicesList::set_input_devices_box_height(float input_devices_box_height)
-{
-   this->input_devices_box_height = input_devices_box_height;
+   this->list_item_box_height = list_item_box_height;
 }
 
 
@@ -86,15 +85,15 @@ std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std:
 }
 
 
-float InputDevicesList::get_input_devices_box_width() const
+float InputDevicesList::get_list_item_box_width() const
 {
-   return input_devices_box_width;
+   return list_item_box_width;
 }
 
 
-float InputDevicesList::get_input_devices_box_height() const
+float InputDevicesList::get_list_item_box_height() const
 {
-   return input_devices_box_height;
+   return list_item_box_height;
 }
 
 
@@ -110,9 +109,21 @@ int InputDevicesList::get_surface_height() const
 }
 
 
+int InputDevicesList::get_cursor_pos() const
+{
+   return cursor_pos;
+}
+
+
 float InputDevicesList::get_scrollbar_position() const
 {
    return scrollbar_position;
+}
+
+
+float InputDevicesList::get_scrollbar_position_destination() const
+{
+   return scrollbar_position_destination;
 }
 
 
@@ -122,21 +133,137 @@ float InputDevicesList::get_box_gutter_y() const
 }
 
 
-void InputDevicesList::render()
+bool InputDevicesList::get_initialized() const
 {
+   return initialized;
+}
+
+
+void InputDevicesList::set_input_devices(std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[InputDevicesList::set_input_devices]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("InputDevicesList::set_input_devices: error: guard \"initialized\" not met");
+   }
+   this->input_devices = input_devices;
+   cursor_pos = 0;
+   // TODO: Set input devices
+   // TODO: Set cursor_pos to 0
+   // TODO: Add test for cursor_pos @ 0
+   return;
+}
+
+void InputDevicesList::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[InputDevicesList::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("InputDevicesList::initialize: error: guard \"(!initialized)\" not met");
+   }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("InputDevicesList::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[InputDevicesList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("InputDevicesList::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+   }
+   selection_cursor_box.set_position(0, 0);
+   selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
+   selection_cursor_box.set_padding(6.0f, 6.0f);
+   initialized = true;
+   return;
+}
+
+bool InputDevicesList::move_cursor_up()
+{
+   if (input_devices.empty()) return false;
+   //if (state != STATE_MOVING_CURSOR) return false;
+
+   int previous_cursor_pos = cursor_pos;
+   cursor_pos--;
+   // TODO: add optional "wrap"
+   while (cursor_pos < 0)
+   {
+      cursor_pos += input_devices.size();
+   }
+
+   bool cursor_moved = (previous_cursor_pos != cursor_pos);
+   if (cursor_moved) move_selection_cursor_box_to_current_cursor_location();
+
+   return true;
+}
+
+bool InputDevicesList::move_cursor_down()
+{
+   if (input_devices.empty()) return false;
+   //if (state != STATE_MOVING_CURSOR) return false;
+
+   int previous_cursor_pos = cursor_pos;
+   cursor_pos++;
+   // TODO: add optional "wrap"
+   while (cursor_pos >= input_devices.size())
+   {
+      cursor_pos -= input_devices.size();
+   }
+
+   bool cursor_moved = (previous_cursor_pos != cursor_pos);
+   if (cursor_moved) move_selection_cursor_box_to_current_cursor_location();
+
+   return cursor_moved;
+}
+
+void InputDevicesList::move_selection_cursor_box_to_current_cursor_location()
+{
+   // TODO: this function
+   AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
+   selection_cursor_box.reposition_to(new_position.x, new_position.y);
+
+   if (scrollbar_movement_mode_is_follow_proportional())
+   {
+      float new_scrollbar_position = build_scrollbar_position_at_current_cursor_pos();
+      scrollbar_position_destination = new_scrollbar_position;
+      // TODO: replace this logic with a "scrollbar_position_destination" type logic
+      //scrollbar_position = new_scrollbar_position;
+   }
+
+   return;
+}
+
+AllegroFlare::Vec2D InputDevicesList::build_selection_cursor_box_position_of_current_cursor_pos()
+{
+   return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
+}
+
+float InputDevicesList::infer_list_item_spacing_y()
+{
+   return list_item_box_height + box_gutter_y;
+}
+
+bool InputDevicesList::scrollbar_movement_mode_is_follow_proportional()
+{
+   return scrollbar_movement_mode == SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL;
+}
+
+void InputDevicesList::render()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[InputDevicesList::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("InputDevicesList::render: error: guard \"initialized\" not met");
    }
    draw_input_devices_list_items_and_scrollbar();
    draw_input_devices_list_title_text_and_completed_title_text();
@@ -171,6 +298,14 @@ float InputDevicesList::infer_scrollbar_max_position()
 bool InputDevicesList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
 {
    return infer_container_scroll_range() <= 0;
+}
+
+float InputDevicesList::build_scrollbar_position_at_current_cursor_pos()
+{
+   if (input_devices.size() <= 1) return 0;
+   float normalized_cursor_position = (float)cursor_pos / (input_devices.size() - 1);
+   float container_scroll_range = infer_container_scroll_range();
+   return normalized_cursor_position * container_scroll_range;
 }
 
 std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> InputDevicesList::build_placeholder_input_devices()
@@ -292,12 +427,12 @@ void InputDevicesList::draw_input_devices_list_title_text_and_completed_title_te
 float InputDevicesList::infer_container_height()
 {
    return 800;
-   //return (input_devices_box_height + box_gutter_y) * 5.5;
+   //return (list_item_box_height + box_gutter_y) * 5.5;
 }
 
 float InputDevicesList::infer_container_contents_height()
 {
-   float y_spacing = input_devices_box_height + box_gutter_y;
+   float y_spacing = list_item_box_height + box_gutter_y;
    return input_devices.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                           // to take into account
                                                           // lists of size 0; E.g.
@@ -313,7 +448,7 @@ float InputDevicesList::infer_container_scroll_range()
 
 void InputDevicesList::limit_scrollbar_position()
 {
-   float y_spacing = input_devices_box_height + box_gutter_y;
+   float y_spacing = list_item_box_height + box_gutter_y;
    float container_height = infer_container_height();
    float container_contents_height = infer_container_contents_height();
    float container_scroll_range = infer_container_scroll_range();
@@ -325,7 +460,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
 {
    float input_devices_list_x = surface_width/2;
    float input_devices_list_y = surface_height/2 + 40;
-   float input_devices_list_width = input_devices_box_width;
+   float input_devices_list_width = list_item_box_width;
    float scrollbar_x_padding = 70;
    float scrollbar_y_padding = 26;
    ALLEGRO_COLOR input_devices_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
@@ -333,7 +468,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
    ALLEGRO_COLOR scrollbar_handle_color = ALLEGRO_COLOR{0.5, 0.505, 0.51, 1.0};
    float input_devices_box_list_x = 0;
    float input_devices_box_list_y = 0;
-   float y_spacing = input_devices_box_height + box_gutter_y;
+   float y_spacing = list_item_box_height + box_gutter_y;
    float frame_thickness = 6.0;
    float frame_outset = box_gutter_y + 2;
    float container_height = infer_container_height();
@@ -351,47 +486,60 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
    place.start_transform();
 
    // draw the items in the list
-   for (int i=0; i<input_devices.size(); i++)
+   if (input_devices.empty())
    {
-      AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
-      uint32_t connected_status = std::get<1>(input_devices[i]);
-      std::string title = std::get<2>(input_devices[i]);
-      std::string device_id = std::get<3>(input_devices[i]);
-
-      draw_input_device_box(
-         input_devices_box_list_x,
-         input_devices_box_list_y + i * y_spacing - scrollbar_position,
-         physical_input_device,
-         connected_status,
-         title,
-         device_id
-      );
+      // TODO: Render empty state
+      // TODO: Test this condition
    }
-
-   //// draw the frame
-   //al_draw_rounded_rectangle(
-   //   0 - frame_outset,
-   //   0 - frame_outset,
-   //   input_devices_list_width + frame_outset,
-   //   input_devices_list_container_height + frame_outset,
-   //   5.0,
-   //   5.0,
-   //   input_devices_list_frame_color,
-   //   frame_thickness
-   //);
-
-   // draw the scrollbar
-   if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
+   else // There are no items to render
    {
-      AllegroFlare::Elements::Scrollbar scrollbar(
-         input_devices_list_width + scrollbar_x_padding,
-         scrollbar_y_padding,
-         container_height - scrollbar_y_padding * 2,
-         normalized_scrollbar_position,
-         scrollbar_bar_color,
-         scrollbar_handle_color
-      );
-      scrollbar.render();
+      // TODO: Test this condition
+
+      for (int i=0; i<input_devices.size(); i++)
+      {
+         AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
+         uint32_t connected_status = std::get<1>(input_devices[i]);
+         std::string title = std::get<2>(input_devices[i]);
+         std::string device_id = std::get<3>(input_devices[i]);
+
+         draw_input_device_box(
+            input_devices_box_list_x,
+            input_devices_box_list_y + i * y_spacing - scrollbar_position,
+            physical_input_device,
+            connected_status,
+            title,
+            device_id
+         );
+      }
+
+      // Show the selection cursor
+      selection_cursor_box.render();
+
+      //// draw the frame
+      //al_draw_rounded_rectangle(
+      //   0 - frame_outset,
+      //   0 - frame_outset,
+      //   input_devices_list_width + frame_outset,
+      //   input_devices_list_container_height + frame_outset,
+      //   5.0,
+      //   5.0,
+      //   input_devices_list_frame_color,
+      //   frame_thickness
+      //);
+
+      // draw the scrollbar
+      if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
+      {
+         AllegroFlare::Elements::Scrollbar scrollbar(
+            input_devices_list_width + scrollbar_x_padding,
+            scrollbar_y_padding,
+            container_height - scrollbar_y_padding * 2,
+            normalized_scrollbar_position,
+            scrollbar_bar_color,
+            scrollbar_handle_color
+         );
+         scrollbar.render();
+      }
    }
 
    place.restore_transform();
@@ -403,8 +551,8 @@ void InputDevicesList::draw_input_device_box(float x, float y, AllegroFlare::Phy
    ALLEGRO_FONT *item_title_font = obtain_item_title_font();
    ALLEGRO_FONT *description_font = obtain_item_description_font();
    ALLEGRO_FONT *icon_font = obtain_icon_font();
-   //float input_devices_box_width = 800.0f;
-   //float input_devices_box_height = 150.0f;
+   //float list_item_box_width = 800.0f;
+   //float list_item_box_height = 150.0f;
    float box_padding_x = 20;
    float box_padding_y = 20;
    float title_padding_y = 10;
@@ -419,7 +567,7 @@ void InputDevicesList::draw_input_device_box(float x, float y, AllegroFlare::Phy
    float item_title_font_line_height = al_get_font_line_height(item_title_font);
    float description_font_line_height = al_get_font_line_height(description_font);
    float icon_font_line_height = al_get_font_line_height(icon_font);
-   float icon_container_box_size = input_devices_box_height - box_padding_x*2;
+   float icon_container_box_size = list_item_box_height - box_padding_x*2;
    float text_y_offset = 10;
    float icon_container_box_text_x_padding = 30;
    float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
@@ -444,15 +592,15 @@ void InputDevicesList::draw_input_device_box(float x, float y, AllegroFlare::Phy
       al_draw_rectangle(
          x + h_thickness,
          y + h_thickness,
-         x + input_devices_box_width - h_thickness,
-         y + input_devices_box_height - h_thickness,
+         x + list_item_box_width - h_thickness,
+         y + list_item_box_height - h_thickness,
          box_color,
          hidden_box_stroke_thickness
       );
    }
    else
    {
-      al_draw_filled_rectangle(x, y, x + input_devices_box_width, y + input_devices_box_height, box_color);
+      al_draw_filled_rectangle(x, y, x + list_item_box_width, y + list_item_box_height, box_color);
    }
 
    // Draw the icon container box rectangle
@@ -507,7 +655,7 @@ void InputDevicesList::draw_input_device_box(float x, float y, AllegroFlare::Phy
       description_text_color,
       x + box_padding_x + text_x_offset,
       y + box_padding_y + item_title_font_line_height + title_padding_y + text_y_offset,
-      input_devices_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
+      list_item_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
       description_font_line_height,
       ALLEGRO_ALIGN_LEFT,
       build_item_description(device_id, connection_status).c_str()

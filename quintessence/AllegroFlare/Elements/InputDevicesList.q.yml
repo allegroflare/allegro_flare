@@ -12,16 +12,16 @@ properties:
     init_with: '{}'
     constructor_arg: true
     getter: true
-    setter: true
+    setter: false
 
-  - name: input_devices_box_width
+  - name: list_item_box_width
     type: float
     init_with: 960.0f
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: input_devices_box_height
+  - name: list_item_box_height
     type: float
     init_with: 148.0f
     constructor_arg: true
@@ -40,6 +40,15 @@ properties:
     getter: true
     setter: true
 
+  - name: cursor_pos
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox
+    init_with: '{}'
+
   - name: scrollbar_position
     type: float
     init_with: 0.0f
@@ -47,12 +56,48 @@ properties:
     getter_ref: false
     setter: false
 
+  - name: scrollbar_position_destination
+    type: float
+    init_with: 0.0f
+    getter: true
+    getter_ref: false
+    setter: false
+
+  - name: scrollbar_movement_mode
+    type: uint32_t
+    init_with: SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL
+
   - name: box_gutter_y
     type: float
     init_with: 10.0f
     getter: true
     setter: true
 
+  - name: SCROLLBAR_MOVEMENT_NONE
+    type: uint32_t
+    init_with: 0
+    const: true
+    static: true
+    constexpr: true
+
+  - name: SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL
+    type: uint32_t
+    init_with: 1
+    const: true
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER
+    type: float
+    init_with: 0.1f
+    const: true
+    static: true
+    constexpr: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
 
 
 enums:
@@ -69,9 +114,113 @@ enums:
 functions:
 
 
+  - name: set_input_devices
+    parameters:
+      - name: input_devices
+        type: std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>>
+        default_argument: '{}'
+    guards: [ initialized ]
+    body: |
+      this->input_devices = input_devices;
+      cursor_pos = 0;
+      // TODO: Set input devices
+      // TODO: Set cursor_pos to 0
+      // TODO: Add test for cursor_pos @ 0
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      selection_cursor_box.set_position(0, 0);
+      selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
+      selection_cursor_box.set_padding(6.0f, 6.0f);
+      initialized = true;
+      return;
+
+
+  - name: move_cursor_up
+    type: bool
+    body: |
+      if (input_devices.empty()) return false;
+      //if (state != STATE_MOVING_CURSOR) return false;
+
+      int previous_cursor_pos = cursor_pos;
+      cursor_pos--;
+      // TODO: add optional "wrap"
+      while (cursor_pos < 0)
+      {
+         cursor_pos += input_devices.size();
+      }
+
+      bool cursor_moved = (previous_cursor_pos != cursor_pos);
+      if (cursor_moved) move_selection_cursor_box_to_current_cursor_location();
+
+      return true;
+
+
+  - name: move_cursor_down
+    type: bool
+    body: |
+      if (input_devices.empty()) return false;
+      //if (state != STATE_MOVING_CURSOR) return false;
+
+      int previous_cursor_pos = cursor_pos;
+      cursor_pos++;
+      // TODO: add optional "wrap"
+      while (cursor_pos >= input_devices.size())
+      {
+         cursor_pos -= input_devices.size();
+      }
+
+      bool cursor_moved = (previous_cursor_pos != cursor_pos);
+      if (cursor_moved) move_selection_cursor_box_to_current_cursor_location();
+
+      return cursor_moved;
+
+
+  - name: move_selection_cursor_box_to_current_cursor_location
+    private: true
+    body: |
+      // TODO: this function
+      AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
+      selection_cursor_box.reposition_to(new_position.x, new_position.y);
+
+      if (scrollbar_movement_mode_is_follow_proportional())
+      {
+         float new_scrollbar_position = build_scrollbar_position_at_current_cursor_pos();
+         scrollbar_position_destination = new_scrollbar_position;
+         // TODO: replace this logic with a "scrollbar_position_destination" type logic
+         //scrollbar_position = new_scrollbar_position;
+      }
+
+      return;
+
+
+  - name: build_selection_cursor_box_position_of_current_cursor_pos
+    private: true
+    type: AllegroFlare::Vec2D
+    body: |
+      return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
+
+
+  - name: infer_list_item_spacing_y
+    type: float
+    body: |
+      return list_item_box_height + box_gutter_y;
+
+
+  - name: scrollbar_movement_mode_is_follow_proportional
+    type: bool
+    body: |
+      return scrollbar_movement_mode == SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL;
+
+
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ initialized ]
     body: |
       draw_input_devices_list_items_and_scrollbar();
       draw_input_devices_list_title_text_and_completed_title_text();
@@ -118,6 +267,16 @@ functions:
     type: bool
     body: |
       return infer_container_scroll_range() <= 0;
+
+
+  - name: build_scrollbar_position_at_current_cursor_pos
+    private: true
+    type: float
+    body: |
+      if (input_devices.size() <= 1) return 0;
+      float normalized_cursor_position = (float)cursor_pos / (input_devices.size() - 1);
+      float container_scroll_range = infer_container_scroll_range();
+      return normalized_cursor_position * container_scroll_range;
 
 
   - name: build_placeholder_input_devices
@@ -256,14 +415,14 @@ functions:
     private: true
     body: |
       return 800;
-      //return (input_devices_box_height + box_gutter_y) * 5.5;
+      //return (list_item_box_height + box_gutter_y) * 5.5;
 
 
   - name: infer_container_contents_height
     type: float
     private: true
     body: |
-      float y_spacing = input_devices_box_height + box_gutter_y;
+      float y_spacing = list_item_box_height + box_gutter_y;
       return input_devices.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                              // to take into account
                                                              // lists of size 0; E.g.
@@ -282,7 +441,7 @@ functions:
   - name: limit_scrollbar_position
     private: true
     body: |
-      float y_spacing = input_devices_box_height + box_gutter_y;
+      float y_spacing = list_item_box_height + box_gutter_y;
       float container_height = infer_container_height();
       float container_contents_height = infer_container_contents_height();
       float container_scroll_range = infer_container_scroll_range();
@@ -295,7 +454,7 @@ functions:
     body: |
       float input_devices_list_x = surface_width/2;
       float input_devices_list_y = surface_height/2 + 40;
-      float input_devices_list_width = input_devices_box_width;
+      float input_devices_list_width = list_item_box_width;
       float scrollbar_x_padding = 70;
       float scrollbar_y_padding = 26;
       ALLEGRO_COLOR input_devices_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
@@ -303,7 +462,7 @@ functions:
       ALLEGRO_COLOR scrollbar_handle_color = ALLEGRO_COLOR{0.5, 0.505, 0.51, 1.0};
       float input_devices_box_list_x = 0;
       float input_devices_box_list_y = 0;
-      float y_spacing = input_devices_box_height + box_gutter_y;
+      float y_spacing = list_item_box_height + box_gutter_y;
       float frame_thickness = 6.0;
       float frame_outset = box_gutter_y + 2;
       float container_height = infer_container_height();
@@ -321,47 +480,60 @@ functions:
       place.start_transform();
 
       // draw the items in the list
-      for (int i=0; i<input_devices.size(); i++)
+      if (input_devices.empty())
       {
-         AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
-         uint32_t connected_status = std::get<1>(input_devices[i]);
-         std::string title = std::get<2>(input_devices[i]);
-         std::string device_id = std::get<3>(input_devices[i]);
-
-         draw_input_device_box(
-            input_devices_box_list_x,
-            input_devices_box_list_y + i * y_spacing - scrollbar_position,
-            physical_input_device,
-            connected_status,
-            title,
-            device_id
-         );
+         // TODO: Render empty state
+         // TODO: Test this condition
       }
-
-      //// draw the frame
-      //al_draw_rounded_rectangle(
-      //   0 - frame_outset,
-      //   0 - frame_outset,
-      //   input_devices_list_width + frame_outset,
-      //   input_devices_list_container_height + frame_outset,
-      //   5.0,
-      //   5.0,
-      //   input_devices_list_frame_color,
-      //   frame_thickness
-      //);
-
-      // draw the scrollbar
-      if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
+      else // There are no items to render
       {
-         AllegroFlare::Elements::Scrollbar scrollbar(
-            input_devices_list_width + scrollbar_x_padding,
-            scrollbar_y_padding,
-            container_height - scrollbar_y_padding * 2,
-            normalized_scrollbar_position,
-            scrollbar_bar_color,
-            scrollbar_handle_color
-         );
-         scrollbar.render();
+         // TODO: Test this condition
+
+         for (int i=0; i<input_devices.size(); i++)
+         {
+            AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
+            uint32_t connected_status = std::get<1>(input_devices[i]);
+            std::string title = std::get<2>(input_devices[i]);
+            std::string device_id = std::get<3>(input_devices[i]);
+
+            draw_input_device_box(
+               input_devices_box_list_x,
+               input_devices_box_list_y + i * y_spacing - scrollbar_position,
+               physical_input_device,
+               connected_status,
+               title,
+               device_id
+            );
+         }
+
+         // Show the selection cursor
+         selection_cursor_box.render();
+
+         //// draw the frame
+         //al_draw_rounded_rectangle(
+         //   0 - frame_outset,
+         //   0 - frame_outset,
+         //   input_devices_list_width + frame_outset,
+         //   input_devices_list_container_height + frame_outset,
+         //   5.0,
+         //   5.0,
+         //   input_devices_list_frame_color,
+         //   frame_thickness
+         //);
+
+         // draw the scrollbar
+         if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
+         {
+            AllegroFlare::Elements::Scrollbar scrollbar(
+               input_devices_list_width + scrollbar_x_padding,
+               scrollbar_y_padding,
+               container_height - scrollbar_y_padding * 2,
+               normalized_scrollbar_position,
+               scrollbar_bar_color,
+               scrollbar_handle_color
+            );
+            scrollbar.render();
+         }
       }
 
       place.restore_transform();
@@ -397,8 +569,8 @@ functions:
       ALLEGRO_FONT *item_title_font = obtain_item_title_font();
       ALLEGRO_FONT *description_font = obtain_item_description_font();
       ALLEGRO_FONT *icon_font = obtain_icon_font();
-      //float input_devices_box_width = 800.0f;
-      //float input_devices_box_height = 150.0f;
+      //float list_item_box_width = 800.0f;
+      //float list_item_box_height = 150.0f;
       float box_padding_x = 20;
       float box_padding_y = 20;
       float title_padding_y = 10;
@@ -413,7 +585,7 @@ functions:
       float item_title_font_line_height = al_get_font_line_height(item_title_font);
       float description_font_line_height = al_get_font_line_height(description_font);
       float icon_font_line_height = al_get_font_line_height(icon_font);
-      float icon_container_box_size = input_devices_box_height - box_padding_x*2;
+      float icon_container_box_size = list_item_box_height - box_padding_x*2;
       float text_y_offset = 10;
       float icon_container_box_text_x_padding = 30;
       float text_x_offset = icon_container_box_size + icon_container_box_text_x_padding;
@@ -438,15 +610,15 @@ functions:
          al_draw_rectangle(
             x + h_thickness,
             y + h_thickness,
-            x + input_devices_box_width - h_thickness,
-            y + input_devices_box_height - h_thickness,
+            x + list_item_box_width - h_thickness,
+            y + list_item_box_height - h_thickness,
             box_color,
             hidden_box_stroke_thickness
          );
       }
       else
       {
-         al_draw_filled_rectangle(x, y, x + input_devices_box_width, y + input_devices_box_height, box_color);
+         al_draw_filled_rectangle(x, y, x + list_item_box_width, y + list_item_box_height, box_color);
       }
 
       // Draw the icon container box rectangle
@@ -501,7 +673,7 @@ functions:
          description_text_color,
          x + box_padding_x + text_x_offset,
          y + box_padding_y + item_title_font_line_height + title_padding_y + text_y_offset,
-         input_devices_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
+         list_item_box_width - (box_padding_x + icon_container_box_size + icon_container_box_text_x_padding*2),
          description_font_line_height,
          ALLEGRO_ALIGN_LEFT,
          build_item_description(device_id, connection_status).c_str()
@@ -677,5 +849,9 @@ dependencies:
     headers: [ AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp ]
   - symbol: connection_status_t
     headers: [ ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
 
 

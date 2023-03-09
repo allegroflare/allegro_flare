@@ -89,7 +89,7 @@ TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
+   FOCUS__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -109,6 +109,7 @@ TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
 
    // initialize test subject
    AllegroFlare::Elements::InputDevicesList input_devices_list(&get_font_bin_ref());
+   input_devices_list.initialize();
    input_devices_list.set_input_devices(AllegroFlare::Elements::InputDevicesList::build_placeholder_input_devices());
 
    // run the interactive test
