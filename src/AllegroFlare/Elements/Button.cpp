@@ -26,9 +26,12 @@ Button::Button(AllegroFlare::FontBin* font_bin)
    , text("START")
    , text_font_name("Inter-Medium.ttf")
    , text_font_size(-28)
+   , button_color(AllegroFlare::Color::PaleGreen)
    , started_at(0)
    , x(0)
    , y(0)
+   , padding_x(32.0f)
+   , padding_y(12.0f)
 {
 }
 
@@ -56,6 +59,12 @@ void Button::set_text_font_size(int text_font_size)
 }
 
 
+void Button::set_button_color(ALLEGRO_COLOR button_color)
+{
+   this->button_color = button_color;
+}
+
+
 void Button::set_started_at(float started_at)
 {
    this->started_at = started_at;
@@ -71,6 +80,24 @@ void Button::set_x(float x)
 void Button::set_y(float y)
 {
    this->y = y;
+}
+
+
+void Button::set_padding_x(float padding_x)
+{
+   this->padding_x = padding_x;
+}
+
+
+void Button::set_padding_y(float padding_y)
+{
+   this->padding_y = padding_y;
+}
+
+
+AllegroFlare::FontBin* Button::get_font_bin() const
+{
+   return font_bin;
 }
 
 
@@ -92,6 +119,12 @@ int Button::get_text_font_size() const
 }
 
 
+ALLEGRO_COLOR Button::get_button_color() const
+{
+   return button_color;
+}
+
+
 float Button::get_started_at() const
 {
    return started_at;
@@ -109,6 +142,32 @@ float Button::get_y() const
    return y;
 }
 
+
+float Button::get_padding_x() const
+{
+   return padding_x;
+}
+
+
+float Button::get_padding_y() const
+{
+   return padding_y;
+}
+
+
+void Button::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   // TODO: consider a mechanism that flags width/height as dirty
+   this->font_bin = font_bin;
+   return;
+}
+
+float Button::infer_width()
+{
+   ALLEGRO_FONT *button_font = obtain_button_font();
+   float text_width = al_get_text_width(button_font, text.c_str());
+   return text_width + padding_x;
+}
 
 void Button::render()
 {
@@ -152,7 +211,7 @@ void Button::render()
    //float y = 1080-300;
    float age = infer_age();
    ALLEGRO_FONT *button_font = obtain_button_font();
-   ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
+   //ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
    //std::string text = "NEXT >";
    //if (at_last_advance)
    //{
@@ -167,8 +226,8 @@ void Button::render()
          button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
    float thickness = 4.0f;
    float roundness = thickness * 1.5;
-   float padding_x = 32.0f;
-   float padding_y = 12.0f;
+   //float padding_x = 32.0f;
+   //float padding_y = 12.0f;
    AllegroFlare::Placement2D button_place;
    button_place.position.x = x;
    button_place.position.y = y;
@@ -197,7 +256,7 @@ void Button::render()
    al_draw_rounded_rectangle(
       -padding_x,
       -padding_y,
-      text_width+padding_x,
+      infer_width(),
       text_height+padding_y,
       roundness,
       roundness,

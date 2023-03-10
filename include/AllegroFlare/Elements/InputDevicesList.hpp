@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/Button.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/PhysicalInputDevices/Base.hpp>
@@ -39,6 +40,7 @@ namespace AllegroFlare
          int surface_height;
          int cursor_pos;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+         AllegroFlare::Elements::Button selection_cursor_button;
          float scrollbar_position;
          float scrollbar_position_destination;
          uint32_t scrollbar_movement_mode;
@@ -47,6 +49,7 @@ namespace AllegroFlare
          bool initialized;
          void move_selection_cursor_box_to_current_cursor_location();
          AllegroFlare::Vec2D build_selection_cursor_box_position_of_current_cursor_pos();
+         AllegroFlare::Vec2D build_selection_cursor_button_position_of_current_cursor_pos();
          float build_scrollbar_position_at_current_cursor_pos();
          int count_num_input_devices_connected();
          int count_num_input_devices_disconnected();

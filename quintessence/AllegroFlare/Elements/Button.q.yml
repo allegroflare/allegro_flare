@@ -5,6 +5,8 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: false
 
   - name: text
     type: std::string
@@ -21,6 +23,12 @@ properties:
   - name: text_font_size
     type: int
     init_with: -28
+    getter: true
+    setter: true
+
+  - name: button_color
+    type: ALLEGRO_COLOR
+    init_with: AllegroFlare::Color::PaleGreen
     getter: true
     setter: true
 
@@ -42,8 +50,39 @@ properties:
     getter: true
     setter: true
 
+  - name: padding_x
+    type: float
+    init_with: 32.0f
+    getter: true
+    setter: true
+
+  - name: padding_y
+    type: float
+    init_with: 12.0f
+    getter: true
+    setter: true
+
 
 functions:
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    body: |
+      // TODO: consider a mechanism that flags width/height as dirty
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: infer_width
+    type: float
+    body: |
+      ALLEGRO_FONT *button_font = obtain_button_font();
+      float text_width = al_get_text_width(button_font, text.c_str());
+      return text_width + padding_x;
 
 
   - name: render
@@ -60,7 +99,7 @@ functions:
       //float y = 1080-300;
       float age = infer_age();
       ALLEGRO_FONT *button_font = obtain_button_font();
-      ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
+      //ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
       //std::string text = "NEXT >";
       //if (at_last_advance)
       //{
@@ -75,8 +114,8 @@ functions:
             button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
       float thickness = 4.0f;
       float roundness = thickness * 1.5;
-      float padding_x = 32.0f;
-      float padding_y = 12.0f;
+      //float padding_x = 32.0f;
+      //float padding_y = 12.0f;
       AllegroFlare::Placement2D button_place;
       button_place.position.x = x;
       button_place.position.y = y;
@@ -105,7 +144,7 @@ functions:
       al_draw_rounded_rectangle(
          -padding_x,
          -padding_y,
-         text_width+padding_x,
+         infer_width(),
          text_height+padding_y,
          roundness,
          roundness,
@@ -176,6 +215,9 @@ dependencies:
     headers: [ algorithm ]
   - symbol: 'AllegroFlare::Interpolators::'
     headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Clock
     headers: [ AllegroFlare/Clock.hpp ]
+
 

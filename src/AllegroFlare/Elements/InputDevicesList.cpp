@@ -29,6 +29,7 @@ InputDevicesList::InputDevicesList(AllegroFlare::FontBin* font_bin, std::vector<
    , surface_height(1080)
    , cursor_pos(0)
    , selection_cursor_box({})
+   , selection_cursor_button({})
    , scrollbar_position(0.0f)
    , scrollbar_position_destination(0.0f)
    , scrollbar_movement_mode(SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL)
@@ -186,9 +187,19 @@ void InputDevicesList::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDevicesList::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[InputDevicesList::initialize]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("InputDevicesList::initialize: error: guard \"font_bin\" not met");
+   }
    selection_cursor_box.set_position(0, 0);
    selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
    selection_cursor_box.set_padding(6.0f, 6.0f);
+
+   selection_cursor_button.set_font_bin(font_bin);
+
    initialized = true;
    return;
 }
@@ -233,7 +244,8 @@ bool InputDevicesList::move_cursor_down()
 
 void InputDevicesList::move_selection_cursor_box_to_current_cursor_location()
 {
-   // TODO: this function
+   // HERE
+   // Move the selection cursor box
    AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
    selection_cursor_box.reposition_to(new_position.x, new_position.y);
 
@@ -251,6 +263,12 @@ void InputDevicesList::move_selection_cursor_box_to_current_cursor_location()
 AllegroFlare::Vec2D InputDevicesList::build_selection_cursor_box_position_of_current_cursor_pos()
 {
    return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
+}
+
+AllegroFlare::Vec2D InputDevicesList::build_selection_cursor_button_position_of_current_cursor_pos()
+{
+   // HERE
+   return build_selection_cursor_box_position_of_current_cursor_pos() + AllegroFlare::Vec2D(100, 50);
 }
 
 float InputDevicesList::infer_list_item_spacing_y()
@@ -525,6 +543,9 @@ void InputDevicesList::draw_scrollarea_contents()
 
    // Show the selection cursor
    selection_cursor_box.render();
+
+   // HERE:
+   // Show the button for the selection cursor
 }
 
 void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
@@ -784,49 +805,21 @@ std::string InputDevicesList::build_item_description(std::string device_id, uint
 
 ALLEGRO_FONT* InputDevicesList::obtain_title_font()
 {
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[InputDevicesList::obtain_title_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::obtain_title_font: error: guard \"font_bin\" not met");
-   }
    return font_bin->auto_get("Inter-Bold.ttf -40");
 }
 
 ALLEGRO_FONT* InputDevicesList::obtain_item_title_font()
 {
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[InputDevicesList::obtain_item_title_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::obtain_item_title_font: error: guard \"font_bin\" not met");
-   }
    return font_bin->auto_get("Inter-Bold.ttf -45");
 }
 
 ALLEGRO_FONT* InputDevicesList::obtain_item_description_font()
 {
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[InputDevicesList::obtain_item_description_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::obtain_item_description_font: error: guard \"font_bin\" not met");
-   }
    return font_bin->auto_get("Inter-Medium.ttf -26");
 }
 
 ALLEGRO_FONT* InputDevicesList::obtain_icon_font()
 {
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[InputDevicesList::obtain_icon_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::obtain_icon_font: error: guard \"font_bin\" not met");
-   }
    return font_bin->auto_get("Font_Awesome_6_Free-Solid-900.otf -50");
 }
 

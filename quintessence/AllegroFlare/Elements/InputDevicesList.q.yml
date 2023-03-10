@@ -49,6 +49,10 @@ properties:
     type: AllegroFlare::Elements::SelectionCursorBox
     init_with: '{}'
 
+  - name: selection_cursor_button
+    type: AllegroFlare::Elements::Button
+    init_with: '{}'
+
   - name: scrollbar_position
     type: float
     init_with: 0.0f
@@ -139,11 +143,14 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized), al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ (!initialized), al_is_system_installed(), al_is_font_addon_initialized(), font_bin ]
     body: |
       selection_cursor_box.set_position(0, 0);
       selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
       selection_cursor_box.set_padding(6.0f, 6.0f);
+
+      selection_cursor_button.set_font_bin(font_bin);
+
       initialized = true;
       return;
 
@@ -191,7 +198,8 @@ functions:
   - name: move_selection_cursor_box_to_current_cursor_location
     private: true
     body: |
-      // TODO: this function
+      // HERE
+      // Move the selection cursor box
       AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
       selection_cursor_box.reposition_to(new_position.x, new_position.y);
 
@@ -211,6 +219,14 @@ functions:
     type: AllegroFlare::Vec2D
     body: |
       return AllegroFlare::Vec2D(0, cursor_pos * infer_list_item_spacing_y());
+
+
+  - name: build_selection_cursor_button_position_of_current_cursor_pos
+    private: true
+    type: AllegroFlare::Vec2D
+    body: |
+      // HERE
+      return build_selection_cursor_box_position_of_current_cursor_pos() + AllegroFlare::Vec2D(100, 50);
 
 
   - name: infer_list_item_spacing_y
@@ -514,6 +530,9 @@ functions:
 
       // Show the selection cursor
       selection_cursor_box.render();
+
+      // HERE:
+      // Show the button for the selection cursor
 
 
   - name: draw_input_devices_list_items_and_scrollbar
@@ -841,7 +860,6 @@ functions:
   - name: obtain_title_font
     private: true
     type: ALLEGRO_FONT*
-    guards: [ font_bin ]
     body: |
       return font_bin->auto_get("Inter-Bold.ttf -40");
 
@@ -849,7 +867,6 @@ functions:
   - name: obtain_item_title_font
     private: true
     type: ALLEGRO_FONT*
-    guards: [ font_bin ]
     body: |
       return font_bin->auto_get("Inter-Bold.ttf -45");
 
@@ -857,7 +874,6 @@ functions:
   - name: obtain_item_description_font
     private: true
     type: ALLEGRO_FONT*
-    guards: [ font_bin ]
     body: |
       return font_bin->auto_get("Inter-Medium.ttf -26");
 
@@ -865,7 +881,6 @@ functions:
   - name: obtain_icon_font
     private: true
     type: ALLEGRO_FONT*
-    guards: [ font_bin ]
     body: |
       return font_bin->auto_get("Font_Awesome_6_Free-Solid-900.otf -50");
 
@@ -935,5 +950,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Elements::Button
+    headers: [ AllegroFlare/Elements/Button.hpp ]
 
 
