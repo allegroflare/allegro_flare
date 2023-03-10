@@ -7,7 +7,11 @@
 
 AllegroFlare is set of complementary classes for the [Allegro 5 Game Programming Library](http://liballeg.org) written in C++.
 
-The goal of AllegroFlare is to add new higher level features that are not otherwise a part of Allegro 5's low level design.  Hopefully, you may find some AllegroFlare components that make an otherwise complicated game programming task much easier to do.
+The goal of AllegroFlare is to provide a suite of higher level game programming classes that aren't otherwise a good fit for the Allegro 5 core API.  Hopefully, you may find some AllegroFlare components that make an otherwise complicated game programming task much easier to do.
+
+> Note:
+> AllegroFlare is currently in *pre-alpha*.  That is, the overall design is still maturing.  Many years of code are contained in the codebase, work perfectly well, and are well-tested.  Most if not all components work well in isolation and are perfectly usable *at your own risk* in your own software.  However, the build system for the library as a whole is currently locked to core developer(s). The library in its entirety will not reach alpha until `v0.9`.
+
 
 ## Some Examples
 
@@ -25,8 +29,6 @@ The goal of AllegroFlare is to add new higher level features that are not otherw
 - And more...
 
 Knowledge of Allegro 5 is expected, as you will still have direct access to all of Allegro 5 primitives and operations when using AllegroFlare.  However, you won't have to manage them as much.
-
-Note: AllegroFlare is currently in *pre-alpha*.  That is, the overall design is still maturing.  Many years of code are contained in the codebase, work perfectly well, and are well-tested.  Most if not all components work well in isolation and are perfectly usable *at your own risk* in your own software.  However, the build system for the library as a whole is currently locked to core developer(s). The library in its entirety will not reach alpha until `v0.9`.
 
 ## Projected Development Versions
 
