@@ -126,12 +126,14 @@ TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
             {
                case ALLEGRO_KEY_UP:
                case ALLEGRO_KEY_PGUP:
-                  input_devices_list.move_scrollbar_position(-20.0);
+                  input_devices_list.move_cursor_up();
+                  //input_devices_list.move_scrollbar_position(-20.0);
                break;
 
                case ALLEGRO_KEY_DOWN:
                case ALLEGRO_KEY_PGDN:
-                  input_devices_list.move_scrollbar_position(20.0);
+                  input_devices_list.move_cursor_down();
+                  //input_devices_list.move_scrollbar_position(20.0);
                break;
             }
          }
@@ -139,6 +141,7 @@ TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
 
          case ALLEGRO_EVENT_TIMER:
             clear();
+            input_devices_list.update();
             input_devices_list.render();
             al_flip_display();
          break;

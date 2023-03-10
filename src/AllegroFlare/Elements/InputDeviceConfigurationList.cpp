@@ -200,7 +200,6 @@ void InputDeviceConfigurationList::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDeviceConfigurationList::update: error: guard \"initialized\" not met");
    }
-   // HERE:
    scrollbar_position = (scrollbar_position_destination - scrollbar_position)
                       * scrollbar_reposition_multiplier + scrollbar_position;
    selection_cursor_box.update();

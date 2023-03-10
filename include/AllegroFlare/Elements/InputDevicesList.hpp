@@ -43,6 +43,7 @@ namespace AllegroFlare
          float scrollbar_position_destination;
          uint32_t scrollbar_movement_mode;
          float box_gutter_y;
+         float scrollbar_reposition_multiplier;
          bool initialized;
          void move_selection_cursor_box_to_current_cursor_location();
          AllegroFlare::Vec2D build_selection_cursor_box_position_of_current_cursor_pos();
@@ -91,6 +92,7 @@ namespace AllegroFlare
          float get_scrollbar_position() const;
          float get_scrollbar_position_destination() const;
          float get_box_gutter_y() const;
+         float get_scrollbar_reposition_multiplier() const;
          bool get_initialized() const;
          void set_input_devices(std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> input_devices={});
          void initialize();
@@ -98,6 +100,7 @@ namespace AllegroFlare
          bool move_cursor_down();
          float infer_list_item_spacing_y();
          bool scrollbar_movement_mode_is_follow_proportional();
+         void update();
          void render();
          void move_scrollbar_position(float distance_y=0.0f);
          void set_scrollbar_position(float scrollbar_position=0.0f);

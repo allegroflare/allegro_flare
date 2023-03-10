@@ -178,7 +178,6 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
-      // HERE:
       scrollbar_position = (scrollbar_position_destination - scrollbar_position)
                          * scrollbar_reposition_multiplier + scrollbar_position;
       selection_cursor_box.update();

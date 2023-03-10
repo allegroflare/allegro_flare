@@ -33,6 +33,7 @@ InputDevicesList::InputDevicesList(AllegroFlare::FontBin* font_bin, std::vector<
    , scrollbar_position_destination(0.0f)
    , scrollbar_movement_mode(SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL)
    , box_gutter_y(10.0f)
+   , scrollbar_reposition_multiplier(DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER)
    , initialized(false)
 {
 }
@@ -130,6 +131,12 @@ float InputDevicesList::get_scrollbar_position_destination() const
 float InputDevicesList::get_box_gutter_y() const
 {
    return box_gutter_y;
+}
+
+
+float InputDevicesList::get_scrollbar_reposition_multiplier() const
+{
+   return scrollbar_reposition_multiplier;
 }
 
 
@@ -256,6 +263,21 @@ bool InputDevicesList::scrollbar_movement_mode_is_follow_proportional()
    return scrollbar_movement_mode == SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL;
 }
 
+void InputDevicesList::update()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[InputDevicesList::update]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("InputDevicesList::update: error: guard \"initialized\" not met");
+   }
+   scrollbar_position = (scrollbar_position_destination - scrollbar_position)
+                      * scrollbar_reposition_multiplier + scrollbar_position;
+   selection_cursor_box.update();
+   return;
+}
+
 void InputDevicesList::render()
 {
    if (!(initialized))
@@ -336,14 +358,29 @@ std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std:
             //CONNECTION_STATUS_CONNECTED, "Keyboard", "" },
       { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
          CONNECTION_STATUS_CONNECTED,
-         "Joystick 1",
+         "Joystick (1)",
+         "159295b"
+      },
+      { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+         CONNECTION_STATUS_CONNECTED,
+         "Joystick (2)",
          "159295b"
       },
       { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
          CONNECTION_STATUS_DISCONNECTED,
-         "Joystick 2",
+         "Joystick (3)",
          "af97a9c"
       },
+      //{ new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+         //CONNECTION_STATUS_DISCONNECTED,
+         //"Joystick (4)",
+         //"af97a9c"
+      //},
+      //{ new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+         //CONNECTION_STATUS_DISCONNECTED,
+         //"Joystick (5)",
+         //"af97a9c"
+      //},
 
       //{ nullptr, "locked",   "Save the Cat", "Define the hero and make the audience like them." },
       //{ nullptr, "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
@@ -474,13 +511,20 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
    float container_height = infer_container_height();
    float container_contents_height = infer_container_contents_height();
    float container_scroll_range = infer_container_scroll_range();
-   float normalized_scrollbar_position = scrollbar_position / container_scroll_range;
+   float normalized_scrollbar_position = scrollbar_position / container_scroll_range; // OK
 
    AllegroFlare::Placement2D place(
       input_devices_list_x,
       input_devices_list_y,
       input_devices_list_width,
       container_height
+   );
+
+   AllegroFlare::Placement2D scrollarea_contents(
+      0,
+      -scrollbar_position,
+      0,
+      0
    );
 
    place.start_transform();
@@ -495,6 +539,22 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
    {
       // TODO: Test this condition
 
+      // draw the scrollarea contents DEBUGGING:
+      float frame_outset = 1;
+      al_draw_rounded_rectangle(
+         0 - frame_outset,
+         0 - frame_outset,
+         input_devices_list_width + frame_outset,
+         container_contents_height + frame_outset,
+         5.0,
+         5.0,
+         ALLEGRO_COLOR{.5, 0.3, 0.4, 0.5},
+         frame_thickness
+      );
+
+      // Draw the scrollarea contents
+      scrollarea_contents.start_transform();
+
       for (int i=0; i<input_devices.size(); i++)
       {
          AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
@@ -504,7 +564,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
 
          draw_input_device_box(
             input_devices_box_list_x,
-            input_devices_box_list_y + i * y_spacing - scrollbar_position,
+            input_devices_box_list_y + i * y_spacing, // - scrollbar_position,
             physical_input_device,
             connected_status,
             title,
@@ -515,17 +575,21 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
       // Show the selection cursor
       selection_cursor_box.render();
 
-      //// draw the frame
-      //al_draw_rounded_rectangle(
-      //   0 - frame_outset,
-      //   0 - frame_outset,
-      //   input_devices_list_width + frame_outset,
-      //   input_devices_list_container_height + frame_outset,
-      //   5.0,
-      //   5.0,
-      //   input_devices_list_frame_color,
-      //   frame_thickness
-      //);
+      // Restore the scrollarea previous position
+      scrollarea_contents.restore_transform();
+
+      // draw the frame DEBUGGING:
+      frame_outset = -1;
+      al_draw_rounded_rectangle(
+         0 - frame_outset,
+         0 - frame_outset,
+         input_devices_list_width + frame_outset,
+         container_height + frame_outset,
+         5.0,
+         5.0,
+         input_devices_list_frame_color,
+         frame_thickness
+      );
 
       // draw the scrollbar
       if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
