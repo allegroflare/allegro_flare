@@ -13,7 +13,7 @@ namespace AllegroFlare
    {
       class Button
       {
-public:
+      public:
 
          enum class Alignments
          {

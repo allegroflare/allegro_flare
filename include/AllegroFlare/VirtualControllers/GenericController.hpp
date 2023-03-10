@@ -18,7 +18,7 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/VirtualControllers/GenericController";
          static constexpr char* DEFAULT_NAME = (char*)"Generic AllegroFlare Controller";
 
-public:
+      public:
 
          enum : uint32_t
          {
