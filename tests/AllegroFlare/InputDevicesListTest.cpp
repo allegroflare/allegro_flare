@@ -152,9 +152,6 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
    int expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start + 1;
    int num_joystick_devices_after_reconfiguration = 0;
 
-   // TODO: Output a notification for the interactive test user to plug in a controller
-   // TODO: Add a countdown timer to abort the test
-
    bool abort = false;
    bool test_conditions_successfully_triggered = false;
    bool counting_down_to_abort = true;
@@ -186,7 +183,7 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
                800,
                al_get_font_line_height(font),
                ALLEGRO_ALIGN_CENTER,
-               "Please plug in a controller."
+               "Please connect in a controller."
             );
             if (counting_down_to_abort)
             {
@@ -240,7 +237,7 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
 
       bool test_succeeded = !HasNonfatalFailure();
       ALLEGRO_COLOR test_result_color = test_succeeded ? AllegroFlare::Color::Aquamarine
-                                                       : AllegroFlare::Color::White;
+                                                       : AllegroFlare::Color::Crimson;
       std::string test_result_message = test_succeeded ? "Successful"
                                                        : "Failure";
       clear();
@@ -252,7 +249,7 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
          800,
          al_get_font_line_height(font),
          ALLEGRO_ALIGN_CENTER,
-         "Successful"
+         test_result_message.c_str()
       );
       al_flip_display();
       al_rest(1.5);
