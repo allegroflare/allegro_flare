@@ -67,6 +67,7 @@ namespace AllegroFlare
          void draw_input_device_box(float x=0.0f, float y=0.0f, AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr, uint32_t connection_status=CONNECTION_STATUS_UNDEFINED, std::string title="[unset-title]", std::string device_id="[unset-device_id]");
          int32_t infer_icon_character_for_physical_input_device(AllegroFlare::PhysicalInputDevices::Base* physical_input_device=nullptr);
          ALLEGRO_COLOR infer_icon_color_by_connection_status(uint32_t connection_status=CONNECTION_STATUS_UNDEFINED, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1});
+         bool current_selected_item_is_connected();
          std::string filter_item_title_through_connection_status(std::string title="[unset-title]", uint32_t connection_status=CONNECTION_STATUS_UNDEFINED);
          std::string build_item_description(std::string device_id="", uint32_t connection_status=CONNECTION_STATUS_UNDEFINED);
          ALLEGRO_FONT* obtain_title_font();

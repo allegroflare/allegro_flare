@@ -199,6 +199,7 @@ void InputDevicesList::initialize()
    selection_cursor_box.set_padding(6.0f, 6.0f);
 
    selection_cursor_button.set_font_bin(font_bin);
+   selection_cursor_button.set_text("CONFIGURE >");
 
    initialized = true;
    return;
@@ -248,6 +249,18 @@ void InputDevicesList::move_selection_cursor_box_to_current_cursor_location()
    // Move the selection cursor box
    AllegroFlare::Vec2D new_position = build_selection_cursor_box_position_of_current_cursor_pos();
    selection_cursor_box.reposition_to(new_position.x, new_position.y);
+
+   if (current_selected_item_is_connected())
+   {
+      // TODO: "show" selection_cursor_button
+      // HERE: TODO: reposition button:
+      selection_cursor_button.set_x(new_position.x);
+      selection_cursor_button.set_y(new_position.y);
+   }
+   else
+   {
+      // TODO: "hide" selection_cursor_button
+   }
 
    if (scrollbar_movement_mode_is_follow_proportional())
    {
@@ -523,6 +536,7 @@ void InputDevicesList::draw_scrollarea_contents()
    float input_devices_box_list_x = 0;
    float input_devices_box_list_y = 0;
    float y_spacing = infer_list_item_y_spacing();
+   bool currently_selected_item_is_disconnected_or();
 
    for (int i=0; i<input_devices.size(); i++)
    {
@@ -544,8 +558,11 @@ void InputDevicesList::draw_scrollarea_contents()
    // Show the selection cursor
    selection_cursor_box.render();
 
-   // HERE:
-   // Show the button for the selection cursor
+   // Show the selection cursor button (if item is not disabled)
+   if (current_selected_item_is_connected()) // TODO: Consider a "show"/"hide" concept on the button instead
+   {
+      selection_cursor_button.render();
+   }
 }
 
 void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
@@ -789,6 +806,13 @@ ALLEGRO_COLOR InputDevicesList::infer_icon_color_by_connection_status(uint32_t c
    //else if (status == "locked") return icon_locked_color;
    //else if (status == "hidden") return icon_hidden_color;
    return ALLEGRO_COLOR{1, 0, 0, 1};
+}
+
+bool InputDevicesList::current_selected_item_is_connected()
+{
+   if (input_devices.empty()) return false;
+   uint32_t connection_status = std::get<1>(input_devices[cursor_pos]);
+   return (connection_status == CONNECTION_STATUS_CONNECTED);
 }
 
 std::string InputDevicesList::filter_item_title_through_connection_status(std::string title, uint32_t connection_status)
