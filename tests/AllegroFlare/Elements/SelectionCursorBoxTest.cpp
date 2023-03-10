@@ -44,11 +44,25 @@ TEST_F(AllegroFlare_Elements_SelectionCursorBoxTest, render__without_primitives_
 }
 
 
-TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
    selection_cursor_box.render();
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_draw_the_box_as_expected)
+{
+   AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+   AllegroFlare::Placement2D showcased_placement = build_centered_placement();
+
+   clear();
+   showcased_placement.start_transform();
+   selection_cursor_box.render();
+   showcased_placement.restore_transform();
    al_flip_display();
+
    sleep_for(1);
 }
 

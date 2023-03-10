@@ -20,6 +20,7 @@ namespace AllegroFlare
          AllegroFlare::Vec2D cursor_size;
          AllegroFlare::Vec2D cursor_size_destination;
          AllegroFlare::Vec2D cursor_padding;
+         ALLEGRO_COLOR core_color;
          float roundness;
          float thickness;
          float cursor_reposition_multiplier;
@@ -35,6 +36,8 @@ namespace AllegroFlare
          SelectionCursorBox();
          ~SelectionCursorBox();
 
+         void set_core_color(ALLEGRO_COLOR core_color);
+         ALLEGRO_COLOR get_core_color() const;
          float get_cursor_reposition_multiplier() const;
          float get_last_repositioned_at() const;
          void set_position(float x=0.0f, float y=0.0f, float time_now=al_get_time());

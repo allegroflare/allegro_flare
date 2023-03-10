@@ -26,10 +26,11 @@ Button::Button(AllegroFlare::FontBin* font_bin)
    , text("START")
    , text_font_name("Inter-Medium.ttf")
    , text_font_size(-28)
-   , button_color(AllegroFlare::Color::PaleGreen)
-   , started_at(0)
-   , x(0)
-   , y(0)
+   , core_color(AllegroFlare::Color::PaleGreen)
+   , started_at(0.0f)
+   , visibility_counter(0.0f)
+   , x(0.0f)
+   , y(0.0f)
    , padding_x(32.0f)
    , padding_y(12.0f)
 {
@@ -59,15 +60,21 @@ void Button::set_text_font_size(int text_font_size)
 }
 
 
-void Button::set_button_color(ALLEGRO_COLOR button_color)
+void Button::set_core_color(ALLEGRO_COLOR core_color)
 {
-   this->button_color = button_color;
+   this->core_color = core_color;
 }
 
 
 void Button::set_started_at(float started_at)
 {
    this->started_at = started_at;
+}
+
+
+void Button::set_visibility_counter(float visibility_counter)
+{
+   this->visibility_counter = visibility_counter;
 }
 
 
@@ -119,15 +126,21 @@ int Button::get_text_font_size() const
 }
 
 
-ALLEGRO_COLOR Button::get_button_color() const
+ALLEGRO_COLOR Button::get_core_color() const
 {
-   return button_color;
+   return core_color;
 }
 
 
 float Button::get_started_at() const
 {
    return started_at;
+}
+
+
+float Button::get_visibility_counter() const
+{
+   return visibility_counter;
 }
 
 
@@ -220,10 +233,10 @@ void Button::render()
    //}
    float text_width = al_get_text_width(button_font, text.c_str());
    float text_height = al_get_font_line_height(button_font);
-   ALLEGRO_COLOR button_text_color = button_color;
+   ALLEGRO_COLOR button_text_color = core_color;
    float button_frame_opacity = ((1.5 - fmod(age, 1.5)) / 1.5) * 0.75 + 0.25;
    ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
-         button_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
+         core_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
    float thickness = 4.0f;
    float roundness = thickness * 1.5;
    //float padding_x = 32.0f;

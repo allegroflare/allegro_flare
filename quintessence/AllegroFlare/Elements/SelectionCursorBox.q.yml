@@ -26,6 +26,12 @@ properties:
     init_with: '4.0f, 4.0f'
     setter: false
 
+  - name: core_color
+    type: ALLEGRO_COLOR
+    init_with: AllegroFlare::Color::Aquamarine
+    getter: true
+    setter: true
+
   - name: roundness
     type: float
     init_with: 8.0f
@@ -54,6 +60,13 @@ properties:
     constexpr: true
     static: true
     init_with: 0.6f
+
+
+documentation:
+
+
+  - todos:
+      - Consider renaming "core_color" to something, like, less intense
 
 
 functions:
@@ -170,7 +183,7 @@ functions:
     private: true
     type: ALLEGRO_COLOR
     body: |
-      ALLEGRO_COLOR color_a = al_color_name("aquamarine");
+      ALLEGRO_COLOR color_a = core_color; //al_color_name("aquamarine");
       ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
       float speed_multiplier = 0.9;
       float mix_factor = AllegroFlare::interpolator::slow_in(fmod(infer_cursor_change_age() * speed_multiplier, 1.0));

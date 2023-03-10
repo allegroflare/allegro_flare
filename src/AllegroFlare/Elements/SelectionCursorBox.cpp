@@ -24,6 +24,7 @@ SelectionCursorBox::SelectionCursorBox()
    , cursor_size(80, 80)
    , cursor_size_destination(80, 80)
    , cursor_padding(4.0f, 4.0f)
+   , core_color(AllegroFlare::Color::Aquamarine)
    , roundness(8.0f)
    , thickness(6.0f)
    , cursor_reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
@@ -34,6 +35,18 @@ SelectionCursorBox::SelectionCursorBox()
 
 SelectionCursorBox::~SelectionCursorBox()
 {
+}
+
+
+void SelectionCursorBox::set_core_color(ALLEGRO_COLOR core_color)
+{
+   this->core_color = core_color;
+}
+
+
+ALLEGRO_COLOR SelectionCursorBox::get_core_color() const
+{
+   return core_color;
 }
 
 
@@ -114,7 +127,7 @@ void SelectionCursorBox::render()
 
 ALLEGRO_COLOR SelectionCursorBox::build_cursor_color()
 {
-   ALLEGRO_COLOR color_a = al_color_name("aquamarine");
+   ALLEGRO_COLOR color_a = core_color; //al_color_name("aquamarine");
    ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
    float speed_multiplier = 0.9;
    float mix_factor = AllegroFlare::interpolator::slow_in(fmod(infer_cursor_change_age() * speed_multiplier, 1.0));
