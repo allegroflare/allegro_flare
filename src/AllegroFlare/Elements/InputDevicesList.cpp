@@ -354,8 +354,6 @@ std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std:
          "Keyboard",
          ""
       },
-      //{ new AllegroFlare::PhysicalInputDevices::Keyboard(),
-            //CONNECTION_STATUS_CONNECTED, "Keyboard", "" },
       { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
          CONNECTION_STATUS_CONNECTED,
          "Joystick (1)",
@@ -381,13 +379,6 @@ std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std:
          //"Joystick (5)",
          //"af97a9c"
       //},
-
-      //{ nullptr, "locked",   "Save the Cat", "Define the hero and make the audience like them." },
-      //{ nullptr, "unlocked", "Break the Fourth Wall", "Make the developer realize they're looking at test data." },
-      //{ nullptr, "hidden",   "Top Secrets", "Find the box of secrets in the 2nd act." },
-      //{ nullptr, "locked",   "I'm Lovin' It", "Complete the AchievementsList feature." },
-      //{ nullptr, "unlocked", "Everyone is Beautiful", "Make multiline text fit into the box with the correct width." },
-      //{ nullptr, "hidden",   "Save the Best for Last", "Find out the most important part in the very end." },
    };
 }
 
@@ -539,18 +530,18 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
    {
       // TODO: Test this condition
 
-      // draw the scrollarea contents DEBUGGING:
-      float frame_outset = 1;
-      al_draw_rounded_rectangle(
-         0 - frame_outset,
-         0 - frame_outset,
-         input_devices_list_width + frame_outset,
-         container_contents_height + frame_outset,
-         5.0,
-         5.0,
-         ALLEGRO_COLOR{.5, 0.3, 0.4, 0.5},
-         frame_thickness
-      );
+      //// draw the scrollarea contents DEBUGGING:
+      //float frame_outset = 1;
+      //al_draw_rounded_rectangle(
+         //0 - frame_outset,
+         //0 - frame_outset,
+         //input_devices_list_width + frame_outset,
+         //container_contents_height + frame_outset,
+         //5.0,
+         //5.0,
+         //ALLEGRO_COLOR{.5, 0.3, 0.4, 0.5},
+         //frame_thickness
+      //);
 
       // Draw the scrollarea contents
       scrollarea_contents.start_transform();
@@ -564,7 +555,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
 
          draw_input_device_box(
             input_devices_box_list_x,
-            input_devices_box_list_y + i * y_spacing, // - scrollbar_position,
+            input_devices_box_list_y + i * y_spacing,
             physical_input_device,
             connected_status,
             title,
@@ -578,18 +569,18 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
       // Restore the scrollarea previous position
       scrollarea_contents.restore_transform();
 
-      // draw the frame DEBUGGING:
-      frame_outset = -1;
-      al_draw_rounded_rectangle(
-         0 - frame_outset,
-         0 - frame_outset,
-         input_devices_list_width + frame_outset,
-         container_height + frame_outset,
-         5.0,
-         5.0,
-         input_devices_list_frame_color,
-         frame_thickness
-      );
+      //// draw the frame DEBUGGING:
+      //frame_outset = -1;
+      //al_draw_rounded_rectangle(
+         //0 - frame_outset,
+         //0 - frame_outset,
+         //input_devices_list_width + frame_outset,
+         //container_height + frame_outset,
+         //5.0,
+         //5.0,
+         //input_devices_list_frame_color,
+         //frame_thickness
+      //);
 
       // draw the scrollbar
       if (!scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container())
