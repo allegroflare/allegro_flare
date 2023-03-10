@@ -101,15 +101,19 @@ TEST_F(AllegroFlare_Elements_DialogButtonTestWithAllegroRenderingFixture, render
 
 
 TEST_F(AllegroFlare_Elements_DialogButtonTestWithAllegroRenderingFixture,
-   VISUAL__render__will_draw_the_button_as_expected)
+   CAPTURE__VISUAL__render__will_draw_the_button_as_expected)
 {
    AllegroFlare::Elements::DialogButton dialog_button(&get_font_bin_ref());
+   AllegroFlare::Placement2D showcased_placement = build_centered_placement();
    dialog_button.set_started_at(al_get_time());
 
    for (int passes=0; passes<=20; passes++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
+
+      showcased_placement.start_transform();
       dialog_button.render();
+      showcased_placement.restore_transform();
       al_flip_display();
 
       sleep_for_frame();
@@ -118,16 +122,20 @@ TEST_F(AllegroFlare_Elements_DialogButtonTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_DialogButtonTestWithAllegroRenderingFixture,
-   VISUAL__render__when_at_last_advance__will_draw_the_button_as_expected)
+   CAPTURE__VISUAL__render__when_at_last_advance__will_draw_the_button_as_expected)
 {
    AllegroFlare::Elements::DialogButton dialog_button(&get_font_bin_ref());
+   AllegroFlare::Placement2D showcased_placement = build_centered_placement();
    dialog_button.set_at_last_advance(true);
    dialog_button.set_started_at(al_get_time());
 
    for (int passes=0; passes<=20; passes++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
+
+      showcased_placement.start_transform();
       dialog_button.render();
+      showcased_placement.restore_transform();
       al_flip_display();
 
       sleep_for_frame();
