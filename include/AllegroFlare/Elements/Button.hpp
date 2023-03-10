@@ -56,7 +56,8 @@ namespace AllegroFlare
          float get_padding_x() const;
          float get_padding_y() const;
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
-         float infer_width();
+         float infer_box_width();
+         float infer_box_height();
          void render();
          float infer_age();
       };

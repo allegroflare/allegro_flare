@@ -175,11 +175,18 @@ void Button::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
-float Button::infer_width()
+float Button::infer_box_width()
 {
    ALLEGRO_FONT *button_font = obtain_button_font();
    float text_width = al_get_text_width(button_font, text.c_str());
-   return text_width + padding_x;
+   return text_width + padding_x * 2;
+}
+
+float Button::infer_box_height()
+{
+   ALLEGRO_FONT *button_font = obtain_button_font();
+   float text_height = al_get_font_line_height(button_font);
+   return text_height + padding_y * 2;
 }
 
 void Button::render()
@@ -231,8 +238,8 @@ void Button::render()
       //button_color = AllegroFlare::Color::LemonChiffon;
       //text = "FINISH";
    //}
-   float text_width = al_get_text_width(button_font, text.c_str());
-   float text_height = al_get_font_line_height(button_font);
+   //float text_width = al_get_text_width(button_font, text.c_str());
+   //float text_height = al_get_font_line_height(button_font);
    ALLEGRO_COLOR button_text_color = core_color;
    float button_frame_opacity = ((1.5 - fmod(age, 1.5)) / 1.5) * 0.75 + 0.25;
    ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
@@ -242,8 +249,9 @@ void Button::render()
    //float padding_x = 32.0f;
    //float padding_y = 12.0f;
    AllegroFlare::Placement2D button_place;
-   button_place.position.x = x;
-   button_place.position.y = y;
+   button_place.position.x = x - padding_x;
+   button_place.position.y = y - padding_y;
+   //float height = text_height + padding_y * 2;
 
    float reveal_duration = 0.6f;
    if (age < reveal_duration)
@@ -267,10 +275,12 @@ void Button::render()
 
    // draw the cursor outline
    al_draw_rounded_rectangle(
-      -padding_x,
-      -padding_y,
-      infer_width(),
-      text_height+padding_y,
+      //-padding_x,
+      //-padding_y,
+      0,
+      0,
+      infer_box_width(),
+      infer_box_height(),
       roundness,
       roundness,
       button_frame_color,
@@ -278,7 +288,7 @@ void Button::render()
    );
 
    // draw the text
-   al_draw_text(button_font, button_text_color, text_width/2, 0, ALLEGRO_ALIGN_CENTER, text.c_str());
+   al_draw_text(button_font, button_text_color, padding_x, padding_y, ALLEGRO_ALIGN_LEFT, text.c_str());
 
    button_place.restore_transform();
 

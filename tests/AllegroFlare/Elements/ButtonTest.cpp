@@ -113,6 +113,7 @@ TEST_F(AllegroFlare_Elements_ButtonTestWithAllegroRenderingFixture,
 
       showcased_placement.start_transform();
       button.render();
+      draw_crosshair(0, 0);
       showcased_placement.restore_transform();
       al_flip_display();
 
