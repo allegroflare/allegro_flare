@@ -439,11 +439,18 @@ functions:
       //return (list_item_box_height + box_gutter_y) * 5.5;
 
 
+  - name: infer_list_item_y_spacing
+    type: float
+    private: true
+    body: |
+      return list_item_box_height + box_gutter_y;
+
+
   - name: infer_container_contents_height
     type: float
     private: true
     body: |
-      float y_spacing = list_item_box_height + box_gutter_y;
+      float y_spacing = infer_list_item_y_spacing();
       return input_devices.size() * y_spacing - box_gutter_y; // <- this should be revised
                                                              // to take into account
                                                              // lists of size 0; E.g.
@@ -462,12 +469,38 @@ functions:
   - name: limit_scrollbar_position
     private: true
     body: |
-      float y_spacing = list_item_box_height + box_gutter_y;
       float container_height = infer_container_height();
       float container_contents_height = infer_container_contents_height();
       float container_scroll_range = infer_container_scroll_range();
       scrollbar_position = std::max(0.0f, std::min(container_scroll_range, scrollbar_position));
       return;
+
+
+  - name: draw_scrollarea_contents
+    body: |
+      float input_devices_box_list_x = 0;
+      float input_devices_box_list_y = 0;
+      float y_spacing = infer_list_item_y_spacing();
+
+      for (int i=0; i<input_devices.size(); i++)
+      {
+         AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
+         uint32_t connected_status = std::get<1>(input_devices[i]);
+         std::string title = std::get<2>(input_devices[i]);
+         std::string device_id = std::get<3>(input_devices[i]);
+
+         draw_input_device_box(
+            input_devices_box_list_x,
+            input_devices_box_list_y + i * y_spacing,
+            physical_input_device,
+            connected_status,
+            title,
+            device_id
+         );
+      }
+
+      // Show the selection cursor
+      selection_cursor_box.render();
 
 
   - name: draw_input_devices_list_items_and_scrollbar
@@ -481,9 +514,9 @@ functions:
       ALLEGRO_COLOR input_devices_list_frame_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       ALLEGRO_COLOR scrollbar_bar_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
       ALLEGRO_COLOR scrollbar_handle_color = ALLEGRO_COLOR{0.5, 0.505, 0.51, 1.0};
-      float input_devices_box_list_x = 0;
-      float input_devices_box_list_y = 0;
-      float y_spacing = list_item_box_height + box_gutter_y;
+      //float input_devices_box_list_x = 0;
+      //float input_devices_box_list_y = 0;
+      float y_spacing = infer_list_item_y_spacing();
       float frame_thickness = 6.0;
       float frame_outset = box_gutter_y + 2;
       float container_height = infer_container_height();
@@ -533,25 +566,7 @@ functions:
          // Draw the scrollarea contents
          scrollarea_contents.start_transform();
 
-         for (int i=0; i<input_devices.size(); i++)
-         {
-            AllegroFlare::PhysicalInputDevices::Base *physical_input_device = std::get<0>(input_devices[i]);
-            uint32_t connected_status = std::get<1>(input_devices[i]);
-            std::string title = std::get<2>(input_devices[i]);
-            std::string device_id = std::get<3>(input_devices[i]);
-
-            draw_input_device_box(
-               input_devices_box_list_x,
-               input_devices_box_list_y + i * y_spacing,
-               physical_input_device,
-               connected_status,
-               title,
-               device_id
-            );
-         }
-
-         // Show the selection cursor
-         selection_cursor_box.render();
+         draw_scrollarea_contents();
 
          // Restore the scrollarea previous position
          scrollarea_contents.restore_transform();
