@@ -116,8 +116,21 @@ functions:
 
   - name: get_any_font
     type: ALLEGRO_FONT*
+    parameters:
+      - name: size
+        type: int
+        default_argument: -30
+    guards: [ (size != 0) ]
     body: |
-      return font_bin.auto_get("Inter-Medium.ttf -20");
+      std::stringstream ss;
+      ss << "Inter-Medium.ttf " << size;
+      return font_bin.auto_get(ss.str());
+
+
+  - name: get_user_prompt_font
+    type: ALLEGRO_FONT*
+    body: |
+      return font_bin.auto_get("Inter-Medium.ttf -42");
 
 
   - name: get_display_backbuffer
