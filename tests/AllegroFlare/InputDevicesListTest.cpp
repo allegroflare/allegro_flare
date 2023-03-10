@@ -199,7 +199,7 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
                }
                al_draw_multiline_textf(
                   any_font,
-                  ALLEGRO_COLOR{0.5f, 0.5f, 0.5f, 0.5f},
+                  AllegroFlare::Color::LemonChiffon,
                   1920/2,
                   1080/2+50,
                   800,
@@ -259,6 +259,21 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
    }
    else
    {
+      ALLEGRO_COLOR test_result_color = AllegroFlare::Color::LemonChiffon;
+      clear();
+      al_draw_multiline_text(
+         font,
+         test_result_color,
+         1920/2,
+         1080/2-50,
+         800,
+         al_get_font_line_height(font),
+         ALLEGRO_ALIGN_CENTER,
+         "Skipped"
+      );
+
+      al_flip_display();
+      al_rest(1.5);
       al_stop_timer(timer);
       al_destroy_event_queue(event_queue);
       al_uninstall_keyboard();
