@@ -116,32 +116,18 @@ functions:
       - al_is_primitives_addon_initialized()
       - font_bin
     body: |
-      // TODO: use these positions in tests
-      //float x = 1920-400;
-      //float y = 1080-300;
       float age = infer_age();
       ALLEGRO_FONT *button_font = obtain_button_font();
-      //ALLEGRO_COLOR button_color = AllegroFlare::Color::PaleGreen;
-      //std::string text = "NEXT >";
-      //if (at_last_advance)
-      //{
-         //button_color = AllegroFlare::Color::LemonChiffon;
-         //text = "FINISH";
-      //}
-      //float text_width = al_get_text_width(button_font, text.c_str());
-      //float text_height = al_get_font_line_height(button_font);
       ALLEGRO_COLOR button_text_color = core_color;
       float button_frame_opacity = ((1.5 - fmod(age, 1.5)) / 1.5) * 0.75 + 0.25;
       ALLEGRO_COLOR button_frame_color = AllegroFlare::color::mix(
             core_color, AllegroFlare::Color::Transparent, 1.0 - button_frame_opacity);
       float thickness = 4.0f;
       float roundness = thickness * 1.5;
-      //float padding_x = 32.0f;
-      //float padding_y = 12.0f;
+
       AllegroFlare::Placement2D button_place;
       button_place.position.x = x - padding_x;
       button_place.position.y = y - padding_y;
-      //float height = text_height + padding_y * 2;
 
       float reveal_duration = 0.6f;
       if (age < reveal_duration)
@@ -150,8 +136,6 @@ functions:
          float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
          float inv_normalized_time = 1.0 - normalized_time;
          float reveal_y_offset = 30;
-         //float reveal_opacity = 0.5;
-         //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
          ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Transparent;
 
          button_text_color = AllegroFlare::color::mix(
@@ -165,8 +149,6 @@ functions:
       
       // draw the cursor outline
       al_draw_rounded_rectangle(
-         //-padding_x,
-         //-padding_y,
          0,
          0,
          infer_box_width(),
