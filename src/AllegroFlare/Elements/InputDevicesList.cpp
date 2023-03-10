@@ -319,6 +319,11 @@ float InputDevicesList::infer_scrollbar_max_position()
 
 bool InputDevicesList::scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()
 {
+   return list_contents_is_smaller_than_the_container();
+}
+
+bool InputDevicesList::list_contents_is_smaller_than_the_container()
+{
    return infer_container_scroll_range() <= 0;
 }
 
@@ -369,16 +374,16 @@ std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std:
          "Joystick (3)",
          "af97a9c"
       },
-      //{ new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
-         //CONNECTION_STATUS_DISCONNECTED,
-         //"Joystick (4)",
-         //"af97a9c"
-      //},
-      //{ new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
-         //CONNECTION_STATUS_DISCONNECTED,
-         //"Joystick (5)",
-         //"af97a9c"
-      //},
+      { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+         CONNECTION_STATUS_DISCONNECTED,
+         "Joystick (4)",
+         "af97a9c"
+      },
+      { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+         CONNECTION_STATUS_DISCONNECTED,
+         "Joystick (5)",
+         "af97a9c"
+      },
    };
 }
 
@@ -463,15 +468,22 @@ float InputDevicesList::infer_list_item_y_spacing()
    return list_item_box_height + box_gutter_y;
 }
 
+float InputDevicesList::infer_container_contents_height_for_n_elements(int num_elements)
+{
+   if (!(num_elements >= 0))
+   {
+      std::stringstream error_message;
+      error_message << "[InputDevicesList::infer_container_contents_height_for_n_elements]: error: guard \"num_elements >= 0\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("InputDevicesList::infer_container_contents_height_for_n_elements: error: guard \"num_elements >= 0\" not met");
+   }
+   if (num_elements == 0) return 0;
+   return num_elements * infer_list_item_y_spacing() - box_gutter_y;
+}
+
 float InputDevicesList::infer_container_contents_height()
 {
-   float y_spacing = infer_list_item_y_spacing();
-   return input_devices.size() * y_spacing - box_gutter_y; // <- this should be revised
-                                                          // to take into account
-                                                          // lists of size 0; E.g.
-                                                          // Box gutter y should not
-                                                          // be subtracted in that
-                                                          // case
+   return infer_container_contents_height_for_n_elements(input_devices.size());
 }
 
 float InputDevicesList::infer_container_scroll_range()
@@ -575,9 +587,18 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
       //);
 
       // Draw the scrollarea contents
-      scrollarea_contents.start_transform();
+      // TODO: Test this transforming and non-transforming state
+      if (!list_contents_is_smaller_than_the_container())
+      {
+         scrollarea_contents.start_transform();
+      }
+
       draw_scrollarea_contents();
-      scrollarea_contents.restore_transform();
+
+      if (!list_contents_is_smaller_than_the_container())
+      {
+         scrollarea_contents.restore_transform();
+      }
 
       //// draw the frame DEBUGGING:
       //frame_outset = -1;

@@ -56,6 +56,7 @@ namespace AllegroFlare
          void draw_input_devices_list_title_text_and_completed_title_text();
          float infer_container_height();
          float infer_list_item_y_spacing();
+         float infer_container_contents_height_for_n_elements(int num_elements=0);
          float infer_container_contents_height();
          float infer_container_scroll_range();
          void limit_scrollbar_position();
@@ -108,6 +109,7 @@ namespace AllegroFlare
          void set_scrollbar_position_to_max();
          float infer_scrollbar_max_position();
          bool scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container();
+         bool list_contents_is_smaller_than_the_container();
          static std::vector<std::tuple<AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string>> build_placeholder_input_devices();
          void draw_scrollarea_contents();
       };

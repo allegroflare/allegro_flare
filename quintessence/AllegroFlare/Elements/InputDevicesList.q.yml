@@ -281,6 +281,12 @@ functions:
   - name: scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container
     type: bool
     body: |
+      return list_contents_is_smaller_than_the_container();
+
+
+  - name: list_contents_is_smaller_than_the_container
+    type: bool
+    body: |
       return infer_container_scroll_range() <= 0;
 
 
@@ -335,16 +341,16 @@ functions:
             "Joystick (3)",
             "af97a9c"
          },
-         //{ new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
-            //CONNECTION_STATUS_DISCONNECTED,
-            //"Joystick (4)",
-            //"af97a9c"
-         //},
-         //{ new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
-            //CONNECTION_STATUS_DISCONNECTED,
-            //"Joystick (5)",
-            //"af97a9c"
-         //},
+         { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+            CONNECTION_STATUS_DISCONNECTED,
+            "Joystick (4)",
+            "af97a9c"
+         },
+         { new AllegroFlare::PhysicalInputDevices::Joysticks::Base(),
+            CONNECTION_STATUS_DISCONNECTED,
+            "Joystick (5)",
+            "af97a9c"
+         },
       };
     body_dependency_symbols:
       - AllegroFlare::PhysicalInputDevices::Keyboard
@@ -446,17 +452,24 @@ functions:
       return list_item_box_height + box_gutter_y;
 
 
+  - name: infer_container_contents_height_for_n_elements
+    type: float
+    private: true
+    parameters:
+      - name: num_elements
+        type: int
+        default_argument: 0
+    guards: [ num_elements >= 0 ]
+    body: |
+      if (num_elements == 0) return 0;
+      return num_elements * infer_list_item_y_spacing() - box_gutter_y;
+
+
   - name: infer_container_contents_height
     type: float
     private: true
     body: |
-      float y_spacing = infer_list_item_y_spacing();
-      return input_devices.size() * y_spacing - box_gutter_y; // <- this should be revised
-                                                             // to take into account
-                                                             // lists of size 0; E.g.
-                                                             // Box gutter y should not
-                                                             // be subtracted in that
-                                                             // case
+      return infer_container_contents_height_for_n_elements(input_devices.size());
 
 
   - name: infer_container_scroll_range
@@ -564,9 +577,18 @@ functions:
          //);
 
          // Draw the scrollarea contents
-         scrollarea_contents.start_transform();
+         // TODO: Test this transforming and non-transforming state
+         if (!list_contents_is_smaller_than_the_container())
+         {
+            scrollarea_contents.start_transform();
+         }
+
          draw_scrollarea_contents();
-         scrollarea_contents.restore_transform();
+
+         if (!list_contents_is_smaller_than_the_container())
+         {
+            scrollarea_contents.restore_transform();
+         }
 
          //// draw the frame DEBUGGING:
          //frame_outset = -1;
