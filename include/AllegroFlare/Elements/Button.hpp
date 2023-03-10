@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
@@ -18,7 +19,7 @@ namespace AllegroFlare
          enum class Alignments
          {
             CENTERED = 0,
-            ALIGNED_AT_TEXT_START,
+            ALIGNED_AT_TEXT_ORIGIN,
          };
       private:
          AllegroFlare::FontBin* font_bin;
@@ -67,6 +68,7 @@ namespace AllegroFlare
          float infer_box_height();
          void align_box_at_center();
          void render();
+         AllegroFlare::Placement2D build_button_placement_based_on_alignment_strategy();
          float infer_age();
       };
    }

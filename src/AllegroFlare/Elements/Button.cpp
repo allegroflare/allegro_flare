@@ -32,7 +32,7 @@ Button::Button(AllegroFlare::FontBin* font_bin)
    , y(0.0f)
    , padding_x(32.0f)
    , padding_y(12.0f)
-   , alignment_strategy(AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_START)
+   , alignment_strategy(AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_ORIGIN)
 {
 }
 
@@ -241,9 +241,7 @@ void Button::render()
    float thickness = 4.0f;
    float roundness = thickness * 1.5;
 
-   AllegroFlare::Placement2D button_place;
-   button_place.position.x = x - padding_x;
-   button_place.position.y = y - padding_y;
+   AllegroFlare::Placement2D button_placement = build_button_placement_based_on_alignment_strategy();
 
    float reveal_duration = 0.6f;
    if (age < reveal_duration)
@@ -258,10 +256,10 @@ void Button::render()
             reveal_color, button_text_color, normalized_time);
       button_frame_color = AllegroFlare::color::mix(
             reveal_color, button_frame_color, normalized_time);
-      button_place.position.y += reveal_y_offset * AllegroFlare::interpolator::tripple_fast_out(inv_normalized_time);
+      button_placement.position.y += reveal_y_offset * AllegroFlare::interpolator::tripple_fast_out(inv_normalized_time);
    }
 
-   button_place.start_transform();
+   button_placement.start_transform();
 
    // draw the cursor outline
    al_draw_rounded_rectangle(
@@ -278,9 +276,38 @@ void Button::render()
    // draw the text
    al_draw_text(button_font, button_text_color, padding_x, padding_y, ALLEGRO_ALIGN_LEFT, text.c_str());
 
-   button_place.restore_transform();
+   button_placement.restore_transform();
 
    return;
+}
+
+AllegroFlare::Placement2D Button::build_button_placement_based_on_alignment_strategy()
+{
+   AllegroFlare::Placement2D result;
+   switch (alignment_strategy)
+   {
+      case AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_ORIGIN:
+         result.position.x = x - padding_x;
+         result.position.y = y - padding_y;
+      break;
+
+      case AllegroFlare::Elements::Button::Alignments::CENTERED:
+         result.position.x = x;
+         result.position.y = y;
+         result.size.x = infer_box_width();
+         result.size.y = infer_box_height();
+         result.align.x = 0.5;
+         result.align.y = 0.5;
+      break;
+
+      default:
+         // TODO: Replace with AllegroFlare::Logger error
+         throw std::runtime_error("Elements/Button::build_button_placement_based_on_alignment_strategy: error: "
+                     "Unhandled Alignments type"
+                  );
+      break;
+   }
+   return result;
 }
 
 float Button::infer_age()

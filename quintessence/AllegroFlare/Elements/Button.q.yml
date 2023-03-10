@@ -64,7 +64,7 @@ properties:
 
   - name: alignment_strategy
     type: AllegroFlare::Elements::Button::Alignments
-    init_with: AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_START
+    init_with: AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_ORIGIN
     getter: true
     setter: true
 
@@ -76,7 +76,7 @@ enums:
     scope: public
     enumerators:
       - CENTERED
-      - ALIGNED_AT_TEXT_START
+      - ALIGNED_AT_TEXT_ORIGIN
 
 
 documentation:
@@ -140,9 +140,7 @@ functions:
       float thickness = 4.0f;
       float roundness = thickness * 1.5;
 
-      AllegroFlare::Placement2D button_place;
-      button_place.position.x = x - padding_x;
-      button_place.position.y = y - padding_y;
+      AllegroFlare::Placement2D button_placement = build_button_placement_based_on_alignment_strategy();
 
       float reveal_duration = 0.6f;
       if (age < reveal_duration)
@@ -157,10 +155,10 @@ functions:
                reveal_color, button_text_color, normalized_time);
          button_frame_color = AllegroFlare::color::mix(
                reveal_color, button_frame_color, normalized_time);
-         button_place.position.y += reveal_y_offset * AllegroFlare::interpolator::tripple_fast_out(inv_normalized_time);
+         button_placement.position.y += reveal_y_offset * AllegroFlare::interpolator::tripple_fast_out(inv_normalized_time);
       }
 
-      button_place.start_transform();
+      button_placement.start_transform();
       
       // draw the cursor outline
       al_draw_rounded_rectangle(
@@ -177,7 +175,7 @@ functions:
       // draw the text
       al_draw_text(button_font, button_text_color, padding_x, padding_y, ALLEGRO_ALIGN_LEFT, text.c_str());
 
-      button_place.restore_transform();
+      button_placement.restore_transform();
 
       return;
     body_dependency_symbols:
@@ -188,6 +186,38 @@ functions:
       - al_is_ttf_addon_initialized
       - AllegroFlare::interpolator
       - std::min, std::max
+
+
+  - name: build_button_placement_based_on_alignment_strategy
+    type: AllegroFlare::Placement2D
+    body: |
+      AllegroFlare::Placement2D result;
+      switch (alignment_strategy)
+      {
+         case AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_ORIGIN:
+            result.position.x = x - padding_x;
+            result.position.y = y - padding_y;
+         break;
+
+         case AllegroFlare::Elements::Button::Alignments::CENTERED:
+            result.position.x = x;
+            result.position.y = y;
+            result.size.x = infer_box_width();
+            result.size.y = infer_box_height();
+            result.align.x = 0.5;
+            result.align.y = 0.5;
+         break;
+
+         default:
+            // TODO: Replace with AllegroFlare::Logger error
+            throw std::runtime_error("Elements/Button::build_button_placement_based_on_alignment_strategy: error: "
+                        "Unhandled Alignments type"
+                     );
+         break;
+      }
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
 
 
   - name: infer_age
