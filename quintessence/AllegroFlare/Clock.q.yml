@@ -1,0 +1,23 @@
+functions:
+
+
+  - name: real_world_time_since
+    type: float
+    parameters:
+      - name: time_of_event
+        type: float
+        default_argument: 0.0f
+    guards: [ al_is_system_installed() ]
+    body: |
+      return al_get_time() - time_of_event;
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+
+
