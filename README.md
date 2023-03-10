@@ -9,8 +9,6 @@ AllegroFlare is set of complementary classes for the [Allegro 5 Game Programming
 
 The goal of AllegroFlare is to add new higher level features that are not otherwise a part of Allegro 5's low level design.  Hopefully, you may find some AllegroFlare components that make an otherwise complicated game programming task much easier to do.
 
-From a design perspective, AllegroFlare objects are meant to be atomic and orthagonal - that is, you shouldn't have to incorporate an entire framework or software design philosophy (such as SOAP, MVP) in order to work with AllegroFlare and its objects. Pieces can be created and used in isolation and are ephemeral when possible, while others may contain state or require initialization.  If configuraions or options on objects become complex, then they are typically offered in additional simplified variants.  Objects are designed in such that you should be able to cherry-pick and incorporate what you need into your existing code, or you could even adopt entire frameworks.  With that in mind, there are some composite objects that do require a more complex integration. But, this is by nature of their requirements or underlying subsystems (OpenGL), and not so much a design philosophy.
-
 ## Some Examples
 
 - Bins for media files (`FontBin`, `SampleBin`, `BitmapBin`) that make loading and managing missing assets easier
