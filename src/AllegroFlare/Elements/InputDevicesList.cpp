@@ -203,6 +203,10 @@ void InputDevicesList::initialize()
    selection_cursor_button.set_core_color(selection_cursor_box.get_core_color());
    selection_cursor_button.align_to_right_centered();
 
+   AllegroFlare::Vec2D new_button_position = build_selection_cursor_button_position_of_current_cursor_pos();
+   selection_cursor_button.set_x(new_button_position.x);
+   selection_cursor_button.set_y(new_button_position.y);
+
    initialized = true;
    return;
 }
@@ -254,10 +258,15 @@ void InputDevicesList::move_selection_cursor_box_to_current_cursor_location()
 
    if (current_selected_item_is_connected())
    {
-      // TODO: "show" selection_cursor_button
-      // HERE: TODO: reposition button:
-      selection_cursor_button.set_x(new_position.x);
-      selection_cursor_button.set_y(new_position.y);
+      // TODO: Consider alternatives to this snapping repositioning technique. For example, an alternative
+      // could be that each list element has its own button, but the button "shows" when the cursor is over the
+      // list item (and "hides" when moved away). Another alternative could be to have the "CONFIGURE" button
+      // belong to the cursor, moving/displacing along with it.
+      AllegroFlare::Vec2D new_button_position = build_selection_cursor_button_position_of_current_cursor_pos();
+      selection_cursor_button.set_x(new_button_position.x);
+      selection_cursor_button.set_y(new_button_position.y);
+      // TODO: Have button "re-init" it's hilight when it moves
+      // TODO: Find a good way to synchronize the pulsation of the cursor and button
    }
    else
    {
@@ -282,8 +291,12 @@ AllegroFlare::Vec2D InputDevicesList::build_selection_cursor_box_position_of_cur
 
 AllegroFlare::Vec2D InputDevicesList::build_selection_cursor_button_position_of_current_cursor_pos()
 {
-   // HERE
-   return build_selection_cursor_box_position_of_current_cursor_pos() + AllegroFlare::Vec2D(100, 50);
+   AllegroFlare::Vec2D selection_cursor_box_position = build_selection_cursor_box_position_of_current_cursor_pos();
+   float button_x_padding = 30;
+   return AllegroFlare::Vec2D(
+      selection_cursor_box_position.x + list_item_box_width - button_x_padding,
+      selection_cursor_box_position.y + list_item_box_height / 2 // TODO: Consider integerizing this
+   );
 }
 
 float InputDevicesList::infer_list_item_spacing_y()
