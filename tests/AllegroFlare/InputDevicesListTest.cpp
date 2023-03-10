@@ -126,7 +126,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   FOCUS__INTERACTIVE__when_a_joystick_connects_to_the_os_that_was_not_previously_connected__will_create_the_device)
+   DISABLED__INTERACTIVE__when_a_joystick_connects_to_the_os_that_was_not_previously_connected__will_create_the_device)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
