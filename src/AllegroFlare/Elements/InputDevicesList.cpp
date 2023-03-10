@@ -201,6 +201,7 @@ void InputDevicesList::initialize()
    selection_cursor_button.set_font_bin(font_bin);
    selection_cursor_button.set_text("CONFIGURE >");
    selection_cursor_button.set_core_color(selection_cursor_box.get_core_color());
+   selection_cursor_button.align_to_right_centered();
 
    initialized = true;
    return;

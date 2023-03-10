@@ -134,16 +134,23 @@ TEST_F(AllegroFlare_Elements_ButtonTestWithAllegroRenderingFixture,
    {
       clear();
 
-      showcased_placement.position.x = position_origin_x - 200;
+      showcased_placement.position.x = position_origin_x - 300;
       showcased_placement.start_transform();
       button.set_alignment_strategy(AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_ORIGIN);
       button.render();
       draw_crosshair(0, 0);
       showcased_placement.restore_transform();
 
-      showcased_placement.position.x = position_origin_x + 200;
+      showcased_placement.position.x = position_origin_x;
       showcased_placement.start_transform();
       button.set_alignment_strategy(AllegroFlare::Elements::Button::Alignments::CENTERED);
+      button.render();
+      draw_crosshair(0, 0);
+      showcased_placement.restore_transform();
+
+      showcased_placement.position.x = position_origin_x + 300;
+      showcased_placement.start_transform();
+      button.set_alignment_strategy(AllegroFlare::Elements::Button::Alignments::RIGHT_CENTERED);
       button.render();
       draw_crosshair(0, 0);
       showcased_placement.restore_transform();

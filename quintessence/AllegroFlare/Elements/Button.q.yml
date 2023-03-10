@@ -76,6 +76,7 @@ enums:
     scope: public
     enumerators:
       - CENTERED
+      - RIGHT_CENTERED
       - ALIGNED_AT_TEXT_ORIGIN
 
 
@@ -116,9 +117,15 @@ functions:
       return text_height + padding_y * 2;
 
 
-  - name: align_box_at_center
+  - name: align_to_center
     body: |
       alignment_strategy = AllegroFlare::Elements::Button::Alignments::CENTERED;
+      return;
+
+
+  - name: align_to_right_centered
+    body: |
+      alignment_strategy = AllegroFlare::Elements::Button::Alignments::RIGHT_CENTERED;
       return;
 
 
@@ -205,6 +212,15 @@ functions:
             result.size.x = infer_box_width();
             result.size.y = infer_box_height();
             result.align.x = 0.5;
+            result.align.y = 0.5;
+         break;
+
+         case AllegroFlare::Elements::Button::Alignments::RIGHT_CENTERED:
+            result.position.x = x;
+            result.position.y = y;
+            result.size.x = infer_box_width();
+            result.size.y = infer_box_height();
+            result.align.x = 1.0;
             result.align.y = 0.5;
          break;
 

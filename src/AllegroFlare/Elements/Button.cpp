@@ -189,9 +189,15 @@ float Button::infer_box_height()
    return text_height + padding_y * 2;
 }
 
-void Button::align_box_at_center()
+void Button::align_to_center()
 {
    alignment_strategy = AllegroFlare::Elements::Button::Alignments::CENTERED;
+   return;
+}
+
+void Button::align_to_right_centered()
+{
+   alignment_strategy = AllegroFlare::Elements::Button::Alignments::RIGHT_CENTERED;
    return;
 }
 
@@ -297,6 +303,15 @@ AllegroFlare::Placement2D Button::build_button_placement_based_on_alignment_stra
          result.size.x = infer_box_width();
          result.size.y = infer_box_height();
          result.align.x = 0.5;
+         result.align.y = 0.5;
+      break;
+
+      case AllegroFlare::Elements::Button::Alignments::RIGHT_CENTERED:
+         result.position.x = x;
+         result.position.y = y;
+         result.size.x = infer_box_width();
+         result.size.y = infer_box_height();
+         result.align.x = 1.0;
          result.align.y = 0.5;
       break;
 

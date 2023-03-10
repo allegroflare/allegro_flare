@@ -19,6 +19,7 @@ namespace AllegroFlare
          enum class Alignments
          {
             CENTERED = 0,
+            RIGHT_CENTERED,
             ALIGNED_AT_TEXT_ORIGIN,
          };
       private:
@@ -66,7 +67,8 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          float infer_box_width();
          float infer_box_height();
-         void align_box_at_center();
+         void align_to_center();
+         void align_to_right_centered();
          void render();
          AllegroFlare::Placement2D build_button_placement_based_on_alignment_strategy();
          float infer_age();
