@@ -28,11 +28,11 @@ Button::Button(AllegroFlare::FontBin* font_bin)
    , text_font_size(-28)
    , core_color(AllegroFlare::Color::PaleGreen)
    , started_at(0.0f)
-   , visibility_counter(0.0f)
    , x(0.0f)
    , y(0.0f)
    , padding_x(32.0f)
    , padding_y(12.0f)
+   , alignment_strategy(AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_START)
 {
 }
 
@@ -72,12 +72,6 @@ void Button::set_started_at(float started_at)
 }
 
 
-void Button::set_visibility_counter(float visibility_counter)
-{
-   this->visibility_counter = visibility_counter;
-}
-
-
 void Button::set_x(float x)
 {
    this->x = x;
@@ -99,6 +93,12 @@ void Button::set_padding_x(float padding_x)
 void Button::set_padding_y(float padding_y)
 {
    this->padding_y = padding_y;
+}
+
+
+void Button::set_alignment_strategy(AllegroFlare::Elements::Button::Alignments alignment_strategy)
+{
+   this->alignment_strategy = alignment_strategy;
 }
 
 
@@ -138,12 +138,6 @@ float Button::get_started_at() const
 }
 
 
-float Button::get_visibility_counter() const
-{
-   return visibility_counter;
-}
-
-
 float Button::get_x() const
 {
    return x;
@@ -168,6 +162,12 @@ float Button::get_padding_y() const
 }
 
 
+AllegroFlare::Elements::Button::Alignments Button::get_alignment_strategy() const
+{
+   return alignment_strategy;
+}
+
+
 void Button::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    // TODO: consider a mechanism that flags width/height as dirty
@@ -187,6 +187,12 @@ float Button::infer_box_height()
    ALLEGRO_FONT *button_font = obtain_button_font();
    float text_height = al_get_font_line_height(button_font);
    return text_height + padding_y * 2;
+}
+
+void Button::align_box_at_center()
+{
+   alignment_strategy = AllegroFlare::Elements::Button::Alignments::CENTERED;
+   return;
 }
 
 void Button::render()

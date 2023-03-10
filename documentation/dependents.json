@@ -64,12 +64,14 @@
   "al_is_system_installed": [
     "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Clock",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -187,6 +189,7 @@
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -291,6 +294,7 @@
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -408,6 +412,7 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
@@ -489,6 +494,7 @@
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -560,6 +566,7 @@
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -653,6 +660,7 @@
   "std/min, std/max": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -663,6 +671,7 @@
   ],
   "std/min": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -674,6 +683,7 @@
   ],
   "std/max": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -685,6 +695,7 @@
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -803,6 +814,7 @@
   ],
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -818,6 +830,7 @@
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Storyboard",
@@ -828,6 +841,7 @@
   ],
   "fmod": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -870,6 +884,40 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Base",
     "AllegroFlare/SceneGraph/Entities/Base",
     "Wicked/Entities/Base"
+  ],
+  "al_is_ttf_addon_initialized": [
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "AllegroFlare/interpolator": [
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/SelectionCursorBox",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
+  "AllegroFlare/Interpolators/": [
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MotionFX/Sparkles2"
+  ],
+  "AllegroFlare/Clock": [
+    "AllegroFlare/Elements/Button"
+  ],
+  "AllegroFlare/Elements/Button/Alignments": [
+    "AllegroFlare/Elements/Button"
   ],
   "al_get_time": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -983,17 +1031,6 @@
   "AllegroFlare/Elements/DialogButton": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
-  "AllegroFlare/Interpolators/": [
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MotionFX/Sparkles2"
-  ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/ProfilerRenderer",
@@ -1019,20 +1056,6 @@
     "AllegroFlare/Elements/RollingCredits/Sections/Base",
     "AllegroFlare/MotionComposer/Messages/Base"
   ],
-  "al_is_ttf_addon_initialized": [
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/UnicodeFontViewer"
-  ],
-  "AllegroFlare/interpolator": [
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/SelectionCursorBox",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
-  ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
@@ -1055,11 +1078,13 @@
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
-    "AllegroFlare/Elements/InputDeviceConfigurationList"
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/PhysicalInputDevices/Keyboard",
@@ -1067,13 +1092,18 @@
   ],
   "AllegroFlare/PhysicalInputDevices/Keyboard": [
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
   ],
   "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "connection_status_t": [
+    "AllegroFlare/Elements/InputDevicesList"
+  ],
+  "AllegroFlare/Elements/Button": [
     "AllegroFlare/Elements/InputDevicesList"
   ],
   "X": [
@@ -1393,6 +1423,11 @@
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
+  "ALLEGRO_JOYSTICK": [
+    "AllegroFlare/InputDevicesList",
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
   ],
@@ -1596,10 +1631,6 @@
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Vec3D": [

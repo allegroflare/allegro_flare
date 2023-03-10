@@ -13,6 +13,13 @@ namespace AllegroFlare
    {
       class Button
       {
+public:
+
+         enum class Alignments
+         {
+            CENTERED = 0,
+            ALIGNED_AT_TEXT_START,
+         };
       private:
          AllegroFlare::FontBin* font_bin;
          std::string text;
@@ -20,11 +27,11 @@ namespace AllegroFlare
          int text_font_size;
          ALLEGRO_COLOR core_color;
          float started_at;
-         float visibility_counter;
          float x;
          float y;
          float padding_x;
          float padding_y;
+         AllegroFlare::Elements::Button::Alignments alignment_strategy;
          ALLEGRO_FONT* obtain_button_font();
 
       protected:
@@ -39,25 +46,26 @@ namespace AllegroFlare
          void set_text_font_size(int text_font_size);
          void set_core_color(ALLEGRO_COLOR core_color);
          void set_started_at(float started_at);
-         void set_visibility_counter(float visibility_counter);
          void set_x(float x);
          void set_y(float y);
          void set_padding_x(float padding_x);
          void set_padding_y(float padding_y);
+         void set_alignment_strategy(AllegroFlare::Elements::Button::Alignments alignment_strategy);
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_text() const;
          std::string get_text_font_name() const;
          int get_text_font_size() const;
          ALLEGRO_COLOR get_core_color() const;
          float get_started_at() const;
-         float get_visibility_counter() const;
          float get_x() const;
          float get_y() const;
          float get_padding_x() const;
          float get_padding_y() const;
+         AllegroFlare::Elements::Button::Alignments get_alignment_strategy() const;
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          float infer_box_width();
          float infer_box_height();
+         void align_box_at_center();
          void render();
          float infer_age();
       };

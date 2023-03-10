@@ -64,6 +64,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Clock.q.yml">quintessence/AllegroFlare/Clock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AchievementsList.q.yml">quintessence/AllegroFlare/Elements/AchievementsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
@@ -74,6 +75,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Button.q.yml">quintessence/AllegroFlare/Elements/Button.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxNameTag.q.yml">quintessence/AllegroFlare/Elements/DialogBoxNameTag.q.yml</a></li>
@@ -138,6 +140,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml">quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/InputDevicesList.q.yml">quintessence/AllegroFlare/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputHints.q.yml">quintessence/AllegroFlare/InputHints.q.yml</a></li>
@@ -1199,6 +1202,23 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Clock.q.yml">quintessence/AllegroFlare/Clock.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">real_world_time_since(float time_of_event=0.0f)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</h3>
      <table>
 <tr>
@@ -1887,6 +1907,130 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Button.q.yml">quintessence/AllegroFlare/Elements/Button.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">text_font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">text_font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">core_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">padding_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">padding_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">alignment_strategy</td>
+  <td class="property">AllegroFlare::Elements::Button::Alignments</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">infer_box_width()</td>
+</tr>
+<tr>
+  <td class="method">infer_box_height()</td>
+</tr>
+<tr>
+  <td class="method">align_box_at_center()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">infer_age()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_button_font()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_ttf_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_ttf.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min, std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Clock&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Clock.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Button::Alignments&quot;, &quot;headers&quot;=&gt;[]}</td>
 </tr>
     </table>
   </div>
@@ -3598,11 +3742,11 @@ table td
   <td class="property">std::vector&lt;std::tuple&lt;AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
-  <td class="property">input_devices_box_width</td>
+  <td class="property">list_item_box_width</td>
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">input_devices_box_height</td>
+  <td class="property">list_item_box_height</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -3614,15 +3758,85 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">cursor_pos</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">selection_cursor_box</td>
+  <td class="property">AllegroFlare::Elements::SelectionCursorBox</td>
+</tr>
+<tr>
+  <td class="property">selection_cursor_button</td>
+  <td class="property">AllegroFlare::Elements::Button</td>
+</tr>
+<tr>
   <td class="property">scrollbar_position</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_position_destination</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scrollbar_movement_mode</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">box_gutter_y</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">scrollbar_reposition_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">SCROLLBAR_MOVEMENT_NONE</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">SCROLLBAR_MOVEMENT_FOLLOW_PROPORTIONAL</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_SCROLLBAR_REPOSITION_MULTIPLIER</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="method">set_input_devices(std::vector&lt;std::tuple&lt;AllegroFlare::PhysicalInputDevices::Base*, uint32_t, std::string, std::string&gt;&gt; input_devices={})</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="private_method">move_selection_cursor_box_to_current_cursor_location()</td>
+</tr>
+<tr>
+  <td class="private_method">build_selection_cursor_box_position_of_current_cursor_pos()</td>
+</tr>
+<tr>
+  <td class="private_method">build_selection_cursor_button_position_of_current_cursor_pos()</td>
+</tr>
+<tr>
+  <td class="method">infer_list_item_spacing_y()</td>
+</tr>
+<tr>
+  <td class="method">scrollbar_movement_mode_is_follow_proportional()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
 <tr>
   <td class="method">render()</td>
 </tr>
@@ -3640,6 +3854,12 @@ table td
 </tr>
 <tr>
   <td class="method">scrollbar_is_autohidden_because_list_contents_is_smaller_than_the_container()</td>
+</tr>
+<tr>
+  <td class="method">list_contents_is_smaller_than_the_container()</td>
+</tr>
+<tr>
+  <td class="private_method">build_scrollbar_position_at_current_cursor_pos()</td>
 </tr>
 <tr>
   <td class="method">build_placeholder_input_devices()</td>
@@ -3666,6 +3886,12 @@ table td
   <td class="private_method">infer_container_height()</td>
 </tr>
 <tr>
+  <td class="private_method">infer_list_item_y_spacing()</td>
+</tr>
+<tr>
+  <td class="private_method">infer_container_contents_height_for_n_elements(int num_elements=0)</td>
+</tr>
+<tr>
   <td class="private_method">infer_container_contents_height()</td>
 </tr>
 <tr>
@@ -3673,6 +3899,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">limit_scrollbar_position()</td>
+</tr>
+<tr>
+  <td class="method">draw_scrollarea_contents()</td>
 </tr>
 <tr>
   <td class="private_method">draw_input_devices_list_items_and_scrollbar()</td>
@@ -3685,6 +3914,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">infer_icon_color_by_connection_status(uint32_t connection_status=CONNECTION_STATUS_UNDEFINED, ALLEGRO_COLOR icon_locked_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_hidden_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR icon_achieved_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="private_method">current_selected_item_is_connected()</td>
 </tr>
 <tr>
   <td class="private_method">filter_item_title_through_connection_status(std::string title=&quot;[unset-title]&quot;, uint32_t connection_status=CONNECTION_STATUS_UNDEFINED)</td>
@@ -3750,6 +3982,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;connection_status_t&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Button&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Button.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -5178,6 +5419,10 @@ table td
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
+  <td class="property">core_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">roundness</td>
   <td class="property">float</td>
 </tr>
@@ -6579,6 +6824,57 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/InputDevicesList.q.yml">quintessence/AllegroFlare/InputDevicesList.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">devices</td>
+  <td class="property">std::vector&lt;AllegroFlare::PhysicalInputDevices::Base*&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">count_num_keyboard_devices()</td>
+</tr>
+<tr>
+  <td class="method">count_num_joystick_devices()</td>
+</tr>
+<tr>
+  <td class="private_method">find_joystick_device_by_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">joystick_device_exists_with_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">handle_reconfigured_joystick()</td>
+</tr>
+<tr>
+  <td class="method">num_known_devices()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Keyboard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Keyboard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDevices::Joysticks::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDevices/Joysticks/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_JOYSTICK&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8295,13 +8591,40 @@ table td
   <td class="property">ALLEGRO_JOYSTICK*</td>
 </tr>
 <tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">buttons</td>
+  <td class="property">std::map&lt;uint32_t, std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">has_been_setup</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
      <table>
 <tr>
+  <td class="method">set_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">get_name()</td>
+</tr>
+<tr>
+  <td class="method">get_buttons()</td>
+</tr>
+<tr>
+  <td class="method">setup()</td>
+</tr>
+<tr>
   <td class="method">is_joystick()</td>
+</tr>
+<tr>
+  <td class="method">is_using_al_joystick(ALLEGRO_JOYSTICK* possibly_same_al_joystick=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -20921,12 +21244,14 @@ table td
   "al_is_system_installed": [
     "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Clock",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -21044,6 +21369,7 @@ table td
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -21148,6 +21474,7 @@ table td
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -21265,6 +21592,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
@@ -21346,6 +21674,7 @@ table td
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -21417,6 +21746,7 @@ table td
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -21510,6 +21840,7 @@ table td
   "std/min, std/max": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -21520,6 +21851,7 @@ table td
   ],
   "std/min": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -21531,6 +21863,7 @@ table td
   ],
   "std/max": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -21542,6 +21875,7 @@ table td
   "AllegroFlare/Color": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -21660,6 +21994,7 @@ table td
   ],
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -21675,6 +22010,7 @@ table td
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Storyboard",
@@ -21685,6 +22021,7 @@ table td
   ],
   "fmod": [
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -21727,6 +22064,40 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Base",
     "AllegroFlare/SceneGraph/Entities/Base",
     "Wicked/Entities/Base"
+  ],
+  "al_is_ttf_addon_initialized": [
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/UnicodeFontViewer"
+  ],
+  "AllegroFlare/interpolator": [
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/SelectionCursorBox",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
+  "AllegroFlare/Interpolators/": [
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MotionFX/Sparkles2"
+  ],
+  "AllegroFlare/Clock": [
+    "AllegroFlare/Elements/Button"
+  ],
+  "AllegroFlare/Elements/Button/Alignments": [
+    "AllegroFlare/Elements/Button"
   ],
   "al_get_time": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -21840,17 +22211,6 @@ table td
   "AllegroFlare/Elements/DialogButton": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
-  "AllegroFlare/Interpolators/": [
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MotionFX/Sparkles2"
-  ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/ProfilerRenderer",
@@ -21876,20 +22236,6 @@ table td
     "AllegroFlare/Elements/RollingCredits/Sections/Base",
     "AllegroFlare/MotionComposer/Messages/Base"
   ],
-  "al_is_ttf_addon_initialized": [
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/UnicodeFontViewer"
-  ],
-  "AllegroFlare/interpolator": [
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/SelectionCursorBox",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
-  ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
@@ -21912,11 +22258,13 @@ table td
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
-    "AllegroFlare/Elements/InputDeviceConfigurationList"
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/PhysicalInputDevices/Keyboard",
@@ -21924,13 +22272,18 @@ table td
   ],
   "AllegroFlare/PhysicalInputDevices/Keyboard": [
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory"
   ],
   "AllegroFlare/PhysicalInputDevices/Joysticks/Base": [
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/InputDevicesList",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "connection_status_t": [
+    "AllegroFlare/Elements/InputDevicesList"
+  ],
+  "AllegroFlare/Elements/Button": [
     "AllegroFlare/Elements/InputDevicesList"
   ],
   "X": [
@@ -22250,6 +22603,11 @@ table td
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
+  "ALLEGRO_JOYSTICK": [
+    "AllegroFlare/InputDevicesList",
+    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
   ],
@@ -22453,10 +22811,6 @@ table td
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "ALLEGRO_JOYSTICK": [
-    "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Vec3D": [

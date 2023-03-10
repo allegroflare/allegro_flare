@@ -122,3 +122,36 @@ TEST_F(AllegroFlare_Elements_ButtonTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Elements_ButtonTestWithAllegroRenderingFixture,
+   CAPTURE__VISUAL__render__with_different_alignment_strategies__will_render_as_expected)
+{
+   AllegroFlare::Elements::Button button(&get_font_bin_ref());
+   AllegroFlare::Placement2D showcased_placement = build_centered_placement();
+   float position_origin_x = showcased_placement.position.x;
+   button.set_started_at(al_get_time());
+
+   for (int passes=0; passes<=30; passes++)
+   {
+      clear();
+
+      showcased_placement.position.x = position_origin_x - 200;
+      showcased_placement.start_transform();
+      //button.set_alignment_stragegy(AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_START);
+      button.render();
+      draw_crosshair(0, 0);
+      showcased_placement.restore_transform();
+
+      showcased_placement.position.x = position_origin_x + 200;
+      showcased_placement.start_transform();
+      //button.set_alignment_stragegy(AllegroFlare::Elements::Button::Alignments::CENTERED);
+      button.render();
+      draw_crosshair(0, 0);
+      showcased_placement.restore_transform();
+
+      al_flip_display();
+
+      sleep_for_frame();
+   }
+}
+
+

@@ -38,12 +38,6 @@ properties:
     getter: true
     setter: true
 
-  - name: visibility_counter
-    type: float
-    init_with: 0.0f
-    getter: true
-    setter: true
-
   - name: x
     type: float
     init_with: 0.0f
@@ -68,6 +62,21 @@ properties:
     getter: true
     setter: true
 
+  - name: alignment_strategy
+    type: AllegroFlare::Elements::Button::Alignments
+    init_with: AllegroFlare::Elements::Button::Alignments::ALIGNED_AT_TEXT_START
+    getter: true
+    setter: true
+
+
+enums:
+
+
+  - class: Alignments
+    scope: public
+    enumerators:
+      - CENTERED
+      - ALIGNED_AT_TEXT_START
 
 
 documentation:
@@ -105,6 +114,12 @@ functions:
       ALLEGRO_FONT *button_font = obtain_button_font();
       float text_height = al_get_font_line_height(button_font);
       return text_height + padding_y * 2;
+
+
+  - name: align_box_at_center
+    body: |
+      alignment_strategy = AllegroFlare::Elements::Button::Alignments::CENTERED;
+      return;
 
 
   - name: render
@@ -226,5 +241,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Clock
     headers: [ AllegroFlare/Clock.hpp ]
+  - symbol: AllegroFlare::Elements::Button::Alignments
+    headers: [ ]
 
 

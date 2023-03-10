@@ -18,14 +18,8 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/VirtualControllers/GenericController";
          static constexpr char* DEFAULT_NAME = (char*)"Generic AllegroFlare Controller";
 
-      private:
-         AllegroFlare::Vec2D primary_stick_position;
-         AllegroFlare::Vec2D secondary_stick_position;
+public:
 
-      protected:
-
-
-      public:
          enum : uint32_t
          {
             BUTTON_UNDEF = 0,
@@ -41,6 +35,14 @@ namespace AllegroFlare
             BUTTON_RIGHT_BUMPER,
             BUTTON_LEFT_BUMPER,
          };
+      private:
+         AllegroFlare::Vec2D primary_stick_position;
+         AllegroFlare::Vec2D secondary_stick_position;
+
+      protected:
+
+
+      public:
          GenericController();
          ~GenericController();
 
