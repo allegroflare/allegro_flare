@@ -8,13 +8,20 @@
 #include <allegro5/allegro.h>
 
 
-TEST(AllegroFlare_InputDevicesListTest, can_be_created_without_blowing_up)
+class AllegroFlare_InputDevicesListTest : public ::testing::Test
+{
+public:
+   AllegroFlare_InputDevicesListTest() {}
+};
+
+
+TEST_F(AllegroFlare_InputDevicesListTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::InputDevicesList physical_input_device_list;
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest, initialize__without_allegro_installed__will_throw_an_error)
+TEST_F(AllegroFlare_InputDevicesListTest, initialize__without_allegro_installed__will_throw_an_error)
 {
    AllegroFlare::InputDevicesList physical_input_device_list;
    std::string expected_error_message =
@@ -23,7 +30,7 @@ TEST(AllegroFlare_InputDevicesListTest, initialize__without_allegro_installed__w
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest, initialize__will_not_blow_up)
+TEST_F(AllegroFlare_InputDevicesListTest, initialize__will_not_blow_up)
 {
    al_init();
    AllegroFlare::InputDevicesList physical_input_device_list;
@@ -32,7 +39,7 @@ TEST(AllegroFlare_InputDevicesListTest, initialize__will_not_blow_up)
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest,
+TEST_F(AllegroFlare_InputDevicesListTest,
    initialize__when_the_keyboard_is_not_installed__will_not_create_a_keybord_device)
 {
    al_init();
@@ -43,7 +50,7 @@ TEST(AllegroFlare_InputDevicesListTest,
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest, initialize__when_the_keyboard_is_installed__will_create_a_keybord_device)
+TEST_F(AllegroFlare_InputDevicesListTest, initialize__when_the_keyboard_is_installed__will_create_a_keybord_device)
 {
    al_init();
    al_install_keyboard();
@@ -55,7 +62,7 @@ TEST(AllegroFlare_InputDevicesListTest, initialize__when_the_keyboard_is_install
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest,
+TEST_F(AllegroFlare_InputDevicesListTest,
    initialize__when_allegro_joystick_is_not_installed__will_not_create_joystick_devices)
 {
    al_init();
@@ -66,7 +73,7 @@ TEST(AllegroFlare_InputDevicesListTest,
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest,
+TEST_F(AllegroFlare_InputDevicesListTest,
    DISABLED__INTERACTIVE__initialize__when_no_joysticks_are_connected__will_not_create_joystick_devices)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
@@ -86,7 +93,7 @@ TEST(AllegroFlare_InputDevicesListTest,
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest,
+TEST_F(AllegroFlare_InputDevicesListTest,
    DISABLED__INTERACTIVE__initialize__when_joysticks_are_connected__will_create_joystick_devices)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
@@ -108,7 +115,7 @@ TEST(AllegroFlare_InputDevicesListTest,
 }
 
 
-TEST(AllegroFlare_InputDevicesListTest,
+TEST_F(AllegroFlare_InputDevicesListTest,
    DISABLED__INTERACTIVE__when_a_joystick_connects_to_the_os_that_was_not_previously_connected__will_create_the_device)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
@@ -127,24 +134,45 @@ TEST(AllegroFlare_InputDevicesListTest,
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
    int num_joystick_devices_at_start = input_device_list.count_num_joystick_devices();
+   int expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start + 1;
    int num_joystick_devices_after_reconfiguration = 0;
 
    // TODO: Output a notification for the interactive test user to plug in a controller
    // TODO: Add a countdown timer to abort the test
 
-   ALLEGRO_EVENT allegro_event;
-   al_wait_for_event(event_queue, &allegro_event);
-
-   if (allegro_event.type == ALLEGRO_EVENT_JOYSTICK_CONFIGURATION)
+   bool abort = true;
+   bool test_conditions_successfully_triggered = false;
+   while(!abort)
    {
-      input_device_list.handle_reconfigured_joystick();
-      int num_joystick_devices_after_reconfiguration = input_device_list.count_num_joystick_devices();
-      int expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start + 1;
+      ALLEGRO_EVENT allegro_event;
+      al_wait_for_event(event_queue, &allegro_event);
+
+      switch(allegro_event.type)
+      {
+         case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
+            input_device_list.handle_reconfigured_joystick();
+            num_joystick_devices_after_reconfiguration = input_device_list.count_num_joystick_devices();
+            expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start + 1;
+            test_conditions_successfully_triggered = true;
+         break;
+
+         case ALLEGRO_EVENT_TIMER:
+         break;
+
+         case ALLEGRO_EVENT_KEY_DOWN:
+         break;
+      }
+   }
+
+   if (test_conditions_successfully_triggered)
+   {
       EXPECT_EQ(num_joystick_devices_after_reconfiguration, expected_num_joysticks_after_reconfiguration);
    }
    else
    {
-      GTEST_SKIP() << "This test did not have a joystick configuration change. Please look into the test comments.";
+      al_destroy_event_queue(event_queue);
+      al_uninstall_joystick();
+      GTEST_SKIP() << "This interactive test joystick configuration change. Please look into the test comments.";
    }
 
    al_destroy_event_queue(event_queue);
