@@ -576,10 +576,7 @@ void InputDevicesList::draw_input_devices_list_items_and_scrollbar()
 
       // Draw the scrollarea contents
       scrollarea_contents.start_transform();
-
       draw_scrollarea_contents();
-
-      // Restore the scrollarea previous position
       scrollarea_contents.restore_transform();
 
       //// draw the frame DEBUGGING:
