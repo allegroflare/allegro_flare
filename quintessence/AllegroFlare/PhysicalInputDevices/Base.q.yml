@@ -19,7 +19,12 @@ properties:
     init_with: false
     constructor_arg: true
     getter: true
-    setter: true
+    setter: false
+
+  - name: connected_at
+    type: float
+    init_with: 0.0f
+    getter: true
 
   - name: TYPE
     type: char*
@@ -29,6 +34,25 @@ properties:
 
 
 functions:
+
+
+  - name: set_connected
+    parameters:
+      - name: connected
+        type: bool
+        default_argument: false
+    body: |
+      // Make no change if it's the same status
+      if (this->connected == connected) return;
+
+      // Update the connected_at time if the device has become connected
+      if (connected) connected_at = al_get_time();
+      else connected_at = 0.0f;
+
+      this->connected = connected;
+      return;
+    body_dependency_symbols:
+      - al_get_time
 
 
   - name: is_keyboard
@@ -53,5 +77,12 @@ functions:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
 
 
