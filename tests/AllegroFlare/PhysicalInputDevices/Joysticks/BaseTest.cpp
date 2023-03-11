@@ -60,7 +60,7 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
 
 
 TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
-   INTERACTIVE__setup__will_fill_the_properties_with_the_expected_values)
+   DISABLED__INTERACTIVE__setup__will_fill_the_properties_with_the_expected_values)
 {
    // NOTE: These tests appear flakey!  They will work, then not work, then stall.  I think it's related to
    // some bug in Allegro5. Needs to be investigated.
