@@ -93,7 +93,8 @@ TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_InputDevicesListTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
+   // TODO: Convert this to a TIMED_INTERACTIVE test
+   DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
