@@ -284,7 +284,7 @@ connected__will_create_the_device)
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   FOCUS__INTERACTIVE__handle_reconfigured_joysticks__when_a_joystick_is_disconnected_that_was_previously_connected\
+   INTERACTIVE__handle_reconfigured_joysticks__when_a_joystick_is_disconnected_that_was_previously_connected\
 __will_mark_the_device_as_disconnected)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
