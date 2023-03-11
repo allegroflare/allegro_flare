@@ -12,6 +12,14 @@ properties:
     init_with: '"Unknown Input Device"'
     constructor_arg: true
     getter: true
+    getter: true
+
+  - name: connected
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: TYPE
     type: char*

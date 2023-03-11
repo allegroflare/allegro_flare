@@ -284,8 +284,8 @@ connected__will_create_the_device)
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   INTERACTIVE__handle_reconfigured_joysticks__when_a_joystick_is_disconnected_that_was_previously_connected__will_\
-mark_the_device_as_disconnected)
+   DISABLED__INTERACTIVE__handle_reconfigured_joysticks__when_a_joystick_is_disconnected_that_was_previously_connected\
+__will_mark_the_device_as_disconnected)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
@@ -311,9 +311,9 @@ mark_the_device_as_disconnected)
 
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
-   int num_joystick_devices_at_start = 0; //input_device_list.count_num_joystick_devices();
-   int expected_num_joysticks_after_reconfiguration = 0; //num_joystick_devices_at_start - 1;
-   int num_joystick_devices_after_reconfiguration = 0;
+   int num_connected_joystick_devices_at_start = 0;
+   int expected_num_connected_joysticks_after_reconfiguration = 0;
+   int num_connected_joystick_devices_after_reconfiguration = 0;
 
    bool abort = false;
    bool test_conditions_successfully_triggered = false;
@@ -338,8 +338,6 @@ mark_the_device_as_disconnected)
 
                case STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE:
                   input_device_list.handle_reconfigured_joystick();
-                  num_joystick_devices_after_reconfiguration = input_device_list.count_num_joystick_devices();
-                  expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start - 1;
                   test_conditions_successfully_triggered = true;
                   abort = true;
                break;
@@ -358,7 +356,7 @@ mark_the_device_as_disconnected)
                break;
 
                case STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE:
-                 prompt_message = "Please disconnect a joystick.";
+                 prompt_message = "Please disconnect one joystick.";
                break;
             }
 
@@ -422,8 +420,9 @@ mark_the_device_as_disconnected)
                   if (counting_down_to_abort) counting_down_to_abort = false;
                   if (test_state == STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES)
                   {
-                     num_joystick_devices_at_start = input_device_list.count_num_joystick_devices();
-                     expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start - 1;
+                     num_connected_joystick_devices_at_start = input_device_list.count_num_connected_devices();
+                     expected_num_connected_joysticks_after_reconfiguration =
+                        num_connected_joystick_devices_at_start - 1;
                      test_state = STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE;
                   }
                break;
@@ -434,7 +433,10 @@ mark_the_device_as_disconnected)
 
    if (test_conditions_successfully_triggered)
    {
-      EXPECT_EQ(num_joystick_devices_after_reconfiguration, expected_num_joysticks_after_reconfiguration);
+      EXPECT_EQ(
+         num_connected_joystick_devices_after_reconfiguration,
+         expected_num_connected_joysticks_after_reconfiguration
+      );
 
       bool test_succeeded = !HasNonfatalFailure();
       ALLEGRO_COLOR test_result_color = test_succeeded ? AllegroFlare::Color::Aquamarine

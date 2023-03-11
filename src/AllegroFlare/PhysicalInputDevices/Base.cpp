@@ -11,15 +11,22 @@ namespace PhysicalInputDevices
 {
 
 
-Base::Base(std::string type, std::string name)
+Base::Base(std::string type, std::string name, bool connected)
    : type(type)
    , name(name)
+   , connected(connected)
 {
 }
 
 
 Base::~Base()
 {
+}
+
+
+void Base::set_connected(bool connected)
+{
+   this->connected = connected;
 }
 
 
@@ -32,6 +39,12 @@ std::string Base::get_type() const
 std::string Base::get_name() const
 {
    return name;
+}
+
+
+bool Base::get_connected() const
+{
+   return connected;
 }
 
 
