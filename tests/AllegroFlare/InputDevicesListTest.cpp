@@ -126,15 +126,12 @@ TEST_F(AllegroFlare_InputDevicesListTest,
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__when_a_joystick_connects_to_the_os_that_was_not_previously_connected__will_create_the_device)
+   DISABLED__INTERACTIVE__handle_reconfigured_joystick__when_a_joystick_connects_to_the_os_that_was_not_previously_\
+connected__will_create_the_device)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
    // TODO: Consider having a test that interactively prompts the interactive tester to connect one (or some) devices.
-
-   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
-   // some bug in Allegro5. Needs to be investigated.
-   // TODO: Fix this flakey test
 
    al_install_keyboard();
    al_install_joystick();
@@ -215,7 +212,7 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
                800,
                al_get_font_line_height(any_font),
                ALLEGRO_ALIGN_CENTER,
-               counting_down_to_abort? "Press the ESC key to stop countdown.\nPress ESC again to skip the test."
+               counting_down_to_abort ? "Press the ESC key to stop countdown.\nPress ESC again to skip the test."
                                       : "Press ESC if you wish to skip the test."
             );
 
@@ -271,6 +268,210 @@ TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
 
       al_flip_display();
       al_rest(1.5);
+      al_stop_timer(timer);
+      al_destroy_event_queue(event_queue);
+      al_uninstall_keyboard();
+      al_uninstall_joystick();
+      GTEST_SKIP() << "This interactive test requires user interaction with joystick configuration change. Please "
+                   << "look into the test comments for more information.";
+   }
+
+   al_stop_timer(timer);
+   al_destroy_event_queue(event_queue);
+   al_uninstall_keyboard();
+   al_uninstall_joystick();
+}
+
+
+TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
+   INTERACTIVE__handle_reconfigured_joysticks__when_a_joystick_is_disconnected_that_was_previously_connected__will_\
+mark_the_device_as_disconnected)
+{
+   // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
+   // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
+   // TODO: Consider having a test that interactively prompts the interactive tester to connect one (or some) devices.
+
+   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
+   // some bug in Allegro5. Needs to be investigated.
+   // TODO: Fix this flakey test
+
+   al_install_keyboard();
+   al_install_joystick();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *timer = al_create_timer(1.0f / 60.0f);
+   al_register_event_source(event_queue, al_get_joystick_event_source());
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_timer_event_source(timer));
+   ALLEGRO_FONT *font = get_user_prompt_font();
+   ALLEGRO_FONT *any_font = get_any_font(-30);
+
+   static const uint32_t STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES = 0;
+   static const uint32_t STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE = 1;
+   uint32_t test_state = STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES;
+
+   AllegroFlare::InputDevicesList input_device_list;
+   input_device_list.initialize();
+   int num_joystick_devices_at_start = 0; //input_device_list.count_num_joystick_devices();
+   int expected_num_joysticks_after_reconfiguration = 0; //num_joystick_devices_at_start - 1;
+   int num_joystick_devices_after_reconfiguration = 0;
+
+   bool abort = false;
+   bool test_conditions_successfully_triggered = false;
+   bool counting_down_to_abort = true;
+   float duration_to_abort = 10.0f;
+   float test_started_at = al_get_time();
+   al_start_timer(timer);
+
+   while(!abort)
+   {
+      ALLEGRO_EVENT allegro_event;
+      al_wait_for_event(event_queue, &allegro_event);
+
+      switch(allegro_event.type)
+      {
+         case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
+            switch(test_state)
+            {
+               case STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES:
+                  // Do nothing
+               break;
+
+               case STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE:
+                  input_device_list.handle_reconfigured_joystick();
+                  num_joystick_devices_after_reconfiguration = input_device_list.count_num_joystick_devices();
+                  expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start - 1;
+                  test_conditions_successfully_triggered = true;
+                  abort = true;
+               break;
+            }
+         break;
+
+         case ALLEGRO_EVENT_TIMER: {
+            clear();
+
+            std::string prompt_message;
+
+            switch(test_state)
+            {
+               case STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES:
+                 prompt_message = "Press ENTER to confirm that joysticks are connected.";
+               break;
+
+               case STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE:
+                 prompt_message = "Please disconnect a joystick.";
+               break;
+            }
+
+            al_draw_multiline_text(
+               font,
+               ALLEGRO_COLOR{0.8f, 0.8f, 0.8f, 0.8f},
+               1920/2,
+               1080/2 - 50,
+               1000,
+               al_get_font_line_height(font),
+               ALLEGRO_ALIGN_CENTER,
+               prompt_message.c_str()
+            );
+
+            if (counting_down_to_abort)
+            {
+               float time_remaining = duration_to_abort - (al_get_time() - test_started_at);
+               if (time_remaining < 0.0f)
+               {
+                  time_remaining = 0.0f;
+                  counting_down_to_abort = false;
+                  abort = true;
+               }
+               al_draw_multiline_textf(
+                  any_font,
+                  AllegroFlare::Color::LemonChiffon,
+                  1920/2,
+                  1080/2+50,
+                  1000,
+                  al_get_font_line_height(any_font),
+                  ALLEGRO_ALIGN_CENTER,
+                  "This test will automatically be skipped in %d seconds.",
+                  (int)(time_remaining + 1)
+               );
+            }
+
+            al_draw_multiline_text(
+               any_font,
+               ALLEGRO_COLOR{0.5f, 0.5f, 0.5f, 0.5f},
+               1920/2,
+               1080/2+150,
+               1000,
+               al_get_font_line_height(any_font),
+               ALLEGRO_ALIGN_CENTER,
+               counting_down_to_abort ? "Press the ESC key to stop countdown.\nPress ESC again to skip the test."
+                                      : "Press ESC if you wish to skip the test."
+            );
+
+            al_flip_display();
+         } break;
+
+         case ALLEGRO_EVENT_KEY_DOWN:
+            switch(allegro_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_ESCAPE:
+                  if (counting_down_to_abort) counting_down_to_abort = false;
+                  else abort = true;
+               break;
+
+               case ALLEGRO_KEY_ENTER:
+                  if (counting_down_to_abort) counting_down_to_abort = false;
+                  if (test_state == STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES)
+                  {
+                     num_joystick_devices_at_start = input_device_list.count_num_joystick_devices();
+                     expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start - 1;
+                     test_state = STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE;
+                  }
+               break;
+            }
+         break;
+      }
+   }
+
+   if (test_conditions_successfully_triggered)
+   {
+      EXPECT_EQ(num_joystick_devices_after_reconfiguration, expected_num_joysticks_after_reconfiguration);
+
+      bool test_succeeded = !HasNonfatalFailure();
+      ALLEGRO_COLOR test_result_color = test_succeeded ? AllegroFlare::Color::Aquamarine
+                                                       : AllegroFlare::Color::Crimson;
+      std::string test_result_message = test_succeeded ? "Successful"
+                                                       : "Failure";
+      clear();
+      al_draw_multiline_text(
+         font,
+         test_result_color,
+         1920/2,
+         1080/2-50,
+         1000,
+         al_get_font_line_height(font),
+         ALLEGRO_ALIGN_CENTER,
+         test_result_message.c_str()
+      );
+      al_flip_display();
+      al_rest(1.5);
+   }
+   else
+   {
+      ALLEGRO_COLOR test_result_color = AllegroFlare::Color::LemonChiffon;
+      clear();
+      al_draw_multiline_text(
+         font,
+         test_result_color,
+         1920/2,
+         1080/2-50,
+         1000,
+         al_get_font_line_height(font),
+         ALLEGRO_ALIGN_CENTER,
+         "Skipped"
+      );
+
+      al_flip_display();
+      al_rest(0.25);
       al_stop_timer(timer);
       al_destroy_event_queue(event_queue);
       al_uninstall_keyboard();
