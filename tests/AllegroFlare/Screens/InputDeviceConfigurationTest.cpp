@@ -16,31 +16,28 @@ class AllegroFlare_Screens_InputDeviceConfigurationTestWithAllegroFrameworksFull
 {};
 
 
-// TODO: Rename variable names "joystick_configuration" -> "input_device_configuration"
-
-
 TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration;
+   AllegroFlare::Screens::InputDeviceConfiguration input_device_configuration_screen;
 }
 
 
 TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration;
-   EXPECT_EQ("AllegroFlare/Screens/InputDeviceConfiguration", joystick_configuration.get_type());
+   AllegroFlare::Screens::InputDeviceConfiguration input_device_configuration_screen;
+   EXPECT_EQ("AllegroFlare/Screens/InputDeviceConfiguration", input_device_configuration_screen.get_type());
 }
 
 
 TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, type__has_the_expected_value_matching_TYPE)
 {
-   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration;
-   EXPECT_EQ(AllegroFlare::Screens::InputDeviceConfiguration::TYPE, joystick_configuration.get_type());
+   AllegroFlare::Screens::InputDeviceConfiguration input_device_configuration_screen;
+   EXPECT_EQ(AllegroFlare::Screens::InputDeviceConfiguration::TYPE, input_device_configuration_screen.get_type());
 }
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
-   INTERACTIVE__will_work_as_expected)
+   FOCUS__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -49,6 +46,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
    al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_joystick_event_source());
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    bool abort = false;
    ALLEGRO_EVENT event;
@@ -59,14 +57,14 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
-   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration_screen;
-   joystick_configuration_screen.set_font_bin(&get_font_bin_ref());
-   joystick_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
-   joystick_configuration_screen.set_event_emitter(&event_emitter);
-   joystick_configuration_screen.initialize();
+   AllegroFlare::Screens::InputDeviceConfiguration input_device_configuration_screen;
+   input_device_configuration_screen.set_font_bin(&get_font_bin_ref());
+   input_device_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
+   input_device_configuration_screen.set_event_emitter(&event_emitter);
+   input_device_configuration_screen.initialize();
 
    // set some default placeholder button mappings for this test
-   joystick_configuration_screen.get_joystick_configuration_element_ref().set_joystick_configuration_mapping(
+   input_device_configuration_screen.get_input_device_configuration_element_ref().set_joystick_configuration_mapping(
       AllegroFlare::Elements::InputDeviceConfigurationList::build_placeholder_joystick_configuration_mapping()
    );
 
@@ -74,7 +72,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    al_start_timer(primary_timer);
 
    // activate the screen (typically this is done by the framework)
-   joystick_configuration_screen.on_activate();
+   input_device_configuration_screen.on_activate();
    float duration_until_abort_sec = 3.0f;
    float interactive_started_at = al_get_time();
    bool abort_timer_in_effect = true;
@@ -95,14 +93,14 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
             //if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) button_num = AllegroFlare::VirtualController::BUTTON_A;
             if (button_num != 0)
             {
-               joystick_configuration_screen.virtual_control_button_down_func(nullptr, nullptr, button_num, event.keyboard.repeat);
+               input_device_configuration_screen.virtual_control_button_down_func(nullptr, nullptr, button_num, event.keyboard.repeat);
             }
          }
          break;
 
          case ALLEGRO_EVENT_TIMER:
             al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
-            joystick_configuration_screen.primary_timer_func();
+            input_device_configuration_screen.primary_timer_func();
             al_flip_display();
          break;
 
@@ -128,15 +126,15 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTestWithAllegroFrameworksFullFixture,
-   FOCUS__TIMED_INTERACTIVE__will_run_as_expected)
+   DISABLED__TIMED_INTERACTIVE__will_run_as_expected)
 {
-   AllegroFlare::Screens::InputDeviceConfiguration joystick_configuration_screen;
-   joystick_configuration_screen.set_event_emitter(get_framework_event_emitter());
-   joystick_configuration_screen.set_bitmap_bin(get_framework_bitmap_bin());
-   joystick_configuration_screen.set_font_bin(get_framework_font_bin());
-   joystick_configuration_screen.initialize();
+   AllegroFlare::Screens::InputDeviceConfiguration input_device_configuration_screen;
+   input_device_configuration_screen.set_event_emitter(get_framework_event_emitter());
+   input_device_configuration_screen.set_bitmap_bin(get_framework_bitmap_bin());
+   input_device_configuration_screen.set_font_bin(get_framework_font_bin());
+   input_device_configuration_screen.initialize();
 
-   framework_register_and_activate_screen("joystick_configuration_screen", &joystick_configuration_screen);
+   framework_register_and_activate_screen("input_device_configuration_screen", &input_device_configuration_screen);
 
    framework_run_loop(3);
 }

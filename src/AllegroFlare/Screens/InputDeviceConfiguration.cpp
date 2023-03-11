@@ -15,14 +15,16 @@ namespace Screens
 {
 
 
-InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::size_t surface_width, std::size_t surface_height)
+InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::size_t surface_width, std::size_t surface_height, AllegroFlare::InputDevicesList* input_devices_list)
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::InputDeviceConfiguration::TYPE)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , surface_width(surface_width)
    , surface_height(surface_height)
-   , joystick_configuration_element()
+   , input_devices_list(input_devices_list)
+   , input_devices_list_element()
+   , input_device_configuration_element()
    , initialized(false)
 {
 }
@@ -57,9 +59,15 @@ std::size_t InputDeviceConfiguration::get_surface_height() const
 }
 
 
-AllegroFlare::Elements::InputDeviceConfigurationList &InputDeviceConfiguration::get_joystick_configuration_element_ref()
+AllegroFlare::Elements::InputDevicesList &InputDeviceConfiguration::get_input_devices_list_element_ref()
 {
-   return joystick_configuration_element;
+   return input_devices_list_element;
+}
+
+
+AllegroFlare::Elements::InputDeviceConfigurationList &InputDeviceConfiguration::get_input_device_configuration_element_ref()
+{
+   return input_device_configuration_element;
 }
 
 
@@ -98,7 +106,8 @@ void InputDeviceConfiguration::set_font_bin(AllegroFlare::FontBin* font_bin)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDeviceConfiguration::set_font_bin: error: guard \"(!initialized)\" not met");
    }
-   joystick_configuration_element.set_font_bin(font_bin);
+   input_device_configuration_element.set_font_bin(font_bin);
+   input_devices_list_element.set_font_bin(font_bin);
    this->font_bin = font_bin;
    return;
 }
@@ -154,7 +163,8 @@ void InputDeviceConfiguration::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"font_bin\" not met");
    }
-   joystick_configuration_element.initialize();
+   input_device_configuration_element.initialize();
+   input_devices_list_element.initialize();
 
    initialized = true;
    return;
@@ -189,13 +199,13 @@ void InputDeviceConfiguration::on_deactivate()
 
 void InputDeviceConfiguration::update()
 {
-   joystick_configuration_element.update();
+   input_device_configuration_element.update();
    return;
 }
 
 void InputDeviceConfiguration::render()
 {
-   joystick_configuration_element.render();
+   input_device_configuration_element.render();
    return;
 }
 
@@ -235,15 +245,15 @@ void InputDeviceConfiguration::virtual_control_button_down_func(AllegroFlare::Pl
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDeviceConfiguration::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
-   // TODO: Have this function account for state of the joystick_configuration_element
+   // TODO: Have this function account for state of the input_device_configuration_element
    switch(virtual_controller_button_num)
    {
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
-         joystick_configuration_element.move_cursor_up();
+         input_device_configuration_element.move_cursor_up();
       break;
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
-         joystick_configuration_element.move_cursor_down();
+         input_device_configuration_element.move_cursor_down();
       break;
    }
    return;
