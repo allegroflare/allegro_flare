@@ -5,6 +5,11 @@ properties:
     type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
     init_with: '{}'
 
+  - name: updated_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
 
 documentation:
 
@@ -55,6 +60,9 @@ functions:
 
          devices.push_back(joystick);
       }
+
+      updated_at = al_get_time();
+
       return;
     body_dependency_symbols:
       - al_is_system_installed
@@ -103,6 +111,17 @@ functions:
       return result;
 
 
+  - name: num_connected_joysticks
+    type: int
+    body: |
+      int count = 0;
+      for (auto &device : devices)
+      {
+         if (device->is_joystick() && device->get_connected()) count++;
+      }
+      return count;
+
+
   - name: find_joystick_device_by_al_joystick
     private: true
     type: AllegroFlare::PhysicalInputDevices::Joysticks::Base*
@@ -141,6 +160,8 @@ functions:
 
   - name: handle_reconfigured_joystick
     body: |
+      bool list_is_modified = false;
+
       // TODO: Implement this function
       std::vector<AllegroFlare::PhysicalInputDevices::Base*>
          previously_known_joysticks_connected_at_start = get_connected_joysticks();
@@ -178,9 +199,15 @@ functions:
             joystick = new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
             joystick->set_al_joystick(al_joystick);
             devices.push_back(joystick);
+
+            list_is_modified = true;
          }
 
-         if (!joystick->get_connected()) joystick->set_connected(true);
+         if (!joystick->get_connected())
+         {
+            joystick->set_connected(true);
+            list_is_modified = true;
+         }
 
          if (!joystick_is_known)
          {
@@ -204,7 +231,14 @@ functions:
       for (auto &previously_known_joystick_that_became_disconnected
          : previously_known_joysticks_that_became_disconnected)
       {
-         previously_known_joystick_that_became_disconnected->set_connected(true);
+         previously_known_joystick_that_became_disconnected->set_connected(false);
+         list_is_modified = true;
+      }
+
+      if (list_is_modified)
+      {
+         al_rest(1.0000);
+         updated_at = al_get_time();
       }
 
       return;

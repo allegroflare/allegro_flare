@@ -126,7 +126,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__handle_reconfigured_joystick__when_a_joystick_connects_to_the_os_that_was_not_previously_\
+   INTERACTIVE__handle_reconfigured_joystick__when_a_joystick_connects_to_the_os_that_was_not_previously_\
 connected__will_create_the_device)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
@@ -284,7 +284,7 @@ connected__will_create_the_device)
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   DISABLED__INTERACTIVE__handle_reconfigured_joysticks__when_a_joystick_is_disconnected_that_was_previously_connected\
+   FOCUS__INTERACTIVE__handle_reconfigured_joysticks__when_a_joystick_is_disconnected_that_was_previously_connected\
 __will_mark_the_device_as_disconnected)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
@@ -294,6 +294,8 @@ __will_mark_the_device_as_disconnected)
    // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
    // some bug in Allegro5. Needs to be investigated.
    // TODO: Fix this flakey test
+
+   // TODO: Test updated_at property with these changes
 
    al_install_keyboard();
    al_install_joystick();
@@ -311,7 +313,9 @@ __will_mark_the_device_as_disconnected)
 
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
-   int num_connected_joystick_devices_at_start = 0;
+   int num_connected_joystick_devices_before_reconfiguration = 0;
+   float updated_at_before_reconfiguration = 0;
+   float updated_at_after_reconfiguration = 0;
    int expected_num_connected_joysticks_after_reconfiguration = 0;
    int num_connected_joystick_devices_after_reconfiguration = 0;
 
@@ -333,11 +337,14 @@ __will_mark_the_device_as_disconnected)
             switch(test_state)
             {
                case STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES:
-                  // Do nothing
+                  input_device_list.handle_reconfigured_joystick();
                break;
 
                case STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE:
+                  updated_at_before_reconfiguration = input_device_list.get_updated_at();
                   input_device_list.handle_reconfigured_joystick();
+                  updated_at_after_reconfiguration = input_device_list.get_updated_at();
+                  num_connected_joystick_devices_after_reconfiguration = input_device_list.num_connected_joysticks();
                   test_conditions_successfully_triggered = true;
                   abort = true;
                break;
@@ -420,9 +427,11 @@ __will_mark_the_device_as_disconnected)
                   if (counting_down_to_abort) counting_down_to_abort = false;
                   if (test_state == STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES)
                   {
-                     num_connected_joystick_devices_at_start = input_device_list.num_connected_devices();
+                     num_connected_joystick_devices_before_reconfiguration =
+                        input_device_list.num_connected_joysticks();
                      expected_num_connected_joysticks_after_reconfiguration =
-                        num_connected_joystick_devices_at_start - 1;
+                        num_connected_joystick_devices_before_reconfiguration - 1;
+
                      test_state = STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE;
                   }
                break;
@@ -433,10 +442,14 @@ __will_mark_the_device_as_disconnected)
 
    if (test_conditions_successfully_triggered)
    {
+      // Check the number of connected devices
       EXPECT_EQ(
-         num_connected_joystick_devices_after_reconfiguration,
-         expected_num_connected_joysticks_after_reconfiguration
+         expected_num_connected_joysticks_after_reconfiguration,
+         num_connected_joystick_devices_after_reconfiguration
       );
+
+      // Check the number updated at values
+      EXPECT_NE(updated_at_before_reconfiguration, updated_at_after_reconfiguration);
 
       bool test_succeeded = !HasNonfatalFailure();
       ALLEGRO_COLOR test_result_color = test_succeeded ? AllegroFlare::Color::Aquamarine

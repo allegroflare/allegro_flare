@@ -329,8 +329,6 @@ bool Full::initialize_display_and_render_pipeline()
 
    if (primary_display) throw std::runtime_error("AllegroFlare/Frameworks/Full:: odd error expecting uinit value");
 
-   // DEBUG:
-
    primary_display = new Display(
       1920,
       1080,

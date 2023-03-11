@@ -17,12 +17,19 @@ namespace AllegroFlare
 
 InputDevicesList::InputDevicesList()
    : devices({})
+   , updated_at(0.0f)
 {
 }
 
 
 InputDevicesList::~InputDevicesList()
 {
+}
+
+
+float InputDevicesList::get_updated_at() const
+{
+   return updated_at;
 }
 
 
@@ -69,6 +76,9 @@ void InputDevicesList::initialize()
 
       devices.push_back(joystick);
    }
+
+   updated_at = al_get_time();
+
    return;
 }
 
@@ -108,6 +118,16 @@ std::vector<AllegroFlare::PhysicalInputDevices::Base*> InputDevicesList::get_con
    return result;
 }
 
+int InputDevicesList::num_connected_joysticks()
+{
+   int count = 0;
+   for (auto &device : devices)
+   {
+      if (device->is_joystick() && device->get_connected()) count++;
+   }
+   return count;
+}
+
 AllegroFlare::PhysicalInputDevices::Joysticks::Base* InputDevicesList::find_joystick_device_by_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
 {
    // TODO: Test this function
@@ -132,6 +152,8 @@ bool InputDevicesList::joystick_device_exists_with_al_joystick(ALLEGRO_JOYSTICK*
 
 void InputDevicesList::handle_reconfigured_joystick()
 {
+   bool list_is_modified = false;
+
    // TODO: Implement this function
    std::vector<AllegroFlare::PhysicalInputDevices::Base*>
       previously_known_joysticks_connected_at_start = get_connected_joysticks();
@@ -169,9 +191,15 @@ void InputDevicesList::handle_reconfigured_joystick()
          joystick = new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
          joystick->set_al_joystick(al_joystick);
          devices.push_back(joystick);
+
+         list_is_modified = true;
       }
 
-      if (!joystick->get_connected()) joystick->set_connected(true);
+      if (!joystick->get_connected())
+      {
+         joystick->set_connected(true);
+         list_is_modified = true;
+      }
 
       if (!joystick_is_known)
       {
@@ -195,7 +223,14 @@ void InputDevicesList::handle_reconfigured_joystick()
    for (auto &previously_known_joystick_that_became_disconnected
       : previously_known_joysticks_that_became_disconnected)
    {
-      previously_known_joystick_that_became_disconnected->set_connected(true);
+      previously_known_joystick_that_became_disconnected->set_connected(false);
+      list_is_modified = true;
+   }
+
+   if (list_is_modified)
+   {
+      al_rest(1.0000);
+      updated_at = al_get_time();
    }
 
    return;

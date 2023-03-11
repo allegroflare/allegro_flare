@@ -68,8 +68,6 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest,
 
    al_init();
 
-   // DEBUG:
-
    al_install_joystick();
    if (al_get_num_joysticks() == 0)
    {

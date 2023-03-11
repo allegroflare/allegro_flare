@@ -13,6 +13,7 @@ namespace AllegroFlare
    {
    private:
       std::vector<AllegroFlare::PhysicalInputDevices::Base*> devices;
+      float updated_at;
       AllegroFlare::PhysicalInputDevices::Joysticks::Base* find_joystick_device_by_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr);
       bool joystick_device_exists_with_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr);
 
@@ -23,12 +24,14 @@ namespace AllegroFlare
       InputDevicesList();
       ~InputDevicesList();
 
+      float get_updated_at() const;
       void initialize();
       int num_devices();
       int num_keyboard_devices();
       int num_joystick_devices();
       int num_connected_devices();
       std::vector<AllegroFlare::PhysicalInputDevices::Base*> get_connected_joysticks();
+      int num_connected_joysticks();
       void handle_reconfigured_joystick();
    };
 }

@@ -78,8 +78,6 @@ namespace AllegroFlare
       if (initialized) throw std::runtime_error("[AllegroFlare::Display::initialize()]: error: already initialized.");
 
 
-      // DEBUG:
-
       if (width < 120 || height < 120)
       {
          // TODO: improve this error message
