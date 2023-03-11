@@ -6,6 +6,15 @@ properties:
     init_with: '{}'
 
 
+documentation:
+
+
+  - todos:
+      - |
+        Initialization appears to deadlock in certain circumstances. See the project doc for more information here:
+        https://docs.google.com/document/d/1GMvB4Ex9XFBOjacQ54L93_z8cmq_hkWfrs5h7xkG8wY/edit#bookmark=id.o5wl3b3fkgj
+
+
 functions:
 
 
@@ -53,7 +62,13 @@ functions:
       - AllegroFlare::PhysicalInputDevices::Joysticks::Base
 
 
-  - name: count_num_keyboard_devices
+  - name: num_devices
+    type: int
+    body: |
+      return devices.size();
+
+
+  - name: num_keyboard_devices
     type: int
     body: |
       int keyboard_count = 0;
@@ -61,7 +76,7 @@ functions:
       return keyboard_count;
 
 
-  - name: count_num_joystick_devices
+  - name: num_joystick_devices
     type: int
     body: |
       int joystick_count = 0;
@@ -69,7 +84,7 @@ functions:
       return joystick_count;
 
 
-  - name: count_num_connected_devices
+  - name: num_connected_devices
     type: int
     body: |
       int connected_count = 0;
@@ -193,12 +208,6 @@ functions:
       return;
     body_dependency_symbols:
       - std::set_difference
-
-
-  - name: num_known_devices
-    type: int
-    body: |
-      return devices.size();
 
 
 dependencies:

@@ -55,7 +55,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
    al_init();
    AllegroFlare::InputDevicesList physical_input_device_list;
    physical_input_device_list.initialize();
-   EXPECT_EQ(0, physical_input_device_list.count_num_keyboard_devices());
+   EXPECT_EQ(0, physical_input_device_list.num_keyboard_devices());
    al_uninstall_system();
 }
 
@@ -66,7 +66,7 @@ TEST_F(AllegroFlare_InputDevicesListTest, initialize__when_the_keyboard_is_insta
    al_install_keyboard();
    AllegroFlare::InputDevicesList physical_input_device_list;
    physical_input_device_list.initialize();
-   EXPECT_EQ(true, physical_input_device_list.count_num_keyboard_devices());
+   EXPECT_EQ(true, physical_input_device_list.num_keyboard_devices());
    al_uninstall_keyboard();
    al_uninstall_system();
 }
@@ -78,7 +78,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
    al_init();
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
-   EXPECT_EQ(0, input_device_list.count_num_joystick_devices());
+   EXPECT_EQ(0, input_device_list.num_joystick_devices());
    al_uninstall_system();
 }
 
@@ -97,7 +97,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
    al_install_joystick();
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
-   EXPECT_EQ(0, input_device_list.count_num_joystick_devices());
+   EXPECT_EQ(0, input_device_list.num_joystick_devices());
    al_uninstall_joystick();
    al_uninstall_system();
 }
@@ -119,7 +119,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
    al_install_joystick();
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
-   EXPECT_NE(0, input_device_list.count_num_joystick_devices());
+   EXPECT_NE(0, input_device_list.num_joystick_devices());
    al_uninstall_joystick();
    al_uninstall_system();
 }
@@ -145,7 +145,7 @@ connected__will_create_the_device)
 
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
-   int num_joystick_devices_at_start = input_device_list.count_num_joystick_devices();
+   int num_joystick_devices_at_start = input_device_list.num_joystick_devices();
    int expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start + 1;
    int num_joystick_devices_after_reconfiguration = 0;
 
@@ -164,7 +164,7 @@ connected__will_create_the_device)
       {
          case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
             input_device_list.handle_reconfigured_joystick();
-            num_joystick_devices_after_reconfiguration = input_device_list.count_num_joystick_devices();
+            num_joystick_devices_after_reconfiguration = input_device_list.num_joystick_devices();
             expected_num_joysticks_after_reconfiguration = num_joystick_devices_at_start + 1;
             test_conditions_successfully_triggered = true;
             abort = true;
@@ -380,7 +380,7 @@ __will_mark_the_device_as_disconnected)
                   counting_down_to_abort = false;
                   abort = true;
                }
-               al_draw_multiline_textf(
+                  al_draw_multiline_textf(
                   any_font,
                   AllegroFlare::Color::LemonChiffon,
                   1920/2,
@@ -420,7 +420,7 @@ __will_mark_the_device_as_disconnected)
                   if (counting_down_to_abort) counting_down_to_abort = false;
                   if (test_state == STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES)
                   {
-                     num_connected_joystick_devices_at_start = input_device_list.count_num_connected_devices();
+                     num_connected_joystick_devices_at_start = input_device_list.num_connected_devices();
                      expected_num_connected_joysticks_after_reconfiguration =
                         num_connected_joystick_devices_at_start - 1;
                      test_state = STATE_AWAITING_DISCONNECTION_OF_A_CONNECTED_DEVICE;

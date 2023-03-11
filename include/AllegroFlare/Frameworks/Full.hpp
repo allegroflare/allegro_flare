@@ -29,6 +29,7 @@
 #include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
 #include <AllegroFlare/ShaderSourcePoller.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
+#include <AllegroFlare/InputDevicesList.hpp>
 
 
 namespace AllegroFlare
@@ -51,6 +52,7 @@ namespace AllegroFlare
          EventEmitter event_emitter;
          Achievements achievements;
          Notifications notifications;
+         AllegroFlare::InputDevicesList input_devices_list;
          VirtualControlsProcessor virtual_controls_processor;
          ALLEGRO_TEXTLOG *textlog;
          int render_surface_multisamples;

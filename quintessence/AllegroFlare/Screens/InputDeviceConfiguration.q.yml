@@ -257,5 +257,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+  - symbol: AllegroFlare::InputDevicesList
+    headers: [ AllegroFlare/InputDevicesList.hpp ]
 
 

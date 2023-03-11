@@ -50,6 +50,7 @@ Full::Full()
    , event_emitter()
    , achievements()
    , notifications()
+   , input_devices_list()
    , virtual_controls_processor()
    , textlog(nullptr)
    , render_surface_multisamples(4)
@@ -285,33 +286,32 @@ bool Full::initialize_core_system()
       //shader_source_poller.start_polling();
    }
 
-
    // Setup the paths for our asset bins
-
    std::string data_folder_path = deployment_environment.get_data_folder_path();
-
    fonts.set_path(data_folder_path + "fonts");
    samples.set_path(data_folder_path + "samples");
    bitmaps.set_path(data_folder_path + "bitmaps");
    models.set_path(data_folder_path + "models");
 
-
    // Add our config (which is currently unused)
-
    config.load_or_create_empty(output_auto_created_config_warning);
 
-
+   // Declare an ALLEGRO_COLOR custom attribute in Attributes
+   // TODO: Look into the ramifications of this being a stat property on the class
    Attributes::create_datatype_definition(
       AllegroColorAttributeDatatype::IDENTIFIER,
       AllegroColorAttributeDatatype::to_val_func,
       AllegroColorAttributeDatatype::to_str_func
    );
 
+   // Initialize our AudioController
    audio_controller.initialize();
 
+   // Initialize our InputDeviceList
+   // TODO: This initialization appears to deadlock in certain cases. See comment in InputDeviceList
+   input_devices_list.initialize();
 
    // Finalize initialization
-
    initialized = true;
 
    return true;
@@ -596,20 +596,16 @@ bool Full::shutdown()
    al_uninstall_keyboard();
    al_uninstall_mouse();
 
-   // restore path
-   // TODO: finish this message with actual working directory, put behind warn levels
-   //if (AllegroFlare::Logger::log_level_low())
-   //{
-      //std::string info_message = AllegroFlare::Logger::build_info_message(
-         //"AllegroFlare::Frameworks::Full::shutdown",
-         //"Restoring working directory to initial directory at runtime."
-      //);
-      //std::cout << info_message << std::endl;
-   //}
-   //al_change_directory(working_directory_before_init.c_str());
-
-
+   // Restore the directory before start
    deployment_environment.restore_initial_working_directory();
+
+   // TODO:
+   // Destroy our list of input devices
+   //input_devices_list.destroy();
+
+   // TODO:
+   // Destroy any custom types that were created in Attributes
+   //Attributes::destroy_all_custom_types()
 
 
    al_uninstall_system(); // Note that there is risk of a crash at shutdown if assets have been created outside the

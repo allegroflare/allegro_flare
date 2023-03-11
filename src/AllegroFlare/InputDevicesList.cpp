@@ -72,21 +72,26 @@ void InputDevicesList::initialize()
    return;
 }
 
-int InputDevicesList::count_num_keyboard_devices()
+int InputDevicesList::num_devices()
+{
+   return devices.size();
+}
+
+int InputDevicesList::num_keyboard_devices()
 {
    int keyboard_count = 0;
    for (auto &device : devices) { if (device->is_keyboard()) keyboard_count++; }
    return keyboard_count;
 }
 
-int InputDevicesList::count_num_joystick_devices()
+int InputDevicesList::num_joystick_devices()
 {
    int joystick_count = 0;
    for (auto &device : devices) { if (device->is_joystick()) joystick_count++; }
    return joystick_count;
 }
 
-int InputDevicesList::count_num_connected_devices()
+int InputDevicesList::num_connected_devices()
 {
    int connected_count = 0;
    for (auto &device : devices) { if (device->get_connected()) connected_count++; }
@@ -192,11 +197,6 @@ void InputDevicesList::handle_reconfigured_joystick()
    }
 
    return;
-}
-
-int InputDevicesList::num_known_devices()
-{
-   return devices.size();
 }
 
 
