@@ -114,6 +114,17 @@ functions:
       return;
 
 
+  - name: set_input_devices_list
+    guards: [ (!initialized) ]
+    parameters:
+      - name: input_devices_list
+        type: AllegroFlare::InputDevicesList*
+        default_argument: nullptr
+    body: |
+      this->input_devices_list = input_devices_list;
+      return;
+
+
   - name: initialize
     guards:
       - (!initialized)

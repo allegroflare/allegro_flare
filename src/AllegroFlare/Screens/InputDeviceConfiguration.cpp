@@ -112,6 +112,19 @@ void InputDeviceConfiguration::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
+void InputDeviceConfiguration::set_input_devices_list(AllegroFlare::InputDevicesList* input_devices_list)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[InputDeviceConfiguration::set_input_devices_list]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("InputDeviceConfiguration::set_input_devices_list: error: guard \"(!initialized)\" not met");
+   }
+   this->input_devices_list = input_devices_list;
+   return;
+}
+
 void InputDeviceConfiguration::initialize()
 {
    if (!((!initialized)))
