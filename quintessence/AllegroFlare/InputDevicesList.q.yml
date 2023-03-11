@@ -199,6 +199,8 @@ functions:
       );
 
       // Mark existing connected joysticks as disconnected
+      // TODO: This set difference may have a bug - devices that are known, were disconnected, and now becoming
+      // connected may falsely be included in this list. Please investigate.
       for (auto &previously_known_joystick_that_became_disconnected
          : previously_known_joysticks_that_became_disconnected)
       {
