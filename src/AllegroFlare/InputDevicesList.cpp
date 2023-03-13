@@ -201,7 +201,7 @@ void InputDevicesList::handle_reconfigured_joystick()
          list_is_modified = true;
       }
 
-      if (!joystick_is_known)
+      if (joystick_is_known)
       {
          // This is an already known joystick that is connected
          previously_known_joysticks_connected_after_reconfiguration.push_back(joystick);
