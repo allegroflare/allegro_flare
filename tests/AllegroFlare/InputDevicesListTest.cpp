@@ -104,7 +104,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
 
 
 TEST_F(AllegroFlare_InputDevicesListTest,
-   DISABLED__INTERACTIVE__initialize__when_joysticks_are_connected__will_create_joystick_devices)
+   INTERACTIVE__initialize__when_joysticks_are_connected__will_create_connected_joystick_devices)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that SOME joystick devices are currently connected on the OS.
@@ -120,6 +120,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
    AllegroFlare::InputDevicesList input_device_list;
    input_device_list.initialize();
    EXPECT_NE(0, input_device_list.num_joystick_devices());
+   EXPECT_EQ(input_device_list.num_joystick_devices(), input_device_list.num_connected_joysticks());
    al_uninstall_joystick();
    al_uninstall_system();
 }
