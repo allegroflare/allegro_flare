@@ -100,6 +100,21 @@ functions:
       return connected_count;
 
 
+  - name: num_disconnected_devices
+    type: int
+    body: |
+      int connected_count = 0;
+      for (auto &device : devices) { if (!device->get_connected()) connected_count++; }
+      return connected_count;
+
+
+  - name: all_devices_are_connected
+    type: bool
+    body: |
+      for (auto &device : devices) { if (!device->get_connected()) return false; }
+      return true;
+
+
   - name: get_connected_joysticks
     type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
     body: |
@@ -107,6 +122,17 @@ functions:
       for (auto &device : devices)
       {
          if (device->is_joystick() && device->get_connected()) result.push_back(device);
+      }
+      return result;
+
+
+  - name: get_disconnected_joysticks
+    type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
+    body: |
+      std::vector<AllegroFlare::PhysicalInputDevices::Base*> result;
+      for (auto &device : devices)
+      {
+         if (device->is_joystick() && !device->get_connected()) result.push_back(device);
       }
       return result;
 

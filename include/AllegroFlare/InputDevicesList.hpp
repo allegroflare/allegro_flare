@@ -30,7 +30,10 @@ namespace AllegroFlare
       int num_keyboard_devices();
       int num_joystick_devices();
       int num_connected_devices();
+      int num_disconnected_devices();
+      bool all_devices_are_connected();
       std::vector<AllegroFlare::PhysicalInputDevices::Base*> get_connected_joysticks();
+      std::vector<AllegroFlare::PhysicalInputDevices::Base*> get_disconnected_joysticks();
       int num_connected_joysticks();
       void handle_reconfigured_joystick();
    };
