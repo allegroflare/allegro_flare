@@ -16,8 +16,10 @@ documentation:
 
   - todos:
       - |
-        Initialization appears to deadlock in certain circumstances. See the project doc for more information here:
+        See the project doc for more information here:
         https://docs.google.com/document/d/1GMvB4Ex9XFBOjacQ54L93_z8cmq_hkWfrs5h7xkG8wY/edit#bookmark=id.o5wl3b3fkgj
+      - |
+        Initialization appears to deadlock in certain circumstances. See https://github.com/liballeg/allegro5/pull/1423
 
 
 functions:
@@ -188,7 +190,6 @@ functions:
     body: |
       bool list_is_modified = false;
 
-      // TODO: Implement this function
       std::vector<AllegroFlare::PhysicalInputDevices::Base*>
          previously_known_joysticks_connected_at_start = get_connected_joysticks();
       std::vector<AllegroFlare::PhysicalInputDevices::Base*>
@@ -237,7 +238,8 @@ functions:
 
          if (joystick_is_known)
          {
-            // This is an already known joystick that is connected
+            // This is an already known joystick that is connected (includes both continues to be connected
+            // or re-connected)
             previously_known_joysticks_connected_after_reconfiguration.push_back(joystick);
          }
       }
@@ -252,8 +254,6 @@ functions:
       );
 
       // Mark existing connected joysticks as disconnected
-      // TODO: This set difference may have a bug - devices that are known, were disconnected, and now becoming
-      // connected may falsely be included in this list. Please investigate.
       for (auto &previously_known_joystick_that_became_disconnected
          : previously_known_joysticks_that_became_disconnected)
       {

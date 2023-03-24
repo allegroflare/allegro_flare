@@ -177,7 +177,6 @@ void InputDevicesList::handle_reconfigured_joystick()
 {
    bool list_is_modified = false;
 
-   // TODO: Implement this function
    std::vector<AllegroFlare::PhysicalInputDevices::Base*>
       previously_known_joysticks_connected_at_start = get_connected_joysticks();
    std::vector<AllegroFlare::PhysicalInputDevices::Base*>
@@ -226,7 +225,8 @@ void InputDevicesList::handle_reconfigured_joystick()
 
       if (joystick_is_known)
       {
-         // This is an already known joystick that is connected
+         // This is an already known joystick that is connected (includes both continues to be connected
+         // or re-connected)
          previously_known_joysticks_connected_after_reconfiguration.push_back(joystick);
       }
    }
@@ -241,8 +241,6 @@ void InputDevicesList::handle_reconfigured_joystick()
    );
 
    // Mark existing connected joysticks as disconnected
-   // TODO: This set difference may have a bug - devices that are known, were disconnected, and now becoming
-   // connected may falsely be included in this list. Please investigate.
    for (auto &previously_known_joystick_that_became_disconnected
       : previously_known_joysticks_that_became_disconnected)
    {

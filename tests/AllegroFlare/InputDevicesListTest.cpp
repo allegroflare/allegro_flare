@@ -504,19 +504,16 @@ __will_mark_the_device_as_disconnected)
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   INTERACTIVE__handle_reconfigured_joysticks__when_a_known_disconnected_joystick_is_reconnected__will_mark_\
+   DISABLED__INTERACTIVE__handle_reconfigured_joysticks__when_a_known_disconnected_joystick_is_reconnected__will_mark_\
 the_known_device_as_connected)
 {
-   // TODO: This test
+   // TODO: This test is disabled because the "reconnecting disconnected" joystick feature is not supported in Allegro.
+
    // TODO: include "udpated_at" in test
 
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
    // TODO: Consider having a test that interactively prompts the interactive tester to connect one (or some) devices.
-
-   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
-   // some bug in Allegro5. Needs to be investigated.
-   // TODO: Fix this flakey test
 
    // TODO: Test updated_at property with these changes
 
