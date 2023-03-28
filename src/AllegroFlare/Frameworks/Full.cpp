@@ -1143,8 +1143,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      bool is_repeat = false;
 
                      // TODO: Update this method. Currently the signature is:
-                     // screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
-                     screens.virtual_control_button_down_funcs(
+                     // screens.virtual_control_button_up_funcs(player_num, button_num, is_repeat);
+                     screens.virtual_control_button_up_funcs(
                         player,
                         virtual_controller,
                         virtual_controller_button_num,
