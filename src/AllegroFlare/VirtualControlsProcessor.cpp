@@ -16,9 +16,9 @@ namespace AllegroFlare
 {
 
 
-VirtualControlsProcessor::VirtualControlsProcessor(AllegroFlare::EventEmitter* event_emitter)
-   : event_emitter(event_emitter)
-   , physical_input_devices({})
+VirtualControlsProcessor::VirtualControlsProcessor(AllegroFlare::InputDevicesList* input_devices_list, AllegroFlare::EventEmitter* event_emitter)
+   : input_devices_list(input_devices_list)
+   , event_emitter(event_emitter)
    , physical_input_device_to_virtual_control_mappings({})
    , initialized(false)
 {
@@ -27,12 +27,6 @@ VirtualControlsProcessor::VirtualControlsProcessor(AllegroFlare::EventEmitter* e
 
 VirtualControlsProcessor::~VirtualControlsProcessor()
 {
-}
-
-
-void VirtualControlsProcessor::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   this->event_emitter = event_emitter;
 }
 
 
@@ -47,6 +41,32 @@ std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> &Virtua
    return physical_input_device_to_virtual_control_mappings;
 }
 
+
+void VirtualControlsProcessor::set_input_devices_list(AllegroFlare::InputDevicesList* input_devices_list)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::set_input_devices_list]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::set_input_devices_list: error: guard \"(!initialized)\" not met");
+   }
+   this->input_devices_list = input_devices_list;
+   return;
+}
+
+void VirtualControlsProcessor::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::set_event_emitter: error: guard \"(!initialized)\" not met");
+   }
+   this->event_emitter = event_emitter;
+   return;
+}
 
 void VirtualControlsProcessor::initialize()
 {
@@ -71,13 +91,28 @@ void VirtualControlsProcessor::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_joystick_installed()\" not met");
    }
-   setup_configuration_of_connected_joystick_devices();
+   if (!(input_devices_list))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"input_devices_list\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"input_devices_list\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"event_emitter\" not met");
+   }
+   //setup_configuration_of_connected_joystick_devices();
    initialized = true;
    return;
 }
 
 void VirtualControlsProcessor::setup_configuration_of_connected_joystick_devices()
 {
+   //input_devices_list;
    //al_reconfigure_joysticks();
    //joystick_devices.clear();
    //for (int i=0; i<al_get_num_joysticks(); i++)
@@ -86,43 +121,6 @@ void VirtualControlsProcessor::setup_configuration_of_connected_joystick_devices
       //joystick_devices[al_get_joystick(i)] = i;
    //}
    return;
-}
-
-int VirtualControlsProcessor::infer_num_physical_input_devices()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::infer_num_physical_input_devices]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::infer_num_physical_input_devices: error: guard \"initialized\" not met");
-   }
-   return physical_input_devices.size();
-}
-
-int VirtualControlsProcessor::infer_num_physical_input_devices_connected()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::infer_num_physical_input_devices_connected]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::infer_num_physical_input_devices_connected: error: guard \"initialized\" not met");
-   }
-   // TODO: implement this function
-   return 0;
-}
-
-int VirtualControlsProcessor::find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
-{
-   throw std::runtime_error("VirtualControlsProcessor::find_player_num_from_al_joystick");
-   // TODO: implement this function
-   for (auto &physical_input_device : physical_input_devices)
-   {
-      // TODO: This logic
-      //if (physical_input_device->is_joystick()) {}
-   }
-   return 0;
 }
 
 void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event)
@@ -222,9 +220,9 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
    }
-   int player_num = find_player_num_from_al_joystick(event->joystick.id);
-   int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
-   if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+   //int player_num = find_player_num_from_al_joystick(event->joystick.id);
+   //int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
+   //if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
 
    // TODO: Remove this throw
    throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: not implemented");

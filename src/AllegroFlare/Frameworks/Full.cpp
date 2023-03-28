@@ -306,6 +306,7 @@ bool Full::initialize_core_system()
    input_devices_list.initialize();
 
    // Initialize our VirtualControlsProcessor
+   virtual_controls_processor.set_input_devices_list(&input_devices_list);
    virtual_controls_processor.set_event_emitter(&event_emitter);
    virtual_controls_processor.initialize();
 
@@ -1054,6 +1055,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
       case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
          screens.joy_config_funcs(&this_event);
+         // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
+         // virtual_controls_processor which may not be the best place
          virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
       break;
 

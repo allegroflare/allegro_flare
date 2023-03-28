@@ -78,36 +78,64 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
 
 
 TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
-   initialize__does_not_blow_up)
+   initialize__without_an_input_devices_list__will_throw_an_error)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   EXPECT_THROW_GUARD_ERROR(
+      virtual_control_processor.initialize(),
+      "VirtualControlsProcessor::initialize",
+      "input_devices_list"
+   );
+}
+
+
+TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
+   initialize__without_an_event_emitter__will_throw_an_error)
+{
+   AllegroFlare::InputDevicesList input_devices_list;
+   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   virtual_control_processor.set_input_devices_list(&input_devices_list);
+   EXPECT_THROW_GUARD_ERROR(
+      virtual_control_processor.initialize(),
+      "VirtualControlsProcessor::initialize",
+      "event_emitter"
+   );
+}
+
+
+TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
+   initialize__does_not_blow_up)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::InputDevicesList input_devices_list;
+   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   virtual_control_processor.set_event_emitter(&event_emitter);
+   virtual_control_processor.set_input_devices_list(&input_devices_list);
    virtual_control_processor.initialize();
 }
 
 
 TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
-   initialize__will_assign_sensible_defaults_to_the_keyboard_button_map)
+   DISABLED__initialize__will_assign_sensible_defaults_to_the_keyboard_button_map)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    virtual_control_processor.initialize();
 
-   /*
-   int PLAYER_0 = 0;
-   std::map<uint32_t, std::pair<int, int>> expected_keyboard_button_map = {
-     { ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_START } },
-     { ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-     { ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
-     { ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_B } },
-     { ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_X } },
-     { ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_Y } },
-     { ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualController::BUTTON_UP } },
-     { ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_DOWN } },
-     { ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT } },
-     { ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT } },
-     { ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER } },
-     { ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER } },
-   };
-   */
+   //int PLAYER_0 = 0;
+   //std::map<uint32_t, std::pair<int, int>> expected_keyboard_button_map = {
+     //{ ALLEGRO_KEY_ENTER, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_START } },
+     //{ ALLEGRO_KEY_SPACE, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
+     //{ ALLEGRO_KEY_A,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_A } },
+     //{ ALLEGRO_KEY_B,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_B } },
+     //{ ALLEGRO_KEY_X,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_X } },
+     //{ ALLEGRO_KEY_Y,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_Y } },
+     //{ ALLEGRO_KEY_UP,    { PLAYER_0, AllegroFlare::VirtualController::BUTTON_UP } },
+     //{ ALLEGRO_KEY_DOWN,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_DOWN } },
+     //{ ALLEGRO_KEY_LEFT,  { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT } },
+     //{ ALLEGRO_KEY_RIGHT, { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT } },
+     //{ ALLEGRO_KEY_R,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_RIGHT_BUMPER } },
+     //{ ALLEGRO_KEY_E,     { PLAYER_0, AllegroFlare::VirtualController::BUTTON_LEFT_BUMPER } },
+   //};
 
    //EXPECT_EQ(expected_keyboard_button_map, virtual_control_processor.get_keyboard_button_map());
 }
@@ -116,8 +144,13 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
 TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    initialize__will_set_initialized_to_true)
 {
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::InputDevicesList input_devices_list;
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   virtual_control_processor.set_event_emitter(&event_emitter);
+   virtual_control_processor.set_input_devices_list(&input_devices_list);
    virtual_control_processor.initialize();
+
    EXPECT_EQ(true, virtual_control_processor.get_initialized());
 }
 
@@ -125,7 +158,11 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
 TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    initialize__when_called_more_than_once__throws_an_error)
 {
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::InputDevicesList input_devices_list;
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   virtual_control_processor.set_event_emitter(&event_emitter);
+   virtual_control_processor.set_input_devices_list(&input_devices_list);
    virtual_control_processor.initialize();
 
    EXPECT_THROW_GUARD_ERROR(
@@ -140,28 +177,10 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_button_down_event__without_initialization__throws_an_error)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_joystick_button_down_event: "
-                                        "error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_joystick_button_down_event(),
-      std::runtime_error,
-      expected_error_message
-   );
-}
-
-
-TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
-   handle_raw_joystick_button_down_event__without_an_event_emitter__throws_an_error)
-{
-   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   virtual_control_processor.initialize();
-
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_joystick_button_down_event: "
-                                        "error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
-      virtual_control_processor.handle_raw_joystick_button_down_event(),
-      std::runtime_error,
-      expected_error_message
+      "VirtualControlsProcessor::handle_raw_joystick_button_down_event",
+      "initialized"
    );
 }
 
@@ -170,28 +189,10 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_button_up_event__without_initialization__throws_an_error)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_joystick_button_up_event: "
-                                        "error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_joystick_button_up_event(),
-      std::runtime_error,
-      expected_error_message
-   );
-}
-
-
-TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
-   handle_raw_joystick_button_up_event__without_an_event_emitter__throws_an_error)
-{
-   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   virtual_control_processor.initialize();
-
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_joystick_button_up_event: "
-                                        "error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
-      virtual_control_processor.handle_raw_joystick_button_up_event(),
-      std::runtime_error,
-      expected_error_message
+      "VirtualControlsProcessor::handle_raw_joystick_button_up_event",
+      "initialized"
    );
 }
 
@@ -200,58 +201,22 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_joystick_axis_change_event__without_initialization__throws_an_error)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_joystick_axis_change_event: "
-                                        "error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_joystick_axis_change_event(),
-      std::runtime_error,
-      expected_error_message
-   );
-}
-
-
-TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
-   handle_raw_joystick_axis_change_event__without_an_event_emitter__throws_an_error)
-{
-   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   virtual_control_processor.initialize();
-
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_joystick_axis_change_event: "
-                                        "error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
-      virtual_control_processor.handle_raw_joystick_axis_change_event(),
-      std::runtime_error,
-      expected_error_message
+      "VirtualControlsProcessor::handle_raw_joystick_axis_change_event",
+      "initialized"
    );
 }
 
 
 TEST_F(AllegroFlare_VirtualControlsProcessorTest,
-   handle_raw_keyboard_kwy_down_event__without_initialization__throws_an_error)
+   handle_raw_keyboard_key_down_event__without_initialization__throws_an_error)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_keyboard_key_down_event: "
-                                        "error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_keyboard_key_down_event(),
-      std::runtime_error,
-      expected_error_message
-   );
-}
-
-
-TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
-   handle_raw_keyboard_key_down_event__without_an_event_emitter__throws_an_error)
-{
-   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   virtual_control_processor.initialize();
-
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_keyboard_key_down_event: "
-                                        "error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
-      virtual_control_processor.handle_raw_keyboard_key_down_event(),
-      std::runtime_error,
-      expected_error_message
+      "VirtualControlsProcessor::handle_raw_keyboard_key_down_event",
+      "initialized"
    );
 }
 
@@ -260,28 +225,10 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    handle_raw_keyboard_key_up_event__without_initialization__throws_an_error)
 {
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_keyboard_key_up_event: "
-                                        "error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_keyboard_key_up_event(),
-      std::runtime_error,
-      expected_error_message
-   );
-}
-
-
-TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
-   handle_raw_keyboard_key_up_event__without_an_event_emitter__throws_an_error)
-{
-   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
-   virtual_control_processor.initialize();
-
-   std::string expected_error_message = "VirtualControlsProcessor::handle_raw_keyboard_key_up_event: "
-                                        "error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
-      virtual_control_processor.handle_raw_keyboard_key_up_event(),
-      std::runtime_error,
-      expected_error_message
+      "VirtualControlsProcessor::handle_raw_keyboard_key_up_event",
+      "initialized"
    );
 }
 
@@ -294,8 +241,12 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    ASSERT_NE(nullptr, event_queue);
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
+   AllegroFlare::InputDevicesList input_devices_list;
+   input_devices_list.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
-   AllegroFlare::VirtualControlsProcessor virtual_control_processor(&event_emitter);
+   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   virtual_control_processor.set_event_emitter(&event_emitter);
+   virtual_control_processor.set_input_devices_list(&input_devices_list);
    virtual_control_processor.initialize();
 
    // Create our devices and their mappings
@@ -363,8 +314,12 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    ASSERT_NE(nullptr, event_queue);
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
+   AllegroFlare::InputDevicesList input_devices_list;
+   input_devices_list.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
-   AllegroFlare::VirtualControlsProcessor virtual_control_processor(&event_emitter);
+   AllegroFlare::VirtualControlsProcessor virtual_control_processor;
+   virtual_control_processor.set_event_emitter(&event_emitter);
+   virtual_control_processor.set_input_devices_list(&input_devices_list);
    virtual_control_processor.initialize();
 
    // Create our devices and their mappings

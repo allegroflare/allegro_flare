@@ -2,12 +2,11 @@
 
 
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/InputDevicesList.hpp>
 #include <AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp>
-#include <AllegroFlare/PhysicalInputDevices/Base.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
-#include <map>
 #include <vector>
 
 
@@ -16,8 +15,8 @@ namespace AllegroFlare
    class VirtualControlsProcessor
    {
    private:
+      AllegroFlare::InputDevicesList* input_devices_list;
       AllegroFlare::EventEmitter* event_emitter;
-      std::map<AllegroFlare::PhysicalInputDevices::Base*, int> physical_input_devices;
       std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> physical_input_device_to_virtual_control_mappings;
       bool initialized;
       void setup_configuration_of_connected_joystick_devices();
@@ -28,16 +27,14 @@ namespace AllegroFlare
 
 
    public:
-      VirtualControlsProcessor(AllegroFlare::EventEmitter* event_emitter=nullptr);
+      VirtualControlsProcessor(AllegroFlare::InputDevicesList* input_devices_list=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
       ~VirtualControlsProcessor();
 
-      void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
       bool get_initialized() const;
       std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> &get_physical_input_device_to_virtual_control_mappings_ref();
+      void set_input_devices_list(AllegroFlare::InputDevicesList* input_devices_list=nullptr);
+      void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
       void initialize();
-      int infer_num_physical_input_devices();
-      int infer_num_physical_input_devices_connected();
-      int find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr);
       void handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event=nullptr);
       void handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* event=nullptr);
       void handle_raw_joystick_button_down_event(ALLEGRO_EVENT* event=nullptr);

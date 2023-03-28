@@ -1,15 +1,17 @@
 properties:
 
 
+  - name: input_devices_list
+    type: AllegroFlare::InputDevicesList*
+    init_with: nullptr
+    constructor_arg: true
+    setter: false
+
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
-    setter: true
-
-  - name: physical_input_devices
-    type: std::map<AllegroFlare::PhysicalInputDevices::Base*, int>
-    init_with: '{}'
+    setter: false
 
   - name: physical_input_device_to_virtual_control_mappings
     type: std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping>
@@ -22,21 +24,35 @@ properties:
     getter: true
 
 
-documentation:
-
-
-  - properties:
-      - name: joystick_devices
-        description: a map, the second value representing the player num (starting from 0).
-
-
 functions:
 
 
-  - name: initialize
-    guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed() ]
+  - name: set_input_devices_list
+    parameters:
+      - name: input_devices_list
+        type: AllegroFlare::InputDevicesList*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
     body: |
-      setup_configuration_of_connected_joystick_devices();
+      this->input_devices_list = input_devices_list;
+      return;
+
+
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->event_emitter = event_emitter;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed(), al_is_joystick_installed(), input_devices_list, event_emitter ]
+    body: |
+      //setup_configuration_of_connected_joystick_devices();
       initialized = true;
       return;
 
@@ -44,6 +60,7 @@ functions:
   - name: setup_configuration_of_connected_joystick_devices
     private: true
     body: |
+      //input_devices_list;
       //al_reconfigure_joysticks();
       //joystick_devices.clear();
       //for (int i=0; i<al_get_num_joysticks(); i++)
@@ -52,38 +69,6 @@ functions:
          //joystick_devices[al_get_joystick(i)] = i;
       //}
       return;
-
-
-  - name: infer_num_physical_input_devices
-    type: int
-    guards: [ initialized ]
-    body: |
-      return physical_input_devices.size();
-
-
-  - name: infer_num_physical_input_devices_connected
-    type: int
-    guards: [ initialized ]
-    body: |
-      // TODO: implement this function
-      return 0;
-
-
-  - name: find_player_num_from_al_joystick
-    type: int
-    parameters:
-      - name: al_joystick
-        type: ALLEGRO_JOYSTICK*
-        default_argument: nullptr
-    body: |
-      throw std::runtime_error("VirtualControlsProcessor::find_player_num_from_al_joystick");
-      // TODO: implement this function
-      for (auto &physical_input_device : physical_input_devices)
-      {
-         // TODO: This logic
-         //if (physical_input_device->is_joystick()) {}
-      }
-      return 0;
 
 
   - name: handle_raw_keyboard_key_down_event
@@ -139,9 +124,9 @@ functions:
         default_argument: nullptr
     guards: [ initialized, event_emitter, event ]
     body: |
-      int player_num = find_player_num_from_al_joystick(event->joystick.id);
-      int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
-      if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
+      //int player_num = find_player_num_from_al_joystick(event->joystick.id);
+      //int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
+      //if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
 
       // TODO: Remove this throw
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: not implemented");
@@ -413,5 +398,7 @@ dependencies:
     headers: [ AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp ]
   - symbol: AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData
     headers: [ AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp ]
+  - symbol: AllegroFlare::InputDevicesList
+    headers: [ AllegroFlare/InputDevicesList.hpp ]
 
 
