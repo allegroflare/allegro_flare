@@ -2216,7 +2216,8 @@
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
   "AllegroFlare/InputDevicesList": [
-    "AllegroFlare/Screens/InputDeviceConfiguration"
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Elements/InputDevicesList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
@@ -2381,6 +2382,9 @@
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory": [
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData": [
     "AllegroFlare/VirtualControlsProcessor"

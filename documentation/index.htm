@@ -18875,12 +18875,12 @@ table td
     <h3 id="quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</h3>
      <table>
 <tr>
-  <td class="property">event_emitter</td>
-  <td class="property">AllegroFlare::EventEmitter*</td>
+  <td class="property">input_devices_list</td>
+  <td class="property">AllegroFlare::InputDevicesList*</td>
 </tr>
 <tr>
-  <td class="property">physical_input_devices</td>
-  <td class="property">std::map&lt;AllegroFlare::PhysicalInputDevices::Base*, int&gt;</td>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
   <td class="property">physical_input_device_to_virtual_control_mappings</td>
@@ -18893,19 +18893,13 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">set_input_devices_list(AllegroFlare::InputDevicesList* input_devices_list=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
+<tr>
   <td class="method">initialize()</td>
-</tr>
-<tr>
-  <td class="private_method">setup_configuration_of_connected_joystick_devices()</td>
-</tr>
-<tr>
-  <td class="method">infer_num_physical_input_devices()</td>
-</tr>
-<tr>
-  <td class="method">infer_num_physical_input_devices_connected()</td>
-</tr>
-<tr>
-  <td class="method">find_player_num_from_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr)</td>
 </tr>
 <tr>
   <td class="method">handle_raw_keyboard_key_down_event(ALLEGRO_EVENT* event=nullptr)</td>
@@ -18979,6 +18973,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PhysicalInputDeviceToVirtualControllerMappingFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -18992,6 +18989,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InputDevicesList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InputDevicesList.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23461,7 +23461,8 @@ table td
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
   "AllegroFlare/InputDevicesList": [
-    "AllegroFlare/Screens/InputDeviceConfiguration"
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Elements/InputDevicesList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
@@ -23626,6 +23627,9 @@ table td
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory": [
+    "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData": [
     "AllegroFlare/VirtualControlsProcessor"

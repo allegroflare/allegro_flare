@@ -7,6 +7,7 @@
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -105,21 +106,14 @@ void VirtualControlsProcessor::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"event_emitter\" not met");
    }
-   //setup_configuration_of_connected_joystick_devices();
-   initialized = true;
-   return;
-}
+   AllegroFlare::PhysicalInputDeviceToVirtualControllerMappingFactory factory; // TODO: remove factory as dependency
+   AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping mapping =
+   factory.create_single_player_keyboard_mapping_from_scratch();
 
-void VirtualControlsProcessor::setup_configuration_of_connected_joystick_devices()
-{
-   //input_devices_list;
-   //al_reconfigure_joysticks();
-   //joystick_devices.clear();
-   //for (int i=0; i<al_get_num_joysticks(); i++)
-   //{
-      // 
-      //joystick_devices[al_get_joystick(i)] = i;
-   //}
+   physical_input_device_to_virtual_control_mappings = { mapping };
+
+   // TODO: Create basic mapping for joysticks
+   initialized = true;
    return;
 }
 
@@ -220,14 +214,9 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
    }
-   //int player_num = find_player_num_from_al_joystick(event->joystick.id);
-   //int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
-   //if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-
    // TODO: Remove this throw
+   // TODO: Implement this function
    throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: not implemented");
-   // TODO: Update this call:
-   //emit_virtual_controls_button_down_event(player_num, virtual_button);
    return;
 }
 
@@ -255,18 +244,8 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"event\" not met");
    }
    // TODO: Remove this throw
-   throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
    // TODO: Implement this function
-
-   AllegroFlare::Player *player = nullptr; // TODO: find player, old technique is:
-   //int player_num = find_player_num_from_al_joystick(event->joystick.id);
-   AllegroFlare::VirtualControllers::Base *virtual_controller = nullptr; // TODO: find player, old technique is:
-   int virtual_controller_button_num = 0; // TODO: find this button
-
-   //int virtual_button = get_joystick_mapped_virtual_button(event->joystick.button);
-   //if (virtual_button == -1) return; // TODO: this behavior should be a little better; Maybe "has_mapping" first
-
-   emit_virtual_controls_button_up_event(player, virtual_controller, virtual_controller_button_num);
+   throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
    return;
 }
 
@@ -294,16 +273,8 @@ void VirtualControlsProcessor::handle_raw_joystick_axis_change_event(ALLEGRO_EVE
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"event\" not met");
    }
    // TODO: Remove this throw
-   throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
    // TODO: Implement this function
-
-   AllegroFlare::Player *player = nullptr; // TODO: find player, old technique is:
-   //emit_virtual_controls_axis_change_event(
-      //player,
-      //event->joystick.stick,
-      //event->joystick.axis,
-      //event->joystick.pos
-   //);
+   throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
    return;
 }
 
@@ -330,23 +301,17 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"event\" not met");
    }
-   AllegroFlare::Logger::info_from(
-      "AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event",
-      "Joystick configuration changed on the system. A device has been connected or disconnected."
-   );
-
-   setup_configuration_of_connected_joystick_devices();
-
+   // TODO: Remove this throw
+   // TODO: Implement this function
+   throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: not implemented");
    return;
 }
 
 int VirtualControlsProcessor::get_joystick_mapped_virtual_button(int native_button_num)
 {
+   // TODO: Remove this throw
+   // TODO: Implement this function
    throw std::runtime_error("VirtualControlsProcessor::get_joystick_mapped_virtual_button: not implemented");
-   //bool map_value_exists = joystick_button_map.find(native_button_num) != joystick_button_map.end();
-   //if (!map_value_exists) return -1;
-   //int virtual_button = joystick_button_map[native_button_num];
-   //return virtual_button;
    return 0;
 }
 

@@ -19,7 +19,6 @@ namespace AllegroFlare
       AllegroFlare::EventEmitter* event_emitter;
       std::vector<AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping> physical_input_device_to_virtual_control_mappings;
       bool initialized;
-      void setup_configuration_of_connected_joystick_devices();
       int get_joystick_mapped_virtual_button(int native_button_num=-1);
       AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping* get_keyboard_mapped_physical_input_device_to_virtual_controller_mapping(int al_keyboard_keycode=-1);
 
