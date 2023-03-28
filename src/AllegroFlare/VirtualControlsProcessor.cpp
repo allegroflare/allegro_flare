@@ -78,13 +78,13 @@ void VirtualControlsProcessor::initialize()
 
 void VirtualControlsProcessor::setup_configuration_of_connected_joystick_devices()
 {
-   al_reconfigure_joysticks();
+   //al_reconfigure_joysticks();
    //joystick_devices.clear();
-   for (int i=0; i<al_get_num_joysticks(); i++)
-   {
+   //for (int i=0; i<al_get_num_joysticks(); i++)
+   //{
       // 
       //joystick_devices[al_get_joystick(i)] = i;
-   }
+   //}
    return;
 }
 

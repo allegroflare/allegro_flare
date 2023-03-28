@@ -6842,19 +6842,41 @@ table td
   <td class="property">devices</td>
   <td class="property">std::vector&lt;AllegroFlare::PhysicalInputDevices::Base*&gt;</td>
 </tr>
+<tr>
+  <td class="property">updated_at</td>
+  <td class="property">float</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">count_num_keyboard_devices()</td>
+  <td class="method">num_devices()</td>
 </tr>
 <tr>
-  <td class="method">count_num_joystick_devices()</td>
+  <td class="method">num_keyboard_devices()</td>
 </tr>
 <tr>
-  <td class="method">count_num_connected_devices()</td>
+  <td class="method">num_joystick_devices()</td>
+</tr>
+<tr>
+  <td class="method">num_connected_devices()</td>
+</tr>
+<tr>
+  <td class="method">num_disconnected_devices()</td>
+</tr>
+<tr>
+  <td class="method">all_devices_are_connected()</td>
+</tr>
+<tr>
+  <td class="method">get_connected_joysticks()</td>
+</tr>
+<tr>
+  <td class="method">get_disconnected_joysticks()</td>
+</tr>
+<tr>
+  <td class="method">num_connected_joysticks()</td>
 </tr>
 <tr>
   <td class="private_method">find_joystick_device_by_al_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr)</td>
@@ -6864,9 +6886,6 @@ table td
 </tr>
 <tr>
   <td class="method">handle_reconfigured_joystick()</td>
-</tr>
-<tr>
-  <td class="method">num_known_devices()</td>
 </tr>
     </table>
      <table>
@@ -6884,6 +6903,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_JOYSTICK&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::set_difference&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8572,11 +8594,22 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">connected</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">connected_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">set_connected(bool connected=false)</td>
+</tr>
 <tr>
   <td class="method">is_keyboard()</td>
 </tr>
@@ -8584,13 +8617,13 @@ table td
   <td class="method">is_joystick()</td>
 </tr>
 <tr>
-  <td class="method">is_connected()</td>
-</tr>
-<tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -15183,7 +15216,15 @@ table td
   <td class="property">std::size_t</td>
 </tr>
 <tr>
-  <td class="property">joystick_configuration_element</td>
+  <td class="property">input_devices_list</td>
+  <td class="property">AllegroFlare::InputDevicesList*</td>
+</tr>
+<tr>
+  <td class="property">input_devices_list_element</td>
+  <td class="property">AllegroFlare::Elements::InputDevicesList</td>
+</tr>
+<tr>
+  <td class="property">input_device_configuration_element</td>
   <td class="property">AllegroFlare::Elements::InputDeviceConfigurationList</td>
 </tr>
 <tr>
@@ -15204,6 +15245,9 @@ table td
 </tr>
 <tr>
   <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_input_devices_list(AllegroFlare::InputDevicesList* input_devices_list=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -15269,6 +15313,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InputDevicesList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InputDevicesList.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::InputDevicesList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/InputDevicesList.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -22120,7 +22170,8 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
-    "AllegroFlare/Elements/Notifications/Base"
+    "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/PhysicalInputDevices/Base"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -22622,6 +22673,10 @@ table td
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/set_difference": [
+    "AllegroFlare/InputDevicesList",
+    "Wicked/Physics/EntityZoneCollisionObserver"
   ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
@@ -23405,6 +23460,12 @@ table td
   "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
+  "AllegroFlare/InputDevicesList": [
+    "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
+  "AllegroFlare/Elements/InputDevicesList": [
+    "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
@@ -23706,9 +23767,6 @@ table td
     "Wicked/Physics/EntityZoneCollisionObserver"
   ],
   "Wicked/Entities/Basic3D": [
-    "Wicked/Physics/EntityZoneCollisionObserver"
-  ],
-  "std/set_difference": [
     "Wicked/Physics/EntityZoneCollisionObserver"
   ],
   "Wicked/Physics/AABB2D": [

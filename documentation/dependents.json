@@ -925,7 +925,8 @@
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
-    "AllegroFlare/Elements/Notifications/Base"
+    "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/PhysicalInputDevices/Base"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -1427,6 +1428,10 @@
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
     "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/set_difference": [
+    "AllegroFlare/InputDevicesList",
+    "Wicked/Physics/EntityZoneCollisionObserver"
   ],
   "AllegroFlare/InputDiagrams/KeyboardKey": [
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo"
@@ -2210,6 +2215,12 @@
   "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
+  "AllegroFlare/InputDevicesList": [
+    "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
+  "AllegroFlare/Elements/InputDevicesList": [
+    "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
@@ -2511,9 +2522,6 @@
     "Wicked/Physics/EntityZoneCollisionObserver"
   ],
   "Wicked/Entities/Basic3D": [
-    "Wicked/Physics/EntityZoneCollisionObserver"
-  ],
-  "std/set_difference": [
     "Wicked/Physics/EntityZoneCollisionObserver"
   ],
   "Wicked/Physics/AABB2D": [

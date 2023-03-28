@@ -268,11 +268,6 @@ bool Full::initialize_core_system()
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
-   virtual_controls_processor.set_event_emitter(&event_emitter);
-   virtual_controls_processor.initialize();
-
-   achievements.set_event_emitter(&event_emitter);
-
    // Setup our experimental live-polling of shader source code tool
    if (!deployment_environment.is_production()) // TODO: figure out what environment(s) are reasonable
    {
@@ -308,8 +303,14 @@ bool Full::initialize_core_system()
    audio_controller.initialize();
 
    // Initialize our InputDeviceList
-   // TODO: This initialization appears to deadlock in certain cases. See comment in InputDeviceList
    input_devices_list.initialize();
+
+   // Initialize our VirtualControlsProcessor
+   virtual_controls_processor.set_event_emitter(&event_emitter);
+   virtual_controls_processor.initialize();
+
+   // Initialize our Achievements
+   achievements.set_event_emitter(&event_emitter);
 
    // Finalize initialization
    initialized = true;
@@ -1000,6 +1001,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
          screens.key_down_funcs(&this_event);
+         // DEBUG:
          virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
       break;
 
