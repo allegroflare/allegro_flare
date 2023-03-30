@@ -329,7 +329,11 @@ bool Full::initialize_display_and_render_pipeline()
 
    // Create our primary display
 
-   if (primary_display) throw std::runtime_error("AllegroFlare/Frameworks/Full:: odd error expecting uinit value");
+   if (primary_display)
+   {
+      // TODO: Add better "double initialization" error here
+      throw std::runtime_error("AllegroFlare/Frameworks/Full:: odd error expecting uninit value");
+   }
 
    primary_display = new Display(
       1920,
@@ -392,6 +396,11 @@ bool Full::initialize_display_and_render_pipeline()
    camera_2d.setup_dimentional_projection(display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
                                                                // this should remain the same throughout
                                                                // the whole program and never be modified
+
+   // Hide the mouse cursor by default
+   al_hide_mouse_cursor(primary_display->al_display);
+
+
    return true;
 }
 
