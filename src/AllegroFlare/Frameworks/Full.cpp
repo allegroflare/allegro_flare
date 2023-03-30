@@ -324,7 +324,7 @@ bool Full::initialize_core_system()
 bool Full::initialize_display_and_render_pipeline()
 {
    // TODO: validate size of display before creating a window that is potentially larger than the display. If so,
-   // output a warning.
+   // output a warning.  This issue occurred on Linux on a display that could not support 1920x1080
 
 
    // Create our primary display
