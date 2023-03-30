@@ -141,7 +141,7 @@ namespace AllegroFlare
 
          bool initialize();
          bool is_initialized();
-         bool shutdown();
+         bool shutdown(); // TODO: make this private
          void disable_fullscreen();
          void disable_unset_deployment_environment_warning_on_initialization();
          void set_deployment_environment(std::string);
