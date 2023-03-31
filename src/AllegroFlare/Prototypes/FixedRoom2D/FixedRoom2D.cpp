@@ -296,6 +296,9 @@ bool FixedRoom2D::enter_room(std::string room_name)
    unhover_any_and_all_entities();
    reset_cursors_to_default_in_all_rooms();
 
+   // set the mouseover if the cursor is currently over an object
+   // TODO: Set mouse over on any currently hovered object
+
    // set the current room
    current_room = it->second;
 
