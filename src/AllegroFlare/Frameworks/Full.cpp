@@ -37,9 +37,12 @@ namespace Frameworks
 
 
 Full::Full()
-   : screens()
+   : DEFAULT_CONFIG_FILENAME("data/config/config.cfg") // TODO: make this a const
+   , DEFAULT_DISPLAY_WIDTH(1920) // TODO: make this a const
+   , DEFAULT_DISPLAY_HEIGHT(1080) // TODO: make this a const
+   , screens()
    , initialized(false)
-   , config("data/config/config.cfg")
+   , config(DEFAULT_CONFIG_FILENAME)
    , profiler()
    , fonts()
    , samples()
@@ -335,14 +338,21 @@ bool Full::initialize_display_and_render_pipeline()
       throw std::runtime_error("AllegroFlare/Frameworks/Full:: odd error expecting uninit value");
    }
 
+
+   int display_width = config.get_or_default_int("display", "width", DEFAULT_DISPLAY_WIDTH);
+   int display_height = config.get_or_default_int("display", "height", DEFAULT_DISPLAY_HEIGHT);
+   bool display_fullscreen = config.get_or_default_bool("display", "fullscreen", fullscreen);
+      //int get_or_default_int(std::string section, std::string key, int _default);
+
+
    primary_display = new Display(
-      1920,
-      1080,
+      display_width,
+      display_height,
       0, // legacy argument is depreciated
       render_surface_multisamples,
       render_surface_depth_size,
       render_surface_adapter,
-      fullscreen
+      display_fullscreen
    );
 
    if (!primary_display)
@@ -548,14 +558,15 @@ bool Full::is_deployment_environment_test()
 
 std::string Full::get_data_folder_path()
 {
-   if (!initialized)
-   {
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Frameworks::Full::get_data_folder_path",
-         "Could retrieve because the framework has not yet been initialized. "
-            "You must call this function after initialization so the path has been has been properly set."
-      );
-   }
+   // NOTE: This condition below was removed, but 
+   //if (!initialized)
+   //{
+      //AllegroFlare::Logger::throw_error(
+         //"AllegroFlare::Frameworks::Full::get_data_folder_path",
+         //"Could retrieve because the framework has not yet been initialized. "
+            //"You must call this function after initialization so the path has been has been properly set."
+      //);
+   //}
 
    return deployment_environment.get_data_folder_path();
 }

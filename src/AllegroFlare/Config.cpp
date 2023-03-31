@@ -13,6 +13,7 @@ namespace AllegroFlare
    Config::Config(std::string filename)
       : filename(filename)
       , config_file(nullptr)
+      , initialized(false)
    {
    }
 
@@ -23,6 +24,24 @@ namespace AllegroFlare
       if (!al_is_system_installed()) throw std::runtime_error("[Config]: attempting to use AllegroFlare/Config but allegro is not initialized.  You must call al_init() before using any of the AllegroFlare/Config functions.");
    }
 
+
+   void Config::ensure_not_initialized()
+   {
+      if (initialized) throw std::runtime_error("[Config::ensure_initialized()]: Not initialized.");
+   }
+
+
+   void Config::set_filename(std::string filename)
+   {
+      ensure_not_initialized();
+      this->filename = filename;
+   }
+
+
+   std::string Config::get_filename()
+   {
+      return filename;
+   }
 
 
    bool Config::load_or_create_empty(bool output_warning_if_auto_created)
@@ -61,6 +80,9 @@ namespace AllegroFlare
             //std::cerr << " Done: empty config created." << std::endl;
          }
       }
+
+      initialized = true;
+
       return true;
    }
 
@@ -68,6 +90,7 @@ namespace AllegroFlare
 
    bool Config::load()
    {
+      // TODO: fix guard against duplicate initialization
       ensure_initialized_allegro();
 
       if (config_file) al_destroy_config(config_file);
@@ -79,6 +102,9 @@ namespace AllegroFlare
          error_message << "[AllegroFlare::Config::" << __FUNCTION__ << "] the file \"" << filename << "\" could not be found." << std::endl;
          throw std::runtime_error(error_message.str());
       }
+
+      initialized = true;
+
       return true;
    }
 
@@ -86,6 +112,8 @@ namespace AllegroFlare
 
    bool Config::reload()
    {
+      // TODO: Fix guard against duplicate initialization
+      // TODO: Permit reloading to work even in the case of double initialization
       return load();
    }
 

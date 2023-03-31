@@ -14,6 +14,8 @@ namespace AllegroFlare
       std::string filename;
       ALLEGRO_CONFIG *config_file;
       void ensure_initialized_allegro();
+      void ensure_not_initialized();
+      bool initialized;
 
    public:
       Config(std::string filename);
@@ -21,6 +23,9 @@ namespace AllegroFlare
       bool load();
       bool load_or_create_empty(bool output_warning_if_auto_created=true);
       bool reload();
+
+      void set_filename(std::string filename);
+      std::string get_filename();
 
       bool has_value(std::string section, std::string key);
       std::string get_value_str(std::string section, std::string key);

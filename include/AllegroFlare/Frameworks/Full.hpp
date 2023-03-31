@@ -39,6 +39,9 @@ namespace AllegroFlare
       class Full
       {
       private:
+         std::string DEFAULT_CONFIG_FILENAME;
+         int DEFAULT_DISPLAY_WIDTH;
+         int DEFAULT_DISPLAY_HEIGHT;
          ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;

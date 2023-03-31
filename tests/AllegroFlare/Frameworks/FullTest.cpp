@@ -462,3 +462,17 @@ TEST(AllegroFlare_Frameworks_FullTest,
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest,
+   FOCUS__with_config_value_set_for_fullscreen_false__will_create_the_display_in_windowed_mode)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   std::string config_filename_with_fullscreen_false = framework.get_data_folder_path()
+                                                     + "config/fullscreen_display_config.cfg";
+   framework.get_config().set_filename(config_filename_with_fullscreen_false);
+   framework.initialize();
+
+   sleep(2);
+}
+
+
