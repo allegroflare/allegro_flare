@@ -342,7 +342,6 @@ bool Full::initialize_display_and_render_pipeline()
    int display_width = config.get_or_default_int("display", "width", DEFAULT_DISPLAY_WIDTH);
    int display_height = config.get_or_default_int("display", "height", DEFAULT_DISPLAY_HEIGHT);
    bool display_fullscreen = config.get_or_default_bool("display", "fullscreen", fullscreen);
-      //int get_or_default_int(std::string section, std::string key, int _default);
 
 
    primary_display = new Display(
