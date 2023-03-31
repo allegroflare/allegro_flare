@@ -269,6 +269,7 @@ void Room::move_cursor(float distance_x, float distance_y, std::vector<AllegroFl
       throw std::runtime_error("Room::move_cursor: error: guard \"initialized\" not met");
    }
    cursor.move(distance_x, distance_y);
+   cursor.clamp(min_x, min_y, max_x, max_y);
 
    AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_was_over = nullptr;
    AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_is_now_over = nullptr;

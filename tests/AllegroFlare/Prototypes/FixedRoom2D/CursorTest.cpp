@@ -67,6 +67,20 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture
 
 
 TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture,
+   DISABLED__clamp__when_min_x_is_greater_than_max_x__throws_an_exception)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture,
+   DISABLED__clamp__when_min_y_is_greater_than_max_y__throws_an_exception)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture,
    clamp__will_constrain_the_x_and_y_values_to_the_ranges)
 {
    AllegroFlare::Prototypes::FixedRoom2D::Cursor cursor;
@@ -79,6 +93,7 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture
       >
    > test_datas = {
       { { 2910, 1803 },     { 0, 0, 1920, 1080 },     { 1920, 1080 } }
+      // TODO: Add more test data
    };
 
    for (auto &test_data : test_datas)
