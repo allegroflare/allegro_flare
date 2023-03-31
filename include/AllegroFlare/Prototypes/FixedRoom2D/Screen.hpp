@@ -59,6 +59,8 @@ namespace AllegroFlare
             virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
             virtual void on_deactivate() override;
             virtual void primary_timer_func() override;
+            virtual void mouse_axes_func(ALLEGRO_EVENT* ev=nullptr) override;
+            virtual void mouse_down_func(ALLEGRO_EVENT* ev=nullptr) override;
             virtual void key_char_func(ALLEGRO_EVENT* ev=nullptr) override;
             void emit_event_to_exit();
             void emit_event_to_open_chronicle();

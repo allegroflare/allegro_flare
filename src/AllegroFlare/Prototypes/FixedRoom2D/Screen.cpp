@@ -226,6 +226,57 @@ void Screen::primary_timer_func()
    return;
 }
 
+void Screen::mouse_axes_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::mouse_axes_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::mouse_axes_func: error: guard \"initialized\" not met");
+   }
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::mouse_axes_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::mouse_axes_func: error: guard \"ev\" not met");
+   }
+   // TODO: Modify this to virtual controls
+   fixed_room_2d.move_cursor(ev->mouse.dx, ev->mouse.dy);
+   return;
+}
+
+void Screen::mouse_down_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::mouse_down_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::mouse_down_func: error: guard \"initialized\" not met");
+   }
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::mouse_down_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::mouse_down_func: error: guard \"ev\" not met");
+   }
+   // TODO: Modify this to virtual controls
+   switch(ev->mouse.button)
+   {
+      case 1: // left mouse button
+         fixed_room_2d.activate_primary_action();
+      break;
+
+      case 2: // right mouse button
+         //fixed_room_2d.toggle_inventory();
+      break;
+   }
+   return;
+}
+
 void Screen::key_char_func(ALLEGRO_EVENT* ev)
 {
    if (!(initialized))
@@ -235,6 +286,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_char_func: error: guard \"initialized\" not met");
    }
+   // TODO: Modify this to virtual controls
    float cursor_speed = 10.0f;
    switch(ev->keyboard.keycode)
    {
