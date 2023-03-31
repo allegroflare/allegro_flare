@@ -789,6 +789,7 @@ void FixedRoom2D::move_cursor_left()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("FixedRoom2D::move_cursor_left: error: guard \"initialized\" not met");
    }
+   // TODO: This cursor movement applies to the inventory (if it is open)
    return;
 }
 
@@ -801,6 +802,7 @@ void FixedRoom2D::move_cursor_right()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("FixedRoom2D::move_cursor_right: error: guard \"initialized\" not met");
    }
+   // TODO: This cursor movement applies to the inventory (if it is open)
    return;
 }
 

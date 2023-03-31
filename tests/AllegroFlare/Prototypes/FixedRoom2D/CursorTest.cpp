@@ -66,3 +66,47 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture
 }
 
 
+TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture,
+   clamp__will_constrain_the_x_and_y_values_to_the_ranges)
+{
+   AllegroFlare::Prototypes::FixedRoom2D::Cursor cursor;
+
+   std::vector<
+      std::tuple<
+         std::pair<float, float>,                // initial cursor position
+         std::tuple<float, float, float, float>, // min and max values
+         std::pair<float, float>                 // expected cursor position after clamp
+      >
+   > test_datas = {
+      { { 2910, 1803 },     { 0, 0, 1920, 1080 },     { 1920, 1080 } }
+   };
+
+   for (auto &test_data : test_datas)
+   {
+      // Collate test data
+      std::pair<float, float> initial_cursor_position = std::get<0>(test_data);
+      std::tuple<float, float, float, float> range_values = std::get<1>(test_data);
+      std::pair<float, float> expected_cursor_position_after_clamp = std::get<2>(test_data);
+
+      float initial_cursor_x = initial_cursor_position.first;
+      float initial_cursor_y = initial_cursor_position.second;
+      float min_x = std::get<0>(range_values);
+      float min_y = std::get<1>(range_values);
+      float max_x = std::get<2>(range_values);
+      float max_y = std::get<3>(range_values);
+      float expected_cursor_position_after_clamp_x = expected_cursor_position_after_clamp.first;
+      float expected_cursor_position_after_clamp_y = expected_cursor_position_after_clamp.second;
+
+      // Set the cursor position
+      cursor.move_to(initial_cursor_x, initial_cursor_y);
+
+      ASSERT_EQ(initial_cursor_x, cursor.get_x());
+      ASSERT_EQ(initial_cursor_y, cursor.get_y());
+
+      cursor.clamp(min_x, min_y, max_x, max_y);
+      EXPECT_EQ(expected_cursor_position_after_clamp_x, cursor.get_x());
+      EXPECT_EQ(expected_cursor_position_after_clamp_y, cursor.get_y());
+   }
+}
+
+

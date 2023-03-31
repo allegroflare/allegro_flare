@@ -87,6 +87,37 @@ functions:
       return;
 
 
+  - name: clamp
+    type: bool
+    parameters:
+      - name: min_x
+        type: float
+        default_argument: 0.0f
+      - name: min_y
+        type: float
+        default_argument: 0.0f
+      - name: max_x
+        type: float
+        default_argument: 1920.0f
+      - name: max_y
+        type: float
+        default_argument: 1080.0f
+    guards: [ (min_x <= max_x), (min_y <= max_y) ]
+    body: |
+      float began_at_x = x;
+      float began_at_y = y;
+      float clamped_at_x = std::clamp(x, min_x, max_x);
+      float clamped_at_y = std::clamp(y, min_y, max_y);
+
+      x = clamped_at_x;
+      y = clamped_at_y;
+
+      if (began_at_x != clamped_at_x) return true;
+      if (began_at_y != clamped_at_y) return true;
+
+      return false;
+
+
   - name: move_to
     parameters:
       - name: x

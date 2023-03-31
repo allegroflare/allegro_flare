@@ -695,12 +695,14 @@ functions:
   - name: move_cursor_left
     guards: [ initialized ]
     body: |
+      // TODO: This cursor movement applies to the inventory (if it is open)
       return;
 
 
   - name: move_cursor_right
     guards: [ initialized ]
     body: |
+      // TODO: This cursor movement applies to the inventory (if it is open)
       return;
 
 

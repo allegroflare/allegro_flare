@@ -113,6 +113,36 @@ void Cursor::move(float distance_x, float distance_y)
    return;
 }
 
+bool Cursor::clamp(float min_x, float min_y, float max_x, float max_y)
+{
+   if (!((min_x <= max_x)))
+   {
+      std::stringstream error_message;
+      error_message << "[Cursor::clamp]: error: guard \"(min_x <= max_x)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Cursor::clamp: error: guard \"(min_x <= max_x)\" not met");
+   }
+   if (!((min_y <= max_y)))
+   {
+      std::stringstream error_message;
+      error_message << "[Cursor::clamp]: error: guard \"(min_y <= max_y)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Cursor::clamp: error: guard \"(min_y <= max_y)\" not met");
+   }
+   float began_at_x = x;
+   float began_at_y = y;
+   float clamped_at_x = std::clamp(x, min_x, max_x);
+   float clamped_at_y = std::clamp(y, min_y, max_y);
+
+   x = clamped_at_x;
+   y = clamped_at_y;
+
+   if (began_at_x != clamped_at_x) return true;
+   if (began_at_y != clamped_at_y) return true;
+
+   return false;
+}
+
 void Cursor::move_to(float x, float y)
 {
    this->x = x;

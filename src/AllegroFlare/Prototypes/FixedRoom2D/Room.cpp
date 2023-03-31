@@ -24,6 +24,10 @@ Room::Room(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_em
    , event_emitter(event_emitter)
    , entity_collection_helper(entity_collection_helper)
    , cursor({})
+   , min_x(0.0f)
+   , min_y(0.0f)
+   , max_x(1920.0f)
+   , max_y(1080.0f)
    , suspended(false)
    , suspended_at(0.0f)
    , initialized(false)
@@ -51,6 +55,54 @@ void Room::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 void Room::set_entity_collection_helper(AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
 {
    this->entity_collection_helper = entity_collection_helper;
+}
+
+
+void Room::set_min_x(float min_x)
+{
+   this->min_x = min_x;
+}
+
+
+void Room::set_min_y(float min_y)
+{
+   this->min_y = min_y;
+}
+
+
+void Room::set_max_x(float max_x)
+{
+   this->max_x = max_x;
+}
+
+
+void Room::set_max_y(float max_y)
+{
+   this->max_y = max_y;
+}
+
+
+float Room::get_min_x() const
+{
+   return min_x;
+}
+
+
+float Room::get_min_y() const
+{
+   return min_y;
+}
+
+
+float Room::get_max_x() const
+{
+   return max_x;
+}
+
+
+float Room::get_max_y() const
+{
+   return max_y;
 }
 
 

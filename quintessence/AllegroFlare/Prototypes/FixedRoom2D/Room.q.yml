@@ -23,6 +23,30 @@ properties:
     type: AllegroFlare::Prototypes::FixedRoom2D::Cursor
     init_with: '{}'
 
+  - name: min_x
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: min_y
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: max_x
+    type: float
+    init_with: 1920.0f
+    getter: true
+    setter: true
+
+  - name: max_y
+    type: float
+    init_with: 1080.0f
+    getter: true
+    setter: true
+
   - name: suspended
     type: bool
     init_with: false
