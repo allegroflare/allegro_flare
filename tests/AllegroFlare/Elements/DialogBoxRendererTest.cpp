@@ -152,6 +152,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_dialo
 
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_the_dialog_box)
 {
+   // TODO: Rename this test to include "DialogBoxes::Basic type dialog"
    al_init();
    al_init_primitives_addon();
    al_init_font_addon();
@@ -169,6 +170,64 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_the_dialog_box)
    dialog_box_renderer.render();
    al_flip_display();
    //std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+   render__when_the_standard_dialog_box_font_name_is_changed__draws_the_dialog_box_as_expected)
+{
+   // TODO: Rename this test to include "DialogBoxes::Basic type dialog"
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
+   dialog_box.set_pages({ "Some test dialog text with multiple pages.", "Here's the second page." });
+
+   AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &dialog_box);
+   dialog_box_renderer.set_standard_dialog_box_font_name("Lora-MediumItalic.ttf");
+
+   dialog_box.reveal_all_characters();
+
+   dialog_box_renderer.render();
+   al_flip_display();
+   std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+   render__when_the_standard_dialog_box_font_size_is_changed__draws_the_dialog_box_as_expected)
+{
+   // TODO: Rename this test to include "DialogBoxes::Basic type dialog"
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
+   dialog_box.set_pages({ "Some test dialog text with multiple pages.", "Here's the second page." });
+
+   AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &dialog_box);
+   dialog_box_renderer.set_standard_dialog_box_font_size(-52);
+
+   dialog_box.reveal_all_characters();
+
+   dialog_box_renderer.render();
+   al_flip_display();
+   std::this_thread::sleep_for(std::chrono::seconds(1));
 
    al_destroy_display(display);
    al_uninstall_system();
