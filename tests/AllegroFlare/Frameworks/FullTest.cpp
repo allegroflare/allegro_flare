@@ -463,7 +463,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
-   FOCUS__with_config_file_value_for_fullscreen_set_to_false__will_create_the_display_in_windowed_mode)
+   initialize__when_a_config_file_value_for_fullscreen_is_set_to_false__will_create_the_display_in_windowed_mode)
 {
    static const char* CONFIG_FILENAME = "config/fullscreen_display_config.cfg";
    AllegroFlare::Frameworks::Full framework;
@@ -481,7 +481,8 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
-   FOCUS__with_config_file_value_for_width_and_height__will_create_the_display_with_the_expected_dimensions)
+   initialize__when_a_config_file_value_for_width_and_height_are_present__will_create_the_display_with_the_expected_\
+dimensions)
 {
    static const char* CONFIG_FILENAME = "config/fullscreen_display_config.cfg";
    AllegroFlare::Frameworks::Full framework;
