@@ -83,10 +83,10 @@ functions:
         default_argument: 400
       - name: page_text_font_size
         type: int
-        default_argument: -40
+        default_argument: AllegroFlare::Elements::StoryboardPages::AdvancingText::DEFAULT_FONT_SIZE
       - name: page_text_font_name
         type: std::string
-        default_argument: '"Inter-Medium.ttf"'
+        default_argument: AllegroFlare::Elements::StoryboardPages::AdvancingText::DEFAULT_FONT_NAME
       - name: page_text_line_height_multiplier
         type: float
         default_argument: 1.5

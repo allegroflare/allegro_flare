@@ -16,6 +16,10 @@ namespace AllegroFlare
       {
          class AdvancingText : public AllegroFlare::Elements::StoryboardPages::Base
          {
+         public:
+            static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Medium.ttf";
+            static constexpr int DEFAULT_FONT_SIZE = -40;
+
          private:
             AllegroFlare::FontBin* font_bin;
             std::string text;
@@ -35,7 +39,7 @@ namespace AllegroFlare
 
 
          public:
-            AdvancingText(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name="Inter-Medium.ttf", int font_size=-40, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
+            AdvancingText(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=200, float right_padding=200, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
             virtual ~AdvancingText();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);

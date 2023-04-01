@@ -25,14 +25,14 @@ properties:
 
   - name: font_name
     type: std::string
-    init_with: '"Inter-Medium.ttf"'
+    init_with: DEFAULT_FONT_NAME
     constructor_arg: true
     getter: true
     setter: true
 
   - name: font_size
     type: int
-    init_with: -40
+    init_with: DEFAULT_FONT_SIZE
     constructor_arg: true
     getter: true
     setter: true
@@ -83,6 +83,20 @@ properties:
     type: int
     init_with: 0
     getter: true
+
+  - name: DEFAULT_FONT_NAME
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"Inter-Medium.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    static: true
+    const: true
+    init_with: -40
 
 
 functions:

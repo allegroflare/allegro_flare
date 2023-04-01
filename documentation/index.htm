@@ -5763,6 +5763,14 @@ table td
   <td class="property">revealed_characters_count</td>
   <td class="property">int</td>
 </tr>
+<tr>
+  <td class="property">DEFAULT_FONT_NAME</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FONT_SIZE</td>
+  <td class="property">int</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -17033,7 +17041,7 @@ table td
   <td class="method">create_images_storyboard_screen(std::vector&lt;ALLEGRO_BITMAP*&gt; source_bitmaps={}, int button_font_size=-40)</td>
 </tr>
 <tr>
-  <td class="method">create_advancing_text_storyboard_screen(std::vector&lt;std::string&gt; pages_text={}, int button_font_size=-40, float page_top_padding=400, float page_left_padding=400, float page_right_padding=400, int page_text_font_size=-40, std::string page_text_font_name=&quot;Inter-Medium.ttf&quot;, float page_text_line_height_multiplier=1.5)</td>
+  <td class="method">create_advancing_text_storyboard_screen(std::vector&lt;std::string&gt; pages_text={}, int button_font_size=-40, float page_top_padding=400, float page_left_padding=400, float page_right_padding=400, int page_text_font_size=AllegroFlare::Elements::StoryboardPages::AdvancingText::DEFAULT_FONT_SIZE, std::string page_text_font_name=AllegroFlare::Elements::StoryboardPages::AdvancingText::DEFAULT_FONT_NAME, float page_text_line_height_multiplier=1.5)</td>
 </tr>
     </table>
      <table>
