@@ -261,7 +261,6 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_YouGotEvidence
 }
 
 
-
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_basic_type_dialog_box)
 {
    // TODO

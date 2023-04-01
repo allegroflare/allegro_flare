@@ -16,8 +16,52 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: standard_dialog_box_font_name
+    type: std::string
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_font_size
+    type: int
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Medium.ttf"'
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -36
+
+
+documentation:
+
+
+  - todos:
+    - |
+      Use AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer::DEFAULT_FONT_NAME and *_FONT_SIZE as initial
+      values for DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME and DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+
 
 functions:
+
+
+  - name: deps
+    body: |
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
 
 
   - name: render
@@ -50,6 +94,8 @@ functions:
          AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(font_bin);
 
          basic_dialog_box_renderer.set_current_page_text(basic_dialog_box->get_current_page_text());
+         basic_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
+         basic_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
          basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
          basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
          basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
@@ -80,6 +126,9 @@ functions:
             place.size.x,
             place.size.y
          );
+
+         choice_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
+         choice_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
 
          place.start_transform();
          choice_dialog_box_renderer.render();

@@ -26,10 +26,12 @@ namespace Elements
 {
 
 
-DialogBoxRenderer::DialogBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Base* dialog_box)
+DialogBoxRenderer::DialogBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Base* dialog_box, std::string standard_dialog_box_font_name, int standard_dialog_box_font_size)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , dialog_box(dialog_box)
+   , standard_dialog_box_font_name(standard_dialog_box_font_name)
+   , standard_dialog_box_font_size(standard_dialog_box_font_size)
 {
 }
 
@@ -38,6 +40,35 @@ DialogBoxRenderer::~DialogBoxRenderer()
 {
 }
 
+
+void DialogBoxRenderer::set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name)
+{
+   this->standard_dialog_box_font_name = standard_dialog_box_font_name;
+}
+
+
+void DialogBoxRenderer::set_standard_dialog_box_font_size(int standard_dialog_box_font_size)
+{
+   this->standard_dialog_box_font_size = standard_dialog_box_font_size;
+}
+
+
+std::string DialogBoxRenderer::get_standard_dialog_box_font_name() const
+{
+   return standard_dialog_box_font_name;
+}
+
+
+int DialogBoxRenderer::get_standard_dialog_box_font_size() const
+{
+   return standard_dialog_box_font_size;
+}
+
+
+void DialogBoxRenderer::deps()
+{
+   return;
+}
 
 void DialogBoxRenderer::render()
 {
@@ -110,6 +141,8 @@ void DialogBoxRenderer::render()
       AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(font_bin);
 
       basic_dialog_box_renderer.set_current_page_text(basic_dialog_box->get_current_page_text());
+      basic_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
+      basic_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
       basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
       basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
       basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
@@ -140,6 +173,9 @@ void DialogBoxRenderer::render()
          place.size.x,
          place.size.y
       );
+
+      choice_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
+      choice_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
 
       place.start_transform();
       choice_dialog_box_renderer.render();
