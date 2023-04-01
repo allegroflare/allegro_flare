@@ -13,6 +13,10 @@
 #include <chrono>
 #include <thread>
 
+
+// TODO: Update this test to use AllegroFlare/Testing/WithAllegroRenderingFixture
+
+
 #ifdef _WIN32
 #define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
 #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps"
@@ -198,7 +202,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 
    dialog_box_renderer.render();
    al_flip_display();
-   std::this_thread::sleep_for(std::chrono::seconds(1));
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
 
    al_destroy_display(display);
    al_uninstall_system();
@@ -227,7 +231,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 
    dialog_box_renderer.render();
    al_flip_display();
-   std::this_thread::sleep_for(std::chrono::seconds(1));
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
 
    al_destroy_display(display);
    al_uninstall_system();
