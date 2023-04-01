@@ -31,7 +31,7 @@ namespace FixedRoom2D
 {
 
 
-FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
+FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string standard_dialog_box_font_name, int standard_dialog_box_font_size)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
@@ -51,6 +51,8 @@ FixedRoom2D::FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Font
    , dialog_system(nullptr)
    , paused(false)
    , subscribed_to_game_event_names({})
+   , standard_dialog_box_font_name(standard_dialog_box_font_name)
+   , standard_dialog_box_font_size(standard_dialog_box_font_size)
 {
 }
 
@@ -78,9 +80,33 @@ void FixedRoom2D::set_room_shader(AllegroFlare::Shaders::Base* room_shader)
 }
 
 
+void FixedRoom2D::set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name)
+{
+   this->standard_dialog_box_font_name = standard_dialog_box_font_name;
+}
+
+
+void FixedRoom2D::set_standard_dialog_box_font_size(int standard_dialog_box_font_size)
+{
+   this->standard_dialog_box_font_size = standard_dialog_box_font_size;
+}
+
+
 AllegroFlare::Shaders::Base* FixedRoom2D::get_room_shader() const
 {
    return room_shader;
+}
+
+
+std::string FixedRoom2D::get_standard_dialog_box_font_name() const
+{
+   return standard_dialog_box_font_name;
+}
+
+
+int FixedRoom2D::get_standard_dialog_box_font_size() const
+{
+   return standard_dialog_box_font_size;
 }
 
 
@@ -175,6 +201,9 @@ void FixedRoom2D::initialize()
    dialog_system.set_bitmap_bin(bitmap_bin);
    dialog_system.set_font_bin(font_bin);
    dialog_system.set_event_emitter(event_emitter);
+   dialog_system.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
+   dialog_system.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
+
    dialog_system.initialize();
 
    entity_collection_helper.set_entity_dictionary(&entity_dictionary);

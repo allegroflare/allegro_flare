@@ -30,6 +30,10 @@ namespace AllegroFlare
       {
          class FixedRoom2D
          {
+         public:
+            static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Medium.ttf";
+            static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = -36;
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
@@ -50,6 +54,8 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
             bool paused;
             std::set<std::string> subscribed_to_game_event_names;
+            std::string standard_dialog_box_font_name;
+            int standard_dialog_box_font_size;
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
 
@@ -57,13 +63,17 @@ namespace AllegroFlare
 
 
          public:
-            FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+            FixedRoom2D(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::string standard_dialog_box_font_name=DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME, int standard_dialog_box_font_size=DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE);
             ~FixedRoom2D();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_room_shader(AllegroFlare::Shaders::Base* room_shader);
+            void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
+            void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
             AllegroFlare::Shaders::Base* get_room_shader() const;
+            std::string get_standard_dialog_box_font_name() const;
+            int get_standard_dialog_box_font_size() const;
             AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner &get_script_runner_ref();
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &get_entity_collection_helper_ref();
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

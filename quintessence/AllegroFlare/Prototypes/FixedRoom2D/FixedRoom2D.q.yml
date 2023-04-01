@@ -87,6 +87,34 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: standard_dialog_box_font_name
+    type: std::string
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_font_size
+    type: int
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Medium.ttf"'
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -36
+
 
 functions:
 
@@ -148,6 +176,9 @@ functions:
       dialog_system.set_bitmap_bin(bitmap_bin);
       dialog_system.set_font_bin(font_bin);
       dialog_system.set_event_emitter(event_emitter);
+      dialog_system.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
+      dialog_system.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
+
       dialog_system.initialize();
 
       entity_collection_helper.set_entity_dictionary(&entity_dictionary);
