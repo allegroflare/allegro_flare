@@ -240,6 +240,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_choice_type_dialog_box)
 {
+   // TODO: Rename this test to include "DialogBoxes::Choice type dialog"
    al_init();
    al_init_primitives_addon();
    al_init_font_addon();
@@ -267,6 +268,20 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_choice_type_di
 
    al_destroy_display(display);
    al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+   DISABLED__render__when_the_standard_dialog_box_font_name_is_changed__draws_the_choice_type_dialog_box_as_expected)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+   DISABLED__render__when_the_standard_dialog_box_font_size_is_changed__draws_the_choice_type_dialog_box_as_expected)
+{
+   // TODO
 }
 
 
