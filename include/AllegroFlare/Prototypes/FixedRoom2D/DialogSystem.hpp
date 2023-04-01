@@ -6,7 +6,6 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
-#include <allegro5/allegro_font.h>
 #include <string>
 #include <vector>
 
@@ -25,7 +24,6 @@ namespace AllegroFlare
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
             bool initialized;
-            ALLEGRO_FONT* obtain_font();
 
          protected:
 

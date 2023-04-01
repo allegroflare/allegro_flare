@@ -478,18 +478,6 @@ void DialogSystem::move_cursor_down()
    return;
 }
 
-ALLEGRO_FONT* DialogSystem::obtain_font()
-{
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::obtain_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::obtain_font: error: guard \"font_bin\" not met");
-   }
-   return font_bin->auto_get("Inter-Medium.ttf -52");
-}
-
 
 } // namespace FixedRoom2D
 } // namespace Prototypes
