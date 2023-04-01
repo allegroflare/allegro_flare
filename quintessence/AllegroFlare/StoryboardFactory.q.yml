@@ -84,6 +84,9 @@ functions:
       - name: page_text_font_size
         type: int
         default_argument: -40
+      - name: page_text_font_name
+        type: std::string
+        default_argument: '"Inter-Medium.ttf"'
       - name: page_text_line_height_multiplier
         type: float
         default_argument: 1.5
@@ -107,6 +110,7 @@ functions:
          advancing_text_page->set_top_padding(page_top_padding);
          advancing_text_page->set_left_padding(page_left_padding);
          advancing_text_page->set_right_padding(page_right_padding);
+         advancing_text_page->set_font_name(page_text_font_name);
          advancing_text_page->set_font_size(page_text_font_size);
          advancing_text_page->set_line_height_multiplier(page_text_line_height_multiplier);
          pages.push_back(advancing_text_page);

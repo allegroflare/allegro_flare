@@ -56,7 +56,7 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_images_storyboard_s
    return result;
 }
 
-AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_storyboard_screen(std::vector<std::string> pages_text, int button_font_size, float page_top_padding, float page_left_padding, float page_right_padding, int page_text_font_size, float page_text_line_height_multiplier)
+AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_storyboard_screen(std::vector<std::string> pages_text, int button_font_size, float page_top_padding, float page_left_padding, float page_right_padding, int page_text_font_size, std::string page_text_font_name, float page_text_line_height_multiplier)
 {
    AllegroFlare::Screens::Storyboard* result;
 
@@ -77,6 +77,7 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_stor
       advancing_text_page->set_top_padding(page_top_padding);
       advancing_text_page->set_left_padding(page_left_padding);
       advancing_text_page->set_right_padding(page_right_padding);
+      advancing_text_page->set_font_name(page_text_font_name);
       advancing_text_page->set_font_size(page_text_font_size);
       advancing_text_page->set_line_height_multiplier(page_text_line_height_multiplier);
       pages.push_back(advancing_text_page);
