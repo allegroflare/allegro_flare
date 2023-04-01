@@ -23,11 +23,13 @@ namespace DialogBoxRenderers
 {
 
 
-BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age)
+BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age)
    : font_bin(font_bin)
    , current_page_text(current_page_text)
    , width(width)
    , height(height)
+   , font_name(font_name)
+   , font_size(font_size)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
    , num_revealed_characters(num_revealed_characters)
@@ -66,6 +68,18 @@ void BasicRenderer::set_width(float width)
 void BasicRenderer::set_height(float height)
 {
    this->height = height;
+}
+
+
+void BasicRenderer::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void BasicRenderer::set_font_size(int font_size)
+{
+   this->font_size = font_size;
 }
 
 
@@ -138,6 +152,18 @@ float BasicRenderer::get_width() const
 float BasicRenderer::get_height() const
 {
    return height;
+}
+
+
+std::string BasicRenderer::get_font_name() const
+{
+   return font_name;
+}
+
+
+int BasicRenderer::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -313,8 +339,9 @@ ALLEGRO_FONT* BasicRenderer::obtain_dialog_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicRenderer::obtain_dialog_font: error: guard \"font_bin\" not met");
    }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
-   ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
+   std::stringstream font_identifier;
+   font_identifier << font_name << " " << font_size;
+   ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
    return result_font;
 }
 

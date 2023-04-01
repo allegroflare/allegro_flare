@@ -14,11 +14,17 @@ namespace AllegroFlare
       {
          class BasicRenderer
          {
+         public:
+            static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Medium.ttf";
+            static constexpr int DEFAULT_FONT_SIZE = -36;
+
          private:
             AllegroFlare::FontBin* font_bin;
             std::string current_page_text;
             float width;
             float height;
+            std::string font_name;
+            int font_size;
             float text_padding_x;
             float text_padding_y;
             int num_revealed_characters;
@@ -36,13 +42,15 @@ namespace AllegroFlare
 
 
          public:
-            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text="[unset-current_page_text]", float width=(1920/2.0f), float height=(1080/5.0f), float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f);
+            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text="[unset-current_page_text]", float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f);
             ~BasicRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_current_page_text(std::string current_page_text);
             void set_width(float width);
             void set_height(float height);
+            void set_font_name(std::string font_name);
+            void set_font_size(int font_size);
             void set_text_padding_x(float text_padding_x);
             void set_text_padding_y(float text_padding_y);
             void set_num_revealed_characters(int num_revealed_characters);
@@ -55,6 +63,8 @@ namespace AllegroFlare
             std::string get_current_page_text() const;
             float get_width() const;
             float get_height() const;
+            std::string get_font_name() const;
+            int get_font_size() const;
             float get_text_padding_x() const;
             float get_text_padding_y() const;
             int get_num_revealed_characters() const;
