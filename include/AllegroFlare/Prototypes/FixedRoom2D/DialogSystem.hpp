@@ -18,20 +18,30 @@ namespace AllegroFlare
       {
          class DialogSystem
          {
+         public:
+            static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Medium.ttf";
+            static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = -36;
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
+            std::string standard_dialog_box_font_name;
+            int standard_dialog_box_font_size;
             bool initialized;
 
          protected:
 
 
          public:
-            DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+            DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::string standard_dialog_box_font_name=DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME, int standard_dialog_box_font_size=DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE);
             ~DialogSystem();
 
+            void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
+            void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
+            std::string get_standard_dialog_box_font_name() const;
+            int get_standard_dialog_box_font_size() const;
             AllegroFlare::Elements::DialogBoxes::Base* &get_active_dialog_ref();
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

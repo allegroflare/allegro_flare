@@ -27,11 +27,13 @@ namespace FixedRoom2D
 {
 
 
-DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
+DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string standard_dialog_box_font_name, int standard_dialog_box_font_size)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , active_dialog(nullptr)
+   , standard_dialog_box_font_name(standard_dialog_box_font_name)
+   , standard_dialog_box_font_size(standard_dialog_box_font_size)
    , initialized(false)
 {
 }
@@ -39,6 +41,30 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
 
 DialogSystem::~DialogSystem()
 {
+}
+
+
+void DialogSystem::set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name)
+{
+   this->standard_dialog_box_font_name = standard_dialog_box_font_name;
+}
+
+
+void DialogSystem::set_standard_dialog_box_font_size(int standard_dialog_box_font_size)
+{
+   this->standard_dialog_box_font_size = standard_dialog_box_font_size;
+}
+
+
+std::string DialogSystem::get_standard_dialog_box_font_name() const
+{
+   return standard_dialog_box_font_name;
+}
+
+
+int DialogSystem::get_standard_dialog_box_font_size() const
+{
+   return standard_dialog_box_font_size;
 }
 
 
@@ -169,6 +195,8 @@ void DialogSystem::render()
    if (active_dialog)
    {
       AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
+      dialog_box_renderer.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
+      dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
       dialog_box_renderer.render();
    }
 }

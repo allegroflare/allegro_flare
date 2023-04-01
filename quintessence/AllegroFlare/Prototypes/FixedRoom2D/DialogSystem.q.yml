@@ -21,9 +21,37 @@ properties:
     init_with: nullptr
     getter_ref: true
 
+  - name: standard_dialog_box_font_name
+    type: std::string
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_font_size
+    type: int
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Medium.ttf"'
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -36
 
 
 functions:
@@ -93,6 +121,8 @@ functions:
       if (active_dialog)
       {
          AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
+         dialog_box_renderer.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
+         dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
          dialog_box_renderer.render();
       }
     body_dependency_symbols:
