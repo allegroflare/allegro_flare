@@ -95,7 +95,33 @@ void DialogBoxRenderer::render()
    float standard_dialog_box_width = 1920/2;
    float standard_dialog_box_height = 1080/5;
 
-   if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
+   if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+   {
+      AllegroFlare::Placement2D place{
+         standard_dialog_box_x,
+         standard_dialog_box_y,
+         standard_dialog_box_width,
+         standard_dialog_box_height,
+      };
+
+      AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
+
+      AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(font_bin);
+
+      basic_dialog_box_renderer.set_current_page_text(basic_dialog_box->get_current_page_text());
+      basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
+      basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
+      basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
+      basic_dialog_box_renderer.set_page_finished_at(basic_dialog_box->get_page_finished_at());
+      basic_dialog_box_renderer.set_at_last_page(basic_dialog_box->at_last_page());
+      basic_dialog_box_renderer.set_age(basic_dialog_box->infer_age());
+
+      place.start_transform();
+      basic_dialog_box_renderer.render();
+      place.restore_transform();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
    {
       AllegroFlare::Placement2D place{
          standard_dialog_box_x,
@@ -164,32 +190,6 @@ void DialogBoxRenderer::render()
 
       place.start_transform();
       you_got_evidence_dialog_box_renderer.render();
-      place.restore_transform();
-   }
-   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-   {
-      AllegroFlare::Placement2D place{
-         standard_dialog_box_x,
-         standard_dialog_box_y,
-         standard_dialog_box_width,
-         standard_dialog_box_height,
-      };
-
-      AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box =
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(dialog_box);
-
-      AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(font_bin);
-
-      basic_dialog_box_renderer.set_current_page_text(basic_dialog_box->get_current_page_text());
-      basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
-      basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
-      basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
-      basic_dialog_box_renderer.set_page_finished_at(basic_dialog_box->get_page_finished_at());
-      basic_dialog_box_renderer.set_at_last_page(basic_dialog_box->at_last_page());
-      basic_dialog_box_renderer.set_age(basic_dialog_box->infer_age());
-
-      place.start_transform();
-      basic_dialog_box_renderer.render();
       place.restore_transform();
    }
    else
