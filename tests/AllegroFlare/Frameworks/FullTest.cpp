@@ -463,16 +463,38 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
-   FOCUS__with_config_value_set_for_fullscreen_false__will_create_the_display_in_windowed_mode)
+   FOCUS__with_config_file_value_for_fullscreen_set_to_false__will_create_the_display_in_windowed_mode)
 {
+   static const char* CONFIG_FILENAME = "config/fullscreen_display_config.cfg";
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
-   std::string config_filename_with_fullscreen_false = framework.get_data_folder_path()
-                                                     + "config/fullscreen_display_config.cfg";
+   std::string config_filename_with_fullscreen_false = framework.get_data_folder_path() + CONFIG_FILENAME;
    framework.get_config().set_filename(config_filename_with_fullscreen_false);
    framework.initialize();
 
-   sleep(2);
+   AllegroFlare::Display *framework_display = framework.get_primary_display();
+   ASSERT_NE(nullptr, framework_display);
+
+   EXPECT_EQ(2880, framework_display->get_width());
+   EXPECT_EQ(1620, framework_display->get_height());
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
+   FOCUS__with_config_file_value_for_width_and_height__will_create_the_display_with_the_expected_dimensions)
+{
+   static const char* CONFIG_FILENAME = "config/fullscreen_display_config.cfg";
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   std::string config_filename_with_fullscreen_false = framework.get_data_folder_path() + CONFIG_FILENAME;
+   framework.get_config().set_filename(config_filename_with_fullscreen_false);
+   framework.initialize();
+
+   AllegroFlare::Display *framework_display = framework.get_primary_display();
+   ASSERT_NE(nullptr, framework_display);
+
+   EXPECT_EQ(2880, framework_display->get_width());
+   EXPECT_EQ(1620, framework_display->get_height());
 }
 
 

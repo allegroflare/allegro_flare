@@ -36,6 +36,8 @@ namespace AllegroFlare
       bool initialized;
       bool destroyed;
 
+      bool result_fullscreen;
+
    public:
       Display(
          int width=1920,
@@ -64,6 +66,9 @@ namespace AllegroFlare
 
       int get_samples_requested_at_creation();
       int get_samples();
+
+      void set_fullscreen(bool fullscreen);
+      bool get_result_fullscreen();
 
       void flip();
    };

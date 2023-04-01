@@ -53,6 +53,7 @@ namespace AllegroFlare
       , fullscreen(fullscreen)
       , initialized(false)
       , destroyed(false)
+      , result_fullscreen(false)
       , al_display(nullptr)
    {}
 
@@ -119,6 +120,11 @@ namespace AllegroFlare
 
       samples = al_get_display_option(al_display, ALLEGRO_SAMPLES);
 
+
+      result_fullscreen = al_get_display_flags(al_display) & ALLEGRO_FULLSCREEN_WINDOW;
+
+
+
       std::stringstream display_message;
       display_message << "Display (" << al_display << ") created with the following configuration:" << std::endl;
       display_message << "   - sample_buffers: "
@@ -131,6 +137,8 @@ namespace AllegroFlare
                       << as_yes_no(al_get_display_option(al_display, ALLEGRO_VSYNC)) << std::endl;
       display_message << "             OpenGL: "
                       << as_yes_no(al_get_display_flags(al_display) & ALLEGRO_OPENGL) << std::endl;
+      display_message << "             As fullscreen window: "
+                      << as_yes_no(result_fullscreen) << std::endl;
 
       AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", display_message.str().c_str());
  
@@ -183,6 +191,29 @@ namespace AllegroFlare
       if (!al_is_system_installed() || !al_display) throw std::runtime_error("Display::get_samples() not initialized");
 
       return al_get_display_option(al_display, ALLEGRO_SAMPLES);
+   }
+
+
+   void Display::set_fullscreen(bool fullscreen)
+   {
+      if (initialized)
+      {
+         throw std::runtime_error("[Display::set_fullscreen()]: error: Display has already been created. You can only "
+                                  "set this option prior to calling initialize()"
+                                 );
+      }
+      this->fullscreen = fullscreen;
+   }
+
+
+   bool Display::get_result_fullscreen()
+   {
+      if (!initialized)
+      {
+         throw std::runtime_error("[Display::get_result_fullscreen()]: error: Display has not yet been initialized.");
+      }
+
+      return result_fullscreen;
    }
 
 
