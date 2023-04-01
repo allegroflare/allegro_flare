@@ -18,12 +18,14 @@ namespace DialogBoxRenderers
 {
 
 
-ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height, float text_padding_x, float text_padding_y)
+ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , choice_dialog_box(choice_dialog_box)
    , width(width)
    , height(height)
+   , font_name(font_name)
+   , font_size(font_size)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
 {
@@ -44,6 +46,18 @@ void ChoiceRenderer::set_width(float width)
 void ChoiceRenderer::set_height(float height)
 {
    this->height = height;
+}
+
+
+void ChoiceRenderer::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void ChoiceRenderer::set_font_size(int font_size)
+{
+   this->font_size = font_size;
 }
 
 
@@ -68,6 +82,18 @@ float ChoiceRenderer::get_width() const
 float ChoiceRenderer::get_height() const
 {
    return height;
+}
+
+
+std::string ChoiceRenderer::get_font_name() const
+{
+   return font_name;
+}
+
+
+int ChoiceRenderer::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -196,8 +222,9 @@ ALLEGRO_FONT* ChoiceRenderer::obtain_dialog_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChoiceRenderer::obtain_dialog_font: error: guard \"font_bin\" not met");
    }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
-   ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
+   std::stringstream font_identifier;
+   font_identifier << font_name << " " << font_size;
+   ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
    return result_font;
 }
 

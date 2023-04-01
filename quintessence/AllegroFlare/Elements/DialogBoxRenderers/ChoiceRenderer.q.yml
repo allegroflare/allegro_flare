@@ -30,6 +30,20 @@ properties:
     getter: true
     setter: true
 
+  - name: font_name
+    type: std::string
+    init_with: DEFAULT_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: DEFAULT_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: text_padding_x
     type: float
     init_with: 52.0f
@@ -43,6 +57,20 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: DEFAULT_FONT_NAME
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"Inter-Medium.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    static: true
+    const: true
+    init_with: -36
 
 
 functions:
@@ -137,12 +165,13 @@ functions:
 
 
   - name: obtain_dialog_font
-    guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
     private: true
     type: ALLEGRO_FONT*
+    guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
     body: |
-      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
-      ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
+      std::stringstream font_identifier;
+      font_identifier << font_name << " " << font_size;
+      ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
       return result_font;
 
 
