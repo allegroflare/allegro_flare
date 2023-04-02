@@ -148,6 +148,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/Basic2D",
@@ -276,6 +277,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
@@ -386,6 +388,7 @@
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/UnicodeFontViewer",
@@ -736,6 +739,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
@@ -776,6 +780,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
@@ -800,6 +805,7 @@
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -1382,6 +1388,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
@@ -1400,6 +1407,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
@@ -1632,6 +1640,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
     "WickedDemos/TileDemo"
   ],
   "ALLEGRO_KEY_": [
@@ -1706,6 +1715,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/Version",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Screen": [

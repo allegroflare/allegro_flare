@@ -53,3 +53,10 @@ TEST_F(AllegroFlare_Screens_VersionTestWithAllegroFrameworksFullFixture,
 }
 
 
+TEST_F(AllegroFlare_Screens_VersionTestWithAllegroFrameworksFullFixture,
+   DISABLED__pressing_any_key__will_emit_the_game_event_name_to_emit_on_exit)
+{
+   // TODO
+}
+
+
