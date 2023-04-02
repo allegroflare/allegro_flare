@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/Version.hpp>
 
+#include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -15,13 +16,17 @@ namespace Screens
 {
 
 
-Version::Version(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, std::string game_event_name_to_emit_on_exit)
+Version::Version(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, float surface_width, float surface_height)
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::Version::TYPE)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , model_bin(model_bin)
-   , game_event_name_to_emit_on_exit(game_event_name_to_emit_on_exit)
+   , surface_width(surface_width)
+   , surface_height(surface_height)
+   , cached_calculated_height(0.0f)
+   , rolling_credits_component({})
+   , game_event_name_to_emit_on_exit(DEFAULT_EVENT_NAME_ON_EXIT)
    , initialized(false)
 {
 }
@@ -32,9 +37,39 @@ Version::~Version()
 }
 
 
+void Version::set_surface_width(float surface_width)
+{
+   this->surface_width = surface_width;
+}
+
+
+void Version::set_surface_height(float surface_height)
+{
+   this->surface_height = surface_height;
+}
+
+
 void Version::set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit)
 {
    this->game_event_name_to_emit_on_exit = game_event_name_to_emit_on_exit;
+}
+
+
+float Version::get_surface_width() const
+{
+   return surface_width;
+}
+
+
+float Version::get_surface_height() const
+{
+   return surface_height;
+}
+
+
+float Version::get_cached_calculated_height() const
+{
+   return cached_calculated_height;
 }
 
 
@@ -93,7 +128,6 @@ void Version::set_model_bin(AllegroFlare::ModelBin* model_bin)
       throw std::runtime_error("Version::set_model_bin: error: guard \"(!initialized)\" not met");
    }
    this->model_bin = model_bin;
-   return;
    return;
 }
 
@@ -155,7 +189,24 @@ void Version::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Version::initialize: error: guard \"model_bin\" not met");
    }
+   rolling_credits_component.set_surface_height(surface_height);
+   rolling_credits_component.set_surface_width(surface_width);
+   rolling_credits_component.set_font_bin(font_bin);
+   rolling_credits_component.initialize();
+
+   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
+
+   rolling_credits_component.set_sections({
+      section_factory.create_header("Version"),
+      section_factory.create_column_with_labels({
+         // TODO: Fill out these values
+         { "Allegro", "5.2.8.0" },
+         { "AllegroFlare", "0.8.11-wip" },
+      }),
+   });
+   cached_calculated_height = rolling_credits_component.calculate_height();
    initialized = true;
+   //AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
    return;
 }
 
@@ -193,6 +244,8 @@ void Version::update()
 
 void Version::render()
 {
+   rolling_credits_component.set_y_offset(surface_height/2 - cached_calculated_height/2);
+   rolling_credits_component.render();
    return;
 }
 

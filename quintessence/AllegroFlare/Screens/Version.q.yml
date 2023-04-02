@@ -29,10 +29,32 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: surface_width
+    type: float
+    init_with: 1920
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: float
+    init_with: 1080
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: cached_calculated_height
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: rolling_credits_component
+    type: AllegroFlare::Elements::RollingCredits::RollingCredits
+    init_with: '{}'
+
   - name: game_event_name_to_emit_on_exit
     type: std::string
     init_with: DEFAULT_EVENT_NAME_ON_EXIT
-    constructor_arg: true
     getter: true
     setter: true
 
@@ -98,7 +120,6 @@ functions:
     body: |
       this->model_bin = model_bin;
       return;
-      return;
 
 
   - name: initialize
@@ -112,10 +133,28 @@ functions:
       - font_bin
       - model_bin
     body: |
+      rolling_credits_component.set_surface_height(surface_height);
+      rolling_credits_component.set_surface_width(surface_width);
+      rolling_credits_component.set_font_bin(font_bin);
+      rolling_credits_component.initialize();
+
+      AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
+
+      rolling_credits_component.set_sections({
+         section_factory.create_header("Version"),
+         section_factory.create_column_with_labels({
+            // TODO: Fill out these values
+            { "Allegro", "5.2.8.0" },
+            { "AllegroFlare", "0.8.11-wip" },
+         }),
+      });
+      cached_calculated_height = rolling_credits_component.calculate_height();
       initialized = true;
+      //AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+      - AllegroFlare::Elements::RollingCredits::SectionFactory
 
 
   - name: on_activate
@@ -144,6 +183,8 @@ functions:
 
   - name: render
     body: |
+      rolling_credits_component.set_y_offset(surface_height/2 - cached_calculated_height/2);
+      rolling_credits_component.render();
       return;
 
 
@@ -209,5 +250,9 @@ dependencies:
     headers: [ AllegroFlare/ModelBin.hpp ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::RollingCredits::RollingCredits
+    headers: [ AllegroFlare/Elements/RollingCredits/RollingCredits.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionFactory
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionFactory.hpp ]
 
 

@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Elements/RollingCredits/RollingCredits.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/ModelBin.hpp>
@@ -26,6 +27,10 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::ModelBin* model_bin;
+         float surface_width;
+         float surface_height;
+         float cached_calculated_height;
+         AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits_component;
          std::string game_event_name_to_emit_on_exit;
          bool initialized;
 
@@ -33,10 +38,15 @@ namespace AllegroFlare
 
 
       public:
-         Version(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, std::string game_event_name_to_emit_on_exit=DEFAULT_EVENT_NAME_ON_EXIT);
+         Version(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, float surface_width=1920, float surface_height=1080);
          virtual ~Version();
 
+         void set_surface_width(float surface_width);
+         void set_surface_height(float surface_height);
          void set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit);
+         float get_surface_width() const;
+         float get_surface_height() const;
+         float get_cached_calculated_height() const;
          std::string get_game_event_name_to_emit_on_exit() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);

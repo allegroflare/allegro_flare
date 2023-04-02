@@ -2237,7 +2237,8 @@
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Elements/RollingCredits/RollingCredits": [
-    "AllegroFlare/Screens/RollingCredits"
+    "AllegroFlare/Screens/RollingCredits",
+    "AllegroFlare/Screens/Version"
   ],
   "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
     "AllegroFlare/Screens/RollingCredits"
@@ -2247,6 +2248,9 @@
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "AllegroFlare/Screens/Version"
   ],
   "std/filesystem/file_time_type": [
     "AllegroFlare/ShaderSourcePoller"
