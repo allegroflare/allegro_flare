@@ -1,0 +1,124 @@
+properties:
+
+
+  - name: project_git_hash
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: project_git_timestamp
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: version_number_major
+    type: int 
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: version_number_minor
+    type: int 
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: version_number_patch
+    type: int 
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: version_number_labels
+    type: std::vector<std::string> 
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: version_number_metadata
+    type: std::vector<std::string> 
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: build_number
+    type: int 
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: time_of_build
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: building_platform_os_name
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: building_platform_os_version
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: building_platform_chipset
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: compiler_name
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: compiler_version
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: allegro_version_num
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: allegro_version_git_hash
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: allegro_version_git_timestamp
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: allegro_flare_version_num
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: allegro_flare_version_git_hash
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+  - name: allegro_flare_version_git_timestamp
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+    setter: true
+
+
