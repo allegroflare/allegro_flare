@@ -2252,6 +2252,9 @@
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/Screens/Version"
   ],
+  "ReleaseInfo": [
+    "AllegroFlare/Screens/Version"
+  ],
   "std/filesystem/file_time_type": [
     "AllegroFlare/ShaderSourcePoller"
   ],

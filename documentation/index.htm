@@ -316,6 +316,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/Base.q.yml">quintessence/AllegroFlare/VirtualControllers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
+  <li><a href="#quintessence/ReleaseInfo.q.yml">quintessence/ReleaseInfo.q.yml</a></li>
   <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/AllegroDefault.q.yml">quintessence/Tileo/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/Base.q.yml">quintessence/Tileo/Shaders/Base.q.yml</a></li>
@@ -16419,6 +16420,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionFactory.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ReleaseInfo&quot;, &quot;headers&quot;=&gt;[&quot;ReleaseInfo.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -19235,6 +19239,23 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InputDevicesList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InputDevicesList.hpp&quot;]}</td>
 </tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/ReleaseInfo.q.yml">quintessence/ReleaseInfo.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">version()</td>
+</tr>
+<tr>
+  <td class="method">allegro_flare_version_git_hash()</td>
+</tr>
+    </table>
+     <table>
     </table>
   </div>
 </ul>
@@ -23737,6 +23758,9 @@ table td
     "AllegroFlare/Screens/Transition"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "AllegroFlare/Screens/Version"
+  ],
+  "ReleaseInfo": [
     "AllegroFlare/Screens/Version"
   ],
   "std/filesystem/file_time_type": [
