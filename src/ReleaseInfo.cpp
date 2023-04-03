@@ -7,6 +7,12 @@
 
 
 
+std::string ReleaseInfo::version = "[unset]";
+
+
+std::string ReleaseInfo::allegro_flare_version_git_hash = "[unset]";
+
+
 ReleaseInfo::ReleaseInfo()
 {
 }
@@ -17,15 +23,18 @@ ReleaseInfo::~ReleaseInfo()
 }
 
 
-std::string ReleaseInfo::version()
+std::string ReleaseInfo::get_version()
 {
-   return "[unset]";
+   return version;
 }
 
-std::string ReleaseInfo::allegro_flare_version_git_hash()
+
+std::string ReleaseInfo::get_allegro_flare_version_git_hash()
 {
-   return "[unset]";
+   return allegro_flare_version_git_hash;
 }
+
+
 
 
 

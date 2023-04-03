@@ -146,8 +146,8 @@ functions:
          section_factory.create_header("Version"),
          section_factory.create_column_with_labels({
             // TODO: Fill out these values
-            { "Version", release_info.version() },
-            { "Allegro Flare", release_info.allegro_flare_version_git_hash() },
+            { "Version", release_info.get_version() },
+            { "Allegro Flare", release_info.get_allegro_flare_version_git_hash() },
             //{ "Allegro", "5.2.8.0" },
             //{ "Allegro", "5.2.8.0" },
             //{ "AllegroFlare", "0.8.11-wip" },
