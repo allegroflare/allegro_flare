@@ -36,7 +36,7 @@ properties:
 
   - name: footer_text
     type: std::string
-    init_with: '"version 0.1"'
+    init_with: '""'
     constructor_arg: true
     getter: true
     setter: true
