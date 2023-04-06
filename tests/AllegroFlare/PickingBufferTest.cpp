@@ -19,6 +19,18 @@
 using namespace AllegroFlare;
 
 
+TEST(AllegroFlare_PickingBufferTest, DISABLED__surface_width__before_initialization__will_throw_an_error)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_PickingBufferTest, DISABLED__surface_height__before_initialization__will_throw_an_error)
+{
+   // TODO
+}
+
+
 TEST(AllegroFlare_PickingBufferTest, creates_a_render_surface_with_or_without_a_depth_buffer)
 {
    //ASSERT_EQ(false, al_is_system_installed());

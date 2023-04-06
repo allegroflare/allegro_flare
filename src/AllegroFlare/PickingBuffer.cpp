@@ -22,6 +22,7 @@ namespace AllegroFlare
       , w(w)
       , h(h)
       , depth(depth)
+      , initialized(false)
    {
    }
 
@@ -37,10 +38,15 @@ namespace AllegroFlare
 
    void PickingBuffer::initialize()
    {
+      if (initialized)
+      {
+         std::runtime_error("[AllegroFlare::PickingBuffer::initialize]: error: Cannot already be initialized");
+      }
       if (surface_render) al_destroy_bitmap(surface_render);
       surface_render = create_new_surface(w, h, depth);
       if (!surface_render) throw std::runtime_error("surface_render not created");
       clear_surface();
+      initialized = true;
    }
 
 
@@ -82,6 +88,27 @@ namespace AllegroFlare
       return surface_render;
    }
 
+
+
+   void PickingBuffer::set_surface_width(int surface_width)
+   {
+      if (initialized)
+      {
+         std::runtime_error("[AllegroFlare::PickingBuffer::set_surface_width]: error: Cannot already be initialized");
+      }
+      w = surface_width;
+   }
+
+
+
+   void PickingBuffer::set_surface_height(int surface_height)
+   {
+      if (initialized)
+      {
+         std::runtime_error("[AllegroFlare::PickingBuffer::set_surface_height]: error: Cannot already be initialized");
+      }
+      h = surface_height;
+   }
 
 
 

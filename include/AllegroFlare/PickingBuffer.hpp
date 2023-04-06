@@ -13,6 +13,7 @@ namespace AllegroFlare
       ALLEGRO_BITMAP *surface_render;
       int w, h;
       int depth;
+      bool initialized;
 
       ALLEGRO_BITMAP *create_new_surface(int w, int h, int depth);
       //static int decode_id(ALLEGRO_COLOR color);
@@ -28,6 +29,8 @@ namespace AllegroFlare
 
       void clear_surface();
       ALLEGRO_BITMAP *get_surface_render();
+      void set_surface_width(int surface_width=1);
+      void set_surface_height(int surface_height=1);
       int get_surface_width();
       int get_surface_height();
       int get_id(int x, int y);
