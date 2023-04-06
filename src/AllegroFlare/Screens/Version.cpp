@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
+#include <BuildInfo.hpp>
 #include <ReleaseInfo.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -198,6 +199,7 @@ void Version::initialize()
    AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
 
    ReleaseInfo release_info;
+   BuildInfo build_info;
 
    rolling_credits_component.set_sections({
       section_factory.create_header("Version"),
@@ -205,9 +207,16 @@ void Version::initialize()
          // TODO: Fill out these values
          { "Version", release_info.get_version() },
          { "Allegro Flare", release_info.get_allegro_flare_version_git_hash() },
+         //{ "Allegro Flare", release_info.get_allegro_flare_version_git_hash() },
          //{ "Allegro", "5.2.8.0" },
          //{ "Allegro", "5.2.8.0" },
          //{ "AllegroFlare", "0.8.11-wip" },
+      }),
+      section_factory.create_header("Build"),
+      section_factory.create_column_with_labels({
+         // TODO: Fill out these values
+         { "Allegro5", build_info.get_allegro_version_git_hash() },
+         { "Time of Build", build_info.get_time_of_build() },
       }),
    });
    cached_calculated_height = rolling_credits_component.calculate_height();
