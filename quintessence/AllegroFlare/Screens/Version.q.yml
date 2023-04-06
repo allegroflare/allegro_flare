@@ -157,8 +157,8 @@ functions:
          section_factory.create_header("Build"),
          section_factory.create_column_with_labels({
             // TODO: Fill out these values
-            { "Allegro5", build_info.get_allegro_version_git_hash() },
             { "Time of Build", build_info.get_time_of_build() },
+            { "Allegro5", build_info.get_allegro_version_git_hash() },
          }),
       });
       cached_calculated_height = rolling_credits_component.calculate_height();
