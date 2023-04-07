@@ -81,6 +81,7 @@ Full::Full()
    , input_hints_backfill_opacity(0.35)
    , input_hints_bar_height(60)
    , fullscreen(true)
+   , mipmapping(true)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
    , shader_source_poller()
@@ -256,7 +257,7 @@ bool Full::initialize_core_system()
 
    primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
 
-   al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+   if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
    event_queue = al_create_event_queue();
    al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -484,7 +485,6 @@ bool Full::initialize()
 }
 
 
-
 void Full::disable_fullscreen()
 {
    if (initialized)
@@ -497,6 +497,18 @@ void Full::disable_fullscreen()
    if (!initialized) fullscreen = false;
 }
 
+
+void Full::disable_mipmapping()
+{
+   if (initialized)
+   {
+      std::cout << "[AllegroFlare::Frameworks::Full::disable_mipmapping]: WARNING: "
+                << "could not disable because the framework has already been initialized.  "
+                << "For now, you must disable the mipmapping before initializing the framework for it to take effect."
+                << std::endl;
+   }
+   if (!initialized) mipmapping = false;
+}
 
 
 void Full::disable_unset_deployment_environment_warning_on_initialization()
