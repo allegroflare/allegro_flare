@@ -30,13 +30,11 @@ functions:
     static: true
     type: std::string
     body: |
-      // TODO: improve this logic dependent on #define and not in sync with Testing/WithAllegroRenderingFixture
-      #ifdef _WIN32
-      #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
-      #else
-      #define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
-      #endif
-      return TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER + build_full_test_name_str() + ".png";
+      // Concede that this is relative and does assume that the folder exists.  In the future, these result
+      // snapshots should be stored in a specific folder for *each build*.  This will accumulate over time, so might
+      // need to be cleaned occasionally.  This should also detect if there is a png file with the name already
+      // present, and appnd a (2) after it.
+      return "./tmp/test_snapshots/" + build_full_test_name_str() + ".png";
 
 
 dependencies:

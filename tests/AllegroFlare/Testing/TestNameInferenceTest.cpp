@@ -31,8 +31,6 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest, get_test_suite_name__returns_th
 TEST(AllegroFlare_Testing_TestNameInferenceTest, build_full_test_name_str__returns_a_full_decorated_name_of_the_test)
 {
    AllegroFlare::Testing::TestNameInference test_name_inference;
-"AllegroFlare_Testing_TestNameInferenceTest - build_full_test_name_str__returns_a_full_decorated_name_of_the_test";
-
    std::string expected_full_test_name = "AllegroFlare_Testing_TestNameInferenceTest - build_full_test_name_str__"
                                          "returns_a_full_decorated_name_of_the_test";
    std::string actual_full_test_name = test_name_inference.build_full_test_name_str();
@@ -40,6 +38,15 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest, build_full_test_name_str__retur
 }
 
 
-// TODO: build_test_snapshot_full_filename
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   build_test_snapshot_full_filename__returns_a_relative_png_filename_for_the_test_snapshot)
+{
+   AllegroFlare::Testing::TestNameInference test_name_inference;
+   std::string expected_snapshot_filename = "./tmp/test_snapshots/AllegroFlare_Testing_TestNameInferenceTest - build_"
+                                            "test_snapshot_full_filename__returns_a_relative_png_filename_for_the_test_"
+                                            "snapshot.png";
+   std::string actual_snapshot_filename = test_name_inference.build_test_snapshot_full_filename();
+   EXPECT_EQ(expected_snapshot_filename, actual_snapshot_filename);
+}
 
 
