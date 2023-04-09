@@ -26,7 +26,7 @@ namespace AllegroFlare
 
 
          public:
-            ScreenCapture(int inv_scale=DEFAULT_INV_SCALE);
+            ScreenCapture();
             virtual ~ScreenCapture();
 
             int get_inv_scale() const;

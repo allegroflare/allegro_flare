@@ -12,7 +12,6 @@ properties:
   - name: inv_scale
     type: int
     init_with: DEFAULT_INV_SCALE
-    constructor_arg: true
     getter: true
     setter: false
 

@@ -16,9 +16,9 @@ namespace Backgrounds
 {
 
 
-ScreenCapture::ScreenCapture(int inv_scale)
+ScreenCapture::ScreenCapture()
    : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::ScreenCapture::TYPE)
-   , inv_scale(inv_scale)
+   , inv_scale(DEFAULT_INV_SCALE)
    , capture(nullptr)
    , initialized(false)
 {
