@@ -15460,8 +15460,8 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">background_bitmap_name</td>
-  <td class="property">std::string</td>
+  <td class="property">background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
 <tr>
   <td class="property">title_bitmap_name</td>
@@ -15521,6 +15521,9 @@ table td
   <td class="method">on_activate()</td>
 </tr>
 <tr>
+  <td class="method">on_deactivate()</td>
+</tr>
+<tr>
   <td class="method">set_menu_options(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; menu_options={})</td>
 </tr>
 <tr>
@@ -15540,9 +15543,6 @@ table td
 </tr>
 <tr>
   <td class="method">render()</td>
-</tr>
-<tr>
-  <td class="method">draw_background()</td>
 </tr>
 <tr>
   <td class="method">draw_title()</td>
@@ -15569,9 +15569,6 @@ table td
   <td class="private_method">obtain_footer_font()</td>
 </tr>
 <tr>
-  <td class="private_method">obtain_background_bitmap()</td>
-</tr>
-<tr>
   <td class="private_method">obtain_title_bitmap()</td>
 </tr>
 <tr>
@@ -15588,9 +15585,6 @@ table td
 </tr>
     </table>
      <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_START_NEW_GAME&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
@@ -15650,6 +15644,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -22375,7 +22372,6 @@ table td
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/VirtualControlsProcessor",
@@ -22435,7 +22431,8 @@ table td
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",

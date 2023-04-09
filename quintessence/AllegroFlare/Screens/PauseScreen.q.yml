@@ -41,9 +41,9 @@ properties:
     getter: true
     setter: true
 
-  - name: background_bitmap_name
-    type: std::string
-    init_with: '""'
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
@@ -142,7 +142,16 @@ functions:
     virtual: true
     override: true
     body: |
+      if (background) background->activate();
       cursor_position = 0;
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    body: |
+      if (background) background->deactivate();
       return;
 
 
@@ -213,6 +222,7 @@ functions:
     virtual: true
     override: true
     body: |
+      if (background) background->update();
       render();
       return;
 
@@ -220,23 +230,10 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      draw_background();
+      if (background) background->render();
       draw_title();
       if (show_footer_text) draw_footer_text();
       draw_menu();
-      return;
-
-
-  - name: draw_background
-    body: |
-      if (background_bitmap_name.empty()) return;
-      ALLEGRO_BITMAP *background = obtain_background_bitmap();
-      if (!background) return;
-
-      al_draw_scaled_bitmap(background,
-         0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),
-         0, 0, 1920, 1080, 0);
-
       return;
 
 
@@ -422,14 +419,6 @@ functions:
       return font_bin->auto_get(composite_font_str.str());
 
 
-  - name: obtain_background_bitmap
-    private: true
-    type: ALLEGRO_BITMAP*
-    guards: [ bitmap_bin ]
-    body: |
-      return bitmap_bin->auto_get(background_bitmap_name);
-
-
   - name: obtain_title_bitmap
     private: true
     type: ALLEGRO_BITMAP*
@@ -492,8 +481,6 @@ functions:
 
 dependencies:
 
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FLARE_EVENT_START_NEW_GAME
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::EventEmitter*
@@ -518,7 +505,6 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
-
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT
@@ -535,5 +521,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 

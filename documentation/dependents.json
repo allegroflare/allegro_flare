@@ -803,7 +803,6 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/VirtualControlsProcessor",
@@ -863,7 +862,8 @@
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",

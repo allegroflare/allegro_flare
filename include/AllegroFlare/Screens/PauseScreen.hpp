@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -26,7 +27,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          std::string title_text;
          std::string footer_text;
-         std::string background_bitmap_name;
+         AllegroFlare::Elements::Backgrounds::Base* background;
          std::string title_bitmap_name;
          std::string font_name;
          ALLEGRO_COLOR title_text_color;
@@ -48,7 +49,6 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_menu_font();
          ALLEGRO_FONT* obtain_footer_font();
-         ALLEGRO_BITMAP* obtain_background_bitmap();
          ALLEGRO_BITMAP* obtain_title_bitmap();
          bool menu_is_empty();
          bool menu_has_items();
@@ -57,7 +57,7 @@ namespace AllegroFlare
 
 
       public:
-         PauseScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="GAME PAUSED", std::string footer_text="", std::string background_bitmap_name="", std::string title_bitmap_name="", std::string font_name="Inter-Medium.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR footer_text_color=ALLEGRO_COLOR{0.2, 0.2, 0.25, 1.0}, int title_font_size=-70, int menu_font_size=-30, int footer_font_size=-28, bool show_footer_text=true);
+         PauseScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="GAME PAUSED", std::string footer_text="", AllegroFlare::Elements::Backgrounds::Base* background=nullptr, std::string title_bitmap_name="", std::string font_name="Inter-Medium.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR footer_text_color=ALLEGRO_COLOR{0.2, 0.2, 0.25, 1.0}, int title_font_size=-70, int menu_font_size=-30, int footer_font_size=-28, bool show_footer_text=true);
          virtual ~PauseScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
@@ -65,7 +65,7 @@ namespace AllegroFlare
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_title_text(std::string title_text);
          void set_footer_text(std::string footer_text);
-         void set_background_bitmap_name(std::string background_bitmap_name);
+         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          void set_title_bitmap_name(std::string title_bitmap_name);
          void set_font_name(std::string font_name);
          void set_title_text_color(ALLEGRO_COLOR title_text_color);
@@ -79,7 +79,7 @@ namespace AllegroFlare
          void set_title_menu_gutter(float title_menu_gutter);
          std::string get_title_text() const;
          std::string get_footer_text() const;
-         std::string get_background_bitmap_name() const;
+         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          std::string get_title_bitmap_name() const;
          std::string get_font_name() const;
          ALLEGRO_COLOR get_title_text_color() const;
@@ -94,11 +94,11 @@ namespace AllegroFlare
          int get_cursor_position() const;
          float get_title_menu_gutter() const;
          virtual void on_activate() override;
+         virtual void on_deactivate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
          virtual void primary_timer_func() override;
          void render();
-         void draw_background();
          void draw_title();
          void draw_footer_text();
          void draw_menu();

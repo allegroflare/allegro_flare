@@ -17,14 +17,14 @@ namespace Screens
 {
 
 
-PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string footer_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR footer_text_color, int title_font_size, int menu_font_size, int footer_font_size, bool show_footer_text)
+PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string footer_text, AllegroFlare::Elements::Backgrounds::Base* background, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR footer_text_color, int title_font_size, int menu_font_size, int footer_font_size, bool show_footer_text)
    : AllegroFlare::Screens::Base("PauseScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , title_text(title_text)
    , footer_text(footer_text)
-   , background_bitmap_name(background_bitmap_name)
+   , background(background)
    , title_bitmap_name(title_bitmap_name)
    , font_name(font_name)
    , title_text_color(title_text_color)
@@ -77,9 +77,9 @@ void PauseScreen::set_footer_text(std::string footer_text)
 }
 
 
-void PauseScreen::set_background_bitmap_name(std::string background_bitmap_name)
+void PauseScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
 {
-   this->background_bitmap_name = background_bitmap_name;
+   this->background = background;
 }
 
 
@@ -161,9 +161,9 @@ std::string PauseScreen::get_footer_text() const
 }
 
 
-std::string PauseScreen::get_background_bitmap_name() const
+AllegroFlare::Elements::Backgrounds::Base* PauseScreen::get_background() const
 {
-   return background_bitmap_name;
+   return background;
 }
 
 
@@ -247,7 +247,14 @@ float PauseScreen::get_title_menu_gutter() const
 
 void PauseScreen::on_activate()
 {
+   if (background) background->activate();
    cursor_position = 0;
+   return;
+}
+
+void PauseScreen::on_deactivate()
+{
+   if (background) background->deactivate();
    return;
 }
 
@@ -308,6 +315,7 @@ void PauseScreen::select_menu_option()
 
 void PauseScreen::primary_timer_func()
 {
+   if (background) background->update();
    render();
    return;
 }
@@ -328,23 +336,10 @@ void PauseScreen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("PauseScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
-   draw_background();
+   if (background) background->render();
    draw_title();
    if (show_footer_text) draw_footer_text();
    draw_menu();
-   return;
-}
-
-void PauseScreen::draw_background()
-{
-   if (background_bitmap_name.empty()) return;
-   ALLEGRO_BITMAP *background = obtain_background_bitmap();
-   if (!background) return;
-
-   al_draw_scaled_bitmap(background,
-      0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),
-      0, 0, 1920, 1080, 0);
-
    return;
 }
 
@@ -537,18 +532,6 @@ ALLEGRO_FONT* PauseScreen::obtain_footer_font()
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << footer_font_size;
    return font_bin->auto_get(composite_font_str.str());
-}
-
-ALLEGRO_BITMAP* PauseScreen::obtain_background_bitmap()
-{
-   if (!(bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[PauseScreen::obtain_background_bitmap]: error: guard \"bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PauseScreen::obtain_background_bitmap: error: guard \"bitmap_bin\" not met");
-   }
-   return bitmap_bin->auto_get(background_bitmap_name);
 }
 
 ALLEGRO_BITMAP* PauseScreen::obtain_title_bitmap()
