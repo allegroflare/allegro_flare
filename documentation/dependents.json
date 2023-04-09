@@ -101,7 +101,6 @@
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
-    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
@@ -453,7 +452,6 @@
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",

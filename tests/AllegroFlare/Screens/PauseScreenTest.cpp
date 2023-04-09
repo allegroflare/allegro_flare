@@ -20,6 +20,7 @@ class AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture :
 
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
+#include <AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp>
 
 
 TEST_F(AllegroFlare_Screens_PauseScreenTest, can_be_created_without_blowing_up)
@@ -105,6 +106,24 @@ TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
    CAPTURE__render__when_show_footer_text_is_false__will_not_render_the_footer_text)
 {
    AllegroFlare::Screens::PauseScreen pause_screen(nullptr, &get_font_bin_ref(), &get_bitmap_bin_ref());
+   pause_screen.set_show_footer_text(false);
+
+   pause_screen.render();
+
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
+   CAPTURE__render__when_a_background_is_present__it_will_be_rendered)
+{
+   AllegroFlare::Elements::Backgrounds::ImageIdentifier image_identifier_background(
+      &get_bitmap_bin_ref(),
+      "deep-green-leaves-white-veins-960x540.jpg"
+   );
+   AllegroFlare::Screens::PauseScreen pause_screen(nullptr, &get_font_bin_ref(), &get_bitmap_bin_ref());
+   pause_screen.set_background(&image_identifier_background);
+
    pause_screen.set_show_footer_text(false);
 
    pause_screen.render();

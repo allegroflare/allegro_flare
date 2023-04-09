@@ -222,8 +222,15 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->update();
+      update();
       render();
+      return;
+
+
+  - name: update
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      if (background) background->update();
       return;
 
 

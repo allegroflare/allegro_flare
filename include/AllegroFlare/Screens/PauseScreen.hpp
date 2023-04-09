@@ -98,6 +98,7 @@ namespace AllegroFlare
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
          virtual void primary_timer_func() override;
+         void update();
          void render();
          void draw_title();
          void draw_footer_text();

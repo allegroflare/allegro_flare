@@ -9,12 +9,6 @@
 
 #include <AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp>
 
-#ifdef _WIN32
-#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
-#else
-#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
-#endif
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <chrono>
 #include <thread>
@@ -39,8 +33,6 @@ TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, has_the_expected_typ
 
 TEST_F(AllegroFlare_Elements_Backgrounds_ImageIdentifierWithAllegroRenderingFixtureTest, render__will_render_the_image)
 {
-   get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
-
    AllegroFlare::Elements::Backgrounds::ImageIdentifier image_background(
          &get_bitmap_bin_ref(),
          "deep-green-leaves-white-veins-960x540.jpg"

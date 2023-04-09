@@ -1707,14 +1707,6 @@ table td
   <td class="property">image_filename</td>
   <td class="property">std::string</td>
 </tr>
-<tr>
-  <td class="property">reveal_counter</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">reveal_speed</td>
-  <td class="property">float</td>
-</tr>
     </table>
      <table>
 <tr>
@@ -1723,37 +1715,19 @@ table td
 <tr>
   <td class="private_method">obtain_background_bitmap()</td>
 </tr>
-<tr>
-  <td class="method">activate()</td>
-</tr>
-<tr>
-  <td class="method">deactivate()</td>
-</tr>
-<tr>
-  <td class="method">update()</td>
-</tr>
-<tr>
-  <td class="method">infer_opacity()</td>
-</tr>
     </table>
      <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
-</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15542,6 +15516,9 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
   <td class="method">render()</td>
 </tr>
 <tr>
@@ -21670,7 +21647,6 @@ table td
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
-    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
@@ -22022,7 +21998,6 @@ table td
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",

@@ -18,8 +18,6 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             std::string image_filename;
-            float reveal_counter;
-            float reveal_speed;
             ALLEGRO_BITMAP* obtain_background_bitmap();
 
          protected:
@@ -27,14 +25,9 @@ namespace AllegroFlare
 
          public:
             ImageIdentifier(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string image_filename="[image-filename-not-set]");
-            virtual ~ImageIdentifier();
+            ~ImageIdentifier();
 
-            float get_reveal_counter() const;
             void render() override;
-            virtual void activate() override;
-            virtual void deactivate() override;
-            virtual void update() override;
-            float infer_opacity();
          };
       }
    }

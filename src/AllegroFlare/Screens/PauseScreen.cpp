@@ -315,8 +315,28 @@ void PauseScreen::select_menu_option()
 
 void PauseScreen::primary_timer_func()
 {
-   if (background) background->update();
+   update();
    render();
+   return;
+}
+
+void PauseScreen::update()
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[PauseScreen::update]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PauseScreen::update: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[PauseScreen::update]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PauseScreen::update: error: guard \"al_is_font_addon_initialized()\" not met");
+   }
+   if (background) background->update();
    return;
 }
 
