@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <filesystem>
+#include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
 
 
 class TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture
@@ -58,15 +59,23 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
-   DISABLED__clear_will_clear_the_current_target_rendering_surface_to_an_eigengrau_color)
+   DISABLED__clear_will_clear_the_current_target_rendering_surface_to_the_expected_dark_gamer_gray_color)
 {
-   ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
-   ALLEGRO_COLOR expected_clear_color = eigengrau;
+   ALLEGRO_COLOR expected_clear_color = ALLEGRO_COLOR{0.05f, 0.05f, 0.055f, 1.0f};
 
    clear();
    ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
    al_lock_bitmap(backbuffer, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_READONLY);
-   // TODO: pick each pixel
+
+   for (int y=0; y<al_get_bitmap_height(backbuffer); y++)
+   {
+      for (int x=0; x<al_get_bitmap_width(backbuffer); x++)
+      {
+         ALLEGRO_COLOR picked_color = al_get_pixel(backbuffer, x, y);
+         ASSERT_EQ(expected_clear_color, picked_color);
+      }
+   }
+
    al_unlock_bitmap(backbuffer);
 }
 
