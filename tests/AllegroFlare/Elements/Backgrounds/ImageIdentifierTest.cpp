@@ -7,7 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
-#include <AllegroFlare/Elements/Backgrounds/Image.hpp>
+#include <AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp>
 
 #ifdef _WIN32
 #define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
@@ -19,29 +19,29 @@
 #include <chrono>
 #include <thread>
 
-class AllegroFlare_Elements_Backgrounds_ImageTest : public ::testing::Test {};
-class AllegroFlare_Elements_Backgrounds_ImageWithAllegroRenderingFixtureTest
+class AllegroFlare_Elements_Backgrounds_ImageIdentifierTest : public ::testing::Test {};
+class AllegroFlare_Elements_Backgrounds_ImageIdentifierWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
-TEST(AllegroFlare_Elements_Backgrounds_ImageTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Elements::Backgrounds::Image image_background;
+   AllegroFlare::Elements::Backgrounds::ImageIdentifier image_background;
 }
 
 
-TEST(AllegroFlare_Elements_Backgrounds_ImageTest, has_the_expected_type)
+TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, has_the_expected_type)
 {
-   AllegroFlare::Elements::Backgrounds::Image image_background;
-   EXPECT_EQ("Image", image_background.get_type());
+   AllegroFlare::Elements::Backgrounds::ImageIdentifier image_background;
+   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/ImageIdentifier", image_background.get_type());
 }
 
 
-TEST_F(AllegroFlare_Elements_Backgrounds_ImageWithAllegroRenderingFixtureTest, render__will_render_the_image)
+TEST_F(AllegroFlare_Elements_Backgrounds_ImageIdentifierWithAllegroRenderingFixtureTest, render__will_render_the_image)
 {
    get_bitmap_bin_ref().set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
 
-   AllegroFlare::Elements::Backgrounds::Image image_background(
+   AllegroFlare::Elements::Backgrounds::ImageIdentifier image_background(
          &get_bitmap_bin_ref(),
          "deep-green-leaves-white-veins-960x540.jpg"
       );

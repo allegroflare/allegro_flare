@@ -100,8 +100,8 @@
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/BackgroundFactory",
-    "AllegroFlare/Elements/Backgrounds/Image",
-    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
+    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
@@ -161,7 +161,7 @@
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/BackgroundFactory"
   ],
-  "AllegroFlare/Elements/Backgrounds/Image": [
+  "AllegroFlare/Elements/Backgrounds/ImageIdentifier": [
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/BackgroundFactory"
   ],
@@ -411,7 +411,7 @@
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
-    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Base",
@@ -453,8 +453,8 @@
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/Backgrounds/Image",
-    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
+    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
@@ -861,7 +861,7 @@
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",
-    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],

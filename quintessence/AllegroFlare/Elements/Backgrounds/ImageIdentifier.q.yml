@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
-    init_with: '"Image"'
+    init_with: '"AllegroFlare/Elements/Backgrounds/ImageIdentifier"'
 
 
 properties:
@@ -18,10 +18,6 @@ properties:
     type: std::string
     init_with: '"[image-filename-not-set]"'
     constructor_arg: true
-
-  - name: image_file_location_prefix
-    type: std::string
-    init_with: '"backgrounds/"'
 
   - name: reveal_counter
     type: float
@@ -59,7 +55,7 @@ functions:
     type: ALLEGRO_BITMAP*
     private: true
     body: |
-      std::string full_identifier = image_file_location_prefix + image_filename;
+      std::string full_identifier = image_filename;
       return bitmap_bin->auto_get(full_identifier);
 
 

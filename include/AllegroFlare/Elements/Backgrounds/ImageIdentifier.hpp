@@ -13,12 +13,11 @@ namespace AllegroFlare
    {
       namespace Backgrounds
       {
-         class Image : public AllegroFlare::Elements::Backgrounds::Base
+         class ImageIdentifier : public AllegroFlare::Elements::Backgrounds::Base
          {
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             std::string image_filename;
-            std::string image_file_location_prefix;
             float reveal_counter;
             float reveal_speed;
             ALLEGRO_BITMAP* obtain_background_bitmap();
@@ -27,8 +26,8 @@ namespace AllegroFlare
 
 
          public:
-            Image(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string image_filename="[image-filename-not-set]");
-            virtual ~Image();
+            ImageIdentifier(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string image_filename="[image-filename-not-set]");
+            virtual ~ImageIdentifier();
 
             float get_reveal_counter() const;
             void render() override;

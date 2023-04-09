@@ -26,10 +26,10 @@ TEST(AllegroFlare_BackgroundFactoryTest, create_image__creates_an_image_type_bac
    AllegroFlare::BitmapBin bitmap_bin;
    AllegroFlare::BackgroundFactory background_factory(&bitmap_bin);
 
-   AllegroFlare::Elements::Backgrounds::Image* created_image_background = background_factory.create_image();
+   AllegroFlare::Elements::Backgrounds::ImageIdentifier* created_image_background = background_factory.create_image();
 
    ASSERT_NE(nullptr, created_image_background);
-   EXPECT_EQ("Image", created_image_background->get_type());
+   EXPECT_EQ("ImageIdentifier", created_image_background->get_type());
 }
 
 

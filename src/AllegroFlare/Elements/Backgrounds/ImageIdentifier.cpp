@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Elements/Backgrounds/Image.hpp>
+#include <AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp>
 
 #include <AllegroFlare/Placement2D.hpp>
 #include <iostream>
@@ -16,36 +16,35 @@ namespace Backgrounds
 {
 
 
-Image::Image(AllegroFlare::BitmapBin* bitmap_bin, std::string image_filename)
-   : AllegroFlare::Elements::Backgrounds::Base("Image")
+ImageIdentifier::ImageIdentifier(AllegroFlare::BitmapBin* bitmap_bin, std::string image_filename)
+   : AllegroFlare::Elements::Backgrounds::Base("AllegroFlare/Elements/Backgrounds/ImageIdentifier")
    , bitmap_bin(bitmap_bin)
    , image_filename(image_filename)
-   , image_file_location_prefix("backgrounds/")
    , reveal_counter(0)
    , reveal_speed(1.0f/60.0f)
 {
 }
 
 
-Image::~Image()
+ImageIdentifier::~ImageIdentifier()
 {
 }
 
 
-float Image::get_reveal_counter() const
+float ImageIdentifier::get_reveal_counter() const
 {
    return reveal_counter;
 }
 
 
-void Image::render()
+void ImageIdentifier::render()
 {
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Image::render]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[ImageIdentifier::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Image::render: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("ImageIdentifier::render: error: guard \"bitmap_bin\" not met");
    }
    float o = infer_opacity();
    ALLEGRO_COLOR revealing_white = ALLEGRO_COLOR{o, o, o, o};
@@ -60,25 +59,25 @@ void Image::render()
    return;
 }
 
-ALLEGRO_BITMAP* Image::obtain_background_bitmap()
+ALLEGRO_BITMAP* ImageIdentifier::obtain_background_bitmap()
 {
-   std::string full_identifier = image_file_location_prefix + image_filename;
+   std::string full_identifier = image_filename;
    return bitmap_bin->auto_get(full_identifier);
 }
 
-void Image::activate()
+void ImageIdentifier::activate()
 {
    reveal_counter = 1.0;
    return;
 }
 
-void Image::deactivate()
+void ImageIdentifier::deactivate()
 {
    reveal_counter = 0.0;
    return;
 }
 
-void Image::update()
+void ImageIdentifier::update()
 {
    reveal_counter += reveal_speed;
    if (reveal_counter >= 1.0) reveal_counter = 1.0f;
@@ -86,7 +85,7 @@ void Image::update()
    return;
 }
 
-float Image::infer_opacity()
+float ImageIdentifier::infer_opacity()
 {
    return get_reveal_counter();
 }

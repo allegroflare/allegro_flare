@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/Backgrounds/Image.hpp>
+#include <AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp>
 #include <AllegroFlare/Elements/Backgrounds/Monoplex.hpp>
 #include <string>
 
@@ -22,7 +22,7 @@ namespace AllegroFlare
       ~BackgroundFactory();
 
       AllegroFlare::Elements::Backgrounds::Monoplex* create_monoplex();
-      AllegroFlare::Elements::Backgrounds::Image* create_image(std::string image_identifier="[unset-default-image-identifer-for-background-factory]");
+      AllegroFlare::Elements::Backgrounds::ImageIdentifier* create_image(std::string image_identifier="[unset-default-image-identifer-for-background-factory]");
    };
 }
 
