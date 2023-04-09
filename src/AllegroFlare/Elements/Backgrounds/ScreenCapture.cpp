@@ -105,11 +105,10 @@ void ScreenCapture::render()
          al_get_bitmap_height(capture),
          0,
          0,
-         1920, //al_get_display_width(al_get_current_display()),
-         1080, //al_get_bitmap_height(al_get_current_display()),
+         1920,
+         1080,
          0
       );
-      //al_draw_bitmap(capture, 0, 0, 0);
    }
 }
 
