@@ -1451,6 +1451,7 @@ int Full::process_events_in_queue()
 void Full::run_loop(float auto_shutdown_after_seconds)
 {
    al_wait_for_vsync();
+   //std::this_thread::sleep_for(std::chrono::microseconds(8000));
    al_start_timer(primary_timer);
    event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
    float loop_started_at = al_get_time();

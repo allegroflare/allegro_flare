@@ -49,6 +49,13 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
+   SetUp__will_set_proifiler_pointer_to_the_pointer_of_the_framework)
+{
+   EXPECT_EQ(get_framework_profiler(), &get_framework_ref().get_profiler_ref());
+}
+
+
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
    DISABLED__will_set_the_window_title_to_the_test_suite_name_and_test_name)
 {
    // NOTE: cannot currently test this, Allegro5 does not currently have a al_get_window_title() feature

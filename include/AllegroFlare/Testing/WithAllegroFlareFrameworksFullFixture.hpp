@@ -6,6 +6,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/Profiler.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <gtest/gtest.h>
 #include <string>
@@ -23,6 +24,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* framework_bitmap_bin;
          AllegroFlare::FontBin* framework_font_bin;
          AllegroFlare::ModelBin* framework_model_bin;
+         AllegroFlare::Profiler* framework_profiler;
          std::string test_snapshots_folder;
          bool initialized;
 
@@ -37,6 +39,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* get_framework_bitmap_bin() const;
          AllegroFlare::FontBin* get_framework_font_bin() const;
          AllegroFlare::ModelBin* get_framework_model_bin() const;
+         AllegroFlare::Profiler* get_framework_profiler() const;
          AllegroFlare::Frameworks::Full &get_framework_ref();
          virtual void SetUp() override;
          virtual void TearDown() override;

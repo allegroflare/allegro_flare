@@ -34,6 +34,11 @@ properties:
     init_with: nullptr
     getter: true
 
+  - name: framework_profiler
+    type: AllegroFlare::Profiler*
+    init_with: nullptr
+    getter: true
+
   - name: test_snapshots_folder
     type: std::string
     init_with: '"[unset-test_snapshots_folder]"'
@@ -61,6 +66,7 @@ functions:
       this->framework_bitmap_bin = &framework.get_bitmap_bin_ref();
       this->framework_font_bin = &framework.get_font_bin_ref();
       this->framework_model_bin = &framework.get_model_bin_ref();
+      this->framework_profiler = &framework.get_profiler_ref();
 
       test_snapshots_folder = "./tmp/test_snapshots/";
 
@@ -87,6 +93,7 @@ functions:
       this->framework_bitmap_bin = nullptr;
       this->framework_font_bin = nullptr;
       this->framework_model_bin = nullptr;
+      this->framework_profiler = nullptr;
       initialized = false;
       return;
 
@@ -160,5 +167,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Profiler
+    headers: [ AllegroFlare/Profiler.hpp ]
 
 

@@ -2329,6 +2329,9 @@
   "ALLEGRO_STATE": [
     "AllegroFlare/Testing/Rulers"
   ],
+  "AllegroFlare/Profiler": [
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
