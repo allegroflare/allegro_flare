@@ -53,8 +53,6 @@ functions:
       font_bin.set_full_path(deployment_environment.get_data_folder_path() + "fonts/");
       bitmap_bin.set_full_path(deployment_environment.get_data_folder_path() + "bitmaps/");
 
-      //display = al_create_display(1280 * 2, 720 * 2);
-      //al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
       al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
       al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
       al_set_new_display_option(ALLEGRO_SAMPLES, 16, ALLEGRO_SUGGEST);
