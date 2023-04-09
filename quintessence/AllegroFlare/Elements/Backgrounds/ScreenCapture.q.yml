@@ -1,0 +1,121 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Backgrounds::Base
+    scope: public
+    init_with: AllegroFlare::Elements::Backgrounds::ScreenCapture::TYPE
+
+
+properties:
+
+
+  - name: inv_scale
+    type: int
+    init_with: DEFAULT_INV_SCALE
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: capture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: DEFAULT_INV_SCALE
+    type: int
+    init_with: 10
+    static: true
+    constexpr: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/ScreenCapture"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: set_inv_scale
+    parameters:
+      - name: inv_scale
+        type: int
+        default_argument: DEFAULT_INV_SCALE
+    guards: [ (inv_scale >= 1), (inv_scale <= 20) ]
+    body: |
+      this->inv_scale = inv_scale;
+      if (initialized) refresh_capture();
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      refresh_capture();
+      initialized = true;
+      return;
+
+
+  - name: destroy
+    body: |
+      if (capture) al_destroy_bitmap(capture);
+      return;
+
+
+  - name: refresh_capture
+    body: |
+      if (capture) al_destroy_bitmap(capture);
+      capture = AllegroFlare::ScreenCapture::create_backbuffer_capture_as_scaled_bitmap(
+         1920/inv_scale,
+         1080/inv_scale
+      );
+      return;
+
+
+  - name: activate
+    virtual: true
+    override: true
+    body: |
+      refresh_capture();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::ScreenCapture
+
+
+  - name: render
+    virtual: true
+    override: true
+    body: |
+      if (capture)
+      {
+         al_draw_scaled_bitmap(
+            capture,
+            0,
+            0,
+            al_get_bitmap_width(capture),
+            al_get_bitmap_height(capture),
+            0,
+            0,
+            1920, //al_get_display_width(al_get_current_display()),
+            1080, //al_get_bitmap_height(al_get_current_display()),
+            0
+         );
+         //al_draw_bitmap(capture, 0, 0, 0);
+      }
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::ScreenCapture
+    headers: [ AllegroFlare/ScreenCapture.hpp ]
+
+

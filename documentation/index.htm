@@ -74,6 +74,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Button.q.yml">quintessence/AllegroFlare/Elements/Button.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml</a></li>
@@ -1856,6 +1857,64 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">inv_scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">capture</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_INV_SCALE</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_inv_scale(int inv_scale=DEFAULT_INV_SCALE)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">destroy()</td>
+</tr>
+<tr>
+  <td class="method">refresh_capture()</td>
+</tr>
+<tr>
+  <td class="method">activate()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ScreenCapture&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ScreenCapture.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -22002,6 +22061,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
@@ -22407,6 +22467,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [
@@ -22424,6 +22485,9 @@ table td
   ],
   "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
+  "AllegroFlare/ScreenCapture": [
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture"
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",

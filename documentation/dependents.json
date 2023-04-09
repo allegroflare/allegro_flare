@@ -456,6 +456,7 @@
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
@@ -861,6 +862,7 @@
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [
@@ -878,6 +880,9 @@
   ],
   "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
+  "AllegroFlare/ScreenCapture": [
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture"
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
