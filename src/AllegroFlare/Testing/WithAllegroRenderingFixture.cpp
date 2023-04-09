@@ -65,16 +65,6 @@ void WithAllegroRenderingFixture::SetUp()
    ASSERT_EQ(true, al_init_ttf_addon());
    ASSERT_EQ(true, al_init_image_addon());
 
-   //#if defined(_WIN32) || defined(_WIN64)
-   //#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
-   //#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
-   //#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/msys64/home/Mark/Repos/allegro_flare/tmp/test_snapshots/"
-   //#else
-   //#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
-   //#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
-   //#define TEST_FIXTURE_TEST_RUN_SNAPSHOTS_FOLDER "/Users/markoates/Repos/allegro_flare/tmp/test_snapshots/"
-   //#endif
-
    test_snapshots_folder = "./tmp/test_snapshots/";
 
    font_bin.set_full_path(deployment_environment.get_data_folder_path() + "fonts/");
