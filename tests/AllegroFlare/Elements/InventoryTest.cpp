@@ -381,7 +381,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       {
          case ALLEGRO_EVENT_TIMER:
          {
-            clear_display();
+            clear();
             inventory.update();
             inventory.render();
             al_flip_display();

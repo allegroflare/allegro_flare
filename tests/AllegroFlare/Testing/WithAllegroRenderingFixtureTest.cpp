@@ -58,9 +58,16 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
-   DISABLED__clear_display__will_clear_the_current_target_rendering_surface_to_an_eigengrau_color)
+   DISABLED__clear_will_clear_the_current_target_rendering_surface_to_an_eigengrau_color)
 {
-   // TODO
+   ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+   ALLEGRO_COLOR expected_clear_color = eigengrau;
+
+   clear();
+   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+   al_lock_bitmap(backbuffer, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_READONLY);
+   // TODO: pick each pixel
+   al_unlock_bitmap(backbuffer);
 }
 
 
