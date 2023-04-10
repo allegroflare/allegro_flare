@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
-    init_with: '"AllegroFlare/Elements/Backgrounds/ImageIdentifier"'
+    init_with: AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE
 
 
 properties:
@@ -18,6 +18,12 @@ properties:
     type: std::string
     init_with: '"[image-filename-not-set]"'
     constructor_arg: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/ImageIdentifier"'
+    static: true
+    constexpr: true
 
 
 functions:

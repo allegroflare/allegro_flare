@@ -35,13 +35,6 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::BitmapBin*
-    headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: AllegroFlare::Elements::Backgrounds::Monoplex*
-    headers: [ AllegroFlare/Elements/Backgrounds/Monoplex.hpp ]
-  - symbol: AllegroFlare::Elements::Backgrounds::ImageIdentifier*
-    headers: [ AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp ]
-
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::ImageIdentifier

@@ -15,6 +15,9 @@ namespace AllegroFlare
       {
          class ImageIdentifier : public AllegroFlare::Elements::Backgrounds::Base
          {
+         public:
+            static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/ImageIdentifier";
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             std::string image_filename;

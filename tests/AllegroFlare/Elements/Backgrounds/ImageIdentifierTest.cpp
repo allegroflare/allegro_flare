@@ -24,10 +24,19 @@ TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, can_be_created_witho
 }
 
 
-TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, has_the_expected_type)
+TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Elements::Backgrounds::ImageIdentifier image_background;
-   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/ImageIdentifier", image_background.get_type());
+   EXPECT_EQ(
+      "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
+      AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE
+   );
+}
+
+
+TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, type__has_the_expected_value_matching_TYPE)
+{
+   AllegroFlare::Elements::Backgrounds::ImageIdentifier base_background;
+   EXPECT_EQ(AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE, base_background.get_type());
 }
 
 

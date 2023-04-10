@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BackgroundFactory.hpp>
 
+
 TEST(AllegroFlare_BackgroundFactoryTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::BackgroundFactory background_factory;
@@ -29,7 +30,7 @@ TEST(AllegroFlare_BackgroundFactoryTest, create_image__creates_an_image_type_bac
    AllegroFlare::Elements::Backgrounds::ImageIdentifier* created_image_background = background_factory.create_image();
 
    ASSERT_NE(nullptr, created_image_background);
-   EXPECT_EQ("ImageIdentifier", created_image_background->get_type());
+   EXPECT_EQ(AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE, created_image_background->get_type());
 }
 
 

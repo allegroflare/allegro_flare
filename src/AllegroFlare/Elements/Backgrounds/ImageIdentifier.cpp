@@ -17,7 +17,7 @@ namespace Backgrounds
 
 
 ImageIdentifier::ImageIdentifier(AllegroFlare::BitmapBin* bitmap_bin, std::string image_filename)
-   : AllegroFlare::Elements::Backgrounds::Base("AllegroFlare/Elements/Backgrounds/ImageIdentifier")
+   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE)
    , bitmap_bin(bitmap_bin)
    , image_filename(image_filename)
 {

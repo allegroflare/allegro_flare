@@ -99,7 +99,6 @@
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
-    "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
@@ -156,12 +155,10 @@
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
   ],
-  "AllegroFlare/Elements/Backgrounds/Monoplex": [
-    "AllegroFlare/BackgroundFactory",
+  "AllegroFlare/Elements/Backgrounds/ImageIdentifier": [
     "AllegroFlare/BackgroundFactory"
   ],
-  "AllegroFlare/Elements/Backgrounds/ImageIdentifier": [
-    "AllegroFlare/BackgroundFactory",
+  "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
   ],
   "AllegroFlare/Placement3D": [
