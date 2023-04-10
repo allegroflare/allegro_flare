@@ -40,25 +40,17 @@ TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, type__has_the_expect
 }
 
 
-TEST_F(AllegroFlare_Elements_Backgrounds_ImageIdentifierWithAllegroRenderingFixtureTest, render__will_render_the_image)
+TEST_F(AllegroFlare_Elements_Backgrounds_ImageIdentifierWithAllegroRenderingFixtureTest,
+   CAPTURE__render__will_render_the_image)
 {
    AllegroFlare::Elements::Backgrounds::ImageIdentifier image_background(
          &get_bitmap_bin_ref(),
          "deep-green-leaves-white-veins-960x540.jpg"
       );
 
-   int frames = 60;
-   for (unsigned i=0; i<frames; i++)
-   {
-      //update
-      image_background.update();
-
-      // render
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
-      image_background.render();
-      al_flip_display();
-      sleep_for_frame();
-   }
+   clear();
+   image_background.render();
+   al_flip_display();
 }
 
 
