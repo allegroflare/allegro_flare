@@ -38,6 +38,7 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
    EXPECT_EQ(get_framework_bitmap_bin(), &get_framework_ref().get_bitmap_bin_ref());
    EXPECT_EQ(get_framework_font_bin(), &get_framework_ref().get_font_bin_ref());
    EXPECT_EQ(get_framework_model_bin(), &get_framework_ref().get_model_bin_ref());
+   EXPECT_EQ(get_framework_sample_bin(), &get_framework_ref().get_sample_bin_ref());
 }
 
 

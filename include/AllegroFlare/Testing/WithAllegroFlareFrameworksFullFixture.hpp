@@ -7,6 +7,7 @@
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Profiler.hpp>
+#include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <gtest/gtest.h>
 #include <string>
@@ -23,6 +24,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* framework_event_emitter;
          AllegroFlare::BitmapBin* framework_bitmap_bin;
          AllegroFlare::FontBin* framework_font_bin;
+         AllegroFlare::SampleBin* framework_sample_bin;
          AllegroFlare::ModelBin* framework_model_bin;
          AllegroFlare::Profiler* framework_profiler;
          std::string test_snapshots_folder;
@@ -38,6 +40,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* get_framework_event_emitter() const;
          AllegroFlare::BitmapBin* get_framework_bitmap_bin() const;
          AllegroFlare::FontBin* get_framework_font_bin() const;
+         AllegroFlare::SampleBin* get_framework_sample_bin() const;
          AllegroFlare::ModelBin* get_framework_model_bin() const;
          AllegroFlare::Profiler* get_framework_profiler() const;
          AllegroFlare::Frameworks::Full &get_framework_ref();

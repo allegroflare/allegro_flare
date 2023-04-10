@@ -29,6 +29,11 @@ properties:
     init_with: nullptr
     getter: true
 
+  - name: framework_sample_bin
+    type: AllegroFlare::SampleBin*
+    init_with: nullptr
+    getter: true
+
   - name: framework_model_bin
     type: AllegroFlare::ModelBin*
     init_with: nullptr
@@ -66,6 +71,7 @@ functions:
       this->framework_bitmap_bin = &framework.get_bitmap_bin_ref();
       this->framework_font_bin = &framework.get_font_bin_ref();
       this->framework_model_bin = &framework.get_model_bin_ref();
+      this->framework_sample_bin = &framework.get_sample_bin_ref();
       this->framework_profiler = &framework.get_profiler_ref();
 
       test_snapshots_folder = "./tmp/test_snapshots/";
@@ -93,6 +99,7 @@ functions:
       this->framework_bitmap_bin = nullptr;
       this->framework_font_bin = nullptr;
       this->framework_model_bin = nullptr;
+      this->framework_sample_bin = nullptr;
       this->framework_profiler = nullptr;
       initialized = false;
       return;
@@ -161,6 +168,8 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: AllegroFlare::ModelBin
     headers: [ AllegroFlare/ModelBin.hpp ]
   - symbol: AllegroFlare::Screens::Base
