@@ -3,9 +3,15 @@ properties:
 
   - name: type
     type: std::string
-    init_with: '"Base"'
+    init_with: AllegroFlare::Elements::Backgrounds::Base::TYPE
     constructor_arg: true
     getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/Base"'
+    static: true
+    constexpr: true
 
 
 functions:

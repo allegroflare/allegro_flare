@@ -13,7 +13,7 @@ TEST(AllegroFlare_Elements_Backgrounds_BaseTest, can_be_created_without_blowing_
 TEST(AllegroFlare_Elements_Backgrounds_BaseTest, has_the_expected_type)
 {
    AllegroFlare::Elements::Backgrounds::Base base_background;
-   EXPECT_EQ("Base", base_background.get_type());
+   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/Base", base_background.get_type());
 }
 
 

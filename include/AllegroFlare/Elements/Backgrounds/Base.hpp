@@ -12,6 +12,9 @@ namespace AllegroFlare
       {
          class Base
          {
+         public:
+            static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/Base";
+
          private:
             std::string type;
 
@@ -19,7 +22,7 @@ namespace AllegroFlare
 
 
          public:
-            Base(std::string type="Base");
+            Base(std::string type=AllegroFlare::Elements::Backgrounds::Base::TYPE);
             virtual ~Base();
 
             std::string get_type() const;
