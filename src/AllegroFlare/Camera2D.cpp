@@ -15,6 +15,8 @@ namespace AllegroFlare
 Camera2D::Camera2D()
    : AllegroFlare::Placement2D()
    , zoom({1.0f, 1.0f})
+   , width_num_units(DEFAULT_WIDTH_NUM_UNITS)
+   , height_num_units(DEFAULT_HEIGHT_NUM_UNITS)
 {
 }
 
@@ -24,9 +26,33 @@ Camera2D::~Camera2D()
 }
 
 
+void Camera2D::set_width_num_units(int width_num_units)
+{
+   this->width_num_units = width_num_units;
+}
+
+
+void Camera2D::set_height_num_units(int height_num_units)
+{
+   this->height_num_units = height_num_units;
+}
+
+
 AllegroFlare::Vec2D Camera2D::get_zoom() const
 {
    return zoom;
+}
+
+
+int Camera2D::get_width_num_units() const
+{
+   return width_num_units;
+}
+
+
+int Camera2D::get_height_num_units() const
+{
+   return height_num_units;
 }
 
 
@@ -64,7 +90,7 @@ void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
    // rotating widgets around the X and Y axes.
 
    //float w = al_get_display_width(al_get_current_display()), h = al_get_display_height(al_get_current_display());
-   float w = 1920, h = 1080;
+   float w = width_num_units, h = height_num_units;
    float fov_angle = 90.0;
    float fov = tan(fov_angle * ALLEGRO_PI / 180.0 / 2.0);
 

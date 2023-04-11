@@ -14,6 +14,30 @@ properties:
     init_with: '{1.0f, 1.0f}'
     getter: true
 
+  - name: width_num_units
+    type: int
+    init_with: DEFAULT_WIDTH_NUM_UNITS
+    getter: true
+    setter: true
+
+  - name: height_num_units
+    type: int
+    init_with: DEFAULT_HEIGHT_NUM_UNITS
+    getter: true
+    setter: true
+
+  - name: DEFAULT_WIDTH_NUM_UNITS
+    type: int
+    init_with: 1920
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_HEIGHT_NUM_UNITS
+    type: int
+    init_with: 1080
+    static: true
+    constexpr: true
+
 
 functions:
 
@@ -48,7 +72,7 @@ functions:
       // rotating widgets around the X and Y axes.
 
       //float w = al_get_display_width(al_get_current_display()), h = al_get_display_height(al_get_current_display());
-      float w = 1920, h = 1080;
+      float w = width_num_units, h = height_num_units;
       float fov_angle = 90.0;
       float fov = tan(fov_angle * ALLEGRO_PI / 180.0 / 2.0);
 
