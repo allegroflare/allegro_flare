@@ -126,7 +126,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      return al_get_bitmap_width(display_backbuffer_sub_bitmap);
+      return al_get_bitmap_height(display_backbuffer_sub_bitmap);
 
 
 dependencies:
