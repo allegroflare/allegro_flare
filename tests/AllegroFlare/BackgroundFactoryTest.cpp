@@ -18,7 +18,7 @@ TEST(AllegroFlare_BackgroundFactoryTest, create_monoplex__creates_a_monoplex_bac
    AllegroFlare::Elements::Backgrounds::Monoplex* created_monoplex = background_factory.create_monoplex();
 
    ASSERT_NE(nullptr, created_monoplex);
-   EXPECT_EQ("Monoplex", created_monoplex->get_type());
+   EXPECT_EQ(AllegroFlare::Elements::Backgrounds::Monoplex::TYPE, created_monoplex->get_type());
 }
 
 
