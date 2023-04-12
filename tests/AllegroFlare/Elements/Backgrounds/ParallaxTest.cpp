@@ -32,7 +32,6 @@ TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTest, can_be_created_without_bl
 
 TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Elements::Backgrounds::Parallax parallax_background;
    EXPECT_EQ("AllegroFlare/Elements/Backgrounds/Parallax", AllegroFlare::Elements::Backgrounds::Parallax::TYPE);
 }
 
