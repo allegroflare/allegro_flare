@@ -1,0 +1,53 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Bin<std::string, ALLEGRO_VIDEO*>
+    scope: public
+    init_with: '"VideoBin"'
+
+
+functions:
+
+
+  - name: validate
+    type: bool
+    override: true
+    virtual: true
+    guards: [ al_is_system_installed(), al_is_video_addon_initialized() ]
+    body: |
+      return true;
+
+
+  - name: load_data
+    type: ALLEGRO_VIDEO*
+    override: true
+    virtual: true
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      // TODO: implement this function
+      return nullptr;
+
+
+  - name: destroy_data
+    override: true
+    virtual: true
+    parameters:
+      - name: video
+        type: ALLEGRO_VIDEO*
+        default_argument: nullptr
+    body: |
+      // TODO: implement this function
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Bin
+    headers: [ AllegroFlare/Bin.hpp ]
+  - symbol: ALLEGRO_VIDEO
+    headers: [ allegro5/allegro_video.h ]
+
+
