@@ -25,6 +25,7 @@ namespace AllegroFlare
             int surface_width;
             int surface_height;
             bool video_is_playing;
+            bool initialized;
             ALLEGRO_VIDEO* obtain_video();
 
          protected:
@@ -36,8 +37,13 @@ namespace AllegroFlare
 
             void set_surface_width(int surface_width);
             void set_surface_height(int surface_height);
+            AllegroFlare::VideoBin* get_video_bin() const;
+            std::string get_video_identifier() const;
             int get_surface_width() const;
             int get_surface_height() const;
+            void set_video_bin(AllegroFlare::VideoBin* video_bin=nullptr);
+            void set_video_identifier(std::string video_identifier="[unset-video_identifier]");
+            void initialize();
             void activate() override;
             void deactivate() override;
             void render() override;

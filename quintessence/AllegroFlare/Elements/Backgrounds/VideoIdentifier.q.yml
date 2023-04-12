@@ -22,11 +22,15 @@ properties:
     type: AllegroFlare::VideoBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: false
 
   - name: video_identifier
     type: std::string
     init_with: '"[unset-video_identifier]"'
     constructor_arg: true
+    getter: true
+    setter: false
 
   - name: surface_width
     type: int
@@ -41,6 +45,10 @@ properties:
     setter: true
 
   - name: video_is_playing
+    type: bool
+    init_with: false
+
+  - name: initialized
     type: bool
     init_with: false
 
@@ -60,9 +68,38 @@ properties:
 functions:
 
 
+  - name: set_video_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: video_bin
+        type: AllegroFlare::VideoBin*
+        default_argument: nullptr
+    body: |
+      this->video_bin = video_bin;
+      return;
+
+
+  - name: set_video_identifier
+    guards: [ (!initialized) ]
+    parameters:
+      - name: video_identifier
+        type: std::string
+        default_argument: '"[unset-video_identifier]"'
+    body: |
+      this->video_identifier = video_identifier;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), video_bin ]
+    body: |
+      initialized = true;
+      return;
+
+
   - name: activate
     override: true
-    guards: [ video_bin ]
+    guards: [ initialized ]
     body: |
       ALLEGRO_VIDEO *video = obtain_video();
       if (video)
@@ -77,7 +114,7 @@ functions:
 
   - name: deactivate
     override: true
-    guards: [ video_bin ]
+    guards: [ initialized ]
     body: |
       ALLEGRO_VIDEO *video = obtain_video();
       if (video) al_set_video_playing(video, false);
@@ -86,7 +123,7 @@ functions:
 
   - name: render
     override: true
-    guards: [ video_bin ]
+    guards: [ initialized ]
     body: |
       if (!video_is_playing) return;
 

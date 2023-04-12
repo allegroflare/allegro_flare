@@ -48,6 +48,8 @@ TEST_F(AllegroFlare_Elements_Backgrounds_VideoTestWithAllegroRenderingFixture, r
    std::string video_identifier = "file_example_OGG_480_1_7mg.ogg";
 
    AllegroFlare::Elements::Backgrounds::VideoIdentifier video_identifier_background(&video_bin, video_identifier);
+   video_identifier_background.initialize();
+
    video_identifier_background.activate();
 
    int num_frames = 120;
