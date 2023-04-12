@@ -1042,7 +1042,6 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
          screens.key_down_funcs(&this_event);
-         // DEBUG:
          virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
       break;
 
