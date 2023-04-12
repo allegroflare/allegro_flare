@@ -76,6 +76,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/VideoIdentifier.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/VideoIdentifier.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Button.q.yml">quintessence/AllegroFlare/Elements/Button.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml</a></li>
@@ -1972,6 +1973,41 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ScreenCapture&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ScreenCapture.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/VideoIdentifier.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/VideoIdentifier.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">video_bin</td>
+  <td class="property">AllegroFlare::VideoBin*</td>
+</tr>
+<tr>
+  <td class="property">video_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VideoBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VideoBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -22107,6 +22143,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -22557,6 +22594,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/PauseScreen"
   ],
@@ -22578,6 +22616,10 @@ table td
   ],
   "AllegroFlare/ScreenCapture": [
     "AllegroFlare/Elements/Backgrounds/ScreenCapture"
+  ],
+  "AllegroFlare/VideoBin": [
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
@@ -24024,9 +24066,6 @@ table td
     "AllegroFlare/Testing/Rulers"
   ],
   "AllegroFlare/Profiler": [
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
-  ],
-  "AllegroFlare/VideoBin": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/Testing/CustomComparison": [

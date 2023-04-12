@@ -409,6 +409,7 @@
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -859,6 +860,7 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/PauseScreen"
   ],
@@ -880,6 +882,10 @@
   ],
   "AllegroFlare/ScreenCapture": [
     "AllegroFlare/Elements/Backgrounds/ScreenCapture"
+  ],
+  "AllegroFlare/VideoBin": [
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
@@ -2326,9 +2332,6 @@
     "AllegroFlare/Testing/Rulers"
   ],
   "AllegroFlare/Profiler": [
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
-  ],
-  "AllegroFlare/VideoBin": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/Testing/CustomComparison": [
