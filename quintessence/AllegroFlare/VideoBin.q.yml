@@ -39,7 +39,7 @@ functions:
         type: ALLEGRO_VIDEO*
         default_argument: nullptr
     body: |
-      // TODO: implement this function
+      return al_close_video(video);
 
 
 dependencies:

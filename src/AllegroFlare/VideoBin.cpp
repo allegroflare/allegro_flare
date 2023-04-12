@@ -49,7 +49,7 @@ ALLEGRO_VIDEO* VideoBin::load_data(std::string identifier)
 
 void VideoBin::destroy_data(ALLEGRO_VIDEO* video)
 {
-   // TODO: implement this function
+   return al_close_video(video);
 }
 
 

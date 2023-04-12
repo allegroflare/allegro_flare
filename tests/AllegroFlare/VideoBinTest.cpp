@@ -28,3 +28,9 @@ TEST_F(AllegroFlare_VideoBinTestWithAllegroRenderingFixture, load_data__will_loa
 }
 
 
+TEST_F(AllegroFlare_VideoBinTestWithAllegroRenderingFixture, DISABLED__destroy_data__will_destroy_the_data)
+{
+   // NOTE: I don't think this can be tested
+}
+
+
