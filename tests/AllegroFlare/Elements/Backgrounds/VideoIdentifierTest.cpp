@@ -40,7 +40,6 @@ TEST_F(AllegroFlare_Elements_Backgrounds_VideoTestWithAllegroRenderingFixture, r
 {
    al_install_audio();
    al_reserve_samples(1);
-   //al_init_primitives_addon();
 
    ASSERT_EQ(true, al_init_video_addon());
 
