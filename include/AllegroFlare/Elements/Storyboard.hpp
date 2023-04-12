@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro_font.h>
@@ -16,6 +17,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages;
+         AllegroFlare::Elements::Backgrounds::Base* background;
          int button_font_size;
          intptr_t current_page_num;
          bool can_advance_to_next_page;
@@ -28,13 +30,15 @@ namespace AllegroFlare
 
 
       public:
-         Storyboard(AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages={});
+         Storyboard(AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages={}, AllegroFlare::Elements::Backgrounds::Base* background=nullptr);
          ~Storyboard();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages);
+         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          void set_button_font_size(int button_font_size);
          std::vector<AllegroFlare::Elements::StoryboardPages::Base *> get_pages() const;
+         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          int get_button_font_size() const;
          intptr_t get_current_page_num() const;
          bool get_can_advance_to_next_page() const;

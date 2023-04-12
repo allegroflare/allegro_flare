@@ -14,6 +14,13 @@ properties:
     setter: true
     getter: true
 
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+    getter: true
+
   - name: button_font_size
     type: int
     init_with: -60
@@ -46,6 +53,8 @@ functions:
 
   - name: update
     body: |
+      if (background) background->update();
+
       AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
       if (!current_page) return;
       current_page->update();
@@ -60,6 +69,8 @@ functions:
     type: void
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      if (background) background->render();
+
       AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
       if (!current_page) return;
       current_page->render();
@@ -266,24 +277,12 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Elements::StoryboardPages::Base*
-    headers: [ vector, AllegroFlare/Elements/StoryboardPages/Base.hpp ]
-  - symbol: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
-    headers: [ vector, AllegroFlare/Elements/StoryboardPages/Base.hpp ]
   - symbol: AllegroFlare::Color
     headers: [ AllegroFlare/Color.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
   - symbol: al_draw_multiline_text
@@ -296,7 +295,6 @@ dependencies:
     headers: [ cmath ]
   - symbol: std::min, std::max
     headers: [ algorithm ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
@@ -309,5 +307,7 @@ dependencies:
     headers: [ algorithm ]
   - symbol: std::max
     headers: [ algorithm ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 

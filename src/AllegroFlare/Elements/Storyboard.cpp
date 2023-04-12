@@ -20,9 +20,10 @@ namespace Elements
 {
 
 
-Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages)
+Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages, AllegroFlare::Elements::Backgrounds::Base* background)
    : font_bin(font_bin)
    , pages(pages)
+   , background(background)
    , button_font_size(-60)
    , current_page_num(0)
    , can_advance_to_next_page(false)
@@ -49,6 +50,12 @@ void Storyboard::set_pages(std::vector<AllegroFlare::Elements::StoryboardPages::
 }
 
 
+void Storyboard::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
+{
+   this->background = background;
+}
+
+
 void Storyboard::set_button_font_size(int button_font_size)
 {
    this->button_font_size = button_font_size;
@@ -58,6 +65,12 @@ void Storyboard::set_button_font_size(int button_font_size)
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Storyboard::get_pages() const
 {
    return pages;
+}
+
+
+AllegroFlare::Elements::Backgrounds::Base* Storyboard::get_background() const
+{
+   return background;
 }
 
 
@@ -93,6 +106,8 @@ bool Storyboard::get_finished() const
 
 void Storyboard::update()
 {
+   if (background) background->update();
+
    AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
    if (!current_page) return;
    current_page->update();
@@ -119,6 +134,8 @@ void Storyboard::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Storyboard::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   if (background) background->render();
+
    AllegroFlare::Elements::StoryboardPages::Base* current_page = infer_current_page();
    if (!current_page) return;
    current_page->render();

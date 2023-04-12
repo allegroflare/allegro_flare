@@ -5697,6 +5697,10 @@ table td
   <td class="property">std::vector&lt;AllegroFlare::Elements::StoryboardPages::Base *&gt;</td>
 </tr>
 <tr>
+  <td class="property">background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base</td>
+</tr>
+<tr>
   <td class="property">button_font_size</td>
   <td class="property">int</td>
 </tr>
@@ -5760,12 +5764,6 @@ table td
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Base*&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::StoryboardPages::Base *&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -5773,18 +5771,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -5821,6 +5807,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -21862,7 +21851,6 @@ table td
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
@@ -21964,7 +21952,6 @@ table td
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -22383,7 +22370,6 @@ table td
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -22428,7 +22414,6 @@ table td
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -22500,6 +22485,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [
@@ -22881,14 +22867,10 @@ table td
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/StoryboardFactory"
-  ],
-  "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
-    "AllegroFlare/Elements/Storyboard"
   ],
   "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [
     "AllegroFlare/EventEmitter"

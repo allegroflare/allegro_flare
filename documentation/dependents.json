@@ -223,7 +223,6 @@
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
@@ -325,7 +324,6 @@
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Stopwatch",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -744,7 +742,6 @@
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -789,7 +786,6 @@
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -861,6 +857,7 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
+    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [
@@ -1242,14 +1239,10 @@
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/StoryboardFactory"
-  ],
-  "std/vector<AllegroFlare/Elements/StoryboardPages/Base >": [
-    "AllegroFlare/Elements/Storyboard"
   ],
   "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [
     "AllegroFlare/EventEmitter"
