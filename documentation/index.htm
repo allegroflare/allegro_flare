@@ -69,6 +69,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/AchievementsList.q.yml">quintessence/AllegroFlare/Elements/AchievementsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ClearToColor.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ClearToColor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ImageIdentifier.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ImageIdentifier.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml</a></li>
@@ -1636,6 +1637,34 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/ClearToColor.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ClearToColor.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">clear_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -5698,7 +5727,7 @@ table td
 </tr>
 <tr>
   <td class="property">background</td>
-  <td class="property">AllegroFlare::Elements::Backgrounds::Base</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
 <tr>
   <td class="property">button_font_size</td>
@@ -22191,6 +22220,7 @@ table td
   "ALLEGRO_COLOR": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Backgrounds/ClearToColor",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -22480,6 +22510,7 @@ table td
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
+    "AllegroFlare/Elements/Backgrounds/ClearToColor",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
     "AllegroFlare/Elements/Backgrounds/Monoplex",

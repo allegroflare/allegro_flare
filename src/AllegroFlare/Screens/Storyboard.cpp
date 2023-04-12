@@ -141,7 +141,6 @@ void Storyboard::advance()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Storyboard::advance: error: guard \"event_emitter\" not met");
    }
-   // TODO: consider making this private
    if (storyboard_element.get_finished()) return;
 
    storyboard_element.advance();

@@ -92,7 +92,6 @@ functions:
     private: true
     guards: [ initialized, event_emitter ]
     body: |
-      // TODO: consider making this private
       if (storyboard_element.get_finished()) return;
 
       storyboard_element.advance();
