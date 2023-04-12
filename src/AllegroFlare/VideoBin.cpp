@@ -43,8 +43,8 @@ bool VideoBin::validate()
 
 ALLEGRO_VIDEO* VideoBin::load_data(std::string identifier)
 {
-   // TODO: implement this function
-   return nullptr;
+   validate();
+   return al_open_video(identifier.c_str());
 }
 
 void VideoBin::destroy_data(ALLEGRO_VIDEO* video)

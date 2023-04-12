@@ -27,8 +27,8 @@ functions:
         type: std::string
         default_argument: '"[unset-identifier]"'
     body: |
-      // TODO: implement this function
-      return nullptr;
+      validate();
+      return al_open_video(identifier.c_str());
 
 
   - name: destroy_data
