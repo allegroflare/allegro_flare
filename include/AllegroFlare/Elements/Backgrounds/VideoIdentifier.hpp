@@ -16,6 +16,7 @@ namespace AllegroFlare
          class VideoIdentifier : public AllegroFlare::Elements::Backgrounds::Base
          {
          public:
+            static constexpr char* VIDEO_FIT_STRATEGY_STRETCH_TO_FIT = (char*)"stretch_to_fit";
             static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/VideoIdentifier";
 
          private:

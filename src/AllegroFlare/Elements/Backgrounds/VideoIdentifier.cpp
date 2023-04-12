@@ -109,13 +109,17 @@ void VideoIdentifier::render()
    ALLEGRO_BITMAP* frame = al_get_video_frame(video);
    if (!frame) return;
 
-   float scale_x = surface_width / al_get_video_scaled_width(video);
-   float scale_y = surface_height / al_get_video_scaled_height(video);
-   float sw = al_get_bitmap_width(frame);
-   float sh = al_get_bitmap_height(frame);
-   float dw = scale_x * al_get_video_scaled_width(video);
-   float dh = scale_y * al_get_video_scaled_height(video);
-   al_draw_scaled_bitmap(frame, 0, 0, sw, sh, 0, 0, dw, dh, 0);
+   std::string fit_style = VIDEO_FIT_STRATEGY_STRETCH_TO_FIT;
+   if (fit_style == VIDEO_FIT_STRATEGY_STRETCH_TO_FIT)
+   {
+      float scale_x = surface_width / al_get_video_scaled_width(video);
+      float scale_y = surface_height / al_get_video_scaled_height(video);
+      float sw = al_get_bitmap_width(frame);
+      float sh = al_get_bitmap_height(frame);
+      float dw = scale_x * al_get_video_scaled_width(video);
+      float dh = scale_y * al_get_video_scaled_height(video);
+      al_draw_scaled_bitmap(frame, 0, 0, sw, sh, 0, 0, dw, dh, 0);
+   }
    return;
 }
 
