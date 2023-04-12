@@ -314,6 +314,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VideoBin.q.yml">quintessence/AllegroFlare/VideoBin.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualController.q.yml">quintessence/AllegroFlare/VirtualController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/Base.q.yml">quintessence/AllegroFlare/VirtualControllers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</a></li>
@@ -19029,6 +19030,32 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/VideoBin.q.yml">quintessence/AllegroFlare/VideoBin.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">validate()</td>
+</tr>
+<tr>
+  <td class="method">load_data(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">destroy_data(ALLEGRO_VIDEO* video=nullptr)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Bin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Bin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VIDEO&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_video.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/VirtualController.q.yml">quintessence/AllegroFlare/VirtualController.q.yml</h3>
      <table>
 <tr>
@@ -24065,6 +24092,12 @@ table td
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Bin": [
+    "AllegroFlare/VideoBin"
+  ],
+  "ALLEGRO_VIDEO": [
+    "AllegroFlare/VideoBin"
   ],
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory": [
     "AllegroFlare/VirtualControlsProcessor"

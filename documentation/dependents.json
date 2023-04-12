@@ -2402,6 +2402,12 @@
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
+  "AllegroFlare/Bin": [
+    "AllegroFlare/VideoBin"
+  ],
+  "ALLEGRO_VIDEO": [
+    "AllegroFlare/VideoBin"
+  ],
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
