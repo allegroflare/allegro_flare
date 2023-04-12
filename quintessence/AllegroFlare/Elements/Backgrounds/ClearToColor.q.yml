@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Backgrounds::Base
+    scope: public
+    init_with: AllegroFlare::Elements::Backgrounds::ClearToColor::TYPE
+
+
+properties:
+
+
+  - name: clear_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0, 0, 0, 0}
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/ClearToColor"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: render
+    virtual: true
+    body: |
+      al_clear_to_color(clear_color);
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+
+
