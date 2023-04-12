@@ -39,6 +39,11 @@ properties:
     init_with: nullptr
     getter: true
 
+  - name: framework_video_bin
+    type: AllegroFlare::VideoBin*
+    init_with: nullptr
+    getter: true
+
   - name: framework_profiler
     type: AllegroFlare::Profiler*
     init_with: nullptr
@@ -71,6 +76,7 @@ functions:
       this->framework_bitmap_bin = &framework.get_bitmap_bin_ref();
       this->framework_font_bin = &framework.get_font_bin_ref();
       this->framework_model_bin = &framework.get_model_bin_ref();
+      this->framework_video_bin = &framework.get_video_bin_ref();
       this->framework_sample_bin = &framework.get_sample_bin_ref();
       this->framework_profiler = &framework.get_profiler_ref();
 
@@ -99,6 +105,7 @@ functions:
       this->framework_bitmap_bin = nullptr;
       this->framework_font_bin = nullptr;
       this->framework_model_bin = nullptr;
+      this->framework_video_bin = nullptr;
       this->framework_sample_bin = nullptr;
       this->framework_profiler = nullptr;
       initialized = false;
@@ -178,5 +185,7 @@ dependencies:
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Profiler
     headers: [ AllegroFlare/Profiler.hpp ]
+  - symbol: AllegroFlare::VideoBin
+    headers: [ AllegroFlare/VideoBin.hpp ]
 
 

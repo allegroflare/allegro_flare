@@ -21,6 +21,7 @@ WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    , framework_font_bin(nullptr)
    , framework_sample_bin(nullptr)
    , framework_model_bin(nullptr)
+   , framework_video_bin(nullptr)
    , framework_profiler(nullptr)
    , test_snapshots_folder("[unset-test_snapshots_folder]")
    , initialized(false)
@@ -63,6 +64,12 @@ AllegroFlare::ModelBin* WithAllegroFlareFrameworksFullFixture::get_framework_mod
 }
 
 
+AllegroFlare::VideoBin* WithAllegroFlareFrameworksFullFixture::get_framework_video_bin() const
+{
+   return framework_video_bin;
+}
+
+
 AllegroFlare::Profiler* WithAllegroFlareFrameworksFullFixture::get_framework_profiler() const
 {
    return framework_profiler;
@@ -93,6 +100,7 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    this->framework_bitmap_bin = &framework.get_bitmap_bin_ref();
    this->framework_font_bin = &framework.get_font_bin_ref();
    this->framework_model_bin = &framework.get_model_bin_ref();
+   this->framework_video_bin = &framework.get_video_bin_ref();
    this->framework_sample_bin = &framework.get_sample_bin_ref();
    this->framework_profiler = &framework.get_profiler_ref();
 
@@ -124,6 +132,7 @@ void WithAllegroFlareFrameworksFullFixture::TearDown()
    this->framework_bitmap_bin = nullptr;
    this->framework_font_bin = nullptr;
    this->framework_model_bin = nullptr;
+   this->framework_video_bin = nullptr;
    this->framework_sample_bin = nullptr;
    this->framework_profiler = nullptr;
    initialized = false;

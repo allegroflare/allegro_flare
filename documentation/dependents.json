@@ -2328,6 +2328,9 @@
   "AllegroFlare/Profiler": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
+  "AllegroFlare/VideoBin": [
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],

@@ -9,6 +9,7 @@
 #include <AllegroFlare/Profiler.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/VideoBin.hpp>
 #include <gtest/gtest.h>
 #include <string>
 
@@ -26,6 +27,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* framework_font_bin;
          AllegroFlare::SampleBin* framework_sample_bin;
          AllegroFlare::ModelBin* framework_model_bin;
+         AllegroFlare::VideoBin* framework_video_bin;
          AllegroFlare::Profiler* framework_profiler;
          std::string test_snapshots_folder;
          bool initialized;
@@ -42,6 +44,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* get_framework_font_bin() const;
          AllegroFlare::SampleBin* get_framework_sample_bin() const;
          AllegroFlare::ModelBin* get_framework_model_bin() const;
+         AllegroFlare::VideoBin* get_framework_video_bin() const;
          AllegroFlare::Profiler* get_framework_profiler() const;
          AllegroFlare::Frameworks::Full &get_framework_ref();
          virtual void SetUp() override;
