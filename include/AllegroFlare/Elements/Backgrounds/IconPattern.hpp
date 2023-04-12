@@ -17,6 +17,9 @@ namespace AllegroFlare
       {
          class IconPattern : public AllegroFlare::Elements::Backgrounds::Base
          {
+         public:
+            static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/IconPattern";
+
          private:
             AllegroFlare::FontBin* font_bin;
             ALLEGRO_COLOR background_color;

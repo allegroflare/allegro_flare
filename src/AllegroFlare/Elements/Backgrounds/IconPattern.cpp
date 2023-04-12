@@ -19,7 +19,7 @@ namespace Backgrounds
 
 
 IconPattern::IconPattern(AllegroFlare::FontBin* font_bin)
-   : AllegroFlare::Elements::Backgrounds::Base("IconPattern")
+   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::IconPattern::TYPE)
    , font_bin(font_bin)
    , background_color(ALLEGRO_COLOR{0.1, 0.1, 0.1, 1.0})
    , icon_a(0)

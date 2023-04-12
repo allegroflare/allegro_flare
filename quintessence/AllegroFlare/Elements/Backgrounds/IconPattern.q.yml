@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
-    init_with: '"IconPattern"'
+    init_with: AllegroFlare::Elements::Backgrounds::IconPattern::TYPE
 
 
 properties:
@@ -35,6 +35,12 @@ properties:
   - name: time
     type: float
     init_with: 0
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/IconPattern"'
+    static: true
+    constexpr: true
 
 
 functions:

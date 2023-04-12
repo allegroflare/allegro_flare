@@ -31,10 +31,17 @@ TEST(AllegroFlare_Elements_Backgrounds_IconPatternTest, can_be_created_without_b
 }
 
 
-TEST(AllegroFlare_Elements_Backgrounds_IconPatternTest, has_the_expected_type)
+TEST(AllegroFlare_Elements_Backgrounds_IconPatternTest, TYPE__has_the_expected_value)
 {
    AllegroFlare::Elements::Backgrounds::IconPattern icon_pattern_background;
-   EXPECT_EQ("IconPattern", icon_pattern_background.get_type());
+   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/IconPattern", AllegroFlare::Elements::Backgrounds::IconPattern::TYPE);
+}
+
+
+TEST(AllegroFlare_Elements_Backgrounds_IconPatternTest, type__has_the_expected_value_matching_TYPE)
+{
+   AllegroFlare::Elements::Backgrounds::IconPattern icon_pattern_background;
+   EXPECT_EQ(AllegroFlare::Elements::Backgrounds::IconPattern::TYPE, icon_pattern_background.get_type());
 }
 
 
