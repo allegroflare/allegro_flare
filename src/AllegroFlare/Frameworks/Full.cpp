@@ -48,6 +48,7 @@ Full::Full()
    , samples()
    , bitmaps()
    , models()
+   , video_bin()
    , motions(200)
    , audio_controller(&samples)
    , event_emitter()
@@ -172,6 +173,12 @@ ModelBin &Full::get_model_bin_ref()
 }
 
 
+VideoBin &Full::get_video_bin_ref()
+{
+   return video_bin;
+}
+
+
 Camera2D &Full::get_camera_2d_ref()
 {
    return camera_2d;
@@ -291,6 +298,7 @@ bool Full::initialize_core_system()
    samples.set_path(data_folder_path + "samples");
    bitmaps.set_path(data_folder_path + "bitmaps");
    models.set_path(data_folder_path + "models");
+   video_bin.set_path(data_folder_path + "videos");
 
    // Add our config (which is currently unused)
    config.load_or_create_empty(output_auto_created_config_warning);
@@ -598,6 +606,7 @@ bool Full::shutdown()
    bitmaps.clear();
    fonts.clear();
    models.clear();
+   video_bin.clear();
 
    event_callbacks.clear();
 

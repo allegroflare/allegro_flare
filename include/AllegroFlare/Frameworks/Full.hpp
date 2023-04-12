@@ -11,6 +11,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/SampleBin.hpp>
+#include <AllegroFlare/VideoBin.hpp>
 #include <AllegroFlare/Config.hpp>
 #include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/Motion.hpp>
@@ -50,6 +51,7 @@ namespace AllegroFlare
          SampleBin samples;
          BitmapBin bitmaps;
          ModelBin models;
+         VideoBin video_bin;
          Motion motions;
          AudioController audio_controller;
          EventEmitter event_emitter;
@@ -128,6 +130,7 @@ namespace AllegroFlare
          SampleBin &get_sample_bin_ref();
          ModelBin &get_model_bin_ref();
          Camera2D &get_camera_2d_ref();
+         VideoBin &get_video_bin_ref();
          ScreenManagers::Dictionary &get_screens_ref();
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
