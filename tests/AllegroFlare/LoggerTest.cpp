@@ -33,3 +33,9 @@ TEST(AllegroFlare_LoggerTest, build_not_included_message__will_escape_double_quo
 }
 
 
+TEST(AllegroFlare_LoggerTest, warn_from_once__will_only_emit_an_warning_message_one_time)
+{
+   // TODO
+}
+
+

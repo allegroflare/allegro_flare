@@ -12,6 +12,9 @@ namespace AllegroFlare
 {
 
 
+std::set<std::string> Logger::once_emitted_warnings = {};
+
+
 Logger::Logger()
 {
 }
@@ -103,6 +106,17 @@ void Logger::info_from(std::string from, std::string message)
 void Logger::warn_from(std::string from, std::string message)
 {
    std::cout << build_warning_message(from, message) << std::endl;
+}
+
+void Logger::warn_from_once(std::string from, std::string message)
+{
+   std::string composite_message = build_warning_message(from, message);
+   bool message_already_emitted = once_emitted_warnings.find(composite_message) != once_emitted_warnings.end();
+   if (!message_already_emitted)
+   {
+      warn_from(from, message);
+      once_emitted_warnings.insert(composite_message);
+   }
 }
 
 void Logger::throw_error(std::string from, std::string message)

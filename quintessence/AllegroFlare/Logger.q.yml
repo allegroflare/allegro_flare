@@ -1,6 +1,8 @@
 documentation:
 
 
+  - todos:
+      - consider removing "static" attribute from "once_emitter_warnings".
   - internal: |
       Below is a code example showing variadic arguments in C++ using std::format (will be available in C++20.
       See: https://codereview.stackexchange.com/questions/269425/implementing-stdformat
@@ -25,6 +27,15 @@ documentation:
           oss << str;
           return oss.str();
       }
+
+
+properties:
+
+
+  - name: once_emitted_warnings
+    static: true
+    type: std::set<std::string>
+    init_with: '{}'
 
 
 functions:
@@ -209,6 +220,29 @@ functions:
         default_argument: '"[unset-message]"'
     body: |
       std::cout << build_warning_message(from, message) << std::endl;
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
+      - std::cout
+
+
+  - name: warn_from_once
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: message
+        type: std::string
+        default_argument: '"[unset-message]"'
+    body: |
+      std::string composite_message = build_warning_message(from, message);
+      bool message_already_emitted = once_emitted_warnings.find(composite_message) != once_emitted_warnings.end();
+      if (!message_already_emitted)
+      {
+         warn_from(from, message);
+         once_emitted_warnings.insert(composite_message);
+      }
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
       - std::stringstream
