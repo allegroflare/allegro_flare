@@ -6,6 +6,15 @@ parent_classes:
     init_with: AllegroFlare::Elements::Backgrounds::VideoIdentifier::TYPE
 
 
+documentation:
+
+
+  - todos:
+      - Currently there seems to be a bug that the video needs to be "started" before a frame can be obtained.  Even if
+        al_is_video_playing(video) returns true, al_get_video_frame(video) will crash if the video has not been started.
+        To solve this temporarily, a flag "video_is_playing" is unsed in this class, but should eventually be removed.
+
+
 properties:
 
 
@@ -18,6 +27,22 @@ properties:
     type: std::string
     init_with: '"[unset-video_identifier]"'
     constructor_arg: true
+
+  - name: surface_width
+    type: int
+    init_with: 1920
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: true
+
+  - name: video_is_playing
+    type: bool
+    init_with: false
 
   - name: TYPE
     type: char*
@@ -33,11 +58,11 @@ functions:
     override: true
     guards: [ video_bin ]
     body: |
-      // Should this logic be in the "show" function instead?
       ALLEGRO_VIDEO *video = obtain_video();
       if (video)
       {
          al_start_video(video, al_get_default_mixer());
+         video_is_playing = true;
          std::cout << "video FPS: " << al_get_video_fps(video) << std::endl;
          std::cout << "video audio rate: " << al_get_video_audio_rate(video) << std::endl;
       }
@@ -57,20 +82,23 @@ functions:
     override: true
     guards: [ video_bin ]
     body: |
+      if (!video_is_playing) return;
+
       ALLEGRO_VIDEO *video = obtain_video();
       if (!video) return;
 
-      bool video_is_playing = al_is_video_playing(video);
+      bool video_is_playing = al_is_video_playing(video); // I think there is a bug here
       if (!video_is_playing) return;
  
       ALLEGRO_BITMAP* frame = al_get_video_frame(video);
       if (!frame) return;
 
-      float scale = 1.0;
+      float scale_x = surface_width / al_get_video_scaled_width(video);
+      float scale_y = surface_height / al_get_video_scaled_height(video);
       float sw = al_get_bitmap_width(frame);
       float sh = al_get_bitmap_height(frame);
-      float dw = scale * al_get_video_scaled_width(video);
-      float dh = scale * al_get_video_scaled_height(video);
+      float dw = scale_x * al_get_video_scaled_width(video);
+      float dh = scale_y * al_get_video_scaled_height(video);
       al_draw_scaled_bitmap(frame, 0, 0, sw, sh, 0, 0, dw, dh, 0);
       return;
 
