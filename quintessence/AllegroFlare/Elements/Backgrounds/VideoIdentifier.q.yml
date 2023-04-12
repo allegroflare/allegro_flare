@@ -1,0 +1,49 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Backgrounds::Base
+    scope: public
+    init_with: AllegroFlare::Elements::Backgrounds::VideoIdentifier::TYPE
+
+
+properties:
+
+
+  - name: video_bin
+    type: AllegroFlare::VideoBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: video_identifier
+    type: std::string
+    init_with: '"[unset-video_identifier]"'
+    constructor_arg: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/VideoIdentifier"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: render
+    override: true
+    guards: [ video_bin ]
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::VideoBin
+    headers: [ AllegroFlare/VideoBin.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+
