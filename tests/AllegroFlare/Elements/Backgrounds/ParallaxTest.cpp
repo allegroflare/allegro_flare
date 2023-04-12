@@ -30,6 +30,20 @@ TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTest, can_be_created_without_bl
 }
 
 
+TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTest, TYPE__has_the_expected_value)
+{
+   AllegroFlare::Elements::Backgrounds::Parallax parallax_background;
+   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/Parallax", AllegroFlare::Elements::Backgrounds::Parallax::TYPE);
+}
+
+
+TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTest, type__has_the_expected_value_matching_TYPE)
+{
+   AllegroFlare::Elements::Backgrounds::Parallax parallax_background;
+   EXPECT_EQ(AllegroFlare::Elements::Backgrounds::Parallax::TYPE, parallax_background.get_type());
+}
+
+
 TEST_F(AllegroFlare_Elements_Backgrounds_ParallaxTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::Backgrounds::Parallax parallax;
