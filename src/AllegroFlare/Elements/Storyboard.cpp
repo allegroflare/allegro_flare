@@ -147,6 +147,8 @@ void Storyboard::render()
 
 void Storyboard::reset()
 {
+   if (background) background->activate(); // TODO: Consider if this needs to be replaced with "show()"
+
    current_page_num = 0;
    finished = false;
    deny_advancing_page();
