@@ -12,8 +12,10 @@ TEST(AllegroFlare_Elements_Backgrounds_ScreenCaptureTest, can_be_created_without
 
 TEST(AllegroFlare_Elements_Backgrounds_ScreenCaptureTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Elements::Backgrounds::ScreenCapture screen_capture;
-   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/ScreenCapture", screen_capture.get_type());
+   EXPECT_EQ(
+      "AllegroFlare/Elements/Backgrounds/ScreenCapture",
+      AllegroFlare::Elements::Backgrounds::ScreenCapture::TYPE
+   );
 }
 
 
