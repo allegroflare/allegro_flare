@@ -42,15 +42,22 @@ TEST_F(AllegroFlare_Elements_Backgrounds_VideoTestWithAllegroRenderingFixture, r
    al_reserve_samples(1);
    //al_init_primitives_addon();
 
-   al_init_video_addon();
+   ASSERT_EQ(true, al_init_video_addon());
+
    AllegroFlare::VideoBin video_bin;
    video_bin.set_full_path(get_fixtures_path() + "videos/");
    std::string video_identifier = "file_example_OGG_480_1_7mg.ogg";
 
    AllegroFlare::Elements::Backgrounds::VideoIdentifier video_identifier_background(&video_bin, video_identifier);
-   video_identifier_background.render();
+   video_identifier_background.activate();
 
-   al_rest(1);
+   int num_frames = 120;
+   for (int i=0; i<num_frames; i++)
+   {
+      video_identifier_background.render();
+      al_flip_display();
+      sleep_for_frame();
+   }
 
    al_shutdown_video_addon();
 }

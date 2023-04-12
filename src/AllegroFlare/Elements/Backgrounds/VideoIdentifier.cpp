@@ -39,7 +39,12 @@ void VideoIdentifier::activate()
    }
    // Should this logic be in the "show" function instead?
    ALLEGRO_VIDEO *video = obtain_video();
-   if (video) al_start_video(video, al_get_default_mixer());
+   if (video)
+   {
+      al_start_video(video, al_get_default_mixer());
+      std::cout << "video FPS: " << al_get_video_fps(video) << std::endl;
+      std::cout << "video audio rate: " << al_get_video_audio_rate(video) << std::endl;
+   }
    return;
 }
 
@@ -72,15 +77,15 @@ void VideoIdentifier::render()
    bool video_is_playing = al_is_video_playing(video);
    if (!video_is_playing) return;
 
-   //ALLEGRO_BITMAP* frame = al_get_video_frame(video);
-   //if (!frame) return;
+   ALLEGRO_BITMAP* frame = al_get_video_frame(video);
+   if (!frame) return;
 
-   //float scale = 1.0;
-   //float sw = al_get_bitmap_width(frame);
-   //float sh = al_get_bitmap_height(frame);
-   //float dw = scale * al_get_video_scaled_width(video);
-   //float dh = scale * al_get_video_scaled_height(video);
-   //al_draw_scaled_bitmap(frame, 0, 0, sw, sh, 0, 0, dw, dh, 0);
+   float scale = 1.0;
+   float sw = al_get_bitmap_width(frame);
+   float sh = al_get_bitmap_height(frame);
+   float dw = scale * al_get_video_scaled_width(video);
+   float dh = scale * al_get_video_scaled_height(video);
+   al_draw_scaled_bitmap(frame, 0, 0, sw, sh, 0, 0, dw, dh, 0);
    return;
 }
 
