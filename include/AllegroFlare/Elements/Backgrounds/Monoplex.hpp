@@ -13,6 +13,9 @@ namespace AllegroFlare
       {
          class Monoplex : public AllegroFlare::Elements::Backgrounds::Base
          {
+         public:
+            static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/Monoplex";
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             float monoplex_1_counter;

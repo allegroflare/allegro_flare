@@ -18,7 +18,7 @@ namespace Backgrounds
 
 
 Monoplex::Monoplex(AllegroFlare::BitmapBin* bitmap_bin)
-   : AllegroFlare::Elements::Backgrounds::Base("Monoplex")
+   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::Monoplex::TYPE)
    , bitmap_bin(bitmap_bin)
    , monoplex_1_counter(0)
    , monoplex_2_counter(0)

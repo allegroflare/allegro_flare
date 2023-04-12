@@ -30,10 +30,17 @@ TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, can_be_created_without_blow
 }
 
 
-TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, has_the_expected_type)
+TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, TYPE__has_the_expected_value)
 {
    AllegroFlare::Elements::Backgrounds::Monoplex monoplex_background;
-   EXPECT_EQ("Monoplex", monoplex_background.get_type());
+   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/Monoplex", AllegroFlare::Elements::Backgrounds::Monoplex::TYPE);
+}
+
+
+TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, type__has_the_expected_value_matching_TYPE)
+{
+   AllegroFlare::Elements::Backgrounds::Monoplex monoplex_background;
+   EXPECT_EQ(AllegroFlare::Elements::Backgrounds::Monoplex::TYPE, monoplex_background.get_type());
 }
 
 

@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
-    init_with: '"Monoplex"'
+    init_with: AllegroFlare::Elements::Backgrounds::Monoplex::TYPE
 
 
 properties:
@@ -25,6 +25,12 @@ properties:
   - name: monoplex_3_counter
     type: float
     init_with: 0
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/Monoplex"'
+    static: true
+    constexpr: true
 
 
 functions:
