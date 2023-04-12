@@ -28,6 +28,7 @@ namespace AllegroFlare
             VideoIdentifier(AllegroFlare::VideoBin* video_bin=nullptr, std::string video_identifier="[unset-video_identifier]");
             ~VideoIdentifier();
 
+            void activate() override;
             void render() override;
          };
       }

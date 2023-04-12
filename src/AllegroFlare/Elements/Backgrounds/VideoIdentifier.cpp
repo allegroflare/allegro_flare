@@ -28,6 +28,19 @@ VideoIdentifier::~VideoIdentifier()
 }
 
 
+void VideoIdentifier::activate()
+{
+   if (!(video_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[VideoIdentifier::activate]: error: guard \"video_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("VideoIdentifier::activate: error: guard \"video_bin\" not met");
+   }
+   // Should this logic be in the "show" function instead?
+   return;
+}
+
 void VideoIdentifier::render()
 {
    if (!(video_bin))

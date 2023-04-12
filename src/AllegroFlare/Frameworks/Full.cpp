@@ -254,6 +254,7 @@ bool Full::initialize_core_system()
    if (!al_init_font_addon()) std::cerr << "al_init_font_addon() failed" << std::endl;
    if (!al_init_ttf_addon()) std::cerr << "al_init_ttf_addon() failed" << std::endl;
    if (!al_init_acodec_addon()) std::cerr << "al_init_acodec_addon() failed" << std::endl;
+   if (!al_init_video_addon()) std::cerr << "al_init_video_addon() failed" << std::endl;
 
    if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
 
@@ -630,6 +631,7 @@ bool Full::shutdown()
    al_shutdown_primitives_addon(); //) std::cerr << "shutdown of al_init_primitives_addon() failed" << std::endl;
    al_shutdown_native_dialog_addon(); // std::cerr << "shutdown of al_init_native_dialog_addon() failed" << std::endl;
    //al_shutdown_acodec_addon(); // not a thing, possibly a bug. Causes some issues with testing
+   al_shutdown_video_addon();
 
    al_uninstall_audio();
    al_uninstall_joystick();
