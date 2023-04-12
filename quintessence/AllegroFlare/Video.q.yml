@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: al_video
+    type: ALLEGRO_VIDEO*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_VIDEO
+    headers: [ allegro5/allegro_video.h ]
+
+
