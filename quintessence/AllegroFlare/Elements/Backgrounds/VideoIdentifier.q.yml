@@ -34,6 +34,17 @@ functions:
     guards: [ video_bin ]
     body: |
       // Should this logic be in the "show" function instead?
+      ALLEGRO_VIDEO *video = obtain_video();
+      if (video) al_start_video(video, nullptr);
+      return;
+
+
+  - name: deactivate
+    override: true
+    guards: [ video_bin ]
+    body: |
+      ALLEGRO_VIDEO *video = obtain_video();
+      if (video) al_set_video_playing(video, false);
       return;
 
 
@@ -41,12 +52,24 @@ functions:
     override: true
     guards: [ video_bin ]
     body: |
+      ALLEGRO_VIDEO *video = obtain_video();
+      // TODO: obtain the frame and render the image
       return;
+
+
+  - name: obtain_video
+    type: ALLEGRO_VIDEO*
+    private: true
+    guards: [ video_bin ]
+    body: |
+      return video_bin->auto_get(video_identifier);
 
 
 dependencies:
 
 
+  - symbol: ALLEGRO_VIDEO
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::VideoBin
     headers: [ AllegroFlare/VideoBin.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base

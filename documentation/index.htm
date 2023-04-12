@@ -1999,10 +1999,19 @@ table td
   <td class="method">activate()</td>
 </tr>
 <tr>
+  <td class="method">deactivate()</td>
+</tr>
+<tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_video()</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VIDEO&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VideoBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VideoBin.hpp&quot;]}</td>
 </tr>
@@ -22620,6 +22629,10 @@ table td
   "AllegroFlare/ScreenCapture": [
     "AllegroFlare/Elements/Backgrounds/ScreenCapture"
   ],
+  "ALLEGRO_VIDEO": [
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
+    "AllegroFlare/VideoBin"
+  ],
   "AllegroFlare/VideoBin": [
     "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
@@ -24146,9 +24159,6 @@ table td
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Bin": [
-    "AllegroFlare/VideoBin"
-  ],
-  "ALLEGRO_VIDEO": [
     "AllegroFlare/VideoBin"
   ],
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory": [

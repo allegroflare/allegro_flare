@@ -883,6 +883,10 @@
   "AllegroFlare/ScreenCapture": [
     "AllegroFlare/Elements/Backgrounds/ScreenCapture"
   ],
+  "ALLEGRO_VIDEO": [
+    "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
+    "AllegroFlare/VideoBin"
+  ],
   "AllegroFlare/VideoBin": [
     "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
@@ -2409,9 +2413,6 @@
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Bin": [
-    "AllegroFlare/VideoBin"
-  ],
-  "ALLEGRO_VIDEO": [
     "AllegroFlare/VideoBin"
   ],
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory": [
