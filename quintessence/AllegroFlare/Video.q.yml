@@ -9,6 +9,14 @@ properties:
     setter: true
 
 
+documentation:
+
+
+  - notes:
+      - see AllegroFlare/Elements/Backgrounds/VideoIdentifier for information about the play status needed for this
+        class.
+
+
 dependencies:
 
 
