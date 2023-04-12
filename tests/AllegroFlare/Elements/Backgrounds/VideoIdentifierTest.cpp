@@ -38,6 +38,10 @@ TEST_F(AllegroFlare_Elements_Backgrounds_VideoIdentifierTest, type__has_the_expe
 
 TEST_F(AllegroFlare_Elements_Backgrounds_VideoTestWithAllegroRenderingFixture, render__will_render_the_video)
 {
+   al_install_audio();
+   al_reserve_samples(1);
+   //al_init_primitives_addon();
+
    al_init_video_addon();
    AllegroFlare::VideoBin video_bin;
    video_bin.set_full_path(get_fixtures_path() + "videos/");
@@ -45,6 +49,9 @@ TEST_F(AllegroFlare_Elements_Backgrounds_VideoTestWithAllegroRenderingFixture, r
 
    AllegroFlare::Elements::Backgrounds::VideoIdentifier video_identifier_background(&video_bin, video_identifier);
    video_identifier_background.render();
+
+   al_rest(1);
+
    al_shutdown_video_addon();
 }
 
