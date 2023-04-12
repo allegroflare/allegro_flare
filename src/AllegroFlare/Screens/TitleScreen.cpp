@@ -479,6 +479,7 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
    switch (state)
    {
       case STATE_REVEALING:
+         reveal_started_at = al_get_time(); // TODO: Consider injecting time
          cursor_position = 0;
          showing_menu = false;
          showing_copyright = false;
