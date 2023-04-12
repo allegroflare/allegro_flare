@@ -14,6 +14,9 @@ namespace AllegroFlare
       {
          class Parallax : public AllegroFlare::Elements::Backgrounds::Base
          {
+         public:
+            static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/Parallax";
+
          private:
             std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> layers;
             float offset_x;

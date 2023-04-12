@@ -17,7 +17,7 @@ namespace Backgrounds
 
 
 Parallax::Parallax(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> layers, float offset_x, float offset_y)
-   : AllegroFlare::Elements::Backgrounds::Base("Parallax")
+   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::Parallax::TYPE)
    , layers(layers)
    , offset_x(offset_x)
    , offset_y(offset_y)

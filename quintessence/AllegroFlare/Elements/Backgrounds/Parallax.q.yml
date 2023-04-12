@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
-    init_with: '"Parallax"'
+    init_with: AllegroFlare::Elements::Backgrounds::Parallax::TYPE
 
 
 properties:
@@ -29,6 +29,12 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/Parallax"'
+    static: true
+    constexpr: true
 
 
 functions:
