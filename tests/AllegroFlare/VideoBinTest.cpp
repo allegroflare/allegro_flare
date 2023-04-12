@@ -17,18 +17,14 @@ TEST_F(AllegroFlare_VideoBinTest, can_be_created_without_blowing_up)
 }
 
 
-TEST_F(AllegroFlare_VideoBinTestWithAllegroRenderingFixture,
-   DISABLED__load_data__will_load_data_from_the_expected_path)
+TEST_F(AllegroFlare_VideoBinTestWithAllegroRenderingFixture, load_data__will_load_data_from_the_expected_path)
 {
-   // TODO: Implement this test
-   //al_init_video_addon();
-   //AllegroFlare::VideoBin video_bin;
-   //video_bin.set_full_path(get_fixtures_path() + "videos/");
-
-   //std::string test_video_identifier = "file_example_OGG_480_1_7mg.ogg";
-   //ALLEGRO_VIDEO* loaded_video = video_bin.load_data(test_video_identifier);
-   //EXPECT_NE(nullptr, loaded_video);
-   //al_shutdown_video_addon();
+   al_init_video_addon();
+   AllegroFlare::VideoBin video_bin;
+   std::string video_path_to_file = get_fixtures_path() + "videos/file_example_OGG_480_1_7mg.ogg";
+   ALLEGRO_VIDEO* loaded_video = video_bin.load_data(video_path_to_file);
+   EXPECT_NE(nullptr, loaded_video);
+   al_shutdown_video_addon();
 }
 
 
