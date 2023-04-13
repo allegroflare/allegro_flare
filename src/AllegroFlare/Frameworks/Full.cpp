@@ -37,8 +37,7 @@ namespace Frameworks
 
 
 Full::Full()
-   : DEFAULT_CONFIG_FILENAME("data/config/config.cfg") // TODO: make this a const
-   , screens()
+   : screens()
    , initialized(false)
    , config(DEFAULT_CONFIG_FILENAME)
    , profiler()

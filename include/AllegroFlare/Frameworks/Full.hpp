@@ -40,7 +40,6 @@ namespace AllegroFlare
       class Full
       {
       private:
-         std::string DEFAULT_CONFIG_FILENAME;
          ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;
@@ -218,6 +217,7 @@ namespace AllegroFlare
          void draw_no_active_screens_text();
 
       public:
+         static constexpr char* DEFAULT_CONFIG_FILENAME = (char*)"data/config/config.cfg";
          static constexpr int DEFAULT_DISPLAY_WIDTH = 1920;
          static constexpr int DEFAULT_DISPLAY_HEIGHT = 1080;
       };

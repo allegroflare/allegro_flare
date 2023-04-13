@@ -98,6 +98,12 @@ TEST(AllegroFlare_Frameworks_FullTest, DEFAULT_DISPLAY_HEIGHT__has_the_expected_
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest, DEFAULT_CONFIG_FILENAME__has_the_expected_value)
+{
+   EXPECT_EQ("data/config/config.cfg", AllegroFlare::Frameworks::Full::DEFAULT_CONFIG_FILENAME);
+}
+
+
 TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_allegro)
 {
    AllegroFlare::Frameworks::Full framework;
