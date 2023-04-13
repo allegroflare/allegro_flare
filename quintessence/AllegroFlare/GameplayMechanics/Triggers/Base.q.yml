@@ -1,0 +1,51 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::GameplayMechanics::Triggers::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: triggered
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/GameplayMechanics/Triggers/Base"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: trigger
+    final: true
+    guards: [ (!get_triggered()) ]
+    body: |
+      on_trigger();
+      triggered = true;
+
+
+  - name: on_trigger
+    private: true
+    virtual: true
+    guards: [ (!get_triggered()) ]
+    body: |
+      // to be implemented by the parent class
+      return;
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+
