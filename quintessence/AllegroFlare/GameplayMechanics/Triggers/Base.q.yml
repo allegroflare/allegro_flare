@@ -35,7 +35,7 @@ functions:
     virtual: true
     guards: [ (!get_triggered()) ]
     body: |
-      // to be implemented by the parent class
+      // to be implemented by the derived class
       return;
 
 

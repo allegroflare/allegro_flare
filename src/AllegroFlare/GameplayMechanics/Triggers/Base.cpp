@@ -61,7 +61,7 @@ void Base::on_trigger()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::on_trigger: error: guard \"(!get_triggered())\" not met");
    }
-   // to be implemented by the parent class
+   // to be implemented by the derived class
    return;
 }
 
