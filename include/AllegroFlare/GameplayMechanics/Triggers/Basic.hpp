@@ -17,6 +17,7 @@ namespace AllegroFlare
 
          private:
             virtual void on_trigger() override;
+            virtual void on_reset() override;
 
          protected:
 

@@ -19,6 +19,7 @@ namespace AllegroFlare
             std::string type;
             bool triggered;
             virtual void on_trigger();
+            virtual void on_reset();
 
          protected:
 
@@ -30,6 +31,7 @@ namespace AllegroFlare
             std::string get_type() const;
             bool get_triggered() const;
             void trigger();
+            void reset();
             bool is_type(std::string possible_type="");
          };
       }

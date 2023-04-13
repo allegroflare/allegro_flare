@@ -30,6 +30,12 @@ void Basic::on_trigger()
    return;
 }
 
+void Basic::on_reset()
+{
+   // Nothing here
+   return;
+}
+
 
 } // namespace Triggers
 } // namespace GameplayMechanics

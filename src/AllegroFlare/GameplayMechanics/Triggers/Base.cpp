@@ -52,6 +52,12 @@ void Base::trigger()
    triggered = true;
 }
 
+void Base::reset()
+{
+   on_reset();
+   triggered = false;
+}
+
 void Base::on_trigger()
 {
    if (!((!get_triggered())))
@@ -60,6 +66,19 @@ void Base::on_trigger()
       error_message << "[Base::on_trigger]: error: guard \"(!get_triggered())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::on_trigger: error: guard \"(!get_triggered())\" not met");
+   }
+   // to be implemented by the derived class
+   return;
+}
+
+void Base::on_reset()
+{
+   if (!((get_triggered())))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::on_reset]: error: guard \"(get_triggered())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::on_reset: error: guard \"(get_triggered())\" not met");
    }
    // to be implemented by the derived class
    return;

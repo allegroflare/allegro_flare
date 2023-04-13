@@ -30,10 +30,26 @@ functions:
       triggered = true;
 
 
+  - name: reset
+    final: true
+    body: |
+      on_reset();
+      triggered = false;
+
+
   - name: on_trigger
     private: true
     virtual: true
     guards: [ (!get_triggered()) ]
+    body: |
+      // to be implemented by the derived class
+      return;
+
+
+  - name: on_reset
+    private: true
+    virtual: true
+    guards: [ (get_triggered()) ]
     body: |
       // to be implemented by the derived class
       return;

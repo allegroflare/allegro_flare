@@ -28,6 +28,15 @@ functions:
       return;
 
 
+  - name: on_reset
+    virtual: true
+    override: true
+    private: true
+    body: |
+      // Nothing here
+      return;
+
+
 dependencies:
 
 
