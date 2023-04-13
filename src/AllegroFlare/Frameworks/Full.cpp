@@ -38,8 +38,6 @@ namespace Frameworks
 
 Full::Full()
    : DEFAULT_CONFIG_FILENAME("data/config/config.cfg") // TODO: make this a const
-   //, DEFAULT_DISPLAY_WIDTH(1920) // TODO: make this a const
-   //, DEFAULT_DISPLAY_HEIGHT(1080) // TODO: make this a const
    , screens()
    , initialized(false)
    , config(DEFAULT_CONFIG_FILENAME)
