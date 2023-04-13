@@ -86,6 +86,18 @@ TEST(AllegroFlare_Frameworks_FullTest, can_be_created_without_blowing_up)
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest, DEFAULT_DISPLAY_WIDTH__has_the_expected_value)
+{
+   EXPECT_EQ(1920, AllegroFlare::Frameworks::Full::DEFAULT_DISPLAY_WIDTH);
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest, DEFAULT_DISPLAY_HEIGHT__has_the_expected_value)
+{
+   EXPECT_EQ(1080, AllegroFlare::Frameworks::Full::DEFAULT_DISPLAY_HEIGHT);
+}
+
+
 TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_allegro)
 {
    AllegroFlare::Frameworks::Full framework;

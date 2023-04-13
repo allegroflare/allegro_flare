@@ -41,8 +41,6 @@ namespace AllegroFlare
       {
       private:
          std::string DEFAULT_CONFIG_FILENAME;
-         int DEFAULT_DISPLAY_WIDTH;
-         int DEFAULT_DISPLAY_HEIGHT;
          ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;
@@ -218,6 +216,10 @@ namespace AllegroFlare
          bool unregister_event_callback(uint32_t id);
 
          void draw_no_active_screens_text();
+
+      public:
+         static constexpr int DEFAULT_DISPLAY_WIDTH = 1920;
+         static constexpr int DEFAULT_DISPLAY_HEIGHT = 1080;
       };
    } // namespace Frameworks
 } // namespace AllegroFlare
