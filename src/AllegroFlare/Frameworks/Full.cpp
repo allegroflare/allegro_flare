@@ -837,27 +837,6 @@ bool Full::get_drawing_inputs_bar_overlay()
 }
 
 
-Display *Full::create_display(int width, int height, int display_flags)
-{
-   //if (adapter!=-1) al_set_new_display_adapter(adapter);
-
-   //int multisamples = 4;
-   //int depth_size = 32;
-   //int adapter = -1;
-
-   Display *display = new Display(
-      width,
-      height,
-      display_flags,
-      render_surface_multisamples,
-      render_surface_depth_size,
-      render_surface_adapter
-   );
-   al_register_event_source(event_queue, al_get_display_event_source(display->al_display));
-   return display;
-}
-
-
 bool Full::offset_primary_timer(int microseconds)
 {
    if (!primary_timer)

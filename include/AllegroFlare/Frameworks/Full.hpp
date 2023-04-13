@@ -193,8 +193,6 @@ namespace AllegroFlare
          float get_input_hints_backfill_opacity();
          float get_input_hints_bar_height();
 
-         Display *create_display(int width, int height, int display_flags);
-
          void render_screens_to_primary_render_surface();
 
          void primary_update();
