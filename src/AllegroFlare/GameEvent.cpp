@@ -53,6 +53,11 @@ bool GameEvent::is_type(std::string possible_type)
    return (type == possible_type);
 }
 
+bool GameEvent::data_is_type(std::string data_possible_type)
+{
+   return (data && data->is_type(data_possible_type));
+}
+
 
 } // namespace AllegroFlare
 

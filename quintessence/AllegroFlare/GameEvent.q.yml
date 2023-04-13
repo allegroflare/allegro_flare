@@ -40,11 +40,18 @@ functions:
       return (type == possible_type);
 
 
+  - name: data_is_type
+    type: bool
+    parameters:
+      - name: data_possible_type
+        type: std::string
+        default_argument: '"[unset-data_possible_type]"'
+    body: |
+      return (data && data->is_type(data_possible_type));
+
+
 dependencies:
 
-
-  - symbol: AllegroFlare::GameEventDatas::Base*
-    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
 
   - symbol: AllegroFlare::GameEventDatas::Base
     headers: [ AllegroFlare/GameEventDatas/Base.hpp ]

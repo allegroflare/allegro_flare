@@ -1310,7 +1310,6 @@
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
-    "AllegroFlare/GameEvent",
     "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
