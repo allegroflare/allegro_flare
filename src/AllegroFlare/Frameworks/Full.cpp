@@ -618,14 +618,16 @@ bool Full::shutdown()
 
    audio_controller.destruct();
 
-   al_shutdown_image_addon(); //) std::cerr << "shutdown of al_init_image_addon() failed" << std::endl;
-   al_shutdown_ttf_addon(); //) std::cerr << "shutdown al_init_ttf_addon() failed" << std::endl;
-   al_shutdown_font_addon(); //) std::cerr << "shutdown of al_init_font_addon() failed" << std::endl;
-   al_shutdown_primitives_addon(); //) std::cerr << "shutdown of al_init_primitives_addon() failed" << std::endl;
-   al_shutdown_native_dialog_addon(); // std::cerr << "shutdown of al_init_native_dialog_addon() failed" << std::endl;
+   // Shutdown the allegro addons
+   al_shutdown_image_addon();
+   al_shutdown_ttf_addon();
+   al_shutdown_font_addon();
+   al_shutdown_primitives_addon();
+   al_shutdown_native_dialog_addon();
    //al_shutdown_acodec_addon(); // not a thing, possibly a bug. Causes some issues with testing
    al_shutdown_video_addon();
 
+   // Uninstall the allegro controlled devices
    al_uninstall_audio();
    al_uninstall_joystick();
    al_uninstall_keyboard();
