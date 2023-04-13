@@ -43,7 +43,7 @@ namespace AllegroFlare
             float get_bar_width() const;
             float get_bar_height() const;
             float get_min_render_threshold() const;
-            void render();
+            void render() override;
          };
       }
    }

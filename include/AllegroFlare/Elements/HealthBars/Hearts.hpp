@@ -56,7 +56,7 @@ namespace AllegroFlare
             int get_heart_size() const;
             float get_heart_spacing() const;
             bool get_drawing_outline() const;
-            void render();
+            void render() override;
             void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
          };
       }

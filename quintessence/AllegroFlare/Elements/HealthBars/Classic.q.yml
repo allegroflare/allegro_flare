@@ -71,6 +71,7 @@ functions:
 
   - name: render
     type: void
+    override: true
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       float h_thickness = bar_stroke_thickness * 0.5;

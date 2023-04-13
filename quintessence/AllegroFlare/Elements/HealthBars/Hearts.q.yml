@@ -85,6 +85,7 @@ functions:
 
   - name: render
     type: void
+    override: true
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_ttf_addon_initialized() ]
     body: |
       ALLEGRO_FONT *font_awesome_solid_font = obtain_font_awesome_solid_font();

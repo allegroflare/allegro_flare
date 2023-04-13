@@ -64,6 +64,7 @@ functions:
 
   - name: render
     type: void
+    override: true
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       get_placement_ref().start_transform();
