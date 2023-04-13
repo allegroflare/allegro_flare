@@ -421,6 +421,7 @@ bool Full::initialize_display_and_render_pipeline()
 }
 
 
+
 void Full::set_render_surface_multisamples(int render_surface_multisamples)
 {
    if (initialized)
@@ -593,11 +594,6 @@ std::string Full::get_data_folder_path()
 bool Full::shutdown()
 {
    if (!initialized) return false;
-
-   // TODO: this line is commented out now that we are assuming the "system_text_font" is not allegro's "builtin" font.
-   // Note that if the font *is* created as the builtin font, then it should be deleted. For now, that case is
-   // being ignored. You could possibly consider a case where the builtin font is included in the font bin.
-   //al_destroy_font(system_text_font);
 
    // TODO autit this function
    samples.clear();
