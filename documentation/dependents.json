@@ -1419,6 +1419,9 @@
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
+  "AllegroFlare/GameplayMechanics/Triggers/Base": [
+    "AllegroFlare/GameplayMechanics/Triggers/Basic"
+  ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
   ],

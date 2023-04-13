@@ -21,8 +21,7 @@ TEST(AllegroFlare_GameplayMechanics_Triggers_BaseTest, can_be_created_without_bl
 
 TEST(AllegroFlare_GameplayMechanics_Triggers_BaseTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::GameplayMechanics::Triggers::Base base;
-   EXPECT_EQ("AllegroFlare/GameplayMechanics/Triggers/Base", base.get_type());
+   EXPECT_EQ("AllegroFlare/GameplayMechanics/Triggers/Base", AllegroFlare::GameplayMechanics::Triggers::Base::TYPE);
 }
 
 

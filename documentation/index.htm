@@ -141,6 +141,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml">quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDevicesList.q.yml">quintessence/AllegroFlare/InputDevicesList.q.yml</a></li>
@@ -6941,6 +6943,59 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">triggered</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">trigger()</td>
+</tr>
+<tr>
+  <td class="private_method">on_trigger()</td>
+</tr>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="private_method">on_trigger()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameplayMechanics::Triggers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameplayMechanics/Triggers/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23212,6 +23267,9 @@ table td
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/GameplayMechanics/Triggers/Base": [
+    "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
   "AllegroFlare/php/str_replace": [
     "AllegroFlare/Generators/LoremIpsumGenerator"
