@@ -443,10 +443,10 @@ namespace AllegroFlare
    }
 
 
-   std::vector<ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_object_vertices()
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_object_vertices()
    {
       // TODO
-      std::vector<ALLEGRO_VERTEX_WITH_NORMAL> result;
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> result;
       return result;
    }
 }

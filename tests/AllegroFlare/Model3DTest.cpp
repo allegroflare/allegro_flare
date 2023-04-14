@@ -170,7 +170,10 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    load_subject("named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
 
-   subject.extract_named_object_vertices();
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> expected_vertices;
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> actual_vertices = subject.extract_named_object_vertices();
+
+   //EXPECT_EQ(expected_vertices, actual_vertices); // TODO: HERE
 }
 
 
