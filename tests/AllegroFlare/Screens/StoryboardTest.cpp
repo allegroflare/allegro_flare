@@ -137,8 +137,8 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   // TODO: Undisable this test
    DISABLED__virtual_control_button_down_func__with_the_expected_virtual_buttons__will_advance_the_storybard)
-   // TODO
 {
    AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
@@ -171,6 +171,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   // TODO: Undisable this test
    DISABLED__advance__when_at_the_final_page_that_is_finished__will_emit_a_game_event_with_the_expected_property_value)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
