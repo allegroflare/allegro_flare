@@ -162,7 +162,7 @@ void VideoIdentifier::render()
    ALLEGRO_VIDEO *video = obtain_video();
    if (!video) return;
 
-   bool video_is_playing = al_is_video_playing(video); // I think there is a bug here
+   bool video_is_playing = al_is_video_playing(video); // I think there is a bug here. See documentation section.
    if (!video_is_playing) return;
 
    ALLEGRO_BITMAP* frame = al_get_video_frame(video);
