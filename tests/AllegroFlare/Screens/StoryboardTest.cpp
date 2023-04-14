@@ -7,6 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
 
@@ -20,6 +21,17 @@ class AllegroFlare_Screens_StoryboardTest : public ::testing::Test
 class AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
+
+class AllegroFlare_Screens_StoryboardTestWithAllegroFlareFrameworksFullFixture :
+   public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
+{
+   virtual void SetUp() override
+   {
+      get_framework_ref().disable_using_display_backbuffer_as_primary_render_surface(); // TODO: See if this line
+                                                                                        // can be removed
+      AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::SetUp();
+   }
+};
 
 
 #include <AllegroFlare/Screens/Storyboard.hpp>
