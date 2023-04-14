@@ -63,7 +63,7 @@ TEST_F(AllegroFlare_Model3DTest, can_be_created_without_blowing_up)
 
 
 TEST_F(AllegroFlare_Model3DTest,
-   DISABLED__initialize__will_work_as_expected)
+   initialize__will_work_as_expected)
 {
    al_init();
    al_init_primitives_addon();
@@ -85,7 +85,6 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest, VISUAL__draw__will_d
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   //DISABLED__inspect_status__will_output_information_about_the_model_in_its_current_state)
    inspect_status__will_output_information_about_the_model_in_its_current_state)
 {
    load_subject();
@@ -109,7 +108,6 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   //DISABLED__flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
    flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
 {
    load_subject();
@@ -145,7 +143,6 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    VISUAL__append__will_append_vertexes_from_another_model)
-   //DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
 {
    load_subject();
    AllegroFlare::Model3D model_to_append;
@@ -175,7 +172,6 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   //DISABLED__promote_to_vertex_buffer__will_be_reflected_in_inspect_status)
    promote_to_vertex_buffer__will_be_reflected_in_inspect_status)
 {
    load_subject();
@@ -197,8 +193,7 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
-   //DISABLED__VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+   promote_to_vertext_buffer__will_not_produce_any_warnings)
 {
    load_subject();
    subject.flatten_single_named_object();
@@ -209,14 +204,11 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    std::string expected_cout = ""; // Expecting no output warnings
 
    EXPECT_EQ(expected_cout, actual_cout);
-
-   examine_subject(1);
 }
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   //VISUAL__flattening_appending_and_promoting_to_vertex_object_will_work_as_expected_without_warnings)
-   DISABLED__VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+   VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
 {
    load_subject();
    AllegroFlare::Model3D model_to_append;
