@@ -222,3 +222,17 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroFlareFrameworksFullFixture,
+   TIMED_INTERACTIVE__will_work_in_a_frameworks_full_context__with_a_non_display_backbuffer)
+{
+   AllegroFlare::Screens::Storyboard storyboard_screen;
+   storyboard_screen.set_event_emitter(get_framework_event_emitter());
+   storyboard_screen.set_font_bin(get_framework_font_bin());
+   storyboard_screen.initialize();
+
+   framework_register_and_activate_screen("storyboard_screen", &storyboard_screen);
+
+   framework_run_loop(1);
+}
+
+
