@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/Storyboard.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <iostream>
 #include <sstream>
@@ -171,7 +172,12 @@ void Storyboard::virtual_control_button_down_func(AllegroFlare::Player* player, 
    }
    if (storyboard_element.get_finished()) return;
 
-   // TODO: validate controller type
+   if (!virtual_controller->is_type(AllegroFlare::VirtualControllers::GenericController::TYPE))
+   {
+      // TODO test this
+      AllegroFlare::Logger::throw_error("AllegroFlare/Screens/Storyboard", "Expecting virtual_controller to be of "
+                                        "type GenericController::TYPE but it is not.");
+   }
 
    if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_A
      || virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_MENU

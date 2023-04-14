@@ -551,6 +551,7 @@
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor"
   ],
