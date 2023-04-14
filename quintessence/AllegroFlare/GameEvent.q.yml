@@ -18,18 +18,6 @@ properties:
 functions:
 
 
-  - name: get_name
-    type: std::string
-    body: |
-      // TODO: update all dependent classes to use "get_type" instead
-      std::cout << "[AllegroFlare::GameEvent::get_name]: warning: \"get_name()\" is depreciated. "
-                << "Use \"get_type()\" which is identical in use."
-                << std::endl;
-      return type;
-    body_dependency_symbols:
-      - std::cout
-
-
   - name: is_type
     type: bool
     parameters:

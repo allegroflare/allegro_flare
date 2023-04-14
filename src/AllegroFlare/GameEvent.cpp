@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/GameEvent.hpp>
 
-#include <iostream>
+
 
 
 namespace AllegroFlare
@@ -38,15 +38,6 @@ AllegroFlare::GameEventDatas::Base* GameEvent::get_data() const
    return data;
 }
 
-
-std::string GameEvent::get_name()
-{
-   // TODO: update all dependent classes to use "get_type" instead
-   std::cout << "[AllegroFlare::GameEvent::get_name]: warning: \"get_name()\" is depreciated. "
-             << "Use \"get_type()\" which is identical in use."
-             << std::endl;
-   return type;
-}
 
 bool GameEvent::is_type(std::string possible_type)
 {
