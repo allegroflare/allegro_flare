@@ -17,8 +17,8 @@ namespace AllegroFlare
       class Storyboard : public AllegroFlare::Screens::Base
       {
       private:
-         AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
+         AllegroFlare::FontBin* font_bin;
          AllegroFlare::Elements::Storyboard storyboard_element;
          bool auto_advance;
          std::string game_event_name_to_emit_after_completing;
@@ -30,11 +30,11 @@ namespace AllegroFlare
 
 
       public:
-         Storyboard(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, std::string game_event_name_to_emit_after_completing="storyboard_finished");
+         Storyboard(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string game_event_name_to_emit_after_completing="storyboard_finished");
          virtual ~Storyboard();
 
-         void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+         void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_auto_advance(bool auto_advance);
          void set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing);
          bool get_auto_advance() const;

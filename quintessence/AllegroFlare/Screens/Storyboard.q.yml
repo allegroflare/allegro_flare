@@ -9,14 +9,14 @@ parent_classes:
 properties:
 
 
-  - name: font_bin
-    type: AllegroFlare::FontBin*
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
     setter: true
 
-  - name: event_emitter
-    type: AllegroFlare::EventEmitter*
+  - name: font_bin
+    type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
     setter: true

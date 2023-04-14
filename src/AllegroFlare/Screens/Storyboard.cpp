@@ -15,10 +15,10 @@ namespace Screens
 {
 
 
-Storyboard::Storyboard(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string game_event_name_to_emit_after_completing)
+Storyboard::Storyboard(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string game_event_name_to_emit_after_completing)
    : AllegroFlare::Screens::Base("Storyboard")
-   , font_bin(font_bin)
    , event_emitter(event_emitter)
+   , font_bin(font_bin)
    , storyboard_element({})
    , auto_advance(false)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
@@ -32,15 +32,15 @@ Storyboard::~Storyboard()
 }
 
 
-void Storyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
-{
-   this->font_bin = font_bin;
-}
-
-
 void Storyboard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    this->event_emitter = event_emitter;
+}
+
+
+void Storyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
 }
 
 
