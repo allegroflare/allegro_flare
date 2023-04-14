@@ -35,10 +35,16 @@ properties:
 
   - name: game_event_name_to_emit_after_completing
     type: std::string
-    init_with: '"storyboard_finished"'
+    init_with: DEFAULT_EVENT_NAME_TO_EMIT_AFTER_COMPLETING
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: DEFAULT_EVENT_NAME_TO_EMIT_AFTER_COMPLETING
+    type: char*
+    init_with: '(char*)"storyboard_finished"'
+    static: true
+    constexpr: true
 
   - name: initialized
     type: bool

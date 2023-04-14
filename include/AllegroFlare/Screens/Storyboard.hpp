@@ -16,6 +16,9 @@ namespace AllegroFlare
    {
       class Storyboard : public AllegroFlare::Screens::Base
       {
+      public:
+         static constexpr char* DEFAULT_EVENT_NAME_TO_EMIT_AFTER_COMPLETING = (char*)"storyboard_finished";
+
       private:
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
@@ -30,7 +33,7 @@ namespace AllegroFlare
 
 
       public:
-         Storyboard(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string game_event_name_to_emit_after_completing="storyboard_finished");
+         Storyboard(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string game_event_name_to_emit_after_completing=DEFAULT_EVENT_NAME_TO_EMIT_AFTER_COMPLETING);
          virtual ~Storyboard();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
