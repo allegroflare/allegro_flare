@@ -40,11 +40,11 @@ namespace AllegroFlare
    {
       if (initialized) throw std::runtime_error("[AllegroFlare::Model3D::initialize]: error: cannot initialize "
                                                 "more than once.");
-      if (!al_is_system_installed() || !al_is_primitives_addon_initialized() || !al_get_current_display())
+      if (!al_is_system_installed() || !al_is_primitives_addon_initialized())
       {
          // TODO: be sure if al_get_current_display() is even required here
          throw std::runtime_error("[AllegroFlare::Model3D::initialize]: error: al_is_system_installed() or "
-                                  "al_is_primitives_addon_initialized() or al_get_current_display() not met.");
+                                  "al_is_primitives_addon_initialized() not met.");
       }
       build_vertex_declaration();
 
