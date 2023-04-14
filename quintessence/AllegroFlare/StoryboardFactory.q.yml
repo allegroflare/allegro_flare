@@ -44,7 +44,7 @@ functions:
         default_argument: -40
     body: |
       AllegroFlare::Screens::Storyboard* result;
-      result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
+      result = new AllegroFlare::Screens::Storyboard(event_emitter, font_bin);
       result->set_auto_advance(true);
       result->initialize();
 
@@ -94,7 +94,7 @@ functions:
       AllegroFlare::Screens::Storyboard* result;
 
       // create the storyboard container
-      result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
+      result = new AllegroFlare::Screens::Storyboard(event_emitter, font_bin);
       result->initialize();
 
       // tweak the button styling

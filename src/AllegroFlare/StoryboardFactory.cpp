@@ -39,7 +39,7 @@ void StoryboardFactory::set_font_bin(AllegroFlare::FontBin* font_bin)
 AllegroFlare::Screens::Storyboard* StoryboardFactory::create_images_storyboard_screen(std::vector<ALLEGRO_BITMAP*> source_bitmaps, int button_font_size)
 {
    AllegroFlare::Screens::Storyboard* result;
-   result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
+   result = new AllegroFlare::Screens::Storyboard(event_emitter, font_bin);
    result->set_auto_advance(true);
    result->initialize();
 
@@ -61,7 +61,7 @@ AllegroFlare::Screens::Storyboard* StoryboardFactory::create_advancing_text_stor
    AllegroFlare::Screens::Storyboard* result;
 
    // create the storyboard container
-   result = new AllegroFlare::Screens::Storyboard(font_bin, event_emitter);
+   result = new AllegroFlare::Screens::Storyboard(event_emitter, font_bin);
    result->initialize();
 
    // tweak the button styling
