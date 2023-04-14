@@ -441,6 +441,14 @@ namespace AllegroFlare
    {
       return AllegroFlare::Physics::AABB3D(get_min_vertex_coordinate(), get_max_vertex_coordinate());
    }
+
+
+   std::vector<ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_object_vertices()
+   {
+      // TODO
+      std::vector<ALLEGRO_VERTEX_WITH_NORMAL> result;
+      return result;
+   }
 }
 
 

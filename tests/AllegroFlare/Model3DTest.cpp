@@ -165,6 +165,16 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   VISUAL__extract_named_object_vertices__will_return_vertices_of_the_named_object)
+{
+   load_subject("named_objects-02.obj");
+   EXPECT_EQ(3, subject.named_objects.size());
+
+   subject.extract_named_object_vertices();
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    DISABLED__promote_to_vertex_buffer__when_there_are_one_or_more_named_objects__will_throw_an_error)
 {
    // TODO
