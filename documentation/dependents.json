@@ -276,7 +276,6 @@
     "AllegroFlare/Screens/Version",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
@@ -780,7 +779,6 @@
     "AllegroFlare/Screens/Version",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
@@ -1255,8 +1253,7 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Text",
-    "AllegroFlare/StoryboardFactory"
+    "AllegroFlare/Elements/StoryboardPages/Text"
   ],
   "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [
     "AllegroFlare/EventEmitter"
@@ -2300,32 +2297,25 @@
   "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
-  "std/vector<ALLEGRO_BITMAP>": [
+  "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"
   ],
-  "AllegroFlare/Elements/StoryboardPages/Text": [
-    "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/StoryboardPageFactory"
+  "AllegroFlare/Screens/Storyboard": [
+    "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Image": [
-    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/AdvancingText": [
     "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
-  "AllegroFlare/Screens/Storyboard": [
-    "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardFactory"
-  ],
-  "AllegroFlare/StoryboardPageFactory": [
-    "AllegroFlare/StoryboardFactory"
+  "AllegroFlare/Elements/StoryboardPages/Text": [
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/StoryboardPageFactory"
   ],
   "AllegroFlare/Version": [
     "AllegroFlare/SystemInfo"

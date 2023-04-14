@@ -126,25 +126,8 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: std::vector<ALLEGRO_BITMAP*>
-    headers: [ vector, allegro5/allegro.h ]
-  - symbol: AllegroFlare::Elements::StoryboardPages::Text*
-    headers: [ AllegroFlare/Elements/StoryboardPages/Text.hpp ]
-  - symbol: AllegroFlare::Elements::StoryboardPages::Base*
-    headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
-  - symbol: AllegroFlare::Elements::StoryboardPages::Image*
-    headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
-  - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText*
-    headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
-  - symbol: AllegroFlare::Screens::Storyboard*
-    headers: [ AllegroFlare/Screens/Storyboard.hpp ]
   - symbol: AllegroFlare::StoryboardPageFactory
     headers: [ AllegroFlare/StoryboardPageFactory.hpp ]
-
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Screens::Storyboard
@@ -157,4 +140,5 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
+
 
