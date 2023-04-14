@@ -128,13 +128,14 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 {
    AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   AllegroFlare::VirtualControllers::GenericController virtual_controller;
    ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "This is Page 1!"),
       new StoryboardPageTestClass(font, "This is the second page!"),
       new StoryboardPageTestClass(font, "The final page is here."),
    };
-   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), &event_emitter); //, pages);
+   AllegroFlare::Screens::Storyboard storyboard(&get_font_bin_ref(), &event_emitter);
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
 
@@ -144,7 +145,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    {
       storyboard.virtual_control_button_down_func(
             nullptr,
-            nullptr,
+            &virtual_controller,
             AllegroFlare::VirtualControllers::GenericController::BUTTON_A
       );
       tries_to_bail--;
