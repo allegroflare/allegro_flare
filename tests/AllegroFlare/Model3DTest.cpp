@@ -4,6 +4,7 @@
 #include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/Camera3D.hpp>
 
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 
@@ -168,7 +169,22 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   VISUAL__extract_named_object_vertices__will_return_vertices_of_the_named_object)
+   extract_named_object_vertices__when_a_named_object_does_not_exist_with_that_name__throws_an_error)
+{
+   load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
+   EXPECT_EQ(3, subject.named_objects.size());
+
+   EXPECT_THROW_WITH_MESSAGE(
+      subject.extract_named_object_vertices("a-named-object-that-does-not-exist"),
+      std::runtime_error,
+      "[AllegroFlare::Model3D::extract_named_object_vertices] error: Looking for named_object named "
+         "\"a-named-object-that-does-not-exist\" but it does not exist."
+   );
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   extract_named_object_vertices__will_return_vertices_of_the_named_object)
 {
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
