@@ -5,13 +5,16 @@
 #include <AllegroFlare/Camera3D.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 
 
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
       std::string TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/bin/data/models/";
+      std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/models/";
 #else
       std::string TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/models/";
+      std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/models/";
 #endif
 
 
@@ -28,7 +31,7 @@ public:
       subject.initialize();
    }
 
-   void load_subject(std::string filename=TEST_FIXTURE_MODEL_FOLDER+"coin_ring-01.obj")
+   void load_subject(std::string filename=TEST_FIXTURE_MODEL_FOLDER + "coin_ring-01.obj")
    {
       subject.load_obj_file(filename.c_str());
    }
@@ -147,7 +150,7 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    load_subject();
    AllegroFlare::Model3D model_to_append;
    model_to_append.initialize();
-   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER+"archway-01.obj";
+   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER + "archway-01.obj";
    model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    subject.flatten_single_named_object();
@@ -167,13 +170,13 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    VISUAL__extract_named_object_vertices__will_return_vertices_of_the_named_object)
 {
-   load_subject("named_objects-02.obj");
+   load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
 
    std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> expected_vertices;
    std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> actual_vertices = subject.extract_named_object_vertices();
 
-   //EXPECT_EQ(expected_vertices, actual_vertices); // TODO: HERE
+   EXPECT_EQ(expected_vertices, actual_vertices);
 }
 
 
@@ -226,7 +229,7 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    load_subject();
    AllegroFlare::Model3D model_to_append;
    model_to_append.initialize();
-   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER+"archway-01.obj";
+   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER + "archway-01.obj";
    model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    testing::internal::CaptureStdout();
