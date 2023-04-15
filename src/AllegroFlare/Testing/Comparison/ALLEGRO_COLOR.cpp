@@ -13,6 +13,12 @@ bool operator==(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
 }
 
 
+bool operator!=(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
+{
+   return !(color == other_color);
+}
+
+
 void PrintTo(const ALLEGRO_COLOR& color, ::std::ostream* os)
 {
   *os << "ALLEGRO_COLOR{" << color.r << ", " << color.g << ", " << color.b << ", " << color.a << "}";

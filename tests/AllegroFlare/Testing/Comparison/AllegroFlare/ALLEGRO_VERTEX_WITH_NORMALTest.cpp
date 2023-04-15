@@ -14,6 +14,7 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_ALLEGRO_VERTEX_WITH_NORMALTest
    object.z = 20.6;
    object.u = 1.0;
    object.v = 8.4;
+   object.color = ALLEGRO_COLOR{0.125, 0.6, 0.8, 1.0};
    object.nx = 0.2;
    object.ny = 0.4;
    object.nz = 0.6;
@@ -21,6 +22,7 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_ALLEGRO_VERTEX_WITH_NORMALTest
    PrintTo(object, &ss);
 
    std::string expected_output = "ALLEGRO_VERTEX_WITH_NORMAL(x:1, y:8.4, z:20.6, u:1, v:8.4, "
+                                                            "ALLEGRO_COLOR{0.125, 0.6, 0.8, 1}, "
                                                             "nx:0.2, ny:0.4, nz:0.6, )";
    std::string actual_output = ss.str();
    EXPECT_EQ(expected_output, actual_output);
