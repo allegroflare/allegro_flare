@@ -27,13 +27,23 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_ALLEGRO_VERTEX_WITH_NORMALTest
 }
 
 
-//TEST(AllegroFlare_Testing_Comparison_AllegroFlare_ALLEGRO_VERTEX_WITH_NORMALTest,
-   //equality_operator__works_with_google_test_EXPECT_statement)
-//{
-   //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL object;
-   //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL other_object;
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_ALLEGRO_VERTEX_WITH_NORMALTest,
+   equality_operator__works_with_google_test_EXPECT_statement)
+{
+   AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL object{1, 2, 3, 4, 5, ALLEGRO_COLOR{6, 7, 8, 9}, 10, 11, 12};
+   AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL other_object{1, 2, 3, 4, 5, ALLEGRO_COLOR{6, 7, 8, 9}, 10, 11, 12};
 
-   //EXPECT_EQ(object, other_object);
-//}
+   EXPECT_EQ(object, other_object);
+}
+
+
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_ALLEGRO_VERTEX_WITH_NORMALTest,
+   DISABLED__equality_operator__when_operating_on_an_inequality__works_with_google_test_EXPECT_statement)
+{
+   AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL object{1, 2, 3, 4, 5, ALLEGRO_COLOR{6, 7, 8, 9}, 10, 11, 12};
+   AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL other_object;
+
+   EXPECT_NE(object, other_object);
+}
 
 

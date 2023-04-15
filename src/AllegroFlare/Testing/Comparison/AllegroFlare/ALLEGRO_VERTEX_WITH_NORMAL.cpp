@@ -10,9 +10,23 @@ namespace AllegroFlare
 
 bool operator==(const ALLEGRO_VERTEX_WITH_NORMAL& object, const ALLEGRO_VERTEX_WITH_NORMAL& other_object)
 {
-   //if (object.x != other_object.x) return false;
-   //if (object.y != other_object.y) return false;
+   if (object.x != other_object.x) return false;
+   if (object.y != other_object.y) return false;
+   if (object.z != other_object.z) return false;
+
+   if (object.u != other_object.u) return false;
+   if (object.v != other_object.v) return false;
+
+   if (object.nx != other_object.nx) return false;
+   if (object.ny != other_object.ny) return false;
+   if (object.nz != other_object.nz) return false;
    return true;
+}
+
+
+bool operator!=(const ALLEGRO_VERTEX_WITH_NORMAL& object, const ALLEGRO_VERTEX_WITH_NORMAL& other_object)
+{
+   return !(object == other_object);
 }
 
 
