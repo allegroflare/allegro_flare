@@ -201,18 +201,68 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   FOCUS__extract_named_object_vertices__will_return_vertices_of_the_named_object)
+   extract_named_object_vertices__will_return_vertices_of_the_named_object)
 {
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
 
    ALLEGRO_COLOR c{1, 1, 1, 1};
    std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> expected_vertices = {
-      //build_vertex(1, 2, 3, 4, 5, c, 6, 7, 8),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0,  1,  0),
+      build_vertex(-5, 2, -22, 0.875, 0.5,  c, 0,  1,  0),
+      build_vertex(-5, 2, -20, 0.875, 0.25, c, 0,  1,  0),
+      build_vertex(-5, 2, -20, 0.875, 0.25, c, 0,  1,  0),
+      build_vertex(-3, 2, -20, 0.625, 0.25, c, 0,  1,  0),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0,  1,  0),
+
+      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  0,  1),
+      build_vertex(-3, 2, -20, 0.625, 0.25, c, 0,  0,  1),
+      build_vertex(-5, 2, -20, 0.625, 0,    c, 0,  0,  1),
+      build_vertex(-5, 2, -20, 0.625, 0,    c, 0,  0,  1),
+      build_vertex(-5, 0, -20, 0.375, 0,    c, 0,  0,  1),
+      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  0,  1),
+
+      build_vertex(-5, 0, -20, 0.375, 1,    c, -1, 0,  0),
+      build_vertex(-5, 2, -20, 0.625, 1,    c, -1, 0,  0),
+      build_vertex(-5, 2, -22, 0.625, 0.75, c, -1, 0,  0),
+      build_vertex(-5, 2, -22, 0.625, 0.75, c, -1, 0,  0),
+      build_vertex(-5, 0, -22, 0.375, 0.75, c, -1, 0,  0),
+      build_vertex(-5, 0, -20, 0.375, 1,    c, -1, 0,  0),
+
+      build_vertex(-5, 0, -22, 0.125, 0.5,  c, 0,  -1, 0),
+      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 0,  -1, 0),
+      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  -1, 0),
+      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  -1, 0),
+      build_vertex(-5, 0, -20, 0.125, 0.25, c, 0,  -1, 0),
+      build_vertex(-5, 0, -22, 0.125, 0.5,  c, 0,  -1, 0),
+
+      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 1,  0,  0),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 1,  0,  0),
+      build_vertex(-3, 2, -20, 0.625, 0.25, c, 1,  0,  0),
+      build_vertex(-3, 2, -20, 0.625, 0.25, c, 1,  0,  0),
+      build_vertex(-3, 0, -20, 0.375, 0.25, c, 1,  0,  0),
+      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 1,  0,  0),
+
+      build_vertex(-5, 0, -22, 0.375, 0.75, c, 0, 0, -1),
+      build_vertex(-5, 2, -22, 0.625, 0.75, c, 0, 0, -1),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0, 0, -1),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0, 0, -1),
+      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 0, 0, -1),
+      build_vertex(-5, 0, -22, 0.375, 0.75, c, 0, 0, -1),
    };
    std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> actual_vertices =
       subject.extract_named_object_vertices("Cube");
 
+   //expected_vertices.erase(expected_vertices.begin(), expected_vertices.begin() + 32);
+   //actual_vertices.erase(actual_vertices.begin(), actual_vertices.begin() + 32);
+
+   //for (int i=0; i<3; i++)
+   //{
+      //expected_vertices.pop_back();
+      //actual_vertices.pop_back();
+   //}
+
+   EXPECT_EQ(36, actual_vertices.size()); // NOTE: 32 vertices in a cube (which is what this object is in this test)
    EXPECT_EQ(expected_vertices, actual_vertices);
 }
 

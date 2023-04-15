@@ -467,6 +467,12 @@ namespace AllegroFlare
       }
 
       std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> result;
+
+      for (auto &vertex_index_num : found_named_object->index_list)
+      {
+         result.push_back(vertexes[vertex_index_num]);
+      }
+
       return result;
    }
 }
