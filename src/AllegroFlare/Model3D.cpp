@@ -40,11 +40,13 @@ namespace AllegroFlare
    {
       if (initialized) throw std::runtime_error("[AllegroFlare::Model3D::initialize]: error: cannot initialize "
                                                 "more than once.");
-      if (!al_is_system_installed() || !al_is_primitives_addon_initialized())
+      if (!al_is_system_installed() || !al_is_primitives_addon_initialized() || !al_get_current_display())
       {
-         // TODO: be sure if al_get_current_display() is even required here
+         // TODO: al_get_current_display() is needed in this case because al_create_vertex_decl has a condition
+         // requiring a display, here: https://github.com/liballeg/allegro5/blob/d2b6b61cb28e1ece3c78907f18c3e34725e3623e/addons/primitives/primitives.c#L211-L215
+     
          throw std::runtime_error("[AllegroFlare::Model3D::initialize]: error: al_is_system_installed() or "
-                                  "al_is_primitives_addon_initialized() not met.");
+                                  "al_is_primitives_addon_initialized() or al_get_current_display() not met.");
       }
       build_vertex_declaration();
 
