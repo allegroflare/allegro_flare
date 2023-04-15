@@ -174,7 +174,8 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    EXPECT_EQ(3, subject.named_objects.size());
 
    std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> expected_vertices;
-   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> actual_vertices = subject.extract_named_object_vertices();
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> actual_vertices =
+      subject.extract_named_object_vertices("Cube");
 
    EXPECT_EQ(expected_vertices, actual_vertices);
 }

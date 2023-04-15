@@ -443,9 +443,29 @@ namespace AllegroFlare
    }
 
 
-   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_object_vertices()
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_object_vertices(std::string object_name)
    {
-      // TODO
+      // TODO: Consider that there could be multiple named objects with the same name; Throw in this case.
+      named_object *found_named_object = nullptr;
+
+      bool object_exists = false;
+      for (unsigned i=0; i<named_objects.size(); i++)
+      {
+         if (named_objects[i].identifier == object_name)
+         {
+            found_named_object = &named_objects[i];
+            break;
+         }
+      }
+
+      if (!found_named_object)
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Model3D::extract_named_object_vertices] error: "
+                       << "Looking for named_object named \"" << object_name << "\" but it does not exist.";
+         throw std::runtime_error(error_message.str());
+      }
+
       std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> result;
       return result;
    }

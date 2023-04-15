@@ -76,7 +76,7 @@ namespace AllegroFlare
       vec3d get_max_vertex_coordinate(); // should be renamed "calc_min_vertex..."
       AllegroFlare::Physics::AABB3D build_bounding_box();
 
-      std::vector<ALLEGRO_VERTEX_WITH_NORMAL> extract_named_object_vertices();
+      std::vector<ALLEGRO_VERTEX_WITH_NORMAL> extract_named_object_vertices(std::string object_name);
 
       void draw();
       bool draw_object(int index);
