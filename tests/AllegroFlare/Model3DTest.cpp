@@ -19,6 +19,23 @@
 #endif
 
 
+
+static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL build_vertex(
+      float x,
+      float y,
+      float z,
+      float u,
+      float v,
+      ALLEGRO_COLOR color,
+      float nx,
+      float ny,
+      float nz
+   )
+{
+   return AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL{x, y, z, u, v, color, nx, ny, nz};
+}
+
+
 class AllegroFlare_Model3DTest : public ::testing::Test {};
 class AllegroFlare_Model3DWithAllegroRenderingFixtureTest : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
@@ -184,12 +201,15 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
-   extract_named_object_vertices__will_return_vertices_of_the_named_object)
+   FOCUS__extract_named_object_vertices__will_return_vertices_of_the_named_object)
 {
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
 
-   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> expected_vertices;
+   ALLEGRO_COLOR c{1, 1, 1, 1};
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> expected_vertices = {
+      //build_vertex(1, 2, 3, 4, 5, c, 6, 7, 8),
+   };
    std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> actual_vertices =
       subject.extract_named_object_vertices("Cube");
 
