@@ -78,16 +78,16 @@ functions:
   - name: move_cursor_up
     private: true
     body: |
-      cursor_position++;
-      if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
+      cursor_position--;
+      if (cursor_position < 0) cursor_position += menu_options.size();
       return;
 
 
   - name: move_cursor_down
     private: true
     body: |
-      cursor_position--;
-      if (cursor_position < 0) cursor_position += menu_options.size();
+      cursor_position++;
+      if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
       return;
 
 

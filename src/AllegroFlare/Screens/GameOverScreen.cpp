@@ -77,15 +77,15 @@ void GameOverScreen::initialize()
 
 void GameOverScreen::move_cursor_up()
 {
-   cursor_position++;
-   if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
+   cursor_position--;
+   if (cursor_position < 0) cursor_position += menu_options.size();
    return;
 }
 
 void GameOverScreen::move_cursor_down()
 {
-   cursor_position--;
-   if (cursor_position < 0) cursor_position += menu_options.size();
+   cursor_position++;
+   if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
    return;
 }
 
