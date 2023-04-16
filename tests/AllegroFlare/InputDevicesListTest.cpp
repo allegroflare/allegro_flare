@@ -104,8 +104,8 @@ TEST_F(AllegroFlare_InputDevicesListTest,
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that SOME joystick devices are currently connected on the OS.
-   // TODO: Consider having a test that interactively prompts the interactive tester to disconnect all devices
-   // before running the test.
+
+   // TODO: Modify this test to interactively prompt the tester to disconnect all devices before running the test.
 
    al_init();
    al_install_joystick();
@@ -124,7 +124,8 @@ connected__will_create_the_device)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
-   // TODO: Consider having a test that interactively prompts the interactive tester to connect one (or some) devices.
+
+   // TODO: Modify this test to interactively prompt the tester to connect one (or some) devices.
 
    al_install_keyboard();
    al_install_joystick();
