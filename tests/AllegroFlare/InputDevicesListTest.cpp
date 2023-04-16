@@ -83,21 +83,178 @@ TEST_F(AllegroFlare_InputDevicesListTest,
 }
 
 
-TEST_F(AllegroFlare_InputDevicesListTest,
-   DISABLED__INTERACTIVE__initialize__when_no_joysticks_are_connected__will_not_create_joystick_devices)
+TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
+   INTERACTIVE__initialize__when_no_joysticks_are_connected__will_not_create_joystick_devices)
 {
-   // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
-   // This test assumes that *no* joystick devices are currently connected on the OS.
-
-   // TODO: Convert this test to an interactive test and prompt a tester to confirm that no joysticks are connected
-
-   al_init();
+   al_install_keyboard();
    al_install_joystick();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *timer = al_create_timer(1.0f / 60.0f);
+   al_register_event_source(event_queue, al_get_joystick_event_source());
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_timer_event_source(timer));
+   ALLEGRO_FONT *font = get_user_prompt_font();
+   ALLEGRO_FONT *any_font = get_any_font(-30);
+
+   static const uint32_t STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES = 0;
+   uint32_t test_state = STATE_AWAITING_CONFIRMATION_OF_CONNECTED_DEVICES;
+
    AllegroFlare::InputDevicesList input_device_list;
-   input_device_list.initialize();
-   EXPECT_EQ(0, input_device_list.num_joystick_devices());
+   float updated_at_before_initialization = input_device_list.get_updated_at();
+   float updated_at_after_initialization = 0;
+   int expected_num_connected_joysticks_after_initialization = 0;
+   int num_connected_joystick_devices_after_initialization = 0;
+
+   bool abort_tester_prompts = false;
+   bool test_conditions_successfully_triggered = false;
+   bool counting_down_to_abort = true;
+   float duration_to_abort = 10.0f;
+   float test_started_at = al_get_time();
+   al_start_timer(timer);
+
+   while(!abort_tester_prompts)
+   {
+      ALLEGRO_EVENT allegro_event;
+      al_wait_for_event(event_queue, &allegro_event);
+
+      switch(allegro_event.type)
+      {
+         case ALLEGRO_EVENT_TIMER: {
+            clear();
+
+            std::string prompt_message = "Press ENTER to confirm that no joysticks are connected.";
+
+            al_draw_multiline_text(
+               font,
+               ALLEGRO_COLOR{0.8f, 0.8f, 0.8f, 0.8f},
+               1920/2,
+               1080/2 - 50,
+               1000,
+               al_get_font_line_height(font),
+               ALLEGRO_ALIGN_CENTER,
+               prompt_message.c_str()
+            );
+
+            if (counting_down_to_abort)
+            {
+               float time_remaining = duration_to_abort - (al_get_time() - test_started_at);
+               if (time_remaining < 0.0f)
+               {
+                  time_remaining = 0.0f;
+                  counting_down_to_abort = false;
+                  abort_tester_prompts = true;
+               }
+                  al_draw_multiline_textf(
+                  any_font,
+                  AllegroFlare::Color::LemonChiffon,
+                  1920/2,
+                  1080/2+50,
+                  1000,
+                  al_get_font_line_height(any_font),
+                  ALLEGRO_ALIGN_CENTER,
+                  "This test will automatically be skipped in %d seconds.",
+                  (int)(time_remaining + 1)
+               );
+            }
+
+            al_draw_multiline_text(
+               any_font,
+               ALLEGRO_COLOR{0.5f, 0.5f, 0.5f, 0.5f},
+               1920/2,
+               1080/2+150,
+               1000,
+               al_get_font_line_height(any_font),
+               ALLEGRO_ALIGN_CENTER,
+               counting_down_to_abort ? "Press the ESC key to stop countdown.\nPress ESC again to skip the test."
+                                      : "Press ESC if you wish to skip the test."
+            );
+
+            al_flip_display();
+         } break;
+
+         case ALLEGRO_EVENT_KEY_DOWN:
+            switch(allegro_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_ESCAPE:
+                  if (counting_down_to_abort) counting_down_to_abort = false;
+                  else abort_tester_prompts = true;
+               break;
+
+               case ALLEGRO_KEY_ENTER:
+                  if (counting_down_to_abort) counting_down_to_abort = false;
+
+                  // Perform the test event
+                  input_device_list.initialize();
+
+                  // Capture the test result
+                  num_connected_joystick_devices_after_initialization = input_device_list.num_joystick_devices();
+                  updated_at_after_initialization = input_device_list.get_updated_at();
+
+                  // Set the flags to continue test
+                  test_conditions_successfully_triggered = true;
+                  abort_tester_prompts = true;
+               break;
+            }
+         break;
+      }
+   }
+
+   if (test_conditions_successfully_triggered)
+   {
+      // Check the number of connected devices
+      EXPECT_EQ(0, num_connected_joystick_devices_after_initialization);
+
+      // TODO: Test the "updated_at" values are set
+      EXPECT_NE(updated_at_before_initialization, updated_at_after_initialization);
+
+      bool test_succeeded = !HasNonfatalFailure();
+      ALLEGRO_COLOR test_result_color = test_succeeded ? AllegroFlare::Color::Aquamarine
+                                                       : AllegroFlare::Color::Crimson;
+      std::string test_result_message = test_succeeded ? "Successful"
+                                                       : "Failure";
+      clear();
+      al_draw_multiline_text(
+         font,
+         test_result_color,
+         1920/2,
+         1080/2-50,
+         1000,
+         al_get_font_line_height(font),
+         ALLEGRO_ALIGN_CENTER,
+         test_result_message.c_str()
+      );
+      al_flip_display();
+      al_rest(1.5);
+   }
+   else
+   {
+      ALLEGRO_COLOR test_result_color = AllegroFlare::Color::LemonChiffon;
+      clear();
+      al_draw_multiline_text(
+         font,
+         test_result_color,
+         1920/2,
+         1080/2-50,
+         1000,
+         al_get_font_line_height(font),
+         ALLEGRO_ALIGN_CENTER,
+         "Skipped"
+      );
+
+      al_flip_display();
+      al_rest(0.25);
+      al_stop_timer(timer);
+      al_destroy_event_queue(event_queue);
+      al_uninstall_keyboard();
+      al_uninstall_joystick();
+      GTEST_SKIP() << "This interactive test requires user interaction with joystick configuration change. Please "
+                   << "look into the test comments for more information.";
+   }
+
+   al_stop_timer(timer);
+   al_destroy_event_queue(event_queue);
+   al_uninstall_keyboard();
    al_uninstall_joystick();
-   al_uninstall_system();
 }
 
 
