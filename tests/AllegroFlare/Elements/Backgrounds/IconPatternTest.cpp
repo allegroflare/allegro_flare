@@ -33,8 +33,9 @@ TEST(AllegroFlare_Elements_Backgrounds_IconPatternTest, can_be_created_without_b
 
 TEST(AllegroFlare_Elements_Backgrounds_IconPatternTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Elements::Backgrounds::IconPattern icon_pattern_background;
-   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/IconPattern", AllegroFlare::Elements::Backgrounds::IconPattern::TYPE);
+   std::string expected_TYPE = "AllegroFlare/Elements/Backgrounds/IconPattern";
+   std::string actual_TYPE = AllegroFlare::Elements::Backgrounds::IconPattern::TYPE;
+   EXPECT_EQ(expected_TYPE, actual_TYPE);
 }
 
 

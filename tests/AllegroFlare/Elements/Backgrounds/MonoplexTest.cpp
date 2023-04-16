@@ -32,8 +32,9 @@ TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, can_be_created_without_blow
 
 TEST(AllegroFlare_Elements_Backgrounds_MonoplexTest, TYPE__has_the_expected_value)
 {
-   AllegroFlare::Elements::Backgrounds::Monoplex monoplex_background;
-   EXPECT_EQ("AllegroFlare/Elements/Backgrounds/Monoplex", AllegroFlare::Elements::Backgrounds::Monoplex::TYPE);
+   std::string expected_TYPE = "AllegroFlare/Elements/Backgrounds/Monoplex";
+   std::string actual_TYPE = AllegroFlare::Elements::Backgrounds::Monoplex::TYPE;
+   EXPECT_EQ(expected_TYPE, actual_TYPE);
 }
 
 
