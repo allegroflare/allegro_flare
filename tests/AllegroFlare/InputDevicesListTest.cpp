@@ -111,10 +111,6 @@ TEST_F(AllegroFlare_InputDevicesListTest,
    // TODO: Consider having a test that interactively prompts the interactive tester to disconnect all devices
    // before running the test.
 
-   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
-   // some bug in Allegro5. Needs to be investigated.
-   // TODO: Fix this flakey test
-
    al_init();
    al_install_joystick();
    AllegroFlare::InputDevicesList input_device_list;
