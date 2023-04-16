@@ -77,7 +77,7 @@ void InputDevicesList::initialize()
       devices.push_back(joystick);
    }
 
-   updated_at = al_get_time();
+   updated_at = al_get_time(); // TODO: pass in even time
 
    return;
 }
@@ -251,7 +251,7 @@ void InputDevicesList::handle_reconfigured_joystick()
    if (list_is_modified)
    {
       al_rest(1.0000);
-      updated_at = al_get_time();
+      updated_at = al_get_time(); // TODO: Pass in event time
    }
 
    return;
