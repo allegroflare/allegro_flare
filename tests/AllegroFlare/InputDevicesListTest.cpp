@@ -89,6 +89,8 @@ TEST_F(AllegroFlare_InputDevicesListTest,
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that *no* joystick devices are currently connected on the OS.
 
+   // TODO: Convert this test to an interactive test and prompt a tester to confirm that no joysticks are connected
+
    al_init();
    al_install_joystick();
    AllegroFlare::InputDevicesList input_device_list;
@@ -100,7 +102,7 @@ TEST_F(AllegroFlare_InputDevicesListTest,
 
 
 TEST_F(AllegroFlare_InputDevicesListTestWithAllegroRenderingFixture,
-   FOCUS__INTERACTIVE__initialize__when_joysticks_are_connected__will_create_connected_joystick_devices)
+   INTERACTIVE__initialize__when_joysticks_are_connected__will_create_connected_joystick_devices)
 {
    al_install_keyboard();
    al_install_joystick();
