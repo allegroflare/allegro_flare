@@ -283,11 +283,6 @@ __will_mark_the_device_as_disconnected)
 {
    // NOTE: This test is contingent on the status of *actually phyiscally connected* devices on the system.
    // This test assumes that a new device becomes connected in the middle of the test while it is waiting.
-   // TODO: Consider having a test that interactively prompts the interactive tester to connect one (or some) devices.
-
-   // NOTE: This test appears flakey!  They will work, then not work, then stall.  I think it's related to
-   // some bug in Allegro5. Needs to be investigated.
-   // TODO: Fix this flakey test
 
    // TODO: Test updated_at property with these changes
 
