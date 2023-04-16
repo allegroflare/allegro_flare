@@ -38,9 +38,21 @@ TEST_F(AllegroFlare_Elements_Backgrounds_VideoIdentifierTest, type__has_the_expe
 
 TEST_F(AllegroFlare_Elements_Backgrounds_VideoTestWithAllegroRenderingFixture, render__will_render_the_video)
 {
+   // NOTE: This test is flakey. On shutdown, it appears to crash. On the several iterations that I tested it through,
+   // the problem only seems to occur during shutdown, either through repeat (e.g. "--gtest_repeat=20" on one out of 3
+   // or 4 runs), or through multiple dulpications of the test.  Note the problem *does not* seem to happen when a loop
+   // is wrapped around the body of this test, indicating that the crash does not appear to happen as a result of
+   // code within this test body.
+
+   // After more test, the failure occurs at the *beginning* of a subsequent setup, before the first function calls
+   // in the test body.
+
+   // TODO: Fix this flakey test
+
    al_install_audio();
    al_reserve_samples(1);
 
+   EXPECT_EQ(false, al_is_video_addon_initialized());
    ASSERT_EQ(true, al_init_video_addon());
 
    AllegroFlare::VideoBin video_bin;
@@ -52,7 +64,7 @@ TEST_F(AllegroFlare_Elements_Backgrounds_VideoTestWithAllegroRenderingFixture, r
 
    video_identifier_background.activate();
 
-   int num_frames = 120;
+   int num_frames = 30;
    for (int i=0; i<num_frames; i++)
    {
       video_identifier_background.render();
