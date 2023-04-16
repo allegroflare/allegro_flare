@@ -23,11 +23,19 @@ properties:
 
   - name: menu_options
     type: std::vector<std::pair<std::string, std::string>>
-    init_with: '{}'
+    init_with: DEFAULT_MENU_OPTIONS
+    setter: false
 
   - name: cursor_position
     type: int
     init_with: 0
+
+  - name: DEFAULT_MENU_OPTIONS
+    type: std::vector<std::pair<std::string, std::string>>
+    init_with: '{ { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } }'
+    static: true
+    const: true
+    setter: false
 
   - name: initialized
     type: bool
@@ -36,6 +44,20 @@ properties:
 
 
 functions:
+
+
+  - name: set_menu_options
+    parameters:
+      - name: menu_options
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    guards: [ (!menu_options.empty()) ]
+    body: |
+      // TODO: add tests for this feature
+      // TODO: Validate menu options (unique labels, non-empty datas)
+      this->menu_options = menu_options;
+      cursor_position = 0;
+      return;
 
 
   - name: initialize

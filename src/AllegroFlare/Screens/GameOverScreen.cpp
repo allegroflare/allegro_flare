@@ -14,11 +14,14 @@ namespace Screens
 {
 
 
+std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OPTIONS = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
+
+
 GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin)
    : AllegroFlare::Screens::Base("GameOverScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
-   , menu_options({})
+   , menu_options(DEFAULT_MENU_OPTIONS)
    , cursor_position(0)
    , initialized(false)
 {
@@ -47,6 +50,22 @@ bool GameOverScreen::get_initialized() const
    return initialized;
 }
 
+
+void GameOverScreen::set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options)
+{
+   if (!((!menu_options.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[GameOverScreen::set_menu_options]: error: guard \"(!menu_options.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("GameOverScreen::set_menu_options: error: guard \"(!menu_options.empty())\" not met");
+   }
+   // TODO: add tests for this feature
+   // TODO: Validate menu options (unique labels, non-empty datas)
+   this->menu_options = menu_options;
+   cursor_position = 0;
+   return;
+}
 
 void GameOverScreen::initialize()
 {
