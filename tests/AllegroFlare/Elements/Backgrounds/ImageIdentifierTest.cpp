@@ -26,10 +26,9 @@ TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, can_be_created_witho
 
 TEST(AllegroFlare_Elements_Backgrounds_ImageIdentifierTest, TYPE__has_the_expected_value)
 {
-   EXPECT_EQ(
-      "AllegroFlare/Elements/Backgrounds/ImageIdentifier",
-      AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE
-   );
+   std::string expected_type = "AllegroFlare/Elements/Backgrounds/ImageIdentifier";
+   std::string actual_type = AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE;
+   EXPECT_EQ(expected_type, actual_type);
 }
 
 
