@@ -252,21 +252,10 @@ functions:
 dependencies:
 
 
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: std::vector<std::pair<std::string, std::string>>
-    headers: [ vector, utility, string ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::VirtualController
     headers: [ AllegroFlare/VirtualController.hpp ]
-
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::FontBin
