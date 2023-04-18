@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTest, render__without_allegro_initializ
 }
 
 
-TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::Screens::GameWonScreen game_over_screen;
    game_over_screen.set_font_bin(&get_font_bin_ref());
@@ -45,7 +45,25 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture, render
    game_over_screen.render();
 
    al_flip_display();
-   //sleep_for(2);
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
+   CAPTURE__render__with_customized_fonts_and_text__will_render_as_expected)
+{
+   AllegroFlare::Screens::GameWonScreen game_over_screen;
+   game_over_screen.set_font_bin(&get_font_bin_ref());
+
+   game_over_screen.set_title_text("You Have Already Won");
+   game_over_screen.set_title_font_name("Lora-MediumItalic.ttf");
+   game_over_screen.set_title_font_size(-74);
+   game_over_screen.set_instruction_font_name("Lora-Medium.ttf");
+   game_over_screen.set_instruction_font_size(-30);
+
+   game_over_screen.render();
+
+   al_flip_display();
    SUCCEED();
 }
 
