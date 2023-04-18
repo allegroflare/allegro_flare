@@ -45,7 +45,7 @@ properties:
 
   - name: title_font_size
     type: int
-    init_with: -80
+    init_with: -64
     constructor_arg: true
     getter: true
     setter: true
@@ -59,7 +59,7 @@ properties:
 
   - name: menu_font_size
     type: int
-    init_with: -48
+    init_with: -32
     constructor_arg: true
     getter: true
     setter: true

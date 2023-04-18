@@ -43,7 +43,7 @@ namespace AllegroFlare
 
 
       public:
-         GameOverScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, std::string title_font_name="Inter-Medium.ttf", int title_font_size=-80, std::string menu_font_name="Inter-Medium.ttf", int menu_font_size=-48);
+         GameOverScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, std::string title_font_name="Inter-Medium.ttf", int title_font_size=-64, std::string menu_font_name="Inter-Medium.ttf", int menu_font_size=-32);
          virtual ~GameOverScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
