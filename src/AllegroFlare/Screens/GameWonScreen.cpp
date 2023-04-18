@@ -16,11 +16,15 @@ namespace Screens
 std::string GameWonScreen::DEFAULT_TITLE_TEXT = "Y   O   U      W   I   N";
 
 
-GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string game_event_name_to_emit_on_submission)
+GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string instruction_font_name, int instruction_font_size, std::string game_event_name_to_emit_on_submission)
    : AllegroFlare::Screens::Base("GameWonScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
+   , title_font_name(title_font_name)
+   , title_font_size(title_font_size)
+   , instruction_font_name(instruction_font_name)
+   , instruction_font_size(instruction_font_size)
    , game_event_name_to_emit_on_submission(game_event_name_to_emit_on_submission)
 {
 }
@@ -49,9 +53,57 @@ void GameWonScreen::set_title_text(std::string title_text)
 }
 
 
+void GameWonScreen::set_title_font_name(std::string title_font_name)
+{
+   this->title_font_name = title_font_name;
+}
+
+
+void GameWonScreen::set_title_font_size(int title_font_size)
+{
+   this->title_font_size = title_font_size;
+}
+
+
+void GameWonScreen::set_instruction_font_name(std::string instruction_font_name)
+{
+   this->instruction_font_name = instruction_font_name;
+}
+
+
+void GameWonScreen::set_instruction_font_size(int instruction_font_size)
+{
+   this->instruction_font_size = instruction_font_size;
+}
+
+
 void GameWonScreen::set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission)
 {
    this->game_event_name_to_emit_on_submission = game_event_name_to_emit_on_submission;
+}
+
+
+std::string GameWonScreen::get_title_font_name() const
+{
+   return title_font_name;
+}
+
+
+int GameWonScreen::get_title_font_size() const
+{
+   return title_font_size;
+}
+
+
+std::string GameWonScreen::get_instruction_font_name() const
+{
+   return instruction_font_name;
+}
+
+
+int GameWonScreen::get_instruction_font_size() const
+{
+   return instruction_font_size;
 }
 
 
@@ -137,7 +189,9 @@ ALLEGRO_FONT* GameWonScreen::obtain_title_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameWonScreen::obtain_title_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -80");
+   std::stringstream title_font_identifier;
+   title_font_identifier << title_font_name << " " << title_font_size;
+   return font_bin->auto_get(title_font_identifier.str());
 }
 
 ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
@@ -149,7 +203,9 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameWonScreen::obtain_instruction_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -48");
+   std::stringstream instruction_font_identifier;
+   instruction_font_identifier << instruction_font_name << " " << instruction_font_size;
+   return font_bin->auto_get(instruction_font_identifier.str());
 }
 
 void GameWonScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
