@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTest, render__without_allegro_initiali
 }
 
 
-TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::Screens::GameOverScreen game_over_screen;
    game_over_screen.set_font_bin(&get_font_bin_ref());

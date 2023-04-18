@@ -14,15 +14,23 @@ namespace Screens
 {
 
 
+std::string GameOverScreen::DEFAULT_TITLE_TEXT = "G   A   M   E      O   V   E   R";
+
+
 std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OPTIONS = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
 
 
-GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin)
+GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
    : AllegroFlare::Screens::Base("GameOverScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
+   , title_text(title_text)
    , menu_options(DEFAULT_MENU_OPTIONS)
    , cursor_position(0)
+   , title_font_name(title_font_name)
+   , title_font_size(title_font_size)
+   , menu_font_name(menu_font_name)
+   , menu_font_size(menu_font_size)
    , initialized(false)
 {
 }
@@ -42,6 +50,60 @@ void GameOverScreen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter
 void GameOverScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+}
+
+
+void GameOverScreen::set_title_text(std::string title_text)
+{
+   this->title_text = title_text;
+}
+
+
+void GameOverScreen::set_title_font_name(std::string title_font_name)
+{
+   this->title_font_name = title_font_name;
+}
+
+
+void GameOverScreen::set_title_font_size(int title_font_size)
+{
+   this->title_font_size = title_font_size;
+}
+
+
+void GameOverScreen::set_menu_font_name(std::string menu_font_name)
+{
+   this->menu_font_name = menu_font_name;
+}
+
+
+void GameOverScreen::set_menu_font_size(int menu_font_size)
+{
+   this->menu_font_size = menu_font_size;
+}
+
+
+std::string GameOverScreen::get_title_font_name() const
+{
+   return title_font_name;
+}
+
+
+int GameOverScreen::get_title_font_size() const
+{
+   return title_font_size;
+}
+
+
+std::string GameOverScreen::get_menu_font_name() const
+{
+   return menu_font_name;
+}
+
+
+int GameOverScreen::get_menu_font_size() const
+{
+   return menu_font_size;
 }
 
 
@@ -150,7 +212,7 @@ void GameOverScreen::draw_primary_text()
       surface_width / 2,
       surface_height / 2 - font_line_height*2,
       ALLEGRO_ALIGN_CENTER,
-      "Game Over"
+      title_text.c_str()
    );
    return;
 }
@@ -230,7 +292,9 @@ ALLEGRO_FONT* GameOverScreen::obtain_title_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameOverScreen::obtain_title_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Bold.ttf -60");
+   std::stringstream title_font_identifier;
+   title_font_identifier << title_font_name << " " << title_font_size;
+   return font_bin->auto_get(title_font_identifier.str());
 }
 
 ALLEGRO_FONT* GameOverScreen::obtain_menu_font()
@@ -242,7 +306,9 @@ ALLEGRO_FONT* GameOverScreen::obtain_menu_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameOverScreen::obtain_menu_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -38");
+   std::stringstream menu_font_identifier;
+   menu_font_identifier << menu_font_name << " " << menu_font_size;
+   return font_bin->auto_get(menu_font_identifier.str());
 }
 
 void GameOverScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)

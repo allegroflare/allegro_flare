@@ -21,6 +21,12 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: title_text
+    type: std::string
+    init_with: DEFAULT_TITLE_TEXT
+    constructor_arg: true
+    setter: true
+
   - name: menu_options
     type: std::vector<std::pair<std::string, std::string>>
     init_with: DEFAULT_MENU_OPTIONS
@@ -29,6 +35,41 @@ properties:
   - name: cursor_position
     type: int
     init_with: 0
+
+  - name: title_font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: title_font_size
+    type: int
+    init_with: -80
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: menu_font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: menu_font_size
+    type: int
+    init_with: -48
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_TITLE_TEXT
+    type: std::string
+    init_with: '"G   A   M   E      O   V   E   R"'
+    static: true
+    const: true
+    setter: false
 
   - name: DEFAULT_MENU_OPTIONS
     type: std::vector<std::pair<std::string, std::string>>
@@ -129,7 +170,7 @@ functions:
          surface_width / 2,
          surface_height / 2 - font_line_height*2,
          ALLEGRO_ALIGN_CENTER,
-         "Game Over"
+         title_text.c_str()
       );
       return;
 
@@ -209,7 +250,9 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Bold.ttf -60");
+      std::stringstream title_font_identifier;
+      title_font_identifier << title_font_name << " " << title_font_size;
+      return font_bin->auto_get(title_font_identifier.str());
 
 
   - name: obtain_menu_font
@@ -217,7 +260,9 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -38");
+      std::stringstream menu_font_identifier;
+      menu_font_identifier << menu_font_name << " " << menu_font_size;
+      return font_bin->auto_get(menu_font_identifier.str());
 
 
   - name: virtual_control_button_down_func
