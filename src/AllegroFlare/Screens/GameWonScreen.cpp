@@ -13,10 +13,14 @@ namespace Screens
 {
 
 
-GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string game_event_name_to_emit_on_submission)
+std::string GameWonScreen::DEFAULT_TITLE_TEXT = "Y   O   U      W   I   N";
+
+
+GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string game_event_name_to_emit_on_submission)
    : AllegroFlare::Screens::Base("GameWonScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
+   , title_text(title_text)
    , game_event_name_to_emit_on_submission(game_event_name_to_emit_on_submission)
 {
 }
@@ -36,6 +40,12 @@ void GameWonScreen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 void GameWonScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+}
+
+
+void GameWonScreen::set_title_text(std::string title_text)
+{
+   this->title_text = title_text;
 }
 
 
@@ -93,7 +103,7 @@ void GameWonScreen::draw_primary_text()
       surface_width,
       font_line_height,
       ALLEGRO_ALIGN_CENTER,
-      "Y   O   U      W   I   N"
+      title_text.c_str()
    );
    return;
 }

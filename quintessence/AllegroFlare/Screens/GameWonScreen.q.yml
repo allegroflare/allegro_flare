@@ -21,12 +21,25 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: title_text
+    type: std::string
+    init_with: DEFAULT_TITLE_TEXT
+    constructor_arg: true
+    setter: true
+
   - name: game_event_name_to_emit_on_submission
     type: std::string
     init_with: '"game_won_finished"'
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: DEFAULT_TITLE_TEXT
+    type: std::string
+    init_with: '"Y   O   U      W   I   N"'
+    static: true
+    const: true
+    setter: false
 
 
 functions:
@@ -63,7 +76,7 @@ functions:
          surface_width,
          font_line_height,
          ALLEGRO_ALIGN_CENTER,
-         "Y   O   U      W   I   N"
+         title_text.c_str()
       );
       return;
 
