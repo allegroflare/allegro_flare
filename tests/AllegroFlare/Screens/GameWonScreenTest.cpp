@@ -58,8 +58,9 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
    game_over_screen.set_title_text("You Have Already Won");
    game_over_screen.set_title_font_name("Lora-MediumItalic.ttf");
    game_over_screen.set_title_font_size(-74);
+   game_over_screen.set_instruction_text("Press any key to continue");
    game_over_screen.set_instruction_font_name("Lora-Medium.ttf");
-   game_over_screen.set_instruction_font_size(-30);
+   game_over_screen.set_instruction_font_size(-34);
 
    game_over_screen.render();
 

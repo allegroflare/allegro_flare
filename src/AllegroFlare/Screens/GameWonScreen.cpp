@@ -16,13 +16,17 @@ namespace Screens
 std::string GameWonScreen::DEFAULT_TITLE_TEXT = "Y   O   U      W   I   N";
 
 
-GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string instruction_font_name, int instruction_font_size, std::string game_event_name_to_emit_on_submission)
+std::string GameWonScreen::DEFAULT_INSTRUCTION_TEXT = "Press any button";
+
+
+GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string instruction_text, std::string instruction_font_name, int instruction_font_size, std::string game_event_name_to_emit_on_submission)
    : AllegroFlare::Screens::Base("GameWonScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
    , title_font_name(title_font_name)
    , title_font_size(title_font_size)
+   , instruction_text(instruction_text)
    , instruction_font_name(instruction_font_name)
    , instruction_font_size(instruction_font_size)
    , game_event_name_to_emit_on_submission(game_event_name_to_emit_on_submission)
@@ -62,6 +66,12 @@ void GameWonScreen::set_title_font_name(std::string title_font_name)
 void GameWonScreen::set_title_font_size(int title_font_size)
 {
    this->title_font_size = title_font_size;
+}
+
+
+void GameWonScreen::set_instruction_text(std::string instruction_text)
+{
+   this->instruction_text = instruction_text;
 }
 
 
@@ -175,7 +185,7 @@ void GameWonScreen::draw_instruction_text()
       surface_width,
       font_line_height,
       ALLEGRO_ALIGN_CENTER,
-      "Press any button"
+      instruction_text.c_str()
    );
    return;
 }

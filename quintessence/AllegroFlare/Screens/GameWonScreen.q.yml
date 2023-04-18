@@ -41,6 +41,12 @@ properties:
     getter: true
     setter: true
 
+  - name: instruction_text
+    type: std::string
+    init_with: DEFAULT_TITLE_TEXT
+    constructor_arg: true
+    setter: true
+
   - name: instruction_font_name
     type: std::string
     init_with: '"Inter-Medium.ttf"'
@@ -65,6 +71,13 @@ properties:
   - name: DEFAULT_TITLE_TEXT
     type: std::string
     init_with: '"Y   O   U      W   I   N"'
+    static: true
+    const: true
+    setter: false
+
+  - name: DEFAULT_INSTRUCTION_TEXT
+    type: std::string
+    init_with: '"Press any button"'
     static: true
     const: true
     setter: false
@@ -124,7 +137,7 @@ functions:
          surface_width,
          font_line_height,
          ALLEGRO_ALIGN_CENTER,
-         "Press any button"
+         instruction_text.c_str()
       );
       return;
 
