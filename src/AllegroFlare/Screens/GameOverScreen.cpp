@@ -210,7 +210,7 @@ void GameOverScreen::draw_primary_text()
       title_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
       surface_width / 2,
-      surface_height / 2 - font_line_height*2,
+      surface_height / 2 - font_line_height,
       ALLEGRO_ALIGN_CENTER,
       title_text.c_str()
    );
@@ -221,6 +221,7 @@ void GameOverScreen::draw_menu()
 {
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
+   float font_line_height = al_get_font_line_height(menu_font);
    int surface_width = 1920;
    int surface_height = 1080;
    float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
@@ -236,7 +237,7 @@ void GameOverScreen::draw_menu()
          menu_font,
          ALLEGRO_COLOR{1, 1, 1, 1},
          surface_width / 2,
-         surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
+         surface_height / 2 + menu_item_vertical_spacing * menu_item_num + font_line_height * 2,
          ALLEGRO_ALIGN_CENTER,
          menu_item_text.c_str()
       );
@@ -248,7 +249,7 @@ void GameOverScreen::draw_menu()
             menu_font,
             ALLEGRO_COLOR{1, 1, 1, 1},
             surface_width / 2 - (menu_item_text_width * 0.5),
-            surface_height / 2 + menu_item_vertical_spacing * menu_item_num,
+            surface_height / 2 + menu_item_vertical_spacing * menu_item_num + font_line_height * 2,
             ALLEGRO_ALIGN_RIGHT,
             ">  "
          );
