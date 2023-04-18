@@ -76,11 +76,18 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest, activate__when_a_screen_does_no
 
 
 TEST(AllegroFlare_ScreenManagers_DictionaryTest,
-   DISABLED__add__with_a_name_that_is_an_empty_string__will_throw_an_error)
+   add__with_a_name_that_is_an_empty_string__will_throw_an_error)
 {
-   // TODO
-   //AllegroFlare::Screens::Base screen;
-   //AllegroFlare::ScreenManagers::Dictionary dictionary;
+   AllegroFlare::Screens::Base screen;
+   AllegroFlare::ScreenManagers::Dictionary dictionary;
+
+   std::string an_empty_string = "";
+
+   EXPECT_THROW_WITH_MESSAGE(
+      dictionary.add(an_empty_string, nullptr),
+      std::runtime_error,
+      "[AllegroFlare::ScreenManagers::Dictionary::add]: error: A screen name cannot be blank."
+   );
 }
 
 

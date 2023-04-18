@@ -99,7 +99,14 @@ bool Dictionary::exists(Screens::Base *screen)
 
 bool Dictionary::add(std::string name, Screens::Base *screen)
 {
-   // TODO: prevent an empty string from being a valid name
+   if (name.empty())
+   {
+      std::stringstream error_message;
+      error_message << "[ScreenManagers::Dictionary::add] error: A screen name cannot be blank.";
+      AllegroFlare::Logger::throw_error("AllegroFlare::ScreenManagers::Dictionary::add", error_message.str());
+      return false;
+   }
+
    if (exists(name))
    {
       std::stringstream error_message;
