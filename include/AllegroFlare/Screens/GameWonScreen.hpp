@@ -35,7 +35,7 @@ namespace AllegroFlare
 
 
       public:
-         GameWonScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, std::string title_font_name="Inter-Medium.ttf", int title_font_size=-80, std::string instruction_text=DEFAULT_TITLE_TEXT, std::string instruction_font_name="Inter-Medium.ttf", int instruction_font_size=-48, std::string game_event_name_to_emit_on_submission="game_won_finished");
+         GameWonScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, std::string title_font_name="Inter-Medium.ttf", int title_font_size=-80, std::string instruction_text=DEFAULT_INSTRUCTION_TEXT, std::string instruction_font_name="Inter-Medium.ttf", int instruction_font_size=-48, std::string game_event_name_to_emit_on_submission="game_won_finished");
          virtual ~GameWonScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);

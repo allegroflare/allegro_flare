@@ -43,7 +43,7 @@ properties:
 
   - name: instruction_text
     type: std::string
-    init_with: DEFAULT_TITLE_TEXT
+    init_with: DEFAULT_INSTRUCTION_TEXT
     constructor_arg: true
     setter: true
 
