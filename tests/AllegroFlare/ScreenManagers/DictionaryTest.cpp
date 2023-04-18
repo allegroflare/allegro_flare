@@ -1,6 +1,8 @@
 
 #include <gtest/gtest.h>
 
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
+
 #include <AllegroFlare/ScreenManagers/Dictionary.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 
@@ -56,6 +58,20 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest,
    AllegroFlare::ScreenManagers::Dictionary dictionary;
 
    EXPECT_EQ(false, dictionary.exists("a-record-identifier-that-does-not-exist"));
+}
+
+
+TEST(AllegroFlare_ScreenManagers_DictionaryTest, activate__when_a_screen_does_not_exist_with_the_name__throws_an_error)
+{
+   AllegroFlare::Screens::Base screen;
+   AllegroFlare::ScreenManagers::Dictionary dictionary;
+
+   EXPECT_THROW_WITH_MESSAGE(
+      dictionary.activate("a-record-identifier-that-does-not-exist"),
+      std::runtime_error,
+      "[AllegroFlare::ScreenManagers::Dictionary::activate]: error: Cannot activate screen \"a-record-identifier"
+         "-that-does-not-exist\". No such screen exists."
+   );
 }
 
 

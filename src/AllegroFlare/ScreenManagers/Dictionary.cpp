@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Screens/Base.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <algorithm>
 #include <sstream>
 
@@ -159,7 +160,9 @@ bool Dictionary::activate(std::string identifier)
    // validate exists
    if (listing == nullptr)
    {
-      return false; // TODO add warning message
+      std::stringstream error_message;
+      error_message << "Cannot activate screen \"" << identifier << "\". No such screen exists.";
+      AllegroFlare::Logger::throw_error("AllegroFlare::ScreenManagers::Dictionary::activate", error_message.str());
    }
 
    // validate is not already active
@@ -190,7 +193,6 @@ bool Dictionary::activate(std::string identifier)
    }
    return activated;
 }
-
 
 
 std::string Dictionary::get_currently_active_screen_name()
