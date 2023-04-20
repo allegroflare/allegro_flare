@@ -158,7 +158,7 @@ void GameOverScreen::on_activate()
 
 void GameOverScreen::on_deactivate()
 {
-   if (background) background->activate();
+   if (background) background->deactivate();
    return;
 }
 

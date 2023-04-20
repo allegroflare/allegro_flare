@@ -137,7 +137,7 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->activate();
+      if (background) background->deactivate();
       return;
 
 
