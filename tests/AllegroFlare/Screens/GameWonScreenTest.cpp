@@ -91,6 +91,13 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
+   DISABLED__background__when_set__will_render_as_expected)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
 {
    // setup system
