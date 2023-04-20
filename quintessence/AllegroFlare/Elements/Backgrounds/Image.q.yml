@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::Backgrounds::Base
     scope: public
-    init_with: AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE
+    init_with: AllegroFlare::Elements::Backgrounds::Image::TYPE
 
 
 properties:
@@ -21,7 +21,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/ImageIdentifier"'
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/Image"'
     static: true
     constexpr: true
 

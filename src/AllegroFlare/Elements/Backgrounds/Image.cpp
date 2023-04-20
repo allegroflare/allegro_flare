@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Image.hpp>
 
 #include <AllegroFlare/Placement2D.hpp>
 #include <iostream>
@@ -16,27 +16,27 @@ namespace Backgrounds
 {
 
 
-ImageIdentifier::ImageIdentifier(AllegroFlare::BitmapBin* bitmap_bin, std::string image_filename)
-   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::ImageIdentifier::TYPE)
+Image::Image(AllegroFlare::BitmapBin* bitmap_bin, std::string image_filename)
+   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::Image::TYPE)
    , bitmap_bin(bitmap_bin)
    , image_filename(image_filename)
 {
 }
 
 
-ImageIdentifier::~ImageIdentifier()
+Image::~Image()
 {
 }
 
 
-void ImageIdentifier::render()
+void Image::render()
 {
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[ImageIdentifier::render]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[Image::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ImageIdentifier::render: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("Image::render: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Placement2D background_image_placement(1920/2, 1080/2, 1920/2, 1080/2);
    float scale = 2.0f;
@@ -49,7 +49,7 @@ void ImageIdentifier::render()
    return;
 }
 
-ALLEGRO_BITMAP* ImageIdentifier::obtain_background_bitmap()
+ALLEGRO_BITMAP* Image::obtain_background_bitmap()
 {
    std::string full_identifier = image_filename;
    return bitmap_bin->auto_get(full_identifier);

@@ -20,15 +20,15 @@ functions:
 
 
   - name: create_image
-    type: AllegroFlare::Elements::Backgrounds::ImageIdentifier*
+    type: AllegroFlare::Elements::Backgrounds::Image*
     guards: [ bitmap_bin ]
     parameters:
       - name: image_identifier
         type: std::string
         default_argument: '"[unset-default-image-identifer-for-background-factory]"'
     body: |
-      AllegroFlare::Elements::Backgrounds::ImageIdentifier* image_background =
-         new AllegroFlare::Elements::Backgrounds::ImageIdentifier(bitmap_bin, image_identifier);
+      AllegroFlare::Elements::Backgrounds::Image* image_background =
+         new AllegroFlare::Elements::Backgrounds::Image(bitmap_bin, image_identifier);
       return image_background;
 
 
@@ -37,8 +37,8 @@ dependencies:
 
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: AllegroFlare::Elements::Backgrounds::ImageIdentifier
-    headers: [ AllegroFlare/Elements/Backgrounds/ImageIdentifier.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Image
+    headers: [ AllegroFlare/Elements/Backgrounds/Image.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Monoplex
     headers: [ AllegroFlare/Elements/Backgrounds/Monoplex.hpp ]
 
