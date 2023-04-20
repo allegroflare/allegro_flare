@@ -857,6 +857,7 @@
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/VideoIdentifier",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [

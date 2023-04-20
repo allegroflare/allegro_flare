@@ -32,6 +32,13 @@ properties:
     init_with: DEFAULT_MENU_OPTIONS
     setter: false
 
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+    getter: true
+
   - name: cursor_position
     type: int
     init_with: 0
@@ -89,6 +96,8 @@ documentation:
 
   - todos:
       - add test for DEFAULT_MENU_OPTION value
+      - background does not have clarity on how or if it should use "activate()" or "show()". Same with "deactivate"
+        or "hide()"
 
 
 functions:
@@ -113,6 +122,22 @@ functions:
       menu_options = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
       cursor_position = 0;
       initialized = true;
+      return;
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    body: |
+      if (background) background->activate();
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    body: |
+      if (background) background->activate();
       return;
 
 
@@ -145,6 +170,7 @@ functions:
     virtual: true
     override: true
     body: |
+      if (background) background->update();
       render();
       return;
 
@@ -152,6 +178,7 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), get_initialized() ]
     body: |
+      if (background) background->render();
       draw_primary_text();
       draw_menu();
       return;
@@ -314,5 +341,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 

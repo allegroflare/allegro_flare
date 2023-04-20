@@ -20,12 +20,13 @@ std::string GameOverScreen::DEFAULT_TITLE_TEXT = "G   A   M   E      O   V   E  
 std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OPTIONS = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
 
 
-GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
+GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, AllegroFlare::Elements::Backgrounds::Base* background, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
    : AllegroFlare::Screens::Base("GameOverScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
    , menu_options(DEFAULT_MENU_OPTIONS)
+   , background(background)
    , cursor_position(0)
    , title_font_name(title_font_name)
    , title_font_size(title_font_size)
@@ -59,6 +60,12 @@ void GameOverScreen::set_title_text(std::string title_text)
 }
 
 
+void GameOverScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
+{
+   this->background = background;
+}
+
+
 void GameOverScreen::set_title_font_name(std::string title_font_name)
 {
    this->title_font_name = title_font_name;
@@ -80,6 +87,12 @@ void GameOverScreen::set_menu_font_name(std::string menu_font_name)
 void GameOverScreen::set_menu_font_size(int menu_font_size)
 {
    this->menu_font_size = menu_font_size;
+}
+
+
+AllegroFlare::Elements::Backgrounds::Base* GameOverScreen::get_background() const
+{
+   return background;
 }
 
 
@@ -137,6 +150,18 @@ void GameOverScreen::initialize()
    return;
 }
 
+void GameOverScreen::on_activate()
+{
+   if (background) background->activate();
+   return;
+}
+
+void GameOverScreen::on_deactivate()
+{
+   if (background) background->activate();
+   return;
+}
+
 void GameOverScreen::move_cursor_up()
 {
    cursor_position--;
@@ -167,6 +192,7 @@ void GameOverScreen::select_menu_option()
 
 void GameOverScreen::primary_timer_func()
 {
+   if (background) background->update();
    render();
    return;
 }
@@ -194,6 +220,7 @@ void GameOverScreen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameOverScreen::render: error: guard \"get_initialized()\" not met");
    }
+   if (background) background->render();
    draw_primary_text();
    draw_menu();
    return;
