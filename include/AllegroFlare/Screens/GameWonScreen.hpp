@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -20,6 +21,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          std::string title_text;
+         AllegroFlare::Elements::Backgrounds::Base* background;
          std::string title_font_name;
          int title_font_size;
          std::string instruction_text;
@@ -35,23 +37,27 @@ namespace AllegroFlare
 
 
       public:
-         GameWonScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, std::string title_font_name="Inter-Medium.ttf", int title_font_size=-64, std::string instruction_text=DEFAULT_INSTRUCTION_TEXT, std::string instruction_font_name="Inter-Medium.ttf", int instruction_font_size=-32, std::string game_event_name_to_emit_on_submission="game_won_finished");
+         GameWonScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, AllegroFlare::Elements::Backgrounds::Base* background=nullptr, std::string title_font_name="Inter-Medium.ttf", int title_font_size=-64, std::string instruction_text=DEFAULT_INSTRUCTION_TEXT, std::string instruction_font_name="Inter-Medium.ttf", int instruction_font_size=-32, std::string game_event_name_to_emit_on_submission="game_won_finished");
          virtual ~GameWonScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_title_text(std::string title_text);
+         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          void set_title_font_name(std::string title_font_name);
          void set_title_font_size(int title_font_size);
          void set_instruction_text(std::string instruction_text);
          void set_instruction_font_name(std::string instruction_font_name);
          void set_instruction_font_size(int instruction_font_size);
          void set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission);
+         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          std::string get_title_font_name() const;
          int get_title_font_size() const;
          std::string get_instruction_font_name() const;
          int get_instruction_font_size() const;
          std::string get_game_event_name_to_emit_on_submission() const;
+         virtual void on_activate() override;
+         virtual void on_deactivate() override;
          virtual void primary_timer_func() override;
          void render();
          void draw_primary_text();

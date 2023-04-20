@@ -27,6 +27,13 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+    getter: true
+
   - name: title_font_name
     type: std::string
     init_with: '"Inter-Medium.ttf"'
@@ -86,10 +93,26 @@ properties:
 functions:
 
 
+  - name: on_activate
+    virtual: true
+    override: true
+    body: |
+      if (background) background->activate();
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    body: |
+      if (background) background->deactivate();
+      return;
+
   - name: primary_timer_func
     virtual: true
     override: true
     body: |
+      if (background) background->update();
       render();
       return;
 
@@ -97,6 +120,7 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      if (background) background->render();
       draw_primary_text();
       draw_instruction_text();
       return;
@@ -203,5 +227,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 
