@@ -4,26 +4,31 @@ properties:
   - name: position
     type: AllegroFlare::Vec2D
     init_with: '{}'
+    getter: true
     setter: false
 
   - name: position_destination
     type: AllegroFlare::Vec2D
     init_with: '{}'
+    getter: true
     setter: false
 
   - name: size
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
+    getter: true
     setter: false
 
   - name: size_destination
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
+    getter: true
     setter: false
 
   - name: padding
     type: AllegroFlare::Vec2D
     init_with: '4.0f, 4.0f'
+    getter: true
     setter: false
 
   - name: core_color
@@ -54,6 +59,7 @@ properties:
     type: float
     init_with: 0.0f
     getter: true
+    setter: false
 
   - name: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
     type: float

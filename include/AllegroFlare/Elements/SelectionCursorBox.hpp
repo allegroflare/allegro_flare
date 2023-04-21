@@ -37,6 +37,11 @@ namespace AllegroFlare
          ~SelectionCursorBox();
 
          void set_core_color(ALLEGRO_COLOR core_color);
+         AllegroFlare::Vec2D get_position() const;
+         AllegroFlare::Vec2D get_position_destination() const;
+         AllegroFlare::Vec2D get_size() const;
+         AllegroFlare::Vec2D get_size_destination() const;
+         AllegroFlare::Vec2D get_padding() const;
          ALLEGRO_COLOR get_core_color() const;
          float get_reposition_multiplier() const;
          float get_last_repositioned_at() const;

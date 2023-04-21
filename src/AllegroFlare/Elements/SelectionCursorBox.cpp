@@ -44,6 +44,36 @@ void SelectionCursorBox::set_core_color(ALLEGRO_COLOR core_color)
 }
 
 
+AllegroFlare::Vec2D SelectionCursorBox::get_position() const
+{
+   return position;
+}
+
+
+AllegroFlare::Vec2D SelectionCursorBox::get_position_destination() const
+{
+   return position_destination;
+}
+
+
+AllegroFlare::Vec2D SelectionCursorBox::get_size() const
+{
+   return size;
+}
+
+
+AllegroFlare::Vec2D SelectionCursorBox::get_size_destination() const
+{
+   return size_destination;
+}
+
+
+AllegroFlare::Vec2D SelectionCursorBox::get_padding() const
+{
+   return padding;
+}
+
+
 ALLEGRO_COLOR SelectionCursorBox::get_core_color() const
 {
    return core_color;
