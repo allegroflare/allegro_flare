@@ -18,9 +18,9 @@ Camera3D::Camera3D()
    : far_plane(100)
    , position(0, 0, 0)
    , stepout(0, 0, 0)
-   , spin(0)
-   , tilt(0)
-   , roll(0)
+   , spin(0.0f)
+   , tilt(0.0f)
+   , roll(0.0f)
    , zoom(1.0) // note this is used in the scene renderer to setup the projection
 {}
 
@@ -97,9 +97,12 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 
 AllegroFlare::Vec2D Camera3D::get_projected_coordinates(ALLEGRO_BITMAP *surface, float x, float y, float z)
 {
+   // TODO: Confirm this does work as expected with more tests
+   // TODO: Do not require setting up a projection on a surface
+   // TODO: See if a "surface_width" and "surface_height" could be passed as arguments instead of a full "surface" 
+
    setup_projection_on(surface); // Also sets the target bitmap (as side effect, probably not wanted)
 
-   // TODO
    ALLEGRO_TRANSFORM t2;
    al_copy_transform(&t2, al_get_current_transform());
    al_compose_transform(&t2, al_get_current_projection_transform());
@@ -108,8 +111,9 @@ AllegroFlare::Vec2D Camera3D::get_projected_coordinates(ALLEGRO_BITMAP *surface,
    al_identity_transform(&t3);
    al_scale_transform(&t3, 0.5, -0.5);
    al_translate_transform(&t3, 0.5, 0.5);
-   al_scale_transform(&t3, al_get_bitmap_width(al_get_target_bitmap()),
-                      al_get_bitmap_height(al_get_target_bitmap()));
+   al_scale_transform(&t3, al_get_bitmap_width(surface), al_get_bitmap_height(surface));
+   //al_scale_transform(&t3, al_get_bitmap_width(al_get_target_bitmap()),
+                      //al_get_bitmap_height(al_get_target_bitmap()));
 
 
    al_transform_coordinates_3d_projective(&t2, &x, &y, &z);
