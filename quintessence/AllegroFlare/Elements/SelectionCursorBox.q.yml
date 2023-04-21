@@ -186,6 +186,7 @@ functions:
 
 
   - name: update_last_repositioned_at
+    private: true
     parameters:
       - name: time_now
         type: float

@@ -25,6 +25,7 @@ namespace AllegroFlare
          float thickness;
          float reposition_multiplier;
          float last_repositioned_at;
+         void update_last_repositioned_at(float time_now=al_get_time());
          ALLEGRO_COLOR build_cursor_color();
          void draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, float padding_x=0.0f, float padding_y=0.0f);
          void draw_cursor();
@@ -52,7 +53,6 @@ namespace AllegroFlare
          void set_padding(float padding_x=0.0f, float padding_y=0.0f, float time_now=0 /* this arg currently not used */);
          void reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time());
          void resize_to(float x=0.0f, float y=0.0f, float time_now=al_get_time());
-         void update_last_repositioned_at(float time_now=al_get_time());
          void update();
          void render();
          float infer_cursor_change_age(float time_now=al_get_time());
