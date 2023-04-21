@@ -48,6 +48,7 @@ namespace AllegroFlare
          void set_position(float x=0.0f, float y=0.0f, float time_now=al_get_time());
          void set_position_quietly(float x=0.0f, float y=0.0f);
          void set_size(float x=0.0f, float y=0.0f, float time_now=al_get_time());
+         void set_size_quietly(float x=0.0f, float y=0.0f);
          void set_padding(float padding_x=0.0f, float padding_y=0.0f, float time_now=0 /* this arg currently not used */);
          void reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time());
          void resize_to(float x=0.0f, float y=0.0f, float time_now=al_get_time());

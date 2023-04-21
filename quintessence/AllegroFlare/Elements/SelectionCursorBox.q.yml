@@ -83,8 +83,7 @@ functions:
         type: float
         default_argument: al_get_time()
     body: |
-      position_destination = AllegroFlare::Vec2D(x, y);
-      position = position_destination;
+      set_position_quietly(x, y);
       update_last_repositioned_at(time_now);
 
 
@@ -114,9 +113,22 @@ functions:
         type: float
         default_argument: al_get_time()
     body: |
+      set_size_quietly(x, y);
+      update_last_repositioned_at(time_now); // TODO: change this to a "last_resized_at"
+
+
+  - name: set_size_quietly
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
       size_destination = AllegroFlare::Vec2D(x, y);
       size = size_destination;
-      update_last_repositioned_at(time_now); // TODO: change this to a "last_resized_at"
+      return;
 
 
   - name: set_padding
