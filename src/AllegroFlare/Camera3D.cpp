@@ -95,8 +95,17 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 }
 
 
-AllegroFlare::Vec2D Camera3D::get_projected_coordinates(ALLEGRO_BITMAP *surface, float x, float y, float z)
+AllegroFlare::Vec2D Camera3D::get_projected_coordinates(
+      ALLEGRO_BITMAP *surface,
+      float surface_width_num_units,
+      float surface_height_num_units,
+      float x,
+      float y,
+      float z
+   )
 {
+   // TODO: "surface" is only needed so that it can be "use a projection transform" on, and then obtain
+         // a "al_get_current_transform()" and "al_get_current_projection_transform" on
    // TODO: Confirm this does work as expected with more tests
    // TODO: Do not require setting up a projection on a surface
    // TODO: See if a "surface_width" and "surface_height" could be passed as arguments instead of a full "surface" 
@@ -111,7 +120,8 @@ AllegroFlare::Vec2D Camera3D::get_projected_coordinates(ALLEGRO_BITMAP *surface,
    al_identity_transform(&t3);
    al_scale_transform(&t3, 0.5, -0.5);
    al_translate_transform(&t3, 0.5, 0.5);
-   al_scale_transform(&t3, al_get_bitmap_width(surface), al_get_bitmap_height(surface));
+   al_scale_transform(&t3, surface_width_num_units, surface_height_num_units);
+   //al_scale_transform(&t3, al_get_bitmap_width(surface), al_get_bitmap_height(surface));
    //al_scale_transform(&t3, al_get_bitmap_width(al_get_target_bitmap()),
                       //al_get_bitmap_height(al_get_target_bitmap()));
 

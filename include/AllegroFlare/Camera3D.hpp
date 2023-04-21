@@ -29,7 +29,14 @@ namespace AllegroFlare
       void reverse_position_transform(ALLEGRO_TRANSFORM *t);
       AllegroFlare::Vec3D get_real_position();
       void setup_projection_on(ALLEGRO_BITMAP *surface);
-      AllegroFlare::Vec2D get_projected_coordinates(ALLEGRO_BITMAP *surface, float x, float y, float z);
+      AllegroFlare::Vec2D get_projected_coordinates(
+         ALLEGRO_BITMAP *surface,
+         float surface_width_num_units,
+         float surface_height_num_units,
+         float x,
+         float y,
+         float z
+      );
 
       float get_far_plane();
       void set_far_plane(float far_plane=100);
