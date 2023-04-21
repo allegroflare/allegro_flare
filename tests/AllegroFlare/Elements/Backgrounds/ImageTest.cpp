@@ -1,15 +1,11 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 #include <AllegroFlare/Elements/Backgrounds/Image.hpp>
 
-#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <chrono>
 #include <thread>
 
