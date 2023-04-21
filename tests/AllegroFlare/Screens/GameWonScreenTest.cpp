@@ -4,15 +4,14 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <AllegroFlare/Screens/GameWonScreen.hpp>
+
 class AllegroFlare_Screens_GameWonScreenTest : public ::testing::Test
 {};
 
 class AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
-
-
-#include <AllegroFlare/Screens/GameWonScreen.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
