@@ -13,11 +13,11 @@ namespace AllegroFlare
    {
       namespace Backgrounds
       {
-         class VideoIdentifier : public AllegroFlare::Elements::Backgrounds::Base
+         class Video : public AllegroFlare::Elements::Backgrounds::Base
          {
          public:
             static constexpr char* VIDEO_FIT_STRATEGY_STRETCH_TO_FIT = (char*)"stretch_to_fit";
-            static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/VideoIdentifier";
+            static constexpr char* TYPE = (char*)"AllegroFlare/Elements/Backgrounds/Video";
 
          private:
             AllegroFlare::VideoBin* video_bin;
@@ -32,8 +32,8 @@ namespace AllegroFlare
 
 
          public:
-            VideoIdentifier(AllegroFlare::VideoBin* video_bin=nullptr, std::string video_identifier="[unset-video_identifier]");
-            ~VideoIdentifier();
+            Video(AllegroFlare::VideoBin* video_bin=nullptr, std::string video_identifier="[unset-video_identifier]");
+            ~Video();
 
             void set_surface_width(int surface_width);
             void set_surface_height(int surface_height);

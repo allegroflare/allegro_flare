@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/Elements/Backgrounds/VideoIdentifier.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Video.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -15,8 +15,8 @@ namespace Backgrounds
 {
 
 
-VideoIdentifier::VideoIdentifier(AllegroFlare::VideoBin* video_bin, std::string video_identifier)
-   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::VideoIdentifier::TYPE)
+Video::Video(AllegroFlare::VideoBin* video_bin, std::string video_identifier)
+   : AllegroFlare::Elements::Backgrounds::Base(AllegroFlare::Elements::Backgrounds::Video::TYPE)
    , video_bin(video_bin)
    , video_identifier(video_identifier)
    , surface_width(1920)
@@ -27,101 +27,101 @@ VideoIdentifier::VideoIdentifier(AllegroFlare::VideoBin* video_bin, std::string 
 }
 
 
-VideoIdentifier::~VideoIdentifier()
+Video::~Video()
 {
 }
 
 
-void VideoIdentifier::set_surface_width(int surface_width)
+void Video::set_surface_width(int surface_width)
 {
    this->surface_width = surface_width;
 }
 
 
-void VideoIdentifier::set_surface_height(int surface_height)
+void Video::set_surface_height(int surface_height)
 {
    this->surface_height = surface_height;
 }
 
 
-AllegroFlare::VideoBin* VideoIdentifier::get_video_bin() const
+AllegroFlare::VideoBin* Video::get_video_bin() const
 {
    return video_bin;
 }
 
 
-std::string VideoIdentifier::get_video_identifier() const
+std::string Video::get_video_identifier() const
 {
    return video_identifier;
 }
 
 
-int VideoIdentifier::get_surface_width() const
+int Video::get_surface_width() const
 {
    return surface_width;
 }
 
 
-int VideoIdentifier::get_surface_height() const
+int Video::get_surface_height() const
 {
    return surface_height;
 }
 
 
-void VideoIdentifier::set_video_bin(AllegroFlare::VideoBin* video_bin)
+void Video::set_video_bin(AllegroFlare::VideoBin* video_bin)
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::set_video_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[Video::set_video_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::set_video_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("Video::set_video_bin: error: guard \"(!initialized)\" not met");
    }
    this->video_bin = video_bin;
    return;
 }
 
-void VideoIdentifier::set_video_identifier(std::string video_identifier)
+void Video::set_video_identifier(std::string video_identifier)
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::set_video_identifier]: error: guard \"(!initialized)\" not met.";
+      error_message << "[Video::set_video_identifier]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::set_video_identifier: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("Video::set_video_identifier: error: guard \"(!initialized)\" not met");
    }
    this->video_identifier = video_identifier;
    return;
 }
 
-void VideoIdentifier::initialize()
+void Video::initialize()
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[Video::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("Video::initialize: error: guard \"(!initialized)\" not met");
    }
    if (!(video_bin))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::initialize]: error: guard \"video_bin\" not met.";
+      error_message << "[Video::initialize]: error: guard \"video_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::initialize: error: guard \"video_bin\" not met");
+      throw std::runtime_error("Video::initialize: error: guard \"video_bin\" not met");
    }
    initialized = true;
    return;
 }
 
-void VideoIdentifier::activate()
+void Video::activate()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::activate]: error: guard \"initialized\" not met.";
+      error_message << "[Video::activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("Video::activate: error: guard \"initialized\" not met");
    }
    ALLEGRO_VIDEO *video = obtain_video();
    if (video)
@@ -134,28 +134,28 @@ void VideoIdentifier::activate()
    return;
 }
 
-void VideoIdentifier::deactivate()
+void Video::deactivate()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[Video::deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("Video::deactivate: error: guard \"initialized\" not met");
    }
    ALLEGRO_VIDEO *video = obtain_video();
    if (video) al_set_video_playing(video, false);
    return;
 }
 
-void VideoIdentifier::render()
+void Video::render()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::render]: error: guard \"initialized\" not met.";
+      error_message << "[Video::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("Video::render: error: guard \"initialized\" not met");
    }
    if (!video_is_playing) return;
 
@@ -182,14 +182,14 @@ void VideoIdentifier::render()
    return;
 }
 
-ALLEGRO_VIDEO* VideoIdentifier::obtain_video()
+ALLEGRO_VIDEO* Video::obtain_video()
 {
    if (!(video_bin))
    {
       std::stringstream error_message;
-      error_message << "[VideoIdentifier::obtain_video]: error: guard \"video_bin\" not met.";
+      error_message << "[Video::obtain_video]: error: guard \"video_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VideoIdentifier::obtain_video: error: guard \"video_bin\" not met");
+      throw std::runtime_error("Video::obtain_video: error: guard \"video_bin\" not met");
    }
    return video_bin->auto_get(video_identifier);
 }

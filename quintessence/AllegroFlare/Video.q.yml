@@ -13,7 +13,7 @@ documentation:
 
 
   - notes:
-      - see AllegroFlare/Elements/Backgrounds/VideoIdentifier for information about the play status needed for this
+      - see AllegroFlare/Elements/Backgrounds/Video for information about the play status needed for this
         class.
 
 
