@@ -95,11 +95,29 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 }
 
 
-AllegroFlare::Vec2D Camera3D::get_projected_coordinates(float x, float y, float z)
+AllegroFlare::Vec2D Camera3D::get_projected_coordinates(ALLEGRO_BITMAP *surface, float x, float y, float z)
 {
-   AllegroFlare::Vec2D result;
+   setup_projection_on(surface); // Also sets the target bitmap (as side effect, probably not wanted)
+
    // TODO
-   return result;
+   ALLEGRO_TRANSFORM t2;
+   al_copy_transform(&t2, al_get_current_transform());
+   al_compose_transform(&t2, al_get_current_projection_transform());
+
+   ALLEGRO_TRANSFORM t3;
+   al_identity_transform(&t3);
+   al_scale_transform(&t3, 0.5, -0.5);
+   al_translate_transform(&t3, 0.5, 0.5);
+   al_scale_transform(&t3, al_get_bitmap_width(al_get_target_bitmap()),
+                      al_get_bitmap_height(al_get_target_bitmap()));
+
+
+   al_transform_coordinates_3d_projective(&t2, &x, &y, &z);
+   // x, y now contain normalized coordinates
+   al_transform_coordinates(&t3, &x, &y);
+   // x, y now contain pixel coordinates
+
+   return AllegroFlare::Vec2D(x, y);
 }
 
 
