@@ -148,7 +148,7 @@ functions:
         default_argument: al_get_time()
     body: |
       position_destination = AllegroFlare::Vec2D(x, y);
-      last_repositioned_at = time_now;
+      update_last_repositioned_at(time_now);
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
@@ -167,7 +167,7 @@ functions:
         default_argument: al_get_time()
     body: |
       size_destination = AllegroFlare::Vec2D(x, y);
-      last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+      update_last_repositioned_at(time_now); // TODO: change this to a "last_resized_at"
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
