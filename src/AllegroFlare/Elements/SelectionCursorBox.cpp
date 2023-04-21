@@ -96,7 +96,7 @@ void SelectionCursorBox::set_position(float x, float y, float time_now)
 {
    position_destination = AllegroFlare::Vec2D(x, y);
    position = position_destination;
-   last_repositioned_at = time_now;
+   update_last_repositioned_at(time_now);
 }
 
 void SelectionCursorBox::set_position_quietly(float x, float y)
@@ -110,7 +110,7 @@ void SelectionCursorBox::set_size(float x, float y, float time_now)
 {
    size_destination = AllegroFlare::Vec2D(x, y);
    size = size_destination;
-   last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+   update_last_repositioned_at(time_now); // TODO: change this to a "last_resized_at"
 }
 
 void SelectionCursorBox::set_padding(float padding_x, float padding_y, float time_now)
@@ -130,6 +130,12 @@ void SelectionCursorBox::resize_to(float x, float y, float time_now)
 {
    size_destination = AllegroFlare::Vec2D(x, y);
    last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+   return;
+}
+
+void SelectionCursorBox::update_last_repositioned_at(float time_now)
+{
+   this->last_repositioned_at = time_now;
    return;
 }
 

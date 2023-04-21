@@ -85,7 +85,7 @@ functions:
     body: |
       position_destination = AllegroFlare::Vec2D(x, y);
       position = position_destination;
-      last_repositioned_at = time_now;
+      update_last_repositioned_at(time_now);
 
 
   - name: set_position_quietly
@@ -116,7 +116,7 @@ functions:
     body: |
       size_destination = AllegroFlare::Vec2D(x, y);
       size = size_destination;
-      last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
+      update_last_repositioned_at(time_now); // TODO: change this to a "last_resized_at"
 
 
   - name: set_padding
@@ -171,6 +171,16 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
+
+
+  - name: update_last_repositioned_at
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      this->last_repositioned_at = time_now;
+      return;
 
 
   - name: update
