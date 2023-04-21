@@ -40,14 +40,14 @@ properties:
   - name: roundness
     type: float
     init_with: 8.0f
-    getter: false
-    setter: false
+    getter: true
+    setter: true
 
   - name: thickness
     type: float
     init_with: 6.0f
-    getter: false
-    setter: false
+    getter: true
+    setter: true
 
   - name: reposition_multiplier
     type: float

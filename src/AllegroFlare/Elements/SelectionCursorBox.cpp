@@ -44,6 +44,18 @@ void SelectionCursorBox::set_core_color(ALLEGRO_COLOR core_color)
 }
 
 
+void SelectionCursorBox::set_roundness(float roundness)
+{
+   this->roundness = roundness;
+}
+
+
+void SelectionCursorBox::set_thickness(float thickness)
+{
+   this->thickness = thickness;
+}
+
+
 AllegroFlare::Vec2D SelectionCursorBox::get_position() const
 {
    return position;
@@ -77,6 +89,18 @@ AllegroFlare::Vec2D SelectionCursorBox::get_padding() const
 ALLEGRO_COLOR SelectionCursorBox::get_core_color() const
 {
    return core_color;
+}
+
+
+float SelectionCursorBox::get_roundness() const
+{
+   return roundness;
+}
+
+
+float SelectionCursorBox::get_thickness() const
+{
+   return thickness;
 }
 
 

@@ -38,12 +38,16 @@ namespace AllegroFlare
          ~SelectionCursorBox();
 
          void set_core_color(ALLEGRO_COLOR core_color);
+         void set_roundness(float roundness);
+         void set_thickness(float thickness);
          AllegroFlare::Vec2D get_position() const;
          AllegroFlare::Vec2D get_position_destination() const;
          AllegroFlare::Vec2D get_size() const;
          AllegroFlare::Vec2D get_size_destination() const;
          AllegroFlare::Vec2D get_padding() const;
          ALLEGRO_COLOR get_core_color() const;
+         float get_roundness() const;
+         float get_thickness() const;
          float get_reposition_multiplier() const;
          float get_last_repositioned_at() const;
          void set_position(float x=0.0f, float y=0.0f, float time_now=al_get_time());
