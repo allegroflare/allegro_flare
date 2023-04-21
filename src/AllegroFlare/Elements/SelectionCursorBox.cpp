@@ -19,15 +19,15 @@ namespace Elements
 
 
 SelectionCursorBox::SelectionCursorBox()
-   : cursor_position({})
-   , cursor_position_destination({})
-   , cursor_size(80, 80)
-   , cursor_size_destination(80, 80)
-   , cursor_padding(4.0f, 4.0f)
+   : position({})
+   , position_destination({})
+   , size(80, 80)
+   , size_destination(80, 80)
+   , padding(4.0f, 4.0f)
    , core_color(AllegroFlare::Color::Aquamarine)
    , roundness(8.0f)
    , thickness(6.0f)
-   , cursor_reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
+   , reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
    , last_repositioned_at(0.0f)
 {
 }
@@ -50,9 +50,9 @@ ALLEGRO_COLOR SelectionCursorBox::get_core_color() const
 }
 
 
-float SelectionCursorBox::get_cursor_reposition_multiplier() const
+float SelectionCursorBox::get_reposition_multiplier() const
 {
-   return cursor_reposition_multiplier;
+   return reposition_multiplier;
 }
 
 
@@ -64,51 +64,51 @@ float SelectionCursorBox::get_last_repositioned_at() const
 
 void SelectionCursorBox::set_position(float x, float y, float time_now)
 {
-   cursor_position_destination = AllegroFlare::Vec2D(x, y);
-   cursor_position = cursor_position_destination;
+   position_destination = AllegroFlare::Vec2D(x, y);
+   position = position_destination;
    last_repositioned_at = time_now;
 }
 
 void SelectionCursorBox::set_position_quietly(float x, float y)
 {
-   cursor_position_destination = AllegroFlare::Vec2D(x, y);
-   cursor_position = cursor_position_destination;
+   position_destination = AllegroFlare::Vec2D(x, y);
+   position = position_destination;
    return;
 }
 
 void SelectionCursorBox::set_size(float x, float y, float time_now)
 {
-   cursor_size_destination = AllegroFlare::Vec2D(x, y);
-   cursor_size = cursor_size_destination;
+   size_destination = AllegroFlare::Vec2D(x, y);
+   size = size_destination;
    last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
 }
 
 void SelectionCursorBox::set_padding(float padding_x, float padding_y, float time_now)
 {
-   cursor_padding = AllegroFlare::Vec2D(padding_x, padding_y);
+   padding = AllegroFlare::Vec2D(padding_x, padding_y);
    return;
 }
 
 void SelectionCursorBox::reposition_to(float x, float y, float time_now)
 {
-   cursor_position_destination = AllegroFlare::Vec2D(x, y);
+   position_destination = AllegroFlare::Vec2D(x, y);
    last_repositioned_at = time_now;
    return;
 }
 
 void SelectionCursorBox::resize_to(float x, float y, float time_now)
 {
-   cursor_size_destination = AllegroFlare::Vec2D(x, y);
+   size_destination = AllegroFlare::Vec2D(x, y);
    last_repositioned_at = time_now; // TODO: change this to a "last_resized_at"
    return;
 }
 
 void SelectionCursorBox::update()
 {
-   cursor_position = (cursor_position_destination - cursor_position)
-                   * cursor_reposition_multiplier + cursor_position;
-   cursor_size = (cursor_size_destination - cursor_size)
-               * cursor_reposition_multiplier + cursor_size;
+   position = (position_destination - position)
+                   * reposition_multiplier + position;
+   size = (size_destination - size)
+               * reposition_multiplier + size;
    return;
 }
 
@@ -162,12 +162,12 @@ void SelectionCursorBox::draw_cursor_rectangle(float x, float y, float w, float 
 void SelectionCursorBox::draw_cursor()
 {
    draw_cursor_rectangle(
-      cursor_position.x,
-      cursor_position.y,
-      cursor_size.x,
-      cursor_size.y,
-      cursor_padding.x,
-      cursor_padding.y
+      position.x,
+      position.y,
+      size.x,
+      size.y,
+      padding.x,
+      padding.y
    );
    return;
 }
