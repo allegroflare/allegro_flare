@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h> // for ALLEGRO_TRANSFORM
 
@@ -14,8 +15,8 @@ namespace AllegroFlare
       float far_plane;
 
       // camera controls
-      AllegroFlare::vec3d position;
-      AllegroFlare::vec3d stepout;
+      AllegroFlare::Vec3D position;
+      AllegroFlare::Vec3D stepout;
       float spin;
       float tilt;
       float roll;
@@ -26,8 +27,9 @@ namespace AllegroFlare
 
       void position_transform(ALLEGRO_TRANSFORM *t);
       void reverse_position_transform(ALLEGRO_TRANSFORM *t);
-      AllegroFlare::vec3d get_real_position();
+      AllegroFlare::Vec3D get_real_position();
       void setup_projection_on(ALLEGRO_BITMAP *surface);
+      AllegroFlare::Vec2D get_projected_coordinates(float x, float y, float z);
 
       float get_far_plane();
       void set_far_plane(float far_plane=100);

@@ -57,10 +57,10 @@ void Camera3D::reverse_position_transform(ALLEGRO_TRANSFORM *t)
 }
 
 
-vec3d Camera3D::get_real_position()
+Vec3D Camera3D::get_real_position()
 {
-   //vec3d real_position(0, 0, 0);
-   vec3d real_position = position;
+   //vec3D real_position(0, 0, 0);
+   Vec3D real_position = position;
    ALLEGRO_TRANSFORM t;
 
    position_transform(&t);
@@ -80,7 +80,7 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
    // setup the render settings
    al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
    al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-   al_clear_depth_buffer(1);
+   al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
 
 
    ALLEGRO_TRANSFORM t;
@@ -92,6 +92,14 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
    al_perspective_transform(&t, -1 * mul, aspect_ratio * mul, 1, 1 * mul, -aspect_ratio * mul, far_plane);
 
    al_use_projection_transform(&t);
+}
+
+
+AllegroFlare::Vec2D Camera3D::get_projected_coordinates(float x, float y, float z)
+{
+   AllegroFlare::Vec2D result;
+   // TODO
+   return result;
 }
 
 

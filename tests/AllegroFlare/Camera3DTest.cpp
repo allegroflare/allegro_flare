@@ -10,3 +10,9 @@ TEST(AllegroFlare_Camera3DTest, can_be_created_without_blowing_up)
 }
 
 
+TEST(AllegroFlare_Camera3DTest, get_projected_coordinates__will_return_2d_pixel_coordinates)
+{
+   // TODO
+}
+
+
