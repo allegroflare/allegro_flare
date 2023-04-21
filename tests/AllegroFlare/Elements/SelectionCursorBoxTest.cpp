@@ -67,3 +67,89 @@ TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_position__will_set_the_position_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_position__will_set_the_position_destination_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_position__will_set_the_last_repositioned_at_to_the_time)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_position_quietly__will_set_the_position_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_position_quietly__will_set_the_position_destination_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_position_quietly__will_not_set_the_last_repositioned_at_to_the_time)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_size__will_set_the_size_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_size__will_set_the_size_destination_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_size__will_set_the_last_repositioned_at_to_the_time)
+   // TODO: Update this to be a "last_resized_at"
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_size_quietly__will_set_the_size_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_size_quietly__will_set_the_size_destination_of_the_cursor)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_SelectionCursorBoxTestWithAllegroRenderingFixture,
+   set_size_quietly__will_not_set_the_last_repositioned_at_to_the_time)
+   // TODO: Update this to be a "last_resized_at"
+{
+   // TODO
+}
+
+
