@@ -41,6 +41,7 @@ namespace AllegroFlare
          float get_cursor_reposition_multiplier() const;
          float get_last_repositioned_at() const;
          void set_position(float x=0.0f, float y=0.0f, float time_now=al_get_time());
+         void set_position_quietly(float x=0.0f, float y=0.0f);
          void set_size(float x=0.0f, float y=0.0f, float time_now=al_get_time());
          void set_padding(float padding_x=0.0f, float padding_y=0.0f, float time_now=0 /* this arg currently not used */);
          void reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time());

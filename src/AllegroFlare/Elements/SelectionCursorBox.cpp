@@ -69,6 +69,13 @@ void SelectionCursorBox::set_position(float x, float y, float time_now)
    last_repositioned_at = time_now;
 }
 
+void SelectionCursorBox::set_position_quietly(float x, float y)
+{
+   cursor_position_destination = AllegroFlare::Vec2D(x, y);
+   cursor_position = cursor_position_destination;
+   return;
+}
+
 void SelectionCursorBox::set_size(float x, float y, float time_now)
 {
    cursor_size_destination = AllegroFlare::Vec2D(x, y);
