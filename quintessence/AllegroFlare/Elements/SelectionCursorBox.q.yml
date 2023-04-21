@@ -68,13 +68,6 @@ properties:
     init_with: 0.6f
 
 
-documentation:
-
-
-  - todos:
-      - Consider renaming "core_color" to something, like, less intense
-
-
 functions:
 
 
