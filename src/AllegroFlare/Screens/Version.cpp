@@ -207,6 +207,7 @@ void Version::initialize()
          // TODO: Fill out these values
          { "Version", release_info.get_version() },
          { "Allegro Flare", release_info.get_allegro_flare_version_git_hash() },
+         { "Blast", release_info.get_blast_version_git_hash() },
          //{ "Allegro Flare", release_info.get_allegro_flare_version_git_hash() },
          //{ "Allegro", "5.2.8.0" },
          //{ "Allegro", "5.2.8.0" },
