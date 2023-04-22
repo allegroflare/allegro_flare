@@ -26,4 +26,10 @@ properties:
     init_with: '"[unset]"'
     getter: true
 
+  - name: blast_version_git_hash
+    static: true
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+
 
