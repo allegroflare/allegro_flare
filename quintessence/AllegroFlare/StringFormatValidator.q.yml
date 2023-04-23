@@ -38,9 +38,3 @@ functions:
       return (string.find_first_not_of("9876543210") == std::string::npos);
 
 
-dependencies:
-
-
-  - symbol: std::size_t
-
-
