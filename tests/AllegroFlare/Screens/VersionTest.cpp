@@ -60,3 +60,14 @@ TEST_F(AllegroFlare_Screens_VersionTestWithAllegroFrameworksFullFixture,
 }
 
 
+TEST_F(AllegroFlare_Screens_VersionTest, truncate_to_n_characters__will_truncate_a_string)
+{
+   std::string expected_truncated_string = "D7s2fKj";
+   std::string actual_truncated_string = AllegroFlare::Screens::Version::truncate_to_n_characters(
+      "D7s2fKj3LqR8wPvY6tGcX9xZzH4iAnUQa0ObJlI1NkoMyE5hrWgpT",
+      7
+   );
+   EXPECT_EQ(expected_truncated_string, actual_truncated_string);
+}
+
+

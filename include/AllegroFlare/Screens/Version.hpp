@@ -9,6 +9,7 @@
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
+#include <cstddef>
 #include <string>
 
 
@@ -59,6 +60,7 @@ namespace AllegroFlare
          void render();
          virtual void primary_timer_func() override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
+         static std::string truncate_to_n_characters(std::string str="", std::size_t num_characters=8);
       };
    }
 }

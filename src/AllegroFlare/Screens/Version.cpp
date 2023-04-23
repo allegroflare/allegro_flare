@@ -205,9 +205,18 @@ void Version::initialize()
       section_factory.create_header("Version"),
       section_factory.create_column_with_labels({
          // TODO: Fill out these values
-         { "Version", release_info.get_version() },
-         { "Allegro Flare", release_info.get_allegro_flare_version_git_hash() },
-         { "Blast", release_info.get_blast_version_git_hash() },
+         {
+            "Version",
+            release_info.get_version()
+         },
+         {
+            "Allegro Flare",
+            truncate_to_n_characters(release_info.get_allegro_flare_version_git_hash())
+         },
+         {
+            "Blast",
+            truncate_to_n_characters(release_info.get_blast_version_git_hash())
+         },
          //{ "Allegro Flare", release_info.get_allegro_flare_version_git_hash() },
          //{ "Allegro", "5.2.8.0" },
          //{ "Allegro", "5.2.8.0" },
@@ -216,8 +225,14 @@ void Version::initialize()
       section_factory.create_header("Build"),
       section_factory.create_column_with_labels({
          // TODO: Fill out these values
-         { "Time of Build", build_info.get_time_of_build() },
-         { "Allegro5", build_info.get_allegro_version_git_hash() },
+         {
+            "Time of Build",
+            build_info.get_time_of_build()
+         },
+         {
+            "Allegro 5",
+            truncate_to_n_characters(build_info.get_allegro_version_git_hash())
+         },
       }),
    });
    cached_calculated_height = rolling_credits_component.calculate_height();
@@ -288,6 +303,19 @@ void Version::virtual_control_button_down_func(AllegroFlare::Player* player, All
       //move_scrollbar_position_down();
 
    event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+}
+
+std::string Version::truncate_to_n_characters(std::string str, std::size_t num_characters)
+{
+   if (!((num_characters >= 1)))
+   {
+      std::stringstream error_message;
+      error_message << "[Version::truncate_to_n_characters]: error: guard \"(num_characters >= 1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Version::truncate_to_n_characters: error: guard \"(num_characters >= 1)\" not met");
+   }
+   if (str.length() <= num_characters) return str;
+   return str.substr(0, num_characters);
 }
 
 
