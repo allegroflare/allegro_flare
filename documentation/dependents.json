@@ -59,7 +59,6 @@
     "AllegroFlare/EncoderDecoders/Base62",
     "AllegroFlare/Network2/Message",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/StringFormatValidator",
     "AllegroFlare/TileMaps/MultiMesh"
   ],
   "al_is_system_installed": [
