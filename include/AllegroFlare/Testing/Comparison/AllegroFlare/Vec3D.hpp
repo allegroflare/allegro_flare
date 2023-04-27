@@ -5,7 +5,7 @@
 #include <ostream>
 
 
-bool operator==(const AllegroFlare::Vec3D& vec, const AllegroFlare::Vec3D& other_vec);
+//bool operator==(const AllegroFlare::Vec3D& vec, const AllegroFlare::Vec3D& other_vec);
 
 
 namespace AllegroFlare

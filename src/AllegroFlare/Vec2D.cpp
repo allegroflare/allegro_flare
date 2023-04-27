@@ -97,7 +97,10 @@ namespace AllegroFlare
 
    bool Vec2D::operator==(const Vec2D &other) const
    {
-      return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01;
+      if (other.x != x) return false;
+      if (other.y != y) return false;
+      return true;
+      //return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01;
    }
 
 

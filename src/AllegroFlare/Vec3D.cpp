@@ -99,7 +99,11 @@ namespace AllegroFlare
 
    bool Vec3D::operator==(const Vec3D &other) const
    {
-      return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01 && fabs(z - other.z) < 0.01;
+      if (x != other.x) return false;
+      if (y != other.y) return false;
+      if (z != other.z) return false;
+      return true;
+      //return fabs(x - other.x) < 0.01 && fabs(y - other.y) < 0.01 && fabs(z - other.z) < 0.01;
    }
 
 
