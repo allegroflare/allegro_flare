@@ -28,3 +28,13 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Vec3DTest,
 }
 
 
+TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Vec3DTest,
+   equality_operator__with_an_inequality__works_with_google_test_EXPECT_statement)
+{
+   AllegroFlare::Vec3D vec(1, 0, 0);
+   AllegroFlare::Vec3D other_vec(0, 0, 0);
+
+   EXPECT_NE(vec, other_vec);
+}
+
+
