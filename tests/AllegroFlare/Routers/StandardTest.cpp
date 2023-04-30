@@ -87,7 +87,7 @@ TEST_F(AllegroFlare_Routers_StandardTest, type__has_the_expected_value_matching_
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   NEW_on_route_event__with_an_EVENT_INITIALIZE_event__will_emit_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event)
+   on_route_event__with_an_EVENT_INITIALIZE_event__will_emit_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event)
 {
    TEST_EXPECTED_ROUTE_EVENT(
       AllegroFlare::Routers::Standard::EVENT_INITIALIZE,
