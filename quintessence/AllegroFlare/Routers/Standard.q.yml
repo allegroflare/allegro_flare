@@ -9,12 +9,6 @@ parent_classes:
 properties:
 
 
-  - name: property
-    type: std::string
-    init_with: '"[unset-property]"'
-    constructor_arg: true
-    getter: true
-
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Routers/Standard"'
@@ -22,22 +16,225 @@ properties:
     constexpr: true
 
 
+enums:
+
+
+  - enumerators:
+      - EVENT_UNDEFINED
+
+      - EVENT_INITIALIZE
+      - EVENT_EXIT_GAME
+
+      - EVENT_START_NEW_GAME
+      - EVENT_CONTINUE_A_SAVED_GAME
+      - EVENT_WIN_GAME
+      - EVENT_LOSE_GAME
+      - EVENT_START_LEVEL
+      - EVENT_PAUSE_GAME
+      - EVENT_UNPAUSE_GAME
+      - EVENT_EXIT_TO_TITLE_SCREEN
+
+      - EVENT_INTRO_LOGOS_INISHED
+      - EVENT_INTRO_STORYBOARDS_FINISHED
+      - EVENT_NEW_GAME_INTRO_STORYBOARDS_FINISHED
+      - EVENT_GAME_WON_OUTRO_STORYBOARDS_FINISHED
+      - EVENT_CREDITS_SCREEN_FINISHED
+      - EVENT_TITLE_SCREEN_TIMEOUT
+
+      - EVENT_ACTIVATE_INTRO_LOGOS_SCREEN
+      - EVENT_ACTIVATE_INTRO_STORYBOARDS_SCREEN
+      - EVENT_ACTIVATE_TITLE_SCREEN
+      - EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN
+      - EVENT_ACTIVATE_SETTINGS_SCREEN
+      - EVENT_ACTIVATE_VERSION_SCREEN
+      - EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN
+      - EVENT_ACTIVATE_LEVEL_SELECT_SCREEN
+      - EVENT_ACTIVATE_GAME_OVER_SCREEN
+      - EVENT_ACTIVATE_GAME_WON_SCREEN
+      - EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN
+      - EVENT_ACTIVATE_CREDITS_SCREEN
+      - EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN
+
+
+      - INTRO_LOGOS_SCREEN
+      - INTRO_STORYBOARDS_SCREEN
+      - TITLE_SCREEN
+      - ACHIEVEMENTS_SCREEN
+      - SETTINGS_SCREEN
+      - VERSION_SCREEN
+      - NEW_GAME_INTRO_STORYBOARD_SCREEN
+      - LEVEL_SELECT_SCREEN
+      - GAME_OVER_SCREEN
+      - GAME_WON_SCREEN
+      - GAME_WON_OUTRO_STORYBOARD_SCREEN
+      - CREDITS_SCREEN
+      - PRIMARY_GAMEPLAY_SCREEN
+
+
 functions:
 
 
-  - name: property_is
-    type: bool
+  - name: on_route_event
+    virtual: true
+    override: true
     parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
+      - name: route_event
+        type: uint32_t
+        default_argument: EVENT_UNDEFINED
+    guards: [ (route_event != 0) ]
     body: |
-      return (possible_type == get_property());
+      //std::string route_event = ev->get_type();
+      std::cout << "Route event emitted: \"" << route_event << "\"" << std::endl;
+
+      std::map<uint32_t, std::function<void()>> event_map = {
+
+         // System Events
+
+         { EVENT_INITIALIZE, [this](){
+            // TODO: Consider different initial route depending on deployment environment
+            emit_route_event(EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
+         }},
+         { EVENT_EXIT_GAME, [this](){
+            // close session
+            // TODO: abort = true;
+         }},
+
+
+         // Game Events
+
+         { EVENT_START_NEW_GAME, [this](){
+            // TODO
+            // start new session
+            // activate new_game_intro_storyboards
+         }},
+         { EVENT_CONTINUE_A_SAVED_GAME, [this](){
+            // TODO
+            // Event data: game session id
+            // restore session
+            // activate gameplay_screen
+         }},
+         { EVENT_WIN_GAME, [this](){
+            // TODO
+            // stop session
+            // activate game_won_outro_storyboards_screen
+         }},
+         { EVENT_LOSE_GAME, [this](){
+            // TODO
+            // stop session
+            // activate game_over_screen
+         }},
+         { EVENT_START_LEVEL, [this](){
+            // TODO
+            // Event data: level info
+            // primary_gameplay_screen-> load level
+            // activate primary_gameplay_screen
+         }},
+         { EVENT_PAUSE_GAME, [this](){
+            // TODO
+            // guard: not already pause screen
+            // pause session?
+            // capture "pre-pause screen"
+            // activate pause_screen
+         }},
+         { EVENT_UNPAUSE_GAME, [this](){
+            // TODO
+            // guard: is paused
+            // unpause session?
+            // activate "pre-pause screen"
+         }},
+         { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
+            // stop session
+            // activate title_screen
+         }},
+
+
+         // Screens finished events
+
+         { EVENT_INTRO_LOGOS_INISHED, [this](){
+            // TODO
+         }},
+         { EVENT_INTRO_STORYBOARDS_FINISHED, [this](){
+            // TODO
+         }},
+         { EVENT_NEW_GAME_INTRO_STORYBOARDS_FINISHED, [this](){
+            // TODO
+         }},
+         { EVENT_GAME_WON_OUTRO_STORYBOARDS_FINISHED, [this](){
+            // TODO
+         }},
+         { EVENT_CREDITS_SCREEN_FINISHED, [this](){
+            // TODO
+         }},
+         { EVENT_TITLE_SCREEN_TIMEOUT, [this](){
+            // TODO
+         }},
+
+
+         // Activate Screens
+
+         { EVENT_ACTIVATE_INTRO_LOGOS_SCREEN, [this](){
+            activate_screen("intro_logos_screen");
+         }},
+         { EVENT_ACTIVATE_INTRO_STORYBOARDS_SCREEN, [this](){
+            activate_screen("intro_storyboards_screen");
+         }},
+         { EVENT_ACTIVATE_TITLE_SCREEN, [this](){
+            activate_screen("title_screen");
+         }},
+         { EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN, [this](){
+            activate_screen("achievements_screen");
+         }},
+         { EVENT_ACTIVATE_SETTINGS_SCREEN, [this](){
+            activate_screen("settings_screen");
+         }},
+         { EVENT_ACTIVATE_VERSION_SCREEN, [this](){
+            activate_screen("version_screen");
+         }},
+         { EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN, [this](){
+            activate_screen("new_game_intro_storyboard");
+         }},
+         { EVENT_ACTIVATE_LEVEL_SELECT_SCREEN, [this](){
+            activate_screen("level_select_screen");
+         }},
+         { EVENT_ACTIVATE_GAME_OVER_SCREEN, [this](){
+            activate_screen("game_over_screen");
+         }},
+         { EVENT_ACTIVATE_GAME_WON_SCREEN, [this](){
+            activate_screen("game_won_screen");
+         }},
+         { EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN, [this](){
+            activate_screen("game_won_outro_storyboard_screen");
+         }},
+         { EVENT_ACTIVATE_CREDITS_SCREEN, [this](){
+            activate_screen("credits_screen");
+         }},
+         { EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, [this](){
+            activate_screen("primary_gameplay_screen");
+         }},
+      };
+
+      // locate and call the function to handle the event
+      if (event_map.count(route_event) == 0)
+      {
+         // event not found
+         std::cout << "ERROR: event not found: \"" << route_event << "\"" << std::endl;
+      }
+      else
+      {
+         // call the event
+         event_map[route_event]();
+      }
+
+      return;
 
 
 dependencies:
 
 
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::Frameworks::Full
+    headers: [ AllegroFlare/Frameworks/Full.hpp ]
   - symbol: AllegroFlare::Routers::Base
     headers: [ AllegroFlare/Routers/Base.hpp ]
 

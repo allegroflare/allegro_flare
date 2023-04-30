@@ -7,6 +7,24 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+
+  - name: framework
+    type: AllegroFlare::Frameworks::Full*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+
+  - name: game_session
+    type: AllegroFlare::GameSession*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Routers/Base"'
@@ -15,6 +33,54 @@ properties:
 
 
 functions:
+
+
+  - name: register_screen
+    parameters:
+      - name: screen_identifier
+        type: std::string
+        default_argument: '"[unset-screen_identifier]"'
+      - name: screen
+        type: AllegroFlare::Screens::Base*
+        default_argument: nullptr
+    guards: [ screen ]
+    body: |
+      framework->register_screen(screen_identifier, screen);
+      return;
+
+
+  - name: activate_screen
+    parameters:
+      - name: screen_identifier
+        type: std::string
+        default_argument: '"[unset-screen_identifier]"'
+    guards: [ framework ]
+    body: |
+      framework->activate_screen(screen_identifier);
+      return;
+
+
+  - name: emit_route_event
+    parameters:
+      - name: route_event
+        type: uint32_t
+        default_argument: 0
+    guards: [ event_emitter ]
+    body: |
+      // TODO: event_emitter->emit_route_event();
+      return;
+
+
+  - name: on_route_event
+    virtual: true
+    parameters:
+      - name: route_event
+        type: uint32_t
+        default_argument: 0
+    guards: [ (route_event != 0) ]
+    body: |
+      // TODO: throw if not implemented?
+      return;
 
 
   - name: is_type
@@ -26,4 +92,16 @@ functions:
     body: |
       return (possible_type == get_type());
 
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Frameworks::Full
+    headers: [ AllegroFlare/Frameworks/Full.hpp ]
+  - symbol: AllegroFlare::GameSession
+    headers: [ AllegroFlare/GameSession.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
 

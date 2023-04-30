@@ -454,6 +454,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GameSession",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -723,6 +724,8 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -759,6 +762,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Routers/Base",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -939,6 +943,7 @@
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
@@ -1454,6 +1459,8 @@
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
@@ -2206,6 +2213,12 @@
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
+  ],
+  "AllegroFlare/GameSession": [
+    "AllegroFlare/Routers/Base"
+  ],
+  "AllegroFlare/Routers/Base": [
+    "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/SceneGraph/EntityPool"

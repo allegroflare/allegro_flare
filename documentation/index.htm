@@ -141,6 +141,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameSession.q.yml">quintessence/AllegroFlare/GameSession.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
@@ -265,6 +266,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Routers/Base.q.yml">quintessence/AllegroFlare/Routers/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Routers/Standard.q.yml">quintessence/AllegroFlare/Routers/Standard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml">quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ScreenCapture.q.yml">quintessence/AllegroFlare/ScreenCapture.q.yml</a></li>
@@ -6949,6 +6952,50 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameSession.q.yml">quintessence/AllegroFlare/GameSession.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">ended_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">level_progress</td>
+  <td class="property">std::set&lt;std::string&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">start_session(float started_at=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">end_session(float ended_at=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">is_active()</td>
+</tr>
+<tr>
+  <td class="method">mark_level_as_finished(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">is_level_as_finished(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15013,6 +15060,91 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Routers/Base.q.yml">quintessence/AllegroFlare/Routers/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">framework</td>
+  <td class="property">AllegroFlare::Frameworks::Full*</td>
+</tr>
+<tr>
+  <td class="property">game_session</td>
+  <td class="property">AllegroFlare::GameSession*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">register_screen(std::string screen_identifier=&quot;[unset-screen_identifier]&quot;, AllegroFlare::Screens::Base* screen=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">activate_screen(std::string screen_identifier=&quot;[unset-screen_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">emit_route_event(uint32_t route_event=0)</td>
+</tr>
+<tr>
+  <td class="method">on_route_event(uint32_t route_event=0)</td>
+</tr>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Frameworks::Full&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Frameworks/Full.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameSession&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameSession.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Routers/Standard.q.yml">quintessence/AllegroFlare/Routers/Standard.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">on_route_event(uint32_t route_event=EVENT_UNDEFINED)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Frameworks::Full&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Frameworks/Full.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</h3>
      <table>
 <tr>
@@ -22379,6 +22511,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GameSession",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -22648,6 +22781,8 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -22684,6 +22819,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Routers/Base",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -22864,6 +23000,7 @@ table td
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
@@ -23379,6 +23516,8 @@ table td
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
@@ -24131,6 +24270,12 @@ table td
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
+  ],
+  "AllegroFlare/GameSession": [
+    "AllegroFlare/Routers/Base"
+  ],
+  "AllegroFlare/Routers/Base": [
+    "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/SceneGraph/EntityPool"

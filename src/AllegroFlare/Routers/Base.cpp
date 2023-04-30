@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Routers/Base.hpp>
 
-
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -11,8 +13,11 @@ namespace Routers
 {
 
 
-Base::Base(std::string type)
+Base::Base(std::string type, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Frameworks::Full* framework, AllegroFlare::GameSession* game_session)
    : type(type)
+   , event_emitter(event_emitter)
+   , framework(framework)
+   , game_session(game_session)
 {
 }
 
@@ -27,6 +32,76 @@ std::string Base::get_type() const
    return type;
 }
 
+
+AllegroFlare::EventEmitter* Base::get_event_emitter() const
+{
+   return event_emitter;
+}
+
+
+AllegroFlare::Frameworks::Full* Base::get_framework() const
+{
+   return framework;
+}
+
+
+AllegroFlare::GameSession* Base::get_game_session() const
+{
+   return game_session;
+}
+
+
+void Base::register_screen(std::string screen_identifier, AllegroFlare::Screens::Base* screen)
+{
+   if (!(screen))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::register_screen]: error: guard \"screen\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::register_screen: error: guard \"screen\" not met");
+   }
+   framework->register_screen(screen_identifier, screen);
+   return;
+}
+
+void Base::activate_screen(std::string screen_identifier)
+{
+   if (!(framework))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::activate_screen]: error: guard \"framework\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::activate_screen: error: guard \"framework\" not met");
+   }
+   framework->activate_screen(screen_identifier);
+   return;
+}
+
+void Base::emit_route_event(uint32_t route_event)
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::emit_route_event]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::emit_route_event: error: guard \"event_emitter\" not met");
+   }
+   // TODO: event_emitter->emit_route_event();
+   return;
+}
+
+void Base::on_route_event(uint32_t route_event)
+{
+   if (!((route_event != 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::on_route_event]: error: guard \"(route_event != 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::on_route_event: error: guard \"(route_event != 0)\" not met");
+   }
+   // TODO: throw if not implemented?
+   return;
+}
 
 bool Base::is_type(std::string possible_type)
 {
