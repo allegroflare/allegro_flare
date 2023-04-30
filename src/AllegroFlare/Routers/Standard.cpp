@@ -101,7 +101,7 @@ void Standard::on_route_event(uint32_t route_event)
          emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_CONTINUE_A_SAVED_GAME, [this](){
-         // TODO
+         // TODO: Finish the actions in this event
          // Event data: game session id
 
          // restore session
@@ -110,25 +110,26 @@ void Standard::on_route_event(uint32_t route_event)
          // activate gameplay_screen
       }},
       { EVENT_WIN_GAME, [this](){
-         // TODO
+         // TODO: Finish the actions in this event
+         // TODO: Validate session
          // stop session
          game_session.end_session();
          // activate game_won_outro_storyboards_screen
       }},
       { EVENT_LOSE_GAME, [this](){
-         // TODO
+         // TODO: Finish the actions in this event
          // stop session
          game_session.end_session();
          // activate game_over_screen
       }},
       { EVENT_START_LEVEL, [this](){
-         // TODO
+         // TODO: Finish the actions in this event
          // Event data: level info
          // primary_gameplay_screen-> load level
          // activate primary_gameplay_screen
       }},
       //{ EVENT_PAUSE_GAME, [this](){
-         // TODO
+         // TODO: Finish the actions in this event
          // guard: not already pause screen
          // pause session?
          //screen_identifier_before_pause = get_framework()->get_currently_active_screen_name();
@@ -136,7 +137,7 @@ void Standard::on_route_event(uint32_t route_event)
          // activate pause_screen
       //}},
       //{ EVENT_UNPAUSE_GAME, [this](){
-         // TODO
+         // TODO: Finish the actions in this event
          // guard: is paused
          // unpause session?
 
