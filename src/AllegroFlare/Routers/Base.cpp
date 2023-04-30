@@ -13,17 +13,28 @@ namespace Routers
 {
 
 
-Base::Base(std::string type, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Frameworks::Full* framework, AllegroFlare::GameSession* game_session)
+Base::Base(std::string type, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Frameworks::Full* framework)
    : type(type)
    , event_emitter(event_emitter)
    , framework(framework)
-   , game_session(game_session)
 {
 }
 
 
 Base::~Base()
 {
+}
+
+
+void Base::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
+void Base::set_framework(AllegroFlare::Frameworks::Full* framework)
+{
+   this->framework = framework;
 }
 
 
@@ -45,14 +56,15 @@ AllegroFlare::Frameworks::Full* Base::get_framework() const
 }
 
 
-AllegroFlare::GameSession* Base::get_game_session() const
-{
-   return game_session;
-}
-
-
 void Base::register_screen(std::string screen_identifier, AllegroFlare::Screens::Base* screen)
 {
+   if (!(framework))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::register_screen]: error: guard \"framework\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::register_screen: error: guard \"framework\" not met");
+   }
    if (!(screen))
    {
       std::stringstream error_message;

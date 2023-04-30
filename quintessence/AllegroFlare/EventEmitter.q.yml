@@ -52,6 +52,19 @@ functions:
       return;
 
 
+  - name: emit_router_event
+    parameters:
+      - name: router_event
+        type: uint32_t
+        default_argument: 0
+    guards: [ initialized ]
+    body: |
+      emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_ROUTER
+
+
   - name: emit_switch_screen_event
     parameters:
       - name: screen_identifier_to_switch_to
@@ -256,6 +269,8 @@ functions:
 dependencies:
 
 
+  - symbol: ALLEGRO_FLARE_EVENT_ROUTER
+    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING

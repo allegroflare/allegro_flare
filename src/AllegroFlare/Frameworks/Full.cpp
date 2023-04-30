@@ -27,6 +27,7 @@
 #include <AllegroFlare/ProfilerRenderer.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
+#include <AllegroFlare/Routers/Standard.hpp>
 
 
 
@@ -53,6 +54,7 @@ Full::Full()
    , notifications()
    , input_devices_list()
    , virtual_controls_processor()
+   , router(nullptr)
    , textlog(nullptr)
    , render_surface_multisamples(4)
    , render_surface_depth_size(32)
@@ -206,6 +208,12 @@ Achievements &Full::get_achievements_ref()
 }
 
 
+AllegroFlare::Routers::Base *Full::get_router()
+{
+   return router;
+}
+
+
 Display *Full::get_primary_display()
 {
    return primary_display;
@@ -322,6 +330,11 @@ bool Full::initialize_core_system()
 
    // Initialize our Achievements
    achievements.set_event_emitter(&event_emitter);
+
+   // Create a Router
+   router = new AllegroFlare::Routers::Standard;
+   router->set_event_emitter(&event_emitter);
+   router->set_framework(this);
 
    // Finalize initialization
    initialized = true;
@@ -613,6 +626,9 @@ bool Full::shutdown()
                                                                    // object, possibly in a destruct function on the base
                                                                    // class that is overridden in child classes
    }
+
+   // shutdown the router
+   if (router) delete router;
 
    if (primary_display) primary_display->destroy();
 
@@ -1123,6 +1139,21 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
                switch(this_event.type)
                {
+                  case ALLEGRO_FLARE_EVENT_ROUTER: {
+                     if (!router)
+                     {
+                        AllegroFlare::Logger::throw_error(
+                           "AllegroFlare::Frameworks::Full::primary_process_event",
+                           "Handling an event of type ALLEGRO_FLARE_EVENT_ROUTER, but no router is present."
+                        );
+                     }
+                     else
+                     {
+                        uint32_t route_event = this_event.user.data1;
+                        router->on_route_event(route_event);
+                     }
+                  } break;
+
                   case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
                      disable_drawing_inputs_bar_overlay();
                   break;

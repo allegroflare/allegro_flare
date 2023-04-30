@@ -19,6 +19,7 @@
 #define ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT          ALLEGRO_GET_EVENT_TYPE('F','U','l','A')
 #define ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED        ALLEGRO_GET_EVENT_TYPE('F','A','c','U')
 #define ALLEGRO_FLARE_EVENT_SWITCH_SCREEN               ALLEGRO_GET_EVENT_TYPE('F','s','m','s')
+#define ALLEGRO_FLARE_EVENT_ROUTER                      ALLEGRO_GET_EVENT_TYPE('F','R','t','r')
 
 
 // likely to only be internal

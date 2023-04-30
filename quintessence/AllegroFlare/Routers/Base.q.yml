@@ -12,18 +12,14 @@ properties:
     init_with: nullptr
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: framework
     type: AllegroFlare::Frameworks::Full*
     init_with: nullptr
     constructor_arg: true
     getter: true
-
-  - name: game_session
-    type: AllegroFlare::GameSession*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
+    setter: true
 
   - name: TYPE
     type: char*
@@ -43,7 +39,7 @@ functions:
       - name: screen
         type: AllegroFlare::Screens::Base*
         default_argument: nullptr
-    guards: [ screen ]
+    guards: [ framework, screen ]
     body: |
       framework->register_screen(screen_identifier, screen);
       return;

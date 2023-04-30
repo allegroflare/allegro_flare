@@ -2,6 +2,9 @@
 #define ALLEGRO_UNSTABLE
 
 
+namespace AllegroFlare { namespace Routers { class Base; } }
+
+
 #include <string>
 #include <functional>
 #include <allegro5/allegro.h>
@@ -31,6 +34,7 @@
 #include <AllegroFlare/ShaderSourcePoller.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 #include <AllegroFlare/InputDevicesList.hpp>
+#include <AllegroFlare/Routers/Base.hpp>
 
 
 namespace AllegroFlare
@@ -56,6 +60,7 @@ namespace AllegroFlare
          Notifications notifications;
          AllegroFlare::InputDevicesList input_devices_list;
          VirtualControlsProcessor virtual_controls_processor;
+         AllegroFlare::Routers::Base* router;
          ALLEGRO_TEXTLOG *textlog;
          int render_surface_multisamples;
          int render_surface_depth_size;
@@ -133,6 +138,7 @@ namespace AllegroFlare
          EventEmitter &get_event_emitter_ref();
          Notifications &get_notifications_ref();
          Achievements &get_achievements_ref();
+         AllegroFlare::Routers::Base *get_router();
          Display *get_primary_display();
 
          void set_render_surface_multisamples(int render_surface_multisamples=4);

@@ -1256,6 +1256,9 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text"
   ],
+  "ALLEGRO_FLARE_EVENT_ROUTER": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [
     "AllegroFlare/EventEmitter"
   ],

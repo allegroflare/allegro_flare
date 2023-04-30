@@ -6389,6 +6389,9 @@ table td
   <td class="method">emit_event(uint32_t type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0)</td>
 </tr>
 <tr>
+  <td class="method">emit_router_event(uint32_t router_event=0)</td>
+</tr>
+<tr>
   <td class="method">emit_switch_screen_event(std::string screen_identifier_to_switch_to=0)</td>
 </tr>
 <tr>
@@ -6441,6 +6444,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_ROUTER&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
@@ -15075,10 +15081,6 @@ table td
   <td class="property">AllegroFlare::Frameworks::Full*</td>
 </tr>
 <tr>
-  <td class="property">game_session</td>
-  <td class="property">AllegroFlare::GameSession*</td>
-</tr>
-<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -23312,6 +23314,9 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text"
+  ],
+  "ALLEGRO_FLARE_EVENT_ROUTER": [
+    "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [
     "AllegroFlare/EventEmitter"
