@@ -96,3 +96,11 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 }
 
 
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_START_NEW_GAME_event__will_start_the_session)
+{
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME);
+   EXPECT_EQ(true, router.get_game_session_ref().is_active());
+}
+
+
