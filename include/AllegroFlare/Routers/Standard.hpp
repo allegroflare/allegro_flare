@@ -16,8 +16,9 @@ namespace AllegroFlare
       public:
          static constexpr char* TYPE = (char*)"AllegroFlare/Routers/Standard";
 
-      private:
-         enum
+      public:
+
+         enum route_event
          {
             EVENT_UNDEFINED = 0,
             EVENT_INITIALIZE,
@@ -61,6 +62,7 @@ namespace AllegroFlare
             CREDITS_SCREEN_IDENTIFIER,
             PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER,
          };
+      private:
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::GameSession game_session;
 

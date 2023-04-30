@@ -31,7 +31,9 @@ properties:
 enums:
 
 
-  - enumerators:
+  - name: route_event
+    scope: public
+    enumerators:
       - EVENT_UNDEFINED
 
       - EVENT_INITIALIZE

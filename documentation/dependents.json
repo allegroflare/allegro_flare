@@ -764,6 +764,7 @@
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -2221,6 +2222,9 @@
   "AllegroFlare/GameSession": [
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
+  ],
+  "AllegroFlare/ScreenManagers/Dictionary": [
+    "AllegroFlare/Routers/Base"
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"
