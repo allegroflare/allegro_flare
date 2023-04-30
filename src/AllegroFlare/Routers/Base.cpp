@@ -86,6 +86,9 @@ void Base::activate_screen(std::string screen_identifier)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::activate_screen: error: guard \"framework\" not met");
    }
+   // TODO: Consider alternative to requiring "framework" as a dependency. Consider:
+   //   - ALLEGRO_FLARE_EVENT_SWITCH_SCREEN instead to avoid "entire framework" dependency
+   //   - Using Screens::Dictionary* and activate directly
    framework->activate_screen(screen_identifier);
    return;
 }

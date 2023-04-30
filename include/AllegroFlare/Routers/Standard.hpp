@@ -4,6 +4,7 @@
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <cstdint>
+#include <string>
 
 
 namespace AllegroFlare
@@ -62,17 +63,17 @@ namespace AllegroFlare
             CREDITS_SCREEN,
             PRIMARY_GAMEPLAY_SCREEN,
          };
-         AllegroFlare::GameSession** game_session;
+         std::string screen_identifier_before_pause;
+         AllegroFlare::GameSession game_session;
 
       protected:
 
 
       public:
-         Standard(AllegroFlare::GameSession** game_session=nullptr);
+         Standard();
          virtual ~Standard();
 
-         void set_game_session(AllegroFlare::GameSession** game_session);
-         AllegroFlare::GameSession** get_game_session() const;
+         AllegroFlare::GameSession &get_game_session_ref();
          virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED) override;
       };
    }

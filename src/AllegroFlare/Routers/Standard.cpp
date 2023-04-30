@@ -13,9 +13,10 @@ namespace Routers
 {
 
 
-Standard::Standard(AllegroFlare::GameSession** game_session)
+Standard::Standard()
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
-   , game_session(game_session)
+   , screen_identifier_before_pause("[unset-screen_identifier_before_pause]")
+   , game_session()
 {
 }
 
@@ -25,13 +26,7 @@ Standard::~Standard()
 }
 
 
-void Standard::set_game_session(AllegroFlare::GameSession** game_session)
-{
-   this->game_session = game_session;
-}
-
-
-AllegroFlare::GameSession** Standard::get_game_session() const
+AllegroFlare::GameSession &Standard::get_game_session_ref()
 {
    return game_session;
 }
@@ -45,6 +40,13 @@ void Standard::on_route_event(uint32_t route_event)
       error_message << "[Standard::on_route_event]: error: guard \"(route_event != 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::on_route_event: error: guard \"(route_event != 0)\" not met");
+   }
+   if (!(get_framework()))
+   {
+      std::stringstream error_message;
+      error_message << "[Standard::on_route_event]: error: guard \"get_framework()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Standard::on_route_event: error: guard \"get_framework()\" not met");
    }
 
    //std::string route_event = ev->get_type();
@@ -69,6 +71,8 @@ void Standard::on_route_event(uint32_t route_event)
       { EVENT_START_NEW_GAME, [this](){
          // TODO
          // start new session
+         game_session.start_session();
+
          // activate new_game_intro_storyboards
       }},
       { EVENT_CONTINUE_A_SAVED_GAME, [this](){
@@ -80,11 +84,13 @@ void Standard::on_route_event(uint32_t route_event)
       { EVENT_WIN_GAME, [this](){
          // TODO
          // stop session
+         game_session.end_session();
          // activate game_won_outro_storyboards_screen
       }},
       { EVENT_LOSE_GAME, [this](){
          // TODO
          // stop session
+         game_session.end_session();
          // activate game_over_screen
       }},
       { EVENT_START_LEVEL, [this](){
@@ -97,6 +103,7 @@ void Standard::on_route_event(uint32_t route_event)
          // TODO
          // guard: not already pause screen
          // pause session?
+         screen_identifier_before_pause = get_framework()->get_currently_active_screen_name();
          // capture "pre-pause screen"
          // activate pause_screen
       }},
@@ -104,7 +111,9 @@ void Standard::on_route_event(uint32_t route_event)
          // TODO
          // guard: is paused
          // unpause session?
+
          // activate "pre-pause screen"
+         activate_screen(screen_identifier_before_pause);
       }},
       { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
          // stop session

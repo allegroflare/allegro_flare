@@ -52,6 +52,9 @@ functions:
         default_argument: '"[unset-screen_identifier]"'
     guards: [ framework ]
     body: |
+      // TODO: Consider alternative to requiring "framework" as a dependency. Consider:
+      //   - ALLEGRO_FLARE_EVENT_SWITCH_SCREEN instead to avoid "entire framework" dependency
+      //   - Using Screens::Dictionary* and activate directly
       framework->activate_screen(screen_identifier);
       return;
 

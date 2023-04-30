@@ -9,12 +9,14 @@ parent_classes:
 properties:
 
 
+  - name: screen_identifier_before_pause
+    type: std::string
+    init_with: '"[unset-screen_identifier_before_pause]"'
+
   - name: game_session
-    type: AllegroFlare::GameSession**
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
+    type: AllegroFlare::GameSession
+    init_with: ''
+    getter_ref: true
 
   - name: TYPE
     type: char*
@@ -88,7 +90,7 @@ functions:
       - name: route_event
         type: uint32_t
         default_argument: EVENT_UNDEFINED
-    guards: [ (route_event != 0) ]
+    guards: [ (route_event != 0), get_framework() ]
     body: |
 
       //std::string route_event = ev->get_type();
@@ -113,6 +115,8 @@ functions:
          { EVENT_START_NEW_GAME, [this](){
             // TODO
             // start new session
+            game_session.start_session();
+
             // activate new_game_intro_storyboards
          }},
          { EVENT_CONTINUE_A_SAVED_GAME, [this](){
@@ -124,11 +128,13 @@ functions:
          { EVENT_WIN_GAME, [this](){
             // TODO
             // stop session
+            game_session.end_session();
             // activate game_won_outro_storyboards_screen
          }},
          { EVENT_LOSE_GAME, [this](){
             // TODO
             // stop session
+            game_session.end_session();
             // activate game_over_screen
          }},
          { EVENT_START_LEVEL, [this](){
@@ -141,6 +147,7 @@ functions:
             // TODO
             // guard: not already pause screen
             // pause session?
+            screen_identifier_before_pause = get_framework()->get_currently_active_screen_name();
             // capture "pre-pause screen"
             // activate pause_screen
          }},
@@ -148,7 +155,9 @@ functions:
             // TODO
             // guard: is paused
             // unpause session?
+
             // activate "pre-pause screen"
+            activate_screen(screen_identifier_before_pause);
          }},
          { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
             // stop session
