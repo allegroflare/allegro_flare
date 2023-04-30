@@ -111,13 +111,14 @@ void Standard::on_route_event(uint32_t route_event)
       }},
       { EVENT_WIN_GAME, [this](){
          // TODO: Finish the actions in this event
-         // TODO: Validate session
+         // TODO: Validate session active
          // stop session
          game_session.end_session();
          // activate game_won_outro_storyboards_screen
       }},
       { EVENT_LOSE_GAME, [this](){
          // TODO: Finish the actions in this event
+         // TODO: Validate session active
          // stop session
          game_session.end_session();
          // activate game_over_screen
