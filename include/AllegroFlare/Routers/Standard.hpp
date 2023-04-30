@@ -4,7 +4,6 @@
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <cstdint>
-#include <string>
 
 
 namespace AllegroFlare
@@ -27,8 +26,6 @@ namespace AllegroFlare
             EVENT_WIN_GAME,
             EVENT_LOSE_GAME,
             EVENT_START_LEVEL,
-            EVENT_PAUSE_GAME,
-            EVENT_UNPAUSE_GAME,
             EVENT_EXIT_TO_TITLE_SCREEN,
             EVENT_INTRO_LOGOS_INISHED,
             EVENT_INTRO_STORYBOARDS_FINISHED,
@@ -63,7 +60,6 @@ namespace AllegroFlare
             CREDITS_SCREEN_IDENTIFIER,
             PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER,
          };
-         std::string screen_identifier_before_pause;
          AllegroFlare::GameSession game_session;
 
       protected:

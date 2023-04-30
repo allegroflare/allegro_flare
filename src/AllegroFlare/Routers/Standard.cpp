@@ -15,7 +15,6 @@ namespace Routers
 
 Standard::Standard()
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
-   , screen_identifier_before_pause("[unset-screen_identifier_before_pause]")
    , game_session()
 {
 }
@@ -40,13 +39,6 @@ void Standard::on_route_event(uint32_t route_event)
       error_message << "[Standard::on_route_event]: error: guard \"(route_event != 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::on_route_event: error: guard \"(route_event != 0)\" not met");
-   }
-   if (!(get_framework()))
-   {
-      std::stringstream error_message;
-      error_message << "[Standard::on_route_event]: error: guard \"get_framework()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Standard::on_route_event: error: guard \"get_framework()\" not met");
    }
 
    //std::string route_event = ev->get_type();
@@ -99,22 +91,22 @@ void Standard::on_route_event(uint32_t route_event)
          // primary_gameplay_screen-> load level
          // activate primary_gameplay_screen
       }},
-      { EVENT_PAUSE_GAME, [this](){
+      //{ EVENT_PAUSE_GAME, [this](){
          // TODO
          // guard: not already pause screen
          // pause session?
-         screen_identifier_before_pause = get_framework()->get_currently_active_screen_name();
+         //screen_identifier_before_pause = get_framework()->get_currently_active_screen_name();
          // capture "pre-pause screen"
          // activate pause_screen
-      }},
-      { EVENT_UNPAUSE_GAME, [this](){
+      //}},
+      //{ EVENT_UNPAUSE_GAME, [this](){
          // TODO
          // guard: is paused
          // unpause session?
 
          // activate "pre-pause screen"
-         activate_screen(screen_identifier_before_pause);
-      }},
+         //activate_screen(screen_identifier_before_pause);
+      //}},
       { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
          // stop session
          // activate title_screen
