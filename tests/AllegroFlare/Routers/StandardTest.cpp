@@ -13,6 +13,49 @@ public:
 };
 
 
+class AllegroFlare_Routers_StandardTestWithSetup : public ::testing::Test
+{
+protected:
+   ALLEGRO_EVENT_QUEUE *event_queue;
+   AllegroFlare::ScreenManagers::Dictionary screen_manager;
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::Routers::Standard router;
+
+public:
+   AllegroFlare_Routers_StandardTestWithSetup()
+      : ::testing::Test()
+      , event_queue(nullptr)
+      , screen_manager()
+      , event_emitter()
+      , router()
+   {}
+   virtual void SetUp() override
+   {
+      al_init();
+      event_queue = al_create_event_queue();
+      event_emitter.initialize();
+      al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+      router.set_screen_manager(&screen_manager);
+      router.set_event_emitter(&event_emitter);
+   }
+   void test_expected_route_event(uint32_t emitted_event, uint32_t response_event)
+   {
+      ALLEGRO_EVENT actual_event;
+      ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_event));
+      ASSERT_EQ(true, ALLEGRO_EVENT_TYPE_IS_USER(actual_event.type));
+      ASSERT_EQ(ALLEGRO_FLARE_EVENT_ROUTER, actual_event.type);
+      EXPECT_EQ(response_event, actual_event.user.data1);
+
+   }
+   virtual void TearDown() override
+   {
+      // TODO: Proper teardown of EventEmitter
+      al_destroy_event_queue(event_queue);
+      al_uninstall_system();
+   }
+};
+
+
 TEST(AllegroFlare_Routers_StandardTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Routers::Standard basic;
