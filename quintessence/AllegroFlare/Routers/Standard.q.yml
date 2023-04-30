@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Routers::Base
+    scope: public
+    init_with: AllegroFlare::Routers::Standard::TYPE
+
+
+properties:
+
+
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Routers/Standard"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: property_is
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_property());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Routers::Base
+    headers: [ AllegroFlare/Routers/Base.hpp ]
+
+
