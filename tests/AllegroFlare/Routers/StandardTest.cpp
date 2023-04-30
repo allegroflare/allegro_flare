@@ -13,6 +13,13 @@ public:
 };
 
 
+class AllegroFlare_Routers_StandardTest : public ::testing::Test
+{
+public:
+   AllegroFlare_Routers_StandardTest() : ::testing::Test() {}
+};
+
+
 class AllegroFlare_Routers_StandardTestWithSetup : public ::testing::Test
 {
 protected:
@@ -56,13 +63,13 @@ public:
 };
 
 
-TEST(AllegroFlare_Routers_StandardTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Routers_StandardTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Routers::Standard basic;
 }
 
 
-TEST(AllegroFlare_Routers_StandardTest, TYPE__has_the_expected_value)
+TEST_F(AllegroFlare_Routers_StandardTest, TYPE__has_the_expected_value)
 {
    EXPECT_STREQ(
      "AllegroFlare/Routers/Standard",
@@ -71,14 +78,14 @@ TEST(AllegroFlare_Routers_StandardTest, TYPE__has_the_expected_value)
 }
 
 
-TEST(AllegroFlare_Routers_StandardTest, type__has_the_expected_value_matching_TYPE)
+TEST_F(AllegroFlare_Routers_StandardTest, type__has_the_expected_value_matching_TYPE)
 {
    AllegroFlare::Routers::Standard basic;
    EXPECT_EQ(AllegroFlare::Routers::Standard::TYPE, basic.get_type());
 }
 
 
-TEST(AllegroFlare_Routers_StandardTest,
+TEST_F(AllegroFlare_Routers_StandardTest,
    on_route_event__with_an_EVENT_INITIALIZE_event__will_emit_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event)
 {
    al_init();
