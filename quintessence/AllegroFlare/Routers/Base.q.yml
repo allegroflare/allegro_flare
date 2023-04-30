@@ -7,15 +7,8 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: event_emitter
-    type: AllegroFlare::EventEmitter*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: framework
-    type: AllegroFlare::Frameworks::Full*
+  - name: screen_manager
+    type: AllegroFlare::ScreenManagers::Dictionary*
     init_with: nullptr
     constructor_arg: true
     getter: true
@@ -39,9 +32,20 @@ functions:
       - name: screen
         type: AllegroFlare::Screens::Base*
         default_argument: nullptr
-    guards: [ framework, screen ]
+    guards: [ screen_manager, screen ]
     body: |
-      framework->register_screen(screen_identifier, screen);
+      screen_manager->add(screen_identifier, screen);
+      return;
+
+
+  - name: unregister_screen
+    parameters:
+      - name: screen
+        type: AllegroFlare::Screens::Base*
+        default_argument: nullptr
+    guards: [ screen_manager, screen ]
+    body: |
+      screen_manager->remove(screen);
       return;
 
 
@@ -50,23 +54,9 @@ functions:
       - name: screen_identifier
         type: std::string
         default_argument: '"[unset-screen_identifier]"'
-    guards: [ framework ]
+    guards: [ screen_manager ]
     body: |
-      // TODO: Consider alternative to requiring "framework" as a dependency. Consider:
-      //   - ALLEGRO_FLARE_EVENT_SWITCH_SCREEN instead to avoid "entire framework" dependency
-      //   - Using Screens::Dictionary* and activate directly
-      framework->activate_screen(screen_identifier);
-      return;
-
-
-  - name: emit_route_event
-    parameters:
-      - name: route_event
-        type: uint32_t
-        default_argument: 0
-    guards: [ event_emitter ]
-    body: |
-      event_emitter->emit_router_event(route_event);
+      screen_manager->activate(screen_identifier);
       return;
 
 
@@ -111,5 +101,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::ScreenManagers::Dictionary
+    headers: [ AllegroFlare/ScreenManagers/Dictionary.hpp ]
 
 

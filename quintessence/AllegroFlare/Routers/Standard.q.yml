@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: game_session
     type: AllegroFlare::GameSession
     init_with: ''
@@ -76,6 +83,17 @@ enums:
 functions:
 
 
+  - name: emit_route_event
+    parameters:
+      - name: route_event
+        type: uint32_t
+        default_argument: 0
+    guards: [ event_emitter ]
+    body: |
+      event_emitter->emit_router_event(route_event);
+      return;
+
+
   - name: on_route_event
     virtual: true
     override: true
@@ -83,7 +101,7 @@ functions:
       - name: route_event
         type: uint32_t
         default_argument: EVENT_UNDEFINED
-    guards: [ (route_event != 0) ]
+    guards: [ (route_event != 0), event_emitter ]
     body: |
 
       //std::string route_event = ev->get_type();
@@ -252,5 +270,7 @@ dependencies:
     headers: [ AllegroFlare/Frameworks/Full.hpp ]
   - symbol: AllegroFlare::Routers::Base
     headers: [ AllegroFlare/Routers/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 

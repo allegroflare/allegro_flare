@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <cstdint>
@@ -60,16 +61,20 @@ namespace AllegroFlare
             CREDITS_SCREEN_IDENTIFIER,
             PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER,
          };
+         AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::GameSession game_session;
 
       protected:
 
 
       public:
-         Standard();
+         Standard(AllegroFlare::EventEmitter* event_emitter=nullptr);
          virtual ~Standard();
 
+         void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+         AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::GameSession &get_game_session_ref();
+         void emit_route_event(uint32_t route_event=0);
          virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED) override;
       };
    }

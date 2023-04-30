@@ -13,8 +13,9 @@ namespace Routers
 {
 
 
-Standard::Standard()
+Standard::Standard(AllegroFlare::EventEmitter* event_emitter)
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
+   , event_emitter(event_emitter)
    , game_session()
 {
 }
@@ -25,11 +26,36 @@ Standard::~Standard()
 }
 
 
+void Standard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
+AllegroFlare::EventEmitter* Standard::get_event_emitter() const
+{
+   return event_emitter;
+}
+
+
 AllegroFlare::GameSession &Standard::get_game_session_ref()
 {
    return game_session;
 }
 
+
+void Standard::emit_route_event(uint32_t route_event)
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Standard::emit_route_event]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Standard::emit_route_event: error: guard \"event_emitter\" not met");
+   }
+   event_emitter->emit_router_event(route_event);
+   return;
+}
 
 void Standard::on_route_event(uint32_t route_event)
 {
@@ -39,6 +65,13 @@ void Standard::on_route_event(uint32_t route_event)
       error_message << "[Standard::on_route_event]: error: guard \"(route_event != 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::on_route_event: error: guard \"(route_event != 0)\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Standard::on_route_event]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Standard::on_route_event: error: guard \"event_emitter\" not met");
    }
 
    //std::string route_event = ev->get_type();
