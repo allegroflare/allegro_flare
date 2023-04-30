@@ -634,7 +634,7 @@ bool Full::shutdown()
    }
 
    // shutdown the router
-   if (router) delete router; // Consider if this is the correct place to free this resource
+   //if (router) delete router; // Consider if this is the correct place to free this resource
 
    if (primary_display) primary_display->destroy();
 
