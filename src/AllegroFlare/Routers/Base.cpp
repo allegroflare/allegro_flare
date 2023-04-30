@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Routers/Base.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -98,7 +99,7 @@ void Base::emit_route_event(uint32_t route_event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::emit_route_event: error: guard \"event_emitter\" not met");
    }
-   // TODO: event_emitter->emit_route_event();
+   event_emitter->emit_router_event(route_event);
    return;
 }
 
@@ -111,7 +112,11 @@ void Base::on_route_event(uint32_t route_event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::on_route_event: error: guard \"(route_event != 0)\" not met");
    }
-   // TODO: throw if not implemented?
+   // TODO: consider making this function pure virutal instead of throwing an error
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::Routers::Base::on_route_event",
+      "This function is expected be implemented on the base class."
+   );
    return;
 }
 

@@ -139,6 +139,7 @@ namespace AllegroFlare
          Notifications &get_notifications_ref();
          Achievements &get_achievements_ref();
          AllegroFlare::Routers::Base *get_router();
+         void set_router(AllegroFlare::Routers::Base* router);
          Display *get_primary_display();
 
          void set_render_surface_multisamples(int render_surface_multisamples=4);

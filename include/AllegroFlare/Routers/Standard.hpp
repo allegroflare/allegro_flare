@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <cstdint>
 
@@ -61,14 +62,17 @@ namespace AllegroFlare
             CREDITS_SCREEN,
             PRIMARY_GAMEPLAY_SCREEN,
          };
+         AllegroFlare::GameSession** game_session;
 
       protected:
 
 
       public:
-         Standard();
+         Standard(AllegroFlare::GameSession** game_session=nullptr);
          virtual ~Standard();
 
+         void set_game_session(AllegroFlare::GameSession** game_session);
+         AllegroFlare::GameSession** get_game_session() const;
          virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED) override;
       };
    }

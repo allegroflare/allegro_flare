@@ -15115,6 +15115,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -15122,6 +15125,10 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Routers/Standard.q.yml">quintessence/AllegroFlare/Routers/Standard.q.yml</h3>
      <table>
+<tr>
+  <td class="property">game_session</td>
+  <td class="property">AllegroFlare::GameSession**</td>
+</tr>
 <tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
@@ -15133,6 +15140,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameSession&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameSession.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
@@ -22607,6 +22617,7 @@ table td
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Routers/Base",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor"
@@ -24277,7 +24288,8 @@ table td
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
   ],
   "AllegroFlare/GameSession": [
-    "AllegroFlare/Routers/Base"
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"

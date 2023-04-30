@@ -13,14 +13,27 @@ namespace Routers
 {
 
 
-Standard::Standard()
+Standard::Standard(AllegroFlare::GameSession** game_session)
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
+   , game_session(game_session)
 {
 }
 
 
 Standard::~Standard()
 {
+}
+
+
+void Standard::set_game_session(AllegroFlare::GameSession** game_session)
+{
+   this->game_session = game_session;
+}
+
+
+AllegroFlare::GameSession** Standard::get_game_session() const
+{
+   return game_session;
 }
 
 
@@ -33,6 +46,7 @@ void Standard::on_route_event(uint32_t route_event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::on_route_event: error: guard \"(route_event != 0)\" not met");
    }
+
    //std::string route_event = ev->get_type();
    std::cout << "Route event emitted: \"" << route_event << "\"" << std::endl;
 

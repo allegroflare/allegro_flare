@@ -214,6 +214,12 @@ AllegroFlare::Routers::Base *Full::get_router()
 }
 
 
+void Full::set_router(AllegroFlare::Routers::Base *router)
+{
+   this->router = router;
+}
+
+
 Display *Full::get_primary_display()
 {
    return primary_display;
@@ -332,9 +338,9 @@ bool Full::initialize_core_system()
    achievements.set_event_emitter(&event_emitter);
 
    // Create a Router
-   router = new AllegroFlare::Routers::Standard;
-   router->set_event_emitter(&event_emitter);
-   router->set_framework(this);
+   //router = new AllegroFlare::Routers::Standard;
+   //router->set_event_emitter(&event_emitter);
+   //router->set_framework(this);
 
    // Finalize initialization
    initialized = true;
@@ -628,7 +634,7 @@ bool Full::shutdown()
    }
 
    // shutdown the router
-   if (router) delete router;
+   if (router) delete router; // Consider if this is the correct place to free this resource
 
    if (primary_display) primary_display->destroy();
 
@@ -1479,6 +1485,7 @@ void Full::run_loop(float auto_shutdown_after_seconds)
    //std::this_thread::sleep_for(std::chrono::microseconds(8000));
    al_start_timer(primary_timer);
    event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
+   if (router) event_emitter.emit_router_event(1); //AllegroFlare::GameEvent("initialize"));
    float loop_started_at = al_get_time();
 
    while(!shutdown_program || Display::displays.empty())

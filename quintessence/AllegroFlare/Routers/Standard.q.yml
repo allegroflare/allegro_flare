@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: game_session
+    type: AllegroFlare::GameSession**
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Routers/Standard"'
@@ -83,6 +90,7 @@ functions:
         default_argument: EVENT_UNDEFINED
     guards: [ (route_event != 0) ]
     body: |
+
       //std::string route_event = ev->get_type();
       std::cout << "Route event emitted: \"" << route_event << "\"" << std::endl;
 
@@ -231,6 +239,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::GameSession
+    headers: [ AllegroFlare/GameSession.hpp ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Frameworks::Full

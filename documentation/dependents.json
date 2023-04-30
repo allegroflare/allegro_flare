@@ -548,6 +548,7 @@
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Routers/Base",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor"
@@ -2218,7 +2219,8 @@
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
   ],
   "AllegroFlare/GameSession": [
-    "AllegroFlare/Routers/Base"
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"

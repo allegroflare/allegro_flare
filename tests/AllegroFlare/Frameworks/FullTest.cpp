@@ -128,24 +128,10 @@ TEST(AllegroFlare_Frameworks_FullTest, shutdown__will_uninitialize_allegro)
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, FOCUS__router__is_nullptr_before_initialization)
+TEST(AllegroFlare_Frameworks_FullTest, router__is_nullptr_by_default)
 {
    AllegroFlare::Frameworks::Full framework;
    EXPECT_EQ(nullptr, framework.get_router());
-}
-
-
-TEST(AllegroFlare_Frameworks_FullTest, FOCUS__initialize__will_create_a_standard_router)
-{
-   AllegroFlare::Frameworks::Full framework;
-   framework.initialize();
-
-   AllegroFlare::Routers::Base *router = framework.get_router();
-   ASSERT_NE(nullptr, router);
-
-   EXPECT_EQ(AllegroFlare::Routers::Standard::TYPE, router->get_type());
-
-   framework.shutdown();
 }
 
 
