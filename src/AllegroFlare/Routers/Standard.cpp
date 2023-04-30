@@ -69,11 +69,11 @@ void Standard::on_route_event(uint32_t route_event)
       // Game Events
 
       { EVENT_START_NEW_GAME, [this](){
-         // TODO
          // start new session
          game_session.start_session();
 
          // activate new_game_intro_storyboards
+         emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_CONTINUE_A_SAVED_GAME, [this](){
          // TODO
