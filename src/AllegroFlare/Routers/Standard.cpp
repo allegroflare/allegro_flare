@@ -70,7 +70,10 @@ void Standard::on_route_event(uint32_t route_event)
       { EVENT_CONTINUE_A_SAVED_GAME, [this](){
          // TODO
          // Event data: game session id
+
          // restore session
+         // TODO: game_session.continue_session();
+
          // activate gameplay_screen
       }},
       { EVENT_WIN_GAME, [this](){
