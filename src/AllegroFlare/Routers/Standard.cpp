@@ -156,6 +156,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: Finish the actions in this event
          // TODO: Consider Validating an active session
          // TODO: Consider alternative to route_event_data that includes some "level to load" info
+         // TODO: Consider boolean result for "load_level_event_handler", return to title screen if false is returned
          if (load_level_event_handler) load_level_event_handler(route_event_data);
 
          emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);

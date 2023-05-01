@@ -132,7 +132,8 @@ documentation:
 
 
   - todos:
-      - consider a EVENT_COMPLETE_LEVEL type of event
+      - consider a EVENT_FINISH_LEVEL type of event, something that denotes progress in the game, a save, level beaten
+      - consider a EVENT_GAMEPLAY_SCREEN_FINISHED type of event
 
 
 enums:
@@ -279,6 +280,7 @@ functions:
             // TODO: Finish the actions in this event
             // TODO: Consider Validating an active session
             // TODO: Consider alternative to route_event_data that includes some "level to load" info
+            // TODO: Consider boolean result for "load_level_event_handler", return to title screen if false is returned
             if (load_level_event_handler) load_level_event_handler(route_event_data);
 
             emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
