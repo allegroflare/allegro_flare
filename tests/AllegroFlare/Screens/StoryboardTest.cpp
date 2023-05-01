@@ -43,12 +43,18 @@ public:
    ALLEGRO_FONT *font;
    std::string text;
    float opacity;
-   StoryboardPageTestClass(ALLEGRO_FONT *font, std::string text) : font(font), text(text), opacity(1) {};
+   StoryboardPageTestClass(ALLEGRO_FONT *font, std::string text)
+      : AllegroFlare::Elements::StoryboardPages::Base()
+      , font(font)
+      , text(text)
+      , opacity(1)
+   {}
    virtual void render() override
    {
       ALLEGRO_COLOR color = ALLEGRO_COLOR{opacity, opacity, opacity, opacity};
       al_draw_text(font, color, 1920/2, 1080/2, ALLEGRO_ALIGN_CENTER, text.c_str());
    }
+   virtual void advance() override { set_finished(true); }
    virtual void update() override
    {
       // nothing to do really
@@ -174,19 +180,19 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   // TODO: Undisable this test
-   DISABLED__advance__when_at_the_final_page_that_is_finished__will_emit_a_game_event_with_the_expected_property_value)
+   advance__when_at_the_final_page_that_is_finished__will_emit_a_game_event_with_the_expected_property_value)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    ALLEGRO_EVENT event;
+   AllegroFlare::VirtualControllers::GenericController virtual_controller;
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
-      new StoryboardPageTestClass(font, "This is page 1."),
-      new StoryboardPageTestClass(font, "Here is the last page!"),
+      new StoryboardPageTestClass(font, "This is the first and last page."),
+      //new StoryboardPageTestClass(font, "Here is the last page!"),
    };
 
    AllegroFlare::Screens::Storyboard storyboard(&event_emitter, &font_bin);
@@ -196,7 +202,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    // first page should not trigger an event
    storyboard.virtual_control_button_down_func(
          nullptr,
-         nullptr,
+         &virtual_controller,
          AllegroFlare::VirtualControllers::GenericController::BUTTON_A
    );
 
@@ -206,9 +212,10 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    // now at the last page, this should trigger an event
    storyboard.virtual_control_button_down_func(
          nullptr,
-         nullptr,
+         &virtual_controller,
          AllegroFlare::VirtualControllers::GenericController::BUTTON_A
    );
+
    //storyboard.virtual_control_button_down_func();
    ASSERT_EQ(true, al_get_next_event(event_queue, &event));
 
