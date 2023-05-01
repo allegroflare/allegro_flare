@@ -6389,7 +6389,7 @@ table td
   <td class="method">emit_event(uint32_t type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0)</td>
 </tr>
 <tr>
-  <td class="method">emit_router_event(uint32_t router_event=0)</td>
+  <td class="method">emit_router_event(uint32_t router_event=0, float time_now=0.0f)</td>
 </tr>
 <tr>
   <td class="method">emit_switch_screen_event(std::string screen_identifier_to_switch_to=0)</td>
@@ -15092,7 +15092,7 @@ table td
   <td class="method">activate_screen(std::string screen_identifier=&quot;[unset-screen_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">on_route_event(uint32_t route_event=0)</td>
+  <td class="method">on_route_event(uint32_t route_event=0, float time_now=0.0f)</td>
 </tr>
 <tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
@@ -15191,10 +15191,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">emit_route_event(uint32_t route_event=0)</td>
+  <td class="method">emit_route_event(uint32_t route_event=0, float time_now=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">on_route_event(uint32_t route_event=EVENT_UNDEFINED)</td>
+  <td class="method">on_route_event(uint32_t route_event=EVENT_UNDEFINED, float time_now=0.0f)</td>
 </tr>
     </table>
      <table>
