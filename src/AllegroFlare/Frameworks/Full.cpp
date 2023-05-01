@@ -1156,7 +1156,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      else
                      {
                         uint32_t route_event = this_event.user.data1;
-                        router->on_route_event(route_event);
+                        AllegroFlare::RouteEventDatas::Base *route_event_data =
+                           (AllegroFlare::RouteEventDatas::Base *)this_event.user.data2;
+                        float *time_now_ptr = (float*)this_event.user.data3;
+                        router->on_route_event(route_event, route_event_data, *time_now_ptr);
+                        if (route_event_data) delete route_event_data; // NOTE: RouteEventData is erased here. Consider a different location.
+                        delete time_now_ptr;
                      }
                   } break;
 

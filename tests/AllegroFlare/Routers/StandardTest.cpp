@@ -214,3 +214,16 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 }
 
 
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_EXIT_GAME__will_emit_an_ALLEGRO_FLARE_EVENT_EXIT_GAME_event)
+{
+   router.get_game_session_ref().start_session();
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_EXIT_GAME);
+   EXPECT_EQ(false, router.get_game_session_ref().is_active());
+
+   ALLEGRO_EVENT actual_event;
+   ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_event));
+   ASSERT_EQ(ALLEGRO_FLARE_EVENT_EXIT_GAME, actual_event.type);
+}
+
+

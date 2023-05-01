@@ -65,7 +65,8 @@ functions:
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
-      emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event, (intptr_t)route_event_data, time_now);
+      float *time_now_ptr = new float(time_now);
+      emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event, (intptr_t)route_event_data, (intptr_t)time_now_ptr);
       return;
     body_dependency_symbols:
       - ALLEGRO_FLARE_EVENT_ROUTER

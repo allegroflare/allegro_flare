@@ -83,10 +83,11 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          emit_route_event(EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
       }},
       { EVENT_EXIT_GAME, [this](){
-         // close session
-
+         // End the session if active
          if (game_session.is_active()) game_session.end_session();
-         // TODO: abort = true;
+
+         // Emit an event to exit the game
+         event_emitter->emit_exit_game_event();
       }},
 
 

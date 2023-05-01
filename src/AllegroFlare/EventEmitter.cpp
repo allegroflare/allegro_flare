@@ -85,7 +85,8 @@ void EventEmitter::emit_router_event(uint32_t router_event, AllegroFlare::RouteE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EventEmitter::emit_router_event: error: guard \"initialized\" not met");
    }
-   emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event, (intptr_t)route_event_data, time_now);
+   float *time_now_ptr = new float(time_now);
+   emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event, (intptr_t)route_event_data, (intptr_t)time_now_ptr);
    return;
 }
 
