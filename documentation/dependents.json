@@ -2253,7 +2253,13 @@
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
+  "AllegroFlare/Screens/GameOverScreen": [
+    "AllegroFlare/Screens/GameOverScreen"
+  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
+    "AllegroFlare/Screens/GameWonScreen"
+  ],
+  "AllegroFlare/Screens/GameWonScreen": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [

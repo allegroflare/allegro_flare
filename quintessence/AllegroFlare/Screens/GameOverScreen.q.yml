@@ -32,6 +32,18 @@ properties:
     init_with: DEFAULT_MENU_OPTIONS
     setter: false
 
+  - name: on_menu_choice_callback_func
+    type: std::function<void(AllegroFlare::Screens::GameOverScreen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_menu_choice_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: background
     type: AllegroFlare::Elements::Backgrounds::Base*
     init_with: nullptr
@@ -98,6 +110,7 @@ documentation:
       - add test for DEFAULT_MENU_OPTION value
       - background does not have clarity on how or if it should use "activate()" or "show()". Same with "deactivate"
         or "hide()"
+      - Remove redundant self-dependent AllegroFlare/Screens/GameOverScreen dependency
 
 
 functions:
@@ -163,6 +176,8 @@ functions:
     body: |
       std::string current_menu_option_value = infer_current_menu_option_value();
       event_emitter->emit_game_event(current_menu_option_value);
+      // TODO: Test this callback
+      if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
       return;
 
 
@@ -343,5 +358,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Screens::GameOverScreen
+    headers: [ AllegroFlare/Screens/GameOverScreen.hpp ]
 
 

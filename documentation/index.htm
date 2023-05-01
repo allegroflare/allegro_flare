@@ -15639,6 +15639,14 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::GameOverScreen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">background</td>
   <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
@@ -15753,6 +15761,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::GameOverScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/GameOverScreen.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -15771,6 +15782,14 @@ table td
 <tr>
   <td class="property">title_text</td>
   <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">on_submit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::GameWonScreen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_submit_callback_func_user_data</td>
+  <td class="property">void*</td>
 </tr>
 <tr>
   <td class="property">background</td>
@@ -15868,6 +15887,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::GameWonScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/GameWonScreen.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24488,7 +24510,13 @@ table td
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
+  "AllegroFlare/Screens/GameOverScreen": [
+    "AllegroFlare/Screens/GameOverScreen"
+  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
+    "AllegroFlare/Screens/GameWonScreen"
+  ],
+  "AllegroFlare/Screens/GameWonScreen": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [

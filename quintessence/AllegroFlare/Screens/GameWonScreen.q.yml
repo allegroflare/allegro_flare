@@ -27,6 +27,18 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: on_submit_callback_func
+    type: std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_submit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: background
     type: AllegroFlare::Elements::Backgrounds::Base*
     init_with: nullptr
@@ -90,6 +102,13 @@ properties:
     setter: false
 
 
+documentation:
+
+
+  - todos:
+      - Remove redundant self-dependent AllegroFlare/Screens/GameWonScreen dependency
+
+
 functions:
 
 
@@ -107,6 +126,7 @@ functions:
     body: |
       if (background) background->deactivate();
       return;
+
 
   - name: primary_timer_func
     virtual: true
@@ -204,6 +224,8 @@ functions:
         default_argument: false
     body: |
       event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
+      // TODO: Test this callback
+      if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
 
 
 dependencies:
@@ -229,5 +251,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Screens::GameWonScreen
+    headers: [ AllegroFlare/Screens/GameWonScreen.hpp ]
 
 

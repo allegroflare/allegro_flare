@@ -24,6 +24,8 @@ GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroF
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
+   , on_submit_callback_func()
+   , on_submit_callback_func_user_data(nullptr)
    , background(background)
    , title_font_name(title_font_name)
    , title_font_size(title_font_size)
@@ -55,6 +57,18 @@ void GameWonScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
 void GameWonScreen::set_title_text(std::string title_text)
 {
    this->title_text = title_text;
+}
+
+
+void GameWonScreen::set_on_submit_callback_func(std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)> on_submit_callback_func)
+{
+   this->on_submit_callback_func = on_submit_callback_func;
+}
+
+
+void GameWonScreen::set_on_submit_callback_func_user_data(void* on_submit_callback_func_user_data)
+{
+   this->on_submit_callback_func_user_data = on_submit_callback_func_user_data;
 }
 
 
@@ -97,6 +111,18 @@ void GameWonScreen::set_instruction_font_size(int instruction_font_size)
 void GameWonScreen::set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission)
 {
    this->game_event_name_to_emit_on_submission = game_event_name_to_emit_on_submission;
+}
+
+
+std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)> GameWonScreen::get_on_submit_callback_func() const
+{
+   return on_submit_callback_func;
+}
+
+
+void* GameWonScreen::get_on_submit_callback_func_user_data() const
+{
+   return on_submit_callback_func_user_data;
 }
 
 
@@ -248,6 +274,8 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
 void GameWonScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
+   // TODO: Test this callback
+   if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
 }
 
 

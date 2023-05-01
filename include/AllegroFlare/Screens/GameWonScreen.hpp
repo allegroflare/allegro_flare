@@ -6,8 +6,10 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/GameWonScreen.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro_font.h>
+#include <functional>
 #include <string>
 
 
@@ -21,6 +23,8 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          std::string title_text;
+         std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)> on_submit_callback_func;
+         void* on_submit_callback_func_user_data;
          AllegroFlare::Elements::Backgrounds::Base* background;
          std::string title_font_name;
          int title_font_size;
@@ -43,6 +47,8 @@ namespace AllegroFlare
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_title_text(std::string title_text);
+         void set_on_submit_callback_func(std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)> on_submit_callback_func);
+         void set_on_submit_callback_func_user_data(void* on_submit_callback_func_user_data);
          void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          void set_title_font_name(std::string title_font_name);
          void set_title_font_size(int title_font_size);
@@ -50,6 +56,8 @@ namespace AllegroFlare
          void set_instruction_font_name(std::string instruction_font_name);
          void set_instruction_font_size(int instruction_font_size);
          void set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission);
+         std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)> get_on_submit_callback_func() const;
+         void* get_on_submit_callback_func_user_data() const;
          AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          std::string get_title_font_name() const;
          int get_title_font_size() const;
