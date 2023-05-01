@@ -77,6 +77,7 @@ will_emit_a_game_event_with_the_expected_name)
    AllegroFlare::Screens::RollingCredits rolling_credits;
    rolling_credits.set_font_bin(&get_font_bin_ref());
    rolling_credits.set_event_emitter(&event_emitter);
+   rolling_credits.clear_route_event_to_emit_after_completing();
    rolling_credits.set_game_event_name_to_emit_after_completing(MY_GAME_EVENT_TO_EMIT);
    rolling_credits.initialize();
    float a_y_offset_greater_than_the_height = rolling_credits.get_cached_calculated_height() + 1.0f;
@@ -86,8 +87,6 @@ will_emit_a_game_event_with_the_expected_name)
 
    ALLEGRO_EVENT event;
    ASSERT_EQ(true, al_get_next_event(event_queue, &event));
-
-   // the generated event should have the expected values
    EXPECT_EQ(ALLEGRO_FLARE_EVENT_GAME_EVENT, event.type);
    ASSERT_NE(nullptr, (void *)(event.user.data1));
    AllegroFlare::GameEvent *data1 = static_cast<AllegroFlare::GameEvent *>((void*)event.user.data1);
@@ -102,7 +101,29 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
    update__when_the_y_offset_is_greater_than_the_height__when_a_route_event_to_emit_after_completing_is_present\
 will_emit_a_route_event_with_the_expected_value)
 {
-   // TODO
+   uint32_t MY_ROUTE_EVENT_TO_EMIT = 12345;
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+
+   AllegroFlare::Screens::RollingCredits rolling_credits;
+   rolling_credits.set_font_bin(&get_font_bin_ref());
+   rolling_credits.set_event_emitter(&event_emitter);
+   rolling_credits.clear_game_event_name_to_emit_after_completing();
+   rolling_credits.set_route_event_to_emit_after_completing(MY_ROUTE_EVENT_TO_EMIT);
+   rolling_credits.initialize();
+   float a_y_offset_greater_than_the_height = rolling_credits.get_cached_calculated_height() + 1.0f;
+   rolling_credits.set_y_offset(a_y_offset_greater_than_the_height);
+
+   rolling_credits.update();
+
+   ALLEGRO_EVENT event;
+   ASSERT_EQ(true, al_get_next_event(event_queue, &event));
+   EXPECT_EQ(ALLEGRO_FLARE_EVENT_ROUTER, event.type);
+   EXPECT_EQ(MY_ROUTE_EVENT_TO_EMIT, event.user.data1);
+
+   al_destroy_event_queue(event_queue);
 }
 
 
