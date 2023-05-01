@@ -230,7 +230,10 @@ void Standard::on_route_event(uint32_t route_event, float time_now)
    if (event_map.count(route_event) == 0)
    {
       // event not found
-      std::cout << "ERROR: event not found: \"" << route_event << "\"" << std::endl;
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Routers::Standard::on_route_event",
+         "Unable to handle event of type " + std::to_string(route_event) + "."
+      );
    }
    else
    {

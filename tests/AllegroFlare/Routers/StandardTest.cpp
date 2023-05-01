@@ -99,6 +99,17 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup, game_session__is_not_active_b
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__on_an_unknown_event__will_throw_an_error)
+{
+   EXPECT_THROW_WITH_MESSAGE(
+      router.on_route_event(123),
+      std::runtime_error,
+      "[AllegroFlare::Routers::Standard::on_route_event]: error: Unable to handle event of type 123."
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_INITIALIZE_event__will_emit_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_route_event)
 {
    TEST_EXPECTED_ROUTE_EVENT(
