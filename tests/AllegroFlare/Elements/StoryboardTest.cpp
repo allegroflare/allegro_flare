@@ -59,7 +59,15 @@ public:
    int advance_count = 0;
    StoryboardPageTestClassC() { set_finished(false); };
    virtual void update() override { set_finished(true); }
-   virtual void advance() override { advance_count++; set_finished(true); }
+   virtual void advance() override { advance_count++; }
+};
+
+
+class StoryboardPageTestClassD : public AllegroFlare::Elements::StoryboardPages::Base
+{
+public:
+   StoryboardPageTestClassD() { set_finished(false); };
+   virtual void advance() override { set_finished(true); }
 };
 
 
@@ -186,6 +194,23 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
 
    storyboard_player.advance();
    ASSERT_EQ(1, test_page->advance_count);
+
+   delete test_page;
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
+   advance__if_the_current_page_becomes_finished__will_permit_advancing_the_page)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   StoryboardPageTestClassD *test_page = new StoryboardPageTestClassD;
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
+   AllegroFlare::Elements::Storyboard storyboard_player(&font_bin, pages);
+
+   EXPECT_EQ(false, storyboard_player.get_can_advance_to_next_page());
+   storyboard_player.advance();
+   EXPECT_EQ(true, test_page->get_finished());
+   EXPECT_EQ(true, storyboard_player.get_can_advance_to_next_page());
 
    delete test_page;
 }

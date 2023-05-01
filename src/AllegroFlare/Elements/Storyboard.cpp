@@ -187,25 +187,22 @@ bool Storyboard::advance()
    {
       if (infer_at_last_page() && current_page->get_finished())
       {
+         // Storyboard is finished
          deny_advancing_page();
          finished = true;
          return true;
       }
       else
       {
-         if (advance_page())
-         {
-            AllegroFlare::Elements::StoryboardPages::Base* newly_advanced_page = infer_current_page();
-            if (newly_advanced_page) newly_advanced_page->start();
-         }
-         deny_advancing_page();
+         advance_page();
          return true;
       }
    }
    else
    {
-      // advance within the current page
+      // Advance within the current page
       current_page->advance();
+      if (current_page->get_finished()) permit_advancing_page();
       return true;
    }
 
@@ -216,6 +213,9 @@ bool Storyboard::advance_page()
 {
    if (!can_advance_to_next_page) return false;
    current_page_num++;
+   AllegroFlare::Elements::StoryboardPages::Base* newly_advanced_page = infer_current_page();
+   if (newly_advanced_page) newly_advanced_page->start();
+   deny_advancing_page();
    return true;
 }
 
