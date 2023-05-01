@@ -331,7 +331,8 @@ functions:
             emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
          }},
          { EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, [this](){
-            // TODO: Consider querying if game is won. If so, emit EVENT_WIN_GAME
+            // TODO: Consider querying if game is won. If so, emit EVENT_WIN_GAME. As an alternative, consider that
+            // that the level select screen could emit an EMIT_WIN_GAME event when all levels are finished.
             emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
          }},
          { EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, [this](){
