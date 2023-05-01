@@ -189,10 +189,6 @@ functions:
         default_argument: 0.0f
     guards: [ (route_event != 0), event_emitter ]
     body: |
-
-      //std::string route_event = ev->get_type();
-      //std::cout << "Route event emitted: \"" << route_event << "\"" << std::endl;
-
       std::map<uint32_t, std::function<void()>> event_map = {
 
          // System Events
@@ -236,7 +232,6 @@ functions:
                   "When handling an EVENT_WIN_GAME, the game_session is expected to be active but it was not."
                );
             }
-            // TODO: Validate session active
             // stop session
             game_session.end_session();
             emit_route_event(EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN);

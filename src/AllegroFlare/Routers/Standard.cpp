@@ -74,10 +74,6 @@ void Standard::on_route_event(uint32_t route_event, float time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::on_route_event: error: guard \"event_emitter\" not met");
    }
-
-   //std::string route_event = ev->get_type();
-   //std::cout << "Route event emitted: \"" << route_event << "\"" << std::endl;
-
    std::map<uint32_t, std::function<void()>> event_map = {
 
       // System Events
@@ -121,7 +117,6 @@ void Standard::on_route_event(uint32_t route_event, float time_now)
                "When handling an EVENT_WIN_GAME, the game_session is expected to be active but it was not."
             );
          }
-         // TODO: Validate session active
          // stop session
          game_session.end_session();
          emit_route_event(EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN);
