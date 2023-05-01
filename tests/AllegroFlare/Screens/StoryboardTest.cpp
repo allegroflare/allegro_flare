@@ -137,10 +137,10 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   // TODO: Undisable this test
-   DISABLED__virtual_control_button_down_func__with_the_expected_virtual_buttons__will_advance_the_storybard)
+   virtual_control_button_down_func__with_the_expected_virtual_buttons__will_advance_the_storybard)
 {
    AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::VirtualControllers::GenericController virtual_controller;
    ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
@@ -162,6 +162,9 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
             &virtual_controller,
             AllegroFlare::VirtualControllers::GenericController::BUTTON_A
       );
+
+      storyboard.primary_timer_func(); // TODO: Upate storyboard so this is not required
+
       tries_to_bail--;
       if (tries_to_bail < 0) FAIL();
    }
