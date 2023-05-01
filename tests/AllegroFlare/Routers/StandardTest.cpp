@@ -116,7 +116,8 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event__will_activate_the_intro_logos_screen)
+   on_route_event__with_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event__will_activate_the_\
+INTRO_LOGOS_SCREEN_IDENTIFIER_screen)
 {
    ScreenATestClass screen_a;
    router.register_screen(AllegroFlare::Routers::Standard::INTRO_LOGOS_SCREEN_IDENTIFIER, &screen_a);
@@ -124,6 +125,28 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    EXPECT_EQ(0, screen_a.activation_count);
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
    EXPECT_EQ(1, screen_a.activation_count);
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_WIN_GAME__when_a_session_is_active__will_end_the_session)
+{
+   router.get_game_session_ref().start_session();
+   ASSERT_EQ(true, router.get_game_session_ref().is_active());
+
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_WIN_GAME);
+   EXPECT_EQ(false, router.get_game_session_ref().is_active());
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_LOSE_GAME__when_a_session_is_active__will_end_the_session)
+{
+   router.get_game_session_ref().start_session();
+   ASSERT_EQ(true, router.get_game_session_ref().is_active());
+
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_LOSE_GAME);
+   EXPECT_EQ(false, router.get_game_session_ref().is_active());
 }
 
 
