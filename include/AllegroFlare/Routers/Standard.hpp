@@ -6,6 +6,7 @@
 #include <AllegroFlare/RouteEventDatas/Base.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <cstdint>
+#include <functional>
 
 
 namespace AllegroFlare
@@ -65,17 +66,20 @@ namespace AllegroFlare
          };
       private:
          AllegroFlare::EventEmitter* event_emitter;
+         std::function<void(void*)> load_level_event_handler;
          AllegroFlare::GameSession game_session;
 
       protected:
 
 
       public:
-         Standard(AllegroFlare::EventEmitter* event_emitter=nullptr);
+         Standard(AllegroFlare::EventEmitter* event_emitter=nullptr, std::function<void(void*)> load_level_event_handler=0);
          virtual ~Standard();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
+         void set_load_level_event_handler(std::function<void(void*)> load_level_event_handler);
          AllegroFlare::EventEmitter* get_event_emitter() const;
+         std::function<void(void*)> get_load_level_event_handler() const;
          AllegroFlare::GameSession &get_game_session_ref();
          void emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
          virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f) override;

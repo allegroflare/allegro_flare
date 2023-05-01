@@ -14,9 +14,10 @@ namespace Routers
 {
 
 
-Standard::Standard(AllegroFlare::EventEmitter* event_emitter)
+Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<void(void*)> load_level_event_handler)
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
    , event_emitter(event_emitter)
+   , load_level_event_handler(load_level_event_handler)
    , game_session()
 {
 }
@@ -33,9 +34,21 @@ void Standard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+void Standard::set_load_level_event_handler(std::function<void(void*)> load_level_event_handler)
+{
+   this->load_level_event_handler = load_level_event_handler;
+}
+
+
 AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 {
    return event_emitter;
+}
+
+
+std::function<void(void*)> Standard::get_load_level_event_handler() const
+{
+   return load_level_event_handler;
 }
 
 
@@ -142,8 +155,11 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       { EVENT_START_LEVEL, [this](){
          // TODO: Finish the actions in this event
          // Event data: level info
-         // primary_gameplay_screen-> load level
-         // activate primary_gameplay_screen
+         // TODO: Test this function call
+         if (load_level_event_handler) load_level_event_handler(nullptr); // TODO: Figure out what arguments to pass
+
+         // TODO: Test this emitted event
+         emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
       }},
       //{ EVENT_PAUSE_GAME, [this](){
          // TODO: Finish the actions in this event
