@@ -176,43 +176,43 @@ void Standard::on_route_event(uint32_t route_event)
       // Activate Screens
 
       { EVENT_ACTIVATE_INTRO_LOGOS_SCREEN, [this](){
-         activate_screen("intro_logos_screen");
+         activate_screen(INTRO_LOGOS_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_INTRO_STORYBOARDS_SCREEN, [this](){
-         activate_screen("intro_storyboards_screen");
+         activate_screen(INTRO_STORYBOARDS_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_TITLE_SCREEN, [this](){
-         activate_screen("title_screen");
+         activate_screen(TITLE_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN, [this](){
-         activate_screen("achievements_screen");
+         activate_screen(ACHIEVEMENTS_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_SETTINGS_SCREEN, [this](){
-         activate_screen("settings_screen");
+         activate_screen(SETTINGS_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_VERSION_SCREEN, [this](){
-         activate_screen("version_screen");
+         activate_screen(VERSION_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN, [this](){
-         activate_screen("new_game_intro_storyboard");
+         activate_screen(NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_LEVEL_SELECT_SCREEN, [this](){
-         activate_screen("level_select_screen");
+         activate_screen(LEVEL_SELECT_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_GAME_OVER_SCREEN, [this](){
-         activate_screen("game_over_screen");
+         activate_screen(GAME_OVER_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_GAME_WON_SCREEN, [this](){
-         activate_screen("game_won_screen");
+         activate_screen(GAME_WON_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN, [this](){
-         activate_screen("game_won_outro_storyboard_screen");
+         activate_screen(GAME_WON_OUTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_CREDITS_SCREEN, [this](){
-         activate_screen("credits_screen");
+         activate_screen(CREDITS_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, [this](){
-         activate_screen("primary_gameplay_screen");
+         activate_screen(PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER);
       }},
    };
 

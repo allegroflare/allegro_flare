@@ -14,6 +14,19 @@ namespace AllegroFlare
       class Standard : public AllegroFlare::Routers::Base
       {
       public:
+         static constexpr char* INTRO_LOGOS_SCREEN_IDENTIFIER = (char*)"intro_logos_screen";
+         static constexpr char* INTRO_STORYBOARDS_SCREEN_IDENTIFIER = (char*)"intro_storyboards_screen";
+         static constexpr char* TITLE_SCREEN_IDENTIFIER = (char*)"title_screen";
+         static constexpr char* ACHIEVEMENTS_SCREEN_IDENTIFIER = (char*)"achievements_screen";
+         static constexpr char* SETTINGS_SCREEN_IDENTIFIER = (char*)"settings_screen";
+         static constexpr char* VERSION_SCREEN_IDENTIFIER = (char*)"version_screen";
+         static constexpr char* NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER = (char*)"new_game_intro_storyboard_screen";
+         static constexpr char* LEVEL_SELECT_SCREEN_IDENTIFIER = (char*)"level_select_screen";
+         static constexpr char* GAME_OVER_SCREEN_IDENTIFIER = (char*)"game_over_screen";
+         static constexpr char* GAME_WON_SCREEN_IDENTIFIER = (char*)"game_won_screen";
+         static constexpr char* GAME_WON_OUTRO_STORYBOARD_SCREEN_IDENTIFIER = (char*)"game_won_outro_storyboard_screen";
+         static constexpr char* CREDITS_SCREEN_IDENTIFIER = (char*)"credits_screen";
+         static constexpr char* PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER = (char*)"primary_gameplay_screen";
          static constexpr char* TYPE = (char*)"AllegroFlare/Routers/Standard";
 
       public:
@@ -48,19 +61,6 @@ namespace AllegroFlare
             EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN,
             EVENT_ACTIVATE_CREDITS_SCREEN,
             EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN,
-            INTRO_LOGOS_SCREEN_IDENTIFIER,
-            INTRO_STORYBOARDS_SCREEN_IDENTIFIER,
-            TITLE_SCREEN_IDENTIFIER,
-            ACHIEVEMENTS_SCREEN_IDENTIFIER,
-            SETTINGS_SCREEN_IDENTIFIER,
-            VERSION_SCREEN_IDENTIFIER,
-            NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER,
-            LEVEL_SELECT_SCREEN_IDENTIFIER,
-            GAME_OVER_SCREEN_IDENTIFIER,
-            GAME_WON_SCREEN_IDENTIFIER,
-            GAME_WON_OUTRO_STORYBOARD_SCREEN_IDENTIFIER,
-            CREDITS_SCREEN_IDENTIFIER,
-            PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER,
          };
       private:
          AllegroFlare::EventEmitter* event_emitter;
