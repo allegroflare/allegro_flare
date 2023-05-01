@@ -45,7 +45,7 @@ AllegroFlare::GameSession &Standard::get_game_session_ref()
 }
 
 
-void Standard::emit_route_event(uint32_t route_event)
+void Standard::emit_route_event(uint32_t route_event, float time_now)
 {
    if (!(event_emitter))
    {
@@ -58,7 +58,7 @@ void Standard::emit_route_event(uint32_t route_event)
    return;
 }
 
-void Standard::on_route_event(uint32_t route_event)
+void Standard::on_route_event(uint32_t route_event, float time_now)
 {
    if (!((route_event != 0)))
    {

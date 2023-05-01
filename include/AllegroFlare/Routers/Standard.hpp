@@ -76,8 +76,8 @@ namespace AllegroFlare
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::GameSession &get_game_session_ref();
-         void emit_route_event(uint32_t route_event=0);
-         virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED) override;
+         void emit_route_event(uint32_t route_event=0, float time_now=0.0f);
+         virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED, float time_now=0.0f) override;
       };
    }
 }
