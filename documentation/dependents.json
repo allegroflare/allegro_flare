@@ -2279,6 +2279,9 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "AllegroFlare/Screens/PauseScreen": [
+    "AllegroFlare/Screens/PauseScreen"
+  ],
   "AllegroFlare/Elements/RollingCredits/RollingCredits": [
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Version"

@@ -24,6 +24,8 @@ PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , bitmap_bin(bitmap_bin)
    , title_text(title_text)
    , footer_text(footer_text)
+   , on_menu_choice_callback_func()
+   , on_menu_choice_callback_func_user_data(nullptr)
    , background(background)
    , title_bitmap_name(title_bitmap_name)
    , font_name(font_name)
@@ -74,6 +76,18 @@ void PauseScreen::set_title_text(std::string title_text)
 void PauseScreen::set_footer_text(std::string footer_text)
 {
    this->footer_text = footer_text;
+}
+
+
+void PauseScreen::set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_menu_choice_callback_func)
+{
+   this->on_menu_choice_callback_func = on_menu_choice_callback_func;
+}
+
+
+void PauseScreen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
+{
+   this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
 }
 
 
@@ -158,6 +172,18 @@ std::string PauseScreen::get_title_text() const
 std::string PauseScreen::get_footer_text() const
 {
    return footer_text;
+}
+
+
+std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> PauseScreen::get_on_menu_choice_callback_func() const
+{
+   return on_menu_choice_callback_func;
+}
+
+
+void* PauseScreen::get_on_menu_choice_callback_func_user_data() const
+{
+   return on_menu_choice_callback_func_user_data;
 }
 
 
@@ -286,6 +312,8 @@ void PauseScreen::move_cursor_down()
 void PauseScreen::activate_menu_option(std::string menu_option_name)
 {
    event_emitter->emit_game_event(menu_option_name);
+   // TODO: Test this callback
+   if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
 }
 
 void PauseScreen::select_menu_option()

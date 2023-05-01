@@ -41,6 +41,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_menu_choice_callback_func
+    type: std::function<void(AllegroFlare::Screens::PauseScreen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_menu_choice_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: background
     type: AllegroFlare::Elements::Backgrounds::Base*
     init_with: nullptr
@@ -194,6 +206,8 @@ functions:
         default_argument: '"[unset-menu-option-name]"'
     body: |
       event_emitter->emit_game_event(menu_option_name);
+      // TODO: Test this callback
+      if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
 
 
   - name: select_menu_option
@@ -530,5 +544,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Screens::PauseScreen
+    headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
 
 

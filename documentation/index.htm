@@ -16065,6 +16065,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::PauseScreen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">background</td>
   <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
@@ -16255,6 +16263,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::PauseScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/PauseScreen.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24535,6 +24546,9 @@ table td
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Screens/PauseScreen": [
+    "AllegroFlare/Screens/PauseScreen"
   ],
   "AllegroFlare/Elements/RollingCredits/RollingCredits": [
     "AllegroFlare/Screens/RollingCredits",
