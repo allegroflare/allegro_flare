@@ -61,13 +61,13 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    AllegroFlare::Screens::InputDeviceConfiguration input_device_configuration_screen;
    input_device_configuration_screen.set_font_bin(&get_font_bin_ref());
    input_device_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
-   int my_exit_callback_func_user_data = 1234;
+   int my_on_exit_callback_func_user_data = 1234;
    input_device_configuration_screen.set_event_emitter(&event_emitter);
-   input_device_configuration_screen.set_exit_callback_func(
+   input_device_configuration_screen.set_on_exit_callback_func(
       [](AllegroFlare::Screens::InputDeviceConfiguration* input_device_configuration, void* data){
-      std::cout << "exit_callback_func called (with data=" << (*(int*)data) << ")" << std::endl;
+      std::cout << "on_exit_callback_func called (with data=" << (*(int*)data) << ")" << std::endl;
    });
-   input_device_configuration_screen.set_exit_callback_func_user_data(&my_exit_callback_func_user_data);
+   input_device_configuration_screen.set_on_exit_callback_func_user_data(&my_on_exit_callback_func_user_data);
    input_device_configuration_screen.initialize();
 
    // set some default placeholder button mappings for this test

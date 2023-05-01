@@ -41,13 +41,13 @@ properties:
     getter: true
     setter: true
 
-  - name: exit_callback_func
+  - name: on_exit_callback_func
     type: std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)>
     init_with: ''
     getter: true
     setter: true
 
-  - name: exit_callback_func_user_data
+  - name: on_exit_callback_func_user_data
     type: void*
     init_with: nullptr
     getter: true
@@ -197,11 +197,11 @@ functions:
       return;
 
 
-  - name: call_exit_callback
+  - name: call_on_exit_callback
     private: true
     body: |
       // TODO: Test this callback
-      if (exit_callback_func) exit_callback_func(this, exit_callback_func_user_data);
+      if (on_exit_callback_func) on_exit_callback_func(this, on_exit_callback_func_user_data);
       return;
 
 
@@ -257,8 +257,8 @@ functions:
          break;
 
          default:
-            call_exit_callback(); // TODO: Set conditions when then is permitted and/or blocked (for example, when
-                                  // in the middle of remapping a device
+            call_on_exit_callback(); // TODO: Set conditions when then is permitted and/or blocked (for example, when
+                                     // in the middle of remapping a device
          break;
       }
       return;

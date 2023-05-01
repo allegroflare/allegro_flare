@@ -22,8 +22,8 @@ InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* e
    , font_bin(font_bin)
    , surface_width(surface_width)
    , surface_height(surface_height)
-   , exit_callback_func()
-   , exit_callback_func_user_data(nullptr)
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , input_devices_list(input_devices_list)
    , input_devices_list_element()
    , input_device_configuration_element()
@@ -49,15 +49,15 @@ void InputDeviceConfiguration::set_surface_height(std::size_t surface_height)
 }
 
 
-void InputDeviceConfiguration::set_exit_callback_func(std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> exit_callback_func)
+void InputDeviceConfiguration::set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> on_exit_callback_func)
 {
-   this->exit_callback_func = exit_callback_func;
+   this->on_exit_callback_func = on_exit_callback_func;
 }
 
 
-void InputDeviceConfiguration::set_exit_callback_func_user_data(void* exit_callback_func_user_data)
+void InputDeviceConfiguration::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
 {
-   this->exit_callback_func_user_data = exit_callback_func_user_data;
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
 }
 
 
@@ -73,15 +73,15 @@ std::size_t InputDeviceConfiguration::get_surface_height() const
 }
 
 
-std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> InputDeviceConfiguration::get_exit_callback_func() const
+std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> InputDeviceConfiguration::get_on_exit_callback_func() const
 {
-   return exit_callback_func;
+   return on_exit_callback_func;
 }
 
 
-void* InputDeviceConfiguration::get_exit_callback_func_user_data() const
+void* InputDeviceConfiguration::get_on_exit_callback_func_user_data() const
 {
-   return exit_callback_func_user_data;
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -262,10 +262,10 @@ void InputDeviceConfiguration::primary_timer_func()
    return;
 }
 
-void InputDeviceConfiguration::call_exit_callback()
+void InputDeviceConfiguration::call_on_exit_callback()
 {
    // TODO: Test this callback
-   if (exit_callback_func) exit_callback_func(this, exit_callback_func_user_data);
+   if (on_exit_callback_func) on_exit_callback_func(this, on_exit_callback_func_user_data);
    return;
 }
 
@@ -303,8 +303,8 @@ void InputDeviceConfiguration::virtual_control_button_down_func(AllegroFlare::Pl
       break;
 
       default:
-         call_exit_callback(); // TODO: Set conditions when then is permitted and/or blocked (for example, when
-                               // in the middle of remapping a device
+         call_on_exit_callback(); // TODO: Set conditions when then is permitted and/or blocked (for example, when
+                                  // in the middle of remapping a device
       break;
    }
    return;
