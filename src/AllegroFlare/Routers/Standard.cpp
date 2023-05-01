@@ -169,22 +169,22 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
 
       // Screens finished events
 
-      { EVENT_INTRO_LOGOS_INISHED, [this](){
+      { EVENT_INTRO_LOGOS_SCREEN_FINISHED, [this](){
+         emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
+      }},
+      { EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
+         emit_route_event(EVENT_ACTIVATE_TITLE_SCREEN);
+      }},
+      { EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          // TODO
       }},
-      { EVENT_INTRO_STORYBOARD_FINISHED, [this](){
-         // TODO
-      }},
-      { EVENT_NEW_GAME_INTRO_STORYBOARD_FINISHED, [this](){
-         // TODO
-      }},
-      { EVENT_GAME_WON_OUTRO_STORYBOARD_FINISHED, [this](){
+      { EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          // TODO
       }},
       { EVENT_CREDITS_SCREEN_FINISHED, [this](){
          // TODO
       }},
-      { EVENT_TITLE_SCREEN_TIMEOUT, [this](){
+      { EVENT_TITLE_SCREEN_FINISHED, [this](){
          // TODO
       }},
 
