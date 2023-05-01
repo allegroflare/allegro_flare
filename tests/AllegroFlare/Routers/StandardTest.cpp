@@ -270,7 +270,31 @@ EVENT_ACTIVATE_LEVEL_SELECT_SCREEN_route_event)
    router.get_game_session_ref().start_session();
    TEST_EXPECTED_ROUTE_EVENT(
       AllegroFlare::Routers::Standard::EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED,
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_CREDITS_SCREEN
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_CREDITS_SCREEN_FINISHED_event__will_emit_an_\
+EVENT_ACTIVATE_LEVEL_SELECT_SCREEN_route_event)
+{
+   router.get_game_session_ref().start_session();
+   TEST_EXPECTED_ROUTE_EVENT(
+      AllegroFlare::Routers::Standard::EVENT_CREDITS_SCREEN_FINISHED,
       AllegroFlare::Routers::Standard::EVENT_ACTIVATE_GAME_WON_SCREEN
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_TITLE_SCREEN_FINISHED_event__will_emit_an_\
+EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_SCREEN_route_event)
+{
+   router.get_game_session_ref().start_session();
+   TEST_EXPECTED_ROUTE_EVENT(
+      AllegroFlare::Routers::Standard::EVENT_TITLE_SCREEN_FINISHED,
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_INTRO_LOGOS_SCREEN
    );
 }
 

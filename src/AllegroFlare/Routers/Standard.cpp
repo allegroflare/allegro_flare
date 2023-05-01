@@ -179,13 +179,13 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
       }},
       { EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, [this](){
-         emit_route_event(EVENT_ACTIVATE_GAME_WON_SCREEN);
+         emit_route_event(EVENT_ACTIVATE_CREDITS_SCREEN);
       }},
       { EVENT_CREDITS_SCREEN_FINISHED, [this](){
-         // TODO
+         emit_route_event(EVENT_ACTIVATE_GAME_WON_SCREEN);
       }},
       { EVENT_TITLE_SCREEN_FINISHED, [this](){
-         // TODO
+         emit_route_event(EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
       }},
 
 
