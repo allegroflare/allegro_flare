@@ -169,8 +169,6 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
             AllegroFlare::VirtualControllers::GenericController::BUTTON_A
       );
 
-      storyboard.primary_timer_func(); // TODO: Upate storyboard so this is not required
-
       tries_to_bail--;
       if (tries_to_bail < 0) FAIL();
    }
