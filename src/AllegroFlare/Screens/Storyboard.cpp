@@ -15,13 +15,14 @@ namespace Screens
 {
 
 
-Storyboard::Storyboard(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string game_event_name_to_emit_after_completing)
+Storyboard::Storyboard(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string game_event_name_to_emit_after_completing, uint32_t route_event_to_emit_after_completing)
    : AllegroFlare::Screens::Base("Storyboard")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , storyboard_element({})
    , auto_advance(false)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
+   , route_event_to_emit_after_completing(route_event_to_emit_after_completing)
    , initialized(false)
 {
 }
@@ -56,6 +57,12 @@ void Storyboard::set_game_event_name_to_emit_after_completing(std::string game_e
 }
 
 
+void Storyboard::set_route_event_to_emit_after_completing(uint32_t route_event_to_emit_after_completing)
+{
+   this->route_event_to_emit_after_completing = route_event_to_emit_after_completing;
+}
+
+
 bool Storyboard::get_auto_advance() const
 {
    return auto_advance;
@@ -65,6 +72,12 @@ bool Storyboard::get_auto_advance() const
 std::string Storyboard::get_game_event_name_to_emit_after_completing() const
 {
    return game_event_name_to_emit_after_completing;
+}
+
+
+uint32_t Storyboard::get_route_event_to_emit_after_completing() const
+{
+   return route_event_to_emit_after_completing;
 }
 
 
@@ -117,11 +130,27 @@ void Storyboard::primary_timer_func()
    return;
 }
 
+void Storyboard::clear_game_event_name_to_emit_after_completing()
+{
+   game_event_name_to_emit_after_completing.clear();
+   return;
+}
+
+void Storyboard::clear_route_event_to_emit_after_completing()
+{
+   route_event_to_emit_after_completing = 0;
+   return;
+}
+
 void Storyboard::emit_completion_event()
 {
    if (!game_event_name_to_emit_after_completing.empty())
    {
       event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+   }
+   if (route_event_to_emit_after_completing != 0)
+   {
+      event_emitter->emit_router_event(route_event_to_emit_after_completing);
    }
    return;
 }

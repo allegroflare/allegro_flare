@@ -178,8 +178,10 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
-   advance__when_at_the_final_page_that_is_finished__will_emit_a_game_event_with_the_expected_property_value)
+   advance__when_at_the_final_page_that_is_finished__and_when_a_game_event_name_to_emit_after_completing_is_present__\
+will_emit_a_game_event_with_the_expected_value)
 {
+   // TODO: Update this test to not rely on virtual_controller
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
@@ -190,10 +192,11 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "This is the first and last page."),
-      //new StoryboardPageTestClass(font, "Here is the last page!"),
    };
 
    AllegroFlare::Screens::Storyboard storyboard(&event_emitter, &font_bin);
+   std::string MY_GAME_EVENT_TO_EMIT = "my_game_event_to_emit";
+   storyboard.set_game_event_name_to_emit_after_completing(MY_GAME_EVENT_TO_EMIT);
    storyboard.get_storyboard_element_ref().set_pages(pages);
    storyboard.initialize();
 
@@ -221,8 +224,61 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    EXPECT_EQ(ALLEGRO_FLARE_EVENT_GAME_EVENT, event.type);
    ASSERT_NE(nullptr, (void *)(event.user.data1));
    AllegroFlare::GameEvent *data1 = static_cast<AllegroFlare::GameEvent *>((void*)event.user.data1);
-   AllegroFlare::GameEvent expected_game_event("storyboard_finished");
+   AllegroFlare::GameEvent expected_game_event(MY_GAME_EVENT_TO_EMIT);
    EXPECT_EQ(expected_game_event.get_type(), (*data1).get_type());
+
+   // shutdown
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   al_destroy_event_queue(event_queue);
+}
+
+
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
+   advance__when_at_the_final_page_that_is_finished__will_emit_a_route_event_with_the_expected_property_value)
+{
+   // TODO: Update this test to not rely on virtual_controller
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   ALLEGRO_EVENT event;
+   AllegroFlare::VirtualControllers::GenericController virtual_controller;
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
+      new StoryboardPageTestClass(font, "This is the first and last page."),
+      //new StoryboardPageTestClass(font, "Here is the last page!"),
+   };
+
+   AllegroFlare::Screens::Storyboard storyboard(&event_emitter, &font_bin);
+   storyboard.clear_game_event_name_to_emit_after_completing();
+   uint32_t MY_ROUTE_EVENT_TO_EMIT = 12345;
+   storyboard.set_route_event_to_emit_after_completing(MY_ROUTE_EVENT_TO_EMIT);
+   storyboard.get_storyboard_element_ref().set_pages(pages);
+   storyboard.initialize();
+
+   // First page should not trigger an event
+   storyboard.virtual_control_button_down_func(
+         nullptr,
+         &virtual_controller,
+         AllegroFlare::VirtualControllers::GenericController::BUTTON_A
+   );
+
+   ASSERT_EQ(false, al_get_next_event(event_queue, &event));
+
+   // Advance at the last page, this should trigger an event
+   storyboard.virtual_control_button_down_func(
+         nullptr,
+         &virtual_controller,
+         AllegroFlare::VirtualControllers::GenericController::BUTTON_A
+   );
+
+   storyboard.virtual_control_button_down_func();
+   ASSERT_EQ(true, al_get_next_event(event_queue, &event));
+
+   // the generated event should have the expected values
+   EXPECT_EQ(ALLEGRO_FLARE_EVENT_ROUTER, event.type);
+   EXPECT_EQ(MY_ROUTE_EVENT_TO_EMIT, event.user.data1);
 
    // shutdown
    al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
