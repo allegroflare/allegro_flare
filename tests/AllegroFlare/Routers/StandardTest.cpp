@@ -6,10 +6,15 @@
 #include <AllegroFlare/EventNames.hpp>
 
 
-class TitleScreenTestClass : public AllegroFlare::Screens::Base
+class ScreenATestClass : public AllegroFlare::Screens::Base
 {
 public:
-   TitleScreenTestClass() : AllegroFlare::Screens::Base("TitleScreenTestClass") {}
+   int activation_count;
+   ScreenATestClass()
+      : AllegroFlare::Screens::Base("TitleScreenTestClass")
+      , activation_count(0)
+   {}
+   virtual void on_activate() { activation_count++; }
 };
 
 
@@ -86,8 +91,14 @@ TEST_F(AllegroFlare_Routers_StandardTest, type__has_the_expected_value_matching_
 }
 
 
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup, game_session__is_not_active_by_default)
+{
+   EXPECT_EQ(false, router.get_game_session_ref().is_active());
+}
+
+
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_INITIALIZE_event__will_emit_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event)
+   on_route_event__with_an_EVENT_INITIALIZE_event__will_emit_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_route_event)
 {
    TEST_EXPECTED_ROUTE_EVENT(
       AllegroFlare::Routers::Standard::EVENT_INITIALIZE,
@@ -96,17 +107,23 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 }
 
 
-TEST_F(AllegroFlare_Routers_StandardTestWithSetup, game_session__is_not_active_by_default)
-{
-   EXPECT_EQ(false, router.get_game_session_ref().is_active());
-}
-
-
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_START_NEW_GAME_event__will_start_the_session)
 {
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME);
    EXPECT_EQ(true, router.get_game_session_ref().is_active());
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event__will_activate_the_intro_logos_screen)
+{
+   ScreenATestClass screen_a;
+   router.register_screen(AllegroFlare::Routers::Standard::INTRO_LOGOS_SCREEN_IDENTIFIER, &screen_a);
+
+   EXPECT_EQ(0, screen_a.activation_count);
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
+   EXPECT_EQ(1, screen_a.activation_count);
 }
 
 
