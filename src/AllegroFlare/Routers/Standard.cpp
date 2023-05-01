@@ -162,8 +162,19 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          //activate_screen(screen_identifier_before_pause);
       //}},
       { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
-         // stop session
-         // activate title_screen
+         // Validate an active session
+         if (!game_session.is_active())
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "When handling an EVENT_EXIT_TO_TITLE_SCREEN, the game_session is expected to be active but it "
+                  "was not."
+            );
+         }
+         // End the session
+         game_session.end_session();
+         // Activate title_screen
+         emit_route_event(EVENT_ACTIVATE_TITLE_SCREEN);
       }},
 
 
@@ -199,6 +210,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          activate_screen(INTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_TITLE_SCREEN, [this](){
+         // TODO: Consider validating no session is active
          activate_screen(TITLE_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN, [this](){

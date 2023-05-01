@@ -206,7 +206,7 @@ EVENT_ACTIVATE_GAME_OVER_SCREEN_route_event)
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_EXIT_GAME__if_a_session_is_active__will_end_the_session)
+   on_route_event__with_an_EVENT_EXIT_GAME_event__if_a_session_is_active__will_end_the_session)
 {
    router.get_game_session_ref().start_session();
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_EXIT_GAME);
@@ -215,7 +215,7 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_EXIT_GAME__will_emit_an_ALLEGRO_FLARE_EVENT_EXIT_GAME_event)
+   on_route_event__with_an_EVENT_EXIT_GAME_event__will_emit_an_ALLEGRO_FLARE_EVENT_EXIT_GAME_event)
 {
    router.get_game_session_ref().start_session();
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_EXIT_GAME);
@@ -225,6 +225,28 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_event));
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_EXIT_GAME, actual_event.type);
 }
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_EXIT_TO_TITLE_SCREEN_event__when_a_session_is_not_active__will_throw_an_error)
+{
+   EXPECT_THROW_WITH_MESSAGE(
+      router.on_route_event(AllegroFlare::Routers::Standard::EVENT_EXIT_TO_TITLE_SCREEN),
+      std::runtime_error,
+      "[AllegroFlare::Routers::Standard::on_route_event]: error: When handling an EVENT_EXIT_TO_TITLE_SCREEN, the "
+         "game_session is expected to be active but it was not."
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_EXIT_TO_TITLE_SCREEN_event__if_a_session_is_active__will_end_the_session)
+{
+   router.get_game_session_ref().start_session();
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_EXIT_TO_TITLE_SCREEN);
+   EXPECT_EQ(false, router.get_game_session_ref().is_active());
+}
+
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
