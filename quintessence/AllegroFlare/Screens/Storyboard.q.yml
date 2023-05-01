@@ -214,5 +214,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Screens::Storyboard
+    headers: [ AllegroFlare/Screens/Storyboard.hpp ]
 
 

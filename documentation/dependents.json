@@ -2277,6 +2277,10 @@
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
   ],
+  "AllegroFlare/Screens/Storyboard": [
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/StoryboardFactory"
+  ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
   ],
@@ -2322,9 +2326,6 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/StoryboardPageFactory": [
-    "AllegroFlare/StoryboardFactory"
-  ],
-  "AllegroFlare/Screens/Storyboard": [
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Elements/StoryboardPages/Image": [
