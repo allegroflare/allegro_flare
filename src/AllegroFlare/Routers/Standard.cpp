@@ -154,13 +154,10 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       }},
       { EVENT_START_LEVEL, [this, route_event_data](){
          // TODO: Finish the actions in this event
-         // Validate an active session
-         // Event data: level info
-         // TODO: Consider alternative to route_event_data structure might need to be passed
-         // TODO: Test this function call
+         // TODO: Consider Validating an active session
+         // TODO: Consider alternative to route_event_data that includes some "level to load" info
          if (load_level_event_handler) load_level_event_handler(route_event_data);
 
-         // TODO: Test this emitted event
          emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
       }},
       //{ EVENT_PAUSE_GAME, [this](){
