@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Routers/Standard.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -75,7 +76,7 @@ void Standard::on_route_event(uint32_t route_event)
    }
 
    //std::string route_event = ev->get_type();
-   std::cout << "Route event emitted: \"" << route_event << "\"" << std::endl;
+   //std::cout << "Route event emitted: \"" << route_event << "\"" << std::endl;
 
    std::map<uint32_t, std::function<void()>> event_map = {
 
@@ -113,10 +114,17 @@ void Standard::on_route_event(uint32_t route_event)
       }},
       { EVENT_WIN_GAME, [this](){
          // TODO: Finish the actions in this event
+         if (!game_session.is_active())
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "When handling an EVENT_WIN_GAME, the game_session is expected to be active but it was not."
+            );
+         }
          // TODO: Validate session active
          // stop session
          game_session.end_session();
-         // activate game_won_outro_storyboards_screen
+         emit_route_event(EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_LOSE_GAME, [this](){
          // TODO: Finish the actions in this event
@@ -158,13 +166,13 @@ void Standard::on_route_event(uint32_t route_event)
       { EVENT_INTRO_LOGOS_INISHED, [this](){
          // TODO
       }},
-      { EVENT_INTRO_STORYBOARDS_FINISHED, [this](){
+      { EVENT_INTRO_STORYBOARD_FINISHED, [this](){
          // TODO
       }},
-      { EVENT_NEW_GAME_INTRO_STORYBOARDS_FINISHED, [this](){
+      { EVENT_NEW_GAME_INTRO_STORYBOARD_FINISHED, [this](){
          // TODO
       }},
-      { EVENT_GAME_WON_OUTRO_STORYBOARDS_FINISHED, [this](){
+      { EVENT_GAME_WON_OUTRO_STORYBOARD_FINISHED, [this](){
          // TODO
       }},
       { EVENT_CREDITS_SCREEN_FINISHED, [this](){
@@ -180,8 +188,8 @@ void Standard::on_route_event(uint32_t route_event)
       { EVENT_ACTIVATE_INTRO_LOGOS_SCREEN, [this](){
          activate_screen(INTRO_LOGOS_SCREEN_IDENTIFIER);
       }},
-      { EVENT_ACTIVATE_INTRO_STORYBOARDS_SCREEN, [this](){
-         activate_screen(INTRO_STORYBOARDS_SCREEN_IDENTIFIER);
+      { EVENT_ACTIVATE_INTRO_STORYBOARD_SCREEN, [this](){
+         activate_screen(INTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_TITLE_SCREEN, [this](){
          activate_screen(TITLE_SCREEN_IDENTIFIER);
