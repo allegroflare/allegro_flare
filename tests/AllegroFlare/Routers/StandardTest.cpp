@@ -59,7 +59,6 @@ public:
       ASSERT_EQ(true, ALLEGRO_EVENT_TYPE_IS_USER(actual_event.type));
       ASSERT_EQ(ALLEGRO_FLARE_EVENT_ROUTER, actual_event.type);
       EXPECT_EQ(response_event, actual_event.user.data1);
-
    }
    virtual void TearDown() override
    {
