@@ -339,12 +339,24 @@ EVENT_ACTIVATE_LEVEL_SELECT_SCREEN_route_event)
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_CREDITS_SCREEN_FINISHED_event__will_emit_an_\
-EVENT_ACTIVATE_LEVEL_SELECT_SCREEN_route_event)
+EVENT_ACTIVATE_GAME_WON_SCREEN_route_event)
 {
    router.get_game_session_ref().start_session();
    TEST_EXPECTED_ROUTE_EVENT(
       AllegroFlare::Routers::Standard::EVENT_CREDITS_SCREEN_FINISHED,
       AllegroFlare::Routers::Standard::EVENT_ACTIVATE_GAME_WON_SCREEN
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED_event__will_emit_an_\
+EVENT_ACTIVATE_LEVEL_SELECT_SCREEN_route_event)
+{
+   //router.get_game_session_ref().start_session();
+   TEST_EXPECTED_ROUTE_EVENT(
+      AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN
    );
 }
 

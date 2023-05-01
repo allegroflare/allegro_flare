@@ -205,6 +205,9 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       { EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
       }},
+      { EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, [this](){
+         emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
+      }},
       { EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          emit_route_event(EVENT_ACTIVATE_CREDITS_SCREEN);
       }},
