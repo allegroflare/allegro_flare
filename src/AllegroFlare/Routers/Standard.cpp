@@ -60,12 +60,12 @@ void Standard::emit_route_event(uint32_t route_event, AllegroFlare::RouteEventDa
 
 void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventDatas::Base* route_event_data, float time_now)
 {
-   if (!((route_event != 0)))
+   if (!((route_event != EVENT_UNDEFINED)))
    {
       std::stringstream error_message;
-      error_message << "[Standard::on_route_event]: error: guard \"(route_event != 0)\" not met.";
+      error_message << "[Standard::on_route_event]: error: guard \"(route_event != EVENT_UNDEFINED)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Standard::on_route_event: error: guard \"(route_event != 0)\" not met");
+      throw std::runtime_error("Standard::on_route_event: error: guard \"(route_event != EVENT_UNDEFINED)\" not met");
    }
    if (!(event_emitter))
    {
