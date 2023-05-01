@@ -37,6 +37,18 @@ properties:
     init_with: '{}'
     getter_ref: true
 
+  - name: exit_callback_func
+    type: std::function<void(AllegroFlare::Screens::Achievements*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: exit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: game_event_name_to_emit_on_exit
     type: std::string
     init_with: DEFAULT_EVENT_NAME_ON_EXIT
@@ -53,6 +65,13 @@ properties:
     init_with: '(char*)"exit_achievements_screen"'
     static: true
     constexpr: true
+
+
+documentation:
+
+
+  - todos:
+      - Remove redundant self-dependent AllegroFlare/Screens/Achievements dependency
     
 
 functions:
@@ -69,6 +88,17 @@ functions:
       return;
 
 
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->event_emitter = event_emitter;
+      return;
+
+
   - name: refresh_achievements_list
     body: |
       std::vector<std::tuple<std::string, std::string, std::string>> result;
@@ -82,17 +112,6 @@ functions:
          result.push_back({ status, ach->get_title(), ach->get_description() });
       }
       achievements_list.set_achievements(result);
-      return;
-
-
-  - name: set_event_emitter
-    parameters:
-      - name: event_emitter
-        type: AllegroFlare::EventEmitter*
-        default_argument: nullptr
-    guards: [ (!initialized) ]
-    body: |
-      this->event_emitter = event_emitter;
       return;
 
 
@@ -166,6 +185,14 @@ functions:
       return;
 
 
+  - name: call_exit_callback
+    private: true
+    body: |
+      // TODO: Test this callback
+      if (exit_callback_func) exit_callback_func(this, exit_callback_func_user_data);
+      return;
+
+
   - name: move_scrollbar_position_to
     private: true
     parameters:
@@ -218,7 +245,19 @@ functions:
          move_scrollbar_position_up();
       if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN)
          move_scrollbar_position_down();
-      else event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+      else
+      {
+         // TODO: Test this condition
+         if (event_emitter && !game_event_name_to_emit_on_exit.empty())
+         {
+            event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+         }
+         // TODO: Test this condition
+         if (exit_callback_func)
+         {
+            exit_callback_func(this, exit_callback_func_user_data);
+         }
+      }
     body_dependency_symbols:
       - AllegroFlare::VirtualControllers::GenericController
 
@@ -306,5 +345,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+  - symbol: AllegroFlare::Screens::Achievements
+    headers: [ AllegroFlare/Screens/Achievements.hpp ]
 
 

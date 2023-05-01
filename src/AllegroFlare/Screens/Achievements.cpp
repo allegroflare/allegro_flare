@@ -22,6 +22,8 @@ Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventE
    , achievements(achievements)
    , scrollbar_dest_position(scrollbar_dest_position)
    , achievements_list({})
+   , exit_callback_func()
+   , exit_callback_func_user_data(nullptr)
    , game_event_name_to_emit_on_exit(game_event_name_to_emit_on_exit)
    , initialized(false)
 {
@@ -39,9 +41,33 @@ void Achievements::set_achievements(AllegroFlare::Achievements* achievements)
 }
 
 
+void Achievements::set_exit_callback_func(std::function<void(AllegroFlare::Screens::Achievements*, void*)> exit_callback_func)
+{
+   this->exit_callback_func = exit_callback_func;
+}
+
+
+void Achievements::set_exit_callback_func_user_data(void* exit_callback_func_user_data)
+{
+   this->exit_callback_func_user_data = exit_callback_func_user_data;
+}
+
+
 void Achievements::set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit)
 {
    this->game_event_name_to_emit_on_exit = game_event_name_to_emit_on_exit;
+}
+
+
+std::function<void(AllegroFlare::Screens::Achievements*, void*)> Achievements::get_exit_callback_func() const
+{
+   return exit_callback_func;
+}
+
+
+void* Achievements::get_exit_callback_func_user_data() const
+{
+   return exit_callback_func_user_data;
 }
 
 
@@ -64,6 +90,19 @@ void Achievements::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
+void Achievements::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Achievements::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Achievements::set_event_emitter: error: guard \"(!initialized)\" not met");
+   }
+   this->event_emitter = event_emitter;
+   return;
+}
+
 void Achievements::refresh_achievements_list()
 {
    std::vector<std::tuple<std::string, std::string, std::string>> result;
@@ -77,19 +116,6 @@ void Achievements::refresh_achievements_list()
       result.push_back({ status, ach->get_title(), ach->get_description() });
    }
    achievements_list.set_achievements(result);
-   return;
-}
-
-void Achievements::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Achievements::set_event_emitter]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Achievements::set_event_emitter: error: guard \"(!initialized)\" not met");
-   }
-   this->event_emitter = event_emitter;
    return;
 }
 
@@ -215,6 +241,13 @@ void Achievements::update()
    return;
 }
 
+void Achievements::call_exit_callback()
+{
+   // TODO: Test this callback
+   if (exit_callback_func) exit_callback_func(this, exit_callback_func_user_data);
+   return;
+}
+
 void Achievements::move_scrollbar_position_to(float position)
 {
    if (!(initialized))
@@ -263,7 +296,19 @@ void Achievements::virtual_control_button_down_func(AllegroFlare::Player* player
       move_scrollbar_position_up();
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN)
       move_scrollbar_position_down();
-   else event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+   else
+   {
+      // TODO: Test this condition
+      if (event_emitter && !game_event_name_to_emit_on_exit.empty())
+      {
+         event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+      }
+      // TODO: Test this condition
+      if (exit_callback_func)
+      {
+         exit_callback_func(this, exit_callback_func_user_data);
+      }
+   }
 }
 
 void Achievements::render()

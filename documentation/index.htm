@@ -15394,6 +15394,14 @@ table td
   <td class="property">AllegroFlare::Elements::AchievementsList</td>
 </tr>
 <tr>
+  <td class="property">exit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Achievements*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">exit_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">game_event_name_to_emit_on_exit</td>
   <td class="property">std::string</td>
 </tr>
@@ -15411,10 +15419,10 @@ table td
   <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">refresh_achievements_list()</td>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+  <td class="method">refresh_achievements_list()</td>
 </tr>
 <tr>
   <td class="method">on_activate()</td>
@@ -15430,6 +15438,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">update()</td>
+</tr>
+<tr>
+  <td class="private_method">call_exit_callback()</td>
 </tr>
 <tr>
   <td class="private_method">move_scrollbar_position_to(float position=0.0f)</td>
@@ -15495,6 +15506,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Achievements&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Achievements.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24463,6 +24477,9 @@ table td
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/Achievements": [
+    "AllegroFlare/Screens/Achievements"
+  ],
+  "AllegroFlare/Screens/Achievements": [
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
