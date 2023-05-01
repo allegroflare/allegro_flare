@@ -110,6 +110,7 @@ void Standard::on_route_event(uint32_t route_event, float time_now)
       }},
       { EVENT_WIN_GAME, [this](){
          // TODO: Finish the actions in this event
+         // Validate an active session
          if (!game_session.is_active())
          {
             AllegroFlare::Logger::throw_error(
@@ -117,14 +118,21 @@ void Standard::on_route_event(uint32_t route_event, float time_now)
                "When handling an EVENT_WIN_GAME, the game_session is expected to be active but it was not."
             );
          }
-         // stop session
+         // End the session
          game_session.end_session();
          emit_route_event(EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_LOSE_GAME, [this](){
          // TODO: Finish the actions in this event
-         // TODO: Validate session active
-         // stop session
+         // Validate an active session
+         if (!game_session.is_active())
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "When handling an EVENT_LOSE_GAME, the game_session is expected to be active but it was not."
+            );
+         }
+         // End the session
          game_session.end_session();
          // activate game_over_screen
       }},

@@ -174,6 +174,18 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_LOSE_GAME_event__when_a_session_is_not_active__will_throw_an_error)
+{
+   EXPECT_THROW_WITH_MESSAGE(
+      router.on_route_event(AllegroFlare::Routers::Standard::EVENT_LOSE_GAME),
+      std::runtime_error,
+      "[AllegroFlare::Routers::Standard::on_route_event]: error: When handling an EVENT_LOSE_GAME, the game_session "
+         "is expected to be active but it was not."
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_LOSE_GAME__when_a_session_is_active__will_end_the_session)
 {
    router.get_game_session_ref().start_session();
