@@ -14,7 +14,7 @@ namespace Routers
 {
 
 
-Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<void(void*)> load_level_event_handler)
+Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_event_handler)
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
    , event_emitter(event_emitter)
    , load_level_event_handler(load_level_event_handler)
@@ -34,7 +34,7 @@ void Standard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
-void Standard::set_load_level_event_handler(std::function<void(void*)> load_level_event_handler)
+void Standard::set_load_level_event_handler(std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_event_handler)
 {
    this->load_level_event_handler = load_level_event_handler;
 }
@@ -46,7 +46,7 @@ AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 }
 
 
-std::function<void(void*)> Standard::get_load_level_event_handler() const
+std::function<void(AllegroFlare::RouteEventDatas::Base*)> Standard::get_load_level_event_handler() const
 {
    return load_level_event_handler;
 }
@@ -152,11 +152,13 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // Activate the game_over_screen
          emit_route_event(EVENT_ACTIVATE_GAME_OVER_SCREEN);
       }},
-      { EVENT_START_LEVEL, [this](){
+      { EVENT_START_LEVEL, [this, route_event_data](){
          // TODO: Finish the actions in this event
+         // Validate an active session
          // Event data: level info
+         // TODO: Consider alternative to route_event_data structure might need to be passed
          // TODO: Test this function call
-         if (load_level_event_handler) load_level_event_handler(nullptr); // TODO: Figure out what arguments to pass
+         if (load_level_event_handler) load_level_event_handler(route_event_data);
 
          // TODO: Test this emitted event
          emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
