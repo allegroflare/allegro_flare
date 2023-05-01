@@ -20,6 +20,8 @@ Storyboard::Storyboard(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , storyboard_element({})
+   , on_finished_callback_func()
+   , on_finished_callback_func_user_data(nullptr)
    , auto_advance(false)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , route_event_to_emit_after_completing(route_event_to_emit_after_completing)
@@ -45,6 +47,18 @@ void Storyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void Storyboard::set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Storyboard*, void*)> on_finished_callback_func)
+{
+   this->on_finished_callback_func = on_finished_callback_func;
+}
+
+
+void Storyboard::set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data)
+{
+   this->on_finished_callback_func_user_data = on_finished_callback_func_user_data;
+}
+
+
 void Storyboard::set_auto_advance(bool auto_advance)
 {
    this->auto_advance = auto_advance;
@@ -60,6 +74,18 @@ void Storyboard::set_game_event_name_to_emit_after_completing(std::string game_e
 void Storyboard::set_route_event_to_emit_after_completing(uint32_t route_event_to_emit_after_completing)
 {
    this->route_event_to_emit_after_completing = route_event_to_emit_after_completing;
+}
+
+
+std::function<void(AllegroFlare::Screens::Storyboard*, void*)> Storyboard::get_on_finished_callback_func() const
+{
+   return on_finished_callback_func;
+}
+
+
+void* Storyboard::get_on_finished_callback_func_user_data() const
+{
+   return on_finished_callback_func_user_data;
 }
 
 
@@ -152,6 +178,8 @@ void Storyboard::emit_completion_event()
    {
       event_emitter->emit_router_event(route_event_to_emit_after_completing);
    }
+   // TODO: Test this callback
+   if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
    return;
 }
 

@@ -55,6 +55,18 @@ properties:
     getter_ref: true
     setter: true
 
+  - name: on_finished_callback_func
+    type: std::function<void(AllegroFlare::Screens::RollingCredits*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_finished_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: cached_calculated_height
     type: float
     init_with: 0.0f
@@ -183,6 +195,8 @@ functions:
       {
          event_emitter->emit_router_event(route_event_to_emit_after_completing);
       }
+      // TODO: Test this callback
+      if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
       return;
 
 
@@ -226,4 +240,7 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+  - symbol: AllegroFlare::Screens::RollingCredits
+    headers: [ AllegroFlare/Screens/RollingCredits.hpp ]
+
 

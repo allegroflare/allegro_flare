@@ -27,6 +27,18 @@ properties:
     getter_ref: true
     setter: false
 
+  - name: on_finished_callback_func
+    type: std::function<void(AllegroFlare::Screens::Storyboard*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_finished_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: auto_advance
     type: bool
     init_with: false
@@ -128,6 +140,8 @@ functions:
       {
          event_emitter->emit_router_event(route_event_to_emit_after_completing);
       }
+      // TODO: Test this callback
+      if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
       return;
 
 

@@ -6,7 +6,9 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/RollingCredits.hpp>
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -29,6 +31,8 @@ namespace AllegroFlare
          float surface_height;
          float y_offset;
          float y_speed;
+         std::function<void(AllegroFlare::Screens::RollingCredits*, void*)> on_finished_callback_func;
+         void* on_finished_callback_func_user_data;
          float cached_calculated_height;
          std::string game_event_name_to_emit_after_completing;
          uint32_t route_event_to_emit_after_completing;
@@ -48,6 +52,8 @@ namespace AllegroFlare
          void set_surface_height(float surface_height);
          void set_y_offset(float y_offset);
          void set_y_speed(float y_speed);
+         void set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::RollingCredits*, void*)> on_finished_callback_func);
+         void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
          void set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing);
          void set_route_event_to_emit_after_completing(uint32_t route_event_to_emit_after_completing);
          AllegroFlare::Elements::RollingCredits::RollingCredits get_rolling_credits_component() const;
@@ -55,6 +61,8 @@ namespace AllegroFlare
          float get_surface_height() const;
          float get_y_offset() const;
          float get_y_speed() const;
+         std::function<void(AllegroFlare::Screens::RollingCredits*, void*)> get_on_finished_callback_func() const;
+         void* get_on_finished_callback_func_user_data() const;
          float get_cached_calculated_height() const;
          std::string get_game_event_name_to_emit_after_completing() const;
          uint32_t get_route_event_to_emit_after_completing() const;

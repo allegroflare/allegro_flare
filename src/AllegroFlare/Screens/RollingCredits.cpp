@@ -22,6 +22,8 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::Ev
    , surface_height(surface_height)
    , y_offset(0.0f)
    , y_speed(2.0f)
+   , on_finished_callback_func()
+   , on_finished_callback_func_user_data(nullptr)
    , cached_calculated_height(0.0f)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , route_event_to_emit_after_completing(route_event_to_emit_after_completing)
@@ -66,6 +68,18 @@ void RollingCredits::set_y_speed(float y_speed)
 }
 
 
+void RollingCredits::set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::RollingCredits*, void*)> on_finished_callback_func)
+{
+   this->on_finished_callback_func = on_finished_callback_func;
+}
+
+
+void RollingCredits::set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data)
+{
+   this->on_finished_callback_func_user_data = on_finished_callback_func_user_data;
+}
+
+
 void RollingCredits::set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing)
 {
    this->game_event_name_to_emit_after_completing = game_event_name_to_emit_after_completing;
@@ -105,6 +119,18 @@ float RollingCredits::get_y_offset() const
 float RollingCredits::get_y_speed() const
 {
    return y_speed;
+}
+
+
+std::function<void(AllegroFlare::Screens::RollingCredits*, void*)> RollingCredits::get_on_finished_callback_func() const
+{
+   return on_finished_callback_func;
+}
+
+
+void* RollingCredits::get_on_finished_callback_func_user_data() const
+{
+   return on_finished_callback_func_user_data;
 }
 
 
@@ -251,6 +277,8 @@ void RollingCredits::emit_completion_event()
    {
       event_emitter->emit_router_event(route_event_to_emit_after_completing);
    }
+   // TODO: Test this callback
+   if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
    return;
 }
 

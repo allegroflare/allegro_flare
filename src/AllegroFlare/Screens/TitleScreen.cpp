@@ -43,6 +43,8 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_font_size(title_font_size)
    , menu_font_size(menu_font_size)
    , copyright_font_size(copyright_font_size)
+   , on_menu_choice_callback_func()
+   , on_menu_choice_callback_func_user_data(nullptr)
    , menu_options(build_default_menu_options())
    , title_position_x(1920 / 2)
    , title_position_y((1080 / 24 * 9))
@@ -199,6 +201,18 @@ void TitleScreen::set_menu_font_size(int menu_font_size)
 void TitleScreen::set_copyright_font_size(int copyright_font_size)
 {
    this->copyright_font_size = copyright_font_size;
+}
+
+
+void TitleScreen::set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> on_menu_choice_callback_func)
+{
+   this->on_menu_choice_callback_func = on_menu_choice_callback_func;
+}
+
+
+void TitleScreen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
+{
+   this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
 }
 
 
@@ -373,6 +387,18 @@ int TitleScreen::get_menu_font_size() const
 int TitleScreen::get_copyright_font_size() const
 {
    return copyright_font_size;
+}
+
+
+std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> TitleScreen::get_on_menu_choice_callback_func() const
+{
+   return on_menu_choice_callback_func;
+}
+
+
+void* TitleScreen::get_on_menu_choice_callback_func_user_data() const
+{
+   return on_menu_choice_callback_func_user_data;
 }
 
 
@@ -629,6 +655,8 @@ void TitleScreen::move_cursor_down()
 void TitleScreen::activate_menu_option(std::string menu_option_name)
 {
    event_emitter->emit_game_event(menu_option_name);
+   // TODO: Test this callback
+   if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
    return;
 }
 

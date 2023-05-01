@@ -2289,12 +2289,18 @@
   "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
     "AllegroFlare/Screens/RollingCredits"
   ],
+  "AllegroFlare/Screens/RollingCredits": [
+    "AllegroFlare/Screens/RollingCredits"
+  ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/Screens/Storyboard": [
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/StoryboardFactory"
+  ],
+  "AllegroFlare/Screens/TitleScreen": [
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
