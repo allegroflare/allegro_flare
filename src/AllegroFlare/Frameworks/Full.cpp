@@ -178,6 +178,12 @@ VideoBin &Full::get_video_bin_ref()
 }
 
 
+ScreenManagers::Dictionary &Full::get_screen_manager_ref()
+{
+   return screens;
+}
+
+
 Camera2D &Full::get_camera_2d_ref()
 {
    return camera_2d;

@@ -133,7 +133,7 @@ namespace AllegroFlare
          ModelBin &get_model_bin_ref();
          Camera2D &get_camera_2d_ref();
          VideoBin &get_video_bin_ref();
-         ScreenManagers::Dictionary &get_screens_ref();
+         ScreenManagers::Dictionary &get_screen_manager_ref();
          AudioController &get_audio_controller_ref();
          EventEmitter &get_event_emitter_ref();
          Notifications &get_notifications_ref();
