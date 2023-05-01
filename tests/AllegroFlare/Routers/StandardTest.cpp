@@ -66,6 +66,13 @@ public:
       al_destroy_event_queue(event_queue);
       al_uninstall_system();
    }
+   static void my_load_level_event_handler(void *data)
+   {
+      // TODO: Assess this event being called
+      //int *call_count = (int*)data; // NOTE: For testing purposes, this *data is an integer, representing the
+                                      // number of times this funciton is called
+      //(*call_count)++;
+   }
 };
 
 
@@ -201,6 +208,19 @@ EVENT_ACTIVATE_GAME_OVER_SCREEN_route_event)
    TEST_EXPECTED_ROUTE_EVENT(
       AllegroFlare::Routers::Standard::EVENT_LOSE_GAME,
       AllegroFlare::Routers::Standard::EVENT_ACTIVATE_GAME_OVER_SCREEN
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_START_LEVEL_event__will_emit_an_EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN_route_event)
+{
+   // TODO: Assess this function call
+   //router.set_load_level_event_handler(my_load_level_event_handler);
+   router.get_game_session_ref().start_session();
+   TEST_EXPECTED_ROUTE_EVENT(
+      AllegroFlare::Routers::Standard::EVENT_START_LEVEL,
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN
    );
 }
 
