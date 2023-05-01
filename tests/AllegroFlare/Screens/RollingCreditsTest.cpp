@@ -47,14 +47,34 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture, rende
 
 
 TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
-   update__on_the_event_that_the_the_y_offset_moves_past_the_end__will_set__scroll_is_past_end__to_true)
+   update__when_the_y_offset_is_greater_than_the_height__will_set__scroll_is_past_end__to_true)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::Screens::RollingCredits rolling_credits;
+   rolling_credits.set_font_bin(&get_font_bin_ref());
+   rolling_credits.set_event_emitter(&event_emitter);
+   rolling_credits.initialize();
+   float a_y_offset_greater_than_the_height = rolling_credits.get_cached_calculated_height() + 1.0f;
+   rolling_credits.set_y_offset(a_y_offset_greater_than_the_height);
+
+   rolling_credits.update();
+
+   EXPECT_EQ(true, rolling_credits.get_scroll_is_past_end());
+}
+
+
+TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
+   update__when_the_y_offset_is_greater_than_the_height__when_a_game_event_name_to_emit_after_completing_is_present__\
+will_emit_a_game_event_with_the_expected_name)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_Screens_RollingCreditsTestWithAllegroRenderingFixture,
-   update__on_the_event_that_the_the_y_offset_moves_past_the_end__will_emit_an_event_with_the_expected_name)
+   update__when_the_y_offset_is_greater_than_the_height__when_a_route_event_to_emit_after_completing_is_present\
+will_emit_a_route_event_with_the_expected_value)
 {
    // TODO
 }

@@ -62,10 +62,29 @@ properties:
 
   - name: game_event_name_to_emit_after_completing
     type: std::string
-    init_with: '"rolling_credits_finished"'
+    init_with: DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING
     constructor_arg: true
     getter: true
     setter: true
+
+  - name: route_event_to_emit_after_completing
+    type: uint32_t
+    init_with: DEFAULT_ROUTE_EVENT_TO_EMIT_AFTER_COMPLETING
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING
+    type: char*
+    init_with: '(char*)"rolling_credits_finished"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_ROUTE_EVENT_TO_EMIT_AFTER_COMPLETING
+    type: uint32_t
+    init_with: 0
+    static: true
+    constexpr: true
 
   - name: scroll_is_past_end
     type: bool
@@ -111,6 +130,18 @@ functions:
       return;
 
 
+  - name: clear_game_event_name_to_emit_after_completing
+    body: |
+      game_event_name_to_emit_after_completing.clear();
+      return;
+
+
+  - name: clear_route_event_to_emit_after_completing
+    body: |
+      route_event_to_emit_after_completing = 0;
+      return;
+
+
   - name: initialize
     type: void
     guards: [ (!initialized), font_bin ]
@@ -142,10 +173,15 @@ functions:
   - name: emit_completion_event
     private: true
     type: void
+    guards: [ event_emitter ]
     body: |
       if (!game_event_name_to_emit_after_completing.empty())
       {
          event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+      }
+      if (route_event_to_emit_after_completing != 0)
+      {
+         event_emitter->emit_router_event(route_event_to_emit_after_completing);
       }
       return;
 

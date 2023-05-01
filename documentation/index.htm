@@ -16247,6 +16247,18 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">route_event_to_emit_after_completing</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_ROUTE_EVENT_TO_EMIT_AFTER_COMPLETING</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
   <td class="property">scroll_is_past_end</td>
   <td class="property">bool</td>
 </tr>
@@ -16264,6 +16276,12 @@ table td
 </tr>
 <tr>
   <td class="method">set_sections(std::vector&lt;AllegroFlare::Elements::RollingCredits::Sections::Base*&gt; sections={})</td>
+</tr>
+<tr>
+  <td class="method">clear_game_event_name_to_emit_after_completing()</td>
+</tr>
+<tr>
+  <td class="method">clear_route_event_to_emit_after_completing()</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -16337,8 +16355,16 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">DEFAULT_EVENT_NAME_TO_EMIT_AFTER_COMPLETING</td>
+  <td class="property">route_event_to_emit_after_completing</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING</td>
   <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_ROUTE_EVENT_TO_EMIT_AFTER_COMPLETING</td>
+  <td class="property">uint32_t</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -16354,6 +16380,12 @@ table td
 </tr>
 <tr>
   <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="method">clear_game_event_name_to_emit_after_completing()</td>
+</tr>
+<tr>
+  <td class="method">clear_route_event_to_emit_after_completing()</td>
 </tr>
 <tr>
   <td class="private_method">emit_completion_event()</td>

@@ -13,7 +13,7 @@ namespace Screens
 {
 
 
-RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits_component, float surface_width, float surface_height, std::string game_event_name_to_emit_after_completing)
+RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits_component, float surface_width, float surface_height, std::string game_event_name_to_emit_after_completing, uint32_t route_event_to_emit_after_completing)
    : AllegroFlare::Screens::Base("RollingCredits")
    , font_bin(font_bin)
    , event_emitter(event_emitter)
@@ -24,6 +24,7 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::Ev
    , y_speed(2.0f)
    , cached_calculated_height(0.0f)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
+   , route_event_to_emit_after_completing(route_event_to_emit_after_completing)
    , scroll_is_past_end(false)
    , initialized(false)
 {
@@ -71,6 +72,12 @@ void RollingCredits::set_game_event_name_to_emit_after_completing(std::string ga
 }
 
 
+void RollingCredits::set_route_event_to_emit_after_completing(uint32_t route_event_to_emit_after_completing)
+{
+   this->route_event_to_emit_after_completing = route_event_to_emit_after_completing;
+}
+
+
 AllegroFlare::Elements::RollingCredits::RollingCredits RollingCredits::get_rolling_credits_component() const
 {
    return rolling_credits_component;
@@ -110,6 +117,12 @@ float RollingCredits::get_cached_calculated_height() const
 std::string RollingCredits::get_game_event_name_to_emit_after_completing() const
 {
    return game_event_name_to_emit_after_completing;
+}
+
+
+uint32_t RollingCredits::get_route_event_to_emit_after_completing() const
+{
+   return route_event_to_emit_after_completing;
 }
 
 
@@ -170,6 +183,18 @@ void RollingCredits::set_sections(std::vector<AllegroFlare::Elements::RollingCre
    return;
 }
 
+void RollingCredits::clear_game_event_name_to_emit_after_completing()
+{
+   game_event_name_to_emit_after_completing.clear();
+   return;
+}
+
+void RollingCredits::clear_route_event_to_emit_after_completing()
+{
+   route_event_to_emit_after_completing = 0;
+   return;
+}
+
 void RollingCredits::initialize()
 {
    if (!((!initialized)))
@@ -211,9 +236,20 @@ void RollingCredits::update()
 
 void RollingCredits::emit_completion_event()
 {
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[RollingCredits::emit_completion_event]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("RollingCredits::emit_completion_event: error: guard \"event_emitter\" not met");
+   }
    if (!game_event_name_to_emit_after_completing.empty())
    {
       event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
+   }
+   if (route_event_to_emit_after_completing != 0)
+   {
+      event_emitter->emit_router_event(route_event_to_emit_after_completing);
    }
    return;
 }
