@@ -57,12 +57,14 @@ functions:
       - name: router_event
         type: uint32_t
         default_argument: 0
+      - name: route_event_data
+        type: AllegroFlare::RouteEventDatas::Base*
+        default_argument: nullptr
       - name: time_now
         type: float
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
-      void *route_event_data = nullptr;
       emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event, (intptr_t)route_event_data, time_now);
       return;
     body_dependency_symbols:
@@ -309,5 +311,7 @@ dependencies:
     headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
+  - symbol: AllegroFlare::RouteEventDatas::Base
+    headers: [ AllegroFlare/RouteEventDatas/Base.hpp ]
 
 

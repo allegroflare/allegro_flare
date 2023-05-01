@@ -66,6 +66,9 @@ functions:
       - name: route_event
         type: uint32_t
         default_argument: 0
+      - name: route_event_data
+        type: AllegroFlare::RouteEventDatas::Base*
+        default_argument: nullptr
       - name: time_now
         type: float
         default_argument: 0.0f
@@ -106,5 +109,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::ScreenManagers::Dictionary
     headers: [ AllegroFlare/ScreenManagers/Dictionary.hpp ]
+  - symbol: AllegroFlare::RouteEventDatas::Base
+    headers: [ AllegroFlare/RouteEventDatas/Base.hpp ]
 
 

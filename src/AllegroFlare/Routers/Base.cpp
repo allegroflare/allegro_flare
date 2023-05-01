@@ -97,7 +97,7 @@ void Base::activate_screen(std::string screen_identifier)
    return;
 }
 
-void Base::on_route_event(uint32_t route_event, float time_now)
+void Base::on_route_event(uint32_t route_event, AllegroFlare::RouteEventDatas::Base* route_event_data, float time_now)
 {
    if (!((route_event != 0)))
    {

@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/RouteEventDatas/Base.hpp>
 #include <AllegroFlare/ScreenManagers/Dictionary.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <cstdint>
@@ -33,7 +34,7 @@ namespace AllegroFlare
          void register_screen(std::string screen_identifier="[unset-screen_identifier]", AllegroFlare::Screens::Base* screen=nullptr);
          void unregister_screen(AllegroFlare::Screens::Base* screen=nullptr);
          void activate_screen(std::string screen_identifier="[unset-screen_identifier]");
-         virtual void on_route_event(uint32_t route_event=0, float time_now=0.0f);
+         virtual void on_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
          bool is_type(std::string possible_type="");
       };
    }

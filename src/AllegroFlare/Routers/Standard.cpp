@@ -45,7 +45,7 @@ AllegroFlare::GameSession &Standard::get_game_session_ref()
 }
 
 
-void Standard::emit_route_event(uint32_t route_event, float time_now)
+void Standard::emit_route_event(uint32_t route_event, AllegroFlare::RouteEventDatas::Base* route_event_data, float time_now)
 {
    if (!(event_emitter))
    {
@@ -54,11 +54,11 @@ void Standard::emit_route_event(uint32_t route_event, float time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::emit_route_event: error: guard \"event_emitter\" not met");
    }
-   event_emitter->emit_router_event(route_event);
+   event_emitter->emit_router_event(route_event, route_event_data, time_now);
    return;
 }
 
-void Standard::on_route_event(uint32_t route_event, float time_now)
+void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventDatas::Base* route_event_data, float time_now)
 {
    if (!((route_event != 0)))
    {

@@ -76,7 +76,7 @@ void EventEmitter::emit_event(uint32_t type, intptr_t data1, intptr_t data2, int
    return;
 }
 
-void EventEmitter::emit_router_event(uint32_t router_event, float time_now)
+void EventEmitter::emit_router_event(uint32_t router_event, AllegroFlare::RouteEventDatas::Base* route_event_data, float time_now)
 {
    if (!(initialized))
    {
@@ -85,7 +85,6 @@ void EventEmitter::emit_router_event(uint32_t router_event, float time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EventEmitter::emit_router_event: error: guard \"initialized\" not met");
    }
-   void *route_event_data = nullptr;
    emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event, (intptr_t)route_event_data, time_now);
    return;
 }

@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/GameSession.hpp>
+#include <AllegroFlare/RouteEventDatas/Base.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <cstdint>
 
@@ -76,8 +77,8 @@ namespace AllegroFlare
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::GameSession &get_game_session_ref();
-         void emit_route_event(uint32_t route_event=0, float time_now=0.0f);
-         virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED, float time_now=0.0f) override;
+         void emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
+         virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f) override;
       };
    }
 }

@@ -266,6 +266,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RouteEventDatas/Base.q.yml">quintessence/AllegroFlare/RouteEventDatas/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Routers/Base.q.yml">quintessence/AllegroFlare/Routers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Routers/Standard.q.yml">quintessence/AllegroFlare/Routers/Standard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
@@ -6389,7 +6390,7 @@ table td
   <td class="method">emit_event(uint32_t type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0)</td>
 </tr>
 <tr>
-  <td class="method">emit_router_event(uint32_t router_event=0, float time_now=0.0f)</td>
+  <td class="method">emit_router_event(uint32_t router_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f)</td>
 </tr>
 <tr>
   <td class="method">emit_switch_screen_event(std::string screen_identifier_to_switch_to=0)</td>
@@ -6497,6 +6498,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15066,6 +15070,28 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/RouteEventDatas/Base.q.yml">quintessence/AllegroFlare/RouteEventDatas/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Routers/Base.q.yml">quintessence/AllegroFlare/Routers/Base.q.yml</h3>
      <table>
 <tr>
@@ -15092,7 +15118,7 @@ table td
   <td class="method">activate_screen(std::string screen_identifier=&quot;[unset-screen_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">on_route_event(uint32_t route_event=0, float time_now=0.0f)</td>
+  <td class="method">on_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f)</td>
 </tr>
 <tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
@@ -15116,6 +15142,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ScreenManagers::Dictionary&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ScreenManagers/Dictionary.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -15191,10 +15220,10 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">emit_route_event(uint32_t route_event=0, float time_now=0.0f)</td>
+  <td class="method">emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">on_route_event(uint32_t route_event=EVENT_UNDEFINED, float time_now=0.0f)</td>
+  <td class="method">on_route_event(uint32_t route_event=EVENT_UNDEFINED, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f)</td>
 </tr>
     </table>
      <table>
@@ -15215,6 +15244,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23476,6 +23508,11 @@ table td
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
     "Tileo/Shaders/Base"
+  ],
+  "AllegroFlare/RouteEventDatas/Base": [
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",

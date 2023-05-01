@@ -1344,6 +1344,11 @@
     "AllegroFlare/Shaders/PostProcessing/Wipe",
     "Tileo/Shaders/Base"
   ],
+  "AllegroFlare/RouteEventDatas/Base": [
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard"
+  ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
