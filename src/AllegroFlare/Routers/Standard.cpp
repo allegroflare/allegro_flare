@@ -185,6 +185,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          emit_route_event(EVENT_ACTIVATE_GAME_WON_SCREEN);
       }},
       { EVENT_TITLE_SCREEN_FINISHED, [this](){
+         // This is a loop to restart the intro(s) so the game is not stuck on title screen
          emit_route_event(EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
       }},
 
