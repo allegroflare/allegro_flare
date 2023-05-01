@@ -132,6 +132,27 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, render_
 }
 
 
+TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, exit__will_call_exit_callback_func)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::Achievements achievements;
+   int my_user_data_representing_num_exit_callback_func_calls = 0;
+   AllegroFlare::Screens::Achievements achievements_screen(&get_font_bin_ref(), &event_emitter, &achievements);
+   achievements_screen.set_exit_callback_func(
+      [](AllegroFlare::Screens::Achievements* achievements_screen, void* user_data) {
+         (*(int*)user_data)++;
+      }
+   );
+   achievements_screen.set_exit_callback_func_user_data(&my_user_data_representing_num_exit_callback_func_calls);
+   achievements_screen.initialize();
+
+   achievements_screen.exit();
+
+   EXPECT_EQ(1, my_user_data_representing_num_exit_callback_func_calls);
+}
+
+
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    refresh_achievements_list__will_refresh_the_list_from_the_source_achievements)
 {

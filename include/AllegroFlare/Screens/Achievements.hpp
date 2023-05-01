@@ -64,6 +64,7 @@ namespace AllegroFlare
          virtual void on_deactivate() override;
          void initialize();
          virtual void primary_timer_func() override;
+         void exit();
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          void render();
          void set_placeholder_achievements();

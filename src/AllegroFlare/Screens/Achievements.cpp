@@ -241,10 +241,24 @@ void Achievements::update()
    return;
 }
 
+void Achievements::exit()
+{
+   call_exit_callback();
+   return;
+}
+
 void Achievements::call_exit_callback()
 {
-   // TODO: Test this callback
-   if (exit_callback_func) exit_callback_func(this, exit_callback_func_user_data);
+   // TODO: Test this condition
+   if (event_emitter && !game_event_name_to_emit_on_exit.empty())
+   {
+      event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+   }
+   // TODO: Test this condition
+   if (exit_callback_func)
+   {
+      exit_callback_func(this, exit_callback_func_user_data);
+   }
    return;
 }
 
@@ -297,18 +311,7 @@ void Achievements::virtual_control_button_down_func(AllegroFlare::Player* player
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN)
       move_scrollbar_position_down();
    else
-   {
-      // TODO: Test this condition
-      if (event_emitter && !game_event_name_to_emit_on_exit.empty())
-      {
-         event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
-      }
-      // TODO: Test this condition
-      if (exit_callback_func)
-      {
-         exit_callback_func(this, exit_callback_func_user_data);
-      }
-   }
+      exit(); // TODO: Consider appropriate inputs to call this exit
 }
 
 void Achievements::render()
