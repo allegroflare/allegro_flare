@@ -120,6 +120,7 @@ void Standard::on_route_event(uint32_t route_event, float time_now)
          }
          // End the session
          game_session.end_session();
+         // Activate game won outro
          emit_route_event(EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_LOSE_GAME, [this](){
@@ -134,7 +135,8 @@ void Standard::on_route_event(uint32_t route_event, float time_now)
          }
          // End the session
          game_session.end_session();
-         // activate game_over_screen
+         // Activate the game_over_screen
+         emit_route_event(EVENT_ACTIVATE_GAME_OVER_SCREEN);
       }},
       { EVENT_START_LEVEL, [this](){
          // TODO: Finish the actions in this event

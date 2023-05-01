@@ -153,6 +153,15 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_WIN_GAME__when_a_session_is_active__will_end_the_session)
+{
+   router.get_game_session_ref().start_session();
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_WIN_GAME);
+   EXPECT_EQ(false, router.get_game_session_ref().is_active());
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_WIN_GAME_event__will_emit_an_\
 EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN_route_event)
 {
@@ -161,15 +170,6 @@ EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN_route_event)
       AllegroFlare::Routers::Standard::EVENT_WIN_GAME,
       AllegroFlare::Routers::Standard::EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN
    );
-}
-
-
-TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_WIN_GAME__when_a_session_is_active__will_end_the_session)
-{
-   router.get_game_session_ref().start_session();
-   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_WIN_GAME);
-   EXPECT_EQ(false, router.get_game_session_ref().is_active());
 }
 
 
@@ -191,6 +191,18 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    router.get_game_session_ref().start_session();
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_LOSE_GAME);
    EXPECT_EQ(false, router.get_game_session_ref().is_active());
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_LOSE_GAME_event__will_emit_an_\
+EVENT_ACTIVATE_GAME_OVER_SCREEN_route_event)
+{
+   router.get_game_session_ref().start_session();
+   TEST_EXPECTED_ROUTE_EVENT(
+      AllegroFlare::Routers::Standard::EVENT_LOSE_GAME,
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_GAME_OVER_SCREEN
+   );
 }
 
 
