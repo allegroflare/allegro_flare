@@ -22,8 +22,8 @@ Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventE
    , achievements(achievements)
    , scrollbar_dest_position(scrollbar_dest_position)
    , achievements_list({})
-   , exit_callback_func()
-   , exit_callback_func_user_data(nullptr)
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , game_event_name_to_emit_on_exit(game_event_name_to_emit_on_exit)
    , initialized(false)
 {
@@ -41,15 +41,15 @@ void Achievements::set_achievements(AllegroFlare::Achievements* achievements)
 }
 
 
-void Achievements::set_exit_callback_func(std::function<void(AllegroFlare::Screens::Achievements*, void*)> exit_callback_func)
+void Achievements::set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::Achievements*, void*)> on_exit_callback_func)
 {
-   this->exit_callback_func = exit_callback_func;
+   this->on_exit_callback_func = on_exit_callback_func;
 }
 
 
-void Achievements::set_exit_callback_func_user_data(void* exit_callback_func_user_data)
+void Achievements::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
 {
-   this->exit_callback_func_user_data = exit_callback_func_user_data;
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
 }
 
 
@@ -59,15 +59,15 @@ void Achievements::set_game_event_name_to_emit_on_exit(std::string game_event_na
 }
 
 
-std::function<void(AllegroFlare::Screens::Achievements*, void*)> Achievements::get_exit_callback_func() const
+std::function<void(AllegroFlare::Screens::Achievements*, void*)> Achievements::get_on_exit_callback_func() const
 {
-   return exit_callback_func;
+   return on_exit_callback_func;
 }
 
 
-void* Achievements::get_exit_callback_func_user_data() const
+void* Achievements::get_on_exit_callback_func_user_data() const
 {
-   return exit_callback_func_user_data;
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -243,11 +243,11 @@ void Achievements::update()
 
 void Achievements::exit()
 {
-   call_exit_callback();
+   call_on_exit_callback();
    return;
 }
 
-void Achievements::call_exit_callback()
+void Achievements::call_on_exit_callback()
 {
    // TODO: Test this condition
    if (event_emitter && !game_event_name_to_emit_on_exit.empty())
@@ -255,9 +255,9 @@ void Achievements::call_exit_callback()
       event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
    }
    // TODO: Test this condition
-   if (exit_callback_func)
+   if (on_exit_callback_func)
    {
-      exit_callback_func(this, exit_callback_func_user_data);
+      on_exit_callback_func(this, on_exit_callback_func_user_data);
    }
    return;
 }

@@ -132,24 +132,24 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, render_
 }
 
 
-TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, exit__will_call_exit_callback_func)
+TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture, exit__will_call_on_exit_callback_func)
 {
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    AllegroFlare::Achievements achievements;
-   int my_user_data_representing_num_exit_callback_func_calls = 0;
+   int my_user_data_representing_num_on_exit_callback_func_calls = 0;
    AllegroFlare::Screens::Achievements achievements_screen(&get_font_bin_ref(), &event_emitter, &achievements);
-   achievements_screen.set_exit_callback_func(
+   achievements_screen.set_on_exit_callback_func(
       [](AllegroFlare::Screens::Achievements* achievements_screen, void* user_data) {
          (*(int*)user_data)++;
       }
    );
-   achievements_screen.set_exit_callback_func_user_data(&my_user_data_representing_num_exit_callback_func_calls);
+   achievements_screen.set_on_exit_callback_func_user_data(&my_user_data_representing_num_on_exit_callback_func_calls);
    achievements_screen.initialize();
 
    achievements_screen.exit();
 
-   EXPECT_EQ(1, my_user_data_representing_num_exit_callback_func_calls);
+   EXPECT_EQ(1, my_user_data_representing_num_on_exit_callback_func_calls);
 }
 
 

@@ -30,12 +30,12 @@ namespace AllegroFlare
          AllegroFlare::Achievements* achievements;
          float scrollbar_dest_position;
          AllegroFlare::Elements::AchievementsList achievements_list;
-         std::function<void(AllegroFlare::Screens::Achievements*, void*)> exit_callback_func;
-         void* exit_callback_func_user_data;
+         std::function<void(AllegroFlare::Screens::Achievements*, void*)> on_exit_callback_func;
+         void* on_exit_callback_func_user_data;
          std::string game_event_name_to_emit_on_exit;
          bool initialized;
          void update();
-         void call_exit_callback();
+         void call_on_exit_callback();
          void move_scrollbar_position_to(float position=0.0f);
          void move_scrollbar_position_up();
          void move_scrollbar_position_down();
@@ -50,11 +50,11 @@ namespace AllegroFlare
          virtual ~Achievements();
 
          void set_achievements(AllegroFlare::Achievements* achievements);
-         void set_exit_callback_func(std::function<void(AllegroFlare::Screens::Achievements*, void*)> exit_callback_func);
-         void set_exit_callback_func_user_data(void* exit_callback_func_user_data);
+         void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::Achievements*, void*)> on_exit_callback_func);
+         void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          void set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit);
-         std::function<void(AllegroFlare::Screens::Achievements*, void*)> get_exit_callback_func() const;
-         void* get_exit_callback_func_user_data() const;
+         std::function<void(AllegroFlare::Screens::Achievements*, void*)> get_on_exit_callback_func() const;
+         void* get_on_exit_callback_func_user_data() const;
          std::string get_game_event_name_to_emit_on_exit() const;
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
