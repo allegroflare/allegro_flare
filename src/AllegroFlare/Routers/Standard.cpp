@@ -210,7 +210,6 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          activate_screen(INTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_TITLE_SCREEN, [this](){
-         // TODO: Consider validating no session is active
          activate_screen(TITLE_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN, [this](){
