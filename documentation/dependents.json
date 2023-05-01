@@ -2263,6 +2263,9 @@
   "AllegroFlare/Elements/InputDevicesList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
+  "AllegroFlare/Screens/InputDeviceConfiguration": [
+    "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"

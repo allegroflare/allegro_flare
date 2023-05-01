@@ -22,6 +22,8 @@ InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* e
    , font_bin(font_bin)
    , surface_width(surface_width)
    , surface_height(surface_height)
+   , exit_callback_func()
+   , exit_callback_func_user_data(nullptr)
    , input_devices_list(input_devices_list)
    , input_devices_list_element()
    , input_device_configuration_element()
@@ -47,6 +49,18 @@ void InputDeviceConfiguration::set_surface_height(std::size_t surface_height)
 }
 
 
+void InputDeviceConfiguration::set_exit_callback_func(std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> exit_callback_func)
+{
+   this->exit_callback_func = exit_callback_func;
+}
+
+
+void InputDeviceConfiguration::set_exit_callback_func_user_data(void* exit_callback_func_user_data)
+{
+   this->exit_callback_func_user_data = exit_callback_func_user_data;
+}
+
+
 std::size_t InputDeviceConfiguration::get_surface_width() const
 {
    return surface_width;
@@ -56,6 +70,18 @@ std::size_t InputDeviceConfiguration::get_surface_width() const
 std::size_t InputDeviceConfiguration::get_surface_height() const
 {
    return surface_height;
+}
+
+
+std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> InputDeviceConfiguration::get_exit_callback_func() const
+{
+   return exit_callback_func;
+}
+
+
+void* InputDeviceConfiguration::get_exit_callback_func_user_data() const
+{
+   return exit_callback_func_user_data;
 }
 
 
@@ -236,6 +262,13 @@ void InputDeviceConfiguration::primary_timer_func()
    return;
 }
 
+void InputDeviceConfiguration::call_exit_callback()
+{
+   // TODO: Test this callback
+   if (exit_callback_func) exit_callback_func(this, exit_callback_func_user_data);
+   return;
+}
+
 void InputDeviceConfiguration::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
@@ -267,6 +300,11 @@ void InputDeviceConfiguration::virtual_control_button_down_func(AllegroFlare::Pl
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
          input_device_configuration_element.move_cursor_down();
+      break;
+
+      default:
+         call_exit_callback(); // TODO: Set conditions when then is permitted and/or blocked (for example, when
+                               // in the middle of remapping a device
       break;
    }
    return;

@@ -9,9 +9,11 @@
 #include <AllegroFlare/InputDevicesList.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/InputDeviceConfiguration.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <cstddef>
+#include <functional>
 
 
 namespace AllegroFlare
@@ -29,10 +31,13 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::size_t surface_width;
          std::size_t surface_height;
+         std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> exit_callback_func;
+         void* exit_callback_func_user_data;
          AllegroFlare::InputDevicesList* input_devices_list;
          AllegroFlare::Elements::InputDevicesList input_devices_list_element;
          AllegroFlare::Elements::InputDeviceConfigurationList input_device_configuration_element;
          bool initialized;
+         void call_exit_callback();
 
       protected:
 
@@ -43,8 +48,12 @@ namespace AllegroFlare
 
          void set_surface_width(std::size_t surface_width);
          void set_surface_height(std::size_t surface_height);
+         void set_exit_callback_func(std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> exit_callback_func);
+         void set_exit_callback_func_user_data(void* exit_callback_func_user_data);
          std::size_t get_surface_width() const;
          std::size_t get_surface_height() const;
+         std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> get_exit_callback_func() const;
+         void* get_exit_callback_func_user_data() const;
          AllegroFlare::Elements::InputDevicesList &get_input_devices_list_element_ref();
          AllegroFlare::Elements::InputDeviceConfigurationList &get_input_device_configuration_element_ref();
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);

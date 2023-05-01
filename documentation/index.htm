@@ -15880,6 +15880,14 @@ table td
   <td class="property">std::size_t</td>
 </tr>
 <tr>
+  <td class="property">exit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">exit_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">input_devices_list</td>
   <td class="property">AllegroFlare::InputDevicesList*</td>
 </tr>
@@ -15930,6 +15938,9 @@ table td
 </tr>
 <tr>
   <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="private_method">call_exit_callback()</td>
 </tr>
 <tr>
   <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
@@ -15983,6 +15994,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::InputDevicesList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/InputDevicesList.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::InputDeviceConfiguration&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/InputDeviceConfiguration.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24465,6 +24479,9 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/Elements/InputDevicesList": [
+    "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
+  "AllegroFlare/Screens/InputDeviceConfiguration": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
