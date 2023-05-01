@@ -19,6 +19,8 @@ Transition::Transition(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::
    , from_screen(from_screen)
    , to_screen(to_screen)
    , transition_fx(transition_fx)
+   , on_finished_callback_func()
+   , on_finished_callback_func_user_data(nullptr)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , target(nullptr)
    , finished(false)
@@ -38,9 +40,33 @@ void Transition::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+void Transition::set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Transition*, void*)> on_finished_callback_func)
+{
+   this->on_finished_callback_func = on_finished_callback_func;
+}
+
+
+void Transition::set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data)
+{
+   this->on_finished_callback_func_user_data = on_finished_callback_func_user_data;
+}
+
+
 void Transition::set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing)
 {
    this->game_event_name_to_emit_after_completing = game_event_name_to_emit_after_completing;
+}
+
+
+std::function<void(AllegroFlare::Screens::Transition*, void*)> Transition::get_on_finished_callback_func() const
+{
+   return on_finished_callback_func;
+}
+
+
+void* Transition::get_on_finished_callback_func_user_data() const
+{
+   return on_finished_callback_func_user_data;
 }
 
 
@@ -179,6 +205,8 @@ void Transition::emit_completion_event()
    {
       event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
    }
+   // TODO: Test this callback call
+   if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
    return;
 }
 

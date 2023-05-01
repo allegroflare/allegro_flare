@@ -28,6 +28,8 @@ Version::Version(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bitmap
    , surface_height(surface_height)
    , cached_calculated_height(0.0f)
    , rolling_credits_component({})
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , game_event_name_to_emit_on_exit(DEFAULT_EVENT_NAME_ON_EXIT)
    , initialized(false)
 {
@@ -48,6 +50,18 @@ void Version::set_surface_width(float surface_width)
 void Version::set_surface_height(float surface_height)
 {
    this->surface_height = surface_height;
+}
+
+
+void Version::set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::Version*, void*)> on_exit_callback_func)
+{
+   this->on_exit_callback_func = on_exit_callback_func;
+}
+
+
+void Version::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
+{
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
 }
 
 
@@ -72,6 +86,18 @@ float Version::get_surface_height() const
 float Version::get_cached_calculated_height() const
 {
    return cached_calculated_height;
+}
+
+
+std::function<void(AllegroFlare::Screens::Version*, void*)> Version::get_on_exit_callback_func() const
+{
+   return on_exit_callback_func;
+}
+
+
+void* Version::get_on_exit_callback_func_user_data() const
+{
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -303,6 +329,9 @@ void Version::virtual_control_button_down_func(AllegroFlare::Player* player, All
       //move_scrollbar_position_down();
 
    event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
+
+   // TODO: Test this
+   if (on_exit_callback_func) on_exit_callback_func(this, on_exit_callback_func_user_data);
 }
 
 std::string Version::truncate_to_n_characters(std::string str, std::size_t num_characters)

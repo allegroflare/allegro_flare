@@ -31,6 +31,18 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: on_finished_callback_func
+    type: std::function<void(AllegroFlare::Screens::Transition*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_finished_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: game_event_name_to_emit_after_completing
     type: std::string
     init_with: '"transition_finished"'
@@ -148,6 +160,8 @@ functions:
       {
          event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit_after_completing));
       }
+      // TODO: Test this callback call
+      if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
       return;
 
 
@@ -162,5 +176,7 @@ dependencies:
     headers: [ AllegroFlare/TransitionFX/Base.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Screens::Transition
+    headers: [ AllegroFlare/Screens/Transition.hpp ]
 
 

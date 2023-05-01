@@ -2305,6 +2305,9 @@
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
   ],
+  "AllegroFlare/Screens/Transition": [
+    "AllegroFlare/Screens/Transition"
+  ],
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/Screens/Version"
   ],
@@ -2312,6 +2315,9 @@
     "AllegroFlare/Screens/Version"
   ],
   "BuildInfo": [
+    "AllegroFlare/Screens/Version"
+  ],
+  "AllegroFlare/Screens/Version": [
     "AllegroFlare/Screens/Version"
   ],
   "std/filesystem/file_time_type": [

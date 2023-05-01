@@ -8,8 +8,10 @@
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/Version.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <cstddef>
+#include <functional>
 #include <string>
 
 
@@ -32,6 +34,8 @@ namespace AllegroFlare
          float surface_height;
          float cached_calculated_height;
          AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits_component;
+         std::function<void(AllegroFlare::Screens::Version*, void*)> on_exit_callback_func;
+         void* on_exit_callback_func_user_data;
          std::string game_event_name_to_emit_on_exit;
          bool initialized;
 
@@ -44,10 +48,14 @@ namespace AllegroFlare
 
          void set_surface_width(float surface_width);
          void set_surface_height(float surface_height);
+         void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::Version*, void*)> on_exit_callback_func);
+         void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          void set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit);
          float get_surface_width() const;
          float get_surface_height() const;
          float get_cached_calculated_height() const;
+         std::function<void(AllegroFlare::Screens::Version*, void*)> get_on_exit_callback_func() const;
+         void* get_on_exit_callback_func_user_data() const;
          std::string get_game_event_name_to_emit_on_exit() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);

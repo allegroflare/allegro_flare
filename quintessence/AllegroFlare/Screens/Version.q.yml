@@ -52,6 +52,18 @@ properties:
     type: AllegroFlare::Elements::RollingCredits::RollingCredits
     init_with: '{}'
 
+  - name: on_exit_callback_func
+    type: std::function<void(AllegroFlare::Screens::Version*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_exit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: game_event_name_to_emit_on_exit
     type: std::string
     init_with: DEFAULT_EVENT_NAME_ON_EXIT
@@ -254,6 +266,9 @@ functions:
 
       event_emitter->emit_game_event(game_event_name_to_emit_on_exit);
 
+      // TODO: Test this
+      if (on_exit_callback_func) on_exit_callback_func(this, on_exit_callback_func_user_data);
+
     body_dependency_symbols:
       - AllegroFlare::VirtualControllers::GenericController
 
@@ -305,5 +320,7 @@ dependencies:
     headers: [ ReleaseInfo.hpp ]
   - symbol: BuildInfo
     headers: [ BuildInfo.hpp ]
+  - symbol: AllegroFlare::Screens::Version
+    headers: [ AllegroFlare/Screens/Version.hpp ]
 
 

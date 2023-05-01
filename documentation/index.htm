@@ -16931,6 +16931,14 @@ table td
   <td class="property">AllegroFlare::TransitionFX::Base*</td>
 </tr>
 <tr>
+  <td class="property">on_finished_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Transition*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">game_event_name_to_emit_after_completing</td>
   <td class="property">std::string</td>
 </tr>
@@ -16977,6 +16985,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Transition&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Transition.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -17015,6 +17026,14 @@ table td
 <tr>
   <td class="property">rolling_credits_component</td>
   <td class="property">AllegroFlare::Elements::RollingCredits::RollingCredits</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Version*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func_user_data</td>
+  <td class="property">void*</td>
 </tr>
 <tr>
   <td class="property">game_event_name_to_emit_on_exit</td>
@@ -17113,6 +17132,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;BuildInfo&quot;, &quot;headers&quot;=&gt;[&quot;BuildInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Version&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Version.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24603,6 +24625,9 @@ table td
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
   ],
+  "AllegroFlare/Screens/Transition": [
+    "AllegroFlare/Screens/Transition"
+  ],
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/Screens/Version"
   ],
@@ -24610,6 +24635,9 @@ table td
     "AllegroFlare/Screens/Version"
   ],
   "BuildInfo": [
+    "AllegroFlare/Screens/Version"
+  ],
+  "AllegroFlare/Screens/Version": [
     "AllegroFlare/Screens/Version"
   ],
   "std/filesystem/file_time_type": [
