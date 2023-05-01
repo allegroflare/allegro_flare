@@ -87,6 +87,8 @@ void Standard::on_route_event(uint32_t route_event)
       }},
       { EVENT_EXIT_GAME, [this](){
          // close session
+
+         if (game_session.is_active()) game_session.end_session();
          // TODO: abort = true;
       }},
 

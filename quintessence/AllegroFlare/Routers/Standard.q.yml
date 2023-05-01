@@ -197,6 +197,8 @@ functions:
          }},
          { EVENT_EXIT_GAME, [this](){
             // close session
+
+            if (game_session.is_active()) game_session.end_session();
             // TODO: abort = true;
          }},
 
