@@ -38,7 +38,7 @@ TEST_F(AllegroFlare_Screens_InputDeviceConfigurationTest, type__has_the_expected
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
-   FOCUS__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -61,7 +61,13 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    AllegroFlare::Screens::InputDeviceConfiguration input_device_configuration_screen;
    input_device_configuration_screen.set_font_bin(&get_font_bin_ref());
    input_device_configuration_screen.set_bitmap_bin(&get_bitmap_bin_ref());
+   int my_exit_callback_func_user_data = 1234;
    input_device_configuration_screen.set_event_emitter(&event_emitter);
+   input_device_configuration_screen.set_exit_callback_func(
+      [](AllegroFlare::Screens::InputDeviceConfiguration* input_device_configuration, void* data){
+      std::cout << "exit_callback_func called (with data=" << (*(int*)data) << ")" << std::endl;
+   });
+   input_device_configuration_screen.set_exit_callback_func_user_data(&my_exit_callback_func_user_data);
    input_device_configuration_screen.initialize();
 
    // set some default placeholder button mappings for this test
