@@ -24,15 +24,22 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: model_bin
-    type: AllegroFlare::ModelBin*
-    init_with: nullptr
-    constructor_arg: true
-
   - name: level_select_element
     type: AllegroFlare::Elements::LevelSelect
     init_with: ''
     getter_ref: true
+
+  - name: on_menu_choice_callback_func
+    type: std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_menu_choice_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
 
   - name: initialized
     type: bool
@@ -81,14 +88,13 @@ functions:
       return;
 
 
-  - name: set_model_bin
-    guards: [ (!initialized) ]
+  - name: set_levels_list
     parameters:
-      - name: model_bin
-        type: AllegroFlare::ModelBin*
-        default_argument: nullptr
+      - name: levels_list
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
     body: |
-      this->model_bin = model_bin;
+      level_select_element.set_levels_list(levels_list);
       return;
 
 
@@ -101,12 +107,15 @@ functions:
       - event_emitter
       - bitmap_bin
       - font_bin
-      - model_bin
     body: |
       initialized = true;
 
       level_select_element.set_event_emitter(event_emitter);
       level_select_element.set_font_bin(font_bin);
+      level_select_element.set_on_menu_choice_callback_func([this](AllegroFlare::Elements::LevelSelect*, void*){
+         if (on_menu_choice_callback_func)
+            on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+      });
 
       return;
     body_dependency_symbols:
@@ -133,14 +142,31 @@ functions:
 
 
   - name: update
+    guards: [ initialized ]
     body: |
       return;
 
 
   - name: render
+    guards: [ initialized ]
     body: |
       level_select_element.render();
       return;
+
+
+  - name: activate_selected_menu_option
+    guards: [ initialized ]
+    body: |
+      // DEBUG:
+      level_select_element.activate_selected_menu_option();
+      return;
+
+
+  - name: infer_current_menu_option_value
+    guards: [ initialized ]
+    type: std::string
+    body: |
+      return level_select_element.infer_current_menu_option_value();
 
 
   - name: primary_timer_func
@@ -196,14 +222,28 @@ functions:
       // TODO: this function
       //if (!processing_user_input()) return;
 
-      //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
-      //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
-      //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
-         //|| virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
-         //)
-      //{
-         //select_menu_option();
-      //}
+      switch(virtual_controller_button_num)
+      {
+         case VirtualControllers::GenericController::BUTTON_UP: {
+            level_select_element.move_cursor_up();
+         } break;
+
+         case VirtualControllers::GenericController::BUTTON_DOWN: {
+            level_select_element.move_cursor_down();
+         } break;
+
+         case VirtualControllers::GenericController::BUTTON_LEFT: {
+            level_select_element.move_cursor_left();
+         } break;
+
+         case VirtualControllers::GenericController::BUTTON_RIGHT: {
+            level_select_element.move_cursor_right();
+         } break;
+
+         case VirtualControllers::GenericController::BUTTON_A: {
+            activate_selected_menu_option();
+         } break;
+      }
 
       return;
     body_dependency_symbols:
@@ -221,7 +261,6 @@ functions:
     body: |
       // TODO: this function
       return;
-
 
 
 dependencies:
@@ -249,5 +288,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::LevelSelect
     headers: [ AllegroFlare/Elements/LevelSelect.hpp ]
+  - symbol: AllegroFlare::Screens::LevelSelectScreen
+    headers: [ AllegroFlare/Screens/LevelSelectScreen.hpp ]
 
 

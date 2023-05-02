@@ -15,13 +15,14 @@ namespace Screens
 {
 
 
-LevelSelectScreen::LevelSelectScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin)
+LevelSelectScreen::LevelSelectScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::LevelSelectScreen::TYPE)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
-   , model_bin(model_bin)
    , level_select_element()
+   , on_menu_choice_callback_func()
+   , on_menu_choice_callback_func_user_data(nullptr)
    , initialized(false)
 {
 }
@@ -29,6 +30,30 @@ LevelSelectScreen::LevelSelectScreen(AllegroFlare::EventEmitter* event_emitter, 
 
 LevelSelectScreen::~LevelSelectScreen()
 {
+}
+
+
+void LevelSelectScreen::set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)> on_menu_choice_callback_func)
+{
+   this->on_menu_choice_callback_func = on_menu_choice_callback_func;
+}
+
+
+void LevelSelectScreen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
+{
+   this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)> LevelSelectScreen::get_on_menu_choice_callback_func() const
+{
+   return on_menu_choice_callback_func;
+}
+
+
+void* LevelSelectScreen::get_on_menu_choice_callback_func_user_data() const
+{
+   return on_menu_choice_callback_func_user_data;
 }
 
 
@@ -77,16 +102,9 @@ void LevelSelectScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
-void LevelSelectScreen::set_model_bin(AllegroFlare::ModelBin* model_bin)
+void LevelSelectScreen::set_levels_list(std::vector<std::pair<std::string, std::string>> levels_list)
 {
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[LevelSelectScreen::set_model_bin]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::set_model_bin: error: guard \"(!initialized)\" not met");
-   }
-   this->model_bin = model_bin;
+   level_select_element.set_levels_list(levels_list);
    return;
 }
 
@@ -141,17 +159,14 @@ void LevelSelectScreen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"font_bin\" not met");
    }
-   if (!(model_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"model_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"model_bin\" not met");
-   }
    initialized = true;
 
    level_select_element.set_event_emitter(event_emitter);
    level_select_element.set_font_bin(font_bin);
+   level_select_element.set_on_menu_choice_callback_func([this](AllegroFlare::Elements::LevelSelect*, void*){
+      if (on_menu_choice_callback_func)
+         on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+   });
 
    return;
 }
@@ -185,13 +200,53 @@ void LevelSelectScreen::on_deactivate()
 
 void LevelSelectScreen::update()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[LevelSelectScreen::update]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("LevelSelectScreen::update: error: guard \"initialized\" not met");
+   }
    return;
 }
 
 void LevelSelectScreen::render()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[LevelSelectScreen::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("LevelSelectScreen::render: error: guard \"initialized\" not met");
+   }
    level_select_element.render();
    return;
+}
+
+void LevelSelectScreen::activate_selected_menu_option()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[LevelSelectScreen::activate_selected_menu_option]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("LevelSelectScreen::activate_selected_menu_option: error: guard \"initialized\" not met");
+   }
+   // DEBUG:
+   level_select_element.activate_selected_menu_option();
+   return;
+}
+
+std::string LevelSelectScreen::infer_current_menu_option_value()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[LevelSelectScreen::infer_current_menu_option_value]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("LevelSelectScreen::infer_current_menu_option_value: error: guard \"initialized\" not met");
+   }
+   return level_select_element.infer_current_menu_option_value();
 }
 
 void LevelSelectScreen::primary_timer_func()
@@ -233,14 +288,28 @@ void LevelSelectScreen::virtual_control_button_down_func(AllegroFlare::Player* p
    // TODO: this function
    //if (!processing_user_input()) return;
 
-   //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
-   //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
-   //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
-      //|| virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
-      //)
-   //{
-      //select_menu_option();
-   //}
+   switch(virtual_controller_button_num)
+   {
+      case VirtualControllers::GenericController::BUTTON_UP: {
+         level_select_element.move_cursor_up();
+      } break;
+
+      case VirtualControllers::GenericController::BUTTON_DOWN: {
+         level_select_element.move_cursor_down();
+      } break;
+
+      case VirtualControllers::GenericController::BUTTON_LEFT: {
+         level_select_element.move_cursor_left();
+      } break;
+
+      case VirtualControllers::GenericController::BUTTON_RIGHT: {
+         level_select_element.move_cursor_right();
+      } break;
+
+      case VirtualControllers::GenericController::BUTTON_A: {
+         activate_selected_menu_option();
+      } break;
+   }
 
    return;
 }

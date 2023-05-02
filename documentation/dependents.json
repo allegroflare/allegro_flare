@@ -550,6 +550,7 @@
   ],
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
@@ -2288,6 +2289,9 @@
   ],
   "AllegroFlare/Screens/InputDeviceConfiguration": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
+  "AllegroFlare/Screens/LevelSelectScreen": [
+    "AllegroFlare/Screens/LevelSelectScreen"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",

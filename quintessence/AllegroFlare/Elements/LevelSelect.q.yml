@@ -17,6 +17,7 @@ properties:
     type: std::vector<std::pair<std::string, std::string>>
     init_with: '{}'
     constructor_arg: true
+    getter: true
     setter: true
 
   - name: on_menu_choice_callback_func
@@ -353,10 +354,10 @@ functions:
     body: |
       if (list_is_empty())
       {
-         std::cout <<
-            "[AllegroFlare::Screens::LevelSelect::activate_selected_menu_option()] error: can not select a level, "
-            "the list of levels is empty."
-            << std::endl;
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
+            "can not select a level, the list of levels is empty."
+         );
          return;
       }
 
@@ -364,9 +365,10 @@ functions:
 
       if (current_menu_option_value.empty())
       {
-         std::cout <<
-            "[AllegroFlare::Screens::LevelSelect::activate_selected_menu_option()] error: can not select the currently "
-            "highlighted option, it is empty." << std::endl;
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
+            "can not select the currently highlighted option, it is empty."
+         );
          return;
       }
       else
@@ -381,12 +383,13 @@ functions:
       return;
     body_dependency_symbols:
       - ALLEGRO_FLARE_EVENT_SELECT_LEVEL
+      - AllegroFlare::Logger
 
 
   - name: infer_current_menu_option_value
-    private: true
     type: std::string
     body: |
+      // TODO: Add test for this function
       if (levels_list.empty()) return "";
       int cursor_position = cursor_y * num_columns + cursor_x;
 
@@ -448,5 +451,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::Elements::LevelSelect
     headers: [ AllegroFlare/Elements/LevelSelect.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

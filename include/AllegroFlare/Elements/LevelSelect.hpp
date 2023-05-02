@@ -43,7 +43,6 @@ namespace AllegroFlare
          bool list_is_empty();
          void draw_selection_cursor(float x=0.0f, float y=0.0f);
          void draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label="[unlabeled]");
-         std::string infer_current_menu_option_value();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_description_font();
          ALLEGRO_FONT* obtain_item_name_font();
@@ -62,6 +61,7 @@ namespace AllegroFlare
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
          void set_num_columns(int num_columns);
          void set_num_rows(int num_rows);
+         std::vector<std::pair<std::string, std::string>> get_levels_list() const;
          std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
          AllegroFlare::Placement2D get_place() const;
@@ -79,6 +79,7 @@ namespace AllegroFlare
          void move_cursor_left();
          void move_cursor_right();
          void activate_selected_menu_option();
+         std::string infer_current_menu_option_value();
       };
    }
 }

@@ -4680,7 +4680,7 @@ table td
   <td class="method">activate_selected_menu_option()</td>
 </tr>
 <tr>
-  <td class="private_method">infer_current_menu_option_value()</td>
+  <td class="method">infer_current_menu_option_value()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_title_font()</td>
@@ -4725,6 +4725,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::LevelSelect&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/LevelSelect.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -16076,12 +16079,16 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">model_bin</td>
-  <td class="property">AllegroFlare::ModelBin*</td>
-</tr>
-<tr>
   <td class="property">level_select_element</td>
   <td class="property">AllegroFlare::Elements::LevelSelect</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::LevelSelectScreen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -16103,7 +16110,7 @@ table td
   <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
+  <td class="method">set_levels_list(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; levels_list={})</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -16119,6 +16126,12 @@ table td
 </tr>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">activate_selected_menu_option()</td>
+</tr>
+<tr>
+  <td class="method">infer_current_menu_option_value()</td>
 </tr>
 <tr>
   <td class="method">primary_timer_func()</td>
@@ -16166,6 +16179,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::LevelSelect&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/LevelSelect.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::LevelSelectScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/LevelSelectScreen.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23008,6 +23024,7 @@ table td
   ],
   "AllegroFlare/Logger": [
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
@@ -24746,6 +24763,9 @@ table td
   ],
   "AllegroFlare/Screens/InputDeviceConfiguration": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
+  ],
+  "AllegroFlare/Screens/LevelSelectScreen": [
+    "AllegroFlare/Screens/LevelSelectScreen"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",

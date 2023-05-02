@@ -5,6 +5,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Interpolators.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
@@ -82,6 +83,12 @@ void LevelSelect::set_num_columns(int num_columns)
 void LevelSelect::set_num_rows(int num_rows)
 {
    this->num_rows = num_rows;
+}
+
+
+std::vector<std::pair<std::string, std::string>> LevelSelect::get_levels_list() const
+{
+   return levels_list;
 }
 
 
@@ -404,10 +411,10 @@ void LevelSelect::activate_selected_menu_option()
    }
    if (list_is_empty())
    {
-      std::cout <<
-         "[AllegroFlare::Screens::LevelSelect::activate_selected_menu_option()] error: can not select a level, "
-         "the list of levels is empty."
-         << std::endl;
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
+         "can not select a level, the list of levels is empty."
+      );
       return;
    }
 
@@ -415,9 +422,10 @@ void LevelSelect::activate_selected_menu_option()
 
    if (current_menu_option_value.empty())
    {
-      std::cout <<
-         "[AllegroFlare::Screens::LevelSelect::activate_selected_menu_option()] error: can not select the currently "
-         "highlighted option, it is empty." << std::endl;
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
+         "can not select the currently highlighted option, it is empty."
+      );
       return;
    }
    else
@@ -434,6 +442,7 @@ void LevelSelect::activate_selected_menu_option()
 
 std::string LevelSelect::infer_current_menu_option_value()
 {
+   // TODO: Add test for this function
    if (levels_list.empty()) return "";
    int cursor_position = cursor_y * num_columns + cursor_x;
 
