@@ -45,6 +45,8 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , copyright_font_size(copyright_font_size)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
+   , on_finished_callback_func()
+   , on_finished_callback_func_user_data(nullptr)
    , menu_options(build_default_menu_options())
    , title_position_x(1920 / 2)
    , title_position_y((1080 / 24 * 9))
@@ -213,6 +215,18 @@ void TitleScreen::set_on_menu_choice_callback_func(std::function<void(AllegroFla
 void TitleScreen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
 {
    this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
+}
+
+
+void TitleScreen::set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> on_finished_callback_func)
+{
+   this->on_finished_callback_func = on_finished_callback_func;
+}
+
+
+void TitleScreen::set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data)
+{
+   this->on_finished_callback_func_user_data = on_finished_callback_func_user_data;
 }
 
 
@@ -402,6 +416,18 @@ void* TitleScreen::get_on_menu_choice_callback_func_user_data() const
 }
 
 
+std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> TitleScreen::get_on_finished_callback_func() const
+{
+   return on_finished_callback_func;
+}
+
+
+void* TitleScreen::get_on_finished_callback_func_user_data() const
+{
+   return on_finished_callback_func_user_data;
+}
+
+
 std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options() const
 {
    return menu_options;
@@ -478,6 +504,8 @@ void TitleScreen::TODO()
 {
    // There is some confusing naming between "selected", "chosen", etc.  Selected seems to signify
    // either "highlighted" or "chosen" depending on the casses.
+   // Setup the "on_finished", indicating the title screen has "timed out" and may want to loop back around
+     // to logos or something
    return;
 }
 
