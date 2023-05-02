@@ -157,7 +157,6 @@ functions:
   - name: activate_selected_menu_option
     guards: [ initialized ]
     body: |
-      // DEBUG:
       level_select_element.activate_selected_menu_option();
       return;
 

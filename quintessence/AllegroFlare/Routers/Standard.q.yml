@@ -16,7 +16,7 @@ properties:
     getter: true
     setter: true
 
-  - name: load_level_event_handler
+  - name: load_level_handler
     type: std::function<void(AllegroFlare::RouteEventDatas::Base*)>
     init_with: 0
     constructor_arg: true
@@ -340,8 +340,8 @@ functions:
             // TODO: Finish the actions in this event
             // TODO: Consider Validating an active session
             // TODO: Consider alternative to route_event_data that includes some "level to load" info
-            // TODO: Consider boolean result for "load_level_event_handler", return to title screen if false is returned
-            if (load_level_event_handler) load_level_event_handler(route_event_data);
+            // TODO: Consider boolean result for "load_level_handler", return to title screen if false is returned
+            if (load_level_handler) load_level_handler(route_event_data);
 
             emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
          }},

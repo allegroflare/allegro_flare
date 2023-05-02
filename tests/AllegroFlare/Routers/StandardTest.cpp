@@ -82,7 +82,7 @@ public:
       al_destroy_event_queue(event_queue);
       al_uninstall_system();
    }
-   static void my_load_level_event_handler(AllegroFlare::RouteEventDatas::Base *route_event_data)
+   static void my_load_level_handler(AllegroFlare::RouteEventDatas::Base *route_event_data)
    {
       RouteEventDataTestClass *my_route_event_data = static_cast<RouteEventDataTestClass*>(route_event_data);
       my_route_event_data->function_call_count++;
@@ -238,10 +238,10 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_START_LEVEL_event__when_a_load_level_event_handler_is_present__will_call_the_handler)
+   on_route_event__with_an_EVENT_START_LEVEL_event__when_a_load_level_handler_is_present__will_call_the_handler)
 {
    // TODO: Assess this function call
-   router.set_load_level_event_handler(my_load_level_event_handler);
+   router.set_load_level_handler(my_load_level_handler);
    RouteEventDataTestClass route_event_data;
    // TODO: Validate session
    // router.get_game_session_ref().start_session();

@@ -15,10 +15,10 @@ namespace Routers
 {
 
 
-Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_event_handler)
+Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_handler)
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
    , event_emitter(event_emitter)
-   , load_level_event_handler(load_level_event_handler)
+   , load_level_handler(load_level_handler)
    , game_session()
 {
 }
@@ -35,9 +35,9 @@ void Standard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
-void Standard::set_load_level_event_handler(std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_event_handler)
+void Standard::set_load_level_handler(std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_handler)
 {
-   this->load_level_event_handler = load_level_event_handler;
+   this->load_level_handler = load_level_handler;
 }
 
 
@@ -47,9 +47,9 @@ AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 }
 
 
-std::function<void(AllegroFlare::RouteEventDatas::Base*)> Standard::get_load_level_event_handler() const
+std::function<void(AllegroFlare::RouteEventDatas::Base*)> Standard::get_load_level_handler() const
 {
-   return load_level_event_handler;
+   return load_level_handler;
 }
 
 
@@ -208,8 +208,8 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: Finish the actions in this event
          // TODO: Consider Validating an active session
          // TODO: Consider alternative to route_event_data that includes some "level to load" info
-         // TODO: Consider boolean result for "load_level_event_handler", return to title screen if false is returned
-         if (load_level_event_handler) load_level_event_handler(route_event_data);
+         // TODO: Consider boolean result for "load_level_handler", return to title screen if false is returned
+         if (load_level_handler) load_level_handler(route_event_data);
 
          emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
       }},
