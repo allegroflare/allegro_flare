@@ -13,6 +13,7 @@ namespace AllegroFlare
    private:
       float started_at;
       float ended_at;
+      bool active;
       std::set<std::string> level_progress;
 
    protected:
@@ -25,6 +26,7 @@ namespace AllegroFlare
       void set_level_progress(std::set<std::string> level_progress);
       float get_started_at() const;
       float get_ended_at() const;
+      bool get_active() const;
       std::set<std::string> get_level_progress() const;
       void start_session(float started_at=al_get_time());
       void end_session(float ended_at=al_get_time());

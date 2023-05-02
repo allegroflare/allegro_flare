@@ -11,6 +11,11 @@ properties:
     init_with: 0.0f
     getter: true
 
+  - name: active
+    type: bool
+    init_with: false
+    getter: true
+
   - name: level_progress
     type: std::set<std::string>
     init_with: '{}'
@@ -27,8 +32,9 @@ functions:
         type: float
         default_argument: al_get_time()
         default_argument_dependency_symbols: [ al_get_time ]
-    guards: [ (!is_active()) ]
+    guards: [ (!active) ]
     body: |
+      active = true;
       this->started_at = started_at;
       return;
 
@@ -39,8 +45,9 @@ functions:
         type: float
         default_argument: al_get_time()
         default_argument_dependency_symbols: [ al_get_time ]
-    guards: [ is_active() ]
+    guards: [ active ]
     body: |
+      active = false;
       this->ended_at = ended_at;
       return;
 
@@ -48,7 +55,7 @@ functions:
   - name: is_active
     type: bool
     body: |
-      return started_at != 0.0f && ended_at == 0.0f;
+      return active;
 
 
   - name: mark_level_as_finished

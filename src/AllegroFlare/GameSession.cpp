@@ -14,6 +14,7 @@ namespace AllegroFlare
 GameSession::GameSession()
    : started_at(0.0f)
    , ended_at(0.0f)
+   , active(false)
    , level_progress({})
 {
 }
@@ -42,6 +43,12 @@ float GameSession::get_ended_at() const
 }
 
 
+bool GameSession::get_active() const
+{
+   return active;
+}
+
+
 std::set<std::string> GameSession::get_level_progress() const
 {
    return level_progress;
@@ -50,33 +57,35 @@ std::set<std::string> GameSession::get_level_progress() const
 
 void GameSession::start_session(float started_at)
 {
-   if (!((!is_active())))
+   if (!((!active)))
    {
       std::stringstream error_message;
-      error_message << "[GameSession::start_session]: error: guard \"(!is_active())\" not met.";
+      error_message << "[GameSession::start_session]: error: guard \"(!active)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameSession::start_session: error: guard \"(!is_active())\" not met");
+      throw std::runtime_error("GameSession::start_session: error: guard \"(!active)\" not met");
    }
+   active = true;
    this->started_at = started_at;
    return;
 }
 
 void GameSession::end_session(float ended_at)
 {
-   if (!(is_active()))
+   if (!(active))
    {
       std::stringstream error_message;
-      error_message << "[GameSession::end_session]: error: guard \"is_active()\" not met.";
+      error_message << "[GameSession::end_session]: error: guard \"active\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameSession::end_session: error: guard \"is_active()\" not met");
+      throw std::runtime_error("GameSession::end_session: error: guard \"active\" not met");
    }
+   active = false;
    this->ended_at = ended_at;
    return;
 }
 
 bool GameSession::is_active()
 {
-   return started_at != 0.0f && ended_at == 0.0f;
+   return active;
 }
 
 void GameSession::mark_level_as_finished(std::string level_identifier)
