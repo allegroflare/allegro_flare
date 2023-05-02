@@ -348,7 +348,7 @@ AllegroFlare::Sound* AudioController::find_sound_effect_sound_object_by_identifi
    if (it == sound_effects.end())
    {
       std::cout
-         << AllegroFlare::TerminalColors::RED
+         << AllegroFlare::TerminalColors::YELLOW
          << "AudioController::find_sound_effect_sound_object_by_identifier() error: "
          << "unable to find element with identifier \""
          << identifier
