@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/LevelSelectScreen.hpp>
 
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -87,7 +88,6 @@ void LevelSelectScreen::set_model_bin(AllegroFlare::ModelBin* model_bin)
    }
    this->model_bin = model_bin;
    return;
-   return;
 }
 
 void LevelSelectScreen::initialize()
@@ -149,6 +149,10 @@ void LevelSelectScreen::initialize()
       throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"model_bin\" not met");
    }
    initialized = true;
+
+   level_select_element.set_event_emitter(event_emitter);
+   level_select_element.set_font_bin(font_bin);
+
    return;
 }
 
@@ -186,6 +190,7 @@ void LevelSelectScreen::update()
 
 void LevelSelectScreen::render()
 {
+   level_select_element.render();
    return;
 }
 
@@ -226,6 +231,17 @@ void LevelSelectScreen::virtual_control_button_down_func(AllegroFlare::Player* p
       throw std::runtime_error("LevelSelectScreen::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
    // TODO: this function
+   //if (!processing_user_input()) return;
+
+   //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
+   //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
+   //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
+      //|| virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
+      //)
+   //{
+      //select_menu_option();
+   //}
+
    return;
 }
 

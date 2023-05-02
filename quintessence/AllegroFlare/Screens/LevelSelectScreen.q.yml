@@ -90,7 +90,6 @@ functions:
     body: |
       this->model_bin = model_bin;
       return;
-      return;
 
 
   - name: initialize
@@ -105,6 +104,10 @@ functions:
       - model_bin
     body: |
       initialized = true;
+
+      level_select_element.set_event_emitter(event_emitter);
+      level_select_element.set_font_bin(font_bin);
+
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
@@ -136,6 +139,7 @@ functions:
 
   - name: render
     body: |
+      level_select_element.render();
       return;
 
 
@@ -190,7 +194,20 @@ functions:
     guards: [ initialized ]
     body: |
       // TODO: this function
+      //if (!processing_user_input()) return;
+
+      //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
+      //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
+      //if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
+         //|| virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
+         //)
+      //{
+         //select_menu_option();
+      //}
+
       return;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControllers::GenericController
 
 
   - name: virtual_control_axis_change_func
@@ -228,6 +245,8 @@ dependencies:
     headers: [ AllegroFlare/Player.hpp ]
   - symbol: AllegroFlare::VirtualControllers::Base
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::LevelSelect
     headers: [ AllegroFlare/Elements/LevelSelect.hpp ]
 
