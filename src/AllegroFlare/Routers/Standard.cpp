@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_map>
 
 
 namespace AllegroFlare
@@ -71,6 +72,52 @@ void Standard::emit_route_event(uint32_t route_event, AllegroFlare::RouteEventDa
    return;
 }
 
+std::string Standard::name_for_route_event(uint32_t route_event)
+{
+   static const std::unordered_map<uint32_t, std::string> event_names {
+      {EVENT_UNDEFINED, "EVENT_UNDEFINED"},
+      {EVENT_INITIALIZE, "EVENT_INITIALIZE"},
+      {EVENT_EXIT_GAME, "EVENT_EXIT_GAME"},
+      {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
+      {EVENT_CONTINUE_A_SAVED_GAME, "EVENT_CONTINUE_A_SAVED_GAME"},
+      {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
+      {EVENT_LOSE_GAME, "EVENT_LOSE_GAME"},
+      {EVENT_START_LEVEL, "EVENT_START_LEVEL"},
+      {EVENT_EXIT_TO_TITLE_SCREEN, "EVENT_EXIT_TO_TITLE_SCREEN"},
+      {EVENT_INTRO_LOGOS_SCREEN_FINISHED, "EVENT_INTRO_LOGOS_SCREEN_FINISHED"},
+      {EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_INTRO_STORYBOARD_SCREEN_FINISHED"},
+      {EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED"},
+      {EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, "EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED"},
+      {EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED"},
+      {EVENT_CREDITS_SCREEN_FINISHED, "EVENT_CREDITS_SCREEN_FINISHED"},
+      {EVENT_TITLE_SCREEN_FINISHED, "EVENT_TITLE_SCREEN_FINISHED"},
+      {EVENT_ACTIVATE_INTRO_LOGOS_SCREEN, "EVENT_ACTIVATE_INTRO_LOGOS_SCREEN"},
+      {EVENT_ACTIVATE_INTRO_STORYBOARD_SCREEN, "EVENT_ACTIVATE_INTRO_STORYBOARD_SCREEN"},
+      {EVENT_ACTIVATE_TITLE_SCREEN, "EVENT_ACTIVATE_TITLE_SCREEN"},
+      {EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN, "EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN"},
+      {EVENT_ACTIVATE_SETTINGS_SCREEN, "EVENT_ACTIVATE_SETTINGS_SCREEN"},
+      {EVENT_ACTIVATE_VERSION_SCREEN, "EVENT_ACTIVATE_VERSION_SCREEN"},
+      {EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN, "EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN"},
+      {EVENT_ACTIVATE_LEVEL_SELECT_SCREEN, "EVENT_ACTIVATE_LEVEL_SELECT_SCREEN"},
+      {EVENT_ACTIVATE_GAME_OVER_SCREEN, "EVENT_ACTIVATE_GAME_OVER_SCREEN"},
+      {EVENT_ACTIVATE_GAME_WON_SCREEN, "EVENT_ACTIVATE_GAME_WON_SCREEN"},
+      {EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN, "EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN"},
+      {EVENT_ACTIVATE_CREDITS_SCREEN, "EVENT_ACTIVATE_CREDITS_SCREEN"},
+      {EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, "EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN"}
+   };
+
+   auto it = event_names.find(route_event);
+
+   if (it == event_names.end())
+   {
+      return "UNKNOWN_EVENT";
+   }
+   else
+   {
+      return it->second;
+   }
+}
+
 void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventDatas::Base* route_event_data, float time_now)
 {
    if (!((route_event != EVENT_UNDEFINED)))
@@ -87,7 +134,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::on_route_event: error: guard \"event_emitter\" not met");
    }
-   std::cout << "Route Event: " << route_event << std::endl;
+   std::cout << "Route Event: " << name_for_route_event(route_event) << "(" << route_event << ")" << std::endl;
 
    std::map<uint32_t, std::function<void()>> event_map = {
 
@@ -199,7 +246,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       // Screens finished events
 
       { EVENT_INTRO_LOGOS_SCREEN_FINISHED, [this](){
-         emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
+         emit_route_event(EVENT_ACTIVATE_INTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          emit_route_event(EVENT_ACTIVATE_TITLE_SCREEN);

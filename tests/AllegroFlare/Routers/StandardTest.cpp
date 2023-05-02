@@ -69,7 +69,12 @@ public:
       ASSERT_EQ(true, al_peek_next_event(event_queue, &actual_event));
       ASSERT_EQ(true, ALLEGRO_EVENT_TYPE_IS_USER(actual_event.type));
       ASSERT_EQ(ALLEGRO_FLARE_EVENT_ROUTER, actual_event.type);
-      EXPECT_EQ(response_event, actual_event.user.data1);
+      std::string expected_response_event =
+         AllegroFlare::Routers::Standard::name_for_route_event(response_event);
+      std::string actual_response_event =
+         AllegroFlare::Routers::Standard::name_for_route_event(actual_event.user.data1);
+      EXPECT_EQ(response_event, actual_event.user.data1) << "Expected: " << expected_response_event << ", "
+                                                         << "Actual: " << actual_response_event;
    }
    virtual void TearDown() override
    {
@@ -296,7 +301,7 @@ EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN_route_event)
    router.get_game_session_ref().start_session();
    TEST_EXPECTED_ROUTE_EVENT(
       AllegroFlare::Routers::Standard::EVENT_INTRO_LOGOS_SCREEN_FINISHED,
-      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_INTRO_STORYBOARD_SCREEN
    );
 }
 

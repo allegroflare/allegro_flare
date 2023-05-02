@@ -7,6 +7,7 @@
 #include <AllegroFlare/Routers/Base.hpp>
 #include <cstdint>
 #include <functional>
+#include <string>
 
 
 namespace AllegroFlare
@@ -83,6 +84,7 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::RouteEventDatas::Base*)> get_load_level_event_handler() const;
          AllegroFlare::GameSession &get_game_session_ref();
          void emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
+         static std::string name_for_route_event(uint32_t route_event=0);
          virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f) override;
       };
    }
