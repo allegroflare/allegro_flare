@@ -89,28 +89,35 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   select_menu_option__without_an_event_emitter__will_raise_an_exception)
+   DISABLED__select_menu_option__without_an_event_emitter__will_raise_an_exception)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   select_menu_option__with_an_unrecognized_value_on_the_menu_option__will_raise_an_exception)
+   DISABLED__select_menu_option__with_an_unrecognized_value_on_the_menu_option__will_raise_an_exception)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   select_menu_option__will_emit_an_event_for_the_current_selected_menu_options)
+   DISABLED__select_menu_option__will_emit_an_event_for_the_current_selected_menu_options)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
-   on_activate__will_reset_the_cursor_to_the_top_of_the_menu)
+   DISABLED__on_activate__will_reset_the_cursor_to_the_top_of_the_menu)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
+   DISABLED__infer_current_menu_option_value__will_reset_the_cursor_to_the_top_of_the_menu)
 {
    // TODO
 }

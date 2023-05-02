@@ -761,7 +761,6 @@ functions:
 
 
   - name: infer_current_menu_option_value
-    private: true
     type: std::string
     body: |
       if (menu_options.empty()) return "";
@@ -775,7 +774,6 @@ functions:
 
 
   - name: infer_current_menu_option_label
-    private: true
     type: std::string
     body: |
       if (menu_options.empty()) return "";
