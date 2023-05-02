@@ -534,6 +534,7 @@ functions:
       - name: menu_option_name
         type: std::string
         default_argument: '"[unset-menu-option-name]"'
+    guards: [ event_emitter ]
     body: |
       event_emitter->emit_game_event(menu_option_name);
       // TODO: Test this callback
@@ -788,12 +789,14 @@ functions:
 
 
   - name: play_menu_move_sound_effect
+    guards: [ event_emitter ]
     body: |
       event_emitter->emit_play_sound_effect_event(menu_move_sound_effect_identifier);
       return;
 
 
   - name: play_menu_select_option_sound_effect
+    guards: [ event_emitter ]
     body: |
       event_emitter->emit_play_sound_effect_event(menu_select_option_sound_effect_identifier);
       return;

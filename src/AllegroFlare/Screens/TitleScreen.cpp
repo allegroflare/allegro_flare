@@ -682,6 +682,13 @@ void TitleScreen::move_cursor_down()
 
 void TitleScreen::activate_menu_option(std::string menu_option_name)
 {
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::activate_menu_option]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::activate_menu_option: error: guard \"event_emitter\" not met");
+   }
    event_emitter->emit_game_event(menu_option_name);
    // TODO: Test this callback
    if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
@@ -939,12 +946,26 @@ std::string TitleScreen::infer_current_menu_option_label()
 
 void TitleScreen::play_menu_move_sound_effect()
 {
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::play_menu_move_sound_effect]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::play_menu_move_sound_effect: error: guard \"event_emitter\" not met");
+   }
    event_emitter->emit_play_sound_effect_event(menu_move_sound_effect_identifier);
    return;
 }
 
 void TitleScreen::play_menu_select_option_sound_effect()
 {
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::play_menu_select_option_sound_effect]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::play_menu_select_option_sound_effect: error: guard \"event_emitter\" not met");
+   }
    event_emitter->emit_play_sound_effect_event(menu_select_option_sound_effect_identifier);
    return;
 }

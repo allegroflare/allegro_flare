@@ -134,7 +134,10 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Standard::on_route_event: error: guard \"event_emitter\" not met");
    }
-   std::cout << "Route Event: " << name_for_route_event(route_event) << "(" << route_event << ")" << std::endl;
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::Routers::Standard::on_route_event",
+      "Route Event: " + name_for_route_event(route_event) + " (" + std::to_string(route_event) + ")"
+   );
 
    std::map<uint32_t, std::function<void()>> event_map = {
 
