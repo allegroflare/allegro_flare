@@ -4588,6 +4588,14 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::LevelSelect*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">place</td>
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
@@ -4713,6 +4721,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::LevelSelect&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/LevelSelect.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23496,6 +23507,9 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
+    "AllegroFlare/Elements/LevelSelect"
+  ],
+  "AllegroFlare/Elements/LevelSelect": [
     "AllegroFlare/Elements/LevelSelect"
   ],
   "AllegroFlare/Elements/Notifications/Base": [

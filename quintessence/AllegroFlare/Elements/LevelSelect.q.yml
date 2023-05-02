@@ -19,6 +19,18 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: on_menu_choice_callback_func
+    type: std::function<void(AllegroFlare::Elements::LevelSelect*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_menu_choice_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: place
     type: AllegroFlare::Placement2D
     init_with: '{ 1920/2, 1080/2, 1300, 700 }'
@@ -361,6 +373,9 @@ functions:
       {
          std::string *string_to_pass = new std::string(current_menu_option_value);
          event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SELECT_LEVEL, (intptr_t)string_to_pass);
+
+         // TODO: Test this callback
+         if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
       }
 
       return;
@@ -431,5 +446,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Elements::LevelSelect
+    headers: [ AllegroFlare/Elements/LevelSelect.hpp ]
 
 

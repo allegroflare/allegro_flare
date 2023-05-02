@@ -1163,6 +1163,9 @@
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],
+  "AllegroFlare/Elements/LevelSelect": [
+    "AllegroFlare/Elements/LevelSelect"
+  ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderer",

@@ -1,11 +1,13 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/LevelSelect.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <functional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -21,6 +23,8 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          std::vector<std::pair<std::string, std::string>> levels_list;
+         std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func;
+         void* on_menu_choice_callback_func_user_data;
          AllegroFlare::Placement2D place;
          int cursor_x;
          int cursor_y;
@@ -54,8 +58,12 @@ namespace AllegroFlare
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_levels_list(std::vector<std::pair<std::string, std::string>> levels_list);
+         void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func);
+         void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
          void set_num_columns(int num_columns);
          void set_num_rows(int num_rows);
+         std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> get_on_menu_choice_callback_func() const;
+         void* get_on_menu_choice_callback_func_user_data() const;
          AllegroFlare::Placement2D get_place() const;
          int get_cursor_x() const;
          int get_cursor_y() const;

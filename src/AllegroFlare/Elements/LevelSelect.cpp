@@ -23,6 +23,8 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    : event_emitter(event_emitter)
    , font_bin(font_bin)
    , levels_list(levels_list)
+   , on_menu_choice_callback_func()
+   , on_menu_choice_callback_func_user_data(nullptr)
    , place({ 1920/2, 1080/2, 1300, 700 })
    , cursor_x(0)
    , cursor_y(0)
@@ -59,6 +61,18 @@ void LevelSelect::set_levels_list(std::vector<std::pair<std::string, std::string
 }
 
 
+void LevelSelect::set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func)
+{
+   this->on_menu_choice_callback_func = on_menu_choice_callback_func;
+}
+
+
+void LevelSelect::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
+{
+   this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
+}
+
+
 void LevelSelect::set_num_columns(int num_columns)
 {
    this->num_columns = num_columns;
@@ -68,6 +82,18 @@ void LevelSelect::set_num_columns(int num_columns)
 void LevelSelect::set_num_rows(int num_rows)
 {
    this->num_rows = num_rows;
+}
+
+
+std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> LevelSelect::get_on_menu_choice_callback_func() const
+{
+   return on_menu_choice_callback_func;
+}
+
+
+void* LevelSelect::get_on_menu_choice_callback_func_user_data() const
+{
+   return on_menu_choice_callback_func_user_data;
 }
 
 
@@ -398,6 +424,9 @@ void LevelSelect::activate_selected_menu_option()
    {
       std::string *string_to_pass = new std::string(current_menu_option_value);
       event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SELECT_LEVEL, (intptr_t)string_to_pass);
+
+      // TODO: Test this callback
+      if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
    }
 
    return;
