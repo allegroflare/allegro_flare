@@ -15,7 +15,7 @@ namespace Routers
 {
 
 
-Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_handler)
+Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool(AllegroFlare::RouteEventDatas::Base*)> load_level_handler)
    : AllegroFlare::Routers::Base(AllegroFlare::Routers::Standard::TYPE)
    , event_emitter(event_emitter)
    , load_level_handler(load_level_handler)
@@ -35,7 +35,7 @@ void Standard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
-void Standard::set_load_level_handler(std::function<void(AllegroFlare::RouteEventDatas::Base*)> load_level_handler)
+void Standard::set_load_level_handler(std::function<bool(AllegroFlare::RouteEventDatas::Base*)> load_level_handler)
 {
    this->load_level_handler = load_level_handler;
 }
@@ -47,7 +47,7 @@ AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 }
 
 
-std::function<void(AllegroFlare::RouteEventDatas::Base*)> Standard::get_load_level_handler() const
+std::function<bool(AllegroFlare::RouteEventDatas::Base*)> Standard::get_load_level_handler() const
 {
    return load_level_handler;
 }
@@ -209,9 +209,31 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: Consider Validating an active session
          // TODO: Consider alternative to route_event_data that includes some "level to load" info
          // TODO: Consider boolean result for "load_level_handler", return to title screen if false is returned
-         if (load_level_handler) load_level_handler(route_event_data);
-
-         emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
+         if (!load_level_handler)
+         {
+            AllegroFlare::Logger::warn_from(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "When handling EVENT_START_LEVEL, the load_level_handler was not preesnt. If this is expected "
+                 "behavior and you do not wish to see this warning, please code in a flag to inhibit this message."
+            );
+         }
+         else
+         {
+            bool level_load_was_successful = false;
+            level_load_was_successful = load_level_handler(route_event_data);
+            if (!level_load_was_successful)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "When handling EVENT_START_LEVEL, the level load was not successful (it returned false "
+                     "when called)."
+               );
+            }
+            else
+            {
+               emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
+            }
+         }
       }},
       //{ EVENT_PAUSE_GAME, [this](){
          // TODO: Finish the actions in this event

@@ -17,7 +17,7 @@ properties:
     setter: true
 
   - name: load_level_handler
-    type: std::function<void(AllegroFlare::RouteEventDatas::Base*)>
+    type: std::function<bool(AllegroFlare::RouteEventDatas::Base*)>
     init_with: 0
     constructor_arg: true
     getter: true
@@ -341,9 +341,31 @@ functions:
             // TODO: Consider Validating an active session
             // TODO: Consider alternative to route_event_data that includes some "level to load" info
             // TODO: Consider boolean result for "load_level_handler", return to title screen if false is returned
-            if (load_level_handler) load_level_handler(route_event_data);
-
-            emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
+            if (!load_level_handler)
+            {
+               AllegroFlare::Logger::warn_from(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "When handling EVENT_START_LEVEL, the load_level_handler was not preesnt. If this is expected "
+                    "behavior and you do not wish to see this warning, please code in a flag to inhibit this message."
+               );
+            }
+            else
+            {
+               bool level_load_was_successful = false;
+               level_load_was_successful = load_level_handler(route_event_data);
+               if (!level_load_was_successful)
+               {
+                  AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::Routers::Standard::on_route_event",
+                     "When handling EVENT_START_LEVEL, the level load was not successful (it returned false "
+                        "when called)."
+                  );
+               }
+               else
+               {
+                  emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
+               }
+            }
          }},
          //{ EVENT_PAUSE_GAME, [this](){
             // TODO: Finish the actions in this event

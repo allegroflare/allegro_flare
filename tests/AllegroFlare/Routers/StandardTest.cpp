@@ -82,10 +82,19 @@ public:
       al_destroy_event_queue(event_queue);
       al_uninstall_system();
    }
-   static void my_load_level_handler(AllegroFlare::RouteEventDatas::Base *route_event_data)
+   static bool my_load_level_handler(AllegroFlare::RouteEventDatas::Base *route_event_data)
    {
       RouteEventDataTestClass *my_route_event_data = static_cast<RouteEventDataTestClass*>(route_event_data);
       my_route_event_data->function_call_count++;
+      return true;
+   }
+   static bool my_load_level_handler_that_returns_true(AllegroFlare::RouteEventDatas::Base *route_event_data)
+   {
+      return true;
+   }
+   static bool my_load_level_handler_that_returns_false(AllegroFlare::RouteEventDatas::Base *route_event_data)
+   {
+      return false;
    }
 };
 
@@ -227,9 +236,25 @@ EVENT_ACTIVATE_GAME_OVER_SCREEN_route_event)
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_START_LEVEL_event__will_emit_an_EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN_route_event)
+   DISABLED__on_route_event__with_an_EVENT_START_LEVEL_event__if_the_load_level_handler_returns_false__will_not_emit_\
+an_EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN_route_event)
+{
+   // TODO: This test
+   //router.get_game_session_ref().start_session();
+   //router.set_load_level_handler(my_load_level_handler_that_returns_false);
+   //TEST_EXPECTED_ROUTE_EVENT(
+      //AllegroFlare::Routers::Standard::EVENT_START_LEVEL,
+      //AllegroFlare::Routers::Standard::EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN
+   //);
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_START_LEVEL_event__if_the_load_level_handler_returns_true__will_emit_an_\
+EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN_route_event)
 {
    router.get_game_session_ref().start_session();
+   router.set_load_level_handler(my_load_level_handler_that_returns_true);
    TEST_EXPECTED_ROUTE_EVENT(
       AllegroFlare::Routers::Standard::EVENT_START_LEVEL,
       AllegroFlare::Routers::Standard::EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN
