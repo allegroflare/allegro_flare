@@ -15,7 +15,7 @@ namespace Screens
 {
 
 
-InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::size_t surface_width, std::size_t surface_height, AllegroFlare::InputDevicesList* input_devices_list, AllegroFlare::Elements::Backgrounds::Base* background)
+InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::size_t surface_width, std::size_t surface_height, AllegroFlare::InputDevicesList* input_devices_list)
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::InputDeviceConfiguration::TYPE)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
@@ -27,7 +27,7 @@ InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* e
    , input_devices_list(input_devices_list)
    , input_devices_list_element()
    , input_device_configuration_element()
-   , background(background)
+   , background(nullptr)
    , initialized(false)
 {
 }

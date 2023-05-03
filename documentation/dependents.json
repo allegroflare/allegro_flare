@@ -880,6 +880,7 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen"
   ],
   "sin": [

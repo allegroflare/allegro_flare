@@ -45,7 +45,7 @@ namespace AllegroFlare
 
 
       public:
-         InputDeviceConfiguration(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::size_t surface_width=1920, std::size_t surface_height=1090, AllegroFlare::InputDevicesList* input_devices_list=nullptr, AllegroFlare::Elements::Backgrounds::Base* background=nullptr);
+         InputDeviceConfiguration(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::size_t surface_width=1920, std::size_t surface_height=1090, AllegroFlare::InputDevicesList* input_devices_list=nullptr);
          virtual ~InputDeviceConfiguration();
 
          void set_surface_width(std::size_t surface_width);
