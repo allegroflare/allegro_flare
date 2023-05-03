@@ -69,6 +69,13 @@ properties:
     init_with: ''
     getter_ref: true
 
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+    getter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -163,6 +170,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
+      if (background) background->activate();
       //emit_event_to_update_input_hints_bar();
       //emit_show_and_size_input_hints_bar_event();
       return;
@@ -173,6 +181,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
+      if (background) background->deactivate();
       //emit_hide_and_restore_size_input_hints_bar_event();
       return;
 
@@ -194,7 +203,9 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
+      if (background) background->update();
       update();
+      if (background) background->render();
       render();
       return;
 
@@ -314,5 +325,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/InputDevicesList.hpp ]
   - symbol: AllegroFlare::Screens::InputDeviceConfiguration
     headers: [ AllegroFlare/Screens/InputDeviceConfiguration.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 
