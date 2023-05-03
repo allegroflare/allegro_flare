@@ -65,6 +65,8 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
+   , menu_option_chosen(false)
+   , menu_option_chosen_at(0.0f)
 {
 }
 
@@ -537,6 +539,8 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
          cursor_position = 0;
          showing_menu = false;
          showing_copyright = false;
+         menu_option_chosen = false;
+         menu_option_chosen_at = 0.0f;
       break;
 
       case STATE_AWAITING_USER_INPUT:
@@ -544,6 +548,8 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
       break;
 
       case STATE_CHOSE_MENU_OPTION:
+         menu_option_chosen = true;
+         menu_option_chosen_at = al_get_time();
       break;
 
       default:
@@ -836,10 +842,30 @@ void TitleScreen::draw_copyright_text()
       copyright_text_color,
       surface_width/2,
       surface_height - 80 - (int)(number_of_lines * line_height / 2),
-      surface_width,
+      surface_width * 2,
       line_height,
       ALLEGRO_ALIGN_CENTER,
       get_copyright_text().c_str()
+   );
+   return;
+}
+
+void TitleScreen::draw_selection_box(float x, float y, float width, float height, ALLEGRO_COLOR box_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at)
+{
+   float h_box_width = width * 0.5;
+   float h_box_height = height * 0.5;
+
+   // draw the fill
+   al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, box_color);
+
+   // draw the outline (which is invisible by default)
+   al_draw_rectangle(
+      x-h_box_width,
+      y-h_box_height,
+      x+h_box_width,
+      y+h_box_height,
+      outline_color,
+      outline_stroke_thickness
    );
    return;
 }
@@ -889,18 +915,13 @@ void TitleScreen::draw_menu()
       {
          float box_width = longest_menu_option_text_width + 148;
          float box_height = al_get_font_line_height(menu_font) + 6;
-         float h_box_width = box_width * 0.5;
-         float h_box_height = box_height * 0.5;
 
-         // draw the fill
-         al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
-
-         // draw the outline (which is invisible by default)
-         al_draw_rectangle(
-            x-h_box_width,
-            y-h_box_height,
-            x+h_box_width,
-            y+h_box_height,
+         draw_selection_box(
+            x,
+            y,
+            box_width,
+            box_height,
+            menu_selector_color,
             menu_selector_outline_color,
             menu_selector_outline_stroke_thickness
          );

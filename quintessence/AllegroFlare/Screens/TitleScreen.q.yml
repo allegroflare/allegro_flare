@@ -141,14 +141,14 @@ properties:
 
   - name: title_font_size
     type: int
-    init_with: -90
+    init_with: -80
     constructor_arg: true
     getter: true
     setter: true
 
   - name: menu_font_size
     type: int
-    init_with: -48
+    init_with: -42
     constructor_arg: true
     getter: true
     setter: true
@@ -278,6 +278,14 @@ properties:
     type: float
     init_with: 0.0f
 
+  - name: menu_option_chosen
+    type: bool
+    init_with: false
+
+  - name: menu_option_chosen_at
+    type: float
+    init_with: 0.0f
+
   - name: STATE_UNDEF
     type: uint32_t
     init_with: 0
@@ -352,6 +360,8 @@ functions:
             cursor_position = 0;
             showing_menu = false;
             showing_copyright = false;
+            menu_option_chosen = false;
+            menu_option_chosen_at = 0.0f;
          break;
 
          case STATE_AWAITING_USER_INPUT:
@@ -359,6 +369,8 @@ functions:
          break;
 
          case STATE_CHOSE_MENU_OPTION:
+            menu_option_chosen = true;
+            menu_option_chosen_at = al_get_time();
          break;
 
          default:
@@ -678,10 +690,59 @@ functions:
          copyright_text_color,
          surface_width/2,
          surface_height - 80 - (int)(number_of_lines * line_height / 2),
-         surface_width,
+         surface_width * 2,
          line_height,
          ALLEGRO_ALIGN_CENTER,
          get_copyright_text().c_str()
+      );
+      return;
+
+
+  - name: draw_selection_box
+    static: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 1.0f
+      - name: height
+        type: float
+        default_argument: 1.0f
+      - name: box_color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+      - name: outline_color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+      - name: outline_stroke_thickness
+        type: float
+        default_argument: 1.0f
+      - name: menu_option_chosen
+        type: bool
+        default_argument: false
+      - name: menu_option_chosen_at
+        type: float
+        default_argument: 0.0f
+    body: |
+      float h_box_width = width * 0.5;
+      float h_box_height = height * 0.5;
+
+      // draw the fill
+      al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, box_color);
+
+      // draw the outline (which is invisible by default)
+      al_draw_rectangle(
+         x-h_box_width,
+         y-h_box_height,
+         x+h_box_width,
+         y+h_box_height,
+         outline_color,
+         outline_stroke_thickness
       );
       return;
 
@@ -725,18 +786,13 @@ functions:
          {
             float box_width = longest_menu_option_text_width + 148;
             float box_height = al_get_font_line_height(menu_font) + 6;
-            float h_box_width = box_width * 0.5;
-            float h_box_height = box_height * 0.5;
 
-            // draw the fill
-            al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, menu_selector_color);
-
-            // draw the outline (which is invisible by default)
-            al_draw_rectangle(
-               x-h_box_width,
-               y-h_box_height,
-               x+h_box_width,
-               y+h_box_height,
+            draw_selection_box(
+               x,
+               y,
+               box_width,
+               box_height,
+               menu_selector_color,
                menu_selector_outline_color,
                menu_selector_outline_stroke_thickness
             );
