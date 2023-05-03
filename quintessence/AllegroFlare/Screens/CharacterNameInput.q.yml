@@ -97,6 +97,7 @@ functions:
     guards: [ initialized ]
     body: |
       if (background) background->update();
+      if (background) background->render();
       render();
       return;
 
@@ -267,7 +268,6 @@ functions:
   - name: render
     guards: [ initialized ]
     body: |
-      if (background) background->render();
       software_keyboard.render();
       return;
 
