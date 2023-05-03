@@ -21,6 +21,26 @@ functions:
       return time_now_in_range / length;
 
 
+  - name: strobe
+    static: true
+    type: bool
+    parameters:
+      - name: start_time
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+      - name: strobe_frequency
+        type: float
+        default_argument: 0.2f
+    body: |
+      float age = (time_now - start_time);
+      return (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
+    body_dependency_symbols:
+      - fmod
+
+
   - name: age
     static: true
     type: float
@@ -51,5 +71,11 @@ functions:
     body: |
       return start_value + (normalized_float * (end_value - start_value));
 
+
+dependencies:
+
+
+  - symbol: fmod
+    headers: [ cmath ]
 
 

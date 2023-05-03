@@ -170,6 +170,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MotionComposer/TrackView.q.yml">quintessence/AllegroFlare/MotionComposer/TrackView.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MotionKit.q.yml">quintessence/AllegroFlare/MotionKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml">quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/Stamp.q.yml">quintessence/AllegroFlare/MusicMesh/Stamp.q.yml</a></li>
@@ -8491,6 +8492,32 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/MotionKit.q.yml">quintessence/AllegroFlare/MotionKit.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">normalize_age(float start_time=0.0f, float end_time=0.0f, float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">strobe(float start_time=0.0f, float time_now=0.0f, float strobe_frequency=0.2f)</td>
+</tr>
+<tr>
+  <td class="method">age(float start_time=0.0f, float end_time=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">interpolate(float start_value=0.0f, float end_value=0.0f, float normalized_float=0.0f)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23380,6 +23407,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/MotionKit",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"

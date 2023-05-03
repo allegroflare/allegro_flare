@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/MotionKit.hpp>
 
-
+#include <cmath>
 
 
 namespace AllegroFlare
@@ -25,6 +25,12 @@ float MotionKit::normalize_age(float start_time, float end_time, float time_now)
    float time_now_in_range = time_now - start_time;
    if (length == 0.0f) return 0.0f;
    return time_now_in_range / length;
+}
+
+bool MotionKit::strobe(float start_time, float time_now, float strobe_frequency)
+{
+   float age = (time_now - start_time);
+   return (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
 }
 
 float MotionKit::age(float start_time, float end_time)
