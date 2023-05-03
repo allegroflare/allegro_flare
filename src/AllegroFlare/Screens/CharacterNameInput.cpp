@@ -14,11 +14,12 @@ namespace Screens
 {
 
 
-CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard)
+CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard, AllegroFlare::Elements::Backgrounds::Base* background)
    : AllegroFlare::Screens::Base("CharacterNameInput")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , software_keyboard(software_keyboard)
+   , background(background)
    , mode(MODE_USING_VIRTUAL_CONTROLS)
    , initialized(false)
 {
@@ -39,6 +40,18 @@ void CharacterNameInput::set_event_emitter(AllegroFlare::EventEmitter* event_emi
 void CharacterNameInput::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+}
+
+
+void CharacterNameInput::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
+{
+   this->background = background;
+}
+
+
+AllegroFlare::Elements::Backgrounds::Base* CharacterNameInput::get_background() const
+{
+   return background;
 }
 
 
@@ -86,7 +99,21 @@ void CharacterNameInput::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterNameInput::on_activate: error: guard \"initialized\" not met");
    }
+   if (background) background->activate();
    software_keyboard.reset();
+   return;
+}
+
+void CharacterNameInput::on_deactivate()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterNameInput::on_deactivate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterNameInput::on_deactivate: error: guard \"initialized\" not met");
+   }
+   if (background) background->deactivate();
    return;
 }
 
@@ -99,6 +126,7 @@ void CharacterNameInput::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterNameInput::primary_timer_func: error: guard \"initialized\" not met");
    }
+   if (background) background->update();
    render();
    return;
 }
@@ -257,6 +285,7 @@ void CharacterNameInput::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterNameInput::render: error: guard \"initialized\" not met");
    }
+   if (background) background->render();
    software_keyboard.render();
    return;
 }

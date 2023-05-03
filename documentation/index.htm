@@ -15508,6 +15508,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -15615,6 +15619,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Achievements&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Achievements.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -15633,6 +15640,10 @@ table td
 <tr>
   <td class="property">software_keyboard</td>
   <td class="property">AllegroFlare::SoftwareKeyboard::SoftwareKeyboard</td>
+</tr>
+<tr>
+  <td class="property">background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
 <tr>
   <td class="property">mode</td>
@@ -15657,6 +15668,9 @@ table td
 </tr>
 <tr>
   <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
 </tr>
 <tr>
   <td class="method">primary_timer_func()</td>
@@ -15716,6 +15730,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23453,6 +23470,8 @@ table td
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen"

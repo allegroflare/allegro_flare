@@ -876,6 +876,8 @@
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen"
