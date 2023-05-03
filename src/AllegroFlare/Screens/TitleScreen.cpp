@@ -861,10 +861,14 @@ void TitleScreen::draw_cursor_box(float x, float y, float width, float height, A
    if (menu_option_chosen)
    {
       float selection_animation_length = 1.0;
-      bool strobe_on = false;
+      float selection_strobes_per_second = 14.0f;
 
       float menu_option_chosen_at_age = AllegroFlare::MotionKit::age(menu_option_chosen_at, time_now);
-      if (fmod(menu_option_chosen_at_age, 0.2) < 0.1) strobe_on = true;
+      bool strobe_on = AllegroFlare::MotionKit::strobe(
+         menu_option_chosen_at,
+         time_now,
+         selection_strobes_per_second
+      );
 
       float menu_option_chosen_at_normalized_age = AllegroFlare::MotionKit::normalize_age(
          menu_option_chosen_at,
@@ -872,8 +876,8 @@ void TitleScreen::draw_cursor_box(float x, float y, float width, float height, A
          time_now
       );
       ALLEGRO_COLOR cursor_color_a = AllegroFlare::ColorKit::fade(result_fill_color, 1.0);
-      ALLEGRO_COLOR cursor_color_b = AllegroFlare::ColorKit::fade(result_fill_color, 0.7);
-      ALLEGRO_COLOR cursor_animation_at_rest_color = AllegroFlare::ColorKit::fade(result_fill_color, 0.3);
+      ALLEGRO_COLOR cursor_color_b = AllegroFlare::ColorKit::fade(result_fill_color, 0.5);
+      ALLEGRO_COLOR cursor_animation_at_rest_color = AllegroFlare::ColorKit::fade(result_fill_color, 0.2);
 
       ALLEGRO_COLOR strobing_color = AllegroFlare::ColorKit::mix(
          cursor_color_a,
@@ -942,7 +946,7 @@ void TitleScreen::draw_menu()
       std::string menu_item_text = std::get<0>(menu_option);
 
       ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
-         ? menu_selected_text_color : menu_text_color;
+         ? (menu_option_chosen ? menu_text_color : menu_selected_text_color) : menu_text_color;
 
       float x = menu_position_x;
       float y = menu_position_y + menu_item_vertical_spacing * menu_item_num;

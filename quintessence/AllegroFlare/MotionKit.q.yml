@@ -18,6 +18,7 @@ functions:
       float length = (end_time - start_time);
       float time_now_in_range = time_now - start_time;
       if (length == 0.0f) return 0.0f;
+      if (time_now_in_range >= length) return 1.0f;
       return time_now_in_range / length;
 
 
@@ -31,10 +32,11 @@ functions:
       - name: time_now
         type: float
         default_argument: 0.0f
-      - name: strobe_frequency
+      - name: strobes_per_second
         type: float
-        default_argument: 0.2f
+        default_argument: 10.0f
     body: |
+      float strobe_frequency = 1.0 / strobes_per_second;
       float age = (time_now - start_time);
       return (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
     body_dependency_symbols:
