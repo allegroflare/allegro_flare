@@ -25,7 +25,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR dialog_color;
          ALLEGRO_COLOR internal_dialog_color;
          ALLEGRO_FONT* obtain_font();
-         ALLEGRO_FONT* obtain_italic_font();
+         ALLEGRO_FONT* obtain_internal_dialog_font();
 
       protected:
 

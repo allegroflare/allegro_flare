@@ -59,7 +59,7 @@ functions:
       float y_offset = 0;
       float cursor_y = 0 + y_offset;
       ALLEGRO_FONT *text_font = obtain_font();
-      ALLEGRO_FONT *internal_dialog_font = obtain_italic_font();
+      ALLEGRO_FONT *internal_dialog_font = obtain_internal_dialog_font();
       for (auto &roll_item : roll)
       {
          std::string speaker = std::get<0>(roll_item);
@@ -119,7 +119,7 @@ functions:
       return font_bin->auto_get("Inter-Regular.ttf -48");
 
 
-  - name: obtain_italic_font
+  - name: obtain_internal_dialog_font
     private: true
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
