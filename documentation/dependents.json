@@ -955,7 +955,8 @@
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/Notifications/Base",
     "AllegroFlare/GameSession",
-    "AllegroFlare/PhysicalInputDevices/Base"
+    "AllegroFlare/PhysicalInputDevices/Base",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",

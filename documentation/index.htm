@@ -1252,6 +1252,9 @@ table td
 <tr>
   <td class="method">fade(ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float amount=1.0f)</td>
 </tr>
+<tr>
+  <td class="method">mix(ALLEGRO_COLOR c1=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR c2=ALLEGRO_COLOR{1, 1, 1, 1}, float scale=1.0f)</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -16966,7 +16969,7 @@ table td
   <td class="method">draw_copyright_text()</td>
 </tr>
 <tr>
-  <td class="method">draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f)</td>
+  <td class="method">draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f, float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="method">draw_menu()</td>
@@ -17012,6 +17015,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -23464,7 +23470,8 @@ table td
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/Notifications/Base",
     "AllegroFlare/GameSession",
-    "AllegroFlare/PhysicalInputDevices/Base"
+    "AllegroFlare/PhysicalInputDevices/Base",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",

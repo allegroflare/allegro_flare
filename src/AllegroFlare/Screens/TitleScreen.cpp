@@ -851,7 +851,7 @@ void TitleScreen::draw_copyright_text()
    return;
 }
 
-void TitleScreen::draw_cursor_box(float x, float y, float width, float height, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at)
+void TitleScreen::draw_cursor_box(float x, float y, float width, float height, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at, float time_now)
 {
    static int strobe_counter = 0;
    strobe_counter++;
@@ -867,7 +867,16 @@ void TitleScreen::draw_cursor_box(float x, float y, float width, float height, A
 
    if (menu_option_chosen)
    {
-      result_fill_color = AllegroFlare::ColorKit::fade(result_fill_color, strobed ? 0.9 : 0.6);
+      float selection_animation_length = 1.0;
+      //float normalized = (time_now - menu_option_chosen_at;
+      ALLEGRO_COLOR cursor_color_a = AllegroFlare::ColorKit::fade(result_fill_color, 1.0);
+      ALLEGRO_COLOR cursor_color_b = AllegroFlare::ColorKit::fade(result_fill_color, 0.7);
+
+      result_fill_color = AllegroFlare::ColorKit::mix(
+         cursor_color_a,
+         cursor_color_b,
+         strobed ? 1.0f : 0.0f
+      );
    }
 
    float h_box_width = width * 0.5;
@@ -943,7 +952,8 @@ void TitleScreen::draw_menu()
             menu_selector_outline_color,
             menu_selector_outline_stroke_thickness,
             menu_option_chosen,
-            menu_option_chosen_at
+            menu_option_chosen_at,
+            al_get_time()
          );
       }
 
