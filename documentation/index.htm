@@ -16690,6 +16690,10 @@ table td
   <td class="property">uint32_t</td>
 </tr>
 <tr>
+  <td class="property">background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING</td>
   <td class="property">char*</td>
 </tr>
@@ -16708,6 +16712,9 @@ table td
 </tr>
 <tr>
   <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
 </tr>
 <tr>
   <td class="method">primary_timer_func()</td>
@@ -16768,6 +16775,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Storyboard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Storyboard.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -16801,10 +16811,6 @@ table td
 </tr>
 <tr>
   <td class="property">copyright_text</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">background_bitmap_name</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -16864,6 +16870,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">menu_options</td>
+  <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
   <td class="property">on_menu_choice_callback_func</td>
   <td class="property">std::function&lt;void(AllegroFlare::Screens::TitleScreen*, void*)&gt;</td>
 </tr>
@@ -16880,8 +16890,8 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
-  <td class="property">menu_options</td>
-  <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
+  <td class="property">background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
 <tr>
   <td class="property">title_position_x</td>
@@ -16987,7 +16997,7 @@ table td
   <td class="method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
 </tr>
 <tr>
-  <td class="method">update_state(float time_now=al_get_time())</td>
+  <td class="method">update(float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
@@ -17038,9 +17048,6 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">draw_background()</td>
-</tr>
-<tr>
   <td class="method">draw_title()</td>
 </tr>
 <tr>
@@ -17072,9 +17079,6 @@ table td
 </tr>
 <tr>
   <td class="private_method">obtain_copyright_font()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_background_bitmap()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_title_bitmap()</td>
@@ -17185,6 +17189,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23478,7 +23485,9 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/RollingCredits"
+    "AllegroFlare/Screens/RollingCredits",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",

@@ -55,13 +55,6 @@ properties:
     getter: true
     setter: true
 
-  - name: background_bitmap_name
-    type: std::string
-    init_with: '""'
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: title_bitmap_name
     type: std::string
     init_with: '""'
@@ -160,6 +153,11 @@ properties:
     getter: true
     setter: true
 
+  - name: menu_options
+    type: std::vector<std::pair<std::string, std::string>>
+    init_with: 'build_default_menu_options()'
+    getter: true
+
   - name: on_menu_choice_callback_func
     type: std::function<void(AllegroFlare::Screens::TitleScreen*, void*)>
     init_with: ''
@@ -184,9 +182,10 @@ properties:
     getter: true
     setter: true
 
-  - name: menu_options
-    type: std::vector<std::pair<std::string, std::string>>
-    init_with: 'build_default_menu_options()'
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
+    setter: true
     getter: true
 
   - name: title_position_x
@@ -384,7 +383,7 @@ functions:
       return;
 
 
-  - name: update_state
+  - name: update
     parameters:
       - name: time_now
         type: float
@@ -597,8 +596,9 @@ functions:
     virtual: true
     override: true
     body: |
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1}); // TODO: revise this to take into account different render surfaces
-      update_state();
+      if (background) background->update();
+      update();
+      if (background) background->render();
       render();
       return;
 
@@ -606,23 +606,9 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized() ]
     body: |
-      draw_background();
       draw_title();
       if (showing_copyright) draw_copyright_text();
       if (showing_menu) draw_menu();
-      return;
-
-
-  - name: draw_background
-    body: |
-      if (background_bitmap_name.empty()) return;
-      ALLEGRO_BITMAP *background = obtain_background_bitmap();
-      if (!background) return;
-
-      al_draw_scaled_bitmap(background,
-         0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),
-         0, 0, 1920, 1080, 0);
-
       return;
 
 
@@ -933,14 +919,6 @@ functions:
       return font_bin->auto_get(composite_font_str.str());
 
 
-  - name: obtain_background_bitmap
-    private: true
-    type: ALLEGRO_BITMAP*
-    guards: [ bitmap_bin ]
-    body: |
-      return bitmap_bin->auto_get(background_bitmap_name);
-
-
   - name: obtain_title_bitmap
     private: true
     type: ALLEGRO_BITMAP*
@@ -1068,5 +1046,7 @@ dependencies:
     headers: [ AllegroFlare/MotionKit.hpp ]
   - symbol: AllegroFlare::ColorKit
     headers: [ AllegroFlare/ColorKit.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 

@@ -22,7 +22,7 @@ namespace Screens
 {
 
 
-TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::size_t surface_width, std::size_t surface_height, std::string title_text, std::string copyright_text, std::string background_bitmap_name, std::string title_bitmap_name, std::string title_font_name, std::string menu_font_name, std::string copyright_font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selector_outline_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, float menu_selector_outline_stroke_thickness, int title_font_size, int menu_font_size, int copyright_font_size)
+TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::size_t surface_width, std::size_t surface_height, std::string title_text, std::string copyright_text, std::string title_bitmap_name, std::string title_font_name, std::string menu_font_name, std::string copyright_font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR menu_selector_outline_color, ALLEGRO_COLOR menu_selected_text_color, ALLEGRO_COLOR copyright_text_color, float menu_selector_outline_stroke_thickness, int title_font_size, int menu_font_size, int copyright_font_size)
    : AllegroFlare::Screens::Base("TitleScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -31,7 +31,6 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , surface_height(surface_height)
    , title_text(title_text)
    , copyright_text(copyright_text)
-   , background_bitmap_name(background_bitmap_name)
    , title_bitmap_name(title_bitmap_name)
    , title_font_name(title_font_name)
    , menu_font_name(menu_font_name)
@@ -46,11 +45,12 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , title_font_size(title_font_size)
    , menu_font_size(menu_font_size)
    , copyright_font_size(copyright_font_size)
+   , menu_options(build_default_menu_options())
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
-   , menu_options(build_default_menu_options())
+   , background(nullptr)
    , title_position_x(1920 / 2)
    , title_position_y((1080 / 24 * 9))
    , menu_position_x(1920 / 2)
@@ -118,12 +118,6 @@ void TitleScreen::set_title_text(std::string title_text)
 void TitleScreen::set_copyright_text(std::string copyright_text)
 {
    this->copyright_text = copyright_text;
-}
-
-
-void TitleScreen::set_background_bitmap_name(std::string background_bitmap_name)
-{
-   this->background_bitmap_name = background_bitmap_name;
 }
 
 
@@ -235,6 +229,12 @@ void TitleScreen::set_on_finished_callback_func_user_data(void* on_finished_call
 }
 
 
+void TitleScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
+{
+   this->background = background;
+}
+
+
 void TitleScreen::set_title_position_x(float title_position_x)
 {
    this->title_position_x = title_position_x;
@@ -316,12 +316,6 @@ std::string TitleScreen::get_title_text() const
 std::string TitleScreen::get_copyright_text() const
 {
    return copyright_text;
-}
-
-
-std::string TitleScreen::get_background_bitmap_name() const
-{
-   return background_bitmap_name;
 }
 
 
@@ -409,6 +403,12 @@ int TitleScreen::get_copyright_font_size() const
 }
 
 
+std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options() const
+{
+   return menu_options;
+}
+
+
 std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> TitleScreen::get_on_menu_choice_callback_func() const
 {
    return on_menu_choice_callback_func;
@@ -433,9 +433,9 @@ void* TitleScreen::get_on_finished_callback_func_user_data() const
 }
 
 
-std::vector<std::pair<std::string, std::string>> TitleScreen::get_menu_options() const
+AllegroFlare::Elements::Backgrounds::Base* TitleScreen::get_background() const
 {
-   return menu_options;
+   return background;
 }
 
 
@@ -566,14 +566,14 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
    return;
 }
 
-void TitleScreen::update_state(float time_now)
+void TitleScreen::update(float time_now)
 {
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[TitleScreen::update]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::update_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("TitleScreen::update: error: guard \"is_valid_state(state)\" not met");
    }
    float state_age = infer_age(state_changed_at, time_now);
 
@@ -736,8 +736,9 @@ bool TitleScreen::is_state(uint32_t possible_state)
 
 void TitleScreen::primary_timer_func()
 {
-   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1}); // TODO: revise this to take into account different render surfaces
-   update_state();
+   if (background) background->update();
+   update();
+   if (background) background->render();
    render();
    return;
 }
@@ -765,23 +766,9 @@ void TitleScreen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TitleScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
-   draw_background();
    draw_title();
    if (showing_copyright) draw_copyright_text();
    if (showing_menu) draw_menu();
-   return;
-}
-
-void TitleScreen::draw_background()
-{
-   if (background_bitmap_name.empty()) return;
-   ALLEGRO_BITMAP *background = obtain_background_bitmap();
-   if (!background) return;
-
-   al_draw_scaled_bitmap(background,
-      0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),
-      0, 0, 1920, 1080, 0);
-
    return;
 }
 
@@ -1073,18 +1060,6 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
    std::stringstream composite_font_str;
    composite_font_str << copyright_font_name << " " << copyright_font_size;
    return font_bin->auto_get(composite_font_str.str());
-}
-
-ALLEGRO_BITMAP* TitleScreen::obtain_background_bitmap()
-{
-   if (!(bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[TitleScreen::obtain_background_bitmap]: error: guard \"bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::obtain_background_bitmap: error: guard \"bitmap_bin\" not met");
-   }
-   return bitmap_bin->auto_get(background_bitmap_name);
 }
 
 ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()

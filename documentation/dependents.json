@@ -879,7 +879,9 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/RollingCredits"
+    "AllegroFlare/Screens/RollingCredits",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",
