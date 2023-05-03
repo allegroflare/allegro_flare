@@ -24,7 +24,7 @@ namespace Elements
 Button::Button(AllegroFlare::FontBin* font_bin)
    : font_bin(font_bin)
    , text("START")
-   , text_font_name("Inter-Medium.ttf")
+   , text_font_name("Inter-Regular.ttf")
    , text_font_size(-28)
    , core_color(AllegroFlare::Color::PaleGreen)
    , started_at(0.0f)

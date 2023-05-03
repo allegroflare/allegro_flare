@@ -166,7 +166,7 @@ functions:
     private: true
     type: ALLEGRO_FONT*
     body: |
-      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -48";
+      static const std::string FONT_IDENTIFIER = "Inter-Regular.ttf -48";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 
@@ -174,13 +174,13 @@ functions:
   - name: obtain_evidence_name_text_font
     private: true
     type: ALLEGRO_FONT*
-    body: return font_bin->auto_get("Inter-Medium.ttf -42");
+    body: return font_bin->auto_get("Inter-Regular.ttf -42");
 
 
   - name: obtain_evidence_description_font
     private: true
     type: ALLEGRO_FONT*
-    body: return font_bin->auto_get("Inter-Medium.ttf -36");
+    body: return font_bin->auto_get("Inter-Regular.ttf -36");
 
 
   - name: opaquify

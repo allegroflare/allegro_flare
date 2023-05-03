@@ -24,7 +24,7 @@ namespace AllegroFlare
          static constexpr const char* DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER = (char*)"ui-input-bonk-01.ogg";
          static constexpr const char* DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER = (char*)"menu-click-01.ogg";
          static constexpr const char* DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER = (char*)"delete-item-01.ogg";
-         static constexpr const char* DEFAULT_FONT_NAME = (char*)"Inter-Medium.ttf";
+         static constexpr const char* DEFAULT_FONT_NAME = (char*)"Inter-Regular.ttf";
          static constexpr float DEFAULT_CURSOR_REPOSITION_MULTIPLIER = 0.6f;
 
       private:

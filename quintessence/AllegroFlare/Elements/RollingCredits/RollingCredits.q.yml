@@ -171,7 +171,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ftf -32");
+      return font_bin->auto_get("Inter-Regular.ftf -32");
 
 
 dependencies:

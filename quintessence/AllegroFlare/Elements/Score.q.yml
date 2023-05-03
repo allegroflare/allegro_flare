@@ -55,7 +55,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -52");
+      return font_bin->auto_get("Inter-Regular.ttf -52");
 
 
 dependencies:

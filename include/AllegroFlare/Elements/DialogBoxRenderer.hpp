@@ -14,7 +14,7 @@ namespace AllegroFlare
       class DialogBoxRenderer
       {
       public:
-         static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Medium.ttf";
+         static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Regular.ttf";
          static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = -36;
 
       private:

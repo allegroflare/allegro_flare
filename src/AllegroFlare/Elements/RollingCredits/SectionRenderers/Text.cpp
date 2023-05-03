@@ -30,7 +30,7 @@ Text::Text(AllegroFlare::FontBin* font_bin, std::string text, std::string alignm
    , x(0.0f)
    , y(0.0f)
    , max_width(1920.0f/2.0f)
-   , font_name("Inter-Medium.ttf")
+   , font_name("Inter-Regular.ttf")
    , font_size(-32)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {

@@ -1718,14 +1718,14 @@ void Full::draw_no_active_screens_text()
 
 ALLEGRO_FONT *Full::obtain_profiler_graph_font()
 {
-   return fonts.auto_get("Inter-Medium.ttf -22");
+   return fonts.auto_get("Inter-Regular.ttf -22");
 }
 
 
 ALLEGRO_FONT *Full::obtain_system_text_font_medium()
 {
    //return fonts.auto_get("system");
-   return fonts.auto_get("Inter-Medium.ttf -32");
+   return fonts.auto_get("Inter-Regular.ttf -32");
 }
 
 

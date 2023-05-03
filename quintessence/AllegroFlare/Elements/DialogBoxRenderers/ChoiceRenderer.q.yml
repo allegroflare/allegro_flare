@@ -63,7 +63,7 @@ properties:
     constexpr: true
     static: true
     const: true
-    init_with: '(char*)"Inter-Medium.ttf"'
+    init_with: '(char*)"Inter-Regular.ttf"'
 
   - name: DEFAULT_FONT_SIZE
     type: int

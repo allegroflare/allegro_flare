@@ -201,7 +201,7 @@ void DialogButton::render()
 
 ALLEGRO_FONT* DialogButton::obtain_button_font()
 {
-   std::string font_name = "Inter-Medium.ttf";
+   std::string font_name = "Inter-Regular.ttf";
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << text_font_size;
    return font_bin->auto_get(composite_font_str.str());

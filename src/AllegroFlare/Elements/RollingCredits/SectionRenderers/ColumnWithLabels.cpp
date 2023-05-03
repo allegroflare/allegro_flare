@@ -23,7 +23,7 @@ ColumnWithLabels::ColumnWithLabels(AllegroFlare::FontBin* font_bin, std::vector<
    , elements(elements)
    , x(x)
    , y(y)
-   , font_name("Inter-Medium.ttf")
+   , font_name("Inter-Regular.ttf")
    , font_size(-32)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , gutter_width(gutter_width)

@@ -219,7 +219,7 @@ void LevelSelect::draw_level_select_title_text()
 {
    ALLEGRO_FONT *font = obtain_title_font();
    ALLEGRO_COLOR color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
-   al_draw_text(font, color, place.size.x/2, 50, ALLEGRO_ALIGN_CENTER, "L E V E L   S E L E C T");
+   al_draw_text(font, color, place.size.x/2, 50, ALLEGRO_ALIGN_CENTER, "Level Select");
    return;
 }
 
@@ -462,7 +462,7 @@ ALLEGRO_FONT* LevelSelect::obtain_title_font()
 
 ALLEGRO_FONT* LevelSelect::obtain_description_font()
 {
-   return font_bin->auto_get("Inter-Medium.ttf -59");
+   return font_bin->auto_get("Inter-Regular.ttf -59");
 }
 
 ALLEGRO_FONT* LevelSelect::obtain_item_name_font()

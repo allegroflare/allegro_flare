@@ -39,7 +39,7 @@ properties:
 
   - name: font_name
     type: std::string
-    init_with: '"Inter-Medium.ttf"'
+    init_with: '"Inter-Regular.ttf"'
     getter: true
     setter: true
 

@@ -23,7 +23,7 @@ Header::Header(AllegroFlare::FontBin* font_bin, std::string text)
    , text(text)
    , x(0.0f)
    , y(0.0f)
-   , font_name("Inter-Medium.ttf")
+   , font_name("Inter-Regular.ttf")
    , font_size(-32)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {

@@ -318,7 +318,7 @@ ALLEGRO_FONT* Storyboard::obtain_next_button_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Storyboard::obtain_next_button_font: error: guard \"font_bin\" not met");
    }
-   std::string font_name = "Inter-Medium.ttf";
+   std::string font_name = "Inter-Regular.ttf";
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << button_font_size+20;
    return font_bin->auto_get(composite_font_str.str());

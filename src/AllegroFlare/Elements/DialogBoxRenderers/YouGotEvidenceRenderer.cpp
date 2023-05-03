@@ -193,19 +193,19 @@ ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_notification_text_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("YouGotEvidenceRenderer::obtain_notification_text_font: error: guard \"font_bin\" not met");
    }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -48";
+   static const std::string FONT_IDENTIFIER = "Inter-Regular.ttf -48";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
 
 ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_evidence_name_text_font()
 {
-   return font_bin->auto_get("Inter-Medium.ttf -42");
+   return font_bin->auto_get("Inter-Regular.ttf -42");
 }
 
 ALLEGRO_FONT* YouGotEvidenceRenderer::obtain_evidence_description_font()
 {
-   return font_bin->auto_get("Inter-Medium.ttf -36");
+   return font_bin->auto_get("Inter-Regular.ttf -36");
 }
 
 ALLEGRO_COLOR YouGotEvidenceRenderer::opaquify(ALLEGRO_COLOR color)

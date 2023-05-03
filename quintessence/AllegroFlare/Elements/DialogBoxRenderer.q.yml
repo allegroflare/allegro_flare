@@ -35,7 +35,7 @@ properties:
     constexpr: true
     const: true
     static: true
-    init_with: '(char*)"Inter-Medium.ttf"'
+    init_with: '(char*)"Inter-Regular.ttf"'
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
     type: int

@@ -200,7 +200,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -20");
+      return font_bin->auto_get("Inter-Regular.ttf -20");
 
 
 dependencies:

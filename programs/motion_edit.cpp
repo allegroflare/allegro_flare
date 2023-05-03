@@ -257,7 +257,7 @@ public:
    void draw_message_queue()
    {
       // draw
-      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
+      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Regular.ttf -42");
       float width = 1100;
       AllegroFlare::Placement2D place(10, 10, width, 600);
       place.scale.x = 0.25;
@@ -279,13 +279,13 @@ public:
 
    void draw_playhead_position()
    {
-      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
+      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Regular.ttf -42");
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 100, 20, 0, "position %f", playhead_position);
    }
 
    void draw_messages_processed()
    {
-      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
+      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Regular.ttf -42");
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 100, 50, 0, "messages processed: %d", messages_processed);
    }
 

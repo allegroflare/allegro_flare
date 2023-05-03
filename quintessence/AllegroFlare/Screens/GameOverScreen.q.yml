@@ -57,7 +57,7 @@ properties:
 
   - name: title_font_name
     type: std::string
-    init_with: '"Inter-Medium.ttf"'
+    init_with: '"Inter-Regular.ttf"'
     constructor_arg: true
     getter: true
     setter: true
@@ -71,7 +71,7 @@ properties:
 
   - name: menu_font_name
     type: std::string
-    init_with: '"Inter-Medium.ttf"'
+    init_with: '"Inter-Regular.ttf"'
     constructor_arg: true
     getter: true
     setter: true

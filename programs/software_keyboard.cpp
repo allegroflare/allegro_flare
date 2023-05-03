@@ -49,8 +49,8 @@ private:
    {
       if (!fonts) throw std::runtime_error("need fonts");
       if (initialized) return;
-      large_font = fonts->auto_get("Inter-Medium.ttf -32"); //, ALLEGRO_FLAGS_EMPTY);
-      small_font = fonts->auto_get("Inter-Medium.ttf -18"); //, ALLEGRO_FLAGS_EMPTY);
+      large_font = fonts->auto_get("Inter-Regular.ttf -32"); //, ALLEGRO_FLAGS_EMPTY);
+      small_font = fonts->auto_get("Inter-Regular.ttf -18"); //, ALLEGRO_FLAGS_EMPTY);
       //keyhover_sound = al_load_sample("data/samples/click.wav");
       //keypress_sound = al_load_sample("data/samples/keypress_light.wav");
       key_color = AllegroFlare::color::hex("646873");

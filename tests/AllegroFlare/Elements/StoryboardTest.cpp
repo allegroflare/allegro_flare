@@ -360,7 +360,7 @@ TEST_F(AllegroFlare_Elements_StoryboardTestWithAllegroRenderingFixture,
    VISUAL__render__will_render_the_current_page)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   ALLEGRO_FONT *font = font_bin["Inter-Regular.ttf -60"];
    StoryboardPageTestClassB *test_page = new StoryboardPageTestClassB(font, "This is the test page text.");
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = { test_page };
    AllegroFlare::Elements::Storyboard storyboard_player(&font_bin, pages);

@@ -15,7 +15,7 @@ namespace AllegroFlare
          class BasicRenderer
          {
          public:
-            static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Medium.ttf";
+            static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Regular.ttf";
             static constexpr int DEFAULT_FONT_SIZE = -36;
 
          private:

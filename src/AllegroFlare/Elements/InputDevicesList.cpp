@@ -854,7 +854,7 @@ ALLEGRO_FONT* InputDevicesList::obtain_item_title_font()
 
 ALLEGRO_FONT* InputDevicesList::obtain_item_description_font()
 {
-   return font_bin->auto_get("Inter-Medium.ttf -26");
+   return font_bin->auto_get("Inter-Regular.ttf -26");
 }
 
 ALLEGRO_FONT* InputDevicesList::obtain_icon_font()

@@ -120,13 +120,13 @@ ALLEGRO_FONT* WithAllegroRenderingFixture::get_any_font(int size)
       throw std::runtime_error("WithAllegroRenderingFixture::get_any_font: error: guard \"(size != 0)\" not met");
    }
    std::stringstream ss;
-   ss << "Inter-Medium.ttf " << size;
+   ss << "Inter-Regular.ttf " << size;
    return font_bin.auto_get(ss.str());
 }
 
 ALLEGRO_FONT* WithAllegroRenderingFixture::get_user_prompt_font()
 {
-   return font_bin.auto_get("Inter-Medium.ttf -42");
+   return font_bin.auto_get("Inter-Regular.ttf -42");
 }
 
 ALLEGRO_BITMAP* WithAllegroRenderingFixture::get_display_backbuffer()

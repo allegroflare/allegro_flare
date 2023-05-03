@@ -72,7 +72,7 @@ public:
 
    virtual void primary_timer_func() override
    {
-      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Medium.ttf -42");
+      ALLEGRO_FONT *font = font_bin->auto_get("Inter-Regular.ttf -42");
       AllegroFlare::Placement2D place(1920/2, 1080/2, 800, 600);
 
       al_clear_to_color(ALLEGRO_COLOR{0.2, 0.21, 0.205, 1.0});

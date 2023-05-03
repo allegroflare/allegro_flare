@@ -29,7 +29,7 @@ namespace AllegroFlare
 
 
       public:
-         KeyboardKey(AllegroFlare::FontBin* font_bin=nullptr, std::string keyboard_key_str="[unset-keyboard_key]", ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float x=0.0f, float y=0.0f, float keyboard_key_box_height=42, float keyboard_key_box_min_width=42, std::string font_name="Inter-Medium.ttf", int font_size=-20);
+         KeyboardKey(AllegroFlare::FontBin* font_bin=nullptr, std::string keyboard_key_str="[unset-keyboard_key]", ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float x=0.0f, float y=0.0f, float keyboard_key_box_height=42, float keyboard_key_box_min_width=42, std::string font_name="Inter-Regular.ttf", int font_size=-20);
          ~KeyboardKey();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);

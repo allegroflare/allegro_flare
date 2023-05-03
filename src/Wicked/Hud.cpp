@@ -109,7 +109,7 @@ ALLEGRO_FONT* Hud::obtain_hud_text_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Hud::obtain_hud_text_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -48");
+   return font_bin->auto_get("Inter-Regular.ttf -48");
    //NOTE: previously return font_bin->auto_get("Manrope-Light.ttf -48");
 }
 

@@ -116,7 +116,7 @@ ALLEGRO_FONT* DialogBoxNameTag::obtain_dialog_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxNameTag::obtain_dialog_font: error: guard \"font_bin\" not met");
    }
-   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
+   static const std::string FONT_IDENTIFIER = "Inter-Regular.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }

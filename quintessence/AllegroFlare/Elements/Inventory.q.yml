@@ -871,7 +871,7 @@ functions:
   - name: obtain_description_font
     type: ALLEGRO_FONT*
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -36");
+      return font_bin->auto_get("Inter-Regular.ttf -36");
 
 
   - name: obtain_item_name_font

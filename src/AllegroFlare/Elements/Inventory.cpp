@@ -1032,7 +1032,7 @@ ALLEGRO_FONT* Inventory::obtain_title_font()
 
 ALLEGRO_FONT* Inventory::obtain_description_font()
 {
-   return font_bin->auto_get("Inter-Medium.ttf -36");
+   return font_bin->auto_get("Inter-Regular.ttf -36");
 }
 
 ALLEGRO_FONT* Inventory::obtain_item_name_font()

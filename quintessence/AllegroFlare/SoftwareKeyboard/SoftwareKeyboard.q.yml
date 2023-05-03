@@ -144,7 +144,7 @@ properties:
     type: const char*
     constexpr: true
     static: true
-    init_with: '(char*)"Inter-Medium.ttf"'
+    init_with: '(char*)"Inter-Regular.ttf"'
 
   - name: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
     type: float

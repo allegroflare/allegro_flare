@@ -112,7 +112,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    CAPTURE__primary_timer_func__will_draw_the_current_page_text_to_the_screen)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -60"];
+   ALLEGRO_FONT *font = font_bin["Inter-Regular.ttf -60"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "Hello Storyboard!")
    };
@@ -149,7 +149,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    event_emitter.initialize();
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::VirtualControllers::GenericController virtual_controller;
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
+   ALLEGRO_FONT *font = font_bin["Inter-Regular.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "This is Page 1!"),
       new StoryboardPageTestClass(font, "This is the second page!"),
@@ -189,7 +189,7 @@ will_emit_a_game_event_with_the_expected_value)
    AllegroFlare::VirtualControllers::GenericController virtual_controller;
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
+   ALLEGRO_FONT *font = font_bin["Inter-Regular.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "This is the first and last page."),
    };
@@ -244,7 +244,7 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
    AllegroFlare::VirtualControllers::GenericController virtual_controller;
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = font_bin["Inter-Medium.ttf -40"];
+   ALLEGRO_FONT *font = font_bin["Inter-Regular.ttf -40"];
    std::vector<AllegroFlare::Elements::StoryboardPages::Base *> pages = {
       new StoryboardPageTestClass(font, "This is the first and last page."),
       //new StoryboardPageTestClass(font, "Here is the last page!"),

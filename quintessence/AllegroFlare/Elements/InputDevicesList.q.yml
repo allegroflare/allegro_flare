@@ -916,7 +916,7 @@ functions:
     private: true
     type: ALLEGRO_FONT*
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -26");
+      return font_bin->auto_get("Inter-Regular.ttf -26");
 
 
   - name: obtain_icon_font

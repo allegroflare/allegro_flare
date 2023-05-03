@@ -61,7 +61,7 @@ namespace AllegroFlare
 
 
       public:
-         PauseScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="GAME PAUSED", std::string footer_text="", AllegroFlare::Elements::Backgrounds::Base* background=nullptr, std::string title_bitmap_name="", std::string font_name="Inter-Medium.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR footer_text_color=ALLEGRO_COLOR{0.2, 0.2, 0.25, 1.0}, int title_font_size=-70, int menu_font_size=-30, int footer_font_size=-28, bool show_footer_text=true);
+         PauseScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string title_text="GAME PAUSED", std::string footer_text="", AllegroFlare::Elements::Backgrounds::Base* background=nullptr, std::string title_bitmap_name="", std::string font_name="Inter-Regular.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR footer_text_color=ALLEGRO_COLOR{0.2, 0.2, 0.25, 1.0}, int title_font_size=-70, int menu_font_size=-30, int footer_font_size=-28, bool show_footer_text=true);
          virtual ~PauseScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);

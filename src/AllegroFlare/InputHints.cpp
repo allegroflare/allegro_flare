@@ -244,7 +244,7 @@ ALLEGRO_FONT* InputHints::obtain_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputHints::obtain_font: error: guard \"font_bin\" not met");
    }
-   std::string font_name = "Inter-Medium.ttf";
+   std::string font_name = "Inter-Regular.ttf";
    int font_size = -18;
 
    std::stringstream composite_font_str;
