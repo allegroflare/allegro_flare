@@ -20,7 +20,7 @@ std::string GameOverScreen::DEFAULT_TITLE_TEXT = "G   A   M   E      O   V   E  
 std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OPTIONS = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
 
 
-GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, AllegroFlare::Elements::Backgrounds::Base* background, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
+GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
    : AllegroFlare::Screens::Base("GameOverScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -28,7 +28,7 @@ GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, Allegr
    , menu_options(DEFAULT_MENU_OPTIONS)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
-   , background(background)
+   , background(nullptr)
    , cursor_position(0)
    , title_font_name(title_font_name)
    , title_font_size(title_font_size)

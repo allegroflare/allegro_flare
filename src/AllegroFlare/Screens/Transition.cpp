@@ -140,14 +140,12 @@ void Transition::primary_timer_func()
    }
    if (to_screen)
    {
-      //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       to_screen->primary_timer_func();
       draw_backbuffer_to_pasteboard_a_bitmap();
    }
 
    if (from_screen)
    {
-      //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
       from_screen->primary_timer_func();
       draw_backbuffer_to_pasteboard_b_bitmap();
    }

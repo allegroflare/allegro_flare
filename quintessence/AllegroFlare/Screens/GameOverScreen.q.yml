@@ -47,7 +47,6 @@ properties:
   - name: background
     type: AllegroFlare::Elements::Backgrounds::Base*
     init_with: nullptr
-    constructor_arg: true
     setter: true
     getter: true
 

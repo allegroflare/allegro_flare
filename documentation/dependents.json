@@ -881,7 +881,8 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",
