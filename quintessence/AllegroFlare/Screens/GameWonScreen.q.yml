@@ -133,6 +133,7 @@ functions:
     override: true
     body: |
       if (background) background->update();
+      if (background) background->render();
       render();
       return;
 
@@ -140,7 +141,6 @@ functions:
   - name: render
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
-      if (background) background->render();
       draw_primary_text();
       draw_instruction_text();
       return;
