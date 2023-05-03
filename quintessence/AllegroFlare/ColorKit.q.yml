@@ -1,0 +1,35 @@
+functions:
+
+
+  - name: invert
+    type: ALLEGRO_COLOR
+    static: true
+    parameters:
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+    body: |
+      return ALLEGRO_COLOR{1.0f - color.r, 1.0f - color.g, 1.0f - color.b, 1.0f};
+
+
+  - name: fade
+    type: ALLEGRO_COLOR
+    static: true
+    parameters:
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+      - name: amount
+        type: float
+        default_argument: 1.0f
+    body: |
+      return ALLEGRO_COLOR{color.r*amount, color.g*amount, color.b*amount, 1.0f*amount};
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

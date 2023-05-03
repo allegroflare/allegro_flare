@@ -65,6 +65,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Clock.q.yml">quintessence/AllegroFlare/Clock.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AchievementsList.q.yml">quintessence/AllegroFlare/Elements/AchievementsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
@@ -1235,6 +1236,26 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">invert(ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">fade(ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float amount=1.0f)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -16945,7 +16966,7 @@ table td
   <td class="method">draw_copyright_text()</td>
 </tr>
 <tr>
-  <td class="method">draw_selection_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR box_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f)</td>
+  <td class="method">draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f)</td>
 </tr>
 <tr>
   <td class="method">draw_menu()</td>
@@ -17071,6 +17092,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::TitleScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/TitleScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23033,24 +23057,8 @@ table td
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "AllegroFlare/Logger": [
-    "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Routers/Base",
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "ALLEGRO_PATH": [
-    "AllegroFlare/DeploymentEnvironment"
-  ],
-  "std/filesystem": [
-    "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Logger"
-  ],
   "ALLEGRO_COLOR": [
+    "AllegroFlare/ColorKit",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
@@ -23111,6 +23119,23 @@ table td
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D",
     "Wicked/Entities/Basic2DFactory"
+  ],
+  "AllegroFlare/Logger": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_PATH": [
+    "AllegroFlare/DeploymentEnvironment"
+  ],
+  "std/filesystem": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Logger"
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
@@ -24803,6 +24828,9 @@ table td
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Screens/TitleScreen": [
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/ColorKit": [
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TransitionFX/Base": [

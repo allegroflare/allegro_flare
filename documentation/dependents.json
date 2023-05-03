@@ -548,24 +548,8 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "AllegroFlare/Logger": [
-    "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Routers/Base",
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "ALLEGRO_PATH": [
-    "AllegroFlare/DeploymentEnvironment"
-  ],
-  "std/filesystem": [
-    "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Logger"
-  ],
   "ALLEGRO_COLOR": [
+    "AllegroFlare/ColorKit",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
@@ -626,6 +610,23 @@
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D",
     "Wicked/Entities/Basic2DFactory"
+  ],
+  "AllegroFlare/Logger": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "ALLEGRO_PATH": [
+    "AllegroFlare/DeploymentEnvironment"
+  ],
+  "std/filesystem": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Logger"
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
@@ -2318,6 +2319,9 @@
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Screens/TitleScreen": [
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/ColorKit": [
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TransitionFX/Base": [

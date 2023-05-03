@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/TitleScreen.hpp>
 
+#include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
@@ -850,13 +851,30 @@ void TitleScreen::draw_copyright_text()
    return;
 }
 
-void TitleScreen::draw_selection_box(float x, float y, float width, float height, ALLEGRO_COLOR box_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at)
+void TitleScreen::draw_cursor_box(float x, float y, float width, float height, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at)
 {
+   static int strobe_counter = 0;
+   strobe_counter++;
+   strobe_counter = strobe_counter % 8;
+   bool strobed = false;
+   if (strobe_counter < 4)
+   {
+      strobed = true;
+   }
+
+   ALLEGRO_COLOR result_fill_color = fill_color; //ALLEGRO_COLOR{0, 0, 0, 0};
+   ALLEGRO_COLOR result_outline_color = outline_color; //ALLEGRO_COLOR{1, 1, 1, 1};
+
+   if (menu_option_chosen)
+   {
+      result_fill_color = AllegroFlare::ColorKit::fade(result_fill_color, strobed ? 0.9 : 0.6);
+   }
+
    float h_box_width = width * 0.5;
    float h_box_height = height * 0.5;
 
    // draw the fill
-   al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, box_color);
+   al_draw_filled_rectangle(x-h_box_width, y-h_box_height, x+h_box_width, y+h_box_height, result_fill_color);
 
    // draw the outline (which is invisible by default)
    al_draw_rectangle(
@@ -864,7 +882,7 @@ void TitleScreen::draw_selection_box(float x, float y, float width, float height
       y-h_box_height,
       x+h_box_width,
       y+h_box_height,
-      outline_color,
+      result_outline_color,
       outline_stroke_thickness
    );
    return;
@@ -916,14 +934,16 @@ void TitleScreen::draw_menu()
          float box_width = longest_menu_option_text_width + 148;
          float box_height = al_get_font_line_height(menu_font) + 6;
 
-         draw_selection_box(
+         draw_cursor_box(
             x,
             y,
             box_width,
             box_height,
             menu_selector_color,
             menu_selector_outline_color,
-            menu_selector_outline_stroke_thickness
+            menu_selector_outline_stroke_thickness,
+            menu_option_chosen,
+            menu_option_chosen_at
          );
       }
 
