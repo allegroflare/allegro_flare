@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/GameSession.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -64,6 +65,7 @@ void GameSession::start_session(float started_at)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameSession::start_session: error: guard \"(!active)\" not met");
    }
+   AllegroFlare::Logger::info_from("AllegroFlare::GameSession::start_session", "Starting session.");
    active = true;
    this->started_at = started_at;
    return;
@@ -78,6 +80,7 @@ void GameSession::end_session(float ended_at)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameSession::end_session: error: guard \"active\" not met");
    }
+   AllegroFlare::Logger::info_from("AllegroFlare::GameSession::start_session", "Ending session.");
    active = false;
    this->ended_at = ended_at;
    return;
