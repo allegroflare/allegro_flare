@@ -10,6 +10,7 @@
 #include <AllegroFlare/AudioController.hpp>
 
 #include <allegro5/allegro_acodec.h>
+#include <AllegroFlare/Logger.hpp>
 
 #define TEST_FIXTURE_FOLDER_NAME "./tests/fixtures/"
 
@@ -164,9 +165,11 @@ TEST(AllegroFlare_AudioControllerTest,
    audio_controller.play_music_track("music-track-identifier-that-does-not-exist");
    std::string cout_message = testing::internal::GetCapturedStdout();
 
-   std::string expected_cout_error_message = "[AudioController::find_music_track_sound_object_by_identifier] error: " \
-                                             "unable to find element with identifier " \
-                                             "\"music-track-identifier-that-does-not-exist\"\n";
+   std::string expected_cout_error_message =
+   AllegroFlare::Logger::build_warning_message(
+         "AllegroFlare::AudioController::find_music_track_sound_object_by_identifier",
+         "unable to find element with identifier \"music-track-identifier-that-does-not-exist\""
+      );
    ASSERT_EQ(expected_cout_error_message, cout_message);
 
    al_uninstall_system();

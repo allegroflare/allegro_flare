@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/AudioController.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/TerminalColors.hpp>
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_audio.h>
@@ -347,14 +348,10 @@ AllegroFlare::Sound* AudioController::find_sound_effect_sound_object_by_identifi
    std::map<std::string, AllegroFlare::Sound*>::iterator it = sound_effects.find(identifier);
    if (it == sound_effects.end())
    {
-      std::cout
-         << AllegroFlare::TerminalColors::YELLOW
-         << "AudioController::find_sound_effect_sound_object_by_identifier() error: "
-         << "unable to find element with identifier \""
-         << identifier
-         << "\""
-         << AllegroFlare::TerminalColors::DEFAULT
-         << std::endl;
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::AudioController::find_sound_effect_sound_object_by_identifier",
+         "Unable to find element with identifier \"" + identifier + "\"."
+      );
       return nullptr;
    }
    return it->second;
@@ -365,8 +362,10 @@ AllegroFlare::AudioRepositoryElement AudioController::find_sound_effect_element_
    std::map<std::string, AudioRepositoryElement>::iterator it = sound_effect_elements.find(identifier);
    if (it == sound_effect_elements.end())
    {
-      std::cout << "[AudioController::find_sound_effect_element_by_identifier] error: "
-                << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::AudioController::find_sound_effect_element_by_identifier",
+         "Unable to find element with identifier \"" + identifier + "\"."
+      );
       return {};
    }
    return it->second;
@@ -377,8 +376,10 @@ AllegroFlare::Sound* AudioController::find_music_track_sound_object_by_identifie
    std::map<std::string, Sound*>::iterator it = music_tracks.find(identifier);
    if (it == music_tracks.end())
    {
-      std::cout << "[AudioController::find_music_track_sound_object_by_identifier] error: "
-                << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::AudioController::find_music_track_sound_object_by_identifier",
+         "Unable to find element with identifier \"" + identifier + "\"."
+      );
       return nullptr;
    }
    return it->second;
@@ -394,8 +395,10 @@ AllegroFlare::AudioRepositoryElement AudioController::find_music_track_element_b
    std::map<std::string, AudioRepositoryElement>::iterator it = music_track_elements.find(identifier);
    if (it == music_track_elements.end())
    {
-      std::cout << "[AudioController::find_music_track_element_by_identifier] error: "
-                << "unable to find element with identifier \"" << identifier << "\"" << std::endl;
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::AudioController::find_music_track_element_by_identifier",
+         "Unable to find element with identifier \"" + identifier + "\"."
+      );
       return {};
    }
    return it->second;

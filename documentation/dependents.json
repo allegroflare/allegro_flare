@@ -1,4 +1,17 @@
 {
+  "AllegroFlare/Logger": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/AudioController",
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/GameSession",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/VirtualControlsProcessor"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -610,17 +623,6 @@
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D",
     "Wicked/Entities/Basic2DFactory"
-  ],
-  "AllegroFlare/Logger": [
-    "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Elements/LevelSelect",
-    "AllegroFlare/GameSession",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Routers/Base",
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControlsProcessor"
   ],
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
