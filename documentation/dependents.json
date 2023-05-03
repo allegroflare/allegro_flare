@@ -860,6 +860,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
+    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
@@ -2320,6 +2321,9 @@
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Screens/TitleScreen": [
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/MotionKit": [
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/ColorKit": [

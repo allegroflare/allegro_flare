@@ -1,0 +1,55 @@
+functions:
+
+
+  - name: normalize_age
+    static: true
+    type: float
+    parameters:
+      - name: start_time
+        type: float
+        default_argument: 0.0f
+      - name: end_time
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      float length = (end_time - start_time);
+      float time_now_in_range = time_now - start_time;
+      if (length == 0.0f) return 0.0f;
+      return time_now_in_range / length;
+
+
+  - name: age
+    static: true
+    type: float
+    parameters:
+      - name: start_time
+        type: float
+        default_argument: 0.0f
+      - name: end_time
+        type: float
+        default_argument: 0.0f
+    body: |
+      return (end_time - start_time);
+
+
+  - name: interpolate
+    static: true
+    type: float
+    parameters:
+      - name: start_value
+        type: float
+        default_argument: 0.0f
+      - name: end_value
+        type: float
+        default_argument: 0.0f
+      - name: normalized_float
+        type: float
+        default_argument: 0.0f
+    body: |
+      return start_value + (normalized_float * (end_value - start_value));
+
+
+

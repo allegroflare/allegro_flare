@@ -4,10 +4,12 @@
 
 #include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/MotionKit.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <algorithm>
 #include <allegro5/allegro_primitives.h>
+#include <cmath>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -853,29 +855,36 @@ void TitleScreen::draw_copyright_text()
 
 void TitleScreen::draw_cursor_box(float x, float y, float width, float height, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at, float time_now)
 {
-   static int strobe_counter = 0;
-   strobe_counter++;
-   strobe_counter = strobe_counter % 8;
-   bool strobed = false;
-   if (strobe_counter < 4)
-   {
-      strobed = true;
-   }
-
    ALLEGRO_COLOR result_fill_color = fill_color; //ALLEGRO_COLOR{0, 0, 0, 0};
    ALLEGRO_COLOR result_outline_color = outline_color; //ALLEGRO_COLOR{1, 1, 1, 1};
 
    if (menu_option_chosen)
    {
       float selection_animation_length = 1.0;
-      //float normalized = (time_now - menu_option_chosen_at;
+      bool strobe_on = false;
+
+      float menu_option_chosen_at_age = AllegroFlare::MotionKit::age(menu_option_chosen_at, time_now);
+      if (fmod(menu_option_chosen_at_age, 0.2) < 0.1) strobe_on = true;
+
+      float menu_option_chosen_at_normalized_age = AllegroFlare::MotionKit::normalize_age(
+         menu_option_chosen_at,
+         menu_option_chosen_at + selection_animation_length,
+         time_now
+      );
       ALLEGRO_COLOR cursor_color_a = AllegroFlare::ColorKit::fade(result_fill_color, 1.0);
       ALLEGRO_COLOR cursor_color_b = AllegroFlare::ColorKit::fade(result_fill_color, 0.7);
+      ALLEGRO_COLOR cursor_animation_at_rest_color = AllegroFlare::ColorKit::fade(result_fill_color, 0.3);
 
-      result_fill_color = AllegroFlare::ColorKit::mix(
+      ALLEGRO_COLOR strobing_color = AllegroFlare::ColorKit::mix(
          cursor_color_a,
          cursor_color_b,
-         strobed ? 1.0f : 0.0f
+         strobe_on ? 1.0f : 0.0f
+      );
+
+      result_fill_color = AllegroFlare::ColorKit::mix(
+         strobing_color,
+         cursor_animation_at_rest_color,
+         menu_option_chosen_at_normalized_age
       );
    }
 
