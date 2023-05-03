@@ -27,6 +27,7 @@ RollingCredits::RollingCredits(AllegroFlare::FontBin* font_bin, AllegroFlare::Ev
    , cached_calculated_height(0.0f)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , route_event_to_emit_after_completing(route_event_to_emit_after_completing)
+   , background(nullptr)
    , scroll_is_past_end(false)
    , initialized(false)
 {
@@ -92,6 +93,12 @@ void RollingCredits::set_route_event_to_emit_after_completing(uint32_t route_eve
 }
 
 
+void RollingCredits::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
+{
+   this->background = background;
+}
+
+
 AllegroFlare::Elements::RollingCredits::RollingCredits RollingCredits::get_rolling_credits_component() const
 {
    return rolling_credits_component;
@@ -152,6 +159,12 @@ uint32_t RollingCredits::get_route_event_to_emit_after_completing() const
 }
 
 
+AllegroFlare::Elements::Backgrounds::Base* RollingCredits::get_background() const
+{
+   return background;
+}
+
+
 bool RollingCredits::get_scroll_is_past_end() const
 {
    return scroll_is_past_end;
@@ -185,8 +198,22 @@ void RollingCredits::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("RollingCredits::on_activate: error: guard \"initialized\" not met");
    }
+   if (background) background->activate();
    y_offset = -surface_height;
    scroll_is_past_end = false;
+   return;
+}
+
+void RollingCredits::on_deactivate()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[RollingCredits::on_deactivate]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("RollingCredits::on_deactivate: error: guard \"initialized\" not met");
+   }
+   if (background) background->deactivate();
    return;
 }
 
@@ -305,7 +332,9 @@ void RollingCredits::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("RollingCredits::primary_timer_func: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   if (background) background->update();
    update();
+   if (background) background->render();
    render();
    return;
 }

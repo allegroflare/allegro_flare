@@ -16570,6 +16570,10 @@ table td
   <td class="property">uint32_t</td>
 </tr>
 <tr>
+  <td class="property">background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING</td>
   <td class="property">char*</td>
 </tr>
@@ -16589,6 +16593,9 @@ table td
      <table>
 <tr>
   <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
 </tr>
 <tr>
   <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
@@ -16623,19 +16630,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::RollingCredits&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/RollingCredits.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::RollingCredits::Sections::Base*&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/RollingCredits/Sections/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
@@ -16648,6 +16646,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::RollingCredits&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/RollingCredits.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -22880,7 +22881,6 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
-    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -22963,7 +22963,6 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -23382,7 +23381,6 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
-    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -23479,7 +23477,8 @@ table td
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/PauseScreen"
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",

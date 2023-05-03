@@ -86,6 +86,12 @@ properties:
     getter: true
     setter: true
 
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
+    setter: true
+    getter: true
+
   - name: DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING
     type: char*
     init_with: '(char*)"rolling_credits_finished"'
@@ -116,8 +122,18 @@ functions:
     override: true
     guards: [ initialized ] 
     body: |
+      if (background) background->activate();
       y_offset = -surface_height;
       scroll_is_past_end = false;
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    guards: [ initialized ] 
+    body: |
+      if (background) background->deactivate();
       return;
 
 
@@ -213,7 +229,9 @@ functions:
     override: true
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
+      if (background) background->update();
       update();
+      if (background) background->render();
       render();
       return;
 
@@ -223,17 +241,10 @@ dependencies:
 
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::Elements::RollingCredits::RollingCredits
     headers: [ AllegroFlare/Elements/RollingCredits/RollingCredits.hpp ]
   - symbol: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
     headers: [ vector, AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::EventEmitter
@@ -242,5 +253,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
   - symbol: AllegroFlare::Screens::RollingCredits
     headers: [ AllegroFlare/Screens/RollingCredits.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 

@@ -282,7 +282,6 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
-    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -365,7 +364,6 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -784,7 +782,6 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
-    "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -881,7 +878,8 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/PauseScreen"
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/RollingCredits"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",
