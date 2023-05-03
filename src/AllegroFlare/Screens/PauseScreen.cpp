@@ -17,7 +17,7 @@ namespace Screens
 {
 
 
-PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string footer_text, AllegroFlare::Elements::Backgrounds::Base* background, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR footer_text_color, int title_font_size, int menu_font_size, int footer_font_size, bool show_footer_text)
+PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string title_text, std::string footer_text, std::string title_bitmap_name, std::string font_name, ALLEGRO_COLOR title_text_color, ALLEGRO_COLOR menu_text_color, ALLEGRO_COLOR menu_selector_color, ALLEGRO_COLOR footer_text_color, int title_font_size, int menu_font_size, int footer_font_size, bool show_footer_text)
    : AllegroFlare::Screens::Base("PauseScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -26,7 +26,7 @@ PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , footer_text(footer_text)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
-   , background(background)
+   , background(nullptr)
    , title_bitmap_name(title_bitmap_name)
    , font_name(font_name)
    , title_text_color(title_text_color)
@@ -343,28 +343,9 @@ void PauseScreen::select_menu_option()
 
 void PauseScreen::primary_timer_func()
 {
-   update();
-   render();
-   return;
-}
-
-void PauseScreen::update()
-{
-   if (!(al_is_system_installed()))
-   {
-      std::stringstream error_message;
-      error_message << "[PauseScreen::update]: error: guard \"al_is_system_installed()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PauseScreen::update: error: guard \"al_is_system_installed()\" not met");
-   }
-   if (!(al_is_font_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "[PauseScreen::update]: error: guard \"al_is_font_addon_initialized()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PauseScreen::update: error: guard \"al_is_font_addon_initialized()\" not met");
-   }
    if (background) background->update();
+   if (background) background->render();
+   render();
    return;
 }
 
@@ -384,7 +365,6 @@ void PauseScreen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("PauseScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
-   if (background) background->render();
    draw_title();
    if (show_footer_text) draw_footer_text();
    draw_menu();
