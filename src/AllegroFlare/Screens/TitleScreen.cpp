@@ -924,8 +924,7 @@ void TitleScreen::draw_menu()
    //int surface_width = 1920;
    //int surface_height = 1080;
    float h_font_line_height = (int)(al_get_font_line_height(menu_font) * 0.5f);
-   float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
-   float h_menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
+   float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.4f);
    int menu_item_num = 0;
 
    // get longest menu option text length
