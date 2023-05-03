@@ -1,0 +1,32 @@
+parent_classes:
+
+
+  - class: AllegroFlare::RouteEventDatas::Base
+    scope: public
+    init_with: AllegroFlare::RouteEventDatas::StartLevel::TYPE
+
+
+properties:
+
+
+  - name: level_identifier
+    type: std::string
+    init_with: '"[unset-level_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/RouteEventDatas/StartLevel"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::RouteEventDatas::Base
+    headers: [ AllegroFlare/RouteEventDatas/Base.hpp ]
+
+

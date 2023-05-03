@@ -1364,6 +1364,7 @@
   ],
   "AllegroFlare/RouteEventDatas/Base": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/RouteEventDatas/StartLevel",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
   ],
