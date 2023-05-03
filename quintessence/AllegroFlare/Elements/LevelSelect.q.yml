@@ -157,7 +157,7 @@ functions:
     body: |
       ALLEGRO_FONT *font = obtain_title_font();
       ALLEGRO_COLOR color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
-      al_draw_text(font, color, place.size.x/2, 50, ALLEGRO_ALIGN_CENTER, "Level Select");
+      al_draw_text(font, color, place.size.x/2, 80, ALLEGRO_ALIGN_CENTER, "Level Select");
       return;
 
 
@@ -339,7 +339,7 @@ functions:
       ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
       ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
       float roundness = 6.0f;
-      ALLEGRO_FONT *font = obtain_description_font();
+      ALLEGRO_FONT *font = obtain_level_label_font();
       float line_height = al_get_font_line_height(font);
 
       al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
@@ -406,21 +406,14 @@ functions:
     private: true
     type: ALLEGRO_FONT*
     body: |
-      return font_bin->auto_get("Inter-Bold.ttf -70");
+      return font_bin->auto_get("Inter-Regular.ttf -46");
 
 
-  - name: obtain_description_font
+  - name: obtain_level_label_font
     private: true
     type: ALLEGRO_FONT*
     body: |
-      return font_bin->auto_get("Inter-Regular.ttf -59");
-
-
-  - name: obtain_item_name_font
-    private: true
-    type: ALLEGRO_FONT*
-    body: |
-      return font_bin->auto_get("Inter-Bold.ttf -46");
+      return font_bin->auto_get("Inter-Regular.ttf -32");
 
 
 dependencies:

@@ -44,8 +44,7 @@ namespace AllegroFlare
          void draw_selection_cursor(float x=0.0f, float y=0.0f);
          void draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label="[unlabeled]");
          ALLEGRO_FONT* obtain_title_font();
-         ALLEGRO_FONT* obtain_description_font();
-         ALLEGRO_FONT* obtain_item_name_font();
+         ALLEGRO_FONT* obtain_level_label_font();
 
       protected:
 

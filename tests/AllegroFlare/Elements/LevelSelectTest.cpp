@@ -61,6 +61,8 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
    clear();
    level_select.render();
    al_flip_display();
+
+   al_rest(1);
 }
 
 

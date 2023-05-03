@@ -219,7 +219,7 @@ void LevelSelect::draw_level_select_title_text()
 {
    ALLEGRO_FONT *font = obtain_title_font();
    ALLEGRO_COLOR color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
-   al_draw_text(font, color, place.size.x/2, 50, ALLEGRO_ALIGN_CENTER, "Level Select");
+   al_draw_text(font, color, place.size.x/2, 80, ALLEGRO_ALIGN_CENTER, "Level Select");
    return;
 }
 
@@ -391,7 +391,7 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
    ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
    ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
    float roundness = 6.0f;
-   ALLEGRO_FONT *font = obtain_description_font();
+   ALLEGRO_FONT *font = obtain_level_label_font();
    float line_height = al_get_font_line_height(font);
 
    al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
@@ -457,17 +457,12 @@ std::string LevelSelect::infer_current_menu_option_value()
 
 ALLEGRO_FONT* LevelSelect::obtain_title_font()
 {
-   return font_bin->auto_get("Inter-Bold.ttf -70");
+   return font_bin->auto_get("Inter-Regular.ttf -46");
 }
 
-ALLEGRO_FONT* LevelSelect::obtain_description_font()
+ALLEGRO_FONT* LevelSelect::obtain_level_label_font()
 {
-   return font_bin->auto_get("Inter-Regular.ttf -59");
-}
-
-ALLEGRO_FONT* LevelSelect::obtain_item_name_font()
-{
-   return font_bin->auto_get("Inter-Bold.ttf -46");
+   return font_bin->auto_get("Inter-Regular.ttf -32");
 }
 
 
