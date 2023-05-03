@@ -21,7 +21,7 @@ namespace AllegroFlare
          float width;
          float gutter_x;
          float gutter_padding;
-         ALLEGRO_COLOR speaker_color;
+         ALLEGRO_COLOR speaker_name_color;
          ALLEGRO_COLOR dialog_color;
          ALLEGRO_COLOR internal_dialog_color;
          ALLEGRO_FONT* obtain_font();
@@ -37,13 +37,13 @@ namespace AllegroFlare
          void set_width(float width);
          void set_gutter_x(float gutter_x);
          void set_gutter_padding(float gutter_padding);
-         void set_speaker_color(ALLEGRO_COLOR speaker_color);
+         void set_speaker_name_color(ALLEGRO_COLOR speaker_name_color);
          void set_dialog_color(ALLEGRO_COLOR dialog_color);
          void set_internal_dialog_color(ALLEGRO_COLOR internal_dialog_color);
          float get_width() const;
          float get_gutter_x() const;
          float get_gutter_padding() const;
-         ALLEGRO_COLOR get_speaker_color() const;
+         ALLEGRO_COLOR get_speaker_name_color() const;
          ALLEGRO_COLOR get_dialog_color() const;
          ALLEGRO_COLOR get_internal_dialog_color() const;
          void render();

@@ -20,9 +20,9 @@ DialogRollRenderer::DialogRollRenderer(AllegroFlare::FontBin* font_bin, std::vec
    , width(width)
    , gutter_x(400)
    , gutter_padding(20)
-   , speaker_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , speaker_name_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , dialog_color(ALLEGRO_COLOR{1, 1, 1, 1})
-   , internal_dialog_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , internal_dialog_color(ALLEGRO_COLOR{0.60, 0.62, 0.71, 1.0})
 {
 }
 
@@ -50,9 +50,9 @@ void DialogRollRenderer::set_gutter_padding(float gutter_padding)
 }
 
 
-void DialogRollRenderer::set_speaker_color(ALLEGRO_COLOR speaker_color)
+void DialogRollRenderer::set_speaker_name_color(ALLEGRO_COLOR speaker_name_color)
 {
-   this->speaker_color = speaker_color;
+   this->speaker_name_color = speaker_name_color;
 }
 
 
@@ -86,9 +86,9 @@ float DialogRollRenderer::get_gutter_padding() const
 }
 
 
-ALLEGRO_COLOR DialogRollRenderer::get_speaker_color() const
+ALLEGRO_COLOR DialogRollRenderer::get_speaker_name_color() const
 {
-   return speaker_color;
+   return speaker_name_color;
 }
 
 
@@ -132,6 +132,7 @@ void DialogRollRenderer::render()
       bool is_internal_speaker = speaker.empty() || speaker == AllegroFlare::Elements::DialogRoll::SPEAKER_INTERNAL;
 
       ALLEGRO_FONT *dialog_font = is_internal_speaker ? internal_dialog_font : text_font;
+      ALLEGRO_COLOR result_dialog_color = is_internal_speaker ? internal_dialog_color : dialog_color;
 
       if (!is_internal_speaker)
       {
@@ -141,7 +142,7 @@ void DialogRollRenderer::render()
 
          al_draw_multiline_text(
             text_font,
-            speaker_color,
+            speaker_name_color,
             gutter_x-gutter_padding,
             cursor_y,
             multiline_text_width,
@@ -157,7 +158,7 @@ void DialogRollRenderer::render()
 
       al_draw_multiline_text(
          dialog_font,
-         speaker_color,
+         result_dialog_color,
          gutter_x+gutter_padding,
          cursor_y,
          multiline_text_width,
@@ -181,7 +182,7 @@ ALLEGRO_FONT* DialogRollRenderer::obtain_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogRollRenderer::obtain_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Lora-Medium.ttf -48");
+   return font_bin->auto_get("Inter-Regular.ttf -48");
 }
 
 ALLEGRO_FONT* DialogRollRenderer::obtain_italic_font()
@@ -193,7 +194,7 @@ ALLEGRO_FONT* DialogRollRenderer::obtain_italic_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogRollRenderer::obtain_italic_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Lora-MediumItalic.ttf -48");
+   return font_bin->auto_get("Inter-Regular.ttf -48");
 }
 
 

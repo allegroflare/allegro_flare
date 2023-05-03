@@ -30,7 +30,7 @@ properties:
     getter: true
     setter: true
 
-  - name: speaker_color
+  - name: speaker_name_color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
     getter: true
@@ -44,7 +44,7 @@ properties:
 
   - name: internal_dialog_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    init_with: ALLEGRO_COLOR{0.60, 0.62, 0.71, 1.0}
     getter: true
     setter: true
 
@@ -68,6 +68,7 @@ functions:
          bool is_internal_speaker = speaker.empty() || speaker == AllegroFlare::Elements::DialogRoll::SPEAKER_INTERNAL;
 
          ALLEGRO_FONT *dialog_font = is_internal_speaker ? internal_dialog_font : text_font;
+         ALLEGRO_COLOR result_dialog_color = is_internal_speaker ? internal_dialog_color : dialog_color;
 
          if (!is_internal_speaker)
          {
@@ -77,7 +78,7 @@ functions:
 
             al_draw_multiline_text(
                text_font,
-               speaker_color,
+               speaker_name_color,
                gutter_x-gutter_padding,
                cursor_y,
                multiline_text_width,
@@ -93,7 +94,7 @@ functions:
 
          al_draw_multiline_text(
             dialog_font,
-            speaker_color,
+            result_dialog_color,
             gutter_x+gutter_padding,
             cursor_y,
             multiline_text_width,
@@ -115,7 +116,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Lora-Medium.ttf -48");
+      return font_bin->auto_get("Inter-Regular.ttf -48");
 
 
   - name: obtain_italic_font
@@ -123,7 +124,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Lora-MediumItalic.ttf -48");
+      return font_bin->auto_get("Inter-Regular.ttf -48");
 
 
 dependencies:
