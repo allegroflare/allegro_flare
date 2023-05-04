@@ -73,11 +73,9 @@ TEST(AllegroFlare_Elements_DialogBoxes_BaseTest, infer_age__will_return_the_age_
 {
    al_init();
    MyTestDialogBox dialog_box;
-   dialog_box.set_created_at(al_get_time());
-   sleep_for(0.03);
-   float inferred_age = dialog_box.infer_age();
-   EXPECT_THAT(inferred_age, testing::Gt(0.02));
-   EXPECT_THAT(inferred_age, testing::Lt(0.04));
+   dialog_box.set_created_at(10.0f);
+   float inferred_age = dialog_box.infer_age(10.75f);
+   EXPECT_EQ(0.75f, inferred_age);
    al_uninstall_system();
 }
 

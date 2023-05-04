@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <allegro5/allegro.h>
 #include <string>
 
 
@@ -30,7 +31,7 @@ namespace AllegroFlare
             std::string get_type() const;
             float get_created_at() const;
             virtual void update();
-            float infer_age();
+            float infer_age(float time_now=al_get_time());
             bool is_type(std::string possible_type="");
          };
       }

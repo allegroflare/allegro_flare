@@ -31,9 +31,14 @@ functions:
 
   - name: infer_age
     type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
     guards: [ al_is_system_installed() ]
     body: |
-      return al_get_time() - get_created_at();
+      return time_now - get_created_at();
     body_dependency_symbols:
       - al_get_time
 
