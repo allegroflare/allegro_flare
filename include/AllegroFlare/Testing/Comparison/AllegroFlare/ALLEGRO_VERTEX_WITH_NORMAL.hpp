@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/Model3D.hpp> // TODO: Move ALLEGRO_FLARE_VERTEX_WITH_NORMAL out of Model3D
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <ostream>
 
 

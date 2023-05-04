@@ -6,23 +6,12 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <AllegroFlare/Physics/AABB3D.hpp>
-
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 
 
 
 namespace AllegroFlare
 {
-   typedef struct
-   {
-      float x, y, z;
-      float u, v;
-      ALLEGRO_COLOR color;
-      float nx, ny, nz;
-   } ALLEGRO_VERTEX_WITH_NORMAL;
-
-
-
-
    class Model3D
    {
    public:
