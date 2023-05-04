@@ -34,12 +34,25 @@ public:
       , model_texture_filename("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/heart_item-02.png")
    {};
 
+   void set_model_obj_filename(std::string model_obj_filename)
+   {
+      if (initialized) throw std::runtime_error("Error: cannot set_model_obj_filename after initialization");
+      this->model_obj_filename = model_obj_filename;
+   }
+
+   void set_model_texture_filename(std::string model_texture_filename)
+   {
+      if (initialized) throw std::runtime_error("Error: cannot set_model_texture_filename after initialization");
+      this->model_texture_filename = model_texture_filename;
+   }
+
    void initialize()
    {
       model.initialize();
       AllegroFlare::Model3DObjLoader loader(&model, model_obj_filename.c_str(), 1.0);
       loader.load();
       texture = al_load_bitmap(model_texture_filename.c_str());
+      if (!texture) throw std::runtime_error("Texture not found");
       model.set_texture(texture);
 
       initialized = true;
@@ -55,7 +68,7 @@ public:
       camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
 
       // position and render model
-      model_placement.rotation.y += 0.005;
+      model_placement.rotation.y += 0.00025;
       model_placement.start_transform();
       model.draw();
       model_placement.restore_transform();
@@ -65,11 +78,19 @@ public:
 
 int main(int argc, char **argv)
 {
+   std::vector<std::string> args;
+   for (int i=1; i<argc; i++) args.push_back(argv[i]);
+
    // init AllegroFlare
    AllegroFlare::Frameworks::Full framework;
    framework.initialize();
 
    Basic3D basic_3d;
+   if (args.size() == 2)
+   {
+      basic_3d.set_model_obj_filename(args[0]);
+      basic_3d.set_model_texture_filename(args[1]);
+   }
    basic_3d.initialize();
 
    framework.register_and_activate_screen("basic_3d", &basic_3d);
