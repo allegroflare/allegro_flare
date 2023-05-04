@@ -19,6 +19,8 @@ private:
    AllegroFlare::Model3D model;
    ALLEGRO_BITMAP *texture;
    AllegroFlare::Placement3D model_placement;
+   std::string model_obj_filename;
+   std::string model_texture_filename;
 
 public:
    Basic3D()
@@ -28,14 +30,16 @@ public:
       , model()
       , texture(nullptr)
       , model_placement()
+      , model_obj_filename("/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj")
+      , model_texture_filename("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/heart_item-02.png")
    {};
 
    void initialize()
    {
       model.initialize();
-      AllegroFlare::Model3DObjLoader loader(&model, "/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj", 1.0);
+      AllegroFlare::Model3DObjLoader loader(&model, model_obj_filename.c_str(), 1.0);
       loader.load();
-      texture = al_load_bitmap("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/heart_item-02.png");
+      texture = al_load_bitmap(model_texture_filename.c_str());
       model.set_texture(texture);
 
       initialized = true;
