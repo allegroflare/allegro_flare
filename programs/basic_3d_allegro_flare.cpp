@@ -32,6 +32,7 @@ public:
 
    void initialize()
    {
+      model.initialize();
       AllegroFlare::Model3DObjLoader loader(&model, "/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj", 1.0);
       loader.load();
       texture = al_load_bitmap("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/heart_item-02.png");
@@ -67,8 +68,7 @@ int main(int argc, char **argv)
    Basic3D basic_3d;
    basic_3d.initialize();
 
-   framework.register_screen("basic_3d", &basic_3d);
-   framework.activate_screen("basic_3d");
+   framework.register_and_activate_screen("basic_3d", &basic_3d);
 
    framework.run_loop();
    return 0;
