@@ -53,14 +53,14 @@ properties:
 
   - name: left_padding
     type: float
-    init_with: 200
+    init_with: 360
     constructor_arg: true
     getter: true
     setter: true
 
   - name: right_padding
     type: float
-    init_with: 200
+    init_with: 360
     constructor_arg: true
     getter: true
     setter: true
@@ -96,7 +96,7 @@ properties:
     constexpr: true
     static: true
     const: true
-    init_with: -40
+    init_with: -36
 
 
 functions:
