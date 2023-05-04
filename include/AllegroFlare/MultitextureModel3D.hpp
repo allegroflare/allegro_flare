@@ -6,7 +6,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <AllegroFlare/Physics/AABB3D.hpp>
-#include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp>
 
 
 
@@ -39,7 +39,7 @@ namespace AllegroFlare
 
    public:
       ALLEGRO_VERTEX_DECL *vertex_declaration;
-      std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vertexes;
+      std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vertexes;
       ALLEGRO_VERTEX_BUFFER *vertex_buffer;
       ALLEGRO_BITMAP *texture;
       std::vector<named_object> named_objects;
@@ -50,7 +50,6 @@ namespace AllegroFlare
       void initialize();
       void build_vertex_declaration();
       bool load_obj_file(const char *filename, float scale=1.0);
-      void inspect_vertices();
       void inspect_status();
       void destroy_and_clear_vertex_buffer();
       void clear();
@@ -65,7 +64,7 @@ namespace AllegroFlare
       vec3d get_max_vertex_coordinate(); // should be renamed "calc_min_vertex..."
       AllegroFlare::Physics::AABB3D build_bounding_box();
 
-      std::vector<ALLEGRO_VERTEX_WITH_NORMAL> extract_named_object_vertices(std::string object_name);
+      std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> extract_named_object_vertices(std::string object_name);
 
       void draw();
       bool draw_object(int index);

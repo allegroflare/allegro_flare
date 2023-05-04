@@ -1073,6 +1073,7 @@
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1632,6 +1633,18 @@
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory"
+  ],
+  "CONSOLE_COLOR_RED": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
+  ],
+  "CONSOLE_COLOR_DEFAULT": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
+  ],
+  "al_fopen": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
+  ],
+  "AllegroFlare/MultitextureModel3D": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "AllegroFlare/MusicMesh/Stamp": [
     "AllegroFlare/MusicMesh/MusicMesh"

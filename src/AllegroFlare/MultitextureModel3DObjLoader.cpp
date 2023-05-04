@@ -70,10 +70,10 @@ bool MultitextureModel3DObjLoader::load()
    char buff[256];
    ALLEGRO_FILE* file = al_fopen(filename.c_str(), "r");
    ALLEGRO_COLOR white = al_color_name("white");
-   std::vector<ALLEGRO_VERTEX_WITH_NORMAL> vtxs;
+   std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vtxs;
    std::vector<MultitextureModel3D::vt_coord> vt_coords;
    std::vector<vec3d> vt_normals;
-   ALLEGRO_VERTEX_WITH_NORMAL vtx;
+   ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL vtx;
    MultitextureModel3D::vt_coord vt_c;
    vec3d vt_normal;
    bool vertex_textures_found = false;
@@ -87,7 +87,8 @@ bool MultitextureModel3DObjLoader::load()
    {
       vtx.x = vtx.y = vtx.z = 0;
       vtx.color = white;
-      vtx.u = vtx.v = 0;
+      vtx.u1 = vtx.v1 = 0;
+      vtx.u2 = vtx.v2 = 0;
       vtx.nx = vtx.nz = 0;
       vtx.ny = 1;
 
@@ -169,8 +170,10 @@ bool MultitextureModel3DObjLoader::load()
          vtx.x = vtxs[face_v1-1].x * scale;
          vtx.y = vtxs[face_v1-1].y * scale;
          vtx.z = vtxs[face_v1-1].z * scale;
-         vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
-         vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
+         vtx.u1 = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
+         vtx.v1 = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
+         vtx.u2 = 0.0f;
+         vtx.v2 = 0.0f;
          vtx.nx = (vertex_normals_found ? vt_normals[face_vn1-1].x : 0);
          vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
          vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);
@@ -180,8 +183,10 @@ bool MultitextureModel3DObjLoader::load()
          vtx.x = vtxs[face_v2-1].x * scale;
          vtx.y = vtxs[face_v2-1].y * scale;
          vtx.z = vtxs[face_v2-1].z * scale;
-         vtx.u = (vertex_textures_found ? vt_coords[face_vt2-1].u : 0);
-         vtx.v = (vertex_textures_found ? vt_coords[face_vt2-1].v : 0);
+         vtx.u1 = (vertex_textures_found ? vt_coords[face_vt2-1].u : 0);
+         vtx.v1 = (vertex_textures_found ? vt_coords[face_vt2-1].v : 0);
+         vtx.u2 = 0.0f;
+         vtx.v2 = 0.0f;
          vtx.nx = (vertex_normals_found ? vt_normals[face_vn2-1].x : 0);
          vtx.ny = (vertex_normals_found ? vt_normals[face_vn2-1].y : 0);
          vtx.nz = (vertex_normals_found ? vt_normals[face_vn2-1].z : 1);
@@ -191,8 +196,10 @@ bool MultitextureModel3DObjLoader::load()
          vtx.x = vtxs[face_v3-1].x * scale;
          vtx.y = vtxs[face_v3-1].y * scale;
          vtx.z = vtxs[face_v3-1].z * scale;
-         vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
-         vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
+         vtx.u1 = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
+         vtx.v1 = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
+         vtx.u2 = 0.0f;
+         vtx.v2 = 0.0f;
          vtx.nx = (vertex_normals_found ? vt_normals[face_vn3-1].x : 0);
          vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
          vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
@@ -204,8 +211,10 @@ bool MultitextureModel3DObjLoader::load()
             vtx.x = vtxs[face_v3-1].x * scale;
             vtx.y = vtxs[face_v3-1].y * scale;
             vtx.z = vtxs[face_v3-1].z * scale;
-            vtx.u = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
-            vtx.v = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
+            vtx.u1 = (vertex_textures_found ? vt_coords[face_vt3-1].u : 0);
+            vtx.v1 = (vertex_textures_found ? vt_coords[face_vt3-1].v : 0);
+            vtx.u2 = 0.0f;
+            vtx.v2 = 0.0f;
             vtx.nx = (vertex_normals_found ? vt_normals[face_vn3-1].x : 0);
             vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
             vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
@@ -215,8 +224,10 @@ bool MultitextureModel3DObjLoader::load()
             vtx.x = vtxs[face_v4-1].x * scale;
             vtx.y = vtxs[face_v4-1].y * scale;
             vtx.z = vtxs[face_v4-1].z * scale;
-            vtx.u = (vertex_textures_found ? vt_coords[face_vt4-1].u : 0);
-            vtx.v = (vertex_textures_found ? vt_coords[face_vt4-1].v : 0);
+            vtx.u1 = (vertex_textures_found ? vt_coords[face_vt4-1].u : 0);
+            vtx.v1 = (vertex_textures_found ? vt_coords[face_vt4-1].v : 0);
+            vtx.u2 = 0.0f;
+            vtx.v2 = 0.0f;
             vtx.nx = (vertex_normals_found ? vt_normals[face_vn4-1].x : 0);
             vtx.ny = (vertex_normals_found ? vt_normals[face_vn4-1].y : 0);
             vtx.nz = (vertex_normals_found ? vt_normals[face_vn4-1].z : 1);
@@ -226,8 +237,10 @@ bool MultitextureModel3DObjLoader::load()
             vtx.x = vtxs[face_v1-1].x * scale;
             vtx.y = vtxs[face_v1-1].y * scale;
             vtx.z = vtxs[face_v1-1].z * scale;
-            vtx.u = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
-            vtx.v = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
+            vtx.u1 = (vertex_textures_found ? vt_coords[face_vt1-1].u : 0);
+            vtx.v1 = (vertex_textures_found ? vt_coords[face_vt1-1].v : 0);
+            vtx.u2 = 0.0f;
+            vtx.v2 = 0.0f;
             vtx.nx = (vertex_normals_found ? vt_normals[face_vn1-1].x : 0);
             vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
             vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);

@@ -6,7 +6,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-#include <AllegroFlare/Testing/Comparison/AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp>
 
 
 // TODO: improve this:
@@ -20,19 +20,21 @@
 
 
 
-static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL build_vertex(
+static AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL build_vertex(
       float x,
       float y,
       float z,
-      float u,
-      float v,
+      float u1,
+      float v1,
+      float u2,
+      float v2,
       ALLEGRO_COLOR color,
       float nx,
       float ny,
       float nz
    )
 {
-   return AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL{x, y, z, u, v, color, nx, ny, nz};
+   return AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL{x, y, z, u1, v1, u2, v2, color, nx, ny, nz};
 }
 
 
@@ -207,50 +209,50 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
    EXPECT_EQ(3, subject.named_objects.size());
 
    ALLEGRO_COLOR c{1, 1, 1, 1};
-   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> expected_vertices = {
-      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0,  1,  0),
-      build_vertex(-5, 2, -22, 0.875, 0.5,  c, 0,  1,  0),
-      build_vertex(-5, 2, -20, 0.875, 0.25, c, 0,  1,  0),
-      build_vertex(-5, 2, -20, 0.875, 0.25, c, 0,  1,  0),
-      build_vertex(-3, 2, -20, 0.625, 0.25, c, 0,  1,  0),
-      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0,  1,  0),
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> expected_vertices = {
+      build_vertex(-3, 2, -22, 0.625, 0.5,  0.0, 0.0, c, 0,  1,  0),
+      build_vertex(-5, 2, -22, 0.875, 0.5,  0.0, 0.0, c, 0,  1,  0),
+      build_vertex(-5, 2, -20, 0.875, 0.25, 0.0, 0.0, c, 0,  1,  0),
+      build_vertex(-5, 2, -20, 0.875, 0.25, 0.0, 0.0, c, 0,  1,  0),
+      build_vertex(-3, 2, -20, 0.625, 0.25, 0.0, 0.0, c, 0,  1,  0),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  0.0, 0.0, c, 0,  1,  0),
 
-      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  0,  1),
-      build_vertex(-3, 2, -20, 0.625, 0.25, c, 0,  0,  1),
-      build_vertex(-5, 2, -20, 0.625, 0,    c, 0,  0,  1),
-      build_vertex(-5, 2, -20, 0.625, 0,    c, 0,  0,  1),
-      build_vertex(-5, 0, -20, 0.375, 0,    c, 0,  0,  1),
-      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  0,  1),
+      build_vertex(-3, 0, -20, 0.375, 0.25, 0.0, 0.0, c, 0,  0,  1),
+      build_vertex(-3, 2, -20, 0.625, 0.25, 0.0, 0.0, c, 0,  0,  1),
+      build_vertex(-5, 2, -20, 0.625, 0,    0.0, 0.0, c, 0,  0,  1),
+      build_vertex(-5, 2, -20, 0.625, 0,    0.0, 0.0, c, 0,  0,  1),
+      build_vertex(-5, 0, -20, 0.375, 0,    0.0, 0.0, c, 0,  0,  1),
+      build_vertex(-3, 0, -20, 0.375, 0.25, 0.0, 0.0, c, 0,  0,  1),
 
-      build_vertex(-5, 0, -20, 0.375, 1,    c, -1, 0,  0),
-      build_vertex(-5, 2, -20, 0.625, 1,    c, -1, 0,  0),
-      build_vertex(-5, 2, -22, 0.625, 0.75, c, -1, 0,  0),
-      build_vertex(-5, 2, -22, 0.625, 0.75, c, -1, 0,  0),
-      build_vertex(-5, 0, -22, 0.375, 0.75, c, -1, 0,  0),
-      build_vertex(-5, 0, -20, 0.375, 1,    c, -1, 0,  0),
+      build_vertex(-5, 0, -20, 0.375, 1,    0.0, 0.0, c, -1, 0,  0),
+      build_vertex(-5, 2, -20, 0.625, 1,    0.0, 0.0, c, -1, 0,  0),
+      build_vertex(-5, 2, -22, 0.625, 0.75, 0.0, 0.0, c, -1, 0,  0),
+      build_vertex(-5, 2, -22, 0.625, 0.75, 0.0, 0.0, c, -1, 0,  0),
+      build_vertex(-5, 0, -22, 0.375, 0.75, 0.0, 0.0, c, -1, 0,  0),
+      build_vertex(-5, 0, -20, 0.375, 1,    0.0, 0.0, c, -1, 0,  0),
 
-      build_vertex(-5, 0, -22, 0.125, 0.5,  c, 0,  -1, 0),
-      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 0,  -1, 0),
-      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  -1, 0),
-      build_vertex(-3, 0, -20, 0.375, 0.25, c, 0,  -1, 0),
-      build_vertex(-5, 0, -20, 0.125, 0.25, c, 0,  -1, 0),
-      build_vertex(-5, 0, -22, 0.125, 0.5,  c, 0,  -1, 0),
+      build_vertex(-5, 0, -22, 0.125, 0.5,  0.0, 0.0, c, 0,  -1, 0),
+      build_vertex(-3, 0, -22, 0.375, 0.5,  0.0, 0.0, c, 0,  -1, 0),
+      build_vertex(-3, 0, -20, 0.375, 0.25, 0.0, 0.0, c, 0,  -1, 0),
+      build_vertex(-3, 0, -20, 0.375, 0.25, 0.0, 0.0, c, 0,  -1, 0),
+      build_vertex(-5, 0, -20, 0.125, 0.25, 0.0, 0.0, c, 0,  -1, 0),
+      build_vertex(-5, 0, -22, 0.125, 0.5,  0.0, 0.0, c, 0,  -1, 0),
 
-      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 1,  0,  0),
-      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 1,  0,  0),
-      build_vertex(-3, 2, -20, 0.625, 0.25, c, 1,  0,  0),
-      build_vertex(-3, 2, -20, 0.625, 0.25, c, 1,  0,  0),
-      build_vertex(-3, 0, -20, 0.375, 0.25, c, 1,  0,  0),
-      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 1,  0,  0),
+      build_vertex(-3, 0, -22, 0.375, 0.5,  0.0, 0.0, c, 1,  0,  0),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  0.0, 0.0, c, 1,  0,  0),
+      build_vertex(-3, 2, -20, 0.625, 0.25, 0.0, 0.0, c, 1,  0,  0),
+      build_vertex(-3, 2, -20, 0.625, 0.25, 0.0, 0.0, c, 1,  0,  0),
+      build_vertex(-3, 0, -20, 0.375, 0.25, 0.0, 0.0, c, 1,  0,  0),
+      build_vertex(-3, 0, -22, 0.375, 0.5,  0.0, 0.0, c, 1,  0,  0),
 
-      build_vertex(-5, 0, -22, 0.375, 0.75, c, 0, 0, -1),
-      build_vertex(-5, 2, -22, 0.625, 0.75, c, 0, 0, -1),
-      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0, 0, -1),
-      build_vertex(-3, 2, -22, 0.625, 0.5,  c, 0, 0, -1),
-      build_vertex(-3, 0, -22, 0.375, 0.5,  c, 0, 0, -1),
-      build_vertex(-5, 0, -22, 0.375, 0.75, c, 0, 0, -1),
+      build_vertex(-5, 0, -22, 0.375, 0.75, 0.0, 0.0, c, 0, 0, -1),
+      build_vertex(-5, 2, -22, 0.625, 0.75, 0.0, 0.0, c, 0, 0, -1),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  0.0, 0.0, c, 0, 0, -1),
+      build_vertex(-3, 2, -22, 0.625, 0.5,  0.0, 0.0, c, 0, 0, -1),
+      build_vertex(-3, 0, -22, 0.375, 0.5,  0.0, 0.0, c, 0, 0, -1),
+      build_vertex(-5, 0, -22, 0.375, 0.75, 0.0, 0.0, c, 0, 0, -1),
    };
-   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> actual_vertices =
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> actual_vertices =
       subject.extract_named_object_vertices("Cube");
 
    //expected_vertices.erase(expected_vertices.begin(), expected_vertices.begin() + 32);

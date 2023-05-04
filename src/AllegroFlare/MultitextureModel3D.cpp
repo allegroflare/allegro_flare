@@ -57,16 +57,7 @@ namespace AllegroFlare
    void MultitextureModel3D::build_vertex_declaration()
    {
       if (vertex_declaration) return;
-
-      ALLEGRO_VERTEX_ELEMENT elems[] = {
-         {ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, x)},
-         {ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, u)},
-         {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, color)},
-         {ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, nx)},
-         {0, 0, 0}
-      };
-
-      vertex_declaration = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX_WITH_NORMAL));
+      vertex_declaration = create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration();
    }
 
 
@@ -79,14 +70,6 @@ namespace AllegroFlare
       return loader.load();
    }
 
-
-
-
-   void MultitextureModel3D::inspect_vertices()
-   {
-      for (unsigned i=0; i<vertexes.size(); i++)
-         printf("[%d] %f %f %f : %f %f : %f %f %f\n", i, vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v, vertexes[i].nx, vertexes[i].ny, vertexes[i].nz);
-   }
 
 
 
@@ -445,7 +428,7 @@ namespace AllegroFlare
    }
 
 
-   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> MultitextureModel3D::extract_named_object_vertices(std::string object_name)
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> MultitextureModel3D::extract_named_object_vertices(std::string object_name)
    {
       // TODO: Consider that there could be multiple named objects with the same name; Throw in this case.
       named_object *found_named_object = nullptr;
@@ -468,7 +451,7 @@ namespace AllegroFlare
          throw std::runtime_error(error_message.str());
       }
 
-      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> result;
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> result;
 
       for (auto &vertex_index_num : found_named_object->index_list)
       {

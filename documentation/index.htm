@@ -171,6 +171,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionKit.q.yml">quintessence/AllegroFlare/MotionKit.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml">quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml">quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/Stamp.q.yml">quintessence/AllegroFlare/MusicMesh/Stamp.q.yml</a></li>
@@ -8525,6 +8526,47 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml">quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">model</td>
+  <td class="property">AllegroFlare::MultitextureModel3D*</td>
+</tr>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">scale</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">load()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;CONSOLE_COLOR_RED&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ConsoleColor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;CONSOLE_COLOR_DEFAULT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ConsoleColor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_fopen&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultitextureModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultitextureModel3D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23693,6 +23735,7 @@ table td
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -24252,6 +24295,18 @@ table td
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory"
+  ],
+  "CONSOLE_COLOR_RED": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
+  ],
+  "CONSOLE_COLOR_DEFAULT": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
+  ],
+  "al_fopen": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
+  ],
+  "AllegroFlare/MultitextureModel3D": [
+    "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "AllegroFlare/MusicMesh/Stamp": [
     "AllegroFlare/MusicMesh/MusicMesh"
