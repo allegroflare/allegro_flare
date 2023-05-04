@@ -1,1 +1,27 @@
-// This is a header-only struct
+
+
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp>
+
+
+namespace AllegroFlare
+{
+
+
+static ALLEGRO_VERTEX_DECL *create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration()
+{
+   ALLEGRO_VERTEX_ELEMENT elems[] = {
+      {ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL, x)},
+      {ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL, u1)},
+      {ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL, u2)},
+      {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL, color)},
+      {ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL, nx)},
+      {0, 0, 0}
+   };
+
+   return al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL));
+}
+
+
+} // namespace AllegroFlare;
+
+

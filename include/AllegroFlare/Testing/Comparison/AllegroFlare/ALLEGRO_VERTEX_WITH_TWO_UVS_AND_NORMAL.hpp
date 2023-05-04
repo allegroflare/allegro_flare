@@ -16,6 +16,6 @@ namespace AllegroFlare
          const ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL& other_object
       );
    void PrintTo(const ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL& object, ::std::ostream* os);
-}
+} // namespace AllegroFlare
 
 

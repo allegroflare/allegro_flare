@@ -2,6 +2,7 @@
 
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 
 
 namespace AllegroFlare
@@ -14,6 +15,8 @@ namespace AllegroFlare
       ALLEGRO_COLOR color;
       float nx, ny, nz;
    } ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL;
-}
+
+   static ALLEGRO_VERTEX_DECL *create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration();
+} // namespace AllegroFlare;
 
 
