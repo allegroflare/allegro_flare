@@ -3,6 +3,8 @@
 
 #include <AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp>
 
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
+
 
 TEST(AllegroFlare_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMALTest, can_be_created_without_blowing_up)
 {
@@ -11,9 +13,14 @@ TEST(AllegroFlare_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMALTest, can_be_created_wit
 
 
 TEST(AllegroFlare_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMALTest,
-   DISABLED__create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration__without_allegro_initialized__will_throw_an_error)
+   create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration__without_allegro_initialized__will_throw_an_error)
 {
-   //AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration();
+   EXPECT_THROW_WITH_MESSAGE(
+      AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration(),
+      std::runtime_error,
+      "[AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration]: error: Allegro must be "
+            "initialized. (ai_is_system_installed() returned false)."
+   );
 }
 
 

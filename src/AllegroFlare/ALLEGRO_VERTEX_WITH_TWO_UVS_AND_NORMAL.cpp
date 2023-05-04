@@ -14,21 +14,21 @@ ALLEGRO_VERTEX_DECL *create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declar
    if (!(al_is_system_installed()))
    {
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration"
+         "AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration",
          "Allegro must be initialized. (ai_is_system_installed() returned false)."
       );
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration"
+         "AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration",
          "Primitives addon must be initialized. (al_is_primitives_addon_initialized() returned false)."
       );
    }
    if (!al_get_current_display())
    {
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration"
+         "AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration",
          "A valid display must be present (al_get_current_display() returned a nullptr)."
       );
    }
