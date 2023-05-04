@@ -16,7 +16,7 @@ namespace AllegroFlare
       float nx, ny, nz;
    } ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL;
 
-   static ALLEGRO_VERTEX_DECL *create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration();
+   ALLEGRO_VERTEX_DECL *create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration();
 } // namespace AllegroFlare;
 
 
