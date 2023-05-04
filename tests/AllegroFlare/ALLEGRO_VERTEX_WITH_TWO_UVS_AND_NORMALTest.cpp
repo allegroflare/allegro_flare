@@ -25,23 +25,33 @@ TEST(AllegroFlare_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMALTest,
 
 
 TEST(AllegroFlare_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMALTest,
-   DISABLED__create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration__without_allegro_primitives_addon_initialized\
+   create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration__without_allegro_primitives_addon_initialized\
 __will_throw_an_error)
 {
-   //al_init();
-   //AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration();
-   //al_uninstall_system();
+   al_init();
+   EXPECT_THROW_WITH_MESSAGE(
+      AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration(),
+      std::runtime_error,
+      "[AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration]: error: Primitives addon "
+            "must be initialized. (al_is_primitives_addon_initialized() returned false)."
+   );
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMALTest,
-   DISABLED__create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration__without_a_current_display__will_throw_an_error)
+   create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration__without_a_current_display__will_throw_an_error)
 {
-   //al_init();
-   //al_init_primitives_addon();
-   //AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration();
-   //al_shutdown_primitives_addon();
-   //al_uninstall_system();
+   al_init();
+   al_init_primitives_addon();
+   EXPECT_THROW_WITH_MESSAGE(
+      AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration(),
+      std::runtime_error,
+      "[AllegroFlare::create_ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL_vertex_declaration]: error: A valid display must "
+            "be present (al_get_current_display() returned a nullptr)."
+   );
+   al_shutdown_primitives_addon();
+   al_uninstall_system();
 }
 
 
