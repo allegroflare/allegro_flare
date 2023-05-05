@@ -41,6 +41,17 @@ void Multitexture::activate()
       throw std::runtime_error("Multitexture::activate: error: guard \"initialized\" not met");
    }
    AllegroFlare::Shaders::Base::activate();
+   set_values_to_activated_shader();
+}
+
+void Multitexture::set_values_to_activated_shader()
+{
+   // TODO: set values
+   //set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
+   //set_vec3("camera_position", camera_position);
+   //set_mat4("position_transform", &object_placement_transform);
+   //set_bool("reflecting", reflecting);
+   return;
 }
 
 std::string Multitexture::obtain_vertex_source()

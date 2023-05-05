@@ -16,6 +16,7 @@ namespace AllegroFlare
 
       private:
          bool initialized;
+         void set_values_to_activated_shader();
          static std::string obtain_vertex_source();
          static std::string obtain_fragment_source();
 

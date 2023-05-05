@@ -35,6 +35,18 @@ functions:
     guards: [ initialized ]
     body: |
       AllegroFlare::Shaders::Base::activate();
+      set_values_to_activated_shader();
+
+
+  - name: set_values_to_activated_shader
+    private: true
+    body: |
+      // TODO: set values
+      //set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
+      //set_vec3("camera_position", camera_position);
+      //set_mat4("position_transform", &object_placement_transform);
+      //set_bool("reflecting", reflecting);
+      return;
 
 
   - name: obtain_vertex_source
