@@ -108,6 +108,8 @@ bool MultitextureModel3DObjLoader::load()
       );
    }
 
+   // TODO: Confirm the same (within floating point margin of error) vertices ordering and values
+
    std::size_t i=0;
    for (auto &vertex : model->vertexes)
    {
