@@ -12,9 +12,10 @@ namespace AllegroFlare
 {
 
 
-MultitextureModel3DObjLoader::MultitextureModel3DObjLoader(AllegroFlare::MultitextureModel3D* model, std::string filename, float scale)
+MultitextureModel3DObjLoader::MultitextureModel3DObjLoader(AllegroFlare::MultitextureModel3D* model, std::string obj_filename, std::string obj_filename_with_uv2_coordinates, float scale)
    : model(model)
-   , filename(filename)
+   , obj_filename(obj_filename)
+   , obj_filename_with_uv2_coordinates(obj_filename_with_uv2_coordinates)
    , scale(scale)
 {
 }
@@ -31,9 +32,15 @@ void MultitextureModel3DObjLoader::set_model(AllegroFlare::MultitextureModel3D* 
 }
 
 
-void MultitextureModel3DObjLoader::set_filename(std::string filename)
+void MultitextureModel3DObjLoader::set_obj_filename(std::string obj_filename)
 {
-   this->filename = filename;
+   this->obj_filename = obj_filename;
+}
+
+
+void MultitextureModel3DObjLoader::set_obj_filename_with_uv2_coordinates(std::string obj_filename_with_uv2_coordinates)
+{
+   this->obj_filename_with_uv2_coordinates = obj_filename_with_uv2_coordinates;
 }
 
 
@@ -49,9 +56,15 @@ AllegroFlare::MultitextureModel3D* MultitextureModel3DObjLoader::get_model() con
 }
 
 
-std::string MultitextureModel3DObjLoader::get_filename() const
+std::string MultitextureModel3DObjLoader::get_obj_filename() const
 {
-   return filename;
+   return obj_filename;
+}
+
+
+std::string MultitextureModel3DObjLoader::get_obj_filename_with_uv2_coordinates() const
+{
+   return obj_filename_with_uv2_coordinates;
 }
 
 
@@ -68,7 +81,7 @@ bool MultitextureModel3DObjLoader::load()
    model->clear();
 
    char buff[256];
-   ALLEGRO_FILE* file = al_fopen(filename.c_str(), "r");
+   ALLEGRO_FILE* file = al_fopen(obj_filename.c_str(), "r");
    ALLEGRO_COLOR white = al_color_name("white");
    std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vtxs;
    std::vector<MultitextureModel3D::vt_coord> vt_coords;
@@ -80,8 +93,14 @@ bool MultitextureModel3DObjLoader::load()
    bool vertex_normals_found = false;
    MultitextureModel3D::named_object *current_named_object = NULL;
 
-   if (!al_filename_exists(filename.c_str()))
-      std::cout << CONSOLE_COLOR_RED << "Could not load \"" << filename << "\" when creating MultitextureModel3D" << CONSOLE_COLOR_DEFAULT << std::endl;
+   if (!al_filename_exists(obj_filename.c_str()))
+   {
+      std::cout << CONSOLE_COLOR_RED
+                << "Could not load \"" << obj_filename << "\" when creating MultitextureModel3D"
+                << CONSOLE_COLOR_DEFAULT
+                << std::endl
+                ;
+   }
 
    while (al_fgets(file, buff, 256))
    {
@@ -250,8 +269,20 @@ bool MultitextureModel3DObjLoader::load()
       }
    }
 
-   if (!vertex_normals_found) std::cout << "Vertex normals not found when loading \"" << filename << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)." << std::endl;
-   if (!vertex_textures_found) std::cout << "Vertex textures not found when loading \"" << filename << "\".  Unexpected results may occour." << std::endl;
+   if (!vertex_normals_found)
+   {
+      std::cout << "Vertex normals not found when loading \""
+                << obj_filename
+                << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)."
+                << std::endl;
+   }
+   if (!vertex_textures_found)
+   {
+      std::cout << "Vertex textures not found when loading \""
+                << obj_filename
+                << "\".  Unexpected results may occour."
+                << std::endl;
+   }
    //std::cout << model->named_objects.size() << " named objects found" << std::endl;
 
    al_fclose(file);

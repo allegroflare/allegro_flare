@@ -63,10 +63,14 @@ namespace AllegroFlare
 
 
 
-   bool MultitextureModel3D::load_obj_file(const char *filename, float scale)
+   bool MultitextureModel3D::load_obj_file(
+         std::string obj_filename,
+         std::string obj_filename_with_uv2_coordinates,
+         float scale
+      )
    {
       validate_initialized_or_output_to_cerr("load_obj_file");
-      MultitextureModel3DObjLoader loader(this, filename, scale);
+      MultitextureModel3DObjLoader loader(this, obj_filename, obj_filename_with_uv2_coordinates, scale);
       return loader.load();
    }
 

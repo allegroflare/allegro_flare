@@ -8,10 +8,17 @@ properties:
     setter: true
     getter: true
 
-  - name: filename
+  - name: obj_filename
     type: std::string
     constructor_arg: true
-    init_with: '"[unset-filename]"'
+    init_with: '"[unset-obj_filename]"'
+    setter: true
+    getter: true
+
+  - name: obj_filename_with_uv2_coordinates
+    type: std::string
+    constructor_arg: true
+    init_with: '"[unset-obj_filename_with_uv2_coordinates]"'
     setter: true
     getter: true
 
@@ -34,7 +41,7 @@ functions:
       model->clear();
 
       char buff[256];
-      ALLEGRO_FILE* file = al_fopen(filename.c_str(), "r");
+      ALLEGRO_FILE* file = al_fopen(obj_filename.c_str(), "r");
       ALLEGRO_COLOR white = al_color_name("white");
       std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vtxs;
       std::vector<MultitextureModel3D::vt_coord> vt_coords;
@@ -46,8 +53,14 @@ functions:
       bool vertex_normals_found = false;
       MultitextureModel3D::named_object *current_named_object = NULL;
 
-      if (!al_filename_exists(filename.c_str()))
-         std::cout << CONSOLE_COLOR_RED << "Could not load \"" << filename << "\" when creating MultitextureModel3D" << CONSOLE_COLOR_DEFAULT << std::endl;
+      if (!al_filename_exists(obj_filename.c_str()))
+      {
+         std::cout << CONSOLE_COLOR_RED
+                   << "Could not load \"" << obj_filename << "\" when creating MultitextureModel3D"
+                   << CONSOLE_COLOR_DEFAULT
+                   << std::endl
+                   ;
+      }
 
       while (al_fgets(file, buff, 256))
       {
@@ -216,8 +229,20 @@ functions:
          }
       }
 
-      if (!vertex_normals_found) std::cout << "Vertex normals not found when loading \"" << filename << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)." << std::endl;
-      if (!vertex_textures_found) std::cout << "Vertex textures not found when loading \"" << filename << "\".  Unexpected results may occour." << std::endl;
+      if (!vertex_normals_found)
+      {
+         std::cout << "Vertex normals not found when loading \""
+                   << obj_filename
+                   << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)."
+                   << std::endl;
+      }
+      if (!vertex_textures_found)
+      {
+         std::cout << "Vertex textures not found when loading \""
+                   << obj_filename
+                   << "\".  Unexpected results may occour."
+                   << std::endl;
+      }
       //std::cout << model->named_objects.size() << " named objects found" << std::endl;
 
       al_fclose(file);

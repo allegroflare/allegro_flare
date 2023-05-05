@@ -49,7 +49,7 @@ namespace AllegroFlare
 
       void initialize();
       void build_vertex_declaration();
-      bool load_obj_file(const char *filename, float scale=1.0);
+      bool load_obj_file(std::string obj_filename, std::string obj_filename_with_uv2_coordinates, float scale=1.0);
       void inspect_status();
       void destroy_and_clear_vertex_buffer();
       void clear();
