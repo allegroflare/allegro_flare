@@ -93,7 +93,7 @@ bool MultitextureModel3DObjLoader::load()
 
    AllegroFlare::MultitextureModel3D model_for_uv2;
    model_for_uv2.initialize(); // TODO: Confirm if this model needs to be freed in some way
-   bool uv2_model_load_successful = load_obj(model, obj_filename_with_uv2_coordinates, scale);
+   bool uv2_model_load_successful = load_obj(&model_for_uv2, obj_filename_with_uv2_coordinates, scale);
    if (!uv2_model_load_successful) return false;
 
    // Confirm the same vertex count
@@ -101,11 +101,19 @@ bool MultitextureModel3DObjLoader::load()
 
    if (!loaded_models_have_same_vertex_count)
    {
+      std::stringstream error_message;
+      error_message << "The number of vertices of the two loded obj files "
+         << "("
+            << "base_model: { filename: \"" << base_obj_filename
+                  << "\", vertices: " << model->vertexes.size() << "}"
+         << ", "
+            << "uv2_model: { filename: \"" << obj_filename_with_uv2_coordinates
+                  << "\", vertices: " << model_for_uv2.vertexes.size() << "}"
+         << ")"
+         << "does not match."
+         ;
       // TODO: Add more detail (obj filename, vertex count for each file) to the error message.
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::MultitextureModel3DObjLoader"
-         "The number of vertices of the two loded obj files does not match."
-      );
+      AllegroFlare::Logger::throw_error("AllegroFlare::MultitextureModel3DObjLoader", error_message.str());
    }
 
    // TODO: Confirm the same (within floating point margin of error) vertices ordering and values
