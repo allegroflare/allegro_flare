@@ -5,6 +5,7 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/GameSession",
+    "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",

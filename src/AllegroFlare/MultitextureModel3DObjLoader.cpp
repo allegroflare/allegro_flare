@@ -3,6 +3,7 @@
 #include <AllegroFlare/MultitextureModel3DObjLoader.hpp>
 
 #include <AllegroFlare/ConsoleColor.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_color.h>
 #include <iostream>
@@ -100,7 +101,11 @@ bool MultitextureModel3DObjLoader::load()
 
    if (!loaded_models_have_same_vertex_count)
    {
-      // TODO: Throw
+      // TODO: Add more detail (obj filename, vertex count for each file) to the error message.
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::MultitextureModel3DObjLoader"
+         "The number of vertices of the two loded obj files does not match."
+      );
    }
 
    std::size_t i=0;
