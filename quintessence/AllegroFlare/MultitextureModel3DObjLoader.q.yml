@@ -37,10 +37,23 @@ functions:
     type: bool
     guards: [ model ]
     body: |
-      return load_base_obj();
+      return load_obj(model, base_obj_filename, scale);
 
 
-  - name: load_base_obj
+  - name: load_obj
+    private: true
+    static: true
+    type: bool
+    parameters:
+      - name: model
+        type: AllegroFlare::MultitextureModel3D*
+        default_argument: nullptr
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-obj_filename]"'
+      - name: scale
+        type: float
+        default_argument: 1.0f
     type: bool
     body: |
       if (!model) throw std::runtime_error("Unable to load nullptr model");
@@ -48,7 +61,7 @@ functions:
       model->clear();
 
       char buff[256];
-      ALLEGRO_FILE* file = al_fopen(base_obj_filename.c_str(), "r");
+      ALLEGRO_FILE* file = al_fopen(filename.c_str(), "r");
       ALLEGRO_COLOR white = al_color_name("white");
       std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vtxs;
       std::vector<MultitextureModel3D::vt_coord> vt_coords;
@@ -60,10 +73,10 @@ functions:
       bool vertex_normals_found = false;
       MultitextureModel3D::named_object *current_named_object = NULL;
 
-      if (!al_filename_exists(base_obj_filename.c_str()))
+      if (!al_filename_exists(filename.c_str()))
       {
          std::cout << CONSOLE_COLOR_RED
-                   << "Could not load \"" << base_obj_filename << "\" when creating MultitextureModel3D"
+                   << "Could not load \"" << filename << "\" when creating MultitextureModel3D"
                    << CONSOLE_COLOR_DEFAULT
                    << std::endl
                    ;
@@ -238,15 +251,15 @@ functions:
 
       if (!vertex_normals_found)
       {
-         std::cout << "Vertex normals not found when loading base_obj_filename: \""
-                   << base_obj_filename
+         std::cout << "Vertex normals not found when loading filename: \""
+                   << filename
                    << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)."
                    << std::endl;
       }
       if (!vertex_textures_found)
       {
-         std::cout << "Vertex textures not found when loading base_obj_filename: \""
-                   << base_obj_filename
+         std::cout << "Vertex textures not found when loading filename: \""
+                   << filename
                    << "\".  Unexpected results may occour."
                    << std::endl;
       }

@@ -14,6 +14,7 @@ namespace AllegroFlare
       std::string base_obj_filename;
       std::string obj_filename_with_uv2_coordinates;
       float scale;
+      static bool load_obj(AllegroFlare::MultitextureModel3D* model=nullptr, std::string filename="[unset-obj_filename]", float scale=1.0f);
 
    protected:
 
@@ -31,7 +32,6 @@ namespace AllegroFlare
       std::string get_obj_filename_with_uv2_coordinates() const;
       float get_scale() const;
       bool load();
-      bool load_base_obj();
    };
 }
 

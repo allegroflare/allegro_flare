@@ -85,17 +85,17 @@ bool MultitextureModel3DObjLoader::load()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("MultitextureModel3DObjLoader::load: error: guard \"model\" not met");
    }
-   return load_base_obj();
+   return load_obj(model, base_obj_filename, scale);
 }
 
-bool MultitextureModel3DObjLoader::load_base_obj()
+bool MultitextureModel3DObjLoader::load_obj(AllegroFlare::MultitextureModel3D* model, std::string filename, float scale)
 {
    if (!model) throw std::runtime_error("Unable to load nullptr model");
 
    model->clear();
 
    char buff[256];
-   ALLEGRO_FILE* file = al_fopen(base_obj_filename.c_str(), "r");
+   ALLEGRO_FILE* file = al_fopen(filename.c_str(), "r");
    ALLEGRO_COLOR white = al_color_name("white");
    std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vtxs;
    std::vector<MultitextureModel3D::vt_coord> vt_coords;
@@ -107,10 +107,10 @@ bool MultitextureModel3DObjLoader::load_base_obj()
    bool vertex_normals_found = false;
    MultitextureModel3D::named_object *current_named_object = NULL;
 
-   if (!al_filename_exists(base_obj_filename.c_str()))
+   if (!al_filename_exists(filename.c_str()))
    {
       std::cout << CONSOLE_COLOR_RED
-                << "Could not load \"" << base_obj_filename << "\" when creating MultitextureModel3D"
+                << "Could not load \"" << filename << "\" when creating MultitextureModel3D"
                 << CONSOLE_COLOR_DEFAULT
                 << std::endl
                 ;
@@ -285,15 +285,15 @@ bool MultitextureModel3DObjLoader::load_base_obj()
 
    if (!vertex_normals_found)
    {
-      std::cout << "Vertex normals not found when loading base_obj_filename: \""
-                << base_obj_filename
+      std::cout << "Vertex normals not found when loading filename: \""
+                << filename
                 << "\".  Unexpected results may occour with default vertex normal (0, 0, 1)."
                 << std::endl;
    }
    if (!vertex_textures_found)
    {
-      std::cout << "Vertex textures not found when loading base_obj_filename: \""
-                << base_obj_filename
+      std::cout << "Vertex textures not found when loading filename: \""
+                << filename
                 << "\".  Unexpected results may occour."
                 << std::endl;
    }
