@@ -37,6 +37,7 @@ functions:
     type: bool
     guards: [ model ]
     body: |
+      // TODO: Continue loading second model and compare then composite
       return load_obj(model, base_obj_filename, scale);
 
 

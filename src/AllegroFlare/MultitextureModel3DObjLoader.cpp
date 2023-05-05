@@ -85,6 +85,7 @@ bool MultitextureModel3DObjLoader::load()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("MultitextureModel3DObjLoader::load: error: guard \"model\" not met");
    }
+   // TODO: Continue loading second model and compare then composite
    return load_obj(model, base_obj_filename, scale);
 }
 
