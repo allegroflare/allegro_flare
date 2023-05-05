@@ -94,6 +94,7 @@ TEST_F(AllegroFlare_Shaders_MultitextureTestWithSetup, when_active__will_render_
 
    camera.stepout = {0, 1.0, 4};  // step back from the origin
    camera.tilt = 0.13;            // look up(-)/down(+)
+   camera.spin = 0.2;             // set a good start initial spin
 
    float number_of_seconds=6.0f;
    int loops = (int)(number_of_seconds * 60.0f);
