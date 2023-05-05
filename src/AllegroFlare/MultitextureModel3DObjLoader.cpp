@@ -86,7 +86,32 @@ bool MultitextureModel3DObjLoader::load()
       throw std::runtime_error("MultitextureModel3DObjLoader::load: error: guard \"model\" not met");
    }
    // TODO: Continue loading second model and compare then composite
-   return load_obj(model, base_obj_filename, scale);
+   // Load base model
+   bool base_model_load_successful = load_obj(model, base_obj_filename, scale);
+   if (!base_model_load_successful) return false;
+
+   AllegroFlare::MultitextureModel3D model_for_uv2;
+   model_for_uv2.initialize(); // TODO: Confirm if this model needs to be freed in some way
+   bool uv2_model_load_successful = load_obj(model, obj_filename_with_uv2_coordinates, scale);
+   if (!uv2_model_load_successful) return false;
+
+   // Confirm the same vertex count
+   bool loaded_models_have_same_vertex_count = (model_for_uv2.vertexes.size() == model->vertexes.size());
+
+   if (!loaded_models_have_same_vertex_count)
+   {
+      // TODO: Throw
+   }
+
+   std::size_t i=0;
+   for (auto &vertex : model->vertexes)
+   {
+      vertex.u2 = model_for_uv2.vertexes[i].u1;
+      vertex.v2 = model_for_uv2.vertexes[i].v1;
+      i++;
+   }
+
+   return true;
 }
 
 bool MultitextureModel3DObjLoader::load_obj(AllegroFlare::MultitextureModel3D* model, std::string filename, float scale)
