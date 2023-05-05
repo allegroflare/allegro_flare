@@ -492,6 +492,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Multitexture",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory",

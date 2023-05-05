@@ -15,9 +15,28 @@ properties:
     static: true
     constexpr: true
 
+  - name: texture_a
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: texture_b
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
+
+
+documentation:
+
+
+  - todos:
+      - Add explit setters (which will set the property on the shader if active) for properties.
 
 
 functions:
@@ -43,6 +62,8 @@ functions:
     body: |
       // TODO: set values
       //set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
+      set_sampler("texture_a", texture_a);
+      set_sampler("texture_b", texture_b);
       //set_vec3("camera_position", camera_position);
       //set_mat4("position_transform", &object_placement_transform);
       //set_bool("reflecting", reflecting);
@@ -58,20 +79,29 @@ functions:
         attribute vec4 al_pos;
         attribute vec4 al_color;
         attribute vec2 al_texcoord;
+        attribute vec2 al_user_attr_0; // this is the uv2 coordinates
         uniform mat4 al_projview_matrix;
         uniform bool al_use_tex_matrix;
         uniform mat4 al_tex_matrix;
         varying vec4 varying_color;
         varying vec2 varying_texcoord_1;
+        varying vec2 varying_texcoord_2;
         void main()
         {
           varying_color = al_color;
-          if (al_use_tex_matrix) {
+          if (al_use_tex_matrix)
+          {
             vec4 uv1 = al_tex_matrix * vec4(al_texcoord, 0, 1);
             varying_texcoord_1 = vec2(uv1.x, uv1.y);
+
+            vec4 uv2 = al_tex_matrix * vec4(al_user_attr_0, 0, 1);
+            varying_texcoord_2 = vec2(uv2.x, uv2.y);
           }
           else
+          {
             varying_texcoord_1 = al_texcoord;
+            varying_texcoord_2 = al_user_attr_0;
+          }
           gl_Position = al_projview_matrix * al_pos;
         }
       )DELIM";
@@ -93,7 +123,11 @@ functions:
         uniform int al_alpha_func;
         uniform float al_alpha_test_val;
         varying vec4 varying_color;
+
+        uniform sampler2D texture_a;
+        uniform sampler2D texture_b;
         varying vec2 varying_texcoord_1;
+        varying vec2 varying_texcoord_2;
 
         bool alpha_test_func(float x, int op, float compare);
 
@@ -101,13 +135,23 @@ functions:
         {
           vec4 c;
           if (al_use_tex)
-            c = varying_color * texture2D(al_tex, varying_texcoord_1);
+          {
+            c = varying_color * texture2D(texture_a, varying_texcoord_1);
+            //c = varying_color * texture2D(texture_b, varying_texcoord_2);
+            //c = varying_color * texture2D(al_tex, varying_texcoord_2);
+          }
           else
+          {
             c = varying_color;
+          }
           if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
+          {
             gl_FragColor = c;
+          }
           else
+          {
             discard;
+          }
         }
 
         bool alpha_test_func(float x, int op, float compare)
@@ -132,6 +176,8 @@ dependencies:
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
 
 

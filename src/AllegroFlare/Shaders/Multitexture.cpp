@@ -15,6 +15,8 @@ namespace Shaders
 
 Multitexture::Multitexture()
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::Multitexture::TYPE, obtain_vertex_source(), obtain_fragment_source())
+   , texture_a(nullptr)
+   , texture_b(nullptr)
    , initialized(false)
 {
 }
@@ -22,6 +24,30 @@ Multitexture::Multitexture()
 
 Multitexture::~Multitexture()
 {
+}
+
+
+void Multitexture::set_texture_a(ALLEGRO_BITMAP* texture_a)
+{
+   this->texture_a = texture_a;
+}
+
+
+void Multitexture::set_texture_b(ALLEGRO_BITMAP* texture_b)
+{
+   this->texture_b = texture_b;
+}
+
+
+ALLEGRO_BITMAP* Multitexture::get_texture_a() const
+{
+   return texture_a;
+}
+
+
+ALLEGRO_BITMAP* Multitexture::get_texture_b() const
+{
+   return texture_b;
 }
 
 
@@ -48,6 +74,8 @@ void Multitexture::set_values_to_activated_shader()
 {
    // TODO: set values
    //set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
+   set_sampler("texture_a", texture_a);
+   set_sampler("texture_b", texture_b);
    //set_vec3("camera_position", camera_position);
    //set_mat4("position_transform", &object_placement_transform);
    //set_bool("reflecting", reflecting);
@@ -60,20 +88,29 @@ std::string Multitexture::obtain_vertex_source()
      attribute vec4 al_pos;
      attribute vec4 al_color;
      attribute vec2 al_texcoord;
+     attribute vec2 al_user_attr_0; // this is the uv2 coordinates
      uniform mat4 al_projview_matrix;
      uniform bool al_use_tex_matrix;
      uniform mat4 al_tex_matrix;
      varying vec4 varying_color;
      varying vec2 varying_texcoord_1;
+     varying vec2 varying_texcoord_2;
      void main()
      {
        varying_color = al_color;
-       if (al_use_tex_matrix) {
+       if (al_use_tex_matrix)
+       {
          vec4 uv1 = al_tex_matrix * vec4(al_texcoord, 0, 1);
          varying_texcoord_1 = vec2(uv1.x, uv1.y);
+
+         vec4 uv2 = al_tex_matrix * vec4(al_user_attr_0, 0, 1);
+         varying_texcoord_2 = vec2(uv2.x, uv2.y);
        }
        else
+       {
          varying_texcoord_1 = al_texcoord;
+         varying_texcoord_2 = al_user_attr_0;
+       }
        gl_Position = al_projview_matrix * al_pos;
      }
    )DELIM";
@@ -92,7 +129,11 @@ std::string Multitexture::obtain_fragment_source()
      uniform int al_alpha_func;
      uniform float al_alpha_test_val;
      varying vec4 varying_color;
+
+     uniform sampler2D texture_a;
+     uniform sampler2D texture_b;
      varying vec2 varying_texcoord_1;
+     varying vec2 varying_texcoord_2;
 
      bool alpha_test_func(float x, int op, float compare);
 
@@ -100,13 +141,23 @@ std::string Multitexture::obtain_fragment_source()
      {
        vec4 c;
        if (al_use_tex)
-         c = varying_color * texture2D(al_tex, varying_texcoord_1);
+       {
+         c = varying_color * texture2D(texture_a, varying_texcoord_1);
+         //c = varying_color * texture2D(texture_b, varying_texcoord_2);
+         //c = varying_color * texture2D(al_tex, varying_texcoord_2);
+       }
        else
+       {
          c = varying_color;
+       }
        if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
+       {
          gl_FragColor = c;
+       }
        else
+       {
          discard;
+       }
      }
 
      bool alpha_test_func(float x, int op, float compare)

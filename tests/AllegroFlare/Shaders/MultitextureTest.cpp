@@ -24,12 +24,14 @@ public:
    AllegroFlare::Camera3D camera;
    AllegroFlare::MultitextureModel3D subject;
    ALLEGRO_BITMAP *texture_a;
+   ALLEGRO_BITMAP *texture_b;
    bool subject_loaded;
 
    AllegroFlare_Shaders_MultitextureTestWithSetup()
       : camera()
       , subject()
       , texture_a(nullptr)
+      , texture_b(nullptr)
       , subject_loaded(false)
    {}
 
@@ -42,7 +44,8 @@ public:
    void load_subject(
          std::string base_obj_filename="models/simple_scene-01.obj",
          std::string uv2_obj_filename="models/simple_scene-01-ao-01.obj",
-         std::string texture_a_filename="simple_scene-01-ao-01.jpg"
+         std::string texture_a_filename="simple_scene-01.png",
+         std::string texture_b_filename="simple_scene-01-ao-01.jpg"
       )
    {
       std::string fixtures_path = get_fixtures_path();
@@ -51,6 +54,7 @@ public:
          fixtures_path + uv2_obj_filename
       );
       texture_a = get_bitmap_bin_ref()[texture_a_filename];
+      texture_b = get_bitmap_bin_ref()[texture_b_filename];
       subject_loaded = true;
    }
 };
@@ -108,8 +112,12 @@ TEST_F(AllegroFlare_Shaders_MultitextureTestWithSetup, when_active__will_render_
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
       camera.setup_projection_on(get_display_backbuffer());
 
-      // setup our subject texture
-      subject.texture = texture_a;
+      // Setup our subject texture
+      //NOTE: At this time, the subject has no texture(s), e.g. "subject.texture = texture_a" here. Not until the
+      // MultitextureModel3D has the textures on it.
+
+      multitexture_shader.set_texture_a(texture_a);
+      multitexture_shader.set_texture_b(texture_b);
 
       multitexture_shader.activate();
 
