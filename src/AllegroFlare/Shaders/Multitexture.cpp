@@ -64,16 +64,16 @@ std::string Multitexture::obtain_vertex_source()
      uniform bool al_use_tex_matrix;
      uniform mat4 al_tex_matrix;
      varying vec4 varying_color;
-     varying vec2 varying_texcoord;
+     varying vec2 varying_texcoord_1;
      void main()
      {
        varying_color = al_color;
        if (al_use_tex_matrix) {
-         vec4 uv = al_tex_matrix * vec4(al_texcoord, 0, 1);
-         varying_texcoord = vec2(uv.x, uv.y);
+         vec4 uv1 = al_tex_matrix * vec4(al_texcoord, 0, 1);
+         varying_texcoord_1 = vec2(uv1.x, uv1.y);
        }
        else
-         varying_texcoord = al_texcoord;
+         varying_texcoord_1 = al_texcoord;
        gl_Position = al_projview_matrix * al_pos;
      }
    )DELIM";
@@ -92,7 +92,7 @@ std::string Multitexture::obtain_fragment_source()
      uniform int al_alpha_func;
      uniform float al_alpha_test_val;
      varying vec4 varying_color;
-     varying vec2 varying_texcoord;
+     varying vec2 varying_texcoord_1;
 
      bool alpha_test_func(float x, int op, float compare);
 
@@ -100,7 +100,7 @@ std::string Multitexture::obtain_fragment_source()
      {
        vec4 c;
        if (al_use_tex)
-         c = varying_color * texture2D(al_tex, varying_texcoord);
+         c = varying_color * texture2D(al_tex, varying_texcoord_1);
        else
          c = varying_color;
        if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
