@@ -2,6 +2,12 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/MultitextureModel3DObjLoader.hpp>
+// TODO: improve this:
+#if defined(_WIN32) || defined(_WIN64)
+      std::string TEST_FIXTURES_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
+#else
+      std::string TEST_FIXTURES_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
+#endif
 
 
 TEST(AllegroFlare_MultitextureModel3DObjLoaderTest, can_be_created_without_blowing_up)
@@ -12,9 +18,8 @@ TEST(AllegroFlare_MultitextureModel3DObjLoaderTest, can_be_created_without_blowi
 
 TEST(AllegroFlare_MultitextureModel3DObjLoaderTest, load__will_not_blow_up)
 {
-   std::string FIXTURES_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
-   std::string base_obj_filename = FIXTURES_FOLDER + "models/simple_scene-01.obj";
-   std::string uv2_obj_filename = FIXTURES_FOLDER + "models/simple_scene-01-ao-01.obj";
+   std::string base_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01.obj";
+   std::string uv2_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01-ao-01.obj";
 
    al_init();
    al_init_primitives_addon();

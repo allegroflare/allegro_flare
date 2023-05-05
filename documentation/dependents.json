@@ -611,6 +611,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/Multitexture",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",

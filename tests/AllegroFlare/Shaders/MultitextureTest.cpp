@@ -53,35 +53,6 @@ public:
       texture_a = get_bitmap_bin_ref()[texture_a_filename];
       subject_loaded = true;
    }
-
-   void examine_subject(float number_of_seconds=1.0f)
-   {
-      if (!subject_loaded) throw std::runtime_error("no subject loaded");
-
-      camera.stepout = {0, 1.0, 4};  // step back from the origin
-      camera.tilt = 0.13;            // look up(-)/down(+)
-
-      int loops = (int)(number_of_seconds * 60.0f);
-      for (int i=0; i<loops; i++)
-      {
-         // update
-         camera.spin += 0.001;
-
-         // setup the render surface
-         al_clear_depth_buffer(1);
-         al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
-         camera.setup_projection_on(get_display_backbuffer());
-
-         // setup our subject texture
-         subject.texture = texture_a;
-
-         // render our subject
-         subject.draw();
-
-         // flip the display
-         al_flip_display();
-      }
-   }
 };
 
 
@@ -109,9 +80,37 @@ TEST_F(AllegroFlare_Shaders_MultitextureTest, type__has_the_expected_value_match
 
 TEST_F(AllegroFlare_Shaders_MultitextureTestWithSetup, when_active__will_render_model_as_expected)
 {
-   // TODO
    load_subject();
-   examine_subject(6.0);
+
+   camera.stepout = {0, 1.0, 4};  // step back from the origin
+   camera.tilt = 0.13;            // look up(-)/down(+)
+
+   float number_of_seconds=6.0f;
+   int loops = (int)(number_of_seconds * 60.0f);
+   for (int i=0; i<loops; i++)
+   {
+      // update
+      camera.spin += 0.001;
+
+      // setup the render surface
+      al_clear_depth_buffer(1);
+      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
+      camera.setup_projection_on(get_display_backbuffer());
+
+      // setup our subject texture
+      subject.texture = texture_a;
+
+      // TODO: Activate / use shader
+
+      // render our subject
+      //NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and setting
+      // textures on the shader manually
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices = subject.vertexes;
+      al_draw_prim(&vertices[0], subject.vertex_declaration, texture_a, 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+      // flip the display
+      al_flip_display();
+   }
 }
 
 

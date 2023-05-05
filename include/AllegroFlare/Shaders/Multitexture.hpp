@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Shaders/Base.hpp>
+#include <string>
 
 
 namespace AllegroFlare
@@ -14,6 +15,9 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/Multitexture";
 
       private:
+         bool initialized;
+         static std::string obtain_vertex_source();
+         static std::string obtain_fragment_source();
 
       protected:
 
@@ -22,6 +26,8 @@ namespace AllegroFlare
          Multitexture();
          ~Multitexture();
 
+         void initialize();
+         void activate();
       };
    }
 }
