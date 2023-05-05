@@ -112,7 +112,7 @@ bool MultitextureModel3DObjLoader::load()
          << ")"
          << "does not match."
          ;
-      // TODO: Add more detail (obj filename, vertex count for each file) to the error message.
+
       AllegroFlare::Logger::throw_error("AllegroFlare::MultitextureModel3DObjLoader", error_message.str());
    }
 
