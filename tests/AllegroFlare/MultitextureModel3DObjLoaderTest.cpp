@@ -10,3 +10,14 @@ TEST(AllegroFlare_MultitextureModel3DObjLoaderTest, can_be_created_without_blowi
 }
 
 
+TEST(AllegroFlare_MultitextureModel3DObjLoaderTest, load__will_not_blow_up)
+{
+   AllegroFlare::MultitextureModel3D model;
+   model.initialize();
+   AllegroFlare::MultitextureModel3DObjLoader multitexture_model3dobj_loader;
+   multitexture_model3dobj_loader.set_model(&model);
+
+   multitexture_model3dobj_loader.load();
+}
+
+

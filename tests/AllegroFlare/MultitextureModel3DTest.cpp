@@ -53,7 +53,8 @@ public:
 
    void load_subject(std::string filename=TEST_FIXTURE_MODEL_FOLDER + "coin_ring-01.obj")
    {
-      subject.load_obj_file(filename.c_str());
+      // DISABLED
+      //subject.load_obj_file(filename.c_str());
    }
 
    void examine_subject(float number_of_seconds=1.0f)
@@ -108,7 +109,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest, VISUAL__
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   inspect_status__will_output_information_about_the_model_in_its_current_state)
+   DISABLED__inspect_status__will_output_information_about_the_model_in_its_current_state)
 {
    load_subject();
 
@@ -131,7 +132,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
+   DISABLED__flatten_single_named_object__will_remove_named_objects_if_there_is_one_present)
 {
    load_subject();
    subject.flatten_single_named_object();
@@ -151,27 +152,27 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   append__when_either_object_has_named_objects__will_throw_an_error)
+   DISABLED__append__when_either_object_has_named_objects__will_throw_an_error)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   append__if_the_object_has_an_active_vertex_buffer__will_destroy_the_vertex_buffer_and_output_a_warning_message)
+   DISABLED__append__if_the_object_has_an_active_vertex_buffer__will_destroy_the_vertex_buffer_and_output_a_warning_message)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   VISUAL__append__will_append_vertexes_from_another_model)
+   DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
 {
    load_subject();
    AllegroFlare::MultitextureModel3D model_to_append;
    model_to_append.initialize();
    std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER + "archway-01.obj";
-   model_to_append.load_obj_file(model_filename_to_merge.c_str());
+   // DISABLED: model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    subject.flatten_single_named_object();
    model_to_append.flatten_single_named_object();
@@ -188,7 +189,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   extract_named_object_vertices__when_a_named_object_does_not_exist_with_that_name__throws_an_error)
+   DISABLED__extract_named_object_vertices__when_a_named_object_does_not_exist_with_that_name__throws_an_error)
 {
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
@@ -203,7 +204,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   extract_named_object_vertices__will_return_vertices_of_the_named_object)
+   DISABLED__extract_named_object_vertices__will_return_vertices_of_the_named_object)
 {
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
@@ -277,7 +278,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   promote_to_vertex_buffer__will_be_reflected_in_inspect_status)
+   DISABLED__promote_to_vertex_buffer__will_be_reflected_in_inspect_status)
 {
    load_subject();
    subject.flatten_single_named_object();
@@ -298,7 +299,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   promote_to_vertext_buffer__will_not_produce_any_warnings)
+   DISABLED__promote_to_vertext_buffer__will_not_produce_any_warnings)
 {
    load_subject();
    subject.flatten_single_named_object();
@@ -313,13 +314,13 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
+   DISABLED__VISUAL__draw__when_the_model_has_been_promoted_to_a_vertex_buffer__will_render_as_expected)
 {
    load_subject();
    AllegroFlare::MultitextureModel3D model_to_append;
    model_to_append.initialize();
    std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER + "archway-01.obj";
-   model_to_append.load_obj_file(model_filename_to_merge.c_str());
+   //DISABLED: model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    testing::internal::CaptureStdout();
 

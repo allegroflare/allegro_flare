@@ -10,6 +10,7 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
+#include <AllegroFlare/Logger.hpp>
 
 
 
@@ -102,9 +103,13 @@ namespace AllegroFlare
 
    void MultitextureModel3D::validate_initialized_or_output_to_cerr(std::string calling_function)
    {
+      // TODO: Rename this function to simply "validate_initialized"
       if (!initialized)
       {
-         std::cerr << "[AllegroFlare::MultitextureModel3D::" << calling_function << "]: error: initialized not met." << std::endl;
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::MultitextureModel3D::" + calling_function,
+            "initialized not met."
+         );
       }
    }
 
