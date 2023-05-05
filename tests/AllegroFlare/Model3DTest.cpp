@@ -11,11 +11,11 @@
 
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
-      std::string TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/bin/data/models/";
-      std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/models/";
+      static std::string TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/bin/data/models/";
+      static std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/models/";
 #else
-      std::string TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/models/";
-      std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/models/";
+      static std::string TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/models/";
+      static std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/models/";
 #endif
 
 
