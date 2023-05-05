@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Shaders::Base
     scope: public
-    init_with: AllegroFlare::Shaders::Multitexture::TYPE
+    init_with: "AllegroFlare::Shaders::Multitexture::TYPE, obtain_vertex_source(), obtain_fragment_source()"
 
 
 properties:

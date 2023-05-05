@@ -14,7 +14,7 @@ namespace Shaders
 
 
 Multitexture::Multitexture()
-   : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::Multitexture::TYPE)
+   : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::Multitexture::TYPE, obtain_vertex_source(), obtain_fragment_source())
    , initialized(false)
 {
 }

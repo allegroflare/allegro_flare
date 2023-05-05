@@ -78,8 +78,18 @@ TEST_F(AllegroFlare_Shaders_MultitextureTest, type__has_the_expected_value_match
 }
 
 
+TEST_F(AllegroFlare_Shaders_MultitextureTestWithSetup, initialize__will_not_blow_up)
+{
+   AllegroFlare::Shaders::Multitexture multitexture_shader;
+   multitexture_shader.initialize();
+}
+
+
 TEST_F(AllegroFlare_Shaders_MultitextureTestWithSetup, when_active__will_render_model_as_expected)
 {
+   AllegroFlare::Shaders::Multitexture multitexture_shader;
+   multitexture_shader.initialize();
+
    load_subject();
 
    camera.stepout = {0, 1.0, 4};  // step back from the origin
@@ -100,13 +110,15 @@ TEST_F(AllegroFlare_Shaders_MultitextureTestWithSetup, when_active__will_render_
       // setup our subject texture
       subject.texture = texture_a;
 
-      // TODO: Activate / use shader
+      multitexture_shader.activate();
 
       // render our subject
       //NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and setting
       // textures on the shader manually
       std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices = subject.vertexes;
       al_draw_prim(&vertices[0], subject.vertex_declaration, texture_a, 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+      multitexture_shader.deactivate();
 
       // flip the display
       al_flip_display();
