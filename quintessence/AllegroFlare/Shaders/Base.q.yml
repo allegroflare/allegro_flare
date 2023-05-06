@@ -72,6 +72,7 @@ functions:
       - name: throw_on_error
         type: bool
         default_argument: true
+    guards: [ (!vertex_source_code.empty()), (!fragment_source_code.empty()) ]
     body: |
       if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
       {

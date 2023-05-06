@@ -78,6 +78,20 @@ bool Base::initialize()
 
 bool Base::attach_source_code(bool throw_on_error)
 {
+   if (!((!vertex_source_code.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::attach_source_code]: error: guard \"(!vertex_source_code.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::attach_source_code: error: guard \"(!vertex_source_code.empty())\" not met");
+   }
+   if (!((!fragment_source_code.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::attach_source_code]: error: guard \"(!fragment_source_code.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::attach_source_code: error: guard \"(!fragment_source_code.empty())\" not met");
+   }
    if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
    {
       // TODO: Replace these messages with AllegroFlare::Logger::throw_from

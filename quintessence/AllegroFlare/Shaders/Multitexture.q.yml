@@ -62,8 +62,8 @@ functions:
     body: |
       // TODO: set values
       //set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
-      set_sampler("texture_a", texture_a);
-      set_sampler("texture_b", texture_b);
+      set_sampler("texture_a", texture_a, 1);
+      set_sampler("texture_b", texture_b, 2);
       //set_vec3("camera_position", camera_position);
       //set_mat4("position_transform", &object_placement_transform);
       //set_bool("reflecting", reflecting);
@@ -91,6 +91,12 @@ functions:
           varying_color = al_color;
           if (al_use_tex_matrix)
           {
+            // WARNING: The current design has the al_tex_matrix derived from the texture used in the al_draw_prim call.
+            // This means 1) A texture must be passed during the al_draw_prim_call, 2) all textures used in the shader
+            // must be of the same dimensions.  Ideally this would change so that a nullptr could be passed and
+            // dimensions could be extracted for each texture.
+            // TODO: Address the warning above
+
             vec4 uv1 = al_tex_matrix * vec4(al_texcoord, 0, 1);
             varying_texcoord_1 = vec2(uv1.x, uv1.y);
 
@@ -136,7 +142,9 @@ functions:
           vec4 c;
           if (al_use_tex)
           {
-            c = varying_color * texture2D(texture_a, varying_texcoord_1);
+            vec4 c1 = varying_color * texture2D(texture_a, varying_texcoord_1);
+            vec4 c2 = varying_color * texture2D(texture_b, varying_texcoord_2);
+            c = c1 * c2;
             //c = varying_color * texture2D(texture_b, varying_texcoord_2);
             //c = varying_color * texture2D(al_tex, varying_texcoord_2);
           }

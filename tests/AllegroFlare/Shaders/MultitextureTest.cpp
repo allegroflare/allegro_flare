@@ -44,7 +44,7 @@ public:
    void load_subject(
          std::string base_obj_filename="models/simple_scene-01.obj",
          std::string uv2_obj_filename="models/simple_scene-01-ao-01.obj",
-         std::string texture_a_filename="simple_scene-01.png",
+         std::string texture_a_filename="simple_scene-01-1024.jpg",
          std::string texture_b_filename="simple_scene-01-ao-01.jpg"
       )
    {
@@ -100,8 +100,8 @@ TEST_F(AllegroFlare_Shaders_MultitextureTestWithSetup, when_active__will_render_
    camera.tilt = 0.13;            // look up(-)/down(+)
    camera.spin = 0.2;             // set a good start initial spin
 
-   float number_of_seconds=6.0f;
-   int loops = (int)(number_of_seconds * 60.0f);
+   float number_of_seconds=60.0f;
+   int loops = (int)(number_of_seconds * 3.0f);
    for (int i=0; i<loops; i++)
    {
       // update
