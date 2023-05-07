@@ -4,6 +4,7 @@
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/MultitextureModel3D.hpp>
+#include <AllegroFlare/Shaders/Multitexture.hpp>
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <cmath>
@@ -22,6 +23,7 @@ private:
    std::string base_model_obj_filename;
    std::string uv2_model_obj_filename;
    std::string model_texture_filename;
+   AllegroFlare::Shaders::Multitexture shader;
 
 public:
    Basic3D()
@@ -34,6 +36,7 @@ public:
       , base_model_obj_filename("/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj")
       , uv2_model_obj_filename("/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj")
       , model_texture_filename("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/heart_item-02.png")
+      , shader()
    {};
 
    void set_base_model_obj_filename(std::string base_model_obj_filename)
@@ -63,6 +66,8 @@ public:
       if (!texture) throw std::runtime_error("Texture not found");
       model.set_texture(texture);
 
+      shader.initialize();
+
       initialized = true;
    }
 
@@ -75,11 +80,15 @@ public:
       camera.tilt = 0.4; // tilt the camera, looking down slightly at the target
       camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
 
+      shader.activate();
+
       // position and render model
-      model_placement.rotation.y += 0.00025;
+      model_placement.rotation.y += 0.001;
       model_placement.start_transform();
       model.draw();
       model_placement.restore_transform();
+
+      shader.deactivate();
    }
 };
 
