@@ -190,7 +190,7 @@ TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_standard_dataty
 
 
 
-TEST(AllegroFlare_AttributesTest, a_datatype_that_has_not_been_created_is_unknown)
+TEST(AllegroFlare_AttributesTest, FLAKEY__a_datatype_that_has_not_been_created_is_unknown)
 {
    Attributes attributes;
    EXPECT_EQ(Attributes::datatype_is_known("my_custom_datatype"), false);
