@@ -18,7 +18,8 @@ private:
    bool initialized;
    AllegroFlare::Camera3D camera;
    AllegroFlare::MultitextureModel3D model;
-   ALLEGRO_BITMAP *texture;
+   ALLEGRO_BITMAP *texture_a;
+   ALLEGRO_BITMAP *texture_b;
    AllegroFlare::Placement3D model_placement;
    std::string base_model_obj_filename;
    std::string uv2_model_obj_filename;
@@ -31,7 +32,8 @@ public:
       , initialized(false)
       , camera()
       , model()
-      , texture(nullptr)
+      , texture_a(nullptr)
+      , texture_b(nullptr)
       , model_placement()
       , base_model_obj_filename("/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj")
       , uv2_model_obj_filename("/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj")
@@ -62,9 +64,10 @@ public:
       model.initialize();
       AllegroFlare::MultitextureModel3DObjLoader loader(&model, base_model_obj_filename.c_str(), uv2_model_obj_filename.c_str(), 1.0);
       loader.load();
-      texture = al_load_bitmap(model_texture_filename.c_str());
-      if (!texture) throw std::runtime_error("Texture not found");
-      model.set_texture(texture);
+      texture_a = al_load_bitmap(model_texture_filename.c_str());
+      texture_b = al_load_bitmap(model_texture_filename.c_str());
+      if (!texture_a) throw std::runtime_error("Texture not found");
+      model.set_texture(texture_a);
 
       shader.initialize();
 
@@ -81,6 +84,9 @@ public:
       camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
 
       shader.activate();
+
+      shader.set_texture_a(texture_a);
+      shader.set_texture_b(texture_b);
 
       // position and render model
       model_placement.rotation.y += 0.001;
