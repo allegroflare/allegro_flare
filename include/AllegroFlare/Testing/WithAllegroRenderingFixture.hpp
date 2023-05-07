@@ -21,8 +21,10 @@ namespace AllegroFlare
          ALLEGRO_DISPLAY* display;
          AllegroFlare::FontBin font_bin;
          AllegroFlare::BitmapBin bitmap_bin;
+         int display_samples;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          std::string test_snapshots_folder;
+         bool is_setup;
 
       protected:
 
@@ -32,8 +34,10 @@ namespace AllegroFlare
          virtual ~WithAllegroRenderingFixture();
 
          ALLEGRO_DISPLAY* get_display() const;
+         int get_display_samples() const;
          AllegroFlare::FontBin &get_font_bin_ref();
          AllegroFlare::BitmapBin &get_bitmap_bin_ref();
+         void set_display_samples(int display_samples=4);
          virtual void SetUp() override;
          std::string get_fixtures_path();
          virtual void TearDown() override;

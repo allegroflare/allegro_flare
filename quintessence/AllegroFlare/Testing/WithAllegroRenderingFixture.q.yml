@@ -24,6 +24,12 @@ properties:
     init_with: '{}'
     getter_ref: true
 
+  - name: display_samples
+    type: int
+    init_with: 4
+    getter: true
+    setter: false
+
   - name: deployment_environment
     type: AllegroFlare::DeploymentEnvironment
     init_with: AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST
@@ -32,8 +38,23 @@ properties:
     type: std::string
     init_with: '"[unset-test_snapshots_folder]"'
 
+  - name: is_setup
+    type: bool
+    init_with: false
+
 
 functions:
+
+
+  - name: set_display_samples
+    parameters:
+      - name: display_samples
+        type: int
+        default_argument: 4
+    guards: [ (!is_setup), (display_samples >= 0), (display_samples <= 16) ]
+    body: |
+      this->display_samples = display_samples;
+      return;
 
 
   - name: SetUp
@@ -53,9 +74,9 @@ functions:
       font_bin.set_full_path(deployment_environment.get_data_folder_path() + "fonts/");
       bitmap_bin.set_full_path(deployment_environment.get_data_folder_path() + "bitmaps/");
 
-      al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
+      if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
       al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
-      al_set_new_display_option(ALLEGRO_SAMPLES, 16, ALLEGRO_SUGGEST);
+      if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLES, display_samples, ALLEGRO_SUGGEST);
       al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
       display = al_create_display(1920, 1080);
 
@@ -68,6 +89,8 @@ functions:
       std::string new_window_title = build_full_test_name_str();
 
       al_set_window_title(display, new_window_title.c_str());
+
+      is_setup = true;
 
       return;
     body_dependency_symbols:
@@ -87,6 +110,7 @@ functions:
     type: void
     virtual: true
     override: true
+    guards: [ is_setup ]
     body: |
       if (test_name_indicates_it_wants_a_screenshot())
       {

@@ -27,8 +27,10 @@ WithAllegroRenderingFixture::WithAllegroRenderingFixture()
    , display(nullptr)
    , font_bin({})
    , bitmap_bin({})
+   , display_samples(4)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST)
    , test_snapshots_folder("[unset-test_snapshots_folder]")
+   , is_setup(false)
 {
 }
 
@@ -44,6 +46,12 @@ ALLEGRO_DISPLAY* WithAllegroRenderingFixture::get_display() const
 }
 
 
+int WithAllegroRenderingFixture::get_display_samples() const
+{
+   return display_samples;
+}
+
+
 AllegroFlare::FontBin &WithAllegroRenderingFixture::get_font_bin_ref()
 {
    return font_bin;
@@ -55,6 +63,33 @@ AllegroFlare::BitmapBin &WithAllegroRenderingFixture::get_bitmap_bin_ref()
    return bitmap_bin;
 }
 
+
+void WithAllegroRenderingFixture::set_display_samples(int display_samples)
+{
+   if (!((!is_setup)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_samples]: error: guard \"(!is_setup)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_samples: error: guard \"(!is_setup)\" not met");
+   }
+   if (!((display_samples >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_samples]: error: guard \"(display_samples >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_samples: error: guard \"(display_samples >= 0)\" not met");
+   }
+   if (!((display_samples <= 16)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_samples]: error: guard \"(display_samples <= 16)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_samples: error: guard \"(display_samples <= 16)\" not met");
+   }
+   this->display_samples = display_samples;
+   return;
+}
 
 void WithAllegroRenderingFixture::SetUp()
 {
@@ -70,9 +105,9 @@ void WithAllegroRenderingFixture::SetUp()
    font_bin.set_full_path(deployment_environment.get_data_folder_path() + "fonts/");
    bitmap_bin.set_full_path(deployment_environment.get_data_folder_path() + "bitmaps/");
 
-   al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 2, ALLEGRO_SUGGEST);
+   if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
    al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
-   al_set_new_display_option(ALLEGRO_SAMPLES, 16, ALLEGRO_SUGGEST);
+   if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLES, display_samples, ALLEGRO_SUGGEST);
    al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
    display = al_create_display(1920, 1080);
 
@@ -86,6 +121,8 @@ void WithAllegroRenderingFixture::SetUp()
 
    al_set_window_title(display, new_window_title.c_str());
 
+   is_setup = true;
+
    return;
 }
 
@@ -96,6 +133,13 @@ std::string WithAllegroRenderingFixture::get_fixtures_path()
 
 void WithAllegroRenderingFixture::TearDown()
 {
+   if (!(is_setup))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::TearDown]: error: guard \"is_setup\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::TearDown: error: guard \"is_setup\" not met");
+   }
    if (test_name_indicates_it_wants_a_screenshot())
    {
       capture_screenshot(build_full_test_name_str() + ".png");
