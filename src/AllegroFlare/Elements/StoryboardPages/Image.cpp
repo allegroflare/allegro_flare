@@ -20,11 +20,11 @@ namespace StoryboardPages
 {
 
 
-Image::Image(ALLEGRO_BITMAP* bitmap)
+Image::Image(ALLEGRO_BITMAP* bitmap, std::string reveal_style, float duration_to_advance_sec)
    : AllegroFlare::Elements::StoryboardPages::Base("Image")
    , bitmap(bitmap)
-   , duration_to_advance_sec(2.0f)
-   , reveal_style("reveal")
+   , reveal_style(reveal_style)
+   , duration_to_advance_sec(duration_to_advance_sec)
    , started_at(0.0f)
 {
 }
@@ -41,15 +41,15 @@ void Image::set_bitmap(ALLEGRO_BITMAP* bitmap)
 }
 
 
-void Image::set_duration_to_advance_sec(float duration_to_advance_sec)
-{
-   this->duration_to_advance_sec = duration_to_advance_sec;
-}
-
-
 void Image::set_reveal_style(std::string reveal_style)
 {
    this->reveal_style = reveal_style;
+}
+
+
+void Image::set_duration_to_advance_sec(float duration_to_advance_sec)
+{
+   this->duration_to_advance_sec = duration_to_advance_sec;
 }
 
 
@@ -59,15 +59,15 @@ ALLEGRO_BITMAP* Image::get_bitmap() const
 }
 
 
-float Image::get_duration_to_advance_sec() const
-{
-   return duration_to_advance_sec;
-}
-
-
 std::string Image::get_reveal_style() const
 {
    return reveal_style;
+}
+
+
+float Image::get_duration_to_advance_sec() const
+{
+   return duration_to_advance_sec;
 }
 
 

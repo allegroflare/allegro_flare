@@ -16,15 +16,17 @@ properties:
     getter: true
     setter: true
 
-  - name: duration_to_advance_sec
-    type: float
-    init_with: 2.0f
-    getter: true
-    setter: true
-
   - name: reveal_style
     type: std::string
     init_with: '"reveal"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: duration_to_advance_sec
+    type: float
+    init_with: 2.0f
+    constructor_arg: true
     getter: true
     setter: true
 
