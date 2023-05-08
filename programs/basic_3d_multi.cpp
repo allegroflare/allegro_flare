@@ -24,6 +24,7 @@ private:
    std::string base_model_obj_filename;
    std::string uv2_model_obj_filename;
    std::string model_texture_filename;
+   std::string light_texture_filename;
    AllegroFlare::Shaders::Multitexture shader;
 
 public:
@@ -35,9 +36,10 @@ public:
       , texture_a(nullptr)
       , texture_b(nullptr)
       , model_placement()
-      , base_model_obj_filename("/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj")
-      , uv2_model_obj_filename("/Users/markoates/Repos/allegro_flare/bin/data/models/heart_item-01.obj")
-      , model_texture_filename("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/heart_item-02.png")
+      , base_model_obj_filename("/Users/markoates/Repos/allegro_flare/tests/fixtures/models/simple_scene-01.obj")
+      , uv2_model_obj_filename("/Users/markoates/Repos/allegro_flare/tests/fixtures/models/simple_scene-01-ao-01.obj")
+      , model_texture_filename("/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps/simple_scene-01-1024.jpg")
+      , light_texture_filename("/Users/markoates/Repos/allegro_flare/tests/fixtures/bitmaps/simple_scene-01-ao-01.jpg")
       , shader()
    {};
 
@@ -49,7 +51,7 @@ public:
 
    void set_uv2_model_obj_filename(std::string uv2_model_obj_filename)
    {
-      if (initialized) throw std::runtime_error("Error: cannot set_model_obj_filename after initialization");
+      if (initialized) throw std::runtime_error("Error: cannot set_uv2_obj_filename after initialization");
       this->uv2_model_obj_filename = uv2_model_obj_filename;
    }
 
@@ -59,14 +61,21 @@ public:
       this->model_texture_filename = model_texture_filename;
    }
 
+   void set_light_texture_filename(std::string light_texture_filename)
+   {
+      if (initialized) throw std::runtime_error("Error: cannot set_light_texture_filename after initialization");
+      this->light_texture_filename = light_texture_filename;
+   }
+
    void initialize()
    {
       model.initialize();
       AllegroFlare::MultitextureModel3DObjLoader loader(&model, base_model_obj_filename.c_str(), uv2_model_obj_filename.c_str(), 1.0);
       loader.load();
       texture_a = al_load_bitmap(model_texture_filename.c_str());
-      texture_b = al_load_bitmap(model_texture_filename.c_str());
-      if (!texture_a) throw std::runtime_error("Texture not found");
+      texture_b = al_load_bitmap(light_texture_filename.c_str());
+      if (!texture_a) throw std::runtime_error("Texture (texture_a) not found");
+      if (!texture_b) throw std::runtime_error("Texture (texture_b) not found");
       model.set_texture(texture_a);
 
       shader.initialize();
