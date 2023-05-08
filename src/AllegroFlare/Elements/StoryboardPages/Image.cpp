@@ -162,7 +162,32 @@ void Image::modify_params_for_hide(AllegroFlare::Placement2D* place, ALLEGRO_COL
    }
    float age = infer_age();
 
-   if (reveal_style == "reveal")
+   if (reveal_style == "fade")
+   {
+      float hide_duration = 0.6f;
+      if (age > (duration_to_advance_sec - hide_duration))
+      {
+         float start_time = duration_to_advance_sec - hide_duration;
+         float end_time = duration_to_advance_sec;
+         float normalized_time = 1.0 - ((end_time - age) / hide_duration);
+
+         //float normalized_time = std::max(0.0f, std::min(1.0f, age / hide_duration));
+         //float normalized_time = 0.5;
+
+         float inv_normalized_time = 1.0 - normalized_time;
+         float hide_scale_offset = -0.1;
+
+         //float reveal_opacity = 0.5;
+         //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+         ALLEGRO_COLOR hide_to_color = AllegroFlare::Color::Transparent;
+
+         *color = AllegroFlare::color::mix(*color, hide_to_color, normalized_time);
+         *color = AllegroFlare::color::mix(*color, hide_to_color, normalized_time);
+         //place->scale.x = 1.0 + hide_scale_offset * AllegroFlare::interpolator::slow_in(normalized_time);
+         //place->scale.y = 1.0 + hide_scale_offset * AllegroFlare::interpolator::slow_in(normalized_time);
+       }
+   }
+   else if (reveal_style == "reveal")
    {
       float hide_duration = 0.6f;
       if (age > (duration_to_advance_sec - hide_duration))
@@ -225,6 +250,24 @@ void Image::modify_params_for_reveal(AllegroFlare::Placement2D* place, ALLEGRO_C
          *color = AllegroFlare::color::mix(reveal_from_color, *color, normalized_time);
          place->scale.x = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
          place->scale.y = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
+       }
+   }
+   else if (reveal_style == "fade")
+   {
+      float reveal_duration = 0.8f;
+      if (age < reveal_duration)
+      {
+         float normalized_time = std::max(0.0f, std::min(1.0f, age / reveal_duration));
+         float inv_normalized_time = 1.0 - normalized_time;
+         //float reveal_scale_offset = 0.2;
+         //float reveal_opacity = 0.5;
+         //ALLEGRO_COLOR reveal_color = AllegroFlare::Color::Indigo;
+         ALLEGRO_COLOR reveal_from_color = AllegroFlare::Color::Transparent;
+
+         *color = AllegroFlare::color::mix(reveal_from_color, *color, normalized_time);
+         *color = AllegroFlare::color::mix(reveal_from_color, *color, normalized_time);
+         //place->scale.x = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
+         //place->scale.y = 1.0 + reveal_scale_offset * AllegroFlare::interpolator::double_slow_in(inv_normalized_time);
        }
    }
 
