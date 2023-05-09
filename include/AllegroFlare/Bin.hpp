@@ -337,7 +337,6 @@ namespace AllegroFlare
    bool Bin<T2, T>::destroy(T2 identifier)
    // be sure to test this
    {
-      std::cout << "AAAAAAAAAAAA" << std::endl;
       // Get the record
       Bin<T2, T>::Record *r = get_record(identifier);
       if (!r) return false;
