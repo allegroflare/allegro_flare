@@ -1,3 +1,4 @@
+
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/Bin.hpp>
@@ -14,13 +15,17 @@ public:
 };
 
 
-TEST(AllegroFlare_BinTest, derived_class_can_be_created_without_blowing_up)
+class AllegroFlare_BinTest : public ::testing::Test {};
+
+
+
+TEST_F(AllegroFlare_BinTest, derived_class_can_be_created_without_blowing_up)
 {
    TestBin test_bin;
 }
 
 
-TEST(AllegroFlare_BinTest, destroy__will_remove_the_record)
+TEST_F(AllegroFlare_BinTest, destroy__will_remove_the_record)
 {
    TestBin test_bin;
    test_bin.set_full_path("this/part/is/actually/not/necessary/and/should/eventually/be/removed");
@@ -42,7 +47,7 @@ TEST(AllegroFlare_BinTest, destroy__will_remove_the_record)
 }
 
 
-TEST(AllegroFlare_BinTest,
+TEST_F(AllegroFlare_BinTest,
    clear__when_cout_record_destruction_is_true__will_output_a_list_of_the_destroyed_records_flushing_to_cout_after_each)
 {
    TestBin test_bin;
@@ -63,7 +68,7 @@ TEST(AllegroFlare_BinTest,
 }
 
 
-TEST(AllegroFlare_BinTest,
+TEST_F(AllegroFlare_BinTest,
    clear__when_cout_record_destruction_is_false__will_not_output_anything_to_cout)
 {
    TestBin test_bin;
@@ -80,7 +85,7 @@ TEST(AllegroFlare_BinTest,
 }
 
 
-TEST(AllegroFlare_BinTest, get_path__will_return_the_path)
+TEST_F(AllegroFlare_BinTest, get_path__will_return_the_path)
 {
    TestBin test_bin;
    test_bin.set_full_path("./foo/bar/baz/");
@@ -89,7 +94,7 @@ TEST(AllegroFlare_BinTest, get_path__will_return_the_path)
 }
 
 
-TEST(AllegroFlare_BinTest,
+TEST_F(AllegroFlare_BinTest,
    set_full_path__when_setting_a_path_that_does_not_end_in_a_directory_separator__one_will_be_appended_automatically)
 {
    TestBin test_bin;
