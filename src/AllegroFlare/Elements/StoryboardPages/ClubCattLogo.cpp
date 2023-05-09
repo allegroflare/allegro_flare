@@ -97,7 +97,7 @@ void ClubCattLogo::update()
    clubcatt_logo.update(time_now);
    if (!get_finished() && clubcatt_logo.get_finished())
    {
-      // TODO: Consider destroy
+      // TODO: Conside where destroy should occur (considering this may need to be looped during a game's demo mode)
       set_finished(true);
    }
    return;
@@ -105,6 +105,8 @@ void ClubCattLogo::update()
 
 void ClubCattLogo::render()
 {
+   if (clubcatt_logo.get_destroyed()) return;
+
    float time_now = al_get_time();
    clubcatt_logo.draw(time_now);
    return;

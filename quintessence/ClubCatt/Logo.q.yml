@@ -88,6 +88,12 @@ properties:
   - name: initialized
     type: bool
     init_with: false
+    getter: true
+
+  - name: destroyed
+    type: bool
+    init_with: false
+    getter: true
 
 
 functions:
@@ -130,6 +136,9 @@ functions:
       al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
       //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("unit_cube-02.png");
       //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("cube_perfect-01.png");
+
+      // TODO: Validate the models do not already exist
+
       bitmap_bin->auto_get(cube_texture1_identifier);
       bitmap_bin->auto_get(cube_texture2_identifier);
       model_bin->auto_get(model_identifier);
@@ -166,6 +175,7 @@ functions:
       });
 
       initialized = true;
+      destroyed = false;
 
       return;
 
@@ -185,6 +195,10 @@ functions:
       for (auto &keyframe : texture_swap_timeline.get_keyframes()) { delete keyframe; }
       for (auto &keyframe : fade_out_timeline.get_keyframes()) { delete keyframe; }
       for (auto &keyframe : end_marker_timeline.get_keyframes()) { delete keyframe; }
+
+      initialized = false;
+      destroyed = true;
+
       return;
 
 
@@ -285,6 +299,7 @@ functions:
   - name: get_display_backbuffer
     type: ALLEGRO_BITMAP*
     body: |
+      // TODO: Validate backbuffer has depth
       return al_get_backbuffer(al_get_current_display());
 
 

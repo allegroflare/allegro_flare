@@ -35,6 +35,7 @@ namespace ClubCatt
       std::function<void(ClubCatt::Logo*, void*)> on_finished_callback;
       void* on_finished_callback_user_data;
       bool initialized;
+      bool destroyed;
 
    protected:
 
@@ -51,6 +52,8 @@ namespace ClubCatt
       bool get_finished() const;
       std::function<void(ClubCatt::Logo*, void*)> get_on_finished_callback() const;
       void* get_on_finished_callback_user_data() const;
+      bool get_initialized() const;
+      bool get_destroyed() const;
       void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
       void set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr);
       void initialize();

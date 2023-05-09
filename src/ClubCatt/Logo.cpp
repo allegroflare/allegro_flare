@@ -32,6 +32,7 @@ Logo::Logo(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bi
    , on_finished_callback()
    , on_finished_callback_user_data(nullptr)
    , initialized(false)
+   , destroyed(false)
 {
 }
 
@@ -86,6 +87,18 @@ std::function<void(ClubCatt::Logo*, void*)> Logo::get_on_finished_callback() con
 void* Logo::get_on_finished_callback_user_data() const
 {
    return on_finished_callback_user_data;
+}
+
+
+bool Logo::get_initialized() const
+{
+   return initialized;
+}
+
+
+bool Logo::get_destroyed() const
+{
+   return destroyed;
 }
 
 
@@ -157,6 +170,9 @@ void Logo::initialize()
    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
    //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("unit_cube-02.png");
    //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("cube_perfect-01.png");
+
+   // TODO: Validate the models do not already exist
+
    bitmap_bin->auto_get(cube_texture1_identifier);
    bitmap_bin->auto_get(cube_texture2_identifier);
    model_bin->auto_get(model_identifier);
@@ -193,6 +209,7 @@ void Logo::initialize()
    });
 
    initialized = true;
+   destroyed = false;
 
    return;
 }
@@ -218,6 +235,10 @@ void Logo::destroy()
    for (auto &keyframe : texture_swap_timeline.get_keyframes()) { delete keyframe; }
    for (auto &keyframe : fade_out_timeline.get_keyframes()) { delete keyframe; }
    for (auto &keyframe : end_marker_timeline.get_keyframes()) { delete keyframe; }
+
+   initialized = false;
+   destroyed = true;
+
    return;
 }
 
@@ -324,6 +345,7 @@ void Logo::draw(float time_now)
 
 ALLEGRO_BITMAP* Logo::get_display_backbuffer()
 {
+   // TODO: Validate backbuffer has depth
    return al_get_backbuffer(al_get_current_display());
 }
 
