@@ -24,7 +24,6 @@ TEST(AllegroFlare_BinTest, destroy__will_remove_the_record)
 {
    TestBin test_bin;
    test_bin.set_full_path("this/part/is/actually/not/necessary/and/should/eventually/be/removed");
-   test_bin.set_cout_record_names_on_clear(true);
 
    test_bin.preload("my_record_one");
    test_bin.preload("my_record_two");
