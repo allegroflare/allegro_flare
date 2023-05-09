@@ -3,19 +3,45 @@
 
 #include <AllegroFlare/Bin.hpp>
 
+#include <functional>
+
 
 class TestBin : public AllegroFlare::Bin<std::string, int *>
 {
 public:
+   std::function<void(int*)> callback_on_destroy;
+
    TestBin() : Bin("TestBin") {}
 
-   virtual int *load_data(std::string identifier) override { return new int(54321); }
-   virtual void destroy_data(int *data) override { delete data; }
-   virtual bool validate() override { return true; }
+   virtual int *load_data(std::string identifier) override
+   {
+      return new int(54321);
+   }
+   virtual void destroy_data(int *data) override
+   {
+      delete data;
+      if (callback_on_destroy)
+      {
+         callback_on_destroy(data);
+      }
+   }
+   virtual bool validate() override
+   {
+      return true;
+   }
 };
 
 
 class AllegroFlare_BinTest : public ::testing::Test {};
+
+class AllegroFlare_BinTestWithDestroyCounting : public ::testing::Test
+{
+public:
+   int destroy_count;
+   AllegroFlare_BinTestWithDestroyCounting()
+     : destroy_count(0)
+   {}
+};
 
 
 
@@ -44,6 +70,32 @@ TEST_F(AllegroFlare_BinTest, destroy__will_remove_the_record)
    test_bin.destroy("my_record_three");
 
    EXPECT_EQ(0, test_bin.size());
+}
+
+
+TEST_F(AllegroFlare_BinTestWithDestroyCounting, destroy__will_call_destroy_data_on_the_record)
+{
+   TestBin test_bin;
+   test_bin.set_full_path("this/part/is/actually/not/necessary/and/should/eventually/be/removed");
+
+   int* actual_data_to_be_destroyed = nullptr;
+   test_bin.callback_on_destroy = [this, &actual_data_to_be_destroyed](int* data){
+      destroy_count++;
+      actual_data_to_be_destroyed = data;
+   };
+
+   test_bin.preload("my_record");
+   AllegroFlare::Bin<std::string, int*>::Record *record = test_bin.get_record("my_record");
+   ASSERT_NE(nullptr, record); // Just a sanity check for testing
+   int* data_expected_to_be_destroyed = record->data;
+   ASSERT_NE(nullptr, data_expected_to_be_destroyed); // Just a sanity check for testing
+
+   ASSERT_EQ(0, destroy_count);
+
+   test_bin.destroy("my_record");
+
+   EXPECT_EQ(1, destroy_count);
+   EXPECT_EQ(data_expected_to_be_destroyed, actual_data_to_be_destroyed);
 }
 
 
