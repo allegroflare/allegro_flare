@@ -128,6 +128,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Storyboard.q.yml">quintessence/AllegroFlare/Elements/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Base.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/ClubCattLogo.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/ClubCattLogo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Image.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Image.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
@@ -334,6 +335,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
   <li><a href="#quintessence/BuildInfo.q.yml">quintessence/BuildInfo.q.yml</a></li>
+  <li><a href="#quintessence/ClubCatt/Logo.q.yml">quintessence/ClubCatt/Logo.q.yml</a></li>
   <li><a href="#quintessence/ReleaseInfo.q.yml">quintessence/ReleaseInfo.q.yml</a></li>
   <li><a href="#quintessence/Tileo/MeshWithNormals.q.yml">quintessence/Tileo/MeshWithNormals.q.yml</a></li>
   <li><a href="#quintessence/Tileo/Shaders/AllegroDefault.q.yml">quintessence/Tileo/Shaders/AllegroDefault.q.yml</a></li>
@@ -6149,6 +6151,51 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/StoryboardPages/ClubCattLogo.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/ClubCattLogo.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">clubcatt_logo</td>
+  <td class="property">ClubCatt::Logo</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ClubCatt::Logo&quot;, &quot;headers&quot;=&gt;[&quot;ClubCatt/Logo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -20465,6 +20512,136 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/ClubCatt/Logo.q.yml">quintessence/ClubCatt/Logo.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">model_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">cube_texture1_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">cube_texture2_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">rotation_x_timeline</td>
+  <td class="property">AllegroFlare::Timeline::Track</td>
+</tr>
+<tr>
+  <td class="property">rotation_y_timeline</td>
+  <td class="property">AllegroFlare::Timeline::Track</td>
+</tr>
+<tr>
+  <td class="property">camera_spin_timeline</td>
+  <td class="property">AllegroFlare::Timeline::Track</td>
+</tr>
+<tr>
+  <td class="property">texture_swap_timeline</td>
+  <td class="property">AllegroFlare::Timeline::Track</td>
+</tr>
+<tr>
+  <td class="property">fade_out_timeline</td>
+  <td class="property">AllegroFlare::Timeline::Track</td>
+</tr>
+<tr>
+  <td class="property">end_marker_timeline</td>
+  <td class="property">AllegroFlare::Timeline::Track</td>
+</tr>
+<tr>
+  <td class="property">playback_speed_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">finished</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback</td>
+  <td class="property">std::function&lt;void(ClubCatt::Logo*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">destroy()</td>
+</tr>
+<tr>
+  <td class="method">reset()</td>
+</tr>
+<tr>
+  <td class="method">play()</td>
+</tr>
+<tr>
+  <td class="method">update(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">draw(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">get_display_backbuffer()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timeline::Track&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timeline/Track.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ClubCatt::Logo&quot;, &quot;headers&quot;=&gt;[&quot;ClubCatt/Logo.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/ReleaseInfo.q.yml">quintessence/ReleaseInfo.q.yml</h3>
      <table>
 <tr>
@@ -22865,6 +23042,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
+    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -22902,6 +23080,7 @@ table td
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
+    "ClubCatt/Logo",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
   ],
@@ -22917,6 +23096,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Shaders/Cubemap",
+    "ClubCatt/Logo",
     "Wicked/Entities/Basic3D"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
@@ -23235,6 +23415,7 @@ table td
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
     "AllegroFlare/TransitionFX/Base",
+    "ClubCatt/Logo",
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
@@ -23704,7 +23885,8 @@ table td
     "AllegroFlare/Elements/Notifications/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "ClubCatt/Logo"
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -24018,8 +24200,24 @@ table td
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Text"
+  ],
+  "ClubCatt/Logo": [
+    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "ClubCatt/Logo"
+  ],
+  "AllegroFlare/ModelBin": [
+    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "ClubCatt/Logo"
   ],
   "ALLEGRO_FLARE_EVENT_ROUTER": [
     "AllegroFlare/EventEmitter"
@@ -24348,7 +24546,8 @@ table td
   ],
   "AllegroFlare/Timeline/Track": [
     "AllegroFlare/MotionComposer/TrackView",
-    "AllegroFlare/MotionComposer/TrackView"
+    "AllegroFlare/MotionComposer/TrackView",
+    "ClubCatt/Logo"
   ],
   "AllegroFlare/Color/": [
     "AllegroFlare/MotionComposer/TrackView",
@@ -24510,22 +24709,14 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
     "AllegroFlare/Prototypes/CubeShooter/Screen"
   ],
-  "AllegroFlare/ModelBin": [
-    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
-    "AllegroFlare/Prototypes/CubeShooter/Runner",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
-  ],
   "AllegroFlare/Prototypes/CubeShooter/Screen": [
     "AllegroFlare/Prototypes/CubeShooter/Runner"
   ],
   "AllegroFlare/Camera3D": [
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "ClubCatt/Logo"
   ],
   "AllegroFlare/Prototypes/CubeShooter/EntityFactory": [
     "AllegroFlare/Prototypes/CubeShooter/Screen"
