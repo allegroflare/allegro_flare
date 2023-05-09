@@ -1499,6 +1499,9 @@ void Full::run_loop(float auto_shutdown_after_seconds)
    if (router) event_emitter.emit_router_event(1); //AllegroFlare::GameEvent("initialize"));
    float loop_started_at = al_get_time();
 
+   offset_primary_timer(3000); // Maybe this is the magic number
+                               // TODO: See if this offset has any reasonable effect
+
    while(!shutdown_program || Display::displays.empty())
    {
       ALLEGRO_EVENT this_event;

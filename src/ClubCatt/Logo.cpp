@@ -159,8 +159,8 @@ void Logo::initialize()
       throw std::runtime_error("Logo::initialize: error: guard \"al_get_current_display()\" not met");
    }
    // Setup the camera
-   camera.stepout = {0, 0, 98}; // Step back from the origin, note 100 will clip past the far plane
-   camera.zoom = 21.0;
+   camera.stepout = {0, 0, 80}; // Step back from the origin, note 100 will clip past the far plane
+   camera.zoom = 18.0;
 
    // Preload the model and texture
    // TODO: preload resources

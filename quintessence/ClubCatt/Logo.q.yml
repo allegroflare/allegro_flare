@@ -125,8 +125,8 @@ functions:
     guards: [ (!initialized), bitmap_bin, model_bin, al_get_current_display() ]
     body: |
       // Setup the camera
-      camera.stepout = {0, 0, 98}; // Step back from the origin, note 100 will clip past the far plane
-      camera.zoom = 21.0;
+      camera.stepout = {0, 0, 80}; // Step back from the origin, note 100 will clip past the far plane
+      camera.zoom = 18.0;
 
       // Preload the model and texture
       // TODO: preload resources
