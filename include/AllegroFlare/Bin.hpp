@@ -45,6 +45,7 @@ namespace AllegroFlare
       bool load(T2 identifier, std::string filename, std::string called_through="load");
       bool include(T2 identifier, T data);
       bool rename(T2 identifier, T2 new_identifer);
+      bool destroy(T2 identifier);
       void clear(); //< doesn't work as a base class function in the destructor
       int size();
       virtual T load_data(T2 identifier) = 0;
@@ -325,6 +326,41 @@ namespace AllegroFlare
       r->identifier = new_identifer;
 
       std::sort(record.begin(), record.end(), bin_record_comp<T2, T>);
+
+      return true;
+   }
+
+
+   template<class T2, class T>
+   bool Bin<T2, T>::destroy(T2 identifier)
+   // be sure to test this
+   {
+      // Get the record
+      Bin<T2, T>::Record *r = get_record(identifier);
+      if (!r) return false;
+
+      // Find the element in the vector
+      typename std::vector<Bin<T2, T>::Record *>::iterator it = record.find(identifier);
+      if (it == record.end())
+      {
+         // Record was not found
+         // TODO: output error here
+         return false;
+      }
+
+      std::cout << "[Bin:] Erasing data for identifier \"" << identifier << "\"." << std::flush;
+      //std::string class_name = type; //typeid(*this).name();
+      //std::cout << CONSOLE_COLOR_YELLOW << "[" << class_name << "::" << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << CONSOLE_COLOR_DEFAULT << std::endl;
+      //return get(identifier);
+
+      // Destroy the data in the record, and destroy the record itself
+      destroy_data(r->data);
+      delete r;
+
+      // Remove the element from the vector
+      record.erase(it);
+
+      std::sort(record.begin(), record.end(), bin_record_comp<T2, T>); // This may not be necessary
 
       return true;
    }
