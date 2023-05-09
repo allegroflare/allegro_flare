@@ -103,6 +103,8 @@ namespace AllegroFlare
    template<class T2, class T>
    Bin<T2, T>::Record::~Record()
    {
+      // NOTE: This here could be a reason why allegro blows up if the bins are not cleared
+      // TODO: Investigate the above comment
       if (file_path) al_destroy_path(file_path);
       // destroy T?
    }
@@ -340,7 +342,7 @@ namespace AllegroFlare
       if (!r) return false;
 
       // Find the element in the vector
-      typename std::vector<Bin<T2, T>::Record *>::iterator it = record.find(identifier);
+      typename std::vector<Bin<T2, T>::Record *>::iterator it = std::find(record.begin(), record.end(), r);
       if (it == record.end())
       {
          // Record was not found

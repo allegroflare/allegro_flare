@@ -8,7 +8,7 @@ class TestBin : public AllegroFlare::Bin<std::string, int *>
 public:
    TestBin() : Bin("TestBin") {}
 
-   virtual int *load_data(std::string identifier) override { return new int(3); }
+   virtual int *load_data(std::string identifier) override { return new int(54321); }
    virtual void destroy_data(int *data) override { delete data; }
    virtual bool validate() override { return true; }
 };
@@ -17,6 +17,29 @@ public:
 TEST(AllegroFlare_BinTest, derived_class_can_be_created_without_blowing_up)
 {
    TestBin test_bin;
+}
+
+
+TEST(AllegroFlare_BinTest, destroy__will_remove_the_record)
+{
+   TestBin test_bin;
+   test_bin.set_full_path("this/part/is/actually/not/necessary/and/should/eventually/be/removed");
+   test_bin.set_cout_record_names_on_clear(true);
+
+   test_bin.preload("my_record_one");
+   test_bin.preload("my_record_two");
+   test_bin.preload("my_record_three");
+
+   ASSERT_EQ(3, test_bin.size());
+
+   test_bin.destroy("my_record_two");
+
+   ASSERT_EQ(2, test_bin.size());
+
+   test_bin.destroy("my_record_one");
+   test_bin.destroy("my_record_three");
+
+   EXPECT_EQ(0, test_bin.size());
 }
 
 
