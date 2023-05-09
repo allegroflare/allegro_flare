@@ -166,7 +166,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
-   DISABLED__VISUAL__append__will_append_vertexes_from_another_model)
+   DISABLED__VISUAL__append__will_append_vertices_from_another_model)
 {
    load_subject();
    AllegroFlare::MultitextureModel3D model_to_append;

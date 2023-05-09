@@ -99,29 +99,29 @@ namespace AllegroFlare
          }
          else if (strncmp(buff, "f ", 2) == 0)
          {
-            int num_vertexes_captured = 0;
+            int num_vertices_captured = 0;
 
             if (vertex_textures_found && vertex_normals_found)
             {
-               num_vertexes_captured = 
+               num_vertices_captured =
                   sscanf(buff, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d", &face_v1, &face_vt1, &face_vn1, &face_v2, &face_vt2, &face_vn2, &face_v3, &face_vt3, &face_vn3, &face_v4, &face_vt4, &face_vn4);
-               num_vertexes_captured /= 3;
+               num_vertices_captured /= 3;
             }
             else if (vertex_textures_found)
             {
-               num_vertexes_captured = 
+               num_vertices_captured =
                   sscanf(buff, "f %d/%d %d/%d %d/%d %d/%d", &face_v1, &face_vt1, &face_v2, &face_vt2, &face_v3, &face_vt3, &face_v4, &face_vt4);
-               num_vertexes_captured /= 2;
+               num_vertices_captured /= 2;
             }
             else if (vertex_normals_found)
             {
-               num_vertexes_captured = 
+               num_vertices_captured =
                   sscanf(buff, "f %d//%d %d//%d %d//%d %d//%d", &face_v1, &face_vn1, &face_v2, &face_vn2, &face_v3, &face_vn3, &face_v4, &face_vn4);
-               num_vertexes_captured /= 2;
+               num_vertices_captured /= 2;
             }
             else
             {
-               num_vertexes_captured = 
+               num_vertices_captured = 
                   sscanf(buff, "f %d %d %d %d", &face_v1, &face_v2, &face_v3, &face_v4);
             }
 
@@ -133,8 +133,8 @@ namespace AllegroFlare
             vtx.nx = (vertex_normals_found ? vt_normals[face_vn1-1].x : 0);
             vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
             vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);
-            model->vertexes.push_back(vtx);
-            if (current_named_object) current_named_object->index_list.push_back(model->vertexes.size()-1);
+            model->vertices.push_back(vtx);
+            if (current_named_object) current_named_object->index_list.push_back(model->vertices.size()-1);
 
             vtx.x = vtxs[face_v2-1].x * scale;
             vtx.y = vtxs[face_v2-1].y * scale;
@@ -144,8 +144,8 @@ namespace AllegroFlare
             vtx.nx = (vertex_normals_found ? vt_normals[face_vn2-1].x : 0);
             vtx.ny = (vertex_normals_found ? vt_normals[face_vn2-1].y : 0);
             vtx.nz = (vertex_normals_found ? vt_normals[face_vn2-1].z : 1);
-            model->vertexes.push_back(vtx);
-            if (current_named_object) current_named_object->index_list.push_back(model->vertexes.size()-1);
+            model->vertices.push_back(vtx);
+            if (current_named_object) current_named_object->index_list.push_back(model->vertices.size()-1);
 
             vtx.x = vtxs[face_v3-1].x * scale;
             vtx.y = vtxs[face_v3-1].y * scale;
@@ -155,10 +155,10 @@ namespace AllegroFlare
             vtx.nx = (vertex_normals_found ? vt_normals[face_vn3-1].x : 0);
             vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
             vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
-            model->vertexes.push_back(vtx);
-            if (current_named_object) current_named_object->index_list.push_back(model->vertexes.size()-1);
+            model->vertices.push_back(vtx);
+            if (current_named_object) current_named_object->index_list.push_back(model->vertices.size()-1);
 
-            if (num_vertexes_captured == 4)
+            if (num_vertices_captured == 4)
             {
                vtx.x = vtxs[face_v3-1].x * scale;
                vtx.y = vtxs[face_v3-1].y * scale;
@@ -168,8 +168,8 @@ namespace AllegroFlare
                vtx.nx = (vertex_normals_found ? vt_normals[face_vn3-1].x : 0);
                vtx.ny = (vertex_normals_found ? vt_normals[face_vn3-1].y : 0);
                vtx.nz = (vertex_normals_found ? vt_normals[face_vn3-1].z : 1);
-               model->vertexes.push_back(vtx);
-               if (current_named_object) current_named_object->index_list.push_back(model->vertexes.size()-1);
+               model->vertices.push_back(vtx);
+               if (current_named_object) current_named_object->index_list.push_back(model->vertices.size()-1);
 
                vtx.x = vtxs[face_v4-1].x * scale;
                vtx.y = vtxs[face_v4-1].y * scale;
@@ -179,8 +179,8 @@ namespace AllegroFlare
                vtx.nx = (vertex_normals_found ? vt_normals[face_vn4-1].x : 0);
                vtx.ny = (vertex_normals_found ? vt_normals[face_vn4-1].y : 0);
                vtx.nz = (vertex_normals_found ? vt_normals[face_vn4-1].z : 1);
-               model->vertexes.push_back(vtx);
-               if (current_named_object) current_named_object->index_list.push_back(model->vertexes.size()-1);
+               model->vertices.push_back(vtx);
+               if (current_named_object) current_named_object->index_list.push_back(model->vertices.size()-1);
 
                vtx.x = vtxs[face_v1-1].x * scale;
                vtx.y = vtxs[face_v1-1].y * scale;
@@ -190,8 +190,8 @@ namespace AllegroFlare
                vtx.nx = (vertex_normals_found ? vt_normals[face_vn1-1].x : 0);
                vtx.ny = (vertex_normals_found ? vt_normals[face_vn1-1].y : 0);
                vtx.nz = (vertex_normals_found ? vt_normals[face_vn1-1].z : 1);
-               model->vertexes.push_back(vtx);
-               if (current_named_object) current_named_object->index_list.push_back(model->vertexes.size()-1);
+               model->vertices.push_back(vtx);
+               if (current_named_object) current_named_object->index_list.push_back(model->vertices.size()-1);
             }
          }
       }

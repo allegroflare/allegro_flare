@@ -19,7 +19,7 @@ namespace AllegroFlare
    Model3D::Model3D()
       : initialized(false)
       , vertex_declaration(nullptr)
-      , vertexes()
+      , vertices()
       , vertex_buffer(nullptr)
       , texture(nullptr)
       , named_objects()
@@ -84,8 +84,16 @@ namespace AllegroFlare
 
    void Model3D::inspect_vertices()
    {
-      for (unsigned i=0; i<vertexes.size(); i++)
-         printf("[%d] %f %f %f : %f %f : %f %f %f\n", i, vertexes[i].x, vertexes[i].y, vertexes[i].z, vertexes[i].u, vertexes[i].v, vertexes[i].nx, vertexes[i].ny, vertexes[i].nz);
+      for (unsigned i=0; i<vertices.size(); i++)
+      {
+         printf(
+            "[%d] %f %f %f : %f %f : %f %f %f\n",
+            i,
+            vertices[i].x, vertices[i].y, vertices[i].z,
+            vertices[i].u, vertices[i].v,
+            vertices[i].nx, vertices[i].ny, vertices[i].nz
+         );
+      }
    }
 
 
@@ -94,7 +102,7 @@ namespace AllegroFlare
    {
       std::stringstream output;
       output << "-             model:" << std::endl;
-      output << "       num_vertices: " << vertexes.size() << std::endl;
+      output << "       num_vertices: " << vertices.size() << std::endl;
       output << "  has_vertex_buffer: " << (vertex_buffer ? "true" : "false") << std::endl;
       output << "  num_named_objects: " << named_objects.size() << std::endl;
 
@@ -150,7 +158,7 @@ namespace AllegroFlare
    {
       validate_initialized_or_output_to_cerr("clear");
 
-      vertexes.clear();
+      vertices.clear();
       named_objects.clear();
       destroy_and_clear_vertex_buffer();
    }
@@ -188,7 +196,7 @@ namespace AllegroFlare
          destroy_and_clear_vertex_buffer();
       }
 
-      vertexes.insert(vertexes.end(), other.vertexes.begin(), other.vertexes.end());
+      vertices.insert(vertices.end(), other.vertices.begin(), other.vertices.end());
    }
 
 
@@ -223,9 +231,10 @@ namespace AllegroFlare
 
 
 
-   int Model3D::get_num_vertexes()
+   int Model3D::get_num_vertices()
    {
-      return vertexes.size();
+      // NOTE: This was previously named "get_num_vertexes"
+      return vertices.size();
    }
 
 
@@ -254,8 +263,8 @@ namespace AllegroFlare
 
       vertex_buffer = al_create_vertex_buffer(
          vertex_declaration,
-         &vertexes[0],
-         vertexes.size(),
+         &vertices[0],
+         vertices.size(),
          ALLEGRO_PRIM_BUFFER_STATIC
       );
    }
@@ -268,15 +277,15 @@ namespace AllegroFlare
 
       if (vertex_buffer)
       {
-         al_draw_vertex_buffer(vertex_buffer, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+         al_draw_vertex_buffer(vertex_buffer, texture, 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
          return;
       }
 
-      if (vertexes.empty()) return;
+      if (vertices.empty()) return;
 
       if (named_objects.empty())
       {
-         al_draw_prim(&vertexes[0], vertex_declaration, texture, 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+         al_draw_prim(&vertices[0], vertex_declaration, texture, 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
       }
       else
       {
@@ -301,7 +310,7 @@ namespace AllegroFlare
 
       named_object &object = named_objects[index];
 
-      al_draw_indexed_prim(&vertexes[0], vertex_declaration,
+      al_draw_indexed_prim(&vertices[0], vertex_declaration,
             (object.texture) ? object.texture : texture,
             &object.index_list[0], object.index_list.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
@@ -378,11 +387,11 @@ namespace AllegroFlare
       validate_initialized_or_output_to_cerr("scale");
       validate_not_vertex_buffer("scale");
 
-      for (unsigned i=0; i<vertexes.size(); i++)
+      for (unsigned i=0; i<vertices.size(); i++)
       {
-         vertexes[i].x *= scale;
-         vertexes[i].y *= scale;
-         vertexes[i].z *= scale;
+         vertices[i].x *= scale;
+         vertices[i].y *= scale;
+         vertices[i].z *= scale;
       }
    }
 
@@ -393,11 +402,11 @@ namespace AllegroFlare
       validate_initialized_or_output_to_cerr("displace");
       validate_not_vertex_buffer("displace");
 
-      for (unsigned i=0; i<vertexes.size(); i++)
+      for (unsigned i=0; i<vertices.size(); i++)
       {
-         vertexes[i].x += displacement.x;
-         vertexes[i].y += displacement.y;
-         vertexes[i].z += displacement.z;
+         vertices[i].x += displacement.x;
+         vertices[i].y += displacement.y;
+         vertices[i].z += displacement.z;
       }
    }
 
@@ -407,14 +416,14 @@ namespace AllegroFlare
    vec3d Model3D::get_min_vertex_coordinate()
    {
       validate_initialized_or_output_to_cerr("get_min_vertex_coordinate");
-      if (vertexes.empty()) return vec3d(0, 0, 0);
+      if (vertices.empty()) return vec3d(0, 0, 0);
 
-      vec3d min_coord = vec3d(vertexes[0].x, vertexes[0].y, vertexes[0].z);
-      for (unsigned i=1; i<vertexes.size(); i++)
+      vec3d min_coord = vec3d(vertices[0].x, vertices[0].y, vertices[0].z);
+      for (unsigned i=1; i<vertices.size(); i++)
       {
-         if (vertexes[i].x < min_coord.x) min_coord.x = vertexes[i].x;
-         if (vertexes[i].y < min_coord.y) min_coord.y = vertexes[i].y;
-         if (vertexes[i].z < min_coord.z) min_coord.z = vertexes[i].z;
+         if (vertices[i].x < min_coord.x) min_coord.x = vertices[i].x;
+         if (vertices[i].y < min_coord.y) min_coord.y = vertices[i].y;
+         if (vertices[i].z < min_coord.z) min_coord.z = vertices[i].z;
       }
       return min_coord;
    }
@@ -425,14 +434,14 @@ namespace AllegroFlare
    vec3d Model3D::get_max_vertex_coordinate()
    {
       validate_initialized_or_output_to_cerr("get_max_vertex_coordinate");
-      if (vertexes.empty()) return vec3d(0, 0, 0);
+      if (vertices.empty()) return vec3d(0, 0, 0);
 
-      vec3d max_coord = vec3d(vertexes[0].x, vertexes[0].y, vertexes[0].z);
-      for (unsigned i=0; i<vertexes.size(); i++)
+      vec3d max_coord = vec3d(vertices[0].x, vertices[0].y, vertices[0].z);
+      for (unsigned i=0; i<vertices.size(); i++)
       {
-         if (vertexes[i].x > max_coord.x) max_coord.x = vertexes[i].x;
-         if (vertexes[i].y > max_coord.y) max_coord.y = vertexes[i].y;
-         if (vertexes[i].z > max_coord.z) max_coord.z = vertexes[i].z;
+         if (vertices[i].x > max_coord.x) max_coord.x = vertices[i].x;
+         if (vertices[i].y > max_coord.y) max_coord.y = vertices[i].y;
+         if (vertices[i].z > max_coord.z) max_coord.z = vertices[i].z;
       }
       return max_coord;
    }
@@ -472,7 +481,7 @@ namespace AllegroFlare
 
       for (auto &vertex_index_num : found_named_object->index_list)
       {
-         result.push_back(vertexes[vertex_index_num]);
+         result.push_back(vertices[vertex_index_num]);
       }
 
       return result;

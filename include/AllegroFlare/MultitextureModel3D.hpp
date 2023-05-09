@@ -39,7 +39,7 @@ namespace AllegroFlare
 
    public:
       ALLEGRO_VERTEX_DECL *vertex_declaration;
-      std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vertexes;
+      std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> vertices;
       ALLEGRO_VERTEX_BUFFER *vertex_buffer;
       ALLEGRO_BITMAP *texture;
       std::vector<named_object> named_objects;
@@ -56,7 +56,7 @@ namespace AllegroFlare
 
       void append(AllegroFlare::MultitextureModel3D &other);
       bool flatten_single_named_object();
-      int get_num_vertexes();
+      int get_num_vertices();
       int get_num_named_objects();
       void promote_to_vertex_buffer();
 
@@ -77,6 +77,8 @@ namespace AllegroFlare
       bool set_named_object_color(std::string object_name, ALLEGRO_COLOR col);
       void scale(float scale);
       void displace(AllegroFlare::Vec3D displacement);
+
+      std::vector<ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertexes = vertices;
    };
 }
 
