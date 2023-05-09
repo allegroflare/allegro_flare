@@ -1,8 +1,20 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
     init_with: nullptr
     constructor_arg: true
     setter: true
@@ -49,11 +61,29 @@ functions:
       - AllegroFlare::Elements::StoryboardPages::Image*
 
 
+  - name: create_clubcatt_logo_page
+    type: AllegroFlare::Elements::StoryboardPages::ClubCattLogo*
+    guards: [ bitmap_bin, model_bin ]
+    body: |
+      AllegroFlare::Elements::StoryboardPages::ClubCattLogo* result =
+         new AllegroFlare::Elements::StoryboardPages::ClubCattLogo;
+      result->set_bitmap_bin(bitmap_bin);
+      result->set_model_bin(model_bin);
+      result->initialize();
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::StoryboardPages::ClubCattLogo*
+
+
 dependencies:
 
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
   - symbol: ALLEGRO_BITMAP*
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Text*
@@ -72,6 +102,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
-
+  - symbol: AllegroFlare::Elements::StoryboardPages::ClubCattLogo
+    headers: [ AllegroFlare/Elements/StoryboardPages/ClubCattLogo.hpp ]
 
 
