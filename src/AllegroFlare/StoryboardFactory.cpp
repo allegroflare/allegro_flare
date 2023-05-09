@@ -10,10 +10,12 @@ namespace AllegroFlare
 {
 
 
-StoryboardFactory::StoryboardFactory(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
-   : font_bin(font_bin)
+StoryboardFactory::StoryboardFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::EventEmitter* event_emitter)
+   : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
+   , model_bin(model_bin)
    , event_emitter(event_emitter)
-   , page_factory(font_bin)
+   , page_factory()
 {
 }
 
@@ -33,6 +35,20 @@ void StoryboardFactory::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
    page_factory.set_font_bin(font_bin);
+   return;
+}
+
+void StoryboardFactory::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+   page_factory.set_bitmap_bin(bitmap_bin);
+   return;
+}
+
+void StoryboardFactory::set_model_bin(AllegroFlare::ModelBin* model_bin)
+{
+   this->model_bin = model_bin;
+   page_factory.set_model_bin(model_bin);
    return;
 }
 

@@ -25,6 +25,8 @@ TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expe
    logo.set_model_bin(&model_bin);
    logo.initialize();
 
+   logo.play(al_get_time());
+
    float number_of_seconds = 6.0f;
    int loops = (int)(number_of_seconds * 60.0f);
    for (int i=0; i<loops; i++)

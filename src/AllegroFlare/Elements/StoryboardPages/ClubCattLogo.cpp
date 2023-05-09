@@ -86,7 +86,8 @@ void ClubCattLogo::initialize()
 
 void ClubCattLogo::start()
 {
-   // TODO: Start the animation
+   float time_now = al_get_time();
+   clubcatt_logo.play(time_now);
    return;
 }
 
@@ -107,7 +108,7 @@ void ClubCattLogo::render()
 
 void ClubCattLogo::advance()
 {
-   // Will not do
+   // No advancing on this storyboard page
    return;
 }
 

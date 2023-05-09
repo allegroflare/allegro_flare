@@ -1,8 +1,20 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: false
+
   - name: font_bin
     type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: false
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
     init_with: nullptr
     constructor_arg: true
     setter: false
@@ -16,7 +28,7 @@ properties:
   - name: page_factory
     type: AllegroFlare::StoryboardPageFactory
     private: true
-    init_with: 'font_bin'
+    init_with: ''
 
 
 functions:
@@ -30,6 +42,28 @@ functions:
     body: |
       this->font_bin = font_bin;
       page_factory.set_font_bin(font_bin);
+      return;
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      page_factory.set_bitmap_bin(bitmap_bin);
+      return;
+
+
+  - name: set_model_bin
+    parameters:
+      - name: model_bin
+        type: AllegroFlare::ModelBin*
+        default_argument: nullptr
+    body: |
+      this->model_bin = model_bin;
+      page_factory.set_model_bin(model_bin);
       return;
 
 
@@ -140,5 +174,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
 
 

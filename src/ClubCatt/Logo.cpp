@@ -26,6 +26,8 @@ Logo::Logo(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bi
    , fade_out_timeline()
    , end_marker_timeline()
    , playback_speed_multiplier(1.65)
+   , playing(false)
+   , playing_started_at(0.0f)
    , finished(false)
    , on_finished_callback()
    , on_finished_callback_user_data(nullptr)
@@ -60,6 +62,12 @@ AllegroFlare::BitmapBin* Logo::get_bitmap_bin() const
 AllegroFlare::ModelBin* Logo::get_model_bin() const
 {
    return model_bin;
+}
+
+
+bool Logo::get_playing() const
+{
+   return playing;
 }
 
 
@@ -222,12 +230,14 @@ void Logo::reset()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logo::reset: error: guard \"initialized\" not met");
    }
-   // TODO: this function
+   // TODO: Test this function (it wouldn't be used anywhere as far as I known of)
+   playing = false;
    finished = false;
+   playing_started_at = 0.0f;
    return;
 }
 
-void Logo::play()
+void Logo::play(float time_now)
 {
    if (!(initialized))
    {
@@ -236,7 +246,8 @@ void Logo::play()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logo::play: error: guard \"initialized\" not met");
    }
-   // TODO: this function
+   playing = true;
+   playing_started_at = time_now;
    return;
 }
 

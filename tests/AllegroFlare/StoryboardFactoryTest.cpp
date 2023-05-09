@@ -30,7 +30,8 @@ TEST_F(AllegroFlare_StoryboardFactoryTestWithAllegroRenderingFixture,
    create_advancing_text_storyboard_screen__will_create_the_screen_with_the_expected_values)
 {
    AllegroFlare::EventEmitter event_emitter;
-   AllegroFlare::StoryboardFactory storyboard_factory(&get_font_bin_ref());
+   AllegroFlare::StoryboardFactory storyboard_factory;
+   storyboard_factory.set_font_bin(&get_font_bin_ref());
    std::vector<std::string> pages_text = { "Page one.", "Page two.", "Page three." };
    AllegroFlare::Screens::Storyboard* screen =
       storyboard_factory.create_advancing_text_storyboard_screen(pages_text);

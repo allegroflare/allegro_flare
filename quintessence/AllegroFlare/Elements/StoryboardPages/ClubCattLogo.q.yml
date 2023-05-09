@@ -55,7 +55,8 @@ functions:
     virtual: true
     override: true
     body: |
-      // TODO: Start the animation
+      float time_now = al_get_time();
+      clubcatt_logo.play(time_now);
       return;
 
 
@@ -82,7 +83,7 @@ functions:
     virtual: true
     override: true
     body: |
-      // Will not do
+      // No advancing on this storyboard page
       return;
 
 

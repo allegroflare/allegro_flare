@@ -59,6 +59,15 @@ properties:
     type: float
     init_with: 1.65
 
+  - name: playing
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: playing_started_at
+    type: float
+    init_with: 0.0f
+
   - name: finished
     type: bool
     init_with: false
@@ -182,15 +191,23 @@ functions:
   - name: reset
     guards: [ initialized ]
     body: |
-      // TODO: this function
+      // TODO: Test this function (it wouldn't be used anywhere as far as I known of)
+      playing = false;
       finished = false;
+      playing_started_at = 0.0f;
       return;
 
 
   - name: play
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
     guards: [ initialized ]
     body: |
-      // TODO: this function
+      playing = true;
+      playing_started_at = time_now;
       return;
 
 

@@ -29,6 +29,8 @@ namespace ClubCatt
       AllegroFlare::Timeline::Track fade_out_timeline;
       AllegroFlare::Timeline::Track end_marker_timeline;
       float playback_speed_multiplier;
+      bool playing;
+      float playing_started_at;
       bool finished;
       std::function<void(ClubCatt::Logo*, void*)> on_finished_callback;
       void* on_finished_callback_user_data;
@@ -45,6 +47,7 @@ namespace ClubCatt
       void set_on_finished_callback_user_data(void* on_finished_callback_user_data);
       AllegroFlare::BitmapBin* get_bitmap_bin() const;
       AllegroFlare::ModelBin* get_model_bin() const;
+      bool get_playing() const;
       bool get_finished() const;
       std::function<void(ClubCatt::Logo*, void*)> get_on_finished_callback() const;
       void* get_on_finished_callback_user_data() const;
@@ -53,7 +56,7 @@ namespace ClubCatt
       void initialize();
       void destroy();
       void reset();
-      void play();
+      void play(float time_now=al_get_time());
       void update(float time_now=al_get_time());
       void draw(float time_now=al_get_time());
       ALLEGRO_BITMAP* get_display_backbuffer();
