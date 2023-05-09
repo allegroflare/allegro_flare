@@ -95,7 +95,11 @@ void ClubCattLogo::update()
 {
    float time_now = al_get_time();
    clubcatt_logo.update(time_now);
-   if (!get_finished() && clubcatt_logo.get_finished()) set_finished(true);
+   if (!get_finished() && clubcatt_logo.get_finished())
+   {
+      // TODO: Consider destroy
+      set_finished(true);
+   }
    return;
 }
 
