@@ -20,6 +20,7 @@ ClubCattLogo::ClubCattLogo(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Mo
    , bitmap_bin(bitmap_bin)
    , model_bin(model_bin)
    , clubcatt_logo()
+   , initialized(false)
 {
 }
 
@@ -55,6 +56,13 @@ AllegroFlare::ModelBin* ClubCattLogo::get_model_bin() const
 
 void ClubCattLogo::initialize()
 {
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ClubCattLogo::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ClubCattLogo::initialize: error: guard \"(!initialized)\" not met");
+   }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
@@ -73,17 +81,34 @@ void ClubCattLogo::initialize()
    clubcatt_logo.set_bitmap_bin(bitmap_bin);
    clubcatt_logo.set_model_bin(model_bin);
    clubcatt_logo.initialize();
+   initialized = true;
 }
 
-void ClubCattLogo::primary_timer_func()
+void ClubCattLogo::start()
 {
-   // Update
+   // TODO: Start the animation
+   return;
+}
+
+void ClubCattLogo::update()
+{
    float time_now = al_get_time();
    clubcatt_logo.update(time_now);
    if (!get_finished() && clubcatt_logo.get_finished()) set_finished(true);
+   return;
+}
 
-   // Draw
+void ClubCattLogo::render()
+{
+   float time_now = al_get_time();
    clubcatt_logo.draw(time_now);
+   return;
+}
+
+void ClubCattLogo::advance()
+{
+   // Will not do
+   return;
 }
 
 

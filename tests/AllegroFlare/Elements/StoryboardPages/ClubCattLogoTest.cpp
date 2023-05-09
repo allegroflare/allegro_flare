@@ -36,3 +36,38 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ClubCattLogoTest, type__has_the_exp
 }
 
 
+TEST_F(AllegroFlare_Elements_StoryboardPages_ClubCattLogoTestWithAllegroRenderingFixture,
+   VISUAL__will_appear_as_expected)
+{
+   AllegroFlare::ModelBin model_bin;
+   model_bin.set_path(get_fixtures_path() + "models");
+
+   AllegroFlare::Elements::StoryboardPages::ClubCattLogo clubcatt_logo_element;
+   clubcatt_logo_element.set_bitmap_bin(&get_bitmap_bin_ref());
+   clubcatt_logo_element.set_model_bin(&model_bin);
+   clubcatt_logo_element.initialize();
+
+   clubcatt_logo_element.start();
+
+   //float number_of_seconds = 6.0f;
+   //int loops = (int)(number_of_seconds * 60.0f);
+   float started_at = al_get_time();
+   float max_seconds_before_abort_test = 10.0f;
+   bool abort = false;
+   while (!(clubcatt_logo_element.get_finished()) && !abort)
+   {
+      float time_now = al_get_time();
+      clubcatt_logo_element.update();
+      clubcatt_logo_element.render();
+
+      al_flip_display();
+
+      float test_duration = time_now - started_at;
+      if (test_duration > max_seconds_before_abort_test) abort = true;
+   }
+
+   // TODO: Improve this error message
+   EXPECT_NE(true, abort) << "The test had to be automatically exited because the expected finish path did not occour.";
+}
+
+

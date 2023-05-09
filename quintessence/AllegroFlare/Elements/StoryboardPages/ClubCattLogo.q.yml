@@ -27,6 +27,10 @@ properties:
     type: ClubCatt::Logo
     init_with: ''
 
+  - name: initialized
+    type: bool
+    init_with: false
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Elements/StoryboardPages/ClubCattLogo"'
@@ -38,23 +42,48 @@ functions:
 
 
   - name: initialize
-    guards: [ bitmap_bin, model_bin ]
+    guards: [ (!initialized), bitmap_bin, model_bin ]
     body: |
       set_finished(false);
       clubcatt_logo.set_bitmap_bin(bitmap_bin);
       clubcatt_logo.set_model_bin(model_bin);
       clubcatt_logo.initialize();
+      initialized = true;
 
 
-  - name: primary_timer_func
+  - name: start
+    virtual: true
+    override: true
     body: |
-      // Update
+      // TODO: Start the animation
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
       float time_now = al_get_time();
       clubcatt_logo.update(time_now);
       if (!get_finished() && clubcatt_logo.get_finished()) set_finished(true);
+      return;
 
-      // Draw
+
+  - name: render
+    virtual: true
+    override: true
+    body: |
+      float time_now = al_get_time();
       clubcatt_logo.draw(time_now);
+      return;
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      // Will not do
+      return;
 
 
 dependencies:

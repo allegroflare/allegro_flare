@@ -51,7 +51,7 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_TextTestWithAllegroRenderingFixture
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPages_TextTestWithAllegroRenderingFixture,
-   render__will_show_the_text)
+   CAPTURE__render__will_show_the_text)
 {
    std::string text_to_show = "Hello StoryboardPages/Text!";
    AllegroFlare::Elements::StoryboardPages::Text text(&get_font_bin_ref(), text_to_show);

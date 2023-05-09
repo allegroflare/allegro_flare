@@ -22,20 +22,24 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::ModelBin* model_bin;
             ClubCatt::Logo clubcatt_logo;
+            bool initialized;
 
          protected:
 
 
          public:
             ClubCattLogo(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
-            ~ClubCattLogo();
+            virtual ~ClubCattLogo();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_model_bin(AllegroFlare::ModelBin* model_bin);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::ModelBin* get_model_bin() const;
             void initialize();
-            void primary_timer_func();
+            virtual void start() override;
+            virtual void update() override;
+            virtual void render() override;
+            virtual void advance() override;
          };
       }
    }
