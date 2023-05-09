@@ -1,0 +1,79 @@
+
+#include <gtest/gtest.h>
+
+#include <ClubCatt/Logo.hpp>
+
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/CubemapBuilder.hpp>
+#include <AllegroFlare/Placement3D.hpp>
+
+
+class ClubCatt_LogoTest: public ::testing::Test {};
+class ClubCatt_LogoWithAllegroRenderingFixtureTest : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
+
+
+TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
+{
+   AllegroFlare::ModelBin model_bin;
+   model_bin.set_path(get_fixtures_path() + "models");
+
+   ClubCatt::Logo logo;
+   logo.set_bitmap_bin(&get_bitmap_bin_ref());
+   logo.set_model_bin(&model_bin);
+   logo.initialize();
+
+   float number_of_seconds = 6.0f;
+   int loops = (int)(number_of_seconds * 60.0f);
+   for (int i=0; i<loops; i++)
+   {
+      float time_now = al_get_time();
+
+      logo.update(time_now);
+      if (logo.get_finished()) break;
+      logo.draw(time_now);
+
+      al_flip_display();
+   }
+}
+
+
+TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, initialize__will_allocate_some_resources_through_the_bins)
+{
+   AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
+   AllegroFlare::ModelBin model_bin;
+   model_bin.set_path(get_fixtures_path() + "models");
+
+   ClubCatt::Logo logo;
+   logo.set_bitmap_bin(&bitmap_bin);
+   logo.set_model_bin(&model_bin);
+   logo.initialize();
+
+   EXPECT_EQ(1, model_bin.size());
+   EXPECT_EQ(2, bitmap_bin.size());
+}
+
+
+TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, destroy__will_deallocate_the_aquired_resources_in_the_bins)
+{
+   AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
+   AllegroFlare::ModelBin model_bin;
+   model_bin.set_path(get_fixtures_path() + "models");
+
+   ClubCatt::Logo logo;
+   logo.set_bitmap_bin(&bitmap_bin);
+   logo.set_model_bin(&model_bin);
+   logo.initialize();
+
+   EXPECT_EQ(1, model_bin.size());
+   EXPECT_EQ(2, bitmap_bin.size());
+
+   logo.destroy();
+
+   EXPECT_EQ(0, model_bin.size());
+   EXPECT_EQ(0, bitmap_bin.size());
+}
+
+

@@ -1,0 +1,294 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: model_identifier
+    type: std::string
+    init_with: '"centered_unit_cube-02.obj"'
+
+  - name: cube_texture1_identifier
+    type: std::string
+    init_with: '"clubcatt_cube_texture-01.png"'
+
+  - name: cube_texture2_identifier
+    type: std::string
+    init_with: '"clubcatt_cube_texture-01b.png"'
+
+  - name: camera
+    type: AllegroFlare::Camera3D
+    init_with: ''
+
+  - name: rotation_x_timeline
+    type: AllegroFlare::Timeline::Track
+    init_with: ''
+
+  - name: rotation_y_timeline
+    type: AllegroFlare::Timeline::Track
+    init_with: ''
+
+  - name: camera_spin_timeline
+    type: AllegroFlare::Timeline::Track
+    init_with: ''
+
+  - name: texture_swap_timeline
+    type: AllegroFlare::Timeline::Track
+    init_with: ''
+
+  - name: fade_out_timeline
+    type: AllegroFlare::Timeline::Track
+    init_with: ''
+
+  - name: end_marker_timeline
+    type: AllegroFlare::Timeline::Track
+    init_with: ''
+
+  - name: playback_speed_multiplier
+    type: float
+    init_with: 1.65
+
+  - name: finished
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: on_finished_callback
+    type: std::function<void(ClubCatt::Logo*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_finished_callback_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      return;
+
+
+  - name: set_model_bin
+    parameters:
+      - name: model_bin
+        type: AllegroFlare::ModelBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->model_bin = model_bin;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), bitmap_bin, model_bin, al_get_current_display() ]
+    body: |
+      // Setup the camera
+      camera.stepout = {0, 0, 100}; // Step back from the origin
+      camera.zoom = 23.0;
+
+      // Preload the model and texture
+      // TODO: preload resources
+      // TODO: preload with mipmaps and min/mag linear
+      ALLEGRO_STATE previous_bitmap_flags_state;
+      al_store_state(&previous_bitmap_flags_state, ALLEGRO_STATE_BITMAP);
+      al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+      //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("unit_cube-02.png");
+      //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("cube_perfect-01.png");
+      bitmap_bin->auto_get(cube_texture1_identifier);
+      bitmap_bin->auto_get(cube_texture2_identifier);
+      model_bin->auto_get(model_identifier);
+      
+      al_restore_state(&previous_bitmap_flags_state);
+
+      playback_speed_multiplier = 1.65;
+
+      // Setup timeline keyframes
+      rotation_y_timeline.set_keyframes({
+         new AllegroFlare::Timeline::Keyframe(0.05, 0),
+         new AllegroFlare::Timeline::Keyframe(0.55, 0.25, AllegroFlare::interpolator::slow_in),
+      });
+      rotation_x_timeline.set_keyframes({
+         new AllegroFlare::Timeline::Keyframe(1.05, 0),
+         new AllegroFlare::Timeline::Keyframe(1.55, 0.25, AllegroFlare::interpolator::slow_in),
+      });
+      camera_spin_timeline.set_keyframes({
+         new AllegroFlare::Timeline::Keyframe(2.05, 0),
+         new AllegroFlare::Timeline::Keyframe(2.55, -3.14159265359/2, AllegroFlare::interpolator::slow_in),
+      });
+      texture_swap_timeline.set_keyframes({
+         new AllegroFlare::Timeline::Keyframe(2.0, 0),
+         new AllegroFlare::Timeline::Keyframe(2.00001, 1),
+      });
+      fade_out_timeline.set_keyframes({
+         new AllegroFlare::Timeline::Keyframe(0.0, 0),
+         new AllegroFlare::Timeline::Keyframe(4.0, 0),
+         new AllegroFlare::Timeline::Keyframe(4.9, 1),
+      });
+      end_marker_timeline.set_keyframes({
+         new AllegroFlare::Timeline::Keyframe(5.2499, 0),
+         new AllegroFlare::Timeline::Keyframe(5.25, 1),
+      });
+
+      initialized = true;
+
+      return;
+
+
+  - name: destroy
+    guards: [ initialized ]
+    body: |
+      // TODO: free up bin objects
+      bitmap_bin->destroy(cube_texture1_identifier);
+      bitmap_bin->destroy(cube_texture2_identifier);
+      model_bin->destroy(model_identifier);
+
+      // TODO: free up the keyframes
+      for (auto &keyframe : rotation_x_timeline.get_keyframes()) { delete keyframe; }
+      for (auto &keyframe : rotation_y_timeline.get_keyframes()) { delete keyframe; }
+      for (auto &keyframe : camera_spin_timeline.get_keyframes()) { delete keyframe; }
+      for (auto &keyframe : texture_swap_timeline.get_keyframes()) { delete keyframe; }
+      for (auto &keyframe : fade_out_timeline.get_keyframes()) { delete keyframe; }
+      for (auto &keyframe : end_marker_timeline.get_keyframes()) { delete keyframe; }
+      return;
+
+
+  - name: reset
+    guards: [ initialized ]
+    body: |
+      // TODO: this function
+      finished = false;
+      return;
+
+
+  - name: play
+    guards: [ initialized ]
+    body: |
+      // TODO: this function
+      return;
+
+
+  - name: update
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
+    guards: [ initialized ]
+    body: |
+      float local_time_now = time_now * playback_speed_multiplier;
+
+      if (!finished && end_marker_timeline.get(local_time_now) > 0.999)
+      {
+         finished = true;
+         if (on_finished_callback) on_finished_callback(this, on_finished_callback_user_data);
+      }
+      return;
+
+
+  - name: draw
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
+    guards: [ initialized ]
+    body: |
+      float local_time_now = time_now * playback_speed_multiplier;
+
+      // Declare our objects
+
+      AllegroFlare::Placement3D object_placement;
+      AllegroFlare::Model3D *model = nullptr;
+      ALLEGRO_COLOR vertices_color = ALLEGRO_COLOR{1, 1, 1, 1};
+
+      // Modify the objects based on timelines
+
+      camera.spin = camera_spin_timeline.get(local_time_now);
+
+      std::string cube_texture_identifier_for_this_frame = (texture_swap_timeline.get(local_time_now) > 0.999)
+                                                         ? cube_texture2_identifier
+                                                         : cube_texture1_identifier
+                                                         ;
+
+      object_placement.rotation.x = rotation_x_timeline.get(local_time_now);
+      object_placement.rotation.y = rotation_y_timeline.get(local_time_now);
+
+      model = model_bin->auto_get(model_identifier);
+      model->texture = bitmap_bin->auto_get(cube_texture_identifier_for_this_frame);
+      float fade = 1.0 - fade_out_timeline.get(local_time_now);
+      vertices_color = ALLEGRO_COLOR{fade, fade, fade, 1.0};
+
+      for (auto &vertex : model->vertices)
+      {
+         vertex.color = vertices_color;
+      }
+
+      // Render the scene
+
+      camera.setup_projection_on(get_display_backbuffer());
+      al_clear_depth_buffer(1);
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
+
+      object_placement.start_transform();
+      model->draw();
+      object_placement.restore_transform();
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement3D
+
+
+  - name: get_display_backbuffer
+    type: ALLEGRO_BITMAP*
+    body: |
+      return al_get_backbuffer(al_get_current_display());
+
+
+dependencies:
+
+
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: AllegroFlare::Timeline::Track
+    headers: [ AllegroFlare/Timeline/Track.hpp ]
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: ClubCatt::Logo
+    headers: [ ClubCatt/Logo.hpp ]
+
+
