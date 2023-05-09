@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <allegro5/allegro5.h> // for ALLEGRO_PATH
 #include <AllegroFlare/ConsoleColor.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -29,6 +30,7 @@ namespace AllegroFlare
          ~Record();
       };
 
+      // TODO: Rename this to "output_on_destruction_events" or something similar
       void set_cout_record_names_on_clear(bool cout_record_names_on_clear=false);
 
       Bin(std::string type="Bin");
@@ -350,10 +352,16 @@ namespace AllegroFlare
          return false;
       }
 
-      std::cout << "[Bin:] Erasing data for identifier \"" << identifier << "\"." << std::flush;
-      //std::string class_name = type; //typeid(*this).name();
-      //std::cout << CONSOLE_COLOR_YELLOW << "[" << class_name << "::" << __FUNCTION__  << "] Record \"" << identifier << "\" auto-created" << CONSOLE_COLOR_DEFAULT << std::endl;
-      //return get(identifier);
+      // TODO: Fix this error message
+      //std::cout << "[Bin:] Erasing data for identifier \"" << identifier << "\"." << std::flush;
+
+      std::string class_name = type; //typeid(*this).name();
+      std::string info_message = AllegroFlare::Logger::build_info_message(
+         class_name + "::" + __FUNCTION__,
+         "Erasing data for identifier \"" + identifier + "\"."
+      );
+
+      std::cout << info_message << std::endl;
 
       // Destroy the data in the record, and destroy the record itself
       destroy_data(r->data);
