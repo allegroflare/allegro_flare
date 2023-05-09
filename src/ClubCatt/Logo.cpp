@@ -159,8 +159,8 @@ void Logo::initialize()
       throw std::runtime_error("Logo::initialize: error: guard \"al_get_current_display()\" not met");
    }
    // Setup the camera
-   camera.stepout = {0, 0, 100}; // Step back from the origin
-   camera.zoom = 23.0;
+   camera.stepout = {0, 0, 98}; // Step back from the origin, note 100 will clip past the far plane
+   camera.zoom = 21.0;
 
    // Preload the model and texture
    // TODO: preload resources
@@ -281,7 +281,7 @@ void Logo::update(float time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logo::update: error: guard \"initialized\" not met");
    }
-   float local_time_now = time_now * playback_speed_multiplier;
+   float local_time_now = calc_local_time_now(time_now);
 
    if (!finished && end_marker_timeline.get(local_time_now) > 0.999)
    {
@@ -300,7 +300,7 @@ void Logo::draw(float time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logo::draw: error: guard \"initialized\" not met");
    }
-   float local_time_now = time_now * playback_speed_multiplier;
+   float local_time_now = calc_local_time_now(time_now);
 
    // Declare our objects
 
@@ -332,6 +332,12 @@ void Logo::draw(float time_now)
 
    // Render the scene
 
+   // grab the current projection transform
+   // TODO: Check the restoration of the previous transform with a test
+   const ALLEGRO_TRANSFORM *transform_before_render = al_get_current_projection_transform();
+   ALLEGRO_TRANSFORM previous_transform;
+   if (transform_before_render) al_copy_transform(&previous_transform, transform_before_render);
+
    camera.setup_projection_on(get_display_backbuffer());
    al_clear_depth_buffer(1);
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
@@ -340,6 +346,9 @@ void Logo::draw(float time_now)
    model->draw();
    object_placement.restore_transform();
 
+   // restore previous transform
+   if (transform_before_render) al_use_projection_transform(&previous_transform);
+
    return;
 }
 
@@ -347,6 +356,14 @@ ALLEGRO_BITMAP* Logo::get_display_backbuffer()
 {
    // TODO: Validate backbuffer has depth
    return al_get_backbuffer(al_get_current_display());
+}
+
+float Logo::calc_local_time_now(float time_now)
+{
+   if (!playing) return 0.0f;
+   float age = time_now - playing_started_at;
+   float local_time_now = (age * playback_speed_multiplier);
+   return local_time_now;
 }
 
 

@@ -63,6 +63,7 @@ namespace ClubCatt
       void update(float time_now=al_get_time());
       void draw(float time_now=al_get_time());
       ALLEGRO_BITMAP* get_display_backbuffer();
+      float calc_local_time_now(float time_now=al_get_time());
    };
 }
 

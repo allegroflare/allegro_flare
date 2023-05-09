@@ -125,8 +125,8 @@ functions:
     guards: [ (!initialized), bitmap_bin, model_bin, al_get_current_display() ]
     body: |
       // Setup the camera
-      camera.stepout = {0, 0, 100}; // Step back from the origin
-      camera.zoom = 23.0;
+      camera.stepout = {0, 0, 98}; // Step back from the origin, note 100 will clip past the far plane
+      camera.zoom = 21.0;
 
       // Preload the model and texture
       // TODO: preload resources
@@ -233,7 +233,7 @@ functions:
         default_argument_dependency_symbols: [ al_get_time ]
     guards: [ initialized ]
     body: |
-      float local_time_now = time_now * playback_speed_multiplier;
+      float local_time_now = calc_local_time_now(time_now);
 
       if (!finished && end_marker_timeline.get(local_time_now) > 0.999)
       {
@@ -251,7 +251,7 @@ functions:
         default_argument_dependency_symbols: [ al_get_time ]
     guards: [ initialized ]
     body: |
-      float local_time_now = time_now * playback_speed_multiplier;
+      float local_time_now = calc_local_time_now(time_now);
 
       // Declare our objects
 
@@ -283,6 +283,12 @@ functions:
 
       // Render the scene
 
+      // grab the current projection transform
+      // TODO: Check the restoration of the previous transform with a test
+      const ALLEGRO_TRANSFORM *transform_before_render = al_get_current_projection_transform();
+      ALLEGRO_TRANSFORM previous_transform;
+      if (transform_before_render) al_copy_transform(&previous_transform, transform_before_render);
+
       camera.setup_projection_on(get_display_backbuffer());
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
@@ -290,6 +296,9 @@ functions:
       object_placement.start_transform();
       model->draw();
       object_placement.restore_transform();
+
+      // restore previous transform
+      if (transform_before_render) al_use_projection_transform(&previous_transform);
 
       return;
     body_dependency_symbols:
@@ -301,6 +310,20 @@ functions:
     body: |
       // TODO: Validate backbuffer has depth
       return al_get_backbuffer(al_get_current_display());
+
+
+  - name: calc_local_time_now
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
+    body: |
+      if (!playing) return 0.0f;
+      float age = time_now - playing_started_at;
+      float local_time_now = (age * playback_speed_multiplier);
+      return local_time_now;
 
 
 dependencies:
