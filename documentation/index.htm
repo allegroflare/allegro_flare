@@ -18722,6 +18722,10 @@ table td
   <td class="property">AllegroFlare::Profiler*</td>
 </tr>
 <tr>
+  <td class="property">framework_primary_render_surface</td>
+  <td class="property">AllegroFlare::RenderSurfaces::Base*</td>
+</tr>
+<tr>
   <td class="property">test_snapshots_folder</td>
   <td class="property">std::string</td>
 </tr>
@@ -18786,6 +18790,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VideoBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VideoBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -25266,7 +25273,8 @@ table td
   ],
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap"
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/GameSession": [
     "AllegroFlare/Routers/Base",

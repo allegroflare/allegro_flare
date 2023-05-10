@@ -23,6 +23,7 @@ WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    , framework_model_bin(nullptr)
    , framework_video_bin(nullptr)
    , framework_profiler(nullptr)
+   , framework_primary_render_surface(nullptr)
    , test_snapshots_folder("[unset-test_snapshots_folder]")
    , initialized(false)
 {
@@ -76,6 +77,12 @@ AllegroFlare::Profiler* WithAllegroFlareFrameworksFullFixture::get_framework_pro
 }
 
 
+AllegroFlare::RenderSurfaces::Base* WithAllegroFlareFrameworksFullFixture::get_framework_primary_render_surface() const
+{
+   return framework_primary_render_surface;
+}
+
+
 AllegroFlare::Frameworks::Full &WithAllegroFlareFrameworksFullFixture::get_framework_ref()
 {
    return framework;
@@ -103,6 +110,7 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    this->framework_video_bin = &framework.get_video_bin_ref();
    this->framework_sample_bin = &framework.get_sample_bin_ref();
    this->framework_profiler = &framework.get_profiler_ref();
+   this->framework_primary_render_surface = framework.get_primary_render_surface();
 
    test_snapshots_folder = "./tmp/test_snapshots/";
 
@@ -135,6 +143,7 @@ void WithAllegroFlareFrameworksFullFixture::TearDown()
    this->framework_video_bin = nullptr;
    this->framework_sample_bin = nullptr;
    this->framework_profiler = nullptr;
+   this->framework_primary_render_surface = nullptr;
    initialized = false;
    return;
 }

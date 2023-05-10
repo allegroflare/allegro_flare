@@ -7,6 +7,7 @@
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Profiler.hpp>
+#include <AllegroFlare/RenderSurfaces/Base.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/VideoBin.hpp>
@@ -29,6 +30,7 @@ namespace AllegroFlare
          AllegroFlare::ModelBin* framework_model_bin;
          AllegroFlare::VideoBin* framework_video_bin;
          AllegroFlare::Profiler* framework_profiler;
+         AllegroFlare::RenderSurfaces::Base* framework_primary_render_surface;
          std::string test_snapshots_folder;
          bool initialized;
 
@@ -46,6 +48,7 @@ namespace AllegroFlare
          AllegroFlare::ModelBin* get_framework_model_bin() const;
          AllegroFlare::VideoBin* get_framework_video_bin() const;
          AllegroFlare::Profiler* get_framework_profiler() const;
+         AllegroFlare::RenderSurfaces::Base* get_framework_primary_render_surface() const;
          AllegroFlare::Frameworks::Full &get_framework_ref();
          virtual void SetUp() override;
          virtual void TearDown() override;
