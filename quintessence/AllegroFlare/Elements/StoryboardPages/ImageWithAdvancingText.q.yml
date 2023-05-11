@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
@@ -16,9 +23,23 @@ properties:
     getter: true
     setter: true
 
+  - name: image_identifier
+    type: std::string
+    init_with: '"[unset-image_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: text
     type: std::string
-    init_with: '"[text-not-set]"'
+    init_with: '"[unset-text]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: image_placement
+    type: AllegroFlare::Placement2D
+    init_with: '{1920 * 0.5, 1080 * 0.4, 1164, 500}'
     constructor_arg: true
     getter: true
     setter: true
@@ -46,28 +67,28 @@ properties:
 
   - name: top_padding
     type: float
-    init_with: 400
+    init_with: 720
     constructor_arg: true
     getter: true
     setter: true
 
   - name: left_padding
     type: float
-    init_with: 360
+    init_with: 380
     constructor_arg: true
     getter: true
     setter: true
 
   - name: right_padding
     type: float
-    init_with: 360
+    init_with: 380
     constructor_arg: true
     getter: true
     setter: true
 
   - name: line_height_multiplier
     type: float
-    init_with: 1.75f
+    init_with: 1.4f
     constructor_arg: true
     getter: true
     setter: true
@@ -105,6 +126,13 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - todos:
+      - Replace advancing text logic with Elements/AdvancingText (so that a different text reveal speed can be used)
+
+
 functions:
 
 
@@ -129,10 +157,22 @@ functions:
   - name: render
     virtual: true
     override: true
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), bitmap_bin ]
     body: |
-      ALLEGRO_FONT *text_font = obtain_font();
+      // Draw the image
+      if (!image_identifier.empty())
+      {
+         ALLEGRO_BITMAP *image = bitmap_bin->auto_get(image_identifier);
+         if (image) image_placement.size = { (float)al_get_bitmap_width(image), (float)al_get_bitmap_height(image) };
+         image_placement.start_transform();
+         float opacity = 1.0f;
+         ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
+         al_draw_tinted_bitmap(image, tint, 0, 0, 0);
+         image_placement.restore_transform();
+      }
 
+      // Draw the text
+      ALLEGRO_FONT *text_font = obtain_font();
       std::string revealed_text = generate_revealed_text();
       if (!revealed_text.empty())
       {
@@ -210,6 +250,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
   - symbol: AllegroFlare::Color

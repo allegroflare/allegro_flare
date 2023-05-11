@@ -1,8 +1,10 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
@@ -22,8 +24,11 @@ namespace AllegroFlare
             static constexpr char* TYPE = (char*)"AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText";
 
          private:
+            AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
+            std::string image_identifier;
             std::string text;
+            AllegroFlare::Placement2D image_placement;
             std::string font_name;
             int font_size;
             ALLEGRO_COLOR text_color;
@@ -40,11 +45,14 @@ namespace AllegroFlare
 
 
          public:
-            ImageWithAdvancingText(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=360, float right_padding=360, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
+            ImageWithAdvancingText(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string image_identifier="[unset-image_identifier]", std::string text="[unset-text]", AllegroFlare::Placement2D image_placement={1920 * 0.5, 1080 * 0.4, 1164, 500}, std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=720, float left_padding=380, float right_padding=380, float line_height_multiplier=1.4f, float line_height_padding=0.0f);
             virtual ~ImageWithAdvancingText();
 
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
+            void set_image_identifier(std::string image_identifier);
             void set_text(std::string text);
+            void set_image_placement(AllegroFlare::Placement2D image_placement);
             void set_font_name(std::string font_name);
             void set_font_size(int font_size);
             void set_text_color(ALLEGRO_COLOR text_color);
@@ -53,8 +61,11 @@ namespace AllegroFlare
             void set_right_padding(float right_padding);
             void set_line_height_multiplier(float line_height_multiplier);
             void set_line_height_padding(float line_height_padding);
+            AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
+            std::string get_image_identifier() const;
             std::string get_text() const;
+            AllegroFlare::Placement2D get_image_placement() const;
             std::string get_font_name() const;
             int get_font_size() const;
             ALLEGRO_COLOR get_text_color() const;

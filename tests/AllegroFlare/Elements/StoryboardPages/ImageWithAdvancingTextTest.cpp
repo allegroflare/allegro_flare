@@ -48,7 +48,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTest,
 TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture,
    render__will_not_blow_up)
 {
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref());
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "",
+      ""
+   );
    storyboard.render();
    SUCCEED();
 }
@@ -58,7 +63,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    start__will_set_the_number_of_revealed_characters_to_zero)
 {
    std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    storyboard.reveal_all_characters();
    EXPECT_EQ(true, storyboard.all_characters_are_revealed());
@@ -72,7 +82,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    start__will_set_finished_to_false)
 {
    std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    EXPECT_EQ(true, storyboard.get_finished());
    storyboard.start();
@@ -84,7 +99,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    update__after_all_characters_have_been_revealed__will_set_finished_to_true)
 {
    std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    storyboard.start();
    storyboard.reveal_all_characters();
@@ -98,7 +118,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    reveal_all_characters__will_reveal_all_the_characters_on_the_current_page)
 {
    std::string text = "This are characters that need to be revealed one-by-one.";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    EXPECT_EQ(false, storyboard.all_characters_are_revealed());
    storyboard.reveal_all_characters();
@@ -110,7 +135,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    reveal_all_characters__will_not_automatically_set_the_page_to_finished)
 {
    std::string text = "This are characters that need to be revealed one-by-one.";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    storyboard.start();
    storyboard.reveal_all_characters();
@@ -122,7 +152,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    advance__when_all_characters_have_been_revealed__will_set_finished_to_true)
 {
    std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    storyboard.start();
    storyboard.reveal_all_characters();
@@ -136,7 +171,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    advance__when_not_all_characters_have_been_revealed__will_reveal_all_the_characters)
 {
    std::string text = "In this test, there is some text.";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    storyboard.start();
    storyboard.advance();
@@ -148,7 +188,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    advance__when_not_all_characters_have_been_revealed__will_not_set_finished_to_true)
 {
    std::string text = "In this test, there is some text.";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    storyboard.start();
    storyboard.advance();
@@ -159,14 +204,24 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
 TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__render__will_draw_the_current_page_text_to_the_screen)
 {
-   std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   std::string text = "The year is now 2052. Humanity, now largely freed of all the ailments that defined its "
+      "existence over the past 12,000 generations, is lulled into the sensation of having achieved everything, "
+      "resting quietly in a state of infinite slumber.";
+      //"Meanwhile, scattered across the transformed "
+      //"landscape of the planet, are the last of the 7 relics.";
+
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    storyboard.reveal_all_characters();
    storyboard.render();
    al_flip_display();
 
-   //sleep_for(1);
+   sleep_for(1);
 
    SUCCEED();
 }
@@ -176,7 +231,12 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    DISABLED__VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
 {
    std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
-   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
 
    for (int i=0; i<18; i++)
    {

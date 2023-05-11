@@ -17,10 +17,13 @@ namespace StoryboardPages
 {
 
 
-ImageWithAdvancingText::ImageWithAdvancingText(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding)
+ImageWithAdvancingText::ImageWithAdvancingText(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string image_identifier, std::string text, AllegroFlare::Placement2D image_placement, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding)
    : AllegroFlare::Elements::StoryboardPages::Base(AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::TYPE)
+   , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , image_identifier(image_identifier)
    , text(text)
+   , image_placement(image_placement)
    , font_name(font_name)
    , font_size(font_size)
    , text_color(text_color)
@@ -39,15 +42,33 @@ ImageWithAdvancingText::~ImageWithAdvancingText()
 }
 
 
+void ImageWithAdvancingText::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
 void ImageWithAdvancingText::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
 }
 
 
+void ImageWithAdvancingText::set_image_identifier(std::string image_identifier)
+{
+   this->image_identifier = image_identifier;
+}
+
+
 void ImageWithAdvancingText::set_text(std::string text)
 {
    this->text = text;
+}
+
+
+void ImageWithAdvancingText::set_image_placement(AllegroFlare::Placement2D image_placement)
+{
+   this->image_placement = image_placement;
 }
 
 
@@ -99,15 +120,33 @@ void ImageWithAdvancingText::set_line_height_padding(float line_height_padding)
 }
 
 
+AllegroFlare::BitmapBin* ImageWithAdvancingText::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
 AllegroFlare::FontBin* ImageWithAdvancingText::get_font_bin() const
 {
    return font_bin;
 }
 
 
+std::string ImageWithAdvancingText::get_image_identifier() const
+{
+   return image_identifier;
+}
+
+
 std::string ImageWithAdvancingText::get_text() const
 {
    return text;
+}
+
+
+AllegroFlare::Placement2D ImageWithAdvancingText::get_image_placement() const
+{
+   return image_placement;
 }
 
 
@@ -195,8 +234,27 @@ void ImageWithAdvancingText::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ImageWithAdvancingText::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
-   ALLEGRO_FONT *text_font = obtain_font();
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[ImageWithAdvancingText::render]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ImageWithAdvancingText::render: error: guard \"bitmap_bin\" not met");
+   }
+   // Draw the image
+   if (!image_identifier.empty())
+   {
+      ALLEGRO_BITMAP *image = bitmap_bin->auto_get(image_identifier);
+      if (image) image_placement.size = { (float)al_get_bitmap_width(image), (float)al_get_bitmap_height(image) };
+      image_placement.start_transform();
+      float opacity = 1.0f;
+      ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
+      al_draw_tinted_bitmap(image, tint, 0, 0, 0);
+      image_placement.restore_transform();
+   }
 
+   // Draw the text
+   ALLEGRO_FONT *text_font = obtain_font();
    std::string revealed_text = generate_revealed_text();
    if (!revealed_text.empty())
    {

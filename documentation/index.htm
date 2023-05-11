@@ -6317,12 +6317,24 @@ table td
     <h3 id="quintessence/AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText.q.yml</h3>
      <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">image_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">text</td>
   <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">image_placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
 </tr>
 <tr>
   <td class="property">font_name</td>
@@ -6403,6 +6415,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
 </tr>
@@ -23261,6 +23276,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
