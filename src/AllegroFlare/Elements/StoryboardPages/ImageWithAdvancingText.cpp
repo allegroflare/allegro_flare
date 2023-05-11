@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText.hpp>
 
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/MotionKit.hpp>
 #include <allegro5/allegro_font.h>
 #include <iostream>
 #include <sstream>
@@ -33,6 +34,7 @@ ImageWithAdvancingText::ImageWithAdvancingText(AllegroFlare::BitmapBin* bitmap_b
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , revealed_characters_count(0)
+   , started_at(0.0f)
 {
 }
 
@@ -204,9 +206,16 @@ int ImageWithAdvancingText::get_revealed_characters_count() const
 }
 
 
+float ImageWithAdvancingText::get_started_at() const
+{
+   return started_at;
+}
+
+
 void ImageWithAdvancingText::start()
 {
    revealed_characters_count = 0;
+   started_at = al_get_time(); // TODO: Consider injecting time
    set_finished(false);
    return;
 }
@@ -244,11 +253,17 @@ void ImageWithAdvancingText::render()
    // Draw the image
    if (!image_identifier.empty())
    {
+      float time_now = al_get_time();
+      float age = infer_age(time_now);
+      float fade_duration_sec = 1.5;
+      float normalized_fade_age =
+         AllegroFlare::MotionKit::normalize_age(started_at, started_at+fade_duration_sec, time_now);
       ALLEGRO_BITMAP *image = bitmap_bin->auto_get(image_identifier);
       if (image) image_placement.size = { (float)al_get_bitmap_width(image), (float)al_get_bitmap_height(image) };
-      image_placement.start_transform();
-      float opacity = 1.0f;
+      float opacity = normalized_fade_age; //1.0f;
       ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
+
+      image_placement.start_transform();
       al_draw_tinted_bitmap(image, tint, 0, 0, 0);
       image_placement.restore_transform();
    }
@@ -300,6 +315,11 @@ void ImageWithAdvancingText::reveal_all_characters()
 bool ImageWithAdvancingText::all_characters_are_revealed()
 {
    return revealed_characters_count >= text.size();
+}
+
+float ImageWithAdvancingText::infer_age(float time_now)
+{
+   return time_now - started_at;
 }
 
 ALLEGRO_FONT* ImageWithAdvancingText::obtain_font()

@@ -105,6 +105,11 @@ properties:
     init_with: 0
     getter: true
 
+  - name: started_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
   - name: DEFAULT_FONT_NAME
     type: char*
     constexpr: true
@@ -141,6 +146,7 @@ functions:
     override: true
     body: |
       revealed_characters_count = 0;
+      started_at = al_get_time(); // TODO: Consider injecting time
       set_finished(false);
       return;
 
@@ -162,11 +168,17 @@ functions:
       // Draw the image
       if (!image_identifier.empty())
       {
+         float time_now = al_get_time();
+         float age = infer_age(time_now);
+         float fade_duration_sec = 1.5;
+         float normalized_fade_age =
+            AllegroFlare::MotionKit::normalize_age(started_at, started_at+fade_duration_sec, time_now);
          ALLEGRO_BITMAP *image = bitmap_bin->auto_get(image_identifier);
          if (image) image_placement.size = { (float)al_get_bitmap_width(image), (float)al_get_bitmap_height(image) };
-         image_placement.start_transform();
-         float opacity = 1.0f;
+         float opacity = normalized_fade_age; //1.0f;
          ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
+
+         image_placement.start_transform();
          al_draw_tinted_bitmap(image, tint, 0, 0, 0);
          image_placement.restore_transform();
       }
@@ -193,6 +205,7 @@ functions:
     body_dependency_symbols:
       - al_draw_multiline_text
       - AllegroFlare::Color
+      - AllegroFlare::MotionKit
 
 
   - name: advance
@@ -225,6 +238,17 @@ functions:
     type: bool
     body: |
       return revealed_characters_count >= text.size();
+
+
+  - name: infer_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
+    body: |
+      return time_now - started_at;
 
 
   - name: obtain_font
@@ -264,9 +288,7 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: ALLEGRO_EVENT*
+  - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
@@ -284,5 +306,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::MotionKit
+    headers: [ AllegroFlare/MotionKit.hpp ]
 
 

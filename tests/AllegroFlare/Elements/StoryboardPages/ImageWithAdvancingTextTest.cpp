@@ -204,11 +204,10 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
 TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__render__will_draw_the_current_page_text_to_the_screen)
 {
-   std::string text = "The year is now 2052. Humanity, now largely freed of all the ailments that defined its "
-      "existence over the past 12,000 generations, is lulled into the sensation of having achieved everything, "
-      "resting quietly in a state of infinite slumber.";
-      //"Meanwhile, scattered across the transformed "
-      //"landscape of the planet, are the last of the 7 relics.";
+   std::string text = "During the transition, most relics were consumed by The Mind, being handed over willingly "
+      "by those eager to usher in the new world. The relics became incorporated into a new classification called "
+      "\"permanent representation\", a state in which the object would be forever knowable, always accessible, "
+      "everywhere and yet somehow nowhere at the same time.";
 
    AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
       &get_bitmap_bin_ref(),
@@ -221,16 +220,19 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    storyboard.render();
    al_flip_display();
 
-   sleep_for(1);
+   sleep_for(0.1);
 
    SUCCEED();
 }
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture,
-   DISABLED__VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
+   VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
 {
-   std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
+   std::string text = "The year is now 2052. Humanity, now largely freed of all the ailments that defined its "
+      "existence over the past 12,000 generations, is lulled into the sensation of having achieved everything, "
+      "resting quietly in a state of infinite slumber.";
+
    AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
       &get_bitmap_bin_ref(),
       &get_font_bin_ref(),
@@ -238,7 +240,8 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
       text
    );
 
-   for (int i=0; i<18; i++)
+   int frames = 120;
+   for (int i=0; i<frames; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       storyboard.update();

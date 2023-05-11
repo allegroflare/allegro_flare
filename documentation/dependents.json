@@ -348,7 +348,6 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
@@ -818,7 +817,6 @@
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
@@ -989,6 +987,7 @@
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base",
     "AllegroFlare/Screens/TitleScreen",
@@ -1327,6 +1326,10 @@
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "ClubCatt/Logo"
+  ],
+  "AllegroFlare/MotionKit": [
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "ALLEGRO_FLARE_EVENT_ROUTER": [
     "AllegroFlare/EventEmitter"
@@ -2384,9 +2387,6 @@
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Screens/TitleScreen": [
-    "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/MotionKit": [
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/ColorKit": [

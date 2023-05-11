@@ -6373,6 +6373,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_FONT_NAME</td>
   <td class="property">char*</td>
 </tr>
@@ -6408,6 +6412,9 @@ table td
   <td class="method">all_characters_are_revealed()</td>
 </tr>
 <tr>
+  <td class="method">infer_age(float time_now=al_get_time())</td>
+</tr>
+<tr>
   <td class="private_method">obtain_font()</td>
 </tr>
 <tr>
@@ -6437,10 +6444,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -6465,6 +6469,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionKit.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23493,7 +23500,6 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
@@ -23963,7 +23969,6 @@ table td
   "ALLEGRO_EVENT": [
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
@@ -24134,6 +24139,7 @@ table td
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base",
     "AllegroFlare/Screens/TitleScreen",
@@ -24472,6 +24478,10 @@ table td
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "ClubCatt/Logo"
+  ],
+  "AllegroFlare/MotionKit": [
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "ALLEGRO_FLARE_EVENT_ROUTER": [
     "AllegroFlare/EventEmitter"
@@ -25529,9 +25539,6 @@ table td
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Screens/TitleScreen": [
-    "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/MotionKit": [
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/ColorKit": [
