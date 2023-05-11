@@ -163,10 +163,6 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::FontBin*
     headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
   - symbol: al_draw_multiline_text
@@ -179,7 +175,6 @@ dependencies:
     headers: [ cmath ]
   - symbol: std::min, std::max
     headers: [ algorithm ]
-
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::FontBin
