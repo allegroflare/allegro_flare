@@ -100,6 +100,13 @@ properties:
     getter: true
     setter: true
 
+  - name: image_fade_in_duration_sec
+    type: float
+    init_with: 1.5f
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: revealed_characters_count
     type: int
     init_with: 0
@@ -136,6 +143,7 @@ documentation:
 
   - todos:
       - Replace advancing text logic with Elements/AdvancingText (so that a different text reveal speed can be used)
+      - Rework the concept of "reveal_image" setting "image_fade_in_duration_sec" to 0.0f, and "start" setting it back
 
 
 functions:
@@ -145,6 +153,7 @@ functions:
     virtual: true
     override: true
     body: |
+      image_fade_in_duration_sec = 1.5;
       revealed_characters_count = 0;
       started_at = al_get_time(); // TODO: Consider injecting time
       set_finished(false);
@@ -170,9 +179,8 @@ functions:
       {
          float time_now = al_get_time();
          float age = infer_age(time_now);
-         float fade_duration_sec = 1.5;
          float normalized_fade_age =
-            AllegroFlare::MotionKit::normalize_age(started_at, started_at+fade_duration_sec, time_now);
+            AllegroFlare::MotionKit::normalize_age(started_at, started_at+image_fade_in_duration_sec, time_now);
          ALLEGRO_BITMAP *image = bitmap_bin->auto_get(image_identifier);
          if (image) image_placement.size = { (float)al_get_bitmap_width(image), (float)al_get_bitmap_height(image) };
          float opacity = normalized_fade_age; //1.0f;
@@ -213,7 +221,11 @@ functions:
     override: true
     body: |
       if (get_finished()) return;
-      if (!all_characters_are_revealed()) reveal_all_characters();
+      if (!all_characters_are_revealed())
+      {
+         reveal_image();
+         reveal_all_characters();
+      }
       else
       {
          set_finished(true);
@@ -232,6 +244,11 @@ functions:
   - name: reveal_all_characters
     body: |
       revealed_characters_count = text.size();
+
+
+  - name: reveal_image
+    body: |
+      image_fade_in_duration_sec = 0.0f;
 
 
   - name: all_characters_are_revealed

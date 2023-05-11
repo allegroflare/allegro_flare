@@ -216,6 +216,7 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
       text
    );
 
+   storyboard.reveal_image();
    storyboard.reveal_all_characters();
    storyboard.render();
    al_flip_display();

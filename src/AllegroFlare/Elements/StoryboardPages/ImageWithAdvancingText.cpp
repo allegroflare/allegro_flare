@@ -18,7 +18,7 @@ namespace StoryboardPages
 {
 
 
-ImageWithAdvancingText::ImageWithAdvancingText(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string image_identifier, std::string text, AllegroFlare::Placement2D image_placement, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding)
+ImageWithAdvancingText::ImageWithAdvancingText(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string image_identifier, std::string text, AllegroFlare::Placement2D image_placement, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding, float image_fade_in_duration_sec)
    : AllegroFlare::Elements::StoryboardPages::Base(AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::TYPE)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
@@ -33,6 +33,7 @@ ImageWithAdvancingText::ImageWithAdvancingText(AllegroFlare::BitmapBin* bitmap_b
    , right_padding(right_padding)
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
+   , image_fade_in_duration_sec(image_fade_in_duration_sec)
    , revealed_characters_count(0)
    , started_at(0.0f)
 {
@@ -122,6 +123,12 @@ void ImageWithAdvancingText::set_line_height_padding(float line_height_padding)
 }
 
 
+void ImageWithAdvancingText::set_image_fade_in_duration_sec(float image_fade_in_duration_sec)
+{
+   this->image_fade_in_duration_sec = image_fade_in_duration_sec;
+}
+
+
 AllegroFlare::BitmapBin* ImageWithAdvancingText::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -200,6 +207,12 @@ float ImageWithAdvancingText::get_line_height_padding() const
 }
 
 
+float ImageWithAdvancingText::get_image_fade_in_duration_sec() const
+{
+   return image_fade_in_duration_sec;
+}
+
+
 int ImageWithAdvancingText::get_revealed_characters_count() const
 {
    return revealed_characters_count;
@@ -214,6 +227,7 @@ float ImageWithAdvancingText::get_started_at() const
 
 void ImageWithAdvancingText::start()
 {
+   image_fade_in_duration_sec = 1.5;
    revealed_characters_count = 0;
    started_at = al_get_time(); // TODO: Consider injecting time
    set_finished(false);
@@ -255,9 +269,8 @@ void ImageWithAdvancingText::render()
    {
       float time_now = al_get_time();
       float age = infer_age(time_now);
-      float fade_duration_sec = 1.5;
       float normalized_fade_age =
-         AllegroFlare::MotionKit::normalize_age(started_at, started_at+fade_duration_sec, time_now);
+         AllegroFlare::MotionKit::normalize_age(started_at, started_at+image_fade_in_duration_sec, time_now);
       ALLEGRO_BITMAP *image = bitmap_bin->auto_get(image_identifier);
       if (image) image_placement.size = { (float)al_get_bitmap_width(image), (float)al_get_bitmap_height(image) };
       float opacity = normalized_fade_age; //1.0f;
@@ -292,7 +305,11 @@ void ImageWithAdvancingText::render()
 void ImageWithAdvancingText::advance()
 {
    if (get_finished()) return;
-   if (!all_characters_are_revealed()) reveal_all_characters();
+   if (!all_characters_are_revealed())
+   {
+      reveal_image();
+      reveal_all_characters();
+   }
    else
    {
       set_finished(true);
@@ -310,6 +327,11 @@ std::string ImageWithAdvancingText::generate_revealed_text()
 void ImageWithAdvancingText::reveal_all_characters()
 {
    revealed_characters_count = text.size();
+}
+
+void ImageWithAdvancingText::reveal_image()
+{
+   image_fade_in_duration_sec = 0.0f;
 }
 
 bool ImageWithAdvancingText::all_characters_are_revealed()
