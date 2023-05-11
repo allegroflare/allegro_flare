@@ -35,7 +35,8 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTest, has_the
 }
 
 
-TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTest,
+   render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard;
    std::string expected_error_message =
@@ -44,7 +45,8 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTest, render_
 }
 
 
-TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture,
+   render__will_not_blow_up)
 {
    AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(&get_font_bin_ref());
    storyboard.render();
