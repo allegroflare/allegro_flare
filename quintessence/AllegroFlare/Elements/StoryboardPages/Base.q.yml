@@ -8,12 +8,6 @@ properties:
     getter: true
     setter: false
 
-  - name: started_at
-    type: float
-    init_with: 0.0f
-    getter: true
-    setter: true
-
   - name: finished
     type: bool
     init_with: true
@@ -28,21 +22,6 @@ properties:
 
 
 functions:
-
-
-  - name: managed_start
-    parameters:
-      - name: time_now
-        type: float
-        default_argument: al_get_time()
-        default_argument_dependency_symbols: [ al_get_time ]
-    guards: [ al_is_system_installed() ]
-    body: |
-      started_at = time_now;
-      start();
-      return;
-    body_dependency_symbols:
-      - al_is_system_installed
 
 
   - name: start
@@ -67,25 +46,5 @@ functions:
     virtual: true
     body: |
       return;
-
-
-  - name: infer_age
-    type: float
-    parameters:
-      - name: time_now
-        type: float
-        default_argument: al_get_time()
-        default_argument_dependency_symbols: [ al_get_time ]
-    body: |
-      return time_now - started_at;
-
-
-dependencies:
-
-
-  - symbol: al_get_time
-    headers: [ allegro5/allegro.h ]
-  - symbol: al_is_system_installed
-    headers: [ allegro5/allegro.h ]
 
 
