@@ -157,6 +157,16 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_START_NEW_GAME_event__will_emit_an_EVENT_ACTIVATE_TITLE_SCREEN_route_event)
+{
+   TEST_EXPECTED_ROUTE_EVENT(
+      AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME,
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_event__will_activate_the_\
 INTRO_LOGOS_SCREEN_IDENTIFIER_screen)
 {
