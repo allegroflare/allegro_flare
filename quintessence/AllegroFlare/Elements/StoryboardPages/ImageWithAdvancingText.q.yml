@@ -117,6 +117,17 @@ properties:
     init_with: 0.0f
     getter: true
 
+  - name: all_characters_revealed_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: wait_duration_after_all_characters_are_revealed
+    type: float
+    init_with: 3.0f
+    getter: true
+    setter: false
+
   - name: DEFAULT_FONT_NAME
     type: char*
     constexpr: true
@@ -155,6 +166,7 @@ functions:
     body: |
       image_fade_in_duration_sec = 1.5;
       revealed_characters_count = 0;
+      all_characters_revealed_at = 0.0f;
       started_at = al_get_time(); // TODO: Consider injecting time
       set_finished(false);
       return;
@@ -164,8 +176,29 @@ functions:
     virtual: true
     override: true
     body: |
-      revealed_characters_count++;
-      if (revealed_characters_count >= text.size()) set_finished(true);
+      if (get_finished()) return;
+
+      float time_now = al_get_time();
+
+      if (!all_characters_are_revealed())
+      {
+         revealed_characters_count++;
+         if (revealed_characters_count >= text.size())
+         {
+            all_characters_revealed_at = time_now;
+         }
+      }
+      else // all characters are revealed
+      {
+         float all_characters_revealed_age = time_now - all_characters_revealed_at;
+
+         bool should_finish = (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed);
+
+         if (should_finish)
+         {
+            set_finished(true);
+         }
+      }
       return;
 
 
@@ -220,11 +253,14 @@ functions:
     virtual: true
     override: true
     body: |
+      float time_now = al_get_time();
+
       if (get_finished()) return;
       if (!all_characters_are_revealed())
       {
          reveal_image();
          reveal_all_characters();
+         all_characters_revealed_at = time_now;
       }
       else
       {
@@ -248,7 +284,8 @@ functions:
 
   - name: reveal_image
     body: |
-      image_fade_in_duration_sec = 0.0f;
+      image_fade_in_duration_sec = -0.0001f; // TODO: Find out why this needs to be a negative, and how it can be solved
+                                             // in a better way.
 
 
   - name: all_characters_are_revealed

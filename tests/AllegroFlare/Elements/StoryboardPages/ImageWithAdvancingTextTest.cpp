@@ -96,7 +96,8 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture,
-   update__after_all_characters_have_been_revealed__will_set_finished_to_true)
+   update__after_all_characters_have_been_revealed__and_before_wait_duration_after_all_characters_are_revealed_has_\
+passed__will_not_set_finished_to_true)
 {
    std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
    AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
@@ -109,6 +110,27 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
    storyboard.start();
    storyboard.reveal_all_characters();
    EXPECT_EQ(false, storyboard.get_finished());
+   storyboard.update();
+   EXPECT_EQ(false, storyboard.get_finished());
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAllegroRenderingFixture,
+   update__after_all_characters_have_been_revealed__and_after_wait_duration_after_all_characters_are_revealed_has_\
+passed__will_set_finished_to_true)
+{
+   std::string text = "Hello StoryboardPages::ImageWithAdvancingText!";
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText storyboard(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      "storyboard-image-1164x500.png",
+      text
+   );
+
+   storyboard.start();
+   storyboard.reveal_all_characters();
+   EXPECT_EQ(false, storyboard.get_finished());
+   al_rest(3.1);
    storyboard.update();
    EXPECT_EQ(true, storyboard.get_finished());
 }
@@ -240,6 +262,8 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ImageWithAdvancingTextTestWithAlleg
       "storyboard-image-1164x500.png",
       text
    );
+
+   storyboard.start();
 
    int frames = 120;
    for (int i=0; i<frames; i++)

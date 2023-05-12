@@ -36,6 +36,8 @@ ImageWithAdvancingText::ImageWithAdvancingText(AllegroFlare::BitmapBin* bitmap_b
    , image_fade_in_duration_sec(image_fade_in_duration_sec)
    , revealed_characters_count(0)
    , started_at(0.0f)
+   , all_characters_revealed_at(0.0f)
+   , wait_duration_after_all_characters_are_revealed(3.0f)
 {
 }
 
@@ -225,10 +227,23 @@ float ImageWithAdvancingText::get_started_at() const
 }
 
 
+float ImageWithAdvancingText::get_all_characters_revealed_at() const
+{
+   return all_characters_revealed_at;
+}
+
+
+float ImageWithAdvancingText::get_wait_duration_after_all_characters_are_revealed() const
+{
+   return wait_duration_after_all_characters_are_revealed;
+}
+
+
 void ImageWithAdvancingText::start()
 {
    image_fade_in_duration_sec = 1.5;
    revealed_characters_count = 0;
+   all_characters_revealed_at = 0.0f;
    started_at = al_get_time(); // TODO: Consider injecting time
    set_finished(false);
    return;
@@ -236,8 +251,29 @@ void ImageWithAdvancingText::start()
 
 void ImageWithAdvancingText::update()
 {
-   revealed_characters_count++;
-   if (revealed_characters_count >= text.size()) set_finished(true);
+   if (get_finished()) return;
+
+   float time_now = al_get_time();
+
+   if (!all_characters_are_revealed())
+   {
+      revealed_characters_count++;
+      if (revealed_characters_count >= text.size())
+      {
+         all_characters_revealed_at = time_now;
+      }
+   }
+   else // all characters are revealed
+   {
+      float all_characters_revealed_age = time_now - all_characters_revealed_at;
+
+      bool should_finish = (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed);
+
+      if (should_finish)
+      {
+         set_finished(true);
+      }
+   }
    return;
 }
 
@@ -304,11 +340,14 @@ void ImageWithAdvancingText::render()
 
 void ImageWithAdvancingText::advance()
 {
+   float time_now = al_get_time();
+
    if (get_finished()) return;
    if (!all_characters_are_revealed())
    {
       reveal_image();
       reveal_all_characters();
+      all_characters_revealed_at = time_now;
    }
    else
    {
@@ -331,7 +370,8 @@ void ImageWithAdvancingText::reveal_all_characters()
 
 void ImageWithAdvancingText::reveal_image()
 {
-   image_fade_in_duration_sec = 0.0f;
+   image_fade_in_duration_sec = -0.0001f; // TODO: Find out why this needs to be a negative, and how it can be solved
+                                          // in a better way.
 }
 
 bool ImageWithAdvancingText::all_characters_are_revealed()
