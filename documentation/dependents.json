@@ -2457,6 +2457,9 @@
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/StoryboardPageFactory"
   ],
+  "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText": [
+    "AllegroFlare/StoryboardPageFactory"
+  ],
   "AllegroFlare/Elements/StoryboardPages/ClubCattLogo": [
     "AllegroFlare/StoryboardPageFactory"
   ],

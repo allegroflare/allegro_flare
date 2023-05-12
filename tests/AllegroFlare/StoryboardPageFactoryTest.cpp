@@ -52,6 +52,22 @@ TEST_F(AllegroFlare_StoryboardPageFactoryTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_StoryboardPageFactoryTestWithAllegroRenderingFixture,
+   create_image_with_advancing_text_page__will_create_the_expected_page_with_the_expected_params)
+{
+   AllegroFlare::StoryboardPageFactory storyboard_factory;
+   storyboard_factory.set_bitmap_bin(&get_bitmap_bin_ref());
+   storyboard_factory.set_font_bin(&get_font_bin_ref());
+   AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText* created_page =
+      storyboard_factory.create_image_with_advancing_text_page("my_image.png", "Hello Factory!");
+
+   EXPECT_EQ(&get_bitmap_bin_ref(), created_page->get_bitmap_bin());
+   EXPECT_EQ(&get_font_bin_ref(), created_page->get_font_bin());
+   EXPECT_EQ("my_image.png", created_page->get_image_identifier());
+   EXPECT_EQ("Hello Factory!", created_page->get_text());
+}
+
+
+TEST_F(AllegroFlare_StoryboardPageFactoryTestWithAllegroRenderingFixture,
    create_clubcatt_logo_page__will_create_the_page_with_the_expected_params)
 {
    AllegroFlare::ModelBin model_bin;

@@ -32,8 +32,6 @@ functions:
     guards: [ font_bin ]
     body: |
       return new AllegroFlare::Elements::StoryboardPages::Text(font_bin, text);
-    body_dependency_symbols:
-      - AllegroFlare::Elements::StoryboardPages::Text*
 
 
   - name: create_advancing_text_page
@@ -45,8 +43,6 @@ functions:
     guards: [ font_bin ]
     body: |
       return new AllegroFlare::Elements::StoryboardPages::AdvancingText(font_bin, text);
-    body_dependency_symbols:
-      - AllegroFlare::Elements::StoryboardPages::Text*
 
 
   - name: create_image_page
@@ -58,7 +54,28 @@ functions:
     body: |
       return new AllegroFlare::Elements::StoryboardPages::Image(image);
     body_dependency_symbols:
-      - AllegroFlare::Elements::StoryboardPages::Image*
+      - AllegroFlare::Elements::StoryboardPages::Image
+
+
+  - name: create_image_with_advancing_text_page
+    type: AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText*
+    parameters:
+      - name: image_identifier
+        type: std::string
+        default_argument: '"[unset-image_identifier]"'
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    guards: [ font_bin ]
+    body: |
+      return new AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText(
+         bitmap_bin,
+         font_bin,
+         image_identifier,
+         text
+      );
+    body_dependency_symbols:
+      - AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText
 
 
   - name: create_clubcatt_logo_page
@@ -102,6 +119,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/StoryboardPages/Image.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::AdvancingText
     headers: [ AllegroFlare/Elements/StoryboardPages/AdvancingText.hpp ]
+  - symbol: AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText
+    headers: [ AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::ClubCattLogo
     headers: [ AllegroFlare/Elements/StoryboardPages/ClubCattLogo.hpp ]
 
