@@ -3,6 +3,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 #include <AllegroFlare/TerminalColors.hpp>
+#include <AllegroFlare/Testing/TestNameInference.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
@@ -30,6 +31,7 @@ WithAllegroRenderingFixture::WithAllegroRenderingFixture()
    , display_samples(4)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST)
    , test_snapshots_folder("[unset-test_snapshots_folder]")
+   , test_prefix_tokens({})
    , is_setup(false)
 {
 }
@@ -99,6 +101,8 @@ void WithAllegroRenderingFixture::SetUp()
    ASSERT_EQ(true, al_init_font_addon());
    ASSERT_EQ(true, al_init_ttf_addon());
    ASSERT_EQ(true, al_init_image_addon());
+
+   test_prefix_tokens = extract_test_prefix_tokens();
 
    test_snapshots_folder = "./tmp/test_snapshots/";
 
@@ -202,6 +206,11 @@ std::string WithAllegroRenderingFixture::get_test_suite_name()
    // TODO: use AllegroFlare::Testing::TestNameInference for this logic
    const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
    return test_info->test_suite_name();
+}
+
+std::vector<std::string> WithAllegroRenderingFixture::extract_test_prefix_tokens()
+{
+   return AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(get_test_name());
 }
 
 std::string WithAllegroRenderingFixture::build_full_test_name_str()

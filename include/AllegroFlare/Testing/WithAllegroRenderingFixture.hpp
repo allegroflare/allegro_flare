@@ -9,6 +9,7 @@
 #include <allegro5/allegro_font.h>
 #include <gtest/gtest.h>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -24,6 +25,7 @@ namespace AllegroFlare
          int display_samples;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          std::string test_snapshots_folder;
+         std::vector<std::string> test_prefix_tokens;
          bool is_setup;
 
       protected:
@@ -48,6 +50,7 @@ namespace AllegroFlare
          void sleep_for(float length_in_seconds=0.0f);
          std::string get_test_name();
          std::string get_test_suite_name();
+         std::vector<std::string> extract_test_prefix_tokens();
          std::string build_full_test_name_str();
          AllegroFlare::Placement2D build_centered_placement(float width=0.0f, float height=0.0f);
          void draw_rulers();

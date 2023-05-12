@@ -2496,6 +2496,9 @@
   "AllegroFlare/DeploymentEnvironment": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "AllegroFlare/Testing/TestNameInference": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
     "AllegroFlare/TileMaps/AutoTile/FilterMatrix",
     "AllegroFlare/TileMaps/AutoTile/Filters/Base",

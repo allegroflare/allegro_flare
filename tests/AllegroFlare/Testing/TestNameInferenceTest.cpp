@@ -95,8 +95,8 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
    extract_prefix_tokens__with_typical_valid_input__will_extract_the_leading_tokens__test_1)
 {
-   std::string input = "TOKEN__TOKEN2__ANOTHER_TOKEN__some_words__another_word";
-   std::vector<std::string> expected_output = { "TOKEN", "TOKEN2", "ANOTHER_TOKEN" };
+   std::string input = "CAPTURE__FOCUS__ANOTHER_TOKEN__some_words__another_word";
+   std::vector<std::string> expected_output = { "CAPTURE", "FOCUS", "ANOTHER_TOKEN" };
    EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
 }
 

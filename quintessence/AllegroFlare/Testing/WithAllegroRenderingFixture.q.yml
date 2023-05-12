@@ -38,6 +38,10 @@ properties:
     type: std::string
     init_with: '"[unset-test_snapshots_folder]"'
 
+  - name: test_prefix_tokens
+    type: std::vector<std::string>
+    init_with: '{}'
+
   - name: is_setup
     type: bool
     init_with: false
@@ -68,6 +72,8 @@ functions:
       ASSERT_EQ(true, al_init_font_addon());
       ASSERT_EQ(true, al_init_ttf_addon());
       ASSERT_EQ(true, al_init_image_addon());
+
+      test_prefix_tokens = extract_test_prefix_tokens();
 
       test_snapshots_folder = "./tmp/test_snapshots/";
 
@@ -189,6 +195,14 @@ functions:
       // TODO: use AllegroFlare::Testing::TestNameInference for this logic
       const testing::TestInfo* const test_info = testing::UnitTest::GetInstance()->current_test_info();
       return test_info->test_suite_name();
+
+
+  - name: extract_test_prefix_tokens
+    type: std::vector<std::string>
+    body: |
+      return AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(get_test_name());
+    body_dependency_symbols:
+      - AllegroFlare::Testing::TestNameInference
 
 
   - name: build_full_test_name_str
@@ -381,5 +395,7 @@ dependencies:
     headers: [ AllegroFlare/TerminalColors.hpp ]
   - symbol: AllegroFlare::DeploymentEnvironment
     headers: [ AllegroFlare/DeploymentEnvironment.hpp ]
+  - symbol: AllegroFlare::Testing::TestNameInference
+    headers: [ AllegroFlare/Testing/TestNameInference.hpp ]
 
 
