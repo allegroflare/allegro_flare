@@ -47,6 +47,26 @@ std::string TestNameInference::build_test_snapshot_full_filename()
    return "./tmp/test_snapshots/" + build_full_test_name_str() + ".png";
 }
 
+std::vector<std::string> TestNameInference::extract_prefix_tokens(std::string str)
+{
+   std::vector<std::string> result_tokens;
+   std::vector<std::string> tokens = split(str, "__");
+   for (auto &token : tokens)
+   {
+      if (token.empty())
+      {
+         // Do nothing, move on to the next token
+      }
+      else
+      {
+         if (!is_valid_prefix_token(token)) break;
+
+         result_tokens.push_back(token);
+      }
+   }
+   return result_tokens;
+}
+
 bool TestNameInference::is_valid_prefix_token(std::string possible_prefix_token)
 {
    if (possible_prefix_token.empty() || !isupper(possible_prefix_token[0]))

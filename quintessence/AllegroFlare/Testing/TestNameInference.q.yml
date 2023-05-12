@@ -37,6 +37,32 @@ functions:
       return "./tmp/test_snapshots/" + build_full_test_name_str() + ".png";
 
 
+  - name: extract_prefix_tokens
+    static: true
+    type: std::vector<std::string>
+    parameters:
+      - name: str
+        type: std::string
+        default_argument: '"[unset-str]"'
+    body: |
+      std::vector<std::string> result_tokens;
+      std::vector<std::string> tokens = split(str, "__");
+      for (auto &token : tokens)
+      {
+         if (token.empty())
+         {
+            // Do nothing, move on to the next token
+         }
+         else
+         {
+            if (!is_valid_prefix_token(token)) break;
+
+            result_tokens.push_back(token);
+         }
+      }
+      return result_tokens;
+
+
   - name: is_valid_prefix_token
     static: true
     type: bool
@@ -64,7 +90,7 @@ functions:
       }
       return true;
 
-    
+
   - name: split
     static: true
     type: std::vector<std::string>
