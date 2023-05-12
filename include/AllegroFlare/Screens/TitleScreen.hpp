@@ -29,7 +29,8 @@ namespace AllegroFlare
          static constexpr uint32_t STATE_UNDEF = 0;
          static constexpr uint32_t STATE_REVEALING = 1;
          static constexpr uint32_t STATE_AWAITING_USER_INPUT = 2;
-         static constexpr uint32_t STATE_CHOSE_MENU_OPTION = 3;
+         static constexpr uint32_t STATE_MENU_OPTION_IS_CHOSEN = 3;
+         static constexpr uint32_t STATE_FINISHED = 4;
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -68,7 +69,7 @@ namespace AllegroFlare
          bool menu_move_sound_effect_enabled;
          std::string menu_select_option_sound_effect_identifier;
          bool menu_select_option_sound_effect_enabled;
-         float menu_option_selection_activation_delay;
+         float menu_option_selection_to_activation_delay;
          float reveal_duration;
          float reveal_started_at;
          bool showing_menu;
@@ -78,6 +79,7 @@ namespace AllegroFlare
          float state_changed_at;
          bool menu_option_chosen;
          float menu_option_chosen_at;
+         bool menu_option_activated;
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
@@ -129,7 +131,7 @@ namespace AllegroFlare
          void set_menu_move_sound_effect_enabled(bool menu_move_sound_effect_enabled);
          void set_menu_select_option_sound_effect_identifier(std::string menu_select_option_sound_effect_identifier);
          void set_menu_select_option_sound_effect_enabled(bool menu_select_option_sound_effect_enabled);
-         void set_menu_option_selection_activation_delay(float menu_option_selection_activation_delay);
+         void set_menu_option_selection_to_activation_delay(float menu_option_selection_to_activation_delay);
          void set_reveal_duration(float reveal_duration);
          std::size_t get_surface_width() const;
          std::size_t get_surface_height() const;
@@ -164,7 +166,7 @@ namespace AllegroFlare
          bool get_menu_move_sound_effect_enabled() const;
          std::string get_menu_select_option_sound_effect_identifier() const;
          bool get_menu_select_option_sound_effect_enabled() const;
-         float get_menu_option_selection_activation_delay() const;
+         float get_menu_option_selection_to_activation_delay() const;
          float get_reveal_duration() const;
          void TODO();
          void set_font_name(std::string font_name="[unset-font_name]");
@@ -185,7 +187,7 @@ namespace AllegroFlare
          void render();
          void draw_title();
          void draw_copyright_text();
-         static void draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f, float time_now=al_get_time());
+         static void draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f, float menu_option_selection_to_activation_delay=1.0f, float time_now=al_get_time());
          void draw_menu();
          std::string infer_current_menu_option_value();
          std::string infer_current_menu_option_label();

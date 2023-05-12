@@ -241,7 +241,7 @@ properties:
     getter: true
     setter: true
 
-  - name: menu_option_selection_activation_delay
+  - name: menu_option_selection_to_activation_delay
     type: float
     init_with: 1.0f
     getter: true
@@ -285,6 +285,10 @@ properties:
     type: float
     init_with: 0.0f
 
+  - name: menu_option_activated
+    type: bool
+    init_with: false
+
   - name: STATE_UNDEF
     type: uint32_t
     init_with: 0
@@ -306,9 +310,16 @@ properties:
     static: true
     constexpr: true
 
-  - name: STATE_CHOSE_MENU_OPTION
+  - name: STATE_MENU_OPTION_IS_CHOSEN
     type: uint32_t
     init_with: 3
+    const: true
+    static: true
+    constexpr: true
+
+  - name: STATE_FINISHED
+    type: uint32_t
+    init_with: 4
     const: true
     static: true
     constexpr: true
@@ -360,16 +371,23 @@ functions:
             showing_menu = false;
             showing_copyright = false;
             menu_option_chosen = false;
+            menu_option_activated = false;
             menu_option_chosen_at = 0.0f;
          break;
 
          case STATE_AWAITING_USER_INPUT:
+            menu_option_chosen = false;
+            menu_option_activated = false;
             show_menu();
          break;
 
-         case STATE_CHOSE_MENU_OPTION:
+         case STATE_MENU_OPTION_IS_CHOSEN:
             menu_option_chosen = true;
+            menu_option_activated = false;
             menu_option_chosen_at = al_get_time();
+         break;
+
+         case STATE_FINISHED:
          break;
 
          default:
@@ -405,12 +423,18 @@ functions:
          case STATE_AWAITING_USER_INPUT:
          break;
 
-         case STATE_CHOSE_MENU_OPTION:
-            if (state_age > menu_option_selection_activation_delay)
+         case STATE_MENU_OPTION_IS_CHOSEN:
+            if (!menu_option_activated && state_age > menu_option_selection_to_activation_delay)
             {
                std::string current_menu_option_value = infer_current_menu_option_value();
                activate_menu_option(current_menu_option_value);
+               menu_option_chosen = false;
+               menu_option_activated = true;
+               set_state(STATE_FINISHED);
             }
+         break;
+
+         case STATE_FINISHED:
          break;
 
          default:
@@ -433,7 +457,8 @@ functions:
       {
          STATE_REVEALING,
          STATE_AWAITING_USER_INPUT,
-         STATE_CHOSE_MENU_OPTION,
+         STATE_MENU_OPTION_IS_CHOSEN,
+         STATE_FINISHED,
       };
       return (valid_states.count(state) > 0);
     body_dependency_symbols:
@@ -567,7 +592,7 @@ functions:
          return;
       }
 
-      set_state(STATE_CHOSE_MENU_OPTION);
+      set_state(STATE_MENU_OPTION_IS_CHOSEN);
 
       if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
@@ -714,6 +739,9 @@ functions:
       - name: menu_option_chosen_at
         type: float
         default_argument: 0.0f
+      - name: menu_option_selection_to_activation_delay
+        type: float
+        default_argument: 1.0f
       - name: time_now
         type: float
         default_argument: al_get_time()
@@ -724,7 +752,7 @@ functions:
 
       if (menu_option_chosen)
       {
-         float selection_animation_length = 1.0;
+         float selection_animation_length = menu_option_selection_to_activation_delay;
          float selection_strobes_per_second = 14.0f;
 
          float menu_option_chosen_at_age = AllegroFlare::MotionKit::age(menu_option_chosen_at, time_now);
@@ -827,6 +855,7 @@ functions:
                menu_selector_outline_stroke_thickness,
                menu_option_chosen,
                menu_option_chosen_at,
+               menu_option_selection_to_activation_delay,
                al_get_time()
             );
          }
@@ -988,24 +1017,12 @@ dependencies:
     headers: [ cmath ]
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_EVENT*
-    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FLARE_EVENT_START_NEW_GAME
     headers: [ AllegroFlare/EventNames.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: std::vector<std::pair<std::string, std::string>>
     headers: [ vector, utility, string ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: AllegroFlare::BitmapBin*
-    headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: ALLEGRO_BITMAP*
-    headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Placement2D

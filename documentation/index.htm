@@ -17236,7 +17236,7 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">menu_option_selection_activation_delay</td>
+  <td class="property">menu_option_selection_to_activation_delay</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -17276,6 +17276,10 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">menu_option_activated</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">STATE_UNDEF</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -17288,7 +17292,11 @@ table td
   <td class="property">uint32_t</td>
 </tr>
 <tr>
-  <td class="property">STATE_CHOSE_MENU_OPTION</td>
+  <td class="property">STATE_MENU_OPTION_IS_CHOSEN</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">STATE_FINISHED</td>
   <td class="property">uint32_t</td>
 </tr>
     </table>
@@ -17360,7 +17368,7 @@ table td
   <td class="method">draw_copyright_text()</td>
 </tr>
 <tr>
-  <td class="method">draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f, float time_now=al_get_time())</td>
+  <td class="method">draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f, float menu_option_selection_to_activation_delay=1.0f, float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="method">draw_menu()</td>
@@ -17410,31 +17418,13 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_START_NEW_GAME&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -23341,7 +23331,6 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
@@ -23472,7 +23461,6 @@ table td
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
@@ -23552,7 +23540,6 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -23676,7 +23663,6 @@ table td
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Shaders/Base",
@@ -23980,7 +23966,6 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
@@ -24480,7 +24465,6 @@ table td
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",

@@ -60,7 +60,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_move_sound_effect_enabled(true)
    , menu_select_option_sound_effect_identifier("menu_select")
    , menu_select_option_sound_effect_enabled(true)
-   , menu_option_selection_activation_delay(1.0f)
+   , menu_option_selection_to_activation_delay(1.0f)
    , reveal_duration(1.0f)
    , reveal_started_at(0.0f)
    , showing_menu(false)
@@ -70,6 +70,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , state_changed_at(0.0f)
    , menu_option_chosen(false)
    , menu_option_chosen_at(0.0f)
+   , menu_option_activated(false)
 {
 }
 
@@ -283,9 +284,9 @@ void TitleScreen::set_menu_select_option_sound_effect_enabled(bool menu_select_o
 }
 
 
-void TitleScreen::set_menu_option_selection_activation_delay(float menu_option_selection_activation_delay)
+void TitleScreen::set_menu_option_selection_to_activation_delay(float menu_option_selection_to_activation_delay)
 {
-   this->menu_option_selection_activation_delay = menu_option_selection_activation_delay;
+   this->menu_option_selection_to_activation_delay = menu_option_selection_to_activation_delay;
 }
 
 
@@ -493,9 +494,9 @@ bool TitleScreen::get_menu_select_option_sound_effect_enabled() const
 }
 
 
-float TitleScreen::get_menu_option_selection_activation_delay() const
+float TitleScreen::get_menu_option_selection_to_activation_delay() const
 {
-   return menu_option_selection_activation_delay;
+   return menu_option_selection_to_activation_delay;
 }
 
 
@@ -543,16 +544,23 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
          showing_menu = false;
          showing_copyright = false;
          menu_option_chosen = false;
+         menu_option_activated = false;
          menu_option_chosen_at = 0.0f;
       break;
 
       case STATE_AWAITING_USER_INPUT:
+         menu_option_chosen = false;
+         menu_option_activated = false;
          show_menu();
       break;
 
-      case STATE_CHOSE_MENU_OPTION:
+      case STATE_MENU_OPTION_IS_CHOSEN:
          menu_option_chosen = true;
+         menu_option_activated = false;
          menu_option_chosen_at = al_get_time();
+      break;
+
+      case STATE_FINISHED:
       break;
 
       default:
@@ -590,12 +598,18 @@ void TitleScreen::update(float time_now)
       case STATE_AWAITING_USER_INPUT:
       break;
 
-      case STATE_CHOSE_MENU_OPTION:
-         if (state_age > menu_option_selection_activation_delay)
+      case STATE_MENU_OPTION_IS_CHOSEN:
+         if (!menu_option_activated && state_age > menu_option_selection_to_activation_delay)
          {
             std::string current_menu_option_value = infer_current_menu_option_value();
             activate_menu_option(current_menu_option_value);
+            menu_option_chosen = false;
+            menu_option_activated = true;
+            set_state(STATE_FINISHED);
          }
+      break;
+
+      case STATE_FINISHED:
       break;
 
       default:
@@ -612,7 +626,8 @@ bool TitleScreen::is_valid_state(uint32_t state)
    {
       STATE_REVEALING,
       STATE_AWAITING_USER_INPUT,
-      STATE_CHOSE_MENU_OPTION,
+      STATE_MENU_OPTION_IS_CHOSEN,
+      STATE_FINISHED,
    };
    return (valid_states.count(state) > 0);
 }
@@ -717,7 +732,7 @@ void TitleScreen::select_menu_option()
       return;
    }
 
-   set_state(STATE_CHOSE_MENU_OPTION);
+   set_state(STATE_MENU_OPTION_IS_CHOSEN);
 
    if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
@@ -840,14 +855,14 @@ void TitleScreen::draw_copyright_text()
    return;
 }
 
-void TitleScreen::draw_cursor_box(float x, float y, float width, float height, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at, float time_now)
+void TitleScreen::draw_cursor_box(float x, float y, float width, float height, ALLEGRO_COLOR fill_color, ALLEGRO_COLOR outline_color, float outline_stroke_thickness, bool menu_option_chosen, float menu_option_chosen_at, float menu_option_selection_to_activation_delay, float time_now)
 {
    ALLEGRO_COLOR result_fill_color = fill_color; //ALLEGRO_COLOR{0, 0, 0, 0};
    ALLEGRO_COLOR result_outline_color = outline_color; //ALLEGRO_COLOR{1, 1, 1, 1};
 
    if (menu_option_chosen)
    {
-      float selection_animation_length = 1.0;
+      float selection_animation_length = menu_option_selection_to_activation_delay;
       float selection_strobes_per_second = 14.0f;
 
       float menu_option_chosen_at_age = AllegroFlare::MotionKit::age(menu_option_chosen_at, time_now);
@@ -952,6 +967,7 @@ void TitleScreen::draw_menu()
             menu_selector_outline_stroke_thickness,
             menu_option_chosen,
             menu_option_chosen_at,
+            menu_option_selection_to_activation_delay,
             al_get_time()
          );
       }
