@@ -120,7 +120,7 @@ properties:
 
   - name: copyright_text_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    init_with: ALLEGRO_COLOR{0.4f, 0.42f, 0.48f, 0.6f}
     constructor_arg: true
     getter: true
     setter: true
