@@ -72,6 +72,23 @@ TEST(IsValidFormatTest, MultipleData_invalid)
 }
 
 
+TEST(AllegroFlare_Testing_TestNameInferenceTest, split__will_split_the_string_by_the_delimiter)
+{
+   std::string input = "token tooken talkin talk";
+   std::vector<std::string> expected_output = { "token", "tooken", "talkin", "talk" };
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::split(input, " "));
+}
+
+
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   split__will_split_the_string_with_a_delimiter_that_is_more_than_one_character)
+{
+   std::string input = "FOO__BAR__BAZ_BIZ__this_is_a_test";
+   std::vector<std::string> expected_output = { "FOO", "BAR", "BAZ_BIZ", "this_is_a_test" };
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::split(input, "__"));
+}
+
+
 /*
 TEST(ParseTokensTest, ValidInput)
 {

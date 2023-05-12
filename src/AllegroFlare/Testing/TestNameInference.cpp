@@ -69,6 +69,19 @@ bool TestNameInference::is_valid_prefix_token(std::string possible_prefix_token)
    return true;
 }
 
+std::vector<std::string> TestNameInference::split(std::string input, std::string delimiter)
+{
+   std::vector<std::string> tokens;
+   size_t start = 0, end = 0;
+   while ((end = input.find(delimiter, start)) != std::string::npos)
+   {
+      tokens.push_back(input.substr(start, end - start));
+      start = end + delimiter.length();
+   }
+   tokens.push_back(input.substr(start));
+   return tokens;
+}
+
 
 } // namespace Testing
 } // namespace AllegroFlare
