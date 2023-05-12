@@ -59,6 +59,7 @@ namespace AllegroFlare
          bool test_name_indicates_it_wants_a_screenshot();
          void clear_display();
          void clear();
+         bool test_name_has_prefix_token(std::string possible_prefix_token="[unset-possible_prefix_token]");
          void capture_screenshot(std::string base_filename="WithAllegroRenderingFixture-screenshot.png");
       };
    }

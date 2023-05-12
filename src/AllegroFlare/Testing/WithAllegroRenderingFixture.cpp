@@ -280,8 +280,7 @@ void WithAllegroRenderingFixture::draw_horizontal_crosshair(float x, float y, AL
 
 bool WithAllegroRenderingFixture::test_name_indicates_it_wants_a_screenshot()
 {
-   // TODO: This implementation needs to be updated to allow for a FOCUS__ prefix
-   return (get_test_name().substr(0, 9) == "CAPTURE__");
+   return test_name_has_prefix_token("CAPTURE");
 }
 
 void WithAllegroRenderingFixture::clear_display()
@@ -297,6 +296,12 @@ void WithAllegroRenderingFixture::clear()
    ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
    al_clear_to_color(eigengrau);
    return;
+}
+
+bool WithAllegroRenderingFixture::test_name_has_prefix_token(std::string possible_prefix_token)
+{
+   // TODO: convert this to an std::set
+   return (std::find(test_prefix_tokens.begin(), test_prefix_tokens.end(), possible_prefix_token) != test_prefix_tokens.end());
 }
 
 void WithAllegroRenderingFixture::capture_screenshot(std::string base_filename)

@@ -293,8 +293,7 @@ functions:
   - name: test_name_indicates_it_wants_a_screenshot
     type: bool
     body: |
-      // TODO: This implementation needs to be updated to allow for a FOCUS__ prefix
-      return (get_test_name().substr(0, 9) == "CAPTURE__");
+      return test_name_has_prefix_token("CAPTURE");
 
 
   - name: clear_display
@@ -314,6 +313,17 @@ functions:
       return;
     body_dependency_symbols:
       - ALLEGRO_COLOR
+
+
+  - name: test_name_has_prefix_token
+    type: bool
+    parameters:
+      - name: possible_prefix_token
+        type: std::string
+        default_argument: '"[unset-possible_prefix_token]"'
+    body: |
+      // TODO: convert this to an std::set
+      return (std::find(test_prefix_tokens.begin(), test_prefix_tokens.end(), possible_prefix_token) != test_prefix_tokens.end());
 
 
   - name: capture_screenshot
