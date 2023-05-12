@@ -30,6 +30,7 @@ AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::string text, 
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , revealed_characters_count(0)
+   , all_characters_revealed_at(0.0f)
 {
 }
 
@@ -165,17 +166,44 @@ int AdvancingText::get_revealed_characters_count() const
 }
 
 
+float AdvancingText::get_all_characters_revealed_at() const
+{
+   return all_characters_revealed_at;
+}
+
+
 void AdvancingText::start()
 {
    revealed_characters_count = 0;
+   all_characters_revealed_at = 0.0f;
    set_finished(false);
    return;
 }
 
 void AdvancingText::update()
 {
-   revealed_characters_count++;
-   if (revealed_characters_count >= text.size()) set_finished(true);
+   if (get_finished()) return;
+
+   float time_now = al_get_time();
+
+   if (!all_characters_are_revealed())
+   {
+      revealed_characters_count++;
+      if (revealed_characters_count >= text.size())
+      {
+         all_characters_revealed_at = time_now;
+      }
+   }
+   else // all characters are revealed
+   {
+      float wait_duration_after_all_characters_are_revealed = 3.0f;
+      float all_characters_revealed_age = time_now - all_characters_revealed_at;
+
+      if (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed)
+      {
+         set_finished(true);
+      }
+   }
    return;
 }
 
@@ -219,9 +247,17 @@ void AdvancingText::render()
 void AdvancingText::advance()
 {
    if (get_finished()) return;
-   if (!all_characters_are_revealed()) reveal_all_characters();
-   else
+
+   float time_now = al_get_time();
+
+   if (!all_characters_are_revealed())
    {
+      reveal_all_characters();
+      all_characters_revealed_at = time_now;
+   }
+   else // all characters are revealed
+   {
+      // TODO: Consider triggering a fade out
       set_finished(true);
    }
 

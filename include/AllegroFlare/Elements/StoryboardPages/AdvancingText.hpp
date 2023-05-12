@@ -32,6 +32,7 @@ namespace AllegroFlare
             float line_height_multiplier;
             float line_height_padding;
             int revealed_characters_count;
+            float all_characters_revealed_at;
             ALLEGRO_FONT* obtain_font();
             ALLEGRO_FONT* obtain_next_button_font();
 
@@ -63,6 +64,7 @@ namespace AllegroFlare
             float get_line_height_multiplier() const;
             float get_line_height_padding() const;
             int get_revealed_characters_count() const;
+            float get_all_characters_revealed_at() const;
             virtual void start() override;
             virtual void update() override;
             virtual void render() override;

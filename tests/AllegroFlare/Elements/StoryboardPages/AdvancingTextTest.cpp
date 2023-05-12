@@ -79,15 +79,32 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTestWithAllegroRenderi
 
 
 TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTestWithAllegroRenderingFixture,
-   update__after_all_characters_have_been_revealed__will_set_finished_to_true)
+   update__after_all_characters_have_been_revealed__and_before_wait_duration_after_all_characters_are_revealed_has_\
+passed__will_not_set_finished_to_true)
 {
    std::string text = "Hello StoryboardPages::AdvancingText!";
    AllegroFlare::Elements::StoryboardPages::AdvancingText storyboard(&get_font_bin_ref(), text);
 
-   storyboard.start();
+   storyboard.start(); // TODO: Inject time
    storyboard.reveal_all_characters();
    EXPECT_EQ(false, storyboard.get_finished());
-   storyboard.update();
+   storyboard.update(); // TODO: Inject time
+   EXPECT_EQ(false, storyboard.get_finished());
+}
+
+
+TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTestWithAllegroRenderingFixture,
+   update__after_all_characters_have_been_revealed__and_after_wait_duration_after_all_characters_are_revealed_has_\
+passed__will_set_finished_to_true)
+{
+   std::string text = "Hello StoryboardPages::AdvancingText!";
+   AllegroFlare::Elements::StoryboardPages::AdvancingText storyboard(&get_font_bin_ref(), text);
+
+   storyboard.start(); // TODO: Inject time
+   storyboard.reveal_all_characters();
+   EXPECT_EQ(false, storyboard.get_finished());
+   al_rest(3.1); // TODO: Replace this wait with injected time and a configurable wait duration
+   storyboard.update(); // TODO: Inject time
    EXPECT_EQ(true, storyboard.get_finished());
 }
 
