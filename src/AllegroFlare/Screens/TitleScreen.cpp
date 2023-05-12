@@ -850,8 +850,9 @@ void TitleScreen::draw_copyright_text()
       surface_width * 2,
       line_height,
       ALLEGRO_ALIGN_CENTER,
-      get_copyright_text().c_str()
+      copyright_text.c_str()
    );
+
    return;
 }
 

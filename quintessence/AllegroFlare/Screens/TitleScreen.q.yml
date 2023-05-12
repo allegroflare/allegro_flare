@@ -50,7 +50,7 @@ properties:
 
   - name: copyright_text
     type: std::string
-    init_with: '"Copyright 2022"'
+    init_with: '"© Copyright 2022"'
     constructor_arg: true
     getter: true
     setter: true
@@ -704,8 +704,9 @@ functions:
          surface_width * 2,
          line_height,
          ALLEGRO_ALIGN_CENTER,
-         get_copyright_text().c_str()
+         copyright_text.c_str()
       );
+
       return;
 
 
