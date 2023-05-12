@@ -92,7 +92,8 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 }
 
 
-TEST(ParseTokensTest, ValidInput)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   ValidInput)
 {
    std::string input = "TOKEN__TOKEN2__ANOTHER_TOKEN__some_words__another_word";
    std::vector<std::string> expected_output = { "TOKEN", "TOKEN2", "ANOTHER_TOKEN" };
@@ -100,7 +101,8 @@ TEST(ParseTokensTest, ValidInput)
 }
 
 
-TEST(ParseTokensTest, InvalidInput)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   InvalidInput)
 {
    std::string input = "TOKEN__ANOTHER_TOKEN__some_words__another_word";
    std::vector<std::string> expected_output = { "TOKEN", "ANOTHER_TOKEN" };
@@ -108,7 +110,8 @@ TEST(ParseTokensTest, InvalidInput)
 }
 
 
-TEST(ParseTokensTest, extract_prefix_tokens__will_not_include_empty_tokens)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   extract_prefix_tokens__will_not_include_empty_tokens)
 {
    std::string input = "TOKEN____ANOTHER_TOKEN";
    std::vector<std::string> expected_output = { "TOKEN", "ANOTHER_TOKEN" };
@@ -116,7 +119,8 @@ TEST(ParseTokensTest, extract_prefix_tokens__will_not_include_empty_tokens)
 }
 
 
-TEST(ParseTokensTest, extract_prefix_tokens__will_not_include_valid_format_tokens_that_occur_after_non_token_text)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   extract_prefix_tokens__will_not_include_valid_format_tokens_that_occur_after_non_token_text)
 {
    std::string input =
       "TOKEN__12345__ANOTHER_TOKEN__some_words__another_word__ANOTHER_ALLCAPS_TOKEN_THAT_SHOULD_BE_IGNORED";
@@ -125,7 +129,8 @@ TEST(ParseTokensTest, extract_prefix_tokens__will_not_include_valid_format_token
 }
 
 
-TEST(ParseTokensTest, SingleToken)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   SingleToken)
 {
    std::string input = "TOKEN";
    std::vector<std::string> expected_output = { "TOKEN" };
@@ -133,7 +138,8 @@ TEST(ParseTokensTest, SingleToken)
 }
 
 
-TEST(ParseTokensTest, NoTokens)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   NoTokens)
 {
    std::string input = "some_words__another_word";
    std::vector<std::string> expected_output = {};
@@ -141,7 +147,8 @@ TEST(ParseTokensTest, NoTokens)
 }
 
 
-TEST(ParseTokensTest, EmptyInput)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   EmptyInput)
 {
    std::string input = "";
    std::vector<std::string> expected_output = {};
@@ -149,7 +156,8 @@ TEST(ParseTokensTest, EmptyInput)
 }
 
 
-TEST(ParseTokensTest, TokenWithUnderscoreAtEnd)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   TokenWithUnderscoreAtEnd)
 {
    std::string input = "TOKEN_";
    std::vector<std::string> expected_output = { "TOKEN_" };
@@ -157,7 +165,8 @@ TEST(ParseTokensTest, TokenWithUnderscoreAtEnd)
 }
 
 
-TEST(ParseTokensTest, TokenWithdoubleUnderscoreAtEnd)
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   TokenWithdoubleUnderscoreAtEnd)
 {
    std::string input = "TOKEN__";
    std::vector<std::string> expected_output = { "TOKEN" };
