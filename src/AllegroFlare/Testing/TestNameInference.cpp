@@ -47,6 +47,28 @@ std::string TestNameInference::build_test_snapshot_full_filename()
    return "./tmp/test_snapshots/" + build_full_test_name_str() + ".png";
 }
 
+bool TestNameInference::is_valid_prefix_token(std::string possible_prefix_token)
+{
+   if (possible_prefix_token.empty() || !isupper(possible_prefix_token[0]))
+   {
+      return false;
+   }
+   bool prev_is_underscore = false;
+   for (char c : possible_prefix_token)
+   {
+      if (!isalnum(c) && c != '_')
+      {
+         return false;
+      }
+      if (c == '_' && prev_is_underscore)
+      {
+         return false;
+      }
+      prev_is_underscore = (c == '_');
+   }
+   return true;
+}
+
 
 } // namespace Testing
 } // namespace AllegroFlare

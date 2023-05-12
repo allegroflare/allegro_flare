@@ -50,3 +50,92 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 }
 
 
+TEST(AllegroFlare_Testing_TestNameInferenceTest,
+   is_valid_prefix_token__will_return_true_on_valid_tokens)
+{
+   std::vector<std::string> valid_prefix_tokens = {"TOKEN", "TOKEN2", "ANOTHER_TOKEN"};
+
+   for (int i = 0; i < valid_prefix_tokens.size(); ++i)
+   {
+      EXPECT_EQ(true, AllegroFlare::Testing::TestNameInference::is_valid_prefix_token(valid_prefix_tokens[i]));
+   }
+}
+
+
+TEST(IsValidFormatTest, MultipleData_invalid)
+{
+   std::vector<std::string> invalid_prefix_tokens = { "some_words", "another_word", "__", "_", "  ", "1234", "1ABA", "SOME__TOKEN" };
+   for (int i = 0; i < invalid_prefix_tokens.size(); ++i)
+   {
+      EXPECT_EQ(false, AllegroFlare::Testing::TestNameInference::is_valid_prefix_token(invalid_prefix_tokens[i]));
+   }
+}
+
+
+/*
+TEST(ParseTokensTest, ValidInput)
+{
+   std::string input = "TOKEN__TOKEN2__ANOTHER_TOKEN__some_words__another_word";
+   std::vector<std::string> expected_output = {"TOKEN", "TOKEN2", "ANOTHER_TOKEN"};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+
+
+TEST(ParseTokensTest, InvalidInput)
+{
+   std::string input = "TOKEN__ANOTHER_TOKEN__some_words__another_word";
+   std::vector<std::string> expected_output = {"TOKEN", "ANOTHER_TOKEN"};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+
+
+TEST(ParseTokensTest, extract_prefix_tokens__will_not_include_empty_tokens)
+{
+   std::string input = "TOKEN____ANOTHER_TOKEN";
+   std::vector<std::string> expected_output = {"TOKEN", "ANOTHER_TOKEN"};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+
+
+TEST(ParseTokensTest, extract_prefix_tokens__will_not_include_valid_format_tokens_that_occur_after_non_token_text)
+{
+   std::string input =
+      "TOKEN__12345__ANOTHER_TOKEN__some_words__another_word__ANOTHER_ALLCAPS_TOKEN_THAT_SHOULD_BE_IGNORED";
+   std::vector<std::string> expected_output = {"TOKEN"};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+
+
+TEST(ParseTokensTest, SingleToken)
+{
+   std::string input = "TOKEN";
+   std::vector<std::string> expected_output = {};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+
+
+TEST(ParseTokensTest, NoTokens)
+{
+   std::string input = "some_words__another_word";
+   std::vector<std::string> expected_output = {};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+
+
+TEST(ParseTokensTest, EmptyInput)
+{
+   std::string input = "";
+   std::vector<std::string> expected_output = {};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+
+
+TEST(ParseTokensTest, TokenWithUnderscoreAtEnd)
+{
+   std::string input = "TOKEN_";
+   std::vector<std::string> expected_output = {};
+   EXPECT_EQ(expected_output, AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(input));
+}
+*/
+
+
