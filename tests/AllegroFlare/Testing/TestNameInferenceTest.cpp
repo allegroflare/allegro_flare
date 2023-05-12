@@ -93,7 +93,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   ValidInput)
+   extract_prefix_tokens__with_typical_valid_input__will_extract_the_leading_tokens__test_1)
 {
    std::string input = "TOKEN__TOKEN2__ANOTHER_TOKEN__some_words__another_word";
    std::vector<std::string> expected_output = { "TOKEN", "TOKEN2", "ANOTHER_TOKEN" };
@@ -102,7 +102,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   InvalidInput)
+   extract_prefix_tokens__with_typical_valid_input__will_extract_the_leading_tokens__test_2)
 {
    std::string input = "TOKEN__ANOTHER_TOKEN__some_words__another_word";
    std::vector<std::string> expected_output = { "TOKEN", "ANOTHER_TOKEN" };
@@ -120,7 +120,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   extract_prefix_tokens__will_not_include_valid_format_tokens_that_occur_after_non_token_text)
+   extract_prefix_tokens__will_not_include_tokens_that_occur_after_non_token_text)
 {
    std::string input =
       "TOKEN__12345__ANOTHER_TOKEN__some_words__another_word__ANOTHER_ALLCAPS_TOKEN_THAT_SHOULD_BE_IGNORED";
@@ -130,7 +130,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   SingleToken)
+   extract_prefix_tokens__when_only_a_single_token_is_present__will_extract_the_token)
 {
    std::string input = "TOKEN";
    std::vector<std::string> expected_output = { "TOKEN" };
@@ -139,7 +139,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   NoTokens)
+   extract_prefix_tokens__when_no_leading_tokens_are_present__and_test_text_is_present__will_not_extract_tokens)
 {
    std::string input = "some_words__another_word";
    std::vector<std::string> expected_output = {};
@@ -148,7 +148,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   EmptyInput)
+   extract_prefix_tokens__when_no_input_is_present__will_not_extract_any_tokens)
 {
    std::string input = "";
    std::vector<std::string> expected_output = {};
@@ -157,7 +157,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   TokenWithUnderscoreAtEnd)
+   extract_prefix_tokens__when_only_a_single_token_is_presnet_with_a_trailing_underscore__will_extract_the_token)
 {
    std::string input = "TOKEN_";
    std::vector<std::string> expected_output = { "TOKEN_" };
@@ -166,7 +166,7 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   TokenWithdoubleUnderscoreAtEnd)
+   extract_prefix_tokens__when_the_input_is_a_single_token_followed_by_double_underscore__will_extract_the_token)
 {
    std::string input = "TOKEN__";
    std::vector<std::string> expected_output = { "TOKEN" };
