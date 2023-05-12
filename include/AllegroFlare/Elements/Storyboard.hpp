@@ -51,6 +51,7 @@ namespace AllegroFlare
          bool deny_advancing_page();
          bool advance();
          bool advance_page();
+         bool infer_has_no_pages();
          bool infer_at_last_page();
          bool infer_at_or_past_last_page();
          bool infer_at_last_advance();

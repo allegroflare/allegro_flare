@@ -300,3 +300,10 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroFlareFrameworksFullFixture,
 }
 
 
+TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroFlareFrameworksFullFixture,
+   on_activate__when_the_storyboard_has_no_pages__will_emit_a_completion_event)
+{
+   // TODO
+}
+
+

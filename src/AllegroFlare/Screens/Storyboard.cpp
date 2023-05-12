@@ -151,6 +151,15 @@ void Storyboard::on_activate()
    }
    if (background) background->activate();
    storyboard_element.reset();
+   if (storyboard_element.infer_has_no_pages())
+   {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Screens::Storyboard",
+         "The storyboard is empty (it has no pages). Events, callbacks will now be triggered to indicate the "
+            "storyboard is finished (aka completed)."
+      );
+      emit_completion_event();
+   }
    return;
 }
 

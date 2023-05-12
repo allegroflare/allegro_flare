@@ -286,6 +286,11 @@ void Storyboard::render_next_button()
    return;
 }
 
+bool Storyboard::infer_has_no_pages()
+{
+   return pages.empty();
+}
+
 bool Storyboard::infer_at_last_page()
 {
    return (current_page_num == (pages.size()-1));

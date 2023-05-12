@@ -238,6 +238,12 @@ functions:
       - std::min, std::max
 
 
+  - name: infer_has_no_pages
+    type: bool
+    body: |
+      return pages.empty();
+
+
   - name: infer_at_last_page
     type: bool
     body: |
