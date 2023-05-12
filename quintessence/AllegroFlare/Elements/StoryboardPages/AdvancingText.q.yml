@@ -89,6 +89,12 @@ properties:
     init_with: 0.0f
     getter: true
 
+  - name: wait_duration_after_all_characters_are_revealed
+    type: float
+    init_with: 3.0f
+    getter: true
+    setter: false
+
   - name: DEFAULT_FONT_NAME
     type: char*
     constexpr: true
@@ -135,10 +141,11 @@ functions:
       }
       else // all characters are revealed
       {
-         float wait_duration_after_all_characters_are_revealed = 3.0f;
          float all_characters_revealed_age = time_now - all_characters_revealed_at;
 
-         if (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed)
+         bool should_finish = (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed);
+
+         if (should_finish)
          {
             set_finished(true);
          }

@@ -31,6 +31,7 @@ AdvancingText::AdvancingText(AllegroFlare::FontBin* font_bin, std::string text, 
    , line_height_padding(line_height_padding)
    , revealed_characters_count(0)
    , all_characters_revealed_at(0.0f)
+   , wait_duration_after_all_characters_are_revealed(3.0f)
 {
 }
 
@@ -172,6 +173,12 @@ float AdvancingText::get_all_characters_revealed_at() const
 }
 
 
+float AdvancingText::get_wait_duration_after_all_characters_are_revealed() const
+{
+   return wait_duration_after_all_characters_are_revealed;
+}
+
+
 void AdvancingText::start()
 {
    revealed_characters_count = 0;
@@ -196,10 +203,11 @@ void AdvancingText::update()
    }
    else // all characters are revealed
    {
-      float wait_duration_after_all_characters_are_revealed = 3.0f;
       float all_characters_revealed_age = time_now - all_characters_revealed_at;
 
-      if (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed)
+      bool should_finish = (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed);
+
+      if (should_finish)
       {
          set_finished(true);
       }
