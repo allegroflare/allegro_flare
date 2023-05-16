@@ -639,6 +639,11 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/DialogTree/NodeOptions/Base": [
+    "AllegroFlare/DialogTree/Node",
+    "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
+    "AllegroFlare/DialogTree/NodeOptions/GoToNode"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",

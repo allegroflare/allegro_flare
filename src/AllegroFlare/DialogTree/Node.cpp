@@ -12,7 +12,8 @@ namespace DialogTree
 
 
 Node::Node()
-   : pages({"[unset-pages]"})
+   : speaker("[unset-speaker]")
+   , pages({"[unset-pages]"})
    , options({})
 {
 }
@@ -20,6 +21,12 @@ Node::Node()
 
 Node::~Node()
 {
+}
+
+
+void Node::set_speaker(std::string speaker)
+{
+   this->speaker = speaker;
 }
 
 
@@ -32,6 +39,12 @@ void Node::set_pages(std::vector<std::string> pages)
 void Node::set_options(std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> options)
 {
    this->options = options;
+}
+
+
+std::string Node::get_speaker() const
+{
+   return speaker;
 }
 
 

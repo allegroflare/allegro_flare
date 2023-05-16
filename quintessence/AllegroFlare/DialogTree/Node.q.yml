@@ -1,6 +1,12 @@
 properties:
 
 
+  - name: speaker
+    type: std::string
+    init_with: '"[unset-speaker]"'
+    getter: true
+    setter: true
+
   - name: pages
     type: std::vector<std::string>
     init_with: '{"[unset-pages]"}'
