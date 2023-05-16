@@ -1,0 +1,25 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::NodeOptions::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE
+
+
+properties:
+
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/NodeOptions/ExitDialog"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::NodeOptions::Base
+    headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
+
+

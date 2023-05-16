@@ -1,0 +1,23 @@
+properties:
+
+
+  - name: pages
+    type: std::vector<std::string>
+    init_with: '{"[unset-pages]"}'
+    getter: true
+    setter: true
+
+  - name: options
+    type: std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::NodeOptions::Base
+    headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
+
+
