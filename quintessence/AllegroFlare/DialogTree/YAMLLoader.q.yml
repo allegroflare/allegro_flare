@@ -110,13 +110,12 @@ functions:
       std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options_vector;
       for (const auto& node : options_node)
       {
-         //std::string result_text = "foobar";
-         //AllegroFlare::DialogTree::NodeOptions::Base* result_option = nullptr;
+         std::string result_text = "foobar";
+         AllegroFlare::DialogTree::NodeOptions::Base* result_option = nullptr;
 
-         //options_vector.push_back(std::make_pair(
-            //result_text,
-            //static_cast<AllegroFlare::DialogTree::NodeOptions::Base*>(result_option)
-         //));
+         // TODO: Parse out each option->node type
+
+         options_vector.push_back(std::make_pair(result_text, result_option));
 
          //if (node.IsScalar())
          //{
@@ -129,7 +128,6 @@ functions:
             //AllegroFlare::Logger::throw_error("here", "pages node contains a non-scalar element");
          //}
       }
-      // TODO: Validate content of pages vector
       result->set_options(options_vector);
 
       // Return our result
