@@ -26,13 +26,13 @@ options:
   - text: I have a bad feeling too. We must proceed cautiously.
     type: node
     data:
-      - speaker: yuki
-        pages:
-          - Agreed. Trusting our instincts is crucial in these situations.
-          - Let's carefully analyze each step and keep an eye out for any hidden dangers.
-        options:
-          - text: Agreed. Let's gather more information discreetly.
-            type: exit_dialog
+      speaker: yuki
+      pages:
+        - Agreed. Trusting our instincts is crucial in these situations.
+        - Let's carefully analyze each step and keep an eye out for any hidden dangers.
+      options:
+        - text: Agreed. Let's gather more information discreetly.
+          type: exit_dialog
   - text: I'll keep my eyes open and watch our backs
     type: exit_dialog
 )YAML_CONTENT";
@@ -50,25 +50,25 @@ options:
   - text: Tell me more. Where should we start?
     type: node
     data:
-      - speaker: jonas
-        pages:
-          - According to the legends, the first clue lies within the ancient temple ruins deep in the forest.
-          - We should head there and search for any hidden symbols or markings.
+      speaker: jonas
+      pages:
+        - According to the legends, the first clue lies within the ancient temple ruins deep in the forest.
+        - We should head there and search for any hidden symbols or markings.
   - text: Rumors can be misleading. Any evidence?
     type: node
     data:
-      - speaker: jonas
-        pages:
-          - You're right to be skeptical.
-          - I've uncovered an ancient inscription that suggests the treasure's existence.
-          - It speaks of a forgotten chamber guarded by puzzles and traps.
-          - We must find more clues to confirm its authenticity.
-        options:
-          - text: Agreed. Let's gather more information discreetly.
-            type: go_to_node
-            data: { target_node_name: my_dialog_node_567 }
-          - text: I'll keep my eyes open and watch our backs
-            type: exit_dialog
+      speaker: jonas
+      pages:
+        - You're right to be skeptical.
+        - I've uncovered an ancient inscription that suggests the treasure's existence.
+        - It speaks of a forgotten chamber guarded by puzzles and traps.
+        - We must find more clues to confirm its authenticity.
+      options:
+        - text: Agreed. Let's gather more information discreetly.
+          type: go_to_node
+          data: { target_node_name: my_dialog_node_567 }
+        - text: I'll keep my eyes open and watch our backs
+          type: exit_dialog
 )YAML_CONTENT";
 };
 
@@ -168,9 +168,12 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    EXPECT_EQ("I have a bad feeling too. We must proceed cautiously.", expected_option_1.first);
    ASSERT_NE(nullptr, expected_option_1.second);
    EXPECT_EQ(true, expected_option_1.second->is_type(AllegroFlare::DialogTree::NodeOptions::Node::TYPE));
-   AllegroFlare::DialogTree::NodeOptions::Node *as_go_to_node_1 = 
+   AllegroFlare::DialogTree::NodeOptions::Node *as_node_1 =
       static_cast<AllegroFlare::DialogTree::NodeOptions::Node*>(expected_option_1.second);
-   //EXPECT_EQ("my_dialog_node_345", as_go_to_node_1->get_target_node_name());
+   // Nested node content in Option 1 (sanity check, more thorough testing in follow-up tests)
+      AllegroFlare::DialogTree::Node *actual_nested_node = as_node_1->get_node();
+      ASSERT_NE(nullptr, actual_nested_node);
+      EXPECT_EQ("yuki", actual_nested_node->get_speaker());
 
    // Option 2
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_2 = extracted_options[2];
