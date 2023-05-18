@@ -11,7 +11,8 @@
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/YAMLValidator"
   ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
@@ -646,6 +647,9 @@
     "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode"
+  ],
+  "AllegroFlare/YAMLValidator": [
+    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
@@ -2571,6 +2575,15 @@
   ],
   "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData": [
     "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/any_of": [
+    "AllegroFlare/YAMLValidator"
+  ],
+  "YAML/Node": [
+    "AllegroFlare/YAMLValidator"
+  ],
+  "YAML/NodeType/value": [
+    "AllegroFlare/YAMLValidator"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [
     "Tileo/MeshWithNormals"

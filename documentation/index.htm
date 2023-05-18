@@ -341,6 +341,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/Base.q.yml">quintessence/AllegroFlare/VirtualControllers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/YAMLValidator.q.yml">quintessence/AllegroFlare/YAMLValidator.q.yml</a></li>
   <li><a href="#quintessence/BuildInfo.q.yml">quintessence/BuildInfo.q.yml</a></li>
   <li><a href="#quintessence/ClubCatt/Logo.q.yml">quintessence/ClubCatt/Logo.q.yml</a></li>
   <li><a href="#quintessence/ReleaseInfo.q.yml">quintessence/ReleaseInfo.q.yml</a></li>
@@ -1485,10 +1486,13 @@ table td
     </table>
      <table>
 <tr>
-  <td class="method">run()</td>
+  <td class="method">load(std::string yaml_string=&quot;&quot;)</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::YAMLValidator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/YAMLValidator.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -20849,6 +20853,53 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/YAMLValidator.q.yml">quintessence/AllegroFlare/YAMLValidator.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">validate_presence_of_key(YAML::Node node={}, std::string key=&quot;[unset-key]&quot;, bool throw_on_error=true)</td>
+</tr>
+<tr>
+  <td class="method">validate_node_type(YAML::Node node={}, std::string key=&quot;[unset-key]&quot;, YAML::NodeType::value expected_type=YAML::NodeType::Undefined, bool throw_on_error=true)</td>
+</tr>
+<tr>
+  <td class="method">validate_node_has_unsigned_int_value(YAML::Node node={}, std::string key=&quot;[unset-key]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">validate_elements_are_unique(std::vector&lt;std::string&gt; elements={})</td>
+</tr>
+<tr>
+  <td class="method">yaml_node_type_as_string(YAML::NodeType::value node_type=YAML::NodeType::Undefined)</td>
+</tr>
+<tr>
+  <td class="method">validate_unique_all_upper_identifiers(YAML::Node items={})</td>
+</tr>
+<tr>
+  <td class="method">get_type_string(YAML::Node* node_ptr=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">extract_sequence_as_string_array(YAML::Node source={})</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::any_of&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;YAML::Node&quot;, &quot;headers&quot;=&gt;[&quot;yaml-cpp/yaml.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;YAML::NodeType::value&quot;, &quot;headers&quot;=&gt;[&quot;yaml-cpp/yaml.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/BuildInfo.q.yml">quintessence/BuildInfo.q.yml</h3>
      <table>
 <tr>
@@ -23330,7 +23381,8 @@ table td
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
-    "AllegroFlare/VirtualControlsProcessor"
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/YAMLValidator"
   ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
@@ -23965,6 +24017,9 @@ table td
     "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode"
+  ],
+  "AllegroFlare/YAMLValidator": [
+    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
@@ -25890,6 +25945,15 @@ table td
   ],
   "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData": [
     "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "std/any_of": [
+    "AllegroFlare/YAMLValidator"
+  ],
+  "YAML/Node": [
+    "AllegroFlare/YAMLValidator"
+  ],
+  "YAML/NodeType/value": [
+    "AllegroFlare/YAMLValidator"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [
     "Tileo/MeshWithNormals"

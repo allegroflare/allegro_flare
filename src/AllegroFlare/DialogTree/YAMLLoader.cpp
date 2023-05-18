@@ -12,6 +12,7 @@ namespace DialogTree
 
 
 YAMLLoader::YAMLLoader()
+   : AllegroFlare::YAMLValidator()
 {
 }
 
@@ -21,9 +22,10 @@ YAMLLoader::~YAMLLoader()
 }
 
 
-std::string YAMLLoader::run()
+bool YAMLLoader::load(std::string yaml_string)
 {
-   return "Hello World!";
+   // TODO
+   return true;
 }
 
 

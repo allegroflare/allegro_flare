@@ -1,9 +1,29 @@
+parent_classes:
+
+
+  - class: AllegroFlare::YAMLValidator
+    scope: public
+    init_with: ''
+
+
 functions:
 
 
-  - name: run
-    type: std::string
+  - name: load
+    type: bool
+    parameters:
+      - name: yaml_string
+        type: std::string
+        default_argument: '""'
     body: |
-      return "Hello World!";
+      // TODO
+      return true;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::YAMLValidator
+    headers: [ AllegroFlare/YAMLValidator.hpp ]
 
 

@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/YAMLValidator.hpp>
 #include <string>
 
 
@@ -8,7 +9,7 @@ namespace AllegroFlare
 {
    namespace DialogTree
    {
-      class YAMLLoader
+      class YAMLLoader : public AllegroFlare::YAMLValidator
       {
       private:
 
@@ -19,7 +20,7 @@ namespace AllegroFlare
          YAMLLoader();
          ~YAMLLoader();
 
-         std::string run();
+         bool load(std::string yaml_string="");
       };
    }
 }
