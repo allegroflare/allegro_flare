@@ -8,7 +8,31 @@
 
 
 class AllegroFlare_DialogTree_YAMLLoaderTest : public ::testing::Test {};
+
+
 class AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData : public ::testing::Test
+{
+public:
+   std::string yaml_as_string = R"YAML_CONTENT(
+speaker: yuki
+pages:
+  - We must find the ancient artifact before they do.
+  - The key lies within the forgotten tomb.
+  - Something seems fishy. Stay vigilant.
+options:
+  - text: Agreed. Let's gather more information discreetly.
+    type: go_to_node
+    data: { target_node_name: my_dialog_node_567 }
+  - text: I have a bad feeling too. We must proceed cautiously.
+    type: go_to_node
+    data: { target_node_name: my_dialog_node_345 }
+  - text: I'll keep my eyes open and watch our backs
+    type: exit_dialog
+)YAML_CONTENT";
+};
+
+
+class AllegroFlare_DialogTree_YAMLLoaderTestWithNestedNodesFixtureData : public ::testing::Test
 {
 public:
    std::string yaml_as_string = R"YAML_CONTENT(
@@ -116,9 +140,18 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    EXPECT_EQ("Agreed. Let's gather more information discreetly.", expected_option_0.first);
    EXPECT_NE(nullptr, expected_option_0.second);
    EXPECT_EQ(true, expected_option_0.second->is_type(AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE));
-   AllegroFlare::DialogTree::NodeOptions::GoToNode *as_go_to_node = 
+   AllegroFlare::DialogTree::NodeOptions::GoToNode *as_go_to_node_0 = 
       static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(expected_option_0.second);
-   EXPECT_EQ("my_dialog_node_1", as_go_to_node->get_target_node_name());
+   EXPECT_EQ("my_dialog_node_567", as_go_to_node_0->get_target_node_name());
+
+   // Option 1
+   std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_1 = extracted_options[1];
+   EXPECT_EQ("I have a bad feeling too. We must proceed cautiously.", expected_option_1.first);
+   EXPECT_NE(nullptr, expected_option_1.second);
+   EXPECT_EQ(true, expected_option_1.second->is_type(AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE));
+   AllegroFlare::DialogTree::NodeOptions::GoToNode *as_go_to_node_1 = 
+      static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(expected_option_1.second);
+   EXPECT_EQ("my_dialog_node_345", as_go_to_node_1->get_target_node_name());
 
    // Option 2
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_2 = extracted_options[2];
@@ -126,8 +159,14 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    EXPECT_NE(nullptr, expected_option_2.second);
    EXPECT_EQ(true, expected_option_2.second->is_type(AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE));
 
-
    // TODO: Free up the node recursively
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithNestedNodesFixtureData,
+   load__on_the_root_node__will_extract_nested_node_options_with_the_expected_content)
+{
+   // TODO
 }
 
 
