@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 
-
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -33,8 +33,28 @@ AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_as_string)
    std::string speaker = root_node[std::string(SPEAKER_KEY)].as<std::string>();
    result->set_speaker(speaker);
 
-   // TODO: Validate and extract the pages
-   //validate_presence_of_key(root_node, "pages");
+   // Validate and extract the pages
+   validate_presence_of_key(root_node, PAGES_KEY);
+   validate_node_type(root_node, PAGES_KEY, YAML::NodeType::Sequence);
+   YAML::Node pages_node = root_node[std::string(PAGES_KEY)];
+   std::vector<std::string> pages_vector;
+   for (const auto& node : pages_node)
+   {
+      if (node.IsScalar())
+      {
+         pages_vector.push_back(node.as<std::string>());
+      }
+      else
+      {
+         // TODO: Improve this error message
+         // TODO: Test this error path
+         AllegroFlare::Logger::throw_error("here", "pages node contains a non-scalar element");
+      }
+   }
+   // TODO: Validate content of pages vector
+   result->set_pages(pages_vector);
+
+   // Return our result
    return result;
 }
 

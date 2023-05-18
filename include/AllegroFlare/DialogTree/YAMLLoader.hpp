@@ -14,6 +14,7 @@ namespace AllegroFlare
       {
       public:
          static constexpr char* SPEAKER_KEY = (char*)"speaker";
+         static constexpr char* PAGES_KEY = (char*)"pages";
 
       private:
 
