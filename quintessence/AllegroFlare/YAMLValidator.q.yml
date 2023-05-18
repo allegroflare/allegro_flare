@@ -62,7 +62,7 @@ functions:
       return false;
 
 
-  - name: validate_node_one_of_type
+  - name: validate_node_is_one_of_type
     static: true
     type: bool
     parameters:

@@ -56,7 +56,7 @@ bool YAMLValidator::validate_node_type(YAML::Node node, std::string key, YAML::N
    return false;
 }
 
-bool YAMLValidator::validate_node_one_of_type(YAML::Node node, std::string key, std::vector<YAML::NodeType::value> possible_valid_types, bool throw_on_error)
+bool YAMLValidator::validate_node_is_one_of_type(YAML::Node node, std::string key, std::vector<YAML::NodeType::value> possible_valid_types, bool throw_on_error)
 {
    // TODO: Test this
    for (auto &possible_valid_type : possible_valid_types)
