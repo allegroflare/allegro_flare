@@ -23,6 +23,7 @@ documentation:
                   - 
           ```
       - header: Validations
+        body_markdown: |
           - must have 'speaker'
           - must have 'pages'
           - optional 'options'
