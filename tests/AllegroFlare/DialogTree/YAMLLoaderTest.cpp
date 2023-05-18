@@ -65,6 +65,13 @@ public:
             type: exit_dialog
     - text: I'll keep my eyes open and watch our backs
       type: exit_dialog
+- name: my_node_567
+  speaker: yuki
+  pages:
+    - The ancient artifact before they do lies within the forgotten tomb.
+  options:
+    - text: Let's do it!
+      type: exit_dialog
 )YAML_CONTENT";
 };
 
@@ -119,7 +126,8 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
    yaml_loader.load(yaml_as_string);
    AllegroFlare::DialogTree::NodeBank node_bank = yaml_loader.get_node_bank();
 
-   EXPECT_EQ(1, node_bank.num_nodes());
+   EXPECT_EQ(2, node_bank.num_nodes());
+   //EXPECT_EQ(
 
    // TODO: Free up the node recursively
 }

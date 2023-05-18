@@ -92,13 +92,22 @@ void YAMLLoader::load(std::string yaml_as_string)
 std::pair<std::string, AllegroFlare::DialogTree::Node*> YAMLLoader::parse_and_create_node(YAML::Node* node_ptr)
 {
    YAML::Node &root_node = *node_ptr; // TODO: Rename "root_node" to "node"
-   AllegroFlare::DialogTree::Node *result = new AllegroFlare::DialogTree::Node;
+   std::string result_node_name = "unset-result_node_name";
+   AllegroFlare::DialogTree::Node *result_node = new AllegroFlare::DialogTree::Node;
+
+   // Extract a name node (if it is present)
+   bool name_node_is_present = validate_presence_of_key(root_node, NAME_KEY, false);
+   if (name_node_is_present)
+   {
+      validate_node_type(root_node, NAME_KEY, YAML::NodeType::Scalar);
+      result_node_name = root_node[std::string(NAME_KEY)].as<std::string>();
+   }
 
    // Validate and extract the speaker
    validate_presence_of_key(root_node, SPEAKER_KEY);
    validate_node_type(root_node, SPEAKER_KEY, YAML::NodeType::Scalar);
    std::string speaker = root_node[std::string(SPEAKER_KEY)].as<std::string>();
-   result->set_speaker(speaker);
+   result_node->set_speaker(speaker);
 
    // Validate and extract the pages
    validate_presence_of_key(root_node, PAGES_KEY);
@@ -119,7 +128,7 @@ std::pair<std::string, AllegroFlare::DialogTree::Node*> YAMLLoader::parse_and_cr
       }
    }
    // TODO: Validate content of pages vector
-   result->set_pages(pages_vector);
+   result_node->set_pages(pages_vector);
 
    // Validate and extract the options
    // TODO: "options" node is optional
@@ -149,10 +158,10 @@ std::pair<std::string, AllegroFlare::DialogTree::Node*> YAMLLoader::parse_and_cr
 
       options_vector.push_back(std::make_pair(result_option_text, result_option));
    }
-   result->set_options(options_vector);
+   result_node->set_options(options_vector);
 
    // Return the result
-   return { "unnamed-node", result };
+   return { result_node_name, result_node };
 }
 
 AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result_option(std::string type, YAML::Node* data_node_ptr)

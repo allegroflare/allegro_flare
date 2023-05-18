@@ -20,6 +20,7 @@ namespace AllegroFlare
       class YAMLLoader : public AllegroFlare::YAMLValidator
       {
       public:
+         static constexpr char* NAME_KEY = (char*)"name";
          static constexpr char* SPEAKER_KEY = (char*)"speaker";
          static constexpr char* PAGES_KEY = (char*)"pages";
          static constexpr char* OPTIONS_KEY = (char*)"options";
