@@ -20,10 +20,7 @@ pages:
 options:
   - text: Agreed. Let's gather more information discreetly.
     type: go_to_node
-    data:
-      - speaker: yuki
-        pages:
-          - Absolutely. I'll start digging deeper undercover.
+    data: { target_node_name: foobar_node_1 }
   - text: I have a bad feeling too. We must proceed cautiously.
     type: go_to_node
     data:
