@@ -81,8 +81,33 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, can_be_created_without_blowing_up
 }
 
 
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__will_not_blow_up)
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, load__will_not_blow_up)
 {
+   std::string yaml_as_string = R"YAML_CONTENT(
+- name: start
+  speaker: yuki
+  pages:
+    - We must find the ancient artifact before they do.
+    - The key lies within the forgotten tomb.
+    - Something seems fishy. Stay vigilant.
+  options:
+    - text: Agreed. Let's gather more information discreetly.
+      type: go_to_node
+      data: { target_node_name: my_dialog_node_567 }
+    - text: I have a bad feeling too. We must proceed cautiously.
+      type: node
+      data:
+        speaker: yuki
+        pages:
+          - Agreed. Trusting our instincts is crucial in these situations.
+          - Let's carefully analyze each step and keep an eye out for any hidden dangers.
+        options:
+          - text: Agreed. Let's gather more information discreetly.
+            type: exit_dialog
+    - text: I'll keep my eyes open and watch our backs
+      type: exit_dialog
+)YAML_CONTENT";
+
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    yaml_loader.load(yaml_as_string);
    // TODO: Free up the node recursively

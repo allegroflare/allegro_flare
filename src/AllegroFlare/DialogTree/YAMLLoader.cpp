@@ -43,12 +43,18 @@ void YAMLLoader::load(std::string yaml_as_string)
    AllegroFlare::DialogTree::NodeBank result;
    YAML::Node root_node = YAML::Load(yaml_as_string);
 
-   // TODO: Validate that root_node is a sequence
+   // Validate that root_node is a sequence
+   if (!root_node.IsSequence())
+   {
+      // TODO: Improve this error message
+      // TODO: Test this error path
+      AllegroFlare::Logger::throw_error("here", "Expecting this node to be of type scalar.");
+   }
 
    // TODO: Traverse the nodes, load as nodes
    for (const auto& node : root_node)
    {
-      //std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info = parse_and_create_node(node);
+      //std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info = parse_and_create_node(&node);
 
       //std::string created_node_name = created_node_info.first;
       //AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
@@ -211,7 +217,6 @@ AllegroFlare::DialogTree::NodeOptions::Node* YAMLLoader::parse_and_create_Node_o
    }
    YAML::Node &node = *data_node_ptr;
    AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
-
     
    std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_for_option =
       parse_and_create_node(&node);
