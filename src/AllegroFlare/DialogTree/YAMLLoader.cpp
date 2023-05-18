@@ -108,9 +108,7 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
 
    std::map<std::string, std::function<void()>> result_options_map = {
       { OPTION_TYPE_EXIT_DIALOG_KEY, [this, &result]() mutable {
-         AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
-            new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
-         result = exit_dialog_result;
+         result = parse_and_create_ExitDialog_option();
       }},
       { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result, data_node_ptr](){
          result = parse_and_create_GoToNode_option(data_node_ptr);
@@ -132,6 +130,13 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
       result_options_map[type]();
    }
 
+   return result;
+}
+
+AllegroFlare::DialogTree::NodeOptions::ExitDialog* YAMLLoader::parse_and_create_ExitDialog_option()
+{
+   AllegroFlare::DialogTree::NodeOptions::ExitDialog* result =
+      new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
    return result;
 }
 

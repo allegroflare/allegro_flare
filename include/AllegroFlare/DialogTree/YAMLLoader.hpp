@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/DialogTree/Node.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/YAMLValidator.hpp>
 #include <string>
@@ -37,6 +38,7 @@ namespace AllegroFlare
 
          AllegroFlare::DialogTree::Node* load(std::string yaml_as_string="");
          AllegroFlare::DialogTree::NodeOptions::Base* parse_and_create_result_option(std::string type="[unset-type]", YAML::Node* data_node_ptr=nullptr);
+         AllegroFlare::DialogTree::NodeOptions::ExitDialog* parse_and_create_ExitDialog_option();
          AllegroFlare::DialogTree::NodeOptions::GoToNode* parse_and_create_GoToNode_option(YAML::Node* data_node_ptr=nullptr);
       };
    }
