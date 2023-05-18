@@ -137,6 +137,7 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
          result = parse_and_create_GoToNode_option(data_node_ptr);
       }},
       { OPTION_TYPE_NODE_KEY, [this, &result, data_node_ptr](){
+         // NOTE: For now, option nodes do not have names. "name" is reserved for nodes on the root
          result = parse_and_create_Node_option(data_node_ptr);
       }},
    };
@@ -202,9 +203,10 @@ AllegroFlare::DialogTree::NodeOptions::Node* YAMLLoader::parse_and_create_Node_o
    YAML::Node &node = *data_node_ptr;
    AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
 
+    
    std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_for_option =
       parse_and_create_node(&node);
-   std::string option_node_name = created_node_for_option.first;
+   //std::string option_node_name = created_node_for_option.first; // NOTE: For now, option nodes do not have names
    AllegroFlare::DialogTree::Node* option_node = created_node_for_option.second;
    result->set_node(option_node);
 
