@@ -187,6 +187,31 @@ functions:
     guards: [ data_node_ptr ]
     body: |
       AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
+
+      std::map<std::string, std::function<void()>> result_options_map = {
+         { OPTION_TYPE_EXIT_DIALOG_KEY, [this](){
+         }},
+         { OPTION_TYPE_NODE_KEY, [this](){
+         }},
+      };
+
+      // Locate and call the function to handle the item
+      if (result_options_map.count(type) == 0)
+      {
+         // Item not found
+         std::stringstream error_message;
+         error_message << "[CubeShooter::LevelFactory::load_level]: error: Cannot load the item with the type \""
+                       << type << "\", it does not exist.";
+         throw std::runtime_error(error_message.str());
+      }
+      else
+      {
+         // Call the item
+         result_options_map[type]();
+      }
+
+
+
       if (type == OPTION_TYPE_EXIT_DIALOG_KEY)
       {
          AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
