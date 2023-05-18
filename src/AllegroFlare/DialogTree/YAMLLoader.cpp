@@ -106,12 +106,15 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
    AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
 
    std::map<std::string, std::function<void()>> result_options_map = {
-      { OPTION_TYPE_EXIT_DIALOG_KEY, [this, result]() mutable {
+      { OPTION_TYPE_EXIT_DIALOG_KEY, [this, &result]() mutable {
          AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
             new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
          result = exit_dialog_result;
       }},
       { OPTION_TYPE_NODE_KEY, [this](){
+         // TODO: Add a NodeOptions::Node type
+         //AllegroFlare::DialogTree::NodeOptions::Node* node_result = new AllegroFlare::DialogTree::NodeOptions::Node;
+         //result = node_result;
       }},
    };
 
@@ -130,25 +133,6 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
       result_options_map[type]();
    }
 
-
-
-   if (type == OPTION_TYPE_EXIT_DIALOG_KEY)
-   {
-      //AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
-         //new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
-      //result = exit_dialog_result;
-   }
-   else if (type == OPTION_TYPE_NODE_KEY)
-   {
-      // TODO: Add a NodeOptions::Node type
-      //AllegroFlare::DialogTree::NodeOptions::Node* node_result = new AllegroFlare::DialogTree::NodeOptions::Node;
-      //result = node_result;
-   }
-   else
-   {
-      // NOTE: Option type is unsupported
-      // TODO: Throw on unknown type
-   }
    return result;
 }
 
