@@ -150,12 +150,12 @@ functions:
          std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info =
             parse_and_create_node(&hack_node_copy);
 
-         //std::string created_node_name = created_node_info.first;
-         //AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
+         std::string created_node_name = created_node_info.first;
+         AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
 
          //TODO: Check if node_exists_by_name, throw if already exists
 
-         //node_bank.add_node(created_node_name, created_node);
+         node_bank.add_node(created_node_name, created_node);
       }
 
       return;

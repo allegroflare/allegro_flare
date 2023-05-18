@@ -74,18 +74,11 @@ options:
 };
 
 
-
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, can_be_created_without_blowing_up)
+class AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData : public ::testing::Test
 {
-   AllegroFlare::DialogTree::YAMLLoader yamlloader;
-}
-
-
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, load__will_not_blow_up)
-{
+public:
    std::string yaml_as_string = R"YAML_CONTENT(
-- name: start
-  speaker: yuki
+- speaker: yuki
   pages:
     - We must find the ancient artifact before they do.
     - The key lies within the forgotten tomb.
@@ -107,7 +100,36 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, load__will_not_blow_up)
     - text: I'll keep my eyes open and watch our backs
       type: exit_dialog
 )YAML_CONTENT";
+};
 
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, can_be_created_without_blowing_up)
+{
+   AllegroFlare::DialogTree::YAMLLoader yamlloader;
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, load__will_not_blow_up)
+{
+   std::string yaml_as_string = R"YAML_CONTENT(
+- name: start
+  speaker: yuki
+  pages:
+    - We must find the ancient artifact before they do.
+  options:
+    - text: I'll keep my eyes open and watch our backs
+      type: exit_dialog
+)YAML_CONTENT";
+
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   yaml_loader.load(yaml_as_string);
+   // TODO: Free up the node recursively
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData, load__will_not_blow_up)
+{
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    yaml_loader.load(yaml_as_string);
    // TODO: Free up the node recursively
