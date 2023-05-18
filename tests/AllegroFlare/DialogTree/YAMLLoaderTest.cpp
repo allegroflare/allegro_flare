@@ -46,18 +46,40 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, can_be_created_without_blowing_up
 
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__will_not_blow_up)
 {
-   std::string yaml_string_content = "";
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    EXPECT_NE(nullptr, yaml_loader.load(yaml_as_string));
    // TODO: Free up the node recursively
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
+   load__on_the_root_node__when_the_speaker_is_not_present__will_throw_an_error)
+{
+   // TODO
 }
 
 
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_node__will_extract_the_speaker)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   EXPECT_NE(nullptr, yaml_loader.load(yaml_as_string));
-   // TODO: Free up the node recursively
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.load(yaml_as_string);
+   ASSERT_NE(nullptr, actual_node);
+   EXPECT_EQ("yuki", actual_node->get_speaker());
 }
+
+
+//TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
+   //load__on_the_root_node__when_pages_are_not_present__will_throw_an_error)
+//{
+   //// TODO
+//}
+
+
+//TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_node__will_extract_the_pages)
+//{
+   //AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   //EXPECT_NE(nullptr, yaml_loader.load(yaml_as_string));
+   //// TODO: Free up the node recursively
+//}
 
 
