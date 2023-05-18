@@ -36,20 +36,32 @@ class AllegroFlare_DialogTree_YAMLLoaderTestWithNestedNodesFixtureData : public 
 {
 public:
    std::string yaml_as_string = R"YAML_CONTENT(
-speaker: yuki
+speaker: jonas
 pages:
-  - We must find the ancient artifact before they do.
-  - The key lies within the forgotten tomb.
-  - Something seems fishy. Stay vigilant.
+  - I've heard rumors about a hidden treasure.
 options:
-  - text: Agreed. Let's gather more information discreetly.
-    type: go_to_node
-    data: { target_node_name: my_dialog_node_1 }
-  - text: I have a bad feeling too. We must proceed cautiously.
-    type: go_to_node
-    data: { target_node_name: my_dialog_node_2 }
-  - text: I'll keep my eyes open and watch our backs
-    type: exit_dialog
+  - text: Tell me more. Where should we start?
+    type: node
+    data:
+      - speaker: jonas
+        pages:
+          - According to the legends, the first clue lies within the ancient temple ruins deep in the forest.
+          - We should head there and search for any hidden symbols or markings.
+  - text: Rumors can be misleading. Any evidence?
+    type: node
+    data:
+      - speaker: jonas
+        pages:
+          - You're right to be skeptical.
+          - I've uncovered an ancient inscription that suggests the treasure's existence.
+          - It speaks of a forgotten chamber guarded by puzzles and traps.
+          - We must find more clues to confirm its authenticity.
+        options:
+          - text: Agreed. Let's gather more information discreetly.
+            type: go_to_node
+            data: { target_node_name: my_dialog_node_567 }
+          - text: I'll keep my eyes open and watch our backs
+            type: exit_dialog
 )YAML_CONTENT";
 };
 
