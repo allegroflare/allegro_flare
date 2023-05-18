@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/DialogTree/Node.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/YAMLValidator.hpp>
 #include <string>
 #include <yaml-cpp/yaml.h>
@@ -23,6 +24,7 @@ namespace AllegroFlare
          static constexpr char* DATA_KEY = (char*)"data";
          static constexpr char* OPTION_TYPE_GO_TO_NODE_KEY = (char*)"go_to_node";
          static constexpr char* OPTION_TYPE_EXIT_DIALOG_KEY = (char*)"exit_dialog";
+         static constexpr char* OPTION_DATA_TARGET_NODE_NAME_KEY = (char*)"target_node_name";
 
       private:
 
@@ -35,6 +37,7 @@ namespace AllegroFlare
 
          AllegroFlare::DialogTree::Node* load(std::string yaml_as_string="");
          AllegroFlare::DialogTree::NodeOptions::Base* parse_and_create_result_option(std::string type="[unset-type]", YAML::Node* data_node_ptr=nullptr);
+         AllegroFlare::DialogTree::NodeOptions::GoToNode* parse_and_create_GoToNode_option(YAML::Node* data_node_ptr=nullptr);
       };
    }
 }

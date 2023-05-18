@@ -112,12 +112,8 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
             new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
          result = exit_dialog_result;
       }},
-      { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result](){
-         AllegroFlare::DialogTree::NodeOptions::GoToNode* go_to_node_result =
-            new AllegroFlare::DialogTree::NodeOptions::GoToNode;
-         // TODO: parse the "target_node_name" and assign to "go_to_node_result"
-         go_to_node_result->set_target_node_name("foobar");
-         result = go_to_node_result;
+      { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result, data_node_ptr](){
+         result = parse_and_create_GoToNode_option(data_node_ptr);
       }},
    };
 
@@ -136,6 +132,20 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
       result_options_map[type]();
    }
 
+   return result;
+}
+
+AllegroFlare::DialogTree::NodeOptions::GoToNode* YAMLLoader::parse_and_create_GoToNode_option(YAML::Node* data_node_ptr)
+{
+   if (!(data_node_ptr))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::parse_and_create_GoToNode_option]: error: guard \"data_node_ptr\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::parse_and_create_GoToNode_option: error: guard \"data_node_ptr\" not met");
+   }
+   AllegroFlare::DialogTree::NodeOptions::GoToNode* result =
+      new AllegroFlare::DialogTree::NodeOptions::GoToNode;
    return result;
 }
 

@@ -23,10 +23,7 @@ options:
     data: { target_node_name: foobar_node_1 }
   - text: I have a bad feeling too. We must proceed cautiously.
     type: go_to_node
-    data:
-      - speaker: yuki
-        pages:
-          - Trust your instincts. I'll watch our every step.
+    data: { target_node_name: foobar_node_2 }
   - text: I'll keep my eyes open and watch our backs
     type: exit_dialog
 )YAML_CONTENT";
