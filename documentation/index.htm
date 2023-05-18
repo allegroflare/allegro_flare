@@ -20864,6 +20864,9 @@ table td
   <td class="method">validate_node_type(YAML::Node node={}, std::string key=&quot;[unset-key]&quot;, YAML::NodeType::value expected_type=YAML::NodeType::Undefined, bool throw_on_error=true)</td>
 </tr>
 <tr>
+  <td class="method">validate_node_one_of_type(YAML::Node node={}, std::string key=&quot;[unset-key]&quot;, std::vector&lt;YAML::NodeType::value&gt; possible_valid_types={}, bool throw_on_error=true)</td>
+</tr>
+<tr>
   <td class="method">validate_node_has_unsigned_int_value(YAML::Node node={}, std::string key=&quot;[unset-key]&quot;)</td>
 </tr>
 <tr>
@@ -20880,6 +20883,15 @@ table td
 </tr>
 <tr>
   <td class="method">extract_sequence_as_string_array(YAML::Node source={})</td>
+</tr>
+<tr>
+  <td class="private_method">join(std::vector&lt;std::string&gt; tokens={}, std::string delimiter=&quot;, &quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">quote_and_escape_inner_quotes(std::string subject=&quot;[unset-subject]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">replace(std::string subject=&quot;[unset-subject]&quot;, std::string search=&quot;[unset-search]&quot;, std::string replace=&quot;[unset-replace]&quot;)</td>
 </tr>
     </table>
      <table>

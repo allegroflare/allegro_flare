@@ -56,6 +56,34 @@ bool YAMLValidator::validate_node_type(YAML::Node node, std::string key, YAML::N
    return false;
 }
 
+bool YAMLValidator::validate_node_one_of_type(YAML::Node node, std::string key, std::vector<YAML::NodeType::value> possible_valid_types, bool throw_on_error)
+{
+   // TODO: Test this
+   for (auto &possible_valid_type : possible_valid_types)
+   {
+      if (node[key].Type() == possible_valid_type) return true;
+   }
+
+   if (throw_on_error)
+   {
+      std::vector<std::string> quoted_valid_type_names;
+      for (auto &possible_valid_type : possible_valid_types)
+      {
+         quoted_valid_type_names.push_back(
+            quote_and_escape_inner_quotes(yaml_node_type_as_string(possible_valid_type))
+         );
+      }
+      std::string name_of_types = "[ " + join(quoted_valid_type_names) + " ]";
+
+      std::stringstream error_message;
+      error_message << "[YAMLValidator::validate_node_type]: error: "
+                    << "expecting to find node \"" << key << "\" as one of expected types " << name_of_types << ", "
+                    << "but it is a \"" << node[key] << "\".";
+      throw std::runtime_error(error_message.str());
+   }
+   return false;
+}
+
 bool YAMLValidator::validate_node_has_unsigned_int_value(YAML::Node node, std::string key)
 {
    if (!node[key].IsScalar()) return false;
@@ -215,6 +243,54 @@ std::vector<std::string> YAMLValidator::extract_sequence_as_string_array(YAML::N
    }
 
    return result;
+}
+
+std::string YAMLValidator::join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+
+   return result.str();
+}
+
+std::string YAMLValidator::quote_and_escape_inner_quotes(std::string subject)
+{
+   return "\"" + replace(subject, "\"", "\\\"") + "\"";
+}
+
+std::string YAMLValidator::replace(std::string subject, std::string search, std::string replace)
+{
+   std::string buffer;
+
+   int sealeng = search.length();
+   int strleng = subject.length();
+
+   if (sealeng==0)
+      return subject;//no change
+
+   for(int i=0, j=0; i<strleng; j=0 )
+   {
+      while (i+j<strleng && j<sealeng && subject[i+j]==search[j])
+         j++;
+      if (j==sealeng)//found 'search'
+      {
+         buffer.append(replace);
+         i+=sealeng;
+      }
+      else
+      {
+         buffer.append( &subject[i++], 1);
+      }
+   }
+   subject = buffer;
+   return subject;
 }
 
 

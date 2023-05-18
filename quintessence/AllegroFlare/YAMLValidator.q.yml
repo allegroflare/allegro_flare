@@ -62,6 +62,49 @@ functions:
       return false;
 
 
+  - name: validate_node_one_of_type
+    static: true
+    type: bool
+    parameters:
+      - name: node
+        type: YAML::Node
+        default_argument: '{}'
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: possible_valid_types
+        type: std::vector<YAML::NodeType::value>
+        default_argument: '{}'
+      - name: throw_on_error
+        type: bool
+        default_argument: true
+    body: |
+      // TODO: Test this
+      for (auto &possible_valid_type : possible_valid_types)
+      {
+         if (node[key].Type() == possible_valid_type) return true;
+      }
+
+      if (throw_on_error)
+      {
+         std::vector<std::string> quoted_valid_type_names;
+         for (auto &possible_valid_type : possible_valid_types)
+         {
+            quoted_valid_type_names.push_back(
+               quote_and_escape_inner_quotes(yaml_node_type_as_string(possible_valid_type))
+            );
+         }
+         std::string name_of_types = "[ " + join(quoted_valid_type_names) + " ]";
+
+         std::stringstream error_message;
+         error_message << "[YAMLValidator::validate_node_type]: error: "
+                       << "expecting to find node \"" << key << "\" as one of expected types " << name_of_types << ", "
+                       << "but it is a \"" << node[key] << "\".";
+         throw std::runtime_error(error_message.str());
+      }
+      return false;
+
+
   - name: validate_node_has_unsigned_int_value
     static: true
     type: bool
@@ -263,6 +306,88 @@ functions:
       return result;
     body_dependency_symbols:
       - AllegroFlare::Logger
+
+
+  - name: join
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: delimiter
+        type: std::string
+        default_argument: '", "'
+    body: |
+      std::stringstream result;
+      bool last = false;
+
+      for (unsigned i=0; i<tokens.size(); i++)
+      {
+         result << tokens[i];
+         if (i == tokens.size()-1) last = true;
+         if (!last) result << delimiter;
+      }
+
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: quote_and_escape_inner_quotes
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: subject
+        type: std::string
+        default_argument: '"[unset-subject]"'
+    body: |
+      return "\"" + replace(subject, "\"", "\\\"") + "\"";
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: replace
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: subject
+        type: std::string
+        default_argument: '"[unset-subject]"'
+      - name: search
+        type: std::string
+        default_argument: '"[unset-search]"'
+      - name: replace
+        type: std::string
+        default_argument: '"[unset-replace]"'
+    body: |
+      std::string buffer;
+
+      int sealeng = search.length();
+      int strleng = subject.length();
+
+      if (sealeng==0)
+         return subject;//no change
+
+      for(int i=0, j=0; i<strleng; j=0 )
+      {
+         while (i+j<strleng && j<sealeng && subject[i+j]==search[j])
+            j++;
+         if (j==sealeng)//found 'search'
+         {
+            buffer.append(replace);
+            i+=sealeng;
+         }
+         else
+         {
+            buffer.append( &subject[i++], 1);
+         }
+      }
+      subject = buffer;
+      return subject;
 
 
 dependencies:
