@@ -62,3 +62,16 @@ TEST(AllegroFlare_YAMLValidatorTest,
 }
 
 
+TEST(AllegroFlare_YAMLValidatorTest, validate_node_is_one_of_type__if_node_is_valid__will_return_true)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_YAMLValidatorTest,
+   validate_node_is_one_of_type__if_node_type_is_not_in_the_list__will_throw_an_error)
+{
+   // TODO
+}
+
+
