@@ -39,6 +39,7 @@ namespace AllegroFlare
          ~YAMLLoader();
 
          AllegroFlare::DialogTree::Node* load(std::string yaml_as_string="");
+         AllegroFlare::DialogTree::Node* parse_and_create_node(YAML::Node* node_ptr=nullptr);
          AllegroFlare::DialogTree::NodeOptions::Base* parse_and_create_result_option(std::string type="[unset-type]", YAML::Node* data_node_ptr=nullptr);
          AllegroFlare::DialogTree::NodeOptions::ExitDialog* parse_and_create_ExitDialog_option();
          AllegroFlare::DialogTree::NodeOptions::GoToNode* parse_and_create_GoToNode_option(YAML::Node* data_node_ptr=nullptr);
