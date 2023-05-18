@@ -1,0 +1,59 @@
+properties:
+
+
+  - name: nodes
+    type: std::map<std::string, AllegroFlare::DialogTree::Node*>
+    init_with: '{}'
+    setter: true
+
+
+functions:
+
+
+  - name: num_nodes
+    type: uint32_t
+    body: |
+      return nodes.size();
+
+
+  - name: add_node
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: node
+        type: AllegroFlare::DialogTree::Node*
+        default_argument: nullptr
+    guards: [ node, (!node_exists_by_name(name)) ]
+    body: |
+      nodes[name] = node;
+
+
+  - name: node_exists_by_name
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      return (nodes.find(name) != nodes.end());
+
+
+  - name: find_node_by_name
+    type: AllegroFlare::DialogTree::Node*
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      if (nodes.find(name) == nodes.end()) return nullptr;
+      return nodes[name];
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::Node
+    headers: [ AllegroFlare/DialogTree/Node.hpp ]
+
+
