@@ -75,11 +75,21 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_
 //}
 
 
-//TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_node__will_extract_the_pages)
-//{
-   //AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   //EXPECT_NE(nullptr, yaml_loader.load(yaml_as_string));
-   //// TODO: Free up the node recursively
-//}
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_node__will_extract_the_pages)
+{
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.load(yaml_as_string);
+   ASSERT_NE(nullptr, actual_node);
+
+   std::vector<std::string> expected_pages = {
+      "We must find the ancient artifact before they do.",
+      "The key lies within the forgotten tomb.",
+      "Something seems fishy. Stay vigilant.",
+   };
+   std::vector<std::string> actual_pages = actual_node->get_pages();
+
+   EXPECT_EQ(expected_pages, actual_pages);
+   // TODO: Free up the node recursively
+}
 
 
