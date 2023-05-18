@@ -108,3 +108,21 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 }
 
 
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
+   load__on_the_root_node__will_extract_options_with_the_expected_content)
+{
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.load(yaml_as_string);
+   ASSERT_NE(nullptr, actual_node);
+   std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> extracted_options =
+      actual_node->get_options();
+   ASSERT_EQ(3, extracted_options.size());
+
+   // Options
+   std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_0 = extracted_options[0];
+   EXPECT_EQ("Agreed. Let's gather more information discreetly.", expected_option_0.first);
+
+   // TODO: Free up the node recursively
+}
+
+

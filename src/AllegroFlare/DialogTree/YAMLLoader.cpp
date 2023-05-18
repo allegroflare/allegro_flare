@@ -64,23 +64,18 @@ AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_as_string)
    std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options_vector;
    for (const auto& node : options_node)
    {
-      std::string result_text = "foobar";
+      std::string result_text = "[unset-result_text]";
       AllegroFlare::DialogTree::NodeOptions::Base* result_option = nullptr;
+
+      // Parse out each option->text
+      // TODO: Improve this error message
+      //validate_presence_of_key(node, TEXT_KEY);
+      //validate_node_type(node, TEXT_KEY, YAML::NodeType::Scalar);
+      //result_text = node.as<std::string>();
 
       // TODO: Parse out each option->node type
 
       options_vector.push_back(std::make_pair(result_text, result_option));
-
-      //if (node.IsScalar())
-      //{
-         //options_vector.push_back(node.as<std::string>());
-      //}
-      //else
-      //{
-         // TODO: Improve this error message
-         // TODO: Test this error path
-         //AllegroFlare::Logger::throw_error("here", "pages node contains a non-scalar element");
-      //}
    }
    result->set_options(options_vector);
 
