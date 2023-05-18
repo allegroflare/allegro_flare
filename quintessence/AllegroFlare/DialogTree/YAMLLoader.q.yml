@@ -30,12 +30,13 @@ functions:
   - name: load
     type: AllegroFlare::DialogTree::Node*
     parameters:
-      - name: yaml_string
+      - name: yaml_as_string
         type: std::string
         default_argument: '""'
     body: |
-      // TODO
+      YAML::Node node = YAML::Load(yaml_as_string);
       AllegroFlare::DialogTree::Node *result = new AllegroFlare::DialogTree::Node;
+      // TODO: Extract DialogTree::Node data from YAML
       return result;
 
 

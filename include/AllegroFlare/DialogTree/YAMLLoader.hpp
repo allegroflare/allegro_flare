@@ -21,7 +21,7 @@ namespace AllegroFlare
          YAMLLoader();
          ~YAMLLoader();
 
-         AllegroFlare::DialogTree::Node* load(std::string yaml_string="");
+         AllegroFlare::DialogTree::Node* load(std::string yaml_as_string="");
       };
    }
 }
