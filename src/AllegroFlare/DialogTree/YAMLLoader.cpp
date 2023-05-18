@@ -25,7 +25,7 @@ YAMLLoader::~YAMLLoader()
 AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_string)
 {
    // TODO
-   AllegroFlare::DialogTree::Node *result = nullptr;
+   AllegroFlare::DialogTree::Node *result = new AllegroFlare::DialogTree::Node;
    return result;
 }
 

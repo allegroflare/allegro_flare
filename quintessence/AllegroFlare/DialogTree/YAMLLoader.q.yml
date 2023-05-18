@@ -13,7 +13,14 @@ documentation:
       - header: Schema
         body_markdown: |
           ```yaml
-          // HERE
+          - speaker:
+            pages:
+              - "Foobar, boobaz!"
+              - "Donkin, Dankin!"
+            options:
+              - type: go_to_node
+                data:
+                  - 
           ```
 
 
@@ -28,7 +35,7 @@ functions:
         default_argument: '""'
     body: |
       // TODO
-      AllegroFlare::DialogTree::Node *result = nullptr;
+      AllegroFlare::DialogTree::Node *result = new AllegroFlare::DialogTree::Node;
       return result;
 
 
