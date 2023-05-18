@@ -68,6 +68,20 @@ properties:
     const: true
     init_with: '(char*)"text"'
 
+  - name: TYPE_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"type"'
+
+  - name: DATA_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"data"'
+
 
 functions:
 
@@ -117,18 +131,25 @@ functions:
       std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options_vector;
       for (const auto& node : options_node)
       {
-         std::string result_text = "[unset-result_text]";
+         std::string result_option_text = "[unset-result_text]";
+         std::string result_option_type = "[unset-result_option_type]";
          AllegroFlare::DialogTree::NodeOptions::Base* result_option = nullptr;
 
-         // Parse out each option->text
+         // Parse out option->text
          // TODO: Improve this error message
          validate_presence_of_key(node, TEXT_KEY);
          validate_node_type(node, TEXT_KEY, YAML::NodeType::Scalar);
-         result_text = node[std::string(TEXT_KEY)].as<std::string>();
+         result_option_text = node[std::string(TEXT_KEY)].as<std::string>();
 
-         // TODO: Parse out each option->node type
+         // TODO: Parse out option->node type
+         validate_presence_of_key(node, TYPE_KEY);
+         validate_node_type(node, TYPE_KEY, YAML::NodeType::Scalar);
+         std::string result_option_type_str = node[std::string(TYPE_KEY)].as<std::string>();
+         YAML::Node result_option_data_node = node[std::string(DATA_KEY)];
 
-         options_vector.push_back(std::make_pair(result_text, result_option));
+         //result_option = parse_result_option(node, result_option_type_str, result_option_data_node);
+
+         options_vector.push_back(std::make_pair(result_option_text, result_option));
       }
       result->set_options(options_vector);
 

@@ -17,6 +17,8 @@ namespace AllegroFlare
          static constexpr char* PAGES_KEY = (char*)"pages";
          static constexpr char* OPTIONS_KEY = (char*)"options";
          static constexpr char* TEXT_KEY = (char*)"text";
+         static constexpr char* TYPE_KEY = (char*)"type";
+         static constexpr char* DATA_KEY = (char*)"data";
 
       private:
 
