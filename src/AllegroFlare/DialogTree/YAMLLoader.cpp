@@ -31,7 +31,7 @@ YAMLLoader::~YAMLLoader()
 }
 
 
-AllegroFlare::DialogTree::NodeBank YAMLLoader::load(std::string yaml_as_string)
+void YAMLLoader::load(std::string yaml_as_string)
 {
    if (!((!loaded)))
    {
@@ -43,13 +43,22 @@ AllegroFlare::DialogTree::NodeBank YAMLLoader::load(std::string yaml_as_string)
    AllegroFlare::DialogTree::NodeBank result;
    YAML::Node root_node = YAML::Load(yaml_as_string);
 
+   // TODO: Validate that root_node is a sequence
+
    // TODO: Traverse the nodes, load as nodes
+   for (const auto& node : root_node)
+   {
+      //std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info = parse_and_create_node(node);
 
-   // Insure the class has been loaded
-   loaded = true;
+      //std::string created_node_name = created_node_info.first;
+      //AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
 
-   // Return our result
-   return result;
+      //TODO: Check if node_exists_by_name, throw if already exists
+
+      //node_bank.add_node(created_node_name, created_node);
+   }
+
+   return;
 }
 
 std::pair<std::string, AllegroFlare::DialogTree::Node*> YAMLLoader::parse_and_create_node(YAML::Node* node_ptr)
