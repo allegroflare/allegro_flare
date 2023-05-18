@@ -1541,6 +1541,10 @@ table td
     <h3 id="quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml">quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml</h3>
      <table>
 <tr>
+  <td class="property">node_bank</td>
+  <td class="property">AllegroFlare::DialogTree::NodeBank</td>
+</tr>
+<tr>
   <td class="property">SPEAKER_KEY</td>
   <td class="property">char*</td>
 </tr>
@@ -1580,10 +1584,14 @@ table td
   <td class="property">OPTION_DATA_TARGET_NODE_NAME_KEY</td>
   <td class="property">char*</td>
 </tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
 <tr>
-  <td class="method">load(std::string yaml_as_string=&quot;&quot;)</td>
+  <td class="method">load(std::string yaml_as_string=&quot;[unset-yaml_as_string]&quot;)</td>
 </tr>
 <tr>
   <td class="method">parse_and_create_node(YAML::Node* node_ptr=nullptr)</td>
@@ -1628,6 +1636,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;YAML::Node&quot;, &quot;headers&quot;=&gt;[&quot;yaml-cpp/yaml.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24190,6 +24201,9 @@ table td
   "YAML/Node": [
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/YAMLValidator"
+  ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",

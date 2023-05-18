@@ -83,7 +83,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, can_be_created_without_blowing_up
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__will_not_blow_up)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   EXPECT_NE(nullptr, yaml_loader.load(yaml_as_string));
+   yaml_loader.load(yaml_as_string);
    // TODO: Free up the node recursively
 }
 

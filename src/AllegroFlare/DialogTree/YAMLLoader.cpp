@@ -20,6 +20,8 @@ namespace DialogTree
 
 YAMLLoader::YAMLLoader()
    : AllegroFlare::YAMLValidator()
+   , node_bank({})
+   , loaded(false)
 {
 }
 
@@ -29,13 +31,22 @@ YAMLLoader::~YAMLLoader()
 }
 
 
-AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_as_string)
+AllegroFlare::DialogTree::NodeBank YAMLLoader::load(std::string yaml_as_string)
 {
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::load]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::load: error: guard \"(!loaded)\" not met");
+   }
+   AllegroFlare::DialogTree::NodeBank result;
    YAML::Node root_node = YAML::Load(yaml_as_string);
 
-   // Parse the root as a Node
-   // TODO: Consider parsing a higher level object, such as an array of nodes
-   AllegroFlare::DialogTree::Node *result = parse_and_create_node(&root_node);
+   // TODO: Traverse the nodes, load as nodes
+
+   // Insure the class has been loaded
+   loaded = true;
 
    // Return our result
    return result;
@@ -43,13 +54,6 @@ AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_as_string)
 
 AllegroFlare::DialogTree::Node* YAMLLoader::parse_and_create_node(YAML::Node* node_ptr)
 {
-   if (!(node_ptr))
-   {
-      std::stringstream error_message;
-      error_message << "[YAMLLoader::parse_and_create_node]: error: guard \"node_ptr\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::parse_and_create_node: error: guard \"node_ptr\" not met");
-   }
    YAML::Node &root_node = *node_ptr; // TODO: Rename "root_node" to "node"
    AllegroFlare::DialogTree::Node *result = new AllegroFlare::DialogTree::Node;
 

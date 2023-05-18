@@ -673,6 +673,9 @@
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/YAMLValidator"
   ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",

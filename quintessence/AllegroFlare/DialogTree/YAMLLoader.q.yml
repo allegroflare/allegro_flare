@@ -40,6 +40,13 @@ documentation:
 properties:
 
 
+  - name: node_bank
+    type: AllegroFlare::DialogTree::NodeBank
+    init_with: '{}'
+    getter: false
+    setter: false
+    getter_ref: false
+
   - name: SPEAKER_KEY
     type: char*
     constexpr: true
@@ -110,22 +117,29 @@ properties:
     const: true
     init_with: '(char*)"target_node_name"'
 
+  - name: loaded
+    type: bool
+    init_with: false
+
 
 functions:
 
 
   - name: load
-    type: AllegroFlare::DialogTree::Node*
+    type: AllegroFlare::DialogTree::NodeBank
     parameters:
       - name: yaml_as_string
         type: std::string
-        default_argument: '""'
+        default_argument: '"[unset-yaml_as_string]"'
+    guards: [ (!loaded) ]
     body: |
+      AllegroFlare::DialogTree::NodeBank result;
       YAML::Node root_node = YAML::Load(yaml_as_string);
 
-      // Parse the root as a Node
-      // TODO: Consider parsing a higher level object, such as an array of nodes
-      AllegroFlare::DialogTree::Node *result = parse_and_create_node(&root_node);
+      // TODO: Traverse the nodes, load as nodes
+
+      // Insure the class has been loaded
+      loaded = true;
 
       // Return our result
       return result;
@@ -141,7 +155,6 @@ functions:
       - name: node_ptr
         type: YAML::Node*
         default_argument: nullptr
-    guards: [ node_ptr ]
     body: |
       YAML::Node &root_node = *node_ptr; // TODO: Rename "root_node" to "node"
       AllegroFlare::DialogTree::Node *result = new AllegroFlare::DialogTree::Node;
@@ -327,5 +340,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/Node.hpp ]
   - symbol: YAML::Node
     headers: [ yaml-cpp/yaml.h ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
 
 
