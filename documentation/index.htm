@@ -1485,8 +1485,8 @@ table td
     <h3 id="quintessence/AllegroFlare/DialogTree/NodeOptions/Node.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/Node.q.yml</h3>
      <table>
 <tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
+  <td class="property">node</td>
+  <td class="property">AllegroFlare::DialogTree::Node*</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -1494,13 +1494,13 @@ table td
 </tr>
     </table>
      <table>
-<tr>
-  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
-</tr>
     </table>
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Node&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Node.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24130,6 +24130,7 @@ table td
   ],
   "AllegroFlare/DialogTree/Node": [
     "AllegroFlare/DialogTree/Factory",
+    "AllegroFlare/DialogTree/NodeOptions/Node",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [

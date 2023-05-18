@@ -198,6 +198,9 @@ AllegroFlare::DialogTree::NodeOptions::Node* YAMLLoader::parse_and_create_Node_o
    YAML::Node &node = *data_node_ptr;
    AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
 
+   //AllegroFlare::DialogTree::Node* option_node = parse_and_create_node(&node);
+   //result->set_node(option_node);
+
    // Return the result
    return result;
 }

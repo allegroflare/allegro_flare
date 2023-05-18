@@ -9,11 +9,12 @@ parent_classes:
 properties:
 
 
-  - name: property
-    type: std::string
-    init_with: '"[unset-property]"'
+  - name: node
+    type: AllegroFlare::DialogTree::Node*
+    init_with: nullptr
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: TYPE
     type: char*
@@ -22,23 +23,12 @@ properties:
     constexpr: true
 
 
-functions:
-
-
-  - name: property_is
-    type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
-    body: |
-      return (possible_type == get_property());
-
-
 dependencies:
 
 
   - symbol: AllegroFlare::DialogTree::NodeOptions::Base
     headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
+  - symbol: AllegroFlare::DialogTree::Node
+    headers: [ AllegroFlare/DialogTree/Node.hpp ]
 
 

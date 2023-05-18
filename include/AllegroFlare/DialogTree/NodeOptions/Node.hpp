@@ -1,8 +1,8 @@
 #pragma once
 
 
+#include <AllegroFlare/DialogTree/Node.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
-#include <string>
 
 
 namespace AllegroFlare
@@ -17,17 +17,17 @@ namespace AllegroFlare
             static constexpr char* TYPE = (char*)"AllegroFlare/DialogTree/NodeOptions/Node";
 
          private:
-            std::string property;
+            AllegroFlare::DialogTree::Node* node;
 
          protected:
 
 
          public:
-            Node(std::string property="[unset-property]");
+            Node(AllegroFlare::DialogTree::Node* node=nullptr);
             ~Node();
 
-            std::string get_property() const;
-            bool property_is(std::string possible_type="");
+            void set_node(AllegroFlare::DialogTree::Node* node);
+            AllegroFlare::DialogTree::Node* get_node() const;
          };
       }
    }

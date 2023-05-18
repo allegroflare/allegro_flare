@@ -13,9 +13,9 @@ namespace NodeOptions
 {
 
 
-Node::Node(std::string property)
+Node::Node(AllegroFlare::DialogTree::Node* node)
    : AllegroFlare::DialogTree::NodeOptions::Base(AllegroFlare::DialogTree::NodeOptions::Node::TYPE)
-   , property(property)
+   , node(node)
 {
 }
 
@@ -25,16 +25,18 @@ Node::~Node()
 }
 
 
-std::string Node::get_property() const
+void Node::set_node(AllegroFlare::DialogTree::Node* node)
 {
-   return property;
+   this->node = node;
 }
 
 
-bool Node::property_is(std::string possible_type)
+AllegroFlare::DialogTree::Node* Node::get_node() const
 {
-   return (possible_type == get_property());
+   return node;
 }
+
+
 
 
 } // namespace NodeOptions
