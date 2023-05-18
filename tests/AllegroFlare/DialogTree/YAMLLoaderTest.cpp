@@ -95,10 +95,11 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 }
 
 
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_node__will_extract_the_speaker)
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_node__will_extract_the_speaker)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.load(yaml_as_string);
+   YAML::Node node = YAML::Load(yaml_as_string);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
    ASSERT_NE(nullptr, actual_node);
    EXPECT_EQ("yuki", actual_node->get_speaker());
 }
@@ -111,10 +112,11 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_
 //}
 
 
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_node__will_extract_the_pages)
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_node__will_extract_the_pages)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.load(yaml_as_string);
+   YAML::Node node = YAML::Load(yaml_as_string);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
    ASSERT_NE(nullptr, actual_node);
 
    std::vector<std::string> expected_pages = {
@@ -130,10 +132,11 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_
 
 
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
-   load__on_the_root_node__will_extract_the_expected_number_of_options)
+   parse_and_create_node__will_extract_the_expected_number_of_options)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.load(yaml_as_string);
+   YAML::Node node = YAML::Load(yaml_as_string);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
    ASSERT_NE(nullptr, actual_node);
 
    std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> actual_options =
@@ -145,10 +148,11 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 
 
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
-   load__on_the_root_node__will_extract_options_with_the_expected_content)
+   parse_and_create_node__on_the_root_node__will_extract_options_with_the_expected_content)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.load(yaml_as_string);
+   YAML::Node node = YAML::Load(yaml_as_string);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
    ASSERT_NE(nullptr, actual_node);
    std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> extracted_options =
       actual_node->get_options();
@@ -186,7 +190,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 
 
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithNestedNodesFixtureData,
-   load__on_the_root_node__will_extract_nested_node_options_with_the_expected_content)
+   parse_and_create_node__will_extract_nested_node_options_with_the_expected_content)
 {
    // TODO
 }

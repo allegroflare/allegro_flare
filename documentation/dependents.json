@@ -643,6 +643,7 @@
   ],
   "AllegroFlare/DialogTree/Node": [
     "AllegroFlare/DialogTree/Factory",
+    "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeOptions/Node",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],

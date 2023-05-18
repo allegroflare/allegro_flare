@@ -69,6 +69,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Factory.q.yml">quintessence/AllegroFlare/DialogTree/Factory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Node.q.yml">quintessence/AllegroFlare/DialogTree/Node.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/ExitDialog.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/ExitDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml</a></li>
@@ -1414,6 +1415,36 @@ table td
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">nodes</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::DialogTree::Node*&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">num_nodes()</td>
+</tr>
+<tr>
+  <td class="method">add_node(std::string name=&quot;[unset-name]&quot;, AllegroFlare::DialogTree::Node* node=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">node_exists_by_name(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">find_node_by_name(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Node&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Node.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24130,6 +24161,7 @@ table td
   ],
   "AllegroFlare/DialogTree/Node": [
     "AllegroFlare/DialogTree/Factory",
+    "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeOptions/Node",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
