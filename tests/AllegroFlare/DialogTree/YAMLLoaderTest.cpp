@@ -4,26 +4,28 @@
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 
 
 class AllegroFlare_DialogTree_YAMLLoaderTest : public ::testing::Test {};
 class AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData : public ::testing::Test
 {
 public:
-   std::string yaml_as_string = R"YAML_CONTENT(speaker: yuki
+   std::string yaml_as_string = R"YAML_CONTENT(
+speaker: yuki
 pages:
   - We must find the ancient artifact before they do.
   - The key lies within the forgotten tomb.
   - Something seems fishy. Stay vigilant.
 options:
   - text: Agreed. Let's gather more information discreetly.
-    type: node
+    type: go_to_node
     data:
       - speaker: yuki
         pages:
           - Absolutely. I'll start digging deeper undercover.
   - text: I have a bad feeling too. We must proceed cautiously.
-    type: node
+    type: go_to_node
     data:
       - speaker: yuki
         pages:
@@ -118,12 +120,14 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    // Option 0
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_0 = extracted_options[0];
    EXPECT_EQ("Agreed. Let's gather more information discreetly.", expected_option_0.first);
+   EXPECT_NE(nullptr, expected_option_0.second);
+   EXPECT_EQ(true, expected_option_0.second->is_type(AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE));
 
    // Option 2
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_2 = extracted_options[2];
    EXPECT_EQ("I'll keep my eyes open and watch our backs", expected_option_2.first);
    EXPECT_NE(nullptr, expected_option_2.second);
-   //EXPECT_EQ(true, expected_option_2.second->is_type(AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE));
+   EXPECT_EQ(true, expected_option_2.second->is_type(AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE));
 
 
    // TODO: Free up the node recursively

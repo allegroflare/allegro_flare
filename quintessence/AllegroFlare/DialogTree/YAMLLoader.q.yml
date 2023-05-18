@@ -82,12 +82,12 @@ properties:
     const: true
     init_with: '(char*)"data"'
 
-  - name: OPTION_TYPE_NODE_KEY
+  - name: OPTION_TYPE_GO_TO_NODE_KEY
     type: char*
     constexpr: true
     static: true
     const: true
-    init_with: '(char*)"node"'
+    init_with: '(char*)"go_to_node"'
 
   - name: OPTION_TYPE_EXIT_DIALOG_KEY
     type: char*
@@ -194,10 +194,12 @@ functions:
                new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
             result = exit_dialog_result;
          }},
-         { OPTION_TYPE_NODE_KEY, [this](){
-            // TODO: Add a NodeOptions::Node type
-            //AllegroFlare::DialogTree::NodeOptions::Node* node_result = new AllegroFlare::DialogTree::NodeOptions::Node;
-            //result = node_result;
+         { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result](){
+            AllegroFlare::DialogTree::NodeOptions::GoToNode* go_to_node_result =
+               new AllegroFlare::DialogTree::NodeOptions::GoToNode;
+            // TODO: parse the "target_node_name" and assign to "go_to_node_result"
+            go_to_node_result->set_target_node_name("foobar");
+            result = go_to_node_result;
          }},
       };
 
@@ -218,6 +220,7 @@ functions:
 
       return result;
     body_dependency_symbols:
+      - AllegroFlare::DialogTree::NodeOptions::GoToNode
       - AllegroFlare::DialogTree::NodeOptions::ExitDialog
 
 
@@ -236,6 +239,8 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::ExitDialog
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::GoToNode
+    headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
   - symbol: YAML::Node
     headers: [ yaml-cpp/yaml.h ]
 

@@ -21,7 +21,7 @@ namespace AllegroFlare
          static constexpr char* TEXT_KEY = (char*)"text";
          static constexpr char* TYPE_KEY = (char*)"type";
          static constexpr char* DATA_KEY = (char*)"data";
-         static constexpr char* OPTION_TYPE_NODE_KEY = (char*)"node";
+         static constexpr char* OPTION_TYPE_GO_TO_NODE_KEY = (char*)"go_to_node";
          static constexpr char* OPTION_TYPE_EXIT_DIALOG_KEY = (char*)"exit_dialog";
 
       private:

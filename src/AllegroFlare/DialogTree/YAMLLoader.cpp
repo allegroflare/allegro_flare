@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
@@ -111,10 +112,12 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
             new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
          result = exit_dialog_result;
       }},
-      { OPTION_TYPE_NODE_KEY, [this](){
-         // TODO: Add a NodeOptions::Node type
-         //AllegroFlare::DialogTree::NodeOptions::Node* node_result = new AllegroFlare::DialogTree::NodeOptions::Node;
-         //result = node_result;
+      { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result](){
+         AllegroFlare::DialogTree::NodeOptions::GoToNode* go_to_node_result =
+            new AllegroFlare::DialogTree::NodeOptions::GoToNode;
+         // TODO: parse the "target_node_name" and assign to "go_to_node_result"
+         go_to_node_result->set_target_node_name("foobar");
+         result = go_to_node_result;
       }},
    };
 
