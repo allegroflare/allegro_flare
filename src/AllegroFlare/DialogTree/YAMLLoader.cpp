@@ -31,6 +31,12 @@ YAMLLoader::~YAMLLoader()
 }
 
 
+bool YAMLLoader::get_loaded() const
+{
+   return loaded;
+}
+
+
 void YAMLLoader::load(std::string yaml_as_string)
 {
    if (!((!loaded)))
@@ -65,6 +71,8 @@ void YAMLLoader::load(std::string yaml_as_string)
 
       node_bank.add_node(created_node_name, created_node);
    }
+
+   loaded = true;
 
    return;
 }

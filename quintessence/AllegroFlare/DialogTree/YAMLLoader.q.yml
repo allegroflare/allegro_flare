@@ -120,6 +120,7 @@ properties:
   - name: loaded
     type: bool
     init_with: false
+    getter: true
 
 
 functions:
@@ -157,6 +158,8 @@ functions:
 
          node_bank.add_node(created_node_name, created_node);
       }
+
+      loaded = true;
 
       return;
     body_dependency_symbols:
