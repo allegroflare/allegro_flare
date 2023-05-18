@@ -36,7 +36,7 @@ void Node::set_pages(std::vector<std::string> pages)
 }
 
 
-void Node::set_options(std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> options)
+void Node::set_options(std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options)
 {
    this->options = options;
 }
@@ -54,7 +54,7 @@ std::vector<std::string> Node::get_pages() const
 }
 
 
-std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> Node::get_options() const
+std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> Node::get_options() const
 {
    return options;
 }

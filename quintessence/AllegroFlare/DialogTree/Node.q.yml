@@ -14,7 +14,7 @@ properties:
     setter: true
 
   - name: options
-    type: std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>
+    type: std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>>
     init_with: '{}'
     getter: true
     setter: true

@@ -648,7 +648,11 @@
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
-    "AllegroFlare/DialogTree/NodeOptions/GoToNode"
+    "AllegroFlare/DialogTree/NodeOptions/GoToNode",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "std/make_pair": [
+    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/YAMLValidator": [
     "AllegroFlare/DialogTree/YAMLLoader"

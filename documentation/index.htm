@@ -1405,7 +1405,7 @@ table td
 </tr>
 <tr>
   <td class="property">options</td>
-  <td class="property">std::pair&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*&gt;</td>
+  <td class="property">std::vector&lt;std::pair&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*&gt;&gt;</td>
 </tr>
     </table>
      <table>
@@ -1491,6 +1491,10 @@ table td
   <td class="property">PAGES_KEY</td>
   <td class="property">char*</td>
 </tr>
+<tr>
+  <td class="property">OPTIONS_KEY</td>
+  <td class="property">char*</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -1499,6 +1503,9 @@ table td
     </table>
      <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::make_pair&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::YAMLValidator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/YAMLValidator.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -1506,6 +1513,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24044,7 +24054,11 @@ table td
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
-    "AllegroFlare/DialogTree/NodeOptions/GoToNode"
+    "AllegroFlare/DialogTree/NodeOptions/GoToNode",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "std/make_pair": [
+    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/YAMLValidator": [
     "AllegroFlare/DialogTree/YAMLLoader"
