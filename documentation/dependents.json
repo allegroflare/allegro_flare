@@ -639,6 +639,9 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/DialogTree/Node": [
+    "AllegroFlare/DialogTree/Factory"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",

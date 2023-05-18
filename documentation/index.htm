@@ -67,6 +67,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Clock.q.yml">quintessence/AllegroFlare/Clock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogTree/Factory.q.yml">quintessence/AllegroFlare/DialogTree/Factory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Node.q.yml">quintessence/AllegroFlare/DialogTree/Node.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/ExitDialog.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/ExitDialog.q.yml</a></li>
@@ -1368,6 +1369,23 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogTree/Factory.q.yml">quintessence/AllegroFlare/DialogTree/Factory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">build_test_tree()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Node&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Node.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -23939,6 +23957,9 @@ table td
   "std/filesystem": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
+  ],
+  "AllegroFlare/DialogTree/Node": [
+    "AllegroFlare/DialogTree/Factory"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",
