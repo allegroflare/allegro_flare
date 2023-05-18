@@ -149,8 +149,16 @@ AllegroFlare::DialogTree::NodeOptions::GoToNode* YAMLLoader::parse_and_create_Go
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("YAMLLoader::parse_and_create_GoToNode_option: error: guard \"data_node_ptr\" not met");
    }
+   YAML::Node &node = *data_node_ptr;
    AllegroFlare::DialogTree::NodeOptions::GoToNode* result =
       new AllegroFlare::DialogTree::NodeOptions::GoToNode;
+
+   // Validate the keys
+   validate_presence_of_key(node, OPTION_DATA_TARGET_NODE_NAME_KEY);
+   validate_node_type(node, OPTION_DATA_TARGET_NODE_NAME_KEY, YAML::NodeType::Scalar);
+   std::string result_target_node_name = node[std::string(OPTION_DATA_TARGET_NODE_NAME_KEY)].as<std::string>();
+
+   // Return the result
    return result;
 }
 
