@@ -663,6 +663,9 @@
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/DialogTree/NodeOptions/Node": [
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
   "YAML/Node": [
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/YAMLValidator"

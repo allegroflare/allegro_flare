@@ -82,6 +82,13 @@ properties:
     const: true
     init_with: '(char*)"data"'
 
+  - name: OPTION_TYPE_NODE_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"node"'
+
   - name: OPTION_TYPE_GO_TO_NODE_KEY
     type: char*
     constexpr: true
@@ -202,6 +209,9 @@ functions:
          { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result, data_node_ptr](){
             result = parse_and_create_GoToNode_option(data_node_ptr);
          }},
+         { OPTION_TYPE_NODE_KEY, [this, &result, data_node_ptr](){
+            result = parse_and_create_Node_option(data_node_ptr);
+         }},
       };
 
       // Locate and call the function to handle the item
@@ -242,8 +252,7 @@ functions:
     guards: [ data_node_ptr ]
     body: |
       YAML::Node &node = *data_node_ptr;
-      AllegroFlare::DialogTree::NodeOptions::GoToNode* result =
-         new AllegroFlare::DialogTree::NodeOptions::GoToNode;
+      AllegroFlare::DialogTree::NodeOptions::GoToNode* result = new AllegroFlare::DialogTree::NodeOptions::GoToNode;
 
       // Validate the data
       validate_presence_of_key(node, OPTION_DATA_TARGET_NODE_NAME_KEY);
@@ -252,6 +261,21 @@ functions:
 
       // Assign the data to the result
       result->set_target_node_name(result_target_node_name);
+
+      // Return the result
+      return result;
+
+
+  - name: parse_and_create_Node_option
+    type: AllegroFlare::DialogTree::NodeOptions::Node*
+    parameters:
+      - name: data_node_ptr
+        type: YAML::Node*
+        default_argument: nullptr
+    guards: [ data_node_ptr ]
+    body: |
+      YAML::Node &node = *data_node_ptr;
+      AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
 
       // Return the result
       return result;
@@ -274,6 +298,8 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::GoToNode
     headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::Node
+    headers: [ AllegroFlare/DialogTree/NodeOptions/Node.hpp ]
   - symbol: YAML::Node
     headers: [ yaml-cpp/yaml.h ]
 

@@ -113,6 +113,9 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
       { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result, data_node_ptr](){
          result = parse_and_create_GoToNode_option(data_node_ptr);
       }},
+      { OPTION_TYPE_NODE_KEY, [this, &result, data_node_ptr](){
+         result = parse_and_create_Node_option(data_node_ptr);
+      }},
    };
 
    // Locate and call the function to handle the item
@@ -150,8 +153,7 @@ AllegroFlare::DialogTree::NodeOptions::GoToNode* YAMLLoader::parse_and_create_Go
       throw std::runtime_error("YAMLLoader::parse_and_create_GoToNode_option: error: guard \"data_node_ptr\" not met");
    }
    YAML::Node &node = *data_node_ptr;
-   AllegroFlare::DialogTree::NodeOptions::GoToNode* result =
-      new AllegroFlare::DialogTree::NodeOptions::GoToNode;
+   AllegroFlare::DialogTree::NodeOptions::GoToNode* result = new AllegroFlare::DialogTree::NodeOptions::GoToNode;
 
    // Validate the data
    validate_presence_of_key(node, OPTION_DATA_TARGET_NODE_NAME_KEY);
@@ -160,6 +162,22 @@ AllegroFlare::DialogTree::NodeOptions::GoToNode* YAMLLoader::parse_and_create_Go
 
    // Assign the data to the result
    result->set_target_node_name(result_target_node_name);
+
+   // Return the result
+   return result;
+}
+
+AllegroFlare::DialogTree::NodeOptions::Node* YAMLLoader::parse_and_create_Node_option(YAML::Node* data_node_ptr)
+{
+   if (!(data_node_ptr))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::parse_and_create_Node_option]: error: guard \"data_node_ptr\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::parse_and_create_Node_option: error: guard \"data_node_ptr\" not met");
+   }
+   YAML::Node &node = *data_node_ptr;
+   AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
 
    // Return the result
    return result;

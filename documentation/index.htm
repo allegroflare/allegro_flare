@@ -1508,6 +1508,10 @@ table td
   <td class="property">char*</td>
 </tr>
 <tr>
+  <td class="property">OPTION_TYPE_NODE_KEY</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
   <td class="property">OPTION_TYPE_GO_TO_NODE_KEY</td>
   <td class="property">char*</td>
 </tr>
@@ -1533,6 +1537,9 @@ table td
 <tr>
   <td class="method">parse_and_create_GoToNode_option(YAML::Node* data_node_ptr=nullptr)</td>
 </tr>
+<tr>
+  <td class="method">parse_and_create_Node_option(YAML::Node* data_node_ptr=nullptr)</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -1555,6 +1562,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::GoToNode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Node&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Node.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;YAML::Node&quot;, &quot;headers&quot;=&gt;[&quot;yaml-cpp/yaml.h&quot;]}</td>
@@ -24109,6 +24119,9 @@ table td
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/Node": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "YAML/Node": [
