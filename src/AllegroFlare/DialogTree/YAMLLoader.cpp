@@ -4,6 +4,9 @@
 
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 #include <utility>
 
 
@@ -80,13 +83,29 @@ AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_as_string)
       std::string result_option_type_str = node[std::string(TYPE_KEY)].as<std::string>();
       YAML::Node result_option_data_node = node[std::string(DATA_KEY)];
 
-      //result_option = parse_result_option(node, result_option_type_str, result_option_data_node);
+      result_option = parse_and_create_result_option(result_option_type_str, &result_option_data_node);
 
       options_vector.push_back(std::make_pair(result_option_text, result_option));
    }
    result->set_options(options_vector);
 
    // Return our result
+   return result;
+}
+
+AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result_option(std::string type, YAML::Node* data_node_ptr)
+{
+   if (!(data_node_ptr))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::parse_and_create_result_option]: error: guard \"data_node_ptr\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::parse_and_create_result_option: error: guard \"data_node_ptr\" not met");
+   }
+   AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
+   if (type == OPTION_TYPE_NODE_KEY)
+   {
+   }
    return result;
 }
 

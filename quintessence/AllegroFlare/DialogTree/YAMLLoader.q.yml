@@ -82,6 +82,13 @@ properties:
     const: true
     init_with: '(char*)"data"'
 
+  - name: OPTION_TYPE_NODE_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"node"'
+
 
 functions:
 
@@ -147,7 +154,7 @@ functions:
          std::string result_option_type_str = node[std::string(TYPE_KEY)].as<std::string>();
          YAML::Node result_option_data_node = node[std::string(DATA_KEY)];
 
-         //result_option = parse_result_option(node, result_option_type_str, result_option_data_node);
+         result_option = parse_and_create_result_option(result_option_type_str, &result_option_data_node);
 
          options_vector.push_back(std::make_pair(result_option_text, result_option));
       }
@@ -159,6 +166,24 @@ functions:
       - std::make_pair
       - AllegroFlare::Logger
       - AllegroFlare::DialogTree::NodeOptions::Base
+
+
+  - name: parse_and_create_result_option
+    type: AllegroFlare::DialogTree::NodeOptions::Base*
+    parameters:
+      - name: type
+        type: std::string
+        default_argument: '"[unset-type]"'
+      - name: data_node_ptr
+        type: YAML::Node*
+        default_argument: nullptr
+    guards: [ data_node_ptr ]
+    body: |
+      AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
+      if (type == OPTION_TYPE_NODE_KEY)
+      {
+      }
+      return result;
 
 
 dependencies:
@@ -174,5 +199,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::Base
     headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
+  - symbol: YAML::Node
+    headers: [ yaml-cpp/yaml.h ]
 
 
