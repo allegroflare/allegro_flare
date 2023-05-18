@@ -22,6 +22,19 @@ documentation:
                 data:
                   - 
           ```
+      - header: Validations
+          - must have 'speaker'
+          - must have 'pages'
+          - optional 'options'
+          - speaker must not be blank
+          - pages must not be empty
+          - pages must be array
+          - each pages element must be scalar
+          - each pages element must not be blank or whitespace
+          - options must be array
+          - each option element must have 'type'
+          - each option element must have 'data'
+
 
 properties:
 
