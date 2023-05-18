@@ -106,7 +106,10 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
    AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
 
    std::map<std::string, std::function<void()>> result_options_map = {
-      { OPTION_TYPE_EXIT_DIALOG_KEY, [this](){
+      { OPTION_TYPE_EXIT_DIALOG_KEY, [this, result]() mutable {
+         AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
+            new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
+         result = exit_dialog_result;
       }},
       { OPTION_TYPE_NODE_KEY, [this](){
       }},
@@ -117,8 +120,8 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
    {
       // Item not found
       std::stringstream error_message;
-      error_message << "[CubeShooter::LevelFactory::load_level]: error: Cannot load the item with the type \""
-                    << type << "\", it does not exist.";
+      error_message << "[YamlLoader::parse_and_create_result_option]: error: Cannot create an option of a type \""
+                    << type << "\". A declaration to handle that type does not exist.";
       throw std::runtime_error(error_message.str());
    }
    else
@@ -131,9 +134,9 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
 
    if (type == OPTION_TYPE_EXIT_DIALOG_KEY)
    {
-      AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
-         new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
-      result = exit_dialog_result;
+      //AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
+         //new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
+      //result = exit_dialog_result;
    }
    else if (type == OPTION_TYPE_NODE_KEY)
    {
