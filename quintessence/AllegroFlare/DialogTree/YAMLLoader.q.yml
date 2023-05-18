@@ -6,18 +6,30 @@ parent_classes:
     init_with: ''
 
 
+documentation:
+
+
+  - notes:
+      - header: Schema
+        body_markdown: |
+          ```yaml
+          // HERE
+          ```
+
+
 functions:
 
 
   - name: load
-    type: bool
+    type: AllegroFlare::DialogTree::Node*
     parameters:
       - name: yaml_string
         type: std::string
         default_argument: '""'
     body: |
       // TODO
-      return true;
+      AllegroFlare::DialogTree::Node *result = nullptr;
+      return result;
 
 
 dependencies:
@@ -25,5 +37,7 @@ dependencies:
 
   - symbol: AllegroFlare::YAMLValidator
     headers: [ AllegroFlare/YAMLValidator.hpp ]
+  - symbol: AllegroFlare::DialogTree::Node
+    headers: [ AllegroFlare/DialogTree/Node.hpp ]
 
 

@@ -22,10 +22,11 @@ YAMLLoader::~YAMLLoader()
 }
 
 
-bool YAMLLoader::load(std::string yaml_string)
+AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_string)
 {
    // TODO
-   return true;
+   AllegroFlare::DialogTree::Node *result = nullptr;
+   return result;
 }
 
 

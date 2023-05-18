@@ -641,7 +641,8 @@
     "AllegroFlare/Logger"
   ],
   "AllegroFlare/DialogTree/Node": [
-    "AllegroFlare/DialogTree/Factory"
+    "AllegroFlare/DialogTree/Factory",
+    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",

@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/DialogTree/Node.hpp>
 #include <AllegroFlare/YAMLValidator.hpp>
 #include <string>
 
@@ -20,7 +21,7 @@ namespace AllegroFlare
          YAMLLoader();
          ~YAMLLoader();
 
-         bool load(std::string yaml_string="");
+         AllegroFlare::DialogTree::Node* load(std::string yaml_string="");
       };
    }
 }
