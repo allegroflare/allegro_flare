@@ -8,8 +8,7 @@ class AllegroFlare_DialogTree_YAMLLoaderTest : public ::testing::Test {};
 class AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData : public ::testing::Test
 {
 public:
-   std::string yaml_as_string = R"YAML_CONTENT(
-speaker: yuki
+   std::string yaml_as_string = R"YAML_CONTENT(speaker: yuki
 pages:
   - We must find the ancient artifact before they do.
   - The key lies within the forgotten tomb.

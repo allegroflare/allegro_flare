@@ -69,9 +69,9 @@ AllegroFlare::DialogTree::Node* YAMLLoader::load(std::string yaml_as_string)
 
       // Parse out each option->text
       // TODO: Improve this error message
-      //validate_presence_of_key(node, TEXT_KEY);
-      //validate_node_type(node, TEXT_KEY, YAML::NodeType::Scalar);
-      //result_text = node.as<std::string>();
+      validate_presence_of_key(node, TEXT_KEY);
+      validate_node_type(node, TEXT_KEY, YAML::NodeType::Scalar);
+      result_text = node[std::string(TEXT_KEY)].as<std::string>();
 
       // TODO: Parse out each option->node type
 
