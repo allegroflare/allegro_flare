@@ -4,23 +4,10 @@
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 
 
-TEST(AllegroFlare_DialogTree_YAMLLoaderTest, can_be_created_without_blowing_up)
+class AllegroFlare_DialogTree_YAMLLoaderTest : public ::testing::Test {};
+class AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData : public ::testing::Test
 {
-   AllegroFlare::DialogTree::YAMLLoader yamlloader;
-}
-
-
-TEST(AllegroFlare_DialogTree_YAMLLoaderTest, load__will_not_blow_up)
-{
-   std::string yaml_string_content = "";
-   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   EXPECT_NE(nullptr, yaml_loader.load());
-   // TODO: Free up the node recursively
-}
-
-
-TEST(AllegroFlare_DialogTree_YAMLLoaderTest, load__on_the_root_node__will_extract_the_speaker)
-{
+public:
    std::string yaml_as_string = R"YAML_CONTENT(
 speaker: yuki
 pages:
@@ -47,7 +34,27 @@ options:
         pages:
           - That's reassuring, main_character. I'll do the same, we're in this together.
 )YAML_CONTENT";
+};
 
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, can_be_created_without_blowing_up)
+{
+   AllegroFlare::DialogTree::YAMLLoader yamlloader;
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__will_not_blow_up)
+{
+   std::string yaml_string_content = "";
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   EXPECT_NE(nullptr, yaml_loader.load(yaml_as_string));
+   // TODO: Free up the node recursively
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, load__on_the_root_node__will_extract_the_speaker)
+{
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    EXPECT_NE(nullptr, yaml_loader.load(yaml_as_string));
    // TODO: Free up the node recursively
