@@ -54,7 +54,9 @@ void YAMLLoader::load(std::string yaml_as_string)
    // TODO: Traverse the nodes, load as nodes
    for (const auto& node : root_node)
    {
-      //std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info = parse_and_create_node(&node);
+      YAML::Node hack_node_copy = node;
+      std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info =
+         parse_and_create_node(&hack_node_copy);
 
       //std::string created_node_name = created_node_info.first;
       //AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
