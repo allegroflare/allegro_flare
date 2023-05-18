@@ -150,7 +150,7 @@ functions:
 
 
   - name: parse_and_create_node
-    type: AllegroFlare::DialogTree::Node*
+    type: std::pair<std::string, AllegroFlare::DialogTree::Node*>
     parameters:
       - name: node_ptr
         type: YAML::Node*
@@ -217,7 +217,7 @@ functions:
       result->set_options(options_vector);
 
       // Return the result
-      return result;
+      return { "unnamed-node", result };
     body_dependency_symbols:
       - std::make_pair
       - AllegroFlare::Logger
@@ -312,7 +312,7 @@ functions:
       YAML::Node &node = *data_node_ptr;
       AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
 
-      AllegroFlare::DialogTree::Node* option_node = parse_and_create_node(&node);
+      AllegroFlare::DialogTree::Node* option_node = parse_and_create_node(&node).second;
       result->set_node(option_node);
 
       // Return the result

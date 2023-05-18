@@ -52,7 +52,7 @@ AllegroFlare::DialogTree::NodeBank YAMLLoader::load(std::string yaml_as_string)
    return result;
 }
 
-AllegroFlare::DialogTree::Node* YAMLLoader::parse_and_create_node(YAML::Node* node_ptr)
+std::pair<std::string, AllegroFlare::DialogTree::Node*> YAMLLoader::parse_and_create_node(YAML::Node* node_ptr)
 {
    YAML::Node &root_node = *node_ptr; // TODO: Rename "root_node" to "node"
    AllegroFlare::DialogTree::Node *result = new AllegroFlare::DialogTree::Node;
@@ -115,7 +115,7 @@ AllegroFlare::DialogTree::Node* YAMLLoader::parse_and_create_node(YAML::Node* no
    result->set_options(options_vector);
 
    // Return the result
-   return result;
+   return { "unnamed-node", result };
 }
 
 AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result_option(std::string type, YAML::Node* data_node_ptr)
@@ -202,7 +202,7 @@ AllegroFlare::DialogTree::NodeOptions::Node* YAMLLoader::parse_and_create_Node_o
    YAML::Node &node = *data_node_ptr;
    AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
 
-   AllegroFlare::DialogTree::Node* option_node = parse_and_create_node(&node);
+   AllegroFlare::DialogTree::Node* option_node = parse_and_create_node(&node).second;
    result->set_node(option_node);
 
    // Return the result

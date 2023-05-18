@@ -43,6 +43,7 @@ class AllegroFlare_DialogTree_YAMLLoaderTestWithNestedNodesFixtureData : public 
 {
 public:
    std::string yaml_as_string = R"YAML_CONTENT(
+name: my_node_abc123
 speaker: jonas
 pages:
   - I've heard rumors about a hidden treasure.
@@ -99,7 +100,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_n
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
    ASSERT_NE(nullptr, actual_node);
    EXPECT_EQ("yuki", actual_node->get_speaker());
 }
@@ -116,7 +117,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_n
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
    ASSERT_NE(nullptr, actual_node);
 
    std::vector<std::string> expected_pages = {
@@ -136,7 +137,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
    ASSERT_NE(nullptr, actual_node);
 
    std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> actual_options =
@@ -152,7 +153,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node);
+   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
    ASSERT_NE(nullptr, actual_node);
    std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> extracted_options =
       actual_node->get_options();
