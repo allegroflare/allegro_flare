@@ -20,10 +20,10 @@ pages:
 options:
   - text: Agreed. Let's gather more information discreetly.
     type: go_to_node
-    data: { target_node_name: foobar_node_1 }
+    data: { target_node_name: my_dialog_node_1 }
   - text: I have a bad feeling too. We must proceed cautiously.
     type: go_to_node
-    data: { target_node_name: foobar_node_2 }
+    data: { target_node_name: my_dialog_node_2 }
   - text: I'll keep my eyes open and watch our backs
     type: exit_dialog
 )YAML_CONTENT";
@@ -116,6 +116,9 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    EXPECT_EQ("Agreed. Let's gather more information discreetly.", expected_option_0.first);
    EXPECT_NE(nullptr, expected_option_0.second);
    EXPECT_EQ(true, expected_option_0.second->is_type(AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE));
+   AllegroFlare::DialogTree::NodeOptions::GoToNode *as_go_to_node = 
+      static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(expected_option_0.second);
+   EXPECT_EQ("my_dialog_node_1", as_go_to_node->get_target_node_name());
 
    // Option 2
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_2 = extracted_options[2];

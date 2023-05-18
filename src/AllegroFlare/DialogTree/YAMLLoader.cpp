@@ -153,10 +153,13 @@ AllegroFlare::DialogTree::NodeOptions::GoToNode* YAMLLoader::parse_and_create_Go
    AllegroFlare::DialogTree::NodeOptions::GoToNode* result =
       new AllegroFlare::DialogTree::NodeOptions::GoToNode;
 
-   // Validate the keys
+   // Validate the data
    validate_presence_of_key(node, OPTION_DATA_TARGET_NODE_NAME_KEY);
    validate_node_type(node, OPTION_DATA_TARGET_NODE_NAME_KEY, YAML::NodeType::Scalar);
    std::string result_target_node_name = node[std::string(OPTION_DATA_TARGET_NODE_NAME_KEY)].as<std::string>();
+
+   // Assign the data to the result
+   result->set_target_node_name(result_target_node_name);
 
    // Return the result
    return result;
