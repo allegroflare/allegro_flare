@@ -126,6 +126,13 @@ properties:
 functions:
 
 
+  - name: get_node_bank
+    type: AllegroFlare::DialogTree::NodeBank
+    guards: [ loaded ]
+    body: |
+      return node_bank;
+
+
   - name: load
     parameters:
       - name: yaml_as_string

@@ -37,6 +37,18 @@ bool YAMLLoader::get_loaded() const
 }
 
 
+AllegroFlare::DialogTree::NodeBank YAMLLoader::get_node_bank()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::get_node_bank]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::get_node_bank: error: guard \"loaded\" not met");
+   }
+   return node_bank;
+}
+
 void YAMLLoader::load(std::string yaml_as_string)
 {
    if (!((!loaded)))

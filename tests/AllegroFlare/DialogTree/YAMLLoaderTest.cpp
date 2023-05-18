@@ -39,46 +39,12 @@ options:
 };
 
 
-class AllegroFlare_DialogTree_YAMLLoaderTestWithNestedNodesFixtureData : public ::testing::Test
-{
-public:
-   std::string yaml_as_string = R"YAML_CONTENT(
-name: my_node_abc123
-speaker: jonas
-pages:
-  - I've heard rumors about a hidden treasure.
-options:
-  - text: Tell me more. Where should we start?
-    type: node
-    data:
-      speaker: jonas
-      pages:
-        - According to the legends, the first clue lies within the ancient temple ruins deep in the forest.
-        - We should head there and search for any hidden symbols or markings.
-  - text: Rumors can be misleading. Any evidence?
-    type: node
-    data:
-      speaker: jonas
-      pages:
-        - You're right to be skeptical.
-        - I've uncovered an ancient inscription that suggests the treasure's existence.
-        - It speaks of a forgotten chamber guarded by puzzles and traps.
-        - We must find more clues to confirm its authenticity.
-      options:
-        - text: Agreed. Let's gather more information discreetly.
-          type: go_to_node
-          data: { target_node_name: my_dialog_node_567 }
-        - text: I'll keep my eyes open and watch our backs
-          type: exit_dialog
-)YAML_CONTENT";
-};
-
-
 class AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData : public ::testing::Test
 {
 public:
    std::string yaml_as_string = R"YAML_CONTENT(
-- speaker: yuki
+- name: my_node_345
+  speaker: yuki
   pages:
     - We must find the ancient artifact before they do.
     - The key lies within the forgotten tomb.
@@ -134,6 +100,27 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData, loa
    yaml_loader.load(yaml_as_string);
    EXPECT_EQ(true, yaml_loader.get_loaded());
    //EXPECT_EQ(true, yaml_loader.loaded());
+   // TODO: Free up the node recursively
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
+   load__before_load__will_throw_an_error)
+{
+   // TODO
+   // TODO: Free up the node recursively
+}
+
+
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
+   load__will_fill_the_node_bank_with_the_expected_content)
+{
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   yaml_loader.load(yaml_as_string);
+   AllegroFlare::DialogTree::NodeBank node_bank = yaml_loader.get_node_bank();
+
+   EXPECT_EQ(1, node_bank.num_nodes());
+
    // TODO: Free up the node recursively
 }
 
@@ -224,7 +211,8 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    EXPECT_EQ(true, expected_option_1.second->is_type(AllegroFlare::DialogTree::NodeOptions::Node::TYPE));
    AllegroFlare::DialogTree::NodeOptions::Node *as_node_1 =
       static_cast<AllegroFlare::DialogTree::NodeOptions::Node*>(expected_option_1.second);
-   // Nested node content in Option 1 (sanity check, more thorough testing in follow-up tests)
+   // Nested node content in Option 1 (sanity check)
+   // TODO: Consider more thorough testing
       AllegroFlare::DialogTree::Node *actual_nested_node = as_node_1->get_node();
       ASSERT_NE(nullptr, actual_nested_node);
       EXPECT_EQ("yuki", actual_nested_node->get_speaker());
@@ -236,13 +224,6 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    EXPECT_EQ(true, expected_option_2.second->is_type(AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE));
 
    // TODO: Free up the node recursively
-}
-
-
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithNestedNodesFixtureData,
-   parse_and_create_node__will_extract_nested_node_options_with_the_expected_content)
-{
-   // TODO
 }
 
 
