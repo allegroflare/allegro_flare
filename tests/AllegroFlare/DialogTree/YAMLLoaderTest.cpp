@@ -66,7 +66,7 @@ public:
     - text: I'll keep my eyes open and watch our backs
       type: exit_dialog
 - name: my_node_567
-  speaker: yuki
+  speaker: charlie
   pages:
     - The ancient artifact before they do lies within the forgotten tomb.
   options:
@@ -130,6 +130,16 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
    EXPECT_EQ(2, node_bank.num_nodes());
    EXPECT_EQ(true, node_bank.node_exists_by_name("my_node_345"));
    EXPECT_EQ(true, node_bank.node_exists_by_name("my_node_567"));
+
+   // Sanity check node "my_node_345"
+   AllegroFlare::DialogTree::Node* my_node_345 = node_bank.find_node_by_name("my_node_345");
+   EXPECT_EQ("yuki", my_node_345->get_speaker());
+   EXPECT_EQ(3, my_node_345->get_pages().size());
+
+   // Sanity check node "my_node_567"
+   AllegroFlare::DialogTree::Node* my_node_567 = node_bank.find_node_by_name("my_node_567");
+   EXPECT_EQ(1, my_node_567->get_pages().size());
+   EXPECT_EQ("charlie", my_node_567->get_speaker());
 }
 
 
