@@ -12,6 +12,9 @@ namespace AllegroFlare
    {
       class YAMLLoader : public AllegroFlare::YAMLValidator
       {
+      public:
+         static constexpr char* SPEAKER_KEY = (char*)"speaker";
+
       private:
 
       protected:
