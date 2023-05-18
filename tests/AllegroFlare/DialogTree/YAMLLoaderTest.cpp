@@ -126,10 +126,10 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
    yaml_loader.load(yaml_as_string);
    AllegroFlare::DialogTree::NodeBank node_bank = yaml_loader.get_node_bank();
 
+   // Validate presence of expected nodes
    EXPECT_EQ(2, node_bank.num_nodes());
-   //EXPECT_EQ(
-
-   // TODO: Free up the node recursively
+   EXPECT_EQ(true, node_bank.node_exists_by_name("my_node_345"));
+   EXPECT_EQ(true, node_bank.node_exists_by_name("my_node_567"));
 }
 
 
