@@ -1507,10 +1507,21 @@ table td
   <td class="property">DATA_KEY</td>
   <td class="property">char*</td>
 </tr>
+<tr>
+  <td class="property">OPTION_TYPE_NODE_KEY</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">OPTION_TYPE_EXIT_DIALOG_KEY</td>
+  <td class="property">char*</td>
+</tr>
     </table>
      <table>
 <tr>
   <td class="method">load(std::string yaml_as_string=&quot;&quot;)</td>
+</tr>
+<tr>
+  <td class="method">parse_and_create_result_option(std::string type=&quot;[unset-type]&quot;, YAML::Node* data_node_ptr=nullptr)</td>
 </tr>
     </table>
      <table>
@@ -1528,6 +1539,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;YAML::Node&quot;, &quot;headers&quot;=&gt;[&quot;yaml-cpp/yaml.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24075,6 +24092,13 @@ table td
   "AllegroFlare/YAMLValidator": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "YAML/Node": [
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/YAMLValidator"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -26001,9 +26025,6 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/any_of": [
-    "AllegroFlare/YAMLValidator"
-  ],
-  "YAML/Node": [
     "AllegroFlare/YAMLValidator"
   ],
   "YAML/NodeType/value": [

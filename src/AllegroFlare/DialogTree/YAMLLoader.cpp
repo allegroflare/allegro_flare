@@ -3,6 +3,7 @@
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
@@ -103,8 +104,22 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
       throw std::runtime_error("YAMLLoader::parse_and_create_result_option: error: guard \"data_node_ptr\" not met");
    }
    AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
-   if (type == OPTION_TYPE_NODE_KEY)
+   if (type == OPTION_TYPE_EXIT_DIALOG_KEY)
    {
+      AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
+         new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
+      result = exit_dialog_result;
+   }
+   else if (type == OPTION_TYPE_NODE_KEY)
+   {
+      // TODO: Add a NodeOptions::Node type
+      //AllegroFlare::DialogTree::NodeOptions::Node* node_result = new AllegroFlare::DialogTree::NodeOptions::Node;
+      //result = node_result;
+   }
+   else
+   {
+      // NOTE: Option type is unsupported
+      // TODO: Throw on unknown type
    }
    return result;
 }

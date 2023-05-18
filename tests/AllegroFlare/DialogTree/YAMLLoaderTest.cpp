@@ -27,11 +27,7 @@ options:
         pages:
           - Trust your instincts. I'll watch our every step.
   - text: I'll keep my eyes open and watch our backs
-    type: node
-    data:
-      - speaker: yuki
-        pages:
-          - That's reassuring, main_character. I'll do the same, we're in this together.
+    type: exit_dialog
 )YAML_CONTENT";
 };
 

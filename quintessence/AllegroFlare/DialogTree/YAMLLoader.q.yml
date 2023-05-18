@@ -89,6 +89,13 @@ properties:
     const: true
     init_with: '(char*)"node"'
 
+  - name: OPTION_TYPE_EXIT_DIALOG_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"exit_dialog"'
+
 
 functions:
 
@@ -180,10 +187,26 @@ functions:
     guards: [ data_node_ptr ]
     body: |
       AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
-      if (type == OPTION_TYPE_NODE_KEY)
+      if (type == OPTION_TYPE_EXIT_DIALOG_KEY)
       {
+         AllegroFlare::DialogTree::NodeOptions::ExitDialog* exit_dialog_result =
+            new AllegroFlare::DialogTree::NodeOptions::ExitDialog;
+         result = exit_dialog_result;
+      }
+      else if (type == OPTION_TYPE_NODE_KEY)
+      {
+         // TODO: Add a NodeOptions::Node type
+         //AllegroFlare::DialogTree::NodeOptions::Node* node_result = new AllegroFlare::DialogTree::NodeOptions::Node;
+         //result = node_result;
+      }
+      else
+      {
+         // NOTE: Option type is unsupported
+         // TODO: Throw on unknown type
       }
       return result;
+    body_dependency_symbols:
+      - AllegroFlare::DialogTree::NodeOptions::ExitDialog
 
 
 dependencies:
@@ -199,6 +222,8 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::Base
     headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::ExitDialog
+    headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
   - symbol: YAML::Node
     headers: [ yaml-cpp/yaml.h ]
 

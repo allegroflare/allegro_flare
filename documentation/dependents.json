@@ -657,6 +657,13 @@
   "AllegroFlare/YAMLValidator": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "YAML/Node": [
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/YAMLValidator"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -2583,9 +2590,6 @@
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/any_of": [
-    "AllegroFlare/YAMLValidator"
-  ],
-  "YAML/Node": [
     "AllegroFlare/YAMLValidator"
   ],
   "YAML/NodeType/value": [
