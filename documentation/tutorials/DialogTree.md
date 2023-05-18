@@ -25,8 +25,8 @@
             type: exit_dialog
     - text: I'll keep my eyes open and watch our backs
       type: exit_dialog
-    speaker: charlie
 - name: my_node_567
+  speaker: charlie
   pages:
     - The ancient artifact before they do lies within the forgotten tomb.
   options:
