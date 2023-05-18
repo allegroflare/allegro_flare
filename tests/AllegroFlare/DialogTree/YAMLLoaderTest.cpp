@@ -24,8 +24,15 @@ options:
     type: go_to_node
     data: { target_node_name: my_dialog_node_567 }
   - text: I have a bad feeling too. We must proceed cautiously.
-    type: go_to_node
-    data: { target_node_name: my_dialog_node_345 }
+    type: node
+    data:
+      - speaker: yuki
+        pages:
+          - Agreed. Trusting our instincts is crucial in these situations.
+          - Let's carefully analyze each step and keep an eye out for any hidden dangers.
+        options:
+          - text: Agreed. Let's gather more information discreetly.
+            type: exit_dialog
   - text: I'll keep my eyes open and watch our backs
     type: exit_dialog
 )YAML_CONTENT";
@@ -150,7 +157,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    // Option 0
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_0 = extracted_options[0];
    EXPECT_EQ("Agreed. Let's gather more information discreetly.", expected_option_0.first);
-   EXPECT_NE(nullptr, expected_option_0.second);
+   ASSERT_NE(nullptr, expected_option_0.second);
    EXPECT_EQ(true, expected_option_0.second->is_type(AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE));
    AllegroFlare::DialogTree::NodeOptions::GoToNode *as_go_to_node_0 = 
       static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(expected_option_0.second);
@@ -159,16 +166,16 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    // Option 1
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_1 = extracted_options[1];
    EXPECT_EQ("I have a bad feeling too. We must proceed cautiously.", expected_option_1.first);
-   EXPECT_NE(nullptr, expected_option_1.second);
-   EXPECT_EQ(true, expected_option_1.second->is_type(AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE));
-   AllegroFlare::DialogTree::NodeOptions::GoToNode *as_go_to_node_1 = 
-      static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(expected_option_1.second);
-   EXPECT_EQ("my_dialog_node_345", as_go_to_node_1->get_target_node_name());
+   ASSERT_NE(nullptr, expected_option_1.second);
+   EXPECT_EQ(true, expected_option_1.second->is_type(AllegroFlare::DialogTree::NodeOptions::Node::TYPE));
+   AllegroFlare::DialogTree::NodeOptions::Node *as_go_to_node_1 = 
+      static_cast<AllegroFlare::DialogTree::NodeOptions::Node*>(expected_option_1.second);
+   //EXPECT_EQ("my_dialog_node_345", as_go_to_node_1->get_target_node_name());
 
    // Option 2
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_2 = extracted_options[2];
    EXPECT_EQ("I'll keep my eyes open and watch our backs", expected_option_2.first);
-   EXPECT_NE(nullptr, expected_option_2.second);
+   ASSERT_NE(nullptr, expected_option_2.second);
    EXPECT_EQ(true, expected_option_2.second->is_type(AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE));
 
    // TODO: Free up the node recursively
