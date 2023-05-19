@@ -1418,6 +1418,12 @@
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
   ],
+  "AllegroFlare/EventNames": [
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
@@ -2267,11 +2273,6 @@
   ],
   "AllegroFlare/VirtualControlsProcessor": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/EventNames": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [

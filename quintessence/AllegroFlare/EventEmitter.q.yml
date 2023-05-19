@@ -72,6 +72,41 @@ functions:
       - ALLEGRO_FLARE_EVENT_ROUTER
 
 
+  - name: emit_dialog_open_event
+    parameters:
+      - name: dialog_node_name_to_open
+        type: std::string
+        default_argument: '"[unset-dialog_node_name_to_open]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Add test for this emission
+      intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_OPEN, data_to_pass);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+
+
+  - name: emit_dialog_close_event
+    guards: [ initialized ]
+    body: |
+      // TODO: Add test for this emission
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_CLOSE);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+
+
+  - name: emit_dialog_next_page
+    guards: [ initialized ]
+    body: |
+      // TODO: Add test for this emission
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_NEXT_PAGE);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+
+
   - name: emit_switch_screen_event
     parameters:
       - name: screen_identifier_to_switch_to
@@ -305,6 +340,8 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_EXIT_GAME 
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SWITCH_SCREEN
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: AllegroFlare::EventNames
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::GameEvent
     headers: [ AllegroFlare/GameEvent.hpp ]

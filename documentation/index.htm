@@ -7038,6 +7038,15 @@ table td
   <td class="method">emit_router_event(uint32_t router_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f)</td>
 </tr>
 <tr>
+  <td class="method">emit_dialog_open_event(std::string dialog_node_name_to_open=&quot;[unset-dialog_node_name_to_open]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_close_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_next_page()</td>
+</tr>
+<tr>
   <td class="method">emit_switch_screen_event(std::string screen_identifier_to_switch_to=0)</td>
 </tr>
 <tr>
@@ -7134,6 +7143,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SWITCH_SCREEN&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
@@ -25021,6 +25033,12 @@ table td
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
   ],
+  "AllegroFlare/EventNames": [
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
@@ -25870,11 +25888,6 @@ table td
   ],
   "AllegroFlare/VirtualControlsProcessor": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/EventNames": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Screen": [
