@@ -1,0 +1,122 @@
+
+
+#include <AllegroFlare/DialogTree/NodeOptionActivator.hpp>
+
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+
+
+namespace AllegroFlare
+{
+namespace DialogTree
+{
+
+
+NodeOptionActivator::NodeOptionActivator(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::DialogTree::NodeBank* node_bank, AllegroFlare::DialogTree::Node* currently_active_node, int selection_choice)
+   : event_emitter(event_emitter)
+   , node_bank(node_bank)
+   , currently_active_node(currently_active_node)
+   , selection_choice(selection_choice)
+{
+}
+
+
+NodeOptionActivator::~NodeOptionActivator()
+{
+}
+
+
+void NodeOptionActivator::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
+}
+
+
+void NodeOptionActivator::set_node_bank(AllegroFlare::DialogTree::NodeBank* node_bank)
+{
+   this->node_bank = node_bank;
+}
+
+
+void NodeOptionActivator::set_currently_active_node(AllegroFlare::DialogTree::Node* currently_active_node)
+{
+   this->currently_active_node = currently_active_node;
+}
+
+
+void NodeOptionActivator::set_selection_choice(int selection_choice)
+{
+   this->selection_choice = selection_choice;
+}
+
+
+AllegroFlare::EventEmitter* NodeOptionActivator::get_event_emitter() const
+{
+   return event_emitter;
+}
+
+
+AllegroFlare::DialogTree::NodeBank* NodeOptionActivator::get_node_bank() const
+{
+   return node_bank;
+}
+
+
+AllegroFlare::DialogTree::Node* NodeOptionActivator::get_currently_active_node() const
+{
+   return currently_active_node;
+}
+
+
+int NodeOptionActivator::get_selection_choice() const
+{
+   return selection_choice;
+}
+
+
+void NodeOptionActivator::activate()
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[NodeOptionActivator::activate]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"event_emitter\" not met");
+   }
+   if (!(node_bank))
+   {
+      std::stringstream error_message;
+      error_message << "[NodeOptionActivator::activate]: error: guard \"node_bank\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"node_bank\" not met");
+   }
+   if (!(currently_active_node))
+   {
+      std::stringstream error_message;
+      error_message << "[NodeOptionActivator::activate]: error: guard \"currently_active_node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"currently_active_node\" not met");
+   }
+   if (!((selection_choice > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[NodeOptionActivator::activate]: error: guard \"(selection_choice > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"(selection_choice > 0)\" not met");
+   }
+   if (!((selection_choice <= currently_active_node->num_options())))
+   {
+      std::stringstream error_message;
+      error_message << "[NodeOptionActivator::activate]: error: guard \"(selection_choice <= currently_active_node->num_options())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"(selection_choice <= currently_active_node->num_options())\" not met");
+   }
+   return;
+}
+
+
+} // namespace DialogTree
+} // namespace AllegroFlare
+
+

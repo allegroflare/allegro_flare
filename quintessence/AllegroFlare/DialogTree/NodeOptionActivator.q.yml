@@ -1,0 +1,58 @@
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: node_bank
+    type: AllegroFlare::DialogTree::NodeBank*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: currently_active_node
+    type: AllegroFlare::DialogTree::Node*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: selection_choice
+    type: int
+    constructor_arg: true
+    init_with: 0
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: activate
+    type: void
+    guards:
+      - event_emitter
+      - node_bank
+      - currently_active_node
+      - (selection_choice > 0)
+      - (selection_choice <= currently_active_node->num_options())
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::DialogTree::Node
+    headers: [ AllegroFlare/DialogTree/Node.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+
+
