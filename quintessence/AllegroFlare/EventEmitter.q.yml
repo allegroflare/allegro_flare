@@ -88,21 +88,21 @@ functions:
       - AllegroFlare::EventNames
 
 
-  - name: emit_dialog_close_event
+  - name: emit_dialog_advance
     guards: [ initialized ]
     body: |
       // TODO: Add test for this emission
-      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_CLOSE);
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE);
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
 
 
-  - name: emit_dialog_next_page
+  - name: emit_dialog_close_event
     guards: [ initialized ]
     body: |
       // TODO: Add test for this emission
-      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_NEXT_PAGE);
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_CLOSE);
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames

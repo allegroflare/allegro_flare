@@ -106,6 +106,20 @@ void EventEmitter::emit_dialog_open_event(std::string dialog_node_name_to_open)
    return;
 }
 
+void EventEmitter::emit_dialog_advance()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_dialog_advance]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_dialog_advance: error: guard \"initialized\" not met");
+   }
+   // TODO: Add test for this emission
+   emit_event(ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE);
+   return;
+}
+
 void EventEmitter::emit_dialog_close_event()
 {
    if (!(initialized))
@@ -117,20 +131,6 @@ void EventEmitter::emit_dialog_close_event()
    }
    // TODO: Add test for this emission
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG_CLOSE);
-   return;
-}
-
-void EventEmitter::emit_dialog_next_page()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[EventEmitter::emit_dialog_next_page]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_dialog_next_page: error: guard \"initialized\" not met");
-   }
-   // TODO: Add test for this emission
-   emit_event(ALLEGRO_FLARE_EVENT_DIALOG_NEXT_PAGE);
    return;
 }
 
