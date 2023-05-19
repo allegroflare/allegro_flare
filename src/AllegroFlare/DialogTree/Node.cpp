@@ -64,7 +64,7 @@ std::vector<std::string> Node::build_options_as_text()
 {
    // TODO: Test this function
    std::vector<std::string> result;
-   result.resize(options.size());
+   result.reserve(options.size());
    for (auto &option : options)
    {
       // TODO: Consider if this check is necessary
