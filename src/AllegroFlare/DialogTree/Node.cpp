@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/DialogTree/Node.hpp>
 
-
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -60,6 +60,22 @@ std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>
 }
 
 
+std::vector<std::string> Node::options_as_text()
+{
+   // TODO: Test this function
+   std::vector<std::string> result;
+   result.resize(options.size());
+   for (auto &option : options)
+   {
+      // TODO: Consider if this check is necessary
+      if (!option.second)
+      {
+         AllegroFlare::Logger::throw_error("AllegroFlare/DialogTree/Node", "an option contains a nullptr");
+      }
+      result.push_back(option.first);
+   }
+   return result;
+}
 
 
 } // namespace DialogTree

@@ -31,6 +31,7 @@ namespace AllegroFlare
          std::string get_speaker() const;
          std::vector<std::string> get_pages() const;
          std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> get_options() const;
+         std::vector<std::string> options_as_text();
       };
    }
 }
