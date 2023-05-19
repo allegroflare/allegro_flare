@@ -3,6 +3,7 @@
 #include <AllegroFlare/DialogTree/NodeOptionActivator.hpp>
 
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -123,9 +124,13 @@ void NodeOptionActivator::activate()
             static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
          event_emitter->emit_dialog_close_event();
       }},
-      //{ "development_level", [this](){
-         //create_development_level();
-      //}},
+      { AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE, [this, node_option]() {
+         // TODO: Test this case
+         AllegroFlare::DialogTree::NodeOptions::GoToNode* as_go_to_node_dialog_node_option =
+            static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(node_option);
+         std::string target_node_name = as_go_to_node_dialog_node_option->get_target_node_name();
+         event_emitter->emit_dialog_open_event(target_node_name);
+      }},
    };
 
    // locate and call the function to handle the item

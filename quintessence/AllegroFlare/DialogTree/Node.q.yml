@@ -57,6 +57,12 @@ functions:
       - AllegroFlare::Logger::throw_error
 
 
+  - name: num_pages
+    type: int
+    body: |
+      return pages.size();
+
+
   - name: num_options
     type: int
     body: |

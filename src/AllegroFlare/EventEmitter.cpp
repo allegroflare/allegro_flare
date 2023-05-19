@@ -106,14 +106,14 @@ void EventEmitter::emit_dialog_open_event(std::string dialog_node_name_to_open)
    return;
 }
 
-void EventEmitter::emit_dialog_advance()
+void EventEmitter::emit_dialog_advance_event()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_dialog_advance]: error: guard \"initialized\" not met.";
+      error_message << "[EventEmitter::emit_dialog_advance_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_dialog_advance: error: guard \"initialized\" not met");
+      throw std::runtime_error("EventEmitter::emit_dialog_advance_event: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE);

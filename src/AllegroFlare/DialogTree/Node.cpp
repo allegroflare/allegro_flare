@@ -99,6 +99,11 @@ std::vector<std::string> Node::build_options_as_text()
    return result;
 }
 
+int Node::num_pages()
+{
+   return pages.size();
+}
+
 int Node::num_options()
 {
    return options.size();
