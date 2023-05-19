@@ -77,6 +77,11 @@ std::vector<std::string> Node::build_options_as_text()
    return result;
 }
 
+std::size_t Node::num_options()
+{
+   return options.size();
+}
+
 
 } // namespace DialogTree
 } // namespace AllegroFlare

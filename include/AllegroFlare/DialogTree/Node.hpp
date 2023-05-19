@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
+#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>
@@ -32,6 +33,7 @@ namespace AllegroFlare
          std::vector<std::string> get_pages() const;
          std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> get_options() const;
          std::vector<std::string> build_options_as_text();
+         std::size_t num_options();
       };
    }
 }

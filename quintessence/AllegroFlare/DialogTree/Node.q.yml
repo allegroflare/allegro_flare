@@ -43,6 +43,12 @@ functions:
       - AllegroFlare::Logger::throw_error
 
 
+  - name: num_options
+    type: std::size_t
+    body: |
+      return options.size();
+
+
 dependencies:
 
 
