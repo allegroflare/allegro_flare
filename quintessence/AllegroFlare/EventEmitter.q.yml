@@ -80,6 +80,7 @@ functions:
     guards: [ initialized ]
     body: |
       // TODO: Add test for this emission
+      // TODO: Find location to destroy this data after use and destroy it
       intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
       emit_event(ALLEGRO_FLARE_EVENT_DIALOG_OPEN, data_to_pass);
       return;

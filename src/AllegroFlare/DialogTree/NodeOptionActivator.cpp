@@ -121,6 +121,7 @@ void NodeOptionActivator::activate()
       { AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE, [this, node_option]() {
          AllegroFlare::DialogTree::NodeOptions::ExitDialog* as_exit_dialog_node_option =
             static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
+         event_emitter->emit_dialog_close_event();
       }},
       //{ "development_level", [this](){
          //create_development_level();

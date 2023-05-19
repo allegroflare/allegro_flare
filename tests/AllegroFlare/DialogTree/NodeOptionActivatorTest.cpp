@@ -21,6 +21,9 @@ public:
    AllegroFlare_DialogTree_NodeOptionActivatorTestWithSetup() {}
    virtual void SetUp() override
    {
+      al_init();
+      event_emitter.initialize();
+
       node_bank.add_node(
          "node1",
          new AllegroFlare::DialogTree::Node(
@@ -46,6 +49,7 @@ public:
    {
       // TODO: Replace this with a teardown of the tree
       delete currently_active_node;
+      al_uninstall_system();
    }
 };
 
