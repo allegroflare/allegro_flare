@@ -676,6 +676,10 @@
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/php/file_get_contents": [
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/ShaderSourcePoller"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -2446,9 +2450,6 @@
     "AllegroFlare/ShaderSourcePoller"
   ],
   "ALLEGRO_TIMER": [
-    "AllegroFlare/ShaderSourcePoller"
-  ],
-  "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/ShaderSourcePoller"
   ],
   "ALLEGRO_SHADER": [

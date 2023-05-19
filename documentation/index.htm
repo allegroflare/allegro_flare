@@ -1598,6 +1598,9 @@ table td
   <td class="method">get_node_bank()</td>
 </tr>
 <tr>
+  <td class="method">load_file(std::string filename=&quot;[unset-filename]&quot;)</td>
+</tr>
+<tr>
   <td class="method">load(std::string yaml_as_string=&quot;[unset-yaml_as_string]&quot;)</td>
 </tr>
 <tr>
@@ -1646,6 +1649,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::php::file_get_contents&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24212,6 +24218,10 @@ table td
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/php/file_get_contents": [
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/ShaderSourcePoller"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -25982,9 +25992,6 @@ table td
     "AllegroFlare/ShaderSourcePoller"
   ],
   "ALLEGRO_TIMER": [
-    "AllegroFlare/ShaderSourcePoller"
-  ],
-  "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/ShaderSourcePoller"
   ],
   "ALLEGRO_SHADER": [

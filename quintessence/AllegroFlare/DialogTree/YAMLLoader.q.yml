@@ -140,6 +140,22 @@ functions:
       return node_bank;
 
 
+  - name: load_file
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+    guards: [ (!loaded), '(AllegroFlare::php::file_exists(filename))' ]
+    body: |
+      // TODO: Test this method
+      // TODO: Refactor to use YAML's native YAML::LoadFile
+      // TODO: Remove "file_exists" using php as dependency
+      std::string yaml_as_string = AllegroFlare::php::file_get_contents(filename);
+      return load(yaml_as_string);
+    body_dependency_symbols:
+      - AllegroFlare::php::file_get_contents
+
+
   - name: load
     parameters:
       - name: yaml_as_string
@@ -388,5 +404,7 @@ dependencies:
     headers: [ yaml-cpp/yaml.h ]
   - symbol: AllegroFlare::DialogTree::NodeBank
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+  - symbol: AllegroFlare::php::file_get_contents
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 

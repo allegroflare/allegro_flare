@@ -6,6 +6,7 @@
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -47,6 +48,29 @@ AllegroFlare::DialogTree::NodeBank YAMLLoader::get_node_bank()
       throw std::runtime_error("YAMLLoader::get_node_bank: error: guard \"loaded\" not met");
    }
    return node_bank;
+}
+
+void YAMLLoader::load_file(std::string filename)
+{
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::load_file]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::load_file: error: guard \"(!loaded)\" not met");
+   }
+   if (!((AllegroFlare::php::file_exists(filename))))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::load_file: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met");
+   }
+   // TODO: Test this method
+   // TODO: Refactor to use YAML's native YAML::LoadFile
+   // TODO: Remove "file_exists" using php as dependency
+   std::string yaml_as_string = AllegroFlare::php::file_get_contents(filename);
+   return load(yaml_as_string);
 }
 
 void YAMLLoader::load(std::string yaml_as_string)
