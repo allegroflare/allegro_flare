@@ -60,7 +60,7 @@ std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>
 }
 
 
-std::vector<std::string> Node::options_as_text()
+std::vector<std::string> Node::build_options_as_text()
 {
    // TODO: Test this function
    std::vector<std::string> result;

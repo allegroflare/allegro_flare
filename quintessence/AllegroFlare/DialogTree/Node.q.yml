@@ -23,7 +23,7 @@ properties:
 functions:
 
 
-  - name: options_as_text
+  - name: build_options_as_text
     type: std::vector<std::string>
     body: |
       // TODO: Test this function
