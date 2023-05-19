@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/NodeOptionActivator.hpp>
 
+#include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -112,6 +113,35 @@ void NodeOptionActivator::activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("NodeOptionActivator::activate: error: guard \"(selection_choice < currently_active_node->num_options())\" not met");
    }
+   AllegroFlare::DialogTree::NodeOptions::Base* node_option =
+      currently_active_node->get_option_num(selection_choice).second;
+   std::string node_option_type = node_option->get_type();
+
+   std::map<std::string, std::function<void()>> types_map = {
+      { AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE, [this, node_option]() {
+         AllegroFlare::DialogTree::NodeOptions::ExitDialog* as_exit_dialog_node_option =
+            static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
+      }},
+      //{ "development_level", [this](){
+         //create_development_level();
+      //}},
+   };
+
+   // locate and call the function to handle the item
+   if (types_map.count(node_option_type) == 0)
+   {
+      // item not found
+      std::stringstream error_message;
+      error_message << "[DialogTree::NodeOptionActivator::activate]: error: Cannot activate a node with the "
+                    << "node_option_type \"" << node_option_type << "\", a handling for that type does not exist.";
+      throw std::runtime_error(error_message.str());
+   }
+   else
+   {
+      // call the item
+      types_map[node_option_type]();
+   }
+
    return;
 }
 

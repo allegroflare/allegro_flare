@@ -26,6 +26,17 @@ properties:
 functions:
 
 
+  - name: get_option_num
+    type: std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>
+    parameters:
+      - name: option_num
+        type: int
+        default_argument: 0
+    guards: [ (option_num >= 0), (option_num < options.size()) ]
+    body: |
+       return options[option_num];
+
+
   - name: build_options_as_text
     type: std::vector<std::string>
     body: |

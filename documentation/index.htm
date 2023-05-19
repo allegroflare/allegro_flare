@@ -1413,6 +1413,9 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">get_option_num(int option_num=0)</td>
+</tr>
+<tr>
   <td class="method">build_options_as_text()</td>
 </tr>
 <tr>
@@ -1494,6 +1497,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::GoToNode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::GoToNode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24300,16 +24312,19 @@ table td
     "AllegroFlare/DialogTree/NodeOptionActivator",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
   "std/make_pair": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/YAMLValidator": [
-    "AllegroFlare/DialogTree/YAMLLoader"
-  ],
-  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
-    "AllegroFlare/DialogTree/YAMLLoader"
-  ],
-  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Node": [
