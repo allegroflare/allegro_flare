@@ -39,8 +39,8 @@ functions:
       - event_emitter
       - node_bank
       - currently_active_node
-      - (selection_choice > 0)
-      - (selection_choice <= currently_active_node->num_options())
+      - (selection_choice >= 0)
+      - (selection_choice < currently_active_node->num_options())
     body: |
       return;
 

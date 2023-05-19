@@ -22,7 +22,7 @@ namespace AllegroFlare
 
 
       public:
-         Node();
+         Node(std::string speaker="[unset-speaker]", std::vector<std::string> pages={"[unset-pages]"}, std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options={});
          ~Node();
 
          void set_speaker(std::string speaker);

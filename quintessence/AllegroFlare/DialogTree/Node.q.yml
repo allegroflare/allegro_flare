@@ -4,17 +4,20 @@ properties:
   - name: speaker
     type: std::string
     init_with: '"[unset-speaker]"'
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: pages
     type: std::vector<std::string>
     init_with: '{"[unset-pages]"}'
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: options
     type: std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>>
+    constructor_arg: true
     init_with: '{}'
     getter: true
     setter: true

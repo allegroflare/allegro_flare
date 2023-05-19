@@ -7,17 +7,33 @@
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 
 
-TEST(AllegroFlare_DialogTree_NodeOptionActivatorTest, can_be_created_without_blowing_up)
+class AllegroFlare_DialogTree_NodeOptionActivatorTest : public ::testing::Test {};
+
+
+TEST_F(AllegroFlare_DialogTree_NodeOptionActivatorTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::DialogTree::NodeOptionActivator node_option_activator;
 }
 
 
-TEST(AllegroFlare_DialogTree_NodeOptionActivatorTest, activate__will_not_blow_up)
+TEST_F(AllegroFlare_DialogTree_NodeOptionActivatorTest, activate__will_not_blow_up)
 {
    AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::DialogTree::NodeBank node_bank;
-   AllegroFlare::DialogTree::Node* currently_active_node = new AllegroFlare::DialogTree::Node;
+   node_bank.add_node(
+      "node1",
+      new AllegroFlare::DialogTree::Node(
+            "speaker",
+            { // pages
+               "page1",
+               "page2"
+            },
+            { // options
+               { "exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog },
+            }
+         )
+   );
+   AllegroFlare::DialogTree::Node* currently_active_node = node_bank.find_node_by_name("node1");
    int selection_choice = 0;
 
    AllegroFlare::DialogTree::NodeOptionActivator node_option_activator;

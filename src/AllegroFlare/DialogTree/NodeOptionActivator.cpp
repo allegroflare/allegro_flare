@@ -98,19 +98,19 @@ void NodeOptionActivator::activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("NodeOptionActivator::activate: error: guard \"currently_active_node\" not met");
    }
-   if (!((selection_choice > 0)))
+   if (!((selection_choice >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[NodeOptionActivator::activate]: error: guard \"(selection_choice > 0)\" not met.";
+      error_message << "[NodeOptionActivator::activate]: error: guard \"(selection_choice >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"(selection_choice > 0)\" not met");
+      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"(selection_choice >= 0)\" not met");
    }
-   if (!((selection_choice <= currently_active_node->num_options())))
+   if (!((selection_choice < currently_active_node->num_options())))
    {
       std::stringstream error_message;
-      error_message << "[NodeOptionActivator::activate]: error: guard \"(selection_choice <= currently_active_node->num_options())\" not met.";
+      error_message << "[NodeOptionActivator::activate]: error: guard \"(selection_choice < currently_active_node->num_options())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"(selection_choice <= currently_active_node->num_options())\" not met");
+      throw std::runtime_error("NodeOptionActivator::activate: error: guard \"(selection_choice < currently_active_node->num_options())\" not met");
    }
    return;
 }
