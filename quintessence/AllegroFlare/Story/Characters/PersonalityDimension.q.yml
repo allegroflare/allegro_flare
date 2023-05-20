@@ -29,9 +29,9 @@ properties:
     getter: true
     setter: true
 
-  - name: descriptor_medium
+  - name: descriptor_balanced
     type: std::string
-    init_with: '"[unset-descriptor_medium]"'
+    init_with: '"[unset-descriptor_balanced]"'
     constructor_arg: true
     getter: true
     setter: true
@@ -49,5 +49,29 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
+
+
+functions:
+
+
+  - name: get_descriptor_for_level
+    type: std::string
+    parameters:
+      - name: ranking_level
+        type: uint32_t
+        default_argument: 0
+    type: std::string
+    guards: [ (ranking_level >= 0), (ranking_level < 5) ]
+    body: |
+      std::map<uint32_t, std::string> dictionary = {
+         { 0, descriptor_very_low },
+         { 1, descriptor_low },
+         { 2, descriptor_balanced },
+         { 3, descriptor_high },
+         { 4, descriptor_very_high },
+      };
+      return dictionary[ranking_level];
+    body_dependency_symbols:
+      - std::map
 
 

@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Story/Characters/PersonalityDimension.hpp>
+#include <cstddef>
 #include <vector>
 
 
@@ -25,6 +26,7 @@ namespace AllegroFlare
 
             void set_personality_dimensions(std::vector<AllegroFlare::Story::Characters::PersonalityDimension> personality_dimensions);
             std::vector<AllegroFlare::Story::Characters::PersonalityDimension> get_personality_dimensions() const;
+            AllegroFlare::Story::Characters::PersonalityDimension get_personality_dimension_by_index(std::size_t index=0);
          };
       }
    }

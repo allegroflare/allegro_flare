@@ -9,6 +9,20 @@ properties:
     setter: true
 
 
+functions:
+
+
+  - name: get_personality_dimension_by_index
+    type: AllegroFlare::Story::Characters::PersonalityDimension
+    parameters:
+      - name: index
+        type: std::size_t
+        default_argument: 0
+    guards: [ (index >= 0), (index < personality_dimensions.size()) ]
+    body: |
+      return personality_dimensions[index];
+
+
 dependencies:
 
 
