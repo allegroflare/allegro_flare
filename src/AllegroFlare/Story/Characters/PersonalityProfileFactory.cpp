@@ -47,7 +47,7 @@ void PersonalityProfileFactory::initialize()
    return;
 }
 
-std::string PersonalityProfileFactory::build_random_personality_profile(uint32_t num_traits, unsigned int seed)
+std::string PersonalityProfileFactory::build_random_personality_profile(std::string character_name, uint32_t num_traits, unsigned int seed)
 {
    if (!(initialized))
    {
@@ -56,8 +56,6 @@ std::string PersonalityProfileFactory::build_random_personality_profile(uint32_t
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("PersonalityProfileFactory::build_random_personality_profile: error: guard \"initialized\" not met");
    }
-   std::string character_name = "this character";
-
    static AllegroFlare::Random static_random; // NOTE: if seed is 0, then the static_random will be used
    AllegroFlare::Random seeded_random(seed);  // NOTE: if seed is non-zero, then a fresh Random will use the seed
 
@@ -73,12 +71,34 @@ std::string PersonalityProfileFactory::build_random_personality_profile(uint32_t
    std::string dimension_descriptor_for_level = selected_dimension.get_descriptor_for_level(dimension_ranking_level);
 
    std::stringstream writeup;
+   writeup << build_writeup_for_dimension(
+      character_name,
+      dimension_name,
+      dimension_description,
+      dimension_ranking_level,
+      dimension_descriptor_for_level
+   );
+
+   //AllegroFlare::Story::Characters::PersonalityProfile profile;
+   //return profile;
+   return writeup.str();
+}
+
+std::string PersonalityProfileFactory::build_writeup_for_dimension(std::string character_name, std::string dimension_name, std::string dimension_description, uint32_t dimension_ranking_level, std::string dimension_descriptor_for_level)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[PersonalityProfileFactory::build_writeup_for_dimension]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PersonalityProfileFactory::build_writeup_for_dimension: error: guard \"initialized\" not met");
+   }
+   std::stringstream writeup;
+
    writeup << "In the personality category of \"" << dimension_name << "\" (" << dimension_description
            << "), " << character_name << " ranks " << ranking_level_to_text(dimension_ranking_level) << ", meaning "
            << character_name << " is " << dimension_descriptor_for_level << ".";
 
-   //AllegroFlare::Story::Characters::PersonalityProfile profile;
-   //return profile;
    return writeup.str();
 }
 

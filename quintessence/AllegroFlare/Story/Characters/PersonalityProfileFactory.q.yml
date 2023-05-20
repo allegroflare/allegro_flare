@@ -29,6 +29,9 @@ functions:
   - name: build_random_personality_profile
     type: std::string
     parameters:
+      - name: character_name
+        type: std::string
+        default_argument: '"this character"'
       - name: num_traits
         type: uint32_t
         default_argument: 5
@@ -37,8 +40,6 @@ functions:
         default_argument: 0
     guards: [ initialized ]
     body: |
-      std::string character_name = "this character";
-
       static AllegroFlare::Random static_random; // NOTE: if seed is 0, then the static_random will be used
       AllegroFlare::Random seeded_random(seed);  // NOTE: if seed is non-zero, then a fresh Random will use the seed
 
@@ -54,15 +55,50 @@ functions:
       std::string dimension_descriptor_for_level = selected_dimension.get_descriptor_for_level(dimension_ranking_level);
 
       std::stringstream writeup;
-      writeup << "In the personality category of \"" << dimension_name << "\" (" << dimension_description
-              << "), " << character_name << " ranks " << ranking_level_to_text(dimension_ranking_level) << ", meaning "
-              << character_name << " is " << dimension_descriptor_for_level << ".";
+      writeup << build_writeup_for_dimension(
+         character_name,
+         dimension_name,
+         dimension_description,
+         dimension_ranking_level,
+         dimension_descriptor_for_level
+      );
 
       //AllegroFlare::Story::Characters::PersonalityProfile profile;
       //return profile;
       return writeup.str();
     body_dependency_symbols:
       - AllegroFlare::Random
+
+
+  - name: build_writeup_for_dimension
+    type: std::string
+    parameters:
+      - name: character_name
+        type: std::string
+        default_argument: '"this character"'
+      - name: dimension_name
+        type: std::string
+        default_argument: '"[unset-dimension_name]"'
+      - name: dimension_description
+        type: std::string
+        default_argument: '"[unset-dimension_description]"'
+      - name: dimension_ranking_level
+        type: uint32_t
+        default_argument: 0
+      - name: dimension_descriptor_for_level
+        type: std::string
+        default_argument: '"[unset-dimension_descriptor_for_level]"'
+    guards: [ initialized ]
+    body: |
+      std::stringstream writeup;
+
+      writeup << "In the personality category of \"" << dimension_name << "\" (" << dimension_description
+              << "), " << character_name << " ranks " << ranking_level_to_text(dimension_ranking_level) << ", meaning "
+              << character_name << " is " << dimension_descriptor_for_level << ".";
+
+      return writeup.str();
+    body_dependency_symbols:
+      - std::stringstream
 
 
   - name: ranking_level_to_text
