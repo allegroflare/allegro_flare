@@ -2,6 +2,7 @@ functions:
 
 
   - name: build_standard_matrix
+    static: true
     type: AllegroFlare::Story::Characters::PersonalityProfileMatrix
     body: |
       AllegroFlare::Story::Characters::PersonalityProfileMatrix result;

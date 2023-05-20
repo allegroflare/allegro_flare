@@ -1,11 +1,41 @@
+properties:
+
+
+  - name: personality_profile_matrix
+    type: AllegroFlare::Story::Characters::PersonalityProfileMatrix
+    init_with: ''
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
 functions:
 
 
-  - name: build_primary_personality_profile
-    type: AllegroFlare::Story::Characters::PersonalityProfile
+  - name: initialize
+    guards: [ (!initialized) ]
     body: |
+      personality_profile_matrix =
+         AllegroFlare::Story::Characters::PersonalityProfileMatrixFactory::build_standard_matrix();
+
+      initialized = true;
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Story::Characters::PersonalityProfileMatrixFactory
+
+
+  - name: build_random_personality_profile
+    type: AllegroFlare::Story::Characters::PersonalityProfile
+    guards: [ initialized ]
+    body: |
+      //static AllegroFlare::Random random;
+      //int num_traits = 5;
       AllegroFlare::Story::Characters::PersonalityProfile profile;
       return profile;
+    body_dependency_symbols:
+      - AllegroFlare::Random
 
 
 dependencies:
@@ -13,5 +43,11 @@ dependencies:
 
   - symbol: AllegroFlare::Story::Characters::PersonalityProfile
     headers: [ AllegroFlare/Story/Characters/PersonalityProfile.hpp ]
+  - symbol: AllegroFlare::Story::Characters::PersonalityProfileMatrix
+    headers: [ AllegroFlare/Story/Characters/PersonalityProfileMatrix.hpp ]
+  - symbol: AllegroFlare::Story::Characters::PersonalityProfileMatrixFactory
+    headers: [ AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.hpp ]
+  - symbol: AllegroFlare::Random
+    headers: [ AllegroFlare/Random.hpp ]
 
 

@@ -21,7 +21,7 @@ namespace AllegroFlare
             PersonalityProfileMatrixFactory();
             ~PersonalityProfileMatrixFactory();
 
-            AllegroFlare::Story::Characters::PersonalityProfileMatrix build_standard_matrix();
+            static AllegroFlare::Story::Characters::PersonalityProfileMatrix build_standard_matrix();
          };
       }
    }

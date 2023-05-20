@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Story/Characters/PersonalityProfile.hpp>
+#include <AllegroFlare/Story/Characters/PersonalityProfileMatrix.hpp>
 
 
 namespace AllegroFlare
@@ -13,6 +14,8 @@ namespace AllegroFlare
          class PersonalityProfileFactory
          {
          private:
+            AllegroFlare::Story::Characters::PersonalityProfileMatrix personality_profile_matrix;
+            bool initialized;
 
          protected:
 
@@ -21,7 +24,8 @@ namespace AllegroFlare
             PersonalityProfileFactory();
             ~PersonalityProfileFactory();
 
-            AllegroFlare::Story::Characters::PersonalityProfile build_primary_personality_profile();
+            void initialize();
+            AllegroFlare::Story::Characters::PersonalityProfile build_random_personality_profile();
          };
       }
    }

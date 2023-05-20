@@ -1575,6 +1575,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
@@ -2493,7 +2494,11 @@
     "AllegroFlare/Story/Characters/PersonalityProfileFactory"
   ],
   "AllegroFlare/Story/Characters/PersonalityProfileMatrix": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
     "AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory"
   ],
   "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"

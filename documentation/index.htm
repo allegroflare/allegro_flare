@@ -19022,15 +19022,35 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml</h3>
      <table>
+<tr>
+  <td class="property">personality_profile_matrix</td>
+  <td class="property">AllegroFlare::Story::Characters::PersonalityProfileMatrix</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
 <tr>
-  <td class="method">build_primary_personality_profile()</td>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">build_random_personality_profile()</td>
 </tr>
     </table>
      <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfile.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfileMatrix&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfileMatrix.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfileMatrixFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -25313,6 +25333,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
@@ -26231,7 +26252,11 @@ table td
     "AllegroFlare/Story/Characters/PersonalityProfileFactory"
   ],
   "AllegroFlare/Story/Characters/PersonalityProfileMatrix": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
     "AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory"
   ],
   "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"
