@@ -61,26 +61,32 @@ std::string PersonalityProfileFactory::build_random_personality_profile(std::str
 
    AllegroFlare::Random &random = (seed == 0) ? static_random : seeded_random;
 
-   // Assemble a dimension.
-   AllegroFlare::Story::Characters::PersonalityDimension selected_dimension =
-      personality_profile_matrix.get_personality_dimension_by_index(1); // TODO: Select this randomly
-
-   std::string dimension_name = selected_dimension.get_name();
-   std::string dimension_description = selected_dimension.get_description();
-   uint32_t dimension_ranking_level = 4; // TODO: Select this randomly
-   std::string dimension_descriptor_for_level = selected_dimension.get_descriptor_for_level(dimension_ranking_level);
+   std::vector<AllegroFlare::Story::Characters::PersonalityDimension> available_personality_dimensions =
+      personality_profile_matrix.get_dimensions();
+   random.shuffle_elements(available_personality_dimensions);
 
    std::stringstream writeup;
-   writeup << build_writeup_for_dimension(
-      character_name,
-      dimension_name,
-      dimension_description,
-      dimension_ranking_level,
-      dimension_descriptor_for_level
-   );
 
-   //AllegroFlare::Story::Characters::PersonalityProfile profile;
-   //return profile;
+   for (auto &dimension : available_personality_dimensions)
+   {
+   // Assemble a dimension.
+   //AllegroFlare::Story::Characters::PersonalityDimension selected_dimension =
+      //personality_profile_matrix.get_personality_dimension_by_index(1); // TODO: Select this randomly
+
+      std::string dimension_name = dimension.get_name();
+      std::string dimension_description = dimension.get_description();
+      uint32_t dimension_ranking_level = 4; // TODO: Select this randomly
+      std::string dimension_descriptor_for_level = dimension.get_descriptor_for_level(dimension_ranking_level);
+
+      writeup << build_writeup_for_dimension(
+         character_name,
+         dimension_name,
+         dimension_description,
+         dimension_ranking_level,
+         dimension_descriptor_for_level
+      );
+   }
+
    return writeup.str();
 }
 
