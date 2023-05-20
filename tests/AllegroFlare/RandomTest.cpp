@@ -341,19 +341,19 @@ TEST(AllegroFlare_RandomTest, shuffle_elements__will_randomize_the_order_of_the_
 
 TEST(AllegroFlare_RandomTest, shuffle_elements__will_produce_a_reproducable_shuffling_given_the_same_seed)
 {
-   AllegroFlare::Random number_generator = AllegroFlare::Random(123456);
+   AllegroFlare::Random number_generator = AllegroFlare::Random(123456+7);
    std::vector<int> elements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
    std::vector<std::vector<int>> expected_shuffles = {
-      { 1, 9, 8, 2, 10, 4, 6, 5, 7, 3 },
-      { 3, 1, 5, 8, 7, 2, 10, 9, 4, 6 },
-      { 8, 1, 3, 7, 2, 5, 9, 6, 4, 10 },
+      { 6, 3, 9, 10, 2, 5, 1, 4, 8, 7 },
+      { 5, 9, 6, 4, 2, 10, 1, 8, 3, 7 },
+      { 6, 3, 8, 7, 9, 1, 4, 5, 2, 10 },
    };
 
    for (auto &expected_shuffle : expected_shuffles)
    {
       number_generator.shuffle_elements(elements);
-      EXPECT_EQ(elements, expected_shuffle);
+      EXPECT_EQ(expected_shuffle, elements);
    }
 }
 

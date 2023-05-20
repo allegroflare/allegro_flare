@@ -106,7 +106,7 @@ namespace AllegroFlare
       void shuffle_elements(std::vector<T> &elements)
       {
          shuffle_elements_seed_increment++; // TODO this should be a (predictably) randomly new seed 
-         random_number_generator__for_shuffle_elements.seed(shuffle_elements_seed_increment);
+         random_number_generator__for_shuffle_elements.seed(primary_seed + shuffle_elements_seed_increment);
          shuffle_internal(elements.begin(), elements.end(), random_number_generator__for_shuffle_elements);
       }
 
