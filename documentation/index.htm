@@ -19005,7 +19005,7 @@ table td
     <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml</h3>
      <table>
 <tr>
-  <td class="property">dimensions</td>
+  <td class="property">personality_dimensions</td>
   <td class="property">std::vector&lt;AllegroFlare::Story::Characters::PersonalityDimension&gt;</td>
 </tr>
     </table>
@@ -19036,7 +19036,10 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">build_random_personality_profile()</td>
+  <td class="method">build_random_personality_profile(uint32_t num_traits=5, unsigned int seed=0)</td>
+</tr>
+<tr>
+  <td class="method">ranking_level_to_text(uint32_t ranking_level=0)</td>
 </tr>
     </table>
      <table>

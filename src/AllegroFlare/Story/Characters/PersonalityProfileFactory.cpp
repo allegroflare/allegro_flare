@@ -5,6 +5,7 @@
 #include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.hpp>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 
@@ -46,7 +47,7 @@ void PersonalityProfileFactory::initialize()
    return;
 }
 
-AllegroFlare::Story::Characters::PersonalityProfile PersonalityProfileFactory::build_random_personality_profile()
+std::string PersonalityProfileFactory::build_random_personality_profile(uint32_t num_traits, unsigned int seed)
 {
    if (!(initialized))
    {
@@ -55,10 +56,48 @@ AllegroFlare::Story::Characters::PersonalityProfile PersonalityProfileFactory::b
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("PersonalityProfileFactory::build_random_personality_profile: error: guard \"initialized\" not met");
    }
-   //static AllegroFlare::Random random;
-   //int num_traits = 5;
-   AllegroFlare::Story::Characters::PersonalityProfile profile;
-   return profile;
+   static AllegroFlare::Random static_random; // NOTE: if seed is 0, then the static_random will be used
+   AllegroFlare::Random seeded_random(seed);  // NOTE: if seed is non-zero, then a fresh Random will use the seed
+
+   AllegroFlare::Random &random = (seed == 0) ? static_random : seeded_random;
+
+   std::string dimension_name = "Dimension Name";
+   std::string dimension_description = "Dimension description.";
+   uint32_t dimension_ranking_level = 4;
+
+   std::stringstream writeup;
+   writeup << "In the personality category of \"" << dimension_name << "\" (" << dimension_description
+           << "), this character ranks " << ranking_level_to_text(dimension_ranking_level);
+
+   //AllegroFlare::Story::Characters::PersonalityProfile profile;
+   //return profile;
+   return writeup.str();
+}
+
+std::string PersonalityProfileFactory::ranking_level_to_text(uint32_t ranking_level)
+{
+   if (!((ranking_level >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PersonalityProfileFactory::ranking_level_to_text: error: guard \"(ranking_level >= 0)\" not met");
+   }
+   if (!((ranking_level < 5)))
+   {
+      std::stringstream error_message;
+      error_message << "[PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level < 5)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PersonalityProfileFactory::ranking_level_to_text: error: guard \"(ranking_level < 5)\" not met");
+   }
+   std::map<uint32_t, std::string> dictionary = {
+      { 0, "VERY_LOW" },
+      { 1, "LOW" },
+      { 2, "BALANCED" },
+      { 3, "HIGH" },
+      { 4, "VERY_HIGH" },
+   };
+   return dictionary[ranking_level];
 }
 
 

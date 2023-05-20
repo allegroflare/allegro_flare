@@ -1,7 +1,7 @@
 properties:
 
 
-  - name: dimensions
+  - name: personality_dimensions
     type: std::vector<AllegroFlare::Story::Characters::PersonalityDimension>
     constructor_arg: true
     init_with: '{}'

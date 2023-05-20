@@ -17,3 +17,16 @@ TEST(AllegroFlare_Story_Characters_PersonalityProfileFactoryTest, initialized__c
 }
 
 
+TEST(AllegroFlare_Story_Characters_PersonalityProfileFactoryTest,
+   build_random_personality_profile__will_write_a_personality_profile)
+{
+   AllegroFlare::Story::Characters::PersonalityProfileFactory personality_profile_factory;
+   personality_profile_factory.initialize();
+   std::string personality_profile_writeup = personality_profile_factory.build_random_personality_profile();
+
+   std::string expected_personality_profile_writeup = "foo";
+ 
+   EXPECT_EQ(expected_personality_profile_writeup, personality_profile_writeup);
+}
+
+

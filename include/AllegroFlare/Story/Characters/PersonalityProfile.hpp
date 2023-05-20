@@ -14,17 +14,17 @@ namespace AllegroFlare
          class PersonalityProfile
          {
          private:
-            std::vector<AllegroFlare::Story::Characters::PersonalityDimension> dimensions;
+            std::vector<AllegroFlare::Story::Characters::PersonalityDimension> personality_dimensions;
 
          protected:
 
 
          public:
-            PersonalityProfile(std::vector<AllegroFlare::Story::Characters::PersonalityDimension> dimensions={});
+            PersonalityProfile(std::vector<AllegroFlare::Story::Characters::PersonalityDimension> personality_dimensions={});
             ~PersonalityProfile();
 
-            void set_dimensions(std::vector<AllegroFlare::Story::Characters::PersonalityDimension> dimensions);
-            std::vector<AllegroFlare::Story::Characters::PersonalityDimension> get_dimensions() const;
+            void set_personality_dimensions(std::vector<AllegroFlare::Story::Characters::PersonalityDimension> personality_dimensions);
+            std::vector<AllegroFlare::Story::Characters::PersonalityDimension> get_personality_dimensions() const;
          };
       }
    }

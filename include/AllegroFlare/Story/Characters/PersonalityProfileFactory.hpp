@@ -1,8 +1,9 @@
 #pragma once
 
 
-#include <AllegroFlare/Story/Characters/PersonalityProfile.hpp>
 #include <AllegroFlare/Story/Characters/PersonalityProfileMatrix.hpp>
+#include <cstdint>
+#include <string>
 
 
 namespace AllegroFlare
@@ -25,7 +26,8 @@ namespace AllegroFlare
             ~PersonalityProfileFactory();
 
             void initialize();
-            AllegroFlare::Story::Characters::PersonalityProfile build_random_personality_profile();
+            std::string build_random_personality_profile(uint32_t num_traits=5, unsigned int seed=0);
+            std::string ranking_level_to_text(uint32_t ranking_level=0);
          };
       }
    }

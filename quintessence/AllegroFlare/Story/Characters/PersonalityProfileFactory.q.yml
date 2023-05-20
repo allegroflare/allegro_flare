@@ -27,15 +27,54 @@ functions:
 
 
   - name: build_random_personality_profile
-    type: AllegroFlare::Story::Characters::PersonalityProfile
+    type: std::string
+    parameters:
+      - name: num_traits
+        type: uint32_t
+        default_argument: 5
+      - name: seed
+        type: unsigned int
+        default_argument: 0
     guards: [ initialized ]
     body: |
-      //static AllegroFlare::Random random;
-      //int num_traits = 5;
-      AllegroFlare::Story::Characters::PersonalityProfile profile;
-      return profile;
+      static AllegroFlare::Random static_random; // NOTE: if seed is 0, then the static_random will be used
+      AllegroFlare::Random seeded_random(seed);  // NOTE: if seed is non-zero, then a fresh Random will use the seed
+
+      AllegroFlare::Random &random = (seed == 0) ? static_random : seeded_random;
+
+      std::string dimension_name = "Dimension Name";
+      std::string dimension_description = "Dimension description.";
+      uint32_t dimension_ranking_level = 4;
+
+      std::stringstream writeup;
+      writeup << "In the personality category of \"" << dimension_name << "\" (" << dimension_description
+              << "), this character ranks " << ranking_level_to_text(dimension_ranking_level);
+
+      //AllegroFlare::Story::Characters::PersonalityProfile profile;
+      //return profile;
+      return writeup.str();
     body_dependency_symbols:
       - AllegroFlare::Random
+
+
+  - name: ranking_level_to_text
+    parameters:
+      - name: ranking_level
+        type: uint32_t
+        default_argument: 0
+    type: std::string
+    guards: [ (ranking_level >= 0), (ranking_level < 5) ]
+    body: |
+      std::map<uint32_t, std::string> dictionary = {
+         { 0, "VERY_LOW" },
+         { 1, "LOW" },
+         { 2, "BALANCED" },
+         { 3, "HIGH" },
+         { 4, "VERY_HIGH" },
+      };
+      return dictionary[ranking_level];
+    body_dependency_symbols:
+      - std::map
 
 
 dependencies:
