@@ -33,7 +33,7 @@ AllegroFlare::Story::Characters::PersonalityProfileMatrix PersonalityProfileMatr
         "is very introverted",
         "is introverted",
         "can show signs of introversion or extraversion depending on the situation",
-        "is extroverted",
+        "is an extrovert",
         "is very extroverted"
       },
       { "Agreeableness",
@@ -96,7 +96,7 @@ AllegroFlare::Story::Characters::PersonalityProfileMatrix PersonalityProfileMatr
         "characters can vary in their desire for exploration, risk-taking, and seeking out new challenges.",
         "avoids risks, exploring, and challenges",
         "avoids challenges",
-        "is willing to welcome an adventure if called to do so",
+        "is willing to take on an adventure if compelled to do so",
         "is adventurous",
         "seeks out new challenges that involve high risk"
       },

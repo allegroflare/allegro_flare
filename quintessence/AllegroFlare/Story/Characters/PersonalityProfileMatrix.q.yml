@@ -12,6 +12,12 @@ properties:
 functions:
 
 
+  - name: num_dimensions
+    type: std::size_t
+    body: |
+      return dimensions.size();
+
+
   - name: get_personality_dimension_by_index
     type: AllegroFlare::Story::Characters::PersonalityDimension
     parameters:

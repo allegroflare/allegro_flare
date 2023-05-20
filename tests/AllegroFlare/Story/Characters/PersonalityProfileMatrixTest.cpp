@@ -10,11 +10,3 @@ TEST(AllegroFlare_Story_Characters_PersonalityProfileMatrixTest, can_be_created_
 }
 
 
-TEST(AllegroFlare_Story_Characters_PersonalityProfileMatrixTest, run__returns_the_expected_response)
-{
-   AllegroFlare::Story::Characters::PersonalityProfileMatrix personality_profile_matrix;
-   std::string expected_string = "Hello World!";
-   EXPECT_EQ(expected_string, personality_profile_matrix.run());
-}
-
-

@@ -38,6 +38,11 @@ std::vector<AllegroFlare::Story::Characters::PersonalityDimension> PersonalityPr
 }
 
 
+std::size_t PersonalityProfileMatrix::num_dimensions()
+{
+   return dimensions.size();
+}
+
 AllegroFlare::Story::Characters::PersonalityDimension PersonalityProfileMatrix::get_personality_dimension_by_index(std::size_t index)
 {
    if (!((index >= 0)))
