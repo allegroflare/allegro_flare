@@ -1373,6 +1373,9 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "ALLEGRO_USER_EVENT": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_FLARE_EVENT_ROUTER": [
     "AllegroFlare/EventEmitter"
   ],

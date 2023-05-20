@@ -7044,6 +7044,9 @@ table td
   <td class="method">emit_dialog_open_event(std::string dialog_node_name_to_open=&quot;[unset-dialog_node_name_to_open]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">destroy_dialog_open_event_data(ALLEGRO_USER_EVENT* user_event=nullptr)</td>
+</tr>
+<tr>
   <td class="method">emit_dialog_advance_event()</td>
 </tr>
 <tr>
@@ -7102,6 +7105,9 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_USER_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_ROUTER&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
@@ -24990,6 +24996,9 @@ table td
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "ALLEGRO_USER_EVENT": [
+    "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_ROUTER": [
     "AllegroFlare/EventEmitter"
