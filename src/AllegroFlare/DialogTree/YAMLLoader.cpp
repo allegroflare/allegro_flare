@@ -82,6 +82,14 @@ void YAMLLoader::load(std::string yaml_as_string)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("YAMLLoader::load: error: guard \"(!loaded)\" not met");
    }
+   if (!((!yaml_as_string.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[YAMLLoader::load]: error: guard \"(!yaml_as_string.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("YAMLLoader::load: error: guard \"(!yaml_as_string.empty())\" not met");
+   }
+   // TODO: Test guards
    AllegroFlare::DialogTree::NodeBank result;
    YAML::Node root_node = YAML::Load(yaml_as_string);
 

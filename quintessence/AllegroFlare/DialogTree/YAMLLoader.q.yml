@@ -163,8 +163,9 @@ functions:
       - name: yaml_as_string
         type: std::string
         default_argument: '"[unset-yaml_as_string]"'
-    guards: [ (!loaded) ]
+    guards: [ (!loaded), (!yaml_as_string.empty()) ]
     body: |
+      // TODO: Test guards
       AllegroFlare::DialogTree::NodeBank result;
       YAML::Node root_node = YAML::Load(yaml_as_string);
 
