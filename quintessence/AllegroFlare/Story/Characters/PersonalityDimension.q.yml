@@ -1,0 +1,46 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: descriptor_very_low
+    type: std::string
+    init_with: '"[unset-descriptor_very_low]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: descriptor_low
+    type: std::string
+    init_with: '"[unset-descriptor_low]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: descriptor_medium
+    type: std::string
+    init_with: '"[unset-descriptor_medium]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: descriptor_high
+    type: std::string
+    init_with: '"[unset-descriptor_high]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: descriptor_very_high
+    type: std::string
+    init_with: '"[unset-descriptor_very_high]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
