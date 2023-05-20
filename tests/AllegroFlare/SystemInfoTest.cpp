@@ -68,6 +68,7 @@ TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing
    std::string actual_version = system_info.get_version();
 
 #ifdef _WIN32
+   // TODO: Revise this test to use a regex
    std::vector<std::string> expected_possible_versions = {
       // Mark's Windows Laptop:
       "10.0",
