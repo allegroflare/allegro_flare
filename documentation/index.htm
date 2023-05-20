@@ -309,6 +309,11 @@ table td
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrix.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrix.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StringFormatValidator.q.yml">quintessence/AllegroFlare/StringFormatValidator.q.yml</a></li>
@@ -18958,6 +18963,115 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">description</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">descriptor_very_low</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">descriptor_low</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">descriptor_medium</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">descriptor_high</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">descriptor_very_high</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">dimensions</td>
+  <td class="property">std::vector&lt;AllegroFlare::Story::Characters::PersonalityDimension&gt;</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityDimension&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityDimension.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">build_primary_personality_profile()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfile.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrix.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrix.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">dimensions</td>
+  <td class="property">std::vector&lt;AllegroFlare::Story::Characters::PersonalityDimension&gt;</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityDimension&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityDimension.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.q.yml</h3>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="method">build_standard_matrix()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfileMatrix&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfileMatrix.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</h3>
      <table>
 <tr>
@@ -26108,6 +26222,16 @@ table td
   ],
   "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityDimension": [
+    "AllegroFlare/Story/Characters/PersonalityProfile",
+    "AllegroFlare/Story/Characters/PersonalityProfileMatrix"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityProfile": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityProfileMatrix": [
+    "AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory"
   ],
   "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"

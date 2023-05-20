@@ -23,9 +23,10 @@ PersonalityProfileFactory::~PersonalityProfileFactory()
 }
 
 
-std::string PersonalityProfileFactory::run()
+AllegroFlare::Story::Characters::PersonalityProfile PersonalityProfileFactory::build_primary_personality_profile()
 {
-   return "Hello World!";
+   AllegroFlare::Story::Characters::PersonalityProfile profile;
+   return profile;
 }
 
 

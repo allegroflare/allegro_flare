@@ -8,6 +8,13 @@ properties:
     getter: true
     setter: true
 
+  - name: description
+    type: std::string
+    init_with: '"[unset-description]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: descriptor_very_low
     type: std::string
     init_with: '"[unset-descriptor_very_low]"'

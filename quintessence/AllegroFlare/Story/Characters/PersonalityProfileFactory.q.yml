@@ -1,9 +1,17 @@
 functions:
 
 
-  - name: run
-    type: std::string
+  - name: build_primary_personality_profile
+    type: AllegroFlare::Story::Characters::PersonalityProfile
     body: |
-      return "Hello World!";
+      AllegroFlare::Story::Characters::PersonalityProfile profile;
+      return profile;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Story::Characters::PersonalityProfile
+    headers: [ AllegroFlare/Story/Characters/PersonalityProfile.hpp ]
 
 

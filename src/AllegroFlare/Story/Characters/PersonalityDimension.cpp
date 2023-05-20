@@ -13,8 +13,9 @@ namespace Characters
 {
 
 
-PersonalityDimension::PersonalityDimension(std::string name, std::string descriptor_very_low, std::string descriptor_low, std::string descriptor_medium, std::string descriptor_high, std::string descriptor_very_high)
+PersonalityDimension::PersonalityDimension(std::string name, std::string description, std::string descriptor_very_low, std::string descriptor_low, std::string descriptor_medium, std::string descriptor_high, std::string descriptor_very_high)
    : name(name)
+   , description(description)
    , descriptor_very_low(descriptor_very_low)
    , descriptor_low(descriptor_low)
    , descriptor_medium(descriptor_medium)
@@ -32,6 +33,12 @@ PersonalityDimension::~PersonalityDimension()
 void PersonalityDimension::set_name(std::string name)
 {
    this->name = name;
+}
+
+
+void PersonalityDimension::set_description(std::string description)
+{
+   this->description = description;
 }
 
 
@@ -68,6 +75,12 @@ void PersonalityDimension::set_descriptor_very_high(std::string descriptor_very_
 std::string PersonalityDimension::get_name() const
 {
    return name;
+}
+
+
+std::string PersonalityDimension::get_description() const
+{
+   return description;
 }
 
 

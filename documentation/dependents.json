@@ -2485,6 +2485,16 @@
   "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
+  "AllegroFlare/Story/Characters/PersonalityDimension": [
+    "AllegroFlare/Story/Characters/PersonalityProfile",
+    "AllegroFlare/Story/Characters/PersonalityProfileMatrix"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityProfile": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityProfileMatrix": [
+    "AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory"
+  ],
   "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"
   ],

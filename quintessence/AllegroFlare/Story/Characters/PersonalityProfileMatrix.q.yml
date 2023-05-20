@@ -1,0 +1,18 @@
+properties:
+
+
+  - name: dimensions
+    type: std::vector<AllegroFlare::Story::Characters::PersonalityDimension>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Story::Characters::PersonalityDimension
+    headers: [ AllegroFlare/Story/Characters/PersonalityDimension.hpp ]
+
+

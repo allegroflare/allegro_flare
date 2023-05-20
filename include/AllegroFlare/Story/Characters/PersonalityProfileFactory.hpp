@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <string>
+#include <AllegroFlare/Story/Characters/PersonalityProfile.hpp>
 
 
 namespace AllegroFlare
@@ -21,7 +21,7 @@ namespace AllegroFlare
             PersonalityProfileFactory();
             ~PersonalityProfileFactory();
 
-            std::string run();
+            AllegroFlare::Story::Characters::PersonalityProfile build_primary_personality_profile();
          };
       }
    }
