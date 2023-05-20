@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/SystemInfo.hpp>
 #include <thread>
+#include <regex>
 
 
 TEST(AllegroFlare_SystemInfoTest, can_be_created_without_blowing_up)
@@ -64,16 +65,30 @@ TEST(AllegroFlare_SystemInfoTest, get_hostname__will_return_a_string_representin
 TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing_the_system)
 {
    AllegroFlare::SystemInfo system_info;
+   std::string actual_version = system_info.get_version();
+
+#ifdef _WIN32
+   // Windows-specific code
    std::vector<std::string> expected_possible_versions = {
       // Mark's Windows Laptop:
       "10.0",
-      // Mark's Mac Laptop:
-      "Darwin Kernel Version 22.3.0: Mon Jan 30 20:39:35 PST 2023; root:xnu-8792.81.3~2/RELEASE_ARM64_T8103",
-      // Mark's MacMini:
-      "Darwin Kernel Version 21.6.0: Wed Aug 10 14:25:27 PDT 2022; root:xnu-8020.141.5~2/RELEASE_X86_64",
    };
-   std::string actual_version = system_info.get_version();
    EXPECT_THAT(expected_possible_versions, testing::Contains(actual_version));
+#elif __APPLE__
+   // macOS-specific code
+   // NOTE: some example strings for this regex:
+   // "Darwin Kernel Version 22.4.0: Mon Mar  6 21:00:41 PST 2023; root:xnu-8796.101.5~3/RELEASE_ARM64_T8103";
+   // "Darwin Kernel Version 22.3.0: Mon Jan 30 20:39:35 PST 2023; root:xnu-8792.81.3~2/RELEASE_ARM64_T8103",
+   // "Darwin Kernel Version 21.6.0: Wed Aug 10 14:25:27 PDT 2022; root:xnu-8020.141.5~2/RELEASE_X86_64",
+   // TODO: Consider using a more comprehensive string, and regex_match (rather than regex_search)
+   //std::regex darwin_kernel_version_regex("^Darwin Kernel Version \\d+\\.\\d+\\.\\d+: [A-Z][a-z]{2} [A-Z][a-z]{2}\\s+\\d+\\s+\\d{2}:\\d{2}:\\d{2} [A-Z]{3} \\d{4}; root:[a-z]{3}-\\d+\\.\\d+\\.\\d+~\\d{1,2}/[A-Z_]+$");
+   std::regex darwin_kernel_version_regex("^Darwin Kernel Version \\d+\\.\\d+\\.\\d+: ");
+   bool is_match = std::regex_search(actual_version, darwin_kernel_version_regex);
+   EXPECT_TRUE(is_match);
+#else
+   // Other platform code
+   SKIP() << "This test is not supported on this platform";
+#endif
 }
 
 
@@ -82,6 +97,7 @@ TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing
    AllegroFlare::SystemInfo system_info;
    std::vector<std::string> expected_possible_releases = {
       "10.0 (build 19044)",
+      "22.4.0", // Mark's Mac Laptop
       "22.3.0", // Mark's Mac Laptop
       "21.6.0", // Mark's MacMini
    };
