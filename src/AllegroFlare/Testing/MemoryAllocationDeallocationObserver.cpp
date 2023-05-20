@@ -16,14 +16,12 @@ int MemoryAllocationDeallocationObserver::allocation_count = 0;
 int MemoryAllocationDeallocationObserver::deallocation_count = 0;
 
 
-         static inline bool increment_allocation_count();
-         static inline bool increment_deallocation_count();
-
 
 void MemoryAllocationDeallocationObserver::increment_allocation_count()
 {
    allocation_count++;
 }
+
 
 
 void MemoryAllocationDeallocationObserver::increment_deallocation_count()
@@ -38,6 +36,16 @@ bool MemoryAllocationDeallocationObserver::is_memory_tracking_enabled()
 }
 
 
+
+void MemoryAllocationDeallocationObserver::reset()
+{
+   memory_tracking_enabled = false;
+   allocation_count = 0;
+   deallocation_count = 0;
+}
+
+
+
 void MemoryAllocationDeallocationObserver::enable_memory_tracking()
 {
    memory_tracking_enabled = true;
@@ -48,6 +56,20 @@ void MemoryAllocationDeallocationObserver::enable_memory_tracking()
 void MemoryAllocationDeallocationObserver::disable_memory_tracking()
 {
    memory_tracking_enabled = false;
+}
+
+
+
+int MemoryAllocationDeallocationObserver::get_num_allocations()
+{
+   return allocation_count;
+}
+
+
+
+int MemoryAllocationDeallocationObserver::get_num_deallocations()
+{
+   return deallocation_count;
 }
 
 
