@@ -35,6 +35,8 @@ documentation:
           - options must be array
           - each option element must have 'type'
           - each option element must have 'data'
+          - any `go_to_node` type should point to an existing node name
+          - any dangling nodes (ones not reached by `go_to_node`) should output a warning on load
 
 
 properties:
@@ -183,8 +185,6 @@ functions:
 
          std::string created_node_name = created_node_info.first;
          AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
-
-         //TODO: Check if node_exists_by_name, throw if already exists
 
          node_bank.add_node(created_node_name, created_node);
       }

@@ -103,8 +103,6 @@ void YAMLLoader::load(std::string yaml_as_string)
       std::string created_node_name = created_node_info.first;
       AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
 
-      //TODO: Check if node_exists_by_name, throw if already exists
-
       node_bank.add_node(created_node_name, created_node);
    }
 
