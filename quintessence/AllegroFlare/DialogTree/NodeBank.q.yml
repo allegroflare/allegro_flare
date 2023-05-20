@@ -45,7 +45,7 @@ functions:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
-    guards: [ (!node_exists_by_name(name)) ]
+    guards: [ node_exists_by_name(name) ]
     body: |
       // TODO: This guard results in a double lookup. Might be faster to integrate it below.
       if (nodes.find(name) == nodes.end()) return nullptr;
