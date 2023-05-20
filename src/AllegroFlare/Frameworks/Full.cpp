@@ -1457,9 +1457,20 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      // NOTE: do not delete shader, it remains active
                   } break;
 
+                  case ALLEGRO_FLARE_EVENT_DIALOG_OPEN: {
+                     // TODO: Consider destroying data here
+                     //AllegroFlare::EventEmitter::destroy_dialog_open_event_data(&this_event.user);
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE: {
+                     // Nothing to do here
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE: {
+                     // Nothing to do here
+                  } break;
 
                   default:
-                     screens.user_event_funcs(&this_event);
                   break;
                }
             }
