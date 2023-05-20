@@ -68,25 +68,25 @@ TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing
    std::string actual_version = system_info.get_version();
 
 #ifdef _WIN32
-   // Windows-specific code
    std::vector<std::string> expected_possible_versions = {
       // Mark's Windows Laptop:
       "10.0",
    };
    EXPECT_THAT(expected_possible_versions, testing::Contains(actual_version));
 #elif __APPLE__
-   // macOS-specific code
    // NOTE: some example strings for this regex:
    // "Darwin Kernel Version 22.4.0: Mon Mar  6 21:00:41 PST 2023; root:xnu-8796.101.5~3/RELEASE_ARM64_T8103";
    // "Darwin Kernel Version 22.3.0: Mon Jan 30 20:39:35 PST 2023; root:xnu-8792.81.3~2/RELEASE_ARM64_T8103",
    // "Darwin Kernel Version 21.6.0: Wed Aug 10 14:25:27 PDT 2022; root:xnu-8020.141.5~2/RELEASE_X86_64",
-   // TODO: Consider using a more comprehensive string, and regex_match (rather than regex_search)
+
+   // TODO: Consider using a more comprehensive string, and regex_match (rather than regex_search), such as:
    //std::regex darwin_kernel_version_regex("^Darwin Kernel Version \\d+\\.\\d+\\.\\d+: [A-Z][a-z]{2} [A-Z][a-z]{2}\\s+\\d+\\s+\\d{2}:\\d{2}:\\d{2} [A-Z]{3} \\d{4}; root:[a-z]{3}-\\d+\\.\\d+\\.\\d+~\\d{1,2}/[A-Z_]+$");
+
    std::regex darwin_kernel_version_regex("^Darwin Kernel Version \\d+\\.\\d+\\.\\d+: ");
    bool is_match = std::regex_search(actual_version, darwin_kernel_version_regex);
    EXPECT_TRUE(is_match);
 #else
-   // Other platform code
+   // Platform code other than Win and Apple
    SKIP() << "This test is not supported on this platform";
 #endif
 }
