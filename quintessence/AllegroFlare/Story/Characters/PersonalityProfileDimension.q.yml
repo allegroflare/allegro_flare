@@ -1,0 +1,41 @@
+properties:
+
+
+  - name: title
+    type: std::string
+    init_with: '"[unset-title]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: scoring
+    type: uint32_t
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+      
+  - name: scoring_max
+    type: uint32_t
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+      
+  - name: scoring_descriptor
+    type: std::string
+    init_with: '"[unset-scoring_descriptor]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: get_scoring_normalized
+    type: float
+    body: |
+      return scoring / (float)scoring_max;
+
+

@@ -2,7 +2,7 @@ properties:
 
 
   - name: personality_dimensions
-    type: std::vector<AllegroFlare::Story::Characters::PersonalityDimension>
+    type: std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension>
     constructor_arg: true
     init_with: '{}'
     getter: true
@@ -13,7 +13,7 @@ functions:
 
 
   - name: get_personality_dimension_by_index
-    type: AllegroFlare::Story::Characters::PersonalityDimension
+    type: AllegroFlare::Story::Characters::PersonalityProfileDimension
     parameters:
       - name: index
         type: std::size_t
@@ -26,7 +26,7 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Story::Characters::PersonalityDimension
-    headers: [ AllegroFlare/Story/Characters/PersonalityDimension.hpp ]
+  - symbol: AllegroFlare::Story::Characters::PersonalityProfileDimension
+    headers: [ AllegroFlare/Story/Characters/PersonalityProfileDimension.hpp ]
 
 

@@ -15,7 +15,7 @@ namespace Characters
 {
 
 
-PersonalityProfile::PersonalityProfile(std::vector<AllegroFlare::Story::Characters::PersonalityDimension> personality_dimensions)
+PersonalityProfile::PersonalityProfile(std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension> personality_dimensions)
    : personality_dimensions(personality_dimensions)
 {
 }
@@ -26,19 +26,19 @@ PersonalityProfile::~PersonalityProfile()
 }
 
 
-void PersonalityProfile::set_personality_dimensions(std::vector<AllegroFlare::Story::Characters::PersonalityDimension> personality_dimensions)
+void PersonalityProfile::set_personality_dimensions(std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension> personality_dimensions)
 {
    this->personality_dimensions = personality_dimensions;
 }
 
 
-std::vector<AllegroFlare::Story::Characters::PersonalityDimension> PersonalityProfile::get_personality_dimensions() const
+std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension> PersonalityProfile::get_personality_dimensions() const
 {
    return personality_dimensions;
 }
 
 
-AllegroFlare::Story::Characters::PersonalityDimension PersonalityProfile::get_personality_dimension_by_index(std::size_t index)
+AllegroFlare::Story::Characters::PersonalityProfileDimension PersonalityProfile::get_personality_dimension_by_index(std::size_t index)
 {
    if (!((index >= 0)))
    {
