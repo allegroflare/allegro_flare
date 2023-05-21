@@ -18,8 +18,10 @@ PersonNameGenerator::PersonNameGenerator()
    , initialized(false)
    , victorian_boy_names({})
    , victorian_girl_names({})
+   , double_consecutive_t_names({})
    , next_boy_name_index(0)
    , next_girl_name_index(0)
+   , double_consecutive_t_name_index(0)
 {
 }
 
@@ -49,6 +51,7 @@ void PersonNameGenerator::randomize(uint32_t seed)
 
    victorian_boy_names = build_victorian_boy_name_list();
    victorian_girl_names = build_victorian_girl_name_list();
+   double_consecutive_t_names = build_double_consecutive_t_name_list();
 
    random.shuffle_elements(victorian_boy_names);
    random.shuffle_elements(victorian_girl_names);
@@ -79,7 +82,19 @@ std::string PersonNameGenerator::generate_girl_name()
    if (next_girl_name_index >= victorian_girl_names.size()) return ""; return victorian_girl_names[next_girl_name_index++];
 }
 
-std::vector<std::string> PersonNameGenerator::build_names_with_double_consecutive_ts()
+std::string PersonNameGenerator::generate_double_consecutive_t_name()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[PersonNameGenerator::generate_double_consecutive_t_name]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PersonNameGenerator::generate_double_consecutive_t_name: error: guard \"initialized\" not met");
+   }
+   if (double_consecutive_t_name_index >= double_consecutive_t_names.size()) return ""; return double_consecutive_t_names[double_consecutive_t_name_index++];
+}
+
+std::vector<std::string> PersonNameGenerator::build_double_consecutive_t_name_list()
 {
    return
       { "Annette"

@@ -17,11 +17,19 @@ properties:
     type: std::vector<std::string>
     init_with: '{}'
 
+  - name: double_consecutive_t_names
+    type: std::vector<std::string>
+    init_with: '{}'
+
   - name: next_boy_name_index
     type: int
     init_with: 0
     
   - name: next_girl_name_index
+    type: int
+    init_with: 0
+
+  - name: double_consecutive_t_name_index
     type: int
     init_with: 0
 
@@ -47,6 +55,7 @@ functions:
 
       victorian_boy_names = build_victorian_boy_name_list();
       victorian_girl_names = build_victorian_girl_name_list();
+      double_consecutive_t_names = build_double_consecutive_t_name_list();
 
       random.shuffle_elements(victorian_boy_names);
       random.shuffle_elements(victorian_girl_names);
@@ -69,7 +78,15 @@ functions:
       return victorian_girl_names[next_girl_name_index++];
 
 
-  - name: build_names_with_double_consecutive_ts
+  - name: generate_double_consecutive_t_name
+    type: std::string
+    guards: [ initialized ]
+    body:
+      if (double_consecutive_t_name_index >= double_consecutive_t_names.size()) return "";
+      return double_consecutive_t_names[double_consecutive_t_name_index++];
+
+
+  - name: build_double_consecutive_t_name_list
     static: true
     type: std::vector<std::string>
     body: |
