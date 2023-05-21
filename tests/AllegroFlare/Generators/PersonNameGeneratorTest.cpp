@@ -75,6 +75,15 @@ TEST(AllegroFlare_Generators_PersonNameGeneratorTest, the_source_of_victorian_gi
 }
 
 
+TEST(AllegroFlare_Generators_PersonNameGeneratorTest,
+   the_source_of_names_containing_double_consecutive_ts_contains_37_names)
+{
+   AllegroFlare::Generators::PersonNameGenerator person_name_generator;
+   // TODO: Make this list 40 names long
+   EXPECT_EQ(37, person_name_generator.build_names_with_double_consecutive_ts().size());
+}
+
+
 TEST(AllegroFlare_Generators_PersonNameGeneratorTest, the_source_of_victorian_boy_names_contains_unique_elements)
 {
    AllegroFlare::Generators::PersonNameGenerator person_name_generator;
@@ -90,6 +99,18 @@ TEST(AllegroFlare_Generators_PersonNameGeneratorTest, the_source_of_victorian_gi
 {
    AllegroFlare::Generators::PersonNameGenerator person_name_generator;
    std::vector<std::string> provided_source_names = person_name_generator.build_victorian_girl_name_list();
+   std::set<std::string> unique_names;
+   for (auto &element : provided_source_names) unique_names.insert(element);
+   
+   EXPECT_EQ(unique_names.size(), provided_source_names.size());
+}
+
+
+TEST(AllegroFlare_Generators_PersonNameGeneratorTest,
+   the_source_of_names_containing_double_consecutive_ts_contains_unique_elements)
+{
+   AllegroFlare::Generators::PersonNameGenerator person_name_generator;
+   std::vector<std::string> provided_source_names = person_name_generator.build_names_with_double_consecutive_ts();
    std::set<std::string> unique_names;
    for (auto &element : provided_source_names) unique_names.insert(element);
    

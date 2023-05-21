@@ -79,6 +79,49 @@ std::string PersonNameGenerator::generate_girl_name()
    if (next_girl_name_index >= victorian_girl_names.size()) return ""; return victorian_girl_names[next_girl_name_index++];
 }
 
+std::vector<std::string> PersonNameGenerator::build_names_with_double_consecutive_ts()
+{
+   return
+      { "Annette"
+      , "Atticus"
+      , "Barrett"
+      , "Beckett"
+      , "Bennett"
+      , "Bettina"
+      , "Brett"
+      , "Britta"
+      , "Brittany"
+      , "Dottie"
+      , "Elliott"
+      , "Everett"
+      , "Garrett"
+      , "Gittel"
+      , "Gretta"
+      , "Hattie"
+      , "Henrietta"
+      , "Hettie"
+      , "Jett"
+      , "Lettie"
+      , "Loretta"
+      , "Lotta"
+      , "Lottie"
+      , "Matthew"
+      , "Mattias"
+      , "Mattie"
+      , "Nettie"
+      , "Ottilia"
+      , "Otto"
+      , "Patty"
+      , "Ritter"
+      , "Rosetta"
+      , "Scarlett"
+      , "Scott"
+      , "Scotty"
+      , "Sutton"
+      , "Wyatt"
+      };
+}
+
 std::vector<std::string> PersonNameGenerator::build_victorian_boy_name_list()
 {
    return { "Adam" , "Billy" , "Bruce" , "Chris" , "Christopher" , "David" , "Donald" , "Donny" , "Frankie" , "George" , "Gorby" , "Greg" , "Hamilton" , "Homer" , "Hugo" , "Jack" , "James" , "Jeremy" , "Johnathan" , "Johnny" , "Jules" , "Kirk" , "Luther" , "Matt" , "Michael" , "Nick" , "Norman" , "Patrick" , "Paul" , "Peter" , "Richard" , "Robert" , "Sam" , "Thomas" , "Tim" , "Timmy" , "Toby" , "Tommy" , "Walter" , "Edward" };

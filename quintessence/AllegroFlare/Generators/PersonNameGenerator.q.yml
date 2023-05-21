@@ -69,6 +69,51 @@ functions:
       return victorian_girl_names[next_girl_name_index++];
 
 
+  - name: build_names_with_double_consecutive_ts
+    static: true
+    type: std::vector<std::string>
+    body: |
+      return
+         { "Annette"
+         , "Atticus"
+         , "Barrett"
+         , "Beckett"
+         , "Bennett"
+         , "Bettina"
+         , "Brett"
+         , "Britta"
+         , "Brittany"
+         , "Dottie"
+         , "Elliott"
+         , "Everett"
+         , "Garrett"
+         , "Gittel"
+         , "Gretta"
+         , "Hattie"
+         , "Henrietta"
+         , "Hettie"
+         , "Jett"
+         , "Lettie"
+         , "Loretta"
+         , "Lotta"
+         , "Lottie"
+         , "Matthew"
+         , "Mattias"
+         , "Mattie"
+         , "Nettie"
+         , "Ottilia"
+         , "Otto"
+         , "Patty"
+         , "Ritter"
+         , "Rosetta"
+         , "Scarlett"
+         , "Scott"
+         , "Scotty"
+         , "Sutton"
+         , "Wyatt"
+         };
+
+
   - name: build_victorian_boy_name_list
     static: true
     type: std::vector<std::string>

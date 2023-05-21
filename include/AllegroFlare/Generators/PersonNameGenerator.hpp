@@ -32,6 +32,7 @@ namespace AllegroFlare
          void randomize(uint32_t seed=(uint32_t)time(0));
          std::string generate_boy_name();
          std::string generate_girl_name();
+         static std::vector<std::string> build_names_with_double_consecutive_ts();
          static std::vector<std::string> build_victorian_boy_name_list();
          static std::vector<std::string> build_victorian_girl_name_list();
       };
