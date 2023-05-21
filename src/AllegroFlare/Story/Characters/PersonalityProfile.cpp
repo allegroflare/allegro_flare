@@ -52,6 +52,30 @@ std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension> Person
 }
 
 
+void PersonalityProfile::add_personality_dimension(AllegroFlare::Story::Characters::PersonalityProfileDimension personality_dimension)
+{
+   if (!((!personality_dimension_with_title_exists(personality_dimension.get_title()))))
+   {
+      std::stringstream error_message;
+      error_message << "[PersonalityProfile::add_personality_dimension]: error: guard \"(!personality_dimension_with_title_exists(personality_dimension.get_title()))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PersonalityProfile::add_personality_dimension: error: guard \"(!personality_dimension_with_title_exists(personality_dimension.get_title()))\" not met");
+   }
+   // TODO: Add tests for this functionality
+   personality_dimensions.push_back(personality_dimension);
+   return;
+}
+
+bool PersonalityProfile::personality_dimension_with_title_exists(std::string title)
+{
+   // TODO: Add tests for this functionality
+   for (auto &personality_dimension : personality_dimensions)
+   {
+      if (personality_dimension.get_title() == title) return true;
+   }
+   return false;
+}
+
 AllegroFlare::Story::Characters::PersonalityProfileDimension PersonalityProfile::get_personality_dimension_by_index(std::size_t index)
 {
    if (!((index >= 0)))

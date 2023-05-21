@@ -19,6 +19,33 @@ properties:
 functions:
 
 
+  - name: add_personality_dimension
+    parameters:
+      - name: personality_dimension
+        type: AllegroFlare::Story::Characters::PersonalityProfileDimension
+        default_argument: '{}'
+    guards: [ (!personality_dimension_with_title_exists(personality_dimension.get_title())) ]
+    body: |
+      // TODO: Add tests for this functionality
+      personality_dimensions.push_back(personality_dimension);
+      return;
+
+
+  - name: personality_dimension_with_title_exists
+    type: bool
+    parameters:
+      - name: title
+        type: std::string
+        default_argument: '"[unset-title]"'
+    body: |
+      // TODO: Add tests for this functionality
+      for (auto &personality_dimension : personality_dimensions)
+      {
+         if (personality_dimension.get_title() == title) return true;
+      }
+      return false;
+
+
   - name: get_personality_dimension_by_index
     type: AllegroFlare::Story::Characters::PersonalityProfileDimension
     parameters:

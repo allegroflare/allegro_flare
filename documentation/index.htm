@@ -19009,11 +19009,21 @@ table td
     <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml</h3>
      <table>
 <tr>
+  <td class="property">character_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">personality_dimensions</td>
   <td class="property">std::vector&lt;AllegroFlare::Story::Characters::PersonalityProfileDimension&gt;</td>
 </tr>
     </table>
      <table>
+<tr>
+  <td class="method">add_personality_dimension(AllegroFlare::Story::Characters::PersonalityProfileDimension personality_dimension={})</td>
+</tr>
+<tr>
+  <td class="method">personality_dimension_with_title_exists(std::string title=&quot;[unset-title]&quot;)</td>
+</tr>
 <tr>
   <td class="method">get_personality_dimension_by_index(std::size_t index=0)</td>
 </tr>
@@ -19037,6 +19047,10 @@ table td
      <table>
 <tr>
   <td class="property">title</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">description</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -19097,6 +19111,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfileMatrixFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfile.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
@@ -26303,6 +26320,7 @@ table td
     "AllegroFlare/Story/Characters/PersonalityProfile"
   ],
   "AllegroFlare/Story/Characters/PersonalityProfile": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
     "AllegroFlare/Story/Characters/PersonalityProfileFactory"
   ],
   "AllegroFlare/Story/Characters/PersonalityProfileMatrix": [

@@ -8,15 +8,22 @@ properties:
     getter: true
     setter: true
 
+  - name: description
+    type: std::string
+    init_with: '"[unset-description]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: scoring
-    type: uint32_t
+    type: int
     init_with: 0
     constructor_arg: true
     getter: true
     setter: true
       
   - name: scoring_max
-    type: uint32_t
+    type: int
     init_with: 0
     constructor_arg: true
     getter: true
@@ -35,6 +42,7 @@ functions:
 
   - name: get_scoring_normalized
     type: float
+    guards: [ (scoring_max != 0) ]
     body: |
       return scoring / (float)scoring_max;
 

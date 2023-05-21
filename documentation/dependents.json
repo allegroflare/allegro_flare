@@ -2490,6 +2490,7 @@
     "AllegroFlare/Story/Characters/PersonalityProfile"
   ],
   "AllegroFlare/Story/Characters/PersonalityProfile": [
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
     "AllegroFlare/Story/Characters/PersonalityProfileFactory"
   ],
   "AllegroFlare/Story/Characters/PersonalityProfileMatrix": [
