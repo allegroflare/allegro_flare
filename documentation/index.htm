@@ -311,6 +311,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfile.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfileDimension.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileDimension.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrix.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrix.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory.q.yml</a></li>
@@ -19009,18 +19010,54 @@ table td
      <table>
 <tr>
   <td class="property">personality_dimensions</td>
-  <td class="property">std::vector&lt;AllegroFlare::Story::Characters::PersonalityDimension&gt;</td>
+  <td class="property">std::vector&lt;AllegroFlare::Story::Characters::PersonalityProfileDimension&gt;</td>
 </tr>
     </table>
      <table>
 <tr>
   <td class="method">get_personality_dimension_by_index(std::size_t index=0)</td>
 </tr>
+<tr>
+  <td class="method">build_writeup_for_dimension(std::string character_name=&quot;this character&quot;, std::string dimension_name=&quot;[unset-dimension_name]&quot;, std::string dimension_description=&quot;[unset-dimension_description]&quot;, uint32_t dimension_ranking_level=0, std::string dimension_descriptor_for_level=&quot;[unset-dimension_descriptor_for_level]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">ranking_level_to_text(uint32_t ranking_level=0)</td>
+</tr>
     </table>
      <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityDimension&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityDimension.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Story::Characters::PersonalityProfileDimension&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Story/Characters/PersonalityProfileDimension.hpp&quot;]}</td>
 </tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Story/Characters/PersonalityProfileDimension.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityProfileDimension.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">title</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">scoring</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">scoring_max</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">scoring_descriptor</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">get_scoring_normalized()</td>
+</tr>
+    </table>
+     <table>
     </table>
   </div>
 </ul>
@@ -26262,9 +26299,8 @@ table td
   "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
-  "AllegroFlare/Story/Characters/PersonalityDimension": [
-    "AllegroFlare/Story/Characters/PersonalityProfile",
-    "AllegroFlare/Story/Characters/PersonalityProfileMatrix"
+  "AllegroFlare/Story/Characters/PersonalityProfileDimension": [
+    "AllegroFlare/Story/Characters/PersonalityProfile"
   ],
   "AllegroFlare/Story/Characters/PersonalityProfile": [
     "AllegroFlare/Story/Characters/PersonalityProfileFactory"
@@ -26275,6 +26311,9 @@ table td
   ],
   "AllegroFlare/Story/Characters/PersonalityProfileMatrixFactory": [
     "AllegroFlare/Story/Characters/PersonalityProfileFactory"
+  ],
+  "AllegroFlare/Story/Characters/PersonalityDimension": [
+    "AllegroFlare/Story/Characters/PersonalityProfileMatrix"
   ],
   "AllegroFlare/StoryboardPageFactory": [
     "AllegroFlare/StoryboardFactory"

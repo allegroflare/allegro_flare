@@ -1,6 +1,13 @@
 properties:
 
 
+  - name: character_name
+    type: std::string
+    init_with: '"[unset-character_name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: personality_dimensions
     type: std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension>
     constructor_arg: true
@@ -21,6 +28,56 @@ functions:
     guards: [ (index >= 0), (index < personality_dimensions.size()) ]
     body: |
       return personality_dimensions[index];
+
+
+  - name: build_writeup_for_dimension
+    type: std::string
+    parameters:
+      - name: character_name
+        type: std::string
+        default_argument: '"this character"'
+      - name: dimension_name
+        type: std::string
+        default_argument: '"[unset-dimension_name]"'
+      - name: dimension_description
+        type: std::string
+        default_argument: '"[unset-dimension_description]"'
+      - name: dimension_ranking_level
+        type: uint32_t
+        default_argument: 0
+      - name: dimension_descriptor_for_level
+        type: std::string
+        default_argument: '"[unset-dimension_descriptor_for_level]"'
+    body: |
+      std::stringstream writeup;
+
+      writeup << "In the personality category of \"" << dimension_name << "\" (" << dimension_description
+              << "), " << character_name << " ranks " << ranking_level_to_text(dimension_ranking_level) << ", meaning "
+              << character_name << " " << dimension_descriptor_for_level << ".";
+
+      return writeup.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: ranking_level_to_text
+    parameters:
+      - name: ranking_level
+        type: uint32_t
+        default_argument: 0
+    type: std::string
+    guards: [ (ranking_level >= 0), (ranking_level < 5) ]
+    body: |
+      std::map<uint32_t, std::string> dictionary = {
+         { 0, "VERY_LOW" },
+         { 1, "LOW" },
+         { 2, "BALANCED" },
+         { 3, "HIGH" },
+         { 4, "VERY_HIGH" },
+      };
+      return dictionary[ranking_level];
+    body_dependency_symbols:
+      - std::map
 
 
 dependencies:
