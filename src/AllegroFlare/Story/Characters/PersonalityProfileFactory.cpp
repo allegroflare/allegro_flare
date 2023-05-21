@@ -85,6 +85,7 @@ std::string PersonalityProfileFactory::build_random_personality_profile(std::str
    if (available_personality_dimensions.size() > num_traits) available_personality_dimensions.resize(num_traits);
 
    AllegroFlare::Story::Characters::PersonalityProfile result_profile;
+   result_profile.set_character_name(character_name);
 
    // Assemble our writeup text
    std::stringstream writeup;
@@ -116,7 +117,9 @@ std::string PersonalityProfileFactory::build_random_personality_profile(std::str
       writeup << std::endl;
    }
 
-   return writeup.str();
+   return result_profile.build_personality_dimensions_writeup();
+
+   //return writeup.str();
 }
 
 std::string PersonalityProfileFactory::build_writeup_for_dimension(std::string character_name, std::string dimension_name, std::string dimension_description, uint32_t dimension_ranking_level, std::string dimension_descriptor_for_level)

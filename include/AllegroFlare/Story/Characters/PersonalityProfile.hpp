@@ -34,8 +34,9 @@ namespace AllegroFlare
             void add_personality_dimension(AllegroFlare::Story::Characters::PersonalityProfileDimension personality_dimension={});
             bool personality_dimension_with_title_exists(std::string title="[unset-title]");
             AllegroFlare::Story::Characters::PersonalityProfileDimension get_personality_dimension_by_index(std::size_t index=0);
-            std::string build_writeup_for_dimension(std::string character_name="this character", std::string dimension_name="[unset-dimension_name]", std::string dimension_description="[unset-dimension_description]", uint32_t dimension_ranking_level=0, std::string dimension_descriptor_for_level="[unset-dimension_descriptor_for_level]");
-            std::string ranking_level_to_text(uint32_t ranking_level=0);
+            std::string build_personality_dimensions_writeup();
+            static std::string build_writeup_for_dimension(std::string character_name="this character", std::string dimension_name="[unset-dimension_name]", std::string dimension_description="[unset-dimension_description]", uint32_t dimension_ranking_level=0, std::string dimension_descriptor_for_level="[unset-dimension_descriptor_for_level]");
+            static std::string ranking_level_to_text(uint32_t ranking_level=0);
          };
       }
    }

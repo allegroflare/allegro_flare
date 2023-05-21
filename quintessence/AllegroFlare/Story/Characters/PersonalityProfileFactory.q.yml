@@ -54,6 +54,7 @@ functions:
       if (available_personality_dimensions.size() > num_traits) available_personality_dimensions.resize(num_traits);
 
       AllegroFlare::Story::Characters::PersonalityProfile result_profile;
+      result_profile.set_character_name(character_name);
 
       // Assemble our writeup text
       std::stringstream writeup;
@@ -85,7 +86,9 @@ functions:
          writeup << std::endl;
       }
 
-      return writeup.str();
+      return result_profile.build_personality_dimensions_writeup();
+
+      //return writeup.str();
     body_dependency_symbols:
       - AllegroFlare::Random
       - AllegroFlare::Story::Characters::PersonalityProfile

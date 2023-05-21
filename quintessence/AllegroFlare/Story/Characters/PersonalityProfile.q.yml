@@ -57,7 +57,35 @@ functions:
       return personality_dimensions[index];
 
 
+  - name: build_personality_dimensions_writeup
+    type: std::string
+    body: |
+      std::stringstream writeup;
+      for (auto &dimension : personality_dimensions)
+      {
+         std::string dimension_name = dimension.get_title();
+         std::string dimension_description = dimension.get_description();
+         int dimension_ranking_size = dimension.get_scoring_max();
+         int dimension_ranking_level = dimension.get_scoring();
+         std::string dimension_descriptor_for_level = dimension.get_scoring_descriptor();
+
+         writeup << build_writeup_for_dimension(
+            character_name,
+            dimension_name,
+            dimension_description,
+            dimension_ranking_level,
+            dimension_descriptor_for_level
+         );
+         writeup << std::endl;
+      }
+
+      return writeup.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
   - name: build_writeup_for_dimension
+    static: true
     type: std::string
     parameters:
       - name: character_name
@@ -88,6 +116,7 @@ functions:
 
 
   - name: ranking_level_to_text
+    static: true
     parameters:
       - name: ranking_level
         type: uint32_t

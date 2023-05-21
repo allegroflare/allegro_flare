@@ -95,6 +95,30 @@ AllegroFlare::Story::Characters::PersonalityProfileDimension PersonalityProfile:
    return personality_dimensions[index];
 }
 
+std::string PersonalityProfile::build_personality_dimensions_writeup()
+{
+   std::stringstream writeup;
+   for (auto &dimension : personality_dimensions)
+   {
+      std::string dimension_name = dimension.get_title();
+      std::string dimension_description = dimension.get_description();
+      int dimension_ranking_size = dimension.get_scoring_max();
+      int dimension_ranking_level = dimension.get_scoring();
+      std::string dimension_descriptor_for_level = dimension.get_scoring_descriptor();
+
+      writeup << build_writeup_for_dimension(
+         character_name,
+         dimension_name,
+         dimension_description,
+         dimension_ranking_level,
+         dimension_descriptor_for_level
+      );
+      writeup << std::endl;
+   }
+
+   return writeup.str();
+}
+
 std::string PersonalityProfile::build_writeup_for_dimension(std::string character_name, std::string dimension_name, std::string dimension_description, uint32_t dimension_ranking_level, std::string dimension_descriptor_for_level)
 {
    std::stringstream writeup;
