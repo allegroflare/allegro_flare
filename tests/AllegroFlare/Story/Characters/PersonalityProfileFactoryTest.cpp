@@ -22,8 +22,8 @@ TEST(AllegroFlare_Story_Characters_PersonalityProfileFactoryTest,
 {
    AllegroFlare::Story::Characters::PersonalityProfileFactory personality_profile_factory;
    personality_profile_factory.initialize();
-   std::string personality_profile_writeup =
-   personality_profile_factory.build_random_personality_profile("Yuki", 5, 86545);
+   AllegroFlare::Story::Characters::PersonalityProfile result_profile =
+      personality_profile_factory.build_random_personality_profile("Yuki", 5, 86545);
 
    std::string expected_personality_profile_writeup = "In the personality category of \"Openness to Experience\" "
       "(characters can differ in their curiosity, imagination, and willingness to embrace new ideas or experiences), "
@@ -38,8 +38,9 @@ TEST(AllegroFlare_Story_Characters_PersonalityProfileFactoryTest,
       "may not.\nIn the personality category of \"Independence vs. Dependence\" (some characters may be self-reliant "
       "and autonomous, while others may rely more heavily on others for support), Yuki ranks VERY_HIGH, meaning Yuki "
       "is overly self-reliant and actively goes out of their way to not be dependent on others.\n";
- 
-   EXPECT_EQ(expected_personality_profile_writeup, personality_profile_writeup);
+   std::string actual_personality_profile_writeup = result_profile.build_personality_dimensions_writeup();
+
+   EXPECT_EQ(expected_personality_profile_writeup, actual_personality_profile_writeup);
 }
 
 
