@@ -96,15 +96,15 @@ std::string PersonalityProfileFactory::build_random_personality_profile(std::str
       int dimension_ranking_level = random.get_random_int(0, dimension_ranking_size-1);
       std::string dimension_descriptor_for_level = dimension.get_descriptor_for_level(dimension_ranking_level);
 
-      //result_profile.add_personality_dimension(
-            //AllegroFlare::Story::Characters::PersonalityProfileDimension(
-               //dimension_name,
-               //dimension_description,
-               //dimension_ranking_level,
-               //(dimension_ranking_size-1),
-               //dimension_descriptor_for_level 
-            //)
-         //);
+      result_profile.add_personality_dimension(
+            AllegroFlare::Story::Characters::PersonalityProfileDimension(
+               dimension_name,
+               dimension_description,
+               dimension_ranking_level,
+               (dimension_ranking_size-1),
+               dimension_descriptor_for_level 
+            )
+         );
 
       writeup << build_writeup_for_dimension(
          character_name,
