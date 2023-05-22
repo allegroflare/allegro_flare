@@ -1,7 +1,16 @@
 functions:
 
 
+  - name: generate_persons_resemblance_disclaimer
+    static: true
+    type: std::string
+    body: |
+      return "This is a work of fiction. Any resemblance to actual persons, living or dead, or events is purely "
+         "coincidental.";
+
+
   - name: generate_company_non_endorcement_disclaimer
+    static: true
     type: std::string
     parameters:
       - name: company_name
@@ -36,6 +45,8 @@ functions:
 
 
   - name: join
+    static: true
+    private: true
     type: std::string
     parameters:
       - name: tokens

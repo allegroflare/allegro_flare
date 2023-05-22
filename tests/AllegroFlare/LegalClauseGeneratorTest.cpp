@@ -11,6 +11,17 @@ TEST(AllegroFlare_LegalClauseGeneratorTest, can_be_created_without_blowing_up)
 
 
 TEST(AllegroFlare_LegalClauseGeneratorTest,
+   generate_persons_resemblance_disclaimer__will_generate_the_expected_text)
+{
+   std::string expected_disclaimer = "This is a work of fiction. Any resemblance to actual persons, living or dead, "
+      "or events is purely coincidental.";
+   std::string actual_disclaimer = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
+
+   EXPECT_EQ(expected_disclaimer, actual_disclaimer);
+}
+
+
+TEST(AllegroFlare_LegalClauseGeneratorTest,
    generate_company_non_endorcement_disclaimer__will_generate_the_expected_text)
 {
    AllegroFlare::LegalClauseGenerator legal_clause_generator;
