@@ -57,25 +57,26 @@ std::string LegalClauseGenerator::generate_as_is_without_warranty_for_use_discla
    return ((in_upcase) ? upcase(disclaimer) : disclaimer);
 }
 
-std::string LegalClauseGenerator::generate_company_non_endorcement_disclaimer(std::string company_name, std::vector<std::string> referenced_software_company_names)
+std::string LegalClauseGenerator::generate_company_non_endorcement_disclaimer(std::string company_name, std::vector<std::string> referenced_software_and_software_company_names)
 {
    std::stringstream in_fragment;
-   in_fragment << "in these credits ";
-   std::stringstream referenced_software_company_names_as_in_fragment;
+   in_fragment << "in these credits "; // TODO: Consider abstracting "in these credits" (and "and their respective
+                                       // versions", see below)
 
-   bool has_referenced_software_company_names = (!referenced_software_company_names.empty());
-
-   if (has_referenced_software_company_names)
+   std::stringstream referenced_referenced_software_and_software_company_names_as_in_fragment;
+   bool has_referenced_software_and_software_company_names = !referenced_software_and_software_company_names.empty();
+   if (has_referenced_software_and_software_company_names)
    {
-      referenced_software_company_names_as_in_fragment << "as in but no limited to "
-         << join(referenced_software_company_names) << " ";
+      referenced_referenced_software_and_software_company_names_as_in_fragment << "as in but no limited to "
+         << join(referenced_software_and_software_company_names) << " ";
    }
 
+   // TODO: Consider abstracting "and their respective versions";
    return "Any company names, brand names, and/or trademarks listed " + in_fragment.str() + "are the sole property "
           "of their respective "
           "owners and are in no way associated with " + company_name + ". Their appearance in this list does not "
           "constitute an endorsement by either party. The inclusion of software names " +
-          referenced_software_company_names_as_in_fragment.str() +
+          referenced_referenced_software_and_software_company_names_as_in_fragment.str() +
           "and their respective versions is solely for informational purposes and does not imply any partnership, "
           "sponsorship, or endorsement of the software providers by either party. All rights to these software "
           "belong to their respective copyright holders.";

@@ -44,13 +44,16 @@ AllegroFlare::Elements::RollingCredits::Sections::Text* SectionFactory::create_t
    return section;
 }
 
-std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFactory::create_standard_disclaimers_text(std::string text)
+std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFactory::create_standard_disclaimers_text(std::string company_name, std::vector<std::string> non_endorced_software_and_software_company_names)
 {
    auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER;
 
    std::string disclaimer_1 = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
    std::string disclaimer_2 = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
-   std::string disclaimer_3 = AllegroFlare::LegalClauseGenerator::generate_company_non_endorcement_disclaimer();
+   std::string disclaimer_3 = AllegroFlare::LegalClauseGenerator::generate_company_non_endorcement_disclaimer(
+         company_name,
+         non_endorced_software_and_software_company_names
+      );
    std::string disclaimer_4 = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
    std::string disclaimer_5 = AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer();
 

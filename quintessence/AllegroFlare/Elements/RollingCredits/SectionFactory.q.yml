@@ -43,15 +43,21 @@ functions:
   - name: create_standard_disclaimers_text
     type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>
     parameters:
-      - name: text
+      - name: company_name
         type: std::string
+        default_argument: '"this company"'
+      - name: non_endorced_software_and_software_company_names 
+        type: std::vector<std::string>
         default_argument: '{}'
     body: |
       auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER;
 
       std::string disclaimer_1 = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
       std::string disclaimer_2 = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
-      std::string disclaimer_3 = AllegroFlare::LegalClauseGenerator::generate_company_non_endorcement_disclaimer();
+      std::string disclaimer_3 = AllegroFlare::LegalClauseGenerator::generate_company_non_endorcement_disclaimer(
+            company_name,
+            non_endorced_software_and_software_company_names
+         );
       std::string disclaimer_4 = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
       std::string disclaimer_5 = AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer();
 

@@ -5569,7 +5569,7 @@ table td
   <td class="method">create_text(std::string text={}, std::string alignment=AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT)</td>
 </tr>
 <tr>
-  <td class="method">create_standard_disclaimers_text(std::string text={})</td>
+  <td class="method">create_standard_disclaimers_text(std::string company_name=&quot;this company&quot;, std::vector&lt;std::string&gt; non_endorced_software_and_software_company_names={})</td>
 </tr>
     </table>
      <table>
@@ -8596,7 +8596,7 @@ table td
   <td class="method">generate_as_is_without_warranty_for_use_disclaimer(bool in_upcase=true)</td>
 </tr>
 <tr>
-  <td class="method">generate_company_non_endorcement_disclaimer(std::string company_name=&quot;[unset-company_name]&quot;, std::vector&lt;std::string&gt; referenced_software_company_names={})</td>
+  <td class="method">generate_company_non_endorcement_disclaimer(std::string company_name=&quot;[unset-company_name]&quot;, std::vector&lt;std::string&gt; referenced_software_and_software_company_names={})</td>
 </tr>
 <tr>
   <td class="private_method">join(std::vector&lt;std::string&gt; tokens={}, std::string delimiter=&quot;, &quot;, bool use_and=false)</td>
