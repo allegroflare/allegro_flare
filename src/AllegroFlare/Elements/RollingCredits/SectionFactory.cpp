@@ -51,14 +51,7 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
    std::string disclaimer_1 = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
    std::string disclaimer_2 = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
    std::string disclaimer_3 = AllegroFlare::LegalClauseGenerator::generate_company_non_endorcement_disclaimer();
-
-
-   // NOTE: This statement is an alternative to this trademarked phrase: "No animals were harmed.":
-   // see: https://www.dvm360.com/view/movies-misuse-no-animals-were-harmed-disclaimer
-   std::string disclaimer_4 = "During the production of this game, no animals were suject to injury, indignity, "
-      "or mistreatment of any kind.";
-   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_company_non_endorcement_disclaimer();
-
+   std::string disclaimer_4 = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
 
    // TODO: include this disclaimer (replace FONT):
    //DISCLAIMER
