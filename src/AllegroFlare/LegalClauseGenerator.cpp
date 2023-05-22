@@ -41,19 +41,20 @@ std::string LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer
 
 std::string LegalClauseGenerator::generate_as_is_without_warranty_disclaimer(bool in_upcase)
 {
-   std::string disclaimer = "THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. IN NO "
-      "EVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.";
-   return (in_upcase) ? upcase(disclaimer) : disclaimer;
+   std::string disclaimer = "This software is provided \"as-is\", without any express or implied warranty. In no "
+      "event will the authors be held liable for any damages arising from the use of this software.";
+   return ((in_upcase) ? upcase(disclaimer) : disclaimer);
 }
 
-std::string LegalClauseGenerator::generate_as_is_without_warranty_for_use_disclaimer()
+std::string LegalClauseGenerator::generate_as_is_without_warranty_for_use_disclaimer(bool in_upcase)
 {
-   return "THIS SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING "
-      "BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT "
-      "OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY "
-      "CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL "
-      "DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO "
-      "USE THE SOFTWARE OR FROM OTHER DEALINGS IN THE SOFTWARE.";
+   std::string disclaimer = "This software is provided \"as is\", without warranty of any kind, express or implied, "
+      "including but not limited to any warranties of merchantability, fitness for a particular purpose and "
+      "noninfringement of copyright, patent, trademark, or other right. In no event shall the copyright holder "
+      "be liable for any claim, damages or other liability, including any general, special, indirect, incidental, "
+      "or consequential damages, whether in an action of contract, tort or otherwise, arising from, out of the use "
+      "or inability to use the software or from other dealings in the software.";
+   return ((in_upcase) ? upcase(disclaimer) : disclaimer);
 }
 
 std::string LegalClauseGenerator::generate_company_non_endorcement_disclaimer(std::string company_name, std::vector<std::string> referenced_software_company_names)

@@ -43,9 +43,21 @@ TEST(AllegroFlare_LegalClauseGeneratorTest,
 TEST(AllegroFlare_LegalClauseGeneratorTest,
    generate_as_is_without_warranty_disclaimer__will_generate_the_expected_text)
 {
-   std::string expected_disclaimer = "THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. "
+   std::string expected_disclaimer = "THIS SOFTWARE IS PROVIDED \"AS-IS\", WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. "
       "IN NO EVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.";
    std::string actual_disclaimer = AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer();
+   EXPECT_EQ(expected_disclaimer, actual_disclaimer);
+}
+
+
+TEST(AllegroFlare_LegalClauseGeneratorTest,
+   generate_as_is_without_warranty_disclaimer__with_the_in_upcase_option_as_false__will_generate_the_expected_text_\
+in_sentence_case)
+{
+   std::string expected_disclaimer = "This software is provided \"as-is\", without any express or implied warranty. In "
+      "no event will the authors be held liable for any damages arising from the use of this software.";
+   std::string actual_disclaimer =
+      AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer(false);
    EXPECT_EQ(expected_disclaimer, actual_disclaimer);
 }
 
@@ -61,6 +73,22 @@ TEST(AllegroFlare_LegalClauseGeneratorTest,
      "INABILITY TO USE THE SOFTWARE OR FROM OTHER DEALINGS IN THE SOFTWARE.";
    std::string actual_disclaimer =
       AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_for_use_disclaimer();
+   EXPECT_EQ(expected_disclaimer, actual_disclaimer);
+}
+
+
+TEST(AllegroFlare_LegalClauseGeneratorTest,
+   generate_as_is_without_warranty_for_use_disclaimer__with_th_in_upcase_option_as_false__will_generate_the_expected_\
+text_in_sentence_case)
+{
+   std::string expected_disclaimer = "This software is provided \"as is\", without warranty of any kind, express or "
+      "implied, including but not limited to any warranties of merchantability, fitness for a particular purpose and "
+      "noninfringement of copyright, patent, trademark, or other right. In no event shall the copyright holder "
+      "be liable for any claim, damages or other liability, including any general, special, indirect, incidental, "
+      "or consequential damages, whether in an action of contract, tort or otherwise, arising from, out of the use "
+      "or inability to use the software or from other dealings in the software.";
+   std::string actual_disclaimer =
+      AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_for_use_disclaimer(false);
    EXPECT_EQ(expected_disclaimer, actual_disclaimer);
 }
 
