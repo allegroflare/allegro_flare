@@ -25,7 +25,7 @@ TEST(AllegroFlare_LegalClauseGeneratorTest,
       "the sole property of their respective owners and are in no way associated with SlowPoke Software. Their "
       "appearance in this list does not constitute an endorsement by either party. The inclusion of software names as "
       "in but no limited to MeowsterEdit, Gator Graphicshop, FerretFoto and their respective versions is solely for "
-      "informational purposes and does not imply any partnership, sponsorship, or endorsement by the software "
+      "informational purposes and does not imply any partnership, sponsorship, or endorsement of the software "
       "providers by either party. All rights to these software belong to their respective copyright holders.";
 
    std::string actual_disclaimer = legal_clause_generator.generate_company_non_endorcement_disclaimer(

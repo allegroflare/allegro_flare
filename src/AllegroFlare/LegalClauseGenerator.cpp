@@ -39,7 +39,7 @@ std::string LegalClauseGenerator::generate_company_non_endorcement_disclaimer(st
           "constitute an endorsement by either party. The inclusion of software names " +
           referenced_software_company_names_as_in_fragment.str() +
           "and their respective versions is solely for informational purposes and does not imply any partnership, "
-          "sponsorship, or endorsement by the software providers by either party. All rights to these software "
+          "sponsorship, or endorsement of the software providers by either party. All rights to these software "
           "belong to their respective copyright holders.";
 }
 
