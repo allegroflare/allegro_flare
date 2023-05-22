@@ -9,6 +9,14 @@ functions:
          "coincidental.";
 
 
+  - name: generate_views_and_opinions_disclaimer
+    static: true
+    type: std::string
+    body: |
+      return "The views and opinions expressed in this media do not necessarily reflect the views and opinions of "
+         "the developers or the production company.";
+
+
   - name: generate_company_non_endorcement_disclaimer
     static: true
     type: std::string

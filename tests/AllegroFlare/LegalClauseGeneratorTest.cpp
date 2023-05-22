@@ -22,6 +22,17 @@ TEST(AllegroFlare_LegalClauseGeneratorTest,
 
 
 TEST(AllegroFlare_LegalClauseGeneratorTest,
+   generate_views_and_opinions_disclaimer__will_generate_the_expected_text)
+{
+   std::string expected_disclaimer = "The views and opinions expressed in this media do not necessarily reflect the "
+      "views and opinions of the developers or the production company.";
+   std::string actual_disclaimer = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
+
+   EXPECT_EQ(expected_disclaimer, actual_disclaimer);
+}
+
+
+TEST(AllegroFlare_LegalClauseGeneratorTest,
    generate_company_non_endorcement_disclaimer__will_generate_the_expected_text)
 {
    AllegroFlare::LegalClauseGenerator legal_clause_generator;

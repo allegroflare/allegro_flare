@@ -20,6 +20,7 @@ namespace AllegroFlare
       ~LegalClauseGenerator();
 
       static std::string generate_persons_resemblance_disclaimer();
+      static std::string generate_views_and_opinions_disclaimer();
       static std::string generate_company_non_endorcement_disclaimer(std::string company_name="[unset-company_name]", std::vector<std::string> referenced_software_company_names={});
    };
 }

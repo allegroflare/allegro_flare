@@ -25,6 +25,12 @@ std::string LegalClauseGenerator::generate_persons_resemblance_disclaimer()
       "coincidental.";
 }
 
+std::string LegalClauseGenerator::generate_views_and_opinions_disclaimer()
+{
+   return "The views and opinions expressed in this media do not necessarily reflect the views and opinions of "
+      "the developers or the production company.";
+}
+
 std::string LegalClauseGenerator::generate_company_non_endorcement_disclaimer(std::string company_name, std::vector<std::string> referenced_software_company_names)
 {
    std::stringstream in_fragment;
