@@ -135,22 +135,15 @@ std::string PersonalityProfile::build_writeup_for_dimension(std::string characte
    return writeup.str();
 }
 
-std::string PersonalityProfile::build_brief_writeup_for_dimension()
+std::string PersonalityProfile::build_brief_personality_dimensions_writeup()
 {
    std::stringstream writeup;
    std::vector<std::string> personality_descriptors;
 
    for (auto &dimension : personality_dimensions)
    {
-      std::string dimension_name = dimension.get_title();
-      std::string dimension_description = dimension.get_description();
-      int dimension_ranking_size = dimension.get_scoring_max();
-      int dimension_ranking_level = dimension.get_scoring();
       std::string dimension_descriptor_for_level = dimension.get_scoring_descriptor();
-
       personality_descriptors.push_back(dimension_descriptor_for_level);
-
-      writeup << std::endl;
    }
 
    std::string joined_descriptors = join_with_and(personality_descriptors, ", ");
