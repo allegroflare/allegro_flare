@@ -17,6 +17,14 @@ functions:
          "the developers or the production company.";
 
 
+  - name: generate_no_mistreatment_of_animals_disclaimer
+    static: true
+    type: std::string
+    body: |
+      return "During the production of this game, no animals were suject to injury, indignity, or mistreatment of "
+         "any kind.";
+
+
   - name: generate_company_non_endorcement_disclaimer
     static: true
     type: std::string

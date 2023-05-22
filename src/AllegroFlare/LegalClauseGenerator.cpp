@@ -31,6 +31,12 @@ std::string LegalClauseGenerator::generate_views_and_opinions_disclaimer()
       "the developers or the production company.";
 }
 
+std::string LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer()
+{
+   return "During the production of this game, no animals were suject to injury, indignity, or mistreatment of "
+      "any kind.";
+}
+
 std::string LegalClauseGenerator::generate_company_non_endorcement_disclaimer(std::string company_name, std::vector<std::string> referenced_software_company_names)
 {
    std::stringstream in_fragment;

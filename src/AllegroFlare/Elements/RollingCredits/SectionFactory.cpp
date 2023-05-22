@@ -59,10 +59,6 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
       "or mistreatment of any kind.";
    //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_company_non_endorcement_disclaimer();
 
-   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_persons_resemblance_disclaimer();
-   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_views_and_opinions_disclaimer();
-   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_company_non_endorcement_disclaimer();
-
 
    // TODO: include this disclaimer (replace FONT):
    //DISCLAIMER

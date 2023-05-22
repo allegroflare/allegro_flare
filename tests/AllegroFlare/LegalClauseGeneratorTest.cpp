@@ -16,7 +16,6 @@ TEST(AllegroFlare_LegalClauseGeneratorTest,
    std::string expected_disclaimer = "This is a work of fiction. Any resemblance to actual persons, living or dead, "
       "or events is purely coincidental.";
    std::string actual_disclaimer = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
-
    EXPECT_EQ(expected_disclaimer, actual_disclaimer);
 }
 
@@ -27,7 +26,16 @@ TEST(AllegroFlare_LegalClauseGeneratorTest,
    std::string expected_disclaimer = "The views and opinions expressed in this media do not necessarily reflect the "
       "views and opinions of the developers or the production company.";
    std::string actual_disclaimer = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
+   EXPECT_EQ(expected_disclaimer, actual_disclaimer);
+}
 
+
+TEST(AllegroFlare_LegalClauseGeneratorTest,
+   generate_no_mistreatment_of_animals_disclaimer__will_generate_the_expected_text)
+{
+   std::string expected_disclaimer = "During the production of this game, no animals were suject to injury, indignity, "
+      "or mistreatment of any kind.";
+   std::string actual_disclaimer = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
    EXPECT_EQ(expected_disclaimer, actual_disclaimer);
 }
 
