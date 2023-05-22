@@ -52,17 +52,14 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
    std::string disclaimer_2 = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
    std::string disclaimer_3 = AllegroFlare::LegalClauseGenerator::generate_company_non_endorcement_disclaimer();
    std::string disclaimer_4 = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
-
-   // TODO: include this disclaimer (replace FONT):
-   //DISCLAIMER
-   //THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
-
+   std::string disclaimer_5 = AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer();
 
    return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>{
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1, ALIGN_CENTER),
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2, ALIGN_CENTER),
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3, ALIGN_CENTER),
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_4, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_5, ALIGN_CENTER),
    };
 }
 
