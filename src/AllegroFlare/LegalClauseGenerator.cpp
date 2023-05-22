@@ -39,6 +39,22 @@ std::string LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer
       "any kind.";
 }
 
+std::string LegalClauseGenerator::generate_as_is_without_warranty_disclaimer()
+{
+   return "THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. IN NO EVENT WILL THE "
+      "AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.";
+}
+
+std::string LegalClauseGenerator::generate_as_is_without_warranty_for_use_disclaimer()
+{
+   return "THIS SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING "
+      "BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT "
+      "OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY "
+      "CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL "
+      "DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO "
+      "USE THE SOFTWARE OR FROM OTHER DEALINGS IN THE SOFTWARE.";
+}
+
 std::string LegalClauseGenerator::generate_company_non_endorcement_disclaimer(std::string company_name, std::vector<std::string> referenced_software_company_names)
 {
    std::stringstream in_fragment;
