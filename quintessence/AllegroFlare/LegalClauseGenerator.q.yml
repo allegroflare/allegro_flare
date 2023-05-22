@@ -29,10 +29,15 @@ functions:
 
   - name: generate_as_is_without_warranty_disclaimer
     static: true
+    parameters:
+      - name: in_upcase
+        type: bool
+        default_argument: false
     type: std::string
     body: |
-      return "THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. IN NO EVENT WILL THE "
-         "AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.";
+      std::string disclaimer = "THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. IN NO "
+         "EVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.";
+      return (in_upcase) ? upcase(disclaimer) : disclaimer;
 
 
   - name: generate_as_is_without_warranty_for_use_disclaimer
@@ -114,5 +119,21 @@ functions:
       }
 
       return result.str();
+
+
+  - name: upcase
+    static: true
+    type: std::string
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    body: |
+      std::string result;
+      for (char& c : text)
+      {
+         result += std::toupper(c);
+      }
+      return result;
 
 

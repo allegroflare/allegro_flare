@@ -39,10 +39,11 @@ std::string LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer
       "any kind.";
 }
 
-std::string LegalClauseGenerator::generate_as_is_without_warranty_disclaimer()
+std::string LegalClauseGenerator::generate_as_is_without_warranty_disclaimer(bool in_upcase)
 {
-   return "THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. IN NO EVENT WILL THE "
-      "AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.";
+   std::string disclaimer = "THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED WARRANTY. IN NO "
+      "EVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.";
+   return (in_upcase) ? upcase(disclaimer) : disclaimer;
 }
 
 std::string LegalClauseGenerator::generate_as_is_without_warranty_for_use_disclaimer()
@@ -98,6 +99,16 @@ std::string LegalClauseGenerator::join(std::vector<std::string> tokens, std::str
    }
 
    return result.str();
+}
+
+std::string LegalClauseGenerator::upcase(std::string text)
+{
+   std::string result;
+   for (char& c : text)
+   {
+      result += std::toupper(c);
+   }
+   return result;
 }
 
 
