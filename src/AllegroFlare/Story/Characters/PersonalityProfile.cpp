@@ -130,6 +130,31 @@ std::string PersonalityProfile::build_writeup_for_dimension(std::string characte
    return writeup.str();
 }
 
+std::string PersonalityProfile::build_brief_writeup_for_dimension()
+{
+   std::stringstream writeup;
+   std::vector<std::string> personality_descriptors;
+
+   for (auto &dimension : personality_dimensions)
+   {
+      std::string dimension_name = dimension.get_title();
+      std::string dimension_description = dimension.get_description();
+      int dimension_ranking_size = dimension.get_scoring_max();
+      int dimension_ranking_level = dimension.get_scoring();
+      std::string dimension_descriptor_for_level = dimension.get_scoring_descriptor();
+
+      personality_descriptors.push_back(dimension_descriptor_for_level);
+
+      writeup << std::endl;
+   }
+
+   std::string joined_descriptors = join(personality_descriptors, ", ");
+
+   writeup << character_name << " " << joined_descriptors << ".";
+
+   return writeup.str();
+}
+
 std::string PersonalityProfile::ranking_level_to_text(uint32_t ranking_level)
 {
    if (!((ranking_level >= 0)))
@@ -154,6 +179,21 @@ std::string PersonalityProfile::ranking_level_to_text(uint32_t ranking_level)
       { 4, "VERY_HIGH" },
    };
    return dictionary[ranking_level];
+}
+
+std::string PersonalityProfile::join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+
+   return result.str();
 }
 
 

@@ -115,6 +115,34 @@ functions:
       - std::stringstream
 
 
+  - name: build_brief_writeup_for_dimension
+    type: std::string
+    body: |
+      std::stringstream writeup;
+      std::vector<std::string> personality_descriptors;
+
+      for (auto &dimension : personality_dimensions)
+      {
+         std::string dimension_name = dimension.get_title();
+         std::string dimension_description = dimension.get_description();
+         int dimension_ranking_size = dimension.get_scoring_max();
+         int dimension_ranking_level = dimension.get_scoring();
+         std::string dimension_descriptor_for_level = dimension.get_scoring_descriptor();
+
+         personality_descriptors.push_back(dimension_descriptor_for_level);
+
+         writeup << std::endl;
+      }
+
+      std::string joined_descriptors = join(personality_descriptors, ", ");
+
+      writeup << character_name << " " << joined_descriptors << ".";
+
+      return writeup.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
   - name: ranking_level_to_text
     static: true
     parameters:
@@ -134,6 +162,32 @@ functions:
       return dictionary[ranking_level];
     body_dependency_symbols:
       - std::map
+
+
+  - name: join
+    type: std::string
+    private: true
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: delimiter
+        type: std::string
+        default_argument: '", "'
+    body: |
+      std::stringstream result;
+      bool last = false;
+
+      for (unsigned i=0; i<tokens.size(); i++)
+      {
+         result << tokens[i];
+         if (i == tokens.size()-1) last = true;
+         if (!last) result << delimiter;
+      }
+
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
 
 
 dependencies:
