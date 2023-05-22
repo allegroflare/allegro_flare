@@ -140,7 +140,7 @@ functions:
          writeup << std::endl;
       }
 
-      std::string joined_descriptors = join(personality_descriptors, ", ");
+      std::string joined_descriptors = join_with_and(personality_descriptors, ", ");
 
       writeup << character_name << " " << joined_descriptors << ".";
 
@@ -194,6 +194,38 @@ functions:
       return result.str();
     body_dependency_symbols:
       - std::stringstream
+
+
+  - name: join_with_and
+    type: std::string
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: delimiter
+        type: std::string
+        default_argument: '", "'
+      - name: use_and
+        type: bool
+        default_argument: false
+    body: |
+      std::stringstream result;
+      int size = tokens.size();
+
+      for (int i = 0; i < size; ++i)
+      {
+         if (i > 0)
+         {
+            result << delimiter;
+            if (use_and && i == size - 1)
+            {
+               result << "and ";
+            }
+         }
+         result << tokens[i];
+      }
+
+      return result.str();
 
 
 dependencies:

@@ -153,7 +153,7 @@ std::string PersonalityProfile::build_brief_writeup_for_dimension()
       writeup << std::endl;
    }
 
-   std::string joined_descriptors = join(personality_descriptors, ", ");
+   std::string joined_descriptors = join_with_and(personality_descriptors, ", ");
 
    writeup << character_name << " " << joined_descriptors << ".";
 
@@ -196,6 +196,27 @@ std::string PersonalityProfile::join(std::vector<std::string> tokens, std::strin
       result << tokens[i];
       if (i == tokens.size()-1) last = true;
       if (!last) result << delimiter;
+   }
+
+   return result.str();
+}
+
+std::string PersonalityProfile::join_with_and(std::vector<std::string> tokens, std::string delimiter, bool use_and)
+{
+   std::stringstream result;
+   int size = tokens.size();
+
+   for (int i = 0; i < size; ++i)
+   {
+      if (i > 0)
+      {
+         result << delimiter;
+         if (use_and && i == size - 1)
+         {
+            result << "and ";
+         }
+      }
+      result << tokens[i];
    }
 
    return result.str();
