@@ -68,7 +68,7 @@ functions:
          new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2, ALIGN_CENTER),
          new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3, ALIGN_CENTER),
       };
-    
+
 
 dependencies:
 

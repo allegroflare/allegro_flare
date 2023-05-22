@@ -26,11 +26,15 @@ int main(int argc, char **argv)
 
       // Build the writeup
       std::string personality_profile_writeup = result_profile.build_personality_dimensions_writeup();
+      std::string brief_personality_profile_writeup = result_profile.build_brief_personality_dimensions_writeup();
 
       // Output the results
       output << "```markdown" << std::endl;
       output << "# Character name: " << std::endl;
       output << name << std::endl;
+      output << std::endl;
+      output << "## Personality Profile (Brief): " << std::endl;
+      output << brief_personality_profile_writeup << std::endl;
       output << std::endl;
       output << "## Personality Profile: " << std::endl;
       output << personality_profile_writeup << std::endl;
