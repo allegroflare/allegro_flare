@@ -1301,6 +1301,9 @@
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits"
   ],
+  "AllegroFlare/LegalClauseGenerator": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",

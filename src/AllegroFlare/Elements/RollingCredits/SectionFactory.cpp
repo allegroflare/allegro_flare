@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 
-
+#include <AllegroFlare/LegalClauseGenerator.hpp>
 
 
 namespace AllegroFlare
@@ -48,14 +48,21 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
 {
    auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER;
 
-   std::string disclaimer_1 = "This is a work of fiction. Any resemblance to actual persons, living or dead, "
-      "or events is purely coincidental.";
-   std::string disclaimer_2 = "The views and opinions expressed in this media do not necessarily reflect the "
-      "views and opinions of the developers or the production company.";
+   std::string disclaimer_1 = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
+   std::string disclaimer_2 = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
+   std::string disclaimer_3 = AllegroFlare::LegalClauseGenerator::generate_company_non_endorcement_disclaimer();
+
+
    // NOTE: This statement is an alternative to this trademarked phrase: "No animals were harmed.":
    // see: https://www.dvm360.com/view/movies-misuse-no-animals-were-harmed-disclaimer
-   std::string disclaimer_3 = "During the production of this game, no animals were suject to injury, indignity, "
+   std::string disclaimer_4 = "During the production of this game, no animals were suject to injury, indignity, "
       "or mistreatment of any kind.";
+   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_company_non_endorcement_disclaimer();
+
+   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_persons_resemblance_disclaimer();
+   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_views_and_opinions_disclaimer();
+   //AllegroFlare::Elements::RollingCredits::SectionFactory::generate_company_non_endorcement_disclaimer();
+
 
    // TODO: include this disclaimer (replace FONT):
    //DISCLAIMER
@@ -66,6 +73,7 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1, ALIGN_CENTER),
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2, ALIGN_CENTER),
       new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_4, ALIGN_CENTER),
    };
 }
 
