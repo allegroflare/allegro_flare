@@ -19,6 +19,12 @@ properties:
 functions:
 
 
+  - name: num_personality_dimensions
+    type: std::size_t
+    body: |
+      return personality_dimensions.size();
+
+
   - name: add_personality_dimension
     parameters:
       - name: personality_dimension

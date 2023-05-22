@@ -32,6 +32,7 @@ namespace AllegroFlare
             void set_personality_dimensions(std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension> personality_dimensions);
             std::string get_character_name() const;
             std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension> get_personality_dimensions() const;
+            std::size_t num_personality_dimensions();
             void add_personality_dimension(AllegroFlare::Story::Characters::PersonalityProfileDimension personality_dimension={});
             bool personality_dimension_with_title_exists(std::string title="[unset-title]");
             AllegroFlare::Story::Characters::PersonalityProfileDimension get_personality_dimension_by_index(std::size_t index=0);

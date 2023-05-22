@@ -22,20 +22,7 @@ TEST(AllegroFlare_Story_Characters_PersonalityProfileTest, add_personality_dimen
          "is agreeable and cooperative"
       )
    );
-}
-
-TEST(AllegroFlare_Story_Characters_PersonalityProfileTest, add_personality_dimension__will_add_the_dimension)
-{
-   AllegroFlare::Story::Characters::PersonalityProfile personality_profile;
-   personality_profile.add_personality_dimension(
-      AllegroFlare::Story::Characters::PersonalityProfileDimension(
-         "Agreeableness",
-         "this trait refers to how cooperative, empathetic, and friendly a character is",
-         3,
-         4,
-         "is agreeable and cooperative"
-      )
-   );
+   EXPECT_EQ(1, personality_profile.num_personality_dimensions());
 }
 
 

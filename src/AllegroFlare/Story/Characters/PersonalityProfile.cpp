@@ -52,6 +52,11 @@ std::vector<AllegroFlare::Story::Characters::PersonalityProfileDimension> Person
 }
 
 
+std::size_t PersonalityProfile::num_personality_dimensions()
+{
+   return personality_dimensions.size();
+}
+
 void PersonalityProfile::add_personality_dimension(AllegroFlare::Story::Characters::PersonalityProfileDimension personality_dimension)
 {
    if (!((!personality_dimension_with_title_exists(personality_dimension.get_title()))))
