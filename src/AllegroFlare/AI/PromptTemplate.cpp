@@ -23,9 +23,21 @@ PromptTemplate::~PromptTemplate()
 }
 
 
+void PromptTemplate::set_template_content(std::string template_content)
+{
+   this->template_content = template_content;
+}
+
+
 void PromptTemplate::set_insertion_variables(std::vector<std::pair<std::string, std::string>> insertion_variables)
 {
    this->insertion_variables = insertion_variables;
+}
+
+
+std::string PromptTemplate::get_template_content() const
+{
+   return template_content;
 }
 
 

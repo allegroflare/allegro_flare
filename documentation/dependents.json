@@ -1,4 +1,20 @@
 {
+  "AllegroFlare/AI/PromptTemplate": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader"
+  ],
+  "AllegroFlare/YAMLValidator": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "YAML/Node": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader",
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/YAMLValidator"
+  ],
+  "YAML/NodeType/value": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader",
+    "AllegroFlare/YAMLValidator"
+  ],
   "AllegroFlare/Logger": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
@@ -721,15 +737,8 @@
   "std/make_pair": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
-  "AllegroFlare/YAMLValidator": [
-    "AllegroFlare/DialogTree/YAMLLoader"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/Node": [
     "AllegroFlare/DialogTree/YAMLLoader"
-  ],
-  "YAML/Node": [
-    "AllegroFlare/DialogTree/YAMLLoader",
-    "AllegroFlare/YAMLValidator"
   ],
   "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/DialogTree/YAMLLoader",
@@ -2637,9 +2646,6 @@
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/any_of": [
-    "AllegroFlare/YAMLValidator"
-  ],
-  "YAML/NodeType/value": [
     "AllegroFlare/YAMLValidator"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

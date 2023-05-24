@@ -50,6 +50,7 @@ table td
 <h1>TOC</h1>
 <ul>
   <li><a href="#quintessence/AllegroFlare/AI/PromptTemplate.q.yml">quintessence/AllegroFlare/AI/PromptTemplate.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml">quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml</a></li>
@@ -425,6 +426,36 @@ table td
 </tr>
     </table>
      <table>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml">quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">TEXT_NODE_KEY</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">load_yaml(std::string yaml_as_string=&quot;[unset-yaml_as_string]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; template_arguments={ { &quot;[greeting]&quot;, &quot;Hello&quot; }, { &quot;[subject]&quot;, &quot;World&quot; } })</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AI::PromptTemplate&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AI/PromptTemplate.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::YAMLValidator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/YAMLValidator.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;YAML::Node&quot;, &quot;headers&quot;=&gt;[&quot;yaml-cpp/yaml.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;YAML::NodeType::value&quot;, &quot;headers&quot;=&gt;[&quot;yaml-cpp/yaml.h&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -23923,6 +23954,22 @@ table td
 <h1>Dependents</h1>
 <pre>
 {
+  "AllegroFlare/AI/PromptTemplate": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader"
+  ],
+  "AllegroFlare/YAMLValidator": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "YAML/Node": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader",
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/YAMLValidator"
+  ],
+  "YAML/NodeType/value": [
+    "AllegroFlare/AI/PromptTemplateYAMLLoader",
+    "AllegroFlare/YAMLValidator"
+  ],
   "AllegroFlare/Logger": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
@@ -24645,15 +24692,8 @@ table td
   "std/make_pair": [
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
-  "AllegroFlare/YAMLValidator": [
-    "AllegroFlare/DialogTree/YAMLLoader"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/Node": [
     "AllegroFlare/DialogTree/YAMLLoader"
-  ],
-  "YAML/Node": [
-    "AllegroFlare/DialogTree/YAMLLoader",
-    "AllegroFlare/YAMLValidator"
   ],
   "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/DialogTree/YAMLLoader",
@@ -26561,9 +26601,6 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/any_of": [
-    "AllegroFlare/YAMLValidator"
-  ],
-  "YAML/NodeType/value": [
     "AllegroFlare/YAMLValidator"
   ],
   "Tileo/TileoTileVertexAllegroVertexDeclaration": [

@@ -9,12 +9,12 @@ parent_classes:
 properties:
 
 
-  - name: TEXT_NODE_KEY
+  - name: PROMPT_NODE_KEY
     type: char*
     constexpr: true
     static: true
     const: true
-    init_with: '(char*)"go_to_node"'
+    init_with: '(char*)"prompt"'
 
 
 functions:
@@ -26,14 +26,40 @@ functions:
       - name: yaml_as_string
         type: std::string
         default_argument: '"[unset-yaml_as_string]"'
+      - name: template_arguments
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
     guards: [ (!yaml_as_string.empty()) ]
     body: |
       std::string result;
+
+      // Parse our string to a YAML object
       YAML::Node root_node = YAML::Load(yaml_as_string);
+
+      // Prepare result variables
+      std::string template_text = "[unset-template_text]";
+      std::vector<std::pair<std::string, std::string>> template_insertion_variables;
+
+      // Extract the variables from the YAML
+      validate_presence_of_key(root_node, PROMPT_NODE_KEY);
+      //validate_node_type(root_node, PROMPT_NODE_KEY, );
+      template_text = root_node[std::string(PROMPT_NODE_KEY)].as<std::string>();
+      //template_text = root_node[TEXT_NODE_KEY];
+      //validate_presence_of_key(root_node, TEXT_NODE_KEY);
+      //validate_node_type(root_node[TEXT_NODE_KEY]
       
-      validate_presence_of_key(root_node, TEXT_NODE_KEY);
+
+      // Create the template object and fill it in
+      AllegroFlare::AI::PromptTemplate prompt_template;
+      prompt_template.set_template_content(template_text);
+      prompt_template.set_insertion_variables(template_insertion_variables);
+
+      // Build the finalized prompt
+      result = prompt_template.generate_content();
 
       return result;
+    body_dependency_symbols:
+      - AllegroFlare::AI::PromptTemplate
 
 
 dependencies:
