@@ -1,0 +1,51 @@
+parent_classes:
+
+
+  - class: AllegroFlare::YAMLValidator
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: TEXT_NODE_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"go_to_node"'
+
+
+functions:
+
+
+  - name: load_yaml
+    type: std::string
+    parameters:
+      - name: yaml_as_string
+        type: std::string
+        default_argument: '"[unset-yaml_as_string]"'
+    guards: [ (!yaml_as_string.empty()) ]
+    body: |
+      std::string result;
+      YAML::Node root_node = YAML::Load(yaml_as_string);
+      
+      validate_presence_of_key(root_node, TEXT_NODE_KEY);
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::AI::PromptTemplate
+    headers: [ AllegroFlare/AI/PromptTemplate.hpp ]
+  - symbol: AllegroFlare::YAMLValidator
+    headers: [ AllegroFlare/YAMLValidator.hpp ]
+  - symbol: YAML::Node
+    headers: [ yaml-cpp/yaml.h ]
+  - symbol: YAML::NodeType::value
+    headers: [ yaml-cpp/yaml.h ]
+
+
