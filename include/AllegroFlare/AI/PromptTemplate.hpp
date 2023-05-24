@@ -21,7 +21,7 @@ namespace AllegroFlare
 
 
       public:
-         PromptTemplate(std::string template_content="[[GREETING]], [[SUBJECT]]!", std::vector<std::pair<std::string, std::string>> insertion_variables={ { "[[GREETING]]", "Hello" }, { "[[SUBJECT]]", "World" } });
+         PromptTemplate(std::string template_content="[greeting], [subject]!", std::vector<std::pair<std::string, std::string>> insertion_variables={ { "[greeting]", "Hello" }, { "[subject]", "World" } });
          ~PromptTemplate();
 
          void set_insertion_variables(std::vector<std::pair<std::string, std::string>> insertion_variables);

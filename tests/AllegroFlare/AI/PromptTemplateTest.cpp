@@ -22,18 +22,14 @@ TEST(AllegroFlare_AI_PromptTemplateTest,
 TEST(AllegroFlare_AI_PromptTemplateTest,
    generate_content__returns_the_expected_filled_content)
 {
-   std::string TEMPLATE_CONTENT = "";
+   std::string template_content = "A rainbow-coloured butterfly flying across [location] during [time_of_day]";
    std::vector<std::pair<std::string, std::string>> insertion_variables = {
-      { "[[COMPONENT_HEADER_INCLUDE_FILE_PATH]]", "AllegroFlare/ComponentName.hpp" },
-      { "[[COMPONENT_TEST_DESCRIPTION_NAME]]", "AllegroFlare_ComponentNameTest" },
-      { "[[COMPONENT_CLASS_NAME]]", "AllegroFlare::ComponentName" },
-      { "[[COMPONENT_BASENAME_SNAKE_CASE]]", "component_name" },
+      { "[location]", "a field of flowers" },
+      { "[time_of_day]", "sunset" },
    };
 
-   AllegroFlare::AI::PromptTemplate templated_file(TEMPLATE_CONTENT, insertion_variables);
-
-   std::string expected_string = "";
-
+   AllegroFlare::AI::PromptTemplate templated_file(template_content, insertion_variables);
+   std::string expected_string = "A rainbow-coloured butterfly flying across a field of flowers during sunset";
    EXPECT_EQ(expected_string, templated_file.generate_content());
 }
 

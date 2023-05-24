@@ -3,12 +3,12 @@ properties:
 
   - name: template_content
     type: std::string
-    init_with: "\"[[GREETING]], [[SUBJECT]]!\""
+    init_with: "\"[greeting], [subject]!\""
     constructor_arg: true
 
   - name: insertion_variables
     type: std::vector<std::pair<std::string, std::string>>
-    init_with: "{ { \"[[GREETING]]\", \"Hello\" }, { \"[[SUBJECT]]\", \"World\" } }"
+    init_with: "{ { \"[greeting]\", \"Hello\" }, { \"[subject]\", \"World\" } }"
     constructor_arg: true
     getter: true
     setter: true
