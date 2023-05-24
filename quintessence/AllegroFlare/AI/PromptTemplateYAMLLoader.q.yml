@@ -16,6 +16,20 @@ properties:
     const: true
     init_with: '(char*)"prompt"'
 
+  - name: PARAMETERS_NODE_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"parameters"'
+
+  - name: PARAMETER_NAME_NODE_KEY
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"name"'
+
 
 functions:
 
@@ -40,14 +54,24 @@ functions:
       std::string template_text = "[unset-template_text]";
       std::vector<std::pair<std::string, std::string>> template_insertion_variables;
 
-      // Extract the variables from the YAML
+      // Extract the variables from the YAML (prompt)
       validate_presence_of_key(root_node, PROMPT_NODE_KEY);
-      //validate_node_type(root_node, PROMPT_NODE_KEY, );
+      validate_node_type(root_node, PROMPT_NODE_KEY, YAML::NodeType::Scalar);
       template_text = root_node[std::string(PROMPT_NODE_KEY)].as<std::string>();
-      //template_text = root_node[TEXT_NODE_KEY];
-      //validate_presence_of_key(root_node, TEXT_NODE_KEY);
-      //validate_node_type(root_node[TEXT_NODE_KEY]
-      
+
+      // Extract the variables from the YAML (parameters)
+      validate_presence_of_key(root_node, PARAMETERS_NODE_KEY);
+      validate_node_type(root_node, PARAMETERS_NODE_KEY, YAML::NodeType::Sequence);
+      YAML::Node parameters_node = root_node[std::string(PARAMETERS_NODE_KEY)];
+      for (const auto& parameter_node : parameters_node)
+      {
+         validate_presence_of_key(parameter_node, PARAMETER_NAME_NODE_KEY);
+         validate_node_type(parameter_node, PARAMETER_NAME_NODE_KEY, YAML::NodeType::Scalar);
+         std::string parameter_name = parameter_node[std::string(PARAMETER_NAME_NODE_KEY)].as<std::string>();
+      }
+
+      // Match the template_arguments to the template_parameters
+      // TODO
 
       // Create the template object and fill it in
       AllegroFlare::AI::PromptTemplate prompt_template;

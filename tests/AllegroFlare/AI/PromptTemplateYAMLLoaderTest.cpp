@@ -13,7 +13,7 @@ TEST(AllegroFlare_AI_PromptTemplateYAMLLoaderTest, can_be_created_without_blowin
 TEST(AllegroFlare_AI_PromptTemplateYAMLLoaderTest, load_yaml__will_not_blow_up)
 {
    std::string template_content = R"CONTENT(
-variables: [ { name: location }, { name: time_of_day } ]
+parameters: [ { name: location }, { name: time_of_day } ]
 prompt: "A rainbow-coloured butterfly flying across [location] during [time_of_day]"
 
 )CONTENT";

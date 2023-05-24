@@ -15,6 +15,8 @@ namespace AllegroFlare
       {
       public:
          static constexpr char* PROMPT_NODE_KEY = (char*)"prompt";
+         static constexpr char* PARAMETERS_NODE_KEY = (char*)"parameters";
+         static constexpr char* PARAMETER_NAME_NODE_KEY = (char*)"name";
 
       private:
 
