@@ -41,7 +41,7 @@ std::string PromptTemplateYAMLLoader::load_yaml(std::string yaml_as_string, std:
 
    // Prepare result variables
    std::string template_text = "[unset-template_text]";
-   std::vector<std::pair<std::string, std::string>> template_insertion_variables;
+   std::vector<std::string> template_parameters;
 
    // Extract the variables from the YAML (prompt)
    validate_presence_of_key(root_node, PROMPT_NODE_KEY);
@@ -57,10 +57,12 @@ std::string PromptTemplateYAMLLoader::load_yaml(std::string yaml_as_string, std:
       validate_presence_of_key(parameter_node, PARAMETER_NAME_NODE_KEY);
       validate_node_type(parameter_node, PARAMETER_NAME_NODE_KEY, YAML::NodeType::Scalar);
       std::string parameter_name = parameter_node[std::string(PARAMETER_NAME_NODE_KEY)].as<std::string>();
+      template_parameters.push_back(parameter_name);
    }
 
    // Match the template_arguments to the template_parameters
-   // TODO
+   std::vector<std::pair<std::string, std::string>> template_insertion_variables =
+      assemble_parameter_arguments(template_parameters, template_arguments);
 
    // Create the template object and fill it in
    AllegroFlare::AI::PromptTemplate prompt_template;
@@ -69,6 +71,33 @@ std::string PromptTemplateYAMLLoader::load_yaml(std::string yaml_as_string, std:
 
    // Build the finalized prompt
    result = prompt_template.generate_content();
+
+   return result;
+}
+
+std::vector<std::pair<std::string, std::string>> PromptTemplateYAMLLoader::assemble_parameter_arguments(std::vector<std::string> template_parameters, std::vector<std::pair<std::string, std::string>> template_arguments)
+{
+   std::vector<std::pair<std::string, std::string>> result;
+
+   for (const auto& parameter : template_parameters)
+   {
+      bool found_argument = false;
+      for (const auto& argument : template_arguments)
+      {
+         if (argument.first == parameter)
+         {
+            result.emplace_back(argument);
+            found_argument = true;
+            break;
+         }
+      }
+
+      if (!found_argument)
+      {
+         // No user-supplied argument found for the parameter, so add an empty string as the argument.
+         result.emplace_back(parameter, "");
+      }
+   }
 
    return result;
 }

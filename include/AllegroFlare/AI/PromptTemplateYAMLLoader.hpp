@@ -28,6 +28,7 @@ namespace AllegroFlare
          ~PromptTemplateYAMLLoader();
 
          std::string load_yaml(std::string yaml_as_string="[unset-yaml_as_string]", std::vector<std::pair<std::string, std::string>> template_arguments={});
+         static std::vector<std::pair<std::string, std::string>> assemble_parameter_arguments(std::vector<std::string> template_parameters={}, std::vector<std::pair<std::string, std::string>> template_arguments={});
       };
    }
 }
