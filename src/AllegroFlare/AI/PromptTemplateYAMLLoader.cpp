@@ -79,13 +79,14 @@ std::vector<std::pair<std::string, std::string>> PromptTemplateYAMLLoader::assem
 {
    std::vector<std::pair<std::string, std::string>> result;
 
-   for (const auto& parameter : template_parameters)
+   for (auto &parameter : template_parameters)
    {
       bool found_argument = false;
-      for (const auto& argument : template_arguments)
+      for (auto &argument : template_arguments)
       {
          if (argument.first == parameter)
          {
+            argument.first = "[" + argument.first + "]";
             result.emplace_back(argument);
             found_argument = true;
             break;
@@ -94,8 +95,7 @@ std::vector<std::pair<std::string, std::string>> PromptTemplateYAMLLoader::assem
 
       if (!found_argument)
       {
-         // No user-supplied argument found for the parameter, so add an empty string as the argument.
-         result.emplace_back(parameter, "");
+         throw std::runtime_error("missing argument for parameter \"" + parameter + "\"");
       }
    }
 

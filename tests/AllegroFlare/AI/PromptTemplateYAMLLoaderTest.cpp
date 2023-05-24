@@ -24,7 +24,7 @@ prompt: "A rainbow-coloured butterfly flying across [location] during [time_of_d
    };
 
    AllegroFlare::AI::PromptTemplateYAMLLoader prompt_template_yaml_loader;
-   std::string expected_prompt = "foo";
+   std::string expected_prompt = "A rainbow-coloured butterfly flying across a field of flowers during sunset";
 
    EXPECT_EQ(expected_prompt, prompt_template_yaml_loader.load_yaml(template_content, template_arguments));
 }

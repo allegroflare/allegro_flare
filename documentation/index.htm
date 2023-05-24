@@ -434,13 +434,24 @@ table td
     <h3 id="quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml">quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml</h3>
      <table>
 <tr>
-  <td class="property">TEXT_NODE_KEY</td>
+  <td class="property">PROMPT_NODE_KEY</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">PARAMETERS_NODE_KEY</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">PARAMETER_NAME_NODE_KEY</td>
   <td class="property">char*</td>
 </tr>
     </table>
      <table>
 <tr>
-  <td class="method">load_yaml(std::string yaml_as_string=&quot;[unset-yaml_as_string]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; template_arguments={ { &quot;[greeting]&quot;, &quot;Hello&quot; }, { &quot;[subject]&quot;, &quot;World&quot; } })</td>
+  <td class="method">load_yaml(std::string yaml_as_string=&quot;[unset-yaml_as_string]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; template_arguments={})</td>
+</tr>
+<tr>
+  <td class="method">assemble_parameter_arguments(std::vector&lt;std::string&gt; template_parameters={}, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; template_arguments={})</td>
 </tr>
     </table>
      <table>
