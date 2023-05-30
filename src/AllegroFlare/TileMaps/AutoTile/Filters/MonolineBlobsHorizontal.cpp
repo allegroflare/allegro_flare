@@ -18,8 +18,9 @@ namespace Filters
 {
 
 
-MonolineBlobsHorizontal::MonolineBlobsHorizontal(std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition)
+MonolineBlobsHorizontal::MonolineBlobsHorizontal(int solid_tile_value, std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition)
    : AllegroFlare::TileMaps::AutoTile::Filters::Base(AllegroFlare::TileMaps::AutoTile::Filters::MonolineBlobsHorizontal::TYPE)
+   , solid_tile_value(solid_tile_value)
    , monoline_blobs_horizontal_tiles_definition(monoline_blobs_horizontal_tiles_definition)
 {
 }
@@ -30,9 +31,21 @@ MonolineBlobsHorizontal::~MonolineBlobsHorizontal()
 }
 
 
+void MonolineBlobsHorizontal::set_solid_tile_value(int solid_tile_value)
+{
+   this->solid_tile_value = solid_tile_value;
+}
+
+
 void MonolineBlobsHorizontal::set_monoline_blobs_horizontal_tiles_definition(std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition)
 {
    this->monoline_blobs_horizontal_tiles_definition = monoline_blobs_horizontal_tiles_definition;
+}
+
+
+int MonolineBlobsHorizontal::get_solid_tile_value() const
+{
+   return solid_tile_value;
 }
 
 
@@ -47,7 +60,7 @@ bool MonolineBlobsHorizontal::process()
    // TODO: finish the remaining match rules on this class
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
-   int s = SOLID;
+   int &s = solid_tile_value;
    int _ = -1;
    // NOTE: This match type seems to work for now, but may need to be reviewed (or a new match type introduced
    // in the future.)  Note that the default is OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGES (and should remain the 

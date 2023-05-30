@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: solid_tile_value
+    type: int
+    init_with: 1
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: monoline_blobs_horizontal_tiles_definition
     type: std::map<uint32_t, int>
     constructor_arg: true
@@ -48,7 +55,7 @@ functions:
       // TODO: finish the remaining match rules on this class
       AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
       AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
-      int s = SOLID;
+      int &s = solid_tile_value;
       int _ = -1;
       // NOTE: This match type seems to work for now, but may need to be reviewed (or a new match type introduced
       // in the future.)  Note that the default is OUT_OF_BOUNDS_MATCH_TYPE_EXTRUDED_EDGES (and should remain the 
