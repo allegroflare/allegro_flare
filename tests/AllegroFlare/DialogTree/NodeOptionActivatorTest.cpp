@@ -38,7 +38,7 @@ public:
                }
             )
       );
-      AllegroFlare::DialogTree::Node* currently_active_node = node_bank.find_node_by_name("node1");
+      currently_active_node = node_bank.find_node_by_name("node1");
 
       node_option_activator.set_event_emitter(&event_emitter);
       node_option_activator.set_node_bank(&node_bank);
@@ -50,6 +50,7 @@ public:
       // TODO: Replace this with a teardown of the tree
       delete currently_active_node;
       al_uninstall_system();
+
    }
 };
 
@@ -62,6 +63,7 @@ TEST_F(AllegroFlare_DialogTree_NodeOptionActivatorTest, can_be_created_without_b
 
 TEST_F(AllegroFlare_DialogTree_NodeOptionActivatorTestWithSetup, activate__will_not_blow_up)
 {
+
    node_option_activator.set_selection_choice(0);
    node_option_activator.activate();
 }
