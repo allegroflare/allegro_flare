@@ -78,6 +78,7 @@ functions:
 
       return;
     body_dependency_symbols:
+      - std::function
       - AllegroFlare::DialogTree::NodeOptions::ExitDialog
       - AllegroFlare::DialogTree::NodeOptions::GoToNode
 

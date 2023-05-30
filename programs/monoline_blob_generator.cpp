@@ -177,7 +177,7 @@ int main(int argc, char **argv)
    AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&bitmap_bin);
    basic2d_tile_map.set_atlas_configuration("monoline-grouped-art-tiles-02.png", 200, 200);
    basic2d_tile_map.initialize();
-   basic2d_tile_map.resize(24, 12);
+   basic2d_tile_map.resize(100, 32);
 
 
    // Create our filter and build our input matrix
@@ -214,11 +214,13 @@ int main(int argc, char **argv)
    // Tweak the appearance of the tilemap for clearer presentation
 
    basic2d_tile_map.rescale_tile_dimentions_to(200, 200);
-   AllegroFlare::Placement2D place = build_centered_placement(
-      basic2d_tile_map.infer_real_width(),
-      basic2d_tile_map.infer_real_height()
-   );
-   place.scale = {0.1, 0.1};
+   AllegroFlare::Placement2D place;
+   //AllegroFlare::Placement2D place = build_centered_placement(
+      //basic2d_tile_map.infer_real_width(),
+      //basic2d_tile_map.infer_real_height()
+   //);
+   //place.position = {1920/2, 1080/2};
+   place.scale = {0.2, 0.2};
 
 
    // Render our result
@@ -230,7 +232,7 @@ int main(int argc, char **argv)
    place.restore_transform();
 
    al_flip_display();
-   al_rest(1);
+   al_rest(2);
 
    shutdown();
 

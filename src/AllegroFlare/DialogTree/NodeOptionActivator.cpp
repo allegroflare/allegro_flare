@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
