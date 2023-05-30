@@ -147,7 +147,6 @@ void NodeOptionActivator::activate()
    {
       // call the item
       types_map[node_option_type]();
-      std::cout << "AAXX" << std::endl;
    }
 
    return;

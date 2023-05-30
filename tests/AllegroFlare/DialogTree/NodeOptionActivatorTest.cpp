@@ -50,7 +50,6 @@ public:
       // TODO: Replace this with a teardown of the tree
       delete currently_active_node;
       al_uninstall_system();
-
    }
 };
 
