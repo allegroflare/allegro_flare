@@ -2,7 +2,8 @@
 
 
 #include <AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp>
-#include <string>
+#include <cstdint>
+#include <map>
 
 
 namespace AllegroFlare
@@ -22,7 +23,8 @@ namespace AllegroFlare
 
                enum
                {
-                  EMPTY = 0,
+                  UNDEF = 0,
+                  EMPTY,
                   SOLID,
                   LEFT_TIP,
                   RIGHT_TIP,
@@ -30,17 +32,20 @@ namespace AllegroFlare
                   RIGHT_GAP,
                };
             private:
-               std::string property;
+               std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition;
 
             protected:
 
 
             public:
-               MonolineBlobsHorizontal(std::string property="[unset-property]");
+               MonolineBlobsHorizontal(std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition=build_default_monoline_blobs_horizontal_tiles_definition());
                virtual ~MonolineBlobsHorizontal();
 
-               std::string get_property() const;
+               void set_monoline_blobs_horizontal_tiles_definition(std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition);
+               std::map<uint32_t, int> get_monoline_blobs_horizontal_tiles_definition() const;
                virtual bool process() override;
+               int get_tile_for(uint32_t edge_tile_name=UNDEF);
+               static std::map<uint32_t, int> build_default_monoline_blobs_horizontal_tiles_definition();
             };
          }
       }

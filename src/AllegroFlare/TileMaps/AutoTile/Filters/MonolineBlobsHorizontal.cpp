@@ -2,7 +2,10 @@
 
 #include <AllegroFlare/TileMaps/AutoTile/Filters/MonolineBlobsHorizontal.hpp>
 
-
+#include <functional>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -15,9 +18,9 @@ namespace Filters
 {
 
 
-MonolineBlobsHorizontal::MonolineBlobsHorizontal(std::string property)
+MonolineBlobsHorizontal::MonolineBlobsHorizontal(std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition)
    : AllegroFlare::TileMaps::AutoTile::Filters::Base(AllegroFlare::TileMaps::AutoTile::Filters::MonolineBlobsHorizontal::TYPE)
-   , property(property)
+   , monoline_blobs_horizontal_tiles_definition(monoline_blobs_horizontal_tiles_definition)
 {
 }
 
@@ -27,9 +30,15 @@ MonolineBlobsHorizontal::~MonolineBlobsHorizontal()
 }
 
 
-std::string MonolineBlobsHorizontal::get_property() const
+void MonolineBlobsHorizontal::set_monoline_blobs_horizontal_tiles_definition(std::map<uint32_t, int> monoline_blobs_horizontal_tiles_definition)
 {
-   return property;
+   this->monoline_blobs_horizontal_tiles_definition = monoline_blobs_horizontal_tiles_definition;
+}
+
+
+std::map<uint32_t, int> MonolineBlobsHorizontal::get_monoline_blobs_horizontal_tiles_definition() const
+{
+   return monoline_blobs_horizontal_tiles_definition;
 }
 
 
@@ -131,6 +140,47 @@ bool MonolineBlobsHorizontal::process()
 
 
    return true;
+}
+
+int MonolineBlobsHorizontal::get_tile_for(uint32_t edge_tile_name)
+{
+   if (!((monoline_blobs_horizontal_tiles_definition.count(edge_tile_name) != 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[MonolineBlobsHorizontal::get_tile_for]: error: guard \"(monoline_blobs_horizontal_tiles_definition.count(edge_tile_name) != 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("MonolineBlobsHorizontal::get_tile_for: error: guard \"(monoline_blobs_horizontal_tiles_definition.count(edge_tile_name) != 0)\" not met");
+   }
+   return monoline_blobs_horizontal_tiles_definition[edge_tile_name];
+}
+
+std::map<uint32_t, int> MonolineBlobsHorizontal::build_default_monoline_blobs_horizontal_tiles_definition()
+{
+   std::function<decltype(tile_coord_to_contiguous)> tc =
+      AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
+   int num_columns = 8;
+   int xo = 4;
+
+   std::map<uint32_t, int> result = {
+      { UNDEF,        tc(0+xo, 0, num_columns) },
+      //{ TOP_LEFT,     tc(1+xo, 0, num_columns) },
+      //{ TOP,          tc(2+xo, 0, num_columns) },
+      //{ TOP_RIGHT,    tc(3+xo, 0, num_columns) },
+      //{ TOP_TIP,      tc(0+xo, 0, num_columns) },
+      //{ LEFT,         tc(1+xo, 1, num_columns) },
+      //{ FULL,         tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+      //{ RIGHT,        tc(3+xo, 1, num_columns) },
+      //{ CENTER,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+      //{ BOTTOM_LEFT,  tc(1+xo, 2, num_columns) },
+      //{ BOTTOM,       tc(2+xo, 2, num_columns) },
+      //{ BOTTOM_RIGHT, tc(3+xo, 2, num_columns) },
+      //{ BOTTOM_TIP,   tc(0+xo, 2, num_columns) },
+      //{ LEFT_TIP,     tc(3+xo, 1, num_columns) },
+      //{ MIDDLE,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
+      //{ RIGHT_TIP,    tc(3+xo, 3, num_columns) },
+      //{ ISOLATED,     tc(0+xo, 3, num_columns) },
+   };
+   return result;
 }
 
 

@@ -333,6 +333,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Fill.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/MonolineBlobsHorizontal.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/MonolineBlobsHorizontal.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/Basic2D.q.yml">quintessence/AllegroFlare/TileMaps/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml">quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml</a></li>
@@ -20390,6 +20391,37 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/MonolineBlobsHorizontal.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/MonolineBlobsHorizontal.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">monoline_blobs_horizontal_tiles_definition</td>
+  <td class="property">std::map&lt;uint32_t, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">process()</td>
+</tr>
+<tr>
+  <td class="method">get_tile_for(uint32_t edge_tile_name=UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">build_default_monoline_blobs_horizontal_tiles_definition()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::AutoTile::Filters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/AutoTile/Filters/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges.q.yml</h3>
      <table>
 <tr>
@@ -26560,6 +26592,7 @@ table td
     "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
     "AllegroFlare/TileMaps/AutoTile/Filters/Fill",
     "AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges",
+    "AllegroFlare/TileMaps/AutoTile/Filters/MonolineBlobsHorizontal",
     "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "ALLEGRO_VERTEX_DECL": [

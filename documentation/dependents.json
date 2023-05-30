@@ -2594,6 +2594,7 @@
     "AllegroFlare/TileMaps/AutoTile/Filters/BasicSolid",
     "AllegroFlare/TileMaps/AutoTile/Filters/Fill",
     "AllegroFlare/TileMaps/AutoTile/Filters/FortyEightEdges",
+    "AllegroFlare/TileMaps/AutoTile/Filters/MonolineBlobsHorizontal",
     "AllegroFlare/TileMaps/AutoTile/Filters/SixteenEdges"
   ],
   "ALLEGRO_VERTEX_DECL": [
