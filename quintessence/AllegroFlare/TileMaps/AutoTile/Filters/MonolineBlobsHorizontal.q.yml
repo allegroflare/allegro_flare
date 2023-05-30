@@ -118,23 +118,22 @@ functions:
       );
 
 
-      /*
 
       // deep solid tile (this is not practically applied to anything in this case)
 
       // Build our match_matrix for the "deep solid tile fiter"
       std::vector<std::vector<int>> deep_solid_tile_match_matrix = {
         // TODO: use ignore tile in corner tiles of this matrix
-        { _, s, _ },
-        { s, s, s },
-        { _, s, _ },
+        { _, _, _ },
+        { 0, s, s },
+        { _, _, _ },
       };
 
       // Build our apply_matrix for the "deep solid tile filter"
       std::vector<std::vector<int>> deep_solid_tile_apply_matrix = {
-        { _, _,                    _ },
-        { _, get_tile_for(MIDDLE), _ },
-        { _, _,                    _ },
+        { _, _,                      _ },
+        { _, get_tile_for(LEFT_CAP), _ },
+        { _, _,                      _ },
       };
 
       iterate_through_input_and_apply_to_result_if_match(
@@ -146,7 +145,7 @@ functions:
          1, // apply_matrix_offset_y
          match_type
       );
-      */
+
 
 
       return true;
