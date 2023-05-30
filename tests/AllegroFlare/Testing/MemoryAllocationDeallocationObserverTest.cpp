@@ -22,3 +22,15 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest, when_active_
 }
 
 
+TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest, when_active__will_count_the_number_deallocations)
+{
+   AllegroFlare::Testing::MemoryAllocationDeallocationObserver memory_allocation_deallocation_observer;
+   int *var = new int(3);
+   memory_allocation_deallocation_observer.enable_memory_tracking();
+   delete var;
+   memory_allocation_deallocation_observer.disable_memory_tracking();
+
+   EXPECT_EQ(1, memory_allocation_deallocation_observer.get_num_deallocations());
+}
+
+
