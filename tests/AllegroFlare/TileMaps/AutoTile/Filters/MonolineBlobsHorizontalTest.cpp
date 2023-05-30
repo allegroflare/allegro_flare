@@ -92,7 +92,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_MonolineBlobsHorizontalTestWithAll
    // Build our basic tile map
 
    AllegroFlare::TileMaps::Basic2D basic2d_tile_map(&get_bitmap_bin_ref());
-   basic2d_tile_map.set_atlas_configuration("autotile-tileset-1-02.png", 16, 16);
+   basic2d_tile_map.set_atlas_configuration("monoline-grouped-art-tiles-02-50x50.png", 50, 50);
    basic2d_tile_map.initialize();
    basic2d_tile_map.resize(24, 12);
 
@@ -135,7 +135,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_MonolineBlobsHorizontalTestWithAll
 
    // Tweak the appearance of the tilemap for clearer presentation
 
-   basic2d_tile_map.rescale_tile_dimentions_to(32, 32);
+   basic2d_tile_map.rescale_tile_dimentions_to(25, 25);
    AllegroFlare::Placement2D place = build_centered_placement(
       basic2d_tile_map.infer_real_width(),
       basic2d_tile_map.infer_real_height()
