@@ -30,7 +30,7 @@ namespace AllegroFlare
 
          friend void* ::operator new(std::size_t size);
          friend void ::operator delete(void* ptr) noexcept;
-         friend void ::operator delete(void* ptr, std::size_t size) noexcept;
+         friend void ::operator delete(void* ptr, std::size_t size) noexcept; // This overload is used in Windows
       };
    }
 }
@@ -40,6 +40,6 @@ namespace AllegroFlare
 // Override global new and delete operators
 void* operator new(std::size_t size);
 void operator delete(void* ptr) noexcept;
-void operator delete(void* ptr, std::size_t size) noexcept;
+void operator delete(void* ptr, std::size_t size) noexcept; // This overload is used in Windows
 
 
