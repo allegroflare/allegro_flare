@@ -7,6 +7,7 @@
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
