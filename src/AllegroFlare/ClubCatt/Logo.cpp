@@ -1,6 +1,6 @@
 
 
-#include <ClubCatt/Logo.hpp>
+#include <AllegroFlare/ClubCatt/Logo.hpp>
 
 #include <AllegroFlare/Placement3D.hpp>
 #include <iostream>
@@ -8,6 +8,8 @@
 #include <stdexcept>
 
 
+namespace AllegroFlare
+{
 namespace ClubCatt
 {
 
@@ -42,7 +44,7 @@ Logo::~Logo()
 }
 
 
-void Logo::set_on_finished_callback(std::function<void(ClubCatt::Logo*, void*)> on_finished_callback)
+void Logo::set_on_finished_callback(std::function<void(AllegroFlare::ClubCatt::Logo*, void*)> on_finished_callback)
 {
    this->on_finished_callback = on_finished_callback;
 }
@@ -78,7 +80,7 @@ bool Logo::get_finished() const
 }
 
 
-std::function<void(ClubCatt::Logo*, void*)> Logo::get_on_finished_callback() const
+std::function<void(AllegroFlare::ClubCatt::Logo*, void*)> Logo::get_on_finished_callback() const
 {
    return on_finished_callback;
 }
@@ -368,5 +370,6 @@ float Logo::calc_local_time_now(float time_now)
 
 
 } // namespace ClubCatt
+} // namespace AllegroFlare
 
 

@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#include <ClubCatt/Logo.hpp>
+#include <AllegroFlare/ClubCatt/Logo.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Camera3D.hpp>
@@ -10,17 +10,17 @@
 #include <AllegroFlare/Placement3D.hpp>
 
 
-class ClubCatt_LogoTest: public ::testing::Test {};
-class ClubCatt_LogoWithAllegroRenderingFixtureTest : public AllegroFlare::Testing::WithAllegroRenderingFixture
+class AllegroFlare_ClubCatt_LogoTest: public ::testing::Test {};
+class AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
 
-TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
+TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_path(get_fixtures_path() + "models");
 
-   ClubCatt::Logo logo;
+   AllegroFlare::ClubCatt::Logo logo;
    logo.set_bitmap_bin(&get_bitmap_bin_ref());
    logo.set_model_bin(&model_bin);
    logo.initialize();
@@ -42,13 +42,13 @@ TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expe
 }
 
 
-TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, initialize__will_allocate_some_resources_through_the_bins)
+TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, initialize__will_allocate_some_resources_through_the_bins)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    AllegroFlare::ModelBin model_bin;
    model_bin.set_path(get_fixtures_path() + "models");
 
-   ClubCatt::Logo logo;
+   AllegroFlare::ClubCatt::Logo logo;
    logo.set_bitmap_bin(&bitmap_bin);
    logo.set_model_bin(&model_bin);
    logo.initialize();
@@ -58,13 +58,13 @@ TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, initialize__will_allocate_s
 }
 
 
-TEST_F(ClubCatt_LogoWithAllegroRenderingFixtureTest, destroy__will_deallocate_the_aquired_resources_in_the_bins)
+TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, destroy__will_deallocate_the_aquired_resources_in_the_bins)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    AllegroFlare::ModelBin model_bin;
    model_bin.set_path(get_fixtures_path() + "models");
 
-   ClubCatt::Logo logo;
+   AllegroFlare::ClubCatt::Logo logo;
    logo.set_bitmap_bin(&bitmap_bin);
    logo.set_model_bin(&model_bin);
    logo.initialize();

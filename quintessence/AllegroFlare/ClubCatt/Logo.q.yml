@@ -74,7 +74,7 @@ properties:
     getter: true
 
   - name: on_finished_callback
-    type: std::function<void(ClubCatt::Logo*, void*)>
+    type: std::function<void(AllegroFlare::ClubCatt::Logo*, void*)>
     init_with: ''
     getter: true
     setter: true
@@ -343,7 +343,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Placement3D
     headers: [ AllegroFlare/Placement3D.hpp ]
-  - symbol: ClubCatt::Logo
-    headers: [ ClubCatt/Logo.hpp ]
+  - symbol: AllegroFlare::ClubCatt::Logo
+    headers: [ AllegroFlare/ClubCatt/Logo.hpp ]
 
 
