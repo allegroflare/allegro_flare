@@ -77,9 +77,9 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_MonolineBlobsHorizontalTest,
    // TODO: Update this test case expected_matrix
    std::vector<std::vector<int>> expected_matrix = {
       { 0,  0,  0,  0 },
-      { 0,  0,  0,  0 },
-      { 0,  0,  0,  0 },
-      { 0,  0,  0,  0 },
+      { 0,  1,  1,  1 },
+      { 1,  1,  0,  0 },
+      { 1,  1,  1,  1 },
    };
 
    EXPECT_EQ(expected_matrix, result_matrix.get_matrix());

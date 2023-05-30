@@ -72,7 +72,7 @@ bool MonolineBlobsHorizontal::process()
    result_matrix.resize(input_matrix.get_width(), input_matrix.get_height());
 
 
-   /*
+
    // basic solid tile
 
    // Build our match_matrix for the "basic solid tile fiter"
@@ -83,7 +83,7 @@ bool MonolineBlobsHorizontal::process()
 
    // Build our apply_matrix for the "basic solid tile filter"
    std::vector<std::vector<int>> basic_solid_tile_apply_matrix = {
-     { get_tile_for(MIDDLE) },
+     { get_tile_for(SOLID) },
    };
 
    iterate_through_input_and_apply_to_result_if_match(
@@ -97,6 +97,7 @@ bool MonolineBlobsHorizontal::process()
    );
 
 
+   /*
 
    // basic empty tile
 
@@ -171,12 +172,13 @@ std::map<uint32_t, int> MonolineBlobsHorizontal::build_default_monoline_blobs_ho
 {
    std::function<decltype(tile_coord_to_contiguous)> tc =
       AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous;
-   int num_columns = 8;
-   int xo = 4;
+   int num_columns = 7;
+   int xo = 0;
 
    std::map<uint32_t, int> result = {
       { UNDEF,        tc(0+xo, 0, num_columns) },
-      //{ TOP_LEFT,     tc(1+xo, 0, num_columns) },
+      { EMPTY,        tc(0+xo, 0, num_columns) },
+      { SOLID,        tc(1+xo, 0, num_columns) },
       //{ TOP,          tc(2+xo, 0, num_columns) },
       //{ TOP_RIGHT,    tc(3+xo, 0, num_columns) },
       //{ TOP_TIP,      tc(0+xo, 0, num_columns) },
