@@ -147,6 +147,7 @@ functions:
       );
 
 
+
       // right cap tile
 
       // Build our match_matrix for the "right cap tile fiter"
@@ -175,6 +176,7 @@ functions:
       );
 
 
+
       // isolated tile
 
       // Build our match_matrix for the "isolated cap tile fiter"
@@ -195,6 +197,64 @@ functions:
       iterate_through_input_and_apply_to_result_if_match(
          isolated_tile_match_matrix,
          isolated_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         1, // apply_matrix_offset_x
+         1, // apply_matrix_offset_y
+         match_type
+      );
+
+
+
+      // left gap tile
+
+      // Build our match_matrix for the "left gap tile fiter"
+      std::vector<std::vector<int>> left_gap_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
+        { s, s, _ },
+        { 0, s, s },
+        { s, s, _ },
+      };
+
+      // Build our apply_matrix for the "left gap tile filter"
+      std::vector<std::vector<int>> left_gap_tile_apply_matrix = {
+        { _, _,                      _ },
+        { _, get_tile_for(LEFT_GAP), _ },
+        { _, _,                      _ },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         left_gap_tile_match_matrix,
+         left_gap_tile_apply_matrix,
+         1, // match_matrix_offset_x
+         1, // match_matrix_offset_y
+         1, // apply_matrix_offset_x
+         1, // apply_matrix_offset_y
+         match_type
+      );
+
+
+
+      // right gap tile
+
+      // Build our match_matrix for the "right gap tile fiter"
+      std::vector<std::vector<int>> right_gap_tile_match_matrix = {
+        // TODO: use ignore tile in corner tiles of this matrix
+        { _, s, s },
+        { s, s, 0 },
+        { _, s, s },
+      };
+
+      // Build our apply_matrix for the "right gap tile filter"
+      std::vector<std::vector<int>> right_gap_tile_apply_matrix = {
+        { _, _,                      _ },
+        { _, get_tile_for(RIGHT_GAP), _ },
+        { _, _,                      _ },
+      };
+
+      iterate_through_input_and_apply_to_result_if_match(
+         right_gap_tile_match_matrix,
+         right_gap_tile_apply_matrix,
          1, // match_matrix_offset_x
          1, // match_matrix_offset_y
          1, // apply_matrix_offset_x
