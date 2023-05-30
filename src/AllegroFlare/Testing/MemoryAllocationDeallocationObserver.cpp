@@ -100,3 +100,14 @@ void operator delete(void* ptr) noexcept
 }
 
 
+void operator delete(void* ptr, std::size_t size) noexcept
+{
+   if (AllegroFlare::Testing::MemoryAllocationDeallocationObserver::is_memory_tracking_enabled())
+   {
+      AllegroFlare::Testing::MemoryAllocationDeallocationObserver::increment_deallocation_count();
+   }
+   std::free(ptr);
+}
+
+
+
