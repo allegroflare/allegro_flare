@@ -97,7 +97,6 @@ bool MonolineBlobsHorizontal::process()
    );
 
 
-   /*
 
    // basic empty tile
 
@@ -109,7 +108,7 @@ bool MonolineBlobsHorizontal::process()
 
    // Build our apply_matrix for the "basic empty tile filter"
    std::vector<std::vector<int>> basic_empty_tile_apply_matrix = {
-     { 0 },
+     { get_tile_for(EMPTY) },
    };
 
    iterate_through_input_and_apply_to_result_if_match(
@@ -123,6 +122,7 @@ bool MonolineBlobsHorizontal::process()
    );
 
 
+   /*
 
    // deep solid tile (this is not practically applied to anything in this case)
 
@@ -178,22 +178,12 @@ std::map<uint32_t, int> MonolineBlobsHorizontal::build_default_monoline_blobs_ho
    std::map<uint32_t, int> result = {
       { UNDEF,        tc(0+xo, 0, num_columns) },
       { EMPTY,        tc(0+xo, 0, num_columns) },
-      { SOLID,        tc(1+xo, 0, num_columns) },
-      //{ TOP,          tc(2+xo, 0, num_columns) },
-      //{ TOP_RIGHT,    tc(3+xo, 0, num_columns) },
-      //{ TOP_TIP,      tc(0+xo, 0, num_columns) },
-      //{ LEFT,         tc(1+xo, 1, num_columns) },
-      //{ FULL,         tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-      //{ RIGHT,        tc(3+xo, 1, num_columns) },
-      //{ CENTER,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-      //{ BOTTOM_LEFT,  tc(1+xo, 2, num_columns) },
-      //{ BOTTOM,       tc(2+xo, 2, num_columns) },
-      //{ BOTTOM_RIGHT, tc(3+xo, 2, num_columns) },
-      //{ BOTTOM_TIP,   tc(0+xo, 2, num_columns) },
-      //{ LEFT_TIP,     tc(3+xo, 1, num_columns) },
-      //{ MIDDLE,       tc(1,    0, num_columns) }, // is this the same as "middle", "full", "center"
-      //{ RIGHT_TIP,    tc(3+xo, 3, num_columns) },
-      //{ ISOLATED,     tc(0+xo, 3, num_columns) },
+      { SOLID,        tc(3+xo, 0, num_columns) },
+      { ISOLATED,     tc(1+xo, 0, num_columns) },
+      { LEFT_CAP,     tc(2+xo, 0, num_columns) },
+      { RIGHT_CAP,    tc(4+xo, 0, num_columns) },
+      { LEFT_GAP,     tc(5+xo, 0, num_columns) },
+      { RIGHT_GAP,    tc(6+xo, 0, num_columns) },
    };
    return result;
 }

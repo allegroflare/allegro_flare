@@ -26,10 +26,11 @@ namespace AllegroFlare
                   UNDEF = 0,
                   EMPTY,
                   SOLID,
-                  LEFT_TIP,
-                  RIGHT_TIP,
+                  LEFT_CAP,
+                  RIGHT_CAP,
                   LEFT_GAP,
                   RIGHT_GAP,
+                  ISOLATED,
                };
             private:
                int solid_tile_value;
