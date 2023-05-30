@@ -36,6 +36,57 @@ AllegroFlare::DeploymentEnvironment deployment_environment;
 std::vector<std::string> test_prefix_tokens;
 
 
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+
+std::vector<std::vector<int>> load_input_matrix_from_file(const std::string& filename)
+{
+    std::vector<std::vector<int>> numbers;
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to open file: " << filename << std::endl;
+        return numbers;
+    }
+
+    std::string line;
+    std::vector<int> currentLine;
+
+    // Read each line in the file
+    while (std::getline(file, line)) {
+        if (!currentLine.empty() && line.length() != currentLine.size()) {
+            std::cerr << "Invalid line length: " << line << std::endl;
+            numbers.clear();
+            return numbers;
+        }
+
+        currentLine.clear();
+
+        // Process each character in the line
+        for (char c : line) {
+            if (c == '0')
+                currentLine.push_back(0);
+            else if (c == '1')
+                currentLine.push_back(1);
+            else {
+                std::cerr << "Invalid character: " << c << std::endl;
+                numbers.clear();
+                return numbers;
+            }
+        }
+
+        numbers.push_back(currentLine);
+    }
+
+    file.close();
+    return numbers;
+}
+
+
+
 void setup()
 {
    al_is_system_installed();
@@ -94,7 +145,32 @@ AllegroFlare::Placement2D build_centered_placement(float width, float height)
 
 int main(int argc, char **argv)
 {
+   std::vector<std::string> args;
+   for (int i=1; i<argc; i++) args.push_back(argv[i]);
+
+
    setup();
+
+
+   // load our source file (if present)
+   std::vector<std::vector<int>> input_matrix = {
+      { 0, 0, 0, 0, 0, 0 },
+      { 0, 1, 0, 0, 0, 0 },
+      { 0, 0, 1, 1, 1, 0 },
+      { 0, 1, 1, 1, 0, 0 },
+      { 0, 0, 0, 1, 1, 0 },
+      { 0, 0, 1, 1, 1, 0 },
+      { 0, 0, 0, 0, 0, 0 },
+   };
+
+
+   if (args.size() == 1)
+   {
+      // load a file if one is passed
+      std::string filename_containing_input_matrix = args[0];
+      input_matrix = load_input_matrix_from_file(filename_containing_input_matrix);
+   }
+
 
    // Build our basic tile map
 
@@ -108,15 +184,7 @@ int main(int argc, char **argv)
 
    AllegroFlare::TileMaps::AutoTile::Filters::MonolineBlobsHorizontal filter;
    filter.set_input_matrix(
-      AllegroFlare::TileMaps::AutoTile::FilterMatrix::build({
-         { 0, 0, 0, 0, 0, 0 },
-         { 0, 1, 0, 0, 0, 0 },
-         { 0, 0, 1, 1, 1, 0 },
-         { 0, 1, 1, 1, 0, 0 },
-         { 0, 0, 0, 1, 1, 0 },
-         { 0, 0, 1, 1, 1, 0 },
-         { 0, 0, 0, 0, 0, 0 },
-      })
+      AllegroFlare::TileMaps::AutoTile::FilterMatrix::build(input_matrix)
    );
 
 
