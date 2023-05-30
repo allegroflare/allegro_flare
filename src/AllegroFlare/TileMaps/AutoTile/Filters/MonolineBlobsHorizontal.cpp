@@ -151,6 +151,34 @@ bool MonolineBlobsHorizontal::process()
    );
 
 
+   // right cap tile
+
+   // Build our match_matrix for the "rignt cap tile fiter"
+   std::vector<std::vector<int>> right_cap_tile_match_matrix = {
+     // TODO: use ignore tile in corner tiles of this matrix
+     { _, _, _ },
+     { s, s, 0 },
+     { _, _, _ },
+   };
+
+   // Build our apply_matrix for the "right cap tile filter"
+   std::vector<std::vector<int>> right_cap_tile_apply_matrix = {
+     { _, _,                      _ },
+     { _, get_tile_for(RIGHT_CAP), _ },
+     { _, _,                      _ },
+   };
+
+   iterate_through_input_and_apply_to_result_if_match(
+      right_cap_tile_match_matrix,
+      right_cap_tile_apply_matrix,
+      1, // match_matrix_offset_x
+      1, // match_matrix_offset_y
+      1, // apply_matrix_offset_x
+      1, // apply_matrix_offset_y
+      match_type
+   );
+
+
 
    return true;
 }
