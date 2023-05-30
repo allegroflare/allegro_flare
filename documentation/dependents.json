@@ -131,6 +131,7 @@
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
+    "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
@@ -188,7 +189,6 @@
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
-    "ClubCatt/Logo",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
   ],
@@ -200,11 +200,11 @@
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
+    "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Shaders/Cubemap",
-    "ClubCatt/Logo",
     "Wicked/Entities/Basic3D"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
@@ -484,6 +484,7 @@
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
@@ -523,7 +524,6 @@
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
     "AllegroFlare/TransitionFX/Base",
-    "ClubCatt/Logo",
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
@@ -584,6 +584,47 @@
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "al_get_time": [
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxes/Base",
+    "AllegroFlare/Elements/DialogBoxes/Basic",
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
+    "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/GameSession",
+    "AllegroFlare/PhysicalInputDevices/Base",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+  ],
+  "AllegroFlare/Timeline/Track": [
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/MotionComposer/TrackView"
+  ],
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/ClubCatt/Logo": [
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/ColorKit",
@@ -1014,19 +1055,6 @@
   "AllegroFlare/Elements/Button/Alignments": [
     "AllegroFlare/Elements/Button"
   ],
-  "al_get_time": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxes/Base",
-    "AllegroFlare/Elements/DialogBoxes/Basic",
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
-    "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
-    "AllegroFlare/Elements/Notifications/Base",
-    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
-    "AllegroFlare/GameSession",
-    "AllegroFlare/PhysicalInputDevices/Base",
-    "AllegroFlare/Screens/TitleScreen",
-    "ClubCatt/Logo"
-  ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxFactory",
@@ -1363,23 +1391,6 @@
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
-  ],
-  "ClubCatt/Logo": [
-    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
-    "ClubCatt/Logo"
-  ],
-  "AllegroFlare/ModelBin": [
-    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
-    "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
-    "AllegroFlare/Prototypes/CubeShooter/Runner",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
-    "ClubCatt/Logo"
   ],
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -1720,11 +1731,6 @@
   "AllegroFlare/Timeline/Actor2D": [
     "AllegroFlare/MotionComposer/Messages/AddActor2D"
   ],
-  "AllegroFlare/Timeline/Track": [
-    "AllegroFlare/MotionComposer/TrackView",
-    "AllegroFlare/MotionComposer/TrackView",
-    "ClubCatt/Logo"
-  ],
   "AllegroFlare/Color/": [
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView",
@@ -1887,12 +1893,6 @@
   ],
   "AllegroFlare/Prototypes/CubeShooter/Screen": [
     "AllegroFlare/Prototypes/CubeShooter/Runner"
-  ],
-  "AllegroFlare/Camera3D": [
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "ClubCatt/Logo"
   ],
   "AllegroFlare/Prototypes/CubeShooter/EntityFactory": [
     "AllegroFlare/Prototypes/CubeShooter/Screen"

@@ -24,7 +24,7 @@ properties:
     setter: true
 
   - name: clubcatt_logo
-    type: ClubCatt::Logo
+    type: AllegroFlare::ClubCatt::Logo
     init_with: ''
 
   - name: initialized
@@ -98,8 +98,8 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
-  - symbol: ClubCatt::Logo
-    headers: [ ClubCatt/Logo.hpp ]
+  - symbol: AllegroFlare::ClubCatt::Logo
+    headers: [ AllegroFlare/ClubCatt/Logo.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::ModelBin

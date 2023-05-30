@@ -2,9 +2,9 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/ClubCatt/Logo.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
 #include <AllegroFlare/ModelBin.hpp>
-#include <ClubCatt/Logo.hpp>
 
 
 namespace AllegroFlare
@@ -21,7 +21,7 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::ModelBin* model_bin;
-            ClubCatt::Logo clubcatt_logo;
+            AllegroFlare::ClubCatt::Logo clubcatt_logo;
             bool initialized;
 
          protected:
