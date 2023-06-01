@@ -165,15 +165,8 @@ TEST_F(AllegroFlare_BinTest,
    test_bin.set_cout_record_names_on_clear(true);
 
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver::enable_memory_tracking();
-
-   AllegroFlare::Testing::MemoryAllocationDeallocationObserver::enable_output_memory_event_logs();
-   //delete var;
-   //observer.disable_output_memory_event_logs();
    test_bin.preload("data_record_one");
-   test_bin.preload("data_record_two");
    test_bin.clear();
-   AllegroFlare::Testing::MemoryAllocationDeallocationObserver::disable_output_memory_event_logs();
-
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver::disable_memory_tracking();
 
    int num_allocations = AllegroFlare::Testing::MemoryAllocationDeallocationObserver::get_num_allocations();
