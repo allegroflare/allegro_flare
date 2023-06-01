@@ -158,17 +158,21 @@ TEST_F(AllegroFlare_BinTest,
 
 
 TEST_F(AllegroFlare_BinTest,
-   DISABLED__FOCUS__between_preload_and_destroy__will_have_an_equivelent_number_of_allocations_and_deallocations)
+   between_preload_and_destroy__will_have_an_equivelent_number_of_allocations_and_deallocations)
 {
-   // TODO: Undisable this test
    TestBin test_bin;
    test_bin.set_full_path("this/part/is/actually/not/necessary/and/should/eventually/be/removed");
    test_bin.set_cout_record_names_on_clear(true);
 
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver::enable_memory_tracking();
 
+   AllegroFlare::Testing::MemoryAllocationDeallocationObserver::enable_output_memory_event_logs();
+   //delete var;
+   //observer.disable_output_memory_event_logs();
    test_bin.preload("data_record_one");
-   //test_bin.clear();
+   test_bin.preload("data_record_two");
+   test_bin.clear();
+   AllegroFlare::Testing::MemoryAllocationDeallocationObserver::disable_output_memory_event_logs();
 
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver::disable_memory_tracking();
 

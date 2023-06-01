@@ -385,7 +385,6 @@ namespace AllegroFlare
       int num_records = record.size();
       //int current_record_num = 1;
 
-      
       if (cout_record_names_on_clear)
       {
          std::cout << "[" << type << "::" << __FUNCTION__  << "] Info: Destroying " << num_records << " records (";
@@ -402,8 +401,13 @@ namespace AllegroFlare
          std::cout << ")" << std::endl << std::flush;
       }
 
-      //record.clear();
       record.clear();
+      record.shrink_to_fit(); // This call to "shrink_to_fit" is used so that all memory that is allocated by the bin
+                              // is deallocated as well (specifically including the space allocated in this vector).
+                              // However, the C++ standard does not *guarantee* that the capacity will actually be
+                              // reduced here with this call to "shrink_to_fit", which is the purpose of this function.
+                              // For our purposes here however, it's specifically for testing, and works on the
+                              // development platforms.
    }
 
 
