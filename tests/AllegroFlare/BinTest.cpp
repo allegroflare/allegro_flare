@@ -4,6 +4,7 @@
 #include <AllegroFlare/Bin.hpp>
 
 #include <AllegroFlare/Testing/MemoryAllocationDeallocationObserver.hpp>
+#include <mutex>
 #include <functional>
 
 
@@ -164,10 +165,15 @@ TEST_F(AllegroFlare_BinTest,
    test_bin.set_full_path("this/part/is/actually/not/necessary/and/should/eventually/be/removed");
    test_bin.set_cout_record_names_on_clear(true);
 
+   std::mutex mutex;
+   mutex.lock();
+
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver::enable_memory_tracking();
    test_bin.preload("data_record_one");
    test_bin.clear();
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver::disable_memory_tracking();
+
+   mutex.unlock();
 
    int num_allocations = AllegroFlare::Testing::MemoryAllocationDeallocationObserver::get_num_allocations();
    int num_deallocations = AllegroFlare::Testing::MemoryAllocationDeallocationObserver::get_num_deallocations();
