@@ -52,3 +52,19 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
 }
 
 
+TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
+   output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_deallocation_occurs)
+{
+   AllegroFlare::Testing::MemoryAllocationDeallocationObserver observer;
+   int *var = new int(3);
+
+   testing::internal::CaptureStdout();
+   observer.enable_output_memory_event_logs();
+   delete var;
+   observer.disable_output_memory_event_logs();
+   std::string actual_stdout = testing::internal::GetCapturedStdout();
+
+   EXPECT_THAT(actual_stdout, ::testing::MatchesRegex("delete: .*"));
+}
+
+

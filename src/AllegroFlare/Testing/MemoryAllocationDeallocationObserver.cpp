@@ -113,7 +113,7 @@ void* operator new(std::size_t size)
    }
    if (AllegroFlare::Testing::MemoryAllocationDeallocationObserver::is_output_memory_event_logs_enabled())
    {
-      std::cout << "new: " << ptr << ", size: " << size << std::endl;
+      std::cout << "new: " << ptr << ", size: " << size << std::endl << std::flush;
    }
 
    return ptr;
@@ -128,7 +128,7 @@ void operator delete(void* ptr) noexcept
    }
    if (AllegroFlare::Testing::MemoryAllocationDeallocationObserver::is_output_memory_event_logs_enabled())
    {
-      std::cout << "delete: " << ptr << std::endl;
+      std::cout << "delete: " << ptr << std::endl << std::flush;
    }
    std::free(ptr);
 }
@@ -142,7 +142,7 @@ void operator delete(void* ptr, std::size_t size) noexcept
    }
    if (AllegroFlare::Testing::MemoryAllocationDeallocationObserver::is_output_memory_event_logs_enabled())
    {
-      std::cout << "delete: " << ptr << ", size: " << size << std::endl;
+      std::cout << "delete: " << ptr << ", size: " << size << std::endl << std::flush;
    }
    std::free(ptr);
 }
