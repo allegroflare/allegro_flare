@@ -12,6 +12,7 @@ namespace AllegroFlare
       class MemoryAllocationDeallocationObserver
       {
       private:
+         static bool output_memory_event_logs_enabled;
          static bool memory_tracking_enabled;
          static int allocation_count;
          static int deallocation_count;
@@ -24,6 +25,10 @@ namespace AllegroFlare
          static void enable_memory_tracking();
          static void disable_memory_tracking();
          static inline bool is_memory_tracking_enabled();
+
+         static void enable_output_memory_event_logs();
+         static void disable_output_memory_event_logs();
+         static inline bool is_output_memory_event_logs_enabled();
 
          static int get_num_allocations();
          static int get_num_deallocations();

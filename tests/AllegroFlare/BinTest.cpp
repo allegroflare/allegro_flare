@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Bin.hpp>
 
+#include <AllegroFlare/Testing/MemoryAllocationDeallocationObserver.hpp>
 #include <functional>
 
 
@@ -153,6 +154,29 @@ TEST_F(AllegroFlare_BinTest,
    test_bin.set_full_path("./foo/bar/baz");
    std::string expected_path = "./foo/bar/baz/";
    EXPECT_EQ(expected_path, test_bin.get_path());
+}
+
+
+TEST_F(AllegroFlare_BinTest,
+   DISABLED__FOCUS__between_preload_and_destroy__will_have_an_equivelent_number_of_allocations_and_deallocations)
+{
+   // TODO: Undisable this test
+   TestBin test_bin;
+   test_bin.set_full_path("this/part/is/actually/not/necessary/and/should/eventually/be/removed");
+   test_bin.set_cout_record_names_on_clear(true);
+
+   AllegroFlare::Testing::MemoryAllocationDeallocationObserver::enable_memory_tracking();
+
+   test_bin.preload("data_record_one");
+   //test_bin.clear();
+
+   AllegroFlare::Testing::MemoryAllocationDeallocationObserver::disable_memory_tracking();
+
+   int num_allocations = AllegroFlare::Testing::MemoryAllocationDeallocationObserver::get_num_allocations();
+   int num_deallocations = AllegroFlare::Testing::MemoryAllocationDeallocationObserver::get_num_deallocations();
+
+   EXPECT_EQ(num_allocations, num_deallocations) << " a difference of "
+                                                 << (num_allocations - num_deallocations) << " allocation(s).";
 }
 
 

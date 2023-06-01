@@ -42,7 +42,8 @@ TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_a
 }
 
 
-TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, initialize__will_allocate_some_resources_through_the_bins)
+TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest,
+   initialize__will_allocate_some_resources_through_the_bins)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    AllegroFlare::ModelBin model_bin;
@@ -58,7 +59,8 @@ TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, initialize__wi
 }
 
 
-TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, destroy__will_deallocate_the_aquired_resources_in_the_bins)
+TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest,
+   destroy__will_deallocate_the_aquired_resources_in_the_bins)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    AllegroFlare::ModelBin model_bin;

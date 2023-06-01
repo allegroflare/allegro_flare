@@ -175,9 +175,9 @@ void Logo::initialize()
 
    // TODO: Validate the models do not already exist
 
-   bitmap_bin->auto_get(cube_texture1_identifier);
-   bitmap_bin->auto_get(cube_texture2_identifier);
-   model_bin->auto_get(model_identifier);
+   bitmap_bin->preload(cube_texture1_identifier);
+   bitmap_bin->preload(cube_texture2_identifier);
+   model_bin->preload(model_identifier);
 
    al_restore_state(&previous_bitmap_flags_state);
 
