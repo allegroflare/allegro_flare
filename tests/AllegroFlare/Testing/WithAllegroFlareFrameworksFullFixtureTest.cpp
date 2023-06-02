@@ -44,6 +44,13 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
 
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
+   SetUp__will_set_the_framework_data_folder_path)
+{
+   EXPECT_EQ(get_framework_data_folder_path(), get_framework_ref().get_data_folder_path());
+}
+
+
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
    SetUp__will_set_event_emitter_pointer_to_the_pointer_of_the_framework)
 {
    EXPECT_EQ(get_framework_event_emitter(), &get_framework_ref().get_event_emitter_ref());

@@ -150,6 +150,7 @@ void WithAllegroFlareFrameworksFullFixture::TearDown()
    this->framework_model_bin = nullptr;
    this->framework_video_bin = nullptr;
    this->framework_sample_bin = nullptr;
+   // TODO: Add test for this "framework_data
    this->framework_data_folder_path = "[unset-framewor_data_folder_path]";
    this->framework_profiler = nullptr;
    this->framework_primary_render_surface = nullptr;
