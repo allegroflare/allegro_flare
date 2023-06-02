@@ -47,6 +47,20 @@ bool MemoryAllocationDeallocationObserver::is_output_memory_event_logs_enabled()
 
 
 
+MemoryAllocationDeallocationObserver::MemoryAllocationDeallocationObserver()
+{
+   reset();
+}
+
+
+
+MemoryAllocationDeallocationObserver::~MemoryAllocationDeallocationObserver()
+{
+   reset();
+}
+
+
+
 void MemoryAllocationDeallocationObserver::reset()
 {
    output_memory_event_logs_enabled = false;

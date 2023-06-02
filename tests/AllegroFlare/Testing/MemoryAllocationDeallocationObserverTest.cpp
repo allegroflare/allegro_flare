@@ -37,9 +37,8 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest, when_active_
 
 
 TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
-   DISABLED__FLAKEY__output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_allocation_occurs)
+   output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_allocation_occurs)
 {
-   // TODO: Find out why this test is flakey and undisable it
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver memory_allocation_deallocation_observer;
    memory_allocation_deallocation_observer.reset(); // TODO: create an object that, on destruction, will reset. Prefer
                                                     // using this object in test cases to guarantee disabling logs
@@ -61,12 +60,9 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
 
 
 TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
-   DISABLED__FLAKEY__output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_deallocation_occurs)
+   output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_deallocation_occurs)
 {
-   // TODO: Find out why this test is flakey and undisable it
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver observer;
-   observer.reset(); // TODO: create an object that, on destruction, will reset. Prefer using this object in test
-                     // cases to guarantee disabling logs
    int *var = new int(3);
 
    std::mutex mutex;

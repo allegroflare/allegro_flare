@@ -21,6 +21,9 @@ namespace AllegroFlare
          static inline void increment_deallocation_count();
 
       public:
+         MemoryAllocationDeallocationObserver();
+         ~MemoryAllocationDeallocationObserver();
+
          static void reset();
          static void enable_memory_tracking();
          static void disable_memory_tracking();
