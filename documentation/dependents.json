@@ -2553,6 +2553,10 @@
   "AllegroFlare/Profiler": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
+  "AllegroFlare/DeploymentEnvironment": [
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -2572,9 +2576,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/DeploymentEnvironment": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Testing/TestNameInference": [

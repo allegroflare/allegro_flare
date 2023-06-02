@@ -30,6 +30,7 @@ namespace AllegroFlare
          AllegroFlare::ModelBin* framework_model_bin;
          AllegroFlare::VideoBin* framework_video_bin;
          AllegroFlare::Profiler* framework_profiler;
+         std::string framework_data_folder_path;
          AllegroFlare::RenderSurfaces::Base* framework_primary_render_surface;
          std::string test_snapshots_folder;
          bool initialized;
@@ -48,6 +49,7 @@ namespace AllegroFlare
          AllegroFlare::ModelBin* get_framework_model_bin() const;
          AllegroFlare::VideoBin* get_framework_video_bin() const;
          AllegroFlare::Profiler* get_framework_profiler() const;
+         std::string get_framework_data_folder_path() const;
          AllegroFlare::RenderSurfaces::Base* get_framework_primary_render_surface() const;
          AllegroFlare::Frameworks::Full &get_framework_ref();
          virtual void SetUp() override;

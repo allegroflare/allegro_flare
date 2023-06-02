@@ -49,6 +49,11 @@ properties:
     init_with: nullptr
     getter: true
 
+  - name: framework_data_folder_path
+    type: std::string
+    init_with: '"[unset-framework_data_folder_path]"'
+    getter: true
+
   - name: framework_primary_render_surface
     type: AllegroFlare::RenderSurfaces::Base*
     init_with: nullptr
@@ -83,6 +88,7 @@ functions:
       this->framework_model_bin = &framework.get_model_bin_ref();
       this->framework_video_bin = &framework.get_video_bin_ref();
       this->framework_sample_bin = &framework.get_sample_bin_ref();
+      this->framework_data_folder_path = framework.get_data_folder_path();
       this->framework_profiler = &framework.get_profiler_ref();
       this->framework_primary_render_surface = framework.get_primary_render_surface();
 
@@ -113,6 +119,7 @@ functions:
       this->framework_model_bin = nullptr;
       this->framework_video_bin = nullptr;
       this->framework_sample_bin = nullptr;
+      this->framework_data_folder_path = "[unset-framewor_data_folder_path]";
       this->framework_profiler = nullptr;
       this->framework_primary_render_surface = nullptr;
       initialized = false;
@@ -196,5 +203,7 @@ dependencies:
     headers: [ AllegroFlare/VideoBin.hpp ]
   - symbol: AllegroFlare::RenderSurfaces::Base
     headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
+  - symbol: AllegroFlare::DeploymentEnvironment
+    headers: [ AllegroFlare/DeploymentEnvironment.hpp ]
 
 
