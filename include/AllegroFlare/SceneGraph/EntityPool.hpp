@@ -32,7 +32,7 @@ namespace AllegroFlare
          bool remove(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
          int remove(std::vector<AllegroFlare::SceneGraph::Entities::Base*> entities={});
          bool exists(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
-         AllegroFlare::SceneGraph::Entities::Base* find(std::string attribute="[unset-attribute]");
+         AllegroFlare::SceneGraph::Entities::Base* find_with_attribute(std::string attribute="[unset-attribute]");
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select_A(std::string attribute="[unset-attribute]");
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select_B(std::vector<std::string> attributes={});
          std::vector<AllegroFlare::SceneGraph::Entities::Base*> select_C(std::string attribute="[unset-attribute]", std::string parameter="[unset-parameter]");

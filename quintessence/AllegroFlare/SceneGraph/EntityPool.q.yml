@@ -72,7 +72,7 @@ functions:
       return (entity_pool.count(entity) > 0);
 
 
-  - name: find
+  - name: find_with_attribute
     type: AllegroFlare::SceneGraph::Entities::Base*
     parameters:
       - name: attribute
