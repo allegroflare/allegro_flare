@@ -25,6 +25,7 @@ namespace AllegroFlare::TileMaps
 
       int get_num_columns();
       int get_num_rows();
+      bool get_initialized();
 
       int infer_num_tiles();
       bool is_dimensionless();
@@ -74,6 +75,13 @@ template <class T>
 int TileMap<T>::get_num_rows()
 {
    return num_rows;
+}
+
+
+template <class T>
+bool TileMap<T>::get_initialized()
+{
+   return initialized;
 }
 
 
