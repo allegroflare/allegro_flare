@@ -33,6 +33,7 @@ namespace AllegroFlare::TileMaps
       const std::vector<T> get_tiles() const;
       T get_tile(int tile_x, int tile_y);
       bool set_tile(int tile_x, int tile_y, T value);
+      bool set_contiguous_tile(int tile_i, T value);
       std::pair<int, int> get_coordinates_from_contiguous_number(int contiguous_tile_num);
 
       void resize(int w, int h);
@@ -135,6 +136,23 @@ bool TileMap<T>::set_tile(int tile_x, int tile_y, T value)
    if (tile_y < 0 || (tile_y >= num_rows)) return false;
 
    tiles[tile_x + tile_y * num_columns] = value;
+
+   return true;
+}
+
+
+template <class T>
+bool TileMap<T>::set_contiguous_tile(int tile_i, T value)
+{
+   // TODO: Test this
+   if (!initialized)
+   {
+      throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::set_contiguous_tile() error: tile map must be "
+                               "initialized first.");
+   }
+
+   if (tile_i < 0 || (tile_i >= (num_rows * num_columns))) return false;
+   tiles[tile_i] = value;
 
    return true;
 }
