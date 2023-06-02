@@ -75,6 +75,13 @@ bool EntityPool::exists(AllegroFlare::SceneGraph::Entities::Base* entity)
    return (entity_pool.count(entity) > 0);
 }
 
+AllegroFlare::SceneGraph::Entities::Base* EntityPool::find(std::string attribute)
+{
+   // TODO: Test this function
+   for (auto &entity : entity_pool) if (entity->exists(attribute)) return entity;
+   return nullptr;
+}
+
 std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_A(std::string attribute)
 {
    std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;

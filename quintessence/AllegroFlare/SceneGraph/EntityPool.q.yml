@@ -72,6 +72,18 @@ functions:
       return (entity_pool.count(entity) > 0);
 
 
+  - name: find
+    type: AllegroFlare::SceneGraph::Entities::Base*
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+    body: |
+      // TODO: Test this function
+      for (auto &entity : entity_pool) if (entity->exists(attribute)) return entity;
+      return nullptr;
+
+
   - name: select_A
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
