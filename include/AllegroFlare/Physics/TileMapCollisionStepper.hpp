@@ -33,6 +33,14 @@ namespace AllegroFlare
          TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map=nullptr, AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f);
          ~TileMapCollisionStepper();
 
+         void set_collision_tile_map(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map);
+         void set_aabb2d(AllegroFlare::Physics::AABB2D* aabb2d);
+         void set_tile_width(float tile_width);
+         void set_tile_height(float tile_height);
+         AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map() const;
+         AllegroFlare::Physics::AABB2D* get_aabb2d() const;
+         float get_tile_width() const;
+         float get_tile_height() const;
          static AllegroFlare::Physics::Int2D &get_dummy_int2d_ref();
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step();
          bool adjacent_to_bottom_edge(float tile_width=16.0f, float tile_height=16.0f);

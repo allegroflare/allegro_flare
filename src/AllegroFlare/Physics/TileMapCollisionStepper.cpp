@@ -34,6 +34,54 @@ TileMapCollisionStepper::~TileMapCollisionStepper()
 }
 
 
+void TileMapCollisionStepper::set_collision_tile_map(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map)
+{
+   this->collision_tile_map = collision_tile_map;
+}
+
+
+void TileMapCollisionStepper::set_aabb2d(AllegroFlare::Physics::AABB2D* aabb2d)
+{
+   this->aabb2d = aabb2d;
+}
+
+
+void TileMapCollisionStepper::set_tile_width(float tile_width)
+{
+   this->tile_width = tile_width;
+}
+
+
+void TileMapCollisionStepper::set_tile_height(float tile_height)
+{
+   this->tile_height = tile_height;
+}
+
+
+AllegroFlare::TileMaps::TileMap<int>* TileMapCollisionStepper::get_collision_tile_map() const
+{
+   return collision_tile_map;
+}
+
+
+AllegroFlare::Physics::AABB2D* TileMapCollisionStepper::get_aabb2d() const
+{
+   return aabb2d;
+}
+
+
+float TileMapCollisionStepper::get_tile_width() const
+{
+   return tile_width;
+}
+
+
+float TileMapCollisionStepper::get_tile_height() const
+{
+   return tile_height;
+}
+
+
 AllegroFlare::Physics::Int2D &TileMapCollisionStepper::get_dummy_int2d_ref()
 {
    return dummy_int2d;
