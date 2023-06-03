@@ -124,8 +124,6 @@ void DialogBoxFrame::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxFrame::render: error: guard \"al_get_current_display()\" not met");
    }
-   //float roundness = 13.0f;
-   //float border_thickness = 6.0f;
    float border_inner_padding = border_thickness * 2.25;
    ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
    ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);
