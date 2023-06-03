@@ -65,6 +65,7 @@ namespace AllegroFlare
             EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN,
             EVENT_ACTIVATE_CREDITS_SCREEN,
             EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN,
+            EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER,
          };
       private:
          AllegroFlare::EventEmitter* event_emitter;
