@@ -12,6 +12,7 @@ namespace AllegroFlare
    {
    public:
       // camera and viewport settings
+      float near_plane;
       float far_plane;
 
       // camera controls
@@ -38,6 +39,8 @@ namespace AllegroFlare
          float z
       );
 
+      float get_near_plane();
+      void set_near_plane(float near_plane=1);
       float get_far_plane();
       void set_far_plane(float far_plane=100);
 
