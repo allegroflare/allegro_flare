@@ -1493,6 +1493,7 @@
   ],
   "AllegroFlare/RouteEventDatas/Base": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/RouteEventDatas/ActivateScreen",
     "AllegroFlare/RouteEventDatas/StartLevel",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
@@ -2376,6 +2377,9 @@
     "AllegroFlare/Routers/Base"
   ],
   "AllegroFlare/Routers/Base": [
+    "AllegroFlare/Routers/Standard"
+  ],
+  "AllegroFlare/RouteEventDatas/ActivateScreen": [
     "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [

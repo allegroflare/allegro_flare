@@ -284,6 +284,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RouteEventDatas/ActivateScreen.q.yml">quintessence/AllegroFlare/RouteEventDatas/ActivateScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RouteEventDatas/Base.q.yml">quintessence/AllegroFlare/RouteEventDatas/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RouteEventDatas/StartLevel.q.yml">quintessence/AllegroFlare/RouteEventDatas/StartLevel.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Routers/Base.q.yml">quintessence/AllegroFlare/Routers/Base.q.yml</a></li>
@@ -16093,6 +16094,28 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/RouteEventDatas/ActivateScreen.q.yml">quintessence/AllegroFlare/RouteEventDatas/ActivateScreen.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">screen_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/RouteEventDatas/Base.q.yml">quintessence/AllegroFlare/RouteEventDatas/Base.q.yml</h3>
      <table>
 <tr>
@@ -16299,6 +16322,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::ActivateScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/ActivateScreen.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -25505,6 +25531,7 @@ table td
   ],
   "AllegroFlare/RouteEventDatas/Base": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/RouteEventDatas/ActivateScreen",
     "AllegroFlare/RouteEventDatas/StartLevel",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
@@ -26388,6 +26415,9 @@ table td
     "AllegroFlare/Routers/Base"
   ],
   "AllegroFlare/Routers/Base": [
+    "AllegroFlare/Routers/Standard"
+  ],
+  "AllegroFlare/RouteEventDatas/ActivateScreen": [
     "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [

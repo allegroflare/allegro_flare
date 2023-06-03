@@ -3,6 +3,7 @@
 #include <AllegroFlare/Routers/Standard.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/RouteEventDatas/ActivateScreen.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -340,15 +341,28 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          activate_screen(PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER, [this, route_event_data](){
-         // TODO: validate event data, extract screen name, activate here
+         // TODO: extract screen identifier
+         // TODO: activate the screen
+
+         // TODO: Test this condition
          if (!route_event_data)
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::Routers::Standard::on_route_event",
                "Unable to handle event of type EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER because \"route_event_data\" is "
                   "a nullptr."
-           );
+            );
          }
+         // TODO: Test this condition
+         if (!route_event_data->is_type(AllegroFlare::RouteEventDatas::ActivateScreen::TYPE))
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "Unable to handle event of type EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER because \"route_event_data\" is "
+                  "not the expected type AllegroFlare::RouteEventDatas::ActivateScreen::TYPE."
+            );
+         }
+
          std::string screen_identifier = "foobar";
          activate_screen(screen_identifier);
       }},
