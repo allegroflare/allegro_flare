@@ -341,8 +341,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          activate_screen(PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER, [this, route_event_data](){
-         // TODO: extract screen identifier
-         // TODO: activate the screen
+         // TODO: Test this event
 
          // TODO: Test this condition
          if (!route_event_data)
@@ -363,7 +362,10 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             );
          }
 
-         std::string screen_identifier = "foobar";
+         AllegroFlare::RouteEventDatas::ActivateScreen *as_activate_screen_by_identifier =
+            static_cast<AllegroFlare::RouteEventDatas::ActivateScreen*>(route_event_data);
+
+         std::string screen_identifier = as_activate_screen_by_identifier->get_screen_identifier();
          activate_screen(screen_identifier);
       }},
    };
