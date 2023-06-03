@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Physics/AABB2D.hpp>
 
-
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -141,6 +143,30 @@ void AABB2D::set_bottom_edge(float y)
 {
    this->y = y - h;
    return;
+}
+
+bool AABB2D::collides(AllegroFlare::Physics::AABB2D* other, AllegroFlare::Vec2D self_offset, AllegroFlare::Vec2D other_offset)
+{
+   if (!(other))
+   {
+      std::stringstream error_message;
+      error_message << "[AABB2D::collides]: error: guard \"other\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("AABB2D::collides: error: guard \"other\" not met");
+   }
+   // TODO: consider less assignment, add values directly into the conditional
+
+   AllegroFlare::Vec2D a_min = AllegroFlare::Vec2D(x, y) + self_offset;
+   AllegroFlare::Vec2D a_max = AllegroFlare::Vec2D(x+w, y+h) + self_offset;
+   AllegroFlare::Vec2D b_min = AllegroFlare::Vec2D(other->x, other->y) + other_offset;
+   AllegroFlare::Vec2D b_max = AllegroFlare::Vec2D(other->x + other->w, other->y + other->h) + other_offset;
+
+   return (
+      a_min.x <= b_max.x &&
+      a_max.x >= b_min.x &&
+      a_min.y <= b_max.y &&
+      a_max.y >= b_min.y
+   );
 }
 
 

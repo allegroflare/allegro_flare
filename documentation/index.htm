@@ -10138,8 +10138,17 @@ table td
 <tr>
   <td class="method">set_bottom_edge(float y=0.0f)</td>
 </tr>
+<tr>
+  <td class="method">collides(AllegroFlare::Physics::AABB2D* other=nullptr, AllegroFlare::Vec2D self_offset=AllegroFlare::Vec2D(), AllegroFlare::Vec2D other_offset=AllegroFlare::Vec2D())</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -24583,6 +24592,7 @@ table td
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
@@ -25878,6 +25888,11 @@ table td
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
     "AllegroFlare/VirtualControlsProcessor"
   ],
+  "AllegroFlare/Physics/AABB2D": [
+    "AllegroFlare/Physics/AABB2D",
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
   "AllegroFlare/Vec3D": [
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
@@ -25896,10 +25911,6 @@ table td
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "Wicked/Physics/TileMapCollisionStepper"
-  ],
-  "AllegroFlare/Physics/AABB2D": [
-    "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "std/vector<AllegroFlare/Physics/Int2D>": [
     "AllegroFlare/Physics/TileMapCollisionStepper"

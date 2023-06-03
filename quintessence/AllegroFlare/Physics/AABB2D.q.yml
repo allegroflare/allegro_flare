@@ -111,3 +111,41 @@ functions:
       return;
 
 
+  - name: collides
+    type: bool
+    parameters:
+      - name: other
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
+      - name: self_offset
+        type: AllegroFlare::Vec2D
+        default_argument: AllegroFlare::Vec2D()
+      - name: other_offset
+        type: AllegroFlare::Vec2D
+        default_argument: AllegroFlare::Vec2D()
+    guards: [ other ]
+    body: |
+      // TODO: consider less assignment, add values directly into the conditional
+
+      AllegroFlare::Vec2D a_min = AllegroFlare::Vec2D(x, y) + self_offset;
+      AllegroFlare::Vec2D a_max = AllegroFlare::Vec2D(x+w, y+h) + self_offset;
+      AllegroFlare::Vec2D b_min = AllegroFlare::Vec2D(other->x, other->y) + other_offset;
+      AllegroFlare::Vec2D b_max = AllegroFlare::Vec2D(other->x + other->w, other->y + other->h) + other_offset;
+
+      return (
+         a_min.x <= b_max.x &&
+         a_max.x >= b_min.x &&
+         a_min.y <= b_max.y &&
+         a_max.y >= b_min.y
+      );
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Physics::AABB2D
+    headers: [ AllegroFlare/Physics/AABB2D.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+

@@ -534,6 +534,7 @@
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
@@ -1829,6 +1830,11 @@
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
     "AllegroFlare/VirtualControlsProcessor"
   ],
+  "AllegroFlare/Physics/AABB2D": [
+    "AllegroFlare/Physics/AABB2D",
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
   "AllegroFlare/Vec3D": [
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
@@ -1847,10 +1853,6 @@
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "Wicked/Physics/TileMapCollisionStepper"
-  ],
-  "AllegroFlare/Physics/AABB2D": [
-    "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "std/vector<AllegroFlare/Physics/Int2D>": [
     "AllegroFlare/Physics/TileMapCollisionStepper"
