@@ -12,6 +12,13 @@ properties:
 functions:
 
 
+  - name: num_elements
+    type: int
+    body: |
+      // TODO: Test this function
+      return entity_pool.size();
+
+
   - name: add
     type: bool
     parameters:

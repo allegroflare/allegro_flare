@@ -40,6 +40,12 @@ std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> &EntityPool::get_e
 }
 
 
+int EntityPool::num_elements()
+{
+   // TODO: Test this function
+   return entity_pool.size();
+}
+
 bool EntityPool::add(AllegroFlare::SceneGraph::Entities::Base* entity)
 {
    // TODO: consider checking for duplicates

@@ -27,6 +27,7 @@ namespace AllegroFlare
          void set_entity_pool(std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> entity_pool);
          std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> get_entity_pool() const;
          std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*> &get_entity_pool_ref();
+         int num_elements();
          bool add(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
          bool add(std::vector<AllegroFlare::SceneGraph::Entities::Base*> entities);
          bool remove(AllegroFlare::SceneGraph::Entities::Base* entity=nullptr);
