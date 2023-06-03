@@ -26,7 +26,7 @@ TEST(AllegroFlare_Camera3DTest, get_projected_coordinates__will_return_2d_pixel_
    int surface_width_num_units = 1920;
    int surface_height_num_units = 1080;
 
-   //camera3d.set_near_plane(0.1);
+   camera3d.set_near_plane(0.1);
 
    AllegroFlare::Vec2D expected_projected_coordinates = AllegroFlare::Vec2D(1056, 540);
    AllegroFlare::Vec2D actual_projected_coordinates = camera3d.get_projected_coordinates(

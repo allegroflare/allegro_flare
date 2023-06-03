@@ -88,7 +88,7 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 
    reverse_position_transform(&t);
 
-   float mul = 1.0 / zoom;
+   float mul = near_plane / zoom;
    float aspect_ratio = (float)al_get_bitmap_height(surface) / al_get_bitmap_width(surface);
    al_perspective_transform(&t, -1 * mul, aspect_ratio * mul, near_plane, 1 * mul, -aspect_ratio * mul, far_plane);
 
