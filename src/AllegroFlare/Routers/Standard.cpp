@@ -3,7 +3,7 @@
 #include <AllegroFlare/Routers/Standard.hpp>
 
 #include <AllegroFlare/Logger.hpp>
-#include <AllegroFlare/RouteEventDatas/ActivateScreen.hpp>
+#include <AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -353,17 +353,17 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             );
          }
          // TODO: Test this condition
-         if (!route_event_data->is_type(AllegroFlare::RouteEventDatas::ActivateScreen::TYPE))
+         if (!route_event_data->is_type(AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier::TYPE))
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::Routers::Standard::on_route_event",
                "Unable to handle event of type EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER because \"route_event_data\" is "
-                  "not the expected type AllegroFlare::RouteEventDatas::ActivateScreen::TYPE."
+                  "not the expected type AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier::TYPE."
             );
          }
 
-         AllegroFlare::RouteEventDatas::ActivateScreen *as_activate_screen_by_identifier =
-            static_cast<AllegroFlare::RouteEventDatas::ActivateScreen*>(route_event_data);
+         AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier *as_activate_screen_by_identifier =
+            static_cast<AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier*>(route_event_data);
 
          std::string screen_identifier = as_activate_screen_by_identifier->get_screen_identifier();
          activate_screen(screen_identifier);

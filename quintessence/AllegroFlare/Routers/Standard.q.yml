@@ -485,17 +485,17 @@ functions:
                );
             }
             // TODO: Test this condition
-            if (!route_event_data->is_type(AllegroFlare::RouteEventDatas::ActivateScreen::TYPE))
+            if (!route_event_data->is_type(AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier::TYPE))
             {
                AllegroFlare::Logger::throw_error(
                   "AllegroFlare::Routers::Standard::on_route_event",
                   "Unable to handle event of type EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER because \"route_event_data\" is "
-                     "not the expected type AllegroFlare::RouteEventDatas::ActivateScreen::TYPE."
+                     "not the expected type AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier::TYPE."
                );
             }
 
-            AllegroFlare::RouteEventDatas::ActivateScreen *as_activate_screen_by_identifier =
-               static_cast<AllegroFlare::RouteEventDatas::ActivateScreen*>(route_event_data);
+            AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier *as_activate_screen_by_identifier =
+               static_cast<AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier*>(route_event_data);
 
             std::string screen_identifier = as_activate_screen_by_identifier->get_screen_identifier();
             activate_screen(screen_identifier);
@@ -520,7 +520,7 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
-      - AllegroFlare::RouteEventDatas::ActivateScreen
+      - AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier
 
 
 dependencies:
@@ -540,7 +540,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::RouteEventDatas::Base
     headers: [ AllegroFlare/RouteEventDatas/Base.hpp ]
-  - symbol: AllegroFlare::RouteEventDatas::ActivateScreen
-    headers: [ AllegroFlare/RouteEventDatas/ActivateScreen.hpp ]
+  - symbol: AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier
+    headers: [ AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.hpp ]
 
 

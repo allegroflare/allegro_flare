@@ -9,10 +9,10 @@ namespace AllegroFlare
 {
    namespace RouteEventDatas
    {
-      class ActivateScreen : public AllegroFlare::RouteEventDatas::Base
+      class ActivateScreenByIdentifier : public AllegroFlare::RouteEventDatas::Base
       {
       public:
-         static constexpr char* TYPE = (char*)"AllegroFlare/RouteEventDatas/ActivateScreen";
+         static constexpr char* TYPE = (char*)"AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier";
 
       private:
          std::string screen_identifier;
@@ -21,8 +21,8 @@ namespace AllegroFlare
 
 
       public:
-         ActivateScreen(std::string screen_identifier="[unset-screen_identifier]");
-         ~ActivateScreen();
+         ActivateScreenByIdentifier(std::string screen_identifier="[unset-screen_identifier]");
+         ~ActivateScreenByIdentifier();
 
          void set_screen_identifier(std::string screen_identifier);
          std::string get_screen_identifier() const;

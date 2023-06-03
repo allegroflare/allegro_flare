@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::RouteEventDatas::Base
     scope: public
-    init_with: AllegroFlare::RouteEventDatas::ActivateScreen::TYPE
+    init_with: AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier::TYPE
 
 
 properties:
@@ -18,7 +18,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"AllegroFlare/RouteEventDatas/ActivateScreen"'
+    init_with: '(char*)"AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier"'
     static: true
     constexpr: true
 
