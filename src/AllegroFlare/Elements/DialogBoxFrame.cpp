@@ -24,6 +24,8 @@ DialogBoxFrame::DialogBoxFrame(float width, float height)
    , backfill_color(ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f})
    , border_color(al_color_html("909090"))
    , opacity(1.0f)
+   , roundness(13.0f)
+   , border_thickness(6.0f)
 {
 }
 
@@ -57,6 +59,18 @@ void DialogBoxFrame::set_opacity(float opacity)
 }
 
 
+void DialogBoxFrame::set_roundness(float roundness)
+{
+   this->roundness = roundness;
+}
+
+
+void DialogBoxFrame::set_border_thickness(float border_thickness)
+{
+   this->border_thickness = border_thickness;
+}
+
+
 float DialogBoxFrame::get_width() const
 {
    return width;
@@ -72,6 +86,18 @@ float DialogBoxFrame::get_height() const
 float DialogBoxFrame::get_opacity() const
 {
    return opacity;
+}
+
+
+float DialogBoxFrame::get_roundness() const
+{
+   return roundness;
+}
+
+
+float DialogBoxFrame::get_border_thickness() const
+{
+   return border_thickness;
 }
 
 
@@ -98,8 +124,8 @@ void DialogBoxFrame::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxFrame::render: error: guard \"al_get_current_display()\" not met");
    }
-   float roundness = 13.0f;
-   float border_thickness = 6.0f;
+   //float roundness = 13.0f;
+   //float border_thickness = 6.0f;
    float border_inner_padding = border_thickness * 2.25;
    ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
    ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);

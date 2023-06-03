@@ -17,6 +17,8 @@ namespace AllegroFlare
          ALLEGRO_COLOR backfill_color;
          ALLEGRO_COLOR border_color;
          float opacity;
+         float roundness;
+         float border_thickness;
 
       protected:
 
@@ -29,9 +31,13 @@ namespace AllegroFlare
          void set_backfill_color(ALLEGRO_COLOR backfill_color);
          void set_border_color(ALLEGRO_COLOR border_color);
          void set_opacity(float opacity);
+         void set_roundness(float roundness);
+         void set_border_thickness(float border_thickness);
          float get_width() const;
          float get_height() const;
          float get_opacity() const;
+         float get_roundness() const;
+         float get_border_thickness() const;
          void render();
       };
    }

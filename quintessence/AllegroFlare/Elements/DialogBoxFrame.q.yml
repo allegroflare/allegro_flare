@@ -34,6 +34,18 @@ properties:
     getter: true
     setter: true
 
+  - name: roundness
+    type: float
+    init_with: 13.0f
+    getter: true
+    setter: true
+
+  - name: border_thickness
+    type: float
+    init_with: 6.0f
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -44,8 +56,8 @@ functions:
       - al_is_primitives_addon_initialized()
       - al_get_current_display()
     body: |
-      float roundness = 13.0f;
-      float border_thickness = 6.0f;
+      //float roundness = 13.0f;
+      //float border_thickness = 6.0f;
       float border_inner_padding = border_thickness * 2.25;
       ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
       ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);
