@@ -241,7 +241,7 @@ float ImageWithAdvancingText::get_wait_duration_after_all_characters_are_reveale
 
 void ImageWithAdvancingText::start()
 {
-   image_fade_in_duration_sec = 1.5;
+   //image_fade_in_duration_sec = 1.5;
    revealed_characters_count = 0;
    all_characters_revealed_at = 0.0f;
    started_at = al_get_time(); // TODO: Consider injecting time
