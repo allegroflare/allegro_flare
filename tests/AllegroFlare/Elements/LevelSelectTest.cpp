@@ -151,7 +151,7 @@ TEST_F(AllegroFlare_Elements_LevelSelectTest,
 
 
 TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
-   DISABLED__activate_selected_menu_option__will_emit_an_ALLEGRO_FLARE_EVENT_SELECT_LEVEL_with_the_expected_values)
+   activate_selected_menu_option__will_emit_an_ALLEGRO_FLARE_EVENT_SELECT_LEVEL_with_the_expected_values)
    // TODO: this test
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -175,7 +175,7 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
 
    EXPECT_EQ(ALLEGRO_FLARE_EVENT_SELECT_LEVEL, event.any.type);
    ASSERT_NE(nullptr, (void *)event.user.data1);
-   EXPECT_NE("level1", *(std::string*)(void*)event.user.data1);
+   EXPECT_EQ("level1", *(std::string*)(void*)event.user.data1);
 
    delete value;
 }

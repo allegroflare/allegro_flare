@@ -79,6 +79,12 @@ properties:
     getter: true
     setter: true
 
+  - name: ignore_on_invalid_selection
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -355,8 +361,18 @@ functions:
       if (list_is_empty())
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
+            "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
             "can not select a level, the list of levels is empty."
+         );
+         return;
+      }
+
+      // TODO: Test this condition
+      if (!cursor_selection_is_valid() && ignore_on_invalid_selection)
+      {
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+            "can not select the currently highlighted option, the cursor is not over a valid selection."
          );
          return;
       }
@@ -366,8 +382,8 @@ functions:
       if (current_menu_option_value.empty())
       {
          AllegroFlare::Logger::warn_from(
-            "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
-            "can not select the currently highlighted option, it is empty."
+            "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+            "can not select the currently highlighted option, it contains an empty value."
          );
          return;
       }
@@ -391,15 +407,30 @@ functions:
     body: |
       // TODO: Add test for this function
       if (levels_list.empty()) return "";
-      int cursor_position = cursor_y * num_columns + cursor_x;
+      int cursor_position = infer_cursor_position();
 
-      if (cursor_position < 0 || cursor_position >= levels_list.size())
+      if (!cursor_selection_is_valid())
       {
-         throw std::runtime_error("[AllegroFlare/Screens/LevelSelect]: error: the cursor_position is not in "
+         throw std::runtime_error("[AllegroFlare/Elements/LevelSelect]: error: the cursor_position is not in "
                                   "a valid position to get the current menu choice's value.");
       }
       std::string current_menu_option_value = std::get<1>(levels_list[cursor_position]);
       return current_menu_option_value;
+
+
+  - name: infer_cursor_position
+    type: int
+    body: |
+      // TODO: Test this
+      return cursor_y * num_columns + cursor_x;
+
+
+  - name: cursor_selection_is_valid
+    type: bool
+    body: |
+      // TODO: Test this
+      int cursor_position = infer_cursor_position();
+      return (cursor_position >= 0 && cursor_position < levels_list.size());
 
 
   - name: obtain_title_font

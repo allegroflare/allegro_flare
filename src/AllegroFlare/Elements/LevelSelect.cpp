@@ -35,6 +35,7 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , selection_box_spacing_y(30)
    , num_columns(5)
    , num_rows(3)
+   , ignore_on_invalid_selection(false)
 {
 }
 
@@ -83,6 +84,12 @@ void LevelSelect::set_num_columns(int num_columns)
 void LevelSelect::set_num_rows(int num_rows)
 {
    this->num_rows = num_rows;
+}
+
+
+void LevelSelect::set_ignore_on_invalid_selection(bool ignore_on_invalid_selection)
+{
+   this->ignore_on_invalid_selection = ignore_on_invalid_selection;
 }
 
 
@@ -155,6 +162,12 @@ int LevelSelect::get_num_columns() const
 int LevelSelect::get_num_rows() const
 {
    return num_rows;
+}
+
+
+bool LevelSelect::get_ignore_on_invalid_selection() const
+{
+   return ignore_on_invalid_selection;
 }
 
 
@@ -412,8 +425,18 @@ void LevelSelect::activate_selected_menu_option()
    if (list_is_empty())
    {
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
+         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
          "can not select a level, the list of levels is empty."
+      );
+      return;
+   }
+
+   // TODO: Test this condition
+   if (!cursor_selection_is_valid() && ignore_on_invalid_selection)
+   {
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+         "can not select the currently highlighted option, the cursor is not over a valid selection."
       );
       return;
    }
@@ -423,8 +446,8 @@ void LevelSelect::activate_selected_menu_option()
    if (current_menu_option_value.empty())
    {
       AllegroFlare::Logger::warn_from(
-         "AllegroFlare::Screens::LevelSelect::activate_selected_menu_option",
-         "can not select the currently highlighted option, it is empty."
+         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+         "can not select the currently highlighted option, it contains an empty value."
       );
       return;
    }
@@ -444,15 +467,28 @@ std::string LevelSelect::infer_current_menu_option_value()
 {
    // TODO: Add test for this function
    if (levels_list.empty()) return "";
-   int cursor_position = cursor_y * num_columns + cursor_x;
+   int cursor_position = infer_cursor_position();
 
-   if (cursor_position < 0 || cursor_position >= levels_list.size())
+   if (!cursor_selection_is_valid())
    {
-      throw std::runtime_error("[AllegroFlare/Screens/LevelSelect]: error: the cursor_position is not in "
+      throw std::runtime_error("[AllegroFlare/Elements/LevelSelect]: error: the cursor_position is not in "
                                "a valid position to get the current menu choice's value.");
    }
    std::string current_menu_option_value = std::get<1>(levels_list[cursor_position]);
    return current_menu_option_value;
+}
+
+int LevelSelect::infer_cursor_position()
+{
+   // TODO: Test this
+   return cursor_y * num_columns + cursor_x;
+}
+
+bool LevelSelect::cursor_selection_is_valid()
+{
+   // TODO: Test this
+   int cursor_position = infer_cursor_position();
+   return (cursor_position >= 0 && cursor_position < levels_list.size());
 }
 
 ALLEGRO_FONT* LevelSelect::obtain_title_font()
