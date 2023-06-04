@@ -216,6 +216,8 @@ void SoftwareKeyboard::reset()
    cursor_location = cursor_destination;
    cursor_size = cursor_size_destination;
    cursor_pos = 0;
+   // TODO: test this clear
+   result_string.clear();
    return;
 }
 
