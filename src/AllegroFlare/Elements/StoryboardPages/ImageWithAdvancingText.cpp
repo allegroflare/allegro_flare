@@ -305,8 +305,13 @@ void ImageWithAdvancingText::render()
    {
       float time_now = al_get_time();
       float age = infer_age(time_now);
-      float normalized_fade_age =
-         AllegroFlare::MotionKit::normalize_age(started_at, started_at+image_fade_in_duration_sec, time_now);
+      float normalized_fade_age = 1.0f;
+      // TODO: Test this case with "image_fade_in_duration_sec" at 0.0f or negative
+      if (image_fade_in_duration_sec >= 0.0001f)
+      {
+         normalized_fade_age =
+            AllegroFlare::MotionKit::normalize_age(started_at, started_at+image_fade_in_duration_sec, time_now);
+      }
       ALLEGRO_BITMAP *image = bitmap_bin->auto_get(image_identifier);
       if (image) image_placement.size = { (float)al_get_bitmap_width(image), (float)al_get_bitmap_height(image) };
       float opacity = normalized_fade_age; //1.0f;
