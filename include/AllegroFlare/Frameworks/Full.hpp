@@ -81,6 +81,7 @@ namespace AllegroFlare
          std::vector<std::string> input_hints_tokens;
          bool initialize_core_system(); // only use initialize() publically from now on
          bool initialize_display_and_render_pipeline();
+         bool display_close_will_shutdown;
          bool escape_key_will_shutdown;
          bool output_auto_created_config_warning;
          bool set_primary_render_surface_as_target_before_calling_primary_timer_funcs;
@@ -162,6 +163,8 @@ namespace AllegroFlare
          bool is_deployment_environment_test();
          std::string get_data_folder_path();
 
+         void enable_display_close_will_shutdown();
+         void disable_display_close_will_shutdown();
          void enable_escape_key_will_shutdown();
          void disable_escape_key_will_shutdown();
          void enable_auto_created_config_warning();

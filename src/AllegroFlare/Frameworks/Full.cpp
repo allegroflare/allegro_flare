@@ -70,6 +70,7 @@ Full::Full()
    , drawing_inputs_bar_overlay(false)
    , drawing_notifications(true)
    , input_hints_tokens({})
+   , display_close_will_shutdown(true)
    , escape_key_will_shutdown(true)
    , output_auto_created_config_warning(true)
    , set_primary_render_surface_as_target_before_calling_primary_timer_funcs(true)
@@ -694,6 +695,18 @@ void Full::disable_escape_key_will_shutdown()
 }
 
 
+void Full::enable_display_close_will_shutdown()
+{
+   this->display_close_will_shutdown = true;
+}
+
+
+void Full::disable_display_close_will_shutdown()
+{
+   this->display_close_will_shutdown = false;
+}
+
+
 void Full::enable_auto_created_config_warning()
 {
    this->output_auto_created_config_warning = true;
@@ -1139,6 +1152,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          {
             Display *this_display = Display::find_display(this_event.display.source);
             if (this_display) this_display->display_close_func();
+
+            if (display_close_will_shutdown) shutdown_program = true;
          }
       break;
 
