@@ -301,8 +301,7 @@ void LevelSelectScreen::virtual_control_button_down_func(AllegroFlare::Player* p
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("LevelSelectScreen::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
-   // TODO: this function
-   //if (!processing_user_input()) return;
+   // TODO: Confirm usage of VirtualControllers::GenericController
 
    switch(virtual_controller_button_num)
    {

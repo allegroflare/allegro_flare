@@ -228,8 +228,7 @@ functions:
         default_argument: false
     guards: [ initialized ]
     body: |
-      // TODO: this function
-      //if (!processing_user_input()) return;
+      // TODO: Confirm usage of VirtualControllers::GenericController
 
       switch(virtual_controller_button_num)
       {
