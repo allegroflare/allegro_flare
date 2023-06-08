@@ -24,7 +24,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest, c
 
 
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWithAllegroRenderingFixtureTest,
-   VISUAL__render__renders_the_iridescent)
+   CAPTURE__VISUAL__render__renders_the_iridescent)
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
@@ -52,6 +52,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
    camera_entity->set("primary_camera");
    camera.stepout = { 0, 1.0, 3.0 };
+   camera.spin = -0.4;
    entity_pool.add(camera_entity);
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer scene_renderer;
@@ -76,7 +77,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    entity_pool.add(environment_mesh);
 
    // Render the scene
-   int frames = 80;
+   int frames = 90;
    for (int i=0; i<frames; i++)
    {
       item->get_placement_ref().rotation.x += 0.005;
