@@ -7,6 +7,7 @@
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/SceneGraph/EntityPool.hpp>
 #include <AllegroFlare/CubemapBuilder.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 
 
 class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest : public ::testing::Test {};
@@ -56,7 +57,13 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    scene_renderer.set_cubemap_shader(&cubemap_shader);
    scene_renderer.set_entity_pool(&entity_pool);
 
-   // TODO: Add some items to our scene:
+   // TODO: Use an EntityFactory for this setup
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
+      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   item->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
+   //item->set_model_3d_texture(model_bin.auto_get("rounded_unit_cube-01.obj"));
+   item->set("irid");
+
    //ArtGalleryOfCats::Gameplay::Entities::Base* collectable = entity_factory.create_collectable_object(
       //{ 0, 0, 0 },
       //"rounded_unit_cube-01.obj"
@@ -65,12 +72,16 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    //collectable->get_placement_ref().rotation.z = 0.03547;
    //entity_pool.add(collectable);
 
+   item->get_placement_ref().rotation.x = 0.05;
+   item->get_placement_ref().rotation.z = 0.03547;
+   entity_pool.add(item);
+
    // Render the scene
    int frames = 20;
    for (int i=0; i<frames; i++)
    {
-      //collectable->get_placement_ref().rotation.x += 0.005;
-      //collectable->get_placement_ref().rotation.z += 0.003547;
+      item->get_placement_ref().rotation.x += 0.005;
+      item->get_placement_ref().rotation.z += 0.003547;
 
       camera.stepout.z += 0.03;
       camera.spin += 0.01;
@@ -79,6 +90,8 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
       al_flip_display();
       al_rest(1.0/60.0f);
    }
+
+   throw std::runtime_error("Blow");
 }
 
 

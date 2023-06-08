@@ -105,15 +105,14 @@ void SceneRenderer::render()
 
       if (model)
       {
-
          AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
          if (!placement) continue; // TODO: Test this line
 
          // Collect render flags
-         bool renders_with_iridescent = false;
+         bool renders_with_iridescent = //false;
             //true;
             // TODO: Intoduce this flag (except is "renders with skybox"):
-            //as_agc_entity->exists(ArtGalleryOfCats::Gameplay::EntityFlags::RENDERS_WITH_IRIDESCENT);
+            as_agc_entity->exists("irid");//ArtGalleryOfCats::Gameplay::EntityFlags::RENDERS_WITH_IRIDESCENT);
 
          // Setup the render for this object
          if (renders_with_iridescent)
@@ -185,10 +184,14 @@ AllegroFlare::Model3D* SceneRenderer::get_model_3d(AllegroFlare::GraphicsPipelin
    // TODO: Optimize this lookup
    if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
    {
+      Entities::DynamicModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
+      return as_casted->get_model_3d();
       // TODO: Static cast and return model
    }
    else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
    {
+      Entities::StaticModel3D *as_casted = static_cast<Entities::StaticModel3D*>(entity);
+      return as_casted->get_model_3d();
       // TODO: Static cast and return model
    }
    return nullptr;
