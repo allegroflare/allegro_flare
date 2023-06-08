@@ -5,6 +5,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -97,8 +98,8 @@ void SceneRenderer::render()
       Entities::Base *as_agc_entity = static_cast<Entities::Base*>(entity);
 
       // Skip if entity is flagged as "do not render"
-      // TODO: Introduce DO_NOT_RENDER flags
-      //if (as_agc_entity->exists(EntityFlags::DO_NOT_RENDER)) continue;
+      // TODO: Add test for this case
+      if (as_agc_entity->exists(EntityRenderFlags::DO_NOT_RENDER)) continue;
       
 
       AllegroFlare::Model3D *model = get_model_3d(as_agc_entity); //as_agc_entity->get_model();

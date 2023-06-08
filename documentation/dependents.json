@@ -1658,6 +1658,9 @@
   "AllegroFlare/Shaders/Cubemap": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",

@@ -1,0 +1,16 @@
+properties:
+
+
+  - name: RENDERS_WITH_SYBOX
+    type: char*
+    init_with: '(char*)"renders_with_skybox"'
+    static: true
+    constexpr: true
+
+  - name: DO_NOT_RENDER
+    type: char*
+    init_with: '(char*)"do_not_render"'
+    static: true
+    constexpr: true
+
+

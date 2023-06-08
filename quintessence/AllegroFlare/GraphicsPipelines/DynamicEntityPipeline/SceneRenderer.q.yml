@@ -49,8 +49,8 @@ functions:
          Entities::Base *as_agc_entity = static_cast<Entities::Base*>(entity);
 
          // Skip if entity is flagged as "do not render"
-         // TODO: Introduce DO_NOT_RENDER flags
-         //if (as_agc_entity->exists(EntityFlags::DO_NOT_RENDER)) continue;
+         // TODO: Add test for this case
+         if (as_agc_entity->exists(EntityRenderFlags::DO_NOT_RENDER)) continue;
          
 
          AllegroFlare::Model3D *model = get_model_3d(as_agc_entity); //as_agc_entity->get_model();
@@ -113,6 +113,7 @@ functions:
 
       return;
     body_dependency_symbols:
+      - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D
 
 
@@ -213,6 +214,8 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: AllegroFlare::Shaders::Cubemap
     headers: [ AllegroFlare/Shaders/Cubemap.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
 
