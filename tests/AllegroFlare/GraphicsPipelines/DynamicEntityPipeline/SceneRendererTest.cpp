@@ -72,10 +72,11 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *environment_mesh = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    environment_mesh->set_model_3d(model_bin.auto_get("simple_scene-01.obj"));
+   environment_mesh->set_model_3d_texture(get_bitmap_bin_ref().auto_get("simple_scene-01.png"));
    entity_pool.add(environment_mesh);
 
    // Render the scene
-   int frames = 60;
+   int frames = 80;
    for (int i=0; i<frames; i++)
    {
       item->get_placement_ref().rotation.x += 0.005;
