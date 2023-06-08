@@ -34,7 +34,6 @@ namespace AllegroFlare { namespace Routers { class Base; } }
 #include <AllegroFlare/ShaderSourcePoller.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 #include <AllegroFlare/InputDevicesList.hpp>
-#include <AllegroFlare/Routers/Base.hpp>
 
 
 namespace AllegroFlare

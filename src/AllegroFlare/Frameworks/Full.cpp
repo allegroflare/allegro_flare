@@ -27,6 +27,7 @@
 #include <AllegroFlare/ProfilerRenderer.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
+#include <AllegroFlare/Routers/Base.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
 
 
