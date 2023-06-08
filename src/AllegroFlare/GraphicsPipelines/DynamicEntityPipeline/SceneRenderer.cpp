@@ -139,35 +139,26 @@ void SceneRenderer::render()
          if (renders_with_iridescent)
          {
             cubemap_shader->deactivate();
-            // TODO: turn off shader
          }
          else
          {
             placement->restore_transform();
-            //as_agc_entity->get_placement_ref().restore_transform();
          }
       }
       else // (!model)
       {
-         //ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
          ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
          AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
-         //if (texture) model->set_texture(texture);
 
          if (texture)
          {
             placement->start_transform();
-            //as_agc_entity->get_placement_ref().start_transform();
-
-            //AllegroFlare::Placement3D inner_transform;
             al_draw_bitmap(texture, 0, 0, ALLEGRO_FLIP_VERTICAL);
             placement->restore_transform();
-            //as_agc_entity->get_placement_ref().restore_transform();
          }
       }
    }
 
-   //as_camera->start_reverse_transform();
    return;
 }
 
@@ -180,19 +171,17 @@ AllegroFlare::Model3D* SceneRenderer::get_model_3d(AllegroFlare::GraphicsPipelin
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer::get_model_3d: error: guard \"entity\" not met");
    }
-   // TODO: Implement this function
    // TODO: Optimize this lookup
+   // TODO: Consider throw on unhandled type
    if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
    {
       Entities::DynamicModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
       return as_casted->get_model_3d();
-      // TODO: Static cast and return model
    }
    else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
    {
       Entities::StaticModel3D *as_casted = static_cast<Entities::StaticModel3D*>(entity);
       return as_casted->get_model_3d();
-      // TODO: Static cast and return model
    }
    return nullptr;
 }
@@ -206,19 +195,17 @@ AllegroFlare::Placement3D* SceneRenderer::get_placement_3d(AllegroFlare::Graphic
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer::get_placement_3d: error: guard \"entity\" not met");
    }
-   // TODO: Implement this function
    // TODO: Optimize this lookup
+   // TODO: Consider throw on unhandled type
    if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
    {
       Entities::DynamicModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
       return &as_casted->get_placement_ref();
-      // TODO: Static cast and return model
    }
    else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
    {
       Entities::StaticModel3D *as_casted = static_cast<Entities::StaticModel3D*>(entity);
       return &as_casted->get_placement_ref();
-      // TODO: Static cast and return model
    }
    return nullptr;
 }
@@ -232,8 +219,8 @@ ALLEGRO_BITMAP* SceneRenderer::get_texture(AllegroFlare::GraphicsPipelines::Dyna
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer::get_texture: error: guard \"entity\" not met");
    }
-   // TODO: Implement this function
    // TODO: Optimize this lookup
+   // TODO: Consider throw on unhandled type
    if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
    {
       Entities::DynamicModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
