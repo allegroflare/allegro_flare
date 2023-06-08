@@ -51,7 +51,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
       entity_factory.create_camera_3d();
    AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
    camera_entity->set("primary_camera");
-   camera.stepout = { 0, 0, 3.0 };
+   camera.stepout = { 0, 1.0, 3.0 };
    entity_pool.add(camera_entity);
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer scene_renderer;
@@ -63,12 +63,19 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    item->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
    item->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+   item->get_placement_ref().position.y = 1.0;
    item->get_placement_ref().rotation.x = 0.05;
    item->get_placement_ref().rotation.z = 0.03547;
    entity_pool.add(item);
 
+   // TODO: Use an EntityFactory for this setup
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *environment_mesh = 
+      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   environment_mesh->set_model_3d(model_bin.auto_get("simple_scene-01.obj"));
+   entity_pool.add(environment_mesh);
+
    // Render the scene
-   int frames = 20;
+   int frames = 60;
    for (int i=0; i<frames; i++)
    {
       item->get_placement_ref().rotation.x += 0.005;
