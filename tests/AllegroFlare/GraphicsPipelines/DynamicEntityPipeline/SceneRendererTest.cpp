@@ -90,8 +90,6 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
       al_flip_display();
       al_rest(1.0/60.0f);
    }
-
-   throw std::runtime_error("Blow");
 }
 
 
