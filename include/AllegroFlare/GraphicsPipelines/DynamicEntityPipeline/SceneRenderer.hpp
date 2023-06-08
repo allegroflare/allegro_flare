@@ -4,7 +4,9 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
 #include <AllegroFlare/Model3D.hpp>
+#include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Shaders/Cubemap.hpp>
+#include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
@@ -32,6 +34,8 @@ namespace AllegroFlare
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             void render();
             AllegroFlare::Model3D* get_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
+            AllegroFlare::Placement3D* get_placement_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
+            ALLEGRO_BITMAP* get_texture(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
          };
       }
    }

@@ -103,28 +103,34 @@ void SceneRenderer::render()
 
       AllegroFlare::Model3D *model = get_model_3d(as_agc_entity); //as_agc_entity->get_model();
 
-      /*
       if (model)
       {
+
+         AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
+         if (!placement) continue; // TODO: Test this line
+
          // Collect render flags
-         bool renders_with_iridescent =
+         bool renders_with_iridescent = false;
             //true;
-            as_agc_entity->exists(ArtGalleryOfCats::Gameplay::EntityFlags::RENDERS_WITH_IRIDESCENT);
+            // TODO: Intoduce this flag (except is "renders with skybox"):
+            //as_agc_entity->exists(ArtGalleryOfCats::Gameplay::EntityFlags::RENDERS_WITH_IRIDESCENT);
 
          // Setup the render for this object
          if (renders_with_iridescent)
          {
-            ArtGalleryOfCats::Gameplay::Entities::Base *as_gac_base =
-               static_cast<ArtGalleryOfCats::Gameplay::Entities::Base*>(entity);
-            cubemap_shader->set_object_placement(&as_gac_base->get_placement_ref()); // NOTE: For now, this has to be set before activating the shader
+            //Gameplay::Entities::Base *as_gac_base = static_cast<Entities::Base*>(entity);
+
+            // NOTE: For now, this has to be set before activating the shader
+            cubemap_shader->set_object_placement(placement);
 
             cubemap_shader->activate();
          }
          else
          {
-            ALLEGRO_BITMAP *texture = as_agc_entity->get_texture();
+            ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
             if (texture) model->set_texture(texture);
-            as_agc_entity->get_placement_ref().start_transform();
+            placement->start_transform();
+            //as_agc_entity->get_placement_ref().start_transform();
          }
 
          // Draw the model
@@ -138,24 +144,28 @@ void SceneRenderer::render()
          }
          else
          {
-            as_agc_entity->get_placement_ref().restore_transform();
+            placement->restore_transform();
+            //as_agc_entity->get_placement_ref().restore_transform();
          }
       }
       else // (!model)
       {
-         ALLEGRO_BITMAP *texture = as_agc_entity->get_texture();
+         //ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
+         ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
+         AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
          //if (texture) model->set_texture(texture);
 
          if (texture)
          {
-            as_agc_entity->get_placement_ref().start_transform();
+            placement->start_transform();
+            //as_agc_entity->get_placement_ref().start_transform();
 
-            AllegroFlare::Placement3D inner_transform;
+            //AllegroFlare::Placement3D inner_transform;
             al_draw_bitmap(texture, 0, 0, ALLEGRO_FLIP_VERTICAL);
-            as_agc_entity->get_placement_ref().restore_transform();
+            placement->restore_transform();
+            //as_agc_entity->get_placement_ref().restore_transform();
          }
       }
-      */
    }
 
    //as_camera->start_reverse_transform();
@@ -171,6 +181,7 @@ AllegroFlare::Model3D* SceneRenderer::get_model_3d(AllegroFlare::GraphicsPipelin
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer::get_model_3d: error: guard \"entity\" not met");
    }
+   // TODO: Implement this function
    // TODO: Optimize this lookup
    if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
    {
@@ -179,6 +190,56 @@ AllegroFlare::Model3D* SceneRenderer::get_model_3d(AllegroFlare::GraphicsPipelin
    else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
    {
       // TODO: Static cast and return model
+   }
+   return nullptr;
+}
+
+AllegroFlare::Placement3D* SceneRenderer::get_placement_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity)
+{
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer::get_placement_3d]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer::get_placement_3d: error: guard \"entity\" not met");
+   }
+   // TODO: Implement this function
+   // TODO: Optimize this lookup
+   if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
+   {
+      Entities::DynamicModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
+      return &as_casted->get_placement_ref();
+      // TODO: Static cast and return model
+   }
+   else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
+   {
+      Entities::StaticModel3D *as_casted = static_cast<Entities::StaticModel3D*>(entity);
+      return &as_casted->get_placement_ref();
+      // TODO: Static cast and return model
+   }
+   return nullptr;
+}
+
+ALLEGRO_BITMAP* SceneRenderer::get_texture(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity)
+{
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer::get_texture]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer::get_texture: error: guard \"entity\" not met");
+   }
+   // TODO: Implement this function
+   // TODO: Optimize this lookup
+   if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
+   {
+      Entities::DynamicModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
+      return as_casted->get_model_3d_texture();
+   }
+   else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
+   {
+      Entities::StaticModel3D *as_casted = static_cast<Entities::StaticModel3D*>(entity);
+      return as_casted->get_model_3d_texture();
    }
    return nullptr;
 }
