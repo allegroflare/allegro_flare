@@ -12,7 +12,7 @@ namespace AllegroFlare
          class EntityRenderFlags
          {
          public:
-            static constexpr char* RENDERS_WITH_SYBOX = (char*)"renders_with_skybox";
+            static constexpr char* RENDER_WITH_SKYBOX = (char*)"render_with_skybox";
             static constexpr char* DO_NOT_RENDER = (char*)"do_not_render";
 
          private:

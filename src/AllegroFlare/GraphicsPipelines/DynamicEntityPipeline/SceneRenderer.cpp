@@ -110,10 +110,7 @@ void SceneRenderer::render()
          if (!placement) continue; // TODO: Test this line
 
          // Collect render flags
-         bool renders_with_iridescent = //false;
-            //true;
-            // TODO: Intoduce this flag (except is "renders with skybox"):
-            as_agc_entity->exists("iridescent");//ArtGalleryOfCats::Gameplay::EntityFlags::RENDERS_WITH_IRIDESCENT);
+         bool renders_with_iridescent = as_agc_entity->exists(EntityRenderFlags::RENDER_WITH_SKYBOX);
 
          // Setup the render for this object
          if (renders_with_iridescent)

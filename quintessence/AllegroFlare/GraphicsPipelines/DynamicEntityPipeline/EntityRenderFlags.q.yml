@@ -1,9 +1,9 @@
 properties:
 
 
-  - name: RENDERS_WITH_SYBOX
+  - name: RENDER_WITH_SKYBOX
     type: char*
-    init_with: '(char*)"renders_with_skybox"'
+    init_with: '(char*)"render_with_skybox"'
     static: true
     constexpr: true
 
