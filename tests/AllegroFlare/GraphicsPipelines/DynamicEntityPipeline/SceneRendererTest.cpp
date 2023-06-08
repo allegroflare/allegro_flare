@@ -61,17 +61,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    item->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
-   //item->set_model_3d_texture(model_bin.auto_get("rounded_unit_cube-01.obj"));
-   item->set("irid");
-
-   //ArtGalleryOfCats::Gameplay::Entities::Base* collectable = entity_factory.create_collectable_object(
-      //{ 0, 0, 0 },
-      //"rounded_unit_cube-01.obj"
-   //);
-   //collectable->get_placement_ref().rotation.x = 0.05;
-   //collectable->get_placement_ref().rotation.z = 0.03547;
-   //entity_pool.add(collectable);
-
+   item->set("iridescent");
    item->get_placement_ref().rotation.x = 0.05;
    item->get_placement_ref().rotation.z = 0.03547;
    entity_pool.add(item);
