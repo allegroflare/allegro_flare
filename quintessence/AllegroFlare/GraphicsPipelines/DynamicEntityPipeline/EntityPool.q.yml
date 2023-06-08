@@ -1,0 +1,236 @@
+properties:
+
+
+  - name: entity_pool
+    type: std::unordered_set<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    init_with: '{}'
+    getter: true
+    setter: true
+    getter_ref: true
+
+
+functions:
+
+
+  - name: num_elements
+    type: int
+    body: |
+      // TODO: Test this function
+      return entity_pool.size();
+
+
+  - name: add
+    type: bool
+    parameters:
+      - name: entity
+        type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+        default_argument: nullptr
+    body: |
+      // TODO: consider checking for duplicates
+      entity_pool.insert(entity);
+      return true;
+
+
+  - name: add
+    type: bool
+    parameters:
+      - name: entities
+        type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+        default_argument: ''
+    body: |
+      // TODO: consider checking for duplicates
+      entity_pool.insert(entities.begin(), entities.end());
+      return true;
+
+
+  - name: remove
+    type: bool
+    parameters:
+      - name: entity
+        type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+        default_argument: nullptr
+    body: |
+      int num_erased = entity_pool.erase(entity);
+      return (bool)num_erased;
+
+
+  - name: remove
+    type: int
+    parameters:
+      - name: entities
+        type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+        default_argument: '{}'
+    body: |
+      int num_erased = 0;
+      for (auto &entity : entities)
+      {
+         num_erased += entity_pool.erase(entity);
+      }
+      return num_erased;
+
+
+  - name: exists
+    type: bool
+    parameters:
+      - name: entity
+        type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+        default_argument: nullptr
+    body: |
+      return (entity_pool.count(entity) > 0);
+
+
+  - name: find_with_attribute
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+    body: |
+      // TODO: Test this function
+      for (auto &entity : entity_pool) if (entity->exists(attribute)) return entity;
+      return nullptr;
+
+
+  - name: select_A
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+    body: |
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         if (entity->exists(attribute)) result.push_back(entity);
+      }
+      return result;
+
+
+  - name: select_B
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    parameters:
+      - name: attributes
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         for (auto &attribute : attributes)
+         {
+            if (!entity->exists(attribute)) goto loop_next;
+         }
+         result.push_back(entity);
+
+         loop_next:;
+      }
+      return result;
+
+
+  - name: select_C
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+      - name: parameter
+        type: std::string
+        default_argument: '"[unset-parameter]"'
+    body: |
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         if (entity->exists(attribute, parameter)) result.push_back(entity);
+      }
+      return result;
+
+
+  - name: select_D
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    parameters:
+      - name: attribute_param_pairs
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    body: |
+      // TODO: add test
+
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         for (auto &attribute_param_pair : attribute_param_pairs)
+         {
+            if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next2;
+         }
+         result.push_back(entity);
+
+         loop_next2:;
+      }
+      return result;
+
+
+  - name: select_E
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+      - name: attribute_param_pairs
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    body: |
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         if (!entity->exists(attribute)) goto loop_next3;
+         for (auto &attribute_param_pair : attribute_param_pairs)
+         {
+            if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next3;
+         }
+         result.push_back(entity);
+
+         loop_next3:;
+      }
+      return result;
+
+
+  - name: select_F
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    parameters:
+      - name: attributes
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: attribute_param_pairs
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    body: |
+      // TODO: add test
+      
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         for (auto &attribute : attributes)
+         {
+            if (!entity->exists(attribute)) goto loop_next4;
+         }
+         for (auto &attribute_param_pair : attribute_param_pairs)
+         {
+            if (!entity->exists(attribute_param_pair.first, attribute_param_pair.second)) goto loop_next4;
+         }
+         result.push_back(entity);
+
+         loop_next4:;
+      }
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
+  - symbol: std::find
+    headers: [ algorithm ]
+  - symbol: std::unordered_set
+    headers: [ unordered_set ]
+
+

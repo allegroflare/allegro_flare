@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::ElementID
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::ElementID
+    headers: [ AllegroFlare/ElementID.hpp ]
+
+

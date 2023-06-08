@@ -161,6 +161,12 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml">quintessence/AllegroFlare/Generators/PersonNameGenerator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDevicesList.q.yml">quintessence/AllegroFlare/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml</a></li>
@@ -8102,6 +8108,218 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ElementID&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ElementID.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">camera_3d</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">model_3d</td>
+  <td class="property">AllegroFlare::Model3D*</td>
+</tr>
+<tr>
+  <td class="property">model_3d_texture</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">placement</td>
+  <td class="property">AllegroFlare::Placement3D</td>
+</tr>
+<tr>
+  <td class="property">velocity</td>
+  <td class="property">AllegroFlare::Placement3D</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SceneGraph::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SceneGraph/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">placement</td>
+  <td class="property">AllegroFlare::Placement3D</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+     <table>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">entity_pool</td>
+  <td class="property">std::unordered_set&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*&gt;</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">num_elements()</td>
+</tr>
+<tr>
+  <td class="method">add(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">add(std::vector&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*&gt; entities=)</td>
+</tr>
+<tr>
+  <td class="method">remove(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">remove(std::vector&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*&gt; entities={})</td>
+</tr>
+<tr>
+  <td class="method">exists(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">find_with_attribute(std::string attribute=&quot;[unset-attribute]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">select_A(std::string attribute=&quot;[unset-attribute]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">select_B(std::vector&lt;std::string&gt; attributes={})</td>
+</tr>
+<tr>
+  <td class="method">select_C(std::string attribute=&quot;[unset-attribute]&quot;, std::string parameter=&quot;[unset-parameter]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">select_D(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; attribute_param_pairs={})</td>
+</tr>
+<tr>
+  <td class="method">select_E(std::string attribute=&quot;[unset-attribute]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; attribute_param_pairs={})</td>
+</tr>
+<tr>
+  <td class="method">select_F(std::vector&lt;std::string&gt; attributes={}, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; attribute_param_pairs={})</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::find&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::unordered_set&quot;, &quot;headers&quot;=&gt;[&quot;unordered_set&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">cubemap_shader</td>
+  <td class="property">AllegroFlare::Shaders::Cubemap*</td>
+</tr>
+<tr>
+  <td class="property">entity_pool</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Cubemap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Cubemap.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24269,6 +24487,8 @@ table td
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
@@ -24563,6 +24783,7 @@ table td
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/GameSession",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -24687,6 +24908,7 @@ table td
   ],
   "AllegroFlare/Camera3D": [
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
@@ -25082,6 +25304,7 @@ table td
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -25672,6 +25895,36 @@ table td
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool"
+  ],
+  "AllegroFlare/SceneGraph/Entities/Base": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/SceneGraph/EntityPool"
+  ],
+  "AllegroFlare/Model3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "std/find": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SceneGraph/EntityPool",
+    "WickedDemos/TileDemo"
+  ],
+  "std/unordered_set": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
+    "AllegroFlare/SceneGraph/EntityPool"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
+  "AllegroFlare/Shaders/Cubemap": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
@@ -25953,9 +26206,6 @@ table td
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult"
-  ],
-  "AllegroFlare/Model3D": [
-    "AllegroFlare/Prototypes/CubeShooter/Entity"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -26381,11 +26631,6 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "std/find": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/SceneGraph/EntityPool",
-    "WickedDemos/TileDemo"
-  ],
   "AllegroFlare/Display": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo",
@@ -26451,12 +26696,6 @@ table td
   ],
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
-  ],
-  "AllegroFlare/SceneGraph/Entities/Base": [
-    "AllegroFlare/SceneGraph/EntityPool"
-  ],
-  "std/unordered_set": [
-    "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"

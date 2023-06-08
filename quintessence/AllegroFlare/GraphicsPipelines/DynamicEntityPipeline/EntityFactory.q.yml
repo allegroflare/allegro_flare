@@ -1,0 +1,49 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: create_camera_3d
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D*
+    body: |
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D *result =
+        new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D();
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp ]
+
+

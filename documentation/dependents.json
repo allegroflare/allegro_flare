@@ -201,6 +201,8 @@
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
@@ -495,6 +497,7 @@
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/GameSession",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -619,6 +622,7 @@
   ],
   "AllegroFlare/Camera3D": [
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
@@ -1014,6 +1018,7 @@
   ],
   "AllegroFlare/ElementID": [
     "AllegroFlare/Elements/Base",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -1604,6 +1609,36 @@
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool"
+  ],
+  "AllegroFlare/SceneGraph/Entities/Base": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/SceneGraph/EntityPool"
+  ],
+  "AllegroFlare/Model3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "std/find": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SceneGraph/EntityPool",
+    "WickedDemos/TileDemo"
+  ],
+  "std/unordered_set": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
+    "AllegroFlare/SceneGraph/EntityPool"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
+  "AllegroFlare/Shaders/Cubemap": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
@@ -1885,9 +1920,6 @@
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult"
-  ],
-  "AllegroFlare/Model3D": [
-    "AllegroFlare/Prototypes/CubeShooter/Entity"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -2313,11 +2345,6 @@
   "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "std/find": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/SceneGraph/EntityPool",
-    "WickedDemos/TileDemo"
-  ],
   "AllegroFlare/Display": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo",
@@ -2383,12 +2410,6 @@
   ],
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
-  ],
-  "AllegroFlare/SceneGraph/Entities/Base": [
-    "AllegroFlare/SceneGraph/EntityPool"
-  ],
-  "std/unordered_set": [
-    "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"

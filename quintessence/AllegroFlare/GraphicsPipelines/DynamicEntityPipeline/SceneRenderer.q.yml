@@ -1,0 +1,38 @@
+properties:
+
+
+  - name: cubemap_shader
+    type: AllegroFlare::Shaders::Cubemap*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: entity_pool
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    guards: [ entity_pool, cubemap_shader ]
+    body: |
+      // TODO: This function
+      return;
+    body_dependency_symbols: []
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp ]
+  - symbol: AllegroFlare::Shaders::Cubemap
+    headers: [ AllegroFlare/Shaders/Cubemap.hpp ]
+
+

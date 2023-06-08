@@ -1,0 +1,61 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
+    scope: public
+    init_with: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE
+
+
+properties:
+
+
+  - name: model_3d
+    type: AllegroFlare::Model3D*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: model_3d_texture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: placement
+    type: AllegroFlare::Placement3D
+    init_with: '{}'
+    constructor_arg: true
+    getter_ref: true
+    getter: true
+
+  - name: velocity
+    type: AllegroFlare::Placement3D
+    init_with: '{}'
+    constructor_arg: true
+    getter_ref: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
+  - symbol: AllegroFlare::SceneGraph::Entities::Base
+    headers: [ AllegroFlare/SceneGraph/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Model3D
+    headers: [ AllegroFlare/Model3D.hpp ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
+
