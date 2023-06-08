@@ -165,6 +165,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDevicesList.q.yml">quintessence/AllegroFlare/InputDevicesList.q.yml</a></li>
@@ -8213,6 +8214,14 @@ table td
     <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.q.yml</h3>
      <table>
 <tr>
+  <td class="property">model_3d</td>
+  <td class="property">AllegroFlare::Model3D*</td>
+</tr>
+<tr>
+  <td class="property">model_3d_texture</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
   <td class="property">placement</td>
   <td class="property">AllegroFlare::Placement3D</td>
 </tr>
@@ -8229,6 +8238,50 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+    </table>
+  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.q.yml</h3>
+     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="method">create_camera_3d()</td>
+</tr>
+    </table>
+     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -8313,10 +8366,28 @@ table td
 <tr>
   <td class="method">render()</td>
 </tr>
+<tr>
+  <td class="method">get_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
     </table>
      <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Cubemap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Cubemap.hpp&quot;]}</td>
@@ -24437,6 +24508,7 @@ table td
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -24555,6 +24627,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
@@ -24784,6 +24857,7 @@ table td
     "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/GameSession",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -24891,6 +24965,7 @@ table td
   "AllegroFlare/ModelBin": [
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -25899,7 +25974,8 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
@@ -25907,7 +25983,13 @@ table td
   ],
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "std/find": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
@@ -25920,6 +26002,12 @@ table td
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "AllegroFlare/Shaders/Cubemap": [

@@ -151,6 +151,7 @@
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -269,6 +270,7 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
@@ -498,6 +500,7 @@
     "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/GameSession",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -605,6 +608,7 @@
   "AllegroFlare/ModelBin": [
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -1613,7 +1617,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
@@ -1621,7 +1626,13 @@
   ],
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "std/find": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
@@ -1634,6 +1645,12 @@
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "AllegroFlare/Shaders/Cubemap": [

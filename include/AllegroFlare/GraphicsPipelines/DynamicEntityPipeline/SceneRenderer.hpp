@@ -1,7 +1,9 @@
 #pragma once
 
 
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
+#include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/Shaders/Cubemap.hpp>
 
 
@@ -29,6 +31,7 @@ namespace AllegroFlare
             AllegroFlare::Shaders::Cubemap* get_cubemap_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             void render();
+            AllegroFlare::Model3D* get_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
          };
       }
    }

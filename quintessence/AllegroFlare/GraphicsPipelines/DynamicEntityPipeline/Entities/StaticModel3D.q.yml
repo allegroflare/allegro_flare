@@ -9,6 +9,20 @@ parent_classes:
 properties:
 
 
+  - name: model_3d
+    type: AllegroFlare::Model3D*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: model_3d_texture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: placement
     type: AllegroFlare::Placement3D
     init_with: '{}'
@@ -30,5 +44,9 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
   - symbol: AllegroFlare::Placement3D
     headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Model3D
+    headers: [ AllegroFlare/Model3D.hpp ]
 
 
