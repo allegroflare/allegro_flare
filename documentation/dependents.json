@@ -204,6 +204,7 @@
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
@@ -502,6 +503,7 @@
     "AllegroFlare/GameSession",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -1619,6 +1621,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
@@ -1631,6 +1634,10 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "AllegroFlare/MultitextureModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
+    "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
@@ -1823,9 +1830,6 @@
     "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "al_fopen": [
-    "AllegroFlare/MultitextureModel3DObjLoader"
-  ],
-  "AllegroFlare/MultitextureModel3D": [
     "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "AllegroFlare/MusicMesh/Stamp": [

@@ -9,6 +9,7 @@
 #include <AllegroFlare/CubemapBuilder.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp>
 
 
 class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest : public ::testing::Test {};
@@ -72,12 +73,29 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    item->get_placement_ref().rotation.z = 0.03547;
    entity_pool.add(item);
 
-   // TODO: Use an EntityFactory for this setup
+   // TODO: Replace this commented code with a basic dynamic 3D Model
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *environment_mesh = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    environment_mesh->set_model_3d(model_bin.auto_get("simple_scene-01.obj"));
    environment_mesh->set_model_3d_texture(get_bitmap_bin_ref().auto_get("simple_scene-01.png"));
    entity_pool.add(environment_mesh);
+
+   /* // TODO: Introduce this object
+   // TODO: Use an EntityFactory for this setup
+   std::string TEST_FIXTURES_FOLDER = get_fixtures_path();
+   std::string base_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01.obj";
+   std::string uv2_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01-ao-01.obj";
+   AllegroFlare::MultitextureModel3D multitexture_model;
+   multitexture_model.initialize();
+   multitexture_model.load_obj_file(base_obj_filename, uv2_obj_filename.c_str());
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D *environment_mesh = 
+      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D();
+   environment_mesh->set_multitexture_model_3d(&multitexture_model);
+   environment_mesh->set_multitexture_model_3d_texture_1(get_bitmap_bin_ref().auto_get("simple_scene-01-1024.png"));
+   environment_mesh->set_multitexture_model_3d_texture_2(get_bitmap_bin_ref().auto_get("simple_scene-01-ao-01.jpg"));
+   entity_pool.add(environment_mesh);
+   */
 
    // Render the scene
    int frames = 90;

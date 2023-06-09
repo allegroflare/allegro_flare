@@ -21,21 +21,24 @@ namespace AllegroFlare
                static constexpr char* TYPE = (char*)"AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D";
 
             private:
-               AllegroFlare::MultitextureModel3D* model_3d;
-               ALLEGRO_BITMAP* model_3d_texture;
+               AllegroFlare::MultitextureModel3D* multitexture_model_3d;
+               ALLEGRO_BITMAP* multitexture_model_3d_texture_1;
+               ALLEGRO_BITMAP* multitexture_model_3d_texture_2;
                AllegroFlare::Placement3D placement;
 
             protected:
 
 
             public:
-               StaticMultitextureModel3D(AllegroFlare::MultitextureModel3D* model_3d=nullptr, ALLEGRO_BITMAP* model_3d_texture=nullptr, AllegroFlare::Placement3D placement={});
+               StaticMultitextureModel3D(AllegroFlare::MultitextureModel3D* multitexture_model_3d=nullptr, ALLEGRO_BITMAP* multitexture_model_3d_texture_1=nullptr, ALLEGRO_BITMAP* multitexture_model_3d_texture_2=nullptr, AllegroFlare::Placement3D placement={});
                ~StaticMultitextureModel3D();
 
-               void set_model_3d(AllegroFlare::MultitextureModel3D* model_3d);
-               void set_model_3d_texture(ALLEGRO_BITMAP* model_3d_texture);
-               AllegroFlare::MultitextureModel3D* get_model_3d() const;
-               ALLEGRO_BITMAP* get_model_3d_texture() const;
+               void set_multitexture_model_3d(AllegroFlare::MultitextureModel3D* multitexture_model_3d);
+               void set_multitexture_model_3d_texture_1(ALLEGRO_BITMAP* multitexture_model_3d_texture_1);
+               void set_multitexture_model_3d_texture_2(ALLEGRO_BITMAP* multitexture_model_3d_texture_2);
+               AllegroFlare::MultitextureModel3D* get_multitexture_model_3d() const;
+               ALLEGRO_BITMAP* get_multitexture_model_3d_texture_1() const;
+               ALLEGRO_BITMAP* get_multitexture_model_3d_texture_2() const;
                AllegroFlare::Placement3D get_placement() const;
                AllegroFlare::Placement3D &get_placement_ref();
             };

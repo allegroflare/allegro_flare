@@ -9,14 +9,21 @@ parent_classes:
 properties:
 
 
-  - name: model_3d
+  - name: multitexture_model_3d
     type: AllegroFlare::MultitextureModel3D*
     init_with: nullptr
     constructor_arg: true
     getter: true
     setter: true
 
-  - name: model_3d_texture
+  - name: multitexture_model_3d_texture_1
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: multitexture_model_3d_texture_2
     type: ALLEGRO_BITMAP*
     init_with: nullptr
     constructor_arg: true

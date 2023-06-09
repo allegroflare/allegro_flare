@@ -15,10 +15,11 @@ namespace Entities
 {
 
 
-StaticMultitextureModel3D::StaticMultitextureModel3D(AllegroFlare::MultitextureModel3D* model_3d, ALLEGRO_BITMAP* model_3d_texture, AllegroFlare::Placement3D placement)
+StaticMultitextureModel3D::StaticMultitextureModel3D(AllegroFlare::MultitextureModel3D* multitexture_model_3d, ALLEGRO_BITMAP* multitexture_model_3d_texture_1, ALLEGRO_BITMAP* multitexture_model_3d_texture_2, AllegroFlare::Placement3D placement)
    : AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D::TYPE)
-   , model_3d(model_3d)
-   , model_3d_texture(model_3d_texture)
+   , multitexture_model_3d(multitexture_model_3d)
+   , multitexture_model_3d_texture_1(multitexture_model_3d_texture_1)
+   , multitexture_model_3d_texture_2(multitexture_model_3d_texture_2)
    , placement(placement)
 {
 }
@@ -29,27 +30,39 @@ StaticMultitextureModel3D::~StaticMultitextureModel3D()
 }
 
 
-void StaticMultitextureModel3D::set_model_3d(AllegroFlare::MultitextureModel3D* model_3d)
+void StaticMultitextureModel3D::set_multitexture_model_3d(AllegroFlare::MultitextureModel3D* multitexture_model_3d)
 {
-   this->model_3d = model_3d;
+   this->multitexture_model_3d = multitexture_model_3d;
 }
 
 
-void StaticMultitextureModel3D::set_model_3d_texture(ALLEGRO_BITMAP* model_3d_texture)
+void StaticMultitextureModel3D::set_multitexture_model_3d_texture_1(ALLEGRO_BITMAP* multitexture_model_3d_texture_1)
 {
-   this->model_3d_texture = model_3d_texture;
+   this->multitexture_model_3d_texture_1 = multitexture_model_3d_texture_1;
 }
 
 
-AllegroFlare::MultitextureModel3D* StaticMultitextureModel3D::get_model_3d() const
+void StaticMultitextureModel3D::set_multitexture_model_3d_texture_2(ALLEGRO_BITMAP* multitexture_model_3d_texture_2)
 {
-   return model_3d;
+   this->multitexture_model_3d_texture_2 = multitexture_model_3d_texture_2;
 }
 
 
-ALLEGRO_BITMAP* StaticMultitextureModel3D::get_model_3d_texture() const
+AllegroFlare::MultitextureModel3D* StaticMultitextureModel3D::get_multitexture_model_3d() const
 {
-   return model_3d_texture;
+   return multitexture_model_3d;
+}
+
+
+ALLEGRO_BITMAP* StaticMultitextureModel3D::get_multitexture_model_3d_texture_1() const
+{
+   return multitexture_model_3d_texture_1;
+}
+
+
+ALLEGRO_BITMAP* StaticMultitextureModel3D::get_multitexture_model_3d_texture_2() const
+{
+   return multitexture_model_3d_texture_2;
 }
 
 
