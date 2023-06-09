@@ -4,6 +4,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
 #include <AllegroFlare/Model3D.hpp>
+#include <AllegroFlare/MultitextureModel3D.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Shaders/Cubemap.hpp>
 #include <AllegroFlare/Shaders/Multitexture.hpp>
@@ -37,6 +38,7 @@ namespace AllegroFlare
             AllegroFlare::Shaders::Multitexture* get_multitexture_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             void render();
+            AllegroFlare::MultitextureModel3D* get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
             AllegroFlare::Model3D* get_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
             AllegroFlare::Placement3D* get_placement_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
             ALLEGRO_BITMAP* get_texture(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);

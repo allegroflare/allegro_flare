@@ -1637,6 +1637,7 @@
   ],
   "AllegroFlare/MultitextureModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
@@ -1660,6 +1661,9 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
   "AllegroFlare/Shaders/Cubemap": [

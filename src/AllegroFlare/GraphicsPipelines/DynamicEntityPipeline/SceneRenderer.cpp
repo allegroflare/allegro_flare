@@ -5,6 +5,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <iostream>
 #include <sstream>
@@ -171,6 +172,27 @@ void SceneRenderer::render()
    }
 
    return;
+}
+
+AllegroFlare::MultitextureModel3D* SceneRenderer::get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity)
+{
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer::get_multitexture_model_3d: error: guard \"entity\" not met");
+   }
+   using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
+
+   // TODO: Optimize this lookup
+   // TODO: Consider throw on unhandled type
+   //if (entity->is_type(Entities::DynamicMultitextureModel3D::TYPE))
+   //{
+      //Entities::DynamicMultitextureModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
+      //return as_casted->get_model_3d();
+   //}
+   return nullptr;
 }
 
 AllegroFlare::Model3D* SceneRenderer::get_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity)

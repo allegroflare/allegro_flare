@@ -82,7 +82,6 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    dynamic_cube->get_placement_ref().position.y = 0.5;
    entity_pool.add(dynamic_cube);
 
-   /* // TODO: Introduce this object
    // TODO: Use an EntityFactory for this setup
    std::string TEST_FIXTURES_FOLDER = get_fixtures_path();
    std::string base_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01.obj";
@@ -97,7 +96,6 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    environment_mesh->set_multitexture_model_3d_texture_1(get_bitmap_bin_ref().auto_get("simple_scene-01-1024.png"));
    environment_mesh->set_multitexture_model_3d_texture_2(get_bitmap_bin_ref().auto_get("simple_scene-01-ao-01.jpg"));
    entity_pool.add(environment_mesh);
-   */
 
    // Render the scene
    int frames = 90;

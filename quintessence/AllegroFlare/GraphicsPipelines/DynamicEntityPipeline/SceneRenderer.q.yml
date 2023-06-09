@@ -121,6 +121,28 @@ functions:
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D
 
 
+  - name: get_multitexture_model_3d
+    type: AllegroFlare::MultitextureModel3D*
+    parameters:
+      - name: entity
+        type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+        default_argument: nullptr
+    guards: [ entity ]
+    body: |
+      using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
+
+      // TODO: Optimize this lookup
+      // TODO: Consider throw on unhandled type
+      //if (entity->is_type(Entities::DynamicMultitextureModel3D::TYPE))
+      //{
+         //Entities::DynamicMultitextureModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
+         //return as_casted->get_model_3d();
+      //}
+      return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D
+   
+
   - name: get_model_3d
     type: AllegroFlare::Model3D*
     parameters:
@@ -216,6 +238,10 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp ]
+  - symbol: AllegroFlare::MultitextureModel3D
+    headers: [ AllegroFlare/MultitextureModel3D.hpp ]
   - symbol: AllegroFlare::Shaders::Cubemap
     headers: [ AllegroFlare/Shaders/Cubemap.hpp ]
   - symbol: AllegroFlare::Shaders::Multitexture
