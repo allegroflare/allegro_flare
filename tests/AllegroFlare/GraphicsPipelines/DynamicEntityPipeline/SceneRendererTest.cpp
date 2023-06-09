@@ -61,6 +61,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer scene_renderer;
    scene_renderer.set_cubemap_shader(&cubemap_shader);
+   scene_renderer.set_multitexture_shader(&multitexture_shader);
    scene_renderer.set_entity_pool(&entity_pool);
 
    // TODO: Use an EntityFactory for this setup
@@ -93,7 +94,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D *environment_mesh = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D();
    environment_mesh->set_multitexture_model_3d(&multitexture_model);
-   environment_mesh->set_multitexture_model_3d_texture_1(get_bitmap_bin_ref().auto_get("simple_scene-01-1024.png"));
+   environment_mesh->set_multitexture_model_3d_texture_1(get_bitmap_bin_ref().auto_get("simple_scene-01-1024.jpg"));
    environment_mesh->set_multitexture_model_3d_texture_2(get_bitmap_bin_ref().auto_get("simple_scene-01-ao-01.jpg"));
    entity_pool.add(environment_mesh);
 

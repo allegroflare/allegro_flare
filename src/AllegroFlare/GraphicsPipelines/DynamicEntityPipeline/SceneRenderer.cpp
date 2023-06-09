@@ -85,6 +85,13 @@ void SceneRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer::render: error: guard \"cubemap_shader\" not met");
    }
+   if (!(multitexture_shader))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer::render]: error: guard \"multitexture_shader\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer::render: error: guard \"multitexture_shader\" not met");
+   }
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
    //headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.hpp ]
 
@@ -117,6 +124,7 @@ void SceneRenderer::render()
       
 
       AllegroFlare::Model3D *model = get_model_3d(as_agc_entity); //as_agc_entity->get_model();
+      AllegroFlare::MultitextureModel3D *multitexture_model_3d = nullptr;
 
       if (model)
       {
@@ -157,7 +165,50 @@ void SceneRenderer::render()
             placement->restore_transform();
          }
       }
-      else // (!model)
+      else if ((multitexture_model_3d = get_multitexture_model_3d(as_agc_entity)))
+      {
+         // Isolate our entity's type
+         Entities::StaticMultitextureModel3D *as_multitexture_model_3d_entity =
+            static_cast<Entities::StaticMultitextureModel3D*>(entity);
+
+         // Extract out our textures
+         ALLEGRO_BITMAP *texture_a = get_texture(as_agc_entity);
+         if (texture_a) as_multitexture_model_3d_entity->set_multitexture_model_3d_texture_1(texture_a);
+         else throw std::runtime_error("no texture_a"); // TODO: Improve this error message
+
+         ALLEGRO_BITMAP *texture_b = get_texture_2(as_agc_entity);
+         if (texture_b) as_multitexture_model_3d_entity->set_multitexture_model_3d_texture_2(texture_b);
+         else throw std::runtime_error("no texture_b"); // TODO: Improve this error message
+
+
+         // Assign the textures to the shader
+         multitexture_shader->set_texture_a(texture_a);
+         multitexture_shader->set_texture_b(texture_b);
+
+         // Activate the shader
+         multitexture_shader->activate();
+
+         // Render our subject
+         // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
+         // setting  textures on the shader manually
+         std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices =
+            multitexture_model_3d->vertexes;
+
+         al_draw_prim(
+            &vertices[0],
+            multitexture_model_3d->vertex_declaration,
+            texture_a, // TODO: In this sloppy case, this texture is used to determine the
+                       // dimensionality of the textures(s) of the shader. Note that at the time of this writing, the
+                       // textures and dimensions are all inter-dependent on each other in this way. This kink
+                       // should eventually be worked out and cleaned up.
+            0,
+            vertices.size(),
+            ALLEGRO_PRIM_TRIANGLE_LIST
+         );
+
+         multitexture_shader->deactivate();
+      }
+      else // (!model) or (!multitexture_model)
       {
          ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
          AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
@@ -187,11 +238,11 @@ AllegroFlare::MultitextureModel3D* SceneRenderer::get_multitexture_model_3d(Alle
 
    // TODO: Optimize this lookup
    // TODO: Consider throw on unhandled type
-   //if (entity->is_type(Entities::DynamicMultitextureModel3D::TYPE))
-   //{
-      //Entities::DynamicMultitextureModel3D *as_casted = static_cast<Entities::DynamicModel3D*>(entity);
-      //return as_casted->get_model_3d();
-   //}
+   if (entity->is_type(Entities::StaticMultitextureModel3D::TYPE))
+   {
+      Entities::StaticMultitextureModel3D *as_casted = static_cast<Entities::StaticMultitextureModel3D*>(entity);
+      return as_casted->get_multitexture_model_3d();
+   }
    return nullptr;
 }
 
@@ -252,6 +303,8 @@ ALLEGRO_BITMAP* SceneRenderer::get_texture(AllegroFlare::GraphicsPipelines::Dyna
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer::get_texture: error: guard \"entity\" not met");
    }
+   using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
+
    // TODO: Optimize this lookup
    // TODO: Consider throw on unhandled type
    if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
@@ -264,6 +317,37 @@ ALLEGRO_BITMAP* SceneRenderer::get_texture(AllegroFlare::GraphicsPipelines::Dyna
       Entities::StaticModel3D *as_casted = static_cast<Entities::StaticModel3D*>(entity);
       return as_casted->get_model_3d_texture();
    }
+   if (entity->is_type(Entities::StaticMultitextureModel3D::TYPE))
+   {
+      Entities::StaticMultitextureModel3D *as_casted = static_cast<Entities::StaticMultitextureModel3D*>(entity);
+      return as_casted->get_multitexture_model_3d_texture_1();
+   }
+   return nullptr;
+}
+
+ALLEGRO_BITMAP* SceneRenderer::get_texture_2(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity)
+{
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer::get_texture_2]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer::get_texture_2: error: guard \"entity\" not met");
+   }
+   using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
+
+   // TODO: Optimize this lookup
+   // TODO: Consider throw on unhandled type
+   if (entity->is_type(Entities::StaticMultitextureModel3D::TYPE))
+   {
+      Entities::StaticMultitextureModel3D *as_casted = static_cast<Entities::StaticMultitextureModel3D*>(entity);
+      return as_casted->get_multitexture_model_3d_texture_2();
+   }
+   //else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
+   //{
+      //Entities::StaticModel3D *as_casted = static_cast<Entities::StaticModel3D*>(entity);
+      //return as_casted->get_model_3d_texture();
+   //}
    return nullptr;
 }
 
