@@ -8,6 +8,13 @@ properties:
     getter: true
     setter: true
 
+  - name: multitexture_shader
+    type: AllegroFlare::Shaders::Multitexture*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: entity_pool
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*
     constructor_arg: true
@@ -211,6 +218,8 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: AllegroFlare::Shaders::Cubemap
     headers: [ AllegroFlare/Shaders/Cubemap.hpp ]
+  - symbol: AllegroFlare::Shaders::Multitexture
+    headers: [ AllegroFlare/Shaders/Multitexture.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp ]
   - symbol: ALLEGRO_BITMAP

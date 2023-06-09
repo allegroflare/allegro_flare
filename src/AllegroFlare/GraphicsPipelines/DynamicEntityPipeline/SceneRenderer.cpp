@@ -19,8 +19,9 @@ namespace DynamicEntityPipeline
 {
 
 
-SceneRenderer::SceneRenderer(AllegroFlare::Shaders::Cubemap* cubemap_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
+SceneRenderer::SceneRenderer(AllegroFlare::Shaders::Cubemap* cubemap_shader, AllegroFlare::Shaders::Multitexture* multitexture_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : cubemap_shader(cubemap_shader)
+   , multitexture_shader(multitexture_shader)
    , entity_pool(entity_pool)
 {
 }
@@ -37,6 +38,12 @@ void SceneRenderer::set_cubemap_shader(AllegroFlare::Shaders::Cubemap* cubemap_s
 }
 
 
+void SceneRenderer::set_multitexture_shader(AllegroFlare::Shaders::Multitexture* multitexture_shader)
+{
+   this->multitexture_shader = multitexture_shader;
+}
+
+
 void SceneRenderer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
 {
    this->entity_pool = entity_pool;
@@ -46,6 +53,12 @@ void SceneRenderer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEnti
 AllegroFlare::Shaders::Cubemap* SceneRenderer::get_cubemap_shader() const
 {
    return cubemap_shader;
+}
+
+
+AllegroFlare::Shaders::Multitexture* SceneRenderer::get_multitexture_shader() const
+{
+   return multitexture_shader;
 }
 
 

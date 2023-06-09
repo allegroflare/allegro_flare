@@ -28,6 +28,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
+   AllegroFlare::Shaders::Multitexture multitexture_shader;
    AllegroFlare::Shaders::Cubemap cubemap_shader;
    AllegroFlare::Cubemap* cubemap = nullptr;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
@@ -41,6 +42,8 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
 
    //cubemap_shader.initialize();
    //cubemap_shader.set_cube_map(cubemap);
+
+   multitexture_shader.initialize();
 
    cubemap_shader.initialize();
    cubemap_shader.set_cube_map(cubemap);
