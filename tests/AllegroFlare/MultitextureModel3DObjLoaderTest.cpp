@@ -4,9 +4,9 @@
 #include <AllegroFlare/MultitextureModel3DObjLoader.hpp>
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
-      std::string TEST_FIXTURES_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
+      static std::string TEST_FIXTURES_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
 #else
-      std::string TEST_FIXTURES_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
+      static std::string TEST_FIXTURES_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
 #endif
 
 
