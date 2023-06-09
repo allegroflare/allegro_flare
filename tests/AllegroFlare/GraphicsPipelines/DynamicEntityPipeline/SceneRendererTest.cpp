@@ -74,11 +74,13 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    entity_pool.add(item);
 
    // TODO: Replace this commented code with a basic dynamic 3D Model
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *environment_mesh = 
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *dynamic_cube = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-   environment_mesh->set_model_3d(model_bin.auto_get("simple_scene-01.obj"));
-   environment_mesh->set_model_3d_texture(get_bitmap_bin_ref().auto_get("simple_scene-01.png"));
-   entity_pool.add(environment_mesh);
+   dynamic_cube->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
+   dynamic_cube->set_model_3d_texture(get_bitmap_bin_ref().auto_get("uv.png"));
+   dynamic_cube->get_placement_ref().position.x = 1.5;
+   dynamic_cube->get_placement_ref().position.y = 0.5;
+   entity_pool.add(dynamic_cube);
 
    /* // TODO: Introduce this object
    // TODO: Use an EntityFactory for this setup
