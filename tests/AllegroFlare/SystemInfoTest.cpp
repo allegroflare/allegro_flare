@@ -100,6 +100,7 @@ TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing
       "10.0 (build 19044)",
       "22.4.0", // Mark's Mac Laptop
       "22.3.0", // Mark's Mac Laptop
+      "22.5.0", // Mark's Mac Laptop
       "21.6.0", // Mark's MacMini
    };
    std::string actual_release = system_info.get_release();
