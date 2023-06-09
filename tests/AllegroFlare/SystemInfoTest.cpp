@@ -103,8 +103,33 @@ TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing
       "22.5.0", // Mark's Mac Laptop
       "21.6.0", // Mark's MacMini
    };
+//#ifdef _WIN32
+//#elif __APPLE__ || __MACH__
+   //std::regex regex("^[0-9]+\.[0-9]+ \(build [0-9]\)$");
+
+//#else
+   //std::string expected_operating_system = "[TEST-DATA-NOT-SET-FOR-THIS-PLATFORM]";
+//#endif
    std::string actual_release = system_info.get_release();
    EXPECT_THAT(expected_possible_releases, testing::Contains(actual_release));
+
+
+   std::string non_zero_starting_digit = "(?!0\\d)\\d+";
+
+#ifdef _WIN32
+#elif __APPLE__ || __MACH__
+   std::regex release_regex(
+           "^"
+         + non_zero_starting_digit + "\."
+         + non_zero_starting_digit + "\."
+         + non_zero_starting_digit
+         + "$"
+      );
+#else
+   throw std::runtime_error("There is no test data for this platform");
+#endif
+   bool is_match = std::regex_search(actual_release, release_regex);
+   EXPECT_TRUE(is_match);
 }
 
 
