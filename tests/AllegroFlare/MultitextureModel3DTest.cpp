@@ -11,11 +11,11 @@
 
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
-      std::string TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/bin/data/models/";
-      std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/models/";
+      std::string TEST_FIXTURES_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
+      std::string TEST_FIXTURES_MODELS_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/models/";
 #else
-      std::string TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/models/";
-      std::string PROPER_TEST_FIXTURE_MODEL_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/models/";
+      std::string TEST_FIXTURES_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
+      std::string TEST_FIXTURES_MODELS_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/models/";
 #endif
 
 
@@ -51,10 +51,14 @@ public:
       subject.initialize();
    }
 
-   void load_subject(std::string filename=TEST_FIXTURE_MODEL_FOLDER + "coin_ring-01.obj")
+   void load_subject(std::string filename=TEST_FIXTURES_FOLDER + "models/coin_ring-01.obj")
    {
-      // DISABLED
-      //subject.load_obj_file(filename.c_str());
+      // NOTE: This test suite is not responsible for validating the rendering and appearance of the model, this is done
+      // either in an integration or in the AllegroFlare/Shaders/Multitexture test.
+      
+      std::string base_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01.obj";
+      std::string uv2_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01-ao-01.obj";
+      subject.load_obj_file(base_obj_filename, uv2_obj_filename.c_str());
    }
 
    void examine_subject(float number_of_seconds=1.0f)
@@ -103,6 +107,9 @@ TEST_F(AllegroFlare_MultitextureModel3DTest,
 
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest, VISUAL__draw__will_draw_the_subject)
 {
+   // NOTE: This test suite is not responsible for validating the rendering and appearance of the model, this is done
+   // either in an integration or in the AllegroFlare/Shaders/Multitexture test.
+
    load_subject();
    examine_subject(2);
 }
@@ -171,7 +178,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
    load_subject();
    AllegroFlare::MultitextureModel3D model_to_append;
    model_to_append.initialize();
-   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER + "archway-01.obj";
+   std::string model_filename_to_merge = TEST_FIXTURES_FOLDER + "archway-01.obj";
    // DISABLED: model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    subject.flatten_single_named_object();
@@ -191,7 +198,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
    DISABLED__extract_named_object_vertices__when_a_named_object_does_not_exist_with_that_name__throws_an_error)
 {
-   load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
+   load_subject(TEST_FIXTURES_MODELS_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
 
    EXPECT_THROW_WITH_MESSAGE(
@@ -206,7 +213,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
 TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
    DISABLED__extract_named_object_vertices__will_return_vertices_of_the_named_object)
 {
-   load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");
+   load_subject(TEST_FIXTURES_MODELS_FOLDER + "named_objects-02.obj");
    EXPECT_EQ(3, subject.named_objects.size());
 
    ALLEGRO_COLOR c{1, 1, 1, 1};
@@ -319,7 +326,7 @@ TEST_F(AllegroFlare_MultitextureModel3DWithAllegroRenderingFixtureTest,
    load_subject();
    AllegroFlare::MultitextureModel3D model_to_append;
    model_to_append.initialize();
-   std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER + "archway-01.obj";
+   std::string model_filename_to_merge = TEST_FIXTURES_MODELS_FOLDER + "archway-01.obj";
    //DISABLED: model_to_append.load_obj_file(model_filename_to_merge.c_str());
 
    testing::internal::CaptureStdout();
