@@ -785,7 +785,6 @@ void SoftwareKeyboard::render()
    draw_keyboard_backfill_and_frame();
 
    // draw keys
-   int i=0;
    float time_now = al_get_time();
    ALLEGRO_FONT *font = obtain_keyboard_font();
    ALLEGRO_FONT *prompt_text_font = obtain_prompt_text_font();
@@ -827,7 +826,6 @@ void SoftwareKeyboard::render()
          ALLEGRO_ALIGN_CENTER,
          key.get_label().c_str()
       );
-      i++;
    }
 
    // draw cursor
