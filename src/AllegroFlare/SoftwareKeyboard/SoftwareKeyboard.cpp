@@ -43,6 +43,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , cursor_location({})
    , cursor_size(80, 80)
    , showing_input_error_frame(false)
+   , input_error_frame_error_messages({})
    , bonk_sound_effect_identifier(DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER)
    , key_click_sound_effect_identifier(DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER)
    , erase_sound_effect_identifier(DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER)
@@ -106,6 +107,12 @@ void SoftwareKeyboard::set_on_ok_callback_func(std::function<void(AllegroFlare::
 void SoftwareKeyboard::set_on_ok_callback_func_user_data(void* on_ok_callback_func_user_data)
 {
    this->on_ok_callback_func_user_data = on_ok_callback_func_user_data;
+}
+
+
+void SoftwareKeyboard::set_input_error_frame_error_messages(std::vector<std::string> input_error_frame_error_messages)
+{
+   this->input_error_frame_error_messages = input_error_frame_error_messages;
 }
 
 
@@ -202,6 +209,12 @@ void* SoftwareKeyboard::get_on_ok_callback_func_user_data() const
 bool SoftwareKeyboard::get_showing_input_error_frame() const
 {
    return showing_input_error_frame;
+}
+
+
+std::vector<std::string> SoftwareKeyboard::get_input_error_frame_error_messages() const
+{
+   return input_error_frame_error_messages;
 }
 
 
@@ -432,9 +445,10 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    return;
 }
 
-void SoftwareKeyboard::show_input_error_frame()
+void SoftwareKeyboard::show_input_error_frame(std::vector<std::string> input_error_frame_error_messages)
 {
    showing_input_error_frame = true;
+   set_input_error_frame_error_messages(input_error_frame_error_messages);
    // TODO: add showing_input_error_frame_at and set here
    return;
 }
@@ -442,7 +456,14 @@ void SoftwareKeyboard::show_input_error_frame()
 void SoftwareKeyboard::clear_input_error_frame()
 {
    showing_input_error_frame = false;
+   clear_input_error_frame_error_messages();
    // TODO: add showing_input_error_frame_at and set to 0.0f here
+   return;
+}
+
+void SoftwareKeyboard::clear_input_error_frame_error_messages()
+{
+   input_error_frame_error_messages.clear();
    return;
 }
 
@@ -454,7 +475,7 @@ void SoftwareKeyboard::validate_and_submit_form()
    if (sanitized_string.empty())
    {
       // TODO: show some error feedback that a name must be entered
-      show_input_error_frame();
+      show_input_error_frame({ "Cannot be blank" });
       emit_bonk_sound_effect();
    }
    else
@@ -657,6 +678,11 @@ void SoftwareKeyboard::draw_input_error_frame(float x, float y, float w, float h
    float thickness = 6.0;
 
    al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
+
+   // Draw the messages
+   std::string comma_joined_error_messages = join(input_error_frame_error_messages, ", ");
+   // TODO: Render the text
+
    return;
 }
 
@@ -1346,6 +1372,21 @@ float SoftwareKeyboard::calculate_spaced_elements_width(int num_elements, float 
    // Calculate the total width of the boxes and spacing
    float total_width = (num_elements * element_width) + ((num_elements - 1) * element_spacing);
    return total_width;
+}
+
+std::string SoftwareKeyboard::join(std::vector<std::string> tokens, std::string delimiter)
+{
+   std::stringstream result;
+   bool last = false;
+
+   for (unsigned i=0; i<tokens.size(); i++)
+   {
+      result << tokens[i];
+      if (i == tokens.size()-1) last = true;
+      if (!last) result << delimiter;
+   }
+
+   return result.str();
 }
 
 

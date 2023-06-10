@@ -121,6 +121,12 @@ properties:
     init_with: false
     getter: true
 
+  - name: input_error_frame_error_messages
+    type: std::vector<std::string>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: bonk_sound_effect_identifier
     type: std::string
     init_with: DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER
@@ -367,8 +373,13 @@ functions:
 
 
   - name: show_input_error_frame
+    parameters:
+      - name: input_error_frame_error_messages
+        type: std::vector<std::string>
+        default_argument: '{}'
     body: |
       showing_input_error_frame = true;
+      set_input_error_frame_error_messages(input_error_frame_error_messages);
       // TODO: add showing_input_error_frame_at and set here
       return;
 
@@ -376,7 +387,14 @@ functions:
   - name: clear_input_error_frame
     body: |
       showing_input_error_frame = false;
+      clear_input_error_frame_error_messages();
       // TODO: add showing_input_error_frame_at and set to 0.0f here
+      return;
+
+
+  - name: clear_input_error_frame_error_messages
+    body: |
+      input_error_frame_error_messages.clear();
       return;
 
 
@@ -389,7 +407,7 @@ functions:
       if (sanitized_string.empty())
       {
          // TODO: show some error feedback that a name must be entered
-         show_input_error_frame();
+         show_input_error_frame({ "Cannot be blank" });
          emit_bonk_sound_effect();
       }
       else
@@ -642,6 +660,11 @@ functions:
       float thickness = 6.0;
 
       al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
+
+      // Draw the messages
+      std::string comma_joined_error_messages = join(input_error_frame_error_messages, ", ");
+      // TODO: Render the text
+
       return;
     body_dependency_symbols:
       - al_draw_rounded_rectangle
@@ -1322,6 +1345,32 @@ functions:
       // Calculate the total width of the boxes and spacing
       float total_width = (num_elements * element_width) + ((num_elements - 1) * element_spacing);
       return total_width;
+
+
+  - name: join
+    type: std::string
+    private: true
+    parameters:
+      - name: tokens
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: delimiter
+        type: std::string
+        default_argument: '", "'
+    body: |
+      std::stringstream result;
+      bool last = false;
+
+      for (unsigned i=0; i<tokens.size(); i++)
+      {
+         result << tokens[i];
+         if (i == tokens.size()-1) last = true;
+         if (!last) result << delimiter;
+      }
+
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
 
 
 dependencies:

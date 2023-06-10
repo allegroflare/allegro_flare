@@ -13,6 +13,7 @@
 #include <functional>
 #include <lib/tsl/ordered_map.h>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -51,6 +52,7 @@ namespace AllegroFlare
          AllegroFlare::Vec2D cursor_location;
          AllegroFlare::Vec2D cursor_size;
          bool showing_input_error_frame;
+         std::vector<std::string> input_error_frame_error_messages;
          std::string bonk_sound_effect_identifier;
          std::string key_click_sound_effect_identifier;
          std::string erase_sound_effect_identifier;
@@ -71,6 +73,7 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_keyboard_font();
          ALLEGRO_FONT* obtain_prompt_text_font();
          ALLEGRO_FONT* obtain_result_text_font();
+         std::string join(std::vector<std::string> tokens={}, std::string delimiter=", ");
 
       protected:
 
@@ -88,6 +91,7 @@ namespace AllegroFlare
          void set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key);
          void set_on_ok_callback_func(std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> on_ok_callback_func);
          void set_on_ok_callback_func_user_data(void* on_ok_callback_func_user_data);
+         void set_input_error_frame_error_messages(std::vector<std::string> input_error_frame_error_messages);
          void set_bonk_sound_effect_identifier(std::string bonk_sound_effect_identifier);
          void set_key_click_sound_effect_identifier(std::string key_click_sound_effect_identifier);
          void set_erase_sound_effect_identifier(std::string erase_sound_effect_identifier);
@@ -104,6 +108,7 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> get_on_ok_callback_func() const;
          void* get_on_ok_callback_func_user_data() const;
          bool get_showing_input_error_frame() const;
+         std::vector<std::string> get_input_error_frame_error_messages() const;
          std::string get_bonk_sound_effect_identifier() const;
          std::string get_key_click_sound_effect_identifier() const;
          std::string get_erase_sound_effect_identifier() const;
@@ -117,8 +122,9 @@ namespace AllegroFlare
          void initialize();
          void press_key_under_cursor();
          void press_key_by_name(std::string name="[unset-name]");
-         void show_input_error_frame();
+         void show_input_error_frame(std::vector<std::string> input_error_frame_error_messages={});
          void clear_input_error_frame();
+         void clear_input_error_frame_error_messages();
          void jump_cursor_pos_to_index_of_key_name(std::string name="[unset-name]");
          void increment_cursor_pos();
          void decrement_cursor_pos();

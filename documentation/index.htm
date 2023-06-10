@@ -19508,6 +19508,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">input_error_frame_error_messages</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
   <td class="property">bonk_sound_effect_identifier</td>
   <td class="property">std::string</td>
 </tr>
@@ -19569,10 +19573,13 @@ table td
   <td class="method">press_key_by_name(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">show_input_error_frame()</td>
+  <td class="method">show_input_error_frame(std::vector&lt;std::string&gt; input_error_frame_error_messages={})</td>
 </tr>
 <tr>
   <td class="method">clear_input_error_frame()</td>
+</tr>
+<tr>
+  <td class="method">clear_input_error_frame_error_messages()</td>
 </tr>
 <tr>
   <td class="private_method">validate_and_submit_form()</td>
