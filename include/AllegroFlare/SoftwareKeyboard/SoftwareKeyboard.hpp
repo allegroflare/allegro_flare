@@ -5,10 +5,12 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/SoftwareKeyboard/KeyboardKey.hpp>
+#include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstddef>
+#include <functional>
 #include <lib/tsl/ordered_map.h>
 #include <string>
 
@@ -44,6 +46,8 @@ namespace AllegroFlare
          std::string result_string;
          std::size_t num_permitted_chars;
          std::string event_to_emit_on_pressing_ok_key;
+         std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> on_ok_callback_func;
+         void* on_ok_callback_func_user_data;
          AllegroFlare::Vec2D cursor_location;
          AllegroFlare::Vec2D cursor_size;
          std::string bonk_sound_effect_identifier;
@@ -78,6 +82,8 @@ namespace AllegroFlare
          void set_result_string(std::string result_string);
          void set_num_permitted_chars(std::size_t num_permitted_chars);
          void set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key);
+         void set_on_ok_callback_func(std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> on_ok_callback_func);
+         void set_on_ok_callback_func_user_data(void* on_ok_callback_func_user_data);
          void set_bonk_sound_effect_identifier(std::string bonk_sound_effect_identifier);
          void set_key_click_sound_effect_identifier(std::string key_click_sound_effect_identifier);
          void set_erase_sound_effect_identifier(std::string erase_sound_effect_identifier);
@@ -91,6 +97,8 @@ namespace AllegroFlare
          std::string get_result_string() const;
          std::size_t get_num_permitted_chars() const;
          std::string get_event_to_emit_on_pressing_ok_key() const;
+         std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> get_on_ok_callback_func() const;
+         void* get_on_ok_callback_func_user_data() const;
          std::string get_bonk_sound_effect_identifier() const;
          std::string get_key_click_sound_effect_identifier() const;
          std::string get_erase_sound_effect_identifier() const;

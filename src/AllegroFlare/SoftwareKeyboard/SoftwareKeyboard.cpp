@@ -38,6 +38,8 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , result_string({})
    , num_permitted_chars(12)
    , event_to_emit_on_pressing_ok_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)
+   , on_ok_callback_func()
+   , on_ok_callback_func_user_data(nullptr)
    , cursor_location({})
    , cursor_size(80, 80)
    , bonk_sound_effect_identifier(DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER)
@@ -91,6 +93,18 @@ void SoftwareKeyboard::set_num_permitted_chars(std::size_t num_permitted_chars)
 void SoftwareKeyboard::set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key)
 {
    this->event_to_emit_on_pressing_ok_key = event_to_emit_on_pressing_ok_key;
+}
+
+
+void SoftwareKeyboard::set_on_ok_callback_func(std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> on_ok_callback_func)
+{
+   this->on_ok_callback_func = on_ok_callback_func;
+}
+
+
+void SoftwareKeyboard::set_on_ok_callback_func_user_data(void* on_ok_callback_func_user_data)
+{
+   this->on_ok_callback_func_user_data = on_ok_callback_func_user_data;
 }
 
 
@@ -169,6 +183,18 @@ std::size_t SoftwareKeyboard::get_num_permitted_chars() const
 std::string SoftwareKeyboard::get_event_to_emit_on_pressing_ok_key() const
 {
    return event_to_emit_on_pressing_ok_key;
+}
+
+
+std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> SoftwareKeyboard::get_on_ok_callback_func() const
+{
+   return on_ok_callback_func;
+}
+
+
+void* SoftwareKeyboard::get_on_ok_callback_func_user_data() const
+{
+   return on_ok_callback_func_user_data;
 }
 
 

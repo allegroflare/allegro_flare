@@ -2454,7 +2454,8 @@
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
-    "AllegroFlare/Screens/CharacterNameInput"
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Screens/GameOverScreen": [
     "AllegroFlare/Screens/GameOverScreen"

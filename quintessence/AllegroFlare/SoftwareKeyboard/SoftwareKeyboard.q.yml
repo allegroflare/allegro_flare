@@ -96,6 +96,18 @@ properties:
     static: true
     init_with: '(char*)"submit_software_keyboard"'
 
+  - name: on_ok_callback_func
+    type: std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_ok_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: cursor_location
     type: AllegroFlare::Vec2D
     init_with: '{}'
@@ -158,6 +170,7 @@ documentation:
 
   - todos:
       - Find a more technically proper name for "cursor_reposition_multiplier", "DEFAULT_CURSOR_REPOSITION_MULTIPLIER"
+      - Remove self listed as a dependency in dependencies
 
 
 functions:
@@ -1235,5 +1248,7 @@ dependencies:
     headers: [ AllegroFlare/UsefulPHP.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard
+    headers: [ AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp ]
 
 
