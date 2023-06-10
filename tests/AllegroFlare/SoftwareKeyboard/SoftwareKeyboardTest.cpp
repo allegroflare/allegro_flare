@@ -25,8 +25,12 @@ static void my_on_ok_callback_func(
    )
 {
    if (!on_ok_callback_func_user_data) std::runtime_error("test error");
-   int &as_int = *(int*)(on_ok_callback_func_user_data);
-   as_int++;
+
+   std::pair<std::string, int> &as_my_user_data = *(std::pair<std::string, int>*)(on_ok_callback_func_user_data);
+   // This first value will represent the data captured from the keyboard:
+   as_my_user_data.first = software_keyboard->get_result_string();
+   // This second value will represent the call count
+   as_my_user_data.second++;
 }
 
 
@@ -234,14 +238,15 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    // Set some valid input data
    software_keyboard.set_result_string("Foobar");
 
-   int my_on_ok_callback_func_user_data = 0;
+   std::pair<std::string, int> my_on_ok_callback_func_user_data = {"", 0};
    software_keyboard.set_on_ok_callback_func(my_on_ok_callback_func);
    software_keyboard.set_on_ok_callback_func_user_data(&my_on_ok_callback_func_user_data);
 
    software_keyboard.press_key_by_name("OK");
 
    // Assert that the callback was called, and was passed and processed the expected data
-   EXPECT_EQ(1, my_on_ok_callback_func_user_data);
+   EXPECT_EQ("Foobar", my_on_ok_callback_func_user_data.first);
+   EXPECT_EQ(1, my_on_ok_callback_func_user_data.second);
 
    // teardown
    al_destroy_event_queue(event_queue);
