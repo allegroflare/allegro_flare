@@ -199,6 +199,12 @@ void* SoftwareKeyboard::get_on_ok_callback_func_user_data() const
 }
 
 
+bool SoftwareKeyboard::get_showing_input_error_frame() const
+{
+   return showing_input_error_frame;
+}
+
+
 std::string SoftwareKeyboard::get_bonk_sound_effect_identifier() const
 {
    return bonk_sound_effect_identifier;
@@ -426,6 +432,20 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    return;
 }
 
+void SoftwareKeyboard::show_input_error_frame()
+{
+   showing_input_error_frame = true;
+   // TODO: add showing_input_error_frame_at and set here
+   return;
+}
+
+void SoftwareKeyboard::clear_input_error_frame()
+{
+   showing_input_error_frame = false;
+   // TODO: add showing_input_error_frame_at and set to 0.0f here
+   return;
+}
+
 void SoftwareKeyboard::validate_and_submit_form()
 {
    std::string sanitized_string = result_string;
@@ -434,6 +454,7 @@ void SoftwareKeyboard::validate_and_submit_form()
    if (sanitized_string.empty())
    {
       // TODO: show some error feedback that a name must be entered
+      show_input_error_frame();
       emit_bonk_sound_effect();
    }
    else
@@ -587,7 +608,6 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
       x_cursor += (box_width + box_spacing_x);
    }
 
-   bool showing_input_error_frame = false;
    if (showing_input_error_frame)
    {
       float frame_padding = 12.0f;
@@ -614,7 +634,7 @@ ALLEGRO_COLOR SoftwareKeyboard::build_cursor_color()
 ALLEGRO_COLOR SoftwareKeyboard::build_input_error_frame_color()
 {
    ALLEGRO_COLOR color_a = al_color_name("crimson");
-   ALLEGRO_COLOR color_b = al_color_name("firebrick");
+   ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
    float speed_multiplier = 0.9;
    float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
    return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);

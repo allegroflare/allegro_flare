@@ -103,6 +103,7 @@ namespace AllegroFlare
          std::string get_event_to_emit_on_pressing_ok_key() const;
          std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> get_on_ok_callback_func() const;
          void* get_on_ok_callback_func_user_data() const;
+         bool get_showing_input_error_frame() const;
          std::string get_bonk_sound_effect_identifier() const;
          std::string get_key_click_sound_effect_identifier() const;
          std::string get_erase_sound_effect_identifier() const;
@@ -116,6 +117,8 @@ namespace AllegroFlare
          void initialize();
          void press_key_under_cursor();
          void press_key_by_name(std::string name="[unset-name]");
+         void show_input_error_frame();
+         void clear_input_error_frame();
          void jump_cursor_pos_to_index_of_key_name(std::string name="[unset-name]");
          void increment_cursor_pos();
          void decrement_cursor_pos();

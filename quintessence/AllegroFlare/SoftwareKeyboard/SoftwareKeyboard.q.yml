@@ -119,6 +119,7 @@ properties:
   - name: showing_input_error_frame
     type: bool
     init_with: false
+    getter: true
 
   - name: bonk_sound_effect_identifier
     type: std::string
@@ -365,6 +366,20 @@ functions:
       - AllegroFlare::php::trim
 
 
+  - name: show_input_error_frame
+    body: |
+      showing_input_error_frame = true;
+      // TODO: add showing_input_error_frame_at and set here
+      return;
+
+
+  - name: clear_input_error_frame
+    body: |
+      showing_input_error_frame = false;
+      // TODO: add showing_input_error_frame_at and set to 0.0f here
+      return;
+
+
   - name: validate_and_submit_form
     private: true
     body: |
@@ -374,6 +389,7 @@ functions:
       if (sanitized_string.empty())
       {
          // TODO: show some error feedback that a name must be entered
+         show_input_error_frame();
          emit_bonk_sound_effect();
       }
       else
@@ -535,7 +551,6 @@ functions:
          x_cursor += (box_width + box_spacing_x);
       }
 
-      bool showing_input_error_frame = false;
       if (showing_input_error_frame)
       {
          float frame_padding = 12.0f;
@@ -570,7 +585,7 @@ functions:
     type: ALLEGRO_COLOR
     body: |
       ALLEGRO_COLOR color_a = al_color_name("crimson");
-      ALLEGRO_COLOR color_b = al_color_name("firebrick");
+      ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
       float speed_multiplier = 0.9;
       float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
       return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);

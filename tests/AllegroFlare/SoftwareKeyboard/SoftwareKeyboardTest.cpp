@@ -51,6 +51,14 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+   showing_input_error_frame__is_initialized_to_the_expected_default_value)
+{
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
+   EXPECT_EQ(false, software_keyboard.get_showing_input_error_frame());
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
    DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER__has_the_expected_default_value)
 {
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
@@ -283,7 +291,51 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   CAPTURE__ACTIVE__will_work_as_expected)
+   when_submitting_an_empty_text__will_set_showing_input_error_frame_to_true)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
+   software_keyboard.initialize();
+   software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
+   AllegroFlare::Vec2D keyboard_dimentions =
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions();
+   software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
+   software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+   software_keyboard.set_font_name("Lora-MediumItalic.ttf");
+
+   // Input (with blank text)
+   software_keyboard.press_key_by_name("OK");
+
+   EXPECT_EQ(true, software_keyboard.get_showing_input_error_frame());
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   CAPTURE__when_showing_input_error_frame_is_true__will_render_the_input_error_frame)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
+   software_keyboard.initialize();
+   software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
+   AllegroFlare::Vec2D keyboard_dimentions =
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions();
+   software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
+   software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+   software_keyboard.set_font_name("Lora-MediumItalic.ttf");
+
+   software_keyboard.show_input_error_frame();
+
+   // Render
+   clear();
+   software_keyboard.render();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   CAPTURE__will_work_as_expected)
 {
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
