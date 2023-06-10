@@ -146,9 +146,9 @@ void CharacterNameInput::set_font_size(int font_size)
    return;
 }
 
-void CharacterNameInput::set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key)
+void CharacterNameInput::set_event_to_emit_on_pressing_submit_key(std::string event_to_emit_on_pressing_submit_key)
 {
-   software_keyboard.set_event_to_emit_on_pressing_ok_key(event_to_emit_on_pressing_ok_key);
+   software_keyboard.set_event_to_emit_on_pressing_submit_key(event_to_emit_on_pressing_submit_key);
    return;
 }
 
