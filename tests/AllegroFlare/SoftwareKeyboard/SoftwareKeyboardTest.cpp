@@ -5,6 +5,11 @@
    catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
+#include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
+#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+#include <allegro5/allegro_color.h> // for al_color_name();
+#include <AllegroFlare/EventEmitter.hpp> // for al_color_name();
+#include <AllegroFlare/EventNames.hpp> // for ALLEGRO_FLARE_EVENT_GAME_EVENT
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
@@ -14,11 +19,15 @@ class AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixt
 {};
 
 
-#include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
-#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
-#include <allegro5/allegro_color.h> // for al_color_name();
-#include <AllegroFlare/EventEmitter.hpp> // for al_color_name();
-#include <AllegroFlare/EventNames.hpp> // for ALLEGRO_FLARE_EVENT_GAME_EVENT
+static void my_on_ok_callback_func(
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard *software_keyboard,
+      void *on_ok_callback_func_user_data=nullptr
+   )
+{
+   if (!on_ok_callback_func_user_data) std::runtime_error("test error");
+   int &as_int = *(int*)(on_ok_callback_func_user_data);
+   as_int++;
+}
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, can_be_created_without_blowing_up)
@@ -205,6 +214,34 @@ event_to_emit_on_pressing_ok_key)
       game_event_data->get_type(),
       AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
    );
+
+   // teardown
+   al_destroy_event_queue(event_queue);
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   press_key_by_name__when_pressing_the_OK_key__when_an_on_ok_callback_func_is_set__will_call_the_callback)
+{
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
+   software_keyboard.initialize();
+   // Setup keyboard to use the default keys
+   software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
+   // Set some valid input data
+   software_keyboard.set_result_string("Foobar");
+
+   int my_on_ok_callback_func_user_data = 0;
+   software_keyboard.set_on_ok_callback_func(my_on_ok_callback_func);
+   software_keyboard.set_on_ok_callback_func_user_data(&my_on_ok_callback_func_user_data);
+
+   software_keyboard.press_key_by_name("OK");
+
+   // Assert that the callback was called, and was passed and processed the expected data
+   EXPECT_EQ(1, my_on_ok_callback_func_user_data);
 
    // teardown
    al_destroy_event_queue(event_queue);
