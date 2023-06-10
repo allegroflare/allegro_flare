@@ -261,6 +261,10 @@ void SoftwareKeyboard::reset()
    cursor_size_destination = {80, 80};
    cursor_location = cursor_destination;
    cursor_size = cursor_size_destination;
+   showing_input_error_frame = false;
+   // TODO: add showing_input_error_frame_at and set to 0.0f here
+   input_error_frame_error_messages.clear();
+   // TODO: add input_error_frame_error_messages_at and set to 0.0f here
    cursor_pos = 0;
    // TODO: test this clear
    result_string.clear();
