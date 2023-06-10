@@ -126,6 +126,7 @@ namespace AllegroFlare
          void show_input_error_frame(std::vector<std::string> input_error_frame_error_messages={});
          void clear_input_error_frame();
          void clear_input_error_frame_error_messages();
+         bool has_input_error_frame_error_messages();
          void jump_cursor_pos_to_index_of_key_name(std::string name="[unset-name]");
          void increment_cursor_pos();
          void decrement_cursor_pos();

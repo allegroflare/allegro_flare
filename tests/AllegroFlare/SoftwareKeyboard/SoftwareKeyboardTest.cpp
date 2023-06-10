@@ -200,6 +200,26 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   reset__will_clear_the_input_error_frame__and__will_clear_input_error_frame_error_messages)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
+   software_keyboard.initialize();
+
+   software_keyboard.show_input_error_frame({ "a test error" });
+   EXPECT_EQ(true, software_keyboard.get_showing_input_error_frame()); // Sanity check, consider removing and relying
+                                                                       // on other tests
+   EXPECT_EQ(true, software_keyboard.has_input_error_frame_error_messages()); // Sanity check, consider removing and
+                                                                              // relying on other tests
+
+   software_keyboard.reset();
+   EXPECT_EQ(false, software_keyboard.get_showing_input_error_frame());
+   EXPECT_EQ(false, software_keyboard.has_input_error_frame_error_messages());
+}
+
+
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
    press_key_by_name__when_pressing_the_OK_key__will_emit_an_AllegroFlare_GameEvent_with_a_type_\
 event_to_emit_on_pressing_ok_key)
 {

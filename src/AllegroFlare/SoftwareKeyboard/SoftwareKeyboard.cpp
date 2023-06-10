@@ -487,6 +487,11 @@ void SoftwareKeyboard::clear_input_error_frame_error_messages()
    return;
 }
 
+bool SoftwareKeyboard::has_input_error_frame_error_messages()
+{
+   return (!input_error_frame_error_messages.empty());
+}
+
 void SoftwareKeyboard::validate_and_submit_form()
 {
    std::string sanitized_string = result_string;

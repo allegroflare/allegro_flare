@@ -421,6 +421,12 @@ functions:
       return;
 
 
+  - name: has_input_error_frame_error_messages
+    type: bool
+    body: |
+      return (!input_error_frame_error_messages.empty());
+
+
   - name: validate_and_submit_form
     private: true
     body: |
