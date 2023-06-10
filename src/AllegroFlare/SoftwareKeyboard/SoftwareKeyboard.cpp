@@ -475,7 +475,7 @@ void SoftwareKeyboard::validate_and_submit_form()
    if (sanitized_string.empty())
    {
       // TODO: show some error feedback that a name must be entered
-      show_input_error_frame({ "Cannot be blank" });
+      show_input_error_frame({ "cannot be blank" });
       emit_bonk_sound_effect();
    }
    else
@@ -655,7 +655,7 @@ ALLEGRO_COLOR SoftwareKeyboard::build_cursor_color()
 ALLEGRO_COLOR SoftwareKeyboard::build_input_error_frame_color()
 {
    ALLEGRO_COLOR color_a = al_color_name("crimson");
-   ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
+   ALLEGRO_COLOR color_b = al_color_name("darkred");
    float speed_multiplier = 0.9;
    float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
    return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
@@ -686,7 +686,6 @@ void SoftwareKeyboard::draw_input_error_frame(float x, float y, float w, float h
       ALLEGRO_COLOR error_messages_text_color = al_color_name("crimson");
       ALLEGRO_FONT *error_messages_font = obtain_error_messages_font();
       std::string comma_joined_error_messages = join(input_error_frame_error_messages, ", ");
-      // TODO: Render the text
       al_draw_text(
          error_messages_font,
          error_messages_text_color,

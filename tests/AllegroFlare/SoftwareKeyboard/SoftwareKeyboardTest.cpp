@@ -325,7 +325,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
    software_keyboard.set_font_name("Lora-MediumItalic.ttf");
 
-   software_keyboard.show_input_error_frame();
+   software_keyboard.show_input_error_frame({ "cannot be blank" });
 
    // Render
    clear();
