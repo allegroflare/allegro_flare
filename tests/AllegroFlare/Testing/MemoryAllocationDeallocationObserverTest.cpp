@@ -37,7 +37,7 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest, when_active_
 
 
 TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
-   output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_allocation_occurs)
+   FLAKEY__output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_allocation_occurs)
 {
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver observer;
    std::mutex mutex;
@@ -58,7 +58,7 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
 
 
 TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
-   output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_deallocation_occurs)
+   FLAKEY__output_memory_event_logs_enabled__when_true__will_output_to_cout_when_an_deallocation_occurs)
 {
    AllegroFlare::Testing::MemoryAllocationDeallocationObserver observer;
    int *var = new int(3);
