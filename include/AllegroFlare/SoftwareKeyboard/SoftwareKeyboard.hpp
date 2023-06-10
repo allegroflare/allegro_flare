@@ -63,6 +63,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR build_cursor_color();
          ALLEGRO_COLOR build_input_error_frame_color();
          void draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f);
+         void draw_cursor_underline(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f);
          void draw_input_error_frame(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f);
          void draw_cursor();
          void draw_keyboard_backfill_and_frame();

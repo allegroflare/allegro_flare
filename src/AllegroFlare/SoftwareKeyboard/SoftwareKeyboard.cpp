@@ -631,7 +631,9 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
          std::string current_key_name = infer_current_key_name();
 
          // draw the character that is currently selected by the cursor
-         bool show_currently_selected_character_in_the_input_box = true;
+         // TODO: Add this (show_currently_selected_character_in_the_input_box) as a configurable option
+         // TODO: Add visual test for this option
+         bool show_currently_selected_character_in_the_input_box = false;
          if (show_currently_selected_character_in_the_input_box)
          {
             if (current_key_name == "BACKSPACE") current_key_name = "<";
@@ -649,10 +651,29 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
             }
          }
 
-         // draw the cursor box
+         // TODO: Add these (drawing_cursor_box, drawing_cursor_underline) as configurable options
+         // TODO: Add visual test for these options
+         bool drawing_cursor_box = false;
+         bool drawing_cursor_underline = true;
+
+         // TODO: remove this validation if (drawing_cursor_box, drawing_cursor_underline) are added as options
+         if (drawing_cursor_box == drawing_cursor_underline)
+         {
+            throw std::runtime_error("cannot draw both or neither");
+         }
+
          if (!(current_key_name == "OK" || current_key_name == "<"))
          {
-            draw_cursor_rectangle(x_cursor, y, box_width, box_height);
+            if (drawing_cursor_box)
+            {
+               // draw the text input cursor (box)
+               draw_cursor_rectangle(x_cursor, y, box_width, box_height);
+            }
+            if (drawing_cursor_underline)
+            {
+               // draw the text input cursor (underline)
+               draw_cursor_underline(x_cursor, y, box_width, box_height);
+            }
          }
       }
 
@@ -698,6 +719,16 @@ void SoftwareKeyboard::draw_cursor_rectangle(float x, float y, float w, float h)
    float thickness = 6.0;
 
    al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
+   return;
+}
+
+void SoftwareKeyboard::draw_cursor_underline(float x, float y, float w, float h)
+{
+   ALLEGRO_COLOR color = build_cursor_color();
+   float thickness = 6.0;
+
+   // TODO: Consider adding rounded line caps
+   al_draw_line(x, y+h, x+w, y+h, color, thickness);
    return;
 }
 
