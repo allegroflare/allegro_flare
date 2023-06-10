@@ -152,7 +152,6 @@ TEST_F(AllegroFlare_Elements_LevelSelectTest,
 
 TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
    activate_selected_menu_option__will_emit_an_ALLEGRO_FLARE_EVENT_SELECT_LEVEL_with_the_expected_values)
-   // TODO: this test
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    ASSERT_NE(nullptr, event_queue);
@@ -171,13 +170,14 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
 
    ALLEGRO_EVENT event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &event));
-   std::string *value = nullptr;
 
    EXPECT_EQ(ALLEGRO_FLARE_EVENT_SELECT_LEVEL, event.any.type);
    ASSERT_NE(nullptr, (void *)event.user.data1);
    EXPECT_EQ("level1", *(std::string*)(void*)event.user.data1);
 
-   delete value;
+   // TODO: Locate other tests that do not include this line to unregister the event source. Without it,
+   // tests can be leaky test.
+   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
 }
 
 
