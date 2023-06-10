@@ -182,6 +182,9 @@ documentation:
   - todos:
       - Find a more technically proper name for "cursor_reposition_multiplier", "DEFAULT_CURSOR_REPOSITION_MULTIPLIER"
       - Remove self listed as a dependency in dependencies
+      - Consider differences between "hiding" error frame (animating its disappearance), and making it disappear
+        instantly. Some cases (for example on reset()) may want it to disappear, while other cases (in use), may want
+        it to animate its disappearance.
 
 
 functions:
