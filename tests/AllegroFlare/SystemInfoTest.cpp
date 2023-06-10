@@ -121,6 +121,8 @@ TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing
       );
    bool is_match = std::regex_search(actual_release, release_regex);
    EXPECT_TRUE(is_match);
+   // TODO: Use EXPECT_THAT with ::testing::MatchesRegex, e.g.:
+   //EXPECT_THAT(actual_stdout, ::testing::MatchesRegex("delete: .*"));
 #else
    throw std::runtime_error("There is no test data for this platform");
 #endif
