@@ -628,20 +628,25 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
 
       if (i == result_string.size())
       {
-         // draw the character that is currently selected by the cursor
          std::string current_key_name = infer_current_key_name();
-         if (current_key_name == "BACKSPACE") current_key_name = "<";
-         if (current_key_name.size() == 1)
+
+         // draw the character that is currently selected by the cursor
+         bool show_currently_selected_character_in_the_input_box = true;
+         if (show_currently_selected_character_in_the_input_box)
          {
-            ALLEGRO_COLOR cursor_color = build_cursor_color();
-            al_draw_text(
-               result_text_font,
-               cursor_color,
-               x_cursor + box_width * 0.5,
-               y + box_height*0.5 - font_hline_height,
-               ALLEGRO_ALIGN_CENTER,
-               current_key_name.c_str()
-            );
+            if (current_key_name == "BACKSPACE") current_key_name = "<";
+            if (current_key_name.size() == 1)
+            {
+               ALLEGRO_COLOR cursor_color = build_cursor_color();
+               al_draw_text(
+                  result_text_font,
+                  cursor_color,
+                  x_cursor + box_width * 0.5,
+                  y + box_height*0.5 - font_hline_height,
+                  ALLEGRO_ALIGN_CENTER,
+                  current_key_name.c_str()
+               );
+            }
          }
 
          // draw the cursor box
