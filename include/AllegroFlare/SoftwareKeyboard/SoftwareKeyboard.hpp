@@ -53,6 +53,7 @@ namespace AllegroFlare
          std::string bonk_sound_effect_identifier;
          std::string key_click_sound_effect_identifier;
          std::string erase_sound_effect_identifier;
+         void validate_and_submit_form();
          void update_cursor_destination();
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();

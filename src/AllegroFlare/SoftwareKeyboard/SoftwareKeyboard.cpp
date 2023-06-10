@@ -396,18 +396,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    }
    else if (name == "OK")
    {
-      std::string sanitized_string = result_string;
-      sanitized_string = AllegroFlare::php::trim(sanitized_string);
-      
-      if (sanitized_string.empty())
-      {
-         // TODO: show some error feedback that a name must be entered
-         emit_bonk_sound_effect();
-      }
-      else
-      {
-         event_emitter->emit_game_event(AllegroFlare::GameEvent(event_to_emit_on_pressing_ok_key));
-      }
+      validate_and_submit_form(); // TODO: Split this into two functions
    }
    else
    {
@@ -433,6 +422,28 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
    jump_cursor_pos_to_index_of_key_name(name);
    update_cursor_destination();
    key.set_last_pressed_at(al_get_time());
+   return;
+}
+
+void SoftwareKeyboard::validate_and_submit_form()
+{
+   std::string sanitized_string = result_string;
+   sanitized_string = AllegroFlare::php::trim(sanitized_string);
+      
+   if (sanitized_string.empty())
+   {
+      // TODO: show some error feedback that a name must be entered
+      emit_bonk_sound_effect();
+   }
+   else
+   {
+      // emit the event
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(event_to_emit_on_pressing_ok_key));
+
+      // call the callback
+      if (on_ok_callback_func) on_ok_callback_func(this, on_ok_callback_func_user_data);
+   }
+
    return;
 }
 
