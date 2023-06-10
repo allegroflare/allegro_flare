@@ -51,7 +51,7 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
 
    mutex.unlock();
 
-   EXPECT_THAT(actual_stdout, ::testing::MatchesRegex("new: .*"));
+   EXPECT_THAT(actual_stdout, ::testing::MatchesRegex("new: .*\n"));
 
    delete var;
 }
@@ -74,7 +74,7 @@ TEST(AllegroFlare_Testing_MemoryAllocationDeallocationObserverTest,
 
    mutex.unlock();
 
-   EXPECT_THAT(actual_stdout, ::testing::MatchesRegex("delete: .*"));
+   EXPECT_THAT(actual_stdout, ::testing::MatchesRegex("delete: .*\n"));
 }
 
 
