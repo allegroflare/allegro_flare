@@ -116,6 +116,10 @@ properties:
     type: AllegroFlare::Vec2D
     init_with: '80, 80'
 
+  - name: showing_input_error_frame
+    type: bool
+    init_with: false
+
   - name: bonk_sound_effect_identifier
     type: std::string
     init_with: DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER
@@ -475,8 +479,8 @@ functions:
     body: |
       float box_width = 50;
       float box_height = 90;
-      float box_spacing_x = 60;
-      float calculated_width = num_permitted_chars * box_spacing_x; // TODO: this is not 100% accurate
+      float box_spacing_x = 10;
+      float calculated_width = calculate_spaced_elements_width(num_permitted_chars, box_width, box_spacing_x);
       float x = 1920/2 - calculated_width / 2;
       float y = 1920/12*2 - 120;
       ALLEGRO_COLOR box_color = AllegroFlare::color::color(ALLEGRO_COLOR{0.25, 0.25, 0.25, 0.25}, 0.5);
@@ -528,7 +532,19 @@ functions:
             }
          }
 
-         x_cursor += box_spacing_x;
+         x_cursor += (box_width + box_spacing_x);
+      }
+
+      bool showing_input_error_frame = false;
+      if (showing_input_error_frame)
+      {
+         float frame_padding = 12.0f;
+         draw_input_error_frame(
+            x-frame_padding,
+            y-frame_padding,
+            calculated_width+frame_padding*2,
+            box_height+frame_padding*2
+         );
       }
 
       return;
@@ -543,6 +559,25 @@ functions:
       float speed_multiplier = 0.9;
       float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
       return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
+    body_dependency_symbols:
+      - fmod
+      - AllegroFlare::Color
+      - AllegroFlare::interpolator
+
+
+  - name: build_input_error_frame_color
+    private: true
+    type: ALLEGRO_COLOR
+    body: |
+      ALLEGRO_COLOR color_a = al_color_name("crimson");
+      ALLEGRO_COLOR color_b = al_color_name("firebrick");
+      float speed_multiplier = 0.9;
+      float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
+      return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
+    body_dependency_symbols:
+      - fmod
+      - AllegroFlare::Color
+      - AllegroFlare::interpolator
 
 
   - name: draw_cursor_rectangle
@@ -561,7 +596,6 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      // color
       ALLEGRO_COLOR color = build_cursor_color();
       float roundness = 8;
       float thickness = 6.0;
@@ -569,9 +603,33 @@ functions:
       al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
       return;
     body_dependency_symbols:
-      - fmod
-      - AllegroFlare::Color
-      - AllegroFlare::interpolator
+      - al_draw_rounded_rectangle
+
+
+  - name: draw_input_error_frame
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: w
+        type: float
+        default_argument: 0.0f
+      - name: h
+        type: float
+        default_argument: 0.0f
+    body: |
+      ALLEGRO_COLOR color = build_input_error_frame_color();
+      float roundness = 8;
+      float thickness = 6.0;
+
+      al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
+      return;
+    body_dependency_symbols:
+      - al_draw_rounded_rectangle
 
 
   - name: draw_cursor
@@ -1225,6 +1283,32 @@ functions:
       return result;
 
 
+  - name: calculate_spaced_elements_width
+    type: float
+    static: true
+    parameters:
+      - name: num_elements
+        type: int
+        default_argument: 0
+      - name: element_width
+        type: float
+        default_argument: 0.0f
+      - name: element_spacing
+        type: float
+        default_argument: 0.0f
+    guards: [ (num_elements >= 0) ]
+    body: |
+      // TODO: Test this function
+      // TODO: Include this function in a new class that specializes in working with layouts
+
+      // When there are no elements, return 0
+      if (num_elements == 0) return 0;
+
+      // Calculate the total width of the boxes and spacing
+      float total_width = (num_elements * element_width) + ((num_elements - 1) * element_spacing);
+      return total_width;
+
+
 dependencies:
 
 
@@ -1262,5 +1346,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard
     headers: [ AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
 
 

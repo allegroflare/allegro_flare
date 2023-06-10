@@ -944,7 +944,8 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingText",

@@ -42,6 +42,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , on_ok_callback_func_user_data(nullptr)
    , cursor_location({})
    , cursor_size(80, 80)
+   , showing_input_error_frame(false)
    , bonk_sound_effect_identifier(DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER)
    , key_click_sound_effect_identifier(DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER)
    , erase_sound_effect_identifier(DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER)
@@ -530,8 +531,8 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
 {
    float box_width = 50;
    float box_height = 90;
-   float box_spacing_x = 60;
-   float calculated_width = num_permitted_chars * box_spacing_x; // TODO: this is not 100% accurate
+   float box_spacing_x = 10;
+   float calculated_width = calculate_spaced_elements_width(num_permitted_chars, box_width, box_spacing_x);
    float x = 1920/2 - calculated_width / 2;
    float y = 1920/12*2 - 120;
    ALLEGRO_COLOR box_color = AllegroFlare::color::color(ALLEGRO_COLOR{0.25, 0.25, 0.25, 0.25}, 0.5);
@@ -583,7 +584,19 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
          }
       }
 
-      x_cursor += box_spacing_x;
+      x_cursor += (box_width + box_spacing_x);
+   }
+
+   bool showing_input_error_frame = false;
+   if (showing_input_error_frame)
+   {
+      float frame_padding = 12.0f;
+      draw_input_error_frame(
+         x-frame_padding,
+         y-frame_padding,
+         calculated_width+frame_padding*2,
+         box_height+frame_padding*2
+      );
    }
 
    return;
@@ -598,10 +611,28 @@ ALLEGRO_COLOR SoftwareKeyboard::build_cursor_color()
    return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
 }
 
+ALLEGRO_COLOR SoftwareKeyboard::build_input_error_frame_color()
+{
+   ALLEGRO_COLOR color_a = al_color_name("crimson");
+   ALLEGRO_COLOR color_b = al_color_name("firebrick");
+   float speed_multiplier = 0.9;
+   float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
+   return AllegroFlare::color::mix(color_a, color_b, 0.7 * mix_factor);
+}
+
 void SoftwareKeyboard::draw_cursor_rectangle(float x, float y, float w, float h)
 {
-   // color
    ALLEGRO_COLOR color = build_cursor_color();
+   float roundness = 8;
+   float thickness = 6.0;
+
+   al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
+   return;
+}
+
+void SoftwareKeyboard::draw_input_error_frame(float x, float y, float w, float h)
+{
+   ALLEGRO_COLOR color = build_input_error_frame_color();
    float roundness = 8;
    float thickness = 6.0;
 
@@ -1275,6 +1306,26 @@ tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Softw
 
    };
    return result;
+}
+
+float SoftwareKeyboard::calculate_spaced_elements_width(int num_elements, float element_width, float element_spacing)
+{
+   if (!((num_elements >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[SoftwareKeyboard::calculate_spaced_elements_width]: error: guard \"(num_elements >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SoftwareKeyboard::calculate_spaced_elements_width: error: guard \"(num_elements >= 0)\" not met");
+   }
+   // TODO: Test this function
+   // TODO: Include this function in a new class that specializes in working with layouts
+
+   // When there are no elements, return 0
+   if (num_elements == 0) return 0;
+
+   // Calculate the total width of the boxes and spacing
+   float total_width = (num_elements * element_width) + ((num_elements - 1) * element_spacing);
+   return total_width;
 }
 
 

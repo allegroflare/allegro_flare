@@ -236,7 +236,8 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    // Setup keyboard to use the default keys
    software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
    // Set some valid input data
-   software_keyboard.set_result_string("Foobar");
+   std::string user_input_string = "User input";
+   software_keyboard.set_result_string(user_input_string);
 
    std::pair<std::string, int> my_on_ok_callback_func_user_data = {"", 0};
    software_keyboard.set_on_ok_callback_func(my_on_ok_callback_func);
@@ -245,7 +246,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    software_keyboard.press_key_by_name("OK");
 
    // Assert that the callback was called, and was passed and processed the expected data
-   EXPECT_EQ("Foobar", my_on_ok_callback_func_user_data.first);
+   EXPECT_EQ(user_input_string, my_on_ok_callback_func_user_data.first);
    EXPECT_EQ(1, my_on_ok_callback_func_user_data.second);
 
    // teardown

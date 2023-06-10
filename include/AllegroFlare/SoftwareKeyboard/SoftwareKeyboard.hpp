@@ -50,6 +50,7 @@ namespace AllegroFlare
          void* on_ok_callback_func_user_data;
          AllegroFlare::Vec2D cursor_location;
          AllegroFlare::Vec2D cursor_size;
+         bool showing_input_error_frame;
          std::string bonk_sound_effect_identifier;
          std::string key_click_sound_effect_identifier;
          std::string erase_sound_effect_identifier;
@@ -58,7 +59,9 @@ namespace AllegroFlare
          std::string infer_current_key_name();
          void draw_result_string_and_boxes();
          ALLEGRO_COLOR build_cursor_color();
+         ALLEGRO_COLOR build_input_error_frame_color();
          void draw_cursor_rectangle(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f);
+         void draw_input_error_frame(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f);
          void draw_cursor();
          void draw_keyboard_backfill_and_frame();
          bool key_exists(std::string identifier="[unset-identifier]");
@@ -121,6 +124,7 @@ namespace AllegroFlare
          void move_cursor_down();
          void move_cursor_up();
          static tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();
+         static float calculate_spaced_elements_width(int num_elements=0, float element_width=0.0f, float element_spacing=0.0f);
       };
    }
 }
