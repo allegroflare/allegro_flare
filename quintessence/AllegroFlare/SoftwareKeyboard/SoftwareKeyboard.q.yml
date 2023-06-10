@@ -85,13 +85,13 @@ properties:
     getter: true
     setter: true
 
-  - name: on_ok_callback_func
+  - name: on_submit_callback_func
     type: std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)>
     init_with: ''
     getter: true
     setter: true
 
-  - name: on_ok_callback_func_user_data
+  - name: on_submit_callback_func_user_data
     type: void*
     init_with: nullptr
     getter: true
@@ -445,7 +445,7 @@ functions:
          event_emitter->emit_game_event(AllegroFlare::GameEvent(event_to_emit_on_pressing_ok_key));
 
          // call the callback
-         if (on_ok_callback_func) on_ok_callback_func(this, on_ok_callback_func_user_data);
+         if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
       }
 
       return;

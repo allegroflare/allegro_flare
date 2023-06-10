@@ -19,14 +19,14 @@ class AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixt
 {};
 
 
-static void my_on_ok_callback_func(
+static void my_on_submit_callback_func(
       AllegroFlare::SoftwareKeyboard::SoftwareKeyboard *software_keyboard,
-      void *on_ok_callback_func_user_data=nullptr
+      void *on_submit_callback_func_user_data=nullptr
    )
 {
-   if (!on_ok_callback_func_user_data) std::runtime_error("test error");
+   if (!on_submit_callback_func_user_data) std::runtime_error("test error");
 
-   std::pair<std::string, int> &as_my_user_data = *(std::pair<std::string, int>*)(on_ok_callback_func_user_data);
+   std::pair<std::string, int> &as_my_user_data = *(std::pair<std::string, int>*)(on_submit_callback_func_user_data);
    // This first value will represent the data captured from the keyboard:
    as_my_user_data.first = software_keyboard->get_result_string();
    // This second value will represent the call count
@@ -253,7 +253,7 @@ event_to_emit_on_pressing_ok_key)
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   press_key_by_name__when_pressing_the_OK_key__when_an_on_ok_callback_func_is_set__will_call_the_callback)
+   press_key_by_name__when_pressing_the_OK_key__when_an_on_submit_callback_func_is_set__will_call_the_callback)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;
@@ -267,15 +267,15 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    std::string user_input_string = "User input";
    software_keyboard.set_result_string(user_input_string);
 
-   std::pair<std::string, int> my_on_ok_callback_func_user_data = {"", 0};
-   software_keyboard.set_on_ok_callback_func(my_on_ok_callback_func);
-   software_keyboard.set_on_ok_callback_func_user_data(&my_on_ok_callback_func_user_data);
+   std::pair<std::string, int> my_on_submit_callback_func_user_data = {"", 0};
+   software_keyboard.set_on_submit_callback_func(my_on_submit_callback_func);
+   software_keyboard.set_on_submit_callback_func_user_data(&my_on_submit_callback_func_user_data);
 
    software_keyboard.press_key_by_name("OK");
 
    // Assert that the callback was called, and was passed and processed the expected data
-   EXPECT_EQ(user_input_string, my_on_ok_callback_func_user_data.first);
-   EXPECT_EQ(1, my_on_ok_callback_func_user_data.second);
+   EXPECT_EQ(user_input_string, my_on_submit_callback_func_user_data.first);
+   EXPECT_EQ(1, my_on_submit_callback_func_user_data.second);
 
    // teardown
    al_destroy_event_queue(event_queue);
