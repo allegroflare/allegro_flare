@@ -23,7 +23,7 @@ namespace AllegroFlare
       class SoftwareKeyboard
       {
       public:
-         static constexpr const char* DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY = (char*)"submit_software_keyboard";
+         static constexpr const char* DEFAULT_EVENT_TO_EMIT_ON_PRESSING_SUBMIT_KEY = (char*)"submit_software_keyboard";
          static constexpr const char* DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER = (char*)"ui-input-bonk-01.ogg";
          static constexpr const char* DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER = (char*)"menu-click-01.ogg";
          static constexpr const char* DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER = (char*)"delete-item-01.ogg";
@@ -45,7 +45,7 @@ namespace AllegroFlare
          std::string prompt_text;
          std::string result_string;
          std::size_t num_permitted_chars;
-         std::string event_to_emit_on_pressing_ok_key;
+         std::string event_to_emit_on_pressing_submit_key;
          std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> on_submit_callback_func;
          void* on_submit_callback_func_user_data;
          AllegroFlare::Vec2D cursor_location;
@@ -90,7 +90,7 @@ namespace AllegroFlare
          void set_prompt_text(std::string prompt_text);
          void set_result_string(std::string result_string);
          void set_num_permitted_chars(std::size_t num_permitted_chars);
-         void set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key);
+         void set_event_to_emit_on_pressing_submit_key(std::string event_to_emit_on_pressing_submit_key);
          void set_on_submit_callback_func(std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> on_submit_callback_func);
          void set_on_submit_callback_func_user_data(void* on_submit_callback_func_user_data);
          void set_input_error_frame_error_messages(std::vector<std::string> input_error_frame_error_messages);
@@ -105,7 +105,7 @@ namespace AllegroFlare
          std::string get_prompt_text() const;
          std::string get_result_string() const;
          std::size_t get_num_permitted_chars() const;
-         std::string get_event_to_emit_on_pressing_ok_key() const;
+         std::string get_event_to_emit_on_pressing_submit_key() const;
          std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)> get_on_submit_callback_func() const;
          void* get_on_submit_callback_func_user_data() const;
          bool get_showing_input_error_frame() const;

@@ -36,7 +36,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , prompt_text("Enter your name")
    , result_string({})
    , num_permitted_chars(12)
-   , event_to_emit_on_pressing_ok_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY)
+   , event_to_emit_on_pressing_submit_key(DEFAULT_EVENT_TO_EMIT_ON_PRESSING_SUBMIT_KEY)
    , on_submit_callback_func()
    , on_submit_callback_func_user_data(nullptr)
    , cursor_location({})
@@ -92,9 +92,9 @@ void SoftwareKeyboard::set_num_permitted_chars(std::size_t num_permitted_chars)
 }
 
 
-void SoftwareKeyboard::set_event_to_emit_on_pressing_ok_key(std::string event_to_emit_on_pressing_ok_key)
+void SoftwareKeyboard::set_event_to_emit_on_pressing_submit_key(std::string event_to_emit_on_pressing_submit_key)
 {
-   this->event_to_emit_on_pressing_ok_key = event_to_emit_on_pressing_ok_key;
+   this->event_to_emit_on_pressing_submit_key = event_to_emit_on_pressing_submit_key;
 }
 
 
@@ -182,9 +182,9 @@ std::size_t SoftwareKeyboard::get_num_permitted_chars() const
 }
 
 
-std::string SoftwareKeyboard::get_event_to_emit_on_pressing_ok_key() const
+std::string SoftwareKeyboard::get_event_to_emit_on_pressing_submit_key() const
 {
-   return event_to_emit_on_pressing_ok_key;
+   return event_to_emit_on_pressing_submit_key;
 }
 
 
@@ -506,7 +506,7 @@ void SoftwareKeyboard::validate_and_submit_form()
    else
    {
       // emit the event
-      event_emitter->emit_game_event(AllegroFlare::GameEvent(event_to_emit_on_pressing_ok_key));
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(event_to_emit_on_pressing_submit_key));
 
       // call the callback
       if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
