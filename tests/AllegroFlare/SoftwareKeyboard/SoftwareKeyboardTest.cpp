@@ -199,17 +199,12 @@ event_to_emit_on_pressing_ok_key)
 
    // TODO: Grab event and extract data
    EXPECT_EQ(ALLEGRO_FLARE_EVENT_GAME_EVENT, emitted_event.type);
-
-   //AllegroFlare::GameEvent *data = static_cast<AllegroFlare::GameEvent *>((void *)event.user.data1);
-   //if (!data) throw std::runtime_error("Unexpected GameEvent error");
-   //if (data->is_type(
-      //AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
-   //)) abort = true;
-
-   //EXPECT_EQ(ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT, emitted_event.type);
-   //std::string *emitted_event_data = (std::string *)emitted_event.user.data1;
-   //ASSERT_NE(nullptr, emitted_event_data);
-   //EXPECT_EQ("my-custom-sound-effect.ogg", *emitted_event_data);
+   AllegroFlare::GameEvent *game_event_data = static_cast<AllegroFlare::GameEvent *>((void *)emitted_event.user.data1);
+   if (!game_event_data) throw std::runtime_error("Unexpected GameEvent error");
+   EXPECT_EQ(
+      game_event_data->get_type(),
+      AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
+   );
 
    // teardown
    al_destroy_event_queue(event_queue);
