@@ -178,11 +178,41 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 }
 
 
-TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
    press_key_by_name__when_pressing_the_OK_key__will_emit_an_AllegroFlare_GameEvent_with_a_type_\
 event_to_emit_on_pressing_ok_key)
 {
-   // TODO
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
+   software_keyboard.initialize();
+   // Setup keyboard to use the default keys
+   software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
+
+   software_keyboard.set_result_string("Foobar");
+   software_keyboard.press_key_by_name("OK");
+
+   ALLEGRO_EVENT emitted_event;
+   ASSERT_EQ(true, al_peek_next_event(event_queue, &emitted_event));
+
+   // TODO: Grab event and extract data
+   EXPECT_EQ(ALLEGRO_FLARE_EVENT_GAME_EVENT, emitted_event.type);
+
+   //AllegroFlare::GameEvent *data = static_cast<AllegroFlare::GameEvent *>((void *)event.user.data1);
+   //if (!data) throw std::runtime_error("Unexpected GameEvent error");
+   //if (data->is_type(
+      //AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
+   //)) abort = true;
+
+   //EXPECT_EQ(ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT, emitted_event.type);
+   //std::string *emitted_event_data = (std::string *)emitted_event.user.data1;
+   //ASSERT_NE(nullptr, emitted_event_data);
+   //EXPECT_EQ("my-custom-sound-effect.ogg", *emitted_event_data);
+
+   // teardown
+   al_destroy_event_queue(event_queue);
 }
 
 
