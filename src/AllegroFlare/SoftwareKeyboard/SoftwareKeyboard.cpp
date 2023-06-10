@@ -382,6 +382,8 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SoftwareKeyboard::press_key_by_name: error: guard \"initialized\" not met");
    }
+   bool this_change_should_dismiss_the_input_error_frame = false;
+
    if (!key_exists(name))
    {
       // TODO: make this sound effect an option, or, output a warning
@@ -397,34 +399,45 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       if (result_string.empty())
       {
          // do nothing. E.g. do not allow starting a name with a space
+         show_input_error_frame({ "cannot start with a space" });
          emit_bonk_sound_effect();
       }
       else if (result_string.back() == ' ')
       {
          // do nothing. E.g. do not allow multiple sequential spaces in a name
+         show_input_error_frame({ "cannot have multiple spaces" });
          emit_bonk_sound_effect();
       }
       else
       {
          string_to_append = " ";
+         this_change_should_dismiss_the_input_error_frame = true;
       }
    }
    else if (name == "BACKSPACE")
    {
-      if (result_string.empty()) emit_bonk_sound_effect();
+      if (result_string.empty())
+      {
+         emit_bonk_sound_effect();
+         this_change_should_dismiss_the_input_error_frame = true;
+      }
       else
       {
          result_string.pop_back();
          emit_erase_sound_effect();
+         this_change_should_dismiss_the_input_error_frame = true;
       }
    }
    else if (name == "OK")
    {
+      // TODO: Work out logic to infer if the input error frame shoudl be dismissed or not
+      //this_change_should_dismiss_the_input_error_frame = true;
       validate_and_submit_form(); // TODO: Split this into two functions
    }
    else
    {
       // assume the "name" of the key is the same as the character we want to append
+      this_change_should_dismiss_the_input_error_frame = true;
       string_to_append = name;
    }
 
@@ -434,18 +447,21 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       if (result_string.size() >= num_permitted_chars)
       {
          emit_bonk_sound_effect();
+         this_change_should_dismiss_the_input_error_frame = true;
       }
       else
       {
          // TODO: ensure concating "string_to_append" will not result in a result_string that is longer than limit
          result_string += string_to_append;
          emit_key_click_sound_effect();
+         this_change_should_dismiss_the_input_error_frame = true;
       }
    }
 
    jump_cursor_pos_to_index_of_key_name(name);
    update_cursor_destination();
    key.set_last_pressed_at(al_get_time());
+   if (this_change_should_dismiss_the_input_error_frame) clear_input_error_frame();
    return;
 }
 
