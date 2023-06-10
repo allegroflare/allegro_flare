@@ -69,7 +69,6 @@ TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing
 
 // TODO: Update the WIN32 expansion of this test to work in the same way as the MacOS version
 #ifdef _WIN32
-   AllegroFlare::SystemInfo system_info;
    std::vector<std::string> expected_possible_versions = {
       // Mark's Windows Laptop:
       "10.0",
