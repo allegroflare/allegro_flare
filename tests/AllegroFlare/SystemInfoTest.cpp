@@ -114,8 +114,8 @@ TEST(AllegroFlare_SystemInfoTest, get_release__will_return_a_string_representing
    // [ "22.4.0", "22.3.0", "22.5.0", "21.6.0" ]
    std::regex release_regex(
            "^"
-         + non_zero_starting_digit + "\."
-         + non_zero_starting_digit + "\."
+         + non_zero_starting_digit + "\\."
+         + non_zero_starting_digit + "\\."
          + non_zero_starting_digit
          + "$"
       );
