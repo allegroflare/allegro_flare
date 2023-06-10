@@ -73,6 +73,7 @@ namespace AllegroFlare
          ALLEGRO_FONT* obtain_keyboard_font();
          ALLEGRO_FONT* obtain_prompt_text_font();
          ALLEGRO_FONT* obtain_result_text_font();
+         ALLEGRO_FONT* obtain_error_messages_font();
          std::string join(std::vector<std::string> tokens={}, std::string delimiter=", ");
 
       protected:

@@ -680,8 +680,22 @@ void SoftwareKeyboard::draw_input_error_frame(float x, float y, float w, float h
    al_draw_rounded_rectangle(x, y, x + w, y + h, roundness, roundness, color, thickness);
 
    // Draw the messages
-   std::string comma_joined_error_messages = join(input_error_frame_error_messages, ", ");
-   // TODO: Render the text
+   bool there_are_error_messages = !input_error_frame_error_messages.empty();
+   if (there_are_error_messages)
+   {
+      ALLEGRO_COLOR error_messages_text_color = al_color_name("crimson");
+      ALLEGRO_FONT *error_messages_font = obtain_error_messages_font();
+      std::string comma_joined_error_messages = join(input_error_frame_error_messages, ", ");
+      // TODO: Render the text
+      al_draw_text(
+         error_messages_font,
+         error_messages_text_color,
+         x+w,
+         y+h,
+         ALLEGRO_ALIGN_RIGHT,
+         comma_joined_error_messages.c_str()
+      );
+   }
 
    return;
 }
@@ -892,6 +906,20 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_result_text_font()
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << (font_size - 20);
+   return font_bin->auto_get(composite_font_str.str());
+}
+
+ALLEGRO_FONT* SoftwareKeyboard::obtain_error_messages_font()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[SoftwareKeyboard::obtain_error_messages_font]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SoftwareKeyboard::obtain_error_messages_font: error: guard \"initialized\" not met");
+   }
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << (font_size);
    return font_bin->auto_get(composite_font_str.str());
 }
 
