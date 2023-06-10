@@ -40,7 +40,6 @@ namespace AllegroFlare
          AllegroFlare::Vec2D cursor_destination;
          AllegroFlare::Vec2D cursor_size_destination;
          float cursor_reposition_multiplier;
-         bool initialized;
          bool show_rectangle_outline_on_keys;
          AllegroFlare::Placement2D keyboard_placement;
          std::string prompt_text;
@@ -56,6 +55,7 @@ namespace AllegroFlare
          std::string bonk_sound_effect_identifier;
          std::string key_click_sound_effect_identifier;
          std::string erase_sound_effect_identifier;
+         bool initialized;
          void validate_and_submit_form();
          void update_cursor_destination();
          std::string infer_current_key_name();
@@ -101,7 +101,6 @@ namespace AllegroFlare
          std::string get_font_name() const;
          int get_font_size() const;
          float get_cursor_reposition_multiplier() const;
-         bool get_initialized() const;
          std::string get_prompt_text() const;
          std::string get_result_string() const;
          std::size_t get_num_permitted_chars() const;
@@ -113,6 +112,7 @@ namespace AllegroFlare
          std::string get_bonk_sound_effect_identifier() const;
          std::string get_key_click_sound_effect_identifier() const;
          std::string get_erase_sound_effect_identifier() const;
+         bool get_initialized() const;
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void reset();

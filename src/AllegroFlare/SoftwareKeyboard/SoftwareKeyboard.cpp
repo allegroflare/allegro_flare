@@ -31,7 +31,6 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , cursor_destination({})
    , cursor_size_destination(80, 80)
    , cursor_reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
-   , initialized(false)
    , show_rectangle_outline_on_keys(false)
    , keyboard_placement({})
    , prompt_text("Enter your name")
@@ -47,6 +46,7 @@ SoftwareKeyboard::SoftwareKeyboard(AllegroFlare::EventEmitter* event_emitter, Al
    , bonk_sound_effect_identifier(DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER)
    , key_click_sound_effect_identifier(DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER)
    , erase_sound_effect_identifier(DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER)
+   , initialized(false)
 {
 }
 
@@ -164,12 +164,6 @@ float SoftwareKeyboard::get_cursor_reposition_multiplier() const
 }
 
 
-bool SoftwareKeyboard::get_initialized() const
-{
-   return initialized;
-}
-
-
 std::string SoftwareKeyboard::get_prompt_text() const
 {
    return prompt_text;
@@ -233,6 +227,12 @@ std::string SoftwareKeyboard::get_key_click_sound_effect_identifier() const
 std::string SoftwareKeyboard::get_erase_sound_effect_identifier() const
 {
    return erase_sound_effect_identifier;
+}
+
+
+bool SoftwareKeyboard::get_initialized() const
+{
+   return initialized;
 }
 
 

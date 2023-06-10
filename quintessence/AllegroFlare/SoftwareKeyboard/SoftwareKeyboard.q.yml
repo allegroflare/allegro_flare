@@ -53,11 +53,6 @@ properties:
     getter: true
     setter: false
 
-  - name: initialized
-    type: bool
-    init_with: false
-    getter: true
-
   - name: show_rectangle_outline_on_keys
     type: bool
     init_with: false
@@ -89,12 +84,6 @@ properties:
     init_with: DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
     getter: true
     setter: true
-
-  - name: DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
-    type: const char*
-    constexpr: true
-    static: true
-    init_with: '(char*)"submit_software_keyboard"'
 
   - name: on_ok_callback_func
     type: std::function<void(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*, void*)>
@@ -133,29 +122,40 @@ properties:
     getter: true
     setter: true
 
-  - name: DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER
-    type: const char*
-    constexpr: true
-    static: true
-    init_with: '(char*)"ui-input-bonk-01.ogg"'
-
   - name: key_click_sound_effect_identifier
     type: std::string
     init_with: DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER
     getter: true
     setter: true
    
-  - name: DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER
-    type: const char*
-    constexpr: true
-    static: true
-    init_with: '(char*)"menu-click-01.ogg"'
-
   - name: erase_sound_effect_identifier
     type: std::string
     init_with: DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER
     getter: true
     setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: DEFAULT_EVENT_TO_EMIT_ON_PRESSING_OK_KEY
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '(char*)"submit_software_keyboard"'
+
+  - name: DEFAULT_BONK_SOUND_EFFECT_IDENTIFIER
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '(char*)"ui-input-bonk-01.ogg"'
+
+  - name: DEFAULT_KEY_CLICK_SOUND_EFFECT_IDENTIFIER
+    type: const char*
+    constexpr: true
+    static: true
+    init_with: '(char*)"menu-click-01.ogg"'
    
   - name: DEFAULT_ERASE_SOUND_EFFECT_IDENTIFIER
     type: const char*
