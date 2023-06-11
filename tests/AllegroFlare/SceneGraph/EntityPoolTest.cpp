@@ -19,7 +19,11 @@ public:
       result->set(tag);
       return result;
    }
-   AllegroFlare::SceneGraph::Entities::Base* create_entity(std::string name, std::string attribute, std::string parameter)
+   AllegroFlare::SceneGraph::Entities::Base* create_entity(
+         std::string name,
+         std::string attribute,
+         std::string parameter
+      )
    {
       AllegroFlare::SceneGraph::Entities::Base* result = new AllegroFlare::SceneGraph::Entities::Base();
       result->set("name", name);
