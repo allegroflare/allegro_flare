@@ -255,8 +255,9 @@ void CharacterNameInput::key_char_func(ALLEGRO_EVENT* event)
 
       case ALLEGRO_KEY_ENTER:
          {
+            // TODO: Test this case
             bool shift = (event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT);
-            if (shift) { software_keyboard.press_key_by_name("OK"); }
+            if (shift) { software_keyboard.press_key_by_name("SUBMIT"); }
             else { software_keyboard.press_key_under_cursor(); }
          }
       break;
