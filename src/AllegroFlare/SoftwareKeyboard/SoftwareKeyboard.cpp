@@ -428,7 +428,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
          this_change_should_dismiss_the_input_error_frame = true;
       }
    }
-   else if (name == "OK")
+   else if (name == "SUBMIT")
    {
       // TODO: Work out logic to infer if the input error frame shoudl be dismissed or not
       //this_change_should_dismiss_the_input_error_frame = true;
@@ -662,7 +662,7 @@ void SoftwareKeyboard::draw_result_string_and_boxes()
             throw std::runtime_error("cannot draw both or neither");
          }
 
-         if (!(current_key_name == "OK" || current_key_name == "<"))
+         if (!(current_key_name == "SUBMIT" || current_key_name == "<"))
          {
             if (drawing_cursor_box)
             {
@@ -1037,9 +1037,9 @@ void SoftwareKeyboard::move_cursor_down()
       { "6", "BACKSPACE" },
       { "7", "BACKSPACE" },
       { "8", "BACKSPACE" },
-      { "9", "OK" },
-      { ".", "OK" },
-      { "-", "OK" },
+      { "9", "SUBMIT" },
+      { ".", "SUBMIT" },
+      { "-", "SUBMIT" },
 
       // row 3
 
@@ -1114,7 +1114,7 @@ void SoftwareKeyboard::move_cursor_down()
 
       { "BACKSPACE", "0" },
       { "SPACE", "a" },
-      { "OK", "4" },
+      { "SUBMIT", "4" },
    };
 
    std::string current_key_name = infer_current_key_name();
@@ -1172,8 +1172,8 @@ void SoftwareKeyboard::move_cursor_up()
       { "1", "BACKSPACE" },
       { "2", "BACKSPACE" },
       { "3", "BACKSPACE" },
-      { "4", "OK" },
-      { "5", "OK" },
+      { "4", "SUBMIT" },
+      { "5", "SUBMIT" },
 
       // row 2
 
@@ -1271,7 +1271,7 @@ void SoftwareKeyboard::move_cursor_up()
 
       { "BACKSPACE", "6" },
       { "SPACE", "y" },
-      { "OK", "." },
+      { "SUBMIT", "." },
    };
 
    std::string current_key_name = infer_current_key_name();
@@ -1434,7 +1434,7 @@ tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Softw
 
      { "SPACE",     { "Space", right_edge - 900, calculated_dimentions.y-80, space_key_width, 80 } },
      { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimentions.y-80, backspace_key_width, 80 } },
-     { "OK",        { "OK", right_edge - 140, calculated_dimentions.y-80, submit_key_width, 80 } },
+     { "SUBMIT",    { "OK", right_edge - 140, calculated_dimentions.y-80, submit_key_width, 80 } },
 
    };
    return result;

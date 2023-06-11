@@ -220,7 +220,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   press_key_by_name__when_pressing_the_OK_key__will_emit_an_AllegroFlare_GameEvent_with_a_type_\
+   press_key_by_name__when_pressing_the_SUBMIT_key__will_emit_an_AllegroFlare_GameEvent_with_a_type_\
 event_to_emit_on_pressing_submit_key)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -233,7 +233,7 @@ event_to_emit_on_pressing_submit_key)
    software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
 
    software_keyboard.set_result_string("Foobar");
-   software_keyboard.press_key_by_name("OK");
+   software_keyboard.press_key_by_name("SUBMIT");
 
    ALLEGRO_EVENT emitted_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &emitted_event));
@@ -253,7 +253,7 @@ event_to_emit_on_pressing_submit_key)
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
-   press_key_by_name__when_pressing_the_OK_key__when_an_on_submit_callback_func_is_set__will_call_the_callback)
+   press_key_by_name__when_pressing_the_SUBMIT_key__when_an_on_submit_callback_func_is_set__will_call_the_callback)
 {
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;
@@ -271,7 +271,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    software_keyboard.set_on_submit_callback_func(my_on_submit_callback_func);
    software_keyboard.set_on_submit_callback_func_user_data(&my_on_submit_callback_func_user_data);
 
-   software_keyboard.press_key_by_name("OK");
+   software_keyboard.press_key_by_name("SUBMIT");
 
    // Assert that the callback was called, and was passed and processed the expected data
    EXPECT_EQ(user_input_string, my_on_submit_callback_func_user_data.first);
@@ -283,7 +283,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
 
 
 TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
-   press_key_by_name__when_pressing_the_OK_key__when_the_result_string_is_blank__will_not_emit_an_event)
+   press_key_by_name__when_pressing_the_SUBMIT_key__when_the_result_string_is_blank__will_not_emit_an_event)
 {
    // TODO
 }
@@ -325,7 +325,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
    software_keyboard.set_font_name("Lora-MediumItalic.ttf");
 
    // Input (with blank text)
-   software_keyboard.press_key_by_name("OK");
+   software_keyboard.press_key_by_name("SUBMIT");
 
    EXPECT_EQ(true, software_keyboard.get_showing_input_error_frame());
 }
@@ -444,7 +444,7 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFix
                case ALLEGRO_KEY_ENTER:
                   {
                      bool shift = (event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT);
-                     if (shift) { software_keyboard.press_key_by_name("OK"); }
+                     if (shift) { software_keyboard.press_key_by_name("SUBMIT"); }
                      else { software_keyboard.press_key_under_cursor(); }
                   }
                break;
