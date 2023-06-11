@@ -1309,9 +1309,9 @@ tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Softw
    float column_spacing = 450;
    AllegroFlare::Vec2D calculated_dimentions = calculate_boilerplate_keyboard_dimentions();
 
-   float space_width = 330;
-   float backspace_width = 330;
-   float ok_width = 140;
+   float space_key_width = 330;
+   float backspace_key_width = 330;
+   float submit_key_width = 140;
    float right_edge = calculated_dimentions.x;
 
    tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
@@ -1432,9 +1432,9 @@ tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Softw
 
      // bottom row
 
-     { "SPACE",     { "Space", right_edge - 900, calculated_dimentions.y-80, 330, 80 } },
-     { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimentions.y-80, 330, 80 } },
-     { "OK",        { "OK", right_edge - 140, calculated_dimentions.y-80, 140, 80 } },
+     { "SPACE",     { "Space", right_edge - 900, calculated_dimentions.y-80, space_key_width, 80 } },
+     { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimentions.y-80, backspace_key_width, 80 } },
+     { "OK",        { "OK", right_edge - 140, calculated_dimentions.y-80, submit_key_width, 80 } },
 
    };
    return result;
