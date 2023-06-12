@@ -412,7 +412,6 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       {
          string_to_append = " ";
          this_change_should_dismiss_the_input_error_frame = true;
-         // TODO: Emit keypress sound
       }
    }
    else if (name == "BACKSPACE")
