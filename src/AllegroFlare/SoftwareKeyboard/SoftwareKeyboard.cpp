@@ -412,6 +412,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       {
          string_to_append = " ";
          this_change_should_dismiss_the_input_error_frame = true;
+         // TODO: Emit keypress sound
       }
    }
    else if (name == "BACKSPACE")
@@ -433,6 +434,7 @@ void SoftwareKeyboard::press_key_by_name(std::string name)
       // TODO: Work out logic to infer if the input error frame shoudl be dismissed or not
       //this_change_should_dismiss_the_input_error_frame = true;
       validate_and_submit_form(); // TODO: Split this into two functions
+     // TODO: Emit keypress sound
    }
    else
    {
