@@ -45,6 +45,7 @@ namespace AllegroFlare
       void set_far_plane(float far_plane=100);
 
       void strafe_xy(float displacement=0.0f);
+      AllegroFlare::Vec3D get_viewing_direction();
    };
 }
 

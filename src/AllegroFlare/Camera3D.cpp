@@ -75,14 +75,8 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 {
    if (!surface) throw std::runtime_error("BBb");
 
-   // set the target bitmap
-   al_set_target_bitmap(surface);
 
-   // setup the render settings
-   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-   al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
-
+   // Build up our transform
 
    ALLEGRO_TRANSFORM t;
 
@@ -91,6 +85,15 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
    float mul = near_plane / zoom;
    float aspect_ratio = (float)al_get_bitmap_height(surface) / al_get_bitmap_width(surface);
    al_perspective_transform(&t, -1 * mul, aspect_ratio * mul, near_plane, 1 * mul, -aspect_ratio * mul, far_plane);
+
+
+   // set the target bitmap
+   al_set_target_bitmap(surface);
+
+   // setup the render settings
+   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+   al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
 
    al_use_projection_transform(&t);
 }
@@ -166,6 +169,19 @@ void Camera3D::strafe_xy(float displacement)
    position.x += move_vec.x * displacement;
    position.y += 0;
    position.z += move_vec.y * displacement;
+}
+
+
+AllegroFlare::Vec3D Camera3D::get_viewing_direction()
+{
+   ALLEGRO_TRANSFORM t;
+   position_transform(&t);
+   AllegroFlare::Vec3D stood_position(0, 0, 0); // TODO: Consider if this needs to be the stepout
+   AllegroFlare::Vec3D stood_viewing_direction(0, 0, -1);
+   al_transform_coordinates_3d(&t, &stood_position.x, &stood_position.y, &stood_position.z);
+   al_transform_coordinates_3d(&t, &stood_viewing_direction.x, &stood_viewing_direction.y, &stood_viewing_direction.z);
+   AllegroFlare::Vec3D viewing_direction = (stood_viewing_direction - stood_position).normalized();
+   return viewing_direction;
 }
 
 

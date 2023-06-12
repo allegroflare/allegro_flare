@@ -4,6 +4,7 @@
 #include <AllegroFlare/Camera3D.hpp>
 
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec3D.hpp>
 
 
 TEST(AllegroFlare_Camera3DTest, can_be_created_without_blowing_up)
@@ -94,6 +95,23 @@ TEST(AllegroFlare_Camera3DTest,
    al_destroy_display(display);
 
    al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Camera3DTest, get_viewing_direction__will_return_the_direction_that_the_camera_is_facing)
+{
+   // TODO: Add some rigorous tests for this function
+   AllegroFlare::Camera3D camera3d;
+
+   //camera3d.tilt = 0.0;
+   //camera3d.tilt = (3.14159265359 * 1);
+   //camera3d.spin = (3.14159265359 * 0);
+   //camera3d.roll = 0.25;
+
+   AllegroFlare::Vec3D actual_viewing_direction = camera3d.get_viewing_direction();
+   AllegroFlare::Vec3D expected_viewing_direction(0, 0, -1);
+
+   EXPECT_EQ(expected_viewing_direction, actual_viewing_direction);
 }
 
 
