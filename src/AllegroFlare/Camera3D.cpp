@@ -185,6 +185,19 @@ AllegroFlare::Vec3D Camera3D::get_viewing_direction()
 }
 
 
+AllegroFlare::Vec3D Camera3D::get_reverse_viewing_direction()
+{
+   ALLEGRO_TRANSFORM t;
+   position_transform(&t);
+   AllegroFlare::Vec3D stood_position(0, 0, 0); // TODO: Consider if this needs to be the stepout
+   AllegroFlare::Vec3D stood_viewing_direction(0, 0, 1);
+   al_transform_coordinates_3d(&t, &stood_position.x, &stood_position.y, &stood_position.z);
+   al_transform_coordinates_3d(&t, &stood_viewing_direction.x, &stood_viewing_direction.y, &stood_viewing_direction.z);
+   AllegroFlare::Vec3D viewing_direction = (stood_viewing_direction - stood_position).normalized();
+   return viewing_direction;
+}
+
+
 } // namespace AllegroFlare
 
 

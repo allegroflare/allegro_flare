@@ -115,3 +115,21 @@ TEST(AllegroFlare_Camera3DTest, get_viewing_direction__will_return_the_direction
 }
 
 
+TEST(AllegroFlare_Camera3DTest,
+   get_reverse_viewing_direction__will_return_the_view_vector_of_an_object_if_it_were_to_face_the_camera_plane)
+{
+   // TODO: Add some rigorous tests for this function
+   AllegroFlare::Camera3D camera3d;
+
+   //camera3d.tilt = 0.0;
+   //camera3d.tilt = (3.14159265359 * 1);
+   //camera3d.spin = (3.14159265359 * 0);
+   //camera3d.roll = 0.25;
+
+   AllegroFlare::Vec3D actual_reverse_viewing_direction = camera3d.get_reverse_viewing_direction();
+   AllegroFlare::Vec3D expected_reverse_viewing_direction(0, 0, 1);
+
+   EXPECT_EQ(expected_reverse_viewing_direction, actual_reverse_viewing_direction);
+}
+
+
