@@ -74,7 +74,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    item->get_placement_ref().rotation.z = 0.03547;
    entity_pool.add(item);
 
-   // TODO: Replace this commented code with a basic dynamic 3D Model
+   // TODO: Use an EntityFactory for this setup
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *dynamic_cube = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    dynamic_cube->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
