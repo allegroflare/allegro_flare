@@ -116,6 +116,35 @@ void Placement3D::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
 
 
 
+void Placement3D::build_view_projection_transform(
+      ALLEGRO_TRANSFORM *transform,
+      float near_plane,
+      float far_plane,
+      float zoom,
+      float surface_width,
+      float surface_height
+   )
+{
+   // TODO: Consider validating transform
+   // TODO: Consider validating arguments are realistic
+   // TODO: Add tests for this function
+
+   build_reverse_transform(transform);
+
+   float mul = near_plane / zoom;
+   float aspect_ratio = surface_height / surface_width;
+
+   al_perspective_transform(
+      transform,
+      -1 * mul,
+      aspect_ratio * mul,
+      near_plane, 1 * mul,
+      -aspect_ratio * mul,
+      far_plane
+   );
+};
+
+
 
 AllegroFlare::Vec3D Placement3D::get_real_position()
 {

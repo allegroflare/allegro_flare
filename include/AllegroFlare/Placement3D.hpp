@@ -26,6 +26,14 @@ namespace AllegroFlare
       void restore_transform();
       void build_transform(ALLEGRO_TRANSFORM *transform);
       void build_reverse_transform(ALLEGRO_TRANSFORM *transform);
+      void build_view_projection_transform(
+         ALLEGRO_TRANSFORM *transform,
+         float near_plane=1.0,
+         float far_plane=100.0,
+         float zoom=1.0,
+         float surface_width=1920.0,
+         float surface_height=1080.0
+      );
 
       Placement3D& operator+=(const Placement3D& other);
       bool operator==(const Placement3D& other) const;

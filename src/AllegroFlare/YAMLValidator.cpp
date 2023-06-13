@@ -182,6 +182,7 @@ bool YAMLValidator::validate_unique_all_upper_identifiers(YAML::Node items)
          }
       }
 
+      // NOTE: Check if this could crash on an empty or length-of-1 string
       if (std::any_of(str.begin() + 1, str.end(), [](char c) { return std::isdigit(c); })) {
          return false;
       }
