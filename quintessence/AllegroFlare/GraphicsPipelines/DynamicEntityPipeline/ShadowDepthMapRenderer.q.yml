@@ -1,3 +1,14 @@
+properties:
+
+
+  - name: entity_pool
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
 functions:
 
 
@@ -50,5 +61,14 @@ functions:
       */
 
       return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
 
 

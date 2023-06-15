@@ -8502,6 +8502,10 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.q.yml</h3>
      <table>
+<tr>
+  <td class="property">entity_pool</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -8509,6 +8513,12 @@ table td
 </tr>
     </table>
      <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
     </table>
   </div>
 </ul>
@@ -26153,7 +26163,8 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
@@ -26185,7 +26196,8 @@ table td
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"

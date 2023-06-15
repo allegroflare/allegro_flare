@@ -13,13 +13,26 @@ namespace DynamicEntityPipeline
 {
 
 
-ShadowDepthMapRenderer::ShadowDepthMapRenderer()
+ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
+   : entity_pool(entity_pool)
 {
 }
 
 
 ShadowDepthMapRenderer::~ShadowDepthMapRenderer()
 {
+}
+
+
+void ShadowDepthMapRenderer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
+{
+   this->entity_pool = entity_pool;
+}
+
+
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthMapRenderer::get_entity_pool() const
+{
+   return entity_pool;
 }
 
 
