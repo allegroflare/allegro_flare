@@ -13,4 +13,10 @@ properties:
     static: true
     constexpr: true
 
+  - name: DOES_NOT_CAST_SHADOWS
+    type: char*
+    init_with: '(char*)"does_not_cast_shadows"'
+    static: true
+    constexpr: true
+
 

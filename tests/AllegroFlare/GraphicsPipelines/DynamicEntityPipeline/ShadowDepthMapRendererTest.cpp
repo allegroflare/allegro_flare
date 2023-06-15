@@ -10,11 +10,10 @@ TEST(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRenderer
 }
 
 
-TEST(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTest, run__returns_the_expected_response)
+TEST(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTest, render__does_not_blow_up)
 {
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer shadow_depth_map_renderer;
-   std::string expected_string = "Hello World!";
-   EXPECT_EQ(expected_string, shadow_depth_map_renderer.run());
+   shadow_depth_map_renderer.render();
 }
 
 
