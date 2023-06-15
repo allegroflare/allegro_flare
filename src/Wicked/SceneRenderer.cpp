@@ -1,6 +1,9 @@
 #include <Wicked/SceneRenderer.hpp>
 
 
+
+/*
+
 //#ifdef __APPLE__
 //#ifndef GL_SILENCE_DEPRECATION
 //#define GL_SILENCE_DEPRECATION
@@ -275,5 +278,8 @@ void SceneRenderer::render()
 
 } // namespace Wicked
 
+
+
+*/
 
 

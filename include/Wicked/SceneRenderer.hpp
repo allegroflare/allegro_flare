@@ -1,6 +1,9 @@
 #pragma once
 
 
+
+/*
+
 #include <allegro5/allegro.h> // for ALLEGRO_BITMAP
 #include <Wicked/Entity.hpp>
 #include <Wicked/ShadowCastingLight.hpp>
@@ -56,5 +59,9 @@ public:
    void render();
 };
 } // namespace Wicked
+
+
+
+*/
 
 
