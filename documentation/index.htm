@@ -8506,8 +8506,34 @@ table td
   <td class="property">entity_pool</td>
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*</td>
 </tr>
+<tr>
+  <td class="property">casting_light</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">shadow_map_depth_pass_transform</td>
+  <td class="property">ALLEGRO_TRANSFORM</td>
+</tr>
+<tr>
+  <td class="property">backbuffer_sub_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">backbuffer_is_setup</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">backbuffer_is_managed_by_this_class</td>
+  <td class="property">bool</td>
+</tr>
     </table>
      <table>
+<tr>
+  <td class="method">setup_backbuffer_from_display(ALLEGRO_DISPLAY* display=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">destroy()</td>
+</tr>
 <tr>
   <td class="method">render()</td>
 </tr>
@@ -8524,6 +8550,21 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Errors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Errors.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TRANSFORM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -25050,6 +25091,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -25176,6 +25218,7 @@ table td
   "AllegroFlare/Camera3D": [
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
@@ -26084,7 +26127,8 @@ table td
   ],
   "AllegroFlare/Errors": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/FrameAnimation/Animation": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
@@ -26225,6 +26269,18 @@ table td
   ],
   "glEnable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_TRANSFORM": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
   ],
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
@@ -26971,12 +27027,6 @@ table td
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "ALLEGRO_DISPLAY": [
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
@@ -27092,10 +27142,6 @@ table td
   ],
   "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
-  ],
-  "ALLEGRO_TRANSFORM": [
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Base",

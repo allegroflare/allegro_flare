@@ -505,6 +505,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -631,6 +632,7 @@
   "AllegroFlare/Camera3D": [
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
@@ -1539,7 +1541,8 @@
   ],
   "AllegroFlare/Errors": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/FrameAnimation/Animation": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
@@ -1680,6 +1683,18 @@
   ],
   "glEnable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "ALLEGRO_TRANSFORM": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
   ],
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
@@ -2426,12 +2441,6 @@
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
-  "ALLEGRO_DISPLAY": [
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
@@ -2547,10 +2556,6 @@
   ],
   "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
-  ],
-  "ALLEGRO_TRANSFORM": [
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Cubemap": [
     "AllegroFlare/Shaders/Base",

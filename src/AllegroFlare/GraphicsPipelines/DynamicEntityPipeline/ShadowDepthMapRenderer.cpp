@@ -100,7 +100,7 @@ void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* disp
    {
       AllegroFlare::Errors::throw_error(
          "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-         "Could not create backbuffer_sub_bitmapfrom display in order to create a render surface."
+         "Could not create backbuffer_sub_bitmap from display in order to create a render surface."
       );
    }
    backbuffer_is_setup = true;
