@@ -79,11 +79,11 @@ void FunzDemo::run()
    FunzDemo *funz_demo = new FunzDemo(&framework, framework.get_primary_display());
    funz_demo->initialize();
 
-   framework.register_screen("funz_demo", funz_demo);
-   framework.activate_screen("funz_demo");
+   framework.register_and_activate_screen("funz_demo", funz_demo);
+   //framework.activate_screen("funz_demo");
 
    framework.run_loop();
-   framework.unregister_screen(funz_demo);
+   //framework.unregister_screen(funz_demo);
 
    //delete funz_demo;
 }
