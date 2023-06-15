@@ -25,8 +25,8 @@ TEST_F(Wicked_SceneRendererTest, can_be_created_without_blowing_up)
 
 
 TEST_F(Wicked_SceneRendererTest,
-   INTERACTIVE__run__will_run_the_application)
-   //DISABLED__INTERACTIVE__run__will_run_the_application)
+   //INTERACTIVE__run__will_run_the_application)
+   DISABLED__INTERACTIVE__run__will_run_the_application)
 {
    FunzDemo::run();
 }
