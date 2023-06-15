@@ -2,7 +2,10 @@
 
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 
-
+#include <allegro5/allegro_opengl.h>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -38,10 +41,16 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthM
 
 void ShadowDepthMapRenderer::render()
 {
-   /*
-   if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
-   if (!_entities) throw std::runtime_error("CCc");
-   std::vector<Entity *> &entities = (*_entities);
+   if (!(entity_pool))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer::render]: error: guard \"entity_pool\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer::render: error: guard \"entity_pool\" not met");
+   }
+   //if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
+   //if (!_entities) throw std::runtime_error("CCc");
+   //std::vector<Entity *> &entities = (*_entities);
 
    // TODO: store and restore states on glEnable/glCullFace, etc
    // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
@@ -52,6 +61,7 @@ void ShadowDepthMapRenderer::render()
 
    //al_set_target_bitmap(backbuffer_sub_bitmap);
 
+   /*
 
    //al_clear_to_color(color::white);
    setup_projection_SHADOW(casting_light, shadow_map_depth_pass_transform);
@@ -64,6 +74,14 @@ void ShadowDepthMapRenderer::render()
    for (unsigned i=0; i<entities.size(); i++)
    {
       entities[i]->draw_for_depth_pass(depth_shader);
+
+      ALLEGRO_TRANSFORM transform;
+      place.build_transform(&transform);
+      AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
+
+      if (model) model->draw();
+
+   //return;
    }
 
    if (pointer)

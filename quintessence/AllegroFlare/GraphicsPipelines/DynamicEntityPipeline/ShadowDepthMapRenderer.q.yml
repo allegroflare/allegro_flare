@@ -13,11 +13,11 @@ functions:
 
 
   - name: render
+    guards: [ entity_pool ]
     body: |
-      /*
-      if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
-      if (!_entities) throw std::runtime_error("CCc");
-      std::vector<Entity *> &entities = (*_entities);
+      //if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
+      //if (!_entities) throw std::runtime_error("CCc");
+      //std::vector<Entity *> &entities = (*_entities);
 
       // TODO: store and restore states on glEnable/glCullFace, etc
       // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
@@ -28,6 +28,7 @@ functions:
 
       //al_set_target_bitmap(backbuffer_sub_bitmap);
 
+      /*
 
       //al_clear_to_color(color::white);
       setup_projection_SHADOW(casting_light, shadow_map_depth_pass_transform);
@@ -40,6 +41,14 @@ functions:
       for (unsigned i=0; i<entities.size(); i++)
       {
          entities[i]->draw_for_depth_pass(depth_shader);
+
+         ALLEGRO_TRANSFORM transform;
+         place.build_transform(&transform);
+         AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
+
+         if (model) model->draw();
+
+      //return;
       }
 
       if (pointer)
@@ -61,11 +70,15 @@ functions:
       */
 
       return;
+    body_dependency_symbols:
+      - glEnable
 
 
 dependencies:
 
 
+  - symbol: glEnable
+    headers: [ allegro5/allegro_opengl.h ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
