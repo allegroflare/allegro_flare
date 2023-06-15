@@ -14,6 +14,12 @@ properties:
     getter: true
     setter: true
 
+  - name: shadow_map_depth_pass_transform
+    type: ALLEGRO_TRANSFORM
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: backbuffer_sub_bitmap
     type: ALLEGRO_BITMAP*
     constructor_arg: false
@@ -95,8 +101,8 @@ functions:
 
       //al_clear_to_color(color::white);
       ///*
+      setup_projection_SHADOW(); //(casting_light, shadow_map_depth_pass_transform);
       /*
-      setup_projection_SHADOW(casting_light, shadow_map_depth_pass_transform);
 
       // setup the shader
       //depth_shader.use();
@@ -179,14 +185,16 @@ functions:
          -30.0
       );
 
-      if (transform_to_fill != nullptr)
-      {
-         al_copy_transform(transform_to_fill, &shadow_map_projection);
-      }
+      //if (transform_to_fill != nullptr)
+      //{
+      al_copy_transform(&shadow_map_depth_pass_transform, &shadow_map_projection);
+      //}
 
       al_use_projection_transform(&shadow_map_projection);
       */
       return;
+    body_dependency_symbols:
+     - ALLEGRO_TRANSFORM
 
 
 dependencies:
@@ -206,5 +214,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Camera3D
     headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: ALLEGRO_TRANSFORM
+    headers: [ allegro5/allegro.h ]
 
 

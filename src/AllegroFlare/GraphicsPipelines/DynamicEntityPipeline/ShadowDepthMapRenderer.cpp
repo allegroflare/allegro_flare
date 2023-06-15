@@ -3,6 +3,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 
 #include <AllegroFlare/Errors.hpp>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
 #include <iostream>
 #include <sstream>
@@ -20,6 +21,7 @@ namespace DynamicEntityPipeline
 ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
    , casting_light({})
+   , shadow_map_depth_pass_transform({})
    , backbuffer_sub_bitmap(nullptr)
    , backbuffer_is_setup(false)
    , backbuffer_is_managed_by_this_class(false)
@@ -44,6 +46,12 @@ void ShadowDepthMapRenderer::set_casting_light(AllegroFlare::Camera3D casting_li
 }
 
 
+void ShadowDepthMapRenderer::set_shadow_map_depth_pass_transform(ALLEGRO_TRANSFORM shadow_map_depth_pass_transform)
+{
+   this->shadow_map_depth_pass_transform = shadow_map_depth_pass_transform;
+}
+
+
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthMapRenderer::get_entity_pool() const
 {
    return entity_pool;
@@ -53,6 +61,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthM
 AllegroFlare::Camera3D ShadowDepthMapRenderer::get_casting_light() const
 {
    return casting_light;
+}
+
+
+ALLEGRO_TRANSFORM ShadowDepthMapRenderer::get_shadow_map_depth_pass_transform() const
+{
+   return shadow_map_depth_pass_transform;
 }
 
 
@@ -137,8 +151,8 @@ void ShadowDepthMapRenderer::render()
 
    //al_clear_to_color(color::white);
    ///*
+   setup_projection_SHADOW(); //(casting_light, shadow_map_depth_pass_transform);
    /*
-   setup_projection_SHADOW(casting_light, shadow_map_depth_pass_transform);
 
    // setup the shader
    //depth_shader.use();
@@ -225,10 +239,10 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
       -30.0
    );
 
-   if (transform_to_fill != nullptr)
-   {
-      al_copy_transform(transform_to_fill, &shadow_map_projection);
-   }
+   //if (transform_to_fill != nullptr)
+   //{
+   al_copy_transform(&shadow_map_depth_pass_transform, &shadow_map_projection);
+   //}
 
    al_use_projection_transform(&shadow_map_projection);
    */
