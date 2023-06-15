@@ -188,6 +188,7 @@ void FunzDemo::initialize()
    entity_factory.initialize();
    scene_renderer.set_backbuffer_sub_bitmap(backbuffer_sub_bitmap);
    scene_renderer.set_shadow_scale_divisor(1.0); // note, increasing this divisor will
+   //scene_renderer.set_shadow_scale_divisor(1.0); // note, increasing this divisor will
       // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
       // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but reduce
       // the resolution of the shadow. Original engine had a default of 1.0f;
@@ -475,7 +476,13 @@ void FunzDemo::update_scene_physics()
 void FunzDemo::draw_scene()
 {
    // refresh pre-render textures and set the projection
-   scene_renderer.refresh_shadow_map(&entities, casting_light, &shadow_map_depth_pass_transform, shadow_map_depth_pass_surface, pointer);
+   scene_renderer.refresh_shadow_map(
+      &entities,
+      casting_light,
+      &shadow_map_depth_pass_transform,
+      shadow_map_depth_pass_surface,
+      pointer
+   );
    camera.setup_projection_on(backbuffer_sub_bitmap);
    //scene_renderer.setup_projection_SCENE(camera, nullptr);
 
@@ -483,7 +490,17 @@ void FunzDemo::draw_scene()
    vec3d camera_real_position = camera.get_real_position();
    vec3d camera_looking_at_point = camera_target_position; //camera.position;
    vec3d light_position = light.position * 100.0;
-   scene_renderer.draw_entities(camera_real_position, light_position, skybox, &entities, &shadow_map_depth_pass_transform, shadow_map_depth_pass_surface, texture_offset, pointer, camera_looking_at_point);
+   scene_renderer.draw_entities(
+      camera_real_position,
+      light_position,
+      skybox,
+      &entities,
+      &shadow_map_depth_pass_transform,
+      shadow_map_depth_pass_surface,
+      texture_offset,
+      pointer,
+      camera_looking_at_point
+   );
 
 
    //draw_ground_mesh();
@@ -578,6 +595,11 @@ void FunzDemo::draw_hud()
    //std::stringstream delta;
    //delta << (AllegroFlare::Framework::timer_tick_times.back() - AllegroFlare::Framework::screen_flip_end_times.back());
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 320, al_get_bitmap_height(hud_surface)-text_height/2-height/2, ALLEGRO_ALIGN_LEFT, delta.str().c_str());
+
+
+   //render_depth_pass_surface
+   al_draw_bitmap(shadow_map_depth_pass_surface, 0, 0, 0);
+
 
 
    // draw the inventory
