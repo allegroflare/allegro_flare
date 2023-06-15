@@ -111,7 +111,9 @@ namespace Wicked
       
       // draw the objects
       for (unsigned i=0; i<entities.size(); i++)
+      {
          entities[i]->draw_for_depth_pass(depth_shader);
+      }
 
       if (pointer)
       {
