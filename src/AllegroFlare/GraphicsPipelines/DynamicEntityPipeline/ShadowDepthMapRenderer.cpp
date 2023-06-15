@@ -202,6 +202,7 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_SHADOW: error: guard \"backbuffer_is_setup\" not met");
    }
+   float shadow_scale_divisor = 1.0; // Not sure what affect this has. Please see FunzDemo for more detailed comment
    //if (!initialized)
    //{
       //throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
@@ -216,11 +217,11 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
    al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
    al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
    al_clear_depth_buffer(1);
-   /*
 
    ALLEGRO_TRANSFORM shadow_map_projection;
 
-   shadow_casting_light.reverse_position_transform(&shadow_map_projection);
+   casting_light.reverse_position_transform(&shadow_map_projection);
+
 
    ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
    float divisor = shadow_scale_divisor;
@@ -228,6 +229,7 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
       // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
       // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but
       // reduce the resolution of the shadow. Original engine had a default of 1.0f;
+
 
    al_orthographic_transform(
       &shadow_map_projection,
@@ -239,13 +241,14 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
       -30.0
    );
 
+   ///*
    //if (transform_to_fill != nullptr)
    //{
    al_copy_transform(&shadow_map_depth_pass_transform, &shadow_map_projection);
    //}
 
    al_use_projection_transform(&shadow_map_projection);
-   */
+   //*/
    return;
 }
 
