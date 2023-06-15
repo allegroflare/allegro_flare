@@ -19,6 +19,7 @@ namespace DynamicEntityPipeline
 
 ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
+   , casting_light({})
    , backbuffer_sub_bitmap(nullptr)
    , backbuffer_is_setup(false)
    , backbuffer_is_managed_by_this_class(false)
@@ -37,9 +38,9 @@ void ShadowDepthMapRenderer::set_entity_pool(AllegroFlare::GraphicsPipelines::Dy
 }
 
 
-void ShadowDepthMapRenderer::set_backbuffer_sub_bitmap(ALLEGRO_BITMAP* backbuffer_sub_bitmap)
+void ShadowDepthMapRenderer::set_casting_light(AllegroFlare::Camera3D casting_light)
 {
-   this->backbuffer_sub_bitmap = backbuffer_sub_bitmap;
+   this->casting_light = casting_light;
 }
 
 
@@ -49,13 +50,13 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthM
 }
 
 
-ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_backbuffer_sub_bitmap() const
+AllegroFlare::Camera3D ShadowDepthMapRenderer::get_casting_light() const
 {
-   return backbuffer_sub_bitmap;
+   return casting_light;
 }
 
 
-ALLEGRO_BITMAP* &ShadowDepthMapRenderer::get_backbuffer_sub_bitmap_ref()
+ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_backbuffer_sub_bitmap() const
 {
    return backbuffer_sub_bitmap;
 }
@@ -108,6 +109,19 @@ void ShadowDepthMapRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::render: error: guard \"entity_pool\" not met");
    }
+   casting_light.stepout = vec3d(0, 0, 15); // note
+
+   float light_time_of_day = 0.15f;
+   casting_light.tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
+                                                         //                     0.5; // high noon
+                                                         //                     0.95; // sunset
+
+   casting_light.spin = 0.0f; //light_spin;
+
+
+
+
+
    //if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
    //if (!_entities) throw std::runtime_error("CCc");
    //std::vector<Entity *> &entities = (*_entities);
@@ -122,6 +136,7 @@ void ShadowDepthMapRenderer::render()
    //al_set_target_bitmap(backbuffer_sub_bitmap);
 
    //al_clear_to_color(color::white);
+   ///*
    /*
    setup_projection_SHADOW(casting_light, shadow_map_depth_pass_transform);
 
@@ -173,20 +188,21 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_SHADOW: error: guard \"backbuffer_is_setup\" not met");
    }
-   /*
-   if (!initialized)
-   {
-      throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
-   }
-   if (!backbuffer_sub_bitmap)
-   {
-      throw std::runtime_error("AAa");
-   }
+   //if (!initialized)
+   //{
+      //throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
+   //}
+   //if (!backbuffer_sub_bitmap)
+   //{
+      //throw std::runtime_error("AAa");
+   //}
+   ///*
 
    // setup the render settings
    al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
    al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
    al_clear_depth_buffer(1);
+   /*
 
    ALLEGRO_TRANSFORM shadow_map_projection;
 

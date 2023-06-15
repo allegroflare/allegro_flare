@@ -8,13 +8,18 @@ properties:
     getter: true
     setter: true
 
+  - name: casting_light
+    type: AllegroFlare::Camera3D
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: backbuffer_sub_bitmap
     type: ALLEGRO_BITMAP*
     constructor_arg: false
     init_with: nullptr
     getter: true
-    setter: true
-    getter_ref: true
+    setter: false
 
   - name: backbuffer_is_setup
     type: bool
@@ -62,6 +67,19 @@ functions:
   - name: render
     guards: [ entity_pool ]
     body: |
+      casting_light.stepout = vec3d(0, 0, 15); // note
+
+      float light_time_of_day = 0.15f;
+      casting_light.tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
+                                                            //                     0.5; // high noon
+                                                            //                     0.95; // sunset
+
+      casting_light.spin = 0.0f; //light_spin;
+
+
+
+
+
       //if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
       //if (!_entities) throw std::runtime_error("CCc");
       //std::vector<Entity *> &entities = (*_entities);
@@ -76,6 +94,7 @@ functions:
       //al_set_target_bitmap(backbuffer_sub_bitmap);
 
       //al_clear_to_color(color::white);
+      ///*
       /*
       setup_projection_SHADOW(casting_light, shadow_map_depth_pass_transform);
 
@@ -123,20 +142,21 @@ functions:
   - name: setup_projection_SHADOW
     guards: [ backbuffer_is_setup ]
     body: |
-      /*
-      if (!initialized)
-      {
-         throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
-      }
-      if (!backbuffer_sub_bitmap)
-      {
-         throw std::runtime_error("AAa");
-      }
+      //if (!initialized)
+      //{
+         //throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
+      //}
+      //if (!backbuffer_sub_bitmap)
+      //{
+         //throw std::runtime_error("AAa");
+      //}
+      ///*
 
       // setup the render settings
       al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
       al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
       al_clear_depth_buffer(1);
+      /*
 
       ALLEGRO_TRANSFORM shadow_map_projection;
 
@@ -184,5 +204,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_DISPLAY
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
 
 
