@@ -137,22 +137,12 @@ functions:
   - name: render
     guards: [ entity_pool ]
     body: |
-      casting_light.stepout = vec3d(0, 0, 15); // note
-
+      casting_light.stepout = vec3d(0, 0, 15); // NOTE: This uses 15 meters as a z stepout
       float light_time_of_day = 0.15f;
       casting_light.tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
                                                             //                     0.5; // high noon
                                                             //                     0.95; // sunset
-
-      casting_light.spin = 0.0f; //light_spin;
-
-
-
-
-
-      //if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
-      //if (!_entities) throw std::runtime_error("CCc");
-      //std::vector<Entity *> &entities = (*_entities);
+      casting_light.spin = 0.0f;
 
       // TODO: store and restore states on glEnable/glCullFace, etc
       // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
@@ -163,25 +153,17 @@ functions:
 
       //al_set_target_bitmap(backbuffer_sub_bitmap);
 
-      //al_clear_to_color(color::white);
-      ///*
+      //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
       setup_projection_SHADOW(); //(casting_light, shadow_map_depth_pass_transform);
 
       // setup the shader
-      //depth_shader.use();
       depth_map_shader->activate();
 
-
-      ///*
-   
       // draw the objects
       for (auto &entity : entity_pool->get_entity_pool_ref())
-      //for (unsigned i=0; i<entities.size(); i++)
       {
-         //entities[i]->draw_for_depth_pass(depth_map_shader); // NOTE: The code below is the injected code from this
          // IMPORTANT: For now, assume all entities are StaticModel3D
          // TODO: Use "is rendered" and/or !"does_not_cast_shadow" flag
-         //using AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
          if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
          {
