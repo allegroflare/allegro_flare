@@ -151,7 +151,8 @@ functions:
       glEnable(GL_CULL_FACE); // requiring direct OpenGL calls eventually be fazed out
       glCullFace(GL_FRONT); 
 
-      //al_set_target_bitmap(backbuffer_sub_bitmap);
+      // TODO: Test this line (backbuffer_sub_bitmap is set as target)
+      al_set_target_bitmap(backbuffer_sub_bitmap);
 
       //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
       setup_projection_on_render_surface();
@@ -227,14 +228,9 @@ functions:
          -30.0
       );
 
-      ///*
-      //if (transform_to_fill != nullptr)
-      //{
       al_copy_transform(&shadow_map_depth_pass_transform, &shadow_map_projection);
-      //}
 
       al_use_projection_transform(&shadow_map_projection);
-      //*/
       return;
     body_dependency_symbols:
      - ALLEGRO_TRANSFORM

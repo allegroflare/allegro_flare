@@ -45,7 +45,7 @@ namespace AllegroFlare
             void init_shader();
             void destroy();
             void render();
-            void setup_projection_SHADOW();
+            void setup_projection_on_render_surface();
          };
       }
    }

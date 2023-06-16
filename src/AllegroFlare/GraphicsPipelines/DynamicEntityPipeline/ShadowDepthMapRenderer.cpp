@@ -196,22 +196,12 @@ void ShadowDepthMapRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::render: error: guard \"entity_pool\" not met");
    }
-   casting_light.stepout = vec3d(0, 0, 15); // note
-
+   casting_light.stepout = vec3d(0, 0, 15); // NOTE: This uses 15 meters as a z stepout
    float light_time_of_day = 0.15f;
    casting_light.tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
                                                          //                     0.5; // high noon
                                                          //                     0.95; // sunset
-
-   casting_light.spin = 0.0f; //light_spin;
-
-
-
-
-
-   //if (!initialized) throw std::runtime_error("Wicked::SceneRenderer::refresh_shadow_map: ERROR: not initialized");
-   //if (!_entities) throw std::runtime_error("CCc");
-   //std::vector<Entity *> &entities = (*_entities);
+   casting_light.spin = 0.0f;
 
    // TODO: store and restore states on glEnable/glCullFace, etc
    // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
@@ -220,27 +210,20 @@ void ShadowDepthMapRenderer::render()
    glEnable(GL_CULL_FACE); // requiring direct OpenGL calls eventually be fazed out
    glCullFace(GL_FRONT); 
 
-   //al_set_target_bitmap(backbuffer_sub_bitmap);
+   // TODO: Test this line (backbuffer_sub_bitmap is set as target)
+   al_set_target_bitmap(backbuffer_sub_bitmap);
 
-   //al_clear_to_color(color::white);
-   ///*
-   setup_projection_SHADOW(); //(casting_light, shadow_map_depth_pass_transform);
+   //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
+   setup_projection_on_render_surface();
 
    // setup the shader
-   //depth_shader.use();
    depth_map_shader->activate();
-
-
-   ///*
 
    // draw the objects
    for (auto &entity : entity_pool->get_entity_pool_ref())
-   //for (unsigned i=0; i<entities.size(); i++)
    {
-      //entities[i]->draw_for_depth_pass(depth_map_shader); // NOTE: The code below is the injected code from this
       // IMPORTANT: For now, assume all entities are StaticModel3D
       // TODO: Use "is rendered" and/or !"does_not_cast_shadow" flag
-      //using AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
       if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
       {
@@ -256,14 +239,6 @@ void ShadowDepthMapRenderer::render()
       }
    }
 
-   ///*
-
-   //if (pointer)
-   //{
-       //pointer->draw_for_depth_pass(depth_map_shader);
-   //}
-
-
    al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
                                                 // on a bitmap this may be able to be updated so that the
                                                 // backbuffer does not need be used to render this
@@ -277,32 +252,23 @@ void ShadowDepthMapRenderer::render()
    return;
 }
 
-void ShadowDepthMapRenderer::setup_projection_SHADOW()
+void ShadowDepthMapRenderer::setup_projection_on_render_surface()
 {
    if (!(backbuffer_is_setup))
    {
       std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_projection_SHADOW]: error: guard \"backbuffer_is_setup\" not met.";
+      error_message << "[ShadowDepthMapRenderer::setup_projection_on_render_surface]: error: guard \"backbuffer_is_setup\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_SHADOW: error: guard \"backbuffer_is_setup\" not met");
+      throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_on_render_surface: error: guard \"backbuffer_is_setup\" not met");
    }
    if (!(depth_map_shader))
    {
       std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_projection_SHADOW]: error: guard \"depth_map_shader\" not met.";
+      error_message << "[ShadowDepthMapRenderer::setup_projection_on_render_surface]: error: guard \"depth_map_shader\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_SHADOW: error: guard \"depth_map_shader\" not met");
+      throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_on_render_surface: error: guard \"depth_map_shader\" not met");
    }
    float shadow_scale_divisor = 1.0; // Not sure what affect this has. Please see FunzDemo for more detailed comment
-   //if (!initialized)
-   //{
-      //throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
-   //}
-   //if (!backbuffer_sub_bitmap)
-   //{
-      //throw std::runtime_error("AAa");
-   //}
-   ///*
 
    // setup the render settings
    al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
@@ -312,7 +278,6 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
    ALLEGRO_TRANSFORM shadow_map_projection;
 
    casting_light.reverse_position_transform(&shadow_map_projection);
-
 
    ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
    float divisor = shadow_scale_divisor;
@@ -332,14 +297,9 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
       -30.0
    );
 
-   ///*
-   //if (transform_to_fill != nullptr)
-   //{
    al_copy_transform(&shadow_map_depth_pass_transform, &shadow_map_projection);
-   //}
 
    al_use_projection_transform(&shadow_map_projection);
-   //*/
    return;
 }
 
