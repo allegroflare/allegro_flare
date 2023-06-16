@@ -16,9 +16,12 @@ TEST(AllegroFlare_Placement3DTest, build_strafe_vector_xz__will_return_a_strafe_
 {
    AllegroFlare::Placement3D placement;
 
+   // TODO: Add non-right angles as test data
    std::vector<std::pair<float, AllegroFlare::Vec3D>> test_datas = {
       { 0.0f, { 1.0f, 0.0f, 0.0f } },
       { 0.25f, { 0.0f, 0.0f, 1.0f } },
+      { 0.5f, { -1.0f, 0.0f, 0.0f } },
+      { 0.75f, { 0.0f, 0.0f, -1.0f } },
    };
 
    float float_eq_threshold = 0.00001f;
