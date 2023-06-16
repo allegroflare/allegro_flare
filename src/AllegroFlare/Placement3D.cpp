@@ -149,7 +149,11 @@ void Placement3D::build_view_projection_transform(
 AllegroFlare::Vec3D Placement3D::build_strafe_vector_xz()
 {
    // TODO: Test this method
-   AllegroFlare::Vec2D move_vec(cos(rotation.y), sin(rotation.y));
+
+   AllegroFlare::Vec2D move_vec(
+      cos(rotation.y * AllegroFlare::TAU),
+      sin(rotation.y * AllegroFlare::TAU)
+   );
    move_vec.normalized();
    return AllegroFlare::Vec3D(move_vec.x, 0, move_vec.y);
 }
