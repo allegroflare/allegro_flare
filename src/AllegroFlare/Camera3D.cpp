@@ -164,7 +164,7 @@ void Camera3D::set_near_plane(float near_plane)
 
 
 
-AllegroFlare::Vec3D Camera3D::calculate_strafe_xy()
+AllegroFlare::Vec3D Camera3D::calculate_strafe_xz()
 {
    AllegroFlare::Vec2D move_vec(cos(spin), sin(spin));
    move_vec.normalized();
