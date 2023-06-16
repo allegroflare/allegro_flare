@@ -34,6 +34,7 @@ namespace AllegroFlare
          float surface_width=1920.0,
          float surface_height=1080.0
       );
+      AllegroFlare::Vec3D build_strafe_vector_xz();
 
       Placement3D& operator+=(const Placement3D& other);
       bool operator==(const Placement3D& other) const;
