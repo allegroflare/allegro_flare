@@ -14,6 +14,12 @@ properties:
     getter: true
     setter: true
 
+  - name: result_surface_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: false
+    setter: false
+
   - name: shadow_map_depth_pass_transform
     type: ALLEGRO_TRANSFORM
     init_with: '{}'
@@ -43,6 +49,13 @@ properties:
 functions:
 
 
+  - name: get_result_surface_bitmap
+    type: ALLEGRO_BITMAP*
+    guards: [ result_surface_bitmap ]
+    body: |
+      return result_surface_bitmap;
+
+
   - name: setup_backbuffer_from_display
     parameters:
       - name: display
@@ -63,9 +76,20 @@ functions:
       }
       backbuffer_is_setup = true;
       backbuffer_is_managed_by_this_class = true;
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Errors
+
+
+  - name: setup_result_surface_bitmap
+    guards: [ backbuffer_is_setup, (!result_surface_bitmap) ]
+    body: |
+      result_surface_bitmap = al_create_bitmap(
+         al_get_bitmap_width(backbuffer_sub_bitmap),
+         al_get_bitmap_height(backbuffer_sub_bitmap)
+      );
+      return;
 
 
   - name: init_shader
@@ -137,21 +161,32 @@ functions:
       depth_map_shader->activate();
 
 
-      /*
+      ///*
    
       // draw the objects
-      for (unsigned i=0; i<entities.size(); i++)
+      for (auto &entity : entity_pool->get_entity_pool_ref())
+      //for (unsigned i=0; i<entities.size(); i++)
       {
-         entities[i]->draw_for_depth_pass(depth_map_shader);
+         //entities[i]->draw_for_depth_pass(depth_map_shader); // NOTE: The code below is the injected code from this
+         // IMPORTANT: For now, assume all entities are StaticModel3D
+         // TODO: Use "is rendered" and/or !"does_not_cast_shadow" flag
+         //using AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
-         ALLEGRO_TRANSFORM transform;
-         place.build_transform(&transform);
-         AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
+         if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
+         {
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D* as_static_model_3d =
+               static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D*>(entity);
 
-         if (model) model->draw();
+            ALLEGRO_TRANSFORM transform;
+            as_static_model_3d->get_placement_ref().build_transform(&transform);
+            AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
 
-      //return;
+            AllegroFlare::Model3D *model = as_static_model_3d->get_model_3d();
+            if (model) model->draw();
+         }
       }
+
+      ///*
 
       //if (pointer)
       //{
@@ -159,9 +194,9 @@ functions:
       //}
 
 
-      al_set_target_bitmap(shadow_map_depth_pass_surface); // I *believe* newer versions of allegro have a depth map
-                                                           // on a bitmap this may be able to be updated so that the
-                                                           // backbuffer does not need be used to render this
+      al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
+                                                   // on a bitmap this may be able to be updated so that the
+                                                   // backbuffer does not need be used to render this
       al_draw_bitmap(backbuffer_sub_bitmap, 0, 0, 0);
 
       //glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
@@ -169,11 +204,10 @@ functions:
       //glCullFace(GL_FRONT);
       glDisable(GL_CULL_FACE);
 
-      */
-
       return;
     body_dependency_symbols:
       - glEnable
+      - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
 
 
   - name: setup_projection_SHADOW
@@ -254,5 +288,7 @@ dependencies:
     headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: ALLEGRO_TRANSFORM
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp ]
 
 

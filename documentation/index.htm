@@ -8511,6 +8511,10 @@ table td
   <td class="property">AllegroFlare::Camera3D</td>
 </tr>
 <tr>
+  <td class="property">result_surface_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
   <td class="property">shadow_map_depth_pass_transform</td>
   <td class="property">ALLEGRO_TRANSFORM</td>
 </tr>
@@ -8533,7 +8537,13 @@ table td
     </table>
      <table>
 <tr>
+  <td class="method">get_result_surface_bitmap()</td>
+</tr>
+<tr>
   <td class="method">setup_backbuffer_from_display(ALLEGRO_DISPLAY* display=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">setup_result_surface_bitmap()</td>
 </tr>
 <tr>
   <td class="method">init_shader()</td>
@@ -8578,6 +8588,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TRANSFORM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -26264,7 +26277,8 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"

@@ -1665,7 +1665,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"

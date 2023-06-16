@@ -3,6 +3,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 
 #include <AllegroFlare/Errors.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
@@ -22,6 +23,7 @@ namespace DynamicEntityPipeline
 ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
    , casting_light({})
+   , result_surface_bitmap(nullptr)
    , shadow_map_depth_pass_transform({})
    , backbuffer_sub_bitmap(nullptr)
    , depth_map_shader(nullptr)
@@ -78,6 +80,18 @@ ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_backbuffer_sub_bitmap() const
 }
 
 
+ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_result_surface_bitmap()
+{
+   if (!(result_surface_bitmap))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer::get_result_surface_bitmap]: error: guard \"result_surface_bitmap\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer::get_result_surface_bitmap: error: guard \"result_surface_bitmap\" not met");
+   }
+   return result_surface_bitmap;
+}
+
 void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* display)
 {
    if (!((!backbuffer_is_setup)))
@@ -107,6 +121,30 @@ void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* disp
    }
    backbuffer_is_setup = true;
    backbuffer_is_managed_by_this_class = true;
+
+   return;
+}
+
+void ShadowDepthMapRenderer::setup_result_surface_bitmap()
+{
+   if (!(backbuffer_is_setup))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer::setup_result_surface_bitmap]: error: guard \"backbuffer_is_setup\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer::setup_result_surface_bitmap: error: guard \"backbuffer_is_setup\" not met");
+   }
+   if (!((!result_surface_bitmap)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer::setup_result_surface_bitmap]: error: guard \"(!result_surface_bitmap)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer::setup_result_surface_bitmap: error: guard \"(!result_surface_bitmap)\" not met");
+   }
+   result_surface_bitmap = al_create_bitmap(
+      al_get_bitmap_width(backbuffer_sub_bitmap),
+      al_get_bitmap_height(backbuffer_sub_bitmap)
+   );
    return;
 }
 
@@ -189,21 +227,32 @@ void ShadowDepthMapRenderer::render()
    depth_map_shader->activate();
 
 
-   /*
+   ///*
 
    // draw the objects
-   for (unsigned i=0; i<entities.size(); i++)
+   for (auto &entity : entity_pool->get_entity_pool_ref())
+   //for (unsigned i=0; i<entities.size(); i++)
    {
-      entities[i]->draw_for_depth_pass(depth_map_shader);
+      //entities[i]->draw_for_depth_pass(depth_map_shader); // NOTE: The code below is the injected code from this
+      // IMPORTANT: For now, assume all entities are StaticModel3D
+      // TODO: Use "is rendered" and/or !"does_not_cast_shadow" flag
+      //using AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
-      ALLEGRO_TRANSFORM transform;
-      place.build_transform(&transform);
-      AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
+      if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D::TYPE))
+      {
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D* as_static_model_3d =
+            static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D*>(entity);
 
-      if (model) model->draw();
+         ALLEGRO_TRANSFORM transform;
+         as_static_model_3d->get_placement_ref().build_transform(&transform);
+         AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
 
-   //return;
+         AllegroFlare::Model3D *model = as_static_model_3d->get_model_3d();
+         if (model) model->draw();
+      }
    }
+
+   ///*
 
    //if (pointer)
    //{
@@ -211,17 +260,15 @@ void ShadowDepthMapRenderer::render()
    //}
 
 
-   al_set_target_bitmap(shadow_map_depth_pass_surface); // I *believe* newer versions of allegro have a depth map
-                                                        // on a bitmap this may be able to be updated so that the
-                                                        // backbuffer does not need be used to render this
+   al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
+                                                // on a bitmap this may be able to be updated so that the
+                                                // backbuffer does not need be used to render this
    al_draw_bitmap(backbuffer_sub_bitmap, 0, 0, 0);
 
    //glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
    glCullFace(GL_BACK); 
    //glCullFace(GL_FRONT);
    glDisable(GL_CULL_FACE);
-
-   */
 
    return;
 }
