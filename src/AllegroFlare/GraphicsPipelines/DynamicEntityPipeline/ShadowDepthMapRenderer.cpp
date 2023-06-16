@@ -24,7 +24,7 @@ ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::
    : entity_pool(entity_pool)
    , casting_light({})
    , result_surface_bitmap(nullptr)
-   , shadow_map_depth_pass_transform({})
+   , casting_light_projection_transform({})
    , backbuffer_sub_bitmap(nullptr)
    , depth_map_shader(nullptr)
    , backbuffer_is_setup(false)
@@ -50,9 +50,9 @@ void ShadowDepthMapRenderer::set_casting_light(AllegroFlare::Camera3D casting_li
 }
 
 
-void ShadowDepthMapRenderer::set_shadow_map_depth_pass_transform(ALLEGRO_TRANSFORM shadow_map_depth_pass_transform)
+void ShadowDepthMapRenderer::set_casting_light_projection_transform(ALLEGRO_TRANSFORM casting_light_projection_transform)
 {
-   this->shadow_map_depth_pass_transform = shadow_map_depth_pass_transform;
+   this->casting_light_projection_transform = casting_light_projection_transform;
 }
 
 
@@ -68,9 +68,9 @@ AllegroFlare::Camera3D ShadowDepthMapRenderer::get_casting_light() const
 }
 
 
-ALLEGRO_TRANSFORM ShadowDepthMapRenderer::get_shadow_map_depth_pass_transform() const
+ALLEGRO_TRANSFORM ShadowDepthMapRenderer::get_casting_light_projection_transform() const
 {
-   return shadow_map_depth_pass_transform;
+   return casting_light_projection_transform;
 }
 
 
@@ -109,6 +109,7 @@ void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* disp
       throw std::runtime_error("ShadowDepthMapRenderer::setup_backbuffer_from_display: error: guard \"display\" not met");
    }
    // TODO: Test this backbuffer is properly created (dimensions, depth values, etc)
+   // TODO: Use ALLEGRO_NO_PRESERVE_TEXTURE when building bitmap
    ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display);
    int width = al_get_display_width(display);
    int height = al_get_display_height(display);
@@ -297,7 +298,7 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
       -30.0
    );
 
-   al_copy_transform(&shadow_map_depth_pass_transform, &shadow_map_projection);
+   al_copy_transform(&casting_light_projection_transform, &shadow_map_projection);
 
    al_use_projection_transform(&shadow_map_projection);
    return;

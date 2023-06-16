@@ -19,7 +19,7 @@ namespace AllegroFlare
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
             AllegroFlare::Camera3D casting_light;
             ALLEGRO_BITMAP* result_surface_bitmap;
-            ALLEGRO_TRANSFORM shadow_map_depth_pass_transform;
+            ALLEGRO_TRANSFORM casting_light_projection_transform;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             AllegroFlare::Shaders::Base* depth_map_shader;
             bool backbuffer_is_setup;
@@ -34,10 +34,10 @@ namespace AllegroFlare
 
             void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool);
             void set_casting_light(AllegroFlare::Camera3D casting_light);
-            void set_shadow_map_depth_pass_transform(ALLEGRO_TRANSFORM shadow_map_depth_pass_transform);
+            void set_casting_light_projection_transform(ALLEGRO_TRANSFORM casting_light_projection_transform);
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             AllegroFlare::Camera3D get_casting_light() const;
-            ALLEGRO_TRANSFORM get_shadow_map_depth_pass_transform() const;
+            ALLEGRO_TRANSFORM get_casting_light_projection_transform() const;
             ALLEGRO_BITMAP* get_backbuffer_sub_bitmap() const;
             ALLEGRO_BITMAP* get_result_surface_bitmap();
             void setup_backbuffer_from_display(ALLEGRO_DISPLAY* display=nullptr);
