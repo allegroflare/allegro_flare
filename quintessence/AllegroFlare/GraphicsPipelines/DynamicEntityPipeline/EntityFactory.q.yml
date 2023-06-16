@@ -34,6 +34,30 @@ functions:
       return result;
 
 
+  - name: create_static_model_3d
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D*
+    guards: [ model_bin, bitmap_bin ]
+    parameters:
+      - name: model_identifier
+        type: std::string
+        default_argument: '"[unset-model_identifier]"'
+      - name: model_texture_identifier
+        type: std::string
+        default_argument: '"[unset-model_texture_identifier]"'
+      - name: placement
+        type: AllegroFlare::Placement3D
+        default_argument: '{}'
+    body: |
+      // TODO: Add test for this
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D *result =
+         new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D(
+            model_bin->auto_get(model_identifier),
+            bitmap_bin->auto_get(model_texture_identifier),
+            placement
+         );
+      return result;
+
+
 dependencies:
 
 
@@ -45,5 +69,9 @@ dependencies:
     headers: [ AllegroFlare/ModelBin.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
 
 

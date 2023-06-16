@@ -205,6 +205,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
@@ -1650,6 +1651,11 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
   "std/find": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1661,10 +1667,6 @@
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],

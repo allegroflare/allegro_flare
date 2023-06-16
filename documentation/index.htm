@@ -8315,6 +8315,9 @@ table td
 <tr>
   <td class="method">create_camera_3d()</td>
 </tr>
+<tr>
+  <td class="method">create_static_model_3d(std::string model_identifier=&quot;[unset-model_identifier]&quot;, std::string model_texture_identifier=&quot;[unset-model_texture_identifier]&quot;, AllegroFlare::Placement3D placement={})</td>
+</tr>
     </table>
      <table>
 <tr>
@@ -8328,6 +8331,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
 </tr>
     </table>
   </div>
@@ -24817,6 +24826,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
@@ -26262,6 +26272,11 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
   ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
   "std/find": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -26273,10 +26288,6 @@ table td
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
