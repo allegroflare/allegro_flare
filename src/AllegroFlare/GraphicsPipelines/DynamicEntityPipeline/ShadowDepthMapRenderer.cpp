@@ -108,9 +108,10 @@ void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* disp
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::setup_backbuffer_from_display: error: guard \"display\" not met");
    }
+   // TODO: Test this backbuffer is properly created (dimensions, depth values, etc)
    ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display);
    int width = al_get_display_width(display);
-   int height = al_get_display_width(display);
+   int height = al_get_display_height(display);
    backbuffer_sub_bitmap = al_create_sub_bitmap(backbuffer, 0, 0, width, height);
    if (!backbuffer_sub_bitmap)
    {

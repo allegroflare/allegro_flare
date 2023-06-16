@@ -63,9 +63,10 @@ functions:
         default_argument: nullptr
     guards: [ '(!backbuffer_is_setup)', display ]
     body: |
+      // TODO: Test this backbuffer is properly created (dimensions, depth values, etc)
       ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display);
       int width = al_get_display_width(display);
-      int height = al_get_display_width(display);
+      int height = al_get_display_height(display);
       backbuffer_sub_bitmap = al_create_sub_bitmap(backbuffer, 0, 0, width, height);
       if (!backbuffer_sub_bitmap)
       {
