@@ -154,7 +154,7 @@ functions:
       //al_set_target_bitmap(backbuffer_sub_bitmap);
 
       //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
-      setup_projection_SHADOW(); //(casting_light, shadow_map_depth_pass_transform);
+      setup_projection_on_render_surface();
 
       // setup the shader
       depth_map_shader->activate();
@@ -179,14 +179,6 @@ functions:
          }
       }
 
-      ///*
-
-      //if (pointer)
-      //{
-          //pointer->draw_for_depth_pass(depth_map_shader);
-      //}
-
-
       al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
                                                    // on a bitmap this may be able to be updated so that the
                                                    // backbuffer does not need be used to render this
@@ -203,19 +195,10 @@ functions:
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
 
 
-  - name: setup_projection_SHADOW
+  - name: setup_projection_on_render_surface
     guards: [ backbuffer_is_setup, depth_map_shader ]
     body: |
       float shadow_scale_divisor = 1.0; // Not sure what affect this has. Please see FunzDemo for more detailed comment
-      //if (!initialized)
-      //{
-         //throw std::runtime_error("Wicked::SceneRenderer::setup_projection_SHADOW: ERROR: not initialized");
-      //}
-      //if (!backbuffer_sub_bitmap)
-      //{
-         //throw std::runtime_error("AAa");
-      //}
-      ///*
 
       // setup the render settings
       al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
@@ -225,7 +208,6 @@ functions:
       ALLEGRO_TRANSFORM shadow_map_projection;
 
       casting_light.reverse_position_transform(&shadow_map_projection);
-
 
       ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
       float divisor = shadow_scale_divisor;
