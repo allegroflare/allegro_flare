@@ -183,16 +183,18 @@ void ShadowDepthMapRenderer::render()
    //al_clear_to_color(color::white);
    ///*
    setup_projection_SHADOW(); //(casting_light, shadow_map_depth_pass_transform);
-   /*
 
    // setup the shader
    //depth_shader.use();
-   depth_shader->activate();
+   depth_map_shader->activate();
+
+
+   /*
 
    // draw the objects
    for (unsigned i=0; i<entities.size(); i++)
    {
-      entities[i]->draw_for_depth_pass(depth_shader);
+      entities[i]->draw_for_depth_pass(depth_map_shader);
 
       ALLEGRO_TRANSFORM transform;
       place.build_transform(&transform);
@@ -203,10 +205,10 @@ void ShadowDepthMapRenderer::render()
    //return;
    }
 
-   if (pointer)
-   {
-       pointer->draw_for_depth_pass(depth_shader);
-   }
+   //if (pointer)
+   //{
+       //pointer->draw_for_depth_pass(depth_map_shader);
+   //}
 
 
    al_set_target_bitmap(shadow_map_depth_pass_surface); // I *believe* newer versions of allegro have a depth map
