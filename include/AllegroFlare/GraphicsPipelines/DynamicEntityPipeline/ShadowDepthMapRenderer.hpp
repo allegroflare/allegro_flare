@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
+#include <AllegroFlare/Shaders/Base.hpp>
 #include <allegro5/allegro.h>
 
 
@@ -19,6 +20,7 @@ namespace AllegroFlare
             AllegroFlare::Camera3D casting_light;
             ALLEGRO_TRANSFORM shadow_map_depth_pass_transform;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
+            AllegroFlare::Shaders::Base* depth_map_shader;
             bool backbuffer_is_setup;
             bool backbuffer_is_managed_by_this_class;
 
@@ -37,6 +39,7 @@ namespace AllegroFlare
             ALLEGRO_TRANSFORM get_shadow_map_depth_pass_transform() const;
             ALLEGRO_BITMAP* get_backbuffer_sub_bitmap() const;
             void setup_backbuffer_from_display(ALLEGRO_DISPLAY* display=nullptr);
+            void init_shader();
             void destroy();
             void render();
             void setup_projection_SHADOW();

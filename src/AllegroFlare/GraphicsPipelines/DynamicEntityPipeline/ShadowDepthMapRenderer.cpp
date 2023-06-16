@@ -3,6 +3,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 
 #include <AllegroFlare/Errors.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
 #include <iostream>
@@ -23,6 +24,7 @@ ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::
    , casting_light({})
    , shadow_map_depth_pass_transform({})
    , backbuffer_sub_bitmap(nullptr)
+   , depth_map_shader(nullptr)
    , backbuffer_is_setup(false)
    , backbuffer_is_managed_by_this_class(false)
 {
@@ -108,9 +110,38 @@ void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* disp
    return;
 }
 
+void ShadowDepthMapRenderer::init_shader()
+{
+   if (!((!depth_map_shader)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer::init_shader]: error: guard \"(!depth_map_shader)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer::init_shader: error: guard \"(!depth_map_shader)\" not met");
+   }
+   // TODO: Change this folder path
+   std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+
+   std::string vertex_filename;
+   std::string vertex_file_content;
+   std::string fragment_filename;
+   std::string fragment_file_content;
+
+   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_vertex.glsl";
+   vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_fragment.glsl";
+   fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
+
+   depth_map_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
+   depth_map_shader->initialize();
+
+   return;
+}
+
 void ShadowDepthMapRenderer::destroy()
 {
    if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
+   if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; }
    return;
 }
 
@@ -201,6 +232,13 @@ void ShadowDepthMapRenderer::setup_projection_SHADOW()
       error_message << "[ShadowDepthMapRenderer::setup_projection_SHADOW]: error: guard \"backbuffer_is_setup\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_SHADOW: error: guard \"backbuffer_is_setup\" not met");
+   }
+   if (!(depth_map_shader))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer::setup_projection_SHADOW]: error: guard \"depth_map_shader\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_SHADOW: error: guard \"depth_map_shader\" not met");
    }
    float shadow_scale_divisor = 1.0; // Not sure what affect this has. Please see FunzDemo for more detailed comment
    //if (!initialized)

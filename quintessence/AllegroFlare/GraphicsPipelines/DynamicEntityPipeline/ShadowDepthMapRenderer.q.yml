@@ -27,6 +27,10 @@ properties:
     getter: true
     setter: false
 
+  - name: depth_map_shader
+    type: AllegroFlare::Shaders::Base*
+    init_with: nullptr
+
   - name: backbuffer_is_setup
     type: bool
     init_with: false
@@ -64,9 +68,34 @@ functions:
       - AllegroFlare::Errors
 
 
+  - name: init_shader
+    guards: [ '(!depth_map_shader)' ]
+    body: |
+      // TODO: Change this folder path
+      std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+
+      std::string vertex_filename;
+      std::string vertex_file_content;
+      std::string fragment_filename;
+      std::string fragment_file_content;
+
+      vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_vertex.glsl";
+      vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+      fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_fragment.glsl";
+      fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
+
+      depth_map_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
+      depth_map_shader->initialize();
+     
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::php
+
+
   - name: destroy
     body: |
       if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
+      if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; }
       return;
 
 
@@ -146,7 +175,7 @@ functions:
 
 
   - name: setup_projection_SHADOW
-    guards: [ backbuffer_is_setup ]
+    guards: [ backbuffer_is_setup, depth_map_shader ]
     body: |
       float shadow_scale_divisor = 1.0; // Not sure what affect this has. Please see FunzDemo for more detailed comment
       //if (!initialized)
@@ -217,6 +246,10 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Camera3D
     headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: AllegroFlare::php
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: AllegroFlare::Shaders::Base
+    headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: ALLEGRO_TRANSFORM
     headers: [ allegro5/allegro.h ]
 
