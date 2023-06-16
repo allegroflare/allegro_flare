@@ -44,7 +44,7 @@ namespace AllegroFlare
       float get_far_plane();
       void set_far_plane(float far_plane=100);
 
-      AllegroFlare::Vec3D calculate_strafe_xz();
+      AllegroFlare::Vec3D calculate_strafe_vector_xz();
       void strafe_xy(float displacement=0.0f);
       AllegroFlare::Vec3D get_viewing_direction();
       AllegroFlare::Vec3D get_reverse_viewing_direction();
