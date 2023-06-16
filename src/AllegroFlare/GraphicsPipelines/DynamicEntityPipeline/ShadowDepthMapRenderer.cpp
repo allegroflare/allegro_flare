@@ -22,11 +22,11 @@ namespace DynamicEntityPipeline
 
 ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
+   , depth_map_shader(nullptr)
    , casting_light({})
-   , result_surface_bitmap(nullptr)
    , casting_light_projection_transform({})
    , backbuffer_sub_bitmap(nullptr)
-   , depth_map_shader(nullptr)
+   , result_surface_bitmap(nullptr)
    , backbuffer_is_setup(false)
    , backbuffer_is_managed_by_this_class(false)
 {
@@ -299,6 +299,7 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
       -30.0
    );
 
+   // TODO: Remove this line:
    //al_copy_transform(&casting_light_projection_transform, &shadow_map_projection);
 
    al_use_projection_transform(&casting_light_projection_transform);

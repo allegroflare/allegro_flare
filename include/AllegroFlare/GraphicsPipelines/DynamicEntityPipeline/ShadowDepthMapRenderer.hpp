@@ -17,11 +17,11 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
+            AllegroFlare::Shaders::Base* depth_map_shader;
             AllegroFlare::Camera3D casting_light;
-            ALLEGRO_BITMAP* result_surface_bitmap;
             ALLEGRO_TRANSFORM casting_light_projection_transform;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
-            AllegroFlare::Shaders::Base* depth_map_shader;
+            ALLEGRO_BITMAP* result_surface_bitmap;
             bool backbuffer_is_setup;
             bool backbuffer_is_managed_by_this_class;
 
