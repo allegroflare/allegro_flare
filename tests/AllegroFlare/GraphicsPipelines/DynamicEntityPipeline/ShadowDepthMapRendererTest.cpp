@@ -66,6 +66,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    shadow_depth_map_renderer.render();
 
    // Grab the result and save to test snapshots
+   // NOTE: Scene is facing a far cube, orthographic projection, tilted slightly up.  Appears as a grey rounded object
    std::string snapshot_filename = AllegroFlare::Testing::TestNameInference::build_test_snapshot_full_filename();
    ALLEGRO_BITMAP *rendered_shadow_depth_map_result = shadow_depth_map_renderer.get_result_surface_bitmap();
    al_save_bitmap(snapshot_filename.c_str(), rendered_shadow_depth_map_result);
