@@ -4,6 +4,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
+#include <AllegroFlare/Testing/TestNameInference.hpp>
 
 
 class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTest : public ::testing::Test {};
@@ -64,6 +65,11 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
    // Render the scene
    shadow_depth_map_renderer.render();
+
+   // Grab the result and save to test snapshots
+   std::string snapshot_filename = AllegroFlare::Testing::TestNameInference::build_test_snapshot_full_filename();
+   ALLEGRO_BITMAP *rendered_shadow_depth_map_result = shadow_depth_map_renderer.get_result_surface_bitmap();
+   al_save_bitmap(snapshot_filename.c_str(), rendered_shadow_depth_map_result);
 
    // Shutdown our system
    shadow_depth_map_renderer.destroy();

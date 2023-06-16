@@ -119,7 +119,10 @@ functions:
   - name: destroy
     body: |
       if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
-      if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; }
+      if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; } // NOTE: Does this destroy the
+                                                                                     // shader? Does Shaders::Base have
+                                                                                     // a destructor here?
+      if (result_surface_bitmap) { al_destroy_bitmap(result_surface_bitmap); result_surface_bitmap = nullptr; }
       return;
 
 
