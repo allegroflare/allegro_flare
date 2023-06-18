@@ -541,7 +541,6 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    step__when_solid_blocks_are_present__will_reposition_the_aabb2d_ajacent_to_the_collided_block)
-   // TODO: This function needs an AABB2D comparison operator and assertion on the subject
 {
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
