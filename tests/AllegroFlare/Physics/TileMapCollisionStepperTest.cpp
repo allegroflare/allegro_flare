@@ -561,19 +561,14 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
-   DISABLED__step__when_solid_blocks_are_placed_at_any_location_on_the_map__will_reposition_aabb2d_as_expected)
+   step__when_solid_blocks_are_placed_at_any_location_on_the_map__will_reposition_aabb2d_as_expected)
 {
-   // TODO: Get this test to work
-   // TODO: Finish TODOs
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map(100, 100);
    collision_tile_map.initialize();
-   load_increment_tile_num_map(collision_tile_map);
 
    float tile_width = 16.0f;
    float tile_height = 16.0f;
-   //float tile_size_x = collision_tile_map.get_tile_width();
-   //float tile_size_y = collision_tile_map.get_tile_height();
 
    int solid_tile_x = 0;
    int solid_tile_y = 0;
@@ -581,9 +576,9 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
    float player_w = tile_width - 1;
    float player_h = (tile_height*2) - 1;
-   float player_x = solid_tile_x - tile_width - 1;
+   float player_x = solid_tile_x - tile_width - player_w - 1;
    float player_y = 0;
-   float player_vx = (tile_width * 0.5); // moving to the right at 1/2 a tile
+   float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
    float player_vy = 0;
    AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
 
@@ -594,9 +589,9 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
       tile_width,
       tile_height
    );
+   tile_map_collision_stepper.step();
 
-   AllegroFlare::Physics::AABB2D expected_result_aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
-   // TODO: Get aabb2d comparison to actually work
+   AllegroFlare::Physics::AABB2D expected_result_aabb2d(-15.0001, 0, 16-1, 16*2-1, 0, 0);
    EXPECT_EQ(expected_result_aabb2d, aabb2d);
 }
 
