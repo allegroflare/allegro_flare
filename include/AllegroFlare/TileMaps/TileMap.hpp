@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Logger.hpp>
 #include <vector>
 #include <stdexcept>
 
@@ -112,7 +113,11 @@ T TileMap<T>::get_tile(int tile_x, int tile_y)
 {
    if (!initialized)
    {
-      throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::get_tile() error: tile map must be initialized first.");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::get_tile()",
+         "tile map must be initialized first."
+      );
+      //throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::get_tile() error: tile map must be initialized first.");
    }
 
    if (tile_x < 0 || (tile_x >= num_columns)) return -1;
@@ -129,7 +134,10 @@ bool TileMap<T>::set_tile(int tile_x, int tile_y, T value)
 {
    if (!initialized)
    {
-      throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::set_tile() error: tile map must be initialized first.");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::set_tile()",
+         "tile map must be initialized first."
+      );
    }
 
    if (tile_x < 0 || (tile_x >= num_columns)) return false;
@@ -147,8 +155,10 @@ bool TileMap<T>::set_contiguous_tile(int tile_i, T value)
    // TODO: Test this
    if (!initialized)
    {
-      throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::set_contiguous_tile() error: tile map must be "
-                               "initialized first.");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::set_contiguous_tile()",
+         "tile map must be initialized first."
+      );
    }
 
    if (tile_i < 0 || (tile_i >= (num_rows * num_columns))) return false;

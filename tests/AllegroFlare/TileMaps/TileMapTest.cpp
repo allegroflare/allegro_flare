@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/TileMaps/TileMap.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 TEST(AllegroFlare_TileMaps_TileMapTest, can_be_created_without_blowing_up)
@@ -32,7 +33,14 @@ TEST(AllegroFlare_TileMaps_TileMapTest, get_tile__without_initialization__throws
 
 TEST(AllegroFlare_TileMaps_TileMapTest, set_tile__without_initialization__throws_an_error)
 {
-   // TODO
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   std::string expected_error_message = "[AllegroFlare::TileMaps::TileMap<T>::set_tile()]: error: tile map must be "
+      "initialized first.";
+   EXPECT_THROW_WITH_MESSAGE(
+      tile_map.set_tile(3, 2, 1),
+      std::runtime_error,
+      expected_error_message
+   );
 }
 
 
