@@ -151,7 +151,14 @@ void render_aabb2d(
 
    if (adjacent_to_bottom_edge)
    {
-      al_draw_line(aabb2d.get_x(), aabb2d.get_bottom_edge(), aabb2d.get_right_edge(), aabb2d.get_bottom_edge(), orange, 2.0);
+      al_draw_line(
+         aabb2d.get_x(),
+         aabb2d.get_bottom_edge(),
+         aabb2d.get_right_edge(),
+         aabb2d.get_bottom_edge(),
+         orange,
+         2.0
+      );
    }
    if (adjacent_to_top_edge)
    {
@@ -163,7 +170,14 @@ void render_aabb2d(
    }
    if (adjacent_to_right_edge)
    {
-      al_draw_line(aabb2d.get_right_edge(), aabb2d.get_y(), aabb2d.get_right_edge(), aabb2d.get_bottom_edge(), orange, 2.0);
+      al_draw_line(
+         aabb2d.get_right_edge(),
+         aabb2d.get_y(),
+         aabb2d.get_right_edge(),
+         aabb2d.get_bottom_edge(),
+         orange,
+         2.0
+      );
    }
 }
 
