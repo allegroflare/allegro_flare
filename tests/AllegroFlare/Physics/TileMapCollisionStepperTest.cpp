@@ -21,6 +21,7 @@ class AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtur
 
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/Int2D.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Physics/AABB2D.hpp>
 
 static void load_increment_tile_num_map(AllegroFlare::TileMaps::TileMap<int> &tile_map)
 {
@@ -552,8 +553,8 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
 
-   //AllegroFlare::Physics::AABB2D expected_result_aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
-   //EXPECT_EQ(aabb2d, aabb2d);
+   AllegroFlare::Physics::AABB2D expected_result_aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
+   EXPECT_EQ(aabb2d, aabb2d);
 }
 
 
