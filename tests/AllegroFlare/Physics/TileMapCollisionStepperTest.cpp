@@ -555,6 +555,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    // TODO: Undisable this test
    AllegroFlare::Physics::AABB2D expected_result_aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
    FAIL() << "Test data is not correct.";
+   // TODO: Use "expected_result_aabb2d" in this test
    EXPECT_EQ(aabb2d, aabb2d);
 }
 
@@ -562,6 +563,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    DISABLED__step__when_solid_blocks_are_placed_at_any_location_on_the_map__will_reposition_aabb2d_as_expected)
 {
+   // TODO: Get this test to work
    // TODO: Finish TODOs
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map(100, 100);
@@ -579,7 +581,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
    float player_w = tile_width - 1;
    float player_h = (tile_height*2) - 1;
-   float player_x = solid_tile_x - tile_width;
+   float player_x = solid_tile_x - tile_width - 1;
    float player_y = 0;
    float player_vx = (tile_width * 0.5); // moving to the right at 1/2 a tile
    float player_vy = 0;
@@ -595,7 +597,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
    AllegroFlare::Physics::AABB2D expected_result_aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
    // TODO: Get aabb2d comparison to actually work
-   //EXPECT_EQ(aabb2d, aabb2d);
+   EXPECT_EQ(expected_result_aabb2d, aabb2d);
 }
 
 
