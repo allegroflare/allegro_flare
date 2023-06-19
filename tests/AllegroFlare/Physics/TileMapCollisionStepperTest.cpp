@@ -182,6 +182,7 @@ void render_aabb2d(
    }
 }
 
+
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper;
@@ -205,6 +206,20 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, render__without_an_aabb
    std::string expected_error_message =
       "TileMapCollisionStepper::step: error: guard \"aabb2d\" not met";
    ASSERT_THROW_WITH_MESSAGE(tile_map_collision_stepper.step(), std::runtime_error, expected_error_message);
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   world_coords_to_tile_coords__will_return_the_tile_coordinates_of_a_world_coordinate)
+{
+   EXPECT_EQ(2, AllegroFlare::Physics::TileMapCollisionStepper::world_coords_to_tile_coords(32+1, 16));
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   world_coords_to_tile_coords__will_provide_correct_coordinaets_with_negative_numbers)
+{
+   EXPECT_EQ(-3, AllegroFlare::Physics::TileMapCollisionStepper::world_coords_to_tile_coords(-32-1, 16));
 }
 
 
@@ -575,14 +590,16 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    float player_w = tile_width - 1;
    float player_h = (tile_height*2) - 1;
 
-   int num_steps = 1;
-   for (int i=0; i<num_steps; i++)
+   int num_steps = 3;
+   for (int i=0; i<num_steps; i++)  // TODO: Start this from i=0
    {
+      solid_tile_x = i;
+
       // TODO: Update loop test to acomodate multiple steps
       collision_tile_map.clear();
       collision_tile_map.set_tile(solid_tile_x, solid_tile_y, 1); // "1" is a default solid tile
 
-      float player_x = solid_tile_x - tile_width - player_w - 1;
+      float player_x = (solid_tile_x*tile_width) - player_w - 1;
       float player_y = 0;
       float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
       float player_vy = 0;
@@ -597,8 +614,9 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
       );
       tile_map_collision_stepper.step();
 
-      AllegroFlare::Physics::AABB2D expected_result_aabb2d(-15.0 - 0.0001, 0, 16-1, 16*2-1, 0, 0);
-      EXPECT_EQ(expected_result_aabb2d, aabb2d);
+      float expected_result_bb_x = (solid_tile_x*tile_width) - player_w - 0.0001;
+      AllegroFlare::Physics::AABB2D expected_result_aabb2d(expected_result_bb_x, 0, 16-1, 16*2-1, 0, 0);
+      EXPECT_FLOAT_EQ(expected_result_aabb2d.get_x(), aabb2d.get_x());
    }
 }
 

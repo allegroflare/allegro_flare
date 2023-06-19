@@ -22,9 +22,6 @@ namespace AllegroFlare
          float tile_height;
          static AllegroFlare::Physics::Int2D dummy_int2d;
          std::vector<AllegroFlare::Physics::Int2D> get_next_collided_tile_coords_1d(float x=0.0f, float y=0.0f, float velocity=0.0f, float depth_of_body=1.0f, float length_of_edge=1.0f, float tile_length_n=1.0f, float tile_length_m=1.0f);
-         int world_coords_to_tile_coords(float world_pos=0.0f, float tile_length=1.0f);
-         int world_x_coords_to_tile_coords_x(float world_pos_x=0.0f);
-         int world_y_coords_to_tile_coords_y(float world_pos_y=0.0f);
 
       protected:
 
@@ -54,6 +51,9 @@ namespace AllegroFlare
          std::vector<AllegroFlare::Physics::Int2D> tiles_within_aabb2d(AllegroFlare::Physics::AABB2D aabb2d={});
          std::vector<AllegroFlare::Physics::Int2D> tiles_within(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f);
          bool tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D& a=get_dummy_int2d_ref(), AllegroFlare::Physics::Int2D& b=get_dummy_int2d_ref());
+         static int world_coords_to_tile_coords(float world_pos=0.0f, float tile_length=1.0f);
+         int world_x_coords_to_tile_coords_x(float world_pos_x=0.0f);
+         int world_y_coords_to_tile_coords_y(float world_pos_y=0.0f);
          float get_tile_left_edge(float tile_x=0.0f, float tile_width=16.0f);
          float get_tile_right_edge(float tile_x=0.0f, float tile_width=16.0f);
          float get_tile_top_edge(float tile_y=0.0f, float tile_height=16.0f);

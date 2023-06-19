@@ -584,17 +584,25 @@ bool TileMapCollisionStepper::tiles_have_equal_coordinates(AllegroFlare::Physics
 
 int TileMapCollisionStepper::world_coords_to_tile_coords(float world_pos, float tile_length)
 {
-   return (int)(world_pos / tile_length);
+   int coord = (int)(world_pos / tile_length);
+   if (world_pos < 0) coord -= 1;
+   return coord;
 }
 
 int TileMapCollisionStepper::world_x_coords_to_tile_coords_x(float world_pos_x)
 {
-   return (int)(world_pos_x / tile_width);
+   return world_coords_to_tile_coords(world_pos_x, tile_width);
+   //int coord = (int)(world_pos_x / tile_width);
+   //if (world_pos_x < 0) coord -= 1;
+   //return coord;
 }
 
 int TileMapCollisionStepper::world_y_coords_to_tile_coords_y(float world_pos_y)
 {
-   return (int)(world_pos_y / tile_height);
+   return world_coords_to_tile_coords(world_pos_y, tile_height);
+   //int coord = (int)(world_pos_y / tile_height);
+   //if (world_pos_y < 0) coord -= 1;
+   //return coord;
 }
 
 float TileMapCollisionStepper::get_tile_left_edge(float tile_x, float tile_width)

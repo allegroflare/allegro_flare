@@ -605,7 +605,7 @@ functions:
 
 
   - name: world_coords_to_tile_coords
-    private: true
+    static: true
     type: int
     parameters:
       - name: world_pos
@@ -615,29 +615,37 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
-      return (int)(world_pos / tile_length);
+      int coord = (int)(world_pos / tile_length);
+      if (world_pos < 0) coord -= 1;
+      return coord;
 
 
   - name: world_x_coords_to_tile_coords_x
-    private: true
+    xprivate: true
     type: int
     parameters:
       - name: world_pos_x
         type: float
         default_argument: 0.0f
     body: |
-      return (int)(world_pos_x / tile_width);
+      return world_coords_to_tile_coords(world_pos_x, tile_width);
+      //int coord = (int)(world_pos_x / tile_width);
+      //if (world_pos_x < 0) coord -= 1;
+      //return coord;
 
 
   - name: world_y_coords_to_tile_coords_y
-    private: true
+    xprivate: true
     type: int
     parameters:
       - name: world_pos_y
         type: float
         default_argument: 0.0f
     body: |
-      return (int)(world_pos_y / tile_height);
+      return world_coords_to_tile_coords(world_pos_y, tile_height);
+      //int coord = (int)(world_pos_y / tile_height);
+      //if (world_pos_y < 0) coord -= 1;
+      //return coord;
 
 
   - name: get_tile_left_edge
