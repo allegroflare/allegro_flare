@@ -590,8 +590,8 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    float player_w = tile_width - 1;
    float player_h = (tile_height*2) - 1;
 
-   int num_steps = 3;
-   for (int i=0; i<num_steps; i++)  // TODO: Start this from i=0
+   int num_steps = 100; // TODO: Expand this to more than 100 tiles
+   for (int i=0; i<num_steps; i++)
    {
       solid_tile_x = i;
 
