@@ -38,6 +38,7 @@ namespace AllegroFlare::TileMaps
       std::pair<int, int> get_coordinates_from_contiguous_number(int contiguous_tile_num);
 
       void resize(int w, int h);
+      void clear(int clear_to_value=0);
    };
 
 
@@ -191,6 +192,14 @@ void TileMap<T>::resize(int num_columns, int h)
 
    // resize and clear the tiles
    tiles.assign(num_columns* num_rows, 0);
+}
+
+
+template <class T>
+void TileMap<T>::clear(int clear_to_value)
+{
+   // resize and clear the tiles
+   tiles.assign(num_columns* num_rows, clear_to_value);
 }
 
 

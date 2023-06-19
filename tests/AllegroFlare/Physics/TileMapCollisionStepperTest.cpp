@@ -572,27 +572,34 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
    int solid_tile_x = 0;
    int solid_tile_y = 0;
-   collision_tile_map.set_tile(solid_tile_x, solid_tile_y, 1); // "1" is a default solid tile
-
    float player_w = tile_width - 1;
    float player_h = (tile_height*2) - 1;
-   float player_x = solid_tile_x - tile_width - player_w - 1;
-   float player_y = 0;
-   float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
-   float player_vy = 0;
-   AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
 
-   // Perform the step
-   AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(
-      &collision_tile_map,
-      &aabb2d,
-      tile_width,
-      tile_height
-   );
-   tile_map_collision_stepper.step();
+   int num_steps = 1;
+   for (int i=0; i<num_steps; i++)
+   {
+      // TODO: Update loop test to acomodate multiple steps
+      collision_tile_map.clear();
+      collision_tile_map.set_tile(solid_tile_x, solid_tile_y, 1); // "1" is a default solid tile
 
-   AllegroFlare::Physics::AABB2D expected_result_aabb2d(-15.0001, 0, 16-1, 16*2-1, 0, 0);
-   EXPECT_EQ(expected_result_aabb2d, aabb2d);
+      float player_x = solid_tile_x - tile_width - player_w - 1;
+      float player_y = 0;
+      float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
+      float player_vy = 0;
+      AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
+
+      // Perform the step
+      AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(
+         &collision_tile_map,
+         &aabb2d,
+         tile_width,
+         tile_height
+      );
+      tile_map_collision_stepper.step();
+
+      AllegroFlare::Physics::AABB2D expected_result_aabb2d(-15.0 - 0.0001, 0, 16-1, 16*2-1, 0, 0);
+      EXPECT_EQ(expected_result_aabb2d, aabb2d);
+   }
 }
 
 
