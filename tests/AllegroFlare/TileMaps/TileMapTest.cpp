@@ -44,7 +44,24 @@ TEST(AllegroFlare_TileMaps_TileMapTest, set_tile__without_initialization__throws
 }
 
 
-TEST(AllegroFlare_TileMaps_TileMapTest, get_coordinates_from_contiguous_number__when_the__returns_a_special_invalid_result)
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   is_dimensionless__if_the_width_or_num_columns_is_less_than_or_equal_zero__returns_true)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   ASSERT_EQ(true, tile_map.is_dimensionless());
+}
+
+
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   is_dimensionless__if_the_width_or_num_columns_are_positive_numbers__returns_false)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map(4, 3);
+   ASSERT_EQ(false, tile_map.is_dimensionless());
+}
+
+
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   get_coordinates_from_contiguous_number__when_the_map_is_dimensionless__returns_a_special_invalid_result)
 {
    // TODO
 }
@@ -65,20 +82,6 @@ TEST(AllegroFlare_TileMaps_TileMapTest, resize__will_set_the_width_and_num_colum
 TEST(AllegroFlare_TileMaps_TileMapTest, resize__will_clear_all_the_tiles_to_0)
 {
    // TODO
-}
-
-
-TEST(AllegroFlare_TileMaps_TileMapTest, is_dimensionless__if_the_width_or_num_columns_is_less_than_or_equal_zero__returns_true)
-{
-   AllegroFlare::TileMaps::TileMap<int> tile_map;
-   ASSERT_EQ(true, tile_map.is_dimensionless());
-}
-
-
-TEST(AllegroFlare_TileMaps_TileMapTest, is_dimensionless__if_the_width_or_num_columns_are_positive_numbers__returns_false)
-{
-   AllegroFlare::TileMaps::TileMap<int> tile_map(4, 3);
-   ASSERT_EQ(false, tile_map.is_dimensionless());
 }
 
 
