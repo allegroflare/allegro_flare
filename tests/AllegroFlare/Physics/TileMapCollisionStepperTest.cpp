@@ -579,7 +579,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    step__when_solid_blocks_are_placed_at_any_location_on_the_map__will_reposition_aabb2d_as_expected)
 {
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   AllegroFlare::TileMaps::TileMap<int> collision_tile_map(1000, 100);
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map(100, 100);
    collision_tile_map.initialize();
 
    float tile_width = 16.0f;
@@ -590,8 +590,8 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    float player_w = tile_width - 1;
    float player_h = (tile_height*2) - 1;
 
-   int num_steps_x = 1000; // TODO: Expand this to more than 100 tiles
-   int num_steps_y = 1;
+   int num_steps_x = 100; // TODO: Expand this to more than 100 tiles
+   int num_steps_y = 100;
    for (int i=0; i<num_steps_x; i++)
    {
       for (int j=0; j<num_steps_y; j++)
