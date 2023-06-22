@@ -10,7 +10,8 @@
 
 namespace AllegroFlare
 {
-   // TODO: Look into using al_play_sample (while returning a ALLEGRO_SAMPLE_ID) in place of al_play_sample_instance
+   // TODO: Look into using al_play_sample (while returning a ALLEGRO_SAMPLE_ID) in place of al_play_sample_instance.
+   // To do this, you would have to more accurately manage the mixer and voice.
    class Sound
    {
    private:

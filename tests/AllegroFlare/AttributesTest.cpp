@@ -15,6 +15,13 @@ using namespace AllegroFlare;
 
 
 
+// TODO: Currently, all custom datatypes are registered to a global, static list.  This custom datatype is shared
+// across all Attribute objects, and, as such, the custom datatype is leaked between tests.  This design should be
+// revised so that custom datatypes are stored to a separate dictionary that is injected at initialization or assigned
+// later.
+
+
+
 struct my_custom_datatype
 {
 public:
@@ -193,7 +200,7 @@ TEST(AllegroFlare_AttributesTest, attributes_can_be_retrieved_as_standard_dataty
 TEST(AllegroFlare_AttributesTest, FLAKEY__a_datatype_that_has_not_been_created_is_unknown)
 {
    Attributes attributes;
-   EXPECT_EQ(Attributes::datatype_is_known("my_custom_datatype"), false);
+   EXPECT_EQ(Attributes::datatype_is_known("a_datatype_that_has_not_been_created"), false);
 }
 
 
