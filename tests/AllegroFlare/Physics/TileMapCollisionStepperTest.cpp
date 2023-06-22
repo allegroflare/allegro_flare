@@ -627,6 +627,23 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
          float expected_result_bb_x = (solid_tile_x*tile_width) - player_w - 0.0001;
          AllegroFlare::Physics::AABB2D expected_result_aabb2d(expected_result_bb_x, 0, 16-1, 16*2-1, 0, 0);
+
+         // TODO: Work in this image capture on error
+         //float threshold = 0.00001;
+         //bool error_expected = (expected_result_aabb2d.get_x() != aabb2d.get_x());
+
+         //if (error_expected)
+         //{
+            // Work in this tests code to capture image of error state
+            //al_init();
+            //ALLEGRO_BITMAP *result_bitmap = al_create_bitmap(1920, 1080);
+            //al_set_target_bitmap(result_bitmap);
+            //al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
+            //std::string asdf = "/Users/markoates/Desktop/asf.png";
+            //al_save_bitmap(asdf.c_str(), result_bitmap);
+            //al_uninstall_system();
+         //}
+
          ASSERT_FLOAT_EQ(expected_result_aabb2d.get_x(), aabb2d.get_x()) << "Test on tile ("
                                                                          << solid_tile_x << ", "
                                                                          << solid_tile_y << "), ";
