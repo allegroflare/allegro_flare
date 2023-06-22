@@ -600,12 +600,17 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
          solid_tile_x = i;
          solid_tile_y = j;
 
+         float test_position_align_y = 0.0; // TODO: Modify this value across 0.0 - 1.0
+
          collision_tile_map.clear();
          collision_tile_map.set_tile(solid_tile_x, solid_tile_y, 1); // "1" is a default solid tile
 
          // TODO: Update to acomodate multiple steps-sizes (very narrow, normal, passing-through)
          float player_x = (solid_tile_x*tile_width) - player_w - 1;
-         float player_y = (solid_tile_y*tile_height); // TODO: Should include " - (tile_height - 1);" in this
+         float player_y = (solid_tile_y*tile_height) // set the anchor point where y is tested
+                        - (player_h * test_position_align_y) // align the player box vertically
+                        + ((test_position_align_y*2 - 1.0)) // offset by one pixel into the collision target
+                        ;
          float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
          float player_vy = 0;
          AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
