@@ -579,7 +579,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    step__when_solid_blocks_are_placed_at_any_location_on_the_map__will_reposition_aabb2d_as_expected)
 {
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   AllegroFlare::TileMaps::TileMap<int> collision_tile_map(100, 100);
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map(150, 100);
    collision_tile_map.initialize();
 
    float tile_width = 16.0f;
@@ -588,9 +588,10 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    int solid_tile_x = 0;
    int solid_tile_y = 0;
    float player_w = tile_width - 1;
+   // TODO: Perform the step (larger than tile, same as tile, smaller than tile
    float player_h = (tile_height*2) - 1;
 
-   int num_steps_x = 100; // TODO: Expand this to more than 100 tiles
+   int num_steps_x = 150; // TODO: Expand this to more than 100 tiles
    int num_steps_y = 100;
    for (int i=0; i<num_steps_x; i++)
    {
@@ -599,16 +600,17 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
          solid_tile_x = i;
          solid_tile_y = j;
 
-         // TODO: Update loop test to acomodate multiple steps
          collision_tile_map.clear();
          collision_tile_map.set_tile(solid_tile_x, solid_tile_y, 1); // "1" is a default solid tile
 
+         // TODO: Update to acomodate multiple steps-sizes (very narrow, normal, passing-through)
          float player_x = (solid_tile_x*tile_width) - player_w - 1;
          float player_y = (solid_tile_y*tile_height); // TODO: Should include " - (tile_height - 1);" in this
          float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
          float player_vy = 0;
          AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
 
+         // TODO: Perform the step bottom of box, center of box, top of box
          // Perform the step
          AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(
             &collision_tile_map,
