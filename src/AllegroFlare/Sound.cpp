@@ -1,43 +1,42 @@
 
 
 
-
 #include <AllegroFlare/Sound.hpp>
 
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Errors.hpp>
-
 #include <sstream>
-
 
 
 
 namespace AllegroFlare
 {
-   Sound::Sound(ALLEGRO_SAMPLE *sample)
-      : sample(sample)
-      , sample_instance(nullptr)
-      , mixer(nullptr)
-      //, voice(nullptr)
-      , _position(0)
-      , _paused(false)
-      , initialized(false)
-   {
-      //initialize();
-   }
 
 
 
+Sound::Sound(ALLEGRO_SAMPLE *sample)
+   : sample(sample)
+   , sample_instance(nullptr)
+   , mixer(nullptr)
+   //, voice(nullptr)
+   , _position(0)
+   , _paused(false)
+   , initialized(false)
+{
+   //initialize();
+}
 
-   //Sound::Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice)
-      //: sample_instance(nullptr)
-      //, mixer(al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2))
-      //, voice(voice)
-      //, _position(0)
-      //, _paused(false)
-   //{
-      //initialize();
-   //}
+
+
+//Sound::Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice)
+   //: sample_instance(nullptr)
+   //, mixer(al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2))
+   //, voice(voice)
+   //, _position(0)
+   //, _paused(false)
+//{
+   //initialize();
+//}
 
 
 
@@ -98,224 +97,202 @@ void Sound::initialize()
 
 
 
-
-   Sound &Sound::play()
+Sound &Sound::play()
+{
+   validate_initialized("play");
+   if (!al_play_sample_instance(sample_instance))
    {
-      validate_initialized("play");
-      if (!al_play_sample_instance(sample_instance))
-      {
-         std::cout << "[AllegroFlare::Sound::" << __FUNCTION__ << "] could not al_play_sample_instance" << std::endl;
-      }
-      else _paused = false;
-      return *this;
+      std::cout << "[AllegroFlare::Sound::" << __FUNCTION__ << "] could not al_play_sample_instance" << std::endl;
    }
-
-
-
-
-   Sound &Sound::toggle_playback()
-   {
-      validate_initialized("toggle_playback");
-      if (is_playing()) stop();
-      else play();
-      return *this;
-   }
-
-
-
-
-   Sound &Sound::toggle_pause()
-   {
-      validate_initialized("toggle_pause");
-      if (is_playing()) pause();
-      else unpause();
-      return *this;
-   }
-
-
-
-
-   Sound &Sound::pause()
-   {
-      validate_initialized("pause");
-      _position = position();
-      al_stop_sample_instance(sample_instance);
-      _paused = true;
-      return *this;
-   }
-
-
-
-
-   Sound &Sound::unpause()
-   {
-      validate_initialized("unpause");
-      if (is_paused())
-      {
-         play();
-         position(_position);
-         _paused = false;
-      }
-      return *this;
-   }
-
-
-
-
-   bool Sound::is_paused()
-   {
-      return _paused;
-   }
-
-
-
-
-   Sound &Sound::stop()
-   {
-      validate_initialized("stop");
-      al_stop_sample_instance(sample_instance);
-      position(0);
-      return *this;
-   }
-
-
-
-
-   Sound &Sound::rewind()
-   {
-      validate_initialized("rewind");
-      position(0);
-      return *this;
-   }
-
-
-
-
-   float Sound::volume()
-   {
-      validate_initialized("volume");
-      return al_get_sample_instance_gain(sample_instance);
-   }
-
-
-
-
-   Sound &Sound::volume(float vol)
-   {
-      validate_initialized("volume");
-      al_set_sample_instance_gain(sample_instance, vol);
-      return *this;
-   }
-
-
-
-
-   double Sound::get_length_sec()
-   {
-      validate_initialized("get_length_sec");
-      return al_get_sample_instance_time(sample_instance);
-   }
-
-
-
-
-   double Sound::position()
-   {
-      validate_initialized("position");
-      if (is_paused()) return _position;
-
-      _position = (float)al_get_sample_instance_position(sample_instance)
-         / al_get_sample_instance_length(sample_instance)
-         * al_get_sample_instance_time(sample_instance);
-
-      return _position;
-   }
-
-
-
-
-   Sound &Sound::position(double time)
-   {
-      validate_initialized("position");
-      unsigned int pos = (unsigned int)(al_get_sample_instance_length(sample_instance)
-            * (time / al_get_sample_instance_time(sample_instance)));
-      al_set_sample_instance_position(sample_instance, pos);
-      return *this;
-   }
-
-
-
-
-   bool Sound::is_playing()
-   {
-      validate_initialized("is_playing");
-      return al_get_sample_instance_playing(sample_instance);
-   }
-
-
-
-
-   Sound &Sound::pan(float pan)
-   {
-      validate_initialized("pan");
-      al_set_sample_instance_pan(sample_instance, pan);
-      return *this;
-   }
-
-
-
-
-   float Sound::pan()
-   {
-      validate_initialized("pan");
-      return al_get_sample_instance_pan(sample_instance);
-   }
-
-
-
-
-   Sound &Sound::loop(bool yes)
-   {
-      validate_initialized("loop");
-      if (yes) al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_LOOP);
-      else al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_ONCE);
-      return *this;
-   }
-
-
-
-
-   Sound &Sound::bidir()
-   {
-      validate_initialized("bidir");
-      al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_BIDIR);
-      return *this;
-   }
-
-
-
-
-   Sound &Sound::speed(float speed)
-   {
-      validate_initialized("speed");
-      al_set_sample_instance_speed(sample_instance, speed);
-      return *this;
-   }
-
-
-
-
-   float Sound::speed()
-   {
-      validate_initialized("speed");
-      return al_get_sample_instance_speed(sample_instance);
-   }
-
-
-
+   else _paused = false;
+   return *this;
 }
 
 
+
+Sound &Sound::toggle_playback()
+{
+   validate_initialized("toggle_playback");
+   if (is_playing()) stop();
+   else play();
+   return *this;
+}
+
+
+
+Sound &Sound::toggle_pause()
+{
+   validate_initialized("toggle_pause");
+   if (is_playing()) pause();
+   else unpause();
+   return *this;
+}
+
+
+
+Sound &Sound::pause()
+{
+   validate_initialized("pause");
+   _position = position();
+   al_stop_sample_instance(sample_instance);
+   _paused = true;
+   return *this;
+}
+
+
+
+Sound &Sound::unpause()
+{
+   validate_initialized("unpause");
+   if (is_paused())
+   {
+      play();
+      position(_position);
+      _paused = false;
+   }
+   return *this;
+}
+
+
+
+bool Sound::is_paused()
+{
+   return _paused;
+}
+
+
+
+Sound &Sound::stop()
+{
+   validate_initialized("stop");
+   al_stop_sample_instance(sample_instance);
+   position(0);
+   return *this;
+}
+
+
+
+Sound &Sound::rewind()
+{
+   validate_initialized("rewind");
+   position(0);
+   return *this;
+}
+
+
+
+float Sound::volume()
+{
+   validate_initialized("volume");
+   return al_get_sample_instance_gain(sample_instance);
+}
+
+
+
+Sound &Sound::volume(float vol)
+{
+   validate_initialized("volume");
+   al_set_sample_instance_gain(sample_instance, vol);
+   return *this;
+}
+
+
+
+double Sound::get_length_sec()
+{
+   validate_initialized("get_length_sec");
+   return al_get_sample_instance_time(sample_instance);
+}
+
+
+
+double Sound::position()
+{
+   validate_initialized("position");
+   if (is_paused()) return _position;
+
+   _position = (float)al_get_sample_instance_position(sample_instance)
+      / al_get_sample_instance_length(sample_instance)
+      * al_get_sample_instance_time(sample_instance);
+
+   return _position;
+}
+
+
+
+Sound &Sound::position(double time)
+{
+   validate_initialized("position");
+   unsigned int pos = (unsigned int)(al_get_sample_instance_length(sample_instance)
+         * (time / al_get_sample_instance_time(sample_instance)));
+   al_set_sample_instance_position(sample_instance, pos);
+   return *this;
+}
+
+
+
+bool Sound::is_playing()
+{
+   validate_initialized("is_playing");
+   return al_get_sample_instance_playing(sample_instance);
+}
+
+
+
+Sound &Sound::pan(float pan)
+{
+   validate_initialized("pan");
+   al_set_sample_instance_pan(sample_instance, pan);
+   return *this;
+}
+
+
+
+float Sound::pan()
+{
+   validate_initialized("pan");
+   return al_get_sample_instance_pan(sample_instance);
+}
+
+
+
+Sound &Sound::loop(bool yes)
+{
+   validate_initialized("loop");
+   if (yes) al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_LOOP);
+   else al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_ONCE);
+   return *this;
+}
+
+
+
+Sound &Sound::bidir()
+{
+   validate_initialized("bidir");
+   al_set_sample_instance_playmode(sample_instance, ALLEGRO_PLAYMODE_BIDIR);
+   return *this;
+}
+
+
+
+Sound &Sound::speed(float speed)
+{
+   validate_initialized("speed");
+   al_set_sample_instance_speed(sample_instance, speed);
+   return *this;
+}
+
+
+
+float Sound::speed()
+{
+   validate_initialized("speed");
+   return al_get_sample_instance_speed(sample_instance);
+}
+
+
+
+} // AllegroFlare
 
 
 

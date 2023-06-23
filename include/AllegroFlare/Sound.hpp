@@ -7,7 +7,6 @@
 
 
 
-
 namespace AllegroFlare
 {
    // TODO: Look into using al_play_sample (while returning a ALLEGRO_SAMPLE_ID) in place of al_play_sample_instance.
@@ -54,7 +53,6 @@ namespace AllegroFlare
       Sound &bidir();
    };
 }
-
 
 
 
