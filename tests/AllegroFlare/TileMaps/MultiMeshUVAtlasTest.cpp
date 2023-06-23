@@ -25,3 +25,17 @@ TEST(AllegroFlare_TileMaps_MultiMeshUVAtlasTest, exists__will_return_false_if_an
 }
 
 
+TEST(AllegroFlare_TileMaps_MultiMeshUVAtlasTest, DISABLED__get__will_return_a_copy_of_the_multimeshuv_at_the_index)
+{
+   // TODO: Undisable this test
+   AllegroFlare::TileMaps::MultiMeshUVAtlas multi_mesh_uvatlas;
+   multi_mesh_uvatlas.add(321, 0.0, 1.0, 2.0, 4.0);
+
+   AllegroFlare::TileMaps::MultiMeshUV expected_uv(0.0, 1.0, 2.0, 4.0);
+   AllegroFlare::TileMaps::MultiMeshUV actual_uv = multi_mesh_uvatlas.get(321);
+
+   // TODO: Add comparison operator
+   //EXPECT_EQ(expected_uv, actual_uv);
+}
+
+
