@@ -25,7 +25,7 @@ TEST(AllegroFlare_TileMaps_MultiMeshUVAtlasTest, exists__will_return_false_if_an
 }
 
 
-TEST(AllegroFlare_TileMaps_MultiMeshUVAtlasTest, DISABLED__get__will_return_a_copy_of_the_multimeshuv_at_the_index)
+TEST(AllegroFlare_TileMaps_MultiMeshUVAtlasTest, get__will_return_a_copy_of_the_multimeshuv_at_the_index)
 {
    // TODO: Undisable this test
    AllegroFlare::TileMaps::MultiMeshUVAtlas multi_mesh_uvatlas;
@@ -35,7 +35,10 @@ TEST(AllegroFlare_TileMaps_MultiMeshUVAtlasTest, DISABLED__get__will_return_a_co
    AllegroFlare::TileMaps::MultiMeshUV actual_uv = multi_mesh_uvatlas.get(321);
 
    // TODO: Add comparison operator
-   //EXPECT_EQ(expected_uv, actual_uv);
+   EXPECT_EQ(expected_uv.get_u1(), actual_uv.get_u1());
+   EXPECT_EQ(expected_uv.get_v1(), actual_uv.get_v1());
+   EXPECT_EQ(expected_uv.get_u2(), actual_uv.get_u2());
+   EXPECT_EQ(expected_uv.get_v2(), actual_uv.get_v2());
 }
 
 
