@@ -578,6 +578,16 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    step__when_solid_blocks_are_placed_at_any_location_on_the_map__will_reposition_aabb2d_as_expected)
 {
+   // TODO: Add deeper test coverage for the following test conditions:
+   // - size
+   // - center-of-mass
+   // - edge-of-mass
+   // - moving up
+   // - moving down
+   // - moving left
+   // - moving right
+   // - distance-to-edge
+
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map(150, 100);
    collision_tile_map.initialize();
