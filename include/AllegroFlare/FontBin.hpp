@@ -12,6 +12,7 @@ namespace AllegroFlare
    {
    private:
       int _get_valid_font_size(std::string num);
+
    public:
       FontBin();
       ~FontBin();
