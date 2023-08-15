@@ -25,6 +25,18 @@ TEST(AllegroFlare_TileMaps_TileMapTest, num_columns__has_the_expected_default_va
 }
 
 
+TEST(AllegroFlare_TileMaps_TileMapTest, in_bounds__returns_true_if_the_coordinate_is_in_bounds)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_TileMaps_TileMapTest, in_bounds__returns_false_if_the_coordinate_is_out_of_bounds)
+{
+   // TODO
+}
+
+
 TEST(AllegroFlare_TileMaps_TileMapTest, get_tile__without_initialization__throws_an_error)
 {
    // TODO

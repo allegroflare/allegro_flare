@@ -32,6 +32,7 @@ namespace AllegroFlare::TileMaps
       bool is_dimensionless();
 
       const std::vector<T> get_tiles() const;
+      bool in_bounds(int tile_x, int tile_y);
       T get_tile(int tile_x, int tile_y);
       bool set_tile(int tile_x, int tile_y, T value);
       bool set_contiguous_tile(int tile_i, T value);
@@ -106,6 +107,15 @@ template <class T>
 const std::vector<T> TileMap<T>::get_tiles() const
 {
    return tiles;
+}
+
+
+template <class T>
+bool TileMap<T>::in_bounds(int tile_x, int tile_y)
+{
+   if (tile_x < 0 || (tile_x >= num_columns)) return false;
+   if (tile_y < 0 || (tile_y >= num_rows)) return false;
+   return true;
 }
 
 
