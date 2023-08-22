@@ -16,7 +16,7 @@ namespace AllegroFlare
       // returns the polar coordinates of an angle (in radians?) and magnitude
       static Vec2D polar_coords(float angle, float magnitude);
 
-      // return the arctangent(2) for the current vector
+      // return the arctangent(2) for the current vector, returns the value in radians (2*pi)
       float get_angle() const;
 
       // return the magnitude, or length, of the vector
