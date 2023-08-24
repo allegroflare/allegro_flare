@@ -85,7 +85,7 @@ TEST(AllegroFlare_SystemInfoTest, get_version__will_return_a_string_representing
 
    std::string regex_pattern = "^Darwin Kernel Version \\d+\\.\\d+\\.\\d+: "
       "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) "
-      "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{2} \\d{2}:\\d{2}:\\d{2} (PST|PDT) \\d{4}; "
+      "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) ( ?\\d{1}|\\d{2}) \\d{2}:\\d{2}:\\d{2} (PST|PDT) \\d{4}; "
       "root:xnu-\\d+\\.\\d+\\.\\d+~\\d+/RELEASE_(ARM64_T8103|X86_64)$";
    std::regex version_regex(regex_pattern);
    bool is_match = std::regex_match(actual_version, version_regex);
