@@ -12,6 +12,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 
