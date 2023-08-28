@@ -58,7 +58,7 @@ namespace AllegroFlare
       float quarter_note_spacing; // = staff_line_distance * 30
       float stem_thickness; // = staff_line_distance * 0.2
       float beam_thickness; // = staff_line_distance * 0.4
-      ALLEGRO_FONT *font_bravura; // size = staff_line_distance * 4
+      //ALLEGRO_FONT *font_bravura; // size = staff_line_distance * 4
       spacing_method_t spacing_method;
       AllegroFlare::FontBin *font_bin;
 
@@ -99,7 +99,7 @@ namespace AllegroFlare
       void draw_line(float x1, float y1, float x2, float y2, const ALLEGRO_COLOR &color, float thickness);
       void use_drawing_interface(AllegroFlare::DrawingInterfaces::Base *drawing_interface);
 
-      bool bravura_is_valid();
+      //bool bravura_is_valid();
 
       ALLEGRO_FONT *obtain_font_bravura();
 

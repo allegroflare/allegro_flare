@@ -180,7 +180,7 @@ namespace MusicNotation
       , quarter_note_spacing(staff_line_distance*5)
       , stem_thickness(staff_line_distance*0.15)
       , beam_thickness(staff_line_distance*0.4)
-      , font_bravura(al_load_font(bravura_location.c_str(), -int(font_size_px), ALLEGRO_FLAGS_EMPTY))
+      //, font_bravura(al_load_font(bravura_location.c_str(), -int(font_size_px), ALLEGRO_FLAGS_EMPTY))
       , spacing_method(SPACING_AESTHETIC)
       , font_bin(font_bin)
       , current_note_duration(4)
@@ -191,11 +191,11 @@ namespace MusicNotation
       , ignore_spaces(false)
       , just_one_beam()
    {
-      if (!font_bravura)
-      {
-         std::cout << "MusicNotation::MusicNotation(): FONT_BRAVURA is not properly loaded" << std::endl;
-         std::cout << "   ^- looking in \"" << bravura_location << "\"" << std::endl;
-      }
+      //if (!font_bravura)
+      //{
+         //std::cout << "MusicNotation::MusicNotation(): FONT_BRAVURA is not properly loaded" << std::endl;
+         //std::cout << "   ^- looking in \"" << bravura_location << "\"" << std::endl;
+      //}
    }
 
 
@@ -203,7 +203,7 @@ namespace MusicNotation
 
    MusicNotation::~MusicNotation()
    {
-      al_destroy_font(font_bravura);
+      //al_destroy_font(font_bravura);
    }
 
 
@@ -304,8 +304,8 @@ namespace MusicNotation
       bool rhythm_only = false;
       bool freeze_stems_up = false;
       //spacing_method_t spacing_method = SPACING_AESTHETIC;
-      ALLEGRO_COLOR color = color::black;
-      ALLEGRO_COLOR staff_color = color::black; //color::mix(color::green, color::white, 0.5);
+      ALLEGRO_COLOR color = color::white;
+      ALLEGRO_COLOR staff_color = color::white; //color::mix(color::green, color::white, 0.5);
       int num_dots = 0;
       int staff_pos = 0;
       //ALLEGRO_COLOR symbol_color = color::white;
@@ -641,14 +641,14 @@ namespace MusicNotation
                                "be used");
 
       // reload the font at the correct height
-      staff_line_distance = distance;
-      staff_line_thickness = distance * 0.1; // = staff_line_distance * 0.1
-      quarter_note_spacing = distance * 30; // = staff_line_distance * 30
-      if (font_bravura)
-      {
-         al_destroy_font(font_bravura);
-         font_bravura = al_load_font("data/music_notation/Bravura.otf", (int)(distance * 4), ALLEGRO_FLAGS_EMPTY);
-      }
+      //staff_line_distance = distance;
+      //staff_line_thickness = distance * 0.1; // = staff_line_distance * 0.1
+      //quarter_note_spacing = distance * 30; // = staff_line_distance * 30
+      //if (font_bravura)
+      //{
+         //al_destroy_font(font_bravura);
+         //font_bravura = al_load_font("data/music_notation/Bravura.otf", (int)(distance * 4), ALLEGRO_FLAGS_EMPTY);
+      //}
    }
 
 
@@ -701,6 +701,7 @@ namespace MusicNotation
 
    void MusicNotation::draw_music_symbol(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color)
    {
+      ALLEGRO_FONT *font_bravura = obtain_font_bravura();
       if (!drawing_interface)
       {
          draw_unicode_char(font_bravura, color, symbol, ALLEGRO_FLAGS_EMPTY, x, (int_cast_y) ? (int)(y-al_get_font_ascent(font_bravura)) : (y-al_get_font_ascent(font_bravura)));
@@ -726,6 +727,8 @@ namespace MusicNotation
 
    int MusicNotation::get_music_symbol_width(int32_t symbol)
    {
+      ALLEGRO_FONT *font_bravura = obtain_font_bravura();
+
       static ALLEGRO_USTR *ustr = NULL;
       if (!ustr) ustr = al_ustr_new("");
       al_ustr_set_chr(ustr, 0, symbol);
@@ -735,10 +738,10 @@ namespace MusicNotation
 
 
 
-   bool MusicNotation::bravura_is_valid()
-   {
-      return (font_bravura != NULL);
-   }
+   //bool MusicNotation::bravura_is_valid()
+   //{
+      //return (font_bravura != NULL);
+   //}
 
 
 

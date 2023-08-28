@@ -23,9 +23,12 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture, 
 {
    AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
    AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref());
-   //music_notation.draw(0, 0, "abcd");
-   //al_flip_display();
-   //sleep(1);
+
+   std::string music_notation_content_string = " & ^    -6=,e75'q1| -1.,-2 er 4]";
+   music_notation.draw(1920/2, 1080/2, music_notation_content_string);
+
+   al_flip_display();
+   sleep(1);
 }
 
 
