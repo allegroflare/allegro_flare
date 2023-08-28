@@ -100,6 +100,7 @@ functions:
       - name: index_of_stamp
         type: int
         default_argument: 0
+    guards: [ (index_of_stamp > 0), (index_of_stamp <= stamps.size()) ]
     body: |
       // TODO: add initialized guard
       // TODO bounds checking

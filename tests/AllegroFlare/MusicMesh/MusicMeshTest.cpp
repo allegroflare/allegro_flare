@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTest, render__without_allegro_initialized
 
 
 TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
-   DISABLED__CAPTURE__render__will_not_blow_up)
+   CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::MusicMesh::MusicMesh music_mesh(&get_font_bin_ref());
    music_mesh.initialize();
@@ -49,11 +49,10 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTestWithAllegroRenderingFixture,
    {
       music_mesh.add_music_symbol(random.get_random_int(0, 1920), random.get_random_int(0, 1080),
          start + random.get_random_int(0, 255));
-      //music_mesh.add_music_symbol(300, 300, start + 32 - 2); // g clef
    }
 
    AllegroFlare::Placement2D place;
-   for (int i=0; i<60*0.2; i++)
+   for (int i=0; i<60*1.2; i++)
    {
       clear();
       place.size = {1920, 1080};

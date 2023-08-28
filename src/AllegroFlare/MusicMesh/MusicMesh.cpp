@@ -109,6 +109,20 @@ void MusicMesh::add_music_symbol(float x, float y, uint32_t music_symbol_to_stam
 
 void MusicMesh::remove_stamp_at(int index_of_stamp)
 {
+   if (!((index_of_stamp > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[MusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("MusicMesh::remove_stamp_at: error: guard \"(index_of_stamp > 0)\" not met");
+   }
+   if (!((index_of_stamp <= stamps.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[MusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp <= stamps.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("MusicMesh::remove_stamp_at: error: guard \"(index_of_stamp <= stamps.size())\" not met");
+   }
    // TODO: add initialized guard
    // TODO bounds checking
    uint32_t multi_mesh_id_to_remove = stamps[index_of_stamp].get_multi_mesh_id();
