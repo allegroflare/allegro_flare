@@ -637,6 +637,9 @@ namespace MusicNotation
 
    void MusicNotation::set_staff_line_distance(float distance)
    {
+      throw std::runtime_error("MusicNotation::set_staff_line_distance: This method requires refactoring before it can "
+                               "be used");
+
       // reload the font at the correct height
       staff_line_distance = distance;
       staff_line_thickness = distance * 0.1; // = staff_line_distance * 0.1
