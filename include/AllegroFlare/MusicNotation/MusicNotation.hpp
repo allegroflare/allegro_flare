@@ -101,6 +101,8 @@ namespace AllegroFlare
 
       bool bravura_is_valid();
 
+      ALLEGRO_FONT *obtain_font_bravura();
+
 
       // getters and setters
 

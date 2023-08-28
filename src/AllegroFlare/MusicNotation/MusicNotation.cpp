@@ -742,6 +742,19 @@ namespace MusicNotation
 
 
 
+   ALLEGRO_FONT *MusicNotation::obtain_font_bravura()
+   {
+      if (!font_bin) AllegroFlare::Logger::throw_error("MusicNotation::obtain_font_bravura: error: missing font_bin");
+
+      int font_size = -(staff_line_distance*4 * 4);
+      //, font_size_px((staff_line_distance*4) * 4)
+      //, font_bravura(al_load_font(bravura_location.c_str(), -int(font_size_px), ALLEGRO_FLAGS_EMPTY))
+      std::stringstream font_identifier;
+      font_identifier << "Bravura.otf " << font_size;
+      return font_bin->operator[](font_identifier.str());
+   }
+
+
 
    float MusicNotation::get_quarter_note_spacing()
    {
