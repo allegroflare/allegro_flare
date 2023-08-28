@@ -104,6 +104,7 @@ namespace AllegroFlare
       // getters and setters
 
       float get_quarter_note_spacing();
+      void set_quarter_note_spacing(int);
       void set_spacing_method(spacing_method_t method);
 
       static float get_duration_fixed_width(int duration, float quarter_note_width, int num_dots);

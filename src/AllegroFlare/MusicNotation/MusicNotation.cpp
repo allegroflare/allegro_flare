@@ -750,6 +750,13 @@ namespace MusicNotation
 
 
 
+   void MusicNotation::set_quarter_note_spacing(int quarter_note_spacing)
+   {
+      this->quarter_note_spacing = quarter_note_spacing;
+   }
+
+
+
 
    void MusicNotation::set_spacing_method(spacing_method_t method)
    {
