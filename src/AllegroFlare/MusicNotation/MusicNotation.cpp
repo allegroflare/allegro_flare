@@ -167,7 +167,12 @@ namespace MusicNotation
 
 
 
-   MusicNotation::MusicNotation(AllegroFlare::DrawingInterfaces::Base *drawing_interface, float staff_line_distance, std::string bravura_location)
+   MusicNotation::MusicNotation(
+         AllegroFlare::DrawingInterfaces::Base *drawing_interface,
+         AllegroFlare::FontBin *font_bin,
+         float staff_line_distance,
+         std::string bravura_location
+      )
       : drawing_interface(drawing_interface)
       , staff_line_distance(staff_line_distance)
       , staff_line_thickness(staff_line_distance*0.1)
@@ -177,6 +182,7 @@ namespace MusicNotation
       , beam_thickness(staff_line_distance*0.4)
       , font_bravura(al_load_font(bravura_location.c_str(), -int(font_size_px), ALLEGRO_FLAGS_EMPTY))
       , spacing_method(SPACING_AESTHETIC)
+      , font_bin(font_bin)
       , current_note_duration(4)
       , current_note_is_rest(false)
       , current_accidental(0)
@@ -276,6 +282,10 @@ namespace MusicNotation
 
    int MusicNotation::draw(float x, float y, std::string content, std::string output_file_basename)
    {
+      if (!drawing_interface)
+      {
+         AllegroFlare::Logger::throw_error("MusicNotation::draw", "missing \"drawing_interface\"");
+      }
       drawing_interface->prepare_surface(800, 500);
 
       int start_x = x;

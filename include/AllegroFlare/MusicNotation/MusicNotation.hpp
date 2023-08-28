@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h> // for ALLEGRO_COLOR
 #include <AllegroFlare/DrawingInterfaces/Base.hpp>
 //#include <AllegroFlare/MusicNotation/BeamPoint.hpp>
+#include <AllegroFlare/FontBin.hpp>
 
 
 namespace AllegroFlare
@@ -59,6 +60,7 @@ namespace AllegroFlare
       float beam_thickness; // = staff_line_distance * 0.4
       ALLEGRO_FONT *font_bravura; // size = staff_line_distance * 4
       spacing_method_t spacing_method;
+      AllegroFlare::FontBin *font_bin;
 
       float _get_staff_position_offset(int staff_position);
 
@@ -77,7 +79,12 @@ namespace AllegroFlare
       Beam just_one_beam;
 
    public:
-      MusicNotation(AllegroFlare::DrawingInterfaces::Base *drawing_interface=NULL, float staff_line_distance=10, std::string bravura_font_location="data/fonts/Bravura.otf");
+      MusicNotation(
+         AllegroFlare::DrawingInterfaces::Base *drawing_interface=nullptr,
+         AllegroFlare::FontBin *font_bin=nullptr,
+         float staff_line_distance=10,
+         std::string bravura_font_location="data/fonts/Bravura.otf"
+      );
       ~MusicNotation();
 
       int draw(float x, float y, std::string content, std::string output_file_basename="");

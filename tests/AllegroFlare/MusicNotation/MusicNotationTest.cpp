@@ -4,6 +4,7 @@
 #include <AllegroFlare/MusicNotation/MusicNotation.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/DrawingInterfaces/Allegro5.hpp>
 
 
 class AllegroFlare_MusicNotation_MusicNotationTest : public ::testing::Test {};
@@ -20,7 +21,8 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTest, can_be_created_without_blow
 
 TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture, can_be_created_without_blowing_up)
 {
-   AllegroFlare::MusicNotation::MusicNotation music_notation;
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref());
    //music_notation.draw(0, 0, "abcd");
    //al_flip_display();
    //sleep(1);
