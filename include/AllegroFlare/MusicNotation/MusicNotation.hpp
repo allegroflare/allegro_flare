@@ -82,8 +82,7 @@ namespace AllegroFlare
       MusicNotation(
          AllegroFlare::DrawingInterfaces::Base *drawing_interface=nullptr,
          AllegroFlare::FontBin *font_bin=nullptr,
-         float staff_line_distance=10,
-         std::string bravura_font_location="data/fonts/Bravura.otf"
+         float staff_line_distance=10
       );
       ~MusicNotation();
 
@@ -98,8 +97,6 @@ namespace AllegroFlare
 
       void draw_line(float x1, float y1, float x2, float y2, const ALLEGRO_COLOR &color, float thickness);
       void use_drawing_interface(AllegroFlare::DrawingInterfaces::Base *drawing_interface);
-
-      //bool bravura_is_valid();
 
       ALLEGRO_FONT *obtain_font_bravura();
 

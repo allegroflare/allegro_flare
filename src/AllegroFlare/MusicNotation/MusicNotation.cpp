@@ -170,8 +170,7 @@ namespace MusicNotation
    MusicNotation::MusicNotation(
          AllegroFlare::DrawingInterfaces::Base *drawing_interface,
          AllegroFlare::FontBin *font_bin,
-         float staff_line_distance,
-         std::string bravura_location
+         float staff_line_distance
       )
       : drawing_interface(drawing_interface)
       , staff_line_distance(staff_line_distance)
@@ -180,7 +179,6 @@ namespace MusicNotation
       , quarter_note_spacing(staff_line_distance*5)
       , stem_thickness(staff_line_distance*0.15)
       , beam_thickness(staff_line_distance*0.4)
-      //, font_bravura(al_load_font(bravura_location.c_str(), -int(font_size_px), ALLEGRO_FLAGS_EMPTY))
       , spacing_method(SPACING_AESTHETIC)
       , font_bin(font_bin)
       , current_note_duration(4)
@@ -191,11 +189,6 @@ namespace MusicNotation
       , ignore_spaces(false)
       , just_one_beam()
    {
-      //if (!font_bravura)
-      //{
-         //std::cout << "MusicNotation::MusicNotation(): FONT_BRAVURA is not properly loaded" << std::endl;
-         //std::cout << "   ^- looking in \"" << bravura_location << "\"" << std::endl;
-      //}
    }
 
 
@@ -738,20 +731,11 @@ namespace MusicNotation
 
 
 
-   //bool MusicNotation::bravura_is_valid()
-   //{
-      //return (font_bravura != NULL);
-   //}
-
-
-
    ALLEGRO_FONT *MusicNotation::obtain_font_bravura()
    {
       if (!font_bin) AllegroFlare::Logger::throw_error("MusicNotation::obtain_font_bravura: error: missing font_bin");
 
       int font_size = -(staff_line_distance*4 * 4);
-      //, font_size_px((staff_line_distance*4) * 4)
-      //, font_bravura(al_load_font(bravura_location.c_str(), -int(font_size_px), ALLEGRO_FLAGS_EMPTY))
       std::stringstream font_identifier;
       font_identifier << "Bravura.otf " << font_size;
       return font_bin->operator[](font_identifier.str());
