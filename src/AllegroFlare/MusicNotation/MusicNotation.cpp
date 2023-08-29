@@ -483,12 +483,12 @@ namespace MusicNotation
                for (auto &token : tokens)
                   multi_note.push_back(atoi(token.c_str()));
 
-               staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 8);
+               staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 7);
                break;
             }
          }
          default:
-            staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 8);
+            staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
             break;
          }
 
