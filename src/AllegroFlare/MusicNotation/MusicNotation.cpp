@@ -13,13 +13,20 @@
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
 
 
 
 
 static ALLEGRO_COLOR infer_color_name_or_hex(const std::string &name_or_hex)
 {
-   return AllegroFlare::color::name(name_or_hex.c_str());
+   static const ALLEGRO_COLOR black{0, 0, 0, 1};
+   if (strcmp("black", name_or_hex.c_str()) == 0) return black;
+
+   // try name
+   ALLEGRO_COLOR result = al_color_name(name_or_hex.c_str());
+   if (result == black) return al_color_html(name_or_hex.c_str());
+   return result;
 }
 
 
