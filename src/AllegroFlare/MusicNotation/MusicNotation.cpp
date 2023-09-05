@@ -16,6 +16,14 @@
 
 
 
+
+static ALLEGRO_COLOR infer_color_name_or_hex(const std::string &name_or_hex)
+{
+   return AllegroFlare::color::name(name_or_hex.c_str());
+}
+
+
+
 namespace AllegroFlare
 {
 namespace MusicNotation
@@ -379,7 +387,10 @@ namespace MusicNotation
                   }
 
                   if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
-                  else if (text_before_equals.compare("staff_color") == 0) staff_color = color::name(text_after_equals.c_str());
+                  else if (text_before_equals.compare("staff_color") == 0)
+                  {
+                     staff_color = infer_color_name_or_hex(text_after_equals);
+                  }
                   else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
                   else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
                   else if (tokens[t] == "rhythm_only") rhythm_only = true;
