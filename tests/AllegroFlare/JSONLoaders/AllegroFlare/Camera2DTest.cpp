@@ -8,16 +8,49 @@
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_Camera2DTest,
    to_json__returns_the_object_as_json_with_the_expected_values)
 {
-   //AllegroFlare::Camera2D camera2d(4.0f);
-   //nlohmann::json j = camera2d;
+   AllegroFlare::Camera2D camera2d;
 
-   //std::string expected_values =
-//R"({
-  //"position": 4.0
-//})";
+   camera2d.position = { 1.0, 2.0 };
+   camera2d.size = { 4.0, 8.0 };
+   camera2d.align = { 16.0, 32.0 };
+   camera2d.scale = { 0.5, 0.25 };
+   camera2d.anchor = { -0.5, -0.25 };
+   camera2d.flip = { true, false };
+   camera2d.rotation = 0.125;
 
-   //std::string actual_values = j.dump(2);
-   //EXPECT_EQ(expected_values, actual_values);
+   nlohmann::json j = camera2d;
+
+   std::string expected_values =
+R"({
+  "align": {
+    "x": 16.0,
+    "y": 32.0
+  },
+  "anchor": {
+    "x": -0.5,
+    "y": -0.25
+  },
+  "flip": {
+    "x": -0.5,
+    "y": -0.25
+  },
+  "position": {
+    "x": 1.0,
+    "y": 2.0
+  },
+  "rotation": 0.125,
+  "scale": {
+    "x": 0.5,
+    "y": 0.25
+  },
+  "size": {
+    "x": 4.0,
+    "y": 8.0
+  }
+})";
+
+   std::string actual_values = j.dump(2);
+   EXPECT_EQ(expected_values, actual_values);
 }
 
 
