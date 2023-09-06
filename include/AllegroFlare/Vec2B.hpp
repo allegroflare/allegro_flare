@@ -22,6 +22,8 @@ namespace AllegroFlare
       void set_y(bool y);
       bool get_x() const;
       bool get_y() const;
+      bool &get_x_ref();
+      bool &get_y_ref();
    };
 }
 

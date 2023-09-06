@@ -45,6 +45,18 @@ bool Vec2B::get_y() const
 }
 
 
+bool &Vec2B::get_x_ref()
+{
+   return x;
+}
+
+
+bool &Vec2B::get_y_ref()
+{
+   return y;
+}
+
+
 
 
 } // namespace AllegroFlare

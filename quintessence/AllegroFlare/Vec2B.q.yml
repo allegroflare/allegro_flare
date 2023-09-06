@@ -5,6 +5,7 @@ properties:
     type: bool
     init_with: false
     constructor_arg: true
+    getter_ref: true
     getter: true
     setter: true
 
@@ -12,6 +13,7 @@ properties:
     type: bool
     init_with: false
     constructor_arg: true
+    getter_ref: true
     getter: true
     setter: true
 
