@@ -18,7 +18,7 @@ void to_json(nlohmann::json& j, const Camera2D& camera)
       {"align", camera.align },
       {"scale", camera.scale },
       {"anchor", camera.anchor },
-      {"flip", camera.anchor },
+      {"flip", camera.flip },
       {"rotation", camera.rotation },
    };
 }

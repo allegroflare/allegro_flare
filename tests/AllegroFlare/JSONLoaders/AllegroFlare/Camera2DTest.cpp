@@ -9,7 +9,6 @@ TEST(AllegroFlare_JSONLoaders_AllegroFlare_Camera2DTest,
    to_json__returns_the_object_as_json_with_the_expected_values)
 {
    AllegroFlare::Camera2D camera2d;
-
    camera2d.position = { 1.0, 2.0 };
    camera2d.size = { 4.0, 8.0 };
    camera2d.align = { 16.0, 32.0 };
@@ -31,8 +30,8 @@ R"({
     "y": -0.25
   },
   "flip": {
-    "x": -0.5,
-    "y": -0.25
+    "x": true,
+    "y": false
   },
   "position": {
     "x": 1.0,
@@ -57,20 +56,58 @@ R"({
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_Camera2DTest,
    from_json__loads_json_data_into_the_object)
 {
-   //AllegroFlare::Camera2D camera2d;
+   AllegroFlare::Camera2D camera2d;
 
-   //std::string json =
-//R"({
-  //"position": 1.5
-//})";
+   std::string json =
+R"({
+  "align": {
+    "x": 16.0,
+    "y": 32.0
+  },
+  "anchor": {
+    "x": -0.5,
+    "y": -0.25
+  },
+  "flip": {
+    "x": true,
+    "y": false
+  },
+  "position": {
+    "x": 1.0,
+    "y": 2.0
+  },
+  "rotation": 0.125,
+  "scale": {
+    "x": 0.5,
+    "y": 0.25
+  },
+  "size": {
+    "x": 4.0,
+    "y": 8.0
+  }
+})";
 
-   //nlohmann::json parsed_json = nlohmann::json::parse(json);
-   //parsed_json.get_to(camera2d);
+   nlohmann::json parsed_json = nlohmann::json::parse(json);
+   parsed_json.get_to(camera2d);
 
-   //AllegroFlare::JSONLoaders::AllegroFlare::Camera2D expected(1.5);
+   AllegroFlare::Camera2D expected_camera2d;
+   expected_camera2d.position = { 1.0, 2.0 };
+   expected_camera2d.size = { 4.0, 8.0 };
+   expected_camera2d.align = { 16.0, 32.0 };
+   expected_camera2d.scale = { 0.5, 0.25 };
+   expected_camera2d.anchor = { -0.5, -0.25 };
+   expected_camera2d.flip = { true, false };
+   expected_camera2d.rotation = 0.125;
 
-   //// TODO: add comparison
-   //EXPECT_EQ(expected, camera2d);
+   // TODO: Add comparison operator for Camera2D and use in this test
+   EXPECT_EQ(expected_camera2d.position, camera2d.position);
+   EXPECT_EQ(expected_camera2d.size, camera2d.size);
+   EXPECT_EQ(expected_camera2d.align, camera2d.align);
+   EXPECT_EQ(expected_camera2d.scale, camera2d.scale);
+   EXPECT_EQ(expected_camera2d.anchor, camera2d.anchor);
+   EXPECT_EQ(expected_camera2d.flip.get_x(), camera2d.flip.get_x());
+   EXPECT_EQ(expected_camera2d.flip.get_y(), camera2d.flip.get_y());
+   EXPECT_EQ(expected_camera2d.rotation, camera2d.rotation);
 }
 
 
