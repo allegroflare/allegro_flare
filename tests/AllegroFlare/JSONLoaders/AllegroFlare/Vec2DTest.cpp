@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/JSONLoaders/AllegroFlare/Vec2D.hpp>
-//#include <AllegroFlare/Testing/Comparison/AllegroFlare/JSONLoaders/AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec2D.hpp>
 
 
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_Vec2DTest,
@@ -25,20 +25,20 @@ R"({
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_Vec2DTest,
    from_json__loads_json_data_into_the_object)
 {
-   //AllegroFlare::Vec2D vec2d;
+   AllegroFlare::Vec2D vec2d;
 
-   //std::string json =
-//R"({
-  //"position": 1.5
-//})";
+   std::string json =
+R"({
+  "x": 4.0,
+  "y": 8.25
+})";
 
-   //nlohmann::json parsed_json = nlohmann::json::parse(json);
-   //parsed_json.get_to(vec2d);
+   nlohmann::json parsed_json = nlohmann::json::parse(json);
+   parsed_json.get_to(vec2d);
 
-   //AllegroFlare::JSONLoaders::AllegroFlare::Vec2D expected(1.5);
+   AllegroFlare::Vec2D expected(4.0, 8.25);
 
-   //// TODO: add comparison
-   //EXPECT_EQ(expected, vec2d);
+   EXPECT_EQ(expected, vec2d);
 }
 
 
