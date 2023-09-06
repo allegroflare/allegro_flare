@@ -16,6 +16,8 @@ TEST(AllegroFlare_JSONLoaders_AllegroFlare_Camera2DTest,
    camera2d.anchor = { -0.5, -0.25 };
    camera2d.flip = { true, false };
    camera2d.rotation = 0.125;
+   camera2d.set_width_num_units(1920);
+   camera2d.set_height_num_units(1080);
 
    nlohmann::json j = camera2d;
 
@@ -33,6 +35,7 @@ R"({
     "x": true,
     "y": false
   },
+  "height_num_units": 1080,
   "position": {
     "x": 1.0,
     "y": 2.0
@@ -45,7 +48,8 @@ R"({
   "size": {
     "x": 4.0,
     "y": 8.0
-  }
+  },
+  "width_num_units": 1920
 })";
 
    std::string actual_values = j.dump(2);
@@ -72,6 +76,7 @@ R"({
     "x": true,
     "y": false
   },
+  "height_num_units": 1080,
   "position": {
     "x": 1.0,
     "y": 2.0
@@ -84,7 +89,8 @@ R"({
   "size": {
     "x": 4.0,
     "y": 8.0
-  }
+  },
+  "width_num_units": 1920
 })";
 
    nlohmann::json parsed_json = nlohmann::json::parse(json);
@@ -98,6 +104,8 @@ R"({
    expected_camera2d.anchor = { -0.5, -0.25 };
    expected_camera2d.flip = { true, false };
    expected_camera2d.rotation = 0.125;
+   expected_camera2d.set_width_num_units(1920);
+   expected_camera2d.set_height_num_units(1080);
 
    // TODO: Add comparison operator for Camera2D and use in this test
    EXPECT_EQ(expected_camera2d.position, camera2d.position);
@@ -108,6 +116,8 @@ R"({
    EXPECT_EQ(expected_camera2d.flip.get_x(), camera2d.flip.get_x());
    EXPECT_EQ(expected_camera2d.flip.get_y(), camera2d.flip.get_y());
    EXPECT_EQ(expected_camera2d.rotation, camera2d.rotation);
+   EXPECT_EQ(expected_camera2d.get_width_num_units(), camera2d.get_width_num_units());
+   EXPECT_EQ(expected_camera2d.get_height_num_units(), camera2d.get_height_num_units());
 }
 
 
