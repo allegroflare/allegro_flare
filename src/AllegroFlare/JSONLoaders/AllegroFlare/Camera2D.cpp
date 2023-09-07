@@ -22,6 +22,7 @@ void to_json(nlohmann::json& j, const Camera2D& camera)
       {"rotation", camera.rotation },
       {"width_num_units", camera.get_width_num_units() },
       {"height_num_units", camera.get_height_num_units() },
+      {"zoom", camera.get_zoom() },
    };
 }
 
@@ -36,8 +37,13 @@ void from_json(const nlohmann::json& j, Camera2D& camera)
    j.at("rotation").get_to(camera.rotation);
    decltype(camera.get_width_num_units()) width_num_units;
    j.at("width_num_units").get_to(width_num_units);
+   camera.set_width_num_units(width_num_units);
    decltype(camera.get_height_num_units()) height_num_units;
    j.at("height_num_units").get_to(height_num_units);
+   camera.set_height_num_units(height_num_units);
+   decltype(camera.get_zoom()) zoom;
+   j.at("zoom").get_to(zoom);
+   camera.set_zoom(zoom);
 }
 
 

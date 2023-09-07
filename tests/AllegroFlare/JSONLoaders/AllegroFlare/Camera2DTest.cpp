@@ -12,12 +12,13 @@ TEST(AllegroFlare_JSONLoaders_AllegroFlare_Camera2DTest,
    camera2d.position = { 1.0, 2.0 };
    camera2d.size = { 4.0, 8.0 };
    camera2d.align = { 16.0, 32.0 };
-   camera2d.scale = { 0.5, 0.25 };
+   camera2d.scale = { 0.5, 0.25 }; // NOTE: These values will be overridden by the values calculated from "set_zoom"
    camera2d.anchor = { -0.5, -0.25 };
    camera2d.flip = { true, false };
    camera2d.rotation = 0.125;
-   camera2d.set_width_num_units(1920);
-   camera2d.set_height_num_units(1080);
+   camera2d.set_width_num_units(456);
+   camera2d.set_height_num_units(789);
+   camera2d.set_zoom({ 1.0, 2.0 });
 
    nlohmann::json j = camera2d;
 
@@ -35,21 +36,25 @@ R"({
     "x": true,
     "y": false
   },
-  "height_num_units": 1080,
+  "height_num_units": 789,
   "position": {
     "x": 1.0,
     "y": 2.0
   },
   "rotation": 0.125,
   "scale": {
-    "x": 0.5,
-    "y": 0.25
+    "x": 1.0,
+    "y": 0.5
   },
   "size": {
     "x": 4.0,
     "y": 8.0
   },
-  "width_num_units": 1920
+  "width_num_units": 456,
+  "zoom": {
+    "x": 1.0,
+    "y": 2.0
+  }
 })";
 
    std::string actual_values = j.dump(2);
@@ -76,21 +81,25 @@ R"({
     "x": true,
     "y": false
   },
-  "height_num_units": 1080,
+  "height_num_units": 456,
   "position": {
     "x": 1.0,
     "y": 2.0
   },
   "rotation": 0.125,
   "scale": {
-    "x": 0.5,
-    "y": 0.25
+    "x": 1.0,
+    "y": 0.5
   },
   "size": {
     "x": 4.0,
     "y": 8.0
   },
-  "width_num_units": 1920
+  "width_num_units": 789,
+  "zoom": {
+    "x": 1.0,
+    "y": 2.0
+  }
 })";
 
    nlohmann::json parsed_json = nlohmann::json::parse(json);
@@ -100,12 +109,12 @@ R"({
    expected_camera2d.position = { 1.0, 2.0 };
    expected_camera2d.size = { 4.0, 8.0 };
    expected_camera2d.align = { 16.0, 32.0 };
-   expected_camera2d.scale = { 0.5, 0.25 };
+   expected_camera2d.scale = { 1.0, 0.5 };
    expected_camera2d.anchor = { -0.5, -0.25 };
    expected_camera2d.flip = { true, false };
    expected_camera2d.rotation = 0.125;
-   expected_camera2d.set_width_num_units(1920);
-   expected_camera2d.set_height_num_units(1080);
+   expected_camera2d.set_width_num_units(789);
+   expected_camera2d.set_height_num_units(456);
 
    // TODO: Add comparison operator for Camera2D and use in this test
    EXPECT_EQ(expected_camera2d.position, camera2d.position);
