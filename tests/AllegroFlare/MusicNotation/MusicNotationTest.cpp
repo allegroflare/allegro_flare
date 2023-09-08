@@ -53,7 +53,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
    AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
 
-   std::string music_notation_content_string = " & ^    q0~q0";
+   std::string music_notation_content_string = " & ^    q~0q0";
 
    music_notation.draw(1920/2, 1080/2, music_notation_content_string);
 

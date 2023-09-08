@@ -455,7 +455,7 @@ namespace MusicNotation
             float thick_line_thickness = staff_line_thickness * 1.5;
 
             AllegroFlare::MusicNotation::TieRenderer tie_renderer(
-               { (float)start_x, start_y },
+               { (float)start_x+x_cursor, start_y },
                length,
                height,
                color,
