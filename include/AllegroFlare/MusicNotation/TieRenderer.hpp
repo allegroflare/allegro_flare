@@ -24,7 +24,7 @@ namespace AllegroFlare
 
 
       public:
-         TieRenderer();
+         TieRenderer(AllegroFlare::Vec2D start_point={}, int length=100, int height=20, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float narrow_line_thickness=1.0, float thick_line_thickness=2.0);
          ~TieRenderer();
 
          void set_start_point(AllegroFlare::Vec2D start_point);

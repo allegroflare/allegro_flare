@@ -4,36 +4,42 @@ properties:
   - name: start_point
     type: AllegroFlare::Vec2D
     init_with: '{}'
+    constructor_arg: true
     getter: true
     setter: true
      
   - name: length
     type: int
     init_with: 100
+    constructor_arg: true
     getter: true
     setter: true
      
   - name: height
     type: int
     init_with: 20
+    constructor_arg: true
     getter: true
     setter: true
      
   - name: color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: narrow_line_thickness
     type: float
     init_with: 1.0
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: thick_line_thickness
     type: float
     init_with: 2.0
+    constructor_arg: true
     getter: true
     setter: true
 

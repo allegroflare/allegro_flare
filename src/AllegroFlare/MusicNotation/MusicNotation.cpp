@@ -14,6 +14,7 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
+#include <AllegroFlare/MusicNotation/TieRenderer.hpp>
 
 
 
@@ -442,6 +443,26 @@ namespace MusicNotation
             draw_music_symbol(62697, start_x+x_cursor, y + staff_line_distance*2, color);
             draw_music_symbol(62700, start_x+x_cursor, y + staff_line_distance*2, color);
             x_cursor += get_music_symbol_width(62697);
+            continue;
+         }
+         case '~':
+         {
+            // TODO: Render a tie to the next note
+            float start_y = y + staff_line_distance*2; // TODO: Provide an accurate start y for this tie
+            float length = 100;
+            float height = 20;
+            float narrow_line_thickness = staff_line_thickness * 0.75;
+            float thick_line_thickness = staff_line_thickness * 1.5;
+
+            AllegroFlare::MusicNotation::TieRenderer tie_renderer(
+               { (float)start_x, start_y },
+               length,
+               height,
+               color,
+               narrow_line_thickness,
+               thick_line_thickness
+            );
+            tie_renderer.render();
             continue;
          }
          case '|':

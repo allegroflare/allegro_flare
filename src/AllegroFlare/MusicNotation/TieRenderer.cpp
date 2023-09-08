@@ -14,13 +14,13 @@ namespace MusicNotation
 {
 
 
-TieRenderer::TieRenderer()
-   : start_point({})
-   , length(100)
-   , height(20)
-   , color(ALLEGRO_COLOR{1, 1, 1, 1})
-   , narrow_line_thickness(1.0)
-   , thick_line_thickness(2.0)
+TieRenderer::TieRenderer(AllegroFlare::Vec2D start_point, int length, int height, ALLEGRO_COLOR color, float narrow_line_thickness, float thick_line_thickness)
+   : start_point(start_point)
+   , length(length)
+   , height(height)
+   , color(color)
+   , narrow_line_thickness(narrow_line_thickness)
+   , thick_line_thickness(thick_line_thickness)
 {
 }
 
