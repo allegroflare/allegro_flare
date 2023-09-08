@@ -18,6 +18,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR color;
          float narrow_line_thickness;
          float thick_line_thickness;
+         static void render_arc(AllegroFlare::Vec2D start_point={}, float length=20, float height=20, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=1.0);
 
       protected:
 

@@ -546,6 +546,7 @@
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/ProfilerRenderer",
@@ -680,6 +681,7 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -1876,6 +1878,9 @@
   ],
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
     "AllegroFlare/MusicMesh/MusicMesh"
+  ],
+  "al_draw_spline": [
+    "AllegroFlare/MusicNotation/TieRenderer"
   ],
   "chat_message": [
     "AllegroFlare/Network2/Message"

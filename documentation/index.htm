@@ -200,6 +200,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml">quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/Stamp.q.yml">quintessence/AllegroFlare/MusicMesh/Stamp.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MusicNotation/TieRenderer.q.yml">quintessence/AllegroFlare/MusicNotation/TieRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Network2/URLTokenizer.q.yml">quintessence/AllegroFlare/Network2/URLTokenizer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Notifications.q.yml">quintessence/AllegroFlare/Notifications.q.yml</a></li>
@@ -10437,6 +10438,58 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">start_point</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">length</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">narrow_line_thickness</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">thick_line_thickness</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">render_arc(AllegroFlare::Vec2D start_point={}, float length=20, float height=20, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=1.0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_spline&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -25773,6 +25826,7 @@ table td
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/ProfilerRenderer",
@@ -25907,6 +25961,7 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -27103,6 +27158,9 @@ table td
   ],
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
     "AllegroFlare/MusicMesh/MusicMesh"
+  ],
+  "al_draw_spline": [
+    "AllegroFlare/MusicNotation/TieRenderer"
   ],
   "chat_message": [
     "AllegroFlare/Network2/Message"

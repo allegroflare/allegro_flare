@@ -17,7 +17,7 @@ namespace MusicNotation
 TieRenderer::TieRenderer()
    : start_point({})
    , length(100)
-   , height(100)
+   , height(20)
    , color(ALLEGRO_COLOR{1, 1, 1, 1})
    , narrow_line_thickness(1.0)
    , thick_line_thickness(3.0)
@@ -118,24 +118,34 @@ void TieRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TieRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   float height = 30;
+   // TODO: Render multiple arcs for thickness
+   render_arc(start_point, length, height, color, narrow_line_thickness);
+   render_arc(start_point, length, height+1, color, narrow_line_thickness);
+   render_arc(start_point, length, height-1, color, narrow_line_thickness);
+
+   return;
+}
+
+void TieRenderer::render_arc(AllegroFlare::Vec2D start_point, float length, float height, ALLEGRO_COLOR color, float line_thickness)
+{
    float points[8];
+
+   // TODO: Make these points controlable, but do not allow them to be (< 0), (> 1), or overlapping
+   float point2_position_normalized = 0.30;
+   float point3_position_normalized = 0.70;
 
    // Calculate the spline points
    points[0] = start_point.x;
    points[1] = start_point.y;
-
-   points[2] = start_point.x + length * 0.33;
+   points[2] = start_point.x + length * point2_position_normalized;
    points[3] = start_point.y + height;
-
-   points[4] = start_point.x + length * 0.66;
+   points[4] = start_point.x + length * point3_position_normalized;
    points[5] = start_point.y + height;
-
    points[6] = start_point.x + length;
    points[7] = start_point.y;
 
-   // Draw the spline
-   al_draw_spline(points, color, 3.0);
+   // Draw the primary spline
+   al_draw_spline(points, color, line_thickness);
    return;
 }
 
