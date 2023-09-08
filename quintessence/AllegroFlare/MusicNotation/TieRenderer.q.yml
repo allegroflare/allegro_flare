@@ -1,0 +1,90 @@
+properties:
+
+
+  - name: start_point
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+    getter: true
+    setter: true
+     
+  - name: length
+    type: int
+    init_with: 100
+    getter: true
+    setter: true
+     
+  - name: height
+    type: int
+    init_with: 100
+    getter: true
+    setter: true
+     
+  - name: color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: narrow_line_thickness
+    type: float
+    init_with: 1.0
+    getter: true
+    setter: true
+
+  - name: thick_line_thickness
+    type: float
+    init_with: 3.0
+    getter: true
+    setter: true
+
+
+documentation:
+
+
+  - todos:
+     - make length setters explicit and require a positive number
+     - investigate if there is an issue when (length == 0)
+     
+
+methods:
+
+
+  - name: render
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+    body: |
+      float height = 30;
+      float points[8];
+
+      // Calculate the spline points
+      points[0] = start_point.x;
+      points[1] = start_point.y;
+
+      points[2] = start_point.x + length * 0.33;
+      points[3] = start_point.y + height;
+
+      points[4] = start_point.x + length * 0.66;
+      points[5] = start_point.y + height;
+
+      points[6] = start_point.x + length;
+      points[7] = start_point.y;
+
+      // Draw the spline
+      al_draw_spline(points, color, 3.0);
+      return;
+    body_dependency_symbols:
+      - al_draw_spline
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: al_draw_spline
+    headers: [ allegro5/allegro_primitives.h ]
+
+
