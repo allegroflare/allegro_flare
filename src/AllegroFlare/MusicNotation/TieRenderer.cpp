@@ -20,7 +20,7 @@ TieRenderer::TieRenderer()
    , height(20)
    , color(ALLEGRO_COLOR{1, 1, 1, 1})
    , narrow_line_thickness(1.0)
-   , thick_line_thickness(3.0)
+   , thick_line_thickness(2.0)
 {
 }
 
@@ -118,10 +118,11 @@ void TieRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TieRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   float h_thickness = thick_line_thickness * 0.5;
    // TODO: Render multiple arcs for thickness
    render_arc(start_point, length, height, color, narrow_line_thickness);
-   render_arc(start_point, length, height+1, color, narrow_line_thickness);
-   render_arc(start_point, length, height-1, color, narrow_line_thickness);
+   render_arc(start_point, length, height+h_thickness, color, narrow_line_thickness);
+   render_arc(start_point, length, height-h_thickness, color, narrow_line_thickness);
 
    return;
 }
