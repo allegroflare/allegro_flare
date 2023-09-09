@@ -549,6 +549,7 @@
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
@@ -948,6 +949,7 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -1881,6 +1883,9 @@
   ],
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
     "AllegroFlare/MusicMesh/MusicMesh"
+  ],
+  "Beam/Alignment": [
+    "AllegroFlare/MusicNotation/Beam"
   ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
