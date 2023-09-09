@@ -14,12 +14,17 @@ class AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
 public:
-   void draw_staff_guide_lines(float x, float y, int num_lines_out=2)
+   void draw_staff_guide_lines(float x, float y, float staff_line_distance = 20, int num_lines_out=2)
    {
       float thickness = 1.0;
       float width = 400;
       ALLEGRO_COLOR color{1, 0, 0, 1};
       al_draw_line(x-width/2, y, x+width/2, y, color, thickness);
+      for (int i=0; i<=num_lines_out; i++)
+      {
+         al_draw_line(x-width/2, y-staff_line_distance*i, x+width/2, y-staff_line_distance*i, color, thickness);
+         al_draw_line(x-width/2, y+staff_line_distance*i, x+width/2, y+staff_line_distance*i, color, thickness);
+      }
    }
 };
 
