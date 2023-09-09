@@ -1,9 +1,47 @@
-methods:
+properties:
 
 
-  - name: run
-    type: std::string
-    body: |
-      return "Hello World!";
+  - name: scale_degree
+    type: int
+    init_with: 0
+    getter: true
+    setter: true
+    
+  - name: chord_quality
+    type: RomanNumeralAnalysisSymbol::ChordQuality
+    init_with: RomanNumeralAnalysisSymbol::ChordQuality::UNDEFINED
+    getter: true
+    setter: true
+    
+  - name: inversion
+    type: int
+    init_with: 0
+    getter: true
+    setter: true
+    
+  - name: extensions
+    type: std::vector<int>
+    init_with: '{}'
+    getter: true
+    setter: true
+    
+
+enums:
+
+
+  - name: ChordQuality
+    enumerators:
+      - UNDEFINED
+      - MAJOR
+      - MINOR
+      - DIMINISHED
+      - AUGMENTED
+
+
+dependencies:
+
+
+  - symbol: RomanNumeralAnalysisSymbol::ChordQuality
+    headers: []
 
 

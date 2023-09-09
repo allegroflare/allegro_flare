@@ -1879,6 +1879,12 @@
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
     "AllegroFlare/MusicMesh/MusicMesh"
   ],
+  "RomanNumeralAnalysisSymbol/ChordQuality": [
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
+  ],
+  "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol": [
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer"
+  ],
   "al_draw_spline": [
     "AllegroFlare/MusicNotation/TieRenderer"
   ],

@@ -200,6 +200,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml">quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/Stamp.q.yml">quintessence/AllegroFlare/MusicMesh/Stamp.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.q.yml">quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer.q.yml">quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/TieRenderer.q.yml">quintessence/AllegroFlare/MusicNotation/TieRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Network2/Message.q.yml">quintessence/AllegroFlare/Network2/Message.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Network2/URLTokenizer.q.yml">quintessence/AllegroFlare/Network2/URLTokenizer.q.yml</a></li>
@@ -10438,6 +10440,61 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">scale_degree</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">chord_quality</td>
+  <td class="property">RomanNumeralAnalysisSymbol::ChordQuality</td>
+</tr>
+<tr>
+  <td class="property">inversion</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">extensions</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;RomanNumeralAnalysisSymbol::ChordQuality&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">symbol</td>
+  <td class="property">AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -27158,6 +27215,12 @@ table td
   ],
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
     "AllegroFlare/MusicMesh/MusicMesh"
+  ],
+  "RomanNumeralAnalysisSymbol/ChordQuality": [
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
+  ],
+  "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol": [
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer"
   ],
   "al_draw_spline": [
     "AllegroFlare/MusicNotation/TieRenderer"
