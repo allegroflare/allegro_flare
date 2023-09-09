@@ -76,7 +76,7 @@ namespace AllegroFlare
 
 
       // meh
-      Beam just_one_beam;
+      //Beam just_one_beam;
 
    public:
       MusicNotation(

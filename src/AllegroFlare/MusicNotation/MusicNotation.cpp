@@ -203,7 +203,7 @@ namespace MusicNotation
       , cursor_pos(0)
       , int_cast_y(true)
       , ignore_spaces(false)
-      , just_one_beam()
+      //, just_one_beam()
    {
    }
 
@@ -353,12 +353,12 @@ namespace MusicNotation
          case ':': adding_beams = true; continue;
          case ';':
          {
-            adding_beams = false;
-            if (just_one_beam.get_num_points() >= 2)
-            {
-               just_one_beam.draw(this, color);
-            }
-            just_one_beam.clear();
+            //adding_beams = false;
+            //if (just_one_beam.get_num_points() >= 2)
+            //{
+               //just_one_beam.draw(this, color);
+            //}
+            //just_one_beam.clear();
             continue;
          }
          case '{':
@@ -554,11 +554,11 @@ namespace MusicNotation
 
          // collect the beam data
 
-         if (adding_beams)
-         {
-            just_one_beam.add_beam_point(
-               start_x+x_cursor, y, staff_pos, get_music_symbol_width(AllegroFlare::FontBravura::quarter_note), this);
-         }
+         //if (adding_beams)
+         //{
+            //just_one_beam.add_beam_point(
+               //start_x+x_cursor, y, staff_pos, get_music_symbol_width(AllegroFlare::FontBravura::quarter_note), this);
+         //}
 
 
 
