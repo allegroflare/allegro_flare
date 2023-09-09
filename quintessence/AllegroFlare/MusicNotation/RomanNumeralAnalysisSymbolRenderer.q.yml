@@ -1,0 +1,27 @@
+properties:
+
+
+  - name: symbol
+    type: AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: render
+    guards: [ symbol ]
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol
+    headers: [ AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.hpp ]
+
+
