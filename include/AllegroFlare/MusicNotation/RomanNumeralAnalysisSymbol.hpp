@@ -46,7 +46,7 @@ namespace AllegroFlare
          RomanNumeralAnalysisSymbol::ChordQuality get_chord_quality() const;
          int get_inversion() const;
          std::vector<std::pair<int, int>> get_extensions() const;
-         std::vector<int> calculate_all_chord_notes_chromatic();
+         std::vector<std::pair<int, int>> calculate_inversion_notes_with_extensions();
          void calculate_inversion_numbers();
          std::string infer_roman_numeral_string();
       };

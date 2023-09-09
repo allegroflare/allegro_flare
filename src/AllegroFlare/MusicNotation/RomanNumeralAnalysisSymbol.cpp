@@ -87,68 +87,46 @@ std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::get_extensions() co
 }
 
 
-std::vector<int> RomanNumeralAnalysisSymbol::calculate_all_chord_notes_chromatic()
+std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::calculate_inversion_notes_with_extensions()
 {
-   std::vector<int> result;
+   std::vector<std::pair<int, int>> result;
 
+   // Add the notes to the chord
    switch(chord_quality)
    {
       case UNDEFINED:
-         result.push_back(0);
+         result.push_back({0, 0});
       break;
 
       case MAJOR:
-         result.push_back(0);
-         result.push_back(4);
-         result.push_back(7);
+         result.push_back({0, 0});
+         result.push_back({4, 0});
+         result.push_back({7, 0});
       break;
 
       case MINOR:
-         result.push_back(0);
-         result.push_back(3);
-         result.push_back(7);
+         result.push_back({0, 0});
+         result.push_back({3, 0});
+         result.push_back({7, 0});
       break;
 
       case DIMINISHED:
-         result.push_back(0);
-         result.push_back(3);
-         result.push_back(6);
+         result.push_back({0, 0});
+         result.push_back({3, 0});
+         result.push_back({6, 0});
       break;
 
       case AUGMENTED:
-         result.push_back(0);
-         result.push_back(4);
-         result.push_back(8);
+         result.push_back({0, 0});
+         result.push_back({4, 0});
+         result.push_back({8, 0});
       break;
    }
 
+   // Add the extensions
    for (auto &extension : extensions)
    {
-      int number = extension.first + extension.second;
-      int flip = 12;
-      int attempts = 300;
-      while (number < 0)
-      {
-         number += flip;
-         attempts--;
-         if (attempts <= 0) throw std::runtime_error("--- too many attempts (1)");
-         
-      }
-      attempts = 300;
-      while (number >= 12)
-      {
-         number -= flip;
-         attempts--;
-         if (attempts <= 0) throw std::runtime_error("--- too many attempts (2)");
-      }
-
-      result.push_back(number);
-   }
-
-   // Transpose all the notes by the root
-   for (auto &element : result)
-   {
-      element += scale_degree;
+      result.push_back(extension);
    }
 
    return result;

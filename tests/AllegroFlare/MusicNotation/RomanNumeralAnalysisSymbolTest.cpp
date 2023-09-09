@@ -19,8 +19,8 @@ TEST(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolTest,
       AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol::ChordQuality::MAJOR
    );
 
-   std::vector<int> expected = { 4, 8, 11 };
-   std::vector<int> actual = roman_numeral_analysis_symbol.calculate_all_chord_notes_chromatic();
+   std::vector<std::pair<int, int>> expected = { {0, 0}, {4, 0}, {7, 0} };
+   std::vector<std::pair<int, int>> actual = roman_numeral_analysis_symbol.calculate_inversion_notes_with_extensions();
 
    EXPECT_EQ(expected, actual);
 }
