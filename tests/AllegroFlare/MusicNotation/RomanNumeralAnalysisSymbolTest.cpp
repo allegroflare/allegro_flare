@@ -10,3 +10,19 @@ TEST(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolTest, can_be_created_w
 }
 
 
+TEST(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolTest,
+   calculate_all_chord_notes_chromatic__will_return_the_expected_notes)
+{
+   AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol roman_numeral_analysis_symbol;
+   roman_numeral_analysis_symbol.set_scale_degree(4);
+   roman_numeral_analysis_symbol.set_chord_quality(
+      AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol::ChordQuality::MAJOR
+   );
+
+   std::vector<int> expected = { 4, 8, 11 };
+   std::vector<int> actual = roman_numeral_analysis_symbol.calculate_all_chord_notes_chromatic();
+
+   EXPECT_EQ(expected, actual);
+}
+
+

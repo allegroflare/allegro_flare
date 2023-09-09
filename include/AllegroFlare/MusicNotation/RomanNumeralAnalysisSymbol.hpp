@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -13,7 +12,8 @@ namespace AllegroFlare
    {
       class RomanNumeralAnalysisSymbol
       {
-      private:
+      public:
+
          enum ChordQuality
          {
             UNDEFINED = 0,
@@ -22,7 +22,9 @@ namespace AllegroFlare
             DIMINISHED,
             AUGMENTED,
          };
+      private:
          int scale_degree;
+         int accidental;
          RomanNumeralAnalysisSymbol::ChordQuality chord_quality;
          int inversion;
          std::vector<std::pair<int, int>> extensions;
@@ -35,14 +37,16 @@ namespace AllegroFlare
          ~RomanNumeralAnalysisSymbol();
 
          void set_scale_degree(int scale_degree);
+         void set_accidental(int accidental);
          void set_chord_quality(RomanNumeralAnalysisSymbol::ChordQuality chord_quality);
          void set_inversion(int inversion);
          void set_extensions(std::vector<std::pair<int, int>> extensions);
          int get_scale_degree() const;
+         int get_accidental() const;
          RomanNumeralAnalysisSymbol::ChordQuality get_chord_quality() const;
          int get_inversion() const;
          std::vector<std::pair<int, int>> get_extensions() const;
-         std::set<int> calculate_all_chord_notes_chromatic();
+         std::vector<int> calculate_all_chord_notes_chromatic();
          void calculate_inversion_numbers();
          std::string infer_roman_numeral_string();
       };

@@ -14,6 +14,7 @@ namespace MusicNotation
 
 RomanNumeralAnalysisSymbol::RomanNumeralAnalysisSymbol()
    : scale_degree(0)
+   , accidental(0)
    , chord_quality(RomanNumeralAnalysisSymbol::ChordQuality::UNDEFINED)
    , inversion(0)
    , extensions({})
@@ -29,6 +30,12 @@ RomanNumeralAnalysisSymbol::~RomanNumeralAnalysisSymbol()
 void RomanNumeralAnalysisSymbol::set_scale_degree(int scale_degree)
 {
    this->scale_degree = scale_degree;
+}
+
+
+void RomanNumeralAnalysisSymbol::set_accidental(int accidental)
+{
+   this->accidental = accidental;
 }
 
 
@@ -56,6 +63,12 @@ int RomanNumeralAnalysisSymbol::get_scale_degree() const
 }
 
 
+int RomanNumeralAnalysisSymbol::get_accidental() const
+{
+   return accidental;
+}
+
+
 RomanNumeralAnalysisSymbol::ChordQuality RomanNumeralAnalysisSymbol::get_chord_quality() const
 {
    return chord_quality;
@@ -74,31 +87,68 @@ std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::get_extensions() co
 }
 
 
-std::set<int> RomanNumeralAnalysisSymbol::calculate_all_chord_notes_chromatic()
+std::vector<int> RomanNumeralAnalysisSymbol::calculate_all_chord_notes_chromatic()
 {
-   std::set<int> result;
+   std::vector<int> result;
 
    switch(chord_quality)
    {
       case UNDEFINED:
-         result.insert({0});
+         result.push_back(0);
       break;
 
       case MAJOR:
-         result.insert({0, 4, 7});
+         result.push_back(0);
+         result.push_back(4);
+         result.push_back(7);
       break;
 
       case MINOR:
-         result.insert({0, 3, 7});
+         result.push_back(0);
+         result.push_back(3);
+         result.push_back(7);
       break;
 
       case DIMINISHED:
-         result.insert({0, 3, 6});
+         result.push_back(0);
+         result.push_back(3);
+         result.push_back(6);
       break;
 
       case AUGMENTED:
-         result.insert({0, 4, 8});
+         result.push_back(0);
+         result.push_back(4);
+         result.push_back(8);
       break;
+   }
+
+   for (auto &extension : extensions)
+   {
+      int number = extension.first + extension.second;
+      int flip = 12;
+      int attempts = 300;
+      while (number < 0)
+      {
+         number += flip;
+         attempts--;
+         if (attempts <= 0) throw std::runtime_error("--- too many attempts (1)");
+         
+      }
+      attempts = 300;
+      while (number >= 12)
+      {
+         number -= flip;
+         attempts--;
+         if (attempts <= 0) throw std::runtime_error("--- too many attempts (2)");
+      }
+
+      result.push_back(number);
+   }
+
+   // Transpose all the notes by the root
+   for (auto &element : result)
+   {
+      element += scale_degree;
    }
 
    return result;
