@@ -19,15 +19,15 @@ properties:
     getter: true
     setter: true
 
-  - name: inversion
-    type: int
-    init_with: 0
-    getter: true
-    setter: true
-    
   - name: extensions
     type: std::vector<std::pair<int, int>>
     init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: inversion
+    type: int
+    init_with: 0
     getter: true
     setter: true
     
@@ -62,26 +62,26 @@ methods:
 
          case MAJOR:
             result.push_back({0, 0});
-            result.push_back({4, 0});
+            result.push_back({2, 0});
             result.push_back({7, 0});
          break;
 
          case MINOR:
             result.push_back({0, 0});
-            result.push_back({3, 0});
-            result.push_back({7, 0});
+            result.push_back({2, -1});
+            result.push_back({4, 0});
          break;
 
          case DIMINISHED:
             result.push_back({0, 0});
-            result.push_back({3, 0});
-            result.push_back({6, 0});
+            result.push_back({2, -1});
+            result.push_back({4, -1});
          break;
 
          case AUGMENTED:
             result.push_back({0, 0});
-            result.push_back({4, 0});
-            result.push_back({8, 0});
+            result.push_back({2, 1});
+            result.push_back({4, 1});
          break;
       }
 
@@ -91,12 +91,11 @@ methods:
          result.push_back(extension);
       }
 
+      // Rotate based on the inversion
+      int modded_inversion = inversion % result.size();
+      std::rotate(result.begin(), result.begin() + modded_inversion, result.end());
+
       return result;
-
-
-  - name: calculate_inversion_numbers
-    body: |
-      return;
 
 
   - name: infer_roman_numeral_string

@@ -16,8 +16,8 @@ RomanNumeralAnalysisSymbol::RomanNumeralAnalysisSymbol()
    : scale_degree(0)
    , accidental(0)
    , chord_quality(RomanNumeralAnalysisSymbol::ChordQuality::UNDEFINED)
-   , inversion(0)
    , extensions({})
+   , inversion(0)
 {
 }
 
@@ -45,15 +45,15 @@ void RomanNumeralAnalysisSymbol::set_chord_quality(RomanNumeralAnalysisSymbol::C
 }
 
 
-void RomanNumeralAnalysisSymbol::set_inversion(int inversion)
-{
-   this->inversion = inversion;
-}
-
-
 void RomanNumeralAnalysisSymbol::set_extensions(std::vector<std::pair<int, int>> extensions)
 {
    this->extensions = extensions;
+}
+
+
+void RomanNumeralAnalysisSymbol::set_inversion(int inversion)
+{
+   this->inversion = inversion;
 }
 
 
@@ -75,15 +75,15 @@ RomanNumeralAnalysisSymbol::ChordQuality RomanNumeralAnalysisSymbol::get_chord_q
 }
 
 
-int RomanNumeralAnalysisSymbol::get_inversion() const
-{
-   return inversion;
-}
-
-
 std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::get_extensions() const
 {
    return extensions;
+}
+
+
+int RomanNumeralAnalysisSymbol::get_inversion() const
+{
+   return inversion;
 }
 
 
@@ -100,26 +100,26 @@ std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::calculate_inversion
 
       case MAJOR:
          result.push_back({0, 0});
-         result.push_back({4, 0});
+         result.push_back({2, 0});
          result.push_back({7, 0});
       break;
 
       case MINOR:
          result.push_back({0, 0});
-         result.push_back({3, 0});
-         result.push_back({7, 0});
+         result.push_back({2, -1});
+         result.push_back({4, 0});
       break;
 
       case DIMINISHED:
          result.push_back({0, 0});
-         result.push_back({3, 0});
-         result.push_back({6, 0});
+         result.push_back({2, -1});
+         result.push_back({4, -1});
       break;
 
       case AUGMENTED:
          result.push_back({0, 0});
-         result.push_back({4, 0});
-         result.push_back({8, 0});
+         result.push_back({2, 1});
+         result.push_back({4, 1});
       break;
    }
 
@@ -129,12 +129,11 @@ std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::calculate_inversion
       result.push_back(extension);
    }
 
-   return result;
-}
+   // Rotate based on the inversion
+   int modded_inversion = inversion % result.size();
+   std::rotate(result.begin(), result.begin() + modded_inversion, result.end());
 
-void RomanNumeralAnalysisSymbol::calculate_inversion_numbers()
-{
-   return;
+   return result;
 }
 
 std::string RomanNumeralAnalysisSymbol::infer_roman_numeral_string()

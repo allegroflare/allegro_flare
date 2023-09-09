@@ -15,11 +15,12 @@ TEST(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolTest,
 {
    AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol roman_numeral_analysis_symbol;
    roman_numeral_analysis_symbol.set_scale_degree(4);
+   roman_numeral_analysis_symbol.set_extensions({ {6, 0} });
    roman_numeral_analysis_symbol.set_chord_quality(
-      AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol::ChordQuality::MAJOR
+      AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol::ChordQuality::MINOR
    );
 
-   std::vector<std::pair<int, int>> expected = { {0, 0}, {4, 0}, {7, 0} };
+   std::vector<std::pair<int, int>> expected = { {0, 0}, {2, -1}, {4, 0}, {6, 0} };
    std::vector<std::pair<int, int>> actual = roman_numeral_analysis_symbol.calculate_inversion_notes_with_extensions();
 
    EXPECT_EQ(expected, actual);
