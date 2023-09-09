@@ -87,7 +87,7 @@ int RomanNumeralAnalysisSymbol::get_inversion() const
 }
 
 
-std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::calculate_inversion_notes_with_extensions()
+std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::calculate_root_position_figured_bass_notes_with_extensions()
 {
    std::vector<std::pair<int, int>> result;
 

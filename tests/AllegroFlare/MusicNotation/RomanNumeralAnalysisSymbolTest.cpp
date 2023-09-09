@@ -21,7 +21,8 @@ TEST(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolTest,
    );
 
    std::vector<std::pair<int, int>> expected = { {0, 0}, {2, -1}, {4, 0}, {6, 0} };
-   std::vector<std::pair<int, int>> actual = roman_numeral_analysis_symbol.calculate_inversion_notes_with_extensions();
+   std::vector<std::pair<int, int>> actual =
+      roman_numeral_analysis_symbol.calculate_root_position_figured_bass_notes_with_extensions();
 
    EXPECT_EQ(expected, actual);
 }

@@ -48,7 +48,7 @@ enums:
 methods:
 
 
-  - name: calculate_inversion_notes_with_extensions
+  - name: calculate_root_position_figured_bass_notes_with_extensions
     type: std::vector<std::pair<int, int>>
     body: |
       std::vector<std::pair<int, int>> result;

@@ -133,7 +133,7 @@ void RomanNumeralAnalysisSymbolRenderer::render()
       symbol->infer_roman_numeral_string().c_str()
    );
 
-   // Render the inversion numbers
+   // Render the figured bass numbers
    float inversion_numbers_x = x;
    float inversion_numbers_y = y;
 
