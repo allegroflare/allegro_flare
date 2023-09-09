@@ -44,7 +44,7 @@ void RomanNumeralAnalysisSymbol::set_inversion(int inversion)
 }
 
 
-void RomanNumeralAnalysisSymbol::set_extensions(std::vector<int> extensions)
+void RomanNumeralAnalysisSymbol::set_extensions(std::vector<std::pair<int, int>> extensions)
 {
    this->extensions = extensions;
 }
@@ -68,11 +68,46 @@ int RomanNumeralAnalysisSymbol::get_inversion() const
 }
 
 
-std::vector<int> RomanNumeralAnalysisSymbol::get_extensions() const
+std::vector<std::pair<int, int>> RomanNumeralAnalysisSymbol::get_extensions() const
 {
    return extensions;
 }
 
+
+std::set<int> RomanNumeralAnalysisSymbol::calculate_all_chord_notes_chromatic()
+{
+   std::set<int> result;
+
+   switch(chord_quality)
+   {
+      case UNDEFINED:
+         result.insert({0});
+      break;
+
+      case MAJOR:
+         result.insert({0, 4, 7});
+      break;
+
+      case MINOR:
+         result.insert({0, 3, 7});
+      break;
+
+      case DIMINISHED:
+         result.insert({0, 3, 6});
+      break;
+
+      case AUGMENTED:
+         result.insert({0, 4, 8});
+      break;
+   }
+
+   return result;
+}
+
+void RomanNumeralAnalysisSymbol::calculate_inversion_numbers()
+{
+   return;
+}
 
 std::string RomanNumeralAnalysisSymbol::infer_roman_numeral_string()
 {

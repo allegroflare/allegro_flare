@@ -20,7 +20,7 @@ properties:
     setter: true
     
   - name: extensions
-    type: std::vector<int>
+    type: std::vector<std::pair<int, int>>
     init_with: '{}'
     getter: true
     setter: true
@@ -39,6 +39,42 @@ enums:
 
 
 methods:
+
+
+  - name: calculate_all_chord_notes_chromatic
+    type: std::set<int>
+    body: |
+      std::set<int> result;
+
+      switch(chord_quality)
+      {
+         case UNDEFINED:
+            result.insert({0});
+         break;
+
+         case MAJOR:
+            result.insert({0, 4, 7});
+         break;
+
+         case MINOR:
+            result.insert({0, 3, 7});
+         break;
+
+         case DIMINISHED:
+            result.insert({0, 3, 6});
+         break;
+
+         case AUGMENTED:
+            result.insert({0, 4, 8});
+         break;
+      }
+      
+      return result;
+
+
+  - name: calculate_inversion_numbers
+    body: |
+      return;
 
 
   - name: infer_roman_numeral_string

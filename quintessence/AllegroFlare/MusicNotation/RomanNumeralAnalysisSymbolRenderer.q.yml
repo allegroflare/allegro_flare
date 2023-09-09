@@ -36,6 +36,13 @@ properties:
     getter: true
     setter: true
 
+  - name: inversion_number_font_size
+    type: int
+    init_with: 60
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 methods:
 
@@ -59,6 +66,10 @@ methods:
          symbol->infer_roman_numeral_string().c_str()
       );
 
+      // Render the inversion numbers
+      float inversion_numbers_x = x;
+      float inversion_numbers_y = y;
+
       return;
 
 
@@ -66,6 +77,13 @@ methods:
     type: ALLEGRO_FONT*
     body: |
       std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(primary_symbol_font_size);
+      return font_bin->operator[](font_identifier);
+
+
+  - name: obtain_inversion_number_font
+    type: ALLEGRO_FONT*
+    body: |
+      std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(inversion_number_font_size);
       return font_bin->operator[](font_identifier);
 
 

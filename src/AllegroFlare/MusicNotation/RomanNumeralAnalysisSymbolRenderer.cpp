@@ -13,12 +13,13 @@ namespace MusicNotation
 {
 
 
-RomanNumeralAnalysisSymbolRenderer::RomanNumeralAnalysisSymbolRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol, float x, float y, int primary_symbol_font_size)
+RomanNumeralAnalysisSymbolRenderer::RomanNumeralAnalysisSymbolRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol, float x, float y, int primary_symbol_font_size, int inversion_number_font_size)
    : font_bin(font_bin)
    , symbol(symbol)
    , x(x)
    , y(y)
    , primary_symbol_font_size(primary_symbol_font_size)
+   , inversion_number_font_size(inversion_number_font_size)
 {
 }
 
@@ -58,6 +59,12 @@ void RomanNumeralAnalysisSymbolRenderer::set_primary_symbol_font_size(int primar
 }
 
 
+void RomanNumeralAnalysisSymbolRenderer::set_inversion_number_font_size(int inversion_number_font_size)
+{
+   this->inversion_number_font_size = inversion_number_font_size;
+}
+
+
 AllegroFlare::FontBin* RomanNumeralAnalysisSymbolRenderer::get_font_bin() const
 {
    return font_bin;
@@ -85,6 +92,12 @@ float RomanNumeralAnalysisSymbolRenderer::get_y() const
 int RomanNumeralAnalysisSymbolRenderer::get_primary_symbol_font_size() const
 {
    return primary_symbol_font_size;
+}
+
+
+int RomanNumeralAnalysisSymbolRenderer::get_inversion_number_font_size() const
+{
+   return inversion_number_font_size;
 }
 
 
@@ -120,12 +133,22 @@ void RomanNumeralAnalysisSymbolRenderer::render()
       symbol->infer_roman_numeral_string().c_str()
    );
 
+   // Render the inversion numbers
+   float inversion_numbers_x = x;
+   float inversion_numbers_y = y;
+
    return;
 }
 
 ALLEGRO_FONT* RomanNumeralAnalysisSymbolRenderer::obtain_primary_symbol_font()
 {
    std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(primary_symbol_font_size);
+   return font_bin->operator[](font_identifier);
+}
+
+ALLEGRO_FONT* RomanNumeralAnalysisSymbolRenderer::obtain_inversion_number_font()
+{
+   std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(inversion_number_font_size);
    return font_bin->operator[](font_identifier);
 }
 

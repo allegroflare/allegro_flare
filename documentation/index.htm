@@ -10459,11 +10459,17 @@ table td
 </tr>
 <tr>
   <td class="property">extensions</td>
-  <td class="property">std::vector&lt;int&gt;</td>
+  <td class="property">std::vector&lt;std::pair&lt;int, int&gt;&gt;</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">calculate_all_chord_notes_chromatic()</td>
+</tr>
+<tr>
+  <td class="method">calculate_inversion_numbers()</td>
+</tr>
 <tr>
   <td class="method">infer_roman_numeral_string()</td>
 </tr>
@@ -10503,6 +10509,10 @@ table td
   <td class="property">primary_symbol_font_size</td>
   <td class="property">int</td>
 </tr>
+<tr>
+  <td class="property">inversion_number_font_size</td>
+  <td class="property">int</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -10511,6 +10521,9 @@ table td
 </tr>
 <tr>
   <td class="method">obtain_primary_symbol_font()</td>
+</tr>
+<tr>
+  <td class="method">obtain_inversion_number_font()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

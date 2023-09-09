@@ -18,12 +18,13 @@ namespace AllegroFlare
          float x;
          float y;
          int primary_symbol_font_size;
+         int inversion_number_font_size;
 
       protected:
 
 
       public:
-         RomanNumeralAnalysisSymbolRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol=nullptr, float x=0, float y=0, int primary_symbol_font_size=60);
+         RomanNumeralAnalysisSymbolRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol=nullptr, float x=0, float y=0, int primary_symbol_font_size=60, int inversion_number_font_size=60);
          ~RomanNumeralAnalysisSymbolRenderer();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -31,13 +32,16 @@ namespace AllegroFlare
          void set_x(float x);
          void set_y(float y);
          void set_primary_symbol_font_size(int primary_symbol_font_size);
+         void set_inversion_number_font_size(int inversion_number_font_size);
          AllegroFlare::FontBin* get_font_bin() const;
          AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* get_symbol() const;
          float get_x() const;
          float get_y() const;
          int get_primary_symbol_font_size() const;
+         int get_inversion_number_font_size() const;
          void render();
          ALLEGRO_FONT* obtain_primary_symbol_font();
+         ALLEGRO_FONT* obtain_inversion_number_font();
       };
    }
 }
