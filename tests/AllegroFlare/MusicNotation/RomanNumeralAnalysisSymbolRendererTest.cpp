@@ -25,8 +25,24 @@ TEST_F(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolRendererTestWithAlle
       &get_font_bin_ref(),
       &symbol
    );
-
    roman_numeral_analysis_symbol_renderer.render();
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolRendererTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_appear_as_expected)
+{
+   AllegroFlare::Placement2D showcased_placement = build_centered_placement();
+   AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol symbol;
+   AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbolRenderer roman_numeral_analysis_symbol_renderer(
+      &get_font_bin_ref(),
+      &symbol
+   );
+
+   // Render the subject
+   showcased_placement.start_transform();
+   roman_numeral_analysis_symbol_renderer.render();
+   showcased_placement.restore_transform();
 
    al_flip_display();
    al_rest(1);

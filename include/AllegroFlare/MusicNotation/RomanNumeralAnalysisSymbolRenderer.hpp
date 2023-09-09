@@ -23,7 +23,7 @@ namespace AllegroFlare
 
 
       public:
-         RomanNumeralAnalysisSymbolRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol=nullptr, float x=0, float y=0, int primary_symbol_font_size=30);
+         RomanNumeralAnalysisSymbolRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol=nullptr, float x=0, float y=0, int primary_symbol_font_size=60);
          ~RomanNumeralAnalysisSymbolRenderer();
 
          void set_font_bin(AllegroFlare::FontBin* font_bin);

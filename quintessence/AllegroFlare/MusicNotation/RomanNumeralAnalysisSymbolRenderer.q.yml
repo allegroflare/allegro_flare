@@ -31,7 +31,7 @@ properties:
 
   - name: primary_symbol_font_size
     type: int
-    init_with: 30
+    init_with: 60
     constructor_arg: true
     getter: true
     setter: true
