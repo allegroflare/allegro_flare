@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <string>
 #include <vector>
 
 
@@ -39,6 +40,7 @@ namespace AllegroFlare
          RomanNumeralAnalysisSymbol::ChordQuality get_chord_quality() const;
          int get_inversion() const;
          std::vector<int> get_extensions() const;
+         std::string infer_roman_numeral_string();
       };
    }
 }

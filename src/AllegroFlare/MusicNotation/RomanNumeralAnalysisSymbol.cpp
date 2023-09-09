@@ -2,7 +2,8 @@
 
 #include <AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.hpp>
 
-
+#include <AllegroFlare/Logger.hpp>
+#include <map>
 
 
 namespace AllegroFlare
@@ -73,6 +74,79 @@ std::vector<int> RomanNumeralAnalysisSymbol::get_extensions() const
 }
 
 
+std::string RomanNumeralAnalysisSymbol::infer_roman_numeral_string()
+{
+   std::map<int, std::string> major_map = {
+      { 0,   "I" },
+      { 1,   "II" },
+      { 2,   "III" },
+      { 3,   "IV" },
+      { 4,   "V" },
+      { 5,   "VI" },
+      { 6,   "VII" },
+      { 7,   "VIII" },
+      { 8,   "IX" },
+      { 9,   "X" },
+      { 10,  "XII" },
+      { 11,  "XIII" },
+   };
+   std::map<int, std::string> minor_map = {
+      { 0,   "i" },
+      { 1,   "ii" },
+      { 2,   "iii" },
+      { 3,   "iv" },
+      { 4,   "v" },
+      { 5,   "vi" },
+      { 6,   "vii" },
+      { 7,   "viii" },
+      { 8,   "ix" },
+      { 9,   "x" },
+      { 10,  "xii" },
+      { 11,  "xiii" },
+   };
+
+
+   bool uses_major_map = (chord_quality == UNDEFINED || chord_quality == MAJOR || chord_quality == AUGMENTED); 
+   bool uses_minor_map = (chord_quality == MINOR || chord_quality == DIMINISHED); 
+   std::string result;
+
+   if (uses_major_map)
+   {
+      if (major_map.count(scale_degree) == 0)
+      {
+         // item not found
+         AllegroFlare::Logger::throw_error("AllegroFlare::MusicNotation::RomanNumeralAnalysysSymbol",
+                                         "Cannot load the item with the identifier \"" + std::to_string(scale_degree)
+                                         + "\", in the major_map, it does not exist.");
+      }
+      else
+      {
+         result = major_map[scale_degree];
+      }
+   }
+   else if(uses_minor_map)
+   {
+      if (minor_map.count(scale_degree) == 0)
+      {
+         // item not found
+         AllegroFlare::Logger::throw_error("AllegroFlare::MusicNotation::RomanNumeralAnalysysSymbol",
+                                         "Cannot load the item with the identifier \"" + std::to_string(scale_degree)
+                                         + "\", in the minor_map, it does not exist.");
+      }
+      else
+      {
+         result = minor_map[scale_degree];
+      }
+   }
+   else
+   {
+      // neither the major_map or the minor_map was found to be used
+      AllegroFlare::Logger::throw_error("AllegroFlare::MusicNotation::RomanNumeralAnalysysSymbol",
+                                      "Could not calculate if minor map or major map should be used.");
+   }
+
+   return result;
+}
 
 
 } // namespace MusicNotation

@@ -104,10 +104,26 @@ void RomanNumeralAnalysisSymbolRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("RomanNumeralAnalysisSymbolRenderer::render: error: guard \"symbol\" not met");
    }
+   ALLEGRO_COLOR color = ALLEGRO_COLOR{1, 1, 1, 1};
+
+   // Render the primary symbol
+   ALLEGRO_FONT* primary_symbol_font = obtain_primary_symbol_font();
+   ALLEGRO_COLOR primary_symbol_color = color;
+   float primary_symbol_x = x;
+   float primary_symbol_y = y;
+   al_draw_text(
+      primary_symbol_font,
+      primary_symbol_color,
+      primary_symbol_x,
+      primary_symbol_y,
+      ALLEGRO_ALIGN_CENTER,
+      symbol->infer_roman_numeral_string().c_str()
+   );
+
    return;
 }
 
-ALLEGRO_FONT* RomanNumeralAnalysisSymbolRenderer::obtain_roman_numeral_font()
+ALLEGRO_FONT* RomanNumeralAnalysisSymbolRenderer::obtain_primary_symbol_font()
 {
    std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(primary_symbol_font_size);
    return font_bin->operator[](font_identifier);

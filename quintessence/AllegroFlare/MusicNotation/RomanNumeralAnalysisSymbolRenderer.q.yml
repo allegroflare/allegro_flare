@@ -43,10 +43,26 @@ methods:
   - name: render
     guards: [ font_bin, symbol ]
     body: |
+      ALLEGRO_COLOR color = ALLEGRO_COLOR{1, 1, 1, 1};
+
+      // Render the primary symbol
+      ALLEGRO_FONT* primary_symbol_font = obtain_primary_symbol_font();
+      ALLEGRO_COLOR primary_symbol_color = color;
+      float primary_symbol_x = x;
+      float primary_symbol_y = y;
+      al_draw_text(
+         primary_symbol_font,
+         primary_symbol_color,
+         primary_symbol_x,
+         primary_symbol_y,
+         ALLEGRO_ALIGN_CENTER,
+         symbol->infer_roman_numeral_string().c_str()
+      );
+
       return;
 
 
-  - name: obtain_roman_numeral_font
+  - name: obtain_primary_symbol_font
     type: ALLEGRO_FONT*
     body: |
       std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(primary_symbol_font_size);

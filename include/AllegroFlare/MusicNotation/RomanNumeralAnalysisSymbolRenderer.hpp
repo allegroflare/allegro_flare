@@ -37,7 +37,7 @@ namespace AllegroFlare
          float get_y() const;
          int get_primary_symbol_font_size() const;
          void render();
-         ALLEGRO_FONT* obtain_roman_numeral_font();
+         ALLEGRO_FONT* obtain_primary_symbol_font();
       };
    }
 }

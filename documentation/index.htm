@@ -10464,11 +10464,17 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">infer_roman_numeral_string()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;RomanNumeralAnalysisSymbol::ChordQuality&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -10485,15 +10491,33 @@ table td
   <td class="property">symbol</td>
   <td class="property">AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol*</td>
 </tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">primary_symbol_font_size</td>
+  <td class="property">int</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">render()</td>
 </tr>
+<tr>
+  <td class="method">obtain_primary_symbol_font()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
@@ -25367,6 +25391,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/GameSession",
     "AllegroFlare/MultitextureModel3DObjLoader",
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
@@ -25731,6 +25756,7 @@ table td
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
