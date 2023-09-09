@@ -176,7 +176,7 @@ namespace MusicNotation
       uint32_t current_accidental_symbol = 0x0000;
       int current_octave = 0;
       bool force_rest_to_0_pos = true;
-      bool adding_beams = false;
+      //bool adding_beams = false;
       bool rhythm_only = false;
       bool freeze_stems_up = false;
       //spacing_method_t spacing_method = SPACING_AESTHETIC;
@@ -217,17 +217,17 @@ namespace MusicNotation
 
                    // special cases for starting-stopping beams
 
-         case ':': adding_beams = true; continue;
-         case ';':
-         {
+         //case ':': adding_beams = true; continue;
+         //case ';':
+         //{
             //adding_beams = false;
             //if (just_one_beam.get_num_points() >= 2)
             //{
                //just_one_beam.draw(this, color);
             //}
             //just_one_beam.clear();
-            continue;
-         }
+            //continue;
+         //}
          case '{':
          {
             // settings can be specified inilne when contained in {} curly braces.
@@ -446,15 +446,15 @@ namespace MusicNotation
 
          if (!current_note_is_rest)
          {
-            if (adding_beams)
-            {
+            //if (adding_beams)
+            //{
                // render only note heads
-               if (current_note_duration >= 4) symbol = AllegroFlare::FontBravura::closed_note_head; 
-               else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::open_note_head; 
-               else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note_head;
-            }
-            else
-            {
+               //if (current_note_duration >= 4) symbol = AllegroFlare::FontBravura::closed_note_head; 
+               //else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::open_note_head; 
+               //else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note_head;
+            //}
+            //else
+            //{
                // render full notes
                if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note; 
                else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note; 
@@ -463,7 +463,7 @@ namespace MusicNotation
                // use the flipped stem version (if necessairy)
                if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
                   symbol += 1;
-            }
+            //}
          }
          else if (current_note_is_rest)
          {
