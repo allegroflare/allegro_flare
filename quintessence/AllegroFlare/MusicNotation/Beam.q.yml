@@ -1,0 +1,97 @@
+properties:
+
+
+  - name: staff_line_distance
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: start_x
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+  - name: start_staff_pos
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: start_alignment
+    type: Beam::Alignment
+    init_with: Beam::Alignment::UNDEFINED
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: end_x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+  - name: end_staff_pos
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+    
+  - name: end_alignment
+    type: Beam::Alignment
+    init_with: Beam::Alignment::UNDEFINED
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+enums:
+
+
+  - name: Alignment
+    enumerators:
+      - UNDEFINED
+      - TOP
+      - MIDDLE
+      - BOTTOM
+      
+
+methods:
+
+
+  - name: render
+    type: void
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - staff_line_distance > 0
+      - start_alignment != Beam::Alignment::UNDEFINED
+      - end_alignment != Beam::Alignment::UNDEFINED
+    body: |
+      //ALLEGRO_VERTEX[4] = {
+         //ALLEGRO_VERTEX{start_x, 
+      //};
+      //al_draw_line(start_x
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+
+
+dependencies:
+
+
+  - symbol: Beam::Alignment
+    headers: [ ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+
