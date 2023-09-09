@@ -38,140 +38,7 @@ namespace MusicNotation
 {
 
 
-
-
    using namespace AllegroFlare;
-
-
-
-   MusicNotation::Beam::beam_point::beam_point(float note_x, float note_y, int note_staff_pos, float staff_line_distance, float note_head_width)
-      : note_x(note_x)
-      , note_y(note_y)
-      , note_head_width(note_head_width)
-      , note_staff_pos(note_staff_pos)
-   {}
-
-
-
-
-   void MusicNotation::Beam::add_beam_point(float note_x, float y_center, int note_staff_pos, float note_head_width, MusicNotation *notation_context)
-   {
-      if (!notation_context) return;
-      beam_points.push_back(beam_point(note_x, notation_context->_get_staff_position_offset(note_staff_pos)+y_center, note_staff_pos, notation_context->staff_line_distance, note_head_width));
-   }
-
-
-
-
-   void MusicNotation::Beam::clear()
-   {
-      beam_points.clear();
-   }
-
-
-
-
-   int MusicNotation::Beam::get_num_points()
-   {
-      return beam_points.size();
-   }
-
-
-
-
-   void MusicNotation::Beam::draw(MusicNotation *notation_context, ALLEGRO_COLOR color)
-   {
-      if (beam_points.size() <= 1) { std::cout << "size" << std::endl; return; }
-      if (!notation_context) { std::cout << "notation_context" << std::endl; return; }
-
-
-
-
-      // draw a center line (for debugging purposes)
-
-      //al_draw_line(-100, 0, 500, 0, color::dodgerblue, 1.0);
-
-
-
-      // set some locally used variables from the notation_context;
-
-      float &staff_line_distance = notation_context->staff_line_distance;
-      //int font_line_height = al_get_font_ascent(notation_context->font_bravura);
-      //ALLEGRO_FONT *font_bravura = notation_context->font_bravura;
-      float &stem_thickness = notation_context->stem_thickness;
-
-
-
-
-      beam_point beam_left = beam_points.front();
-      //beam_point beam_right = beam_points.back(); //<todo
-
-
-
-      // figure out the furthest note out from the center line
-
-      int furthest = 0;
-      for (unsigned i=0; i<beam_points.size(); i++)
-      {
-         if (abs(beam_points[i].note_staff_pos) > furthest) furthest = beam_points[i].note_staff_pos;
-      }
-
-
-
-
-      // set the stem direction
-
-      bool stem_up = true;
-
-      if (furthest > 0) stem_up = false;
-
-
-
-
-      // draw the stems
-
-      float beam_y1 = beam_left.note_y + ((stem_up) ? (staff_line_distance * -3.5) : (staff_line_distance * 3.5));
-      //float beam_y2 = beam_left.note_y + ((stem_up) ? (staff_line_distance * -3.5) : (staff_line_distance * 3.5));
-      float first_note_stem_x = beam_points.front().note_x + (stem_up) * (beam_points.front().note_head_width);
-      float last_note_stem_x = beam_points.back().note_x + (stem_up) * (beam_points.back().note_head_width);
-
-
-
-      // first and last note beam x
-
-      for (unsigned i=0; i<beam_points.size(); i++)
-      {
-         float this_stem_y2 = beam_points[i].note_y;
-         //float this_stem_y1 = beam_y1;
-         float this_stem_x = beam_points[i].note_x + (stem_up) * (beam_points[i].note_head_width);
-
-         // stem
-         notation_context->draw_line(
-               this_stem_x,
-               beam_y1,
-               this_stem_x,
-               this_stem_y2, color,
-               stem_thickness);
-
-         // note head
-
-         notation_context->draw_music_symbol(AllegroFlare::FontBravura::closed_note_head, beam_points[i].note_x, beam_points[i].note_y, color);
-         //bravura::draw(font_bravura, color, bravura::closed_note_head, NULL, beam_points[i].note_x, beam_points[i].note_y-font_line_height);
-
-         // debug crosshair
-         //draw_crosshair(beam_points[i].note_x, beam_points[i].note_y, color::red);
-      }
-
-
-
-
-      // draw the beam
-
-      //al_draw_line(first_note_stem_x, beam_y1, last_note_stem_x, beam_y1, color, notation_context->beam_thickness);
-      notation_context->draw_line(first_note_stem_x-stem_thickness*0.5, beam_y1, last_note_stem_x+stem_thickness*0.5, beam_y1, color::red, notation_context->beam_thickness);
-   }
-
-
 
 
 
@@ -194,7 +61,7 @@ namespace MusicNotation
       , font_size_px((staff_line_distance*4) * 4)
       , quarter_note_spacing(staff_line_distance*5)
       , stem_thickness(staff_line_distance*0.15)
-      , beam_thickness(staff_line_distance*0.4)
+      //, beam_thickness(staff_line_distance*0.4)
       , spacing_method(SPACING_AESTHETIC)
       , font_bin(font_bin)
       , current_note_duration(4)

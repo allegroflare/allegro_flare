@@ -5,7 +5,6 @@
 #include <vector>
 #include <allegro5/allegro.h> // for ALLEGRO_COLOR
 #include <AllegroFlare/DrawingInterfaces/Base.hpp>
-//#include <AllegroFlare/MusicNotation/BeamPoint.hpp>
 #include <AllegroFlare/FontBin.hpp>
 
 
@@ -27,28 +26,6 @@ namespace AllegroFlare
       };
 
    private:
-      class Beam
-      {
-      private:
-         struct beam_point
-         {
-            public:
-               float note_x;
-               float note_y;
-               float note_head_width;
-               int note_staff_pos;
-               beam_point(float note_x, float note_y, int note_staff_pos, float staff_line_distance, float note_head_width);
-         };
-
-         std::vector<beam_point> beam_points; // assuming left-to-right
-
-      public:
-         void add_beam_point(float note_x, float y_center, int note_staff_pos, float note_head_width, MusicNotation *notation_context);
-         void clear();
-         void draw(MusicNotation *notation_context, ALLEGRO_COLOR color);
-         int get_num_points();
-      };
-
       AllegroFlare::DrawingInterfaces::Base *drawing_interface;
 
       // render metrics (all are relative to staff_line_distance)
@@ -57,7 +34,7 @@ namespace AllegroFlare
       float font_size_px; // = int(staff_line_distance*4) * 4
       float quarter_note_spacing; // = staff_line_distance * 30
       float stem_thickness; // = staff_line_distance * 0.2
-      float beam_thickness; // = staff_line_distance * 0.4
+      //float beam_thickness; // = staff_line_distance * 0.4
       //ALLEGRO_FONT *font_bravura; // size = staff_line_distance * 4
       spacing_method_t spacing_method;
       AllegroFlare::FontBin *font_bin;
@@ -71,12 +48,6 @@ namespace AllegroFlare
       int cursor_pos;
       bool int_cast_y;
       bool ignore_spaces;
-
-      friend class beam_point;
-
-
-      // meh
-      //Beam just_one_beam;
 
    public:
       MusicNotation(
