@@ -55,6 +55,7 @@ enums:
 
 
   - name: Alignment
+    scope: public
     enumerators:
       - UNDEFINED
       - TOP

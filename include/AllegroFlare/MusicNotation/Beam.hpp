@@ -9,7 +9,8 @@ namespace AllegroFlare
    {
       class Beam
       {
-      private:
+      public:
+
          enum Alignment
          {
             UNDEFINED = 0,
@@ -17,6 +18,7 @@ namespace AllegroFlare
             MIDDLE,
             BOTTOM,
          };
+      private:
          float staff_line_distance;
          float start_x;
          float start_staff_pos;

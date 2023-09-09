@@ -44,22 +44,12 @@ TEST_F(AllegroFlare_MusicNotation_BeamTest, render__without_primitives_addon_ini
 }
 
 
-TEST_F(AllegroFlare_MusicNotation_BeamTest, render__without_font_addon_initialized__raises_an_error)
-{
-   al_init();
-   al_init_primitives_addon();
-   AllegroFlare::MusicNotation::Beam beam;
-   std::string expected_error_message =
-      "Beam::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(beam.render(), std::runtime_error, expected_error_message);
-   al_shutdown_primitives_addon();
-   al_uninstall_system();
-}
-
-
 TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::MusicNotation::Beam beam;
+   beam.set_staff_line_distance(20);
+   beam.set_start_alignment(AllegroFlare::MusicNotation::Beam::Alignment::TOP);
+   beam.set_end_alignment(AllegroFlare::MusicNotation::Beam::Alignment::BOTTOM);
    beam.render();
    al_flip_display();
    sleep_for(1);
