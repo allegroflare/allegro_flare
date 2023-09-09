@@ -21,7 +21,10 @@ TEST_F(AllegroFlare_MusicNotation_RomanNumeralAnalysisSymbolRendererTestWithAlle
    render__will_not_blow_up)
 {
    AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol symbol;
-   AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbolRenderer roman_numeral_analysis_symbol_renderer(&symbol);
+   AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbolRenderer roman_numeral_analysis_symbol_renderer(
+      &get_font_bin_ref(),
+      &symbol
+   );
 
    roman_numeral_analysis_symbol_renderer.render();
 

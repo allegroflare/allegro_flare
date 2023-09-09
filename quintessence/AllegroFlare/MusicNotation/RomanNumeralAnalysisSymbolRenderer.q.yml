@@ -1,10 +1,38 @@
 properties:
 
 
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: symbol
     type: AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol*
-    constructor_arg: true
     init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: primary_symbol_font_size
+    type: int
+    init_with: 30
+    constructor_arg: true
     getter: true
     setter: true
 
@@ -13,14 +41,25 @@ methods:
 
 
   - name: render
-    guards: [ symbol ]
+    guards: [ font_bin, symbol ]
     body: |
       return;
+
+
+  - name: obtain_roman_numeral_font
+    type: ALLEGRO_FONT*
+    body: |
+      std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(primary_symbol_font_size);
+      return font_bin->operator[](font_identifier);
 
 
 dependencies:
 
 
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol
     headers: [ AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.hpp ]
 

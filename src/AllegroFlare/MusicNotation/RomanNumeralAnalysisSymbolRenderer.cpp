@@ -13,8 +13,12 @@ namespace MusicNotation
 {
 
 
-RomanNumeralAnalysisSymbolRenderer::RomanNumeralAnalysisSymbolRenderer(AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol)
-   : symbol(symbol)
+RomanNumeralAnalysisSymbolRenderer::RomanNumeralAnalysisSymbolRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol, float x, float y, int primary_symbol_font_size)
+   : font_bin(font_bin)
+   , symbol(symbol)
+   , x(x)
+   , y(y)
+   , primary_symbol_font_size(primary_symbol_font_size)
 {
 }
 
@@ -24,9 +28,39 @@ RomanNumeralAnalysisSymbolRenderer::~RomanNumeralAnalysisSymbolRenderer()
 }
 
 
+void RomanNumeralAnalysisSymbolRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
 void RomanNumeralAnalysisSymbolRenderer::set_symbol(AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* symbol)
 {
    this->symbol = symbol;
+}
+
+
+void RomanNumeralAnalysisSymbolRenderer::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void RomanNumeralAnalysisSymbolRenderer::set_y(float y)
+{
+   this->y = y;
+}
+
+
+void RomanNumeralAnalysisSymbolRenderer::set_primary_symbol_font_size(int primary_symbol_font_size)
+{
+   this->primary_symbol_font_size = primary_symbol_font_size;
+}
+
+
+AllegroFlare::FontBin* RomanNumeralAnalysisSymbolRenderer::get_font_bin() const
+{
+   return font_bin;
 }
 
 
@@ -36,8 +70,33 @@ AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbol* RomanNumeralAnalysisSym
 }
 
 
+float RomanNumeralAnalysisSymbolRenderer::get_x() const
+{
+   return x;
+}
+
+
+float RomanNumeralAnalysisSymbolRenderer::get_y() const
+{
+   return y;
+}
+
+
+int RomanNumeralAnalysisSymbolRenderer::get_primary_symbol_font_size() const
+{
+   return primary_symbol_font_size;
+}
+
+
 void RomanNumeralAnalysisSymbolRenderer::render()
 {
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[RomanNumeralAnalysisSymbolRenderer::render]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("RomanNumeralAnalysisSymbolRenderer::render: error: guard \"font_bin\" not met");
+   }
    if (!(symbol))
    {
       std::stringstream error_message;
@@ -46,6 +105,12 @@ void RomanNumeralAnalysisSymbolRenderer::render()
       throw std::runtime_error("RomanNumeralAnalysisSymbolRenderer::render: error: guard \"symbol\" not met");
    }
    return;
+}
+
+ALLEGRO_FONT* RomanNumeralAnalysisSymbolRenderer::obtain_roman_numeral_font()
+{
+   std::string font_identifier = "plantin-mt-light.ttf " + std::to_string(primary_symbol_font_size);
+   return font_bin->operator[](font_identifier);
 }
 
 

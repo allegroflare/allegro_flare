@@ -286,6 +286,7 @@
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicMesh/MusicMesh",
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
