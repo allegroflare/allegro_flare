@@ -25,9 +25,34 @@ methods:
 
   - name: infer_preferred_stem_direction
     type: BeamPositionCalculator::StemDirection
+    guards: [ notehead_staff_positions.size() >= 2 ]
     body: |
       BeamPositionCalculator::StemDirection result = BeamPositionCalculator::StemDirection::UNDEFINED;
+
+      int min_staff_position = get_min_staff_position();
+
       return result;
+
+
+  - name: get_min_staff_position
+    type: int
+    body: |
+      int min_value = 0;
+      auto min_element = std::min_element(notehead_staff_positions.begin(), notehead_staff_positions.end(), 
+         [](const std::pair<float, int>& lhs, const std::pair<float, int>& rhs) {
+            return lhs.second < rhs.second;
+         });
+
+      if (min_element != notehead_staff_positions.end())
+      {
+         min_value = min_element->second;
+      }
+      else
+      {
+         std::cout << "Vector is empty." << std::endl;
+         throw std::runtime_error("BeamPositionCalculator: error: notehead_staff_positions is empty");
+      }
+      return min_value;
 
 
 dependencies:

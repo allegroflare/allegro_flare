@@ -201,6 +201,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/Stamp.q.yml">quintessence/AllegroFlare/MusicMesh/Stamp.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/Beam.q.yml">quintessence/AllegroFlare/MusicNotation/Beam.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MusicNotation/BeamPositionCalculator.q.yml">quintessence/AllegroFlare/MusicNotation/BeamPositionCalculator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.q.yml">quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer.q.yml">quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/TieRenderer.q.yml">quintessence/AllegroFlare/MusicNotation/TieRenderer.q.yml</a></li>
@@ -10518,6 +10519,32 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">notehead_staff_positions</td>
+  <td class="property">std::vector&lt;std::pair&lt;float, int&gt;&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">infer_preferred_stem_direction()</td>
+</tr>
+<tr>
+  <td class="method">get_min_staff_position()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;BeamPositionCalculator::StemDirection&quot;, &quot;headers&quot;=&gt;[]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27350,6 +27377,9 @@ table td
   ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"
+  ],
+  "BeamPositionCalculator/StemDirection": [
+    "AllegroFlare/MusicNotation/BeamPositionCalculator"
   ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"

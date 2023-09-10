@@ -1888,6 +1888,9 @@
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"
   ],
+  "BeamPositionCalculator/StemDirection": [
+    "AllegroFlare/MusicNotation/BeamPositionCalculator"
+  ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
   ],
