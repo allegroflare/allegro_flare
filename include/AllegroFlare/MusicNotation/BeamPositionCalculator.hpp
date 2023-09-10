@@ -36,6 +36,8 @@ namespace AllegroFlare
          int get_last_staff_position();
          int get_min_staff_position();
          int get_max_staff_position();
+         int get_min_interior_staff_position();
+         int get_max_interior_staff_position();
       };
    }
 }

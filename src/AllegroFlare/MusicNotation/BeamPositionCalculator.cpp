@@ -117,6 +117,60 @@ int BeamPositionCalculator::get_max_staff_position()
    return min_value;
 }
 
+int BeamPositionCalculator::get_min_interior_staff_position()
+{
+   if (!(notehead_staff_positions.size() >= 3))
+   {
+      std::stringstream error_message;
+      error_message << "[BeamPositionCalculator::get_min_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BeamPositionCalculator::get_min_interior_staff_position: error: guard \"notehead_staff_positions.size() >= 3\" not met");
+   }
+   int min_value = 0;
+   auto min_element = std::min_element(notehead_staff_positions.begin()+1, notehead_staff_positions.end()-1, 
+      [](const std::pair<float, int>& lhs, const std::pair<float, int>& rhs) {
+         return lhs.second < rhs.second;
+      });
+
+   if (min_element != notehead_staff_positions.end())
+   {
+      min_value = min_element->second;
+   }
+   else
+   {
+      std::cout << "Vector is empty." << std::endl;
+      throw std::runtime_error("BeamPositionCalculator::get_min_staff_position: error: notehead_staff_positions []");
+   }
+   return min_value;
+}
+
+int BeamPositionCalculator::get_max_interior_staff_position()
+{
+   if (!(notehead_staff_positions.size() >= 3))
+   {
+      std::stringstream error_message;
+      error_message << "[BeamPositionCalculator::get_max_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BeamPositionCalculator::get_max_interior_staff_position: error: guard \"notehead_staff_positions.size() >= 3\" not met");
+   }
+   int min_value = 0;
+   auto min_element = std::max_element(notehead_staff_positions.begin()+1, notehead_staff_positions.end()-1, 
+      [](const std::pair<float, int>& lhs, const std::pair<float, int>& rhs) {
+         return lhs.second < rhs.second;
+      });
+
+   if (min_element != notehead_staff_positions.end())
+   {
+      min_value = min_element->second;
+   }
+   else
+   {
+      std::cout << "Vector is empty." << std::endl;
+      throw std::runtime_error("BeamPositionCalculator::get_min_staff_position: error: notehead_staff_positions []");
+   }
+   return min_value;
+}
+
 
 } // namespace MusicNotation
 } // namespace AllegroFlare

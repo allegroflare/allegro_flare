@@ -14,7 +14,7 @@ public:
           { 20.0,   3 },
           { 40.0,  -3 },
           { 70.0,  -4 },
-          { 90.0,   2 },
+          { 90.0,  -5 },
       };
       return result;
    }
@@ -41,7 +41,7 @@ TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
 {
    std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
    AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
-   EXPECT_EQ(2, beam_position_calculator.get_last_staff_position());
+   EXPECT_EQ(-5, beam_position_calculator.get_last_staff_position());
 }
 
 
@@ -50,7 +50,7 @@ TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
 {
    std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
    AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
-   EXPECT_EQ(-4, beam_position_calculator.get_min_staff_position());
+   EXPECT_EQ(-5, beam_position_calculator.get_min_staff_position());
 }
 
 
@@ -60,6 +60,24 @@ TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
    std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
    AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
    EXPECT_EQ(3, beam_position_calculator.get_max_staff_position());
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
+   get_min_interior_staff_position__will_return_the_minimum_staff_position_among_the_interior_notehead_staff_positions)
+{
+   std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
+   AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
+   EXPECT_EQ(-4, beam_position_calculator.get_min_interior_staff_position());
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
+   get_max_interior_staff_position__will_return_the_maximum_staff_position_among_the_interior_notehead_staff_positions)
+{
+   std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
+   AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
+   EXPECT_EQ(3, beam_position_calculator.get_max_interior_staff_position());
 }
 
 
