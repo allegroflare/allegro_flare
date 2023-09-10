@@ -81,7 +81,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2 - 500, 1080/2+300, music_notation_content_string);
 
    al_flip_display();
-   sleep(1);
+   //sleep(1);
 }
 
 
@@ -97,6 +97,26 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
 
    al_flip_display();
    //sleep(1);
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   CAPTURE__on_rendering__will_return_the_width_of_the_rendered_string)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
+
+   std::string music_notation_content_string = " & ^    q~0q0|";
+
+   float x = 1920/2 - 600;
+   float x_cursor = 0;
+
+   x_cursor += music_notation.draw(x+x_cursor, 1080/2, music_notation_content_string);
+   x_cursor += music_notation.draw(x+x_cursor, 1080/2, music_notation_content_string);
+   x_cursor += music_notation.draw(x+x_cursor, 1080/2, music_notation_content_string);
+
+   al_flip_display();
+   sleep(1);
 }
 
 
