@@ -15,7 +15,7 @@ namespace MusicNotation
 {
 
 
-Beam::Beam(float staff_line_distance, float start_x, float start_staff_pos, Beam::Alignment start_alignment, float end_x, float end_staff_pos, Beam::Alignment end_alignment, ALLEGRO_COLOR color, std::vector<std::vector<std::pair<float, float>>> secondary_beams)
+Beam::Beam(float staff_line_distance, float start_x, float start_staff_pos, Beam::Alignment start_alignment, float end_x, float end_staff_pos, Beam::Alignment end_alignment, ALLEGRO_COLOR color, std::vector<std::tuple<int, float, float>> secondary_beams)
    : staff_line_distance(staff_line_distance)
    , start_x(start_x)
    , start_staff_pos(start_staff_pos)
@@ -83,7 +83,7 @@ void Beam::set_color(ALLEGRO_COLOR color)
 }
 
 
-void Beam::set_secondary_beams(std::vector<std::vector<std::pair<float, float>>> secondary_beams)
+void Beam::set_secondary_beams(std::vector<std::tuple<int, float, float>> secondary_beams)
 {
    this->secondary_beams = secondary_beams;
 }
@@ -143,7 +143,7 @@ ALLEGRO_COLOR Beam::get_color() const
 }
 
 
-std::vector<std::vector<std::pair<float, float>>> Beam::get_secondary_beams() const
+std::vector<std::tuple<int, float, float>> Beam::get_secondary_beams() const
 {
    return secondary_beams;
 }
@@ -217,9 +217,25 @@ void Beam::render()
 
    render_beam(top_x1, top_y1, top_x2, top_y2, primary_beam_color);
    // TODO: Replace these two demonstrations of secondary beams with "secondary_beams" property
-   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.0, 0.5, 1, secondary_beam_color);
+   for (auto &secondary_beam : secondary_beams)
+   {
+      int vertical_position = std::get<0>(secondary_beam);
+      float x1_normalized = std::get<1>(secondary_beam);
+      float x2_normalized = std::get<2>(secondary_beam);
+      render_secondary_beam(
+         top_x1,
+         top_y1,
+         top_x2,
+         top_y2,
+         x1_normalized,
+         x2_normalized,
+         vertical_position,
+         secondary_beam_color
+      );
+   }
+   //render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.0, 0.5, 1, secondary_beam_color);
    //render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1);
-   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1, secondary_beam_color);
+   //render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1, secondary_beam_color);
    return;
 }
 
@@ -265,7 +281,7 @@ void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2, A
    return;
 }
 
-void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_top_y1, float primary_beam_top_x2, float primary_beam_top_y2, float x1_normalized, float x2_normalized, int vertical_position_offset, ALLEGRO_COLOR _color)
+void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_top_y1, float primary_beam_top_x2, float primary_beam_top_y2, float x1_normalized, float x2_normalized, int vertical_position, ALLEGRO_COLOR _color)
 {
    float y_position_offset_distance = staff_line_distance * 3.0f / 4.0f;
    float slope = (primary_beam_top_y2 - primary_beam_top_y1) / (primary_beam_top_x2 - primary_beam_top_x1);
@@ -278,10 +294,10 @@ void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_t
    float length = primary_beam_top_x2 - primary_beam_top_x1;
    float x1 = x1_normalized * length + primary_beam_top_x1;
    float y1 = (x1_normalized * length) * slope + primary_beam_top_y1
-            + y_position_offset_distance * vertical_position_offset;
+            + y_position_offset_distance * vertical_position;
    float x2 = x2_normalized * length + primary_beam_top_x1;
    float y2 = (x2_normalized * length) * slope + primary_beam_top_y1
-            + y_position_offset_distance * vertical_position_offset;
+            + y_position_offset_distance * vertical_position;
 
    render_beam(x1, y1, x2, y2, _color);
 

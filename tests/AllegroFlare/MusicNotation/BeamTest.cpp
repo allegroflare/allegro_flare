@@ -118,6 +118,10 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture,
    using AllegroFlare::MusicNotation::Beam;
 
    AllegroFlare::MusicNotation::Beam beam1(20, -300, -2, Beam::Alignment::TOP, -100, -2, Beam::Alignment::BOTTOM);
+   beam1.set_secondary_beams({
+      { 1, 0.0, 0.5 },
+      { 1, 0.9, 1.0 },
+   });
    AllegroFlare::MusicNotation::Beam beam2(20, 100, 2, Beam::Alignment::TOP, 400, 1, Beam::Alignment::BOTTOM);
 
    AllegroFlare::Placement2D showcased_placement = build_centered_placement();

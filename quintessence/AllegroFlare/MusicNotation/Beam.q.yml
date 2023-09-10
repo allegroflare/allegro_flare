@@ -58,7 +58,7 @@ properties:
     setter: true
 
   - name: secondary_beams
-    type: std::vector<std::vector<std::pair<float, float>>>
+    type: std::vector<std::tuple<int, float, float>>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -131,9 +131,25 @@ methods:
 
       render_beam(top_x1, top_y1, top_x2, top_y2, primary_beam_color);
       // TODO: Replace these two demonstrations of secondary beams with "secondary_beams" property
-      render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.0, 0.5, 1, secondary_beam_color);
+      for (auto &secondary_beam : secondary_beams)
+      {
+         int vertical_position = std::get<0>(secondary_beam);
+         float x1_normalized = std::get<1>(secondary_beam);
+         float x2_normalized = std::get<2>(secondary_beam);
+         render_secondary_beam(
+            top_x1,
+            top_y1,
+            top_x2,
+            top_y2,
+            x1_normalized,
+            x2_normalized,
+            vertical_position,
+            secondary_beam_color
+         );
+      }
+      //render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.0, 0.5, 1, secondary_beam_color);
       //render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1);
-      render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1, secondary_beam_color);
+      //render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1, secondary_beam_color);
       return;
 
 
@@ -219,7 +235,7 @@ methods:
       - name: x2_normalized
         type: float
         default_argument: 1.0f
-      - name: vertical_position_offset
+      - name: vertical_position
         type: int
         default_argument: 0
       - name: _color
@@ -237,10 +253,10 @@ methods:
       float length = primary_beam_top_x2 - primary_beam_top_x1;
       float x1 = x1_normalized * length + primary_beam_top_x1;
       float y1 = (x1_normalized * length) * slope + primary_beam_top_y1
-               + y_position_offset_distance * vertical_position_offset;
+               + y_position_offset_distance * vertical_position;
       float x2 = x2_normalized * length + primary_beam_top_x1;
       float y2 = (x2_normalized * length) * slope + primary_beam_top_y1
-               + y_position_offset_distance * vertical_position_offset;
+               + y_position_offset_distance * vertical_position;
 
       render_beam(x1, y1, x2, y2, _color);
 
