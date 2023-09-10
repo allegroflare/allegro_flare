@@ -611,8 +611,6 @@ void MusicNotation::draw_music_symbol(int32_t symbol, float x, float y, const AL
 void MusicNotation::draw_line(float x1, float y1, float x2, float y2, const ALLEGRO_COLOR &color, float thickness)
 {
    drawing_interface->draw_line(x1, y1, x2, y2, color, thickness);
-   //bravura::draw(font_bravura, color, symbol, NULL, x, (int_cast_y) ? (int)(y-al_get_font_ascent(font_bravura)) : (y-al_get_font_ascent(font_bravura)));
-   //		drawing_interface->ustr_chr(symbol, x, y, 0, 0, color, "Bravura", font_size_px, font_bravura);
 }
 
 
