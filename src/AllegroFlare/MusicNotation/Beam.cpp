@@ -233,6 +233,15 @@ void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2)
 
 void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_top_y1, float primary_beam_top_x2, float primary_beam_top_y2, float x1_normalized, float x2_normalized, int vertical_position_offset)
 {
+   // HERE
+   float slope = (primary_beam_top_y2 - primary_beam_top_y1) / (primary_beam_top_x2 - primary_beam_top_x1);
+   bool divide_by_zero_could_occour = (std::abs(primary_beam_top_x2 - primary_beam_top_x1) < 1e-6);
+   if (divide_by_zero_could_occour)
+   {
+      throw std::runtime_error("MusicNotation::Beam: error: the slope is vertical, divide by 0 is possible");
+   }
+
+
    // TODO: Include secondary beam rendering here
    return;
 }
