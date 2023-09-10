@@ -52,7 +52,6 @@ MusicNotation::MusicNotation(
    )
    : drawing_interface(drawing_interface)
    , staff_line_distance(staff_line_distance)
-   //, staff_line_thickness(0)
    , font_size_px(0)
    , quarter_note_spacing(0)
    , stem_thickness(0)
@@ -170,7 +169,8 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
    int start_x = x;
    int x_cursor = 0;
 
-   float staff_line_thickness = staff_line_distance * 0.1;
+   float staff_line_thickness = staff_line_distance * 0.1; // TODO: Consider providing "staff_line_thickness" as
+                                                           // an overrideable parameter
    current_note_duration = 4;
    current_note_is_rest = false;
    uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
