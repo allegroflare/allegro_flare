@@ -52,8 +52,7 @@ MusicNotation::MusicNotation(
    )
    : drawing_interface(drawing_interface)
    , staff_line_distance(staff_line_distance)
-   , quarter_note_spacing(0)
-   , stem_thickness(0)
+   , quarter_note_spacing(staff_line_distance * 5)
    , spacing_method(SPACING_AESTHETIC)
    , font_bin(font_bin)
    , current_note_duration(4)
@@ -62,7 +61,6 @@ MusicNotation::MusicNotation(
    , int_cast_y(true)
    , ignore_spaces(false)
 {
-   recalculate_rendering_metrics();
 }
 
 
@@ -150,9 +148,9 @@ void MusicNotation::finish_drawing_surface(std::string output_file_basename)
 
 
 
-int MusicNotation::draw(float x, float y, std::string content, std::string output_file_basename)
+float MusicNotation::draw(float x, float y, std::string content, std::string output_file_basename)
 {
-   int x_cursor = 0;
+   float x_cursor = 0;
 
    prepare_drawing_surface();
    x_cursor = draw_raw(x, y, content);
@@ -163,12 +161,13 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
 
 
-int MusicNotation::draw_raw(float x, float y, std::string content)
+float MusicNotation::draw_raw(float x, float y, std::string content)
 {
    // Calculate some common rendering metrics
    float staff_line_thickness = staff_line_distance * 0.1; // TODO: Consider providing "staff_line_thickness" as
                                                            // an overrideable parameter
    float font_size_px = (staff_line_distance * 4) * 4;
+   float stem_thickness = staff_line_distance * 0.15f;
 
    // Create some render state variables
    int start_x = x;
@@ -557,15 +556,8 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
 void MusicNotation::set_staff_line_distance(float staff_line_distance)
 {
    this->staff_line_distance = staff_line_distance;
-   recalculate_rendering_metrics();
-}
-
-
-
-void MusicNotation::recalculate_rendering_metrics()
-{
+   // TODO: Find out how to know when quarter_note_spacing should be automatically updated
    quarter_note_spacing = staff_line_distance * 5;
-   stem_thickness = staff_line_distance * 0.15f;
 }
 
 
@@ -710,5 +702,6 @@ char MusicNotation::duration_denominator_to_char(int denominator)
 
 } // namespace MusicNotation
 } // namespace AllegroFlare
+
 
 

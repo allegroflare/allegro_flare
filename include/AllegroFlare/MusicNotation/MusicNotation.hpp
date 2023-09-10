@@ -27,7 +27,6 @@ namespace AllegroFlare
          AllegroFlare::DrawingInterfaces::Base *drawing_interface;
          float staff_line_distance;
          float quarter_note_spacing;
-         float stem_thickness;
          spacing_method_t spacing_method;
          AllegroFlare::FontBin *font_bin;
          int current_note_duration;
@@ -39,8 +38,7 @@ namespace AllegroFlare
          float _get_staff_position_offset(int staff_position);
          void prepare_drawing_surface();
          void finish_drawing_surface(std::string output_file_basename="");
-         int draw_raw(float x, float y, std::string content);
-         void recalculate_rendering_metrics();
+         float draw_raw(float x, float y, std::string content);
 
       public:
          MusicNotation(
@@ -55,7 +53,7 @@ namespace AllegroFlare
          void set_spacing_method(spacing_method_t method);
          static float get_duration_fixed_width(int duration, float quarter_note_width, int num_dots);
          char duration_denominator_to_char(int denominator);
-         int draw(float x, float y, std::string content, std::string output_file_basename="");
+         float draw(float x, float y, std::string content, std::string output_file_basename="");
          void set_staff_line_distance(float distance);
          void draw_ledger_lines_to(
             float x,
