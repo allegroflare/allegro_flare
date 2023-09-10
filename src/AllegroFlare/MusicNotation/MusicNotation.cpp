@@ -6,9 +6,7 @@
 
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-//#include <allegro_flare/font_bravura.h>
 #include <AllegroFlare/FontBravura.hpp>
-//#include <allegro_flare/blender.h> // ?
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
@@ -26,6 +24,7 @@ static ALLEGRO_COLOR infer_color_name_or_hex(const std::string &name_or_hex)
 
    // try name
    ALLEGRO_COLOR result = al_color_name(name_or_hex.c_str());
+   // If al_color_name() returned black, try hex
    if (result == black) return al_color_html(name_or_hex.c_str());
    return result;
 }

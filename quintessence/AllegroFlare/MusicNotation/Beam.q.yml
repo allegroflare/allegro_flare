@@ -77,6 +77,7 @@ documentation:
   - notes:
       - Decent reference: https://sites.coloradocollege.edu/musicengraving/engraving-convention/beams-and-flags/#:~:text=Thickness%20of%20beams%20depends%20on,the%20space%20between%20staff%20lines.&text=When%20to%20UseIn%20General%3A,ends%20on%20the%20same%20note.
       - Another good reference: https://www.oscarvandillen.com/outline_of_basic_music_theory/musical_notation/
+      - Another reference: https://makemusic.zendesk.com/hc/en-us/community/posts/115000710208-Beams-over-rests
   - todos:
       - Replace the two demonstrations of secondary beams by using the "secondary_beams" property
 
