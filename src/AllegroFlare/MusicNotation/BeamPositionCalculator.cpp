@@ -53,6 +53,30 @@ BeamPositionCalculator::StemDirection BeamPositionCalculator::infer_preferred_st
    return result;
 }
 
+int BeamPositionCalculator::get_first_staff_position()
+{
+   if (!((!notehead_staff_positions.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[BeamPositionCalculator::get_first_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BeamPositionCalculator::get_first_staff_position: error: guard \"(!notehead_staff_positions.empty())\" not met");
+   }
+   return notehead_staff_positions.front().second;
+}
+
+int BeamPositionCalculator::get_last_staff_position()
+{
+   if (!((!notehead_staff_positions.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[BeamPositionCalculator::get_last_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BeamPositionCalculator::get_last_staff_position: error: guard \"(!notehead_staff_positions.empty())\" not met");
+   }
+   return notehead_staff_positions.back().second;
+}
+
 int BeamPositionCalculator::get_min_staff_position()
 {
    int min_value = 0;

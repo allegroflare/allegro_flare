@@ -35,6 +35,20 @@ methods:
       return result;
 
 
+  - name: get_first_staff_position
+    type: int
+    guards: [ (!notehead_staff_positions.empty()) ]
+    body: |
+      return notehead_staff_positions.front().second;
+
+
+  - name: get_last_staff_position
+    type: int
+    guards: [ (!notehead_staff_positions.empty()) ]
+    body: |
+      return notehead_staff_positions.back().second;
+
+
   - name: get_min_staff_position
     type: int
     body: |
