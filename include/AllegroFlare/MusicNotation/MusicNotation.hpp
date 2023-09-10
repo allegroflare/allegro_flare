@@ -26,7 +26,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::DrawingInterfaces::Base *drawing_interface;
          float staff_line_distance;
-         float font_size_px;
+         //float font_size_px;
          float quarter_note_spacing;
          float stem_thickness;
          spacing_method_t spacing_method;
@@ -74,7 +74,7 @@ namespace AllegroFlare
             const ALLEGRO_COLOR &color,
             float thickness
          );
-         void draw_music_symbol(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color);
+         void draw_music_symbol(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color, float font_size_px);
          int get_music_symbol_width(int32_t symbol);
          void draw_line(float x1, float y1, float x2, float y2, const ALLEGRO_COLOR &color, float thickness);
          void use_drawing_interface(AllegroFlare::DrawingInterfaces::Base *drawing_interface);

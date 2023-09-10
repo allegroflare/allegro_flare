@@ -52,7 +52,7 @@ MusicNotation::MusicNotation(
    )
    : drawing_interface(drawing_interface)
    , staff_line_distance(staff_line_distance)
-   , font_size_px(0)
+   //, font_size_px(0)
    , quarter_note_spacing(0)
    , stem_thickness(0)
    , spacing_method(SPACING_AESTHETIC)
@@ -166,11 +166,14 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
 int MusicNotation::draw_raw(float x, float y, std::string content)
 {
-   int start_x = x;
-   int x_cursor = 0;
-
+   // Calculate some common rendering metrics
    float staff_line_thickness = staff_line_distance * 0.1; // TODO: Consider providing "staff_line_thickness" as
                                                            // an overrideable parameter
+   float font_size_px = (staff_line_distance * 4) * 4;
+
+   // Create some render state variables
+   int start_x = x;
+   int x_cursor = 0;
    current_note_duration = 4;
    current_note_is_rest = false;
    uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
@@ -264,29 +267,29 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
       }
       case '$': // 4/4 or shift 4
       {
-         draw_music_symbol(62692, start_x+x_cursor, y + staff_line_distance*2, color);
-         draw_music_symbol(62693, start_x+x_cursor, y + staff_line_distance*2, color);
+         draw_music_symbol(62692, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
+         draw_music_symbol(62693, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
          x_cursor += get_music_symbol_width(62692);
          continue;
       }
       case '@': // 2/4 or shift 2
       {
-         draw_music_symbol(62689, start_x+x_cursor, y + staff_line_distance*2, color);
-         draw_music_symbol(62692, start_x+x_cursor, y + staff_line_distance*2, color);
+         draw_music_symbol(62689, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
+         draw_music_symbol(62692, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
          x_cursor += get_music_symbol_width(62692);
          continue;
       }
       case '#': // 3/4 or shift 3
       {
-         draw_music_symbol(62691, start_x+x_cursor, y + staff_line_distance*2, color);
-         draw_music_symbol(62692, start_x+x_cursor, y + staff_line_distance*2, color);
+         draw_music_symbol(62691, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
+         draw_music_symbol(62692, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
          x_cursor += get_music_symbol_width(62692);
          continue;
       }
       case '^': // 6/8 or shift 6
       {
-         draw_music_symbol(62697, start_x+x_cursor, y + staff_line_distance*2, color);
-         draw_music_symbol(62700, start_x+x_cursor, y + staff_line_distance*2, color);
+         draw_music_symbol(62697, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
+         draw_music_symbol(62700, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
          x_cursor += get_music_symbol_width(62697);
          continue;
       }
@@ -312,7 +315,13 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
       }
       case '|':
       {
-         draw_music_symbol(AllegroFlare::FontBravura::barline, start_x+x_cursor, y + staff_line_distance*2, color);
+         draw_music_symbol(
+            AllegroFlare::FontBravura::barline,
+            start_x+x_cursor,
+            y + staff_line_distance*2,
+            color,
+            font_size_px
+         );
          if (i != ((int)content.size()-1)) x_cursor += staff_line_distance*2;
          continue;
       }
@@ -322,7 +331,8 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
             AllegroFlare::FontBravura::final_barline,
             start_x+x_cursor,
             y + staff_line_distance*2,
-            color
+            color,
+            font_size_px
          );
          x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::final_barline);
          if (i != ((int)content.size()-1)) x_cursor += staff_line_distance;
@@ -330,15 +340,27 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
       }
       case '&':
       {
-         if (rhythm_only) draw_music_symbol(AllegroFlare::FontBravura::percussion_clef_1, start_x+x_cursor, y, color);
-         else draw_music_symbol(AllegroFlare::FontBravura::g_clef, start_x+x_cursor, y + staff_line_distance, color);
+         if (rhythm_only)
+         {
+            draw_music_symbol(AllegroFlare::FontBravura::percussion_clef_1, start_x+x_cursor, y, color, font_size_px);
+         }
+         else
+         {
+            draw_music_symbol(AllegroFlare::FontBravura::g_clef, start_x+x_cursor, y + staff_line_distance, color, font_size_px);
+         }
          x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::g_clef);
          continue;
       }
       case '?':
       {
-         if (rhythm_only) draw_music_symbol(AllegroFlare::FontBravura::percussion_clef_1, start_x+x_cursor, y, color);
-         else draw_music_symbol(AllegroFlare::FontBravura::f_clef, start_x+x_cursor, y - staff_line_distance, color);
+         if (rhythm_only)
+         {
+            draw_music_symbol(AllegroFlare::FontBravura::percussion_clef_1, start_x+x_cursor, y, color, font_size_px);
+         }
+         else
+         {
+            draw_music_symbol(AllegroFlare::FontBravura::f_clef, start_x+x_cursor, y - staff_line_distance, color, font_size_px);
+         }
          x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::f_clef);
          continue;
       }
@@ -418,7 +440,8 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
             current_accidental_symbol,
             start_x+x_cursor-staff_line_distance*1.2,
             y + _get_staff_position_offset(staff_pos),
-            color
+            color,
+            font_size_px
          );
          current_accidental_symbol = 0x0000;
       }
@@ -466,10 +489,16 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
       //		set_blender(BLENDER_NORMAL);
 
       if (multi_note.empty())
-         draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(staff_pos), color);
+      {
+         draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(staff_pos), color, font_size_px);
+      }
       else
+      {
          for (unsigned i=0; i<multi_note.size(); i++)
-            draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(multi_note[i]), color);
+         {
+            draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(multi_note[i]), color, font_size_px);
+         }
+      }
 
 
 
@@ -488,7 +517,8 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
             AllegroFlare::FontBravura::dot,
             start_x+x_cursor+dots_x_cursor,
             y + _get_staff_position_offset(staff_pos) + dot_vertical_adjustment_from_being_on_line,
-            color
+            color,
+            font_size_px
          );
          dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
       }
@@ -536,7 +566,7 @@ void MusicNotation::set_staff_line_distance(float staff_line_distance)
 void MusicNotation::recalculate_rendering_metrics()
 {
    //staff_line_thickness = staff_line_distance * 0.1;
-   font_size_px = (staff_line_distance * 4) * 4;
+   //font_size_px = (staff_line_distance * 4) * 4;
    quarter_note_spacing = staff_line_distance * 5;
    stem_thickness = staff_line_distance * 0.15f;
 }
@@ -597,7 +627,7 @@ void MusicNotation::draw_staff_lines(
 
 
 
-void MusicNotation::draw_music_symbol(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color)
+void MusicNotation::draw_music_symbol(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color, float font_size_px)
 {
    ALLEGRO_FONT *font_bravura = obtain_font_bravura();
    if (!drawing_interface)
