@@ -15,7 +15,7 @@ namespace MusicNotation
 {
 
 
-Beam::Beam(float staff_line_distance, float start_x, float start_staff_pos, Beam::Alignment start_alignment, float end_x, float end_staff_pos, Beam::Alignment end_alignment, ALLEGRO_COLOR color)
+Beam::Beam(float staff_line_distance, float start_x, float start_staff_pos, Beam::Alignment start_alignment, float end_x, float end_staff_pos, Beam::Alignment end_alignment, ALLEGRO_COLOR color, std::vector<std::vector<std::pair<float, float>>> secondary_beams)
    : staff_line_distance(staff_line_distance)
    , start_x(start_x)
    , start_staff_pos(start_staff_pos)
@@ -24,6 +24,7 @@ Beam::Beam(float staff_line_distance, float start_x, float start_staff_pos, Beam
    , end_staff_pos(end_staff_pos)
    , end_alignment(end_alignment)
    , color(color)
+   , secondary_beams(secondary_beams)
 {
 }
 
@@ -81,6 +82,12 @@ void Beam::set_color(ALLEGRO_COLOR color)
 }
 
 
+void Beam::set_secondary_beams(std::vector<std::vector<std::pair<float, float>>> secondary_beams)
+{
+   this->secondary_beams = secondary_beams;
+}
+
+
 float Beam::get_staff_line_distance() const
 {
    return staff_line_distance;
@@ -129,6 +136,12 @@ ALLEGRO_COLOR Beam::get_color() const
 }
 
 
+std::vector<std::vector<std::pair<float, float>>> Beam::get_secondary_beams() const
+{
+   return secondary_beams;
+}
+
+
 void Beam::render()
 {
    if (!(al_is_system_installed()))
@@ -173,6 +186,21 @@ void Beam::render()
    float top_x2 = end_x;
    float top_y2 = end_staff_pos * staff_line_h_distance
                 + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
+
+   render_primary_beam(top_x1, top_y1, top_x2, top_y2);
+   render_secondary_beams();
+   return;
+}
+
+void Beam::render_primary_beam(float top_x1, float top_y1, float top_x2, float top_y2)
+{
+   float staff_line_h_distance = staff_line_distance * 0.5;
+   //float top_x1 = start_x;
+   //float top_y1 = start_staff_pos * staff_line_h_distance
+                //+ staff_line_h_distance * alignment_vertical_offset_for(start_alignment);
+   //float top_x2 = end_x;
+   //float top_y2 = end_staff_pos * staff_line_h_distance
+                //+ staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
    float bottom_x3 = top_x2;
    float bottom_y3 = top_y2 + staff_line_h_distance;
    float bottom_x4 = top_x1;
@@ -200,6 +228,12 @@ void Beam::render()
       1.0
    );
 
+   return;
+}
+
+void Beam::render_secondary_beams()
+{
+   // TODO: Include secondary beam rendering here
    return;
 }
 

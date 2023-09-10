@@ -57,12 +57,20 @@ properties:
     getter: true
     setter: true
 
+  - name: secondary_beams
+    type: std::vector<std::vector<std::pair<float, float>>>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 documentation:
 
 
   - notes:
       - Decent reference: https://sites.coloradocollege.edu/musicengraving/engraving-convention/beams-and-flags/#:~:text=Thickness%20of%20beams%20depends%20on,the%20space%20between%20staff%20lines.&text=When%20to%20UseIn%20General%3A,ends%20on%20the%20same%20note.
+      - Another good reference: https://www.oscarvandillen.com/outline_of_basic_music_theory/musical_notation/
 
 
 enums:
@@ -96,6 +104,35 @@ methods:
       float top_x2 = end_x;
       float top_y2 = end_staff_pos * staff_line_h_distance
                    + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
+
+      render_primary_beam(top_x1, top_y1, top_x2, top_y2);
+      render_secondary_beams();
+      return;
+
+
+  - name: render_primary_beam
+    type: void
+    parameters:
+      - name: top_x1
+        type: float
+        default_argument: 0.0f
+      - name: top_y1
+        type: float
+        default_argument: 0.0f
+      - name: top_x2
+        type: float
+        default_argument: 0.0f
+      - name: top_y2
+        type: float
+        default_argument: 0.0f
+    body: |
+      float staff_line_h_distance = staff_line_distance * 0.5;
+      //float top_x1 = start_x;
+      //float top_y1 = start_staff_pos * staff_line_h_distance
+                   //+ staff_line_h_distance * alignment_vertical_offset_for(start_alignment);
+      //float top_x2 = end_x;
+      //float top_y2 = end_staff_pos * staff_line_h_distance
+                   //+ staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
       float bottom_x3 = top_x2;
       float bottom_y3 = top_y2 + staff_line_h_distance;
       float bottom_x4 = top_x1;
@@ -127,6 +164,13 @@ methods:
     body_dependency_symbols:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
+
+
+  - name: render_secondary_beams
+    type: void
+    body: |
+      // TODO: Include secondary beam rendering here
+      return;
 
 
   - name: alignment_vertical_offset_for

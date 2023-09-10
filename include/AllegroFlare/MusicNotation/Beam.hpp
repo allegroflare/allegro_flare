@@ -2,6 +2,8 @@
 
 
 #include <allegro5/allegro.h>
+#include <utility>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -28,12 +30,13 @@ namespace AllegroFlare
          float end_staff_pos;
          Beam::Alignment end_alignment;
          ALLEGRO_COLOR color;
+         std::vector<std::vector<std::pair<float, float>>> secondary_beams;
 
       protected:
 
 
       public:
-         Beam(float staff_line_distance=0, float start_x=0, float start_staff_pos=0, Beam::Alignment start_alignment=Beam::Alignment::UNDEFINED, float end_x=0.0f, float end_staff_pos=0.0f, Beam::Alignment end_alignment=Beam::Alignment::UNDEFINED, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1});
+         Beam(float staff_line_distance=0, float start_x=0, float start_staff_pos=0, Beam::Alignment start_alignment=Beam::Alignment::UNDEFINED, float end_x=0.0f, float end_staff_pos=0.0f, Beam::Alignment end_alignment=Beam::Alignment::UNDEFINED, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, std::vector<std::vector<std::pair<float, float>>> secondary_beams={});
          ~Beam();
 
          void set_staff_line_distance(float staff_line_distance);
@@ -44,6 +47,7 @@ namespace AllegroFlare
          void set_end_staff_pos(float end_staff_pos);
          void set_end_alignment(Beam::Alignment end_alignment);
          void set_color(ALLEGRO_COLOR color);
+         void set_secondary_beams(std::vector<std::vector<std::pair<float, float>>> secondary_beams);
          float get_staff_line_distance() const;
          float get_start_x() const;
          float get_start_staff_pos() const;
@@ -52,7 +56,10 @@ namespace AllegroFlare
          float get_end_staff_pos() const;
          Beam::Alignment get_end_alignment() const;
          ALLEGRO_COLOR get_color() const;
+         std::vector<std::vector<std::pair<float, float>>> get_secondary_beams() const;
          void render();
+         void render_primary_beam(float top_x1=0.0f, float top_y1=0.0f, float top_x2=0.0f, float top_y2=0.0f);
+         void render_secondary_beams();
          float alignment_vertical_offset_for(Beam::Alignment alignment=Beam::Alignment::UNDEFINED);
       };
    }
