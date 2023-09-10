@@ -141,17 +141,6 @@ namespace MusicNotation
 
 
 
-
-   /*
-   void draw_line(float x1, float y1, float x2, float y2, ALLEGRO_COLOR color, float thickness)
-   {
-      al_draw_line(x1, y1, x2, y2, color, thickness);
-   }
-   */
-
-
-
-
    int MusicNotation::draw(float x, float y, std::string content, std::string output_file_basename)
    {
       if (!drawing_interface)
