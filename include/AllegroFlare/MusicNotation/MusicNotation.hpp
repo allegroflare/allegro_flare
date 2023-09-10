@@ -42,6 +42,7 @@ namespace AllegroFlare
          void prepare_drawing_surface();
          void finish_drawing_surface(std::string output_file_basename="");
          int draw_raw(float x, float y, std::string content);
+         void recalculate_rendering_metrics();
 
       public:
          MusicNotation(

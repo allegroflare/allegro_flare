@@ -519,6 +519,17 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
 void MusicNotation::set_staff_line_distance(float staff_line_distance)
 {
    this->staff_line_distance = staff_line_distance;
+   recalculate_rendering_metrics();
+}
+
+
+
+void MusicNotation::recalculate_rendering_metrics()
+{
+   staff_line_thickness = staff_line_distance * 0.1;
+   font_size_px = (staff_line_distance * 4) * 4;
+   quarter_note_spacing = staff_line_distance * 5;
+   stem_thickness = staff_line_distance * 0.15f;
 }
 
 
