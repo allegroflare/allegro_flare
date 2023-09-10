@@ -17,10 +17,22 @@ public:
    void draw_staff_guide_lines(float x, float y, float staff_line_distance = 20, int num_lines_out=2)
    {
       float thickness = 1.0;
-      float width = 400;
+      float width = 1200;
       ALLEGRO_COLOR color{1, 0, 0, 1};
       al_draw_line(x-width/2, y, x+width/2, y, color, thickness);
       for (int i=0; i<=num_lines_out; i++)
+      {
+         al_draw_line(x-width/2, y-staff_line_distance*i, x+width/2, y-staff_line_distance*i, color, thickness);
+         al_draw_line(x-width/2, y+staff_line_distance*i, x+width/2, y+staff_line_distance*i, color, thickness);
+      }
+   }
+   void draw_staff_lines(float x, float y, float staff_line_distance = 20)
+   {
+      float thickness = staff_line_distance * 0.1;
+      float width = 1200;
+      ALLEGRO_COLOR color{1, 1, 1, 1};
+      al_draw_line(x-width/2, y, x+width/2, y, color, thickness);
+      for (int i=0; i<=2; i++)
       {
          al_draw_line(x-width/2, y-staff_line_distance*i, x+width/2, y-staff_line_distance*i, color, thickness);
          al_draw_line(x-width/2, y+staff_line_distance*i, x+width/2, y+staff_line_distance*i, color, thickness);
@@ -105,12 +117,16 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture,
 {
    using AllegroFlare::MusicNotation::Beam;
 
-   AllegroFlare::MusicNotation::Beam beam(20, -100, -2, Beam::Alignment::TOP, 100, -2, Beam::Alignment::BOTTOM);
+   AllegroFlare::MusicNotation::Beam beam1(20, -300, -2, Beam::Alignment::TOP, -100, -2, Beam::Alignment::BOTTOM);
+   AllegroFlare::MusicNotation::Beam beam2(20, 100, 2, Beam::Alignment::TOP, 400, 1, Beam::Alignment::BOTTOM);
 
    AllegroFlare::Placement2D showcased_placement = build_centered_placement();
    showcased_placement.start_transform();
-   draw_staff_guide_lines(0, 0, beam.get_staff_line_distance());
-   beam.render();
+   draw_staff_lines(0, 0, beam1.get_staff_line_distance());
+
+   beam1.render();
+   beam2.render();
+
    showcased_placement.restore_transform();
 
    al_flip_display();

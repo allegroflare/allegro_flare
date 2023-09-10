@@ -157,7 +157,7 @@ bool Beam::get_render_with_debugging_visuals() const
 
 float Beam::calculate_beam_thickness()
 {
-   return staff_line_distance * 0.45;
+   return staff_line_distance * 0.48;
 }
 
 void Beam::render()
@@ -250,14 +250,17 @@ void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2, A
    al_draw_prim(v, nullptr, nullptr, 0, 6, ALLEGRO_PRIM_TRIANGLE_LIST);
 
    // Draw a debug guide "through" line
-   al_draw_line(
-      start_x,
-      start_staff_pos * staff_line_h_distance,
-      end_x,
-      end_staff_pos * staff_line_h_distance,
-      ALLEGRO_COLOR{0, 0.5, 1.0, 1.0},
-      1.0
-   );
+   if (render_with_debugging_visuals)
+   {
+      al_draw_line(
+         start_x,
+         start_staff_pos * staff_line_h_distance,
+         end_x,
+         end_staff_pos * staff_line_h_distance,
+         ALLEGRO_COLOR{0, 0.5, 1.0, 1.0},
+         1.0
+      );
+   }
 
    return;
 }
