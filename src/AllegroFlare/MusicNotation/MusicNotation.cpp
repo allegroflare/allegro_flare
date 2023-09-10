@@ -60,7 +60,6 @@ namespace MusicNotation
       , font_size_px((staff_line_distance*4) * 4)
       , quarter_note_spacing(staff_line_distance*5)
       , stem_thickness(staff_line_distance*0.15)
-      //, beam_thickness(staff_line_distance*0.4)
       , spacing_method(SPACING_AESTHETIC)
       , font_bin(font_bin)
       , current_note_duration(4)
@@ -69,7 +68,6 @@ namespace MusicNotation
       , cursor_pos(0)
       , int_cast_y(true)
       , ignore_spaces(false)
-      //, just_one_beam()
    {
    }
 
@@ -78,7 +76,6 @@ namespace MusicNotation
 
    MusicNotation::~MusicNotation()
    {
-      //al_destroy_font(font_bravura);
    }
 
 
