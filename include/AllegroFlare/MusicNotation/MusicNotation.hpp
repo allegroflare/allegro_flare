@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <allegro5/allegro.h> // for ALLEGRO_COLOR
+#include <allegro5/allegro.h>
 #include <AllegroFlare/DrawingInterfaces/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
 
@@ -13,7 +13,7 @@ namespace AllegroFlare
    namespace MusicNotation
    {
       class MusicNotation
-      // TODO: escape all functions properly when there is drawing_interface==NULL;
+      // TODO: guard all functions properly when drawing_interface is nullptr
       {
       public:
          enum spacing_method_t
