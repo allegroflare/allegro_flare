@@ -52,7 +52,7 @@ MusicNotation::MusicNotation(
    )
    : drawing_interface(drawing_interface)
    , staff_line_distance(staff_line_distance)
-   , staff_line_thickness(0)
+   //, staff_line_thickness(0)
    , font_size_px(0)
    , quarter_note_spacing(0)
    , stem_thickness(0)
@@ -170,6 +170,7 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
    int start_x = x;
    int x_cursor = 0;
 
+   float staff_line_thickness = staff_line_distance * 0.1;
    current_note_duration = 4;
    current_note_is_rest = false;
    uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
@@ -454,7 +455,14 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
       // Draw ledger lines
 
       //		set_blender(BLENDER_ADDITIVE);
-      draw_ledger_lines_to(start_x+x_cursor, y, staff_pos, get_music_symbol_width(symbol), staff_color);
+      draw_ledger_lines_to(
+         start_x+x_cursor,
+         y,
+         staff_pos,
+         staff_line_thickness,
+         get_music_symbol_width(symbol),
+         staff_color
+      );
       //		set_blender(BLENDER_NORMAL);
 
       if (multi_note.empty())
@@ -527,7 +535,7 @@ void MusicNotation::set_staff_line_distance(float staff_line_distance)
 
 void MusicNotation::recalculate_rendering_metrics()
 {
-   staff_line_thickness = staff_line_distance * 0.1;
+   //staff_line_thickness = staff_line_distance * 0.1;
    font_size_px = (staff_line_distance * 4) * 4;
    quarter_note_spacing = staff_line_distance * 5;
    stem_thickness = staff_line_distance * 0.15f;
@@ -535,7 +543,14 @@ void MusicNotation::recalculate_rendering_metrics()
 
 
 
-void MusicNotation::draw_ledger_lines_to(float x, float y, int staff_pos, float head_width, const ALLEGRO_COLOR &color)
+void MusicNotation::draw_ledger_lines_to(
+      float x,
+      float y,
+      int staff_pos,
+      float staff_line_thickness,
+      float head_width,
+      const ALLEGRO_COLOR &color
+   )
 {
    using std::max;
    float hwidth = staff_line_distance*2.4 / 2;

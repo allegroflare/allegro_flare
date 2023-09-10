@@ -26,7 +26,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::DrawingInterfaces::Base *drawing_interface;
          float staff_line_distance;
-         float staff_line_thickness;
+         //float staff_line_thickness;
          float font_size_px;
          float quarter_note_spacing;
          float stem_thickness;
@@ -59,7 +59,14 @@ namespace AllegroFlare
          char duration_denominator_to_char(int denominator);
          int draw(float x, float y, std::string content, std::string output_file_basename="");
          void set_staff_line_distance(float distance);
-         void draw_ledger_lines_to(float x, float y, int staff_pos, float head_width, const ALLEGRO_COLOR &color);
+         void draw_ledger_lines_to(
+            float x,
+            float y,
+            int staff_pos,
+            float staff_line_thickness,
+            float head_width,
+            const ALLEGRO_COLOR &color
+         );
          void draw_staff_lines(
             float x,
             float y,
