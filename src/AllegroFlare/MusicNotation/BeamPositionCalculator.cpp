@@ -48,6 +48,7 @@ BeamPositionCalculator::StemDirection BeamPositionCalculator::infer_preferred_st
    BeamPositionCalculator::StemDirection result = BeamPositionCalculator::StemDirection::UNDEFINED;
 
    int min_staff_position = get_min_staff_position();
+   int max_staff_position = get_max_staff_position();
 
    return result;
 }
@@ -67,7 +68,27 @@ int BeamPositionCalculator::get_min_staff_position()
    else
    {
       std::cout << "Vector is empty." << std::endl;
-      throw std::runtime_error("BeamPositionCalculator: error: notehead_staff_positions is empty");
+      throw std::runtime_error("BeamPositionCalculator::get_min_staff_position: error: notehead_staff_positions []");
+   }
+   return min_value;
+}
+
+int BeamPositionCalculator::get_max_staff_position()
+{
+   int min_value = 0;
+   auto min_element = std::max_element(notehead_staff_positions.begin(), notehead_staff_positions.end(), 
+      [](const std::pair<float, int>& lhs, const std::pair<float, int>& rhs) {
+         return lhs.second < rhs.second;
+      });
+
+   if (min_element != notehead_staff_positions.end())
+   {
+      min_value = min_element->second;
+   }
+   else
+   {
+      std::cout << "Vector is empty." << std::endl;
+      throw std::runtime_error("BeamPositionCalculator::get_max_staff_position: error: notehead_staff_positions []");
    }
    return min_value;
 }

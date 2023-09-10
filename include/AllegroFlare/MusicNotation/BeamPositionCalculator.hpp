@@ -33,6 +33,7 @@ namespace AllegroFlare
          std::vector<std::pair<float, int>> get_notehead_staff_positions() const;
          BeamPositionCalculator::StemDirection infer_preferred_stem_direction();
          int get_min_staff_position();
+         int get_max_staff_position();
       };
    }
 }
