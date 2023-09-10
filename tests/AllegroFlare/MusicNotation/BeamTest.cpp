@@ -78,6 +78,25 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture, CAPTURE__
    showcased_placement.restore_transform();
 
    al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture,
+   CAPTURE__render__looks_normal_when_multiple_beams_are_rendered)
+{
+   using AllegroFlare::MusicNotation::Beam;
+
+   AllegroFlare::MusicNotation::Beam beam1(20, -100, -2, Beam::Alignment::TOP, 100, -2, Beam::Alignment::BOTTOM);
+   AllegroFlare::MusicNotation::Beam beam2(20, -100, -1, Beam::Alignment::MIDDLE, 100, 0, Beam::Alignment::MIDDLE);
+
+   AllegroFlare::Placement2D showcased_placement = build_centered_placement();
+   showcased_placement.start_transform();
+   draw_staff_guide_lines(0, 0);
+   beam1.render();
+   beam2.render();
+   showcased_placement.restore_transform();
+
+   al_flip_display();
    sleep_for(1);
 }
 

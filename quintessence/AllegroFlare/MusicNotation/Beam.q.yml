@@ -58,6 +58,13 @@ properties:
     setter: true
 
 
+documentation:
+
+
+  - notes:
+      - Decent reference: https://sites.coloradocollege.edu/musicengraving/engraving-convention/beams-and-flags/#:~:text=Thickness%20of%20beams%20depends%20on,the%20space%20between%20staff%20lines.&text=When%20to%20UseIn%20General%3A,ends%20on%20the%20same%20note.
+
+
 enums:
 
 
