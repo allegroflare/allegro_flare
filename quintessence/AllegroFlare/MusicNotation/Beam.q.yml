@@ -79,7 +79,6 @@ documentation:
       - Another good reference: https://www.oscarvandillen.com/outline_of_basic_music_theory/musical_notation/
   - todos:
       - Replace the two demonstrations of secondary beams by using the "secondary_beams" property
-      - Improve beam thickness as a parameter
 
 
 enums:
