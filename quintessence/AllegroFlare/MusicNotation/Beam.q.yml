@@ -94,8 +94,8 @@ methods:
       - al_is_system_installed()
       - al_is_primitives_addon_initialized()
       - staff_line_distance > 0
-      - start_alignment != Beam::Alignment::UNDEFINED
-      - end_alignment != Beam::Alignment::UNDEFINED
+      - 'start_alignment != Beam::Alignment::UNDEFINED'
+      - 'end_alignment != Beam::Alignment::UNDEFINED'
     body: |
       float staff_line_h_distance = staff_line_distance * 0.5;
       float top_x1 = start_x;
@@ -179,7 +179,7 @@ methods:
       - name: alignment
         type: Beam::Alignment
         default_argument: Beam::Alignment::UNDEFINED
-    guards: [ (alignment != Beam::Alignment::UNDEFINED) ]
+    guards: [ 'alignment != Beam::Alignment::UNDEFINED' ]
     body: |
       if (alignment == Beam::Alignment::TOP) return -1.0;
       else if (alignment == Beam::Alignment::BOTTOM) return 0.0;

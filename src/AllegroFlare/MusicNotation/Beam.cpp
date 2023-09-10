@@ -239,12 +239,12 @@ void Beam::render_secondary_beams()
 
 float Beam::alignment_vertical_offset_for(Beam::Alignment alignment)
 {
-   if (!((alignment != Beam::Alignment::UNDEFINED)))
+   if (!(alignment != Beam::Alignment::UNDEFINED))
    {
       std::stringstream error_message;
-      error_message << "[Beam::alignment_vertical_offset_for]: error: guard \"(alignment != Beam::Alignment::UNDEFINED)\" not met.";
+      error_message << "[Beam::alignment_vertical_offset_for]: error: guard \"alignment != Beam::Alignment::UNDEFINED\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Beam::alignment_vertical_offset_for: error: guard \"(alignment != Beam::Alignment::UNDEFINED)\" not met");
+      throw std::runtime_error("Beam::alignment_vertical_offset_for: error: guard \"alignment != Beam::Alignment::UNDEFINED\" not met");
    }
    if (alignment == Beam::Alignment::TOP) return -1.0;
    else if (alignment == Beam::Alignment::BOTTOM) return 0.0;
