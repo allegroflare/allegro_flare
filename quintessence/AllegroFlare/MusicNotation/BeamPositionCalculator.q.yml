@@ -1,0 +1,39 @@
+properties:
+
+
+  - name: notehead_staff_positions
+    type: std::vector<std::pair<float, int>>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
+enums:
+
+
+  - name: StemDirection
+    scope: public
+    enumerators:
+      - UNDEFINED
+      - UP
+      - DOWN
+
+
+methods:
+
+
+  - name: infer_preferred_stem_direction
+    type: BeamPositionCalculator::StemDirection
+    body: |
+      BeamPositionCalculator::StemDirection result = BeamPositionCalculator::StemDirection::UNDEFINED;
+      return result;
+
+
+dependencies:
+
+
+  - symbol: BeamPositionCalculator::StemDirection
+    headers: [ ]
+
+
