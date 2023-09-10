@@ -576,18 +576,22 @@ void MusicNotation::draw_ledger_lines_to(
 
 
 
-void MusicNotation::draw_staff_lines(float x, float y, float width, float line_distance, const ALLEGRO_COLOR &color, float thickness)
+void MusicNotation::draw_staff_lines(
+      float x,
+      float y,
+      float width,
+      float line_distance,
+      const ALLEGRO_COLOR &color,
+      float thickness
+   )
 {
-   float yoffset = 0.0; // sometimes 0.5?
-   //yoffset = 0.5;
-   //yoffset = -0.5;
    thickness = std::max<float>(1.0f, thickness);
 
-   draw_line(x, y+yoffset, x+width, y+yoffset, color, thickness);
+   draw_line(x, y, x+width, y, color, thickness);
    for (int i=1; i<3; i++)
    {
-      draw_line(x, y-line_distance*i+yoffset, x+width, y-line_distance*i+yoffset, color, thickness);
-      draw_line(x, y+line_distance*i+yoffset, x+width, y+line_distance*i+yoffset, color, thickness);
+      draw_line(x, y-line_distance*i, x+width, y-line_distance*i, color, thickness);
+      draw_line(x, y+line_distance*i, x+width, y+line_distance*i, color, thickness);
    }
 }
 
