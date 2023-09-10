@@ -187,12 +187,12 @@ void Beam::render()
    float top_y2 = end_staff_pos * staff_line_h_distance
                 + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
 
-   render_primary_beam(top_x1, top_y1, top_x2, top_y2);
-   render_secondary_beams();
+   render_beam(top_x1, top_y1, top_x2, top_y2);
+   render_secondary_beam(top_x1, top_y1, top_x2, top_y2);
    return;
 }
 
-void Beam::render_primary_beam(float top_x1, float top_y1, float top_x2, float top_y2)
+void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2)
 {
    float staff_line_h_distance = staff_line_distance * 0.5;
    //float top_x1 = start_x;
@@ -231,7 +231,7 @@ void Beam::render_primary_beam(float top_x1, float top_y1, float top_x2, float t
    return;
 }
 
-void Beam::render_secondary_beams()
+void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_top_y1, float primary_beam_top_x2, float primary_beam_top_y2, float x1_normalized, float x2_normalized, int vertical_position_offset)
 {
    // TODO: Include secondary beam rendering here
    return;

@@ -105,13 +105,12 @@ methods:
       float top_y2 = end_staff_pos * staff_line_h_distance
                    + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
 
-      render_primary_beam(top_x1, top_y1, top_x2, top_y2);
-      render_secondary_beams();
+      render_beam(top_x1, top_y1, top_x2, top_y2);
+      render_secondary_beam(top_x1, top_y1, top_x2, top_y2);
       return;
 
 
-  - name: render_primary_beam
-    type: void
+  - name: render_beam
     parameters:
       - name: top_x1
         type: float
@@ -166,8 +165,30 @@ methods:
       - al_draw_rounded_rectangle
 
 
-  - name: render_secondary_beams
+  - name: render_secondary_beam
     type: void
+    parameters:
+      - name: primary_beam_top_x1
+        type: float
+        default_argument: 0.0f
+      - name: primary_beam_top_y1
+        type: float
+        default_argument: 0.0f
+      - name: primary_beam_top_x2
+        type: float
+        default_argument: 0.0f
+      - name: primary_beam_top_y2
+        type: float
+        default_argument: 0.0f
+      - name: x1_normalized
+        type: float
+        default_argument: 0.0f
+      - name: x2_normalized
+        type: float
+        default_argument: 1.0f
+      - name: vertical_position_offset
+        type: int
+        default_argument: 0
     body: |
       // TODO: Include secondary beam rendering here
       return;

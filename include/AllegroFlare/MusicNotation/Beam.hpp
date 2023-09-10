@@ -58,8 +58,8 @@ namespace AllegroFlare
          ALLEGRO_COLOR get_color() const;
          std::vector<std::vector<std::pair<float, float>>> get_secondary_beams() const;
          void render();
-         void render_primary_beam(float top_x1=0.0f, float top_y1=0.0f, float top_x2=0.0f, float top_y2=0.0f);
-         void render_secondary_beams();
+         void render_beam(float top_x1=0.0f, float top_y1=0.0f, float top_x2=0.0f, float top_y2=0.0f);
+         void render_secondary_beam(float primary_beam_top_x1=0.0f, float primary_beam_top_y1=0.0f, float primary_beam_top_x2=0.0f, float primary_beam_top_y2=0.0f, float x1_normalized=0.0f, float x2_normalized=1.0f, int vertical_position_offset=0);
          float alignment_vertical_offset_for(Beam::Alignment alignment=Beam::Alignment::UNDEFINED);
       };
    }
