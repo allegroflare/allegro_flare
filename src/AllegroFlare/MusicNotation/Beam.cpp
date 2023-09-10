@@ -155,6 +155,11 @@ bool Beam::get_render_with_debugging_visuals() const
 }
 
 
+float Beam::calculate_beam_thickness()
+{
+   return staff_line_distance * 0.45;
+}
+
 void Beam::render()
 {
    if (!(al_is_system_installed()))
@@ -193,12 +198,19 @@ void Beam::render()
       throw std::runtime_error("Beam::render: error: guard \"end_alignment != Beam::Alignment::UNDEFINED\" not met");
    }
    float staff_line_h_distance = staff_line_distance * 0.5;
+   float centering_y_offset = staff_line_h_distance * 0.5;
+   float beam_h_thickness = calculate_beam_thickness() * 0.5;
+
    float top_x1 = start_x;
    float top_y1 = start_staff_pos * staff_line_h_distance
-                + staff_line_h_distance * alignment_vertical_offset_for(start_alignment);
+                + staff_line_h_distance * alignment_vertical_offset_for(start_alignment)
+                + centering_y_offset
+                - beam_h_thickness;
    float top_x2 = end_x;
    float top_y2 = end_staff_pos * staff_line_h_distance
-                + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
+                + staff_line_h_distance * alignment_vertical_offset_for(end_alignment)
+                + centering_y_offset
+                + beam_h_thickness;
 
    ALLEGRO_COLOR primary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.0, 0.5, 0.5, 0.5} : color;
    ALLEGRO_COLOR secondary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.5, 0.25, 0.0, 0.5} : color;
@@ -213,7 +225,7 @@ void Beam::render()
 
 void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2, ALLEGRO_COLOR _color)
 {
-   float staff_line_h_distance = staff_line_distance * 0.5;
+   float staff_line_h_distance = calculate_beam_thickness(); //staff_line_distance * 0.5;
    //float top_x1 = start_x;
    //float top_y1 = start_staff_pos * staff_line_h_distance
                 //+ staff_line_h_distance * alignment_vertical_offset_for(start_alignment);

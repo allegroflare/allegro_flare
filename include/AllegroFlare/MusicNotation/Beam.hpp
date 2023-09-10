@@ -60,6 +60,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR get_color() const;
          std::vector<std::vector<std::pair<float, float>>> get_secondary_beams() const;
          bool get_render_with_debugging_visuals() const;
+         float calculate_beam_thickness();
          void render();
          void render_beam(float top_x1=0.0f, float top_y1=0.0f, float top_x2=0.0f, float top_y2=0.0f, ALLEGRO_COLOR _color=ALLEGRO_COLOR{1, 1, 1, 1});
          void render_secondary_beam(float primary_beam_top_x1=0.0f, float primary_beam_top_y1=0.0f, float primary_beam_top_x2=0.0f, float primary_beam_top_y2=0.0f, float x1_normalized=0.0f, float x2_normalized=1.0f, int vertical_position_offset=0, ALLEGRO_COLOR _color=ALLEGRO_COLOR{1, 1, 1, 1});
