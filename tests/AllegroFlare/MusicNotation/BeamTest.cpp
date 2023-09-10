@@ -63,7 +63,12 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture, CAPTURE__
 {
    AllegroFlare::MusicNotation::Beam beam;
    beam.set_staff_line_distance(20);
+
+   beam.set_start_x(-100);
+   beam.set_start_staff_pos(-2);
    beam.set_start_alignment(AllegroFlare::MusicNotation::Beam::Alignment::TOP);
+   beam.set_end_x(100);
+   beam.set_end_staff_pos(-2);
    beam.set_end_alignment(AllegroFlare::MusicNotation::Beam::Alignment::BOTTOM);
 
    AllegroFlare::Placement2D showcased_placement = build_centered_placement();

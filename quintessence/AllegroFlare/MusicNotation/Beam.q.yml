@@ -50,6 +50,13 @@ properties:
     getter: true
     setter: true
 
+  - name: color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 enums:
 
@@ -75,19 +82,63 @@ methods:
       - start_alignment != Beam::Alignment::UNDEFINED
       - end_alignment != Beam::Alignment::UNDEFINED
     body: |
-      //ALLEGRO_VERTEX[4] = {
-         //ALLEGRO_VERTEX{start_x, 
-      //};
-      //al_draw_line(start_x
+      float staff_line_h_distance = staff_line_distance * 0.5;
+      float top_x1 = start_x;
+      float top_y1 = start_staff_pos * staff_line_h_distance * alignment_vertical_offset_for(start_alignment);
+      float top_x2 = end_x;
+      float top_y2 = end_staff_pos * staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
+      float bottom_x3 = top_x2;
+      float bottom_y3 = top_y2 + staff_line_h_distance;
+      float bottom_x4 = top_x1;
+      float bottom_y4 = top_y1 + staff_line_h_distance;
+
+      ALLEGRO_VERTEX v[6] = {
+         ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = color, .u = 0, .v = 0},
+         ALLEGRO_VERTEX{.x = top_x2, .y = top_y2, .z = 0, .color = color, .u = 0, .v = 0},
+         ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = color, .u = 0, .v = 0},
+
+         ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = color, .u = 0, .v = 0},
+         ALLEGRO_VERTEX{.x = bottom_x4, .y = bottom_y4, .z = 0, .color = color, .u = 0, .v = 0},
+         ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = color, .u = 0, .v = 0},
+      };
+
+      al_draw_prim(v, nullptr, nullptr, 0, 6, ALLEGRO_PRIM_TRIANGLE_LIST);
+
+      // Draw a debug guide "through" line
+      al_draw_line(
+         start_x,
+         start_staff_pos * staff_line_distance,
+         end_x,
+         end_staff_pos * staff_line_distance,
+         ALLEGRO_COLOR{0, 0.5, 1.0, 1.0},
+         1.0
+      );
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
 
 
+  - name: alignment_vertical_offset_for
+    type: float
+    parameters:
+      - name: alignment
+        type: Beam::Alignment
+        default_argument: Beam::Alignment::UNDEFINED
+    guards: [ (alignment != Beam::Alignment::UNDEFINED) ]
+    body: |
+      if (alignment == Beam::Alignment::TOP) return 0.0;
+      else if (alignment == Beam::Alignment::BOTTOM) return 1.0;
+      else if (alignment == Beam::Alignment::MIDDLE) return 0.5;
+      throw std::runtime_error("alignment_vertical_offset_for cannot handle case for beam alignment type");
+
+
 dependencies:
 
 
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: Beam::Alignment
     headers: [ ]
   - symbol: al_draw_rounded_rectangle

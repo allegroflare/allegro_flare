@@ -685,6 +685,7 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
