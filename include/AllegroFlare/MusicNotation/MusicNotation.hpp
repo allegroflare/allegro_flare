@@ -25,7 +25,6 @@ namespace AllegroFlare
 
       private:
          AllegroFlare::DrawingInterfaces::Base *drawing_interface;
-
          float staff_line_distance;
          float staff_line_thickness;
          float font_size_px;
@@ -33,14 +32,15 @@ namespace AllegroFlare
          float stem_thickness;
          spacing_method_t spacing_method;
          AllegroFlare::FontBin *font_bin;
-
-         float _get_staff_position_offset(int staff_position);
-
          int current_note_duration;
          bool current_note_is_rest;
          int current_accidental;
          bool int_cast_y;
          bool ignore_spaces;
+
+         float _get_staff_position_offset(int staff_position);
+         void prepare_drawing_surface();
+         void finish_drawing_surface(std::string output_file_basename="");
 
       public:
          MusicNotation(

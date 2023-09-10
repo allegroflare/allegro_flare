@@ -132,6 +132,25 @@ float MusicNotation::get_duration_fixed_width(int duration, float quarter_note_w
 
 
 
+void MusicNotation::prepare_drawing_surface()
+{
+   if (!drawing_interface)
+   {
+      AllegroFlare::Logger::throw_error("MusicNotation::draw", "missing \"drawing_interface\"");
+   }
+   drawing_interface->prepare_surface(800, 500);
+}
+
+
+
+void MusicNotation::finish_drawing_surface(std::string output_file_basename)
+{
+   drawing_interface->finish_surface();
+   if (!output_file_basename.empty()) drawing_interface->save_file(output_file_basename);
+}
+
+
+
 int MusicNotation::draw(float x, float y, std::string content, std::string output_file_basename)
 {
    if (!drawing_interface)
@@ -382,9 +401,7 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
 
 
-      // accidental
-
-      //if (current_note_is_rest) current_accidental_symbol = 0x000;
+      // Draw an accidental
 
       if (current_accidental_symbol != 0x0000)
       {
@@ -399,42 +416,34 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
 
 
-
-      // notehead
+      // Draw a notehead
 
       if (!current_note_is_rest)
       {
-         //if (adding_beams)
-         //{
-            // render only note heads
-            //if (current_note_duration >= 4) symbol = AllegroFlare::FontBravura::closed_note_head; 
-            //else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::open_note_head; 
-            //else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note_head;
-         //}
-         //else
-         //{
-            // render full notes
-            if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note; 
-            else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note; 
-            else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_note; 
-            else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
-            // use the flipped stem version (if necessairy)
-            if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
-               symbol += 1;
-         //}
+         if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
+         else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
+         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_note;
+         else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
+
+         // use the flipped stem version (if necessairy)
+         if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
+            symbol += 1;
       }
       else if (current_note_is_rest)
       {
          current_accidental = 0;
-         if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest; 
-         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8; 
-         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest; 
+         if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
+         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
+         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest;
          else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_rest;
       }
 
 
       if (current_note_is_rest && force_rest_to_0_pos) staff_pos = 0;
 
+
+
+      // Draw ledger lines
 
       //		set_blender(BLENDER_ADDITIVE);
       draw_ledger_lines_to(start_x+x_cursor, y, staff_pos, get_music_symbol_width(symbol), staff_color);
@@ -447,7 +456,9 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
             draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(multi_note[i]), color);
 
 
-      // draw the dots
+
+      // Draw the dots
+
       float dots_x_cursor = 0;
       bool note_head_is_on_line = (staff_pos % 2 == 0);
       float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
@@ -467,20 +478,23 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
       }
 
 
-      // move the cursor over based on the spacing method
+
+      // Move the cursor over based on the spacing method
+
       switch (spacing_method)
       {
-      case SPACING_FIXED:
-         x_cursor += get_duration_fixed_width(current_note_duration, quarter_note_spacing, num_dots);
+         case SPACING_FIXED:
+            x_cursor += get_duration_fixed_width(current_note_duration, quarter_note_spacing, num_dots);
          break;
-      case SPACING_AESTHETIC:
-      case SPACING_UNDEF:
-      default:
-         x_cursor += get_duration_aesthetic_width(current_note_duration, quarter_note_spacing, num_dots);
+
+         case SPACING_AESTHETIC:
+         case SPACING_UNDEF:
+         default:
+            x_cursor += get_duration_aesthetic_width(current_note_duration, quarter_note_spacing, num_dots);
          break;
       }
-      //x_cursor += (((float)quarter_note_spacing / (current_note_duration))) * get_duration_scalar(current_note_duration);
    }
+
 
    //	set_blender(BLENDER_ADDITIVE);
    using std::max;
