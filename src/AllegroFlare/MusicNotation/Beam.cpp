@@ -168,9 +168,11 @@ void Beam::render()
    }
    float staff_line_h_distance = staff_line_distance * 0.5;
    float top_x1 = start_x;
-   float top_y1 = start_staff_pos * staff_line_h_distance * alignment_vertical_offset_for(start_alignment);
+   float top_y1 = start_staff_pos * staff_line_h_distance
+                + staff_line_h_distance * alignment_vertical_offset_for(start_alignment);
    float top_x2 = end_x;
-   float top_y2 = end_staff_pos * staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
+   float top_y2 = end_staff_pos * staff_line_h_distance
+                + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
    float bottom_x3 = top_x2;
    float bottom_y3 = top_y2 + staff_line_h_distance;
    float bottom_x4 = top_x1;
@@ -191,9 +193,9 @@ void Beam::render()
    // Draw a debug guide "through" line
    al_draw_line(
       start_x,
-      start_staff_pos * staff_line_distance,
+      start_staff_pos * staff_line_h_distance,
       end_x,
-      end_staff_pos * staff_line_distance,
+      end_staff_pos * staff_line_h_distance,
       ALLEGRO_COLOR{0, 0.5, 1.0, 1.0},
       1.0
    );
@@ -210,9 +212,9 @@ float Beam::alignment_vertical_offset_for(Beam::Alignment alignment)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Beam::alignment_vertical_offset_for: error: guard \"(alignment != Beam::Alignment::UNDEFINED)\" not met");
    }
-   if (alignment == Beam::Alignment::TOP) return 0.0;
-   else if (alignment == Beam::Alignment::BOTTOM) return 1.0;
-   else if (alignment == Beam::Alignment::MIDDLE) return 0.5;
+   if (alignment == Beam::Alignment::TOP) return -1.0;
+   else if (alignment == Beam::Alignment::BOTTOM) return 0.0;
+   else if (alignment == Beam::Alignment::MIDDLE) return -0.5;
    throw std::runtime_error("alignment_vertical_offset_for cannot handle case for beam alignment type");
 }
 
