@@ -39,7 +39,6 @@ namespace AllegroFlare
          int current_note_duration;
          bool current_note_is_rest;
          int current_accidental;
-         int cursor_pos;
          bool int_cast_y;
          bool ignore_spaces;
 

@@ -29,7 +29,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2, 1080/2, music_notation_content_string);
 
    al_flip_display();
-   //sleep(1);
+   sleep(1);
 }
 
 
@@ -43,7 +43,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2, 1080/2, music_notation_content_string);
 
    al_flip_display();
-   //sleep(1);
+   sleep(1);
 }
 
 

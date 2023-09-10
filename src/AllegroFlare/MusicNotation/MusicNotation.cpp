@@ -37,9 +37,6 @@ namespace MusicNotation
 {
 
 
-   using namespace AllegroFlare;
-
-
 
    float MusicNotation::_get_staff_position_offset(int staff_position)
    {
@@ -65,7 +62,6 @@ namespace MusicNotation
       , current_note_duration(4)
       , current_note_is_rest(false)
       , current_accidental(0)
-      , cursor_pos(0)
       , int_cast_y(true)
       , ignore_spaces(false)
    {
@@ -152,36 +148,24 @@ namespace MusicNotation
       int start_x = x;
       int x_cursor = 0;
 
-      //float spacing_multiplier = 0.614;
-      //float spacing_multiplier = 0.513;
-
       current_note_duration = 4;
       current_note_is_rest = false;
       uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
       uint32_t current_accidental_symbol = 0x0000;
       int current_octave = 0;
       bool force_rest_to_0_pos = true;
-      //bool adding_beams = false;
       bool rhythm_only = false;
       bool freeze_stems_up = false;
-      //spacing_method_t spacing_method = SPACING_AESTHETIC;
       ALLEGRO_COLOR color = color::white;
-      ALLEGRO_COLOR staff_color = color::white; //color::mix(color::green, color::white, 0.5);
+      ALLEGRO_COLOR staff_color = color::white;
       int num_dots = 0;
       int staff_pos = 0;
-      //ALLEGRO_COLOR symbol_color = color::white;
 
       for (int i=0; i<(int)content.size(); i++) // TODO make this an iterator
       {
          std::vector<int> multi_note;
          staff_pos = 0;
          num_dots = 0;
-
-         if (i == cursor_pos)
-         {
-            // do this, would be nice
-            //draw_line(x_cursor, 0, x_cursor, 10, color::dodgerblue, 1.0);
-         }
 
          switch (content[i])
          {
@@ -199,23 +183,9 @@ namespace MusicNotation
          case '=': current_accidental_symbol = AllegroFlare::FontBravura::natural; continue;
          case '\'': current_octave++; continue;
          case ',': current_octave--; continue;
-
-                   // special cases for starting-stopping beams
-
-         //case ':': adding_beams = true; continue;
-         //case ';':
-         //{
-            //adding_beams = false;
-            //if (just_one_beam.get_num_points() >= 2)
-            //{
-               //just_one_beam.draw(this, color);
-            //}
-            //just_one_beam.clear();
-            //continue;
-         //}
          case '{':
          {
-            // settings can be specified inilne when contained in {} curly braces.
+            // settings can be specified inline when contained in {} curly braces.
             // each setting is delimited by a space
 
             // find the closing brace
@@ -263,8 +233,7 @@ namespace MusicNotation
                continue;
             }
          }
-         // special rendering cases
-         case ' ':
+         case ' ': // Space
          {
             if (!ignore_spaces) x_cursor += staff_line_distance;
             continue;
@@ -319,14 +288,12 @@ namespace MusicNotation
          }
          case '|':
          {
-            //x_cursor += staff_line_distance;
             draw_music_symbol(AllegroFlare::FontBravura::barline, start_x+x_cursor, y + staff_line_distance*2, color);
             if (i != ((int)content.size()-1)) x_cursor += staff_line_distance*2;
             continue;
          }
          case ']':
          {
-            //x_cursor += staff_line_distance;
             draw_music_symbol(AllegroFlare::FontBravura::final_barline, start_x+x_cursor, y + staff_line_distance*2, color);
             x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::final_barline);
             if (i != ((int)content.size()-1)) x_cursor += staff_line_distance;
