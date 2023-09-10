@@ -73,7 +73,7 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture, CAPTURE__
 
    AllegroFlare::Placement2D showcased_placement = build_centered_placement();
    showcased_placement.start_transform();
-   draw_staff_guide_lines(0, 0);
+   draw_staff_guide_lines(0, 0, beam.get_staff_line_distance());
    beam.render();
    showcased_placement.restore_transform();
 
@@ -91,7 +91,7 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture,
 
    AllegroFlare::Placement2D showcased_placement = build_centered_placement();
    showcased_placement.start_transform();
-   draw_staff_guide_lines(0, 0);
+   draw_staff_guide_lines(0, 0, beam1.get_staff_line_distance());
    beam1.render();
    beam2.render();
    showcased_placement.restore_transform();
@@ -109,7 +109,7 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture,
 
    AllegroFlare::Placement2D showcased_placement = build_centered_placement();
    showcased_placement.start_transform();
-   draw_staff_guide_lines(0, 0);
+   draw_staff_guide_lines(0, 0, beam.get_staff_line_distance());
    beam.render();
    showcased_placement.restore_transform();
 

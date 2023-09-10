@@ -25,6 +25,7 @@ Beam::Beam(float staff_line_distance, float start_x, float start_staff_pos, Beam
    , end_alignment(end_alignment)
    , color(color)
    , secondary_beams(secondary_beams)
+   , render_with_debugging_visuals(false)
 {
 }
 
@@ -88,6 +89,12 @@ void Beam::set_secondary_beams(std::vector<std::vector<std::pair<float, float>>>
 }
 
 
+void Beam::set_render_with_debugging_visuals(bool render_with_debugging_visuals)
+{
+   this->render_with_debugging_visuals = render_with_debugging_visuals;
+}
+
+
 float Beam::get_staff_line_distance() const
 {
    return staff_line_distance;
@@ -142,6 +149,12 @@ std::vector<std::vector<std::pair<float, float>>> Beam::get_secondary_beams() co
 }
 
 
+bool Beam::get_render_with_debugging_visuals() const
+{
+   return render_with_debugging_visuals;
+}
+
+
 void Beam::render()
 {
    if (!(al_is_system_installed()))
@@ -187,14 +200,18 @@ void Beam::render()
    float top_y2 = end_staff_pos * staff_line_h_distance
                 + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
 
-   render_beam(top_x1, top_y1, top_x2, top_y2);
+   ALLEGRO_COLOR primary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.0, 0.5, 0.5, 0.5} : color;
+   ALLEGRO_COLOR secondary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.5, 0.25, 0.0, 0.5} : color;
+
+   render_beam(top_x1, top_y1, top_x2, top_y2, primary_beam_color);
    // TODO: Replace these two demonstrations of secondary beams with "secondary_beams" property
-   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.0, 0.5, 1);
-   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1);
+   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.0, 0.5, 1, secondary_beam_color);
+   //render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1);
+   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1, secondary_beam_color);
    return;
 }
 
-void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2)
+void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2, ALLEGRO_COLOR _color)
 {
    float staff_line_h_distance = staff_line_distance * 0.5;
    //float top_x1 = start_x;
@@ -209,13 +226,13 @@ void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2)
    float bottom_y4 = top_y1 + staff_line_h_distance;
 
    ALLEGRO_VERTEX v[6] = {
-      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = top_x2, .y = top_y2, .z = 0, .color = color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = _color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = top_x2, .y = top_y2, .z = 0, .color = _color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = _color, .u = 0, .v = 0},
 
-      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = bottom_x4, .y = bottom_y4, .z = 0, .color = color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = _color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = bottom_x4, .y = bottom_y4, .z = 0, .color = _color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = _color, .u = 0, .v = 0},
    };
 
    al_draw_prim(v, nullptr, nullptr, 0, 6, ALLEGRO_PRIM_TRIANGLE_LIST);
@@ -233,9 +250,9 @@ void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2)
    return;
 }
 
-void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_top_y1, float primary_beam_top_x2, float primary_beam_top_y2, float x1_normalized, float x2_normalized, int vertical_position_offset)
+void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_top_y1, float primary_beam_top_x2, float primary_beam_top_y2, float x1_normalized, float x2_normalized, int vertical_position_offset, ALLEGRO_COLOR _color)
 {
-   float y_position_offset_distance = staff_line_distance * 2.0f / 3.0f;
+   float y_position_offset_distance = staff_line_distance * 3.0f / 4.0f;
    float slope = (primary_beam_top_y2 - primary_beam_top_y1) / (primary_beam_top_x2 - primary_beam_top_x1);
    bool divide_by_zero_could_occour = (std::abs(primary_beam_top_x2 - primary_beam_top_x1) < 1e-6);
    if (divide_by_zero_could_occour)
@@ -251,7 +268,7 @@ void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_t
    float y2 = (x2_normalized * length) * slope + primary_beam_top_y1
             + y_position_offset_distance * vertical_position_offset;
 
-   render_beam(x1, y1, x2, y2);
+   render_beam(x1, y1, x2, y2, _color);
 
    return;
 }

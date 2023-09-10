@@ -31,6 +31,7 @@ namespace AllegroFlare
          Beam::Alignment end_alignment;
          ALLEGRO_COLOR color;
          std::vector<std::vector<std::pair<float, float>>> secondary_beams;
+         bool render_with_debugging_visuals;
 
       protected:
 
@@ -48,6 +49,7 @@ namespace AllegroFlare
          void set_end_alignment(Beam::Alignment end_alignment);
          void set_color(ALLEGRO_COLOR color);
          void set_secondary_beams(std::vector<std::vector<std::pair<float, float>>> secondary_beams);
+         void set_render_with_debugging_visuals(bool render_with_debugging_visuals);
          float get_staff_line_distance() const;
          float get_start_x() const;
          float get_start_staff_pos() const;
@@ -57,9 +59,10 @@ namespace AllegroFlare
          Beam::Alignment get_end_alignment() const;
          ALLEGRO_COLOR get_color() const;
          std::vector<std::vector<std::pair<float, float>>> get_secondary_beams() const;
+         bool get_render_with_debugging_visuals() const;
          void render();
-         void render_beam(float top_x1=0.0f, float top_y1=0.0f, float top_x2=0.0f, float top_y2=0.0f);
-         void render_secondary_beam(float primary_beam_top_x1=0.0f, float primary_beam_top_y1=0.0f, float primary_beam_top_x2=0.0f, float primary_beam_top_y2=0.0f, float x1_normalized=0.0f, float x2_normalized=1.0f, int vertical_position_offset=0);
+         void render_beam(float top_x1=0.0f, float top_y1=0.0f, float top_x2=0.0f, float top_y2=0.0f, ALLEGRO_COLOR _color=ALLEGRO_COLOR{1, 1, 1, 1});
+         void render_secondary_beam(float primary_beam_top_x1=0.0f, float primary_beam_top_y1=0.0f, float primary_beam_top_x2=0.0f, float primary_beam_top_y2=0.0f, float x1_normalized=0.0f, float x2_normalized=1.0f, int vertical_position_offset=0, ALLEGRO_COLOR _color=ALLEGRO_COLOR{1, 1, 1, 1});
          float alignment_vertical_offset_for(Beam::Alignment alignment=Beam::Alignment::UNDEFINED);
       };
    }
