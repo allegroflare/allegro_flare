@@ -156,7 +156,7 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
    int x_cursor = 0;
 
    prepare_drawing_surface();
-   x_cursor = draw_raw(x, y, content, output_file_basename);
+   x_cursor = draw_raw(x, y, content);
    finish_drawing_surface(output_file_basename);
 
    return x_cursor;
@@ -164,7 +164,7 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
 
 
-int MusicNotation::draw_raw(float x, float y, std::string content, std::string output_file_basename)
+int MusicNotation::draw_raw(float x, float y, std::string content)
 {
    int start_x = x;
    int x_cursor = 0;
