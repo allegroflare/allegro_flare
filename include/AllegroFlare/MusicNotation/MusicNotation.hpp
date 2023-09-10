@@ -41,6 +41,7 @@ namespace AllegroFlare
          float _get_staff_position_offset(int staff_position);
          void prepare_drawing_surface();
          void finish_drawing_surface(std::string output_file_basename="");
+         int draw_raw(float x, float y, std::string content, std::string output_file_basename="");
 
       public:
          MusicNotation(

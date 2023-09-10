@@ -153,12 +153,19 @@ void MusicNotation::finish_drawing_surface(std::string output_file_basename)
 
 int MusicNotation::draw(float x, float y, std::string content, std::string output_file_basename)
 {
-   if (!drawing_interface)
-   {
-      AllegroFlare::Logger::throw_error("MusicNotation::draw", "missing \"drawing_interface\"");
-   }
-   drawing_interface->prepare_surface(800, 500);
+   int x_cursor = 0;
 
+   prepare_drawing_surface();
+   x_cursor = draw_raw(x, y, content, output_file_basename);
+   finish_drawing_surface(output_file_basename);
+
+   return x_cursor;
+}
+
+
+
+int MusicNotation::draw_raw(float x, float y, std::string content, std::string output_file_basename)
+{
    int start_x = x;
    int x_cursor = 0;
 
@@ -503,9 +510,6 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
    //al_draw_line(start_x-10, y, x+x_cursor+10, y, color::color(color::red, 0.3), 1.0);
    //	set_blender(BLENDER_NORMAL);
 
-
-   drawing_interface->finish_surface();
-   if (!output_file_basename.empty()) drawing_interface->save_file(output_file_basename);
 
    return x_cursor;
 }
