@@ -10,7 +10,11 @@ public:
    std::vector<std::pair<float, int>> build_staff_positions()
    {
       std::vector<std::pair<float, int>> result = {
-         // { } // TODO: Add some test data
+          { 0.0,    0 },
+          { 20.0,   3 },
+          { 40.0,  -3 },
+          { 70.0,  -4 },
+          { 90.0,   2 },
       };
       return result;
    }
@@ -28,6 +32,16 @@ TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
 {
    std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
    AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
+   EXPECT_EQ(-4, beam_position_calculator.get_min_staff_position());
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
+   get_max_staff_position__will_return_the_maximum_staff_position_among_the_notehead_staff_positions)
+{
+   std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
+   AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
+   EXPECT_EQ(3, beam_position_calculator.get_max_staff_position());
 }
 
 
