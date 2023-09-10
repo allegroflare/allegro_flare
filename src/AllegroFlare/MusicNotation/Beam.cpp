@@ -188,7 +188,9 @@ void Beam::render()
                 + staff_line_h_distance * alignment_vertical_offset_for(end_alignment);
 
    render_beam(top_x1, top_y1, top_x2, top_y2);
-   render_secondary_beam(top_x1, top_y1, top_x2, top_y2);
+   // TODO: Replace these two demonstrations of secondary beams with "secondary_beams" property
+   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.0, 0.5, 1);
+   render_secondary_beam(top_x1, top_y1, top_x2, top_y2, 0.8, 1.0, 1);
    return;
 }
 
@@ -233,7 +235,7 @@ void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2)
 
 void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_top_y1, float primary_beam_top_x2, float primary_beam_top_y2, float x1_normalized, float x2_normalized, int vertical_position_offset)
 {
-   // HERE
+   float y_position_offset_distance = staff_line_distance * 2.0f / 3.0f;
    float slope = (primary_beam_top_y2 - primary_beam_top_y1) / (primary_beam_top_x2 - primary_beam_top_x1);
    bool divide_by_zero_could_occour = (std::abs(primary_beam_top_x2 - primary_beam_top_x1) < 1e-6);
    if (divide_by_zero_could_occour)
@@ -241,8 +243,16 @@ void Beam::render_secondary_beam(float primary_beam_top_x1, float primary_beam_t
       throw std::runtime_error("MusicNotation::Beam: error: the slope is vertical, divide by 0 is possible");
    }
 
+   float length = primary_beam_top_x2 - primary_beam_top_x1;
+   float x1 = x1_normalized * length + primary_beam_top_x1;
+   float y1 = (x1_normalized * length) * slope + primary_beam_top_y1
+            + y_position_offset_distance * vertical_position_offset;
+   float x2 = x2_normalized * length + primary_beam_top_x1;
+   float y2 = (x2_normalized * length) * slope + primary_beam_top_y1
+            + y_position_offset_distance * vertical_position_offset;
 
-   // TODO: Include secondary beam rendering here
+   render_beam(x1, y1, x2, y2);
+
    return;
 }
 
