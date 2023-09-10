@@ -26,7 +26,6 @@ namespace AllegroFlare
       private:
          AllegroFlare::DrawingInterfaces::Base *drawing_interface;
          float staff_line_distance;
-         //float font_size_px;
          float quarter_note_spacing;
          float stem_thickness;
          spacing_method_t spacing_method;

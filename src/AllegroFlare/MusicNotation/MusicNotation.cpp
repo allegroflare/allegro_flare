@@ -52,7 +52,6 @@ MusicNotation::MusicNotation(
    )
    : drawing_interface(drawing_interface)
    , staff_line_distance(staff_line_distance)
-   //, font_size_px(0)
    , quarter_note_spacing(0)
    , stem_thickness(0)
    , spacing_method(SPACING_AESTHETIC)
@@ -565,8 +564,6 @@ void MusicNotation::set_staff_line_distance(float staff_line_distance)
 
 void MusicNotation::recalculate_rendering_metrics()
 {
-   //staff_line_thickness = staff_line_distance * 0.1;
-   //font_size_px = (staff_line_distance * 4) * 4;
    quarter_note_spacing = staff_line_distance * 5;
    stem_thickness = staff_line_distance * 0.15f;
 }
