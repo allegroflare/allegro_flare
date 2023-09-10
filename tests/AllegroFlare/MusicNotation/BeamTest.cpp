@@ -117,7 +117,7 @@ TEST_F(AllegroFlare_MusicNotation_BeamTestWithAllegroRenderingFixture,
 {
    using AllegroFlare::MusicNotation::Beam;
 
-   AllegroFlare::MusicNotation::Beam beam1(20, -300, -2, Beam::Alignment::TOP, -100, -2, Beam::Alignment::BOTTOM);
+   AllegroFlare::MusicNotation::Beam beam1(20, -300, -2, Beam::Alignment::MIDDLE, -100, -2, Beam::Alignment::MIDDLE);
    beam1.set_secondary_beams({
       { 1, 0.0, 0.5 },
       { 1, 0.9, 1.0 },

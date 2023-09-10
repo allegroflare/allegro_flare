@@ -15,7 +15,7 @@ namespace MusicNotation
 {
 
 
-Beam::Beam(float staff_line_distance, float start_x, float start_staff_pos, Beam::Alignment start_alignment, float end_x, float end_staff_pos, Beam::Alignment end_alignment, ALLEGRO_COLOR color, std::vector<std::tuple<int, float, float>> secondary_beams)
+Beam::Beam(float staff_line_distance, float start_x, int start_staff_pos, Beam::Alignment start_alignment, float end_x, int end_staff_pos, Beam::Alignment end_alignment, ALLEGRO_COLOR color, std::vector<std::tuple<int, float, float>> secondary_beams)
    : staff_line_distance(staff_line_distance)
    , start_x(start_x)
    , start_staff_pos(start_staff_pos)
@@ -47,7 +47,7 @@ void Beam::set_start_x(float start_x)
 }
 
 
-void Beam::set_start_staff_pos(float start_staff_pos)
+void Beam::set_start_staff_pos(int start_staff_pos)
 {
    this->start_staff_pos = start_staff_pos;
 }
@@ -65,7 +65,7 @@ void Beam::set_end_x(float end_x)
 }
 
 
-void Beam::set_end_staff_pos(float end_staff_pos)
+void Beam::set_end_staff_pos(int end_staff_pos)
 {
    this->end_staff_pos = end_staff_pos;
 }
@@ -107,7 +107,7 @@ float Beam::get_start_x() const
 }
 
 
-float Beam::get_start_staff_pos() const
+int Beam::get_start_staff_pos() const
 {
    return start_staff_pos;
 }
@@ -125,7 +125,7 @@ float Beam::get_end_x() const
 }
 
 
-float Beam::get_end_staff_pos() const
+int Beam::get_end_staff_pos() const
 {
    return end_staff_pos;
 }
@@ -210,7 +210,7 @@ void Beam::render()
    float top_y2 = end_staff_pos * staff_line_h_distance
                 + staff_line_h_distance * alignment_vertical_offset_for(end_alignment)
                 + centering_y_offset
-                + beam_h_thickness;
+                - beam_h_thickness;
 
    ALLEGRO_COLOR primary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.0, 0.5, 0.5, 0.5} : color;
    ALLEGRO_COLOR secondary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.5, 0.25, 0.0, 0.5} : color;

@@ -16,7 +16,7 @@ properties:
     setter: true
     
   - name: start_staff_pos
-    type: float
+    type: int
     init_with: 0
     constructor_arg: true
     getter: true
@@ -37,8 +37,8 @@ properties:
     setter: true
     
   - name: end_staff_pos
-    type: float
-    init_with: 0.0f
+    type: int
+    init_with: 0
     constructor_arg: true
     getter: true
     setter: true
@@ -124,7 +124,7 @@ methods:
       float top_y2 = end_staff_pos * staff_line_h_distance
                    + staff_line_h_distance * alignment_vertical_offset_for(end_alignment)
                    + centering_y_offset
-                   + beam_h_thickness;
+                   - beam_h_thickness;
 
       ALLEGRO_COLOR primary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.0, 0.5, 0.5, 0.5} : color;
       ALLEGRO_COLOR secondary_beam_color = render_with_debugging_visuals ? ALLEGRO_COLOR{0.5, 0.25, 0.0, 0.5} : color;
