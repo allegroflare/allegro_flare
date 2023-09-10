@@ -516,20 +516,9 @@ int MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-void MusicNotation::set_staff_line_distance(float distance)
+void MusicNotation::set_staff_line_distance(float staff_line_distance)
 {
-   throw std::runtime_error("MusicNotation::set_staff_line_distance: This method requires refactoring before it can "
-                            "be used");
-
-   // reload the font at the correct height
-   //staff_line_distance = distance;
-   //staff_line_thickness = distance * 0.1; // = staff_line_distance * 0.1
-   //quarter_note_spacing = distance * 30; // = staff_line_distance * 30
-   //if (font_bravura)
-   //{
-      //al_destroy_font(font_bravura);
-      //font_bravura = al_load_font("data/music_notation/Bravura.otf", (int)(distance * 4), ALLEGRO_FLAGS_EMPTY);
-   //}
+   this->staff_line_distance = staff_line_distance;
 }
 
 
