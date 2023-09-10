@@ -52,10 +52,10 @@ MusicNotation::MusicNotation(
    )
    : drawing_interface(drawing_interface)
    , staff_line_distance(staff_line_distance)
-   , staff_line_thickness(staff_line_distance*0.1)
-   , font_size_px((staff_line_distance*4) * 4)
-   , quarter_note_spacing(staff_line_distance*5)
-   , stem_thickness(staff_line_distance*0.15)
+   , staff_line_thickness(0)
+   , font_size_px(0)
+   , quarter_note_spacing(0)
+   , stem_thickness(0)
    , spacing_method(SPACING_AESTHETIC)
    , font_bin(font_bin)
    , current_note_duration(4)
@@ -64,6 +64,7 @@ MusicNotation::MusicNotation(
    , int_cast_y(true)
    , ignore_spaces(false)
 {
+   recalculate_rendering_metrics();
 }
 
 
