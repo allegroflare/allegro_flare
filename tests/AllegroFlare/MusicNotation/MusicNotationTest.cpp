@@ -29,6 +29,20 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2, 1080/2, music_notation_content_string);
 
    al_flip_display();
+   //sleep(1);
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   CAPTURE__render__when_notes_have_dots__will_render_them_in_the_correct_place_on_the_staff)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
+
+   std::string music_notation_content_string = "5.5..4.4..3.3..2.2..1.1..0.0..-1.-1..-2.-2..-3.-3..-4.-4..-5.-5..";
+   music_notation.draw(1920/2 - 850, 1080/2, music_notation_content_string);
+
+   al_flip_display();
    sleep(1);
 }
 
@@ -43,7 +57,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2, 1080/2, music_notation_content_string);
 
    al_flip_display();
-   sleep(1);
+   //sleep(1);
 }
 
 
@@ -58,7 +72,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2, 1080/2, music_notation_content_string);
 
    al_flip_display();
-   sleep(1);
+   //sleep(1);
 }
 
 

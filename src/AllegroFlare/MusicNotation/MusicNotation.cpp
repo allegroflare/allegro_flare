@@ -290,7 +290,12 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
       }
       case ']':
       {
-         draw_music_symbol(AllegroFlare::FontBravura::final_barline, start_x+x_cursor, y + staff_line_distance*2, color);
+         draw_music_symbol(
+            AllegroFlare::FontBravura::final_barline,
+            start_x+x_cursor,
+            y + staff_line_distance*2,
+            color
+         );
          x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::final_barline);
          if (i != ((int)content.size()-1)) x_cursor += staff_line_distance;
          continue;
@@ -383,7 +388,12 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
 
       if (current_accidental_symbol != 0x0000)
       {
-         draw_music_symbol(current_accidental_symbol, start_x+x_cursor-staff_line_distance*1.2, y + _get_staff_position_offset(staff_pos), color);
+         draw_music_symbol(
+            current_accidental_symbol,
+            start_x+x_cursor-staff_line_distance*1.2,
+            y + _get_staff_position_offset(staff_pos),
+            color
+         );
          current_accidental_symbol = 0x0000;
       }
 
@@ -436,18 +446,25 @@ int MusicNotation::draw(float x, float y, std::string content, std::string outpu
          for (unsigned i=0; i<multi_note.size(); i++)
             draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(multi_note[i]), color);
 
+
       // draw the dots
       float dots_x_cursor = 0;
+      bool note_head_is_on_line = (staff_pos % 2 == 0);
+      float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
       if (num_dots > 0)
       {
          dots_x_cursor += get_music_symbol_width(symbol) + get_music_symbol_width(AllegroFlare::FontBravura::dot);
       }
       for (int i=0; i<num_dots; i++)
       {
-         draw_music_symbol(AllegroFlare::FontBravura::dot, start_x+x_cursor+dots_x_cursor, y + _get_staff_position_offset(staff_pos), color);
-         dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.5;
+         draw_music_symbol(
+            AllegroFlare::FontBravura::dot,
+            start_x+x_cursor+dots_x_cursor,
+            y + _get_staff_position_offset(staff_pos) + dot_vertical_adjustment_from_being_on_line,
+            color
+         );
+         dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
       }
-
 
 
       // move the cursor over based on the spacing method
