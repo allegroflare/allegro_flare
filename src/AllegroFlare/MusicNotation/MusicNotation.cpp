@@ -64,6 +64,8 @@ static std::pair<PitchToken, int> parse_pitch_token(std::string token_string)
          case '\'': result_octave++; continue;
          case '-': result_pitch_token.accidental--; continue;
          case '+': result_pitch_token.accidental++; continue;
+         case '#': result_pitch_token.accidental--; continue;
+         case 'b': result_pitch_token.accidental++; continue;
          case '=': result_pitch_token.accidental_natural = true; continue;
          default:
             throw std::runtime_error("MusicNotation|parse_pitch_token error: unexpected token in pitch-only token");
