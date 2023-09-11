@@ -210,8 +210,9 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       case ',': current_octave--; continue;
       case '{':
       {
-         // settings can be specified inline when contained in {} curly braces.
-         // each setting is delimited by a space
+         // NOTE: settings for rendering can be specified in the music string when contained in {} curly braces.
+         // each setting is delimited by a space.  An example:
+         // "{freeze_stems_up spacing=fixed staff_color=orange}"
 
          // find the closing brace
          std::size_t pos_opening_brace = i;
@@ -224,39 +225,36 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             error_message << "music string parse error: closing brace not found";
             AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
          }
-         else
+
+         // Parse the braced string for tokens
+         std::string braced_string = content.substr(pos_opening_brace+1, pos_closing_brace - pos_opening_brace - 1);
+         std::vector<std::string> tokens = php::explode(" ", braced_string);
+         for (unsigned t=0; t<tokens.size(); t++)
          {
-            std::string braced_string = content.substr(pos_opening_brace+1, pos_closing_brace - pos_opening_brace - 1);
-            // TODO: parse the braced string for tokens here
-
-            std::vector<std::string> tokens = php::explode(" ", braced_string);
-            for (unsigned t=0; t<tokens.size(); t++)
+            std::size_t pos_of_equals = tokens[t].find("=");
+            std::string text_before_equals = "";
+            std::string text_after_equals = "";
+            if (pos_of_equals != std::string::npos)
             {
-               std::size_t pos_of_equals = tokens[t].find("=");
-               std::string text_before_equals = "";
-               std::string text_after_equals = "";
-               if (pos_of_equals != std::string::npos)
-               {
-                  text_before_equals = tokens[t].substr(0, pos_of_equals);
-                  text_after_equals = tokens[t].substr(pos_of_equals+1);
-               }
-
-               if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
-               else if (text_before_equals.compare("staff_color") == 0)
-               {
-                  staff_color = infer_color_name_or_hex(text_after_equals);
-               }
-               else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
-               else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
-               else if (tokens[t] == "rhythm_only") rhythm_only = true;
-               else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
-               else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
+               text_before_equals = tokens[t].substr(0, pos_of_equals);
+               text_after_equals = tokens[t].substr(pos_of_equals+1);
             }
 
-            // set the cursor to the end of this braced section
-            i = pos_closing_brace;
-            continue;
+            if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
+            else if (text_before_equals.compare("staff_color") == 0)
+            {
+               staff_color = infer_color_name_or_hex(text_after_equals);
+            }
+            else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
+            else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
+            else if (tokens[t] == "rhythm_only") rhythm_only = true;
+            else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
+            else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
          }
+
+         // set the cursor to the end of this braced section
+         i = pos_closing_brace;
+         continue;
       }
       case ' ': // Space
       {
