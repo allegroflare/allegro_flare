@@ -56,7 +56,6 @@ MusicNotation::MusicNotation(
    , spacing_method(SPACING_AESTHETIC)
    , font_bin(font_bin)
    , int_cast_y(true)
-   , ignore_spaces(false)
 {
 }
 
@@ -182,6 +181,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    bool freeze_stems_up = false;
    ALLEGRO_COLOR color = color::white;
    ALLEGRO_COLOR staff_color = color::white;
+   bool ignore_spaces = false;
 
 
    for (int i=0; i<(int)content.size(); i++)

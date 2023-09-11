@@ -30,7 +30,6 @@ namespace AllegroFlare
          spacing_method_t spacing_method;
          AllegroFlare::FontBin *font_bin;
          bool int_cast_y;
-         bool ignore_spaces;
 
          float _get_staff_position_offset(int staff_position);
          void prepare_drawing_surface();
