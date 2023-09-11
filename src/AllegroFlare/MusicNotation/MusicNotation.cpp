@@ -185,14 +185,19 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    int staff_pos = 0;
    int num_dots = 0;
    std::vector<int> multi_note;
+   bool context_change_token_found = true;
+   bool one_off_render_token_found = true;
+   bool setting_change_token_found = true;
 
    for (int i=0; i<(int)content.size(); i++)
    {
       multi_note.clear();
-      current_octave = 0;
-      staff_pos = 0;
       num_dots = 0;
 
+
+      // Current note context and render setting change token cases
+
+      context_change_token_found = true;
       switch (content[i])
       {
       case 'w': current_note_duration = 1; continue;
@@ -209,6 +214,16 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       case '=': current_accidental_symbol = AllegroFlare::FontBravura::natural; continue;
       case '\'': current_octave++; continue;
       case ',': current_octave--; continue;
+      default: context_change_token_found = false; break;
+      }
+
+
+
+      // Render one-off token cases
+
+      one_off_render_token_found = true;
+      switch (content[i])
+      {
       case ' ': // Space
       {
          if (!ignore_spaces) x_cursor += staff_line_distance;
@@ -293,6 +308,35 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::f_clef);
          continue;
       }
+      case '~': // TODO: This should be moved to a deferred rendered object
+      {
+         // TODO: Render a tie to the next note
+         float start_y = y + staff_line_distance*2; // TODO: Provide an accurate start y for this tie
+         float length = 100;
+         float height = 20;
+         float narrow_line_thickness = staff_line_thickness * 0.75;
+         float thick_line_thickness = staff_line_thickness * 1.5;
+
+         AllegroFlare::MusicNotation::TieRenderer tie_renderer(
+            { (float)start_x+x_cursor, start_y },
+            length,
+            height,
+            color,
+            narrow_line_thickness,
+            thick_line_thickness
+         );
+         tie_renderer.render();
+         continue;
+      }
+      default: one_off_render_token_found = false; break;
+      }
+
+
+
+      // Capture setting change
+      setting_change_token_found = true;
+      switch (content[i])
+      {
       case '(':
       {
          // Scale degrees *not* in the [0-9] range can be contained in () parens.
@@ -327,26 +371,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          // Set the cursor to the end of this parenthesis section
          staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 7);
          break;
-      }
-      case '~':
-      {
-         // TODO: Render a tie to the next note
-         float start_y = y + staff_line_distance*2; // TODO: Provide an accurate start y for this tie
-         float length = 100;
-         float height = 20;
-         float narrow_line_thickness = staff_line_thickness * 0.75;
-         float thick_line_thickness = staff_line_thickness * 1.5;
-
-         AllegroFlare::MusicNotation::TieRenderer tie_renderer(
-            { (float)start_x+x_cursor, start_y },
-            length,
-            height,
-            color,
-            narrow_line_thickness,
-            thick_line_thickness
-         );
-         tie_renderer.render();
-         continue;
       }
       case '{':
       {
@@ -396,9 +420,18 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          i = pos_closing_brace;
          continue;
       }
-      default:
+      default: setting_change_token_found = false; break;
+      }
+
+
+
+      // Assume this token is the staff position, and continue forward with the render
+
+      bool assume_this_token_is_a_staff_position =
+         (!context_change_token_found && !one_off_render_token_found && !setting_change_token_found);
+      if (assume_this_token_is_a_staff_position)
+      {
          staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
-         break;
       }
 
 
