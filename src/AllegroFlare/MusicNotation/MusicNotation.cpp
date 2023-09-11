@@ -400,6 +400,9 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       }
 
 
+
+      // For rhythmic staff, fix the staff position to 0
+
       if (rhythm_only) staff_pos = 0;
 
 
@@ -422,7 +425,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       // Draw an accidental (to the left size of the x_cursor)
 
-      if (current_accidental_symbol != 0x0000)
+      bool accidental_is_present = (current_accidental_symbol != 0x0000);
+      if (accidental_is_present)
       {
          draw_music_symbol(
             current_accidental_symbol,
@@ -436,7 +440,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      // Draw a notehead
+      // Calculate which primary symbol to render, a note-with-stem or rest
 
       if (current_note_is_rest)
       {
@@ -468,7 +472,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       // Draw ledger lines
 
-      //		set_blender(BLENDER_ADDITIVE);
       draw_ledger_lines_to(
          start_x+x_cursor,
          y,
@@ -477,17 +480,32 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          get_music_symbol_width(symbol),
          staff_color
       );
-      //		set_blender(BLENDER_NORMAL);
+
+
+
+      // Draw symbol
 
       if (multi_note.empty())
       {
-         draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(staff_pos), color, font_size_px);
+         draw_music_symbol(
+            symbol,
+            start_x+x_cursor,
+            y + _get_staff_position_offset(staff_pos),
+            color,
+            font_size_px
+         );
       }
       else
       {
          for (unsigned i=0; i<multi_note.size(); i++)
          {
-            draw_music_symbol(symbol, start_x+x_cursor, y + _get_staff_position_offset(multi_note[i]), color, font_size_px);
+            draw_music_symbol(
+               symbol,
+               start_x+x_cursor,
+               y + _get_staff_position_offset(multi_note[i]),
+               color,
+               font_size_px
+            );
          }
       }
 
@@ -533,13 +551,15 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    }
 
 
-   //	set_blender(BLENDER_ADDITIVE);
-   using std::max;
-   if (rhythm_only) draw_line(start_x, y, start_x+x_cursor, y, staff_color, max(1.0f, staff_line_thickness));
-   else draw_staff_lines(start_x, y, x_cursor, staff_line_distance, staff_color, staff_line_thickness);
-   //al_draw_line(start_x-10, y, x+x_cursor+10, y, color::color(color::red, 0.3), 1.0);
-   //	set_blender(BLENDER_NORMAL);
 
+   // Draw the staff lines
+
+   if (rhythm_only) draw_line(start_x, y, start_x+x_cursor, y, staff_color, std::max(1.0f, staff_line_thickness));
+   else draw_staff_lines(start_x, y, x_cursor, staff_line_distance, staff_color, staff_line_thickness);
+
+
+
+   // Return the length of the rendered measure
 
    return x_cursor;
 }
@@ -579,8 +599,28 @@ void MusicNotation::draw_ledger_lines_to(
 
    for (int i=3; i<abs(staff_pos/2)+1; i++)
    {
-      if (staff_pos > 0) draw_line(x-hwidth, y-staff_line_distance*i+yoffset, x+hwidth, y-staff_line_distance*i+yoffset, color, thickness);
-      else draw_line(x-hwidth, y+staff_line_distance*i+yoffset, x+hwidth, y+staff_line_distance*i+yoffset, color, thickness);
+      if (staff_pos > 0)
+      {
+         draw_line(
+            x-hwidth,
+            y-staff_line_distance*i+yoffset,
+            x+hwidth,
+            y-staff_line_distance*i+yoffset,
+            color,
+            thickness
+         );
+      }
+      else
+      {
+         draw_line(
+            x-hwidth,
+            y+staff_line_distance*i+yoffset,
+            x+hwidth,
+            y+staff_line_distance*i+yoffset,
+            color,
+            thickness
+         );
+      }
 
       if (++lines_drawn > MAX_LINES_TO_DRAW) break;
    }
@@ -614,7 +654,14 @@ void MusicNotation::draw_music_symbol(int32_t symbol, float x, float y, const AL
    ALLEGRO_FONT *font_bravura = obtain_font_bravura();
    if (!drawing_interface)
    {
-      draw_unicode_char(font_bravura, color, symbol, ALLEGRO_FLAGS_EMPTY, x, (int_cast_y) ? (int)(y-al_get_font_ascent(font_bravura)) : (y-al_get_font_ascent(font_bravura)));
+      draw_unicode_char(
+         font_bravura,
+         color,
+         symbol,
+         ALLEGRO_FLAGS_EMPTY,
+         x,
+         (int_cast_y) ? (int)(y-al_get_font_ascent(font_bravura)) : (y-al_get_font_ascent(font_bravura))
+      );
    }
    else
    {
