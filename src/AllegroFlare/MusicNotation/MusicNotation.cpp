@@ -172,9 +172,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    bool current_note_is_rest = false;
    uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
    uint32_t current_accidental_symbol = 0x0000;
-   int current_octave = 0;
-   int num_dots = 0;
-   int staff_pos = 0;
 
    bool force_rest_to_0_pos = true;
    bool rhythm_only = false;
@@ -183,10 +180,16 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    ALLEGRO_COLOR staff_color = color::white;
    bool ignore_spaces = false;
 
+   // More render state variables
+   int current_octave = 0;
+   int staff_pos = 0;
+   int num_dots = 0;
+   std::vector<int> multi_note;
 
    for (int i=0; i<(int)content.size(); i++)
    {
-      std::vector<int> multi_note;
+      multi_note.clear();
+      current_octave = 0;
       staff_pos = 0;
       num_dots = 0;
 
@@ -206,54 +209,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       case '=': current_accidental_symbol = AllegroFlare::FontBravura::natural; continue;
       case '\'': current_octave++; continue;
       case ',': current_octave--; continue;
-      case '{':
-      {
-         // NOTE: settings for rendering can be specified in the music string when contained in {} curly braces.
-         // each setting is delimited by a space.  An example:
-         // "{freeze_stems_up spacing=fixed staff_color=orange}"
-
-         // find the closing brace
-         std::size_t pos_opening_brace = i;
-         std::size_t pos_closing_brace = content.find('}', pos_opening_brace);
-
-         if (pos_closing_brace == std::string::npos)
-         {
-            // Closing brace not found, throw an error
-            std::stringstream error_message;
-            error_message << "music string parse error: expected closing curly brace '}' not found";
-            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
-         }
-
-         // Parse the braced string for tokens
-         std::string braced_string = content.substr(pos_opening_brace+1, pos_closing_brace - pos_opening_brace - 1);
-         std::vector<std::string> tokens = php::explode(" ", braced_string);
-         for (unsigned t=0; t<tokens.size(); t++)
-         {
-            std::size_t pos_of_equals = tokens[t].find("=");
-            std::string text_before_equals = "";
-            std::string text_after_equals = "";
-            if (pos_of_equals != std::string::npos)
-            {
-               text_before_equals = tokens[t].substr(0, pos_of_equals);
-               text_after_equals = tokens[t].substr(pos_of_equals+1);
-            }
-
-            if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
-            else if (text_before_equals.compare("staff_color") == 0)
-            {
-               staff_color = infer_color_name_or_hex(text_after_equals);
-            }
-            else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
-            else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
-            else if (tokens[t] == "rhythm_only") rhythm_only = true;
-            else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
-            else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
-         }
-
-         // set the cursor to the end of this braced section
-         i = pos_closing_brace;
-         continue;
-      }
       case ' ': // Space
       {
          if (!ignore_spaces) x_cursor += staff_line_distance;
@@ -285,26 +240,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          draw_music_symbol(62697, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
          draw_music_symbol(62700, start_x+x_cursor, y + staff_line_distance*2, color, font_size_px);
          x_cursor += get_music_symbol_width(62697);
-         continue;
-      }
-      case '~':
-      {
-         // TODO: Render a tie to the next note
-         float start_y = y + staff_line_distance*2; // TODO: Provide an accurate start y for this tie
-         float length = 100;
-         float height = 20;
-         float narrow_line_thickness = staff_line_thickness * 0.75;
-         float thick_line_thickness = staff_line_thickness * 1.5;
-
-         AllegroFlare::MusicNotation::TieRenderer tie_renderer(
-            { (float)start_x+x_cursor, start_y },
-            length,
-            height,
-            color,
-            narrow_line_thickness,
-            thick_line_thickness
-         );
-         tie_renderer.render();
          continue;
       }
       case '|':
@@ -385,12 +320,81 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          for (auto &token : tokens)
          {
             // TODO: Confirm these tokens are valid numbers
+            // TODO: Confirm that these notes may also have accidentals and octave information
             multi_note.push_back(atoi(token.c_str()));
          }
 
          // Set the cursor to the end of this parenthesis section
          staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 7);
          break;
+      }
+      case '~':
+      {
+         // TODO: Render a tie to the next note
+         float start_y = y + staff_line_distance*2; // TODO: Provide an accurate start y for this tie
+         float length = 100;
+         float height = 20;
+         float narrow_line_thickness = staff_line_thickness * 0.75;
+         float thick_line_thickness = staff_line_thickness * 1.5;
+
+         AllegroFlare::MusicNotation::TieRenderer tie_renderer(
+            { (float)start_x+x_cursor, start_y },
+            length,
+            height,
+            color,
+            narrow_line_thickness,
+            thick_line_thickness
+         );
+         tie_renderer.render();
+         continue;
+      }
+      case '{':
+      {
+         // NOTE: settings for rendering can be specified in the music string when contained in {} curly braces.
+         // each setting is delimited by a space.  An example:
+         // "{freeze_stems_up spacing=fixed staff_color=orange}"
+
+         // find the closing brace
+         std::size_t pos_opening_brace = i;
+         std::size_t pos_closing_brace = content.find('}', pos_opening_brace);
+
+         if (pos_closing_brace == std::string::npos)
+         {
+            // Closing brace not found, throw an error
+            std::stringstream error_message;
+            error_message << "music string parse error: expected closing curly brace '}' not found";
+            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
+         }
+
+         // Parse the braced string for tokens
+         std::string braced_string = content.substr(pos_opening_brace+1, pos_closing_brace - pos_opening_brace - 1);
+         std::vector<std::string> tokens = php::explode(" ", braced_string);
+         for (unsigned t=0; t<tokens.size(); t++)
+         {
+            std::size_t pos_of_equals = tokens[t].find("=");
+            std::string text_before_equals = "";
+            std::string text_after_equals = "";
+            if (pos_of_equals != std::string::npos)
+            {
+               text_before_equals = tokens[t].substr(0, pos_of_equals);
+               text_after_equals = tokens[t].substr(pos_of_equals+1);
+            }
+
+            if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
+            else if (text_before_equals.compare("staff_color") == 0)
+            {
+               staff_color = infer_color_name_or_hex(text_after_equals);
+            }
+            else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
+            else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
+            else if (tokens[t] == "rhythm_only") rhythm_only = true;
+            else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
+            else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
+         }
+
+         // set the cursor to the end of this braced section
+         i = pos_closing_brace;
+         continue;
       }
       default:
          staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
