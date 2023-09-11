@@ -448,7 +448,15 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       // Draw a notehead
 
-      if (!current_note_is_rest)
+      if (current_note_is_rest)
+      {
+         current_accidental = 0;
+         if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
+         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
+         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest;
+         else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_rest;
+      }
+      else // (!current_note_is_rest)
       {
          if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
          else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
@@ -457,15 +465,10 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
          // use the flipped stem version (if necessairy)
          if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
+         {
+            //throw std::runtime_error("aaa");
             symbol += 1;
-      }
-      else if (current_note_is_rest)
-      {
-         current_accidental = 0;
-         if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
-         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
-         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest;
-         else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_rest;
+         }
       }
 
 
