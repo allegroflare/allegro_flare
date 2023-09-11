@@ -31,6 +31,18 @@ static ALLEGRO_COLOR infer_color_name_or_hex(const std::string &name_or_hex)
 
 
 
+
+static struct PitchToken
+{
+public:
+   int octave;
+   int staff_position;
+   int accidental;
+};
+
+
+
+
 namespace AllegroFlare
 {
 namespace MusicNotation
@@ -184,10 +196,10 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    int current_octave = 0;
    int staff_pos = 0;
    int num_dots = 0;
-   std::vector<int> multi_note;
+   std::vector<PitchToken> multi_note;
    bool context_change_token_found = true;
    bool one_off_render_token_found = true;
-   bool setting_change_token_found = true;
+   bool multinote_token_found = true;
 
    for (int i=0; i<(int)content.size(); i++)
    {
@@ -214,6 +226,54 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       case '=': current_accidental_symbol = AllegroFlare::FontBravura::natural; continue;
       case '\'': current_octave++; continue;
       case ',': current_octave--; continue;
+      case '{':
+      {
+         // NOTE: settings for rendering can be specified in the music string when contained in {} curly braces.
+         // each setting is delimited by a space.  An example:
+         // "{freeze_stems_up spacing=fixed staff_color=orange}"
+
+         // find the closing brace
+         std::size_t pos_opening_brace = i;
+         std::size_t pos_closing_brace = content.find('}', pos_opening_brace);
+
+         if (pos_closing_brace == std::string::npos)
+         {
+            // Closing brace not found, throw an error
+            std::stringstream error_message;
+            error_message << "music string parse error: expected closing curly brace '}' not found";
+            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
+         }
+
+         // Parse the braced string for tokens
+         std::string braced_string = content.substr(pos_opening_brace+1, pos_closing_brace - pos_opening_brace - 1);
+         std::vector<std::string> tokens = php::explode(" ", braced_string);
+         for (unsigned t=0; t<tokens.size(); t++)
+         {
+            std::size_t pos_of_equals = tokens[t].find("=");
+            std::string text_before_equals = "";
+            std::string text_after_equals = "";
+            if (pos_of_equals != std::string::npos)
+            {
+               text_before_equals = tokens[t].substr(0, pos_of_equals);
+               text_after_equals = tokens[t].substr(pos_of_equals+1);
+            }
+
+            if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
+            else if (text_before_equals.compare("staff_color") == 0)
+            {
+               staff_color = infer_color_name_or_hex(text_after_equals);
+            }
+            else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
+            else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
+            else if (tokens[t] == "rhythm_only") rhythm_only = true;
+            else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
+            else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
+         }
+
+         // set the cursor to the end of this braced section
+         i = pos_closing_brace;
+         continue;
+      }
       default: context_change_token_found = false; break;
       }
 
@@ -333,8 +393,9 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      // Capture setting change
-      setting_change_token_found = true;
+      // Capture note and/or notes
+
+      multinote_token_found = true;
       switch (content[i])
       {
       case '(':
@@ -363,64 +424,25 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          std::vector<std::string> tokens = php::explode(" ", parened_string);
          for (auto &token : tokens)
          {
+            //    octave,   pitch,   accidental
+            //std::tuple<int, int, int>
+            //parse_pitch_token(token);
             // TODO: Confirm these tokens are valid numbers
             // TODO: Confirm that these notes may also have accidentals and octave information
-            multi_note.push_back(atoi(token.c_str()));
+
+            staff_pos = atoi(token.c_str()) + (current_octave * 7);
+            multi_note.push_back(
+               PitchToken{
+                  .staff_position = staff_pos
+               }
+            );
          }
 
          // Set the cursor to the end of this parenthesis section
          staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 7);
          break;
       }
-      case '{':
-      {
-         // NOTE: settings for rendering can be specified in the music string when contained in {} curly braces.
-         // each setting is delimited by a space.  An example:
-         // "{freeze_stems_up spacing=fixed staff_color=orange}"
-
-         // find the closing brace
-         std::size_t pos_opening_brace = i;
-         std::size_t pos_closing_brace = content.find('}', pos_opening_brace);
-
-         if (pos_closing_brace == std::string::npos)
-         {
-            // Closing brace not found, throw an error
-            std::stringstream error_message;
-            error_message << "music string parse error: expected closing curly brace '}' not found";
-            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
-         }
-
-         // Parse the braced string for tokens
-         std::string braced_string = content.substr(pos_opening_brace+1, pos_closing_brace - pos_opening_brace - 1);
-         std::vector<std::string> tokens = php::explode(" ", braced_string);
-         for (unsigned t=0; t<tokens.size(); t++)
-         {
-            std::size_t pos_of_equals = tokens[t].find("=");
-            std::string text_before_equals = "";
-            std::string text_after_equals = "";
-            if (pos_of_equals != std::string::npos)
-            {
-               text_before_equals = tokens[t].substr(0, pos_of_equals);
-               text_after_equals = tokens[t].substr(pos_of_equals+1);
-            }
-
-            if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
-            else if (text_before_equals.compare("staff_color") == 0)
-            {
-               staff_color = infer_color_name_or_hex(text_after_equals);
-            }
-            else if (tokens[t] == "freeze_stems_up") freeze_stems_up = true;
-            else if (tokens[t] == "ignore_spaces") ignore_spaces = true;
-            else if (tokens[t] == "rhythm_only") rhythm_only = true;
-            else if (tokens[t].find("spacing=fixed")==0) spacing_method = MusicNotation::SPACING_FIXED;
-            else if (tokens[t].find("spacing=aesthetic")==0) spacing_method = MusicNotation::SPACING_AESTHETIC;
-         }
-
-         // set the cursor to the end of this braced section
-         i = pos_closing_brace;
-         continue;
-      }
-      default: setting_change_token_found = false; break;
+      default: multinote_token_found = false; break;
       }
 
 
@@ -428,7 +450,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       // Assume this token is the staff position, and continue forward with the render
 
       bool assume_this_token_is_a_staff_position =
-         (!context_change_token_found && !one_off_render_token_found && !setting_change_token_found);
+         (!context_change_token_found && !one_off_render_token_found && !multinote_token_found);
       if (assume_this_token_is_a_staff_position)
       {
          staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
@@ -530,12 +552,13 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       }
       else
       {
+         // TODO: Replace "multi_note" to use staff position
          for (unsigned i=0; i<multi_note.size(); i++)
          {
             draw_music_symbol(
                symbol,
                start_x+x_cursor,
-               y + _get_staff_position_offset(multi_note[i]),
+               y + _get_staff_position_offset(multi_note[i].staff_position),
                color,
                font_size_px
             );
