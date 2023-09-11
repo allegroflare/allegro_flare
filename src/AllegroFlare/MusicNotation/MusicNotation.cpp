@@ -50,7 +50,7 @@ namespace MusicNotation
 
 
 
-float MusicNotation::_get_staff_position_y_offset(int staff_position)
+float MusicNotation::calculate_staff_position_y_offset(int staff_position)
 {
    return - staff_position * staff_line_distance * 0.5;
 }
@@ -488,7 +488,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          draw_music_symbol(
             current_accidental_symbol,
             start_x+x_cursor-staff_line_distance*1.2,
-            y + _get_staff_position_y_offset(staff_pos),
+            y + calculate_staff_position_y_offset(staff_pos),
             color,
             font_size_px
          );
@@ -545,7 +545,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          draw_music_symbol(
             symbol,
             start_x+x_cursor,
-            y + _get_staff_position_y_offset(staff_pos),
+            y + calculate_staff_position_y_offset(staff_pos),
             color,
             font_size_px
          );
@@ -558,7 +558,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             draw_music_symbol(
                symbol,
                start_x+x_cursor,
-               y + _get_staff_position_y_offset(multi_note[i].staff_position),
+               y + calculate_staff_position_y_offset(multi_note[i].staff_position),
                color,
                font_size_px
             );
@@ -581,7 +581,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          draw_music_symbol(
             AllegroFlare::FontBravura::dot,
             start_x+x_cursor+dots_x_cursor,
-            y + _get_staff_position_y_offset(staff_pos) + dot_vertical_adjustment_from_being_on_line,
+            y + calculate_staff_position_y_offset(staff_pos) + dot_vertical_adjustment_from_being_on_line,
             color,
             font_size_px
          );
