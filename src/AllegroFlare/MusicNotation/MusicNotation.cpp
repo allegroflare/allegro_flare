@@ -37,7 +37,7 @@ static struct PitchToken
 public:
    int staff_position;
    int accidental;
-   bool accidental_natural;
+   bool accidental_natural; // TODO: Work in accidental natural
 };
 
 
@@ -472,8 +472,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             multi_note.push_back(parsed_pitch_token);
          }
 
-         // Set the cursor to the end of this parenthesis section
-         staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 7);
          break;
       }
       default: multinote_token_found = false; break;
