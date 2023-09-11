@@ -35,10 +35,44 @@ static ALLEGRO_COLOR infer_color_name_or_hex(const std::string &name_or_hex)
 static struct PitchToken
 {
 public:
-   int octave;
    int staff_position;
    int accidental;
+   bool accidental_natural;
 };
+
+
+
+static std::pair<PitchToken, int> parse_pitch_token(std::string token_string)
+{
+   std::pair<PitchToken, int> result;
+   PitchToken &result_pitch_token = result.first;
+   int &result_octave = result.second;
+
+   for (auto &c : token_string)
+   {
+      switch (c)
+      {
+         case '0': result_pitch_token.staff_position = 0; continue;
+         case '1': result_pitch_token.staff_position = 1; continue;
+         case '2': result_pitch_token.staff_position = 2; continue;
+         case '3': result_pitch_token.staff_position = 3; continue;
+         case '4': result_pitch_token.staff_position = 4; continue;
+         case '5': result_pitch_token.staff_position = 5; continue;
+         case '6': result_pitch_token.staff_position = 6; continue;
+         case '7': result_pitch_token.staff_position = 7; continue;
+         case ',': result_octave--; continue;
+         case '\'': result_octave++; continue;
+         case '-': result_pitch_token.accidental--; continue;
+         case '+': result_pitch_token.accidental++; continue;
+         case '=': result_pitch_token.accidental_natural = true; continue;
+         default:
+            throw std::runtime_error("MusicNotation|parse_pitch_token error: unexpected token in pitch-only token");
+         break;
+      }
+   }
+
+   return result;
+}
 
 
 
@@ -400,6 +434,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       {
       case '(':
       {
+         // TODO: Test this feature of multi_note
+
          // Scale degrees *not* in the [0-9] range can be contained in () parens.
          // Also, you can have multiple staff degrees for a single note by placing them in
          // parens separated by spaces i.g. "(0 4 -7 8 11 -16)"
@@ -422,20 +458,18 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          // Pull out each token
          i = pos_closing_paren;
          std::vector<std::string> tokens = php::explode(" ", parened_string);
+         int multi_note_local_octave = 0;
          for (auto &token : tokens)
          {
-            //    octave,   pitch,   accidental
-            //std::tuple<int, int, int>
-            //parse_pitch_token(token);
-            // TODO: Confirm these tokens are valid numbers
-            // TODO: Confirm that these notes may also have accidentals and octave information
+            // TODO: Test this parsing
+            std::pair<PitchToken, int> parsed_token_info = parse_pitch_token(token);
+            int change_in_octave_context_for_this_parsed_token = parsed_token_info.second;
+            multi_note_local_octave += change_in_octave_context_for_this_parsed_token;
 
-            staff_pos = atoi(token.c_str()) + (current_octave * 7);
-            multi_note.push_back(
-               PitchToken{
-                  .staff_position = staff_pos
-               }
-            );
+            PitchToken &parsed_pitch_token = parsed_token_info.first;
+            parsed_pitch_token.staff_position += (multi_note_local_octave * 7);
+
+            multi_note.push_back(parsed_pitch_token);
          }
 
          // Set the cursor to the end of this parenthesis section
