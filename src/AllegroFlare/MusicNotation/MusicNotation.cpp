@@ -51,10 +51,10 @@ MusicNotation::MusicNotation(
       float staff_line_distance
    )
    : drawing_interface(drawing_interface)
+   , font_bin(font_bin)
    , staff_line_distance(staff_line_distance)
    , quarter_note_spacing(staff_line_distance * 5)
    , spacing_method(SPACING_AESTHETIC)
-   , font_bin(font_bin)
    , int_cast_y(true)
 {
 }

@@ -25,10 +25,10 @@ namespace AllegroFlare
 
       private:
          AllegroFlare::DrawingInterfaces::Base *drawing_interface;
+         AllegroFlare::FontBin *font_bin;
          float staff_line_distance;
          float quarter_note_spacing;
          spacing_method_t spacing_method;
-         AllegroFlare::FontBin *font_bin;
          bool int_cast_y;
 
          float _get_staff_position_offset(int staff_position);
