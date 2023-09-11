@@ -151,3 +151,18 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   CAPTURE__on_rendering__note_clusters__will_render_as_expected)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
+
+   std::string music_notation_content_string = " & ^    (0 2 4) ";
+
+   music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
+
+   al_flip_display();
+   sleep(1);
+}
+
+

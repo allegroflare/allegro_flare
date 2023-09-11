@@ -436,9 +436,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       {
          // TODO: Test this feature of multi_note
 
-         // Scale degrees *not* in the [0-9] range can be contained in () parens.
-         // Also, you can have multiple staff degrees for a single note by placing them in
-         // parens separated by spaces i.g. "(0 4 -7 8 11 -16)"
+         // Clusters of notes are to be contained in () parens, separated by spaces
+         // "(0 =,4 -7 3 ,1 ''+6)"
 
          // Find the closing brace
          std::size_t pos_opening_paren = i;
