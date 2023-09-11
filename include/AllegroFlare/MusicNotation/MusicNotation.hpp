@@ -67,6 +67,7 @@ namespace AllegroFlare
             const ALLEGRO_COLOR &color,
             float thickness
          );
+         void draw_accidental(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color, float font_size_px);
          void draw_music_symbol(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color, float font_size_px);
          int get_music_symbol_width(int32_t symbol);
          void draw_line(float x1, float y1, float x2, float y2, const ALLEGRO_COLOR &color, float thickness);

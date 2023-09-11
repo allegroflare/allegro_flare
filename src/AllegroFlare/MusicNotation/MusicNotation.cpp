@@ -258,6 +258,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       case '-': current_accidental_symbol = AllegroFlare::FontBravura::flat; continue;
       case '+': current_accidental_symbol = AllegroFlare::FontBravura::sharp; continue;
       case '=': current_accidental_symbol = AllegroFlare::FontBravura::natural; continue;
+      case '#': current_accidental_symbol = AllegroFlare::FontBravura::flat; continue;
+      case 'b': current_accidental_symbol = AllegroFlare::FontBravura::sharp; continue;
       case '\'': current_octave++; continue;
       case ',': current_octave--; continue;
       case '{':
@@ -584,12 +586,37 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       else
       {
          // TODO: Replace "multi_note" to use staff position
-         for (unsigned i=0; i<multi_note.size(); i++)
+         for (auto &note : multi_note)
          {
+            uint32_t local_current_accidental_symbol = 0x0000;
+
+            if (note.accidental_natural)
+            {
+               local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
+            }
+            else if (note.accidental != 0)
+            {
+               // TODO: Calculate symbol for more extended accidental cases
+               if (note.accidental < 0) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
+               if (note.accidental > 0) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+            }
+
+            bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
+            if (accidental_is_present)
+            {
+               draw_music_symbol(
+                  local_current_accidental_symbol,
+                  start_x+x_cursor-staff_line_distance*1.2,
+                  y + calculate_staff_position_y_offset(note.staff_position),
+                  color,
+                  font_size_px
+               );
+            }
+
             draw_music_symbol(
                symbol,
                start_x+x_cursor,
-               y + calculate_staff_position_y_offset(multi_note[i].staff_position),
+               y + calculate_staff_position_y_offset(note.staff_position),
                color,
                font_size_px
             );
@@ -732,6 +759,13 @@ void MusicNotation::draw_staff_lines(
       draw_line(x, y-line_distance*i, x+width, y-line_distance*i, color, thickness);
       draw_line(x, y+line_distance*i, x+width, y+line_distance*i, color, thickness);
    }
+}
+
+
+
+void MusicNotation::draw_accidental(int32_t symbol, float x, float y, const ALLEGRO_COLOR &color, float font_size_px)
+{
+   draw_music_symbol(symbol, x, y, color, font_size_px);
 }
 
 
