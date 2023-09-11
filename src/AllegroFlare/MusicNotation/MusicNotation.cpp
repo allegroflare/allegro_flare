@@ -55,7 +55,6 @@ MusicNotation::MusicNotation(
    , quarter_note_spacing(staff_line_distance * 5)
    , spacing_method(SPACING_AESTHETIC)
    , font_bin(font_bin)
-   , current_accidental(0)
    , int_cast_y(true)
    , ignore_spaces(false)
 {
@@ -441,7 +440,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       if (current_note_is_rest)
       {
-         current_accidental = 0;
          if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
          else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
          else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest;
