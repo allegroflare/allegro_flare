@@ -55,7 +55,6 @@ MusicNotation::MusicNotation(
    , quarter_note_spacing(staff_line_distance * 5)
    , spacing_method(SPACING_AESTHETIC)
    , font_bin(font_bin)
-   , current_note_is_rest(false)
    , current_accidental(0)
    , int_cast_y(true)
    , ignore_spaces(false)
@@ -172,7 +171,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    int start_x = x;
    int x_cursor = 0;
    int current_note_duration = 4;
-   current_note_is_rest = false;
+   bool current_note_is_rest = false;
    uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
    uint32_t current_accidental_symbol = 0x0000;
    int current_octave = 0;

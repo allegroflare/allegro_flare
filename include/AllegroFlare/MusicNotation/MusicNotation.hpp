@@ -29,7 +29,6 @@ namespace AllegroFlare
          float quarter_note_spacing;
          spacing_method_t spacing_method;
          AllegroFlare::FontBin *font_bin;
-         bool current_note_is_rest;
          int current_accidental;
          bool int_cast_y;
          bool ignore_spaces;
