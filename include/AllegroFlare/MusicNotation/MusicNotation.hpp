@@ -31,7 +31,7 @@ namespace AllegroFlare
          spacing_method_t spacing_method;
          bool int_cast_y;
 
-         float _get_staff_position_offset(int staff_position);
+         float _get_staff_position_y_offset(int staff_position);
          void prepare_drawing_surface();
          void finish_drawing_surface(std::string output_file_basename="");
          float draw_raw(float x, float y, std::string content);
