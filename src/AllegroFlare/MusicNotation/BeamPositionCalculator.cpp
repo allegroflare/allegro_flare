@@ -47,8 +47,24 @@ BeamPositionCalculator::StemDirection BeamPositionCalculator::infer_preferred_st
    }
    BeamPositionCalculator::StemDirection result = BeamPositionCalculator::StemDirection::UNDEFINED;
 
-   int min_staff_position = get_min_staff_position();
-   int max_staff_position = get_max_staff_position();
+   int abs_min_staff_position = abs(get_min_staff_position());
+   int abs_max_staff_position = abs(get_max_staff_position());
+
+   if (abs_min_staff_position == abs_max_staff_position)
+   {
+      // The highest note is further out from the center line than the lowest note
+      result = BeamPositionCalculator::StemDirection::EVEN;
+   }
+   else if (abs_min_staff_position > abs_max_staff_position)
+   {
+      // The lowest note is further out from the center line than the highest note
+      result = BeamPositionCalculator::StemDirection::UP;
+   }
+   else
+   {
+      // The highest note is further out from the center line than the lowest note
+      result = BeamPositionCalculator::StemDirection::DOWN;
+   }
 
    return result;
 }

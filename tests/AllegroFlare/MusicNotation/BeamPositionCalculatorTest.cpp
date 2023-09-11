@@ -81,3 +81,52 @@ TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
 }
 
 
+TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
+   infer_preferred_stem_direction__when_the_lowest_note_is_further_from_the_center_line_than_the_highest__returns_UP)
+{
+   std::vector<std::pair<float, int>> staff_positions = build_staff_positions();
+   AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
+   EXPECT_EQ(
+      AllegroFlare::MusicNotation::BeamPositionCalculator::StemDirection::UP,
+      beam_position_calculator.infer_preferred_stem_direction()
+   );
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
+   infer_preferred_stem_direction__when_the_highest_note_is_further_from_the_center_line_than_the_lowest__returns_DOWN)
+{
+   std::vector<std::pair<float, int>> staff_positions = {
+      { 0.0,    4 },
+      { 20.0,   3 },
+      { 40.0,  -3 },
+      { 70.0,   3 },
+      { 90.0,   0 },
+   };
+   AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
+   EXPECT_EQ(
+      AllegroFlare::MusicNotation::BeamPositionCalculator::StemDirection::DOWN,
+      beam_position_calculator.infer_preferred_stem_direction()
+   );
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_BeamPositionCalculatorTest,
+   infer_preferred_stem_direction__when_the_highest_and_lowest_notes_from_the_center_line_are_the_same_distance_\
+returns_EVEN)
+{
+   std::vector<std::pair<float, int>> staff_positions = {
+      { 0.0,    4 },
+      { 20.0,   3 },
+      { 40.0,  -3 },
+      { 70.0,  -4 },
+      { 90.0,   0 },
+   };
+   AllegroFlare::MusicNotation::BeamPositionCalculator beam_position_calculator(staff_positions);
+   EXPECT_EQ(
+      AllegroFlare::MusicNotation::BeamPositionCalculator::StemDirection::EVEN,
+      beam_position_calculator.infer_preferred_stem_direction()
+   );
+}
+
+

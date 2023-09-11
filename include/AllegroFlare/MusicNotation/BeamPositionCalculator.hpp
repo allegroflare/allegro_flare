@@ -18,6 +18,7 @@ namespace AllegroFlare
             UNDEFINED = 0,
             UP,
             DOWN,
+            EVEN,
          };
       private:
          std::vector<std::pair<float, int>> notehead_staff_positions;
