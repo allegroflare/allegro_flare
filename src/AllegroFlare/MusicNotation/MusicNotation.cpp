@@ -364,7 +364,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          // Also, you can have multiple staff degrees for a single note by placing them in
          // parens separated by spaces i.g. "(0 4 -7 8 11 -16)"
 
-         // find the closing brace
+         // Find the closing brace
          std::size_t pos_opening_paren = i;
          std::size_t pos_closing_paren = content.find(')', pos_opening_paren);
 
@@ -375,20 +375,22 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             error_message << "music string parse error: expected closing parenthesis ')' not found";
             AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
          }
-         else
+
+         // Capture the content of the string within the parens
+         std::string parened_string = content.substr(pos_opening_paren+1, pos_closing_paren - pos_opening_paren - 1);
+
+         // Pull out each token
+         i = pos_closing_paren;
+         std::vector<std::string> tokens = php::explode(" ", parened_string);
+         for (auto &token : tokens)
          {
-            std::string parened_string = content.substr(pos_opening_paren+1, pos_closing_paren - pos_opening_paren - 1);
-
-            // set the cursor to the end of this braced section
-            i = pos_closing_paren;
-
-            std::vector<std::string> tokens = php::explode(" ", parened_string);
-            for (auto &token : tokens)
-               multi_note.push_back(atoi(token.c_str()));
-
-            staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 7);
-            break;
+            // TODO: Confirm these tokens are valid numbers
+            multi_note.push_back(atoi(token.c_str()));
          }
+
+         // Set the cursor to the end of this parenthesis section
+         staff_pos = atoi(tostring(parened_string).c_str()) + (current_octave * 7);
+         break;
       }
       default:
          staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
