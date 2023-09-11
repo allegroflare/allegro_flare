@@ -30,7 +30,22 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    EXPECT_THROW_WITH_MESSAGE(
       music_notation.draw(0, 0, music_notation_content_string),
       std::runtime_error,
-      "[MusicNotation::draw]: error: music string parse error: closing brace not found"
+      "[MusicNotation::draw]: error: music string parse error: closing brace '}' not found"
+   );
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   draw__when_an_expected_closing_parenthesis_is_not_present__throws_an_error)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref());
+   std::string music_notation_content_string = "(missing_closing_parenthesis";
+
+   EXPECT_THROW_WITH_MESSAGE(
+      music_notation.draw(0, 0, music_notation_content_string),
+      std::runtime_error,
+      "[MusicNotation::draw]: error: music string parse error: closing parenthesis ')' not found"
    );
 }
 

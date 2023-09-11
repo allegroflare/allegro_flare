@@ -220,7 +220,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          {
             // Closing brace not found, throw an error
             std::stringstream error_message;
-            error_message << "music string parse error: closing brace not found";
+            error_message << "music string parse error: closing brace '}' not found";
             AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
          }
 
@@ -370,10 +370,10 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
          if (pos_closing_paren == std::string::npos)
          {
-            // closing brace not found, output an error and abort continuing to render
-            std::cout << "music string parse error: closing parenthesis ')' not found" << std::endl;
-            i = content.size();
-            continue;
+            // Closing brace not found, throw an error
+            std::stringstream error_message;
+            error_message << "music string parse error: closing parenthesis ')' not found";
+            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
          }
          else
          {
