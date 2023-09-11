@@ -186,7 +186,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    int staff_pos = 0;
 
 
-   for (int i=0; i<(int)content.size(); i++) // TODO make this an iterator
+   for (int i=0; i<(int)content.size(); i++)
    {
       std::vector<int> multi_note;
       staff_pos = 0;
@@ -403,7 +403,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       if (rhythm_only) staff_pos = 0;
 
 
-      // look ahead to see if there are dots
+
+      // look ahead to count the number of consecutive dots
 
       int look_ahead_delta = 1;
       while (i+look_ahead_delta < (int)content.size())
@@ -418,19 +419,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       }
 
 
-      // beams
 
-      // collect the beam data
-
-      //if (adding_beams)
-      //{
-         //just_one_beam.add_beam_point(
-            //start_x+x_cursor, y, staff_pos, get_music_symbol_width(AllegroFlare::FontBravura::quarter_note), this);
-      //}
-
-
-
-      // Draw an accidental
+      // Draw an accidental (to the left size of the x_cursor)
 
       if (current_accidental_symbol != 0x0000)
       {
