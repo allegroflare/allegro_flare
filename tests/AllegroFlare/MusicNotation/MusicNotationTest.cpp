@@ -162,6 +162,21 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
 
    al_flip_display();
+   //sleep(1);
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   CAPTURE__on_rendering__note_clusters__will_handle_octaves_as_expected)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
+
+   std::string music_notation_content_string = " & ^    (0 =,4 -7 3 ,1 ''+6)";
+
+   music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
+
+   al_flip_display();
    sleep(1);
 }
 
