@@ -219,10 +219,10 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
          if (pos_closing_brace == std::string::npos)
          {
-            // closing brace not found, output an error and abort continuing to render
-            std::cout << "music string parse error: closing brace not found" << std::endl;
-            i = content.size();
-            continue;
+            // Closing brace not found, throw an error
+            std::stringstream error_message;
+            error_message << "music string parse error: closing brace not found";
+            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
          }
          else
          {
@@ -460,7 +460,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          // use the flipped stem version (if necessairy)
          if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
          {
-            //throw std::runtime_error("aaa");
             symbol += 1;
          }
       }

@@ -5,6 +5,7 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/DrawingInterfaces/Allegro5.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_MusicNotation_MusicNotationTest : public ::testing::Test {};
@@ -16,6 +17,21 @@ class AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture :
 TEST_F(AllegroFlare_MusicNotation_MusicNotationTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::MusicNotation::MusicNotation music_notation;
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   draw__when_an_expected_closing_brace_is_not_present__throws_an_error)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref());
+   std::string music_notation_content_string = "{missing_closing_brace";
+
+   EXPECT_THROW_WITH_MESSAGE(
+      music_notation.draw(0, 0, music_notation_content_string),
+      std::runtime_error,
+      "[MusicNotation::draw]: error: music string parse error: closing brace not found"
+   );
 }
 
 
@@ -116,7 +132,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    x_cursor += music_notation.draw(x+x_cursor, 1080/2, music_notation_content_string);
 
    al_flip_display();
-   sleep(1);
+   //sleep(1);
 }
 
 
