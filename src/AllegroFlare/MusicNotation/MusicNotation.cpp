@@ -535,6 +535,12 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
+      // Freeze rests to staff_pos = 0
+
+      if (current_note_is_rest && force_rest_to_0_pos) staff_pos = 0;
+
+
+
       // For rhythmic staff, fix the staff position to 0
 
       if (rhythm_only) staff_pos = 0;
@@ -605,10 +611,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       }
 
 
-      if (current_note_is_rest && force_rest_to_0_pos) staff_pos = 0;
-
-
-
       // Draw ledger lines
 
       draw_ledger_lines_to(
@@ -622,10 +624,12 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      // Render the notehead(s) and accidentals
+      // Render the notehead(s), accidentals, and dots
 
       for (auto &note : multi_note)
       {
+         // Draw the accidental
+
          uint32_t local_current_accidental_symbol = 0x0000;
 
          if (note.accidental_natural)
@@ -658,6 +662,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             );
          }
 
+         // Draw the note
+
          draw_music_symbol(
             symbol,
             start_x+x_cursor,
@@ -665,10 +671,33 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             color,
             font_size_px
          );
+
+         // Draw the dots
+
+         float dots_x_cursor = 0;
+         bool note_head_is_on_line = (note.staff_position % 2 == 0);
+         float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
+         if (num_dots > 0)
+         {
+            dots_x_cursor += get_music_symbol_width(symbol) + get_music_symbol_width(AllegroFlare::FontBravura::dot);
+         }
+         for (int i=0; i<num_dots; i++)
+         {
+            // TODO: Alter the x-position based on the offset for this notehead
+            draw_music_symbol(
+               AllegroFlare::FontBravura::dot,
+               start_x+x_cursor+dots_x_cursor,
+               y + calculate_staff_position_y_offset(note.staff_position) + dot_vertical_adjustment_from_being_on_line,
+               color,
+               font_size_px
+            );
+            dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
+         }
       }
 
 
 
+      /*
       // Draw the dots
 
       float dots_x_cursor = 0;
@@ -689,6 +718,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          );
          dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
       }
+      */
 
 
 
