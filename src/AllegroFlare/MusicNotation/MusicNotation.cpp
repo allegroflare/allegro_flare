@@ -332,6 +332,49 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          i = pos_closing_brace;
          continue;
       }
+      case '(':
+      {
+         // TODO: Test this feature of multi_note
+
+         // Clusters of notes are to be contained in () parens, separated by spaces
+         // "(0 =,4 -7 3 ,1 ''+6)"
+
+         // Find the closing brace
+         std::size_t pos_opening_paren = i;
+         std::size_t pos_closing_paren = content.find(')', pos_opening_paren);
+
+         if (pos_closing_paren == std::string::npos)
+         {
+            // Closing brace not found, throw an error
+            std::stringstream error_message;
+            error_message << "music string parse error: expected closing parenthesis ')' not found";
+            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
+         }
+
+         // Capture the content of the string within the parens
+         std::string parened_string = content.substr(pos_opening_paren+1, pos_closing_paren - pos_opening_paren - 1);
+
+         // Pull out each token
+         i = pos_closing_paren;
+         std::vector<std::string> tokens = php::explode(" ", parened_string);
+         int multi_note_local_octave = 0;
+         for (auto &token : tokens)
+         {
+            // TODO: Test this parsing
+            std::pair<PitchToken, int> parsed_token_info = parse_pitch_token(token);
+            int change_in_octave_context_for_this_parsed_token = parsed_token_info.second;
+            multi_note_local_octave += change_in_octave_context_for_this_parsed_token;
+
+            PitchToken &parsed_pitch_token = parsed_token_info.first;
+            parsed_pitch_token.staff_position += (multi_note_local_octave * 7);
+
+            multi_note.push_back(parsed_pitch_token);
+         }
+
+         note_info_accumulated_and_ready_for_render = true;
+
+         break;
+      }
       default: context_change_token_found = false; break;
       }
 
@@ -452,57 +495,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
       // Capture note and/or notes
-
-      multinote_token_found = true;
-      switch (content[i])
-      {
-      case '(':
-      {
-         // TODO: Test this feature of multi_note
-
-         // Clusters of notes are to be contained in () parens, separated by spaces
-         // "(0 =,4 -7 3 ,1 ''+6)"
-
-         // Find the closing brace
-         std::size_t pos_opening_paren = i;
-         std::size_t pos_closing_paren = content.find(')', pos_opening_paren);
-
-         if (pos_closing_paren == std::string::npos)
-         {
-            // Closing brace not found, throw an error
-            std::stringstream error_message;
-            error_message << "music string parse error: expected closing parenthesis ')' not found";
-            AllegroFlare::Logger::throw_error("MusicNotation::draw", error_message.str());
-         }
-
-         // Capture the content of the string within the parens
-         std::string parened_string = content.substr(pos_opening_paren+1, pos_closing_paren - pos_opening_paren - 1);
-
-         // Pull out each token
-         i = pos_closing_paren;
-         std::vector<std::string> tokens = php::explode(" ", parened_string);
-         int multi_note_local_octave = 0;
-         for (auto &token : tokens)
-         {
-            // TODO: Test this parsing
-            std::pair<PitchToken, int> parsed_token_info = parse_pitch_token(token);
-            int change_in_octave_context_for_this_parsed_token = parsed_token_info.second;
-            multi_note_local_octave += change_in_octave_context_for_this_parsed_token;
-
-            PitchToken &parsed_pitch_token = parsed_token_info.first;
-            parsed_pitch_token.staff_position += (multi_note_local_octave * 7);
-
-            multi_note.push_back(parsed_pitch_token);
-         }
-
-         note_info_accumulated_and_ready_for_render = true;
-
-         break;
-      }
-      default: multinote_token_found = false; break;
-      }
-
-
 
       if (note_info_accumulated_and_ready_for_render)
       {
