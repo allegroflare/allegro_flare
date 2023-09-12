@@ -255,6 +255,59 @@ float MusicNotation::draw(float x, float y, std::string content, std::string out
 
 
 
+float MusicNotation::draw_stacked_accidentals_on(
+      float x,
+      float y,
+      const std::vector<PitchToken>& multi_note,
+      const ALLEGRO_COLOR &color,
+      float font_size_px
+   )
+{
+      // TODO: Replace this technique of drawing all the notes on the same column with a stacking technique.
+      // See: https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
+
+      for (auto &note : multi_note)
+      {
+         // Draw the accidental
+
+         uint32_t local_current_accidental_symbol = 0x0000;
+
+         if (note.accidental_natural)
+         {
+            local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
+         }
+         else if (note.accidental != 0)
+         {
+            // TODO: Calculate symbol for more extended accidental cases
+            if (note.accidental == -1) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
+            else if (note.accidental == 1) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+            else if (note.accidental < -2 || note.accidental > 2)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+                  "Rendering accidentals other than flat, sharp, and natural is not supported."
+               );
+            }
+         }
+
+         bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
+         if (accidental_is_present)
+         {
+            draw_music_symbol(
+               local_current_accidental_symbol,
+               x-staff_line_distance*1.2,
+               y + calculate_staff_position_y_offset(note.staff_position),
+               color,
+               font_size_px
+            );
+         }
+     }
+
+     return 0; // TODO: Return the width of the render
+}
+
+
+
 StemDirection MusicNotation::calculate_preferred_stem_direction(const std::vector<PitchToken>& multi_note)
 {
    // TODO: Test this method
@@ -422,10 +475,13 @@ float MusicNotation::draw_note_fragment(
 
       // Render the notehead(s), accidentals, and dots
 
+      float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
+
       for (auto &note : multi_note)
       {
          // Draw the accidental
 
+         /*
          uint32_t local_current_accidental_symbol = 0x0000;
 
          if (note.accidental_natural)
@@ -457,6 +513,7 @@ float MusicNotation::draw_note_fragment(
                font_size_px
             );
          }
+         */
 
          // Draw the note
 

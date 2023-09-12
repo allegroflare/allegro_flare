@@ -77,6 +77,13 @@ namespace AllegroFlare
          char duration_denominator_to_char(int denominator);
          float draw(float x, float y, std::string content, std::string output_file_basename="");
          void set_staff_line_distance(float distance);
+         float draw_stacked_accidentals_on(
+            float x,
+            float y,
+            const std::vector<PitchToken>& multi_note,
+            const ALLEGRO_COLOR &color,
+            float font_size_px
+         );
          StemDirection calculate_preferred_stem_direction(const std::vector<PitchToken> &multi_note);
          float draw_note_fragment(
             float x,
