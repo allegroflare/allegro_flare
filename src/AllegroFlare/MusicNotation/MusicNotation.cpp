@@ -785,7 +785,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       // Draw the actual note fragment
 
       float result_render_width = draw_note_fragment(
-            start_x + x_cursor, // TOOD: rename this variable
+            start_x + x_cursor,
             y,
             multi_note,
             current_note_is_rest,
