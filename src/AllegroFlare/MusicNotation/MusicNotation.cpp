@@ -508,6 +508,25 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       {
 
 
+
+      // look ahead to count the number of consecutive dots
+      // TODO: Take this section and move it ahead of the rendering (or extract the code below it)
+
+      int look_ahead_delta = 1;
+      while (i+look_ahead_delta < (int)content.size())
+      {
+         if (content[i+1] == '.')
+         {
+            num_dots++;
+            i++;
+            //look_ahead_delta++;
+         }
+         else break;
+      }
+
+
+
+
       // Assume this token is the staff position, and continue forward with the render
 
       //bool assume_this_token_is_a_staff_position =
@@ -528,17 +547,17 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       // look ahead to count the number of consecutive dots
 
-      int look_ahead_delta = 1;
-      while (i+look_ahead_delta < (int)content.size())
-      {
-         if (content[i+1] == '.')
-         {
-            num_dots++;
-            i++;
-            //look_ahead_delta++;
-         }
-         else break;
-      }
+      //int look_ahead_delta = 1;
+      //while (i+look_ahead_delta < (int)content.size())
+      //{
+         //if (content[i+1] == '.')
+         //{
+            //num_dots++;
+            //i++;
+            ////look_ahead_delta++;
+         //}
+         //else break;
+      //}
 
 
 
