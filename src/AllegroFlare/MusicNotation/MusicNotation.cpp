@@ -263,47 +263,47 @@ float MusicNotation::draw_stacked_accidentals_on(
       float font_size_px
    )
 {
-      // TODO: Replace this technique of drawing all the notes on the same column with a stacking technique.
-      // See: https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
+   // TODO: Replace this technique of drawing all the notes on the same column with a stacking technique.
+   // See: https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
 
-      for (auto &note : multi_note)
+   for (auto &note : multi_note)
+   {
+      // Draw the accidental
+
+      uint32_t local_current_accidental_symbol = 0x0000;
+
+      if (note.accidental_natural)
       {
-         // Draw the accidental
-
-         uint32_t local_current_accidental_symbol = 0x0000;
-
-         if (note.accidental_natural)
+         local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
+      }
+      else if (note.accidental != 0)
+      {
+         // TODO: Calculate symbol for more extended accidental cases
+         if (note.accidental == -1) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
+         else if (note.accidental == 1) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+         else if (note.accidental < -2 || note.accidental > 2)
          {
-            local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
-         }
-         else if (note.accidental != 0)
-         {
-            // TODO: Calculate symbol for more extended accidental cases
-            if (note.accidental == -1) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
-            else if (note.accidental == 1) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
-            else if (note.accidental < -2 || note.accidental > 2)
-            {
-               AllegroFlare::Logger::throw_error(
-                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-                  "Rendering accidentals other than flat, sharp, and natural is not supported."
-               );
-            }
-         }
-
-         bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
-         if (accidental_is_present)
-         {
-            draw_music_symbol(
-               local_current_accidental_symbol,
-               x-staff_line_distance*1.2,
-               y + calculate_staff_position_y_offset(note.staff_position),
-               color,
-               font_size_px
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+               "Rendering accidentals other than flat, sharp, and natural is not supported."
             );
          }
-     }
+      }
 
-     return 0; // TODO: Return the width of the render
+      bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
+      if (accidental_is_present)
+      {
+         draw_music_symbol(
+            local_current_accidental_symbol,
+            x-staff_line_distance*1.2,
+            y + calculate_staff_position_y_offset(note.staff_position),
+            color,
+            font_size_px
+         );
+      }
+   }
+
+   return 0; // TODO: Return the width of the render
 }
 
 
