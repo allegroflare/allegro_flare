@@ -532,7 +532,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      // Calculate which primary symbol to render, a note-with-stem or rest
+      // Calculate which primary symbol to render, which should either be a note-with-stem or rest
 
       if (current_note_is_rest)
       {
@@ -607,7 +607,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       }
       else
       {
-         // TODO: Replace "multi_note" to use staff position
          for (auto &note : multi_note)
          {
             uint32_t local_current_accidental_symbol = 0x0000;
