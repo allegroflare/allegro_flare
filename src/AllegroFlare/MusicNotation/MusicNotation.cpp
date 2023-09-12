@@ -536,17 +536,33 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       if (current_note_is_rest)
       {
-         if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
-         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
+         if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_rest;
          else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest;
-         else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_rest;
+         else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
+         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
+         else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::rest_16;
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+               "Rendering durations fast than a 16 rest is not supported."
+            );
+         }
       }
       else // (!current_note_is_rest)
       {
-         if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
-         else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
+         if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
          else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_note;
-         else if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
+         else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
+         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
+         else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::sixteenth_note;
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+               "Rendering durations faster than a 16 note is not supported."
+            );
+         }
 
          // use the flipped stem version (if necessairy)
          if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
