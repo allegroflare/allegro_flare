@@ -250,7 +250,7 @@ float MusicNotation::draw(float x, float y, std::string content, std::string out
 
 
 float MusicNotation::draw_note_fragment(
-      float start_x,
+      float x,
       float x_cursor,
       float y,
       std::vector<PitchToken> multi_note,
@@ -329,7 +329,7 @@ float MusicNotation::draw_note_fragment(
       if (min_staff_pos < 0)
       {
          draw_ledger_lines_to(
-            start_x+x_cursor,
+            x+x_cursor,
             y,
             min_staff_pos,
             staff_line_thickness,
@@ -341,7 +341,7 @@ float MusicNotation::draw_note_fragment(
       if (max_staff_pos > 0)
       {
          draw_ledger_lines_to(
-            start_x+x_cursor,
+            x+x_cursor,
             y,
             max_staff_pos,
             staff_line_thickness,
@@ -383,7 +383,7 @@ float MusicNotation::draw_note_fragment(
          {
             draw_music_symbol(
                local_current_accidental_symbol,
-               start_x+x_cursor-staff_line_distance*1.2,
+               x+x_cursor-staff_line_distance*1.2,
                y + calculate_staff_position_y_offset(note.staff_position),
                color,
                font_size_px
@@ -394,7 +394,7 @@ float MusicNotation::draw_note_fragment(
 
          draw_music_symbol(
             symbol,
-            start_x+x_cursor,
+            x+x_cursor,
             y + calculate_staff_position_y_offset(note.staff_position),
             color,
             font_size_px
@@ -414,7 +414,7 @@ float MusicNotation::draw_note_fragment(
             // TODO: Alter the x-position based on the offset for this notehead
             draw_music_symbol(
                AllegroFlare::FontBravura::dot,
-               start_x+x_cursor+dots_x_cursor,
+               x+x_cursor+dots_x_cursor,
                y + calculate_staff_position_y_offset(note.staff_position) + dot_vertical_adjustment_from_being_on_line,
                color,
                font_size_px

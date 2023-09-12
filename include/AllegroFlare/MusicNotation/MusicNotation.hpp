@@ -71,7 +71,7 @@ namespace AllegroFlare
          float draw(float x, float y, std::string content, std::string output_file_basename="");
          void set_staff_line_distance(float distance);
          float draw_note_fragment(
-            float start_x, // TOOD: rename this variable
+            float x,
             float x_cursor, // TOOD: rename/remove this variable
             float y,
             std::vector<PitchToken> multi_note,
