@@ -219,6 +219,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    int current_note_duration = 4;
    bool current_note_is_rest = false;
    uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
+   int current_accidental = 0;
+   bool current_accidental_natural = false;
    uint32_t current_accidental_symbol = 0x0000;
 
    bool force_rest_to_0_pos = true;
@@ -236,11 +238,16 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    bool context_change_token_found = true;
    bool one_off_render_token_found = true;
    bool multinote_token_found = true;
+   //int current_accidental = 0;
+   //bool accidental_natural = false;
+   //accidental_natural = false;
 
    for (int i=0; i<(int)content.size(); i++)
    {
       multi_note.clear();
       num_dots = 0;
+      //current_accidental = 0;
+      //accidental_natural = false;
 
 
       // Current note context and render setting change token cases
@@ -257,11 +264,11 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       case 'i': current_note_duration = 64; continue;
       case 'r': current_note_is_rest = true; continue;
       case 'n': current_note_is_rest = false; continue;
-      case '-': current_accidental_symbol = AllegroFlare::FontBravura::flat; continue;
-      case '+': current_accidental_symbol = AllegroFlare::FontBravura::sharp; continue;
-      case '=': current_accidental_symbol = AllegroFlare::FontBravura::natural; continue;
-      case '#': current_accidental_symbol = AllegroFlare::FontBravura::flat; continue;
-      case 'b': current_accidental_symbol = AllegroFlare::FontBravura::sharp; continue;
+      case '-': current_accidental = -1; continue;
+      case '+': current_accidental = 1; continue;
+      case '=': current_accidental_natural = true; continue;
+      case '#': current_accidental = -1; continue;
+      case 'b': current_accidental = 1; continue;
       case '\'': current_octave++; continue;
       case ',': current_octave--; continue;
       case '{':
@@ -517,18 +524,18 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       // Draw an accidental (to the left size of the x_cursor)
 
-      bool accidental_is_present = (current_accidental_symbol != 0x0000);
-      if (accidental_is_present)
-      {
-         draw_music_symbol(
-            current_accidental_symbol,
-            start_x+x_cursor-staff_line_distance*1.2,
-            y + calculate_staff_position_y_offset(staff_pos),
-            color,
-            font_size_px
-         );
-         current_accidental_symbol = 0x0000;
-      }
+      //bool accidental_is_present = (current_accidental_symbol != 0x0000);
+      //if (accidental_is_present)
+      //{
+         //draw_music_symbol(
+            //current_accidental_symbol,
+            //start_x+x_cursor-staff_line_distance*1.2,
+            //y + calculate_staff_position_y_offset(staff_pos),
+            //color,
+            //font_size_px
+         //);
+         //current_accidental_symbol = 0x0000;
+      //}
 
 
 
@@ -597,52 +604,66 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       if (multi_note.empty())
       {
-         draw_music_symbol(
-            symbol,
-            start_x+x_cursor,
-            y + calculate_staff_position_y_offset(staff_pos),
-            color,
-            font_size_px
+         multi_note.push_back(
+            PitchToken{
+               .staff_position = staff_pos,
+               .accidental = current_accidental,
+               .accidental_natural = current_accidental_natural
+            }
          );
+
+         //draw_music_symbol(
+            //symbol,
+            //start_x+x_cursor,
+            //y + calculate_staff_position_y_offset(staff_pos),
+            //color,
+            //font_size_px
+         //);
       }
-      else
+
+      // Reset the accidentals now that they've been used
+      current_accidental = 0;
+      current_accidental_natural = false;
+
+
+
+      //{
+      for (auto &note : multi_note)
       {
-         for (auto &note : multi_note)
+         uint32_t local_current_accidental_symbol = 0x0000;
+
+         if (note.accidental_natural)
          {
-            uint32_t local_current_accidental_symbol = 0x0000;
+            local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
+         }
+         else if (note.accidental != 0)
+         {
+            // TODO: Calculate symbol for more extended accidental cases
+            if (note.accidental < 0) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
+            if (note.accidental > 0) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+         }
 
-            if (note.accidental_natural)
-            {
-               local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
-            }
-            else if (note.accidental != 0)
-            {
-               // TODO: Calculate symbol for more extended accidental cases
-               if (note.accidental < 0) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
-               if (note.accidental > 0) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
-            }
-
-            bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
-            if (accidental_is_present)
-            {
-               draw_music_symbol(
-                  local_current_accidental_symbol,
-                  start_x+x_cursor-staff_line_distance*1.2,
-                  y + calculate_staff_position_y_offset(note.staff_position),
-                  color,
-                  font_size_px
-               );
-            }
-
+         bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
+         if (accidental_is_present)
+         {
             draw_music_symbol(
-               symbol,
-               start_x+x_cursor,
+               local_current_accidental_symbol,
+               start_x+x_cursor-staff_line_distance*1.2,
                y + calculate_staff_position_y_offset(note.staff_position),
                color,
                font_size_px
             );
          }
+
+         draw_music_symbol(
+            symbol,
+            start_x+x_cursor,
+            y + calculate_staff_position_y_offset(note.staff_position),
+            color,
+            font_size_px
+         );
       }
+      //}
 
 
 
