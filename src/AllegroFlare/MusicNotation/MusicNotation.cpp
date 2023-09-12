@@ -37,7 +37,18 @@ static struct PitchToken
 public:
    int staff_position;
    int accidental;
-   bool accidental_natural; // TODO: Work in accidental natural
+   bool accidental_natural;
+};
+
+
+
+static struct NoteToken
+{
+public:
+   int staff_position;
+   int accidental;
+   bool accidental_natural;
+   int octave;
 };
 
 
@@ -518,7 +529,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-
       // Calculate the final staff_position including the octave
 
       staff_pos = current_note_staff_position + (current_octave * 7);
@@ -528,6 +538,25 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       // For rhythmic staff, fix the staff position to 0
 
       if (rhythm_only) staff_pos = 0;
+
+
+
+      // If the symbol is singular, put it into a "multi_note" cluster group so it can be handled by the renderer
+
+      if (multi_note.empty())
+      {
+         multi_note.push_back(
+            PitchToken{
+               .staff_position = staff_pos,
+               .accidental = current_accidental,
+               .accidental_natural = current_accidental_natural
+            }
+         );
+      }
+
+      // Reset the accidentals now that they've been used
+      current_accidental = 0;
+      current_accidental_natural = false;
 
 
 
@@ -590,25 +619,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          get_music_symbol_width(symbol),
          staff_color
       );
-
-
-
-      // If the symbol is singular, put it into a "multi_note" cluster group so it can be handled by the renderer
-
-      if (multi_note.empty())
-      {
-         multi_note.push_back(
-            PitchToken{
-               .staff_position = staff_pos,
-               .accidental = current_accidental,
-               .accidental_natural = current_accidental_natural
-            }
-         );
-      }
-
-      // Reset the accidentals now that they've been used
-      current_accidental = 0;
-      current_accidental_natural = false;
 
 
 
@@ -698,6 +708,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       }
 
       } // if (note_info_accumulated_and_ready_for_render)
+
 
       note_info_accumulated_and_ready_for_render = false;
    }
