@@ -59,6 +59,8 @@ namespace AllegroFlare
       const int32_t FontBravura::sixteenth_note_down = 57786;
       const int32_t FontBravura::thirtysecond_note = 57787;
       const int32_t FontBravura::thirtysecond_note_down = 57788;
+      const int32_t FontBravura::sixtyfourth_note = 57789;
+      const int32_t FontBravura::sixtyfourth_note_down = 57790;
 
       // note parts
       const int32_t FontBravura::stem = 119141;

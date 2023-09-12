@@ -61,6 +61,8 @@ namespace AllegroFlare
       static const int32_t sixteenth_note_down;
       static const int32_t thirtysecond_note;
       static const int32_t thirtysecond_note_down;
+      static const int32_t sixtyfourth_note;
+      static const int32_t sixtyfourth_note_down;
 
       // note parts
       static const int32_t stem;

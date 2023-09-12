@@ -541,11 +541,13 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
          else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
          else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::rest_16;
+         else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::rest_32;
+         else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::rest_64;
          else
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-               "Rendering durations fast than a 16 rest is not supported."
+               "Rendering durations faster than a 1/64 rest is not supported."
             );
          }
       }
@@ -556,11 +558,13 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
          else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
          else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::sixteenth_note;
+         else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::thirtysecond_note;
+         else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::sixtyfourth_note;
          else
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-               "Rendering durations faster than a 16 note is not supported."
+               "Rendering durations faster than a 1/64 note is not supported."
             );
          }
 
