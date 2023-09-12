@@ -427,22 +427,24 @@ float MusicNotation::draw_note_fragment(
 
       // Move the cursor over based on the spacing method
 
+      float result_render_width = 0;
+
       switch (spacing_method)
       {
          case SPACING_FIXED:
-            x_cursor += get_duration_fixed_width(current_note_duration, quarter_note_spacing, num_dots);
+            result_render_width = get_duration_fixed_width(current_note_duration, quarter_note_spacing, num_dots);
          break;
 
          case SPACING_AESTHETIC:
          case SPACING_UNDEF:
          default:
-            x_cursor += get_duration_aesthetic_width(current_note_duration, quarter_note_spacing, num_dots);
+            result_render_width = get_duration_aesthetic_width(current_note_duration, quarter_note_spacing, num_dots);
          break;
       }
 
       //} // if (note_info_accumulated_and_ready_for_render)
 
-   return x_cursor;
+   return result_render_width;
 }
 
 
@@ -791,9 +793,9 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       // Draw the actual note fragment
 
-      x_cursor = draw_note_fragment(
-            start_x, // TOOD: rename this variable
-            x_cursor, // TOOD: rename/remove this variable
+      float result_render_width = draw_note_fragment(
+            start_x + x_cursor, // TOOD: rename this variable
+            0, //x_cursor, // TOOD: rename/remove this variable
             y,
             multi_note,
             current_note_is_rest,
@@ -805,6 +807,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             color,
             font_size_px
          );
+
+      x_cursor += result_render_width;
 
       } // if (note_info_accumulated_and_ready_for_render)
 
