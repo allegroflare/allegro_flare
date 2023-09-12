@@ -8,10 +8,29 @@
 #include <AllegroFlare/FontBin.hpp>
 
 
+      // TODO: Move this into a better scope
+      struct PitchToken
+      {
+      public:
+         int staff_position;
+         int accidental;
+         bool accidental_natural;
+      };
+
+
 namespace AllegroFlare
 {
    namespace MusicNotation
    {
+      //struct PitchToken
+      //{
+      //public:
+         //int staff_position;
+         //int accidental;
+         //bool accidental_natural;
+      //};
+
+
       class MusicNotation
       // TODO: guard all functions properly when drawing_interface is nullptr
       {
@@ -51,6 +70,20 @@ namespace AllegroFlare
          char duration_denominator_to_char(int denominator);
          float draw(float x, float y, std::string content, std::string output_file_basename="");
          void set_staff_line_distance(float distance);
+         float draw_note_fragment(
+            float start_x, // TOOD: rename this variable
+            float x_cursor, // TOOD: rename/remove this variable
+            float y,
+            std::vector<PitchToken> multi_note,
+            bool current_note_is_rest,
+            int current_note_duration,
+            int num_dots,
+            bool freeze_stems_up,
+            float staff_line_thickness,
+            ALLEGRO_COLOR staff_color,
+            ALLEGRO_COLOR color,
+            float font_size_px
+         );
          void draw_ledger_lines_to(
             float x,
             float y,
