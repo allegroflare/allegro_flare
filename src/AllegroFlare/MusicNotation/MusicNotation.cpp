@@ -55,20 +55,30 @@ public:
 
 static int get_min_staff_position(const std::vector<PitchToken> &multi_note)
 {
-   if (multi_note.empty()) return -12;
-   // TODO: Calculate the actual min position
-   // NOTE: For now, return the first element
-   return multi_note.front().staff_position;
+   if (multi_note.empty()) return 0;
+
+   int min_staff_position = std::numeric_limits<int>::max();
+   for (const PitchToken &token : multi_note)
+   {
+      if (token.staff_position < min_staff_position) min_staff_position = token.staff_position;
+   }
+
+   return min_staff_position;
 }
 
 
 
 static int get_max_staff_position(const std::vector<PitchToken> &multi_note)
 {
-   if (multi_note.empty()) return 12;
-   // TODO: Calculate the actual max position
-   // NOTE: For now, return the first element
-   return multi_note.front().staff_position;
+   if (multi_note.empty()) return 0;
+
+   int min_staff_position = std::numeric_limits<int>::min();
+   for (const PitchToken &token : multi_note)
+   {
+      if (token.staff_position > min_staff_position) min_staff_position = token.staff_position;
+   }
+
+   return min_staff_position;
 }
 
 
@@ -264,7 +274,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
    // More render state variables
    int current_octave = 0;
-   int staff_pos = 0;
+   //int staff_pos = 0;
    int num_dots = 0;
    std::vector<PitchToken> multi_note;
    bool context_change_token_found = true;
@@ -397,7 +407,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             multi_note_local_octave += change_in_octave_context_for_this_parsed_token;
 
             PitchToken &parsed_pitch_token = parsed_token_info.first;
-            parsed_pitch_token.staff_position += (multi_note_local_octave * 7);
+            parsed_pitch_token.staff_position += (multi_note_local_octave * 7) + (current_octave * 7);
 
             multi_note.push_back(parsed_pitch_token);
          }
@@ -549,41 +559,45 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      // Calculate the final staff_position including the octave
-
-      staff_pos = current_note_staff_position + (current_octave * 7);
-
-
-
-      // Freeze rests to staff_pos = 0
-
-      if (current_note_is_rest && force_rest_to_0_pos) staff_pos = 0;
-
-
-
-      // For rhythmic staff, fix the staff position to 0
-
-      if (rhythm_only) staff_pos = 0;
-
-
-
       // If the symbol is singular, put it into a "multi_note" cluster group so it can be handled by the renderer
 
       if (multi_note.empty())
       {
+         // Calculate the final staff_position including the octave
+         int result_staff_pos = current_note_staff_position + (current_octave * 7);
+
+         // Freeze rests to staff_pos = 0
+         if (current_note_is_rest && force_rest_to_0_pos) result_staff_pos = 0;
+
+         // For rhythmic staff, fix the staff position to 0
+         if (rhythm_only) result_staff_pos = 0;
+
          multi_note.push_back(
             PitchToken{
-               .staff_position = staff_pos,
+               .staff_position = result_staff_pos,
                .accidental = current_accidental,
                .accidental_natural = current_accidental_natural
             }
          );
+
+         // Reset the accidentals now that they've been used
+         current_accidental = 0;
+         current_accidental_natural = false;
       }
 
-      // Reset the accidentals now that they've been used
-      current_accidental = 0;
-      current_accidental_natural = false;
 
+
+      // Calculate our max and min staff position
+
+      int min_staff_pos = get_min_staff_position(multi_note);
+      int max_staff_pos = get_max_staff_position(multi_note);
+      bool max_and_min_are_above = min_staff_pos < 0 && max_staff_pos < 0;
+      bool max_and_min_are_below = min_staff_pos > 0 && max_staff_pos > 0;
+      bool current_note_is_below_center_line = false;
+      if (min_staff_pos == max_staff_pos == 0) current_note_is_below_center_line = true;
+      else if (max_and_min_are_above) current_note_is_below_center_line = false;
+      else if (max_and_min_are_below) current_note_is_below_center_line = true;
+      else if (abs(min_staff_pos) < abs(max_staff_pos)) current_note_is_below_center_line = false; // TODO validate this
 
 
 
@@ -624,7 +638,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          }
 
          // use the flipped stem version (if necessairy)
-         if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
+         if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (current_note_is_below_center_line) && !freeze_stems_up)
+         //if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
          {
             symbol += 1;
          }
@@ -632,9 +647,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
       // Draw ledger lines
-
-      int min_staff_pos = get_min_staff_position(multi_note);
-      int max_staff_pos = get_max_staff_position(multi_note);
 
       if (min_staff_pos < 0)
       {
@@ -732,31 +744,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
          }
       }
-
-
-
-      /*
-      // Draw the dots
-
-      float dots_x_cursor = 0;
-      bool note_head_is_on_line = (staff_pos % 2 == 0);
-      float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
-      if (num_dots > 0)
-      {
-         dots_x_cursor += get_music_symbol_width(symbol) + get_music_symbol_width(AllegroFlare::FontBravura::dot);
-      }
-      for (int i=0; i<num_dots; i++)
-      {
-         draw_music_symbol(
-            AllegroFlare::FontBravura::dot,
-            start_x+x_cursor+dots_x_cursor,
-            y + calculate_staff_position_y_offset(staff_pos) + dot_vertical_adjustment_from_being_on_line,
-            color,
-            font_size_px
-         );
-         dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
-      }
-      */
 
 
 
