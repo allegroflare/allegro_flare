@@ -251,7 +251,6 @@ float MusicNotation::draw(float x, float y, std::string content, std::string out
 
 float MusicNotation::draw_note_fragment(
       float x,
-      float x_cursor,
       float y,
       std::vector<PitchToken> multi_note,
       bool current_note_is_rest,
@@ -329,7 +328,7 @@ float MusicNotation::draw_note_fragment(
       if (min_staff_pos < 0)
       {
          draw_ledger_lines_to(
-            x+x_cursor,
+            x,
             y,
             min_staff_pos,
             staff_line_thickness,
@@ -341,7 +340,7 @@ float MusicNotation::draw_note_fragment(
       if (max_staff_pos > 0)
       {
          draw_ledger_lines_to(
-            x+x_cursor,
+            x,
             y,
             max_staff_pos,
             staff_line_thickness,
@@ -383,7 +382,7 @@ float MusicNotation::draw_note_fragment(
          {
             draw_music_symbol(
                local_current_accidental_symbol,
-               x+x_cursor-staff_line_distance*1.2,
+               x-staff_line_distance*1.2,
                y + calculate_staff_position_y_offset(note.staff_position),
                color,
                font_size_px
@@ -394,7 +393,7 @@ float MusicNotation::draw_note_fragment(
 
          draw_music_symbol(
             symbol,
-            x+x_cursor,
+            x,
             y + calculate_staff_position_y_offset(note.staff_position),
             color,
             font_size_px
@@ -414,7 +413,7 @@ float MusicNotation::draw_note_fragment(
             // TODO: Alter the x-position based on the offset for this notehead
             draw_music_symbol(
                AllegroFlare::FontBravura::dot,
-               x+x_cursor+dots_x_cursor,
+               x+dots_x_cursor,
                y + calculate_staff_position_y_offset(note.staff_position) + dot_vertical_adjustment_from_being_on_line,
                color,
                font_size_px
@@ -795,7 +794,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       float result_render_width = draw_note_fragment(
             start_x + x_cursor, // TOOD: rename this variable
-            0, //x_cursor, // TOOD: rename/remove this variable
             y,
             multi_note,
             current_note_is_rest,
