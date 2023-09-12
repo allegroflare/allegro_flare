@@ -18,6 +18,7 @@
       };
 
 
+
 namespace AllegroFlare
 {
    namespace MusicNotation
@@ -80,7 +81,7 @@ namespace AllegroFlare
          float draw_stacked_accidentals_on(
             float x,
             float y,
-            const std::vector<PitchToken>& multi_note,
+            std::vector<PitchToken> multi_note,
             const ALLEGRO_COLOR &color,
             float font_size_px
          );

@@ -255,10 +255,46 @@ float MusicNotation::draw(float x, float y, std::string content, std::string out
 
 
 
+static struct PitchTokenComparator
+{
+   bool operator()(const PitchToken& token1, const PitchToken& token2) const
+   {
+      // TODO: Test this comparitor
+      if (token1.staff_position != token2.staff_position)
+         return token1.staff_position < token2.staff_position;
+
+      int token1_accidental_weight = token1.accidental_natural ? 0 : token1.accidental;
+      int token2_accidental_weight = token2.accidental_natural ? 0 : token2.accidental;
+
+      return token1_accidental_weight < token2_accidental_weight;
+   }
+};
+
+
+
+static void sort_and_make_unique(std::vector<PitchToken> &multi_note) // Consider adding this to the MusicNotation class
+{
+   // TODO: Consider modifying this method to return a sorted object rather than modify the existing one
+   std::set<PitchToken, PitchTokenComparator> result_multi_note;
+
+   for (auto &note : multi_note)
+   {
+      result_multi_note.insert(note);
+   }
+
+   multi_note.clear();
+   for (auto &note : result_multi_note)
+   {
+      multi_note.push_back(note);
+   }
+}
+
+
+
 float MusicNotation::draw_stacked_accidentals_on(
       float x,
       float y,
-      const std::vector<PitchToken>& multi_note,
+      std::vector<PitchToken> multi_note,
       const ALLEGRO_COLOR &color,
       float font_size_px
    )
@@ -266,6 +302,9 @@ float MusicNotation::draw_stacked_accidentals_on(
    // TODO: Replace the technique in this function with a stacking technique.
    // See: https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
 
+   sort_and_make_unique(multi_note);
+
+   // TODO: Implement this function
    for (auto &note : multi_note)
    {
       // Draw the accidental
