@@ -248,10 +248,32 @@ float MusicNotation::draw(float x, float y, std::string content, std::string out
 
 
 
-StemDirection MusicNotation::calculate_preferred_stem_direction(std::vector<PitchToken> multi_note)
+StemDirection MusicNotation::calculate_preferred_stem_direction(const std::vector<PitchToken>& multi_note)
 {
+   // TODO: Test this method
    StemDirection result = StemDirection::UNDEFINED;
-   return result;
+
+   int min_staff_pos = get_min_staff_position(multi_note);
+   int max_staff_pos = get_max_staff_position(multi_note);
+   int abs_min_staff_pos = abs(min_staff_pos);
+   int abs_max_staff_pos = abs(max_staff_pos);
+
+   // Max and min are both above the center line
+   if (min_staff_pos < 0 && max_staff_pos < 0) return StemDirection::DOWN;
+
+   // Max and min are below the center line
+   if (min_staff_pos > 0 && max_staff_pos > 0) return StemDirection::UP;
+
+   // Max and min are equally distant from the center line (this typically means the stem will go down, but can conform
+   // to surrounding stems if desired - if all other stems in the measure are up, this stem should be up as well.)
+   if (abs_min_staff_pos == abs_max_staff_pos) return StemDirection::EVEN;
+
+   // Here out, there are no edge cases. The furthest note from the center is either above or below
+   if (abs_min_staff_pos > abs_max_staff_pos) return StemDirection::UP;
+   if (abs_max_staff_pos > abs_min_staff_pos) return StemDirection::DOWN;
+
+   throw std::runtime_error("MusicNotation::calculate_preferred_stem_direction: case not handled");
+   return StemDirection::UNDEFINED;
 }
 
 
@@ -282,6 +304,7 @@ float MusicNotation::draw_note_fragment(
       else if (max_and_min_are_above) current_note_is_below_center_line = false;
       else if (max_and_min_are_below) current_note_is_below_center_line = true;
       else if (abs(min_staff_pos) < abs(max_staff_pos)) current_note_is_below_center_line = false; // TODO validate this
+      StemDirection preferred_stem_direction = calculate_preferred_stem_direction(multi_note);
 
 
 
