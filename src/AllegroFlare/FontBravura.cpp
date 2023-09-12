@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/FontBravura.hpp>
+#include <set>
 
 
 
@@ -96,6 +97,51 @@ namespace AllegroFlare
       const int32_t FontBravura::number_9 = 57481;
 
 
+      bool has_stem(int32_t character)
+      {
+         static const std::set<int32_t> stemmed_characters = {
+            FontBravura::half_note,
+            FontBravura::half_note_down,
+            FontBravura::quarter_note,
+            FontBravura::quarter_note_down,
+            FontBravura::eighth_note,
+            FontBravura::eighth_note_down,
+            FontBravura::sixteenth_note,
+            FontBravura::sixteenth_note_down,
+            FontBravura::thirtysecond_note,
+            FontBravura::thirtysecond_note_down,
+            FontBravura::sixtyfourth_note,
+            FontBravura::sixtyfourth_note_down,
+         };
+
+         return (stemmed_characters.count(character) != 0);
+      }
+      bool has_up_stem(int32_t character)
+      {
+         static const std::set<int32_t> up_stemmed_characters = {
+            FontBravura::half_note,
+            FontBravura::quarter_note,
+            FontBravura::eighth_note,
+            FontBravura::sixteenth_note,
+            FontBravura::thirtysecond_note,
+            FontBravura::sixtyfourth_note,
+         };
+
+         return (up_stemmed_characters.count(character) != 0);
+      }
+      bool has_down_stem(int32_t character)
+      {
+         static const std::set<int32_t> down_stemmed_characters = {
+            FontBravura::half_note_down,
+            FontBravura::quarter_note_down,
+            FontBravura::eighth_note_down,
+            FontBravura::sixteenth_note_down,
+            FontBravura::thirtysecond_note_down,
+            FontBravura::sixtyfourth_note_down,
+         };
+
+         return (down_stemmed_characters.count(character) != 0);
+      }
 
 
 } // namespace AllegroFlare
