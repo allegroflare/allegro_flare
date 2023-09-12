@@ -462,7 +462,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    int current_note_duration = 4;
    int current_note_staff_position = 0;
    bool current_note_is_rest = false;
-   //uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
    int current_accidental = 0;
    bool current_accidental_natural = false;
    uint32_t current_accidental_symbol = 0x0000;
@@ -476,23 +475,17 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
    // More render state variables
    int current_octave = 0;
-   //int staff_pos = 0;
    int num_dots = 0;
    std::vector<PitchToken> multi_note;
    bool context_change_token_found = true;
    bool one_off_render_token_found = true;
    bool multinote_token_found = true;
-   //int current_accidental = 0;
-   //bool accidental_natural = false;
-   //accidental_natural = false;
    bool note_info_accumulated_and_ready_for_render = false;
 
    for (int i=0; i<(int)content.size(); i++)
    {
       multi_note.clear();
       num_dots = 0;
-      //current_accidental = 0;
-      //accidental_natural = false;
 
 
       // Current note context and render setting change token cases
@@ -754,7 +747,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          {
             num_dots++;
             i++;
-            //look_ahead_delta++;
          }
          else break;
       }
