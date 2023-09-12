@@ -248,9 +248,10 @@ float MusicNotation::draw(float x, float y, std::string content, std::string out
 
 
 
-int MusicNotation::calculate_preferred_stem_direction(std::vector<PitchToken> multi_note)
+StemDirection MusicNotation::calculate_preferred_stem_direction(std::vector<PitchToken> multi_note)
 {
-   return 0;
+   StemDirection result = StemDirection::UNDEFINED;
+   return result;
 }
 
 

@@ -22,6 +22,13 @@ namespace AllegroFlare
 {
    namespace MusicNotation
    {
+      enum StemDirection
+      {
+         UNDEFINED = 0,
+         UP,
+         DOWN,
+         EVEN,
+      };
       //struct PitchToken
       //{
       //public:
@@ -70,7 +77,7 @@ namespace AllegroFlare
          char duration_denominator_to_char(int denominator);
          float draw(float x, float y, std::string content, std::string output_file_basename="");
          void set_staff_line_distance(float distance);
-         int calculate_preferred_stem_direction(std::vector<PitchToken> multi_note);
+         StemDirection calculate_preferred_stem_direction(std::vector<PitchToken> multi_note);
          float draw_note_fragment(
             float x,
             float y,
