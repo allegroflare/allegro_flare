@@ -639,8 +639,15 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          else if (note.accidental != 0)
          {
             // TODO: Calculate symbol for more extended accidental cases
-            if (note.accidental < 0) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
-            if (note.accidental > 0) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+            if (note.accidental == -1) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
+            else if (note.accidental == 1) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+            else if (note.accidental < -2 || note.accidental > 2)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+                  "Rendering accidentals other than flat, sharp, and natural is not supported."
+               );
+            }
          }
 
          bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
