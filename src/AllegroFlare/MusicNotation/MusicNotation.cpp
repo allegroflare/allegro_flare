@@ -217,6 +217,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    int start_x = x;
    int x_cursor = 0;
    int current_note_duration = 4;
+   int current_note_staff_position = 0;
    bool current_note_is_rest = false;
    uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
    int current_accidental = 0;
@@ -241,6 +242,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    //int current_accidental = 0;
    //bool accidental_natural = false;
    //accidental_natural = false;
+   bool note_info_accumulated_and_ready_for_render = false;
 
    for (int i=0; i<(int)content.size(); i++)
    {
@@ -255,6 +257,17 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
       context_change_token_found = true;
       switch (content[i])
       {
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+         current_note_staff_position = content[i] - '0';
+         note_info_accumulated_and_ready_for_render = true;
+      break;
       case 'w': current_note_duration = 1; continue;
       case 'h': current_note_duration = 2; continue;
       case 'q': current_note_duration = 4; continue;
@@ -482,6 +495,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             multi_note.push_back(parsed_pitch_token);
          }
 
+         note_info_accumulated_and_ready_for_render = true;
+
          break;
       }
       default: multinote_token_found = false; break;
@@ -489,14 +504,19 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
+      if (note_info_accumulated_and_ready_for_render)
+      {
+
+
       // Assume this token is the staff position, and continue forward with the render
 
-      bool assume_this_token_is_a_staff_position =
-         (!context_change_token_found && !one_off_render_token_found && !multinote_token_found);
-      if (assume_this_token_is_a_staff_position)
-      {
-         staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
-      }
+      //bool assume_this_token_is_a_staff_position =
+         //(!context_change_token_found && !one_off_render_token_found && !multinote_token_found);
+      //if (assume_this_token_is_a_staff_position)
+      //{
+         staff_pos = current_note_staff_position + (current_octave * 7);
+         //staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
+      //}
 
 
 
@@ -519,23 +539,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
          }
          else break;
       }
-
-
-
-      // Draw an accidental (to the left size of the x_cursor)
-
-      //bool accidental_is_present = (current_accidental_symbol != 0x0000);
-      //if (accidental_is_present)
-      //{
-         //draw_music_symbol(
-            //current_accidental_symbol,
-            //start_x+x_cursor-staff_line_distance*1.2,
-            //y + calculate_staff_position_y_offset(staff_pos),
-            //color,
-            //font_size_px
-         //);
-         //current_accidental_symbol = 0x0000;
-      //}
 
 
 
@@ -600,7 +603,7 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      // Draw symbol
+      // If the symbol is singular, put it into a "multi_note" cluster group so it can be handled by the renderer
 
       if (multi_note.empty())
       {
@@ -611,14 +614,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
                .accidental_natural = current_accidental_natural
             }
          );
-
-         //draw_music_symbol(
-            //symbol,
-            //start_x+x_cursor,
-            //y + calculate_staff_position_y_offset(staff_pos),
-            //color,
-            //font_size_px
-         //);
       }
 
       // Reset the accidentals now that they've been used
@@ -627,7 +622,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      //{
+      // Render the notehead(s) and accidentals
+
       for (auto &note : multi_note)
       {
          uint32_t local_current_accidental_symbol = 0x0000;
@@ -670,7 +666,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             font_size_px
          );
       }
-      //}
 
 
 
@@ -711,6 +706,10 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
             x_cursor += get_duration_aesthetic_width(current_note_duration, quarter_note_spacing, num_dots);
          break;
       }
+
+      } // if (note_info_accumulated_and_ready_for_render)
+
+      note_info_accumulated_and_ready_for_render = false;
    }
 
 
