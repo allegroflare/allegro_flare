@@ -97,9 +97,9 @@ namespace AllegroFlare
       static const int32_t number_8;
       static const int32_t number_9;
 
-      bool has_stem(int32_t character);
-      bool has_up_stem(int32_t character);
-      bool has_down_stem(int32_t character);
+      static const bool has_stem(int32_t character);
+      static const bool has_up_stem(int32_t character);
+      static const bool has_down_stem(int32_t character);
    };
 }
 

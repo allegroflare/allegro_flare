@@ -97,7 +97,7 @@ const int32_t FontBravura::number_8 = 57480;
 const int32_t FontBravura::number_9 = 57481;
 
 
-bool has_stem(int32_t character)
+const bool FontBravura::has_stem(int32_t character)
 {
    static const std::set<int32_t> stemmed_characters = {
       FontBravura::half_note,
@@ -118,7 +118,7 @@ bool has_stem(int32_t character)
 }
 
 
-bool has_up_stem(int32_t character)
+const bool FontBravura::has_up_stem(int32_t character)
 {
    static const std::set<int32_t> up_stemmed_characters = {
       FontBravura::half_note,
@@ -133,7 +133,7 @@ bool has_up_stem(int32_t character)
 }
 
 
-bool has_down_stem(int32_t character)
+const bool FontBravura::has_down_stem(int32_t character)
 {
    static const std::set<int32_t> down_stemmed_characters = {
       FontBravura::half_note_down,

@@ -55,6 +55,13 @@ public:
 
 
 
+template <typename Container, typename T>
+bool contains(Container container, T value) {
+    return std::count(container.begin(), container.end(), value) > 0;
+}
+
+
+
 static int get_min_staff_position(const std::vector<PitchToken> &multi_note)
 {
    if (multi_note.empty()) return 0;
@@ -259,10 +266,10 @@ StemDirection MusicNotation::calculate_preferred_stem_direction(const std::vecto
    int abs_max_staff_pos = abs(max_staff_pos);
 
    // Max and min are both above the center line
-   if (min_staff_pos < 0 && max_staff_pos < 0) return StemDirection::DOWN;
+   if (min_staff_pos < 0 && max_staff_pos < 0) return StemDirection::UP;
 
    // Max and min are below the center line
-   if (min_staff_pos > 0 && max_staff_pos > 0) return StemDirection::UP;
+   if (min_staff_pos > 0 && max_staff_pos > 0) return StemDirection::DOWN;
 
    // Max and min are equally distant from the center line (this typically means the stem will go down, but can conform
    // to surrounding stems if desired - if all other stems in the measure are up, this stem should be up as well.)
@@ -295,16 +302,27 @@ float MusicNotation::draw_note_fragment(
       uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
       // Calculate our max and min staff position
 
-      int min_staff_pos = get_min_staff_position(multi_note);
-      int max_staff_pos = get_max_staff_position(multi_note);
-      bool max_and_min_are_above = min_staff_pos < 0 && max_staff_pos < 0;
-      bool max_and_min_are_below = min_staff_pos > 0 && max_staff_pos > 0;
-      bool current_note_is_below_center_line = false;
-      if (min_staff_pos == max_staff_pos == 0) current_note_is_below_center_line = true;
-      else if (max_and_min_are_above) current_note_is_below_center_line = false;
-      else if (max_and_min_are_below) current_note_is_below_center_line = true;
-      else if (abs(min_staff_pos) < abs(max_staff_pos)) current_note_is_below_center_line = false; // TODO validate this
-      StemDirection preferred_stem_direction = calculate_preferred_stem_direction(multi_note);
+      //int min_staff_pos = get_min_staff_position(multi_note);
+      //int max_staff_pos = get_max_staff_position(multi_note);
+      //bool max_and_min_are_above = min_staff_pos < 0 && max_staff_pos < 0;
+      //bool max_and_min_are_below = min_staff_pos > 0 && max_staff_pos > 0;
+      //bool current_note_is_below_center_line = false;
+      //if (min_staff_pos == max_staff_pos == 0) current_note_is_below_center_line = true;
+      //else if (max_and_min_are_above) current_note_is_below_center_line = false;
+      //else if (max_and_min_are_below) current_note_is_below_center_line = true;
+      //else if (abs(min_staff_pos) < abs(max_staff_pos)) current_note_is_below_center_line = false; // TODO validate this
+      StemDirection preferred_stem_direction_from_note_positions = calculate_preferred_stem_direction(multi_note);
+      bool stem_direction_is_undefined_or_even = contains<std::vector<StemDirection>, StemDirection>(
+         {
+            StemDirection::EVEN,
+            StemDirection::UNDEFINED,
+         },
+         preferred_stem_direction_from_note_positions
+      );
+      StemDirection stem_direction =
+         freeze_stems_up ? StemDirection::UP : 
+            (stem_direction_is_undefined_or_even ? StemDirection::DOWN : preferred_stem_direction_from_note_positions);
+      
 
 
 
@@ -344,16 +362,37 @@ float MusicNotation::draw_note_fragment(
             );
          }
 
-         // use the flipped stem version (if necessairy)
-         if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (current_note_is_below_center_line) && !freeze_stems_up)
-         //if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
+         // HERE
+         //if (preferred_stem_direction == 
+         //contains
+         bool symbol_contains_stem = AllegroFlare::FontBravura::has_stem(symbol);
+         if (symbol_contains_stem)
          {
-            symbol += 1;
+            switch(stem_direction)
+            {
+               case StemDirection::UP:
+                  // do nothing
+               break;
+
+               case StemDirection::DOWN:
+                  symbol += 1;
+               break;
+            }
          }
+
+          //use the flipped stem version (if necessairy)
+         //if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (current_note_is_below_center_line) && !freeze_stems_up)
+         //if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
+         //{
+            //symbol += 1;
+         //}
       }
 
 
       // Draw ledger lines
+
+      int min_staff_pos = get_min_staff_position(multi_note);
+      int max_staff_pos = get_max_staff_position(multi_note);
 
       if (min_staff_pos < 0)
       {
