@@ -53,6 +53,26 @@ public:
 
 
 
+static int get_min_staff_position(const std::vector<PitchToken> &multi_note)
+{
+   if (multi_note.empty()) return -12;
+   // TODO: Calculate the actual min position
+   // NOTE: For now, return the first element
+   return multi_note.front().staff_position;
+}
+
+
+
+static int get_max_staff_position(const std::vector<PitchToken> &multi_note)
+{
+   if (multi_note.empty()) return 12;
+   // TODO: Calculate the actual max position
+   // NOTE: For now, return the first element
+   return multi_note.front().staff_position;
+}
+
+
+
 static std::pair<PitchToken, int> parse_pitch_token(std::string token_string)
 {
    std::pair<PitchToken, int> result;
@@ -613,14 +633,32 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       // Draw ledger lines
 
-      draw_ledger_lines_to(
-         start_x+x_cursor,
-         y,
-         staff_pos,
-         staff_line_thickness,
-         get_music_symbol_width(symbol),
-         staff_color
-      );
+      int min_staff_pos = get_min_staff_position(multi_note);
+      int max_staff_pos = get_max_staff_position(multi_note);
+
+      if (min_staff_pos < 0)
+      {
+         draw_ledger_lines_to(
+            start_x+x_cursor,
+            y,
+            min_staff_pos,
+            staff_line_thickness,
+            get_music_symbol_width(symbol),
+            staff_color
+         );
+      }
+
+      if (max_staff_pos > 0)
+      {
+         draw_ledger_lines_to(
+            start_x+x_cursor,
+            y,
+            max_staff_pos,
+            staff_line_thickness,
+            get_music_symbol_width(symbol),
+            staff_color
+         );
+      }
 
 
 
