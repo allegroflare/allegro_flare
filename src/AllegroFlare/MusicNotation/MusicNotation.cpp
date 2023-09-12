@@ -527,15 +527,9 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
 
 
-      // Assume this token is the staff position, and continue forward with the render
+      // Calculate the final staff_position including the octave
 
-      //bool assume_this_token_is_a_staff_position =
-         //(!context_change_token_found && !one_off_render_token_found && !multinote_token_found);
-      //if (assume_this_token_is_a_staff_position)
-      //{
-         staff_pos = current_note_staff_position + (current_octave * 7);
-         //staff_pos = atoi(tostring(content[i]).c_str()) + (current_octave * 7);
-      //}
+      staff_pos = current_note_staff_position + (current_octave * 7);
 
 
 
@@ -543,21 +537,6 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
       if (rhythm_only) staff_pos = 0;
 
-
-
-      // look ahead to count the number of consecutive dots
-
-      //int look_ahead_delta = 1;
-      //while (i+look_ahead_delta < (int)content.size())
-      //{
-         //if (content[i+1] == '.')
-         //{
-            //num_dots++;
-            //i++;
-            ////look_ahead_delta++;
-         //}
-         //else break;
-      //}
 
 
 
