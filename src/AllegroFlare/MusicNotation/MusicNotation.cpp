@@ -479,42 +479,6 @@ float MusicNotation::draw_note_fragment(
 
       for (auto &note : multi_note)
       {
-         // Draw the accidental
-
-         /*
-         uint32_t local_current_accidental_symbol = 0x0000;
-
-         if (note.accidental_natural)
-         {
-            local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
-         }
-         else if (note.accidental != 0)
-         {
-            // TODO: Calculate symbol for more extended accidental cases
-            if (note.accidental == -1) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
-            else if (note.accidental == 1) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
-            else if (note.accidental < -2 || note.accidental > 2)
-            {
-               AllegroFlare::Logger::throw_error(
-                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-                  "Rendering accidentals other than flat, sharp, and natural is not supported."
-               );
-            }
-         }
-
-         bool accidental_is_present = (local_current_accidental_symbol != 0x0000);
-         if (accidental_is_present)
-         {
-            draw_music_symbol(
-               local_current_accidental_symbol,
-               x-staff_line_distance*1.2,
-               y + calculate_staff_position_y_offset(note.staff_position),
-               color,
-               font_size_px
-            );
-         }
-         */
-
          // Draw the note
 
          draw_music_symbol(
