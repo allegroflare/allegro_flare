@@ -42,8 +42,8 @@ TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_generate_the_
    std::vector<std::pair<AccidentalStacker::AccidentalType, std::pair<int, int>>> expected_stack = {
       { AccidentalStacker::AccidentalType::FLAT,    { 0,  3   } },
       { AccidentalStacker::AccidentalType::FLAT,    { 0,  3+7 } },
-      { AccidentalStacker::AccidentalType::SHARP,   { -1, 5   } },
-      { AccidentalStacker::AccidentalType::NATURAL, { -2, 8   } },
+      { AccidentalStacker::AccidentalType::NATURAL, { -1, 8   } },
+      { AccidentalStacker::AccidentalType::SHARP,   { -2, 5   } },
    };
    std::vector<std::pair<AccidentalStacker::AccidentalType, std::pair<int, int>>> actual_stack =
       accidental_stacker.get_stack();

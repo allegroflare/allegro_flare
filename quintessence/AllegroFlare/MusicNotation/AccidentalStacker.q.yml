@@ -189,14 +189,14 @@ methods:
 
          // With this pitch that has an accidental, solve from either the top or the bottom (depending on the
          // current solving direction
-         //if (top_bottom_toggle)
-         //{
+         if (top_bottom_toggle)
+         {
             solve_one_from_top(current_column);
-         //}
-         //else
-         //{
-            //solve_one_from_bottom(current_column);
-         //}
+         }
+         else
+         {
+            solve_one_from_bottom(current_column);
+         }
 
          // Toggle the direction for the next pass
          top_bottom_toggle = !top_bottom_toggle;
