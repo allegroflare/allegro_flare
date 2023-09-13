@@ -29,6 +29,8 @@ namespace AllegroFlare
             int get_staff_position() const;
             int get_accidental() const;
             bool get_accidental_natural() const;
+            bool has_accidental();
+            int calculate_accidental_weight();
          };
       }
    }

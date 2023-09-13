@@ -71,8 +71,28 @@ std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::Accidental
 
 void AccidentalStacker::solve()
 {
-   //std::vector<std::pair<AccidentalType, std::pair<int, int>>> result;
-   //return result;
+   stack.clear();
+
+   // TODO: Confirm pitches are sorted and unique, and are reversed (higher numbers at the top)
+
+   bool top_bottom_toggle = true;
+   for (int i=0; i<pitches.size(); i++)
+   {
+      auto &pitch = pitches[i];
+
+      if (!pitch.has_accidental())
+      {
+         pitches.erase(pitches.begin() + i);
+         i--;
+         continue;
+      }
+       
+      // Take one off the top
+      //int pitch_staff_position = pitch.get_staff_position();
+      //int pitch_accidental = pitch.get_staff_position();
+      //stack.push_back
+   }
+
    solved = true;
    return;
 }

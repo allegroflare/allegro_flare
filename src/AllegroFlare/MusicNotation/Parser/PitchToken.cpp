@@ -62,6 +62,15 @@ bool PitchToken::get_accidental_natural() const
 }
 
 
+bool PitchToken::has_accidental()
+{
+   return accidental_natural || (accidental != 0);
+}
+
+int PitchToken::calculate_accidental_weight()
+{
+   return accidental_natural ? 0 : accidental;
+}
 
 
 } // namespace Parser

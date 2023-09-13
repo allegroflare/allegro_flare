@@ -23,3 +23,18 @@ properties:
     setter: true
 
 
+methods:
+
+
+  - name: has_accidental
+    type: bool
+    body: |
+      return accidental_natural || (accidental != 0);
+
+
+  - name: calculate_accidental_weight
+    type: int
+    body: |
+      return accidental_natural ? 0 : accidental;
+
+
