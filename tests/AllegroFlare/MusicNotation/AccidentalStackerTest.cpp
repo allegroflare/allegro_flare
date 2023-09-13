@@ -42,7 +42,7 @@ TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_generate_the_
    std::vector<std::pair<AccidentalStacker::AccidentalType, std::pair<int, int>>> actual_stack =
       accidental_stacker.get_stack();
 
-   //EXPECT_EQ(expected_stack, actual_stack);
+   EXPECT_EQ(expected_stack, actual_stack);
 }
 
 
