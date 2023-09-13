@@ -63,7 +63,7 @@ methods:
         type: int
         default_argument: 0
     body: |
-         auto &pitch = pitches[0];
+      auto &pitch = pitches.front();
 
          if (!pitch.has_accidental())
          {
@@ -108,7 +108,6 @@ methods:
                j--;
             }
          }
-    body: |
       return;
 
 
@@ -119,7 +118,7 @@ methods:
         type: int
         default_argument: 0
     body: |
-         auto &pitch = pitches.back();
+      auto &pitch = pitches.back();
 
          if (!pitch.has_accidental())
          {
@@ -164,7 +163,6 @@ methods:
                j--;
             }
          }
-    body: |
       return;
 
 
@@ -177,25 +175,38 @@ methods:
       bool top_bottom_toggle = true;
       int current_column = 0;
       //int last_ = 0;
-      for (int i=0; i<pitches.size(); i++)
+      int attempts_left = 300;
+      while (!pitches.empty())
       {
-         auto &pitch = pitches[i];
+         auto &pitch = pitches.front();
 
          // If pitch is not an accidental, remove it and continue
          if (!pitch.has_accidental())
          {
-            pitches.erase(pitches.begin() + i);
-            i--;
+            pitches.erase(pitches.begin() + 0);
             continue;
          }
 
-         solve_one_from_top();
+         // With this pitch that has an accidental, solve from either the top or the bottom (depending on the
+         // current solving direction
+         //if (top_bottom_toggle)
+         //{
+            solve_one_from_top(current_column);
+         //}
+         //else
+         //{
+            //solve_one_from_bottom(current_column);
+         //}
 
+         // Toggle the direction for the next pass
+         top_bottom_toggle = !top_bottom_toggle;
+
+         // Shift the column to the left by one
          current_column--;
 
-         if (!pitches.empty()) solve_one_from_bottom();
-
-         current_column--;
+         // Decrement out attempts_left counter to prevent an infinite loop
+         attempts_left--;
+         if (attempts_left <= 0) throw std::runtime_error("AccidentalStacker::error: too many attempts");
       }
 
       solved = true;

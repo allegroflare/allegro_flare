@@ -30,14 +30,20 @@ TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_generate_the_
 {
    using namespace AllegroFlare::MusicNotation;
    std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches = {
-      { 3, -1, false },
+      { 3  , -1, false },
+      { 3+7, -1, false },
+      { 5,    1, false },
+      { 8,    0, true  },
    };
 
    AllegroFlare::MusicNotation::AccidentalStacker accidental_stacker(pitches);
    accidental_stacker.solve();
 
    std::vector<std::pair<AccidentalStacker::AccidentalType, std::pair<int, int>>> expected_stack = {
-      { AccidentalStacker::AccidentalType::FLAT, { 0, 3 } },
+      { AccidentalStacker::AccidentalType::FLAT,    { 0,  3   } },
+      { AccidentalStacker::AccidentalType::FLAT,    { 0,  3+7 } },
+      { AccidentalStacker::AccidentalType::SHARP,   { -1, 5   } },
+      { AccidentalStacker::AccidentalType::NATURAL, { -2, 8   } },
    };
    std::vector<std::pair<AccidentalStacker::AccidentalType, std::pair<int, int>>> actual_stack =
       accidental_stacker.get_stack();
