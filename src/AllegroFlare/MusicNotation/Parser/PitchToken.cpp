@@ -67,7 +67,8 @@ bool PitchToken::has_accidental()
    return accidental_natural || (accidental != 0);
 }
 
-int PitchToken::calculate_accidental_weight()
+
+int PitchToken::calculate_accidental_weight() const
 {
    return accidental_natural ? 0 : accidental;
 }

@@ -239,6 +239,30 @@ AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType AccidentalStacker
    return AccidentalType::UNDEFINED;
 }
 
+bool AccidentalStacker::operator()(const AllegroFlare::MusicNotation::Parser::PitchToken& token1, const AllegroFlare::MusicNotation::Parser::PitchToken& token2)
+{
+   // TODO: Test this comparitor
+   if (token1.staff_position != token2.staff_position) return token1.staff_position < token2.staff_position;
+   return token1.calculate_accidental_weight() < token2.calculate_accidental_weight();
+}
+
+void AccidentalStacker::sort_and_make_unique()
+{
+   // TODO: Consider modifying this method to return a sorted object rather than modify the existing one
+   //std::set<PitchToken, PitchTokenComparator> result_multi_note;
+
+   //for (auto &note : multi_note)
+   //{
+      //result_multi_note.insert(note);
+   //}
+
+   //multi_note.clear();
+   //for (auto &note : result_multi_note)
+   //{
+      //multi_note.push_back(note);
+   //}
+}
+
 
 } // namespace MusicNotation
 } // namespace AllegroFlare
