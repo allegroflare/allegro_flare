@@ -13,6 +13,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
 #include <AllegroFlare/MusicNotation/TieRenderer.hpp>
+#include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
 
 
 
@@ -307,6 +308,12 @@ float MusicNotation::draw_stacked_accidentals_on(
    // See: https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
 
    sort_and_make_unique(multi_note);
+
+
+   AllegroFlare::MusicNotation::AccidentalStacker accidental_stacker(multi_note);
+   accidental_stacker.solve();
+
+
 
    // TODO: Implement this function
    for (auto &note : multi_note)

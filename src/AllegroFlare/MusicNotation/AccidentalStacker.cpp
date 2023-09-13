@@ -143,7 +143,7 @@ void AccidentalStacker::solve_one_from_bottom(int column_to_place_on)
       {
          // TODO: Replace with AllegroFlare::Logger error
          throw std::runtime_error("AccidentalStacker::solve_one_from_top: error: "
-               "Cannot solve. First pitch does not have an accidental.");
+               "Cannot solve. Last pitch does not have an accidental.");
       }
        
       // Place the accidental at the current column
@@ -199,17 +199,34 @@ void AccidentalStacker::solve()
    int attempts_left = 300;
    while (!pitches.empty())
    {
-      auto &pitch = pitches.front();
+      // TODO: Test this initial logic branch - when pitches at the top and the bottom do not have accidentals
 
-      // If pitch is not an accidental, remove it and continue
-      if (!pitch.has_accidental())
+      // Remove the next pitch if it does not have an accidental (depending on the current solving direction)
+      if (top_bottom_toggle)
       {
-         pitches.erase(pitches.begin() + 0);
-         continue;
+         auto &pitch = pitches.front();
+
+         // If pitch is not an accidental, remove it and continue
+         if (!pitch.has_accidental())
+         {
+            pitches.erase(pitches.begin() + 0);
+            continue;
+         }
+      }
+      else
+      {
+         auto &pitch = pitches.back();
+
+         // If pitch is not an accidental, remove it and continue
+         if (!pitch.has_accidental())
+         {
+            pitches.pop_back();
+            continue;
+         }
       }
 
       // With this pitch that has an accidental, solve from either the top or the bottom (depending on the
-      // current solving direction
+      // current solving direction)
       if (top_bottom_toggle)
       {
          solve_one_from_top(current_column);
