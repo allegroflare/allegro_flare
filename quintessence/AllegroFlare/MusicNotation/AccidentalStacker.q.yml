@@ -246,6 +246,10 @@ methods:
   - name: sort_and_make_unique
     body: |
       // TODO: Consider modifying this method to return a sorted object rather than modify the existing one
+      std::set<
+            AllegroFlare::MusicNotation::Parser::PitchToken,
+            AllegroFlare::MusicNotation::AccidentalStacker
+         > result_multi_note;
       //std::set<PitchToken, PitchTokenComparator> result_multi_note;
 
       //for (auto &note : multi_note)
@@ -258,6 +262,8 @@ methods:
       //{
          //multi_note.push_back(note);
       //}
+    body_dependency_symbols:
+      - std::set
 
 
 dependencies:

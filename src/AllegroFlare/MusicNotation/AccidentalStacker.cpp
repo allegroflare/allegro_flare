@@ -3,6 +3,7 @@
 #include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
 
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -249,6 +250,10 @@ bool AccidentalStacker::operator()(const AllegroFlare::MusicNotation::Parser::Pi
 void AccidentalStacker::sort_and_make_unique()
 {
    // TODO: Consider modifying this method to return a sorted object rather than modify the existing one
+   std::set<
+         AllegroFlare::MusicNotation::Parser::PitchToken,
+         AllegroFlare::MusicNotation::AccidentalStacker
+      > result_multi_note;
    //std::set<PitchToken, PitchTokenComparator> result_multi_note;
 
    //for (auto &note : multi_note)
