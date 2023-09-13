@@ -13,8 +13,6 @@ const bool operator==(
 }
 
 
-
-
 TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::MusicNotation::AccidentalStacker accidental_stacker;

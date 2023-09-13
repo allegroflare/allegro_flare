@@ -40,6 +40,7 @@ namespace AllegroFlare
          void set_pitches(const std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>& pitches={});
          std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> get_stack();
          void solve();
+         static AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType find_accidental_type_by_weight(int accidental_weight=0);
       };
    }
 }
