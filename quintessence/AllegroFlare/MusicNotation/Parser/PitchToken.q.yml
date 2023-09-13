@@ -1,0 +1,25 @@
+properties:
+
+
+  - name: staff_position
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: accidental
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: accidental_natural
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
