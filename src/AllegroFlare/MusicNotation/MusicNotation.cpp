@@ -307,11 +307,69 @@ float MusicNotation::draw_stacked_accidentals_on(
    // TODO: Replace the technique in this function with a stacking technique.
    // See: https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
 
-   sort_and_make_unique(multi_note);
+   sort_and_make_unique(multi_note); // TODO: Remove this call and the function itself
 
+
+   // Solve the stacking order for the accidentals and get the result
 
    AllegroFlare::MusicNotation::AccidentalStacker accidental_stacker(multi_note);
    accidental_stacker.solve();
+   std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> stack =
+      accidental_stacker.get_stack();
+
+
+   // Draw each of the accidentals in their position
+
+   for (auto &accidental_stack_info : stack)
+   {
+      int column = accidental_stack_info.second.first;
+      int staff_position = accidental_stack_info.second.second;
+      AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType accidental_type = accidental_stack_info.first;
+      uint32_t local_current_accidental_symbol = 0x0000;
+
+      switch(accidental_type)
+      {
+         case AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType::SHARP:
+            local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+         break;
+
+         case AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType::FLAT:
+            local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
+         break;
+
+         case AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType::NATURAL:
+            local_current_accidental_symbol = AllegroFlare::FontBravura::natural;
+         break;
+
+         default:
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+               "Rendering accidentals other than flat, sharp, and natural is not supported."
+            );
+         break;
+      }
+
+      //if (note.accidental == -1) local_current_accidental_symbol = AllegroFlare::FontBravura::flat;
+      //else if (note.accidental == 1) local_current_accidental_symbol = AllegroFlare::FontBravura::sharp;
+      //else if (note.accidental < -2 || note.accidental > 2)
+      //{
+         //AllegroFlare::Logger::throw_error(
+            //"AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+            //"Rendering accidentals other than flat, sharp, and natural is not supported."
+         //);
+      //}
+
+      float column_width = staff_line_distance;
+      draw_music_symbol(
+         local_current_accidental_symbol,
+         x - staff_line_distance*1.2 + column_width * column,
+         y + calculate_staff_position_y_offset(staff_position),
+         color,
+         font_size_px
+      );
+   }
+
+   
 
 
 
