@@ -307,19 +307,18 @@ float MusicNotation::draw_stacked_accidentals_on(
    // TODO: Replace the technique in this function with a stacking technique.
    // See: https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
 
-   sort_and_make_unique(multi_note); // TODO: Remove this call and the function itself
-
-
    // Solve the stacking order for the accidentals and get the result
-
    AllegroFlare::MusicNotation::AccidentalStacker accidental_stacker(multi_note);
    accidental_stacker.solve();
    std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> stack =
       accidental_stacker.get_stack();
 
+   // Calculate some render result data
+   float column_width = staff_line_distance;
+   int num_columns = accidental_stacker.calculate_num_columns();
+   float initial_x_offset_to_first_column = staff_line_distance * 1.2;
 
    // Draw each of the accidentals in their position
-
    for (auto &accidental_stack_info : stack)
    {
       int column = accidental_stack_info.second.first;
@@ -362,7 +361,7 @@ float MusicNotation::draw_stacked_accidentals_on(
       float column_width = staff_line_distance;
       draw_music_symbol(
          local_current_accidental_symbol,
-         x - staff_line_distance*1.2 + column_width * column,
+         x - initial_x_offset_to_first_column + column_width * column,
          y + calculate_staff_position_y_offset(staff_position),
          color,
          font_size_px
@@ -370,9 +369,13 @@ float MusicNotation::draw_stacked_accidentals_on(
    }
 
    
+   // TODO: Test this return value width
+   return initial_x_offset_to_first_column + num_columns * column_width; // TODO: Confirm if "num_columns" requires a -1
 
 
+// TODO: Move this code to a separate function so it can be used as a backup to stacking
 /*
+   sort_and_make_unique(multi_note); // TODO: Remove this call and the function itself
 
    // TODO: Implement this function
    for (auto &note : multi_note)
