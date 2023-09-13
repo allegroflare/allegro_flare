@@ -57,7 +57,7 @@ void AccidentalStacker::set_pitches(const std::vector<AllegroFlare::MusicNotatio
    return;
 }
 
-void AccidentalStacker::get_stack()
+std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> AccidentalStacker::get_stack()
 {
    if (!(solved))
    {
@@ -66,7 +66,7 @@ void AccidentalStacker::get_stack()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("AccidentalStacker::get_stack: error: guard \"solved\" not met");
    }
-   return;
+   return stack;
 }
 
 void AccidentalStacker::solve()

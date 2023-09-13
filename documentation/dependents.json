@@ -1885,6 +1885,12 @@
   "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder": [
     "AllegroFlare/MusicMesh/MusicMesh"
   ],
+  "AllegroFlare/MusicNotation/AccidentalStacker/AccidentalType": [
+    "AllegroFlare/MusicNotation/AccidentalStacker"
+  ],
+  "AllegroFlare/MusicNotation/Parser/PitchToken": [
+    "AllegroFlare/MusicNotation/AccidentalStacker"
+  ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"
   ],

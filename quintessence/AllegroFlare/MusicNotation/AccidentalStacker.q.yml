@@ -27,6 +27,7 @@ enums:
 
 
   - name: AccidentalType
+    scope: public
     enumerators:
       - UNDEFINED
       - SHARP
@@ -49,9 +50,10 @@ methods:
 
 
   - name: get_stack
+    type: std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>>
     guards: [ solved ]
     body: |
-      return;
+      return stack;
 
 
   - name: solve

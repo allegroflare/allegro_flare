@@ -12,7 +12,8 @@ namespace AllegroFlare
    {
       class AccidentalStacker
       {
-      private:
+      public:
+
          enum AccidentalType
          {
             UNDEFINED = 0,
@@ -20,6 +21,7 @@ namespace AllegroFlare
             FLAT,
             NATURAL,
          };
+      private:
          std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches;
          std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> stack;
          bool solved;
@@ -36,7 +38,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> get_pitches() const;
          bool get_solved() const;
          void set_pitches(const std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>& pitches={});
-         void get_stack();
+         std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> get_stack();
          void solve();
       };
    }
