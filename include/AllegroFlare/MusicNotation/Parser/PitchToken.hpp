@@ -11,15 +11,11 @@ namespace AllegroFlare
       {
          class PitchToken
          {
-         private:
+         public:
             int staff_position;
             int accidental;
             bool accidental_natural;
 
-         protected:
-
-
-         public:
             PitchToken(int staff_position=0, int accidental=0, bool accidental_natural=false);
             ~PitchToken();
 

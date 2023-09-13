@@ -55,6 +55,10 @@ public:
 
 
 
+using AllegroFlare::MusicNotation::Parser::PitchToken;
+
+
+
 template <typename Container, typename T>
 bool contains(Container container, T value) {
     return std::count(container.begin(), container.end(), value) > 0;
@@ -897,9 +901,12 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
 
          multi_note.push_back(
             PitchToken{
-               .staff_position = result_staff_pos,
-               .accidental = current_accidental,
-               .accidental_natural = current_accidental_natural
+               result_staff_pos,
+               current_accidental,
+               current_accidental_natural
+               //.staff_position = result_staff_pos,
+               //.accidental = current_accidental,
+               //.accidental_natural = current_accidental_natural
             }
          );
 

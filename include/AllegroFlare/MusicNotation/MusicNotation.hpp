@@ -6,16 +6,17 @@
 #include <allegro5/allegro.h>
 #include <AllegroFlare/DrawingInterfaces/Base.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/MusicNotation/Parser/PitchToken.hpp>
 
 
       // TODO: Move this into a better scope
-      struct PitchToken
-      {
-      public:
-         int staff_position;
-         int accidental;
-         bool accidental_natural;
-      };
+      //struct PitchToken
+      //{
+      //public:
+         //int staff_position;
+         //int accidental;
+         //bool accidental_natural;
+      //};
 
 
 
@@ -81,15 +82,15 @@ namespace AllegroFlare
          float draw_stacked_accidentals_on(
             float x,
             float y,
-            std::vector<PitchToken> multi_note,
+            std::vector<Parser::PitchToken> multi_note,
             const ALLEGRO_COLOR &color,
             float font_size_px
          );
-         StemDirection calculate_preferred_stem_direction(const std::vector<PitchToken> &multi_note);
+         StemDirection calculate_preferred_stem_direction(const std::vector<Parser::PitchToken> &multi_note);
          float draw_note_fragment(
             float x,
             float y,
-            std::vector<PitchToken> multi_note,
+            std::vector<Parser::PitchToken> multi_note,
             bool current_note_is_rest,
             int current_note_duration,
             int num_dots,
