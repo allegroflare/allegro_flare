@@ -372,6 +372,7 @@ float MusicNotation::draw_stacked_accidentals_on(
    
 
 
+/*
 
    // TODO: Implement this function
    for (auto &note : multi_note)
@@ -410,6 +411,7 @@ float MusicNotation::draw_stacked_accidentals_on(
          );
       }
    }
+*/
 
    return 0; // TODO: Return the width of the render
 }

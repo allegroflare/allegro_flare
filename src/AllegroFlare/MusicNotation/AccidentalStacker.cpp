@@ -71,6 +71,35 @@ std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::Accidental
    return stack;
 }
 
+int AccidentalStacker::calculate_num_columns()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[AccidentalStacker::calculate_num_columns]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("AccidentalStacker::calculate_num_columns: error: guard \"solved\" not met");
+   }
+   // TODO: Test this method
+   if (stack.empty()) return 0;
+
+   int smallest_column_value = std::numeric_limits<int>::max();
+
+   // Iterate through the collection
+   for (const auto& item : stack)
+   {
+      int current = item.second.first; // Extract the value
+
+      // Check if the current is smaller than the smallest found so far
+      if (current < smallest_column_value)
+      {
+         smallest_column_value = current; // Update the smallest
+      }
+   }
+
+   return std::abs(smallest_column_value);
+}
+
 void AccidentalStacker::solve_one_from_top(int column_to_place_on)
 {
    if (!((!pitches.empty())))

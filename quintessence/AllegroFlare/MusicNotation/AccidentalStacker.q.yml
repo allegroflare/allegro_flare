@@ -56,6 +56,30 @@ methods:
       return stack;
 
 
+  - name: calculate_num_columns
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: Test this method
+      if (stack.empty()) return 0;
+
+      int smallest_column_value = std::numeric_limits<int>::max();
+
+      // Iterate through the collection
+      for (const auto& item : stack)
+      {
+         int current = item.second.first; // Extract the value
+
+         // Check if the current is smaller than the smallest found so far
+         if (current < smallest_column_value)
+         {
+            smallest_column_value = current; // Update the smallest
+         }
+      }
+
+      return std::abs(smallest_column_value);
+
+
   - name: solve_one_from_top
     guards: [ (!pitches.empty()) ]
     parameters:
