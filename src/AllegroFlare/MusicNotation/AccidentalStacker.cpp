@@ -69,6 +69,62 @@ std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::Accidental
    return stack;
 }
 
+void AccidentalStacker::solve_one_from_top(int column_to_place_on)
+{
+   if (!((!pitches.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[AccidentalStacker::solve_one_from_top]: error: guard \"(!pitches.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("AccidentalStacker::solve_one_from_top: error: guard \"(!pitches.empty())\" not met");
+   }
+   auto &pitch = pitches[0];
+
+   if (!pitch.has_accidental())
+   {
+      // TODO: Replace with AllegroFlare::Logger error
+      throw std::runtime_error("AccidentalStacker::solve_one_from_top: error: "
+            "Cannot solve. First pitch does not have an accidental.");
+   }
+    
+   // Place the accidental at the current column
+   int pitch_staff_position = pitch.get_staff_position();
+   int pitch_staff_position_normalized = pitch_staff_position % 7;
+   int pitch_accidental_weight = pitch.calculate_accidental_weight();
+   AccidentalType accidental_type = find_accidental_type_by_weight(pitch_accidental_weight);
+
+   // Put it in the stack
+   stack.push_back({ accidental_type, { column_to_place_on, pitch_staff_position } });
+
+   // Erase the list of pitches
+   pitches.erase(pitches.begin() + 0);
+   if (pitches.empty()) return;
+
+   // Go through the list of pitches and look for any octaves to the current note, placing their accidentals
+   // in the same column
+   for (int j=0; j<pitches.size(); j++)
+   {
+      auto &possible_octave_to_pitch = pitches[j];
+      int possible_octave_pitch_staff_position = possible_octave_to_pitch.get_staff_position();
+      int possible_octave_pitch_staff_position_normalized = possible_octave_pitch_staff_position % 7;
+      int possible_octave_pitch_accidental_weight = possible_octave_to_pitch.calculate_accidental_weight();
+      bool is_an_octave_apart =
+            (possible_octave_pitch_staff_position_normalized == pitch_staff_position_normalized)
+            && (possible_octave_pitch_accidental_weight == pitch_accidental_weight);
+
+      // This pitch is an octave apart, place it in the same column
+      if (is_an_octave_apart)
+      {
+         AccidentalType accidental_type = find_accidental_type_by_weight(possible_octave_pitch_accidental_weight);
+         stack.push_back({ accidental_type, { column_to_place_on, possible_octave_pitch_staff_position } });
+
+         pitches.erase(pitches.begin() + j);
+         //i--;
+         j--;
+      }
+   }
+}
+
 void AccidentalStacker::solve()
 {
    stack.clear();

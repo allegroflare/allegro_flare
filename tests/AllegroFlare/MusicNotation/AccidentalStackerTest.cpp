@@ -29,6 +29,9 @@ TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_not_blow_up)
 TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_generate_the_expected_stack)
 {
    using namespace AllegroFlare::MusicNotation;
+   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches = {
+      { 0, -1, false },
+   };
 
    AllegroFlare::MusicNotation::AccidentalStacker accidental_stacker;
    accidental_stacker.solve();
