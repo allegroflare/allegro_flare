@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
 
+#include <algorithm>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -189,6 +190,8 @@ void AccidentalStacker::solve()
    stack.clear();
 
    // TODO: Confirm pitches are sorted and unique, and are reversed (higher numbers at the top)
+   sort_and_make_unique();
+   std::reverse(pitches.begin(), pitches.end());
 
    bool top_bottom_toggle = true;
    int current_column = 0;
@@ -242,7 +245,8 @@ AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType AccidentalStacker
 
 bool AccidentalStacker::operator()(const AllegroFlare::MusicNotation::Parser::PitchToken& token1, const AllegroFlare::MusicNotation::Parser::PitchToken& token2)
 {
-   // TODO: Test this comparitor
+   // TODO: Test this comparison
+   // TODO: Remove this as an operator() on the class and instead use an isolated function
    if (token1.staff_position != token2.staff_position) return token1.staff_position < token2.staff_position;
    return token1.calculate_accidental_weight() < token2.calculate_accidental_weight();
 }
@@ -252,20 +256,22 @@ void AccidentalStacker::sort_and_make_unique()
    // TODO: Consider modifying this method to return a sorted object rather than modify the existing one
    std::set<
          AllegroFlare::MusicNotation::Parser::PitchToken,
-         AllegroFlare::MusicNotation::AccidentalStacker
-      > result_multi_note;
-   //std::set<PitchToken, PitchTokenComparator> result_multi_note;
+         AllegroFlare::MusicNotation::AccidentalStacker // This implicitly uses the operator()
+                                                        // TODO: Replace the reliance on the operator with a
+                                                        // standalone function
+      > result_pitches;
 
-   //for (auto &note : multi_note)
-   //{
-      //result_multi_note.insert(note);
-   //}
+   for (auto &note : pitches)
+   {
+      result_pitches.insert(note);
+   }
 
-   //multi_note.clear();
-   //for (auto &note : result_multi_note)
-   //{
-      //multi_note.push_back(note);
-   //}
+   pitches.clear();
+   for (auto &note : result_pitches)
+   {
+      pitches.push_back(note);
+   }
+   return;
 }
 
 

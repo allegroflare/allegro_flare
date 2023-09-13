@@ -1891,6 +1891,9 @@
   "AllegroFlare/MusicNotation/Parser/PitchToken": [
     "AllegroFlare/MusicNotation/AccidentalStacker"
   ],
+  "std/reverse": [
+    "AllegroFlare/MusicNotation/AccidentalStacker"
+  ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"
   ],
