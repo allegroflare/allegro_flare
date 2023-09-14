@@ -52,7 +52,7 @@ TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_generate_the_
 }
 
 
-TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, FOCUS__solve__will_collapse_columns_if_they_fit)
+TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_collapse_columns_if_they_fit)
 {
    using namespace AllegroFlare::MusicNotation;
    std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches = {

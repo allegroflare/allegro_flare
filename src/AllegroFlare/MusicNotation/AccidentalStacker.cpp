@@ -299,7 +299,12 @@ bool AccidentalStacker::can_fit(int current_column, int target_column)
    {
       for (int j = 0; j < target_column_elements.size(); ++j)
       {
-         int distance = abs(i - j);
+         int row_of_current_item = current_column_elements[i].second.second;
+         int row_of_target_item = target_column_elements[i].second.second;
+
+         int distance = abs(row_of_current_item - row_of_target_item);
+         //std::cout << " -- points: roci: " << row_of_current_item << " roti: " << row_of_target_item << std::endl;
+         //std::cout << "    distance: " << distance << std::endl;
          if (distance < 6)
          {
             return false;
@@ -325,7 +330,7 @@ int AccidentalStacker::collapse_column_into_previous(int target_column)
       int &column = stack_item.second.first;
       if (column <= target_column)
       {
-         column--;
+         column++;
          num_items_moved++;
       }
    }
@@ -335,12 +340,24 @@ int AccidentalStacker::collapse_column_into_previous(int target_column)
 void AccidentalStacker::integrate_fitable_columns()
 {
    int current_column = 0;
+
+   // TODO: Make this into an actual algorithm. This is brute force, and assumes 4 columns are a max stackable
    if (can_fit(0, -1)) collapse_column_into_previous(-1);
-   // HERE
-   // TODO: This algo
-   //while()
-   //{
-   //}
+   if (can_fit(0, -1)) collapse_column_into_previous(-1);
+   if (can_fit(0, -1)) collapse_column_into_previous(-1);
+   if (can_fit(0, -1)) collapse_column_into_previous(-1);
+   if (can_fit(-1, -2)) collapse_column_into_previous(-2);
+   if (can_fit(-1, -2)) collapse_column_into_previous(-2);
+   if (can_fit(-1, -2)) collapse_column_into_previous(-2);
+   if (can_fit(-1, -2)) collapse_column_into_previous(-2);
+   if (can_fit(-2, -3)) collapse_column_into_previous(-3);
+   if (can_fit(-2, -3)) collapse_column_into_previous(-3);
+   if (can_fit(-2, -3)) collapse_column_into_previous(-3);
+   if (can_fit(-2, -3)) collapse_column_into_previous(-3);
+   if (can_fit(-3, -4)) collapse_column_into_previous(-4);
+   if (can_fit(-3, -4)) collapse_column_into_previous(-4);
+   if (can_fit(-3, -4)) collapse_column_into_previous(-4);
+   if (can_fit(-3, -4)) collapse_column_into_previous(-4);
 
    return;
 }
