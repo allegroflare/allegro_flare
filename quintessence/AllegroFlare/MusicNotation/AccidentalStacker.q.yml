@@ -268,8 +268,6 @@ methods:
         type: int
         default_argument: 0
     body: |
-      //using AllegroFlare::MusicNotation::AccidentalStacker;
-
       std::vector<std::pair<AccidentalType, std::pair<int, int>>> current_column_elements;
       std::vector<std::pair<AccidentalType, std::pair<int, int>>> target_column_elements;
       

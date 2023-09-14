@@ -282,8 +282,6 @@ void AccidentalStacker::solve()
 
 bool AccidentalStacker::can_fit(int current_column, int target_column)
 {
-   //using AllegroFlare::MusicNotation::AccidentalStacker;
-
    std::vector<std::pair<AccidentalType, std::pair<int, int>>> current_column_elements;
    std::vector<std::pair<AccidentalType, std::pair<int, int>>> target_column_elements;
 
