@@ -280,6 +280,33 @@ void AccidentalStacker::solve()
    return;
 }
 
+bool AccidentalStacker::can_fit(int current_column, int target_column)
+{
+   //using AllegroFlare::MusicNotation::AccidentalStacker;
+
+   std::vector<std::pair<AccidentalType, std::pair<int, int>>> current_column_elements;
+   std::vector<std::pair<AccidentalType, std::pair<int, int>>> target_column_elements;
+
+   for (auto &stack_item : stack)
+   {
+      int column = stack_item.second.first;
+      if (column == current_column) current_column_elements.push_back(stack_item);
+      if (column == target_column) target_column_elements.push_back(stack_item);
+   }
+
+   //for (int i = 0; i < grid[currentColumn].size(); ++i) {
+      //for (int j = 0; j < grid[targetColumn].size(); ++j) {
+         //if (grid[currentColumn][i] != -1 && grid[targetColumn][j] != -1) {
+            //int distance = i - j;
+            //if (distance < 6 && distance > -6) {
+               //return false;
+            //}
+         //}
+      //}
+   //}
+   return true;
+}
+
 AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType AccidentalStacker::find_accidental_type_by_weight(int accidental_weight)
 {
    // TODO: Improve this calculation to permit for double sharps, double flats, etc
