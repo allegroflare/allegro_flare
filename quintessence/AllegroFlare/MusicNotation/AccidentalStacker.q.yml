@@ -252,6 +252,8 @@ methods:
          if (attempts_left <= 0) throw std::runtime_error("AccidentalStacker::error: too many attempts");
       }
 
+      integrate_fitable_columns();
+
       solved = true;
       return;
     body_dependency_symbols:
@@ -294,7 +296,7 @@ methods:
       return true;
 
 
-  - name: collapse_column_into_greater
+  - name: collapse_column_into_previous
     type: int
     parameters:
       - name: target_column
@@ -315,10 +317,10 @@ methods:
       return num_items_moved;
 
 
-  - name: collapse
+  - name: integrate_fitable_columns
     body: |
-      bool all_columns_collapsed = false;
-
+      int current_column = 0;
+      if (can_fit(0, -1)) collapse_column_into_previous(-1);
       // HERE
       // TODO: This algo
       //while()

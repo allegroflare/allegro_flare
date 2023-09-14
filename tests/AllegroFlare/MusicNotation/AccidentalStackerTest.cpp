@@ -52,3 +52,30 @@ TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, solve__will_generate_the_
 }
 
 
+TEST(AllegroFlare_MusicNotation_AccidentalStackerTest, FOCUS__solve__will_collapse_columns_if_they_fit)
+{
+   using namespace AllegroFlare::MusicNotation;
+   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches = {
+      { 9,    1, false },
+      { 3,   -1, false },
+      //{ 3+7, -1, false },
+      //{ 9,    1, false },
+      //{ 8,    0, true  },
+   };
+
+   AllegroFlare::MusicNotation::AccidentalStacker accidental_stacker(pitches);
+   accidental_stacker.solve();
+
+   std::vector<std::pair<AccidentalStacker::AccidentalType, std::pair<int, int>>> expected_stack = {
+      { AccidentalStacker::AccidentalType::SHARP,    { 0,  9 } },
+      { AccidentalStacker::AccidentalType::FLAT,     { 0,  3 } },
+      //{ AccidentalStacker::AccidentalType::SHARP,   { -1, 5   } },
+      //{ AccidentalStacker::AccidentalType::NATURAL, { -2, 8   } },
+   };
+   std::vector<std::pair<AccidentalStacker::AccidentalType, std::pair<int, int>>> actual_stack =
+      accidental_stacker.get_stack();
+
+   EXPECT_EQ(expected_stack, actual_stack);
+}
+
+

@@ -276,6 +276,8 @@ void AccidentalStacker::solve()
       if (attempts_left <= 0) throw std::runtime_error("AccidentalStacker::error: too many attempts");
    }
 
+   integrate_fitable_columns();
+
    solved = true;
    return;
 }
@@ -308,14 +310,14 @@ bool AccidentalStacker::can_fit(int current_column, int target_column)
    return true;
 }
 
-int AccidentalStacker::collapse_column_into_greater(int target_column)
+int AccidentalStacker::collapse_column_into_previous(int target_column)
 {
    if (!(target_column < 0))
    {
       std::stringstream error_message;
-      error_message << "[AccidentalStacker::collapse_column_into_greater]: error: guard \"target_column < 0\" not met.";
+      error_message << "[AccidentalStacker::collapse_column_into_previous]: error: guard \"target_column < 0\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AccidentalStacker::collapse_column_into_greater: error: guard \"target_column < 0\" not met");
+      throw std::runtime_error("AccidentalStacker::collapse_column_into_previous: error: guard \"target_column < 0\" not met");
    }
    int num_items_moved = 0;
    for (auto &stack_item : stack)
@@ -330,10 +332,10 @@ int AccidentalStacker::collapse_column_into_greater(int target_column)
    return num_items_moved;
 }
 
-void AccidentalStacker::collapse()
+void AccidentalStacker::integrate_fitable_columns()
 {
-   bool all_columns_collapsed = false;
-
+   int current_column = 0;
+   if (can_fit(0, -1)) collapse_column_into_previous(-1);
    // HERE
    // TODO: This algo
    //while()
