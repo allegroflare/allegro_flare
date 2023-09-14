@@ -282,6 +282,7 @@ void AccidentalStacker::solve()
 
 bool AccidentalStacker::can_fit(int current_column, int target_column)
 {
+   // TODO: Test this method
    std::vector<std::pair<AccidentalType, std::pair<int, int>>> current_column_elements;
    std::vector<std::pair<AccidentalType, std::pair<int, int>>> target_column_elements;
 
@@ -292,16 +293,18 @@ bool AccidentalStacker::can_fit(int current_column, int target_column)
       if (column == target_column) target_column_elements.push_back(stack_item);
    }
 
-   //for (int i = 0; i < grid[currentColumn].size(); ++i) {
-      //for (int j = 0; j < grid[targetColumn].size(); ++j) {
-         //if (grid[currentColumn][i] != -1 && grid[targetColumn][j] != -1) {
-            //int distance = i - j;
-            //if (distance < 6 && distance > -6) {
-               //return false;
-            //}
-         //}
-      //}
-   //}
+   for (int i = 0; i < current_column_elements.size(); ++i)
+   {
+      for (int j = 0; j < target_column_elements.size(); ++j)
+      {
+         int distance = abs(i - j);
+         if (distance < 6)
+         {
+            return false;
+         }
+      }
+   }
+
    return true;
 }
 
