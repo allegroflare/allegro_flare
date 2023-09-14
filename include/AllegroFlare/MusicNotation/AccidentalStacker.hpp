@@ -45,6 +45,8 @@ namespace AllegroFlare
          void solve_one_from_bottom(int column_to_place_on=0);
          void solve();
          bool can_fit(int current_column=0, int target_column=0);
+         int collapse_column_into_greater(int target_column=0);
+         void collapse();
          static AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType find_accidental_type_by_weight(int accidental_weight=0);
          void sort_and_make_unique();
       };

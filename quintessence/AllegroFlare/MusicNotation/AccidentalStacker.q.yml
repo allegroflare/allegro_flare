@@ -294,6 +294,40 @@ methods:
       return true;
 
 
+  - name: collapse_column_into_greater
+    type: int
+    parameters:
+      - name: target_column
+        type: int
+        default_argument: 0
+    guards: [ target_column < 0 ]
+    body: |
+      int num_items_moved = 0;
+      for (auto &stack_item : stack)
+      {
+         int &column = stack_item.second.first;
+         if (column <= target_column)
+         {
+            column--;
+            num_items_moved++;
+         }
+      }
+      return num_items_moved;
+
+
+  - name: collapse
+    body: |
+      bool all_columns_collapsed = false;
+
+      // HERE
+      // TODO: This algo
+      //while()
+      //{
+      //}
+
+      return;
+
+
   - name: find_accidental_type_by_weight
     type: AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType
     static: true

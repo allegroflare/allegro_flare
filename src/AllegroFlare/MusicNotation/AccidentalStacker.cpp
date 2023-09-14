@@ -308,6 +308,41 @@ bool AccidentalStacker::can_fit(int current_column, int target_column)
    return true;
 }
 
+int AccidentalStacker::collapse_column_into_greater(int target_column)
+{
+   if (!(target_column < 0))
+   {
+      std::stringstream error_message;
+      error_message << "[AccidentalStacker::collapse_column_into_greater]: error: guard \"target_column < 0\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("AccidentalStacker::collapse_column_into_greater: error: guard \"target_column < 0\" not met");
+   }
+   int num_items_moved = 0;
+   for (auto &stack_item : stack)
+   {
+      int &column = stack_item.second.first;
+      if (column <= target_column)
+      {
+         column--;
+         num_items_moved++;
+      }
+   }
+   return num_items_moved;
+}
+
+void AccidentalStacker::collapse()
+{
+   bool all_columns_collapsed = false;
+
+   // HERE
+   // TODO: This algo
+   //while()
+   //{
+   //}
+
+   return;
+}
+
 AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType AccidentalStacker::find_accidental_type_by_weight(int accidental_weight)
 {
    // TODO: Improve this calculation to permit for double sharps, double flats, etc
