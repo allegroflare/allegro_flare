@@ -342,6 +342,7 @@ void AccidentalStacker::integrate_fitable_columns()
    int current_column = 0;
 
    // TODO: Make this into an actual algorithm. This is brute force, and assumes 4 columns are a max stackable
+   // TODO: Test this with better coverage
    if (can_fit(0, -1)) collapse_column_into_previous(-1);
    if (can_fit(0, -1)) collapse_column_into_previous(-1);
    if (can_fit(0, -1)) collapse_column_into_previous(-1);
