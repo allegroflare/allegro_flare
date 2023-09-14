@@ -273,7 +273,9 @@ methods:
       return AccidentalType::UNDEFINED;
 
 
-  - name: operator()
+  - name: custom_comparison_for_pitch_tokens
+    private: true
+    static: true
     type: bool
     parameters:
       - name: token1
@@ -283,21 +285,20 @@ methods:
         type: const AllegroFlare::MusicNotation::Parser::PitchToken&
         default_argument: AllegroFlare::MusicNotation::Parser::PitchToken()
     body: |
-      // TODO: Test this comparison
-      // TODO: Remove this as an operator() on the class and instead use an isolated function
       if (token1.staff_position != token2.staff_position) return token1.staff_position < token2.staff_position;
       return token1.calculate_accidental_weight() < token2.calculate_accidental_weight();
 
 
   - name: sort_and_make_unique
     body: |
-      // TODO: Consider modifying this method to return a sorted object rather than modify the existing one
+      // TODO: Test this method
       std::set<
             AllegroFlare::MusicNotation::Parser::PitchToken,
-            AllegroFlare::MusicNotation::AccidentalStacker // This implicitly uses the operator()
-                                                           // TODO: Replace the reliance on the operator with a
-                                                           // standalone function
-         > result_pitches;
+            bool(*)(
+                  const AllegroFlare::MusicNotation::Parser::PitchToken&,
+                  const AllegroFlare::MusicNotation::Parser::PitchToken&
+               )
+         > result_pitches(AllegroFlare::MusicNotation::AccidentalStacker::custom_comparison_for_pitch_tokens);
 
       for (auto &note : pitches)
       {

@@ -289,23 +289,22 @@ AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType AccidentalStacker
    return AccidentalType::UNDEFINED;
 }
 
-bool AccidentalStacker::operator()(const AllegroFlare::MusicNotation::Parser::PitchToken& token1, const AllegroFlare::MusicNotation::Parser::PitchToken& token2)
+bool AccidentalStacker::custom_comparison_for_pitch_tokens(const AllegroFlare::MusicNotation::Parser::PitchToken& token1, const AllegroFlare::MusicNotation::Parser::PitchToken& token2)
 {
-   // TODO: Test this comparison
-   // TODO: Remove this as an operator() on the class and instead use an isolated function
    if (token1.staff_position != token2.staff_position) return token1.staff_position < token2.staff_position;
    return token1.calculate_accidental_weight() < token2.calculate_accidental_weight();
 }
 
 void AccidentalStacker::sort_and_make_unique()
 {
-   // TODO: Consider modifying this method to return a sorted object rather than modify the existing one
+   // TODO: Test this method
    std::set<
          AllegroFlare::MusicNotation::Parser::PitchToken,
-         AllegroFlare::MusicNotation::AccidentalStacker // This implicitly uses the operator()
-                                                        // TODO: Replace the reliance on the operator with a
-                                                        // standalone function
-      > result_pitches;
+         bool(*)(
+               const AllegroFlare::MusicNotation::Parser::PitchToken&,
+               const AllegroFlare::MusicNotation::Parser::PitchToken&
+            )
+      > result_pitches(AllegroFlare::MusicNotation::AccidentalStacker::custom_comparison_for_pitch_tokens);
 
    for (auto &note : pitches)
    {
