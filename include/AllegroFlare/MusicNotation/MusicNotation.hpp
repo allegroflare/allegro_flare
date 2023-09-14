@@ -9,17 +9,6 @@
 #include <AllegroFlare/MusicNotation/Parser/PitchToken.hpp>
 
 
-      // TODO: Move this into a better scope
-      //struct PitchToken
-      //{
-      //public:
-         //int staff_position;
-         //int accidental;
-         //bool accidental_natural;
-      //};
-
-
-
 namespace AllegroFlare
 {
    namespace MusicNotation
@@ -31,14 +20,6 @@ namespace AllegroFlare
          DOWN,
          EVEN,
       };
-      //struct PitchToken
-      //{
-      //public:
-         //int staff_position;
-         //int accidental;
-         //bool accidental_natural;
-      //};
-
 
       class MusicNotation
       // TODO: guard all functions properly when drawing_interface is nullptr

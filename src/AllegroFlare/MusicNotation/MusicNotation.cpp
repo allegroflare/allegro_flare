@@ -23,25 +23,13 @@ static ALLEGRO_COLOR infer_color_name_or_hex(const std::string &name_or_hex)
    static const ALLEGRO_COLOR black{0, 0, 0, 1};
    if (strcmp("black", name_or_hex.c_str()) == 0) return black;
 
-   // try name
+   // Try using name to generate color
    ALLEGRO_COLOR result = al_color_name(name_or_hex.c_str());
-   // If al_color_name() returned black, try hex
+   // If the previous call returned black, try using the name_or_hex as a hex value
    if (result == black) return al_color_html(name_or_hex.c_str());
    return result;
 }
 
-
-
-
-/*
-static struct PitchToken
-{
-public:
-   int staff_position;
-   int accidental;
-   bool accidental_natural;
-};
-*/
 
 
 
