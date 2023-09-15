@@ -455,6 +455,7 @@ float MusicNotation::draw_note_fragment(
    )
 {
       uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
+      uint32_t note_head_symbol = 0x0000;
       // Calculate our max and min staff position
 
       //int min_staff_pos = get_min_staff_position(multi_note);
@@ -508,16 +509,45 @@ float MusicNotation::draw_note_fragment(
       }
       else // (!current_note_is_rest)
       {
+         switch(current_note_duration)
+         {
+            case 1:
+               note_head_symbol = AllegroFlare::FontBravura::whole_note_head;
+            break;
+
+            case 2:
+               note_head_symbol = AllegroFlare::FontBravura::open_note_head;
+            break;
+
+            case 4:
+            case 8:
+            case 16:
+            case 32:
+            case 64:
+               note_head_symbol = AllegroFlare::FontBravura::closed_note_head;
+            break;
+
+            default:
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+                  "Inferring the notehead symbol for this duration (" + std::to_string(current_note_duration)
+                     + ") is not supported."
+               );
+            break;
+         }
+
          if (!rendering_stem)
          {
             switch(current_note_duration)
             {
                case 1:
                   symbol = AllegroFlare::FontBravura::whole_note_head;
+                  //note_head_symbol = AllegroFlare::FontBravura::whole_note_head;
                break;
 
                case 2:
                   symbol = AllegroFlare::FontBravura::open_note_head;
+                  //note_head_symbol = AllegroFlare::FontBravura::open_note_head;
                break;
 
                case 4:
@@ -526,6 +556,7 @@ float MusicNotation::draw_note_fragment(
                case 32:
                case 64:
                   symbol = AllegroFlare::FontBravura::closed_note_head;
+                  //note_head_symbol = AllegroFlare::FontBravura::closed_note_head;
                break;
 
                default:
@@ -674,8 +705,15 @@ float MusicNotation::draw_note_fragment(
 
          float notehead_x_offset = ((note_stem_position == LEFT) ? 0 : notehead_width_px);
 
+         bool is_outset_from_normal_note_position_for_the_stem =
+               (stem_direction == StemDirection::UP && note_stem_position == RIGHT)
+               || (this_note_cluster_has_seconds && stem_direction == StemDirection::DOWN && note_stem_position == LEFT)
+               ;
+
+
          draw_music_symbol(
-            symbol,
+            is_outset_from_normal_note_position_for_the_stem ? note_head_symbol : symbol, // HACK, use
+            //symbol,
             x + notehead_x_offset,
             y + calculate_staff_position_y_offset(note_staff_position),
             color,
