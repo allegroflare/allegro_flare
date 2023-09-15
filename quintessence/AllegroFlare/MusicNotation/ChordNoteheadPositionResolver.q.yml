@@ -64,7 +64,9 @@ methods:
       // 3) The remaining notes (that are note ajacent by step to another note), are all placed either on the right
       //    side or the left side, depending on the stem direction (Stem up? Notes on left side. Stem down? Notes on
       //    right side.)
-      // If the chord has a 2nd in it, there will be two columns (the stem will be on the "right side").
+      // If the chord has a 2nd in it, there will be two columns (the stem will be on the "right side"). Depending
+      // on which direction the stem is facing, it'll be up to the user to determine which side STEMSIDE stems
+      // should be on.
 
       if (pitches.size() == 0)
       {
@@ -104,14 +106,8 @@ methods:
             bool second_placed_previously = false;
 
             // Place all the notes leading up to the last note
-
             for (int i=0; i<(pitches.size() - 1); i++)
             {
-               // bool last_note = (i == pitches.size() - 1); // last_note
-               //bool this_second_right_side = true;
-               //bool second_placed_previously = false;
-               //int previous_note_position = 0;
-               //int this_note_position = 0;
                int this_note_staff_position = pitches[i].get_staff_position();
                int next_note_staff_position = pitches[i+1].get_staff_position();
 
@@ -122,8 +118,6 @@ methods:
                         this_second_right_side ? PositionType::RIGHT : PositionType::LEFT
                      });
                   second_placed_previously = true;
-                  //seconds_exist = true;
-                  //break;
                   this_second_right_side = !this_second_right_side;
                }
                else
