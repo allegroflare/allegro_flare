@@ -14,6 +14,7 @@
 #include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
 #include <AllegroFlare/MusicNotation/TieRenderer.hpp>
 #include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
+#include <AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.hpp>
 
 
 
@@ -577,6 +578,12 @@ float MusicNotation::draw_note_fragment(
       // Render the notehead(s), accidentals, and dots
 
       float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
+
+      // HERE:
+      // TODO: Use this AllegroFlare::MusicNotation::ChordNoteheadPositionResolver to get positions of noteheads
+      // and then render those positions
+      AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
+      chord_notehead_position_resolver.solve();
 
       for (auto &note : multi_note)
       {
