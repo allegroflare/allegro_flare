@@ -26,6 +26,7 @@ namespace AllegroFlare
          std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>> positions;
          bool seconds_exist;
          bool solved;
+         static bool custom_comparison_for_pitch_tokens(const AllegroFlare::MusicNotation::Parser::PitchToken& token1=AllegroFlare::MusicNotation::Parser::PitchToken(), const AllegroFlare::MusicNotation::Parser::PitchToken& token2=AllegroFlare::MusicNotation::Parser::PitchToken());
 
       protected:
 
@@ -41,6 +42,7 @@ namespace AllegroFlare
          bool get_seconds_exist();
          const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& noteheads_exist_on_both_sides();
          void solve();
+         void sort_and_make_unique();
       };
    }
 }

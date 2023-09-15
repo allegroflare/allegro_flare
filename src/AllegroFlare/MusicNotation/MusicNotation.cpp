@@ -612,18 +612,13 @@ float MusicNotation::draw_note_fragment(
       // HERE: Resolve 3 known bugs:
       //   - 1) Example showing multiple octaves does not stack accidentals as expected
       //   - 2) Stems are rendered alongside note heads even when the notehead is at the interval of a 2nd
-      //   - 3) Why are RIGHT and LEFT assignments swapped when assigning to note_stem_position (around line 673)
+      //   - 3) DONE - Why are RIGHT and LEFT assignments swapped when assigning to note_stem_position (around line 673)
       // TODO: Use this AllegroFlare::MusicNotation::ChordNoteheadPositionResolver to get positions of noteheads
       // and then render those positions
       AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
       chord_notehead_position_resolver.solve();
       std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
          chord_notehead_position_resolver.get_positions();
-
-      // using AllegroFlare::MusicNotation::ChordNoteheadPositionResolver;
-      //{ ChordNoteheadPositionResolver::PositionType::STEMSIDE },
-      //{ ChordNoteheadPositionResolver::PositionType::LEFT },
-      //{ ChordNoteheadPositionResolver::PositionType::RIGHT },
 
       float notehead_width_px = 24;
       bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
@@ -635,17 +630,6 @@ float MusicNotation::draw_note_fragment(
          const bool RIGHT = 1;
          int note_staff_position = note.first;
          ChordNoteheadPositionResolver::PositionType notehead_resolved_position = note.second;
-         //int note_staff_position = note.staff_position;
-         //bool note_stem_position = LEFT; // TODO: Add calculation to determine which side of the stem this should be on,
-                                         // based on:
-                                         //   - stem_direction:
-                                         //     - StemDirection::UP:
-                                         //     - StemDirection::DOWN:
-                                         //   - notehead_resolved_position:
-                                         //     - ChordNoteheadPositionResolver::PositionType::STEMSIDE
-                                         //     - ChordNoteheadPositionResolver::PositionType::LEFT
-                                         //     - ChordNoteheadPositionResolver::PositionType::RIGHT
-
          bool note_stem_position = LEFT;
          switch(notehead_resolved_position)
          {
@@ -670,11 +654,11 @@ float MusicNotation::draw_note_fragment(
             break;
 
             case ChordNoteheadPositionResolver::PositionType::LEFT:
-               note_stem_position = RIGHT; // Why is this RIGHT? Shouldn't it be LEFT?
+               note_stem_position = LEFT;
             break;
 
             case ChordNoteheadPositionResolver::PositionType::RIGHT:
-               note_stem_position = LEFT;  // Why is this LEFT? Shouldn't it be RIGHT?
+               note_stem_position = RIGHT;
             break;
 
             default:
@@ -685,15 +669,10 @@ float MusicNotation::draw_note_fragment(
             break;
          }
 
-         //(notehead_resolved_position == ChordNoteheadPositionResolver::PositionType::STEMSIDE)
-                                 //? (LEFT)
-                                 //: (
-                                         //     - ChordNoteheadPositionResolver::PositionType::LEFT
-                                         //     - ChordNoteheadPositionResolver::PositionType::RIGHT
 
          // Draw the note
 
-         float notehead_x_offset = (note_stem_position == LEFT) ? 0 : notehead_width_px;
+         float notehead_x_offset = ((note_stem_position == LEFT) ? 0 : notehead_width_px);
 
          draw_music_symbol(
             symbol,
@@ -704,6 +683,7 @@ float MusicNotation::draw_note_fragment(
          );
 
          // Draw the dots
+         // TODO: Take into account shared dots within chord noteheads
 
          float dots_x_cursor = 0;
          bool note_head_is_on_line = (note_staff_position % 2 == 0);

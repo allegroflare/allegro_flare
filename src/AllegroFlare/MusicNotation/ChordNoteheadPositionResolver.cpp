@@ -3,6 +3,7 @@
 #include <AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.hpp>
 
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -92,6 +93,12 @@ void ChordNoteheadPositionResolver::solve()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::solve: error: guard \"(!solved)\" not met");
    }
+   // TODO: Sort and make unique
+   sort_and_make_unique();
+   std::reverse(pitches.begin(), pitches.end());
+
+   // TODO: Test context where notes must be sorted and made unique
+
    // NOTE: Algorithm works generally like this:
    // 2) If there is a 2nd, the higher note is on the right side, regardless of stem direction
    // 3) The remaining notes (that are note ajacent by step to another note), are all placed either on the right
@@ -189,6 +196,38 @@ void ChordNoteheadPositionResolver::solve()
    }
 
    solved = true;
+   return;
+}
+
+bool ChordNoteheadPositionResolver::custom_comparison_for_pitch_tokens(const AllegroFlare::MusicNotation::Parser::PitchToken& token1, const AllegroFlare::MusicNotation::Parser::PitchToken& token2)
+{
+   if (token1.staff_position != token2.staff_position) return token1.staff_position < token2.staff_position;
+   return token1.calculate_accidental_weight() < token2.calculate_accidental_weight();
+}
+
+void ChordNoteheadPositionResolver::sort_and_make_unique()
+{
+   // TODO: Test this method
+   std::set<
+         AllegroFlare::MusicNotation::Parser::PitchToken,
+         bool(*)(
+               const AllegroFlare::MusicNotation::Parser::PitchToken&,
+               const AllegroFlare::MusicNotation::Parser::PitchToken&
+            )
+      > result_pitches(
+               AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::custom_comparison_for_pitch_tokens
+          );
+
+   for (auto &note : pitches)
+   {
+      result_pitches.insert(note);
+   }
+
+   pitches.clear();
+   for (auto &note : result_pitches)
+   {
+      pitches.push_back(note);
+   }
    return;
 }
 
