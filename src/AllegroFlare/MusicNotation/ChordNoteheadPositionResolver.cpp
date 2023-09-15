@@ -74,6 +74,35 @@ void ChordNoteheadPositionResolver::solve()
    }
    // TODO: This implementation
 
+   if (pitches.size() == 0)
+   {
+      // Do nothing
+   }
+   else
+   {
+      bool seconds_exist = false;
+      for (int i=0; i<(pitches.size() - 1); i++)
+      {
+         int this_note_staff_position = pitches[i].get_staff_position();
+         int next_note_staff_position = pitches[i+1].get_staff_position();
+
+         if (abs(this_note_staff_position - next_note_staff_position) == 1)
+         {
+            seconds_exist = true;
+            break;
+         }
+      }
+
+      if (seconds_exist)
+      {
+         for (auto &pitch : pitches)
+         {
+            int pitch_staff_position = pitch.get_staff_position();
+            positions.push_back({ pitch_staff_position, PositionType::STEMSIDE });
+         }
+      }
+   }
+
    // 1) If the chord has a 2nd in it, there will be two columns, and the beam will be on the "right side"
    // 2) If there is a 2nd, the higher note is on the right side, regardless of stem direction
    // 3) The remaining notes (that are note ajacent by step to another note), are all placed either on the right
