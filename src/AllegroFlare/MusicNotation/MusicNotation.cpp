@@ -477,6 +477,9 @@ float MusicNotation::draw_note_fragment(
       StemDirection stem_direction =
          freeze_stems_up ? StemDirection::UP : 
             (stem_direction_is_undefined_or_even ? StemDirection::DOWN : preferred_stem_direction_from_note_positions);
+
+
+      bool rendering_stem = false;
       
 
 
@@ -502,45 +505,69 @@ float MusicNotation::draw_note_fragment(
       }
       else // (!current_note_is_rest)
       {
-         if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
-         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_note;
-         else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
-         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
-         else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::sixteenth_note;
-         else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::thirtysecond_note;
-         else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::sixtyfourth_note;
-         else
+         if (!rendering_stem)
          {
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-               "Rendering durations faster than a 1/64 note is not supported."
-            );
-         }
-
-         // HERE
-         //if (preferred_stem_direction == 
-         //contains
-         bool symbol_contains_stem = AllegroFlare::FontBravura::has_stem(symbol);
-         if (symbol_contains_stem)
-         {
-            switch(stem_direction)
+            switch(current_note_duration)
             {
-               case StemDirection::UP:
-                  // do nothing
+               case 1:
+                  symbol = AllegroFlare::FontBravura::whole_note_head;
                break;
 
-               case StemDirection::DOWN:
-                  symbol += 1;
+               case 2:
+                  symbol = AllegroFlare::FontBravura::open_note_head;
+               break;
+
+               case 4:
+               case 8:
+               case 16:
+               case 32:
+               case 64:
+                  symbol = AllegroFlare::FontBravura::closed_note_head;
+               break;
+
+               default:
+                  AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+                     "Inferring the notehead symbol for this duration (" + std::to_string(current_note_duration)
+                        + ") is not supported."
+                  );
                break;
             }
          }
+         else // if (rendering_stem)
+         {
+            if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
+            else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_note;
+            else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
+            else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
+            else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::sixteenth_note;
+            else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::thirtysecond_note;
+            else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::sixtyfourth_note;
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+                  "Rendering durations faster than a 1/64 note is not supported."
+               );
+            }
 
-          //use the flipped stem version (if necessairy)
-         //if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (current_note_is_below_center_line) && !freeze_stems_up)
-         //if (symbol >= (uint32_t)AllegroFlare::FontBravura::half_note && (staff_pos >= 0) && !freeze_stems_up)
-         //{
-            //symbol += 1;
-         //}
+            //if (preferred_stem_direction == 
+            //contains
+            bool symbol_contains_stem = AllegroFlare::FontBravura::has_stem(symbol);
+            if (symbol_contains_stem)
+            {
+               switch(stem_direction)
+               {
+                  case StemDirection::UP:
+                     // do nothing
+                  break;
+
+                  case StemDirection::DOWN:
+                     symbol += 1;
+                  break;
+               }
+            }
+         }
       }
 
 
