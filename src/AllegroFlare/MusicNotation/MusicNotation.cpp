@@ -479,7 +479,10 @@ float MusicNotation::draw_note_fragment(
             (stem_direction_is_undefined_or_even ? StemDirection::DOWN : preferred_stem_direction_from_note_positions);
 
 
-      bool rendering_stem = false;
+
+      // For
+
+      bool rendering_stem = true; // 
       
 
 
@@ -620,6 +623,8 @@ float MusicNotation::draw_note_fragment(
       //{ ChordNoteheadPositionResolver::PositionType::RIGHT },
 
       float notehead_width_px = 24;
+      bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
+
       //for (auto &note : multi_note)
       for (auto &note : notehead_positions)
       {
@@ -628,13 +633,58 @@ float MusicNotation::draw_note_fragment(
          int note_staff_position = note.first;
          ChordNoteheadPositionResolver::PositionType notehead_resolved_position = note.second;
          //int note_staff_position = note.staff_position;
-         bool note_stem_position = LEFT; // TODO: Add calculation to determine which side of the stem this should be on,
+         //bool note_stem_position = LEFT; // TODO: Add calculation to determine which side of the stem this should be on,
                                          // based on:
                                          //   - stem_direction:
                                          //     - StemDirection::UP:
                                          //     - StemDirection::DOWN:
                                          //   - notehead_resolved_position:
                                          //     - ChordNoteheadPositionResolver::PositionType::STEMSIDE
+                                         //     - ChordNoteheadPositionResolver::PositionType::LEFT
+                                         //     - ChordNoteheadPositionResolver::PositionType::RIGHT
+
+         bool note_stem_position = LEFT;
+         switch(notehead_resolved_position)
+         {
+            case ChordNoteheadPositionResolver::PositionType::STEMSIDE:
+               switch(stem_direction)
+               {
+                  case StemDirection::UP:
+                     note_stem_position = LEFT;
+                  break;
+
+                  case StemDirection::DOWN:
+                     note_stem_position = this_note_cluster_has_seconds ? RIGHT : LEFT;
+                  break;
+
+                  default:
+                     AllegroFlare::Logger::throw_error(
+                        "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+                        "Unhandled StemDirection when evaluating the stem_direction"
+                     );
+                  break;
+               }
+            break;
+
+            case ChordNoteheadPositionResolver::PositionType::LEFT:
+               note_stem_position = RIGHT; // Why is this RIGHT? Shouldn't it be LEFT?
+            break;
+
+            case ChordNoteheadPositionResolver::PositionType::RIGHT:
+               note_stem_position = LEFT;  // Why is this LEFT? Shouldn't it be RIGHT?
+            break;
+
+            default:
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+                  "Unhandled ChordNotePositionResolver::PositionType when evaluating the note_stem_position"
+               );
+            break;
+         }
+
+         //(notehead_resolved_position == ChordNoteheadPositionResolver::PositionType::STEMSIDE)
+                                 //? (LEFT)
+                                 //: (
                                          //     - ChordNoteheadPositionResolver::PositionType::LEFT
                                          //     - ChordNoteheadPositionResolver::PositionType::RIGHT
 
