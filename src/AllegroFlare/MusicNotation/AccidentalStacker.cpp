@@ -283,16 +283,14 @@ bool AccidentalStacker::can_fit(int current_column, int target_column)
       if (column == target_column) target_column_elements.push_back(stack_item);
    }
 
-   for (int i = 0; i < current_column_elements.size(); ++i)
+   for (int i=0; i<current_column_elements.size(); ++i)
    {
-      for (int j = 0; j < target_column_elements.size(); ++j)
+      for (int j=0; j<target_column_elements.size(); ++j)
       {
          int row_of_current_item = current_column_elements[i].second.second;
-         int row_of_target_item = target_column_elements[i].second.second;
+         int row_of_target_item = target_column_elements[j].second.second;
 
          int distance = abs(row_of_current_item - row_of_target_item);
-         //std::cout << " -- points: roci: " << row_of_current_item << " roti: " << row_of_target_item << std::endl;
-         //std::cout << "    distance: " << distance << std::endl;
          if (distance < 6)
          {
             return false;
@@ -320,6 +318,7 @@ int AccidentalStacker::collapse_column_into_previous(int target_column)
       {
          column++;
          num_items_moved++;
+         std::cout << "smush - " << std::endl; 
       }
    }
    return num_items_moved;

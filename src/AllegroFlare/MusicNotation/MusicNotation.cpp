@@ -641,12 +641,8 @@ float MusicNotation::draw_note_fragment(
       float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
 
       // HERE: Resolve known bugs:
-      //   - 1) Example showing multiple octaves does not stack accidentals as expected
-      //   - 2) HACK FIXED - Stems are rendered alongside note heads even when the notehead is at the interval of a 2nd
-      //   - 3) DONE - Why are RIGHT and LEFT assignments swapped when assigning to note_stem_position (around line 673)
-      //   - 4) Ledger line lengths and positions to handle chords with "two column" noteheads on either side of stem
-      // TODO: Use this AllegroFlare::MusicNotation::ChordNoteheadPositionResolver to get positions of noteheads
-      // and then render those positions
+      //   - Ledger line lengths and positions to handle chords with "two column" noteheads on either side of stem
+
       AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
       chord_notehead_position_resolver.solve();
       std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
