@@ -187,12 +187,41 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
    AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
 
-   // TODO: Add more test cases for accidental stacking. Check out:
-   // https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
    std::string music_notation_content_string =
       "     (+0 +2 =5 +'0)   (+0 +2 =4 '+0)   (,6 '=1 +2 +4 6)   (,=3 +5 '=0 =2 3)   (,=1 +2 +4 =6 '=1)";
 
    music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
+
+   al_flip_display();
+   //sleep(1);
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   CAPTURE__on_rendering__accidentals_will_appear_on_notes_as_expected)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 14);
+
+   std::vector<std::string> notation_strings = {
+      "  -0 -1 -2 -3 -4 -5 -6 '-0 -1 -2 -3 -4 -5 -6 -7",
+      ",,  -0 -1 -2 -3 -4 -5 -6 '-0 -1 -2 -3 -4 -5 -6 -7",
+      "  +0 +1 +2 +3 +4 +5 +6 '+0 +1 +2 +3 +4 +5 +6 +7",
+      ",,  +0 +1 +2 +3 +4 +5 +6 '+0 +1 +2 +3 +4 +5 +6 +7",
+      "  =0 =1 =2 =3 =4 =5 =6 '=0 =1 =2 =3 =4 =5 =6 =7",
+      ",, =0 =1 =2 =3 =4 =5 =6 '=0 =1 =2 =3 =4 =5 =6 =7",
+   };
+
+   float x = 1920/2 - 600;
+   float y = 1080/2 - 400;
+   float spacing_y = 160;
+   int count = 0;
+
+   for (auto &notation_string : notation_strings)
+   {
+      music_notation.draw(x, y + spacing_y * count, notation_string);
+      count++;
+   }
 
    al_flip_display();
    sleep(1);
