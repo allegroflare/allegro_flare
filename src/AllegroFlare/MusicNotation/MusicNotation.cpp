@@ -584,6 +584,13 @@ float MusicNotation::draw_note_fragment(
       // and then render those positions
       AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
       chord_notehead_position_resolver.solve();
+      std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
+         chord_notehead_position_resolver.get_positions();
+
+      // using AllegroFlare::MusicNotation::ChordNoteheadPositionResolver;
+      //{ ChordNoteheadPositionResolver::PositionType::STEMSIDE },
+      //{ ChordNoteheadPositionResolver::PositionType::LEFT },
+      //{ ChordNoteheadPositionResolver::PositionType::RIGHT },
 
       for (auto &note : multi_note)
       {
