@@ -1,0 +1,61 @@
+properties:
+
+
+  - name: pitches
+    type: std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: false
+
+  - name: positions
+    type: std::vector<std::pair<int, int>>
+    init_with: '{}'
+    constructor_arg: true
+    getter: explicit
+    setter: true
+
+  - name: solved
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: set_pitches
+    parameters:
+      - name: pitches
+        type: const std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>&
+        default_argument: '{}'
+    body: |
+      this->pitches = pitches;
+      solved = false;
+      return;
+
+
+  - name: get_positions
+    type: const std::vector<std::pair<int, int>>&
+    guards: [ solved ]
+    body: |
+      return positions;
+
+
+  - name: solve
+    guards: [ (!solved) ]
+    body: |
+      // TODO: This implementation
+      solved = true;
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MusicNotation::Parser::PitchToken
+    headers: [ AllegroFlare/MusicNotation/Parser/PitchToken.hpp ]
+
+
