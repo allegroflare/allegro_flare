@@ -59,3 +59,34 @@ TEST(AllegroFlare_MusicNotation_ChordNoteheadPositionResolverTest, solve__will_b
 }
 
 
+TEST(AllegroFlare_MusicNotation_ChordNoteheadPositionResolverTest,
+   seconds_exist__will_return_true_if_there_are_two_or_more_staff_positions_that_are_adjacent)
+{
+   using AllegroFlare::MusicNotation::ChordNoteheadPositionResolver;
+   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches = {
+      { 5, 0, 0 },
+      { 4, 0, 0 },
+   };
+
+   AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(pitches);
+   chord_notehead_position_resolver.solve();
+   EXPECT_EQ(true, chord_notehead_position_resolver.get_seconds_exist());
+}
+
+
+TEST(AllegroFlare_MusicNotation_ChordNoteheadPositionResolverTest,
+   seconds_exist__will_return_false_if_there_not_two_or_more_staff_positions_that_are_adjacent)
+{
+   using AllegroFlare::MusicNotation::ChordNoteheadPositionResolver;
+   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches = {
+      { 5, 0, 0 },
+      { 3, 0, 0 },
+      { 1, 0, 0 },
+   };
+
+   AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(pitches);
+   chord_notehead_position_resolver.solve();
+   EXPECT_EQ(false, chord_notehead_position_resolver.get_seconds_exist());
+}
+
+

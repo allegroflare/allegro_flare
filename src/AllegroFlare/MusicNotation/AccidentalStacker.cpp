@@ -28,12 +28,6 @@ AccidentalStacker::~AccidentalStacker()
 }
 
 
-void AccidentalStacker::set_solved(bool solved)
-{
-   this->solved = solved;
-}
-
-
 std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> AccidentalStacker::get_pitches() const
 {
    return pitches;

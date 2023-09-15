@@ -34,7 +34,6 @@ namespace AllegroFlare
          AccidentalStacker(std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches={}, std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> stack={}, bool solved=false);
          ~AccidentalStacker();
 
-         void set_solved(bool solved);
          std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> get_pitches() const;
          bool get_solved() const;
          void set_pitches(const std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>& pitches={});

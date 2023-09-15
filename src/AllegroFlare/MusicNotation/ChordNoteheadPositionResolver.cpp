@@ -13,22 +13,17 @@ namespace MusicNotation
 {
 
 
-ChordNoteheadPositionResolver::ChordNoteheadPositionResolver(std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches, std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>> positions, bool solved)
+ChordNoteheadPositionResolver::ChordNoteheadPositionResolver(std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches, std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>> positions)
    : pitches(pitches)
    , positions(positions)
-   , solved(solved)
+   , seconds_exist(false)
+   , solved(false)
 {
 }
 
 
 ChordNoteheadPositionResolver::~ChordNoteheadPositionResolver()
 {
-}
-
-
-void ChordNoteheadPositionResolver::set_solved(bool solved)
-{
-   this->solved = solved;
 }
 
 
@@ -47,6 +42,7 @@ bool ChordNoteheadPositionResolver::get_solved() const
 void ChordNoteheadPositionResolver::set_pitches(const std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>& pitches)
 {
    this->pitches = pitches;
+   seconds_exist = false;
    solved = false;
    return;
 }
@@ -59,6 +55,30 @@ const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPosit
       error_message << "[ChordNoteheadPositionResolver::get_positions]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::get_positions: error: guard \"solved\" not met");
+   }
+   return positions;
+}
+
+bool ChordNoteheadPositionResolver::get_seconds_exist()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::get_seconds_exist]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::get_seconds_exist: error: guard \"solved\" not met");
+   }
+   return seconds_exist;
+}
+
+const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& ChordNoteheadPositionResolver::noteheads_exist_on_both_sides()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::noteheads_exist_on_both_sides]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::noteheads_exist_on_both_sides: error: guard \"solved\" not met");
    }
    return positions;
 }
@@ -92,7 +112,7 @@ void ChordNoteheadPositionResolver::solve()
    }
    else // There are 2 or more pitches
    {
-      bool seconds_exist = false;
+      seconds_exist = false;
       for (int i=0; i<(pitches.size() - 1); i++)
       {
          int this_note_staff_position = pitches[i].get_staff_position();
