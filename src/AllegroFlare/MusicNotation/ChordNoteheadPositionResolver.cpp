@@ -78,7 +78,12 @@ void ChordNoteheadPositionResolver::solve()
    {
       // Do nothing
    }
-   else
+   else if (pitches.size() == 1)
+   {
+      int pitch_staff_position = pitches[0].get_staff_position();
+      positions.push_back({ pitch_staff_position, PositionType::STEMSIDE });
+   }
+   else // There are 2 or more pitches
    {
       bool seconds_exist = false;
       for (int i=0; i<(pitches.size() - 1); i++)
@@ -93,12 +98,53 @@ void ChordNoteheadPositionResolver::solve()
          }
       }
 
-      if (seconds_exist)
+      if (!seconds_exist)
       {
          for (auto &pitch : pitches)
          {
             int pitch_staff_position = pitch.get_staff_position();
             positions.push_back({ pitch_staff_position, PositionType::STEMSIDE });
+         }
+      }
+      else
+      {
+         for (int i=0; i<(pitches.size() - 1); i++)
+         {
+            bool this_second_right_side = true;
+            bool second_placed_previously = false;
+            //int previous_note_position = 0;
+            //int this_note_position = 0;
+            int this_note_staff_position = pitches[i].get_staff_position();
+            int next_note_staff_position = pitches[i+1].get_staff_position();
+
+            if (abs(this_note_staff_position - next_note_staff_position) == 1)
+            {
+               positions.push_back({
+                     this_note_staff_position,
+                     this_second_right_side ? PositionType::RIGHT : PositionType::LEFT
+                  });
+               second_placed_previously = true;
+               //seconds_exist = true;
+               //break;
+               this_second_right_side = !this_second_right_side;
+            }
+            else
+            {
+               if (second_placed_previously)
+               {
+                  positions.push_back({
+                        this_note_staff_position,
+                        this_second_right_side ? PositionType::RIGHT : PositionType::LEFT
+                     });
+               }
+               else // if (!second_placed_previously)
+               {
+                  positions.push_back({this_note_staff_position, PositionType::STEMSIDE});
+               }
+
+               second_placed_previously = false;
+               this_second_right_side = true;
+            }
          }
       }
    }
