@@ -79,6 +79,13 @@ void ChordNoteheadPositionResolver::solve()
       throw std::runtime_error("ChordNoteheadPositionResolver::solve: error: guard \"(!solved)\" not met");
    }
    // TODO: This implementation
+
+   // 1) If the chord has a 2nd in it, there will be two columns, and the beam will be on the "right side"
+   // 2) If there is a 2nd, the higher note is on the right side, regardless of stem direction
+   // 3) The remaining notes (that are note ajacent by step to another note), are all placed either on the right
+   //    side or the left side, depending on the stem direction (Stem up? Notes on left side. Stem down? Notes on
+   //    right side.)
+
    solved = true;
    return;
 }
