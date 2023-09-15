@@ -1901,6 +1901,9 @@
   "BeamPositionCalculator/StemDirection": [
     "AllegroFlare/MusicNotation/BeamPositionCalculator"
   ],
+  "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver/PositionType": [
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+  ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
   ],

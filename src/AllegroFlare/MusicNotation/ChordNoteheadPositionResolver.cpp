@@ -13,7 +13,7 @@ namespace MusicNotation
 {
 
 
-ChordNoteheadPositionResolver::ChordNoteheadPositionResolver(std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches, std::vector<std::pair<int, int>> positions, bool solved)
+ChordNoteheadPositionResolver::ChordNoteheadPositionResolver(std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches, std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>> positions, bool solved)
    : pitches(pitches)
    , positions(positions)
    , solved(solved)
@@ -23,12 +23,6 @@ ChordNoteheadPositionResolver::ChordNoteheadPositionResolver(std::vector<Allegro
 
 ChordNoteheadPositionResolver::~ChordNoteheadPositionResolver()
 {
-}
-
-
-void ChordNoteheadPositionResolver::set_positions(std::vector<std::pair<int, int>> positions)
-{
-   this->positions = positions;
 }
 
 
@@ -57,7 +51,7 @@ void ChordNoteheadPositionResolver::set_pitches(const std::vector<AllegroFlare::
    return;
 }
 
-const std::vector<std::pair<int, int>>& ChordNoteheadPositionResolver::get_positions()
+const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& ChordNoteheadPositionResolver::get_positions()
 {
    if (!(solved))
    {

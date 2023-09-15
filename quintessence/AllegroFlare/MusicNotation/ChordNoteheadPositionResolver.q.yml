@@ -9,11 +9,11 @@ properties:
     setter: false
 
   - name: positions
-    type: std::vector<std::pair<int, int>>
+    type: std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>
     init_with: '{}'
     constructor_arg: true
     getter: explicit
-    setter: true
+    setter: false
 
   - name: solved
     type: bool
@@ -21,6 +21,18 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
+
+
+enums:
+
+
+  - name: PositionType
+    scope: public
+    enumerators:
+      - UNDEFINED
+      - LEFT
+      - RIGHT
+      - STEMSIDE
 
 
 methods:
@@ -38,7 +50,7 @@ methods:
 
 
   - name: get_positions
-    type: const std::vector<std::pair<int, int>>&
+    type: const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>&
     guards: [ solved ]
     body: |
       return positions;
@@ -64,5 +76,7 @@ dependencies:
 
   - symbol: AllegroFlare::MusicNotation::Parser::PitchToken
     headers: [ AllegroFlare/MusicNotation/Parser/PitchToken.hpp ]
+  - symbol: AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType
+    headers: [ ]
 
 

@@ -28,12 +28,6 @@ AccidentalStacker::~AccidentalStacker()
 }
 
 
-void AccidentalStacker::set_stack(std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> stack)
-{
-   this->stack = stack;
-}
-
-
 void AccidentalStacker::set_solved(bool solved)
 {
    this->solved = solved;

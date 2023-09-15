@@ -13,7 +13,7 @@ properties:
     init_with: '{}'
     constructor_arg: true
     getter: explicit
-    setter: true
+    setter: false
 
   - name: solved
     type: bool
