@@ -189,7 +189,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
 
    // TODO: Add more test cases for accidental stacking. Check out:
    // https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
-   std::string music_notation_content_string = "(+0 +3 =6 +'1)";
+   std::string music_notation_content_string = "(+0 +2 =5 +'0) (+0 +2 =4 '+0)";
 
    music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
 
