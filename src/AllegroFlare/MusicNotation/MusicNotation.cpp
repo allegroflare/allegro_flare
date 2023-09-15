@@ -592,14 +592,33 @@ float MusicNotation::draw_note_fragment(
       //{ ChordNoteheadPositionResolver::PositionType::LEFT },
       //{ ChordNoteheadPositionResolver::PositionType::RIGHT },
 
-      for (auto &note : multi_note)
+      float notehead_width_px = 24;
+      //for (auto &note : multi_note)
+      for (auto &note : notehead_positions)
       {
+         const bool LEFT = 0;
+         const bool RIGHT = 1;
+         int note_staff_position = note.first;
+         ChordNoteheadPositionResolver::PositionType notehead_resolved_position = note.second;
+         //int note_staff_position = note.staff_position;
+         bool note_stem_position = LEFT; // TODO: Add calculation to determine which side of the stem this should be on,
+                                         // based on:
+                                         //   - stem_direction:
+                                         //     - StemDirection::UP:
+                                         //     - StemDirection::DOWN:
+                                         //   - notehead_resolved_position:
+                                         //     - ChordNoteheadPositionResolver::PositionType::STEMSIDE
+                                         //     - ChordNoteheadPositionResolver::PositionType::LEFT
+                                         //     - ChordNoteheadPositionResolver::PositionType::RIGHT
+
          // Draw the note
+
+         float notehead_x_offset = (note_stem_position == LEFT) ? 0 : notehead_width_px;
 
          draw_music_symbol(
             symbol,
-            x,
-            y + calculate_staff_position_y_offset(note.staff_position),
+            x + notehead_x_offset,
+            y + calculate_staff_position_y_offset(note_staff_position),
             color,
             font_size_px
          );
@@ -607,7 +626,7 @@ float MusicNotation::draw_note_fragment(
          // Draw the dots
 
          float dots_x_cursor = 0;
-         bool note_head_is_on_line = (note.staff_position % 2 == 0);
+         bool note_head_is_on_line = (note_staff_position % 2 == 0);
          float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
          if (num_dots > 0)
          {
@@ -618,8 +637,8 @@ float MusicNotation::draw_note_fragment(
             // TODO: Alter the x-position based on the offset for this notehead
             draw_music_symbol(
                AllegroFlare::FontBravura::dot,
-               x+dots_x_cursor,
-               y + calculate_staff_position_y_offset(note.staff_position) + dot_vertical_adjustment_from_being_on_line,
+               x + notehead_x_offset + dots_x_cursor,
+               y + calculate_staff_position_y_offset(note_staff_position) + dot_vertical_adjustment_from_being_on_line,
                color,
                font_size_px
             );
