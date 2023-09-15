@@ -29,10 +29,29 @@ TEST(AllegroFlare_MusicNotation_ChordNoteheadPositionResolverTest, solve__does_n
 TEST(AllegroFlare_MusicNotation_ChordNoteheadPositionResolverTest, solve__will_build_the_expected_positions)
 {
    using AllegroFlare::MusicNotation::ChordNoteheadPositionResolver;
+   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches = {
+      { 7, 0, 0 },
+      { 5, 0, 0 },
+      { 4, 0, 0 },
+      { 3, 0, 0 },
+      { 1, 0, 0 },
+      { -2, 0, 0 },
+      { -3, 0, 0 },
+      { -5, 0, 0 },
+   };
 
-   AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver;
+   AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(pitches);
    chord_notehead_position_resolver.solve();
-   std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> expected = {};
+   std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> expected = {
+      { 7, ChordNoteheadPositionResolver::PositionType::STEMSIDE },
+      { 5, ChordNoteheadPositionResolver::PositionType::RIGHT },
+      { 4, ChordNoteheadPositionResolver::PositionType::LEFT },
+      { 3, ChordNoteheadPositionResolver::PositionType::RIGHT },
+      { 1, ChordNoteheadPositionResolver::PositionType::STEMSIDE },
+      { -2, ChordNoteheadPositionResolver::PositionType::RIGHT},
+      { -3, ChordNoteheadPositionResolver::PositionType::LEFT },
+      { -5, ChordNoteheadPositionResolver::PositionType::STEMSIDE },
+   };
    std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> actual =
       chord_notehead_position_resolver.get_positions();
 

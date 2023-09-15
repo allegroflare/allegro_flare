@@ -72,7 +72,12 @@ void ChordNoteheadPositionResolver::solve()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::solve: error: guard \"(!solved)\" not met");
    }
-   // TODO: This implementation
+   // NOTE: Algorithm works generally like this:
+   // 2) If there is a 2nd, the higher note is on the right side, regardless of stem direction
+   // 3) The remaining notes (that are note ajacent by step to another note), are all placed either on the right
+   //    side or the left side, depending on the stem direction (Stem up? Notes on left side. Stem down? Notes on
+   //    right side.)
+   // If the chord has a 2nd in it, there will be two columns (the stem will be on the "right side").
 
    if (pitches.size() == 0)
    {
@@ -108,10 +113,16 @@ void ChordNoteheadPositionResolver::solve()
       }
       else
       {
+         bool this_second_right_side = true;
+         bool second_placed_previously = false;
+
+         // Place all the notes leading up to the last note
+
          for (int i=0; i<(pitches.size() - 1); i++)
          {
-            bool this_second_right_side = true;
-            bool second_placed_previously = false;
+            // bool last_note = (i == pitches.size() - 1); // last_note
+            //bool this_second_right_side = true;
+            //bool second_placed_previously = false;
             //int previous_note_position = 0;
             //int this_note_position = 0;
             int this_note_staff_position = pitches[i].get_staff_position();
@@ -146,14 +157,22 @@ void ChordNoteheadPositionResolver::solve()
                this_second_right_side = true;
             }
          }
+
+         // Place the last note
+         int last_pitch_staff_position = pitches.back().get_staff_position();
+         if (second_placed_previously)
+         {
+            positions.push_back({
+                  last_pitch_staff_position,
+                  this_second_right_side ? PositionType::RIGHT : PositionType::LEFT
+               });
+         }
+         else // if (!second_placed_previously)
+         {
+            positions.push_back({last_pitch_staff_position, PositionType::STEMSIDE});
+         }
       }
    }
-
-   // 1) If the chord has a 2nd in it, there will be two columns, and the beam will be on the "right side"
-   // 2) If there is a 2nd, the higher note is on the right side, regardless of stem direction
-   // 3) The remaining notes (that are note ajacent by step to another note), are all placed either on the right
-   //    side or the left side, depending on the stem direction (Stem up? Notes on left side. Stem down? Notes on
-   //    right side.)
 
    solved = true;
    return;
