@@ -162,7 +162,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
 
    al_flip_display();
-   sleep(1);
+   //sleep(1);
 }
 
 
@@ -181,7 +181,20 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
 }
 
 
-// TODO: Add more test cases for accidental stacking. Check out:
-// https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   CAPTURE__on_rendering__accidentals_on_note_clusters__will_stack_and_collapse_as_expected)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
+
+   // TODO: Add more test cases for accidental stacking. Check out:
+   // https://blog.dorico.com/2014/03/development-diary-part-six/#:~:text=The%20basic%20rule%20for%20stacking,the%20fourth%20column%2C%20and%20so
+   std::string music_notation_content_string = "(+0 +3 =6 +'1)";
+
+   music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
+
+   al_flip_display();
+   sleep(1);
+}
 
 
