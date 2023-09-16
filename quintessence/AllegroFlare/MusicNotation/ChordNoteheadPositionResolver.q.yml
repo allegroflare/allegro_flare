@@ -68,6 +68,38 @@ methods:
       return seconds_exist;
 
 
+  - name: lowest_pitch_on_left_column
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: This method
+      return 0;
+
+
+  - name: lowest_pitch_on_right_column
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: This method
+      return 0;
+
+
+  - name: highest_pitch_on_right_column
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: This method
+      return 0;
+
+
+  - name: highest_pitch_on_left_column
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: This method
+      return 0;
+
+
   - name: noteheads_exist_on_both_sides
     type: const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>&
     guards: [ solved ]

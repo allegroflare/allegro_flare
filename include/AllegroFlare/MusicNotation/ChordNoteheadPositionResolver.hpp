@@ -40,6 +40,10 @@ namespace AllegroFlare
          void set_pitches(const std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>& pitches={});
          const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& get_positions();
          bool get_seconds_exist();
+         int lowest_pitch_on_left_column();
+         int lowest_pitch_on_right_column();
+         int highest_pitch_on_right_column();
+         int highest_pitch_on_left_column();
          const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& noteheads_exist_on_both_sides();
          void solve();
          void sort_and_make_unique();

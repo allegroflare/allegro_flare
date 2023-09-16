@@ -72,6 +72,58 @@ bool ChordNoteheadPositionResolver::get_seconds_exist()
    return seconds_exist;
 }
 
+int ChordNoteheadPositionResolver::lowest_pitch_on_left_column()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_left_column]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_left_column: error: guard \"solved\" not met");
+   }
+   // TODO: This method
+   return 0;
+}
+
+int ChordNoteheadPositionResolver::lowest_pitch_on_right_column()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_right_column]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_right_column: error: guard \"solved\" not met");
+   }
+   // TODO: This method
+   return 0;
+}
+
+int ChordNoteheadPositionResolver::highest_pitch_on_right_column()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_right_column]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_right_column: error: guard \"solved\" not met");
+   }
+   // TODO: This method
+   return 0;
+}
+
+int ChordNoteheadPositionResolver::highest_pitch_on_left_column()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_left_column]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_left_column: error: guard \"solved\" not met");
+   }
+   // TODO: This method
+   return 0;
+}
+
 const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& ChordNoteheadPositionResolver::noteheads_exist_on_both_sides()
 {
    if (!(solved))
