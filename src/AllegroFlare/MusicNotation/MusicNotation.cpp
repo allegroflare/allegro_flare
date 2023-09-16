@@ -796,7 +796,6 @@ float MusicNotation::draw_note_fragment(
          }
          for (int i=0; i<num_dots; i++)
          {
-            // TODO: Alter the x-position based on the offset for this notehead
             draw_music_symbol(
                AllegroFlare::FontBravura::dot,
                x + notehead_x_offset + dots_x_cursor,
