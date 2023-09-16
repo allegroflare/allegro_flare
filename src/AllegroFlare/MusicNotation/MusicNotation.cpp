@@ -701,27 +701,7 @@ float MusicNotation::draw_note_fragment(
          switch(notehead_resolved_position)
          {
             case ChordNoteheadPositionResolver::PositionType::STEMSIDE:
-               switch(stem_direction)
-               {
-                  case StemDirection::UP:
-                     note_stem_position = ChordNoteheadPositionResolver::PositionType::LEFT;
-                     stemside_resolves_to = note_stem_position;
-                  break;
-
-                  case StemDirection::DOWN:
-                     note_stem_position = this_note_cluster_has_seconds ? 
-                        ChordNoteheadPositionResolver::PositionType::RIGHT
-                        : ChordNoteheadPositionResolver::PositionType::LEFT;
-                     stemside_resolves_to = note_stem_position;
-                  break;
-
-                  default:
-                     AllegroFlare::Logger::throw_error(
-                        "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-                        "Unhandled StemDirection when evaluating the stem_direction"
-                     );
-                  break;
-               }
+               note_stem_position = stemside_resolves_to;
             break;
 
             case ChordNoteheadPositionResolver::PositionType::LEFT:
