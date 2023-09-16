@@ -458,15 +458,6 @@ float MusicNotation::draw_note_fragment(
    uint32_t note_head_symbol = 0x0000;
    // Calculate our max and min staff position
 
-   //int min_staff_pos = get_min_staff_position(multi_note);
-   //int max_staff_pos = get_max_staff_position(multi_note);
-   //bool max_and_min_are_above = min_staff_pos < 0 && max_staff_pos < 0;
-   //bool max_and_min_are_below = min_staff_pos > 0 && max_staff_pos > 0;
-   //bool current_note_is_below_center_line = false;
-   //if (min_staff_pos == max_staff_pos == 0) current_note_is_below_center_line = true;
-   //else if (max_and_min_are_above) current_note_is_below_center_line = false;
-   //else if (max_and_min_are_below) current_note_is_below_center_line = true;
-   //else if (abs(min_staff_pos) < abs(max_staff_pos)) current_note_is_below_center_line = false; // TODO validate this
    StemDirection preferred_stem_direction_from_note_positions = calculate_preferred_stem_direction(multi_note);
    bool stem_direction_is_undefined_or_even = contains<std::vector<StemDirection>, StemDirection>(
       {
