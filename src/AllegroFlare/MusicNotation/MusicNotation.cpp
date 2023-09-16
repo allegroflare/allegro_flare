@@ -634,6 +634,9 @@ float MusicNotation::draw_note_fragment(
       int min_stemside = chord_notehead_position_resolver.lowest_staff_position_on_stemside_column();
       int max_stemside = chord_notehead_position_resolver.highest_staff_position_on_stemside_column();
 
+      ChordNoteheadPositionResolver::PositionType stemside_resolves_to =
+         ChordNoteheadPositionResolver::PositionType::UNDEFINED;
+
       int min_staff_pos = get_min_staff_position(multi_note);
       int max_staff_pos = get_max_staff_position(multi_note);
 
@@ -667,22 +670,28 @@ float MusicNotation::draw_note_fragment(
 
       for (auto &note : notehead_positions)
       {
-         const bool LEFT = 0;
-         const bool RIGHT = 1;
+         //const bool LEFT = 0;
+         //const bool RIGHT = 1;
          int note_staff_position = note.first;
          ChordNoteheadPositionResolver::PositionType notehead_resolved_position = note.second;
-         bool note_stem_position = LEFT;
+         ChordNoteheadPositionResolver::PositionType note_stem_position =
+            ChordNoteheadPositionResolver::PositionType::LEFT;
+
          switch(notehead_resolved_position)
          {
             case ChordNoteheadPositionResolver::PositionType::STEMSIDE:
                switch(stem_direction)
                {
                   case StemDirection::UP:
-                     note_stem_position = LEFT;
+                     note_stem_position = ChordNoteheadPositionResolver::PositionType::LEFT;
+                     stemside_resolves_to = note_stem_position;
                   break;
 
                   case StemDirection::DOWN:
-                     note_stem_position = this_note_cluster_has_seconds ? RIGHT : LEFT;
+                     note_stem_position = this_note_cluster_has_seconds ? 
+                        ChordNoteheadPositionResolver::PositionType::RIGHT
+                        : ChordNoteheadPositionResolver::PositionType::LEFT;
+                     stemside_resolves_to = note_stem_position;
                   break;
 
                   default:
@@ -695,11 +704,11 @@ float MusicNotation::draw_note_fragment(
             break;
 
             case ChordNoteheadPositionResolver::PositionType::LEFT:
-               note_stem_position = LEFT;
+               note_stem_position = ChordNoteheadPositionResolver::PositionType::LEFT;
             break;
 
             case ChordNoteheadPositionResolver::PositionType::RIGHT:
-               note_stem_position = RIGHT;
+               note_stem_position = ChordNoteheadPositionResolver::PositionType::RIGHT;
             break;
 
             default:
@@ -713,11 +722,18 @@ float MusicNotation::draw_note_fragment(
 
          // Draw the note
 
-         float notehead_x_offset = ((note_stem_position == LEFT) ? 0 : notehead_width_px);
+         float notehead_x_offset = (
+               (note_stem_position == ChordNoteheadPositionResolver::PositionType::LEFT) ? 0 : notehead_width_px);
 
          bool is_outset_from_normal_note_position_for_the_stem =
-               (stem_direction == StemDirection::UP && note_stem_position == RIGHT)
-               || (this_note_cluster_has_seconds && stem_direction == StemDirection::DOWN && note_stem_position == LEFT)
+                  (
+                     stem_direction == StemDirection::UP
+                     && note_stem_position == ChordNoteheadPositionResolver::PositionType::RIGHT
+                  )
+               || (
+                     this_note_cluster_has_seconds && stem_direction == StemDirection::DOWN
+                     && note_stem_position == ChordNoteheadPositionResolver::PositionType::LEFT
+                  )
                ;
 
 

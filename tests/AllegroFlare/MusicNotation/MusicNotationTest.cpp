@@ -224,7 +224,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    }
 
    al_flip_display();
-   sleep(1);
+   //sleep(1);
 }
 
 
