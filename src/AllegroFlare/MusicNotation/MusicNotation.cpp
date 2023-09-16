@@ -454,69 +454,95 @@ float MusicNotation::draw_note_fragment(
       float font_size_px
    )
 {
-      uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
-      uint32_t note_head_symbol = 0x0000;
-      // Calculate our max and min staff position
+   uint32_t symbol = AllegroFlare::FontBravura::closed_note_head;
+   uint32_t note_head_symbol = 0x0000;
+   // Calculate our max and min staff position
 
-      //int min_staff_pos = get_min_staff_position(multi_note);
-      //int max_staff_pos = get_max_staff_position(multi_note);
-      //bool max_and_min_are_above = min_staff_pos < 0 && max_staff_pos < 0;
-      //bool max_and_min_are_below = min_staff_pos > 0 && max_staff_pos > 0;
-      //bool current_note_is_below_center_line = false;
-      //if (min_staff_pos == max_staff_pos == 0) current_note_is_below_center_line = true;
-      //else if (max_and_min_are_above) current_note_is_below_center_line = false;
-      //else if (max_and_min_are_below) current_note_is_below_center_line = true;
-      //else if (abs(min_staff_pos) < abs(max_staff_pos)) current_note_is_below_center_line = false; // TODO validate this
-      StemDirection preferred_stem_direction_from_note_positions = calculate_preferred_stem_direction(multi_note);
-      bool stem_direction_is_undefined_or_even = contains<std::vector<StemDirection>, StemDirection>(
-         {
-            StemDirection::EVEN,
-            StemDirection::UNDEFINED,
-         },
-         preferred_stem_direction_from_note_positions
-      );
-      StemDirection stem_direction =
-         freeze_stems_up ? StemDirection::UP : 
-            (stem_direction_is_undefined_or_even ? StemDirection::DOWN : preferred_stem_direction_from_note_positions);
-
-
-
-      // For
-
-      bool rendering_stem = true; // 
-      
-
-
-
-      // Calculate which primary symbol to render, which should either be a note-with-stem or rest
-
-      if (current_note_is_rest)
+   //int min_staff_pos = get_min_staff_position(multi_note);
+   //int max_staff_pos = get_max_staff_position(multi_note);
+   //bool max_and_min_are_above = min_staff_pos < 0 && max_staff_pos < 0;
+   //bool max_and_min_are_below = min_staff_pos > 0 && max_staff_pos > 0;
+   //bool current_note_is_below_center_line = false;
+   //if (min_staff_pos == max_staff_pos == 0) current_note_is_below_center_line = true;
+   //else if (max_and_min_are_above) current_note_is_below_center_line = false;
+   //else if (max_and_min_are_below) current_note_is_below_center_line = true;
+   //else if (abs(min_staff_pos) < abs(max_staff_pos)) current_note_is_below_center_line = false; // TODO validate this
+   StemDirection preferred_stem_direction_from_note_positions = calculate_preferred_stem_direction(multi_note);
+   bool stem_direction_is_undefined_or_even = contains<std::vector<StemDirection>, StemDirection>(
       {
-         if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_rest;
-         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest;
-         else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
-         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
-         else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::rest_16;
-         else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::rest_32;
-         else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::rest_64;
-         else
-         {
+         StemDirection::EVEN,
+         StemDirection::UNDEFINED,
+      },
+      preferred_stem_direction_from_note_positions
+   );
+   StemDirection stem_direction =
+      freeze_stems_up ? StemDirection::UP :
+         (stem_direction_is_undefined_or_even ? StemDirection::DOWN : preferred_stem_direction_from_note_positions);
+
+
+   bool rendering_stem = true; // TODO: Turn this to false and render stems manually
+   
+
+   // Calculate which primary symbol to render, which should either be a note-with-stem or rest
+
+   if (current_note_is_rest)
+   {
+      if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_rest;
+      else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_rest;
+      else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_rest;
+      else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::rest_8;
+      else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::rest_16;
+      else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::rest_32;
+      else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::rest_64;
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+            "Rendering durations faster than a 1/64 rest is not supported."
+         );
+      }
+   }
+   else // (!current_note_is_rest)
+   {
+      switch(current_note_duration)
+      {
+         case 1:
+            note_head_symbol = AllegroFlare::FontBravura::whole_note_head;
+         break;
+
+         case 2:
+            note_head_symbol = AllegroFlare::FontBravura::open_note_head;
+         break;
+
+         case 4:
+         case 8:
+         case 16:
+         case 32:
+         case 64:
+            note_head_symbol = AllegroFlare::FontBravura::closed_note_head;
+         break;
+
+         default:
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-               "Rendering durations faster than a 1/64 rest is not supported."
+               "Inferring the notehead symbol for this duration (" + std::to_string(current_note_duration)
+                  + ") is not supported."
             );
-         }
+         break;
       }
-      else // (!current_note_is_rest)
+
+      if (!rendering_stem)
       {
          switch(current_note_duration)
          {
             case 1:
-               note_head_symbol = AllegroFlare::FontBravura::whole_note_head;
+               symbol = AllegroFlare::FontBravura::whole_note_head;
+               //note_head_symbol = AllegroFlare::FontBravura::whole_note_head;
             break;
 
             case 2:
-               note_head_symbol = AllegroFlare::FontBravura::open_note_head;
+               symbol = AllegroFlare::FontBravura::open_note_head;
+               //note_head_symbol = AllegroFlare::FontBravura::open_note_head;
             break;
 
             case 4:
@@ -524,7 +550,8 @@ float MusicNotation::draw_note_fragment(
             case 16:
             case 32:
             case 64:
-               note_head_symbol = AllegroFlare::FontBravura::closed_note_head;
+               symbol = AllegroFlare::FontBravura::closed_note_head;
+               //note_head_symbol = AllegroFlare::FontBravura::closed_note_head;
             break;
 
             default:
@@ -535,298 +562,266 @@ float MusicNotation::draw_note_fragment(
                );
             break;
          }
-
-         if (!rendering_stem)
+      }
+      else // if (rendering_stem)
+      {
+         if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
+         else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_note;
+         else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
+         else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
+         else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::sixteenth_note;
+         else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::thirtysecond_note;
+         else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::sixtyfourth_note;
+         else
          {
-            switch(current_note_duration)
-            {
-               case 1:
-                  symbol = AllegroFlare::FontBravura::whole_note_head;
-                  //note_head_symbol = AllegroFlare::FontBravura::whole_note_head;
-               break;
-
-               case 2:
-                  symbol = AllegroFlare::FontBravura::open_note_head;
-                  //note_head_symbol = AllegroFlare::FontBravura::open_note_head;
-               break;
-
-               case 4:
-               case 8:
-               case 16:
-               case 32:
-               case 64:
-                  symbol = AllegroFlare::FontBravura::closed_note_head;
-                  //note_head_symbol = AllegroFlare::FontBravura::closed_note_head;
-               break;
-
-               default:
-                  AllegroFlare::Logger::throw_error(
-                     "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-                     "Inferring the notehead symbol for this duration (" + std::to_string(current_note_duration)
-                        + ") is not supported."
-                  );
-               break;
-            }
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+               "Rendering durations faster than a 1/64 note is not supported."
+            );
          }
-         else // if (rendering_stem)
+
+         //if (preferred_stem_direction == 
+         //contains
+         bool symbol_contains_stem = AllegroFlare::FontBravura::has_stem(symbol);
+         if (symbol_contains_stem)
          {
-            if (current_note_duration == 1) symbol = AllegroFlare::FontBravura::whole_note;
-            else if (current_note_duration == 2) symbol = AllegroFlare::FontBravura::half_note;
-            else if (current_note_duration == 4) symbol = AllegroFlare::FontBravura::quarter_note;
-            else if (current_note_duration == 8) symbol = AllegroFlare::FontBravura::eighth_note;
-            else if (current_note_duration == 16) symbol = AllegroFlare::FontBravura::sixteenth_note;
-            else if (current_note_duration == 32) symbol = AllegroFlare::FontBravura::thirtysecond_note;
-            else if (current_note_duration == 64) symbol = AllegroFlare::FontBravura::sixtyfourth_note;
-            else
+            switch(stem_direction)
             {
-               AllegroFlare::Logger::throw_error(
-                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-                  "Rendering durations faster than a 1/64 note is not supported."
-               );
-            }
+               case StemDirection::UP:
+                  // do nothing
+               break;
 
-            //if (preferred_stem_direction == 
-            //contains
-            bool symbol_contains_stem = AllegroFlare::FontBravura::has_stem(symbol);
-            if (symbol_contains_stem)
-            {
-               switch(stem_direction)
-               {
-                  case StemDirection::UP:
-                     // do nothing
-                  break;
-
-                  case StemDirection::DOWN:
-                     symbol += 1;
-                  break;
-               }
+               case StemDirection::DOWN:
+                  symbol += 1;
+               break;
             }
          }
       }
+   }
 
 
-      // Render the notehead(s), accidentals, and dots
+   // Render the notehead(s), accidentals, and dots
 
-      float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
+   float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
 
-      AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
-      chord_notehead_position_resolver.solve();
-      std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
-         chord_notehead_position_resolver.get_positions();
+   AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
+   chord_notehead_position_resolver.solve();
+   std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
+      chord_notehead_position_resolver.get_positions();
 
-      float notehead_width_px = 24; // TODO: Make this notehead width dynamic depending on glyph
-      bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
+   float notehead_width_px = 24; // TODO: Make this notehead width dynamic depending on glyph
+   bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
 
 
-      // Calculate which side the STEMSIDE should resolve to
+   // Calculate which side the STEMSIDE should resolve to
 
-      ChordNoteheadPositionResolver::PositionType stemside_resolves_to =
-         ChordNoteheadPositionResolver::PositionType::UNDEFINED;
+   ChordNoteheadPositionResolver::PositionType stemside_resolves_to =
+      ChordNoteheadPositionResolver::PositionType::UNDEFINED;
 
-      switch(stem_direction)
+   switch(stem_direction)
+   {
+      case StemDirection::UP:
+         stemside_resolves_to = ChordNoteheadPositionResolver::PositionType::LEFT;
+      break;
+
+      case StemDirection::DOWN:
+         stemside_resolves_to = this_note_cluster_has_seconds ? 
+            ChordNoteheadPositionResolver::PositionType::RIGHT
+            : ChordNoteheadPositionResolver::PositionType::LEFT;
+      break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+            "Unhandled StemDirection when evaluating the stem_direction"
+         );
+      break;
+   }
+
+
+   // Draw ledger lines
+
+   int min_left = chord_notehead_position_resolver.lowest_staff_position_on_left_column();
+   int max_left = chord_notehead_position_resolver.highest_staff_position_on_left_column();
+   int min_right = chord_notehead_position_resolver.lowest_staff_position_on_right_column();
+   int max_right = chord_notehead_position_resolver.highest_staff_position_on_right_column();
+   int min_stemside = chord_notehead_position_resolver.lowest_staff_position_on_stemside_column();
+   int max_stemside = chord_notehead_position_resolver.highest_staff_position_on_stemside_column();
+
+   if (stemside_resolves_to == ChordNoteheadPositionResolver::PositionType::LEFT)
+   {
+      min_left = std::min(min_left, min_stemside);
+      max_left = std::max(max_left, max_stemside);
+   }
+   else if (stemside_resolves_to == ChordNoteheadPositionResolver::PositionType::RIGHT)
+   {
+      min_right = std::min(min_right, min_stemside);
+      max_right = std::max(max_right, max_stemside);
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+         "Unhandled StemDirection when evaluating the max and min staff_position on left and right columns"
+      );
+   }
+
+   // Draw the left column ledger lines
+
+   if (min_left < 0)
+   {
+      draw_ledger_lines_to(
+         x,
+         y,
+         min_left,
+         staff_line_thickness,
+         get_music_symbol_width(symbol),
+         staff_color
+      );
+   }
+
+   if (max_left > 0)
+   {
+      draw_ledger_lines_to(
+         x,
+         y,
+         max_left,
+         staff_line_thickness,
+         get_music_symbol_width(symbol),
+         staff_color
+      );
+   }
+
+   // Draw the right column ledger lines
+
+   if (min_right < 0)
+   {
+      draw_ledger_lines_to(
+         x + notehead_width_px,
+         y,
+         min_right,
+         staff_line_thickness,
+         get_music_symbol_width(symbol),
+         staff_color
+      );
+   }
+
+   if (max_right > 0)
+   {
+      draw_ledger_lines_to(
+         x + notehead_width_px,
+         y,
+         max_right,
+         staff_line_thickness,
+         get_music_symbol_width(symbol),
+         staff_color
+      );
+   }
+
+
+   // Draw note heads (with or without stems, depending on context)
+
+   for (auto &note : notehead_positions)
+   {
+      //const bool LEFT = 0;
+      //const bool RIGHT = 1;
+      int note_staff_position = note.first;
+      ChordNoteheadPositionResolver::PositionType notehead_resolved_position = note.second;
+      ChordNoteheadPositionResolver::PositionType note_stem_position =
+         ChordNoteheadPositionResolver::PositionType::LEFT;
+
+      switch(notehead_resolved_position)
       {
-         case StemDirection::UP:
-            stemside_resolves_to = ChordNoteheadPositionResolver::PositionType::LEFT;
+         case ChordNoteheadPositionResolver::PositionType::STEMSIDE:
+            note_stem_position = stemside_resolves_to;
          break;
 
-         case StemDirection::DOWN:
-            stemside_resolves_to = this_note_cluster_has_seconds ? 
-               ChordNoteheadPositionResolver::PositionType::RIGHT
-               : ChordNoteheadPositionResolver::PositionType::LEFT;
+         case ChordNoteheadPositionResolver::PositionType::LEFT:
+            note_stem_position = ChordNoteheadPositionResolver::PositionType::LEFT;
+         break;
+
+         case ChordNoteheadPositionResolver::PositionType::RIGHT:
+            note_stem_position = ChordNoteheadPositionResolver::PositionType::RIGHT;
          break;
 
          default:
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-               "Unhandled StemDirection when evaluating the stem_direction"
+               "Unhandled ChordNotePositionResolver::PositionType when evaluating the note_stem_position"
             );
          break;
       }
 
 
-      // Draw ledger lines
+      // Draw the note
 
-      int min_left = chord_notehead_position_resolver.lowest_staff_position_on_left_column();
-      int max_left = chord_notehead_position_resolver.highest_staff_position_on_left_column();
-      int min_right = chord_notehead_position_resolver.lowest_staff_position_on_right_column();
-      int max_right = chord_notehead_position_resolver.highest_staff_position_on_right_column();
-      int min_stemside = chord_notehead_position_resolver.lowest_staff_position_on_stemside_column();
-      int max_stemside = chord_notehead_position_resolver.highest_staff_position_on_stemside_column();
+      float notehead_x_offset = (
+            (note_stem_position == ChordNoteheadPositionResolver::PositionType::LEFT) ? 0 : notehead_width_px);
 
-      if (stemside_resolves_to == ChordNoteheadPositionResolver::PositionType::LEFT)
+      bool is_outset_from_normal_note_position_for_the_stem =
+               (
+                  stem_direction == StemDirection::UP
+                  && note_stem_position == ChordNoteheadPositionResolver::PositionType::RIGHT
+               )
+            || (
+                  this_note_cluster_has_seconds && stem_direction == StemDirection::DOWN
+                  && note_stem_position == ChordNoteheadPositionResolver::PositionType::LEFT
+               )
+            ;
+
+
+      draw_music_symbol(
+         is_outset_from_normal_note_position_for_the_stem ? note_head_symbol : symbol, // HACK, use
+         //symbol,
+         x + notehead_x_offset,
+         y + calculate_staff_position_y_offset(note_staff_position),
+         color,
+         font_size_px
+      );
+
+      // Draw the dots
+      // TODO: Take into account shared dots within chord noteheads
+
+      float dots_x_cursor = 0;
+      bool note_head_is_on_line = (note_staff_position % 2 == 0);
+      float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
+      if (num_dots > 0)
       {
-         min_left = std::min(min_left, min_stemside);
-         max_left = std::max(max_left, max_stemside);
+         dots_x_cursor += get_music_symbol_width(symbol) + get_music_symbol_width(AllegroFlare::FontBravura::dot);
       }
-      else if (stemside_resolves_to == ChordNoteheadPositionResolver::PositionType::RIGHT)
+      for (int i=0; i<num_dots; i++)
       {
-         min_right = std::min(min_right, min_stemside);
-         max_right = std::max(max_right, max_stemside);
-      }
-      else
-      {
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-            "Unhandled StemDirection when evaluating the max and min staff_position on left and right columns"
-         );
-      }
-
-      // Draw the left column ledger lines
-
-      if (min_left < 0)
-      {
-         draw_ledger_lines_to(
-            x,
-            y,
-            min_left,
-            staff_line_thickness,
-            get_music_symbol_width(symbol),
-            staff_color
-         );
-      }
-
-      if (max_left > 0)
-      {
-         draw_ledger_lines_to(
-            x,
-            y,
-            max_left,
-            staff_line_thickness,
-            get_music_symbol_width(symbol),
-            staff_color
-         );
-      }
-
-      // Draw the right column ledger lines
-
-      if (min_right < 0)
-      {
-         draw_ledger_lines_to(
-            x + notehead_width_px,
-            y,
-            min_right,
-            staff_line_thickness,
-            get_music_symbol_width(symbol),
-            staff_color
-         );
-      }
-
-      if (max_right > 0)
-      {
-         draw_ledger_lines_to(
-            x + notehead_width_px,
-            y,
-            max_right,
-            staff_line_thickness,
-            get_music_symbol_width(symbol),
-            staff_color
-         );
-      }
-
-
-      // Draw note heads (with or without stems, depending on context)
-
-      for (auto &note : notehead_positions)
-      {
-         //const bool LEFT = 0;
-         //const bool RIGHT = 1;
-         int note_staff_position = note.first;
-         ChordNoteheadPositionResolver::PositionType notehead_resolved_position = note.second;
-         ChordNoteheadPositionResolver::PositionType note_stem_position =
-            ChordNoteheadPositionResolver::PositionType::LEFT;
-
-         switch(notehead_resolved_position)
-         {
-            case ChordNoteheadPositionResolver::PositionType::STEMSIDE:
-               note_stem_position = stemside_resolves_to;
-            break;
-
-            case ChordNoteheadPositionResolver::PositionType::LEFT:
-               note_stem_position = ChordNoteheadPositionResolver::PositionType::LEFT;
-            break;
-
-            case ChordNoteheadPositionResolver::PositionType::RIGHT:
-               note_stem_position = ChordNoteheadPositionResolver::PositionType::RIGHT;
-            break;
-
-            default:
-               AllegroFlare::Logger::throw_error(
-                  "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
-                  "Unhandled ChordNotePositionResolver::PositionType when evaluating the note_stem_position"
-               );
-            break;
-         }
-
-
-         // Draw the note
-
-         float notehead_x_offset = (
-               (note_stem_position == ChordNoteheadPositionResolver::PositionType::LEFT) ? 0 : notehead_width_px);
-
-         bool is_outset_from_normal_note_position_for_the_stem =
-                  (
-                     stem_direction == StemDirection::UP
-                     && note_stem_position == ChordNoteheadPositionResolver::PositionType::RIGHT
-                  )
-               || (
-                     this_note_cluster_has_seconds && stem_direction == StemDirection::DOWN
-                     && note_stem_position == ChordNoteheadPositionResolver::PositionType::LEFT
-                  )
-               ;
-
-
          draw_music_symbol(
-            is_outset_from_normal_note_position_for_the_stem ? note_head_symbol : symbol, // HACK, use
-            //symbol,
-            x + notehead_x_offset,
-            y + calculate_staff_position_y_offset(note_staff_position),
+            AllegroFlare::FontBravura::dot,
+            x + notehead_x_offset + dots_x_cursor,
+            y + calculate_staff_position_y_offset(note_staff_position) + dot_vertical_adjustment_from_being_on_line,
             color,
             font_size_px
          );
-
-         // Draw the dots
-         // TODO: Take into account shared dots within chord noteheads
-
-         float dots_x_cursor = 0;
-         bool note_head_is_on_line = (note_staff_position % 2 == 0);
-         float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
-         if (num_dots > 0)
-         {
-            dots_x_cursor += get_music_symbol_width(symbol) + get_music_symbol_width(AllegroFlare::FontBravura::dot);
-         }
-         for (int i=0; i<num_dots; i++)
-         {
-            draw_music_symbol(
-               AllegroFlare::FontBravura::dot,
-               x + notehead_x_offset + dots_x_cursor,
-               y + calculate_staff_position_y_offset(note_staff_position) + dot_vertical_adjustment_from_being_on_line,
-               color,
-               font_size_px
-            );
-            dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
-         }
+         dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
       }
+   }
 
 
 
-      // Move the cursor over based on the spacing method
+   // Move the cursor over based on the spacing method
 
-      float result_render_width = 0;
+   float result_render_width = 0;
 
-      switch (spacing_method)
-      {
-         case SPACING_FIXED:
-            result_render_width = get_duration_fixed_width(current_note_duration, quarter_note_spacing, num_dots);
-         break;
+   switch (spacing_method)
+   {
+      case SPACING_FIXED:
+         result_render_width = get_duration_fixed_width(current_note_duration, quarter_note_spacing, num_dots);
+      break;
 
-         case SPACING_AESTHETIC:
-         case SPACING_UNDEF:
-         default:
-            result_render_width = get_duration_aesthetic_width(current_note_duration, quarter_note_spacing, num_dots);
-         break;
-      }
+      case SPACING_AESTHETIC:
+      case SPACING_UNDEF:
+      default:
+         result_render_width = get_duration_aesthetic_width(current_note_duration, quarter_note_spacing, num_dots);
+      break;
+   }
 
-      //} // if (note_info_accumulated_and_ready_for_render)
+   //} // if (note_info_accumulated_and_ready_for_render)
 
    return result_render_width;
 }
