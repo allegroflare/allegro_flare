@@ -188,9 +188,9 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref(), 20);
 
    std::string music_notation_content_string =
-      "     (+0 +2 =5 +'0)   (+0 +2 =4 '+0)   (,6 '=1 +2 +4 6)   (,=3 +5 '=0 =2 3)   (,=1 +2 +4 =6 '=1)";
+      "     (+0 +2 =5 +'0).   (+0 +2 =4 '+0).   (,6 '=1 +2 +4 6).   (,=3 +5 '=0 =2 3).   (,=1 +2 +4 =6 '=1).";
 
-   music_notation.draw(1920/2-600, 1080/2, music_notation_content_string);
+   music_notation.draw(1920/2-700, 1080/2, music_notation_content_string);
 
    al_flip_display();
    //sleep(1);
