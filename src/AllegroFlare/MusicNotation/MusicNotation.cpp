@@ -15,6 +15,7 @@
 #include <AllegroFlare/MusicNotation/TieRenderer.hpp>
 #include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
 #include <AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.hpp>
+#include <AllegroFlare/MusicNotation/ChordDotPositionCalculator.hpp>
 
 
 
@@ -631,7 +632,18 @@ float MusicNotation::draw_note_fragment(
    }
 
 
+   // Calculate the position of the augmentation dots
+
+   std::set<int> augmentation_dots_staff_positions = {};
+   if (num_dots > 0)
+   {
+      AllegroFlare::MusicNotation::ChordDotPositionCalculator chord_dot_position_calculator(multi_note);
+      augmentation_dots_staff_positions = chord_dot_position_calculator.calculate_dot_staff_positions();
+   }
+
+
    // Draw ledger lines
+
    if (current_note_is_rest)
    {
       int min_staff_pos = get_min_staff_position(multi_note);
@@ -813,6 +825,7 @@ float MusicNotation::draw_note_fragment(
       // Draw the dots
       // TODO: Take into account shared dots within chord noteheads
 
+      /*
       float dots_x_cursor = 0;
       bool note_head_is_on_line = (note_staff_position % 2 == 0);
       float dot_vertical_adjustment_from_being_on_line = note_head_is_on_line ? staff_line_distance * -0.5f : 0.0f;
@@ -831,8 +844,32 @@ float MusicNotation::draw_note_fragment(
          );
          dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
       }
+      */
    }
 
+
+   // Draw the augmentation dots
+   for (auto &augmentation_dot_staff_position : augmentation_dots_staff_positions)
+   {
+      float dots_x_cursor = 0;
+
+      if (num_dots > 0)
+      {
+         dots_x_cursor += get_music_symbol_width(symbol) + get_music_symbol_width(AllegroFlare::FontBravura::dot);
+      }
+      for (int i=0; i<num_dots; i++)
+      {
+         draw_music_symbol(
+            AllegroFlare::FontBravura::dot,
+            x + max_notehead_x_offset + dots_x_cursor,
+            y + calculate_staff_position_y_offset(augmentation_dot_staff_position),
+            color,
+            font_size_px
+         );
+
+         dots_x_cursor += get_music_symbol_width(AllegroFlare::FontBravura::dot) * 1.6;
+      }
+   }
 
 
    // Move the cursor over based on the spacing method

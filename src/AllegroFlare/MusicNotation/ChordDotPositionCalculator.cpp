@@ -42,7 +42,7 @@ std::set<int> ChordDotPositionCalculator::calculate_dot_staff_positions()
    {
       int note_staff_position = pitch.staff_position;
       bool note_head_is_on_line = (note_staff_position % 2 == 0);
-      int vertical_adjustment_from_being_on_line = note_head_is_on_line ? -1 : 0;
+      int vertical_adjustment_from_being_on_line = note_head_is_on_line ? +1 : 0;
       int final_staff_position = note_staff_position + vertical_adjustment_from_being_on_line;
       result.insert(final_staff_position);
    }
