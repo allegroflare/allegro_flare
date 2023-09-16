@@ -602,7 +602,7 @@ float MusicNotation::draw_note_fragment(
    std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
       chord_notehead_position_resolver.get_positions();
 
-   float notehead_width_px = get_music_symbol_width(symbol) * 0.9; // TODO: Make this notehead width dynamic depending on glyph
+   float notehead_width_px = get_music_symbol_width(symbol) * 0.9;
    bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
 
 
