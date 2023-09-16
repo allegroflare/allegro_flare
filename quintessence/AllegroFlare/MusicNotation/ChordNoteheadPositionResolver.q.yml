@@ -122,40 +122,60 @@ methods:
     type: int
     guards: [ solved ]
     body: |
-      // TODO: This method
-      return 0;
+      // TODO: Test this method
+      return lowest_staff_position_on_position_type(
+            AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::RIGHT
+         );
 
 
   - name: highest_pitch_on_right_column
     type: int
     guards: [ solved ]
     body: |
-      // TODO: This method
-      return 0;
+      // TODO: Test this method
+      return highest_staff_position_on_position_type(
+            AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::RIGHT
+         );
+
+
+  - name: lowest_pitch_on_left_column
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: Test this method
+      return lowest_staff_position_on_position_type(
+            AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::LEFT
+         );
 
 
   - name: highest_pitch_on_left_column
     type: int
     guards: [ solved ]
     body: |
-      // TODO: This method
-      return 0;
+      // TODO: Test this method
+      return highest_staff_position_on_position_type(
+            AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::LEFT
+         );
 
 
   - name: lowest_pitch_on_stemside_column
     type: int
     guards: [ solved ]
     body: |
-      // TODO: This method
-      return 0;
+      // TODO: Test this method
+      return lowest_staff_position_on_position_type(
+            AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::STEMSIDE
+         );
 
 
   - name: highest_pitch_on_stemside_column
     type: int
     guards: [ solved ]
     body: |
-      // TODO: This method
-      return 0;
+      // TODO: Test this method
+      return highest_staff_position_on_position_type(
+            AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::STEMSIDE
+         );
 
 
   - name: noteheads_exist_on_both_sides

@@ -133,8 +133,10 @@ int ChordNoteheadPositionResolver::lowest_pitch_on_right_column()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_right_column: error: guard \"solved\" not met");
    }
-   // TODO: This method
-   return 0;
+   // TODO: Test this method
+   return lowest_staff_position_on_position_type(
+         AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::RIGHT
+      );
 }
 
 int ChordNoteheadPositionResolver::highest_pitch_on_right_column()
@@ -146,8 +148,25 @@ int ChordNoteheadPositionResolver::highest_pitch_on_right_column()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_right_column: error: guard \"solved\" not met");
    }
-   // TODO: This method
-   return 0;
+   // TODO: Test this method
+   return highest_staff_position_on_position_type(
+         AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::RIGHT
+      );
+}
+
+int ChordNoteheadPositionResolver::lowest_pitch_on_left_column()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_left_column]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_left_column: error: guard \"solved\" not met");
+   }
+   // TODO: Test this method
+   return lowest_staff_position_on_position_type(
+         AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::LEFT
+      );
 }
 
 int ChordNoteheadPositionResolver::highest_pitch_on_left_column()
@@ -159,8 +178,10 @@ int ChordNoteheadPositionResolver::highest_pitch_on_left_column()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_left_column: error: guard \"solved\" not met");
    }
-   // TODO: This method
-   return 0;
+   // TODO: Test this method
+   return highest_staff_position_on_position_type(
+         AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::LEFT
+      );
 }
 
 int ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column()
@@ -172,8 +193,10 @@ int ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column: error: guard \"solved\" not met");
    }
-   // TODO: This method
-   return 0;
+   // TODO: Test this method
+   return lowest_staff_position_on_position_type(
+         AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::STEMSIDE
+      );
 }
 
 int ChordNoteheadPositionResolver::highest_pitch_on_stemside_column()
@@ -185,8 +208,10 @@ int ChordNoteheadPositionResolver::highest_pitch_on_stemside_column()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_stemside_column: error: guard \"solved\" not met");
    }
-   // TODO: This method
-   return 0;
+   // TODO: Test this method
+   return highest_staff_position_on_position_type(
+         AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::STEMSIDE
+      );
 }
 
 const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& ChordNoteheadPositionResolver::noteheads_exist_on_both_sides()

@@ -44,6 +44,7 @@ namespace AllegroFlare
          int highest_staff_position_on_position_type(AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType position_type=AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType::UNDEFINED);
          int lowest_pitch_on_right_column();
          int highest_pitch_on_right_column();
+         int lowest_pitch_on_left_column();
          int highest_pitch_on_left_column();
          int lowest_pitch_on_stemside_column();
          int highest_pitch_on_stemside_column();
