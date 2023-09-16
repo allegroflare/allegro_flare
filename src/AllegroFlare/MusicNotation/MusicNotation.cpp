@@ -727,37 +727,6 @@ float MusicNotation::draw_note_fragment(
       }
 
 
-      /*
-      int min_staff_pos = get_min_staff_position(multi_note);
-      int max_staff_pos = get_max_staff_position(multi_note);
-
-      if (min_staff_pos < 0)
-      {
-         draw_ledger_lines_to(
-            x,
-            y,
-            min_staff_pos,
-            staff_line_thickness,
-            get_music_symbol_width(symbol),
-            staff_color
-         );
-      }
-
-      if (max_staff_pos > 0)
-      {
-         draw_ledger_lines_to(
-            x,
-            y,
-            max_staff_pos,
-            staff_line_thickness,
-            get_music_symbol_width(symbol),
-            staff_color
-         );
-      }
-      */
-
-
-
       // Draw note heads (with or without stems, depending on context)
 
       for (auto &note : notehead_positions)
