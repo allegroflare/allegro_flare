@@ -634,8 +634,29 @@ float MusicNotation::draw_note_fragment(
       int min_stemside = chord_notehead_position_resolver.lowest_staff_position_on_stemside_column();
       int max_stemside = chord_notehead_position_resolver.highest_staff_position_on_stemside_column();
 
+      // Calculate which side the STEMSIDE should resolve to
       ChordNoteheadPositionResolver::PositionType stemside_resolves_to =
          ChordNoteheadPositionResolver::PositionType::UNDEFINED;
+
+      switch(stem_direction)
+      {
+         case StemDirection::UP:
+            stemside_resolves_to = ChordNoteheadPositionResolver::PositionType::LEFT;
+         break;
+
+         case StemDirection::DOWN:
+            stemside_resolves_to = this_note_cluster_has_seconds ? 
+               ChordNoteheadPositionResolver::PositionType::RIGHT
+               : ChordNoteheadPositionResolver::PositionType::LEFT;
+         break;
+
+         default:
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+               "Unhandled StemDirection when evaluating the stem_direction"
+            );
+         break;
+      }
 
       int min_staff_pos = get_min_staff_position(multi_note);
       int max_staff_pos = get_max_staff_position(multi_note);
