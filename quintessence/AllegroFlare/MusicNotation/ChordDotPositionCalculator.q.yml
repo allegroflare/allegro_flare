@@ -1,0 +1,34 @@
+properties:
+
+
+  - name: pitches
+    type: std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: calculate_dot_staff_positions
+    type: std::set<int>
+    body: |
+      std::set<int> result;
+
+      for (auto &pitch : pitches)
+      {
+         // TODO: Collect results here
+      }
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MusicNotation::Parser::PitchToken
+    headers: [ AllegroFlare/MusicNotation/Parser/PitchToken.hpp ]
+
+
