@@ -617,11 +617,22 @@ float MusicNotation::draw_note_fragment(
       std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
          chord_notehead_position_resolver.get_positions();
 
-      float notehead_width_px = 24;
+      float notehead_width_px = 24; // TODO: Make this notehead width dynamic depending on glyph
       bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
 
 
       // Draw ledger lines
+
+      // Draw "left side" ledger lines above
+      // Draw "right side" ledger lines above
+      // Draw "left side" ledger lines below
+      // Draw "left side" ledger lines below
+      int min_left = chord_notehead_position_resolver.lowest_staff_position_on_left_column();
+      int max_left = chord_notehead_position_resolver.highest_staff_position_on_left_column();
+      int min_right = chord_notehead_position_resolver.lowest_staff_position_on_right_column();
+      int max_right = chord_notehead_position_resolver.highest_staff_position_on_right_column();
+      int min_stemside = chord_notehead_position_resolver.lowest_staff_position_on_stemside_column();
+      int max_stemside = chord_notehead_position_resolver.highest_staff_position_on_stemside_column();
 
       int min_staff_pos = get_min_staff_position(multi_note);
       int max_staff_pos = get_max_staff_position(multi_note);
@@ -649,6 +660,7 @@ float MusicNotation::draw_note_fragment(
             staff_color
          );
       }
+      
 
 
       // Draw note heads (with or without stems, depending on context)
