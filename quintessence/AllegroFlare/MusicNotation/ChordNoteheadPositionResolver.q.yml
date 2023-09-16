@@ -118,7 +118,7 @@ methods:
       return 0;
 
 
-  - name: lowest_pitch_on_right_column
+  - name: lowest_staff_position_on_right_column
     type: int
     guards: [ solved ]
     body: |
@@ -128,7 +128,7 @@ methods:
          );
 
 
-  - name: highest_pitch_on_right_column
+  - name: highest_staff_position_on_right_column
     type: int
     guards: [ solved ]
     body: |
@@ -138,7 +138,7 @@ methods:
          );
 
 
-  - name: lowest_pitch_on_left_column
+  - name: lowest_staff_position_on_left_column
     type: int
     guards: [ solved ]
     body: |
@@ -148,7 +148,7 @@ methods:
          );
 
 
-  - name: highest_pitch_on_left_column
+  - name: highest_staff_position_on_left_column
     type: int
     guards: [ solved ]
     body: |
@@ -158,7 +158,7 @@ methods:
          );
 
 
-  - name: lowest_pitch_on_stemside_column
+  - name: lowest_staff_position_on_stemside_column
     type: int
     guards: [ solved ]
     body: |
@@ -168,7 +168,7 @@ methods:
          );
 
 
-  - name: highest_pitch_on_stemside_column
+  - name: highest_staff_position_on_stemside_column
     type: int
     guards: [ solved ]
     body: |

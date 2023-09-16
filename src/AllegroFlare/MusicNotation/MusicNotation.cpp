@@ -605,6 +605,22 @@ float MusicNotation::draw_note_fragment(
       }
 
 
+      // Render the notehead(s), accidentals, and dots
+
+      float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
+
+      // HERE: Resolve known bugs:
+      //   - Ledger line lengths and positions to handle chords with "two column" noteheads on either side of stem
+
+      AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
+      chord_notehead_position_resolver.solve();
+      std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
+         chord_notehead_position_resolver.get_positions();
+
+      float notehead_width_px = 24;
+      bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
+
+
       // Draw ledger lines
 
       int min_staff_pos = get_min_staff_position(multi_note);
@@ -635,23 +651,8 @@ float MusicNotation::draw_note_fragment(
       }
 
 
+      // Draw note heads (with or without stems, depending on context)
 
-      // Render the notehead(s), accidentals, and dots
-
-      float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
-
-      // HERE: Resolve known bugs:
-      //   - Ledger line lengths and positions to handle chords with "two column" noteheads on either side of stem
-
-      AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
-      chord_notehead_position_resolver.solve();
-      std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
-         chord_notehead_position_resolver.get_positions();
-
-      float notehead_width_px = 24;
-      bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
-
-      //for (auto &note : multi_note)
       for (auto &note : notehead_positions)
       {
          const bool LEFT = 0;

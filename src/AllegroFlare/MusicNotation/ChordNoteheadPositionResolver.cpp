@@ -124,14 +124,14 @@ int ChordNoteheadPositionResolver::highest_staff_position_on_position_type(Alleg
    return 0;
 }
 
-int ChordNoteheadPositionResolver::lowest_pitch_on_right_column()
+int ChordNoteheadPositionResolver::lowest_staff_position_on_right_column()
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_right_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_right_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_right_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_right_column: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return lowest_staff_position_on_position_type(
@@ -139,14 +139,14 @@ int ChordNoteheadPositionResolver::lowest_pitch_on_right_column()
       );
 }
 
-int ChordNoteheadPositionResolver::highest_pitch_on_right_column()
+int ChordNoteheadPositionResolver::highest_staff_position_on_right_column()
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_right_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_right_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_right_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_right_column: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return highest_staff_position_on_position_type(
@@ -154,14 +154,14 @@ int ChordNoteheadPositionResolver::highest_pitch_on_right_column()
       );
 }
 
-int ChordNoteheadPositionResolver::lowest_pitch_on_left_column()
+int ChordNoteheadPositionResolver::lowest_staff_position_on_left_column()
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_left_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_left_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_left_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_left_column: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return lowest_staff_position_on_position_type(
@@ -169,14 +169,14 @@ int ChordNoteheadPositionResolver::lowest_pitch_on_left_column()
       );
 }
 
-int ChordNoteheadPositionResolver::highest_pitch_on_left_column()
+int ChordNoteheadPositionResolver::highest_staff_position_on_left_column()
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_left_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_left_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_left_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_left_column: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return highest_staff_position_on_position_type(
@@ -184,14 +184,14 @@ int ChordNoteheadPositionResolver::highest_pitch_on_left_column()
       );
 }
 
-int ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column()
+int ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column()
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return lowest_staff_position_on_position_type(
@@ -199,14 +199,14 @@ int ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column()
       );
 }
 
-int ChordNoteheadPositionResolver::highest_pitch_on_stemside_column()
+int ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column()
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_stemside_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_stemside_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return highest_staff_position_on_position_type(
