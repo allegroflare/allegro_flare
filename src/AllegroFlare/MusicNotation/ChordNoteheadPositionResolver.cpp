@@ -124,6 +124,32 @@ int ChordNoteheadPositionResolver::highest_pitch_on_left_column()
    return 0;
 }
 
+int ChordNoteheadPositionResolver::highest_pitch_on_stemside_column()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_stemside_column]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_stemside_column: error: guard \"solved\" not met");
+   }
+   // TODO: This method
+   return 0;
+}
+
+int ChordNoteheadPositionResolver::highest_pitch_on_stemside_column()
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_stemside_column]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_stemside_column: error: guard \"solved\" not met");
+   }
+   // TODO: This method
+   return 0;
+}
+
 const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& ChordNoteheadPositionResolver::noteheads_exist_on_both_sides()
 {
    if (!(solved))

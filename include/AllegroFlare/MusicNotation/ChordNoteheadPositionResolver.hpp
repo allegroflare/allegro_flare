@@ -44,6 +44,8 @@ namespace AllegroFlare
          int lowest_pitch_on_right_column();
          int highest_pitch_on_right_column();
          int highest_pitch_on_left_column();
+         int highest_pitch_on_stemside_column();
+         int highest_pitch_on_stemside_column();
          const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>& noteheads_exist_on_both_sides();
          void solve();
          void sort_and_make_unique();

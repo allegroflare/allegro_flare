@@ -100,6 +100,22 @@ methods:
       return 0;
 
 
+  - name: highest_pitch_on_stemside_column
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: This method
+      return 0;
+
+
+  - name: highest_pitch_on_stemside_column
+    type: int
+    guards: [ solved ]
+    body: |
+      // TODO: This method
+      return 0;
+
+
   - name: noteheads_exist_on_both_sides
     type: const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType>>&
     guards: [ solved ]
