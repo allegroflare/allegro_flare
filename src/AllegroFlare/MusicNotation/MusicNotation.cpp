@@ -609,9 +609,6 @@ float MusicNotation::draw_note_fragment(
 
       float accidental_stack_result_width = draw_stacked_accidentals_on(x, y, multi_note, color, font_size_px);
 
-      // HERE: Resolve known bugs:
-      //   - Ledger line lengths and positions to handle chords with "two column" noteheads on either side of stem
-
       AllegroFlare::MusicNotation::ChordNoteheadPositionResolver chord_notehead_position_resolver(multi_note);
       chord_notehead_position_resolver.solve();
       std::vector<std::pair<int, ChordNoteheadPositionResolver::PositionType>> notehead_positions =
