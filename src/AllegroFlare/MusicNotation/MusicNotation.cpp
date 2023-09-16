@@ -621,20 +621,8 @@ float MusicNotation::draw_note_fragment(
       bool this_note_cluster_has_seconds = chord_notehead_position_resolver.get_seconds_exist();
 
 
-      // Draw ledger lines
-
-      // Draw "left side" ledger lines above
-      // Draw "right side" ledger lines above
-      // Draw "left side" ledger lines below
-      // Draw "left side" ledger lines below
-      int min_left = chord_notehead_position_resolver.lowest_staff_position_on_left_column();
-      int max_left = chord_notehead_position_resolver.highest_staff_position_on_left_column();
-      int min_right = chord_notehead_position_resolver.lowest_staff_position_on_right_column();
-      int max_right = chord_notehead_position_resolver.highest_staff_position_on_right_column();
-      int min_stemside = chord_notehead_position_resolver.lowest_staff_position_on_stemside_column();
-      int max_stemside = chord_notehead_position_resolver.highest_staff_position_on_stemside_column();
-
       // Calculate which side the STEMSIDE should resolve to
+
       ChordNoteheadPositionResolver::PositionType stemside_resolves_to =
          ChordNoteheadPositionResolver::PositionType::UNDEFINED;
 
@@ -658,6 +646,88 @@ float MusicNotation::draw_note_fragment(
          break;
       }
 
+
+      // Draw ledger lines
+
+      int min_left = chord_notehead_position_resolver.lowest_staff_position_on_left_column();
+      int max_left = chord_notehead_position_resolver.highest_staff_position_on_left_column();
+      int min_right = chord_notehead_position_resolver.lowest_staff_position_on_right_column();
+      int max_right = chord_notehead_position_resolver.highest_staff_position_on_right_column();
+      int min_stemside = chord_notehead_position_resolver.lowest_staff_position_on_stemside_column();
+      int max_stemside = chord_notehead_position_resolver.highest_staff_position_on_stemside_column();
+
+      if (stemside_resolves_to == ChordNoteheadPositionResolver::PositionType::LEFT)
+      {
+         min_left = std::min(min_left, min_stemside);
+         max_left = std::max(max_left, max_stemside);
+      }
+      else if (stemside_resolves_to == ChordNoteheadPositionResolver::PositionType::RIGHT)
+      {
+         min_right = std::min(min_right, min_stemside);
+         max_right = std::max(max_right, max_stemside);
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::MusicNotation::MusicNotation::draw_raw",
+            "Unhandled StemDirection when evaluating the max and min staff_position on left and right columns"
+         );
+      }
+
+      // Draw the left column ledger lines
+
+      if (min_left < 0)
+      {
+         draw_ledger_lines_to(
+            x,
+            y,
+            min_left,
+            staff_line_thickness,
+            get_music_symbol_width(symbol),
+            staff_color
+         );
+      }
+
+      if (max_left > 0)
+      {
+         draw_ledger_lines_to(
+            x,
+            y,
+            max_left,
+            staff_line_thickness,
+            get_music_symbol_width(symbol),
+            staff_color
+         );
+      }
+
+      // Draw the right column ledger lines
+
+      if (min_right < 0)
+      {
+         draw_ledger_lines_to(
+            x + notehead_width_px,
+            y,
+            min_right,
+            staff_line_thickness,
+            get_music_symbol_width(symbol),
+            staff_color
+         );
+      }
+
+      if (max_right > 0)
+      {
+         draw_ledger_lines_to(
+            x + notehead_width_px,
+            y,
+            max_right,
+            staff_line_thickness,
+            get_music_symbol_width(symbol),
+            staff_color
+         );
+      }
+
+
+      /*
       int min_staff_pos = get_min_staff_position(multi_note);
       int max_staff_pos = get_max_staff_position(multi_note);
 
@@ -684,7 +754,8 @@ float MusicNotation::draw_note_fragment(
             staff_color
          );
       }
-      
+      */
+
 
 
       // Draw note heads (with or without stems, depending on context)
