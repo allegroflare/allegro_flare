@@ -72,16 +72,55 @@ bool ChordNoteheadPositionResolver::get_seconds_exist()
    return seconds_exist;
 }
 
-int ChordNoteheadPositionResolver::lowest_pitch_on_left_column()
+int ChordNoteheadPositionResolver::lowest_staff_position_on_position_type(AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType position_type)
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_left_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_position_type]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_left_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_position_type: error: guard \"solved\" not met");
    }
-   // TODO: This method
+   // TODO: Test this method
+   bool left_position_exists = false;
+   int min_pitch = std::numeric_limits<float>::max();
+
+   for (auto &position : positions)
+   {
+      if (position.second == position_type)
+      {
+         left_position_exists = true;
+         if (position.first < min_pitch) min_pitch = position.first;
+      }
+   }
+
+   if (left_position_exists) return min_pitch;
+   return 0;
+}
+
+int ChordNoteheadPositionResolver::highest_staff_position_on_position_type(AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType position_type)
+{
+   if (!(solved))
+   {
+      std::stringstream error_message;
+      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_position_type]: error: guard \"solved\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_position_type: error: guard \"solved\" not met");
+   }
+   // TODO: Test this method
+   bool left_position_exists = false;
+   int max_pitch = std::numeric_limits<float>::min();
+
+   for (auto &position : positions)
+   {
+      if (position.second == position_type)
+      {
+         left_position_exists = true;
+         if (position.first > max_pitch) max_pitch = position.first;
+      }
+   }
+
+   if (left_position_exists) return max_pitch;
    return 0;
 }
 
@@ -124,14 +163,14 @@ int ChordNoteheadPositionResolver::highest_pitch_on_left_column()
    return 0;
 }
 
-int ChordNoteheadPositionResolver::highest_pitch_on_stemside_column()
+int ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column()
 {
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_pitch_on_stemside_column]: error: guard \"solved\" not met.";
+      error_message << "[ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_pitch_on_stemside_column: error: guard \"solved\" not met");
+      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_pitch_on_stemside_column: error: guard \"solved\" not met");
    }
    // TODO: This method
    return 0;
