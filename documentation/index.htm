@@ -203,6 +203,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MusicNotation/AccidentalStacker.q.yml">quintessence/AllegroFlare/MusicNotation/AccidentalStacker.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/Beam.q.yml">quintessence/AllegroFlare/MusicNotation/Beam.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/BeamPositionCalculator.q.yml">quintessence/AllegroFlare/MusicNotation/BeamPositionCalculator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MusicNotation/ChordDotPositionCalculator.q.yml">quintessence/AllegroFlare/MusicNotation/ChordDotPositionCalculator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.q.yml">quintessence/AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.q.yml">quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer.q.yml">quintessence/AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer.q.yml</a></li>
@@ -10632,6 +10633,29 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;BeamPositionCalculator::StemDirection&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">pitches</td>
+  <td class="property">std::vector&lt;AllegroFlare::MusicNotation::Parser::PitchToken&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">calculate_dot_staff_positions()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MusicNotation::Parser::PitchToken&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MusicNotation/Parser/PitchToken.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27547,6 +27571,7 @@ table td
   ],
   "AllegroFlare/MusicNotation/Parser/PitchToken": [
     "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/ChordDotPositionCalculator",
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
   "std/reverse": [

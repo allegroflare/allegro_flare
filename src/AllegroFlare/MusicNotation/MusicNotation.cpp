@@ -744,6 +744,8 @@ float MusicNotation::draw_note_fragment(
 
    // Draw note heads (with or without stems, depending on context)
 
+   float max_notehead_x_offset = std::numeric_limits<int>::min();
+
    for (auto &note : notehead_positions)
    {
       //const bool LEFT = 0;
@@ -780,6 +782,12 @@ float MusicNotation::draw_note_fragment(
 
       float notehead_x_offset = (
             (note_stem_position == ChordNoteheadPositionResolver::PositionType::LEFT) ? 0 : notehead_width_px);
+
+
+      // Accumulate the maximum note offset (for the augmentation dots, if they are in a chord)
+
+      if (notehead_x_offset > max_notehead_x_offset) max_notehead_x_offset = notehead_x_offset;
+
 
       bool is_outset_from_normal_note_position_for_the_stem =
                (
