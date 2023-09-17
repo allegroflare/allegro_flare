@@ -2,9 +2,8 @@
 
 #include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
 
-#include <algorithm>
+#include <AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp>
 #include <iostream>
-#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -206,9 +205,11 @@ void AccidentalStacker::solve()
 {
    stack.clear();
 
-   // TODO: Confirm pitches are sorted and unique, and are reversed (higher numbers at the top)
-   sort_and_make_unique();
-   std::reverse(pitches.begin(), pitches.end());
+   // Sort notes for this operation
+   // TODO: Test context where notes must be sorted and made unique
+   AllegroFlare::MusicNotation::Parser::PitchTokenSorter pitch_token_sorter(pitches);
+   pitches = pitch_token_sorter.sort_unique_descending();
+
 
    bool top_bottom_toggle = true;
    int current_column = 0;
@@ -357,36 +358,6 @@ AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType AccidentalStacker
    else if (accidental_weight < 0) return AccidentalType::FLAT;
    else if (accidental_weight > 0) return AccidentalType::SHARP;
    return AccidentalType::UNDEFINED;
-}
-
-bool AccidentalStacker::custom_comparison_for_pitch_tokens(const AllegroFlare::MusicNotation::Parser::PitchToken& token1, const AllegroFlare::MusicNotation::Parser::PitchToken& token2)
-{
-   if (token1.staff_position != token2.staff_position) return token1.staff_position < token2.staff_position;
-   return token1.calculate_accidental_weight() < token2.calculate_accidental_weight();
-}
-
-void AccidentalStacker::sort_and_make_unique()
-{
-   // TODO: Test this method
-   std::set<
-         AllegroFlare::MusicNotation::Parser::PitchToken,
-         bool(*)(
-               const AllegroFlare::MusicNotation::Parser::PitchToken&,
-               const AllegroFlare::MusicNotation::Parser::PitchToken&
-            )
-      > result_pitches(AllegroFlare::MusicNotation::AccidentalStacker::custom_comparison_for_pitch_tokens);
-
-   for (auto &note : pitches)
-   {
-      result_pitches.insert(note);
-   }
-
-   pitches.clear();
-   for (auto &note : result_pitches)
-   {
-      pitches.push_back(note);
-   }
-   return;
 }
 
 

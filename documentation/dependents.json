@@ -1897,6 +1897,10 @@
   "std/reverse": [
     "AllegroFlare/MusicNotation/AccidentalStacker"
   ],
+  "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
+    "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+  ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"
   ],
@@ -1904,9 +1908,6 @@
     "AllegroFlare/MusicNotation/BeamPositionCalculator"
   ],
   "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver/PositionType": [
-    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
-  ],
-  "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [

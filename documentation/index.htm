@@ -10496,12 +10496,6 @@ table td
 <tr>
   <td class="method">find_accidental_type_by_weight(int accidental_weight=0)</td>
 </tr>
-<tr>
-  <td class="private_method">custom_comparison_for_pitch_tokens(const AllegroFlare::MusicNotation::Parser::PitchToken&amp; token1=AllegroFlare::MusicNotation::Parser::PitchToken(), const AllegroFlare::MusicNotation::Parser::PitchToken&amp; token2=AllegroFlare::MusicNotation::Parser::PitchToken())</td>
-</tr>
-<tr>
-  <td class="method">sort_and_make_unique()</td>
-</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -10513,6 +10507,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::reverse&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MusicNotation::Parser::PitchTokenSorter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27602,6 +27599,10 @@ table td
   "std/reverse": [
     "AllegroFlare/MusicNotation/AccidentalStacker"
   ],
+  "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
+    "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+  ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"
   ],
@@ -27609,9 +27610,6 @@ table td
     "AllegroFlare/MusicNotation/BeamPositionCalculator"
   ],
   "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver/PositionType": [
-    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
-  ],
-  "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [

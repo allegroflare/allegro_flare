@@ -25,7 +25,6 @@ namespace AllegroFlare
          std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches;
          std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType, std::pair<int, int>>> stack;
          bool solved;
-         static bool custom_comparison_for_pitch_tokens(const AllegroFlare::MusicNotation::Parser::PitchToken& token1=AllegroFlare::MusicNotation::Parser::PitchToken(), const AllegroFlare::MusicNotation::Parser::PitchToken& token2=AllegroFlare::MusicNotation::Parser::PitchToken());
 
       protected:
 
@@ -46,7 +45,6 @@ namespace AllegroFlare
          int collapse_column_into_previous(int target_column=0);
          void integrate_fitable_columns();
          static AllegroFlare::MusicNotation::AccidentalStacker::AccidentalType find_accidental_type_by_weight(int accidental_weight=0);
-         void sort_and_make_unique();
       };
    }
 }
