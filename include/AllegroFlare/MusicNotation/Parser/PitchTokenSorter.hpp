@@ -26,7 +26,7 @@ namespace AllegroFlare
 
             void set_pitches(std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> pitches);
             std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> get_pitches() const;
-            void sort_and_make_unique();
+            std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> sort_unique_desc();
          };
       }
    }

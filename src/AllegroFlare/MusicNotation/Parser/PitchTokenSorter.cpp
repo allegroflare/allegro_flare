@@ -36,8 +36,9 @@ std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> PitchTokenSorter::g
 }
 
 
-void PitchTokenSorter::sort_and_make_unique()
+std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> PitchTokenSorter::sort_unique_desc()
 {
+   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> result;
    // TODO: Test this method
    std::set<
          AllegroFlare::MusicNotation::Parser::PitchToken,
@@ -45,21 +46,26 @@ void PitchTokenSorter::sort_and_make_unique()
                const AllegroFlare::MusicNotation::Parser::PitchToken&,
                const AllegroFlare::MusicNotation::Parser::PitchToken&
             )
-      > result_pitches(
+      > result_set_pitches(
                AllegroFlare::MusicNotation::Parser::PitchTokenSorter::custom_comparison_for_pitch_tokens
           );
 
+   // Add existing pitches to the 
    for (auto &note : pitches)
    {
-      result_pitches.insert(note);
+      result_set_pitches.insert(note);
    }
 
-   pitches.clear();
-   for (auto &note : result_pitches)
+   //pitches.clear();
+   for (auto &note : result_set_pitches)
    {
-      pitches.push_back(note);
+      result.push_back(note);
    }
-   return;
+
+   // Make the list of pitches descending (so that higher pitches are at the top)
+   std::reverse(result.begin(), result.end());
+
+   return result;
 }
 
 bool PitchTokenSorter::custom_comparison_for_pitch_tokens(const AllegroFlare::MusicNotation::Parser::PitchToken& token1, const AllegroFlare::MusicNotation::Parser::PitchToken& token2)

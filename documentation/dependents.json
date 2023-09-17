@@ -1891,7 +1891,8 @@
   "AllegroFlare/MusicNotation/Parser/PitchToken": [
     "AllegroFlare/MusicNotation/AccidentalStacker",
     "AllegroFlare/MusicNotation/ChordDotPositionCalculator",
-    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver",
+    "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
   ],
   "std/reverse": [
     "AllegroFlare/MusicNotation/AccidentalStacker"
