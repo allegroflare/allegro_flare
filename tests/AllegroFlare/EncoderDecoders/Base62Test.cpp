@@ -48,7 +48,7 @@ TEST(AllegroFlare_EncoderDecoders_Base62Test, encode__will_encode_an_integer_num
 }
 
 
-TEST(AllegroFlare_EncoderDecoders_Base62Test, encode__will_format_with_zerfills)
+TEST(AllegroFlare_EncoderDecoders_Base62Test, encode__will_format_with_zerofills)
 {
    AllegroFlare::EncoderDecoders::Base62 base62_encoder;
 

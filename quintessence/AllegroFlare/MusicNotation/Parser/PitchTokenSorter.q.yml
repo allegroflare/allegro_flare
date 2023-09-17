@@ -1,0 +1,65 @@
+properties:
+
+
+  - name: pitches
+    type: std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: sort_and_make_unique
+    body: |
+      // TODO: Test this method
+      std::set<
+            AllegroFlare::MusicNotation::Parser::PitchToken,
+            bool(*)(
+                  const AllegroFlare::MusicNotation::Parser::PitchToken&,
+                  const AllegroFlare::MusicNotation::Parser::PitchToken&
+               )
+         > result_pitches(
+                  AllegroFlare::MusicNotation::Parser::PitchTokenSorter::custom_comparison_for_pitch_tokens
+             );
+
+      for (auto &note : pitches)
+      {
+         result_pitches.insert(note);
+      }
+
+      pitches.clear();
+      for (auto &note : result_pitches)
+      {
+         pitches.push_back(note);
+      }
+      return;
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: custom_comparison_for_pitch_tokens
+    private: true
+    static: true
+    type: bool
+    parameters:
+      - name: token1
+        type: const AllegroFlare::MusicNotation::Parser::PitchToken&
+        default_argument: AllegroFlare::MusicNotation::Parser::PitchToken()
+      - name: token2
+        type: const AllegroFlare::MusicNotation::Parser::PitchToken&
+        default_argument: AllegroFlare::MusicNotation::Parser::PitchToken()
+    body: |
+      if (token1.staff_position != token2.staff_position) return token1.staff_position < token2.staff_position;
+      return token1.calculate_accidental_weight() < token2.calculate_accidental_weight();
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::MusicNotation::Parser::PitchToken
+    headers: [ AllegroFlare/MusicNotation/Parser/PitchToken.hpp ]
+
+
