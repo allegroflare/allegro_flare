@@ -1899,6 +1899,7 @@
   ],
   "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
     "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/ChordDotPositionCalculator",
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
   "Beam/Alignment": [
