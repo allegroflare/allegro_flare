@@ -189,8 +189,10 @@ methods:
     guards: [ (!solved) ]
     body: |
       // TODO: Sort and make unique
-      sort_and_make_unique();
-      std::reverse(pitches.begin(), pitches.end());
+      AllegroFlare::MusicNotation::Parser::PitchTokenSorter pitch_token_sorter(pitches);
+      pitches = pitch_token_sorter.sort_unique_descending();
+      //sort_and_make_unique();
+      //std::reverse(pitches.begin(), pitches.end());
 
       // TODO: Test context where notes must be sorted and made unique
 
@@ -292,6 +294,8 @@ methods:
 
       solved = true;
       return;
+    body_dependency_symbols:
+      - AllegroFlare::MusicNotation::Parser::PitchTokenSorter
 
 
   - name: custom_comparison_for_pitch_tokens
@@ -345,5 +349,7 @@ dependencies:
     headers: [ AllegroFlare/MusicNotation/Parser/PitchToken.hpp ]
   - symbol: AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::PositionType
     headers: [ ]
+  - symbol: AllegroFlare::MusicNotation::Parser::PitchTokenSorter
+    headers: [ AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp ]
 
 

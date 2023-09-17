@@ -36,7 +36,7 @@ std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> PitchTokenSorter::g
 }
 
 
-std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> PitchTokenSorter::sort_unique_desc()
+std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> PitchTokenSorter::sort_unique_descending()
 {
    std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> result;
    // TODO: Test this method

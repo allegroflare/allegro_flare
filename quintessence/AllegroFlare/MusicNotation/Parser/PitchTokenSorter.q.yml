@@ -12,7 +12,7 @@ properties:
 methods:
 
 
-  - name: sort_unique_desc
+  - name: sort_unique_descending
     type: std::vector<AllegroFlare::MusicNotation::Parser::PitchToken>
     body: |
       std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> result;

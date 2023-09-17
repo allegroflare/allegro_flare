@@ -34,7 +34,8 @@ TEST(AllegroFlare_MusicNotation_Parser_PitchTokenSorterTest,
       { -5,  0, false },
       { -7,  0, false },
    };
-   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> actual_pitches = pitch_token_sorter.sort_unique_desc();
+   std::vector<AllegroFlare::MusicNotation::Parser::PitchToken> actual_pitches =
+      pitch_token_sorter.sort_unique_descending();
    EXPECT_EQ(expected_pitches, actual_pitches);
 }
 

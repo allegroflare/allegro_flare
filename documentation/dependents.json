@@ -1906,6 +1906,9 @@
   "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver/PositionType": [
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
+  "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+  ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
   ],

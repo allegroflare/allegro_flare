@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.hpp>
 
+#include <AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -236,8 +237,10 @@ void ChordNoteheadPositionResolver::solve()
       throw std::runtime_error("ChordNoteheadPositionResolver::solve: error: guard \"(!solved)\" not met");
    }
    // TODO: Sort and make unique
-   sort_and_make_unique();
-   std::reverse(pitches.begin(), pitches.end());
+   AllegroFlare::MusicNotation::Parser::PitchTokenSorter pitch_token_sorter(pitches);
+   pitches = pitch_token_sorter.sort_unique_descending();
+   //sort_and_make_unique();
+   //std::reverse(pitches.begin(), pitches.end());
 
    // TODO: Test context where notes must be sorted and made unique
 
