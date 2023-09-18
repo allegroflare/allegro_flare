@@ -157,16 +157,6 @@ methods:
       - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
 
 
-  - name: interact_with_item_under_cursor
-    guards: [ initialized, event_emitter, entity_collection_helper ]
-    body: |
-      int x = cursor.get_x();
-      int y = cursor.get_y();
-      std::string name = entity_collection_helper->find_dictionary_name_of_entity_that_cursor_is_now_over();
-      emit_interaction_event(name, x, y);
-      return;
-
-
   - name: move_cursor
     guards: [ initialized ]
     parameters:
@@ -236,35 +226,6 @@ methods:
       cursor.set_cursor_to_pointer();
       cursor.clear_info_text();
       return;
-
-
-  - name: emit_interaction_event
-    guards: [ initialized ]
-    private: true
-    parameters:
-      - name: item_dictionary_name
-        type: std::string
-        default_argument: '"[unset-item_dictionary_name]"'
-      - name: cursor_x
-        type: float
-        default_argument: 0.0
-      - name: cursor_y
-        type: float
-        default_argument: 0.0
-    body: |
-      AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
-         new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
-
-      AllegroFlare::GameEvent game_event(
-         AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
-         interaction_event_data
-      );
-      
-      event_emitter->emit_game_event(game_event);
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData
-      - AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
 
 
 dependencies:

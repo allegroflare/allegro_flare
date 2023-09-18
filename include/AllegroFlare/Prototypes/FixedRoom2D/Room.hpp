@@ -30,7 +30,6 @@ namespace AllegroFlare
             bool suspended;
             float suspended_at;
             bool initialized;
-            void emit_interaction_event(std::string item_dictionary_name="[unset-item_dictionary_name]", float cursor_x=0.0, float cursor_y=0.0);
 
          protected:
 
@@ -59,7 +58,6 @@ namespace AllegroFlare
             void initialize();
             void update();
             void render(std::string this_rooms_dictionary_name__this_injection_is_temporary_measure="[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]");
-            void interact_with_item_under_cursor();
             void move_cursor(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
             void reset_cursor_to_default();
          };

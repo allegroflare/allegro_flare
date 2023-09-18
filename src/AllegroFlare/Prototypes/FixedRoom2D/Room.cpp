@@ -4,8 +4,6 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -237,36 +235,6 @@ void Room::render(std::string this_rooms_dictionary_name__this_injection_is_temp
    return;
 }
 
-void Room::interact_with_item_under_cursor()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::interact_with_item_under_cursor]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::interact_with_item_under_cursor: error: guard \"initialized\" not met");
-   }
-   if (!(event_emitter))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::interact_with_item_under_cursor]: error: guard \"event_emitter\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::interact_with_item_under_cursor: error: guard \"event_emitter\" not met");
-   }
-   if (!(entity_collection_helper))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::interact_with_item_under_cursor]: error: guard \"entity_collection_helper\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::interact_with_item_under_cursor: error: guard \"entity_collection_helper\" not met");
-   }
-   int x = cursor.get_x();
-   int y = cursor.get_y();
-   std::string name = entity_collection_helper->find_dictionary_name_of_entity_that_cursor_is_now_over();
-   emit_interaction_event(name, x, y);
-   return;
-}
-
 void Room::move_cursor(float distance_x, float distance_y, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room)
 {
    if (!(initialized))
@@ -330,27 +298,6 @@ void Room::reset_cursor_to_default()
 {
    cursor.set_cursor_to_pointer();
    cursor.clear_info_text();
-   return;
-}
-
-void Room::emit_interaction_event(std::string item_dictionary_name, float cursor_x, float cursor_y)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::emit_interaction_event]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::emit_interaction_event: error: guard \"initialized\" not met");
-   }
-   AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
-      new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
-
-   AllegroFlare::GameEvent game_event(
-      AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
-      interaction_event_data
-   );
-
-   event_emitter->emit_game_event(game_event);
    return;
 }
 
