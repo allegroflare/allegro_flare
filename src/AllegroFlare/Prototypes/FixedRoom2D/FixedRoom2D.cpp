@@ -743,9 +743,61 @@ void FixedRoom2D::activate_primary_action()
    }
    else if (current_room && !current_room->get_suspended())
    {
-      current_room->interact_with_item_under_cursor();
+      //current_room->interact_with_item_under_cursor();
+      interact_with_item_under_cursor();
    }
 
+   return;
+}
+
+void FixedRoom2D::interact_with_item_under_cursor()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[FixedRoom2D::interact_with_item_under_cursor]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FixedRoom2D::interact_with_item_under_cursor: error: guard \"initialized\" not met");
+   }
+   if (!(current_room))
+   {
+      std::stringstream error_message;
+      error_message << "[FixedRoom2D::interact_with_item_under_cursor]: error: guard \"current_room\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FixedRoom2D::interact_with_item_under_cursor: error: guard \"current_room\" not met");
+   }
+   if (!((!current_room->get_suspended())))
+   {
+      std::stringstream error_message;
+      error_message << "[FixedRoom2D::interact_with_item_under_cursor]: error: guard \"(!current_room->get_suspended())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FixedRoom2D::interact_with_item_under_cursor: error: guard \"(!current_room->get_suspended())\" not met");
+   }
+   // TODO: Remove "current_room" as owner of this cursor
+   int x = current_room->get_cursor_ref().get_x();
+   int y = current_room->get_cursor_ref().get_y();
+   std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
+   emit_interaction_event(name, x, y);
+}
+
+void FixedRoom2D::emit_interaction_event(std::string item_dictionary_name, float cursor_x, float cursor_y)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[FixedRoom2D::emit_interaction_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FixedRoom2D::emit_interaction_event: error: guard \"initialized\" not met");
+   }
+   AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData *interaction_event_data =
+      new AllegroFlare::Prototypes::FixedRoom2D::InteractionEventData(item_dictionary_name, cursor_x, cursor_y);
+
+   AllegroFlare::GameEvent game_event(
+      AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME,
+      interaction_event_data
+   );
+
+   event_emitter->emit_game_event(game_event);
    return;
 }
 

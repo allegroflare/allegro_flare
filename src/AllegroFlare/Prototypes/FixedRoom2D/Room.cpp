@@ -112,6 +112,12 @@ bool Room::get_suspended() const
 }
 
 
+AllegroFlare::Prototypes::FixedRoom2D::Cursor &Room::get_cursor_ref()
+{
+   return cursor;
+}
+
+
 void Room::suspend()
 {
    if (!(initialized))

@@ -22,6 +22,7 @@ properties:
   - name: cursor
     type: AllegroFlare::Prototypes::FixedRoom2D::Cursor
     init_with: '{}'
+    getter_ref: true
 
   - name: min_x
     type: float

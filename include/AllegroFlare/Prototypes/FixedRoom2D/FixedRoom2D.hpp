@@ -58,6 +58,7 @@ namespace AllegroFlare
             int standard_dialog_box_font_size;
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
+            void emit_interaction_event(std::string item_dictionary_name="[unset-item_dictionary_name]", float cursor_x=0.0, float cursor_y=0.0);
 
          protected:
 
@@ -103,6 +104,7 @@ namespace AllegroFlare
             void dialog_cursor_down();
             bool dialog_is_finished();
             void activate_primary_action();
+            void interact_with_item_under_cursor();
             void emit_close_current_active_dialog_event();
             void move_cursor_up();
             void move_cursor_down();

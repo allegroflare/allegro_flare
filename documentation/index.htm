@@ -13376,6 +13376,12 @@ table td
   <td class="method">activate_primary_action()</td>
 </tr>
 <tr>
+  <td class="method">interact_with_item_under_cursor()</td>
+</tr>
+<tr>
+  <td class="private_method">emit_interaction_event(std::string item_dictionary_name=&quot;[unset-item_dictionary_name]&quot;, float cursor_x=0.0, float cursor_y=0.0)</td>
+</tr>
+<tr>
   <td class="method">emit_close_current_active_dialog_event()</td>
 </tr>
 <tr>
@@ -13494,6 +13500,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::DialogSystem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/DialogSystem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27876,11 +27885,12 @@ table td
   "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
-  "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
+  "AllegroFlare/Prototypes/FixedRoom2D/EventNames/INTERACTION_EVENT_NAME": [
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
-  "AllegroFlare/Prototypes/FixedRoom2D/EventNames/INTERACTION_EVENT_NAME": [
+  "AllegroFlare/Prototypes/FixedRoom2D/RoomDictionary": [
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
