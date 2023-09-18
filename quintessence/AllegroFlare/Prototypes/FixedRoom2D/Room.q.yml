@@ -61,6 +61,14 @@ properties:
     init_with: false
 
 
+documentation:
+
+
+  - todos:
+     - Cursor should not be in this "room", and should instead be contained by the FixedRoom2D/Screen.  Disclaimer,
+       Any logic that seems to be confused is probably a mid-refactoring to move the cursor out of the room.
+
+
 methods:
 
 
