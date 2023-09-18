@@ -27,7 +27,7 @@ namespace AllegroFlare
 
 
    public:
-      StoryboardFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+      StoryboardFactory();
       ~StoryboardFactory();
 
       void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);

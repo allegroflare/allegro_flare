@@ -10,11 +10,11 @@ namespace AllegroFlare
 {
 
 
-StoryboardFactory::StoryboardFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::EventEmitter* event_emitter)
-   : bitmap_bin(bitmap_bin)
-   , font_bin(font_bin)
-   , model_bin(model_bin)
-   , event_emitter(event_emitter)
+StoryboardFactory::StoryboardFactory()
+   : bitmap_bin(nullptr)
+   , font_bin(nullptr)
+   , model_bin(nullptr)
+   , event_emitter(nullptr)
    , page_factory()
 {
 }

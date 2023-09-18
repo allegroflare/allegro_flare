@@ -13,11 +13,15 @@ properties:
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: image_filename
     type: std::string
     init_with: '"[image-filename-not-set]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: TYPE
     type: char*

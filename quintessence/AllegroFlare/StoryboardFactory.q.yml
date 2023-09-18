@@ -4,25 +4,25 @@ properties:
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
-    constructor_arg: true
+    constructor_arg: false
     setter: false
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
-    constructor_arg: true
+    constructor_arg: false
     setter: false
 
   - name: model_bin
     type: AllegroFlare::ModelBin*
     init_with: nullptr
-    constructor_arg: true
+    constructor_arg: false
     setter: false
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
-    constructor_arg: true
+    constructor_arg: false
     setter: true
 
   - name: page_factory
@@ -31,7 +31,15 @@ properties:
     init_with: ''
 
 
-functions:
+documentation:
+
+
+  - docs:
+      - Dependencies must be set independently and can not be passed in on the constructor. (Another option would be
+        to add an initialization pattern.)
+
+
+methods:
 
 
   - name: set_font_bin

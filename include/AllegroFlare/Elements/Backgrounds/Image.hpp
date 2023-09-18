@@ -30,6 +30,10 @@ namespace AllegroFlare
             Image(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string image_filename="[image-filename-not-set]");
             ~Image();
 
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+            void set_image_filename(std::string image_filename);
+            AllegroFlare::BitmapBin* get_bitmap_bin() const;
+            std::string get_image_filename() const;
             void render() override;
          };
       }

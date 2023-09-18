@@ -29,6 +29,30 @@ Image::~Image()
 }
 
 
+void Image::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void Image::set_image_filename(std::string image_filename)
+{
+   this->image_filename = image_filename;
+}
+
+
+AllegroFlare::BitmapBin* Image::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+std::string Image::get_image_filename() const
+{
+   return image_filename;
+}
+
+
 void Image::render()
 {
    if (!(bitmap_bin))

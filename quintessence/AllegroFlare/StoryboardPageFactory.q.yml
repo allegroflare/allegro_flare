@@ -20,7 +20,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: create_text_page
