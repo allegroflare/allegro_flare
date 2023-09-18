@@ -4,6 +4,11 @@
 #include <AllegroFlare/Testing/CustomComparison.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <AllegroFlare/Placement2D.hpp>
+
+#include <AllegroFlare/Color.hpp>
+#include <allegro5/allegro_primitives.h>
+
 
 class AllegroFlare_Placement2DTest : public ::testing::Test
 {};
@@ -11,13 +16,6 @@ class AllegroFlare_Placement2DTest : public ::testing::Test
 class AllegroFlare_Placement2DWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
-
-
-
-#include <AllegroFlare/Placement2D.hpp>
-
-#include <AllegroFlare/Color.hpp>
-#include <allegro5/allegro_primitives.h>
 
 
 TEST_F(AllegroFlare_Placement2DTest, can_be_created_without_blowing_up)

@@ -281,7 +281,10 @@ void Room::move_cursor(float distance_x, float distance_y, std::vector<AllegroFl
    for (auto &entity : entities_in_this_room)
    {
       if (entity->get_cursor_is_over()) entity_cursor_was_over = entity;
-      if (entity->get_placement_ref().collide_as_if(entity->get_bitmap(), cursor_x, cursor_y)) entity_cursor_is_now_over = entity;
+      if (entity->get_placement_ref().collide_as_if(entity->get_bitmap(), cursor_x, cursor_y))
+      {
+         entity_cursor_is_now_over = entity;
+      }
    }
 
    // a change has happened
