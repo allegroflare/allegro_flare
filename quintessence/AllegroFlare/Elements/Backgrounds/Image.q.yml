@@ -30,18 +30,30 @@ properties:
     constexpr: true
 
 
-functions:
+documentation:
+
+
+  - todos:
+     - Allow setting a custom placement for the image. Right now it's centered in the middle with a scale of 1.0
+
+
+methods:
 
 
   - name: render
     override: true
     guards: [ bitmap_bin ]
     body: |
-      AllegroFlare::Placement2D background_image_placement(1920/2, 1080/2, 1920/2, 1080/2);
-      float scale = 2.0f;
-      background_image_placement.scale = AllegroFlare::Vec2D(scale, scale);
-
+      int surface_width = 1920; // TDOO: Consider having this value be a property on the class
+      int surface_height = 1080; // TDOO: Consider having this value be a property on the class
       ALLEGRO_BITMAP *bitmap = obtain_background_bitmap();
+      AllegroFlare::Placement2D background_image_placement(
+         surface_width * 0.5f,
+         surface_height * 0.5f,
+         al_get_bitmap_width(bitmap),
+         al_get_bitmap_height(bitmap)
+      );
+
       background_image_placement.start_transform();
       al_draw_bitmap(bitmap, 0, 0, 0);
       background_image_placement.restore_transform();

@@ -62,11 +62,16 @@ void Image::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Image::render: error: guard \"bitmap_bin\" not met");
    }
-   AllegroFlare::Placement2D background_image_placement(1920/2, 1080/2, 1920/2, 1080/2);
-   float scale = 2.0f;
-   background_image_placement.scale = AllegroFlare::Vec2D(scale, scale);
-
+   int surface_width = 1920; // TDOO: Consider having this value be a property on the class
+   int surface_height = 1080; // TDOO: Consider having this value be a property on the class
    ALLEGRO_BITMAP *bitmap = obtain_background_bitmap();
+   AllegroFlare::Placement2D background_image_placement(
+      surface_width * 0.5f,
+      surface_height * 0.5f,
+      al_get_bitmap_width(bitmap),
+      al_get_bitmap_height(bitmap)
+   );
+
    background_image_placement.start_transform();
    al_draw_bitmap(bitmap, 0, 0, 0);
    background_image_placement.restore_transform();
