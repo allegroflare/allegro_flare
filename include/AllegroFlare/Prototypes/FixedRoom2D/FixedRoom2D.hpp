@@ -111,6 +111,8 @@ namespace AllegroFlare
             void move_cursor_left();
             void move_cursor_right();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
+            void move_cursor__was_internal(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
+            void reset_cursor_to_default__from_room_refactor(AllegroFlare::Prototypes::FixedRoom2D::Room* room=nullptr);
          };
       }
    }

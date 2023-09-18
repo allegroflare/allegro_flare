@@ -900,8 +900,93 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
    { 
       std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_current_room =
           get_entities_in_current_room();
-      current_room->move_cursor(distance_x, distance_y, entities_in_current_room);
+      //current_room->move_cursor_int(distance_x, distance_y, entities_in_current_room);
+      move_cursor__was_internal(distance_x, distance_y, entities_in_current_room);
    }
+   return;
+}
+
+void FixedRoom2D::move_cursor__was_internal(float distance_x, float distance_y, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[FixedRoom2D::move_cursor__was_internal]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FixedRoom2D::move_cursor__was_internal: error: guard \"initialized\" not met");
+   }
+   // TODO: Remove this "cursor" as being cursor from current room
+   AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = current_room->get_cursor_ref();
+   float room_min_x = current_room->get_min_x();
+   float room_min_y = current_room->get_min_y();
+   float room_max_x = current_room->get_max_x();
+   float room_max_y = current_room->get_max_y();
+
+   cursor.move(distance_x, distance_y);
+   cursor.clamp(room_min_x, room_min_y, room_max_x, room_max_y); // TODO: Consider not clamping to room, and instead
+                                                                 // clamping to screen, and nullifying clicks
+                                                                 // or activity that is outside the room bounds
+
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_was_over = nullptr;
+   AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* entity_cursor_is_now_over = nullptr;
+
+   int cursor_x = cursor.get_x();
+   int cursor_y = cursor.get_y();
+
+   // update the state of the entities
+   for (auto &entity : entities_in_this_room)
+   {
+      if (entity->get_cursor_is_over()) entity_cursor_was_over = entity;
+      if (entity->get_placement_ref().collide_as_if(entity->get_bitmap(), cursor_x, cursor_y))
+      {
+         entity_cursor_is_now_over = entity;
+      }
+   }
+
+   // a change has happened
+   if (entity_cursor_was_over != entity_cursor_is_now_over)
+   {
+      if (entity_cursor_was_over)
+      {
+         entity_cursor_was_over->on_cursor_leave();
+      }
+
+      if (entity_cursor_is_now_over)
+      {
+         entity_cursor_is_now_over->on_cursor_enter();
+         if (entity_cursor_is_now_over->get_cursor_insights_are_hidden())
+         {
+            reset_cursor_to_default__from_room_refactor(current_room);
+         }
+         else
+         {
+            cursor.set_cursor_to_pointer();
+            cursor.set_info_text("inspect");
+         }
+      }
+      else
+      {
+         // cursor is now over nothing
+         reset_cursor_to_default__from_room_refactor(current_room);
+      }
+   }
+
+   return;
+}
+
+void FixedRoom2D::reset_cursor_to_default__from_room_refactor(AllegroFlare::Prototypes::FixedRoom2D::Room* room)
+{
+   if (!(room))
+   {
+      std::stringstream error_message;
+      error_message << "[FixedRoom2D::reset_cursor_to_default__from_room_refactor]: error: guard \"room\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FixedRoom2D::reset_cursor_to_default__from_room_refactor: error: guard \"room\" not met");
+   }
+   AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = room->get_cursor_ref();
+
+   cursor.set_cursor_to_pointer();
+   cursor.clear_info_text();
    return;
 }
 
