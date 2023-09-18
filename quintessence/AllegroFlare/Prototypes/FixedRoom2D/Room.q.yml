@@ -61,7 +61,7 @@ properties:
     init_with: false
 
 
-functions:
+methods:
 
 
   - name: suspend
@@ -151,8 +151,10 @@ functions:
   - name: interact_with_item_under_cursor
     guards: [ initialized, event_emitter, entity_collection_helper ]
     body: |
+      int x = cursor.get_x();
+      int y = cursor.get_y();
       std::string name = entity_collection_helper->find_dictionary_name_of_entity_that_cursor_is_now_over();
-      emit_interaction_event(name, cursor.get_x(), cursor.get_y());
+      emit_interaction_event(name, x, y);
       return;
 
 

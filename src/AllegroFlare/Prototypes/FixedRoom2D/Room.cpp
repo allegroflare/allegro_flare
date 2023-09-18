@@ -254,8 +254,10 @@ void Room::interact_with_item_under_cursor()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Room::interact_with_item_under_cursor: error: guard \"entity_collection_helper\" not met");
    }
+   int x = cursor.get_x();
+   int y = cursor.get_y();
    std::string name = entity_collection_helper->find_dictionary_name_of_entity_that_cursor_is_now_over();
-   emit_interaction_event(name, cursor.get_x(), cursor.get_y());
+   emit_interaction_event(name, x, y);
    return;
 }
 
