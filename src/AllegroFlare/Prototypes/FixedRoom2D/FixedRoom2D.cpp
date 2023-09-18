@@ -359,7 +359,8 @@ void FixedRoom2D::reset_cursors_to_default_in_all_rooms()
       }
       else
       {
-         room->reset_cursor_to_default();
+         //room->reset_cursor_to_default();
+         reset_cursor_to_default__from_room_refactor(room);
       }
    }
    return;

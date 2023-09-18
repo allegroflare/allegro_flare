@@ -4,10 +4,8 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
 #include <string>
-#include <vector>
 
 
 namespace AllegroFlare
@@ -58,8 +56,6 @@ namespace AllegroFlare
             void initialize();
             void update();
             void render(std::string this_rooms_dictionary_name__this_injection_is_temporary_measure="[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]");
-            void move_cursor(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
-            void reset_cursor_to_default();
          };
       }
    }
