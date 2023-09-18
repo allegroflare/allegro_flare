@@ -22,7 +22,6 @@ namespace AllegroFlare
       AllegroFlare::Vec2D position, size, align, scale, anchor;
       AllegroFlare::Vec2B flip;
       float rotation;
-      //float &x, &y, &w, &h;
 
       Placement2D();
       Placement2D(float x, float y, float w, float h);
