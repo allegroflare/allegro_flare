@@ -46,7 +46,7 @@ properties:
     init_with: 0
 
 
-functions:
+methods:
 
 
   - name: draw
