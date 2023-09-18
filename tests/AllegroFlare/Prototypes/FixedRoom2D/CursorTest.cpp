@@ -92,8 +92,12 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_CursorTestWithAllegroRenderingFixture
          std::pair<float, float>                 // expected cursor position after clamp
       >
    > test_datas = {
-      { { 2910, 1803 },     { 0, 0, 1920, 1080 },     { 1920, 1080 } }
-      // TODO: Add more test data
+      { { 2910, 1803 },     { 0, 0, 1920, 1080 },     { 1920, 1080 } },
+      { { 1920, 1080},      { 0, 0, 1920, 1080 },     { 1920, 1080 } },
+      { { 800,  1200},      { 0, 0, 1920, 1080 },     {  800, 1080 } },
+      { { -200, 1200},      { 0, 0, 1920, 1080 },     {    0, 1080 } },
+      { { -200,   -1},      { 0, 0, 1920, 1080 },     {    0,     0} },
+      { {    0,    0},      { 0, 0, 1920, 1080 },     {    0,     0} },
    };
 
    for (auto &test_data : test_datas)
