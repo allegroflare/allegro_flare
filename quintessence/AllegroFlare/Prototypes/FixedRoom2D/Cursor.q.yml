@@ -218,18 +218,13 @@ methods:
 dependencies:
 
 
-  - symbol: AllegroFlare::FontBin
-    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::FontBin*
+  - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
-
-  - symbol: ALLEGRO_FONT
-    headers: [ allegro5/allegro.h ]
 
 
