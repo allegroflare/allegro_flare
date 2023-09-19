@@ -1,12 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Color.hpp>
 
 
 class AllegroFlare_Elements_TextTest : public ::testing::Test
@@ -44,14 +41,12 @@ TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
-   render__will_draw_the_text_to_the_screen)
+   CAPTURE__render__will_draw_the_text_to_the_screen)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::Elements::Text text(&font_bin);
    text.render();
    al_flip_display();
-   sleep_for(1);
-   SUCCEED();
 }
 
 
@@ -66,4 +61,22 @@ TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
    EXPECT_EQ(48, text.get_placement().size.y);
 }
 
+
+TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
+   CAPTURE__render__with_customizations_on_color_font_identifier_and_font_size__will_render_as_expected)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   AllegroFlare::Elements::Text text(&font_bin);
+   text.fit_placement_width_and_height_to_text();
+   text.set_text("This is Custom Text");
+   text.set_font_identifier("plantin-mt-light.ttf");
+   text.set_font_size(-120);
+   text.set_color(AllegroFlare::Color::Aquamarine);
+   text.get_placement_ref().position.x = 1920/2;
+   text.get_placement_ref().position.y = 1080/2;
+
+   text.render();
+
+   al_flip_display();
+}
 

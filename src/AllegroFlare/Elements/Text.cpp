@@ -14,10 +14,12 @@ namespace Elements
 {
 
 
-Text::Text(AllegroFlare::FontBin* font_bin, std::string text, ALLEGRO_COLOR color)
+Text::Text(AllegroFlare::FontBin* font_bin, std::string text, std::string font_identifier, int font_size, ALLEGRO_COLOR color)
    : AllegroFlare::Elements::Base()
    , font_bin(font_bin)
    , text(text)
+   , font_identifier(font_identifier)
+   , font_size(font_size)
    , color(color)
 {
 }
@@ -34,6 +36,18 @@ void Text::set_text(std::string text)
 }
 
 
+void Text::set_font_identifier(std::string font_identifier)
+{
+   this->font_identifier = font_identifier;
+}
+
+
+void Text::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
 void Text::set_color(ALLEGRO_COLOR color)
 {
    this->color = color;
@@ -43,6 +57,18 @@ void Text::set_color(ALLEGRO_COLOR color)
 std::string Text::get_text() const
 {
    return text;
+}
+
+
+std::string Text::get_font_identifier() const
+{
+   return font_identifier;
+}
+
+
+int Text::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -108,7 +134,9 @@ ALLEGRO_FONT* Text::obtain_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Text::obtain_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Regular.ttf -48");
+   std::stringstream result_font_identifier;
+   result_font_identifier << font_identifier << " " << font_size;
+   return font_bin->auto_get(result_font_identifier.str());
 }
 
 
