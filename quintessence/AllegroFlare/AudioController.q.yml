@@ -70,7 +70,7 @@ properties:
     init_with: false
 
 
-functions:
+methods:
 
 
   - name: initialize
