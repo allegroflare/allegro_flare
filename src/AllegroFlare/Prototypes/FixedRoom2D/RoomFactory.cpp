@@ -88,12 +88,12 @@ AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float widt
    }
    AllegroFlare::Prototypes::FixedRoom2D::Room* result = new AllegroFlare::Prototypes::FixedRoom2D::Room();
 
-   AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = result->get_cursor_ref();
+   //AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = result->get_cursor_ref();
 
    // TODO: Remove these direct calls to the room's cursor once a global cursor is available
-   cursor.set_font_bin(font_bin);
-   cursor.set_cursor_to_pointer();
-   cursor.clear_info_text();
+   //cursor.set_font_bin(font_bin);
+   //cursor.set_cursor_to_pointer();
+   //cursor.clear_info_text();
 
    return result;
 }

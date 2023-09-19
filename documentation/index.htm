@@ -13242,6 +13242,10 @@ table td
   <td class="property">AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper</td>
 </tr>
 <tr>
+  <td class="property">cursor</td>
+  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Cursor</td>
+</tr>
+<tr>
   <td class="property">starting_room_identifier</td>
   <td class="property">std::string</td>
 </tr>
@@ -13546,10 +13550,6 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">cursor</td>
-  <td class="property">AllegroFlare::Prototypes::FixedRoom2D::Cursor</td>
-</tr>
-<tr>
   <td class="property">min_x</td>
   <td class="property">float</td>
 </tr>
@@ -13591,6 +13591,12 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::Cursor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp&quot;]}</td>
 </tr>
@@ -25786,6 +25792,7 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/Time",
@@ -26289,6 +26296,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/ModelBin": [

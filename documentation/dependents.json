@@ -109,6 +109,7 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/Time",
@@ -612,6 +613,7 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/ModelBin": [

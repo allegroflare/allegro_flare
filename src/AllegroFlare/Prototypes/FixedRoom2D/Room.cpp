@@ -2,7 +2,10 @@
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 
-
+#include <allegro5/allegro.h>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -14,8 +17,7 @@ namespace FixedRoom2D
 
 
 Room::Room()
-   : cursor({})
-   , min_x(0.0f)
+   : min_x(0.0f)
    , min_y(0.0f)
    , max_x(1920.0f)
    , max_y(1080.0f)
@@ -84,17 +86,18 @@ bool Room::get_suspended() const
 }
 
 
-AllegroFlare::Prototypes::FixedRoom2D::Cursor &Room::get_cursor_ref()
-{
-   return cursor;
-}
-
-
 void Room::suspend()
 {
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Room::suspend]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Room::suspend: error: guard \"al_is_system_installed()\" not met");
+   }
    if (suspended) return;
    suspended = true;
-   suspended_at = al_get_time();
+   suspended_at = al_get_time(); // TODO: Pass in a current_time
    return;
 }
 

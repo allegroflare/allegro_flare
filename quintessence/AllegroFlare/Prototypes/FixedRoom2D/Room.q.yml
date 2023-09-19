@@ -1,11 +1,6 @@
 properties:
 
 
-  - name: cursor
-    type: AllegroFlare::Prototypes::FixedRoom2D::Cursor
-    init_with: '{}'
-    getter_ref: true
-
   - name: min_x
     type: float
     init_with: 0.0f
@@ -52,11 +47,15 @@ methods:
 
 
   - name: suspend
+    guards: [ al_is_system_installed() ]
     body: |
       if (suspended) return;
       suspended = true;
-      suspended_at = al_get_time();
+      suspended_at = al_get_time(); // TODO: Pass in a current_time
       return;
+    body_dependency_symbols:
+      - al_get_time
+      - al_is_system_installed
 
 
   - name: resume
@@ -80,6 +79,10 @@ methods:
 dependencies:
 
 
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::Cursor
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::RoomDictionary

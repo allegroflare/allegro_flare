@@ -9,6 +9,7 @@
 #include <AllegroFlare/Inventory.hpp>
 #include <AllegroFlare/InventoryIndex.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Configuration.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/DialogSystem.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Entities/Base.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
@@ -47,6 +48,7 @@ namespace AllegroFlare
             std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> script_dictionary;
             AllegroFlare::Prototypes::FixedRoom2D::ScriptRunner script_runner;
             AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper entity_collection_helper;
+            AllegroFlare::Prototypes::FixedRoom2D::Cursor cursor;
             std::string starting_room_identifier;
             AllegroFlare::Prototypes::FixedRoom2D::Room* current_room;
             AllegroFlare::Shaders::Base* room_shader;

@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
 
 
 namespace AllegroFlare
@@ -13,7 +12,6 @@ namespace AllegroFlare
          class Room
          {
          private:
-            AllegroFlare::Prototypes::FixedRoom2D::Cursor cursor;
             float min_x;
             float min_y;
             float max_x;
@@ -37,7 +35,6 @@ namespace AllegroFlare
             float get_max_x() const;
             float get_max_y() const;
             bool get_suspended() const;
-            AllegroFlare::Prototypes::FixedRoom2D::Cursor &get_cursor_ref();
             void suspend();
             void resume();
             void show();
