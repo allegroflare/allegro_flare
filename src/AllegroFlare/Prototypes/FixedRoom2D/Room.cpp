@@ -207,7 +207,7 @@ void Room::update()
    //}
 
    // update the cursor
-   cursor.update();
+   //cursor.update();
 
    return;
 }
