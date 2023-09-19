@@ -29,8 +29,10 @@ namespace AllegroFlare
          Stopwatch(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Timer* timer=nullptr);
          ~Stopwatch();
 
+         void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_timer(AllegroFlare::Timer* timer);
          void set_color(ALLEGRO_COLOR color);
+         AllegroFlare::FontBin* get_font_bin() const;
          AllegroFlare::Timer* get_timer() const;
          ALLEGRO_COLOR get_color() const;
          void fit_placement_width_and_height_to_stopwatch();

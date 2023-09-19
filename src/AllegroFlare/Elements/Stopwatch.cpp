@@ -28,6 +28,12 @@ Stopwatch::~Stopwatch()
 }
 
 
+void Stopwatch::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
 void Stopwatch::set_timer(AllegroFlare::Timer* timer)
 {
    this->timer = timer;
@@ -37,6 +43,12 @@ void Stopwatch::set_timer(AllegroFlare::Timer* timer)
 void Stopwatch::set_color(ALLEGRO_COLOR color)
 {
    this->color = color;
+}
+
+
+AllegroFlare::FontBin* Stopwatch::get_font_bin() const
+{
+   return font_bin;
 }
 
 

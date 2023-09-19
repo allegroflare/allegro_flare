@@ -13,6 +13,8 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: timer
     type: AllegroFlare::Timer*
