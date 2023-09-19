@@ -23,11 +23,40 @@ properties:
     getter: true
     setter: true
 
+  - name: font_identifier
+    type: std::string
+    init_with: DEFAULT_FONT_IDENTIFIER
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: DEFAULT_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    constructor_arg: true
     getter: true
     setter: true
+
+  - name: DEFAULT_FONT_IDENTIFIER
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -74
 
 
 methods:
@@ -73,7 +102,9 @@ methods:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Regular.ttf -74");
+      std::stringstream result_font_identifier;
+      result_font_identifier << font_identifier << " " << font_size;
+      return font_bin->auto_get(result_font_identifier.str());
 
 
 dependencies:
@@ -81,17 +112,10 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::Base
     headers: [ AllegroFlare/Elements/Base.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::TimerFormatter
     headers: [ AllegroFlare/TimerFormatter.hpp ]
-  - symbol: AllegroFlare::Timer*
-    headers: [ AllegroFlare/Timer.hpp ]
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Timer

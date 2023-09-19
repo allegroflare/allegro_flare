@@ -14,11 +14,13 @@ namespace Elements
 {
 
 
-Stopwatch::Stopwatch(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer)
+Stopwatch::Stopwatch(AllegroFlare::FontBin* font_bin, AllegroFlare::Timer* timer, std::string font_identifier, int font_size, ALLEGRO_COLOR color)
    : AllegroFlare::Elements::Base()
    , font_bin(font_bin)
    , timer(timer)
-   , color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , font_identifier(font_identifier)
+   , font_size(font_size)
+   , color(color)
 {
 }
 
@@ -40,6 +42,18 @@ void Stopwatch::set_timer(AllegroFlare::Timer* timer)
 }
 
 
+void Stopwatch::set_font_identifier(std::string font_identifier)
+{
+   this->font_identifier = font_identifier;
+}
+
+
+void Stopwatch::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
 void Stopwatch::set_color(ALLEGRO_COLOR color)
 {
    this->color = color;
@@ -55,6 +69,18 @@ AllegroFlare::FontBin* Stopwatch::get_font_bin() const
 AllegroFlare::Timer* Stopwatch::get_timer() const
 {
    return timer;
+}
+
+
+std::string Stopwatch::get_font_identifier() const
+{
+   return font_identifier;
+}
+
+
+int Stopwatch::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -148,7 +174,9 @@ ALLEGRO_FONT* Stopwatch::obtain_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Stopwatch::obtain_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Regular.ttf -74");
+   std::stringstream result_font_identifier;
+   result_font_identifier << font_identifier << " " << font_size;
+   return font_bin->auto_get(result_font_identifier.str());
 }
 
 
