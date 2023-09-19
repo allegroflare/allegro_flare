@@ -209,8 +209,6 @@ TEST(AllegroFlare_AudioControllerTest,
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
-   // test works, but a .ogg file is needed (the .wav file fixture is a bit large in size)
-
    al_init();
    al_install_audio();
    al_init_acodec_addon();
