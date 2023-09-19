@@ -50,7 +50,24 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
 }
 
 
-TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__will_display_the_time_on_the_timer)
+TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture,
+  CAPTURE__fit_placement_width_and_height_to_stopwatch__will_set_the_placement_width_and_height_to_fit_the_stopwatch)
+{
+   AllegroFlare::Timer timer;
+   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref(), &timer);
+   stopwatch.get_placement_ref() = build_centered_placement();
+   stopwatch.fit_placement_width_and_height_to_stopwatch();
+
+   al_clear_to_color(AllegroFlare::Color::Eigengrau);
+   stopwatch.render();
+   stopwatch.get_placement_ref().draw_box(AllegroFlare::Color::MintCream);
+   draw_rulers();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_display_the_time_on_the_timer)
 {
    AllegroFlare::Timer timer;
    AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref(), &timer);
@@ -69,36 +86,19 @@ TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__w
 }
 
 
-TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__will_display_the_timer_colored)
+TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_display_the_timer_with_color_font_identifier_and_font_size_options)
 {
    AllegroFlare::Timer timer;
    AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref(), &timer);
    stopwatch.get_placement_ref() = build_centered_placement();
    stopwatch.set_color(AllegroFlare::Color::Aquamarine);
+   stopwatch.set_font_identifier("plantin-mt-light.ttf");
+   stopwatch.set_font_size(-160);
 
    al_clear_to_color(AllegroFlare::Color::Eigengrau);
    stopwatch.render();
    al_flip_display();
-
-   //sleep_for(1);
-}
-
-
-TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture,
-  fit_placement_width_and_height_to_stopwatch__will_set_the_placement_width_and_height_to_fit_the_stopwatch_text)
-{
-   AllegroFlare::Timer timer;
-   AllegroFlare::Elements::Stopwatch stopwatch(&get_font_bin_ref(), &timer);
-   stopwatch.get_placement_ref() = build_centered_placement();
-   stopwatch.fit_placement_width_and_height_to_stopwatch();
-
-   al_clear_to_color(AllegroFlare::Color::Eigengrau);
-   stopwatch.render();
-   stopwatch.get_placement_ref().draw_box(AllegroFlare::Color::MintCream);
-   draw_rulers();
-   al_flip_display();
-
-   //sleep_for(1);
 }
 
 
