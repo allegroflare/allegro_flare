@@ -83,7 +83,8 @@ void Solitare::flip_topmost_card_on_tableau_column_to_face_up(int tableau_column
    }
 
    // tableau column cannot be empty
-   std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>> &tableau_column = tableau[tableau_column_num];
+   std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>> &tableau_column =
+      tableau[tableau_column_num];
    if (tableau_column.empty())
    {
       throw std::runtime_error("tableau_column is empty");
@@ -157,7 +158,9 @@ void Solitare::deal_cards()
       for (unsigned i=0; i<(column+1); i++)
       {
          AllegroFlare::Elements::PlayingCards::Card card_to_place_on_column = stock.draw_card();
-         tableau_column.push_back(std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>(false, card_to_place_on_column));
+         tableau_column.push_back(
+               std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>(false, card_to_place_on_column)
+            );
       }
    }
 

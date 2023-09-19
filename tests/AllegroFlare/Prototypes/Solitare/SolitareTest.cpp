@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <AllegroFlare/Prototypes/Solitare/Solitare.hpp>
 
@@ -27,16 +23,19 @@ TEST(AllegroFlare_Prototypes_Solitare_SolitareTest, start__will_create_7_piles_e
 {
    AllegroFlare::Prototypes::Solitare::Solitare solitare;
    solitare.start();
-   std::vector<std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>>> tableau = solitare.get_tableau();
+   std::vector<std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>>> tableau =
+      solitare.get_tableau();
    ASSERT_EQ(7, tableau.size());
 }
 
 
-TEST(AllegroFlare_Prototypes_Solitare_SolitareTest, start__will_fill_each_column_in_the_tableau_with_the_expected_number_of_cards)
+TEST(AllegroFlare_Prototypes_Solitare_SolitareTest,
+   start__will_fill_each_column_in_the_tableau_with_the_expected_number_of_cards)
 {
    AllegroFlare::Prototypes::Solitare::Solitare solitare;
    solitare.start();
-   std::vector<std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>>> tableau = solitare.get_tableau();
+   std::vector<std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>>> tableau =
+      solitare.get_tableau();
    ASSERT_EQ(7, tableau.size());
 
    for (unsigned i=0; i<7; i++)
@@ -55,11 +54,13 @@ TEST(AllegroFlare_Prototypes_Solitare_SolitareTest, start__has_the_expected_numb
 }
 
 
-TEST(AllegroFlare_Prototypes_Solitare_SolitareTest, start__will_set_all_the_cards_in_each_tableau_column_face_down_and_the_first_face_up)
+TEST(AllegroFlare_Prototypes_Solitare_SolitareTest,
+   start__will_set_all_the_cards_in_each_tableau_column_face_down_and_the_first_face_up)
 {
    AllegroFlare::Prototypes::Solitare::Solitare solitare;
    solitare.start();
-   std::vector<std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>>> tableau = solitare.get_tableau();
+   std::vector<std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>>> tableau =
+      solitare.get_tableau();
    ASSERT_EQ(7, tableau.size());
 
    for (unsigned column=0; column<7; column++)
@@ -75,7 +76,8 @@ TEST(AllegroFlare_Prototypes_Solitare_SolitareTest, start__will_set_all_the_card
          EXPECT_EQ(true, card_is_face_down);
       }
 
-      std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card> &topmost_card = tableau_column[tableau_column.size()-1];
+      std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card> &topmost_card =
+         tableau_column[tableau_column.size()-1];
       bool card_is_face_up = (std::get<0>(topmost_card) == true);
       EXPECT_EQ(true, card_is_face_up);
    }
