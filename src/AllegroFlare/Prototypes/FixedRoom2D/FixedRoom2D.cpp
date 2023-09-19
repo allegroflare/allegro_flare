@@ -382,7 +382,7 @@ void FixedRoom2D::render()
    }
 
    // Render the cursor (before the dialog system, it is for room interaction only (for now))
-   cursor.update();
+   cursor.draw();
 
    // render the dialog_system
    dialog_system.render();
