@@ -54,7 +54,7 @@ properties:
     init_with: -36
 
 
-functions:
+methods:
 
 
   - name: set_bitmap_bin
