@@ -119,7 +119,8 @@ methods:
   - name: update
     guards: [ initialized ]
     body: |
-      if (suspended) return;
+      throw std::runtime_error("FixedRoom2D::Room::update: error: this method is no longer used");
+      //if (suspended) return;
 
       // update the entities
       //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())

@@ -620,7 +620,7 @@ void FixedRoom2D::update_all_rooms()
       AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
       if (room)
       {
-         room->update();
+         //room->update(); // TODO: Remove this call to update the room; Room updating is no longer handled in Room
          // TODO: Remove this room-specific cursor update when a global cursor is available
          AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = room->get_cursor_ref();
          cursor.update();

@@ -198,7 +198,8 @@ void Room::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Room::update: error: guard \"initialized\" not met");
    }
-   if (suspended) return;
+   throw std::runtime_error("FixedRoom2D::Room::update: error: this method is no longer used");
+   //if (suspended) return;
 
    // update the entities
    //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
