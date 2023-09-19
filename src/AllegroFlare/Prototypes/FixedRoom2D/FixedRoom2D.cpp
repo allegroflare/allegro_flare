@@ -208,6 +208,8 @@ void FixedRoom2D::initialize()
    script_runner.set_script_dictionary(&script_dictionary);
 
    cursor.set_font_bin(font_bin);
+   cursor.set_cursor_to_pointer();
+   cursor.clear_info_text();
 
    initialized = true;
 
