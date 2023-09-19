@@ -3,22 +3,22 @@ properties:
 
 
   - name: stock
-    type: Deck
+    type: AllegroFlare::Elements::PlayingCards::Deck
     init_with: '{}'
     getter: true
 
   - name: waste
-    type: Deck
+    type: AllegroFlare::Elements::PlayingCards::Deck
     init_with: '{}'
     getter: true
 
   - name: tableau
-    type: std::vector<std::vector<std::tuple<bool, Card>>>
+    type: std::vector<std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>>>
     init_with: '{}'
     getter: true
 
   - name: foundations
-    type: std::vector<std::vector<Deck>>
+    type: std::vector<std::vector<AllegroFlare::Elements::PlayingCards::Deck>>
     init_with: '{}'
     getter: true
 
@@ -35,7 +35,7 @@ functions:
     body: |
       // Rules of solitare: https://bicyclecards.com/how-to-play/solitaire/
 
-      stock = DeckFactory::generate_standard_52_card_deck();
+      stock = AllegroFlare::Elements::PlayingCards::DeckFactory::generate_standard_52_card_deck();
       stock.shuffle();
 
       tableau.clear();
@@ -52,7 +52,7 @@ functions:
 
       return;
     body_dependency_symbols:
-      - DeckFactory
+      - AllegroFlare::Elements::PlayingCards::DeckFactory
 
 
   - name: flip_topmost_card_on_tableau_column_to_face_up
@@ -68,14 +68,14 @@ functions:
       }
 
       // tableau column cannot be empty
-      std::vector<std::tuple<bool, Card>> &tableau_column = tableau[tableau_column_num];
+      std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>> &tableau_column = tableau[tableau_column_num];
       if (tableau_column.empty())
       {
          throw std::runtime_error("tableau_column is empty");
       }
 
       // if topmost card is already flipped up, just return
-      std::tuple<bool, Card> &topmost_card = tableau_column.back();
+      std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card> &topmost_card = tableau_column.back();
 
       // if topmost card is already flipped up, just return
       if (std::get<0>(topmost_card) == true) return;
@@ -157,11 +157,11 @@ functions:
       // deal the cards to all the columns
       for (unsigned column=0; column<tableau.size(); column++)
       {
-         std::vector<std::tuple<bool, Card>> &tableau_column = tableau[column];
+         std::vector<std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>> &tableau_column = tableau[column];
          for (unsigned i=0; i<(column+1); i++)
          {
-            Card card_to_place_on_column = stock.draw_card();
-            tableau_column.push_back(std::tuple<bool, Card>(false, card_to_place_on_column));
+            AllegroFlare::Elements::PlayingCards::Card card_to_place_on_column = stock.draw_card();
+            tableau_column.push_back(std::tuple<bool, AllegroFlare::Elements::PlayingCards::Card>(false, card_to_place_on_column));
          }
       }
 
@@ -210,13 +210,11 @@ functions:
 dependencies:
 
 
-  - symbol: Deck
-    headers: [ Deck.hpp ]
-  - symbol: std::vector<std::vector<Deck>>
-    headers: [ vector, Deck.hpp ]
-  - symbol: DeckFactory
-    headers: [ DeckFactory.hpp ]
-  - symbol: std::vector<std::vector<std::tuple<bool, Card>>>
-    headers: [ vector, tuple, Card.hpp ]
+  - symbol: AllegroFlare::Elements::PlayingCards::Card
+    headers: [ AllegroFlare/Elements/PlayingCards/Card.hpp ]
+  - symbol: AllegroFlare::Elements::PlayingCards::Deck
+    headers: [ AllegroFlare/Elements/PlayingCards/Deck.hpp ]
+  - symbol: AllegroFlare::Elements::PlayingCards::DeckFactory
+    headers: [ AllegroFlare/Elements/PlayingCards/DeckFactory.hpp ]
 
 

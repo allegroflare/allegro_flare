@@ -1327,13 +1327,15 @@
     "AllegroFlare/Elements/PlayingCards/Deck"
   ],
   "AllegroFlare/Elements/PlayingCards/Card": [
-    "AllegroFlare/Elements/PlayingCards/Deck"
+    "AllegroFlare/Elements/PlayingCards/Deck",
+    "AllegroFlare/Prototypes/Solitare/Solitare"
   ],
   "std/shuffle": [
     "AllegroFlare/Elements/PlayingCards/Deck"
   ],
   "AllegroFlare/Elements/PlayingCards/Deck": [
-    "AllegroFlare/Elements/PlayingCards/DeckFactory"
+    "AllegroFlare/Elements/PlayingCards/DeckFactory",
+    "AllegroFlare/Prototypes/Solitare/Solitare"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -2461,6 +2463,9 @@
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader"
+  ],
+  "AllegroFlare/Elements/PlayingCards/DeckFactory": [
+    "AllegroFlare/Prototypes/Solitare/Solitare"
   ],
   "AllegroFlare/Prototypes/TileDrive/TileDrive": [
     "AllegroFlare/Prototypes/TileDrive/Screen",

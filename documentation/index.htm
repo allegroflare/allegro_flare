@@ -292,6 +292,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml">quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMesh.q.yml</a></li>
@@ -16496,6 +16497,87 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">stock</td>
+  <td class="property">AllegroFlare::Elements::PlayingCards::Deck</td>
+</tr>
+<tr>
+  <td class="property">waste</td>
+  <td class="property">AllegroFlare::Elements::PlayingCards::Deck</td>
+</tr>
+<tr>
+  <td class="property">tableau</td>
+  <td class="property">std::vector&lt;std::vector&lt;std::tuple&lt;bool, AllegroFlare::Elements::PlayingCards::Card&gt;&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">foundations</td>
+  <td class="property">std::vector&lt;std::vector&lt;AllegroFlare::Elements::PlayingCards::Deck&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">state</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">start()</td>
+</tr>
+<tr>
+  <td class="method">flip_topmost_card_on_tableau_column_to_face_up(int tableau_column_num=0)</td>
+</tr>
+<tr>
+  <td class="method">place_top_stock_card_on_waste()</td>
+</tr>
+<tr>
+  <td class="method">place_top_waste_card_on_foundation(int foundation_index_num=0)</td>
+</tr>
+<tr>
+  <td class="method">replenish_stock_with_waste()</td>
+</tr>
+<tr>
+  <td class="method">move_cards_from_tableau_column_to_other_tableau_column(int source_tableau_column_num=0, int destination_tableau_column_num=0, int num_cards_from_topmost_card=0)</td>
+</tr>
+<tr>
+  <td class="method">move_topmost_tableau_column_card_to_foundation(int tableau_column_num=0)</td>
+</tr>
+<tr>
+  <td class="private_method">deal_cards()</td>
+</tr>
+<tr>
+  <td class="private_method">set_state_playing()</td>
+</tr>
+<tr>
+  <td class="private_method">check_game_win_or_lose()</td>
+</tr>
+<tr>
+  <td class="private_method">set_state_game_won()</td>
+</tr>
+<tr>
+  <td class="private_method">set_state_game_lost()</td>
+</tr>
+<tr>
+  <td class="method">stock_num_cards()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::PlayingCards::Card&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/PlayingCards/Card.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::PlayingCards::Deck&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/PlayingCards/Deck.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::PlayingCards::DeckFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/PlayingCards/DeckFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
@@ -27004,13 +27086,15 @@ table td
     "AllegroFlare/Elements/PlayingCards/Deck"
   ],
   "AllegroFlare/Elements/PlayingCards/Card": [
-    "AllegroFlare/Elements/PlayingCards/Deck"
+    "AllegroFlare/Elements/PlayingCards/Deck",
+    "AllegroFlare/Prototypes/Solitare/Solitare"
   ],
   "std/shuffle": [
     "AllegroFlare/Elements/PlayingCards/Deck"
   ],
   "AllegroFlare/Elements/PlayingCards/Deck": [
-    "AllegroFlare/Elements/PlayingCards/DeckFactory"
+    "AllegroFlare/Elements/PlayingCards/DeckFactory",
+    "AllegroFlare/Prototypes/Solitare/Solitare"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -28138,6 +28222,9 @@ table td
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader"
+  ],
+  "AllegroFlare/Elements/PlayingCards/DeckFactory": [
+    "AllegroFlare/Prototypes/Solitare/Solitare"
   ],
   "AllegroFlare/Prototypes/TileDrive/TileDrive": [
     "AllegroFlare/Prototypes/TileDrive/Screen",
