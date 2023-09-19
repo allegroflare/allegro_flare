@@ -30,7 +30,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: fit_placement_width_and_height_to_stopwatch
