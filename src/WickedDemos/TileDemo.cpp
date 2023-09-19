@@ -920,7 +920,7 @@ void TileDemo::update()
    return;
 }
 
-void TileDemo::draw_dimentional_grid(float x, float y, float z)
+void TileDemo::draw_dimensional_grid(float x, float y, float z)
 {
    float spacing = 16 * 4.8;
    for (int zz=-10; zz<10; zz++)
@@ -1013,7 +1013,7 @@ void TileDemo::draw()
    //draw_entities();
    if (showing_player_reticle) draw_player_reticle();
 
-   //draw_dimentional_grid((25*16*4.8)*1.5, (15*16*4.5)*1.5, 0);
+   //draw_dimensional_grid((25*16*4.8)*1.5, (15*16*4.5)*1.5, 0);
 
    camera.restore_transform();
 

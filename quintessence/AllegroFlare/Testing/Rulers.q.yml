@@ -1,7 +1,7 @@
 functions:
 
 
-  - name: draw_dimentional_grid
+  - name: draw_dimensional_grid
     static: true
     parameters:
       - name: x

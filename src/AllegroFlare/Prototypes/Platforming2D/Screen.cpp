@@ -842,7 +842,7 @@ void Screen::draw()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::draw: error: guard \"get_tile_mesh()\" not met");
    }
-   camera.setup_dimentional_projection(backbuffer_sub_bitmap);
+   camera.setup_dimensional_projection(backbuffer_sub_bitmap);
 
    ALLEGRO_STATE previous_target_bitmap;
    al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);

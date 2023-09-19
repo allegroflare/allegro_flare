@@ -60,7 +60,7 @@ functions:
       return AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
 
 
-  - name: setup_dimentional_projection
+  - name: setup_dimensional_projection
     parameters:
       - name: bitmap
         type: ALLEGRO_BITMAP*

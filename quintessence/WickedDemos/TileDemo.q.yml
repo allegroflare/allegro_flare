@@ -856,7 +856,7 @@ functions:
       return;
 
 
-  - name: draw_dimentional_grid
+  - name: draw_dimensional_grid
     parameters:
       - name: x
         type: float
@@ -932,7 +932,7 @@ functions:
       //draw_entities();
       if (showing_player_reticle) draw_player_reticle();
 
-      //draw_dimentional_grid((25*16*4.8)*1.5, (15*16*4.5)*1.5, 0);
+      //draw_dimensional_grid((25*16*4.8)*1.5, (15*16*4.5)*1.5, 0);
 
       camera.restore_transform();
       

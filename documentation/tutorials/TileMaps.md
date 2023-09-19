@@ -7,7 +7,7 @@
   very effecient for graphics rendering, as its underlying data is stored directly on
   the GPU.
 - *TileMap* - TileMap is a template that is essentially nothing more than a two
-  dimentional array with tiles of type `T`.  TileMap can be resized, and tiles
+  dimensional array with tiles of type `T`.  TileMap can be resized, and tiles
   can be set arbitrarily.  Since there is no rendering companion for the basic
   TileMap, these can be useful for containing arbtrary data for a tile, for
   example for collision data or an A\* algorithm.

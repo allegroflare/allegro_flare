@@ -157,7 +157,7 @@ void Hud::initialize()
       al_get_bitmap_height(backbuffer)
    );
 
-   camera.setup_dimentional_projection(backbuffer_sub_bitmap);
+   camera.setup_dimensional_projection(backbuffer_sub_bitmap);
 
    initialized = true;
    return;

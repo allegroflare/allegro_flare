@@ -100,7 +100,7 @@ namespace WickedDemos
       static void run(std::vector<std::string> args={});
       void update_player_controls_on_player_controlled_entity();
       void update();
-      void draw_dimentional_grid(float x=0.0f, float y=0.0f, float z=0.0f);
+      void draw_dimensional_grid(float x=0.0f, float y=0.0f, float z=0.0f);
       void draw();
       void draw_player_reticle();
       void toggle_show_collision_tile_mesh();

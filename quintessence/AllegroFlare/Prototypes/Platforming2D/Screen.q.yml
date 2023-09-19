@@ -759,7 +759,7 @@ functions:
   - name: draw
     guards: [ initialized, currently_active_map, get_tile_mesh() ]
     body: |
-      camera.setup_dimentional_projection(backbuffer_sub_bitmap);
+      camera.setup_dimensional_projection(backbuffer_sub_bitmap);
 
       ALLEGRO_STATE previous_target_bitmap;
       al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);

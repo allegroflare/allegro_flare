@@ -65,12 +65,12 @@ functions:
             "[AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap::initialize]: ERROR: "
             "could not create display_backbuffer_sub_bitmap" << std::endl;
       }
-      //camera_2d.setup_dimentional_projection(display_backbuffer_sub_bitmap);
+      //camera_2d.setup_dimensional_projection(display_backbuffer_sub_bitmap);
                                                                   // this should remain the same throughout
                                                                   // the whole program and never be modified
 
       // TODO: Do this in the framework
-      //camera_2d.setup_dimentional_projection(backbuffer_bitmap); // this could potentially change depending on the
+      //camera_2d.setup_dimensional_projection(backbuffer_bitmap); // this could potentially change depending on the
                                                                    // needs of the game, but is setup here as a reasonable
                                                                    // default
                                                                    // TODO: replace this with display_backbuffer

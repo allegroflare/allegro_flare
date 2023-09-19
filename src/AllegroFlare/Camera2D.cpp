@@ -69,21 +69,21 @@ AllegroFlare::Vec2D Camera2D::get_inv_zoom()
    return AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
 }
 
-void Camera2D::setup_dimentional_projection(ALLEGRO_BITMAP* bitmap)
+void Camera2D::setup_dimensional_projection(ALLEGRO_BITMAP* bitmap)
 {
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Camera2D::setup_dimentional_projection]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[Camera2D::setup_dimensional_projection]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Camera2D::setup_dimentional_projection: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("Camera2D::setup_dimensional_projection: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "[Camera2D::setup_dimentional_projection]: error: guard \"bitmap\" not met.";
+      error_message << "[Camera2D::setup_dimensional_projection]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Camera2D::setup_dimentional_projection: error: guard \"bitmap\" not met");
+      throw std::runtime_error("Camera2D::setup_dimensional_projection: error: guard \"bitmap\" not met");
    }
    // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0
    // (i.e. as with the normal orthographic transform set up by Allegro), but allows some perspective effects for

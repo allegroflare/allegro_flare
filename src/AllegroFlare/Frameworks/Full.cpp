@@ -413,7 +413,7 @@ bool Full::initialize_display_and_render_pipeline()
    display_backbuffer.set_display(primary_display->al_display);
    display_backbuffer.initialize();
 
-   camera_2d.setup_dimentional_projection(display_backbuffer.get_display_backbuffer());
+   camera_2d.setup_dimensional_projection(display_backbuffer.get_display_backbuffer());
                                                               // ^^ NOTE: this could potentially change depending on the
                                                               // needs of the game, but is setup here as a reasonable
                                                               // default
@@ -436,7 +436,7 @@ bool Full::initialize_display_and_render_pipeline()
    // in-game notificatoins, etc.
    display_backbuffer_sub_bitmap.set_display(primary_display->al_display);
    display_backbuffer_sub_bitmap.initialize();
-   camera_2d.setup_dimentional_projection(display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
+   camera_2d.setup_dimensional_projection(display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
                                                                // this should remain the same throughout
                                                                // the whole program and never be modified
 
