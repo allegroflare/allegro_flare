@@ -42,10 +42,9 @@ functions:
       - name: height
         type: float
         default_argument: (1080-200)
-    guards: [ bitmap_bin, font_bin, event_emitter, entity_collection_helper ]
+    guards: [ font_bin ]
     body: |
-      AllegroFlare::Prototypes::FixedRoom2D::Room* result =
-         new AllegroFlare::Prototypes::FixedRoom2D::Room(font_bin, event_emitter, entity_collection_helper);
+      AllegroFlare::Prototypes::FixedRoom2D::Room* result = new AllegroFlare::Prototypes::FixedRoom2D::Room();
 
       AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = result->get_cursor_ref();
       

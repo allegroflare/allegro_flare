@@ -1,24 +1,6 @@
 properties:
 
 
-  - name: font_bin
-    type: AllegroFlare::FontBin*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-
-  - name: event_emitter
-    type: AllegroFlare::EventEmitter*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-
-  - name: entity_collection_helper
-    type: AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-
   - name: cursor
     type: AllegroFlare::Prototypes::FixedRoom2D::Cursor
     init_with: '{}'

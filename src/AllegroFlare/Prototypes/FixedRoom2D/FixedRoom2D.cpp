@@ -125,19 +125,6 @@ AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &FixedRoom2D::get_
 void FixedRoom2D::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
-
-   // set the font_bin in each of the rooms (likely the font_bin dependency should be moved to a RoomRenderer)
-   for (auto &room_dictionary_listing : room_dictionary)
-   {
-      AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
-      if (room) room->set_font_bin(font_bin);
-      else
-      {
-         std::string room_name = room_dictionary_listing.first;
-         std::cout << "Weird error, could not set_font_bin in room \"" << room_name << "\" because "
-                   << "it is nullptr." << std::endl;
-      }
-   }
    return;
 }
 

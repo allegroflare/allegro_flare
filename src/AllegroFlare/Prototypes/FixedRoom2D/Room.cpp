@@ -13,11 +13,8 @@ namespace FixedRoom2D
 {
 
 
-Room::Room(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
-   : font_bin(font_bin)
-   , event_emitter(event_emitter)
-   , entity_collection_helper(entity_collection_helper)
-   , cursor({})
+Room::Room()
+   : cursor({})
    , min_x(0.0f)
    , min_y(0.0f)
    , max_x(1920.0f)
@@ -30,24 +27,6 @@ Room::Room(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_em
 
 Room::~Room()
 {
-}
-
-
-void Room::set_font_bin(AllegroFlare::FontBin* font_bin)
-{
-   this->font_bin = font_bin;
-}
-
-
-void Room::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   this->event_emitter = event_emitter;
-}
-
-
-void Room::set_entity_collection_helper(AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper)
-{
-   this->entity_collection_helper = entity_collection_helper;
 }
 
 
