@@ -221,6 +221,7 @@ void Room::render(std::string this_rooms_dictionary_name__this_injection_is_temp
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Room::render: error: guard \"initialized\" not met");
    }
+   throw std::runtime_error("FixedRoom2D::Room::render: error: this method is no longer used");
    // draw the entities
    //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
    //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
@@ -230,7 +231,7 @@ void Room::render(std::string this_rooms_dictionary_name__this_injection_is_temp
    //}
 
    // draw the cursor
-   cursor.draw();
+   //cursor.draw();
 
    return;
 }

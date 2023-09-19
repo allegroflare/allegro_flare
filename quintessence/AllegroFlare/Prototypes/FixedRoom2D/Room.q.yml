@@ -140,6 +140,7 @@ methods:
         type: std::string
         default_argument: '"[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]"'
     body: |
+      throw std::runtime_error("FixedRoom2D::Room::render: error: this method is no longer used");
       // draw the entities
       //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
       //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
@@ -149,7 +150,7 @@ methods:
       //}
 
       // draw the cursor
-      cursor.draw();
+      //cursor.draw();
 
       return;
     body_dependency_symbols:

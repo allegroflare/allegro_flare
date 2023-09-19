@@ -399,7 +399,10 @@ void FixedRoom2D::render()
       render_entities_in_current_room();
       if (room_shader) room_shader->deactivate();
 
-      current_room->render(); // for now, only renders the cursor
+      //current_room->render(); // for now, only renders the cursor
+      // TODO: Remove this room-specific cursor update when a global cursor is available
+      AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = current_room->get_cursor_ref();
+      cursor.update();
    }
    else
    {
