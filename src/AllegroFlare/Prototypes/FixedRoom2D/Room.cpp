@@ -2,11 +2,7 @@
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/Room.hpp>
 
-#include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
+
 
 
 namespace AllegroFlare
@@ -28,7 +24,6 @@ Room::Room(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_em
    , max_y(1080.0f)
    , suspended(false)
    , suspended_at(0.0f)
-   , initialized(false)
 {
 }
 
@@ -118,13 +113,6 @@ AllegroFlare::Prototypes::FixedRoom2D::Cursor &Room::get_cursor_ref()
 
 void Room::suspend()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::suspend]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::suspend: error: guard \"initialized\" not met");
-   }
    if (suspended) return;
    suspended = true;
    suspended_at = al_get_time();
@@ -133,13 +121,6 @@ void Room::suspend()
 
 void Room::resume()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::resume]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::resume: error: guard \"initialized\" not met");
-   }
    if (!suspended) return;
    suspended = false;
    suspended_at = 0.0f;
@@ -148,92 +129,11 @@ void Room::resume()
 
 void Room::show()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::show]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::show: error: guard \"initialized\" not met");
-   }
    return;
 }
 
 void Room::hide()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::hide]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::hide: error: guard \"initialized\" not met");
-   }
-   return;
-}
-
-void Room::initialize()
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::initialize]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::initialize: error: guard \"(!initialized)\" not met");
-   }
-   cursor.set_font_bin(font_bin);
-
-   // setup the objects to good defaults
-   cursor.set_cursor_to_pointer();
-   cursor.clear_info_text();
-
-   initialized = true;
-   return;
-}
-
-void Room::update()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::update]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::update: error: guard \"initialized\" not met");
-   }
-   throw std::runtime_error("FixedRoom2D::Room::update: error: this method is no longer used");
-   //if (suspended) return;
-
-   // update the entities
-   //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-   //{
-      //entity->update();
-   //}
-
-   // update the cursor
-   //cursor.update();
-
-   return;
-}
-
-void Room::render(std::string this_rooms_dictionary_name__this_injection_is_temporary_measure)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Room::render]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Room::render: error: guard \"initialized\" not met");
-   }
-   throw std::runtime_error("FixedRoom2D::Room::render: error: this method is no longer used");
-   // draw the entities
-   //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
-   //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
-   //{
-      //entity->render();
-      //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
-   //}
-
-   // draw the cursor
-   //cursor.draw();
-
    return;
 }
 

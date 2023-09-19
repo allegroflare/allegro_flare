@@ -57,10 +57,6 @@ properties:
     type: float
     init_with: 0.0f
 
-  - name: initialized
-    type: bool
-    init_with: false
-
 
 documentation:
 
@@ -74,7 +70,6 @@ methods:
 
 
   - name: suspend
-    guards: [ initialized ]
     body: |
       if (suspended) return;
       suspended = true;
@@ -83,7 +78,6 @@ methods:
 
 
   - name: resume
-    guards: [ initialized ]
     body: |
       if (!suspended) return;
       suspended = false;
@@ -92,71 +86,13 @@ methods:
 
 
   - name: show
-    guards: [ initialized ]
     body: |
       return;
 
 
   - name: hide
-    guards: [ initialized ]
     body: |
       return;
-
-
-  - name: initialize
-    guards: [ (!initialized) ]
-    body: |
-      cursor.set_font_bin(font_bin);
-
-      // setup the objects to good defaults
-      cursor.set_cursor_to_pointer();
-      cursor.clear_info_text();
-
-      initialized = true;
-      return;
-
-
-  - name: update
-    guards: [ initialized ]
-    body: |
-      throw std::runtime_error("FixedRoom2D::Room::update: error: this method is no longer used");
-      //if (suspended) return;
-
-      // update the entities
-      //for (auto &entity : entity_collection_helper.select_all_ordered_by_id())
-      //{
-         //entity->update();
-      //}
-
-      // update the cursor
-      //cursor.update();
-
-      return;
-
-
-  - name: render
-    guards: [ initialized ]
-    parameters:
-      - name: this_rooms_dictionary_name__this_injection_is_temporary_measure
-        type: std::string
-        default_argument: '"[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]"'
-    body: |
-      throw std::runtime_error("FixedRoom2D::Room::render: error: this method is no longer used");
-      // draw the entities
-      //for (auto &entity : entity_collection_helper.select_all_ordered_by_id(
-      //   this_rooms_dictionary_name__this_injection_is_temporary_measure))
-      //{
-         //entity->render();
-         //entity->get_placement_ref().draw_box(AllegroFlare::Color::DodgerBlue, true);
-      //}
-
-      // draw the cursor
-      //cursor.draw();
-
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Color::*
-      - AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper*
 
 
 dependencies:

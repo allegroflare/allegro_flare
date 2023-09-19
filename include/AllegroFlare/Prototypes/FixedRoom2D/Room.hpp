@@ -5,7 +5,6 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/Cursor.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper.hpp>
-#include <string>
 
 
 namespace AllegroFlare
@@ -27,7 +26,6 @@ namespace AllegroFlare
             float max_y;
             bool suspended;
             float suspended_at;
-            bool initialized;
 
          protected:
 
@@ -53,9 +51,6 @@ namespace AllegroFlare
             void resume();
             void show();
             void hide();
-            void initialize();
-            void update();
-            void render(std::string this_rooms_dictionary_name__this_injection_is_temporary_measure="[unset-this_rooms_dictionary_name__this_injection_is_temporary_measure]");
          };
       }
    }
