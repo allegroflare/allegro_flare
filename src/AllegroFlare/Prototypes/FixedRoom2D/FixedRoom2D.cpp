@@ -287,7 +287,6 @@ void FixedRoom2D::update()
       throw std::runtime_error("FixedRoom2D::update: error: guard \"initialized\" not met");
    }
    cursor.update();
-   //update_all_rooms();
 
    dialog_system.update();
 
@@ -321,7 +320,7 @@ bool FixedRoom2D::enter_room(std::string room_name)
 
    // ensure all the entities do not think they have the cursor over them
    unhover_any_and_all_entities();
-   reset_cursors_to_default_in_all_rooms();
+   reset_cursor_to_default();
 
    // set the mouseover if the cursor is currently over an object
    // TODO: Set mouse over on any currently hovered object
@@ -340,32 +339,6 @@ void FixedRoom2D::unhover_any_and_all_entities()
    for (auto &entity : all_entities)
    {
       if (entity->get_cursor_is_over()) entity->on_cursor_leave(); // TODO, consider exiting without "leaving"
-   }
-   return;
-}
-
-void FixedRoom2D::reset_cursors_to_default_in_all_rooms()
-{
-   // TODO: Remove the call to this "reset_cursors_to_default_in_all_rooms" and replace with direct call to this:
-   reset_cursor_to_default__from_room_refactor(nullptr);
-   return;
-
-   // TODO: Remove this dead code below
-
-   for (auto &room_dictionary_listing : room_dictionary)
-   {
-      AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
-      if (!room)
-      {
-         std::string room_name = room_dictionary_listing.first;
-         std::cout << "Odd error, when clearing cursors, room listing at \"" << room_name << "\" it is nullptr."
-                   << " Skipping." << std::endl;
-      }
-      else
-      {
-         //room->reset_cursor_to_default();
-         reset_cursor_to_default__from_room_refactor(room);
-      }
    }
    return;
 }
@@ -402,11 +375,6 @@ void FixedRoom2D::render()
       if (room_shader) room_shader->activate();
       render_entities_in_current_room();
       if (room_shader) room_shader->deactivate();
-
-      //current_room->render(); // for now, only renders the cursor
-      // TODO: Remove this room-specific cursor update when a global cursor is available
-      //AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = current_room->get_cursor_ref();
-      //cursor.update();
    }
    else
    {
@@ -620,27 +588,6 @@ std::string FixedRoom2D::get_dictionary_name_of_current_room()
    return "";
 }
 
-void FixedRoom2D::update_all_rooms()
-{
-   // TODO: Remove this no-longer-used method
-   for (auto &room_dictionary_listing : room_dictionary)
-   {
-      AllegroFlare::Prototypes::FixedRoom2D::Room* room = room_dictionary_listing.second;
-      if (room)
-      {
-         //room->update(); // TODO: Remove this call to update the room; Room updating is no longer handled in Room
-         // TODO: Remove this room-specific cursor update when a global cursor is available
-         //AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = room->get_cursor_ref();
-         //cursor.update();
-      }
-      else
-      {
-         std::string room_name = room_dictionary_listing.first;
-         std::cout << "Weird error, could not update room at \"" << room_name << "\", it is nullptr." << std::endl;
-      }
-   }
-}
-
 void FixedRoom2D::suspend_all_rooms()
 {
    for (auto &room_dictionary_listing : room_dictionary)
@@ -756,12 +703,11 @@ void FixedRoom2D::activate_primary_action()
       dialog_system.dialog_advance();
       if (dialog_system.dialog_is_finished())
       {
-         emit_close_current_active_dialog_event(); //(active_dialog);
+         emit_close_current_active_dialog_event(); //(active_dialog)
       }
    }
    else if (current_room && !current_room->get_suspended())
    {
-      //current_room->interact_with_item_under_cursor();
       interact_with_item_under_cursor();
    }
 
@@ -791,9 +737,6 @@ void FixedRoom2D::interact_with_item_under_cursor()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("FixedRoom2D::interact_with_item_under_cursor: error: guard \"(!current_room->get_suspended())\" not met");
    }
-   // TODO: Remove "current_room" as owner of this cursor
-   //int x = current_room->get_cursor_ref().get_x();
-   //int y = current_room->get_cursor_ref().get_y();
    int x = cursor.get_x();
    int y = cursor.get_y();
    std::string name = entity_collection_helper.find_dictionary_name_of_entity_that_cursor_is_now_over();
@@ -920,24 +863,20 @@ void FixedRoom2D::move_cursor(float distance_x, float distance_y)
    { 
       std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_current_room =
           get_entities_in_current_room();
-      //current_room->move_cursor_int(distance_x, distance_y, entities_in_current_room);
-      move_cursor__was_internal(distance_x, distance_y, entities_in_current_room);
+      move_cursor_within_room(distance_x, distance_y, entities_in_current_room);
    }
    return;
 }
 
-void FixedRoom2D::move_cursor__was_internal(float distance_x, float distance_y, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room)
+void FixedRoom2D::move_cursor_within_room(float distance_x, float distance_y, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[FixedRoom2D::move_cursor__was_internal]: error: guard \"initialized\" not met.";
+      error_message << "[FixedRoom2D::move_cursor_within_room]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FixedRoom2D::move_cursor__was_internal: error: guard \"initialized\" not met");
+      throw std::runtime_error("FixedRoom2D::move_cursor_within_room: error: guard \"initialized\" not met");
    }
-   // TODO: Remove this "cursor" as being cursor from current room
-   //AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = current_room->get_cursor_ref();
-   //AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = current_room->get_cursor_ref();
    float room_min_x = current_room->get_min_x();
    float room_min_y = current_room->get_min_y();
    float room_max_x = current_room->get_max_x();
@@ -977,7 +916,7 @@ void FixedRoom2D::move_cursor__was_internal(float distance_x, float distance_y, 
          entity_cursor_is_now_over->on_cursor_enter();
          if (entity_cursor_is_now_over->get_cursor_insights_are_hidden())
          {
-            reset_cursor_to_default__from_room_refactor(current_room);
+            reset_cursor_to_default();
          }
          else
          {
@@ -988,25 +927,15 @@ void FixedRoom2D::move_cursor__was_internal(float distance_x, float distance_y, 
       else
       {
          // cursor is now over nothing
-         reset_cursor_to_default__from_room_refactor(current_room);
+         reset_cursor_to_default();
       }
    }
 
    return;
 }
 
-void FixedRoom2D::reset_cursor_to_default__from_room_refactor(AllegroFlare::Prototypes::FixedRoom2D::Room* room)
+void FixedRoom2D::reset_cursor_to_default()
 {
-   if (!(room))
-   {
-      std::stringstream error_message;
-      error_message << "[FixedRoom2D::reset_cursor_to_default__from_room_refactor]: error: guard \"room\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FixedRoom2D::reset_cursor_to_default__from_room_refactor: error: guard \"room\" not met");
-   }
-   // TODO: Remove room argument
-   //AllegroFlare::Prototypes::FixedRoom2D::Cursor &cursor = room->get_cursor_ref();
-
    cursor.set_cursor_to_pointer();
    cursor.clear_info_text();
    return;

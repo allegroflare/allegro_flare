@@ -89,7 +89,6 @@ namespace AllegroFlare
             void update();
             bool enter_room(std::string room_name="[unset-room_name]");
             void unhover_any_and_all_entities();
-            void reset_cursors_to_default_in_all_rooms();
             std::string get_current_room_dictionary_name(AllegroFlare::Prototypes::FixedRoom2D::Room* room=nullptr);
             void render();
             void render_void_room();
@@ -97,7 +96,6 @@ namespace AllegroFlare
             void render_entities_in_current_room();
             std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> get_entities_in_current_room();
             std::string get_dictionary_name_of_current_room();
-            void update_all_rooms();
             void suspend_all_rooms();
             void resume_all_rooms();
             void pause_game();
@@ -113,8 +111,8 @@ namespace AllegroFlare
             void move_cursor_left();
             void move_cursor_right();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
-            void move_cursor__was_internal(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
-            void reset_cursor_to_default__from_room_refactor(AllegroFlare::Prototypes::FixedRoom2D::Room* room=nullptr);
+            void move_cursor_within_room(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
+            void reset_cursor_to_default();
          };
       }
    }
