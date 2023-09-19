@@ -56,7 +56,7 @@ TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
-   fit_placement_width_and_height_to_text__will_set_the_placement_width_and_height_to_the_dimentions_of_the_text)
+   fit_placement_width_and_height_to_text__will_set_the_placement_width_and_height_to_the_dimensions_of_the_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::Elements::Text text(&font_bin);

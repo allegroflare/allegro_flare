@@ -213,7 +213,7 @@ int main(int argc, char **argv)
 
    // Tweak the appearance of the tilemap for clearer presentation
 
-   basic2d_tile_map.rescale_tile_dimentions_to(200, 200);
+   basic2d_tile_map.rescale_tile_dimensions_to(200, 200);
    AllegroFlare::Placement2D place;
    //AllegroFlare::Placement2D place = build_centered_placement(
       //basic2d_tile_map.infer_real_width(),

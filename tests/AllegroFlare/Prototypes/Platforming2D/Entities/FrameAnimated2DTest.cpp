@@ -173,7 +173,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    // TODO: update this test to accomodate the concerns for animation
-   fit_to_bitmap__will_set_the_size_of_the_entity_to_match_the_dimentions_of_the_bitmap)
+   fit_to_bitmap__will_set_the_size_of_the_entity_to_match_the_dimensions_of_the_bitmap)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
    frame_animated2d_entity.set_animation("blob");

@@ -46,7 +46,7 @@ namespace AllegroFlare::TileMaps
       int get_num_rows() const;
       int infer_num_tiles() const;
 
-      void rescale_tile_dimentions_to(int new_tile_width, int new_tile_height);
+      void rescale_tile_dimensions_to(int new_tile_width, int new_tile_height);
       void set_tile_width(int tile_width);
       void set_tile_height(int tile_height);
       int get_tile_width() const;

@@ -134,7 +134,7 @@ functions:
       return;
 
 
-  - name: rescale_tile_dimentions_to
+  - name: rescale_tile_dimensions_to
     parameters:
       - name: tile_width
         type: float
@@ -144,7 +144,7 @@ functions:
         default_argument: 1
     guards: [ initialized, (tile_width > 0), (tile_height > 0) ]
     body: |
-      prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
+      prim_mesh.rescale_tile_dimensions_to(tile_width, tile_height);
       return;
 
 

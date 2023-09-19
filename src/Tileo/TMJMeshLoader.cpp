@@ -146,11 +146,11 @@ bool TMJMeshLoader::load()
    }
    if (tilelayer_width != collision_layer_num_columns)
    {
-      // TODO: validate collision mesh dimentions, tile_width, and tile_height match the other values
+      // TODO: validate collision mesh dimensions, tile_width, and tile_height match the other values
    }
    if (tilelayer_height != collision_layer_num_rows)
    {
-      // TODO: validate collision mesh dimentions, tile_width, and tile_height match the other values
+      // TODO: validate collision mesh dimensions, tile_width, and tile_height match the other values
    }
    if (collision_layer_tiles.size() != tmx_width * tmx_height)
    {

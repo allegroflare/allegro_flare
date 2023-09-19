@@ -145,7 +145,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRend
 
    // Tweak the appearance of the tilemap for clearer presentation
 
-   basic2d_tile_map.rescale_tile_dimentions_to(32, 32);
+   basic2d_tile_map.rescale_tile_dimensions_to(32, 32);
    AllegroFlare::Placement2D place = build_centered_placement(
       basic2d_tile_map.infer_real_width(),
       basic2d_tile_map.infer_real_height()
@@ -225,7 +225,7 @@ TEST_F(AllegroFlare_TileMaps_AutoTile_Filters_FortyEightEdgesTestWithAllegroRend
 
    // Tweak the appearance of the tilemap for clearer presentation
 
-   basic2d_tile_map.rescale_tile_dimentions_to(32, 32);
+   basic2d_tile_map.rescale_tile_dimensions_to(32, 32);
    AllegroFlare::Placement2D place = build_centered_placement(
       basic2d_tile_map.infer_real_width(),
       basic2d_tile_map.infer_real_height()

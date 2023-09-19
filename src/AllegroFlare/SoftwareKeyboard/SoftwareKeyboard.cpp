@@ -299,7 +299,7 @@ void SoftwareKeyboard::set_keys(tsl::ordered_map<std::string, AllegroFlare::Soft
    return;
 }
 
-void SoftwareKeyboard::set_keyboard_dimentions(float width, float height)
+void SoftwareKeyboard::set_keyboard_dimensions(float width, float height)
 {
    keyboard_placement.size.x = width;
    keyboard_placement.size.y = height;
@@ -982,7 +982,7 @@ ALLEGRO_FONT* SoftwareKeyboard::obtain_error_messages_font()
    return font_bin->auto_get(composite_font_str.str());
 }
 
-AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions()
+AllegroFlare::Vec2D SoftwareKeyboard::calculate_boilerplate_keyboard_dimensions()
 {
    float x_spacing = 65;
    float y_spacing = 70;
@@ -1308,12 +1308,12 @@ tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Softw
    float x_spacing = 65;
    float y_spacing = 70;
    float column_spacing = 450;
-   AllegroFlare::Vec2D calculated_dimentions = calculate_boilerplate_keyboard_dimentions();
+   AllegroFlare::Vec2D calculated_dimensions = calculate_boilerplate_keyboard_dimensions();
 
    float space_key_width = 330;
    float backspace_key_width = 330;
    float submit_key_width = 140;
-   float right_edge = calculated_dimentions.x;
+   float right_edge = calculated_dimensions.x;
 
    tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
      // row 1
@@ -1433,9 +1433,9 @@ tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> Softw
 
      // bottom row
 
-     { "SPACE",     { "Space", right_edge - 900, calculated_dimentions.y-80, space_key_width, 80 } },
-     { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimentions.y-80, backspace_key_width, 80 } },
-     { "SUBMIT",    { "OK", right_edge - 140, calculated_dimentions.y-80, submit_key_width, 80 } },
+     { "SPACE",     { "Space", right_edge - 900, calculated_dimensions.y-80, space_key_width, 80 } },
+     { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimensions.y-80, backspace_key_width, 80 } },
+     { "SUBMIT",    { "OK", right_edge - 140, calculated_dimensions.y-80, submit_key_width, 80 } },
 
    };
    return result;

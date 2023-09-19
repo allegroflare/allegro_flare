@@ -155,30 +155,30 @@ void TerrainMesh::resize(int num_columns, int num_rows)
    return;
 }
 
-void TerrainMesh::rescale_tile_dimentions_to(float tile_width, float tile_height)
+void TerrainMesh::rescale_tile_dimensions_to(float tile_width, float tile_height)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::rescale_tile_dimentions_to]: error: guard \"initialized\" not met.";
+      error_message << "[TerrainMesh::rescale_tile_dimensions_to]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::rescale_tile_dimentions_to: error: guard \"initialized\" not met");
+      throw std::runtime_error("TerrainMesh::rescale_tile_dimensions_to: error: guard \"initialized\" not met");
    }
    if (!((tile_width > 0)))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::rescale_tile_dimentions_to]: error: guard \"(tile_width > 0)\" not met.";
+      error_message << "[TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_width > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::rescale_tile_dimentions_to: error: guard \"(tile_width > 0)\" not met");
+      throw std::runtime_error("TerrainMesh::rescale_tile_dimensions_to: error: guard \"(tile_width > 0)\" not met");
    }
    if (!((tile_height > 0)))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::rescale_tile_dimentions_to]: error: guard \"(tile_height > 0)\" not met.";
+      error_message << "[TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_height > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::rescale_tile_dimentions_to: error: guard \"(tile_height > 0)\" not met");
+      throw std::runtime_error("TerrainMesh::rescale_tile_dimensions_to: error: guard \"(tile_height > 0)\" not met");
    }
-   prim_mesh.rescale_tile_dimentions_to(tile_width, tile_height);
+   prim_mesh.rescale_tile_dimensions_to(tile_width, tile_height);
    return;
 }
 

@@ -697,7 +697,7 @@ functions:
       box_place.scale.x = fit_scale;
       box_place.scale.y = fit_scale;
 
-      // filter the dimentions for animation
+      // filter the dimensions for animation
       box_place.position.y = box_place.position.y +
          50 * (1.0 - AllegroFlare::interpolator::fast_in(details_reveal_counter));
       float scale_reveal_multiplier = 0.94 + 0.06 * (AllegroFlare::interpolator::fast_in(details_reveal_counter));
@@ -835,7 +835,7 @@ functions:
          box_place.scale.x = 1.0f;
          box_place.scale.y = 1.0f;
 
-         // scale the bitmap to fit the dimentions of the box
+         // scale the bitmap to fit the dimensions of the box
          float fit_padding = 3.0f; // extra pixels of padding so the bitmap does not stretch to the whole box
          // NOTE: using "inventory_items_box_size_x" to fit the image to this window for the time beeing. In the future,
          // may select different "fit" strategies, for example, scale-to-fit, stretch-to-fit, etc..

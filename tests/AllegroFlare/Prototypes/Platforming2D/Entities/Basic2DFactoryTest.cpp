@@ -37,12 +37,12 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity =
       basic2d_factory.create_from_bitmap_filename("map_a", "test-sprite-128.png", "bottom_centered");
 
-   AllegroFlare::vec2d expected_dimentions = {128, 128};
-   AllegroFlare::vec2d actual_dimentions = created_entity->get_place_ref().size;
+   AllegroFlare::vec2d expected_dimensions = {128, 128};
+   AllegroFlare::vec2d actual_dimensions = created_entity->get_place_ref().size;
 
    ASSERT_NE(nullptr, created_entity->get_bitmap());
    ASSERT_EQ("bottom_centered", created_entity->get_bitmap_alignment_strategy());
-   ASSERT_EQ(expected_dimentions, actual_dimentions);
+   ASSERT_EQ(expected_dimensions, actual_dimensions);
    ASSERT_EQ(true, created_entity->exists(ON_MAP_NAME, "map_a"));
 
    delete created_entity;

@@ -240,7 +240,7 @@ functions:
       return;
 
 
-  - name: set_keyboard_dimentions
+  - name: set_keyboard_dimensions
     parameters:
       - name: width
         type: float
@@ -959,7 +959,7 @@ functions:
       return font_bin->auto_get(composite_font_str.str());
 
 
-  - name: calculate_boilerplate_keyboard_dimentions
+  - name: calculate_boilerplate_keyboard_dimensions
     static: true
     type: AllegroFlare::Vec2D
     body: |
@@ -1291,12 +1291,12 @@ functions:
       float x_spacing = 65;
       float y_spacing = 70;
       float column_spacing = 450;
-      AllegroFlare::Vec2D calculated_dimentions = calculate_boilerplate_keyboard_dimentions();
+      AllegroFlare::Vec2D calculated_dimensions = calculate_boilerplate_keyboard_dimensions();
 
       float space_key_width = 330;
       float backspace_key_width = 330;
       float submit_key_width = 140;
-      float right_edge = calculated_dimentions.x;
+      float right_edge = calculated_dimensions.x;
 
       tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> result = {
         // row 1
@@ -1416,9 +1416,9 @@ functions:
 
         // bottom row
 
-        { "SPACE",     { "Space", right_edge - 900, calculated_dimentions.y-80, space_key_width, 80 } },
-        { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimentions.y-80, backspace_key_width, 80 } },
-        { "SUBMIT",    { "OK", right_edge - 140, calculated_dimentions.y-80, submit_key_width, 80 } },
+        { "SPACE",     { "Space", right_edge - 900, calculated_dimensions.y-80, space_key_width, 80 } },
+        { "BACKSPACE", { "Backspace", right_edge - (140+330+50), calculated_dimensions.y-80, backspace_key_width, 80 } },
+        { "SUBMIT",    { "OK", right_edge - 140, calculated_dimensions.y-80, submit_key_width, 80 } },
 
       };
       return result;

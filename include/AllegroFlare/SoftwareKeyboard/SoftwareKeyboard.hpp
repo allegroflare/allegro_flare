@@ -119,7 +119,7 @@ namespace AllegroFlare
          void reset();
          void set_cursor_reposition_multiplier(float cursor_reposition_multiplier=DEFAULT_CURSOR_REPOSITION_MULTIPLIER);
          void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
-         void set_keyboard_dimentions(float width=1, float height=1);
+         void set_keyboard_dimensions(float width=1, float height=1);
          void set_keyboard_position(float x=0, float y=0);
          void initialize();
          void press_key_under_cursor();
@@ -132,7 +132,7 @@ namespace AllegroFlare
          void increment_cursor_pos();
          void decrement_cursor_pos();
          void render();
-         static AllegroFlare::Vec2D calculate_boilerplate_keyboard_dimentions();
+         static AllegroFlare::Vec2D calculate_boilerplate_keyboard_dimensions();
          void move_cursor_down();
          void move_cursor_up();
          static tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> build_boilerplate_keyboard_keys();

@@ -82,9 +82,9 @@ void CharacterNameInput::initialize()
    software_keyboard.set_font_bin(font_bin);
    software_keyboard.initialize();
    software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
-   AllegroFlare::Vec2D keyboard_dimentions =
-   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimentions();
-   software_keyboard.set_keyboard_dimentions(keyboard_dimentions.x, keyboard_dimentions.y);
+   AllegroFlare::Vec2D keyboard_dimensions =
+   AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimensions();
+   software_keyboard.set_keyboard_dimensions(keyboard_dimensions.x, keyboard_dimensions.y);
    software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
    initialized = true;
    return;

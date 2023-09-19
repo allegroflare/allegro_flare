@@ -157,7 +157,7 @@ int PrimMesh::infer_num_tiles() const
 }
 
 
-void PrimMesh::rescale_tile_dimentions_to(int new_tile_width, int new_tile_height)
+void PrimMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_height)
 {
    int old_tile_width = this->tile_width;
    int old_tile_height = this->tile_height;
@@ -166,7 +166,7 @@ void PrimMesh::rescale_tile_dimentions_to(int new_tile_width, int new_tile_heigh
    {
       // TODO: test this assertion
       std::stringstream error_message;
-      error_message << "AllegroFlare::TileMaps::PrimMesh::rescale_tile_dimentions_to: error: "
+      error_message << "AllegroFlare::TileMaps::PrimMesh::rescale_tile_dimensions_to: error: "
                     << "new_tile_width and/or new_tile_height cannot be less than or equal to zero.";
       throw std::runtime_error(error_message.str());
    }
@@ -185,13 +185,13 @@ void PrimMesh::rescale_tile_dimentions_to(int new_tile_width, int new_tile_heigh
 
 void PrimMesh::set_tile_width(int new_tile_width)
 {
-   rescale_tile_dimentions_to(new_tile_width, this->tile_height);
+   rescale_tile_dimensions_to(new_tile_width, this->tile_height);
 }
 
 
 void PrimMesh::set_tile_height(int new_tile_height)
 {
-   rescale_tile_dimentions_to(this->tile_width, new_tile_height);
+   rescale_tile_dimensions_to(this->tile_width, new_tile_height);
 }
 
 

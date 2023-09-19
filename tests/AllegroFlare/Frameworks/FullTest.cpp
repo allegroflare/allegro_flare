@@ -321,7 +321,7 @@ TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_the_audio_con
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, initialize__will_create_a_display_with_the_expected_dimentions)
+TEST(AllegroFlare_Frameworks_FullTest, initialize__will_create_a_display_with_the_expected_dimensions)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();

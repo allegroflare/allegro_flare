@@ -44,7 +44,7 @@ namespace AllegroFlare
          int get_num_rows();
          int get_num_columns();
          void resize(int num_columns=1, int num_rows=1);
-         void rescale_tile_dimentions_to(float tile_width=1, float tile_height=1);
+         void rescale_tile_dimensions_to(float tile_width=1, float tile_height=1);
          void random_fill();
          float infer_real_width();
          float infer_real_height();

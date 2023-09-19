@@ -20,7 +20,7 @@ functions:
       result->set_bitmap_bin(bitmap_bin);
       result->set_atlas_configuration("uv.png", 100, 100);
       result->initialize();
-      result->get_prim_mesh_ref().rescale_tile_dimentions_to(2, 2*2);
+      result->get_prim_mesh_ref().rescale_tile_dimensions_to(2, 2*2);
       result->get_prim_mesh_ref().resize(12, 32);
       result->random_fill();
       return result;
@@ -34,8 +34,8 @@ functions:
       result->set_bitmap_bin(bitmap_bin);
       result->set_atlas_configuration("uv-with-decorations-0x.png", 50, 50);
       result->initialize();
-      //result->rescale_tile_dimentions_to(2, 6);
-      result->rescale_tile_dimentions_to(1, 1);
+      //result->rescale_tile_dimensions_to(2, 6);
+      result->rescale_tile_dimensions_to(1, 1);
       result->resize(12, 32 * 2);
       random_fill_from(result, { { 2, 2 } });
       random_sparce_placement(result, { { 0, 0 } }, 20);

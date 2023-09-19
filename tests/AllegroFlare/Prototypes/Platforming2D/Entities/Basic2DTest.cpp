@@ -260,7 +260,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 }
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
-   fit_to_bitmap__will_set_the_size_of_the_entity_to_match_the_dimentions_of_the_bitmap)
+   fit_to_bitmap__will_set_the_size_of_the_entity_to_match_the_dimensions_of_the_bitmap)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    basic2d_entity.set_bitmap(FIXTURE_get_bitmap("test-sprite-128.png"));

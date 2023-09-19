@@ -89,7 +89,7 @@ TEST_F(AllegroFlare_TileMaps_Basic2DTestWithAllegroRenderingFixture,
    basic2d_tile_map.initialize();
 
    basic2d_tile_map.resize(20, 12);
-   basic2d_tile_map.rescale_tile_dimentions_to(32, 32);
+   basic2d_tile_map.rescale_tile_dimensions_to(32, 32);
    basic2d_tile_map.random_fill();
 
    AllegroFlare::Placement2D place = build_centered_placement(
