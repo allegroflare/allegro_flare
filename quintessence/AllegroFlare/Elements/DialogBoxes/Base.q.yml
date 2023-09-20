@@ -32,23 +32,24 @@ methods:
   - name: update
     virtual: true
     body: |
+      // TODO: Consider if this should be pure_virtual
       return;
 
 
   - name: advance
     virtual: true
-    pure_virtual: true
     body: |
+      // TODO: Consider if this should be pure_virtual
       return;
 
 
-  - name: cursor_up
+  - name: move_cursor_position_up
     virtual: true
     body: |
       return;
 
 
-  - name: cursor_down
+  - name: move_cursor_position_down
     virtual: true
     body: |
       return;

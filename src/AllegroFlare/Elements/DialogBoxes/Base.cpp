@@ -61,16 +61,22 @@ bool Base::get_finished() const
 
 void Base::update()
 {
+   // TODO: Consider if this should be pure_virtual
    return;
 }
 
+void Base::advance()
+{
+   // TODO: Consider if this should be pure_virtual
+   return;
+}
 
-void Base::cursor_up()
+void Base::move_cursor_position_up()
 {
    return;
 }
 
-void Base::cursor_down()
+void Base::move_cursor_position_down()
 {
    return;
 }

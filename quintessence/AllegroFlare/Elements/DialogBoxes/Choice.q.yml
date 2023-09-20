@@ -35,7 +35,26 @@ properties:
     constexpr: true
 
 
-functions:
+methods:
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      // NOTE: Refactoring when this method is created; expecting that nothing is to be done here
+      return;
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      // TODO: rather than have this "finish" it should advance the animation to the end.  Then, if the dialog
+      // has "advance()" called a second time, it will set finished to true.
+      // NOTE: this is similar behavior to DialogBoxes/YouGotAnItem, it should be updated accordingly as well
+      if (get_finished()) return;
+      set_finished(true);
 
 
   - name: initialize
@@ -82,6 +101,8 @@ functions:
 
 
   - name: move_cursor_position_down
+    virtual: true
+    override: true
     type: void
     guards: [ initialized ]
     body: |
@@ -93,6 +114,8 @@ functions:
 
 
   - name: move_cursor_position_up
+    virtual: true
+    override: true
     type: void
     guards: [ initialized ]
     body: |

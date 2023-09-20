@@ -1501,9 +1501,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      // Consider implementation here for dialog_system
                      // TODO: Consider that "switch_in" and "switch_out" events might need to be passed down and
                         // handled at the screens level, too
-                     AllegroFlare::GameEvent *data =
-                        static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
-                     dialog_system.process_ALLEGRO_FLARE_EVENT_DIALOG_event(data);
+                     //AllegroFlare::GameEvent *data =
+                        //static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
+                     //dialog_system.process_ALLEGRO_FLARE_EVENT_DIALOG_event(data);
                   } break;
 
                   default:

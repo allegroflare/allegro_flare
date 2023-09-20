@@ -34,9 +34,9 @@ namespace AllegroFlare
             float get_created_at() const;
             bool get_finished() const;
             virtual void update();
-            virtual void advance() = 0;
-            virtual void cursor_up();
-            virtual void cursor_down();
+            virtual void advance();
+            virtual void move_cursor_position_up();
+            virtual void move_cursor_position_down();
             float infer_age(float time_now=al_get_time());
             bool is_type(std::string possible_type="");
          };

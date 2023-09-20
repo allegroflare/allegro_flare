@@ -173,136 +173,33 @@ methods:
 
 
   - name: dialog_advance
-    guards: [ initialized ]
+    guards: [ initialized, active_dialog ]
     body: |
-      //if (inventory_window.get_active()) return;
-      if (!active_dialog) return;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      // TODO: Add "advance" to DialogBoxes::Base, or, add custom callback to handle types
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-      {
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-      {
-         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_advance: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
+      active_dialog->advance();
       return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxes::Basic
-      - AllegroFlare::Elements::DialogBoxes::YouGotAnItem
-      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
 
 
   - name: dialog_cursor_up
     private: true
-    guards: [ initialized ]
+    guards: [ initialized, active_dialog ]
     body: |
-      //if (inventory_window.get_active()) return;
-      if (!active_dialog) return;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         // do nothing
-      }
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
-      {
-         // TODO: Implement this cursor movement
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_up: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
+      active_dialog->move_cursor_position_up();
       return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxes::Basic
-      - AllegroFlare::Elements::DialogBoxes::Choice
 
 
   - name: dialog_cursor_down
     private: true
+    guards: [ initialized, active_dialog ]
     body: |
-      //if (inventory_window.get_active()) return;
-      if (!active_dialog) return;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         // do nothing
-      }
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
-      {
-         // TODO: Implement this cursor movement
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_down: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
+      active_dialog->move_cursor_position_down();
       return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxes::Basic
-      - AllegroFlare::Elements::DialogBoxes::Choice
 
 
   - name: dialog_is_finished
     type: bool
-    guards: [ initialized ]
+    guards: [ initialized, active_dialog ]
     body: |
-      if (!active_dialog) return true;
-
-      // TODO: modify this branching notation to a map<string, function>
-      // TODO: account for different dialog types
-      // TODO: Consider moving "get_finished" as override function on base class
-      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
-      {
-         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-      {
-         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
-      }
-      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-      {
-         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->get_finished();
-      }
-      else
-      {
-         // TODO: test this condition
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_is_finished: ERROR: "
-                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
-      return true;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxes::Basic
-      - AllegroFlare::Elements::DialogBoxes::YouGotAnItem
-      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+      return active_dialog->get_finished();
 
 
   - name: emit_dialog_switch_out_event

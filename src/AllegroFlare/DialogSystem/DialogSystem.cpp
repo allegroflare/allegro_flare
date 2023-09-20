@@ -3,10 +3,6 @@
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -237,32 +233,14 @@ void DialogSystem::dialog_advance()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"initialized\" not met");
    }
-   //if (inventory_window.get_active()) return;
-   if (!active_dialog) return;
-
-   // TODO: modify this branching notation to a map<string, function>
-   // TODO: account for different dialog types
-   // TODO: Add "advance" to DialogBoxes::Base, or, add custom callback to handle types
-   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+   if (!(active_dialog))
    {
-      dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
-   }
-   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-   {
-      dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
-   }
-   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-   {
-      dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();
-   }
-   else
-   {
-      // TODO: test this condition
       std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_advance: ERROR: "
-                    << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-      throw std::runtime_error(error_message.str());
+      error_message << "[DialogSystem::dialog_advance]: error: guard \"active_dialog\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"active_dialog\" not met");
    }
+   active_dialog->advance();
    return;
 }
 
@@ -275,53 +253,34 @@ void DialogSystem::dialog_cursor_up()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::dialog_cursor_up: error: guard \"initialized\" not met");
    }
-   //if (inventory_window.get_active()) return;
-   if (!active_dialog) return;
-
-   // TODO: modify this branching notation to a map<string, function>
-   // TODO: account for different dialog types
-   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+   if (!(active_dialog))
    {
-      // do nothing
-   }
-   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
-   {
-      // TODO: Implement this cursor movement
-   }
-   else
-   {
-      // TODO: test this condition
       std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_up: ERROR: "
-                    << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-      throw std::runtime_error(error_message.str());
+      error_message << "[DialogSystem::dialog_cursor_up]: error: guard \"active_dialog\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::dialog_cursor_up: error: guard \"active_dialog\" not met");
    }
+   active_dialog->move_cursor_position_up();
    return;
 }
 
 void DialogSystem::dialog_cursor_down()
 {
-   //if (inventory_window.get_active()) return;
-   if (!active_dialog) return;
-
-   // TODO: modify this branching notation to a map<string, function>
-   // TODO: account for different dialog types
-   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+   if (!(initialized))
    {
-      // do nothing
-   }
-   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
-   {
-      // TODO: Implement this cursor movement
-   }
-   else
-   {
-      // TODO: test this condition
       std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_down: ERROR: "
-                    << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-      throw std::runtime_error(error_message.str());
+      error_message << "[DialogSystem::dialog_cursor_down]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::dialog_cursor_down: error: guard \"initialized\" not met");
    }
+   if (!(active_dialog))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::dialog_cursor_down]: error: guard \"active_dialog\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::dialog_cursor_down: error: guard \"active_dialog\" not met");
+   }
+   active_dialog->move_cursor_position_down();
    return;
 }
 
@@ -334,32 +293,14 @@ bool DialogSystem::dialog_is_finished()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::dialog_is_finished: error: guard \"initialized\" not met");
    }
-   if (!active_dialog) return true;
-
-   // TODO: modify this branching notation to a map<string, function>
-   // TODO: account for different dialog types
-   // TODO: Consider moving "get_finished" as override function on base class
-   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+   if (!(active_dialog))
    {
-      return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
-   }
-   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-   {
-      return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
-   }
-   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-   {
-      return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->get_finished();
-   }
-   else
-   {
-      // TODO: test this condition
       std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_is_finished: ERROR: "
-                    << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
-      throw std::runtime_error(error_message.str());
+      error_message << "[DialogSystem::dialog_is_finished]: error: guard \"active_dialog\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::dialog_is_finished: error: guard \"active_dialog\" not met");
    }
-   return true;
+   return active_dialog->get_finished();
 }
 
 void DialogSystem::emit_dialog_switch_out_event()

@@ -36,6 +36,21 @@ int Choice::get_cursor_position() const
 }
 
 
+void Choice::update()
+{
+   // NOTE: Refactoring when this method is created; expecting that nothing is to be done here
+   return;
+}
+
+void Choice::advance()
+{
+   // TODO: rather than have this "finish" it should advance the animation to the end.  Then, if the dialog
+   // has "advance()" called a second time, it will set finished to true.
+   // NOTE: this is similar behavior to DialogBoxes/YouGotAnItem, it should be updated accordingly as well
+   if (get_finished()) return;
+   set_finished(true);
+}
+
 void Choice::initialize()
 {
    if (!((!initialized)))
