@@ -34,6 +34,7 @@ namespace AllegroFlare { namespace Routers { class Base; } }
 #include <AllegroFlare/ShaderSourcePoller.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 #include <AllegroFlare/InputDevicesList.hpp>
+#include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
 
 namespace AllegroFlare
@@ -57,6 +58,7 @@ namespace AllegroFlare
          EventEmitter event_emitter;
          Achievements achievements;
          Notifications notifications;
+         DialogSystem::DialogSystem dialog_system;
          AllegroFlare::InputDevicesList input_devices_list;
          VirtualControlsProcessor virtual_controls_processor;
          AllegroFlare::Routers::Base* router;
@@ -77,6 +79,7 @@ namespace AllegroFlare
          //Camera3D camera_3d; // next
          bool drawing_inputs_bar_overlay;
          bool drawing_notifications;
+         bool drawing_dialogs;
          std::vector<std::string> input_hints_tokens;
          bool initialize_core_system(); // only use initialize() publically from now on
          bool initialize_display_and_render_pipeline();

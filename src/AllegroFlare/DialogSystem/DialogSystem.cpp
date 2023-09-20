@@ -161,7 +161,7 @@ void DialogSystem::initialize()
    return;
 }
 
-void DialogSystem::update()
+void DialogSystem::update(float time_now)
 {
    if (!(initialized))
    {
@@ -170,6 +170,8 @@ void DialogSystem::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::update: error: guard \"initialized\" not met");
    }
+   // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
+   // TODO: Ensure time_now is passed down to active dialog updates()
    if (active_dialog) active_dialog->update();
    return;
 }
@@ -197,7 +199,7 @@ void DialogSystem::render()
    }
 }
 
-void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data)
+void DialogSystem::process_dialog_event(uint32_t user_event, void* raw_data1_assumed_to_be_game_event_data)
 {
    if (!(initialized))
    {
@@ -207,26 +209,40 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
       throw std::runtime_error("DialogSystem::process_dialog_event: error: guard \"initialized\" not met");
    }
    //using namespace AllegroFlare::Prototypes::FixedRoom2D;
-   using namespace AllegroFlare::DialogSystem;
+   //using namespace AllegroFlare::DialogSystem;
    // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
    // It might not be important:
    // if (!game_event_data->is_type(FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
 
-   if (!game_event_data)
+   if (!raw_data1_assumed_to_be_game_event_data)
    {
       std::cout << "ERROR: A weird error occurred. In FixedRoom2D/DialogSystem::process_dialog_event, expecting "
-                << "script_event_data to be valid but it is nullptr" << std::endl;
+                << "raw_data1_assumed_to_be_game_event_data to be valid but it is nullptr" << std::endl;
       return;
    }
 
+
+   // Cases to consider handling (if you might not otherwise simply rely on GameEventData):
+   //case ALLEGRO_FLARE_EVENT_DIALOG_OPEN:
+   //case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE:
+   //case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE:
+   //case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN:
+   //case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT:
+
+
+   AllegroFlare::GameEventDatas::Base* game_event_data =
+      static_cast<AllegroFlare::GameEventDatas::Base*>(raw_data1_assumed_to_be_game_event_data);
+
+
+
    // handle *all* the different DIALOG_EVENT_NAME types
 
-   if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
+   if (game_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog::TYPE))
    {
       shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
                          // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
    }
-   else if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
+   else if (game_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
    {
       DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
          static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
@@ -236,7 +252,7 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
          dialog_event_data->get_evidence_bitmap_identifier()
       );
    }
-   else if (game_event_data->is_type(DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
+   else if (game_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
    {
       DialogEventDatas::CreateYouGotAnItemDialog *dialog_event_data =
          static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(game_event_data);

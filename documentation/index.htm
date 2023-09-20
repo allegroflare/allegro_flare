@@ -1796,7 +1796,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">update()</td>
+  <td class="method">update(float time_now=0)</td>
 </tr>
 <tr>
   <td class="method">a_dialog_is_active()</td>
@@ -1805,7 +1805,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr)</td>
+  <td class="method">process_dialog_event(uint32_t user_event=0, void* raw_data1_assumed_to_be_game_event_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">emit_dialog_switch_in_event()</td>

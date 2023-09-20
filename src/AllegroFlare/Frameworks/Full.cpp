@@ -53,6 +53,7 @@ Full::Full()
    , event_emitter()
    , achievements()
    , notifications()
+   , dialog_system()
    , input_devices_list()
    , virtual_controls_processor()
    , router(nullptr)
@@ -70,6 +71,7 @@ Full::Full()
    , post_processing_shader(nullptr)
    , drawing_inputs_bar_overlay(false)
    , drawing_notifications(true)
+   , drawing_dialogs(true)
    , input_hints_tokens({})
    , display_close_will_shutdown(true)
    , escape_key_will_shutdown(true)
@@ -344,6 +346,12 @@ bool Full::initialize_core_system()
 
    // Initialize our Achievements
    achievements.set_event_emitter(&event_emitter);
+
+   // Initialize the DialogSystem::DialogSystem
+   dialog_system.set_bitmap_bin(&bitmaps);
+   dialog_system.set_font_bin(&fonts);
+   dialog_system.set_event_emitter(&event_emitter);
+   dialog_system.initialize();
 
    // Create a Router
    //router = new AllegroFlare::Routers::Standard;
@@ -899,8 +907,10 @@ bool Full::offset_primary_timer(int microseconds)
 void Full::primary_update()
 {
    // update
+   // TODO: Consider the ordering of this, if events may be emitted or state modified
    motions.update(time_now);
    achievements.check_all();
+   dialog_system.update(time_now);
 }
 
 
@@ -1473,17 +1483,15 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      // NOTE: do not delete shader, it remains active
                   } break;
 
-                  case ALLEGRO_FLARE_EVENT_DIALOG_OPEN: {
-                     // TODO: Consider destroying data here
-                     //AllegroFlare::EventEmitter::destroy_dialog_open_event_data(&this_event.user);
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE: {
-                     // Nothing to do here
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE: {
-                     // Nothing to do here
+                  case ALLEGRO_FLARE_EVENT_DIALOG_OPEN:
+                  case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE:
+                  case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE:
+                  case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN:
+                  case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT: {
+                     // TODO: Consider destroying event data here
+                     // Consider implementation here for dialog_system
+                     // TODO: Consider if these event should be grouped together like this
+                     dialog_system.process_dialog_event(this_event.type, (void*)(this_event.user.data1));
                   } break;
 
                   default:
@@ -1574,6 +1582,11 @@ void Full::draw_overlay()
    // display_backbuffer_sub_bitmap
    display_backbuffer_sub_bitmap.set_as_target();
    al_use_shader(NULL); // TODO: consider side-effects of this
+
+   //if (drawing_dialogs) // TODO: Add a "drawing_dialogs" flag and make this a conditional
+   {
+      dialog_system.render(); // Consider moving this to a dedcated DialogSystem::Renderer
+   }
 
    if (drawing_inputs_bar_overlay)
    {

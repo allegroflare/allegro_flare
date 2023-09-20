@@ -5,7 +5,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/GameEventDatas/Base.hpp>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -47,10 +47,10 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void initialize();
-         void update();
+         void update(float time_now=0);
          bool a_dialog_is_active();
          void render();
-         void process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
+         void process_dialog_event(uint32_t user_event=0, void* raw_data1_assumed_to_be_game_event_data=nullptr);
          void emit_dialog_switch_in_event();
          void emit_dialog_switch_out_event();
          void spawn_basic_dialog(std::vector<std::string> pages={});
