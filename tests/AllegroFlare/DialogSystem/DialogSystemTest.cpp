@@ -167,3 +167,28 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__load_dialog_node_bank_from_filename__will_not_blow_up)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::DialogSystem::DialogSystem dialog_system(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &event_emitter
+   );
+   dialog_system.initialize();
+
+   dialog_system.spawn_named_dialog("foobar");
+
+   int passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+}
+
+

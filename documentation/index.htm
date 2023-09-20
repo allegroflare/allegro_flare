@@ -1757,8 +1757,16 @@ table td
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
 <tr>
-  <td class="property">active_dialog</td>
+  <td class="property">dialog_node_bank</td>
+  <td class="property">AllegroFlare::DialogTree::NodeBank</td>
+</tr>
+<tr>
+  <td class="property">active_dialog_box</td>
   <td class="property">AllegroFlare::Elements::DialogBoxes::Base*</td>
+</tr>
+<tr>
+  <td class="property">active_dialog_node</td>
+  <td class="property">AllegroFlare::DialogTree::Node*</td>
 </tr>
 <tr>
   <td class="property">switched_in</td>
@@ -1797,6 +1805,9 @@ table td
   <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">load_dialog_node_bank_from_filename(std::string filename=&quot;[unset-filename]&quot;)</td>
+</tr>
+<tr>
   <td class="method">initialize()</td>
 </tr>
 <tr>
@@ -1804,6 +1815,9 @@ table td
 </tr>
 <tr>
   <td class="method">switch_out()</td>
+</tr>
+<tr>
+  <td class="method">spawn_named_dialog(std::string dialog_name=&quot;[unset-dialog_name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">spawn_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
@@ -1897,6 +1911,18 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Node&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Node.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::YAMLLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/YAMLLoader.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -26930,12 +26956,28 @@ table td
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
   "AllegroFlare/DialogTree/Node": [
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/Factory",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeOptionActivator",
     "AllegroFlare/DialogTree/NodeOptions/Node",
     "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "std/filesystem/exists": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
+  "AllegroFlare/DialogTree/YAMLLoader": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",
@@ -26946,10 +26988,6 @@ table td
   ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Node"
-  ],
-  "AllegroFlare/DialogTree/NodeBank": [
-    "AllegroFlare/DialogTree/NodeOptionActivator",
-    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
     "AllegroFlare/DialogTree/NodeOptionActivator",
@@ -28380,12 +28418,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver"
   ],
   "std/ifstream": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
-    "Tileo/TMJDataLoader"
-  ],
-  "std/filesystem/exists": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",

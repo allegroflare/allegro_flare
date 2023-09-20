@@ -19,8 +19,17 @@ properties:
     constructor_arg: true
     setter: explicit
 
+  - name: dialog_node_bank
+    type: AllegroFlare::DialogTree::NodeBank
+    init_with: '{}'
+    getter: true
+
   - name: active_dialog_box
     type: AllegroFlare::Elements::DialogBoxes::Base*
+    init_with: nullptr
+
+  - name: active_dialog_node
+    type: AllegroFlare::DialogTree::Node*
     init_with: nullptr
 
   - name: switched_in
@@ -103,6 +112,23 @@ methods:
       this->event_emitter = event_emitter;
 
 
+  - name: load_dialog_node_bank_from_filename
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+    guards: [ 'std::filesystem::exists(filename)' ]
+    body: |
+      // TODO: Validate a dialog is not currently running (or something)
+      AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+      yaml_loader.load_file(filename);
+      dialog_node_bank = yaml_loader.get_node_bank();
+      return;
+    body_dependency_symbols:
+      - std::filesystem::exists
+      - AllegroFlare::DialogTree::YAMLLoader
+
+
   - name: initialize
     guards:
        - (!initialized)
@@ -130,6 +156,16 @@ methods:
     guards: [ (switched_in) ]
     body: |
       switched_in = false;
+      return;
+
+
+  - name: spawn_named_dialog
+    parameters:
+      - name: dialog_name
+        type: std::string
+        default_argument: '"[unset-dialog_name]"'
+    body: |
+      // TODO: Here
       return;
 
 
@@ -292,5 +328,13 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.hpp ]
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+  - symbol: AllegroFlare::DialogTree::Node
+    headers: [ AllegroFlare/DialogTree/Node.hpp ]
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
+  - symbol: AllegroFlare::DialogTree::YAMLLoader
+    headers: [ AllegroFlare/DialogTree/YAMLLoader.hpp ]
 
 

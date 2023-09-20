@@ -2,9 +2,11 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
+#include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -20,7 +22,9 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
+   , dialog_node_bank({})
    , active_dialog_box(nullptr)
+   , active_dialog_node(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(standard_dialog_box_font_name)
    , standard_dialog_box_font_size(standard_dialog_box_font_size)
@@ -43,6 +47,12 @@ void DialogSystem::set_standard_dialog_box_font_name(std::string standard_dialog
 void DialogSystem::set_standard_dialog_box_font_size(int standard_dialog_box_font_size)
 {
    this->standard_dialog_box_font_size = standard_dialog_box_font_size;
+}
+
+
+AllegroFlare::DialogTree::NodeBank DialogSystem::get_dialog_node_bank() const
+{
+   return dialog_node_bank;
 }
 
 
@@ -98,6 +108,22 @@ void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
       throw std::runtime_error("DialogSystem::set_event_emitter: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
+}
+
+void DialogSystem::load_dialog_node_bank_from_filename(std::string filename)
+{
+   if (!(std::filesystem::exists(filename)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::load_dialog_node_bank_from_filename]: error: guard \"std::filesystem::exists(filename)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_filename: error: guard \"std::filesystem::exists(filename)\" not met");
+   }
+   // TODO: Validate a dialog is not currently running (or something)
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   yaml_loader.load_file(filename);
+   dialog_node_bank = yaml_loader.get_node_bank();
+   return;
 }
 
 void DialogSystem::initialize()
@@ -178,6 +204,12 @@ void DialogSystem::switch_out()
       throw std::runtime_error("DialogSystem::switch_out: error: guard \"(switched_in)\" not met");
    }
    switched_in = false;
+   return;
+}
+
+void DialogSystem::spawn_named_dialog(std::string dialog_name)
+{
+   // TODO: Here
    return;
 }
 
