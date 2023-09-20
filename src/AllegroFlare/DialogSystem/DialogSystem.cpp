@@ -7,6 +7,7 @@
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <filesystem>
 #include <functional>
@@ -28,6 +29,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , dialog_node_bank({})
    , active_dialog_box(nullptr)
    , active_dialog_node(nullptr)
+   , active_dialog_node_name("[unset-active_dialog_node_name]")
    , switched_in(false)
    , standard_dialog_box_font_name(standard_dialog_box_font_name)
    , standard_dialog_box_font_size(standard_dialog_box_font_size)
@@ -213,6 +215,7 @@ void DialogSystem::switch_out()
 void DialogSystem::spawn_named_dialog(std::string dialog_name)
 {
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+   active_dialog_node_name = dialog_name;
 
    // NOTE: The branching below is not needed because find_node_by_name will throw if not found
    //if (!active_dialog_node)
@@ -227,9 +230,22 @@ void DialogSystem::spawn_named_dialog(std::string dialog_name)
    std::vector<std::string> node_pages = active_dialog_node->get_pages();
    std::vector<std::string> node_options_as_text = active_dialog_node->build_options_as_text();
 
-   spawn_basic_dialog(node_pages);
-
-   //}
+   if (node_options_as_text.empty())
+   {
+      throw std::runtime_error(
+         "DialogSystem::spawn_named_dialog: error: Expecting 1 or many options for node named \""
+            + dialog_name + "\" but there are no options."
+      );
+   }
+   else if (node_options_as_text.size() == 1)
+   {
+      // If dialog has only one option, spawn a basic dialog
+      spawn_basic_dialog(node_pages);
+   }
+   else // (node_options_as_text.size() > 1)
+   {
+      // TODO: Here, if dialog has multiple options, spawn a "choice" dialog
+   }
    return;
 }
 
@@ -310,12 +326,43 @@ void DialogSystem::dialog_advance()
    {
       if (active_dialog_node)
       {
-         // If this dialog node has no options, then proceed to a "shutdown" state
+         if (active_dialog_node->num_options() == 0)
+         {
+            // If this dialog node has no options, then proceed to a "shutdown" state
 
-         // If the dialog node has 1 option, "activate" it
+            // TODO: Replace this throw with a shutdown
+            throw std::runtime_error(
+               "DialogSystem::dialog_advance: error: Expecting 1 or many options for node named \""
+                  + active_dialog_node_name + "\" but there are no options."
+            );
+         }
+         else if (active_dialog_node->num_options() == 1)
+         {
+            // If the dialog node has 1 option, "activate" it
+            int current_dialog_selection_choice = 0;
+            activate_dialog_option(current_dialog_selection_choice);
+         }
+         else // if (active_dialog_node.num_options() > 1)
+         {
+            // If the dialog *node* has more than 1 option, correlate the dialog *box*'s current cursor position
+               // with the result and "activate" it
+            if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
+            {
+               throw std::runtime_error(
+                  "DialogSystem::dialog_advance: error: Expecting active_dialog_box (with more than one option) "
+                     "to be of type \"AllegroFlare::Elements::DialogBoxes::Choice::TYPE\", but it is of type \""
+                     + active_dialog_box->get_type() + "\""
+               );
+            }
+            else
+            {
+               AllegroFlare::Elements::DialogBoxes::Choice *as_choice_dialog_box = 
+                  static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(active_dialog_box);
 
-         // If the dialog *node* has more than 1 option, correlate the dialog *box*'s current cursor position
-            // with the result and "activate" it
+               int current_dialog_selection_choice = as_choice_dialog_box->get_cursor_position();
+               activate_dialog_option(current_dialog_selection_choice);
+            }
+         }
       }
 
       // TODO: Figure out what to do when the dialog is finished.
@@ -323,35 +370,35 @@ void DialogSystem::dialog_advance()
    return;
 }
 
-void DialogSystem::activate(int selection_choice)
+void DialogSystem::activate_dialog_option(int selection_choice)
 {
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate]: error: guard \"event_emitter\" not met.";
+      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"event_emitter\" not met");
    }
    if (!(active_dialog_node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate]: error: guard \"active_dialog_node\" not met.";
+      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"active_dialog_node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate: error: guard \"active_dialog_node\" not met");
+      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"active_dialog_node\" not met");
    }
    if (!((selection_choice >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate]: error: guard \"(selection_choice >= 0)\" not met.";
+      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"(selection_choice >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate: error: guard \"(selection_choice >= 0)\" not met");
+      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"(selection_choice >= 0)\" not met");
    }
    if (!((selection_choice < active_dialog_node->num_options())))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate]: error: guard \"(selection_choice < active_dialog_node->num_options())\" not met.";
+      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"(selection_choice < active_dialog_node->num_options())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate: error: guard \"(selection_choice < active_dialog_node->num_options())\" not met");
+      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"(selection_choice < active_dialog_node->num_options())\" not met");
    }
    // TODO: Consider case where dialog node has no (empty) options
 

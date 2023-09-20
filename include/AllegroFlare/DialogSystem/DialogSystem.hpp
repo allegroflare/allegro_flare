@@ -28,6 +28,7 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::NodeBank dialog_node_bank;
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          AllegroFlare::DialogTree::Node* active_dialog_node;
+         std::string active_dialog_node_name;
          bool switched_in;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
@@ -59,7 +60,7 @@ namespace AllegroFlare
          void render();
          bool a_dialog_is_active();
          void dialog_advance();
-         void activate(int selection_choice=0);
+         void activate_dialog_option(int selection_choice=0);
          bool dialog_is_finished();
          bool shutdown_dialog();
          void move_dialog_cursor_position_up();

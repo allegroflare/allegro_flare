@@ -32,6 +32,10 @@ properties:
     type: AllegroFlare::DialogTree::Node*
     init_with: nullptr
 
+  - name: active_dialog_node_name
+    type: std::string
+    init_with: '"[unset-active_dialog_node_name]"'
+
   - name: switched_in
     type: bool
     init_with: false
@@ -166,6 +170,7 @@ methods:
         default_argument: '"[unset-dialog_name]"'
     body: |
       active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+      active_dialog_node_name = dialog_name;
 
       // NOTE: The branching below is not needed because find_node_by_name will throw if not found
       //if (!active_dialog_node)
@@ -180,9 +185,22 @@ methods:
       std::vector<std::string> node_pages = active_dialog_node->get_pages();
       std::vector<std::string> node_options_as_text = active_dialog_node->build_options_as_text();
 
-      spawn_basic_dialog(node_pages);
-
-      //}
+      if (node_options_as_text.empty())
+      {
+         throw std::runtime_error(
+            "DialogSystem::spawn_named_dialog: error: Expecting 1 or many options for node named \""
+               + dialog_name + "\" but there are no options."
+         );
+      }
+      else if (node_options_as_text.size() == 1)
+      {
+         // If dialog has only one option, spawn a basic dialog
+         spawn_basic_dialog(node_pages);
+      }
+      else // (node_options_as_text.size() > 1)
+      {
+         // TODO: Here, if dialog has multiple options, spawn a "choice" dialog
+      }
       return;
 
 
@@ -252,20 +270,53 @@ methods:
       {
          if (active_dialog_node)
          {
-            // If this dialog node has no options, then proceed to a "shutdown" state
+            if (active_dialog_node->num_options() == 0)
+            {
+               // If this dialog node has no options, then proceed to a "shutdown" state
 
-            // If the dialog node has 1 option, "activate" it
+               // TODO: Replace this throw with a shutdown
+               throw std::runtime_error(
+                  "DialogSystem::dialog_advance: error: Expecting 1 or many options for node named \""
+                     + active_dialog_node_name + "\" but there are no options."
+               );
+            }
+            else if (active_dialog_node->num_options() == 1)
+            {
+               // If the dialog node has 1 option, "activate" it
+               int current_dialog_selection_choice = 0;
+               activate_dialog_option(current_dialog_selection_choice);
+            }
+            else // if (active_dialog_node.num_options() > 1)
+            {
+               // If the dialog *node* has more than 1 option, correlate the dialog *box*'s current cursor position
+                  // with the result and "activate" it
+               if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
+               {
+                  throw std::runtime_error(
+                     "DialogSystem::dialog_advance: error: Expecting active_dialog_box (with more than one option) "
+                        "to be of type \"AllegroFlare::Elements::DialogBoxes::Choice::TYPE\", but it is of type \""
+                        + active_dialog_box->get_type() + "\""
+                  );
+               }
+               else
+               {
+                  AllegroFlare::Elements::DialogBoxes::Choice *as_choice_dialog_box = 
+                     static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(active_dialog_box);
 
-            // If the dialog *node* has more than 1 option, correlate the dialog *box*'s current cursor position
-               // with the result and "activate" it
+                  int current_dialog_selection_choice = as_choice_dialog_box->get_cursor_position();
+                  activate_dialog_option(current_dialog_selection_choice);
+               }
+            }
          }
 
          // TODO: Figure out what to do when the dialog is finished.
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::Choice
 
 
-  - name: activate
+  - name: activate_dialog_option
     type: void
     parameters:
       - name: selection_choice
