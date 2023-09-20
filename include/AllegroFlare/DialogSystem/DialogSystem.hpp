@@ -42,7 +42,6 @@ namespace AllegroFlare
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
-         AllegroFlare::Elements::DialogBoxes::Base* &get_active_dialog_ref();
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);

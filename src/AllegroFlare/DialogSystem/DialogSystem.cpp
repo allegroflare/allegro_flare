@@ -63,12 +63,6 @@ int DialogSystem::get_standard_dialog_box_font_size() const
 }
 
 
-AllegroFlare::Elements::DialogBoxes::Base* &DialogSystem::get_active_dialog_ref()
-{
-   return active_dialog;
-}
-
-
 void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))

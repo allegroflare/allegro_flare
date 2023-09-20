@@ -1089,16 +1089,6 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
       break;
 
-      case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:
-         // TODO:
-         // This will require a video manager, because each video will need to be registered to the event queue
-      break;
-
-      case ALLEGRO_EVENT_VIDEO_FINISHED:
-         // TODO:
-         // This will require a video manager, because each video will need to be registered to the event queue
-      break;
-
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
          screens.mouse_up_funcs(&this_event);
       break;
@@ -1166,6 +1156,16 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
             if (display_close_will_shutdown) shutdown_program = true;
          }
+      break;
+
+      case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:
+         // TODO:
+         // This will require a video manager, because each video will need to be registered to the event queue
+      break;
+
+      case ALLEGRO_EVENT_VIDEO_FINISHED:
+         // TODO:
+         // This will require a video manager, because each video will need to be registered to the event queue
       break;
 
       default:

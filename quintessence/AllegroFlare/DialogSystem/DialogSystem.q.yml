@@ -22,7 +22,6 @@ properties:
   - name: active_dialog
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
-    getter_ref: true
 
   - name: switched_in
     type: bool
