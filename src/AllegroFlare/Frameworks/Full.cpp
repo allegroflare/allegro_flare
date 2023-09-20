@@ -1491,6 +1491,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      // TODO: Consider destroying event data here
                      // Consider implementation here for dialog_system
                      // TODO: Consider if these event should be grouped together like this
+                     // TODO: Consider that "switch_in" and "switch_out" events might need to be passed down and
+                        // handled at the screens level, too
                      dialog_system.process_dialog_event(this_event.type, (void*)(this_event.user.data1));
                   } break;
 

@@ -62,6 +62,12 @@ documentation:
 
   - todo:
      - Remove getter_ref on active_dialog, the lifecycle of which should be handled internally
+  - next_steps:
+     - modify process_dialog_event to branch based on the ALLEGRO_FLARE_EVENT_DIALOG_* event
+     - modify "emit_dialog_switch_in_event" and "emit_dialog_switch_out_event" to emit to ALLEGRO_FLARE_EVENT_DIALOG_*
+       events, thus making these types of dialog_system events primary system events
+     - consider if you need to make GameEventDatas for each of the different types of events
+     - review overall the integrety of the system, Add lots of tests, make it so "anybody can emit a dialog event"
 
 
 methods:
