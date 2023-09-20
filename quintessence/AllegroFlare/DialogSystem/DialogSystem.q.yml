@@ -5,16 +5,19 @@ properties:
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    setter: false
 
   - name: active_dialog
     type: AllegroFlare::Elements::DialogBoxes::Base*
@@ -99,6 +102,8 @@ methods:
     body: |
       initialized = true;
       return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
 
 
   - name: update
@@ -126,10 +131,7 @@ methods:
          dialog_box_renderer.render();
       }
     body_dependency_symbols:
-      - AllegroFlare::Vec2D
-      - al_draw_rounded_rectangle
       - AllegroFlare::Elements::DialogBoxRenderer
-      - al_draw_text
 
 
   - name: process_dialog_event
@@ -334,6 +336,7 @@ methods:
 
 
   - name: dialog_cursor_up
+    private: true
     guards: [ initialized ]
     body: |
       //if (inventory_window.get_active()) return;
@@ -359,7 +362,7 @@ methods:
 
 
   - name: dialog_cursor_down
-    guards: [ initialized ]
+    private: true
     body: |
       //if (inventory_window.get_active()) return;
       if (!active_dialog) return;
@@ -450,16 +453,10 @@ methods:
 dependencies:
 
 
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: al_draw_text
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: al_draw_rounded_rectangle
-    headers: [ allegro5/allegro_primitives.h ]
-  - symbol: AllegroFlare::Vec2D
-    headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::EventNames
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog

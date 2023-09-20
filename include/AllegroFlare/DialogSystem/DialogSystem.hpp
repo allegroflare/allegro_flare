@@ -28,6 +28,8 @@ namespace AllegroFlare
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
          bool initialized;
+         void dialog_cursor_up();
+         void dialog_cursor_down();
 
       protected:
 
@@ -55,8 +57,6 @@ namespace AllegroFlare
          void spawn_you_got_an_item_dialog(std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]");
          void spawn_you_got_new_evidence_dialog(std::string evidence_name="[unset-evidence_name]", std::string evidence_bitmap_identifier="[unset-evidence_bitmap_identifier]");
          void dialog_advance();
-         void dialog_cursor_up();
-         void dialog_cursor_down();
          bool dialog_is_finished();
          bool shutdown_dialog();
          void move_cursor_up();

@@ -11,8 +11,6 @@
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <AllegroFlare/EventNames.hpp>
-#include <AllegroFlare/Vec2D.hpp>
-#include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -402,13 +400,6 @@ void DialogSystem::dialog_cursor_up()
 
 void DialogSystem::dialog_cursor_down()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_cursor_down]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_cursor_down: error: guard \"initialized\" not met");
-   }
    //if (inventory_window.get_active()) return;
    if (!active_dialog) return;
 

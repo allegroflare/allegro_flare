@@ -333,7 +333,6 @@
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
-    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
@@ -409,6 +408,7 @@
   ],
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -544,7 +544,6 @@
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
@@ -725,6 +724,8 @@
   ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
+    "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog",
+    "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
@@ -742,42 +743,6 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
-  "al_draw_text": [
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/InputDeviceConfigurationList",
-    "AllegroFlare/Elements/InputDevicesList",
-    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/Elements/Text",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/ProfilerRenderer",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
-  ],
-  "al_draw_rounded_rectangle": [
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Button",
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/Elements/SelectionCursorBox",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/MusicNotation/Beam",
-    "AllegroFlare/ProfilerRenderer",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -957,6 +922,21 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/Rulers"
   ],
+  "al_draw_text": [
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/ProfilerRenderer",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
+  ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Screens/Achievements"
@@ -1062,6 +1042,25 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "al_draw_rounded_rectangle": [
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/SelectionCursorBox",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/MusicNotation/Beam",
+    "AllegroFlare/ProfilerRenderer",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingText",
