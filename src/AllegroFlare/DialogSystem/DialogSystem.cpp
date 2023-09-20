@@ -110,14 +110,14 @@ void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    this->event_emitter = event_emitter;
 }
 
-void DialogSystem::load_dialog_node_bank_from_filename(std::string filename)
+void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
 {
    if (!(std::filesystem::exists(filename)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::load_dialog_node_bank_from_filename]: error: guard \"std::filesystem::exists(filename)\" not met.";
+      error_message << "[DialogSystem::load_dialog_node_bank_from_file]: error: guard \"std::filesystem::exists(filename)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_filename: error: guard \"std::filesystem::exists(filename)\" not met");
+      throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_file: error: guard \"std::filesystem::exists(filename)\" not met");
    }
    // TODO: Validate a dialog is not currently running (or something)
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
@@ -209,7 +209,24 @@ void DialogSystem::switch_out()
 
 void DialogSystem::spawn_named_dialog(std::string dialog_name)
 {
-   // TODO: Here
+   active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+
+   // NOTE: The branching below is not needed because find_node_by_name will throw if not found
+   //if (!active_dialog_node)
+   //{
+      //throw std::runtime_error(
+         //"DialogSystem::spawn_named_dialog: error: no dialog exists with the name \"" + dialog_name + "\""
+      //);
+   //}
+   //else
+   //{
+   std::string node_pages_speaker = active_dialog_node->get_speaker();
+   std::vector<std::string> node_pages = active_dialog_node->get_pages();
+   std::vector<std::string> node_options_as_text = active_dialog_node->build_options_as_text();
+
+   spawn_basic_dialog(node_pages);
+
+   //}
    return;
 }
 
@@ -288,6 +305,7 @@ void DialogSystem::dialog_advance()
    active_dialog_box->advance();
    if (active_dialog_box->get_finished())
    {
+      // TODO: Figure out what to do when the dialog is finished.
    }
    return;
 }

@@ -112,7 +112,7 @@ methods:
       this->event_emitter = event_emitter;
 
 
-  - name: load_dialog_node_bank_from_filename
+  - name: load_dialog_node_bank_from_file
     parameters:
       - name: filename
         type: std::string
@@ -165,7 +165,24 @@ methods:
         type: std::string
         default_argument: '"[unset-dialog_name]"'
     body: |
-      // TODO: Here
+      active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+
+      // NOTE: The branching below is not needed because find_node_by_name will throw if not found
+      //if (!active_dialog_node)
+      //{
+         //throw std::runtime_error(
+            //"DialogSystem::spawn_named_dialog: error: no dialog exists with the name \"" + dialog_name + "\""
+         //);
+      //}
+      //else
+      //{
+      std::string node_pages_speaker = active_dialog_node->get_speaker();
+      std::vector<std::string> node_pages = active_dialog_node->get_pages();
+      std::vector<std::string> node_options_as_text = active_dialog_node->build_options_as_text();
+
+      spawn_basic_dialog(node_pages);
+
+      //}
       return;
 
 
@@ -233,6 +250,7 @@ methods:
       active_dialog_box->advance();
       if (active_dialog_box->get_finished())
       {
+         // TODO: Figure out what to do when the dialog is finished.
       }
       return;
 

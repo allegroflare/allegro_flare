@@ -168,8 +168,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__load_dialog_node_bank_from_filename__will_not_blow_up)
+   FOCUS__CAPTURE__load_dialog_node_bank_from_file__will_not_blow_up)
 {
+   std::string dialog_filename = get_fixtures_path() + "/dialogs/linear_dialog.yml";
+
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
    AllegroFlare::DialogSystem::DialogSystem dialog_system(
@@ -179,9 +181,28 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
    dialog_system.initialize();
 
-   dialog_system.spawn_named_dialog("foobar");
+   dialog_system.load_dialog_node_bank_from_file(dialog_filename);
+   dialog_system.spawn_named_dialog("start_node");
 
    int passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+   dialog_system.dialog_advance();
+   passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+   dialog_system.dialog_advance();
+   passes = 120;
    for (int i=0; i<passes; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
