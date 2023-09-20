@@ -5,19 +5,19 @@ properties:
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
-    setter: false
+    setter: explicit
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
-    setter: false
+    setter: explicit
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
-    setter: false
+    setter: explicit
 
   - name: active_dialog
     type: AllegroFlare::Elements::DialogBoxes::Base*

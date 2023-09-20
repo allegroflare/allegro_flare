@@ -208,7 +208,6 @@ void DialogSystem::process_dialog_event(uint32_t user_event, void* raw_data1_ass
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::process_dialog_event: error: guard \"initialized\" not met");
    }
-   //using namespace AllegroFlare::Prototypes::FixedRoom2D;
    //using namespace AllegroFlare::DialogSystem;
    // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
    // It might not be important:
