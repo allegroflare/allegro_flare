@@ -81,6 +81,16 @@ void Base::move_cursor_position_down()
    return;
 }
 
+void Base::move_cursor_position_left()
+{
+   return;
+}
+
+void Base::move_cursor_position_right()
+{
+   return;
+}
+
 float Base::infer_age(float time_now)
 {
    if (!(al_is_system_installed()))

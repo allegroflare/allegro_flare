@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
+#include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -180,6 +181,23 @@ void DialogSystem::switch_out()
    return;
 }
 
+void DialogSystem::spawn_basic_dialog(std::vector<std::string> pages)
+{
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog = dialog_box_factory.create_basic_dialog(pages);
+
+   // TODO: Address when and where a switch_in should occur
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //emit_dialog_switch_in_event();
+   //}
+   return;
+}
+
 void DialogSystem::update(float time_now)
 {
    if (!(initialized))
@@ -193,11 +211,6 @@ void DialogSystem::update(float time_now)
    // TODO: Ensure time_now is passed down to active dialog updates()
    if (active_dialog) active_dialog->update();
    return;
-}
-
-bool DialogSystem::a_dialog_is_active()
-{
-   return (active_dialog != nullptr);
 }
 
 void DialogSystem::render()
@@ -216,6 +229,11 @@ void DialogSystem::render()
       dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
       dialog_box_renderer.render();
    }
+}
+
+bool DialogSystem::a_dialog_is_active()
+{
+   return (active_dialog != nullptr);
 }
 
 void DialogSystem::dialog_advance()
@@ -238,46 +256,6 @@ void DialogSystem::dialog_advance()
    return;
 }
 
-void DialogSystem::dialog_cursor_up()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_cursor_up]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_cursor_up: error: guard \"initialized\" not met");
-   }
-   if (!(active_dialog))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_cursor_up]: error: guard \"active_dialog\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_cursor_up: error: guard \"active_dialog\" not met");
-   }
-   active_dialog->move_cursor_position_up();
-   return;
-}
-
-void DialogSystem::dialog_cursor_down()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_cursor_down]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_cursor_down: error: guard \"initialized\" not met");
-   }
-   if (!(active_dialog))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_cursor_down]: error: guard \"active_dialog\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_cursor_down: error: guard \"active_dialog\" not met");
-   }
-   active_dialog->move_cursor_position_down();
-   return;
-}
-
 bool DialogSystem::dialog_is_finished()
 {
    if (!(initialized))
@@ -297,32 +275,6 @@ bool DialogSystem::dialog_is_finished()
    return active_dialog->get_finished();
 }
 
-void DialogSystem::emit_dialog_switch_out_event()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::emit_dialog_switch_out_event]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::emit_dialog_switch_out_event: error: guard \"initialized\" not met");
-   }
-   event_emitter->emit_dialog_switch_out_event();
-   return;
-}
-
-void DialogSystem::emit_dialog_switch_in_event()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::emit_dialog_switch_in_event]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::emit_dialog_switch_in_event: error: guard \"initialized\" not met");
-   }
-   event_emitter->emit_dialog_switch_in_event();
-   return;
-}
-
 bool DialogSystem::shutdown_dialog()
 {
    if (!(initialized))
@@ -332,39 +284,62 @@ bool DialogSystem::shutdown_dialog()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"initialized\" not met");
    }
-   std::cout << "- in DialogSystem::shutdown_dialog()" << std::endl;
    if (!active_dialog) return false;
    delete active_dialog;
    active_dialog = nullptr;
-   emit_dialog_switch_out_event();
+   if (get_switched_in()) switch_out();
    return true;
 }
 
-void DialogSystem::move_cursor_up()
+void DialogSystem::move_dialog_cursor_position_up()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::move_cursor_up]: error: guard \"initialized\" not met.";
+      error_message << "[DialogSystem::move_dialog_cursor_position_up]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::move_cursor_up: error: guard \"initialized\" not met");
+      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_up: error: guard \"initialized\" not met");
    }
-   //if (inventory_window.get_active()) inventory_window.move_cursor_up();
-   if (active_dialog) dialog_cursor_up();
+   if (active_dialog) active_dialog->move_cursor_position_up();
    return;
 }
 
-void DialogSystem::move_cursor_down()
+void DialogSystem::move_dialog_cursor_position_down()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::move_cursor_down]: error: guard \"initialized\" not met.";
+      error_message << "[DialogSystem::move_dialog_cursor_position_down]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::move_cursor_down: error: guard \"initialized\" not met");
+      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_down: error: guard \"initialized\" not met");
    }
-   //if (inventory_window.get_active()) inventory_window.move_cursor_down();
-   if (active_dialog) dialog_cursor_down();
+   if (active_dialog) active_dialog->move_cursor_position_down();
+   return;
+}
+
+void DialogSystem::move_dialog_cursor_position_left()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::move_dialog_cursor_position_left]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_left: error: guard \"initialized\" not met");
+   }
+   if (active_dialog) active_dialog->move_cursor_position_left();
+   return;
+}
+
+void DialogSystem::move_dialog_cursor_position_right()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::move_dialog_cursor_position_right]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_right: error: guard \"initialized\" not met");
+   }
+   if (active_dialog) active_dialog->move_cursor_position_right();
    return;
 }
 

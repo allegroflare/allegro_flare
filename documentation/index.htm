@@ -1806,40 +1806,37 @@ table td
   <td class="method">switch_out()</td>
 </tr>
 <tr>
-  <td class="method">update(float time_now=0)</td>
+  <td class="method">spawn_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">a_dialog_is_active()</td>
+  <td class="method">update(float time_now=0)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
 </tr>
 <tr>
+  <td class="method">a_dialog_is_active()</td>
+</tr>
+<tr>
   <td class="method">dialog_advance()</td>
-</tr>
-<tr>
-  <td class="private_method">dialog_cursor_up()</td>
-</tr>
-<tr>
-  <td class="private_method">dialog_cursor_down()</td>
 </tr>
 <tr>
   <td class="method">dialog_is_finished()</td>
 </tr>
 <tr>
-  <td class="method">emit_dialog_switch_out_event()</td>
-</tr>
-<tr>
-  <td class="method">emit_dialog_switch_in_event()</td>
-</tr>
-<tr>
   <td class="method">shutdown_dialog()</td>
 </tr>
 <tr>
-  <td class="method">move_cursor_up()</td>
+  <td class="method">move_dialog_cursor_position_up()</td>
 </tr>
 <tr>
-  <td class="method">move_cursor_down()</td>
+  <td class="method">move_dialog_cursor_position_down()</td>
+</tr>
+<tr>
+  <td class="method">move_dialog_cursor_position_left()</td>
+</tr>
+<tr>
+  <td class="method">move_dialog_cursor_position_right()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -3995,6 +3992,12 @@ table td
 </tr>
 <tr>
   <td class="method">move_cursor_position_down()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_position_left()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_position_right()</td>
 </tr>
 <tr>
   <td class="method">infer_age(float time_now=al_get_time())</td>

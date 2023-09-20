@@ -6,6 +6,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -27,8 +28,6 @@ namespace AllegroFlare
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
          bool initialized;
-         void dialog_cursor_up();
-         void dialog_cursor_down();
 
       protected:
 
@@ -48,16 +47,17 @@ namespace AllegroFlare
          void initialize();
          void switch_in();
          void switch_out();
+         void spawn_basic_dialog(std::vector<std::string> pages={});
          void update(float time_now=0);
-         bool a_dialog_is_active();
          void render();
+         bool a_dialog_is_active();
          void dialog_advance();
          bool dialog_is_finished();
-         void emit_dialog_switch_out_event();
-         void emit_dialog_switch_in_event();
          bool shutdown_dialog();
-         void move_cursor_up();
-         void move_cursor_down();
+         void move_dialog_cursor_position_up();
+         void move_dialog_cursor_position_down();
+         void move_dialog_cursor_position_left();
+         void move_dialog_cursor_position_right();
       };
    }
 }

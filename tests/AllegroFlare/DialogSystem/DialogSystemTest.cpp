@@ -3,6 +3,8 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+
 
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
 class AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture
@@ -119,6 +121,32 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    dialog_system.initialize();
    dialog_system.render();
    al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
+   CAPTURE__render__when_a_dialog_box_is_open__will_work_as_expected)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::DialogSystem::DialogSystem dialog_system(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &event_emitter
+   );
+   dialog_system.initialize();
+
+   dialog_system.spawn_basic_dialog({ "Hello, basic dialog", "Good to see you today" });
+
+   int passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+
    sleep_for(1);
 }
+
 

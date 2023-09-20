@@ -64,12 +64,8 @@ properties:
 documentation:
 
 
-  - todo:
-     - Remove getter_ref on active_dialog, the lifecycle of which should be handled internally
   - next_steps:
      - modify process_dialog_event to branch based on the ALLEGRO_FLARE_EVENT_DIALOG_* event
-     - modify "emit_dialog_switch_in_event" and "emit_dialog_switch_out_event" to emit to ALLEGRO_FLARE_EVENT_DIALOG_*
-       events, thus making these types of dialog_system events primary system events
      - consider if you need to make GameEventDatas for each of the different types of events
      - review overall the integrety of the system, Add lots of tests, make it so "anybody can emit a dialog event"
 
@@ -137,6 +133,29 @@ methods:
       return;
 
 
+  - name: spawn_basic_dialog
+    parameters:
+      - name: pages
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      bool a_dialog_existed_before = a_dialog_is_active();
+      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+      active_dialog = dialog_box_factory.create_basic_dialog(pages);
+
+      // TODO: Address when and where a switch_in should occur
+      //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+      //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+      //{
+         //emit_dialog_switch_in_event();
+      //}
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxFactory
+
+
   - name: update
     parameters:
       - name: time_now
@@ -148,12 +167,6 @@ methods:
       // TODO: Ensure time_now is passed down to active dialog updates()
       if (active_dialog) active_dialog->update();
       return;
-
-
-  - name: a_dialog_is_active
-    type: bool
-    body: |
-      return (active_dialog != nullptr);
 
 
   - name: render
@@ -171,26 +184,16 @@ methods:
       - AllegroFlare::Elements::DialogBoxRenderer
 
 
+  - name: a_dialog_is_active
+    type: bool
+    body: |
+      return (active_dialog != nullptr);
+
+
   - name: dialog_advance
     guards: [ initialized, active_dialog ]
     body: |
       active_dialog->advance();
-      return;
-
-
-  - name: dialog_cursor_up
-    private: true
-    guards: [ initialized, active_dialog ]
-    body: |
-      active_dialog->move_cursor_position_up();
-      return;
-
-
-  - name: dialog_cursor_down
-    private: true
-    guards: [ initialized, active_dialog ]
-    body: |
-      active_dialog->move_cursor_position_down();
       return;
 
 
@@ -201,45 +204,42 @@ methods:
       return active_dialog->get_finished();
 
 
-  - name: emit_dialog_switch_out_event
-    guards: [ initialized ]
-    body: |
-      event_emitter->emit_dialog_switch_out_event();
-      return;
-
-
-  - name: emit_dialog_switch_in_event
-    guards: [ initialized ]
-    body: |
-      event_emitter->emit_dialog_switch_in_event();
-      return;
-
-
   - name: shutdown_dialog
     type: bool
     guards: [ initialized ]
     body: |
-      std::cout << "- in DialogSystem::shutdown_dialog()" << std::endl;
       if (!active_dialog) return false;
       delete active_dialog;
       active_dialog = nullptr;
-      emit_dialog_switch_out_event();
+      if (get_switched_in()) switch_out();
       return true;
 
 
-  - name: move_cursor_up
+  - name: move_dialog_cursor_position_up
     guards: [ initialized ]
     body: |
-      //if (inventory_window.get_active()) inventory_window.move_cursor_up();
-      if (active_dialog) dialog_cursor_up();
+      if (active_dialog) active_dialog->move_cursor_position_up();
       return;
 
 
-  - name: move_cursor_down
+  - name: move_dialog_cursor_position_down
     guards: [ initialized ]
     body: |
-      //if (inventory_window.get_active()) inventory_window.move_cursor_down();
-      if (active_dialog) dialog_cursor_down();
+      if (active_dialog) active_dialog->move_cursor_position_down();
+      return;
+
+
+  - name: move_dialog_cursor_position_left
+    guards: [ initialized ]
+    body: |
+      if (active_dialog) active_dialog->move_cursor_position_left();
+      return;
+
+
+  - name: move_dialog_cursor_position_right
+    guards: [ initialized ]
+    body: |
+      if (active_dialog) active_dialog->move_cursor_position_right();
       return;
 
 
