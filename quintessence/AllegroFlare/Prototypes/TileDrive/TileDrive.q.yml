@@ -13,21 +13,21 @@ properties:
     constructor_arg: true
     init_with: nullptr
     getter: true
-    setter: false
+    setter: explicit
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     constructor_arg: true
     init_with: nullptr
     getter: true
-    setter: false
+    setter: explicit
 
   - name: sample_bin
     type: AllegroFlare::SampleBin*
     constructor_arg: true
     init_with: nullptr
     getter: true
-    setter: false
+    setter: explicit
 
   - name: current_terrain_mesh
     type: AllegroFlare::Prototypes::TileDrive::TerrainMesh*
