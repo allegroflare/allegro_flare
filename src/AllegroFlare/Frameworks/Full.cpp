@@ -1069,7 +1069,18 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl++;
          if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
-         screens.key_down_funcs(&this_event);
+
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.key_down_funcs(&this_event);
+         }
          virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
       break;
 
@@ -1080,43 +1091,133 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
-         screens.key_up_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.key_up_funcs(&this_event);
+         }
          virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_KEY_CHAR:
-         screens.key_char_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.key_char_funcs(&this_event);
+         }
          //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
       break;
 
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-         screens.mouse_up_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.mouse_up_funcs(&this_event);
+         }
       break;
 
       case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-         screens.mouse_down_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.mouse_down_funcs(&this_event);
+         }
       break;
 
       case ALLEGRO_EVENT_MOUSE_WARPED:
-         screens.mouse_warp_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.mouse_warp_funcs(&this_event);
+         }
       break;
 
       case ALLEGRO_EVENT_MOUSE_AXES:
-         screens.mouse_axes_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.mouse_axes_funcs(&this_event);
+         }
       break;
 
       case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-         screens.joy_button_down_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.joy_button_down_funcs(&this_event);
+         }
          virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-         screens.joy_button_up_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.joy_button_up_funcs(&this_event);
+         }
          virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_JOYSTICK_AXIS:
-         screens.joy_axis_funcs(&this_event);
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.joy_axis_funcs(&this_event);
+         }
          virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
       break;
 
