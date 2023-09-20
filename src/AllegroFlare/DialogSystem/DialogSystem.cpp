@@ -2,15 +2,15 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
+#include <AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.hpp>
+#include <AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.hpp>
+#include <AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp>
-#include <AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp>
+#include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -208,7 +208,8 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::process_dialog_event: error: guard \"initialized\" not met");
    }
-   using namespace AllegroFlare::Prototypes::FixedRoom2D;
+   //using namespace AllegroFlare::Prototypes::FixedRoom2D;
+   using namespace AllegroFlare::DialogSystem;
    // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
    // It might not be important:
    // if (!game_event_data->is_type(FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
@@ -227,26 +228,26 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
       shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
                          // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
    }
-   //else if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
-   //{
-      //DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
-         //static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
+   else if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
+   {
+      DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
+         static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
 
-      //spawn_you_got_new_evidence_dialog(
-         //dialog_event_data->get_evidence_name(),
-         //dialog_event_data->get_evidence_bitmap_identifier()
-      //);
-   //}
-   //else if (game_event_data->is_type(DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
-   //{
-      //DialogEventDatas::CreateYouGotAnItemDialog *dialog_event_data =
-         //static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(game_event_data);
+      spawn_you_got_new_evidence_dialog(
+         dialog_event_data->get_evidence_name(),
+         dialog_event_data->get_evidence_bitmap_identifier()
+      );
+   }
+   else if (game_event_data->is_type(DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
+   {
+      DialogEventDatas::CreateYouGotAnItemDialog *dialog_event_data =
+         static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(game_event_data);
 
-      //spawn_you_got_an_item_dialog(
-         //dialog_event_data->get_item_name(),
-         //dialog_event_data->get_item_bitmap_identifier()
-      //);
-   //}
+      spawn_you_got_an_item_dialog(
+         dialog_event_data->get_item_name(),
+         dialog_event_data->get_item_bitmap_identifier()
+      );
+   }
    else
    {
       std::stringstream error_message;
@@ -261,7 +262,9 @@ void DialogSystem::process_dialog_event(AllegroFlare::GameEventDatas::Base* game
 void DialogSystem::emit_dialog_switch_in_event()
 {
    event_emitter->emit_game_event(AllegroFlare::GameEvent(
-      AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME
+      //AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME
+      //AllegroFlare::EventNames::ALEGRO_FLARE_EVENT_DIALOG_SWITCH_IN_NAME
+      ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN_NAME
    ));
    return;
 }
@@ -269,7 +272,9 @@ void DialogSystem::emit_dialog_switch_in_event()
 void DialogSystem::emit_dialog_switch_out_event()
 {
    event_emitter->emit_game_event(AllegroFlare::GameEvent(
-      AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME
+      //AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME
+      //AllegroFlare::EventNames::ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT_NAME
+      ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT_NAME
    ));
    return;
 }
@@ -281,6 +286,44 @@ void DialogSystem::spawn_basic_dialog(std::vector<std::string> pages)
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog = dialog_box_factory.create_basic_dialog(pages);
+
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      emit_dialog_switch_in_event();
+   }
+   return;
+}
+
+void DialogSystem::spawn_you_got_an_item_dialog(std::string item_name, std::string item_bitmap_identifier)
+{
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+         "Keys",
+         "key-keychain-house-keys-door-photo-pixabay-25.png"
+      );
+
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      emit_dialog_switch_in_event();
+   }
+   return;
+}
+
+void DialogSystem::spawn_you_got_new_evidence_dialog(std::string evidence_name, std::string evidence_bitmap_identifier)
+{
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
+         evidence_name,
+         evidence_bitmap_identifier
+      );
 
    bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
    if (a_new_dialog_was_created_and_dialog_system_is_now_active)
@@ -304,18 +347,19 @@ void DialogSystem::dialog_advance()
 
    // TODO: modify this branching notation to a map<string, function>
    // TODO: account for different dialog types
+   // TODO: Add "advance" to DialogBoxes::Base, or, add custom callback to handle types
    if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
    }
-   //else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-   //{
-      //dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
-   //}
-   //else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-   //{
-      //dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();
-   //}
+   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
+   {
+      dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
+   }
+   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+   {
+      dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();
+   }
    else
    {
       // TODO: test this condition
@@ -398,18 +442,19 @@ bool DialogSystem::dialog_is_finished()
 
    // TODO: modify this branching notation to a map<string, function>
    // TODO: account for different dialog types
+   // TODO: Consider moving "get_finished" as override function on base class
    if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
    }
-   //else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
-   //{
-      //return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
-   //}
-   //else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
-   //{
-      //return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->get_finished();
-   //}
+   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
+   {
+      return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
+   }
+   else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+   {
+      return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->get_finished();
+   }
    else
    {
       // TODO: test this condition
