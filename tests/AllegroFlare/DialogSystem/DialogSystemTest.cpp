@@ -128,6 +128,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    CAPTURE__render__when_a_dialog_box_is_open__will_work_as_expected)
 {
    AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
    AllegroFlare::DialogSystem::DialogSystem dialog_system(
       &get_bitmap_bin_ref(),
       &get_font_bin_ref(),
@@ -145,8 +146,24 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       dialog_system.render();
       al_flip_display();
    }
-
-   sleep_for(1);
+   dialog_system.dialog_advance();
+   passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+   dialog_system.dialog_advance();
+   passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
 }
 
 

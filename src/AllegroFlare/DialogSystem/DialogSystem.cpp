@@ -190,11 +190,12 @@ void DialogSystem::spawn_basic_dialog(std::vector<std::string> pages)
    active_dialog = dialog_box_factory.create_basic_dialog(pages);
 
    // TODO: Address when and where a switch_in should occur
-   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-   //{
-      //emit_dialog_switch_in_event();
-   //}
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      switch_in();
+      event_emitter->emit_dialog_switch_in_event();
+   }
    return;
 }
 
@@ -253,6 +254,9 @@ void DialogSystem::dialog_advance()
       throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"active_dialog\" not met");
    }
    active_dialog->advance();
+   if (active_dialog->get_finished())
+   {
+   }
    return;
 }
 
@@ -287,7 +291,11 @@ bool DialogSystem::shutdown_dialog()
    if (!active_dialog) return false;
    delete active_dialog;
    active_dialog = nullptr;
-   if (get_switched_in()) switch_out();
+   if (get_switched_in())
+   {
+      switch_out();
+      event_emitter->emit_dialog_switch_out_event();
+   }
    return true;
 }
 
