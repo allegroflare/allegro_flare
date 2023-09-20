@@ -82,6 +82,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
    advance__when_the_current_page_is_not_finished__will_finish_the_current_page_and_return_true)
 {
    // TODO
+   // NOTE: This behavior is probably no longer expected. "advance" now belongs to the Base class
 }
 
 
@@ -89,6 +90,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
    advance__when_the_current_page_is_finished__will_go_to_the_next_page)
 {
    // TODO
+   // NOTE: This behavior is probably no longer expected. "advance" now belongs to the Base class
 }
 
 
@@ -96,6 +98,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest,
    advance__when_the_dialog_box_is_finished__will_return_false)
 {
    // TODO
+   // NOTE: This behavior is probably no longer expected. "advance" now belongs to the Base class
 }
 
 

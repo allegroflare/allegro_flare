@@ -17,7 +17,6 @@ YouGotEvidence::YouGotEvidence(std::string evidence_name, std::string evidence_b
    : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE)
    , evidence_name(evidence_name)
    , evidence_bitmap_identifier(evidence_bitmap_identifier)
-   , finished(false)
 {
 }
 
@@ -39,18 +38,12 @@ std::string YouGotEvidence::get_evidence_bitmap_identifier() const
 }
 
 
-bool YouGotEvidence::get_finished() const
-{
-   return finished;
-}
-
-
 void YouGotEvidence::update()
 {
-   if (finished) return;
+   if (get_finished()) return;
    if (infer_age() > 1.0) // NOTE: giving it one second before can be dismissed
    {
-      finished = true;
+      set_finished(true);
    }
    return;
 }
@@ -60,8 +53,8 @@ void YouGotEvidence::advance()
    // TODO: rather than have this "finish" it should advance the animation to the end.  Then, if the dialog
    // has "advance()" called a second time, it will set finished to true.
    // NOTE: this is similar behavior to DialogBoxes/YouGotAnItem, it should be updated accordingly as well
-   if (finished) return;
-   finished = true;
+   if (get_finished()) return;
+   set_finished(true);
 }
 
 

@@ -20,7 +20,6 @@ namespace AllegroFlare
          private:
             std::vector<std::string> pages;
             int current_page_num;
-            bool finished;
             int num_revealed_characters;
             float finished_at;
             bool page_finished;
@@ -36,17 +35,16 @@ namespace AllegroFlare
 
             std::vector<std::string> get_pages() const;
             int get_current_page_num() const;
-            bool get_finished() const;
             int get_num_revealed_characters() const;
             float get_finished_at() const;
             bool get_page_finished() const;
             float get_page_finished_at() const;
-            virtual void update();
+            virtual void update() override;
+            virtual void advance() override;
             void set_pages(std::vector<std::string> pages={});
             void reset();
             std::string get_current_page_text();
             int get_current_page_num_chars();
-            bool advance();
             bool next_page();
             void reset_current_page_counters();
             int num_pages();

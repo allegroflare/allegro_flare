@@ -19,7 +19,6 @@ namespace AllegroFlare
          private:
             std::string item_name;
             std::string item_bitmap_identifier;
-            bool finished;
 
          protected:
 
@@ -30,9 +29,8 @@ namespace AllegroFlare
 
             std::string get_item_name() const;
             std::string get_item_bitmap_identifier() const;
-            bool get_finished() const;
             virtual void update() override;
-            void advance();
+            virtual void advance() override;
          };
       }
    }

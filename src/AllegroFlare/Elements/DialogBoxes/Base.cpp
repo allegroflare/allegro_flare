@@ -19,6 +19,7 @@ namespace DialogBoxes
 Base::Base(std::string type)
    : type(type)
    , created_at(0)
+   , finished(false)
 {
 }
 
@@ -34,6 +35,12 @@ void Base::set_created_at(float created_at)
 }
 
 
+void Base::set_finished(bool finished)
+{
+   this->finished = finished;
+}
+
+
 std::string Base::get_type() const
 {
    return type;
@@ -46,7 +53,24 @@ float Base::get_created_at() const
 }
 
 
+bool Base::get_finished() const
+{
+   return finished;
+}
+
+
 void Base::update()
+{
+   return;
+}
+
+
+void Base::cursor_up()
+{
+   return;
+}
+
+void Base::cursor_down()
 {
    return;
 }

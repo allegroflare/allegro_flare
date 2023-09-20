@@ -5,9 +5,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/GameEvent.hpp>
 #include <string>
-#include <vector>
 
 
 namespace AllegroFlare
@@ -54,14 +52,10 @@ namespace AllegroFlare
          void update(float time_now=0);
          bool a_dialog_is_active();
          void render();
-         void process_ALLEGRO_FLARE_EVENT_DIALOG_event(AllegroFlare::GameEvent* dialog_event=nullptr);
-         void emit_dialog_switch_in_event();
-         void emit_dialog_switch_out_event();
-         void spawn_basic_dialog(std::vector<std::string> pages={});
-         void spawn_you_got_an_item_dialog(std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]");
-         void spawn_you_got_new_evidence_dialog(std::string evidence_name="[unset-evidence_name]", std::string evidence_bitmap_identifier="[unset-evidence_bitmap_identifier]");
          void dialog_advance();
          bool dialog_is_finished();
+         void emit_dialog_switch_out_event();
+         void emit_dialog_switch_in_event();
          bool shutdown_dialog();
          void move_cursor_up();
          void move_cursor_down();

@@ -13,6 +13,12 @@ properties:
     getter: true
     setter: true
 
+  - name: finished
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"DialogBoxes/Base"'
@@ -20,10 +26,29 @@ properties:
     constexpr: true
 
 
-functions:
+methods:
 
 
   - name: update
+    virtual: true
+    body: |
+      return;
+
+
+  - name: advance
+    virtual: true
+    pure_virtual: true
+    body: |
+      return;
+
+
+  - name: cursor_up
+    virtual: true
+    body: |
+      return;
+
+
+  - name: cursor_down
     virtual: true
     body: |
       return;

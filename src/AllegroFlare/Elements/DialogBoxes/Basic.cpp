@@ -20,7 +20,6 @@ Basic::Basic(std::vector<std::string> pages)
    : AllegroFlare::Elements::DialogBoxes::Base(TYPE)
    , pages(pages)
    , current_page_num(-1)
-   , finished(false)
    , num_revealed_characters(9999)
    , finished_at(0)
    , page_finished(false)
@@ -43,12 +42,6 @@ std::vector<std::string> Basic::get_pages() const
 int Basic::get_current_page_num() const
 {
    return current_page_num;
-}
-
-
-bool Basic::get_finished() const
-{
-   return finished;
 }
 
 
@@ -78,13 +71,21 @@ float Basic::get_page_finished_at() const
 
 void Basic::update()
 {
-   if (finished) return;
+   if (get_finished()) return;
    if (!page_finished) num_revealed_characters++;
    if (!page_finished && all_characters_are_revealed())
    {
       page_finished = true;
       page_finished_at = al_get_time();
    }
+   return;
+}
+
+void Basic::advance()
+{
+   if (get_finished()) return;
+   if (!page_finished) reveal_all_characters();
+   else next_page();
    return;
 }
 
@@ -98,7 +99,7 @@ void Basic::set_pages(std::vector<std::string> pages)
 void Basic::reset()
 {
    current_page_num = 0;
-   finished = false;
+   set_finished(false);
    finished_at = 0;
    reset_current_page_counters();
    return;
@@ -114,14 +115,6 @@ int Basic::get_current_page_num_chars()
 {
    if (!current_page_is_valid()) return 0;
    return pages[current_page_num].size();
-}
-
-bool Basic::advance()
-{
-   if (finished) return false;
-   if (!page_finished) reveal_all_characters();
-   else next_page();
-   return true;
 }
 
 bool Basic::next_page()
@@ -141,7 +134,7 @@ bool Basic::next_page()
 
    if (current_page_num >= num_pages())
    {
-      finished = true;
+      set_finished(true);
       finished_at = al_get_time();
       current_page_num = -1;
    }

@@ -20,11 +20,6 @@ properties:
     init_with: -1
     getter: true
 
-  - name: finished
-    type: bool
-    init_with: false
-    getter: true
-
   - name: num_revealed_characters
     type: int
     init_with: 9999
@@ -56,9 +51,10 @@ functions:
 
 
   - name: update
+    override: true
     virtual: true
     body: |
-      if (finished) return;
+      if (get_finished()) return;
       if (!page_finished) num_revealed_characters++;
       if (!page_finished && all_characters_are_revealed())
       {
@@ -68,6 +64,16 @@ functions:
       return;
     body_dependency_symbols:
       - al_get_time
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+      if (!page_finished) reveal_all_characters();
+      else next_page();
+      return;
 
 
   - name: set_pages
@@ -84,7 +90,7 @@ functions:
   - name: reset
     body: |
       current_page_num = 0;
-      finished = false;
+      set_finished(false);
       finished_at = 0;
       reset_current_page_counters();
       return;
@@ -104,15 +110,6 @@ functions:
       return pages[current_page_num].size();
 
 
-  - name: advance
-    type: bool
-    body: |
-      if (finished) return false;
-      if (!page_finished) reveal_all_characters();
-      else next_page();
-      return true;
-
-
   - name: next_page
     type: bool
     guards: [ al_is_system_installed() ]
@@ -125,7 +122,7 @@ functions:
 
       if (current_page_num >= num_pages())
       {
-         finished = true;
+         set_finished(true);
          finished_at = al_get_time();
          current_page_num = -1;
       }

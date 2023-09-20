@@ -21,11 +21,6 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: finished
-    type: bool
-    init_with: false
-    getter: true
-
   - name: TYPE
     type: char*
     init_with: '(char*)"DialogBoxes/YouGotAnItem"'
@@ -40,10 +35,10 @@ functions:
     virtual: true
     override: true
     body: |
-      if (finished) return;
+      if (get_finished()) return;
       if (infer_age() > 1.0) // NOTE: giving it one second before can be dismissed
       {
-         finished = true;
+         set_finished(true);
       }
       return;
     body_dependency_symbols:
@@ -51,11 +46,13 @@ functions:
 
 
   - name: advance
+    virtual: true
+    override: true
     body: |
       // TODO: rather than have this "finish" it should advance the animation to the end.  Then, if the dialog
       // has "advance()" called a second time, it will set finished to true.
-      if (finished) return;
-      finished = true;
+      if (get_finished()) return;
+      set_finished(true);
 
 
 dependencies:

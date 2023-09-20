@@ -172,185 +172,6 @@ methods:
       - AllegroFlare::Elements::DialogBoxRenderer
 
 
-  - name: process_ALLEGRO_FLARE_EVENT_DIALOG_event
-    parameters:
-      - name: dialog_event
-        type: AllegroFlare::GameEvent*
-        default_argument: nullptr
-    guards: [ initialized, dialog_event ]
-    body: |
-      //using namespace AllegroFlare::DialogSystem;
-      // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
-      // It might not be important:
-      // if (!game_event_data->is_type(FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
-
-      AllegroFlare::GameEventDatas::Base* dialog_event_data = dialog_event->get_data();
-
-      if (!dialog_event_data)
-      {
-         std::cout << "ERROR: A weird error occurred. In FixedRoom2D/DialogSystem::process_dialog_event, expecting "
-                   << "dialog_event_data to be valid but it is nullptr" << std::endl;
-         return;
-      }
-
-
-      // Cases to consider handling (if you might not otherwise simply rely on GameEventData):
-      //case ALLEGRO_FLARE_EVENT_DIALOG_OPEN:
-      //case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE:
-      //case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE:
-      //case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN:
-      //case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT:
-      
-
-      //AllegroFlare::GameEventDatas::Base* game_event_data =
-         //static_cast<AllegroFlare::GameEventDatas::Base*>(raw_data1_assumed_to_be_game_event_data);
-
-
-
-      // handle *all* the different DIALOG_EVENT_NAME types
-
-      if (dialog_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog::TYPE))
-      {
-         shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
-                            // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
-      }
-      else if (dialog_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
-      {
-         DialogEventDatas::CreateYouGotEvidenceDialog *local_dialog_event_data =
-            static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(dialog_event_data);
-
-         spawn_you_got_new_evidence_dialog(
-            local_dialog_event_data->get_evidence_name(),
-            local_dialog_event_data->get_evidence_bitmap_identifier()
-         );
-      }
-      else if (dialog_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
-      {
-         DialogEventDatas::CreateYouGotAnItemDialog *local_dialog_event_data =
-            static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(dialog_event_data);
-
-         spawn_you_got_an_item_dialog(
-            local_dialog_event_data->get_item_name(),
-            local_dialog_event_data->get_item_bitmap_identifier()
-         );
-      }
-      else
-      {
-         std::stringstream error_message;
-         error_message << "[AllegroFlare::DialogSystem::process_dialog_event]: error: "
-                       << "Unhandled dialog_event_data type \"" << dialog_event_data->get_type() << "\". Aborting.";
-         throw std::runtime_error(error_message.str());
-      }
-
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog
-      - AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotAnItemDialog
-      - AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotEvidenceDialog
-
-
-  - name: emit_dialog_switch_in_event
-    body: |
-      event_emitter->emit_game_event(AllegroFlare::GameEvent(
-         //AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME
-         //AllegroFlare::EventNames::ALEGRO_FLARE_EVENT_DIALOG_SWITCH_IN_NAME
-         ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN_NAME
-      ));
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::EventNames
-
-
-  - name: emit_dialog_switch_out_event
-    body: |
-      event_emitter->emit_game_event(AllegroFlare::GameEvent(
-         //AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME
-         //AllegroFlare::EventNames::ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT_NAME
-         ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT_NAME
-      ));
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::EventNames
-
-
-  - name: spawn_basic_dialog
-    parameters:
-      - name: pages
-        type: std::vector<std::string>
-        default_argument: '{}'
-    body: |
-      bool a_dialog_existed_before = a_dialog_is_active();
-      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
-
-      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-      active_dialog = dialog_box_factory.create_basic_dialog(pages);
-
-      bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-      if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-      {
-         emit_dialog_switch_in_event();
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxFactory
-
-
-  - name: spawn_you_got_an_item_dialog
-    parameters:
-      - name: item_name
-        type: std::string
-        default_argument: '"[unset-item_name]"'
-      - name: item_bitmap_identifier
-        type: std::string
-        default_argument: '"[unset-item_bitmap_identifier]"'
-    body: |
-      bool a_dialog_existed_before = a_dialog_is_active();
-      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
-
-      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-      active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
-            "Keys",
-            "key-keychain-house-keys-door-photo-pixabay-25.png"
-         );
-
-      bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-      if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-      {
-         emit_dialog_switch_in_event();
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxFactory
-
-
-  - name: spawn_you_got_new_evidence_dialog
-    parameters:
-      - name: evidence_name
-        type: std::string
-        default_argument: '"[unset-evidence_name]"'
-      - name: evidence_bitmap_identifier
-        type: std::string
-        default_argument: '"[unset-evidence_bitmap_identifier]"'
-    body: |
-      bool a_dialog_existed_before = a_dialog_is_active();
-      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
-
-      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-      active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
-            evidence_name,
-            evidence_bitmap_identifier
-         );
-
-      bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-      if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-      {
-         emit_dialog_switch_in_event();
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Elements::DialogBoxFactory
-
-
   - name: dialog_advance
     guards: [ initialized ]
     body: |
@@ -415,6 +236,7 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxes::Basic
+      - AllegroFlare::Elements::DialogBoxes::Choice
 
 
   - name: dialog_cursor_down
@@ -444,6 +266,7 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxes::Basic
+      - AllegroFlare::Elements::DialogBoxes::Choice
 
 
   - name: dialog_is_finished
@@ -480,6 +303,20 @@ methods:
       - AllegroFlare::Elements::DialogBoxes::Basic
       - AllegroFlare::Elements::DialogBoxes::YouGotAnItem
       - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+
+
+  - name: emit_dialog_switch_out_event
+    guards: [ initialized ]
+    body: |
+      event_emitter->emit_dialog_switch_out_event();
+      return;
+
+
+  - name: emit_dialog_switch_in_event
+    guards: [ initialized ]
+    body: |
+      event_emitter->emit_dialog_switch_in_event();
+      return;
 
 
   - name: shutdown_dialog
@@ -525,6 +362,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Choice
+    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::GameEvent
     headers: [ AllegroFlare/GameEvent.hpp ]
   - symbol: AllegroFlare::GameEventDatas::Base
