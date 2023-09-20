@@ -1483,17 +1483,21 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      // NOTE: do not delete shader, it remains active
                   } break;
 
-                  case ALLEGRO_FLARE_EVENT_DIALOG_OPEN:
-                  case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE:
-                  case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE:
-                  case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN:
-                  case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT: {
+
+                  //case ALLEGRO_FLARE_EVENT_DIALOG_OPEN:
+                  //case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE:
+                  //case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE:
+                  //case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN:
+                  //case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT: {
+                  case ALLEGRO_FLARE_EVENT_DIALOG: {
                      // TODO: Consider destroying event data here
                      // Consider implementation here for dialog_system
                      // TODO: Consider if these event should be grouped together like this
                      // TODO: Consider that "switch_in" and "switch_out" events might need to be passed down and
                         // handled at the screens level, too
-                     dialog_system.process_dialog_event(this_event.type, (void*)(this_event.user.data1));
+                     AllegroFlare::GameEvent *data =
+                        static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
+                     dialog_system.process_dialog_event(data);
                   } break;
 
                   default:

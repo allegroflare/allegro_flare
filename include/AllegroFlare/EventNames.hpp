@@ -36,6 +36,7 @@
 #define ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE   ALLEGRO_GET_EVENT_TYPE('F','P','H','S')
 
 // Not sure the exact roles of OPEN, CLOSE, SWITCH_IN, and SWITCH_OUT
+#define ALLEGRO_FLARE_EVENT_DIALOG                                  ALLEGRO_GET_EVENT_TYPE('F','D','l','g')
 #define ALLEGRO_FLARE_EVENT_DIALOG_OPEN                             ALLEGRO_GET_EVENT_TYPE('F','D','O','p')
 #define ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE                          ALLEGRO_GET_EVENT_TYPE('F','D','A','v')
 #define ALLEGRO_FLARE_EVENT_DIALOG_CLOSE                            ALLEGRO_GET_EVENT_TYPE('F','D','C','l')

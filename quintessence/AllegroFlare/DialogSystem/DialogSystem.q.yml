@@ -155,23 +155,22 @@ methods:
 
   - name: process_dialog_event
     parameters:
-      - name: user_event
-        type: uint32_t
-        default_argument: 0
-      - name: raw_data1_assumed_to_be_game_event_data
-        type: void*
+      - name: dialog_event
+        type: AllegroFlare::GameEvent*
         default_argument: nullptr
-    guards: [ initialized ]
+    guards: [ initialized, dialog_event ]
     body: |
       //using namespace AllegroFlare::DialogSystem;
       // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
       // It might not be important:
       // if (!game_event_data->is_type(FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
 
-      if (!raw_data1_assumed_to_be_game_event_data)
+      AllegroFlare::GameEventDatas::Base* dialog_event_data = dialog_event->get_data();
+
+      if (!dialog_event_data)
       {
          std::cout << "ERROR: A weird error occurred. In FixedRoom2D/DialogSystem::process_dialog_event, expecting "
-                   << "raw_data1_assumed_to_be_game_event_data to be valid but it is nullptr" << std::endl;
+                   << "dialog_event_data to be valid but it is nullptr" << std::endl;
          return;
       }
 
@@ -184,43 +183,43 @@ methods:
       //case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT:
       
 
-      AllegroFlare::GameEventDatas::Base* game_event_data =
-         static_cast<AllegroFlare::GameEventDatas::Base*>(raw_data1_assumed_to_be_game_event_data);
+      //AllegroFlare::GameEventDatas::Base* game_event_data =
+         //static_cast<AllegroFlare::GameEventDatas::Base*>(raw_data1_assumed_to_be_game_event_data);
 
 
 
       // handle *all* the different DIALOG_EVENT_NAME types
 
-      if (game_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog::TYPE))
+      if (dialog_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog::TYPE))
       {
          shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
                             // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
       }
-      else if (game_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
+      else if (dialog_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
       {
-         DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
-            static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
+         DialogEventDatas::CreateYouGotEvidenceDialog *local_dialog_event_data =
+            static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(dialog_event_data);
 
          spawn_you_got_new_evidence_dialog(
-            dialog_event_data->get_evidence_name(),
-            dialog_event_data->get_evidence_bitmap_identifier()
+            local_dialog_event_data->get_evidence_name(),
+            local_dialog_event_data->get_evidence_bitmap_identifier()
          );
       }
-      else if (game_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
+      else if (dialog_event_data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
       {
-         DialogEventDatas::CreateYouGotAnItemDialog *dialog_event_data =
-            static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(game_event_data);
+         DialogEventDatas::CreateYouGotAnItemDialog *local_dialog_event_data =
+            static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(dialog_event_data);
 
          spawn_you_got_an_item_dialog(
-            dialog_event_data->get_item_name(),
-            dialog_event_data->get_item_bitmap_identifier()
+            local_dialog_event_data->get_item_name(),
+            local_dialog_event_data->get_item_bitmap_identifier()
          );
       }
       else
       {
          std::stringstream error_message;
          error_message << "[AllegroFlare::DialogSystem::process_dialog_event]: error: "
-                       << "Unhandled game_event_data type \"" << game_event_data->get_type() << "\". Aborting.";
+                       << "Unhandled dialog_event_data type \"" << dialog_event_data->get_type() << "\". Aborting.";
          throw std::runtime_error(error_message.str());
       }
 
