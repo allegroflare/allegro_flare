@@ -1583,7 +1583,7 @@ void Full::draw_overlay()
    display_backbuffer_sub_bitmap.set_as_target();
    al_use_shader(NULL); // TODO: consider side-effects of this
 
-   //if (drawing_dialogs) // TODO: Add a "drawing_dialogs" flag and make this a conditional
+   if (drawing_dialogs)
    {
       dialog_system.render(); // Consider moving this to a dedcated DialogSystem::Renderer
    }
