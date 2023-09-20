@@ -70,6 +70,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/ClubCatt/Logo.q.yml">quintessence/AllegroFlare/ClubCatt/Logo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml">quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Factory.q.yml">quintessence/AllegroFlare/DialogTree/Factory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Node.q.yml">quintessence/AllegroFlare/DialogTree/Node.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</a></li>
@@ -1649,6 +1650,178 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">active_dialog</td>
+  <td class="property">AllegroFlare::Elements::DialogBoxes::Base*</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">a_dialog_is_active()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">process_dialog_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_switch_in_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_switch_out_event()</td>
+</tr>
+<tr>
+  <td class="method">spawn_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
+</tr>
+<tr>
+  <td class="method">spawn_you_got_an_item_dialog(std::string item_name=&quot;[unset-item_name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item_bitmap_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">spawn_you_got_new_evidence_dialog(std::string evidence_name=&quot;[unset-evidence_name]&quot;, std::string evidence_bitmap_identifier=&quot;[unset-evidence_bitmap_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">dialog_advance()</td>
+</tr>
+<tr>
+  <td class="method">dialog_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">dialog_cursor_down()</td>
+</tr>
+<tr>
+  <td class="method">dialog_is_finished()</td>
+</tr>
+<tr>
+  <td class="method">shutdown_dialog()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_down()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotEvidence&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotAnItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotAnItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::WithAttributes&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -25916,6 +26089,7 @@ table td
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
@@ -26009,6 +26183,7 @@ table td
   "AllegroFlare/FontBin": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
@@ -26113,6 +26288,7 @@ table td
   ],
   "ALLEGRO_FONT": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingText",
@@ -26323,6 +26499,7 @@ table td
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
@@ -26501,24 +26678,144 @@ table td
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
-  "AllegroFlare/DialogTree/Node": [
-    "AllegroFlare/DialogTree/Factory",
-    "AllegroFlare/DialogTree/NodeBank",
-    "AllegroFlare/DialogTree/NodeOptionActivator",
-    "AllegroFlare/DialogTree/NodeOptions/Node",
-    "AllegroFlare/DialogTree/YAMLLoader"
+  "al_draw_text": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/Text",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/ProfilerRenderer",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
-  "AllegroFlare/DialogTree/NodeOptions/Base": [
-    "AllegroFlare/DialogTree/Node",
-    "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
-    "AllegroFlare/DialogTree/NodeOptions/GoToNode",
-    "AllegroFlare/DialogTree/NodeOptions/Node",
-    "AllegroFlare/DialogTree/YAMLLoader"
+  "al_draw_rounded_rectangle": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/Elements/SelectionCursorBox",
+    "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/MusicNotation/Beam",
+    "AllegroFlare/ProfilerRenderer",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
-  "AllegroFlare/Logger/throw_error": [
-    "AllegroFlare/DialogTree/Node"
+  "AllegroFlare/Prototypes/FixedRoom2D/EventNames": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/YouGotEvidence": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Base": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxes/Base",
+    "AllegroFlare/Elements/DialogBoxes/Basic",
+    "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
+    "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/GameEvent": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
+  ],
+  "AllegroFlare/GameEventDatas/Base": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderer": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Basic": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
+  ],
+  "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Elements/DialogBoxFactory": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
+  ],
+  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "AllegroFlare/EventEmitter": [
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/NodeOptionActivator",
     "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/Inventory",
@@ -26565,6 +26862,23 @@ table td
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
+  "AllegroFlare/DialogTree/Node": [
+    "AllegroFlare/DialogTree/Factory",
+    "AllegroFlare/DialogTree/NodeBank",
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/NodeOptions/Node",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/Base": [
+    "AllegroFlare/DialogTree/Node",
+    "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
+    "AllegroFlare/DialogTree/NodeOptions/GoToNode",
+    "AllegroFlare/DialogTree/NodeOptions/Node",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/Logger/throw_error": [
+    "AllegroFlare/DialogTree/Node"
+  ],
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogTree/NodeOptionActivator",
     "AllegroFlare/DialogTree/YAMLLoader"
@@ -26597,21 +26911,6 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/Rulers"
-  ],
-  "al_draw_text": [
-    "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/InputDeviceConfigurationList",
-    "AllegroFlare/Elements/InputDevicesList",
-    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/Elements/Text",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/ProfilerRenderer",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
@@ -26718,25 +27017,6 @@ table td
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Screens/Storyboard"
-  ],
-  "al_draw_rounded_rectangle": [
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/Button",
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/Elements/SelectionCursorBox",
-    "AllegroFlare/Elements/Storyboard",
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/MusicNotation/Beam",
-    "AllegroFlare/ProfilerRenderer",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingText",
@@ -26869,16 +27149,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
-  "AllegroFlare/Elements/DialogBoxes/Basic": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogButton",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
-  ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -26889,18 +27159,6 @@ table td
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/YouGotEvidence": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
@@ -26935,19 +27193,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/Base": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxes/Base",
-    "AllegroFlare/Elements/DialogBoxes/Basic",
-    "AllegroFlare/Elements/DialogBoxes/Choice",
-    "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
-    "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
@@ -27256,32 +27501,6 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/GameEvent": [
-    "AllegroFlare/EventEmitter",
-    "AllegroFlare/Prototypes/CubeShooter/Runner",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
-  ],
-  "AllegroFlare/GameEventDatas/Base": [
-    "AllegroFlare/EventEmitter",
-    "AllegroFlare/GameEvent",
-    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog",
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/InteractionEventData",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectItem",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/EventEmitter",
@@ -27876,31 +28095,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/EventNames": [
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog": [
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/Elements/DialogBoxRenderer": [
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/Elements/DialogBoxFactory": [
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog": [
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
-  ],
-  "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog": [
-    "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "std/vector<AllegroFlare/Prototypes/FixedRoom2D/Entities/Base>": [
     "AllegroFlare/Prototypes/FixedRoom2D/EntityCollectionHelper",

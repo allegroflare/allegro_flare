@@ -1,0 +1,488 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: active_dialog
+    type: AllegroFlare::Elements::DialogBoxes::Base*
+    init_with: nullptr
+    getter_ref: true
+
+  - name: standard_dialog_box_font_name
+    type: std::string
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_font_size
+    type: int
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -36
+
+
+methods:
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
+
+
+  - name: set_font_bin
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->font_bin = font_bin;
+
+
+  - name: set_event_emitter
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->event_emitter = event_emitter;
+
+
+  - name: initialize
+    guards:
+       - (!initialized)
+       - al_is_system_installed()
+       - al_is_primitives_addon_initialized()
+       - al_is_font_addon_initialized()
+       - bitmap_bin
+       - font_bin
+       - event_emitter
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      if (active_dialog) active_dialog->update();
+      return;
+
+
+  - name: a_dialog_is_active
+    type: bool
+    body: |
+      return (active_dialog != nullptr);
+
+
+  - name: render
+    type: void
+    guards: [ initialized ]
+    body: |
+      if (active_dialog)
+      {
+         AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
+         dialog_box_renderer.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
+         dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
+         dialog_box_renderer.render();
+      }
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - AllegroFlare::Elements::DialogBoxRenderer
+      - al_draw_text
+
+
+  - name: process_dialog_event
+    xprivate: true
+    parameters:
+      - name: game_event_data
+        type: AllegroFlare::GameEventDatas::Base*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      using namespace AllegroFlare::Prototypes::FixedRoom2D;
+      // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
+      // It might not be important:
+      // if (!game_event_data->is_type(FixedRoom2D::EventNames::DIALOG_EVENT_NAME))
+
+      if (!game_event_data)
+      {
+         std::cout << "ERROR: A weird error occurred. In FixedRoom2D/DialogSystem::process_dialog_event, expecting "
+                   << "script_event_data to be valid but it is nullptr" << std::endl;
+         return;
+      }
+
+      // handle *all* the different DIALOG_EVENT_NAME types
+
+      if (game_event_data->is_type(DialogEventDatas::CloseDialog::TYPE))
+      {
+         shutdown_dialog(); // TODO: address the difference between "shutdown_dialog" and
+                            // a theoretical "destroy_and_create_a_new_dialog_simultaniously"
+      }
+      else if (game_event_data->is_type(DialogEventDatas::CreateYouGotEvidenceDialog::TYPE))
+      {
+         DialogEventDatas::CreateYouGotEvidenceDialog *dialog_event_data =
+            static_cast<DialogEventDatas::CreateYouGotEvidenceDialog*>(game_event_data);
+
+         spawn_you_got_new_evidence_dialog(
+            dialog_event_data->get_evidence_name(),
+            dialog_event_data->get_evidence_bitmap_identifier()
+         );
+      }
+      else if (game_event_data->is_type(DialogEventDatas::CreateYouGotAnItemDialog::TYPE))
+      {
+         DialogEventDatas::CreateYouGotAnItemDialog *dialog_event_data =
+            static_cast<DialogEventDatas::CreateYouGotAnItemDialog*>(game_event_data);
+
+         spawn_you_got_an_item_dialog(
+            dialog_event_data->get_item_name(),
+            dialog_event_data->get_item_bitmap_identifier()
+         );
+      }
+      else
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::DialogSystem::process_dialog_event]: error: "
+                       << "Unhandled game_event_data type \"" << game_event_data->get_type() << "\". Aborting.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
+      - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog
+      - AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog
+
+
+  - name: emit_dialog_switch_in_event
+    body: |
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_IN_NAME
+      ));
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames
+
+
+  - name: emit_dialog_switch_out_event
+    body: |
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(
+         AllegroFlare::Prototypes::FixedRoom2D::EventNames::EVENT_DIALOG_SWITCH_OUT_NAME
+      ));
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::FixedRoom2D::EventNames
+
+
+  - name: spawn_basic_dialog
+    parameters:
+      - name: pages
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      bool a_dialog_existed_before = a_dialog_is_active();
+      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+      active_dialog = dialog_box_factory.create_basic_dialog(pages);
+
+      bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+      if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+      {
+         emit_dialog_switch_in_event();
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxFactory
+
+
+  - name: spawn_you_got_an_item_dialog
+    parameters:
+      - name: item_name
+        type: std::string
+        default_argument: '"[unset-item_name]"'
+      - name: item_bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-item_bitmap_identifier]"'
+    body: |
+      bool a_dialog_existed_before = a_dialog_is_active();
+      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+      active_dialog = dialog_box_factory.create_you_got_an_item_dialog(
+            "Keys",
+            "key-keychain-house-keys-door-photo-pixabay-25.png"
+         );
+
+      bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+      if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+      {
+         emit_dialog_switch_in_event();
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxFactory
+
+
+  - name: spawn_you_got_new_evidence_dialog
+    parameters:
+      - name: evidence_name
+        type: std::string
+        default_argument: '"[unset-evidence_name]"'
+      - name: evidence_bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-evidence_bitmap_identifier]"'
+    body: |
+      bool a_dialog_existed_before = a_dialog_is_active();
+      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+
+      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+      active_dialog = dialog_box_factory.create_you_got_new_evidence_dialog(
+            evidence_name,
+            evidence_bitmap_identifier
+         );
+
+      bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+      if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+      {
+         emit_dialog_switch_in_event();
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxFactory
+
+
+  - name: dialog_advance
+    guards: [ initialized ]
+    body: |
+      //if (inventory_window.get_active()) return;
+      if (!active_dialog) return;
+
+      // TODO: modify this branching notation to a map<string, function>
+      // TODO: account for different dialog types
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+      {
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->advance();
+      }
+      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
+      {
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->advance();
+      }
+      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+      {
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->advance();
+      }
+      else
+      {
+         // TODO: test this condition
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_advance: ERROR: "
+                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
+         throw std::runtime_error(error_message.str());
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::Basic
+      - AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+
+
+  - name: dialog_cursor_up
+    guards: [ initialized ]
+    body: |
+      //if (inventory_window.get_active()) return;
+      if (!active_dialog) return;
+
+      // TODO: modify this branching notation to a map<string, function>
+      // TODO: account for different dialog types
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+      {
+         // do nothing
+      }
+      else
+      {
+         // TODO: test this condition
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_up: ERROR: "
+                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
+         throw std::runtime_error(error_message.str());
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::Basic
+
+
+  - name: dialog_cursor_down
+    guards: [ initialized ]
+    body: |
+      //if (inventory_window.get_active()) return;
+      if (!active_dialog) return;
+
+      // TODO: modify this branching notation to a map<string, function>
+      // TODO: account for different dialog types
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+      {
+         // do nothing
+      }
+      else
+      {
+         // TODO: test this condition
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_cursor_down: ERROR: "
+                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
+         throw std::runtime_error(error_message.str());
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::Basic
+
+
+  - name: dialog_is_finished
+    type: bool
+    guards: [ initialized ]
+    body: |
+      if (!active_dialog) return true;
+
+      // TODO: modify this branching notation to a map<string, function>
+      // TODO: account for different dialog types
+      if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
+      {
+         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::Basic*>(active_dialog)->get_finished();
+      }
+      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotAnItem::TYPE))
+      {
+         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotAnItem*>(active_dialog)->get_finished();
+      }
+      else if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::YouGotEvidence::TYPE))
+      {
+         return dynamic_cast<AllegroFlare::Elements::DialogBoxes::YouGotEvidence*>(active_dialog)->get_finished();
+      }
+      else
+      {
+         // TODO: test this condition
+         std::stringstream error_message;
+         error_message << "AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::dialog_is_finished: ERROR: "
+                       << "Unrecognized dialog of type \"" << active_dialog->get_type() << "\". Aborting.";
+         throw std::runtime_error(error_message.str());
+      }
+      return true;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::Basic
+      - AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+      - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+
+
+  - name: shutdown_dialog
+    type: bool
+    guards: [ initialized ]
+    body: |
+      std::cout << "- in DialogSystem::shutdown_dialog()" << std::endl;
+      if (!active_dialog) return false;
+      delete active_dialog;
+      active_dialog = nullptr;
+      emit_dialog_switch_out_event();
+      return true;
+
+
+  - name: move_cursor_up
+    guards: [ initialized ]
+    body: |
+      //if (inventory_window.get_active()) inventory_window.move_cursor_up();
+      if (active_dialog) dialog_cursor_up();
+      return;
+
+
+  - name: move_cursor_down
+    guards: [ initialized ]
+    body: |
+      //if (inventory_window.get_active()) inventory_window.move_cursor_down();
+      if (active_dialog) dialog_cursor_down();
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CloseDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::GameEvent
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderer.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::InventoryDictionaryItems::WithAttributes
+    headers: [ AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxFactory
+    headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotAnItemDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotAnItemDialog.hpp ]
+  - symbol: AllegroFlare::Prototypes::FixedRoom2D::DialogEventDatas::CreateYouGotEvidenceDialog
+    headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CreateYouGotEvidenceDialog.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+
