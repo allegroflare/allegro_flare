@@ -19,7 +19,7 @@ properties:
     constructor_arg: true
     setter: explicit
 
-  - name: active_dialog
+  - name: active_dialog_box
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
 
@@ -140,10 +140,10 @@ methods:
         default_argument: '{}'
     body: |
       bool a_dialog_existed_before = a_dialog_is_active();
-      if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
+      if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
 
       AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-      active_dialog = dialog_box_factory.create_basic_dialog(pages);
+      active_dialog_box = dialog_box_factory.create_basic_dialog(pages);
 
       // TODO: Address when and where a switch_in should occur
       bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
@@ -166,7 +166,7 @@ methods:
     body: |
       // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
       // TODO: Ensure time_now is passed down to active dialog updates()
-      if (active_dialog) active_dialog->update();
+      if (active_dialog_box) active_dialog_box->update();
       return;
 
 
@@ -174,9 +174,9 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
-      if (active_dialog)
+      if (active_dialog_box)
       {
-         AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog);
+         AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog_box);
          dialog_box_renderer.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
          dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
          dialog_box_renderer.render();
@@ -188,14 +188,14 @@ methods:
   - name: a_dialog_is_active
     type: bool
     body: |
-      return (active_dialog != nullptr);
+      return (active_dialog_box != nullptr);
 
 
   - name: dialog_advance
-    guards: [ initialized, active_dialog ]
+    guards: [ initialized, active_dialog_box ]
     body: |
-      active_dialog->advance();
-      if (active_dialog->get_finished())
+      active_dialog_box->advance();
+      if (active_dialog_box->get_finished())
       {
       }
       return;
@@ -203,18 +203,18 @@ methods:
 
   - name: dialog_is_finished
     type: bool
-    guards: [ initialized, active_dialog ]
+    guards: [ initialized, active_dialog_box ]
     body: |
-      return active_dialog->get_finished();
+      return active_dialog_box->get_finished();
 
 
   - name: shutdown_dialog
     type: bool
     guards: [ initialized ]
     body: |
-      if (!active_dialog) return false;
-      delete active_dialog;
-      active_dialog = nullptr;
+      if (!active_dialog_box) return false;
+      delete active_dialog_box;
+      active_dialog_box = nullptr;
       if (get_switched_in())
       {
          switch_out();
@@ -226,28 +226,28 @@ methods:
   - name: move_dialog_cursor_position_up
     guards: [ initialized ]
     body: |
-      if (active_dialog) active_dialog->move_cursor_position_up();
+      if (active_dialog_box) active_dialog_box->move_cursor_position_up();
       return;
 
 
   - name: move_dialog_cursor_position_down
     guards: [ initialized ]
     body: |
-      if (active_dialog) active_dialog->move_cursor_position_down();
+      if (active_dialog_box) active_dialog_box->move_cursor_position_down();
       return;
 
 
   - name: move_dialog_cursor_position_left
     guards: [ initialized ]
     body: |
-      if (active_dialog) active_dialog->move_cursor_position_left();
+      if (active_dialog_box) active_dialog_box->move_cursor_position_left();
       return;
 
 
   - name: move_dialog_cursor_position_right
     guards: [ initialized ]
     body: |
-      if (active_dialog) active_dialog->move_cursor_position_right();
+      if (active_dialog_box) active_dialog_box->move_cursor_position_right();
       return;
 
 

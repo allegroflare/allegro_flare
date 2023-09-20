@@ -23,7 +23,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
-         AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
+         AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          bool switched_in;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
