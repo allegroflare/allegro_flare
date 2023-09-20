@@ -24,6 +24,11 @@ properties:
     init_with: nullptr
     getter_ref: true
 
+  - name: switched_in
+    type: bool
+    init_with: false
+    getter: true
+
   - name: standard_dialog_box_font_name
     type: std::string
     init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
@@ -119,6 +124,20 @@ methods:
       - al_is_primitives_addon_initialized
 
 
+  - name: switch_in
+    guards: [ (!switched_in) ]
+    body: |
+      switched_in = true;
+      return;
+
+
+  - name: switch_out
+    guards: [ (switched_in) ]
+    body: |
+      switched_in = false;
+      return;
+
+
   - name: update
     parameters:
       - name: time_now
@@ -153,7 +172,7 @@ methods:
       - AllegroFlare::Elements::DialogBoxRenderer
 
 
-  - name: process_dialog_event
+  - name: process_ALLEGRO_FLARE_EVENT_DIALOG_event
     parameters:
       - name: dialog_event
         type: AllegroFlare::GameEvent*

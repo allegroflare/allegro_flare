@@ -28,6 +28,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , active_dialog(nullptr)
+   , switched_in(false)
    , standard_dialog_box_font_name(standard_dialog_box_font_name)
    , standard_dialog_box_font_size(standard_dialog_box_font_size)
    , initialized(false)
@@ -49,6 +50,12 @@ void DialogSystem::set_standard_dialog_box_font_name(std::string standard_dialog
 void DialogSystem::set_standard_dialog_box_font_size(int standard_dialog_box_font_size)
 {
    this->standard_dialog_box_font_size = standard_dialog_box_font_size;
+}
+
+
+bool DialogSystem::get_switched_in() const
+{
+   return switched_in;
 }
 
 
@@ -161,6 +168,32 @@ void DialogSystem::initialize()
    return;
 }
 
+void DialogSystem::switch_in()
+{
+   if (!((!switched_in)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::switch_in]: error: guard \"(!switched_in)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::switch_in: error: guard \"(!switched_in)\" not met");
+   }
+   switched_in = true;
+   return;
+}
+
+void DialogSystem::switch_out()
+{
+   if (!((switched_in)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::switch_out]: error: guard \"(switched_in)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::switch_out: error: guard \"(switched_in)\" not met");
+   }
+   switched_in = false;
+   return;
+}
+
 void DialogSystem::update(float time_now)
 {
    if (!(initialized))
@@ -199,21 +232,21 @@ void DialogSystem::render()
    }
 }
 
-void DialogSystem::process_dialog_event(AllegroFlare::GameEvent* dialog_event)
+void DialogSystem::process_ALLEGRO_FLARE_EVENT_DIALOG_event(AllegroFlare::GameEvent* dialog_event)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::process_dialog_event]: error: guard \"initialized\" not met.";
+      error_message << "[DialogSystem::process_ALLEGRO_FLARE_EVENT_DIALOG_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::process_dialog_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("DialogSystem::process_ALLEGRO_FLARE_EVENT_DIALOG_event: error: guard \"initialized\" not met");
    }
    if (!(dialog_event))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::process_dialog_event]: error: guard \"dialog_event\" not met.";
+      error_message << "[DialogSystem::process_ALLEGRO_FLARE_EVENT_DIALOG_event]: error: guard \"dialog_event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::process_dialog_event: error: guard \"dialog_event\" not met");
+      throw std::runtime_error("DialogSystem::process_ALLEGRO_FLARE_EVENT_DIALOG_event: error: guard \"dialog_event\" not met");
    }
    //using namespace AllegroFlare::DialogSystem;
    // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.

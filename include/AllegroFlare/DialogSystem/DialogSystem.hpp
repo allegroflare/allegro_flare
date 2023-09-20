@@ -25,6 +25,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog;
+         bool switched_in;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
          bool initialized;
@@ -40,6 +41,7 @@ namespace AllegroFlare
 
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
+         bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
          AllegroFlare::Elements::DialogBoxes::Base* &get_active_dialog_ref();
@@ -47,10 +49,12 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void initialize();
+         void switch_in();
+         void switch_out();
          void update(float time_now=0);
          bool a_dialog_is_active();
          void render();
-         void process_dialog_event(AllegroFlare::GameEvent* dialog_event=nullptr);
+         void process_ALLEGRO_FLARE_EVENT_DIALOG_event(AllegroFlare::GameEvent* dialog_event=nullptr);
          void emit_dialog_switch_in_event();
          void emit_dialog_switch_out_event();
          void spawn_basic_dialog(std::vector<std::string> pages={});

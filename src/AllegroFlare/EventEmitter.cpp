@@ -148,6 +148,34 @@ void EventEmitter::emit_dialog_close_event()
    return;
 }
 
+void EventEmitter::emit_dialog_switch_in_event()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_dialog_switch_in_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_dialog_switch_in_event: error: guard \"initialized\" not met");
+   }
+   // TODO: Add test for this emission
+   emit_event(ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN);
+   return;
+}
+
+void EventEmitter::emit_dialog_switch_out_event()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_dialog_switch_out_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_dialog_switch_out_event: error: guard \"initialized\" not met");
+   }
+   // TODO: Add test for this emission
+   emit_event(ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT);
+   return;
+}
+
 void EventEmitter::emit_switch_screen_event(std::string screen_identifier_to_switch_to)
 {
    if (!(initialized))

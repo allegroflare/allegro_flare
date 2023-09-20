@@ -1761,6 +1761,10 @@ table td
   <td class="property">AllegroFlare::Elements::DialogBoxes::Base*</td>
 </tr>
 <tr>
+  <td class="property">switched_in</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">standard_dialog_box_font_name</td>
   <td class="property">std::string</td>
 </tr>
@@ -1796,6 +1800,12 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
+  <td class="method">switch_in()</td>
+</tr>
+<tr>
+  <td class="method">switch_out()</td>
+</tr>
+<tr>
   <td class="method">update(float time_now=0)</td>
 </tr>
 <tr>
@@ -1805,7 +1815,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">process_dialog_event(AllegroFlare::GameEvent* dialog_event=nullptr)</td>
+  <td class="method">process_ALLEGRO_FLARE_EVENT_DIALOG_event(AllegroFlare::GameEvent* dialog_event=nullptr)</td>
 </tr>
 <tr>
   <td class="method">emit_dialog_switch_in_event()</td>
@@ -7758,6 +7768,12 @@ table td
 </tr>
 <tr>
   <td class="method">emit_dialog_close_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_switch_in_event()</td>
+</tr>
+<tr>
+  <td class="method">emit_dialog_switch_out_event()</td>
 </tr>
 <tr>
   <td class="method">emit_switch_screen_event(std::string screen_identifier_to_switch_to=0)</td>
