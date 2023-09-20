@@ -2,11 +2,14 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
+#include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <filesystem>
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -305,8 +308,91 @@ void DialogSystem::dialog_advance()
    active_dialog_box->advance();
    if (active_dialog_box->get_finished())
    {
+      if (active_dialog_node)
+      {
+         // If this dialog node has no options, then proceed to a "shutdown" state
+
+         // If the dialog node has 1 option, "activate" it
+
+         // If the dialog *node* has more than 1 option, correlate the dialog *box*'s current cursor position
+            // with the result and "activate" it
+      }
+
       // TODO: Figure out what to do when the dialog is finished.
    }
+   return;
+}
+
+void DialogSystem::activate(int selection_choice)
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate: error: guard \"event_emitter\" not met");
+   }
+   if (!(active_dialog_node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate]: error: guard \"active_dialog_node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate: error: guard \"active_dialog_node\" not met");
+   }
+   if (!((selection_choice >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate]: error: guard \"(selection_choice >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate: error: guard \"(selection_choice >= 0)\" not met");
+   }
+   if (!((selection_choice < active_dialog_node->num_options())))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate]: error: guard \"(selection_choice < active_dialog_node->num_options())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate: error: guard \"(selection_choice < active_dialog_node->num_options())\" not met");
+   }
+   // TODO: Consider case where dialog node has no (empty) options
+
+   AllegroFlare::DialogTree::NodeOptions::Base* node_option =
+      active_dialog_node->get_option_num(selection_choice).second;
+   std::string node_option_type = node_option->get_type();
+
+   std::map<std::string, std::function<void()>> types_map = {
+      { AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE, [this, node_option]() {
+         AllegroFlare::DialogTree::NodeOptions::ExitDialog* as_exit_dialog_node_option =
+            static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
+
+         //event_emitter->emit_dialog_close_event();
+         shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+      }},
+      { AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE, [this, node_option]() {
+         // TODO: Test this case
+         AllegroFlare::DialogTree::NodeOptions::GoToNode* as_go_to_node_dialog_node_option =
+            static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(node_option);
+         std::string target_node_name = as_go_to_node_dialog_node_option->get_target_node_name();
+
+         //event_emitter->emit_dialog_open_event(target_node_name);
+         spawn_named_dialog(target_node_name);
+      }},
+   };
+
+   // locate and call the function to handle the item
+   if (types_map.count(node_option_type) == 0)
+   {
+      // item not found
+      std::stringstream error_message;
+      error_message << "[DialogTree::NodeOptionActivator::activate]: error: Cannot activate a node with the "
+                    << "node_option_type \"" << node_option_type << "\", a handling for that type does not exist.";
+      throw std::runtime_error(error_message.str());
+   }
+   else
+   {
+      // call the item
+      types_map[node_option_type]();
+   }
+
    return;
 }
 
@@ -339,8 +425,11 @@ bool DialogSystem::shutdown_dialog()
       throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"initialized\" not met");
    }
    if (!active_dialog_box) return false;
-   delete active_dialog_box;
+   delete active_dialog_box; // TODO: Consider a less intrusive soft delete (with cleanup during update)
    active_dialog_box = nullptr;
+   active_dialog_node = nullptr;
+   // NOTE: Note that active_dialog_node is not deleted, because any pointer to a dialog node is a pointer
+   // to one that is static in the dialog_node_bank
    if (get_switched_in())
    {
       switch_out();

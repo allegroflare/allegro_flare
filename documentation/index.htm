@@ -1835,6 +1835,9 @@ table td
   <td class="method">dialog_advance()</td>
 </tr>
 <tr>
+  <td class="method">activate(int selection_choice=0)</td>
+</tr>
+<tr>
   <td class="method">dialog_is_finished()</td>
 </tr>
 <tr>
@@ -1923,6 +1926,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::YAMLLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/YAMLLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::GoToNode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -26979,6 +26988,17 @@ table td
   "AllegroFlare/DialogTree/YAMLLoader": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogTree/NodeOptionActivator",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
@@ -26988,15 +27008,6 @@ table td
   ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Node"
-  ],
-  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
-    "AllegroFlare/DialogTree/NodeOptionActivator",
-    "AllegroFlare/DialogTree/YAMLLoader"
-  ],
-  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
-    "AllegroFlare/DialogTree/NodeOptionActivator",
-    "AllegroFlare/DialogTree/NodeOptionActivator",
-    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "std/make_pair": [
     "AllegroFlare/DialogTree/YAMLLoader"

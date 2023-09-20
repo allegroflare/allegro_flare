@@ -59,6 +59,7 @@ namespace AllegroFlare
          void render();
          bool a_dialog_is_active();
          void dialog_advance();
+         void activate(int selection_choice=0);
          bool dialog_is_finished();
          bool shutdown_dialog();
          void move_dialog_cursor_position_up();
