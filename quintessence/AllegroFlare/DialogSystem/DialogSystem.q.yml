@@ -163,7 +163,6 @@ methods:
         default_argument: nullptr
     guards: [ initialized ]
     body: |
-      //using namespace AllegroFlare::Prototypes::FixedRoom2D;
       //using namespace AllegroFlare::DialogSystem;
       // NOTE: there is currently no way to know if "game_event_data" comes from a DIALOG_EVENT_NAME type.
       // It might not be important:
