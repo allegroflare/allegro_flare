@@ -444,6 +444,10 @@ void DialogSystem::dialog_cursor_up()
    {
       // do nothing
    }
+   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
+   {
+      // TODO: Implement this cursor movement
+   }
    else
    {
       // TODO: test this condition
@@ -465,6 +469,10 @@ void DialogSystem::dialog_cursor_down()
    if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       // do nothing
+   }
+   if (active_dialog->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
+   {
+      // TODO: Implement this cursor movement
    }
    else
    {

@@ -1598,6 +1598,19 @@ void Full::draw_overlay()
    if (drawing_dialogs)
    {
       dialog_system.render(); // Consider moving this to a dedcated DialogSystem::Renderer
+      if (dialog_system.get_switched_in())
+      {
+         // Draw a debugging notice for when the dialog system is "switched in"
+         // TODO: Add a flag to enable/disable this text notice
+         al_draw_text(
+            obtain_system_text_font_medium(),
+            ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2},
+            20,
+            30,
+            ALLEGRO_ALIGN_LEFT,
+            "Dialog system is switched in"
+         );
+      }
    }
 
    if (drawing_inputs_bar_overlay)
