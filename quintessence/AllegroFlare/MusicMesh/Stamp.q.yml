@@ -30,7 +30,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: reassign_multi_mesh_id
