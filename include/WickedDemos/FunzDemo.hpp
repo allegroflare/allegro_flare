@@ -165,7 +165,7 @@ public:
    FunzDemo(AllegroFlare::Frameworks::Full *framework=nullptr, AllegroFlare::Display *display=nullptr);
    ~FunzDemo();
 
-   static void run();
+   static void run(float seconds_to_timeout=-1);
    void initialize();
    void set_targets_to_currents();
    void rescale_entity_ids();

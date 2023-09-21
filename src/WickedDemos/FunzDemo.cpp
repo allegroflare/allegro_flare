@@ -71,7 +71,7 @@ FunzDemo::FunzDemo(AllegroFlare::Frameworks::Full *framework, AllegroFlare::Disp
 
 
 
-void FunzDemo::run()
+void FunzDemo::run(float seconds_to_timeout)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.disable_fullscreen();
@@ -83,7 +83,7 @@ void FunzDemo::run()
    framework.register_and_activate_screen("funz_demo", funz_demo);
    //framework.activate_screen("funz_demo");
 
-   framework.run_loop();
+   framework.run_loop(seconds_to_timeout);
    //framework.unregister_screen(funz_demo);
 
    //delete funz_demo;
