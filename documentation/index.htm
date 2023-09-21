@@ -1976,6 +1976,10 @@ table td
   <td class="property">options</td>
   <td class="property">std::vector&lt;std::pair&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*&gt;&gt;</td>
 </tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -1994,6 +1998,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
 </tr>
@@ -27005,6 +27012,9 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/NodeOptionActivator",
     "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/DialogTree/Nodes/Base": [
+    "AllegroFlare/DialogTree/Node"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",

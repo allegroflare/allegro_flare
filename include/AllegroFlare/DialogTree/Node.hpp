@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
+#include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <string>
 #include <utility>
 #include <vector>
@@ -11,8 +12,11 @@ namespace AllegroFlare
 {
    namespace DialogTree
    {
-      class Node
+      class Node : public AllegroFlare::DialogTree::Nodes::Base
       {
+      public:
+         static constexpr char* TYPE = (char*)"AllegroFlare/DialogTree/Node";
+
       private:
          std::string speaker;
          std::vector<std::string> pages;

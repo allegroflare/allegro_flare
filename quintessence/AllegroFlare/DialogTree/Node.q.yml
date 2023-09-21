@@ -1,3 +1,11 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::Nodes::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::Node::TYPE
+
+
 properties:
 
 
@@ -21,6 +29,12 @@ properties:
     init_with: '{}'
     getter: true
     setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/Node"'
+    static: true
+    constexpr: true
 
 
 functions:
@@ -72,6 +86,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::Base
     headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
   - symbol: AllegroFlare::Logger::throw_error

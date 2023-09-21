@@ -915,6 +915,9 @@
     "AllegroFlare/DialogTree/NodeOptionActivator",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/DialogTree/Nodes/Base": [
+    "AllegroFlare/DialogTree/Node"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
