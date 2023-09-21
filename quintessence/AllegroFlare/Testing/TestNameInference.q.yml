@@ -55,7 +55,7 @@ functions:
          }
          else
          {
-            if (!is_valid_prefix_token(token)) break;
+            if (!is_valid_prefix_token_format(token)) break;
 
             result_tokens.push_back(token);
          }
@@ -63,7 +63,7 @@ functions:
       return result_tokens;
 
 
-  - name: is_valid_prefix_token
+  - name: is_valid_prefix_token_format
     static: true
     type: bool
     parameters:

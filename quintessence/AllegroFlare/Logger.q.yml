@@ -38,7 +38,7 @@ properties:
     init_with: '{}'
 
 
-functions:
+methods:
 
 
   - name: build_error_message

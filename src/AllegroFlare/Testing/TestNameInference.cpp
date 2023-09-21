@@ -59,7 +59,7 @@ std::vector<std::string> TestNameInference::extract_prefix_tokens(std::string st
       }
       else
       {
-         if (!is_valid_prefix_token(token)) break;
+         if (!is_valid_prefix_token_format(token)) break;
 
          result_tokens.push_back(token);
       }
@@ -67,7 +67,7 @@ std::vector<std::string> TestNameInference::extract_prefix_tokens(std::string st
    return result_tokens;
 }
 
-bool TestNameInference::is_valid_prefix_token(std::string possible_prefix_token)
+bool TestNameInference::is_valid_prefix_token_format(std::string possible_prefix_token)
 {
    if (possible_prefix_token.empty() || !isupper(possible_prefix_token[0]))
    {

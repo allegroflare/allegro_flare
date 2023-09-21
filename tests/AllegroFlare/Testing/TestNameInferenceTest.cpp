@@ -51,26 +51,26 @@ TEST(AllegroFlare_Testing_TestNameInferenceTest,
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   is_valid_prefix_token__will_return_true_on_valid_tokens)
+   is_valid_prefix_token_format__will_return_true_on_valid_tokens)
 {
    std::vector<std::string> valid_prefix_tokens = {"TOKEN", "TOKEN2", "ANOTHER_TOKEN"};
 
    for (int i = 0; i < valid_prefix_tokens.size(); ++i)
    {
-      EXPECT_EQ(true, AllegroFlare::Testing::TestNameInference::is_valid_prefix_token(valid_prefix_tokens[i]));
+      EXPECT_EQ(true, AllegroFlare::Testing::TestNameInference::is_valid_prefix_token_format(valid_prefix_tokens[i]));
    }
 }
 
 
 TEST(AllegroFlare_Testing_TestNameInferenceTest,
-   is_valid_prefix_token__will_return_false_on_invalid_tokens)
+   is_valid_prefix_token_format__will_return_false_on_invalid_tokens)
 {
    std::vector<std::string> invalid_prefix_tokens = {
       "some_words", "another_word", "__", "_", "  ", "", "1234", "1ABA", "SOME__TOKEN"
    };
    for (int i = 0; i < invalid_prefix_tokens.size(); ++i)
    {
-      EXPECT_EQ(false, AllegroFlare::Testing::TestNameInference::is_valid_prefix_token(invalid_prefix_tokens[i]));
+      EXPECT_EQ(false, AllegroFlare::Testing::TestNameInference::is_valid_prefix_token_format(invalid_prefix_tokens[i]));
    }
 }
 

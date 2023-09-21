@@ -47,7 +47,7 @@ properties:
     init_with: false
 
 
-functions:
+methods:
 
 
   - name: set_display_samples
