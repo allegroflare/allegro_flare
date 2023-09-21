@@ -886,7 +886,6 @@
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
@@ -913,20 +912,13 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
-  "AllegroFlare/DialogTree/Node": [
-    "AllegroFlare/DialogTree/Factory",
-    "AllegroFlare/DialogTree/NodeOptions/Node"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
-    "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
-    "AllegroFlare/DialogTree/NodeOptions/Node",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Logger/throw_error": [
-    "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"
   ],
   "std/make_pair": [

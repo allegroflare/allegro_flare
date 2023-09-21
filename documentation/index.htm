@@ -74,13 +74,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml">quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/DialogTree/Factory.q.yml">quintessence/AllegroFlare/DialogTree/Factory.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/DialogTree/Node.q.yml">quintessence/AllegroFlare/DialogTree/Node.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/ExitDialog.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/ExitDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/Node.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/Node.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml">quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml</a></li>
@@ -1950,73 +1947,6 @@ table td
 <ul>
   <div class="component">
     <h3>Properties</h3>
-<p>This class contains no properties</p>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-<tr>
-  <td class="method">build_test_tree()</td>
-</tr>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Node&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Node.hpp&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3>Properties</h3>
-<div class="property-box properties">     <table>
-<tr>
-  <td class="property">speaker</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">pages</td>
-  <td class="property">std::vector&lt;std::string&gt;</td>
-</tr>
-<tr>
-  <td class="property">options</td>
-  <td class="property">std::vector&lt;std::pair&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*&gt;&gt;</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-</div>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-<tr>
-  <td class="method">get_option_num(int option_num=0)</td>
-</tr>
-<tr>
-  <td class="method">build_options_as_text()</td>
-</tr>
-<tr>
-  <td class="method">num_pages()</td>
-</tr>
-<tr>
-  <td class="method">num_options()</td>
-</tr>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger::throw_error&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">nodes</td>
@@ -2108,33 +2038,6 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3>Properties</h3>
-<div class="property-box properties">     <table>
-<tr>
-  <td class="property">node</td>
-  <td class="property">AllegroFlare::DialogTree::Node*</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-</div>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Node&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Node.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27003,7 +26906,6 @@ table td
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
@@ -27030,20 +26932,13 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
-  "AllegroFlare/DialogTree/Node": [
-    "AllegroFlare/DialogTree/Factory",
-    "AllegroFlare/DialogTree/NodeOptions/Node"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
-    "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
-    "AllegroFlare/DialogTree/NodeOptions/Node",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Logger/throw_error": [
-    "AllegroFlare/DialogTree/Node",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"
   ],
   "std/make_pair": [
