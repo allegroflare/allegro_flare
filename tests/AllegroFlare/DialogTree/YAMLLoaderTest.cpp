@@ -5,6 +5,16 @@
 
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
+#include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
+
+
+static AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage(
+   AllegroFlare::DialogTree::Nodes::Base* base)
+{
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions *result =
+      static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(base);
+   return result;
+}
 
 
 class AllegroFlare_DialogTree_YAMLLoaderTest : public ::testing::Test {};
@@ -24,15 +34,7 @@ options:
     type: go_to_node
     data: { target_node_name: my_dialog_node_567 }
   - text: I have a bad feeling too. We must proceed cautiously.
-    type: node
-    data:
-      speaker: yuki
-      pages:
-        - Agreed. Trusting our instincts is crucial in these situations.
-        - Let's carefully analyze each step and keep an eye out for any hidden dangers.
-      options:
-        - text: Agreed. Let's gather more information discreetly.
-          type: exit_dialog
+    type: exit_dialog
   - text: I'll keep my eyes open and watch our backs
     type: exit_dialog
 )YAML_CONTENT";
@@ -54,15 +56,7 @@ public:
       type: go_to_node
       data: { target_node_name: my_dialog_node_567 }
     - text: I have a bad feeling too. We must proceed cautiously.
-      type: node
-      data:
-        speaker: yuki
-        pages:
-          - Agreed. Trusting our instincts is crucial in these situations.
-          - Let's carefully analyze each step and keep an eye out for any hidden dangers.
-        options:
-          - text: Agreed. Let's gather more information discreetly.
-            type: exit_dialog
+      type: exit_dialog
     - text: I'll keep my eyes open and watch our backs
       type: exit_dialog
 - name: my_node_567
@@ -132,12 +126,19 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
    EXPECT_EQ(true, node_bank.node_exists_by_name("my_node_567"));
 
    // Sanity check node "my_node_345"
-   AllegroFlare::DialogTree::Node* my_node_345 = node_bank.find_node_by_name("my_node_345");
+   //AllegroFlare::DialogTree::Nodes::Base* my_node_345 = node_bank.find_node_by_name("my_node_345");
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions* my_node_345 = as_multipage(
+      node_bank.find_node_by_name("my_node_345")
+   );
+
    EXPECT_EQ("yuki", my_node_345->get_speaker());
    EXPECT_EQ(3, my_node_345->get_pages().size());
 
    // Sanity check node "my_node_567"
-   AllegroFlare::DialogTree::Node* my_node_567 = node_bank.find_node_by_name("my_node_567");
+   //AllegroFlare::DialogTree::Nodes::Base* my_node_567 = node_bank.find_node_by_name("my_node_567");
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions* my_node_567 = as_multipage(
+      node_bank.find_node_by_name("my_node_567")
+   );
    EXPECT_EQ(1, my_node_567->get_pages().size());
    EXPECT_EQ("charlie", my_node_567->get_speaker());
 }
@@ -150,11 +151,13 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 }
 
 
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_node__will_extract_the_speaker)
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
+   parse_and_create_MultipageWithOptions_node__will_extract_the_speaker)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions *actual_node =
+      yaml_loader.parse_and_create_MultipageWithOptions_node(&node).second;
    ASSERT_NE(nullptr, actual_node);
    EXPECT_EQ("yuki", actual_node->get_speaker());
 }
@@ -167,11 +170,13 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_n
 //}
 
 
-TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_node__will_extract_the_pages)
+TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
+   parse_and_create_MultipageWithOptions_node__will_extract_the_pages)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions *actual_node =
+      yaml_loader.parse_and_create_MultipageWithOptions_node(&node).second;
    ASSERT_NE(nullptr, actual_node);
 
    std::vector<std::string> expected_pages = {
@@ -187,11 +192,12 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData, parse_and_create_n
 
 
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
-   parse_and_create_node__will_extract_the_expected_number_of_options)
+   parse_and_create_MultiPageWithOptions_node__will_extract_the_expected_number_of_options)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions *actual_node =
+      yaml_loader.parse_and_create_MultipageWithOptions_node(&node).second;
    ASSERT_NE(nullptr, actual_node);
 
    std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> actual_options =
@@ -203,11 +209,12 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
 
 
 TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
-   parse_and_create_node__on_the_root_node__will_extract_options_with_the_expected_content)
+   parse_and_create_MultipageWithOptions_node__on_the_root_node__will_extract_options_with_the_expected_content)
 {
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    YAML::Node node = YAML::Load(yaml_as_string);
-   AllegroFlare::DialogTree::Node *actual_node = yaml_loader.parse_and_create_node(&node).second;
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions *actual_node =
+      as_multipage(yaml_loader.parse_and_create_MultipageWithOptions_node(&node).second);
    ASSERT_NE(nullptr, actual_node);
    std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> extracted_options =
       actual_node->get_options();
@@ -223,17 +230,18 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithFixtureData,
    EXPECT_EQ("my_dialog_node_567", as_go_to_node_0->get_target_node_name());
 
    // Option 1
-   std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_1 = extracted_options[1];
-   EXPECT_EQ("I have a bad feeling too. We must proceed cautiously.", expected_option_1.first);
-   ASSERT_NE(nullptr, expected_option_1.second);
-   EXPECT_EQ(true, expected_option_1.second->is_type(AllegroFlare::DialogTree::NodeOptions::Node::TYPE));
-   AllegroFlare::DialogTree::NodeOptions::Node *as_node_1 =
-      static_cast<AllegroFlare::DialogTree::NodeOptions::Node*>(expected_option_1.second);
-   // Nested node content in Option 1 (sanity check)
-   // TODO: Consider more thorough testing
-      AllegroFlare::DialogTree::Node *actual_nested_node = as_node_1->get_node();
-      ASSERT_NE(nullptr, actual_nested_node);
-      EXPECT_EQ("yuki", actual_nested_node->get_speaker());
+   // //TODO: Re-evaluate this test now that NodeOptions::Node is removed
+   //std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_1 = extracted_options[1];
+   //EXPECT_EQ("I have a bad feeling too. We must proceed cautiously.", expected_option_1.first);
+   //ASSERT_NE(nullptr, expected_option_1.second);
+   //EXPECT_EQ(true, expected_option_1.second->is_type(AllegroFlare::DialogTree::NodeOptions::Node::TYPE));
+   //AllegroFlare::DialogTree::NodeOptions::Node *as_node_1 =
+      //static_cast<AllegroFlare::DialogTree::NodeOptions::Node*>(expected_option_1.second);
+   //// Nested node content in Option 1 (sanity check)
+   //// TODO: Consider more thorough testing
+      //AllegroFlare::DialogTree::Nodes::Base *actual_nested_node = as_node_1->get_node();
+      //ASSERT_NE(nullptr, actual_nested_node);
+      //EXPECT_EQ("yuki", actual_nested_node->get_speaker());
 
    // Option 2
    std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> expected_option_2 = extracted_options[2];

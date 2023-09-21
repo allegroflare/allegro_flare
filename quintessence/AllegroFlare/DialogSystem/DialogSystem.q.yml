@@ -29,7 +29,7 @@ properties:
     init_with: nullptr
 
   - name: active_dialog_node
-    type: AllegroFlare::DialogTree::Node*
+    type: AllegroFlare::DialogTree::Nodes::Base*
     init_with: nullptr
 
   - name: active_dialog_node_name
@@ -519,8 +519,8 @@ dependencies:
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeBank
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
-  - symbol: AllegroFlare::DialogTree::Node
-    headers: [ AllegroFlare/DialogTree/Node.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
   - symbol: std::filesystem::exists
     headers: [ filesystem ]
   - symbol: AllegroFlare::DialogTree::YAMLLoader

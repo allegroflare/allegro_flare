@@ -2,8 +2,8 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/DialogTree/Node.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
+#include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -27,7 +27,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::DialogTree::NodeBank dialog_node_bank;
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
-         AllegroFlare::DialogTree::Node* active_dialog_node;
+         AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
          bool switched_in;
          std::string standard_dialog_box_font_name;

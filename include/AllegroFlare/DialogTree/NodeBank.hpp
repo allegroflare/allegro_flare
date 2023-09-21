@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/DialogTree/Node.hpp>
+#include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <cstdint>
 #include <map>
 #include <string>
@@ -14,7 +14,7 @@ namespace AllegroFlare
       class NodeBank
       {
       private:
-         std::map<std::string, AllegroFlare::DialogTree::Node*> nodes;
+         std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*> nodes;
 
       protected:
 
@@ -23,11 +23,11 @@ namespace AllegroFlare
          NodeBank();
          ~NodeBank();
 
-         void set_nodes(std::map<std::string, AllegroFlare::DialogTree::Node*> nodes);
+         void set_nodes(std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*> nodes);
          uint32_t num_nodes();
-         void add_node(std::string name="[unset-name]", AllegroFlare::DialogTree::Node* node=nullptr);
+         void add_node(std::string name="[unset-name]", AllegroFlare::DialogTree::Nodes::Base* node=nullptr);
          bool node_exists_by_name(std::string name="[unset-name]");
-         AllegroFlare::DialogTree::Node* find_node_by_name(std::string name="[unset-name]");
+         AllegroFlare::DialogTree::Nodes::Base* find_node_by_name(std::string name="[unset-name]");
       };
    }
 }

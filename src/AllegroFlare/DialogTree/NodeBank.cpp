@@ -24,7 +24,7 @@ NodeBank::~NodeBank()
 }
 
 
-void NodeBank::set_nodes(std::map<std::string, AllegroFlare::DialogTree::Node*> nodes)
+void NodeBank::set_nodes(std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*> nodes)
 {
    this->nodes = nodes;
 }
@@ -35,7 +35,7 @@ uint32_t NodeBank::num_nodes()
    return nodes.size();
 }
 
-void NodeBank::add_node(std::string name, AllegroFlare::DialogTree::Node* node)
+void NodeBank::add_node(std::string name, AllegroFlare::DialogTree::Nodes::Base* node)
 {
    if (!(node))
    {
@@ -59,7 +59,7 @@ bool NodeBank::node_exists_by_name(std::string name)
    return (nodes.find(name) != nodes.end());
 }
 
-AllegroFlare::DialogTree::Node* NodeBank::find_node_by_name(std::string name)
+AllegroFlare::DialogTree::Nodes::Base* NodeBank::find_node_by_name(std::string name)
 {
    if (!(node_exists_by_name(name)))
    {

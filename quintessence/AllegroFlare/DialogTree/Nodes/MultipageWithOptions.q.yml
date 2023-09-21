@@ -1,0 +1,96 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::Nodes::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE
+
+
+properties:
+
+
+  - name: speaker
+    type: std::string
+    init_with: '"[unset-speaker]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: pages
+    type: std::vector<std::string>
+    init_with: '{"[unset-pages]"}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: options
+    type: std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/Nodes/MultipageWithOptions"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: get_option_num
+    type: std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>
+    parameters:
+      - name: option_num
+        type: int
+        default_argument: 0
+    guards: [ (option_num >= 0), (option_num < options.size()) ]
+    body: |
+       return options[option_num];
+
+
+  - name: build_options_as_text
+    type: std::vector<std::string>
+    body: |
+      // TODO: Test this function
+      std::vector<std::string> result;
+      result.reserve(options.size());
+      for (auto &option : options)
+      {
+         // TODO: Consider if this check is necessary
+         if (!option.second)
+         {
+            AllegroFlare::Logger::throw_error("AllegroFlare/DialogTree/Node", "an option contains a nullptr");
+         }
+         result.push_back(option.first);
+      }
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Logger::throw_error
+
+
+  - name: num_pages
+    type: int
+    body: |
+      return pages.size();
+
+
+  - name: num_options
+    type: int
+    body: |
+      return options.size();
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::Base
+    headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
+  - symbol: AllegroFlare::Logger::throw_error
+    headers: [ AllegroFlare/Logger.hpp ]
+
+

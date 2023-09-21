@@ -5,6 +5,7 @@
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
+#include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <functional>
@@ -107,12 +108,13 @@ void YAMLLoader::load(std::string yaml_as_string)
    // TODO: Traverse the nodes, load as nodes
    for (const auto& node : root_node)
    {
+      // TODO: Add "type" and load nodes by different types
       YAML::Node hack_node_copy = node;
-      std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info =
-         parse_and_create_node(&hack_node_copy);
+      std::pair<std::string, AllegroFlare::DialogTree::Nodes::Base*> created_node_info =
+         parse_and_create_MultipageWithOptions_node(&hack_node_copy);
 
       std::string created_node_name = created_node_info.first;
-      AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
+      AllegroFlare::DialogTree::Nodes::Base* created_node = created_node_info.second;
 
       node_bank.add_node(created_node_name, created_node);
    }
@@ -122,11 +124,14 @@ void YAMLLoader::load(std::string yaml_as_string)
    return;
 }
 
-std::pair<std::string, AllegroFlare::DialogTree::Node*> YAMLLoader::parse_and_create_node(YAML::Node* node_ptr)
+std::pair<std::string, AllegroFlare::DialogTree::Nodes::MultipageWithOptions*> YAMLLoader::parse_and_create_MultipageWithOptions_node(YAML::Node* node_ptr)
 {
+   // TODO: Validate type
+
    YAML::Node &root_node = *node_ptr; // TODO: Rename "root_node" to "node"
    std::string result_node_name = "unset-result_node_name";
-   AllegroFlare::DialogTree::Node *result_node = new AllegroFlare::DialogTree::Node;
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions *result_node =
+      new AllegroFlare::DialogTree::Nodes::MultipageWithOptions;
 
    // Extract a name node (if it is present)
    bool name_node_is_present = validate_presence_of_key(root_node, NAME_KEY, false);
@@ -226,10 +231,10 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
       { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result, data_node_ptr](){
          result = parse_and_create_GoToNode_option(data_node_ptr);
       }},
-      { OPTION_TYPE_NODE_KEY, [this, &result, data_node_ptr](){
-         // NOTE: For now, option nodes do not have names. "name" is reserved for nodes on the root
-         result = parse_and_create_Node_option(data_node_ptr);
-      }},
+      //{ OPTION_TYPE_NODE_KEY, [this, &result, data_node_ptr](){
+         //// NOTE: For now, option nodes do not have names. "name" is reserved for nodes on the root
+         //result = parse_and_create_Node_option(data_node_ptr);
+      //}},
    };
 
    // Locate and call the function to handle the item
@@ -276,28 +281,6 @@ AllegroFlare::DialogTree::NodeOptions::GoToNode* YAMLLoader::parse_and_create_Go
 
    // Assign the data to the result
    result->set_target_node_name(result_target_node_name);
-
-   // Return the result
-   return result;
-}
-
-AllegroFlare::DialogTree::NodeOptions::Node* YAMLLoader::parse_and_create_Node_option(YAML::Node* data_node_ptr)
-{
-   if (!(data_node_ptr))
-   {
-      std::stringstream error_message;
-      error_message << "[YAMLLoader::parse_and_create_Node_option]: error: guard \"data_node_ptr\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::parse_and_create_Node_option: error: guard \"data_node_ptr\" not met");
-   }
-   YAML::Node &node = *data_node_ptr;
-   AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
-    
-   std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_for_option =
-      parse_and_create_node(&node);
-   //std::string option_node_name = created_node_for_option.first; // NOTE: For now, option nodes do not have names
-   AllegroFlare::DialogTree::Node* option_node = created_node_for_option.second;
-   result->set_node(option_node);
 
    // Return the result
    return result;

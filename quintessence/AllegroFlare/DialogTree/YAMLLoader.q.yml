@@ -98,13 +98,6 @@ properties:
     const: true
     init_with: '(char*)"data"'
 
-  - name: OPTION_TYPE_NODE_KEY
-    type: char*
-    constexpr: true
-    static: true
-    const: true
-    init_with: '(char*)"node"'
-
   - name: OPTION_TYPE_GO_TO_NODE_KEY
     type: char*
     constexpr: true
@@ -182,12 +175,13 @@ functions:
       // TODO: Traverse the nodes, load as nodes
       for (const auto& node : root_node)
       {
+         // TODO: Add "type" and load nodes by different types
          YAML::Node hack_node_copy = node;
-         std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_info =
-            parse_and_create_node(&hack_node_copy);
+         std::pair<std::string, AllegroFlare::DialogTree::Nodes::Base*> created_node_info =
+            parse_and_create_MultipageWithOptions_node(&hack_node_copy);
 
          std::string created_node_name = created_node_info.first;
-         AllegroFlare::DialogTree::Node* created_node = created_node_info.second;
+         AllegroFlare::DialogTree::Nodes::Base* created_node = created_node_info.second;
 
          node_bank.add_node(created_node_name, created_node);
       }
@@ -201,16 +195,19 @@ functions:
       - AllegroFlare::DialogTree::NodeOptions::Base
 
 
-  - name: parse_and_create_node
-    type: std::pair<std::string, AllegroFlare::DialogTree::Node*>
+  - name: parse_and_create_MultipageWithOptions_node
+    type: std::pair<std::string, AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>
     parameters:
       - name: node_ptr
         type: YAML::Node*
         default_argument: nullptr
     body: |
+      // TODO: Validate type
+
       YAML::Node &root_node = *node_ptr; // TODO: Rename "root_node" to "node"
       std::string result_node_name = "unset-result_node_name";
-      AllegroFlare::DialogTree::Node *result_node = new AllegroFlare::DialogTree::Node;
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *result_node =
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions;
 
       // Extract a name node (if it is present)
       bool name_node_is_present = validate_presence_of_key(root_node, NAME_KEY, false);
@@ -293,6 +290,7 @@ functions:
     body_dependency_symbols:
       - std::make_pair
       - AllegroFlare::Logger
+      - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
       - AllegroFlare::DialogTree::NodeOptions::Base
 
 
@@ -316,10 +314,10 @@ functions:
          { OPTION_TYPE_GO_TO_NODE_KEY, [this, &result, data_node_ptr](){
             result = parse_and_create_GoToNode_option(data_node_ptr);
          }},
-         { OPTION_TYPE_NODE_KEY, [this, &result, data_node_ptr](){
-            // NOTE: For now, option nodes do not have names. "name" is reserved for nodes on the root
-            result = parse_and_create_Node_option(data_node_ptr);
-         }},
+         //{ OPTION_TYPE_NODE_KEY, [this, &result, data_node_ptr](){
+            //// NOTE: For now, option nodes do not have names. "name" is reserved for nodes on the root
+            //result = parse_and_create_Node_option(data_node_ptr);
+         //}},
       };
 
       // Locate and call the function to handle the item
@@ -375,27 +373,6 @@ functions:
       return result;
 
 
-  - name: parse_and_create_Node_option
-    type: AllegroFlare::DialogTree::NodeOptions::Node*
-    parameters:
-      - name: data_node_ptr
-        type: YAML::Node*
-        default_argument: nullptr
-    guards: [ data_node_ptr ]
-    body: |
-      YAML::Node &node = *data_node_ptr;
-      AllegroFlare::DialogTree::NodeOptions::Node* result = new AllegroFlare::DialogTree::NodeOptions::Node;
-       
-      std::pair<std::string, AllegroFlare::DialogTree::Node*> created_node_for_option =
-         parse_and_create_node(&node);
-      //std::string option_node_name = created_node_for_option.first; // NOTE: For now, option nodes do not have names
-      AllegroFlare::DialogTree::Node* option_node = created_node_for_option.second;
-      result->set_node(option_node);
-
-      // Return the result
-      return result;
-
-
 dependencies:
 
 
@@ -403,8 +380,8 @@ dependencies:
     headers: [ utility ]
   - symbol: AllegroFlare::YAMLValidator
     headers: [ AllegroFlare/YAMLValidator.hpp ]
-  - symbol: AllegroFlare::DialogTree::Node
-    headers: [ AllegroFlare/DialogTree/Node.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::Base
@@ -413,13 +390,13 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::GoToNode
     headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
-  - symbol: AllegroFlare::DialogTree::NodeOptions::Node
-    headers: [ AllegroFlare/DialogTree/NodeOptions/Node.hpp ]
   - symbol: YAML::Node
     headers: [ yaml-cpp/yaml.h ]
   - symbol: AllegroFlare::DialogTree::NodeBank
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
   - symbol: AllegroFlare::php::file_get_contents
     headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+    headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
 
 
