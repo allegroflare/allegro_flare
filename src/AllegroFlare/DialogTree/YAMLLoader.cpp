@@ -110,13 +110,31 @@ void YAMLLoader::load(std::string yaml_as_string)
    {
       // TODO: Add "type" and load nodes by different types
       YAML::Node hack_node_copy = node;
-      std::pair<std::string, AllegroFlare::DialogTree::Nodes::Base*> created_node_info =
-         parse_and_create_MultipageWithOptions_node(&hack_node_copy);
+      bool type_exists = validate_presence_of_key(hack_node_copy, "type", false);
+      bool data_exists = validate_presence_of_key(hack_node_copy, "data", false);
+      std::string DEFAULT_NODE_TYPE = "multipage_with_options";
+      std::string node_type = "[undefined-node_type]";
 
-      std::string created_node_name = created_node_info.first;
-      AllegroFlare::DialogTree::Nodes::Base* created_node = created_node_info.second;
+      if (!type_exists) node_type = DEFAULT_NODE_TYPE;
+      else node_type = hack_node_copy["type"].as<std::string>();
 
-      node_bank.add_node(created_node_name, created_node);
+      if (node_type == "multipage_with_options")
+      {
+         std::pair<std::string, AllegroFlare::DialogTree::Nodes::Base*> created_node_info =
+            parse_and_create_MultipageWithOptions_node(&hack_node_copy);
+
+         std::string created_node_name = created_node_info.first;
+         AllegroFlare::DialogTree::Nodes::Base* created_node = created_node_info.second;
+
+         node_bank.add_node(created_node_name, created_node);
+      }
+      else
+      {
+         std::stringstream error_message;
+         error_message << "[YAMLLoader::load]: error: Cannot create a node of a \"type: "
+                       << node_type << "\". A declaration to handle that type does not exist.";
+         throw std::runtime_error(error_message.str());
+      }
    }
 
    loaded = true;
@@ -242,7 +260,7 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
    {
       // Item not found
       std::stringstream error_message;
-      error_message << "[YamlLoader::parse_and_create_result_option]: error: Cannot create an option of a type \""
+      error_message << "[YAMLLoader::parse_and_create_result_option]: error: Cannot create an option of a type \""
                     << type << "\". A declaration to handle that type does not exist.";
       throw std::runtime_error(error_message.str());
    }

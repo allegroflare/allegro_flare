@@ -46,6 +46,7 @@ class AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData : pub
 public:
    std::string yaml_as_string = R"YAML_CONTENT(
 - name: my_node_345
+  type: multipage_with_options
   speaker: yuki
   pages:
     - We must find the ancient artifact before they do.
@@ -60,6 +61,7 @@ public:
     - text: I'll keep my eyes open and watch our backs
       type: exit_dialog
 - name: my_node_567
+  type: multipage_with_options
   speaker: charlie
   pages:
     - The ancient artifact before they do lies within the forgotten tomb.
@@ -81,6 +83,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, load__will_not_blow_up)
 {
    std::string yaml_as_string = R"YAML_CONTENT(
 - name: start
+  type: multipage_with_options
   speaker: yuki
   pages:
     - We must find the ancient artifact before they do.
