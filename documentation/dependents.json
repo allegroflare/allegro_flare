@@ -909,6 +909,10 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
+  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
   "AllegroFlare/DialogTree/Node": [
     "AllegroFlare/DialogTree/Factory",
     "AllegroFlare/DialogTree/NodeOptions/Node"
@@ -931,9 +935,6 @@
   "AllegroFlare/php/file_get_contents": [
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/ShaderSourcePoller"
-  ],
-  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
-    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
