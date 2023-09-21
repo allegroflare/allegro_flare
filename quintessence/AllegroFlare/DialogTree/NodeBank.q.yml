@@ -7,7 +7,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: num_nodes
