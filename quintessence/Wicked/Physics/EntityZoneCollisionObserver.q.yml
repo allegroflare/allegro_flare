@@ -14,7 +14,7 @@ properties:
     getter: true
 
 
-functions:
+methods:
 
 
   - name: get_collided
