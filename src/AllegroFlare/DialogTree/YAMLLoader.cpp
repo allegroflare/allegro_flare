@@ -110,20 +110,40 @@ void YAMLLoader::load(std::string yaml_as_string)
    {
       // TODO: Add "type" and load nodes by different types
       YAML::Node hack_node_copy = node;
+      bool name_exists = validate_presence_of_key(hack_node_copy, "name", false);
       bool type_exists = validate_presence_of_key(hack_node_copy, "type", false);
       bool data_exists = validate_presence_of_key(hack_node_copy, "data", false);
-      std::string DEFAULT_NODE_TYPE = "multipage_with_options";
+      std::string DEFAULT_NODE_TYPE = MULTIPAGE_WITH_OPTIONS_KEY;
       std::string node_type = "[undefined-node_type]";
 
       if (!type_exists) node_type = DEFAULT_NODE_TYPE;
       else node_type = hack_node_copy["type"].as<std::string>();
 
-      if (node_type == "multipage_with_options")
+      if (node_type == MULTIPAGE_WITH_OPTIONS_KEY)
       {
-         std::pair<std::string, AllegroFlare::DialogTree::Nodes::Base*> created_node_info =
-            parse_and_create_MultipageWithOptions_node(&hack_node_copy);
+         if (!name_exists)
+         {
+            std::stringstream error_message;
+            error_message << "[YAMLLoader::load]: error: When parsing node of \"type: "
+                          << node_type << "\" expecting key of type \"name\" but it does not exist.";
+            throw std::runtime_error(error_message.str());
+         }
+         if (!data_exists)
+         {
+            std::stringstream error_message;
+            error_message << "[YAMLLoader::load]: error: When parsing node of \"type: "
+                          << node_type << "\" expecting key of type \"data\" but it does not exist.";
+            throw std::runtime_error(error_message.str());
+         }
 
-         std::string created_node_name = created_node_info.first;
+         //YAML::Node name_node = hack_node_copy["name"];
+         YAML::Node data_node = hack_node_copy["data"];
+
+         std::pair<std::string, AllegroFlare::DialogTree::Nodes::Base*> created_node_info =
+            parse_and_create_MultipageWithOptions_node(&data_node);
+
+         //std::string created_node_name = created_node->name_node;
+         std::string created_node_name = hack_node_copy["name"].as<std::string>();
          AllegroFlare::DialogTree::Nodes::Base* created_node = created_node_info.second;
 
          node_bank.add_node(created_node_name, created_node);
@@ -144,20 +164,21 @@ void YAMLLoader::load(std::string yaml_as_string)
 
 std::pair<std::string, AllegroFlare::DialogTree::Nodes::MultipageWithOptions*> YAMLLoader::parse_and_create_MultipageWithOptions_node(YAML::Node* node_ptr)
 {
-   // TODO: Validate type
+   // TODO: Remove first element in pair, it was "name" but it is no longer neeed, as this method
+   // should only parse data for the MultipageWithOptions object
 
    YAML::Node &root_node = *node_ptr; // TODO: Rename "root_node" to "node"
-   std::string result_node_name = "unset-result_node_name";
+   std::string result_node_name = "unused-result_node_name--please_remove";
    AllegroFlare::DialogTree::Nodes::MultipageWithOptions *result_node =
       new AllegroFlare::DialogTree::Nodes::MultipageWithOptions;
 
-   // Extract a name node (if it is present)
-   bool name_node_is_present = validate_presence_of_key(root_node, NAME_KEY, false);
-   if (name_node_is_present)
-   {
-      validate_node_type(root_node, NAME_KEY, YAML::NodeType::Scalar);
-      result_node_name = root_node[std::string(NAME_KEY)].as<std::string>();
-   }
+   //// Extract a name node (if it is present)
+   //bool name_node_is_present = validate_presence_of_key(root_node, NAME_KEY, false);
+   //if (name_node_is_present)
+   //{
+      //validate_node_type(root_node, NAME_KEY, YAML::NodeType::Scalar);
+      //result_node_name = root_node[std::string(NAME_KEY)].as<std::string>();
+   //}
 
    // Validate and extract the speaker
    validate_presence_of_key(root_node, SPEAKER_KEY);

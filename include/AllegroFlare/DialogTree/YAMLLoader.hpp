@@ -29,6 +29,7 @@ namespace AllegroFlare
          static constexpr char* OPTION_TYPE_GO_TO_NODE_KEY = (char*)"go_to_node";
          static constexpr char* OPTION_TYPE_EXIT_DIALOG_KEY = (char*)"exit_dialog";
          static constexpr char* OPTION_DATA_TARGET_NODE_NAME_KEY = (char*)"target_node_name";
+         static constexpr char* MULTIPAGE_WITH_OPTIONS_KEY = (char*)"multipage_with_options";
 
       private:
          AllegroFlare::DialogTree::NodeBank node_bank;

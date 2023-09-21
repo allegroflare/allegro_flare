@@ -47,27 +47,29 @@ public:
    std::string yaml_as_string = R"YAML_CONTENT(
 - name: my_node_345
   type: multipage_with_options
-  speaker: yuki
-  pages:
-    - We must find the ancient artifact before they do.
-    - The key lies within the forgotten tomb.
-    - Something seems fishy. Stay vigilant.
-  options:
-    - text: Agreed. Let's gather more information discreetly.
-      type: go_to_node
-      data: { target_node_name: my_dialog_node_567 }
-    - text: I have a bad feeling too. We must proceed cautiously.
-      type: exit_dialog
-    - text: I'll keep my eyes open and watch our backs
-      type: exit_dialog
+  data:
+     speaker: yuki
+     pages:
+       - We must find the ancient artifact before they do.
+       - The key lies within the forgotten tomb.
+       - Something seems fishy. Stay vigilant.
+     options:
+       - text: Agreed. Let's gather more information discreetly.
+         type: go_to_node
+         data: { target_node_name: my_dialog_node_567 }
+       - text: I have a bad feeling too. We must proceed cautiously.
+         type: exit_dialog
+       - text: I'll keep my eyes open and watch our backs
+         type: exit_dialog
 - name: my_node_567
   type: multipage_with_options
-  speaker: charlie
-  pages:
-    - The ancient artifact before they do lies within the forgotten tomb.
-  options:
-    - text: Let's do it!
-      type: exit_dialog
+  data:
+     speaker: charlie
+     pages:
+       - The ancient artifact before they do lies within the forgotten tomb.
+     options:
+       - text: Let's do it!
+         type: exit_dialog
 )YAML_CONTENT";
 };
 
@@ -84,12 +86,13 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTest, load__will_not_blow_up)
    std::string yaml_as_string = R"YAML_CONTENT(
 - name: start
   type: multipage_with_options
-  speaker: yuki
-  pages:
-    - We must find the ancient artifact before they do.
-  options:
-    - text: I'll keep my eyes open and watch our backs
-      type: exit_dialog
+  data:
+     speaker: yuki
+     pages:
+       - We must find the ancient artifact before they do.
+     options:
+       - text: I'll keep my eyes open and watch our backs
+         type: exit_dialog
 )YAML_CONTENT";
 
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;

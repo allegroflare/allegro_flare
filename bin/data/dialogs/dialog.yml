@@ -1,143 +1,175 @@
 - name: start_node
-  speaker: Ethan
-  pages:
-    - Yuki, are you sure we should be doing this? What if it leads us down a dangerous path?
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_10 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Yuki, are you sure we should be doing this? What if it leads us down a dangerous path?
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_10 }
 
 - name: yuki_response_10
-  speaker: Yuki
-  pages:
-    - Ethan, we've come this far. We owe it to ourselves to see it through. Remember, balance and caution. We'll handle whatever comes our way.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: ethan_response_9 }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - Ethan, we've come this far. We owe it to ourselves to see it through. Remember, balance and caution. We'll handle whatever comes our way.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_9 }
 
 - name: ethan_response_9
-  speaker: Ethan
-  pages:
-    - Alright, but promise me we won't lose ourselves in this pursuit. We need to stay grounded.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_11 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Alright, but promise me we won't lose ourselves in this pursuit. We need to stay grounded.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_11 }
 
 - name: yuki_response_11
-  speaker: Yuki
-  pages:
-    - I promise, Ethan. We'll keep each other in check. Now, let's see what this letter has to reveal.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: ethan_response_10 }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - I promise, Ethan. We'll keep each other in check. Now, let's see what this letter has to reveal.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_10 }
 
 - name: ethan_response_10
-  speaker: Ethan
-  pages:
-    - This isn't an ordinary letter. It's encrypted. We'll need to decipher it to understand its true meaning.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_12 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - This isn't an ordinary letter. It's encrypted. We'll need to decipher it to understand its true meaning.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_12 }
 
 - name: yuki_response_12
-  speaker: Yuki
-  pages:
-    - A challenge! I love puzzles. Let's solve it together, Ethan.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: ethan_response_11 }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - A challenge! I love puzzles. Let's solve it together, Ethan.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_11 }
 
 - name: ethan_response_11
-  speaker: Ethan
-  pages:
-    - Yuki, look at this. The message seems to be a series of coded instructions, leading to a meeting location. But who could be behind all this?
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_13 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Yuki, look at this. The message seems to be a series of coded instructions, leading to a meeting location. But who could be behind all this?
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_13 }
 
 - name: yuki_response_13
-  speaker: Yuki
-  pages:
-    - A mastermind, Ethan. Someone who wanted to test our skills, to challenge us. But why?
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: ethan_response_12 }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - A mastermind, Ethan. Someone who wanted to test our skills, to challenge us. But why?
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_12 }
 
 - name: ethan_response_12
-  speaker: Ethan
-  pages:
-    - Perhaps this mastermind knows more about the murder than we do. They're using us as pawns, guiding us towards a greater truth.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_14 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Perhaps this mastermind knows more about the murder than we do. They're using us as pawns, guiding us towards a greater truth.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_14 }
 
 - name: yuki_response_14
-  speaker: Yuki
-  pages:
-    - It would explain the hidden complexity of the crime. We're dealing with someone intelligent, cunning. But who could it be?
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: ethan_response_13 }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - It would explain the hidden complexity of the crime. We're dealing with someone intelligent, cunning. But who could it be?
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_13 }
 
 - name: ethan_response_13
-  speaker: Ethan
-  pages:
-    - We've encountered many adversaries, Yuki. Enemies we've made along the way. It's time to revisit those connections, delve deeper into our past cases. There might be a thread that ties it all together.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_15 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - We've encountered many adversaries, Yuki. Enemies we've made along the way. It's time to revisit those connections, delve deeper into our past cases. There might be a thread that ties it all together.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_15 }
 
 - name: yuki_response_15
-  speaker: Yuki
-  pages:
-    - You're right, Ethan. The key to unraveling this mystery lies within our own experiences. We must retrace our steps, recall the faces and names of those we've crossed paths with.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: ethan_response_14 }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - You're right, Ethan. The key to unraveling this mystery lies within our own experiences. We must retrace our steps, recall the faces and names of those we've crossed paths with.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_14 }
 
 - name: ethan_response_14
-  speaker: Ethan
-  pages:
-    - Tomorrow, we'll start digging deeper into our past investigations. We'll find the connection, the missing link that leads us to this mastermind. But until then, we must remain cautious.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_16 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Tomorrow, we'll start digging deeper into our past investigations. We'll find the connection, the missing link that leads us to this mastermind. But until then, we must remain cautious.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_16 }
 
 - name: yuki_response_16
-  speaker: Yuki
-  pages:
-    - Caution and perseverance, Ethan. We'll unveil this shadowy puppeteer, no matter the cost.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: ethan_response_15 }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - Caution and perseverance, Ethan. We'll unveil this shadowy puppeteer, no matter the cost.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_15 }
 
 - name: ethan_response_15
-  speaker: Ethan
-  pages:
-    - We've faced daunting challenges before, Yuki. But this... this will be our greatest test yet.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: yuki_response_17 }
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - We've faced daunting challenges before, Yuki. But this... this will be our greatest test yet.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: yuki_response_17 }
 
 - name: yuki_response_17
-  speaker: Yuki
-  pages:
-    - And we will pass this test with flying colors, Ethan. We won't stop until we bring this mastermind to justice.
-  options:
-    - text: Continue
-      type: go_to_node
-      data: { target_node_name: analyze_letter_node }
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - And we will pass this test with flying colors, Ethan. We won't stop until we bring this mastermind to justice.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: analyze_letter_node }
