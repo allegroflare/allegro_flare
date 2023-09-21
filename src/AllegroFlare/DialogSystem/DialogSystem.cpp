@@ -61,6 +61,12 @@ AllegroFlare::DialogTree::NodeBank DialogSystem::get_dialog_node_bank() const
 }
 
 
+std::string DialogSystem::get_active_dialog_node_name() const
+{
+   return active_dialog_node_name;
+}
+
+
 bool DialogSystem::get_switched_in() const
 {
    return switched_in;
@@ -245,6 +251,15 @@ void DialogSystem::spawn_named_dialog(std::string dialog_name)
    else // (node_options_as_text.size() > 1)
    {
       // TODO: Here, if dialog has multiple options, spawn a "choice" dialog
+      if (node_pages.size() != 1)
+      {
+         throw std::runtime_error(
+            "DialogSystem::spawn_named_dialog: error: Expecting only 1 page for dialog node \""
+               + dialog_name + "\" (because it is going to be used to build a Choice dialog, "
+               "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
+         );
+      }
+      spawn_choice_dialog(node_pages[0], node_options_as_text);
    }
    return;
 }
@@ -256,6 +271,32 @@ void DialogSystem::spawn_basic_dialog(std::vector<std::string> pages)
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog_box = dialog_box_factory.create_basic_dialog(pages);
+
+   // TODO: Address when and where a switch_in should occur
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      switch_in();
+      event_emitter->emit_dialog_switch_in_event();
+   }
+   return;
+}
+
+void DialogSystem::spawn_choice_dialog(std::string prompt, std::vector<std::string> options)
+{
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
+
+   // NOTE: In order to be compatable with "create_choice_dialog", we will fill with some dummy values.
+   // For now, we use the cursor position of the choice dialog to pick the option. Consider revising or cleaning up
+   std::vector<std::pair<std::string, std::string>> options_that_are_also_values;
+   for (auto &option : options)
+   {
+      options_that_are_also_values.push_back({option, option});
+   }
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog_box = dialog_box_factory.create_choice_dialog(prompt, options_that_are_also_values);
 
    // TODO: Address when and where a switch_in should occur
    bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
@@ -474,7 +515,10 @@ bool DialogSystem::shutdown_dialog()
    if (!active_dialog_box) return false;
    delete active_dialog_box; // TODO: Consider a less intrusive soft delete (with cleanup during update)
    active_dialog_box = nullptr;
+
    active_dialog_node = nullptr;
+   active_dialog_node_name = "";
+
    // NOTE: Note that active_dialog_node is not deleted, because any pointer to a dialog node is a pointer
    // to one that is static in the dialog_node_bank
    if (get_switched_in())

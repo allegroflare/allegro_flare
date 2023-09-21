@@ -44,6 +44,7 @@ namespace AllegroFlare
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
+         std::string get_active_dialog_node_name() const;
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
@@ -56,6 +57,7 @@ namespace AllegroFlare
          void switch_out();
          void spawn_named_dialog(std::string dialog_name="[unset-dialog_name]");
          void spawn_basic_dialog(std::vector<std::string> pages={});
+         void spawn_choice_dialog(std::string prompt="[unset-prompt]", std::vector<std::string> options={});
          void update(float time_now=0);
          void render();
          bool a_dialog_is_active();

@@ -168,7 +168,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__load_dialog_node_bank_from_file__will_not_blow_up)
+   CAPTURE__load_dialog_node_bank_from_file__will_not_blow_up)
 {
    std::string dialog_filename = get_fixtures_path() + "/dialogs/linear_dialog.yml";
 
@@ -210,6 +210,101 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       dialog_system.render();
       al_flip_display();
    }
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__load_dialog_node_bank_from_file__with_a_branching_dialog_that_include_choices__will_not_blow_up)
+{
+   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
+
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::DialogSystem::DialogSystem dialog_system(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &event_emitter
+   );
+   dialog_system.initialize();
+
+   dialog_system.load_dialog_node_bank_from_file(dialog_filename);
+   dialog_system.spawn_named_dialog("start_node");
+
+   int NUM_PASSES = 20;
+   int passes = NUM_PASSES;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+   dialog_system.move_dialog_cursor_position_down();
+   dialog_system.dialog_advance();
+   EXPECT_EQ("yuki_response_2", dialog_system.get_active_dialog_node_name());
+   passes = NUM_PASSES;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+   EXPECT_EQ(false, dialog_system.dialog_is_finished());
+   dialog_system.dialog_advance(); // Skip to end of "yuki_response_2"
+   EXPECT_EQ("yuki_response_2", dialog_system.get_active_dialog_node_name());
+   EXPECT_EQ(false, dialog_system.dialog_is_finished()); // Node will not be finished until an update()
+
+   // TODO: Sort out the remaining steps, and consider design option that does not require a call to update()
+   // to advance as expected
+
+   //dialog_system.dialog_advance();
+   //EXPECT_EQ("ethan_response_2", dialog_system.get_active_dialog_node_name());
+
+   passes = NUM_PASSES;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+
+   //dialog_system.dialog_advance();
+   //EXPECT_EQ("ethan_response_2", dialog_system.get_active_dialog_node_name());
+   //dialog_system.dialog_advance(); // Skip to end
+
+   //{ // Once
+      //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      //dialog_system.update();
+      //dialog_system.render();
+      //al_flip_display();
+   //}
+
+   //dialog_system.dialog_advance();
+   //EXPECT_EQ("", dialog_system.get_active_dialog_node_name());
+
+
+/*
+   dialog_system.dialog_advance();
+   passes = NUM_PASSES;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+   dialog_system.dialog_advance();
+   passes = NUM_PASSES;
+   for (int i=0; i<passes; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      dialog_system.update();
+      dialog_system.render();
+      al_flip_display();
+   }
+*/
 }
 
 
