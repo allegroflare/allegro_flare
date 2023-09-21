@@ -62,28 +62,83 @@ properties:
     init_with: 0
     getter: true
 
-  - name: finished
+  - name: reveal_started_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: reveal_ended_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: reveal_rate_characters_per_second
+    type: float
+    init_with: DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND
+    getter: true
+    setter: explicit
+
+  - name: all_characters_are_revealed
     type: bool
     init_with: false
     getter: true
-    setter: true
+    setter: false
+
+  - name: DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND
+    type: float
+    init_with: 60.0f
+    static: true
+    constexpr: true
+
+  - name: MIN_REVEAL_RATE_CHARACTERS_PER_SECOND
+    type: float
+    init_with: 0.0001f
+    static: true
+    constexpr: true
 
 
-functions:
+methods:
 
 
   - name: start
+    guards: [ al_is_system_installed() ]
     body: |
+      reveal_started_at = al_get_time(); // TODO: Replace with injected "time_now"
+      reveal_ended_at = 0;
       revealed_characters_count = 0;
-      finished = false;
+      all_characters_are_revealed = false;
+      return;
+
+
+  - name: set_reveal_rate_characters_per_second
+    parameters:
+      - name: reveal_rate_characters_per_second
+        type: float
+        default_argument: DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND
+    guards: [ (reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND) ]
+    body: |
+      this->reveal_rate_characters_per_second = reveal_rate_characters_per_second;
       return;
 
 
   - name: update
+    guards: [ al_is_system_installed() ]
     body: |
-      revealed_characters_count++;
-      if (revealed_characters_count >= text.size()) finished = true;
+      if (all_characters_are_revealed) return;
+
+      float time_now = al_get_time(); // TODO: Replace with injected "time_now"
+      float age = (time_now - reveal_started_at);
+      int theoretical_revealed_characters_count = (int)(age * reveal_rate_characters_per_second);
+      revealed_characters_count = std::min(theoretical_revealed_characters_count, (int)text.size());
+      if (revealed_characters_count >= text.size())
+      {
+         all_characters_are_revealed = true;
+         reveal_ended_at = time_now;
+      }
+
       return;
+    body_dependency_symbols:
+      - std::min
 
 
   - name: render
@@ -112,25 +167,12 @@ functions:
       - AllegroFlare::Color
 
 
-  - name: jump_to_end
-    body: |
-      if (get_finished()) return;
-
-      reveal_all_characters();
-      finished = true;
-
-      return;
-
-
   - name: reveal_all_characters
+    guards: [ al_is_system_installed() ]
     body: |
       revealed_characters_count = text.size();
-
-
-  - name: all_characters_are_revealed
-    type: bool
-    body: |
-      return revealed_characters_count >= text.size();
+      all_characters_are_revealed = true;
+      reveal_ended_at = al_get_time(); // TODO: Consider passing a "time_now"
 
 
   - name: generate_revealed_text

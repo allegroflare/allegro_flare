@@ -2439,8 +2439,28 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
-  <td class="property">finished</td>
+  <td class="property">reveal_started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">reveal_ended_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">reveal_rate_characters_per_second</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">all_characters_are_revealed</td>
   <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">MIN_REVEAL_RATE_CHARACTERS_PER_SECOND</td>
+  <td class="property">float</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -2449,19 +2469,16 @@ table td
   <td class="method">start()</td>
 </tr>
 <tr>
+  <td class="method">set_reveal_rate_characters_per_second(float reveal_rate_characters_per_second=DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND)</td>
+</tr>
+<tr>
   <td class="method">update()</td>
 </tr>
 <tr>
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">jump_to_end()</td>
-</tr>
-<tr>
   <td class="method">reveal_all_characters()</td>
-</tr>
-<tr>
-  <td class="method">all_characters_are_revealed()</td>
 </tr>
 <tr>
   <td class="private_method">generate_revealed_text()</td>

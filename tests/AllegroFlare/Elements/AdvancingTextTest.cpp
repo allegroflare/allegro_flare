@@ -52,37 +52,35 @@ TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
    AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
 
    advancing_text.reveal_all_characters();
-   EXPECT_EQ(true, advancing_text.all_characters_are_revealed());
+   EXPECT_EQ(true, advancing_text.get_all_characters_are_revealed());
    advancing_text.start();
-   EXPECT_EQ(false, advancing_text.all_characters_are_revealed());
+   EXPECT_EQ(false, advancing_text.get_all_characters_are_revealed());
 
 }
 
 
 TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   start__will_set_finished_to_false)
+   start__will_set_all_characters_to_revealed_to_false)
 {
    std::string text = "Hello AdvancingText!";
    AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
 
-   advancing_text.jump_to_end();
-   EXPECT_EQ(true, advancing_text.get_finished());
+   advancing_text.reveal_all_characters();
+   EXPECT_EQ(true, advancing_text.get_all_characters_are_revealed());
    advancing_text.start();
-   EXPECT_EQ(false, advancing_text.get_finished());
+   EXPECT_EQ(false, advancing_text.get_all_characters_are_revealed());
 }
 
 
 TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   update__after_all_characters_have_been_revealed__will_set_finished_to_true)
+   after_all_characters_have_been_revealed__will_set_all_characters_are_revealed_to_true)
 {
    std::string text = "Hello AdvancingText!";
    AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
 
    advancing_text.start();
    advancing_text.reveal_all_characters();
-   EXPECT_EQ(false, advancing_text.get_finished());
-   advancing_text.update();
-   EXPECT_EQ(true, advancing_text.get_finished());
+   EXPECT_EQ(true, advancing_text.get_all_characters_are_revealed());
 }
 
 
@@ -92,64 +90,14 @@ TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
    std::string text = "This are characters that need to be revealed one-by-one.";
    AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
 
-   EXPECT_EQ(false, advancing_text.all_characters_are_revealed());
+   EXPECT_EQ(false, advancing_text.get_all_characters_are_revealed());
    advancing_text.reveal_all_characters();
-   EXPECT_EQ(true, advancing_text.all_characters_are_revealed());
+   EXPECT_EQ(true, advancing_text.get_all_characters_are_revealed());
 }
 
 
 TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   reveal_all_characters__will_not_automatically_set_the_page_to_finished)
-{
-   std::string text = "This are characters that need to be revealed one-by-one.";
-   AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
-
-   advancing_text.start();
-   advancing_text.reveal_all_characters();
-   EXPECT_EQ(false, advancing_text.get_finished());
-}
-
-
-TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   jump_to_end__when_all_characters_have_been_revealed__will_set_finished_to_true)
-{
-   std::string text = "Hello AdvancingText!";
-   AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
-
-   advancing_text.start();
-   advancing_text.reveal_all_characters();
-   EXPECT_EQ(false, advancing_text.get_finished());
-   advancing_text.jump_to_end();
-   EXPECT_EQ(true, advancing_text.get_finished());
-}
-
-
-TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   jump_to_end__when_not_all_characters_have_been_revealed__will_reveal_all_the_characters)
-{
-   std::string text = "In this test, there is some text.";
-   AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
-
-   advancing_text.start();
-   advancing_text.jump_to_end();
-   EXPECT_EQ(true, advancing_text.all_characters_are_revealed());
-}
-
-
-TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   jump_to_end__when_not_all_characters_have_been_revealed__will_set_finished_to_true)
-{
-   std::string text = "In this test, there is some text.";
-   AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
-
-   advancing_text.start();
-   advancing_text.jump_to_end();
-   EXPECT_EQ(true, advancing_text.get_finished());
-}
-
-
-TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   DISABLED__VISUAL__render__will_draw_the_current_page_text_to_the_screen)
+   VISUAL__render__will_draw_the_current_page_text_to_the_screen)
 {
    std::string text = "Hello AdvancingText!";
    AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
@@ -165,7 +113,7 @@ TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   DISABLED__VISUAL__render__will_respect__width)
+   VISUAL__render__will_respect__width)
 {
    std::string text = "Hello AdvancingText!  This text should fit to the width of 800 pixels.";
    AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);
@@ -183,7 +131,7 @@ TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_AdvancingTextTestWithAllegroRenderingFixture,
-   DISABLED__VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
+   VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
 {
    std::string text = "Hello AdvancingText!";
    AllegroFlare::Elements::AdvancingText advancing_text(&get_font_bin_ref(), text);

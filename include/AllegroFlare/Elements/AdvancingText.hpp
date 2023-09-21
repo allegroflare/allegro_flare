@@ -13,6 +13,10 @@ namespace AllegroFlare
    {
       class AdvancingText
       {
+      public:
+         static constexpr float DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND = 60.0f;
+         static constexpr float MIN_REVEAL_RATE_CHARACTERS_PER_SECOND = 0.0001f;
+
       private:
          AllegroFlare::FontBin* font_bin;
          std::string text;
@@ -23,7 +27,10 @@ namespace AllegroFlare
          float line_height_multiplier;
          float line_height_padding;
          int revealed_characters_count;
-         bool finished;
+         float reveal_started_at;
+         float reveal_ended_at;
+         float reveal_rate_characters_per_second;
+         bool all_characters_are_revealed;
          std::string generate_revealed_text();
          ALLEGRO_FONT* obtain_font();
 
@@ -42,7 +49,6 @@ namespace AllegroFlare
          void set_width(float width);
          void set_line_height_multiplier(float line_height_multiplier);
          void set_line_height_padding(float line_height_padding);
-         void set_finished(bool finished);
          AllegroFlare::FontBin* get_font_bin() const;
          std::string get_text() const;
          std::string get_font_name() const;
@@ -52,13 +58,15 @@ namespace AllegroFlare
          float get_line_height_multiplier() const;
          float get_line_height_padding() const;
          int get_revealed_characters_count() const;
-         bool get_finished() const;
+         float get_reveal_started_at() const;
+         float get_reveal_ended_at() const;
+         float get_reveal_rate_characters_per_second() const;
+         bool get_all_characters_are_revealed() const;
          void start();
+         void set_reveal_rate_characters_per_second(float reveal_rate_characters_per_second=DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND);
          void update();
          void render();
-         void jump_to_end();
          void reveal_all_characters();
-         bool all_characters_are_revealed();
       };
    }
 }
