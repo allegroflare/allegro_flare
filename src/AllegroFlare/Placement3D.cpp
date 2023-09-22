@@ -5,6 +5,7 @@
 #include <AllegroFlare/Placement3D.hpp>
 
 #include <AllegroFlare/Useful.hpp> // just for #define TAU
+#include <math.h> // just cos, sin
 
 
 
