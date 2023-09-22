@@ -74,6 +74,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
       &get_bitmap_bin_ref(),
       &list_box
    );
+   list_box_renderer.set_height_to_fit_content();
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
 

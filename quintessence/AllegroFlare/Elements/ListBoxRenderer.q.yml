@@ -144,6 +144,12 @@ methods:
       return summated_items_height + summated_item_spacing_padding;
 
 
+  - name: set_height_to_fit_content
+    body: |
+      height = calculate_content_height() + text_padding_y * 2;
+      return;
+
+
   - name: draw_choices_with_cursor_and_current_selection
     private: true
     body: |

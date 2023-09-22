@@ -62,6 +62,7 @@ namespace AllegroFlare
          float calculate_line_height();
          float calculate_item_spacing_padding();
          float calculate_content_height();
+         void set_height_to_fit_content();
          static bool multiline_text_draw_callback(int line_number=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          int count_num_lines_will_render(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text="[unset-text]");
       };

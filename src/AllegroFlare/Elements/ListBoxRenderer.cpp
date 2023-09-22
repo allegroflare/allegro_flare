@@ -205,6 +205,12 @@ float ListBoxRenderer::calculate_content_height()
    return summated_items_height + summated_item_spacing_padding;
 }
 
+void ListBoxRenderer::set_height_to_fit_content()
+{
+   height = calculate_content_height() + text_padding_y * 2;
+   return;
+}
+
 void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 {
    ALLEGRO_FONT* text_font = obtain_text_font();
