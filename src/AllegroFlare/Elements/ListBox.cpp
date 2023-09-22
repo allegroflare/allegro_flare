@@ -52,8 +52,14 @@ bool ListBox::get_wrap_at_edges() const
 
 void ListBox::set_items(std::vector<std::pair<std::string, std::string>> items)
 {
+   this->items = items;
    cursor_position = 0;
    return;
+}
+
+int ListBox::num_items()
+{
+   return items.size();
 }
 
 bool ListBox::has_valid_currently_selected_item()

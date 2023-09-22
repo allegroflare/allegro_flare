@@ -103,6 +103,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -148,6 +149,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
@@ -255,6 +257,7 @@
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
@@ -356,6 +359,7 @@
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -414,6 +418,7 @@
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -777,7 +782,8 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -928,6 +934,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -1201,6 +1208,7 @@
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/InputHints",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -1223,14 +1231,16 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "al_draw_filled_rounded_rectangle": [
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxFrame": [
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -1238,7 +1248,8 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
@@ -1258,6 +1269,7 @@
   "al_draw_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
@@ -1267,6 +1279,7 @@
   ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",

@@ -28,8 +28,15 @@ methods:
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
     body: |
+      this->items = items;
       cursor_position = 0;
       return;
+
+
+  - name: num_items
+    type: int
+    body: |
+      return items.size();
 
 
   - name: has_valid_currently_selected_item
