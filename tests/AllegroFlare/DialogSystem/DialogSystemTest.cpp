@@ -309,7 +309,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   FOCUS__TIMED_INTERACTIVE__will_work_as_expected)
+   TIMED_INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -328,10 +328,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
-   //AllegroFlare::Screens::TitleScreen title_screen;
-   //title_screen.set_font_bin(&get_font_bin_ref());
-   //title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
-   //title_screen.set_event_emitter(&event_emitter);
    std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
    std::string node_name_to_start = "start_node";
    AllegroFlare::DialogSystem::DialogSystem dialog_system(
@@ -345,11 +341,8 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    // run the interactive test
    al_start_timer(primary_timer);
 
-   // activate the screen (typically this is done by the framework)
-   //title_screen.on_activate();
-   dialog_system.spawn_named_dialog(node_name_to_start);
-   EXPECT_EQ(true, dialog_system.get_switched_in());
-   float duration_until_abort_sec = 3.0f;
+   EXPECT_EQ(false, dialog_system.get_switched_in());
+   float duration_until_abort_sec = 6.0f; // TODO: Add a countdown
    float interactive_started_at = al_get_time();
    bool abort_timer_in_effect = true;
 
@@ -368,6 +361,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
             {
                case ALLEGRO_KEY_R: // R for "Reset"
                   dialog_system.spawn_named_dialog(node_name_to_start);
+                  EXPECT_EQ(true, dialog_system.get_switched_in()); // TODO: Move this to another test
                break;
 
                case ALLEGRO_KEY_UP:
@@ -387,7 +381,14 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
                break;
 
                case ALLEGRO_KEY_ENTER:
-                  if (dialog_system.a_dialog_is_active()) dialog_system.dialog_advance();
+                  if (dialog_system.a_dialog_is_active())
+                  {
+                     dialog_system.dialog_advance();
+                     if (!dialog_system.a_dialog_is_active())
+                     {
+                        EXPECT_EQ(false, dialog_system.get_switched_in()); // TODO: Move this to another test
+                     }
+                  }
                break;
 
                case ALLEGRO_KEY_ESCAPE:
@@ -402,7 +403,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
          case ALLEGRO_EVENT_TIMER:
             al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-            //title_screen.primary_timer_func();
             dialog_system.update();
             dialog_system.render();
             if (!dialog_system.a_dialog_is_active())
@@ -416,14 +416,12 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
                   1920,
                   al_get_font_line_height(user_prompt_font),
                   ALLEGRO_ALIGN_CENTER,
-                  "There are no dialogs currently active\n(press ESC to exit)"
+                  "There are no dialogs currently active\n(press ESC to exit, R to START dialog)"
                );
             }
             al_flip_display();
          break;
       }
-
-      //if (event.type == ALLEGRO_EVENT_KEY_CHAR && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) abort = true;
    }
    
    // teardown
