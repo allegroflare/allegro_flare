@@ -162,6 +162,9 @@ methods:
 
 
   - name: render
+    guards:
+      - al_is_system_installed
+      - al_is_primitives_addon_initialized
     body: |
       render_frame();
 
@@ -176,12 +179,9 @@ methods:
       }
       return;
     body_dependency_symbols:
-      - al_is_system_installed
-      - al_is_primitives_addon_initialized
       - al_draw_filled_rounded_rectangle
       - al_color_html
       - AllegroFlare::Elements::DialogBoxFrame
-      - AllegroFlare::Elements::DialogBoxes::Basic*
       - AllegroFlare::Elements::DialogButton
       - AllegroFlare::Interpolators::*
 
@@ -273,8 +273,6 @@ methods:
 dependencies:
 
 
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro.h ]
   - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
   - symbol: al_get_current_display
@@ -285,29 +283,16 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_filled_rounded_rectangle
     headers: [ allegro5/allegro_primitives.h ]
-  - symbol: AllegroFlare::BitmapBin*
-    headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Base*
-    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Basic*
-    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFrame
     headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
   - symbol: AllegroFlare::Elements::DialogButton
     headers: [ AllegroFlare/Elements/DialogButton.hpp ]
-  - symbol: AllegroFlare::Interpolators::*
-    headers: [ AllegroFlare/Interpolators.hpp ]
-
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Basic
-    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
   - symbol: 'AllegroFlare::Interpolators::'
     headers: [ AllegroFlare/Interpolators.hpp ]
 
