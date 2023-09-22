@@ -924,6 +924,7 @@
   ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -1254,6 +1255,16 @@
   "AllegroFlare/Elements/DialogButton": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
   ],
+  "al_draw_rectangle": [
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/UnicodeFontViewer",
+    "Wicked/Entities/Basic2D"
+  ],
   "al_color_name": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/MultitextureModel3DObjLoader",
@@ -1263,15 +1274,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
-  ],
-  "al_draw_rectangle": [
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/UnicodeFontViewer",
-    "Wicked/Entities/Basic2D"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
