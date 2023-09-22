@@ -333,6 +333,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    //title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
    //title_screen.set_event_emitter(&event_emitter);
    std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
+   std::string node_name_to_start = "start_node";
    AllegroFlare::DialogSystem::DialogSystem dialog_system(
       &get_bitmap_bin_ref(),
       &get_font_bin_ref(),
@@ -340,14 +341,13 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
    dialog_system.initialize();
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
-   dialog_system.spawn_named_dialog("start_node");
 
    // run the interactive test
    al_start_timer(primary_timer);
 
    // activate the screen (typically this is done by the framework)
    //title_screen.on_activate();
-   dialog_system.spawn_named_dialog("start_node");
+   dialog_system.spawn_named_dialog(node_name_to_start);
    EXPECT_EQ(true, dialog_system.get_switched_in());
    float duration_until_abort_sec = 3.0f;
    float interactive_started_at = al_get_time();
@@ -366,6 +366,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
             abort_timer_in_effect = false;
             switch (event.keyboard.keycode)
             {
+               case ALLEGRO_KEY_R: // R for "Reset"
+                  dialog_system.spawn_named_dialog(node_name_to_start);
+               break;
+
                case ALLEGRO_KEY_UP:
                   dialog_system.move_dialog_cursor_position_up();
                break;
@@ -401,6 +405,20 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
             //title_screen.primary_timer_func();
             dialog_system.update();
             dialog_system.render();
+            if (!dialog_system.a_dialog_is_active())
+            {
+               ALLEGRO_FONT *user_prompt_font = get_user_prompt_font();
+               al_draw_multiline_text(
+                  user_prompt_font,
+                  ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2},
+                  1920/2,
+                  1080/2-80,
+                  1920,
+                  al_get_font_line_height(user_prompt_font),
+                  ALLEGRO_ALIGN_CENTER,
+                  "There are no dialogs currently active\n(press ESC to exit)"
+               );
+            }
             al_flip_display();
          break;
       }
