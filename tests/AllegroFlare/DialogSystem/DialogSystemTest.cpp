@@ -308,3 +308,112 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
+   FOCUS__TIMED_INTERACTIVE__will_work_as_expected)
+{
+   // setup system
+   al_install_keyboard();
+   al_install_joystick();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   bool abort = false;
+   ALLEGRO_EVENT event;
+
+   // setup environment
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+
+   // initialize test subject
+   //AllegroFlare::Screens::TitleScreen title_screen;
+   //title_screen.set_font_bin(&get_font_bin_ref());
+   //title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
+   //title_screen.set_event_emitter(&event_emitter);
+   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
+   AllegroFlare::DialogSystem::DialogSystem dialog_system(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &event_emitter
+   );
+   dialog_system.initialize();
+   dialog_system.load_dialog_node_bank_from_file(dialog_filename);
+   dialog_system.spawn_named_dialog("start_node");
+
+   // run the interactive test
+   al_start_timer(primary_timer);
+
+   // activate the screen (typically this is done by the framework)
+   //title_screen.on_activate();
+   dialog_system.spawn_named_dialog("start_node");
+   EXPECT_EQ(true, dialog_system.get_switched_in());
+   float duration_until_abort_sec = 3.0f;
+   float interactive_started_at = al_get_time();
+   bool abort_timer_in_effect = true;
+
+   while(!abort)
+   {
+      if (abort_timer_in_effect && (al_get_time() - interactive_started_at) > duration_until_abort_sec) break;
+
+      al_wait_for_event(event_queue, &event);
+
+      switch(event.type)
+      {
+         case ALLEGRO_EVENT_KEY_CHAR:
+         {
+            abort_timer_in_effect = false;
+            switch (event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+                  dialog_system.move_dialog_cursor_position_up();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  dialog_system.move_dialog_cursor_position_down();
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  dialog_system.move_dialog_cursor_position_left();
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                  dialog_system.move_dialog_cursor_position_right();
+               break;
+
+               case ALLEGRO_KEY_ENTER:
+                  if (dialog_system.a_dialog_is_active()) dialog_system.dialog_advance();
+               break;
+
+               case ALLEGRO_KEY_ESCAPE:
+                  abort = true;
+               break;
+
+               default:
+               break;
+            }
+         }
+         break;
+
+         case ALLEGRO_EVENT_TIMER:
+            al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+            //title_screen.primary_timer_func();
+            dialog_system.update();
+            dialog_system.render();
+            al_flip_display();
+         break;
+      }
+
+      //if (event.type == ALLEGRO_EVENT_KEY_CHAR && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) abort = true;
+   }
+   
+   // teardown
+   // TODO: Audit if this teardown is complete. It may require other calls to destroy resources.
+
+   al_destroy_event_queue(event_queue);
+   al_destroy_timer(primary_timer);
+   al_uninstall_keyboard();
+}
+
+
