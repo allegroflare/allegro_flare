@@ -287,23 +287,6 @@ void BasicRenderer::draw_special_state_empty_text(float width, float height)
    return;
 }
 
-void BasicRenderer::draw_action_text(std::string text, float width, float height)
-{
-   ALLEGRO_FONT* text_font = obtain_dialog_font();
-   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR text_color = al_color_html("ffffff");
-   float line_height = al_get_font_line_height(text_font);
-   al_draw_text(
-      text_font,
-      text_color,
-      width-20,
-      height-line_height-10,
-      ALLEGRO_ALIGN_RIGHT,
-      text.c_str()
-   );
-   return;
-}
-
 void BasicRenderer::draw_styled_revealed_text(float max_width, std::string text, int num_revealed_characters)
 {
    //float text_padding_x = 40.0f;

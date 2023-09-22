@@ -37,7 +37,6 @@ namespace AllegroFlare
             void render_text();
             void render_button();
             void draw_special_state_empty_text(float width=1, float height=1);
-            void draw_action_text(std::string text="[unset-action-text]", float width=1, float height=1);
             std::string concat_text(std::string source_text="", int length=0);
             ALLEGRO_FONT* obtain_dialog_font();
 

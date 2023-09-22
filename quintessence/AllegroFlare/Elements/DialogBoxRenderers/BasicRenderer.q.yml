@@ -211,34 +211,6 @@ methods:
       return;
 
 
-  - name: draw_action_text
-    private: true
-    parameters:
-      - name: text
-        type: std::string
-        default_argument: '"[unset-action-text]"'
-      - name: width
-        type: float
-        default_argument: 1
-      - name: height
-        type: float
-        default_argument: 1
-    body: |
-      ALLEGRO_FONT* text_font = obtain_dialog_font();
-      //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-      ALLEGRO_COLOR text_color = al_color_html("ffffff");
-      float line_height = al_get_font_line_height(text_font);
-      al_draw_text(
-         text_font,
-         text_color,
-         width-20,
-         height-line_height-10,
-         ALLEGRO_ALIGN_RIGHT,
-         text.c_str()
-      );
-      return;
-
-
   - name: draw_styled_revealed_text
     parameters:
       - name: max_width
