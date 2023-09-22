@@ -33,7 +33,7 @@ namespace AllegroFlare
          float text_padding_y;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          void draw_choices_with_cursor_and_current_selection();
-         ALLEGRO_FONT* obtain_dialog_font();
+         ALLEGRO_FONT* obtain_text_font();
          std::vector<std::pair<std::string, std::string>> obtain_list_box_items();
          int obtain_list_box_cursor_position();
          std::string concat_text(std::string source_text="", int length=0);
@@ -58,6 +58,10 @@ namespace AllegroFlare
          float get_text_padding_x() const;
          float get_text_padding_y() const;
          void render();
+         float calculate_list_item_max_width();
+         float calculate_line_height();
+         float calculate_item_spacing_padding();
+         float calculate_content_height();
          static bool multiline_text_draw_callback(int line_number=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          int count_num_lines_will_render(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text="[unset-text]");
       };

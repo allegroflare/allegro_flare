@@ -136,20 +136,89 @@ void ListBoxRenderer::render()
    return;
 }
 
+float ListBoxRenderer::calculate_list_item_max_width()
+{
+   return (width - (text_padding_x * 2));
+}
+
+float ListBoxRenderer::calculate_line_height()
+{
+   ALLEGRO_FONT* text_font = obtain_text_font();
+   return al_get_font_line_height(text_font);
+}
+
+float ListBoxRenderer::calculate_item_spacing_padding()
+{
+   float line_height = calculate_line_height();
+   return line_height * 0.5;
+}
+
+float ListBoxRenderer::calculate_content_height()
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_content_height]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_content_height]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   if (!(list_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_content_height]: error: guard \"list_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"list_box\" not met");
+   }
+   if (list_box->num_items() == 0) return 0;
+
+   ALLEGRO_FONT* text_font = obtain_text_font();
+   float item_max_width = calculate_list_item_max_width();
+   float line_height = calculate_line_height();
+
+   // Calculate the item heights
+   std::vector<float> item_heights;
+   for (auto &option : list_box->get_items())
+   {
+      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, option.first);
+      float this_item_height = this_item_num_lines * line_height;
+      item_heights.push_back(this_item_height);
+   }
+
+   // Sum the item heights
+   float summated_items_height = 0;
+   for (auto &item_height : item_heights)
+   {
+      summated_items_height += item_height;
+   }
+
+   // Calculate the padding between items
+   float summated_item_spacing_padding = calculate_item_spacing_padding() * (list_box->num_items() - 1);
+
+   // Return the height and padding
+   return summated_items_height + summated_item_spacing_padding;
+}
+
 void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 {
-   ALLEGRO_FONT* text_font = obtain_dialog_font();
+   ALLEGRO_FONT* text_font = obtain_text_font();
    //std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
 
    int current_selection_num = obtain_list_box_cursor_position();
    ALLEGRO_COLOR text_color_selected = al_color_name("aquamarine");
    ALLEGRO_COLOR text_color_not_selected = al_color_html("ffffff");
-   float item_max_width = width - (text_padding_x * 2);
+   float item_max_width = calculate_list_item_max_width();
+   float line_height = calculate_line_height();
+   //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
+   float item_spacing_padding_y = calculate_item_spacing_padding();
    float x = text_padding_x;
    float cursor_y = text_padding_y;
-   float line_height = al_get_font_line_height(text_font);
-   //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
-   float item_spacing_padding_y = line_height * 0.5;
 
    // Calculate item heights
    std::vector<float> item_heights;
@@ -257,28 +326,28 @@ int ListBoxRenderer::count_num_lines_will_render(ALLEGRO_FONT* font, float max_w
    return multiline_text_line_number + 1;
 }
 
-ALLEGRO_FONT* ListBoxRenderer::obtain_dialog_font()
+ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
 {
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_dialog_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[ListBoxRenderer::obtain_text_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_dialog_font: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("ListBoxRenderer::obtain_text_font: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_dialog_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[ListBoxRenderer::obtain_text_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_dialog_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("ListBoxRenderer::obtain_text_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_dialog_font]: error: guard \"font_bin\" not met.";
+      error_message << "[ListBoxRenderer::obtain_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_dialog_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("ListBoxRenderer::obtain_text_font: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;

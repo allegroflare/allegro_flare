@@ -91,21 +91,74 @@ methods:
       - AllegroFlare::Elements::DialogBoxFrame
 
 
+  - name: calculate_list_item_max_width
+    type: float
+    body: |
+      return (width - (text_padding_x * 2));
+
+
+  - name: calculate_line_height
+    type: float
+    body: |
+      ALLEGRO_FONT* text_font = obtain_text_font();
+      return al_get_font_line_height(text_font);
+
+
+  - name: calculate_item_spacing_padding
+    type: float
+    body: |
+      float line_height = calculate_line_height();
+      return line_height * 0.5;
+
+
+  - name: calculate_content_height
+    type: float
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), list_box ]
+    body: |
+      if (list_box->num_items() == 0) return 0;
+
+      ALLEGRO_FONT* text_font = obtain_text_font();
+      float item_max_width = calculate_list_item_max_width();
+      float line_height = calculate_line_height();
+
+      // Calculate the item heights
+      std::vector<float> item_heights;
+      for (auto &option : list_box->get_items())
+      {
+         int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, option.first);
+         float this_item_height = this_item_num_lines * line_height;
+         item_heights.push_back(this_item_height);
+      }
+
+      // Sum the item heights
+      float summated_items_height = 0;
+      for (auto &item_height : item_heights)
+      {
+         summated_items_height += item_height;
+      }
+
+      // Calculate the padding between items
+      float summated_item_spacing_padding = calculate_item_spacing_padding() * (list_box->num_items() - 1);
+
+      // Return the height and padding
+      return summated_items_height + summated_item_spacing_padding;
+
+
   - name: draw_choices_with_cursor_and_current_selection
     private: true
     body: |
-       ALLEGRO_FONT* text_font = obtain_dialog_font();
+       ALLEGRO_FONT* text_font = obtain_text_font();
        //std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
 
        int current_selection_num = obtain_list_box_cursor_position();
        ALLEGRO_COLOR text_color_selected = al_color_name("aquamarine");
        ALLEGRO_COLOR text_color_not_selected = al_color_html("ffffff");
-       float item_max_width = width - (text_padding_x * 2);
+       float item_max_width = calculate_list_item_max_width();
+       float line_height = calculate_line_height();
+       //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
+       float item_spacing_padding_y = calculate_item_spacing_padding();
        float x = text_padding_x;
        float cursor_y = text_padding_y;
-       float line_height = al_get_font_line_height(text_font);
-       //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
-       float item_spacing_padding_y = line_height * 0.5;
 
        // Calculate item heights
        std::vector<float> item_heights;
@@ -243,7 +296,7 @@ methods:
       return multiline_text_line_number + 1;
 
 
-  - name: obtain_dialog_font
+  - name: obtain_text_font
     private: true
     type: ALLEGRO_FONT*
     guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
