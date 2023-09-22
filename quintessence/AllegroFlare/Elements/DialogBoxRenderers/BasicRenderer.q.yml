@@ -114,7 +114,7 @@ properties:
     init_with: -36
 
 
-functions:
+methods:
 
 
   - name: render
