@@ -1,0 +1,92 @@
+
+#include <gtest/gtest.h>
+
+#include <AllegroFlare/Elements/ListBox.hpp>
+
+
+TEST(AllegroFlare_Elements_ListBoxTest, can_be_created_without_blowing_up)
+{
+   AllegroFlare::Elements::ListBox list_box;
+}
+
+
+// TODO: Modify the tests below to make a list box
+
+
+#include <gtest/gtest.h>
+
+#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
+   try { code; FAIL() << "Expected " # raised_exception_type; } \
+   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
+   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+
+
+
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+
+#ifdef _WIN32
+#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
+#else
+#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
+#endif
+
+
+class AllegroFlare_Elements_ListBoxRendererTest : public ::testing::Test {};
+class AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
+
+
+TEST_F(AllegroFlare_Elements_ListBoxRendererTest, can_be_created_without_blowing_up)
+{
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer;
+}
+
+
+TEST_F(AllegroFlare_Elements_ListBoxRendererTest, render__without_a_choice_dialog_box__throws_an_exception)
+{
+   al_init();
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer;
+   std::string expected_error_message = "ListBoxRenderer::render: error: guard \"choice_dialog_box\" not met";
+   ASSERT_THROW_WITH_MESSAGE(list_box_renderer.render(), std::runtime_error, expected_error_message);
+   al_uninstall_system();
+}
+
+
+TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
+   render__renders_the_elements)
+{
+   get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
+
+   //AllegroFlare::Placement2D place{ 1920/2, 1080/4*3, 1920/5*3, 1080/4 };
+   std::vector<std::pair<std::string, std::string>> choice_options = {
+     { "Absolutely!", "GOTO A" },
+     { "I hope so", "GOTO B" },
+     { "I think I am", "GOTO C" },
+   };
+   AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
+   choice_dialog_box.initialize();
+   AllegroFlare::Elements::ListBoxRenderer choice_renderer(
+      &get_font_bin_ref(),
+      &get_bitmap_bin_ref(),
+      &choice_dialog_box
+      //place.size.x,
+      //place.size.y
+   );
+
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, choice_renderer.get_width(), choice_renderer.get_height() };
+   //AllegroFlare::Placement2D place{ 1920/2, 1080/4*3, 1920/5*3, 1080/4 };
+
+   choice_dialog_box.move_cursor_position_down();
+   choice_dialog_box.move_cursor_position_down();
+
+   place.start_transform();
+   choice_renderer.render();
+   place.restore_transform();
+   al_flip_display();
+   sleep_for(1);
+
+   SUCCEED();
+}
+
+
+
