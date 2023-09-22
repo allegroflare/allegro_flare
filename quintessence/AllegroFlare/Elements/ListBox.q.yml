@@ -4,6 +4,7 @@ properties:
   - name: items
     type: std::vector<std::pair<std::string, std::string>>
     init_with: '{}'
+    constructor_arg: false
     getter: true
     setter: explicit
 

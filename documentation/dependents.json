@@ -782,8 +782,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1384,6 +1383,9 @@
   "AllegroFlare/Elements/LevelSelect": [
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
+  ],
+  "AllegroFlare/Elements/ListBox": [
+    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",

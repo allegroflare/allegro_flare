@@ -1,7 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#include <AllegroFlare/Elements/ListBox.hpp>
+#include <AllegroFlare/Elements/ListBoxRenderer.hpp>
+
+#include <allegro5/allegro_primitives.h>
 
 
 TEST(AllegroFlare_Elements_ListBoxTest, can_be_created_without_blowing_up)
@@ -42,12 +44,14 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererTest, can_be_created_without_blowing
 }
 
 
-TEST_F(AllegroFlare_Elements_ListBoxRendererTest, render__without_a_choice_dialog_box__throws_an_exception)
+TEST_F(AllegroFlare_Elements_ListBoxRendererTest, render__without_a_list_box__throws_an_exception)
 {
    al_init();
+   al_init_primitives_addon();
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer;
-   std::string expected_error_message = "ListBoxRenderer::render: error: guard \"choice_dialog_box\" not met";
+   std::string expected_error_message = "ListBoxRenderer::render: error: guard \"list_box\" not met";
    ASSERT_THROW_WITH_MESSAGE(list_box_renderer.render(), std::runtime_error, expected_error_message);
+   al_shutdown_primitives_addon();
    al_uninstall_system();
 }
 
@@ -57,30 +61,28 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
-   //AllegroFlare::Placement2D place{ 1920/2, 1080/4*3, 1920/5*3, 1080/4 };
    std::vector<std::pair<std::string, std::string>> choice_options = {
-     { "Absolutely!", "GOTO A" },
-     { "I hope so", "GOTO B" },
-     { "I think I am", "GOTO C" },
+     { "Absolutely!",   "confidant" },
+     { "I hope so",     "hope" },
+     { "I think I am",  "think" },
    };
-   AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
-   choice_dialog_box.initialize();
-   AllegroFlare::Elements::ListBoxRenderer choice_renderer(
+   AllegroFlare::Elements::ListBox list_box;
+   list_box.set_items(choice_options);
+
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       &get_font_bin_ref(),
       &get_bitmap_bin_ref(),
-      &choice_dialog_box
-      //place.size.x,
-      //place.size.y
+      &list_box
    );
 
-   AllegroFlare::Placement2D place{ 1920/2, 1080/2, choice_renderer.get_width(), choice_renderer.get_height() };
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
    //AllegroFlare::Placement2D place{ 1920/2, 1080/4*3, 1920/5*3, 1080/4 };
 
-   choice_dialog_box.move_cursor_position_down();
-   choice_dialog_box.move_cursor_position_down();
+   //choice_dialog_box.move_cursor_position_down();
+   //choice_dialog_box.move_cursor_position_down();
 
    place.start_transform();
-   choice_renderer.render();
+   list_box_renderer.render();
    place.restore_transform();
    al_flip_display();
    sleep_for(1);

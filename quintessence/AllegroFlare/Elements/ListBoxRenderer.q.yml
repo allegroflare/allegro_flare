@@ -11,14 +11,14 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: choice_dialog_box
-    type: AllegroFlare::Elements::DialogBoxes::Choice*
+  - name: list_box
+    type: AllegroFlare::Elements::ListBox*
     init_with: nullptr
     constructor_arg: true
 
   - name: width
     type: float
-    init_with: (1920/2.0f)
+    init_with: (1920/3.0f)
     constructor_arg: true
     getter: true
     setter: true
@@ -77,52 +77,31 @@ methods:
 
 
   - name: render
-    guards: [ al_is_system_installed(), choice_dialog_box ]
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), list_box ]
     body: |
       AllegroFlare::Elements::DialogBoxFrame(width, height).render();
-      draw_prompt_text();
       draw_choices_with_cursor_and_current_selection(85);
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxFrame
 
 
-  - name: draw_prompt_text
-    body: |
-      int dialog_box_num_revealed_characters = 999;
-      std::string text = obtain_choice_dialog_box_prompt();
-      //float text_padding_x = 40.0f;
-      //float text_padding_y = 25.0f;
-      float text_box_max_width = width - (text_padding_x * 2);
-      ALLEGRO_FONT* text_font = obtain_dialog_font();
-      float line_height = al_get_font_line_height(text_font);
-      ALLEGRO_COLOR text_color = al_color_html("ffffff");
-      //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-
-      al_draw_multiline_text(
-         text_font,
-         text_color,
-         text_padding_x,
-         text_padding_y,
-         text_box_max_width,
-         line_height,
-         ALLEGRO_ALIGN_LEFT,
-         concat_text(text, dialog_box_num_revealed_characters).c_str()
-      );
-      return;
-    body_dependency_symbols:
-      - al_color_name
-
-
   - name: draw_choices_with_cursor_and_current_selection
+    private: true
     parameters:
       - name: start_y
         type: float
         default_argument: 0
+      - name: list_items
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+      - name: current_selection_num
+        type: int
+        default_argument: 0
     body: |
        ALLEGRO_FONT* text_font = obtain_dialog_font();
-       std::vector<std::pair<std::string, std::string>> options = obtain_choice_dialog_box_options();
-       int current_selection_num = obtain_choice_dialog_box_cursor_position();
+       //std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
+       //int current_selection_num = obtain_list_box_cursor_position();
        float line_height = al_get_font_line_height(text_font);
        ALLEGRO_COLOR text_color_not_selected = al_color_html("dfdfdf");
        ALLEGRO_COLOR text_color_selected = al_color_html("000000");
@@ -133,7 +112,7 @@ methods:
        float x = 200;
 
        int option_num = 0;
-       for (auto &option : options)
+       for (auto &option : list_items)
        {
           bool this_option_is_currently_selected = (option_num == current_selection_num);
           std::string option_text = option.first;
@@ -160,6 +139,7 @@ methods:
        }
        return;
     body_dependency_symbols:
+      - al_color_html
       - al_draw_rectangle
       - al_draw_filled_rectangle
 
@@ -175,28 +155,18 @@ methods:
       return result_font;
 
 
-  - name: obtain_choice_dialog_box_prompt
-    type: std::string
-    private: true
-    guards: [ choice_dialog_box ]
-    body: |
-      return choice_dialog_box->get_prompt();
-
-
-  - name: obtain_choice_dialog_box_options
+  - name: obtain_list_box_items
     type: std::vector<std::pair<std::string, std::string>>
     private: true
-    guards: [ choice_dialog_box ]
     body: |
-      return choice_dialog_box->get_options();
+      return list_box->get_items();
 
 
-  - name: obtain_choice_dialog_box_cursor_position
+  - name: obtain_list_box_cursor_position
     type: int
     private: true
-    guards: [ choice_dialog_box ]
     body: |
-      return choice_dialog_box->get_cursor_position();
+      return list_box->get_cursor_position();
 
 
   - name: concat_text
@@ -238,8 +208,9 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Choice
-    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
+  - symbol: AllegroFlare::Elements::ListBox
+    headers: [ AllegroFlare/Elements/ListBox.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
+
 

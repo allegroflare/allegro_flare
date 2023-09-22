@@ -16,10 +16,10 @@ namespace Elements
 {
 
 
-ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y)
+ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::ListBox* list_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
-   , choice_dialog_box(choice_dialog_box)
+   , list_box(list_box)
    , width(width)
    , height(height)
    , font_name(font_name)
@@ -116,49 +116,30 @@ void ListBoxRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_system_installed()\" not met");
    }
-   if (!(choice_dialog_box))
+   if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::render]: error: guard \"choice_dialog_box\" not met.";
+      error_message << "[ListBoxRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::render: error: guard \"choice_dialog_box\" not met");
+      throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   if (!(list_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::render]: error: guard \"list_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::render: error: guard \"list_box\" not met");
    }
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
-   draw_prompt_text();
    draw_choices_with_cursor_and_current_selection(85);
    return;
 }
 
-void ListBoxRenderer::draw_prompt_text()
-{
-   int dialog_box_num_revealed_characters = 999;
-   std::string text = obtain_choice_dialog_box_prompt();
-   //float text_padding_x = 40.0f;
-   //float text_padding_y = 25.0f;
-   float text_box_max_width = width - (text_padding_x * 2);
-   ALLEGRO_FONT* text_font = obtain_dialog_font();
-   float line_height = al_get_font_line_height(text_font);
-   ALLEGRO_COLOR text_color = al_color_html("ffffff");
-   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-
-   al_draw_multiline_text(
-      text_font,
-      text_color,
-      text_padding_x,
-      text_padding_y,
-      text_box_max_width,
-      line_height,
-      ALLEGRO_ALIGN_LEFT,
-      concat_text(text, dialog_box_num_revealed_characters).c_str()
-   );
-   return;
-}
-
-void ListBoxRenderer::draw_choices_with_cursor_and_current_selection(float start_y)
+void ListBoxRenderer::draw_choices_with_cursor_and_current_selection(float start_y, std::vector<std::pair<std::string, std::string>> list_items, int current_selection_num)
 {
    ALLEGRO_FONT* text_font = obtain_dialog_font();
-   std::vector<std::pair<std::string, std::string>> options = obtain_choice_dialog_box_options();
-   int current_selection_num = obtain_choice_dialog_box_cursor_position();
+   //std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
+   //int current_selection_num = obtain_list_box_cursor_position();
    float line_height = al_get_font_line_height(text_font);
    ALLEGRO_COLOR text_color_not_selected = al_color_html("dfdfdf");
    ALLEGRO_COLOR text_color_selected = al_color_html("000000");
@@ -169,7 +150,7 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection(float start
    float x = 200;
 
    int option_num = 0;
-   for (auto &option : options)
+   for (auto &option : list_items)
    {
       bool this_option_is_currently_selected = (option_num == current_selection_num);
       std::string option_text = option.first;
@@ -226,40 +207,14 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_dialog_font()
    return result_font;
 }
 
-std::string ListBoxRenderer::obtain_choice_dialog_box_prompt()
+std::vector<std::pair<std::string, std::string>> ListBoxRenderer::obtain_list_box_items()
 {
-   if (!(choice_dialog_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_choice_dialog_box_prompt]: error: guard \"choice_dialog_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_choice_dialog_box_prompt: error: guard \"choice_dialog_box\" not met");
-   }
-   return choice_dialog_box->get_prompt();
+   return list_box->get_items();
 }
 
-std::vector<std::pair<std::string, std::string>> ListBoxRenderer::obtain_choice_dialog_box_options()
+int ListBoxRenderer::obtain_list_box_cursor_position()
 {
-   if (!(choice_dialog_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_choice_dialog_box_options]: error: guard \"choice_dialog_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_choice_dialog_box_options: error: guard \"choice_dialog_box\" not met");
-   }
-   return choice_dialog_box->get_options();
-}
-
-int ListBoxRenderer::obtain_choice_dialog_box_cursor_position()
-{
-   if (!(choice_dialog_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_choice_dialog_box_cursor_position]: error: guard \"choice_dialog_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_choice_dialog_box_cursor_position: error: guard \"choice_dialog_box\" not met");
-   }
-   return choice_dialog_box->get_cursor_position();
+   return list_box->get_cursor_position();
 }
 
 std::string ListBoxRenderer::concat_text(std::string source_text, int length)

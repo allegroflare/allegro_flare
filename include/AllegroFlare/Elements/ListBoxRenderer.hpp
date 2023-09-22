@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/ListBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
@@ -23,24 +23,24 @@ namespace AllegroFlare
       private:
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::BitmapBin* bitmap_bin;
-         AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box;
+         AllegroFlare::Elements::ListBox* list_box;
          float width;
          float height;
          std::string font_name;
          int font_size;
          float text_padding_x;
          float text_padding_y;
+         void draw_choices_with_cursor_and_current_selection(float start_y=0, std::vector<std::pair<std::string, std::string>> list_items={}, int current_selection_num=0);
          ALLEGRO_FONT* obtain_dialog_font();
-         std::string obtain_choice_dialog_box_prompt();
-         std::vector<std::pair<std::string, std::string>> obtain_choice_dialog_box_options();
-         int obtain_choice_dialog_box_cursor_position();
+         std::vector<std::pair<std::string, std::string>> obtain_list_box_items();
+         int obtain_list_box_cursor_position();
          std::string concat_text(std::string source_text="", int length=0);
 
       protected:
 
 
       public:
-         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box=nullptr, float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f);
+         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::ListBox* list_box=nullptr, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f);
          ~ListBoxRenderer();
 
          void set_width(float width);
@@ -56,8 +56,6 @@ namespace AllegroFlare
          float get_text_padding_x() const;
          float get_text_padding_y() const;
          void render();
-         void draw_prompt_text();
-         void draw_choices_with_cursor_and_current_selection(float start_y=0);
       };
    }
 }

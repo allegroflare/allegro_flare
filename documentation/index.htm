@@ -5792,8 +5792,8 @@ table td
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
 <tr>
-  <td class="property">choice_dialog_box</td>
-  <td class="property">AllegroFlare::Elements::DialogBoxes::Choice*</td>
+  <td class="property">list_box</td>
+  <td class="property">AllegroFlare::Elements::ListBox*</td>
 </tr>
 <tr>
   <td class="property">width</td>
@@ -5834,22 +5834,16 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">draw_prompt_text()</td>
-</tr>
-<tr>
-  <td class="method">draw_choices_with_cursor_and_current_selection(float start_y=0)</td>
+  <td class="private_method">draw_choices_with_cursor_and_current_selection(float start_y=0, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; list_items={}, int current_selection_num=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_dialog_font()</td>
 </tr>
 <tr>
-  <td class="private_method">obtain_choice_dialog_box_prompt()</td>
+  <td class="private_method">obtain_list_box_items()</td>
 </tr>
 <tr>
-  <td class="private_method">obtain_choice_dialog_box_options()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_choice_dialog_box_cursor_position()</td>
+  <td class="private_method">obtain_list_box_cursor_position()</td>
 </tr>
 <tr>
   <td class="private_method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
@@ -5891,7 +5885,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ListBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ListBox.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
@@ -26980,8 +26974,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -27582,6 +27575,9 @@ table td
   "AllegroFlare/Elements/LevelSelect": [
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
+  ],
+  "AllegroFlare/Elements/ListBox": [
+    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
