@@ -215,7 +215,7 @@ float BasicRenderer::get_age() const
 }
 
 
-void BasicRenderer::render()
+void BasicRenderer::render_frame()
 {
    float normalized_age = std::max(std::min(1.0f, age), 0.0f);
    float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
@@ -228,6 +228,35 @@ void BasicRenderer::render()
    dialog_box_frame.set_opacity(curved_time);
    dialog_box_frame.render();
    frame_place.restore_transform();
+   return;
+}
+
+void BasicRenderer::render_text()
+{
+   draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
+   return;
+}
+
+void BasicRenderer::render_button()
+{
+   // draw the "next" or "finished" cursor (depending on context)
+   if (page_is_finished)
+   {
+      AllegroFlare::Elements::DialogButton dialog_button(font_bin);
+      dialog_button.set_started_at(page_finished_at);
+      dialog_button.set_x(width - 160);
+      dialog_button.set_y(height - 60);
+
+      if (at_last_page) dialog_button.set_at_last_advance(true);
+
+      dialog_button.render();
+   }
+   return;
+}
+
+void BasicRenderer::render()
+{
+   render_frame();
 
    if (is_finished)
    {
@@ -235,20 +264,8 @@ void BasicRenderer::render()
    }
    else
    {
-      draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
-
-      // draw the "next" or "finished" cursor (depending on context)
-      if (page_is_finished)
-      {
-         AllegroFlare::Elements::DialogButton dialog_button(font_bin);
-         dialog_button.set_started_at(page_finished_at);
-         dialog_button.set_x(width - 160);
-         dialog_button.set_y(height - 60);
-
-         if (at_last_page) dialog_button.set_at_last_advance(true);
-
-         dialog_button.render();
-      }
+      render_text();
+      render_button();
    }
    return;
 }

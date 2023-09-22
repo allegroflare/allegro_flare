@@ -33,6 +33,9 @@ namespace AllegroFlare
             float page_finished_at;
             bool at_last_page;
             float age;
+            void render_frame();
+            void render_text();
+            void render_button();
             void draw_special_state_empty_text(float width=1, float height=1);
             void draw_action_text(std::string text="[unset-action-text]", float width=1, float height=1);
             std::string concat_text(std::string source_text="", int length=0);
