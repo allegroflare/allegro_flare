@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/ListBox.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
@@ -30,6 +31,7 @@ namespace AllegroFlare
          int font_size;
          float text_padding_x;
          float text_padding_y;
+         AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          void draw_choices_with_cursor_and_current_selection(float start_y=0, std::vector<std::pair<std::string, std::string>> list_items={}, int current_selection_num=0);
          ALLEGRO_FONT* obtain_dialog_font();
          std::vector<std::pair<std::string, std::string>> obtain_list_box_items();

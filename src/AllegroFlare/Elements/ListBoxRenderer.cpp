@@ -26,6 +26,7 @@ ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::
    , font_size(font_size)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
+   , selection_cursor_box({})
 {
 }
 

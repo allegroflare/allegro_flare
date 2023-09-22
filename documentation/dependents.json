@@ -1317,7 +1317,8 @@
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
-    "AllegroFlare/Elements/InputDevicesList"
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",

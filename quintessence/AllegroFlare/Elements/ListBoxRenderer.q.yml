@@ -58,6 +58,11 @@ properties:
     getter: true
     setter: true
 
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox
+    init_with: '{}'
+    constructor_arg: false
+
   - name: DEFAULT_FONT_NAME
     type: char*
     constexpr: true
@@ -212,5 +217,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/ListBox.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
 
 

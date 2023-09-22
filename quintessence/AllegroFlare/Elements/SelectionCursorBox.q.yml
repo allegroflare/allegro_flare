@@ -68,7 +68,7 @@ properties:
     init_with: 0.6f
 
 
-functions:
+methods:
 
 
   - name: set_position
