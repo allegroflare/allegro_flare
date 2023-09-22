@@ -104,8 +104,19 @@ methods:
        float x = text_padding_x;
        float cursor_y = text_padding_y;
        float line_height = al_get_font_line_height(text_font);
-       float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
+       //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
+       float item_spacing_padding_y = line_height * 0.5;
 
+       // Calculate item heights
+       std::vector<float> item_heights;
+       for (auto &option : list_box->get_items())
+       {
+          int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, option.first);
+          float this_item_height = this_item_num_lines * line_height;
+          item_heights.push_back(this_item_height);
+       }
+
+       // Render the items
        int option_num = 0;
        for (auto &option : list_box->get_items())
        {
@@ -133,7 +144,7 @@ methods:
              option.first.c_str()
           );
 
-          cursor_y += item_height;
+          cursor_y += item_heights[option_num] + item_spacing_padding_y;
           option_num++;
        }
 

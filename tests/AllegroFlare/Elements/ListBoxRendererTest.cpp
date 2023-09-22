@@ -57,14 +57,14 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererTest, render__without_a_list_box__th
 
 
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
-   render__renders_the_elements)
+   CAPTURE__render__renders_the_elements)
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
    std::vector<std::pair<std::string, std::string>> choice_options = {
-     { "Absolutely!",   "confidant" },
-     { "I hope so",     "hope" },
-     { "I think I am",  "think" },
+     { "I'm searching for the ancient lost treasure said to be hidden here.", "find_treasure" },
+     { "I heard rumors of strange occurrences, so I came to investigate.",    "investigate_rumors" },
+     { "I got lost while on a journey and ended up here by accident.",        "lost" },
    };
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items(choice_options);
