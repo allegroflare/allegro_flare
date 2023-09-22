@@ -4,6 +4,8 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <string>
+#include <utility>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -76,6 +78,7 @@ namespace AllegroFlare
             bool get_at_last_page() const;
             float get_age() const;
             void render();
+            void draw_choices_with_cursor_and_current_selection(float start_y=0, std::vector<std::pair<std::string, std::string>> options={}, int current_selection_num=0);
             void draw_styled_revealed_text(float max_width=1, std::string text="[unset-text]", int num_revealed_characters=999);
          };
       }
