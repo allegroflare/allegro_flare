@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/ListBox.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -26,6 +27,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::Elements::ListBox* list_box;
+         AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box;
          float width;
          float height;
          std::string font_name;
@@ -46,9 +48,10 @@ namespace AllegroFlare
 
 
       public:
-         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::ListBox* list_box=nullptr, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, ALLEGRO_COLOR text_color_selected=DEFAULT_SELECTION_COLOR, ALLEGRO_COLOR text_color_not_selected=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f}, bool show_frame_around_selection=true, ALLEGRO_COLOR selection_frame_color=DEFAULT_SELECTION_COLOR);
+         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::ListBox* list_box=nullptr, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, ALLEGRO_COLOR text_color_selected=DEFAULT_SELECTION_COLOR, ALLEGRO_COLOR text_color_not_selected=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f}, bool show_frame_around_selection=true, ALLEGRO_COLOR selection_frame_color=DEFAULT_SELECTION_COLOR);
          ~ListBoxRenderer();
 
+         void set_selection_cursor_box(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box);
          void set_width(float width);
          void set_height(float height);
          void set_font_name(std::string font_name);
@@ -59,6 +62,7 @@ namespace AllegroFlare
          void set_text_color_not_selected(ALLEGRO_COLOR text_color_not_selected);
          void set_show_frame_around_selection(bool show_frame_around_selection);
          void set_selection_frame_color(ALLEGRO_COLOR selection_frame_color);
+         AllegroFlare::Elements::SelectionCursorBox* get_selection_cursor_box() const;
          float get_width() const;
          float get_height() const;
          std::string get_font_name() const;

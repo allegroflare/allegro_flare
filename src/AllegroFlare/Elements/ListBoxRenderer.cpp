@@ -17,10 +17,11 @@ namespace Elements
 {
 
 
-ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::ListBox* list_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, bool show_frame_around_selection, ALLEGRO_COLOR selection_frame_color)
+ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::ListBox* list_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, bool show_frame_around_selection, ALLEGRO_COLOR selection_frame_color)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , list_box(list_box)
+   , selection_cursor_box(selection_cursor_box)
    , width(width)
    , height(height)
    , font_name(font_name)
@@ -37,6 +38,12 @@ ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::
 
 ListBoxRenderer::~ListBoxRenderer()
 {
+}
+
+
+void ListBoxRenderer::set_selection_cursor_box(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box)
+{
+   this->selection_cursor_box = selection_cursor_box;
 }
 
 
@@ -97,6 +104,12 @@ void ListBoxRenderer::set_show_frame_around_selection(bool show_frame_around_sel
 void ListBoxRenderer::set_selection_frame_color(ALLEGRO_COLOR selection_frame_color)
 {
    this->selection_frame_color = selection_frame_color;
+}
+
+
+AllegroFlare::Elements::SelectionCursorBox* ListBoxRenderer::get_selection_cursor_box() const
+{
+   return selection_cursor_box;
 }
 
 
@@ -291,7 +304,7 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
    {
       bool this_option_is_currently_selected = (option_num == current_selection_num);
 
-      if (this_option_is_currently_selected && show_frame_around_selection)
+      if (this_option_is_currently_selected)
       {
          float summated_items_height_to_this_item = 0;
          for (int i=0; i<option_num; i++)
@@ -309,13 +322,26 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
          float selection_box_width = item_max_width + (text_padding_x * 2) * 0.5f;
          float selection_box_height = this_item_height + (item_spacing_padding_y * 2) * 0.5f;
 
-         AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
-         selection_cursor_box.set_position_quietly(
-              this_item_x,
-              this_item_center_y - (selection_box_height * 0.5)
-         );
-         selection_cursor_box.set_size_quietly(selection_box_width, selection_box_height);
-         selection_cursor_box.render();
+         if (selection_cursor_box) // Use the injected cursor selection box
+         {
+            selection_cursor_box->set_position(
+                 this_item_x,
+                 this_item_center_y - (selection_box_height * 0.5)
+            );
+            selection_cursor_box->set_size(selection_box_width, selection_box_height);
+            selection_cursor_box->render();
+         }
+         else if (show_frame_around_selection)
+         {
+            // 
+            AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
+            local_selection_cursor_box.set_position_quietly(
+                 this_item_x,
+                 this_item_center_y - (selection_box_height * 0.5)
+            );
+            local_selection_cursor_box.set_size_quietly(selection_box_width, selection_box_height);
+            local_selection_cursor_box.render();
+         }
       }
 
       al_draw_multiline_text(
