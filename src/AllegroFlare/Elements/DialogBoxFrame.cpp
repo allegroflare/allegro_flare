@@ -35,6 +35,18 @@ DialogBoxFrame::~DialogBoxFrame()
 }
 
 
+void DialogBoxFrame::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void DialogBoxFrame::set_height(float height)
+{
+   this->height = height;
+}
+
+
 void DialogBoxFrame::set_backfill_opacity(float backfill_opacity)
 {
    this->backfill_opacity = backfill_opacity;

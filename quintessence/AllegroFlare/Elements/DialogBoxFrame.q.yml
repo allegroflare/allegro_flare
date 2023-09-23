@@ -6,12 +6,14 @@ properties:
     init_with: '1920/5*3'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: height
     type: float
     init_with: '1080/4'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: backfill_opacity
     type: float

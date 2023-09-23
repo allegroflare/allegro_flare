@@ -5820,8 +5820,20 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">selection_cursor_box</td>
-  <td class="property">AllegroFlare::Elements::SelectionCursorBox</td>
+  <td class="property">text_color_selected</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">text_color_not_selected</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">show_frame_around_selection</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">selection_frame_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
   <td class="property">DEFAULT_FONT_NAME</td>
@@ -5830,6 +5842,10 @@ table td
 <tr>
   <td class="property">DEFAULT_FONT_SIZE</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_SELECTION_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -5848,6 +5864,9 @@ table td
 </tr>
 <tr>
   <td class="method">calculate_content_height()</td>
+</tr>
+<tr>
+  <td class="method">set_height_to_fit_content()</td>
 </tr>
 <tr>
   <td class="private_method">draw_choices_with_cursor_and_current_selection()</td>
@@ -5873,6 +5892,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -26885,6 +26907,7 @@ table td
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",

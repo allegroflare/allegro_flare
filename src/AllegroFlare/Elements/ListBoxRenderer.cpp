@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -16,7 +17,7 @@ namespace Elements
 {
 
 
-ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::ListBox* list_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y)
+ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::ListBox* list_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, bool show_frame_around_selection, ALLEGRO_COLOR selection_frame_color)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , list_box(list_box)
@@ -26,7 +27,10 @@ ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::
    , font_size(font_size)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
-   , selection_cursor_box({})
+   , text_color_selected(text_color_selected)
+   , text_color_not_selected(text_color_not_selected)
+   , show_frame_around_selection(show_frame_around_selection)
+   , selection_frame_color(selection_frame_color)
 {
 }
 
@@ -72,6 +76,30 @@ void ListBoxRenderer::set_text_padding_y(float text_padding_y)
 }
 
 
+void ListBoxRenderer::set_text_color_selected(ALLEGRO_COLOR text_color_selected)
+{
+   this->text_color_selected = text_color_selected;
+}
+
+
+void ListBoxRenderer::set_text_color_not_selected(ALLEGRO_COLOR text_color_not_selected)
+{
+   this->text_color_not_selected = text_color_not_selected;
+}
+
+
+void ListBoxRenderer::set_show_frame_around_selection(bool show_frame_around_selection)
+{
+   this->show_frame_around_selection = show_frame_around_selection;
+}
+
+
+void ListBoxRenderer::set_selection_frame_color(ALLEGRO_COLOR selection_frame_color)
+{
+   this->selection_frame_color = selection_frame_color;
+}
+
+
 float ListBoxRenderer::get_width() const
 {
    return width;
@@ -105,6 +133,30 @@ float ListBoxRenderer::get_text_padding_x() const
 float ListBoxRenderer::get_text_padding_y() const
 {
    return text_padding_y;
+}
+
+
+ALLEGRO_COLOR ListBoxRenderer::get_text_color_selected() const
+{
+   return text_color_selected;
+}
+
+
+ALLEGRO_COLOR ListBoxRenderer::get_text_color_not_selected() const
+{
+   return text_color_not_selected;
+}
+
+
+bool ListBoxRenderer::get_show_frame_around_selection() const
+{
+   return show_frame_around_selection;
+}
+
+
+ALLEGRO_COLOR ListBoxRenderer::get_selection_frame_color() const
+{
+   return selection_frame_color;
 }
 
 
@@ -150,7 +202,7 @@ float ListBoxRenderer::calculate_line_height()
 float ListBoxRenderer::calculate_item_spacing_padding()
 {
    float line_height = calculate_line_height();
-   return line_height * 0.5;
+   return line_height * 0.75;
 }
 
 float ListBoxRenderer::calculate_content_height()
@@ -217,14 +269,12 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
    //std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
 
    int current_selection_num = obtain_list_box_cursor_position();
-   ALLEGRO_COLOR text_color_selected = al_color_name("aquamarine");
-   ALLEGRO_COLOR text_color_not_selected = al_color_html("ffffff");
    float item_max_width = calculate_list_item_max_width();
    float line_height = calculate_line_height();
    //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
    float item_spacing_padding_y = calculate_item_spacing_padding();
    float x = text_padding_x;
-   float cursor_y = text_padding_y;
+   float render_cursor_y = text_padding_y;
 
    // Calculate item heights
    std::vector<float> item_heights;
@@ -240,71 +290,49 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
    for (auto &option : list_box->get_items())
    {
       bool this_option_is_currently_selected = (option_num == current_selection_num);
-      //std::string option_text = option.first;
-      //if (this_option_is_currently_selected)
-      //{
-         //float text_width = al_get_text_width(text_font, option_text.c_str());
-         //al_draw_filled_rectangle(
-            //x - selection_box_x_padding,
-            //start_y - selection_box_y_padding + option_num * line_height,
-            //x+text_width + selection_box_x_padding,
-            //start_y+line_height + selection_box_y_padding + option_num * line_height,
-            //selection_hilight_color
-         //);
-      //}
+
+      if (this_option_is_currently_selected && show_frame_around_selection)
+      {
+         float summated_items_height_to_this_item = 0;
+         for (int i=0; i<option_num; i++)
+         {
+            summated_items_height_to_this_item += (item_heights[i] + item_spacing_padding_y);
+         }
+
+         float this_item_height = item_heights[option_num];
+         float manual_y_offset_due_to_line_height_being_visually_misaligned_on_this_font = 0;
+         float this_item_x = text_padding_x * 0.5;
+         float this_item_center_y = text_padding_y
+                                 + summated_items_height_to_this_item
+                                 + (this_item_height * 0.5)
+                                 + manual_y_offset_due_to_line_height_being_visually_misaligned_on_this_font;
+         float selection_box_width = item_max_width + (text_padding_x * 2) * 0.5f;
+         float selection_box_height = this_item_height + (item_spacing_padding_y * 2) * 0.5f;
+
+         AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+         selection_cursor_box.set_position_quietly(
+              this_item_x,
+              this_item_center_y - (selection_box_height * 0.5)
+         );
+         selection_cursor_box.set_size_quietly(selection_box_width, selection_box_height);
+         selection_cursor_box.render();
+      }
+
       al_draw_multiline_text(
          text_font,
          this_option_is_currently_selected ? text_color_selected : text_color_not_selected,
          x,
-         cursor_y,
+         render_cursor_y,
          item_max_width,
          line_height,
          ALLEGRO_ALIGN_LEFT,
          option.first.c_str()
       );
 
-      cursor_y += item_heights[option_num] + item_spacing_padding_y;
+      render_cursor_y += item_heights[option_num] + item_spacing_padding_y;
       option_num++;
    }
 
-
-   /*
-   float line_height = al_get_font_line_height(text_font);
-   ALLEGRO_COLOR text_color_not_selected = al_color_html("dfdfdf");
-   ALLEGRO_COLOR text_color_selected = al_color_html("000000");
-   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR selection_hilight_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
-   float selection_box_x_padding = 24;
-   float selection_box_y_padding = 0;
-   float x = 200;
-
-   int option_num = 0;
-   for (auto &option : list_items)
-   {
-      bool this_option_is_currently_selected = (option_num == current_selection_num);
-      std::string option_text = option.first;
-      if (this_option_is_currently_selected)
-      {
-         float text_width = al_get_text_width(text_font, option_text.c_str());
-         al_draw_filled_rectangle(
-            x - selection_box_x_padding,
-            start_y - selection_box_y_padding + option_num * line_height,
-            x+text_width + selection_box_x_padding,
-            start_y+line_height + selection_box_y_padding + option_num * line_height,
-            selection_hilight_color
-         );
-      }
-      al_draw_text(
-         text_font,
-         this_option_is_currently_selected ? text_color_selected : text_color_not_selected,
-         x,
-         start_y + line_height*option_num,
-         ALLEGRO_ALIGN_LEFT,
-         option_text.c_str()
-      );
-      option_num++;
-   }
-   */
    return;
 }
 

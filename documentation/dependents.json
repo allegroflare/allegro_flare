@@ -668,6 +668,7 @@
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
