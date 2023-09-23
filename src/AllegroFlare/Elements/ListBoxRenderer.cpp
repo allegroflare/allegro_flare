@@ -241,7 +241,8 @@ float ListBoxRenderer::calculate_content_height()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"list_box\" not met");
    }
-   if (list_box->num_items() == 0) return 0;
+   int num_items = calculate_list_box_num_items();
+   if (num_items == 0) return 0;
 
    ALLEGRO_FONT* text_font = obtain_text_font();
    float item_max_width = calculate_list_item_max_width();
@@ -264,7 +265,7 @@ float ListBoxRenderer::calculate_content_height()
    }
 
    // Calculate the padding between items
-   float summated_item_spacing_padding = calculate_item_spacing_padding() * (list_box->num_items() - 1);
+   float summated_item_spacing_padding = calculate_item_spacing_padding() * (num_items - 1);
 
    // Return the height and padding
    return summated_items_height + summated_item_spacing_padding;
@@ -412,6 +413,11 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
    font_identifier << font_name << " " << font_size;
    ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
    return result_font;
+}
+
+int ListBoxRenderer::calculate_list_box_num_items()
+{
+   return list_box->num_items();
 }
 
 std::vector<std::string> ListBoxRenderer::obtain_list_box_items()
