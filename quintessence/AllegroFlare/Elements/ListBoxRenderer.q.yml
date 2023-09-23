@@ -67,7 +67,7 @@ properties:
 
   - name: text_color_not_selected
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    init_with: ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f}
     constructor_arg: true
     getter: true
     setter: true

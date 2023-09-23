@@ -46,7 +46,7 @@ namespace AllegroFlare
 
 
       public:
-         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::ListBox* list_box=nullptr, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, ALLEGRO_COLOR text_color_selected=DEFAULT_SELECTION_COLOR, ALLEGRO_COLOR text_color_not_selected=ALLEGRO_COLOR{1, 1, 1, 1}, bool show_frame_around_selection=true, ALLEGRO_COLOR selection_frame_color=DEFAULT_SELECTION_COLOR);
+         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::ListBox* list_box=nullptr, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, ALLEGRO_COLOR text_color_selected=DEFAULT_SELECTION_COLOR, ALLEGRO_COLOR text_color_not_selected=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f}, bool show_frame_around_selection=true, ALLEGRO_COLOR selection_frame_color=DEFAULT_SELECTION_COLOR);
          ~ListBoxRenderer();
 
          void set_width(float width);
