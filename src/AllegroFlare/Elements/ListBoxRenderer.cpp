@@ -189,13 +189,6 @@ void ListBoxRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   if (!(list_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::render]: error: guard \"list_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::render: error: guard \"list_box\" not met");
-   }
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
    draw_choices_with_cursor_and_current_selection();
    return;
@@ -410,11 +403,25 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
 
 int ListBoxRenderer::calculate_list_box_num_items()
 {
+   if (!(list_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_list_box_num_items]: error: guard \"list_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_list_box_num_items: error: guard \"list_box\" not met");
+   }
    return list_box->num_items();
 }
 
 std::vector<std::string> ListBoxRenderer::obtain_list_box_items()
 {
+   if (!(list_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::obtain_list_box_items]: error: guard \"list_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::obtain_list_box_items: error: guard \"list_box\" not met");
+   }
    std::vector<std::string> result;
    for (auto &item : list_box->get_items())
    {
@@ -425,6 +432,13 @@ std::vector<std::string> ListBoxRenderer::obtain_list_box_items()
 
 int ListBoxRenderer::obtain_list_box_cursor_position()
 {
+   if (!(list_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::obtain_list_box_cursor_position]: error: guard \"list_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::obtain_list_box_cursor_position: error: guard \"list_box\" not met");
+   }
    return list_box->get_cursor_position();
 }
 

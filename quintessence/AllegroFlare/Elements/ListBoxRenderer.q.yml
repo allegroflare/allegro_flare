@@ -119,7 +119,7 @@ methods:
 
 
   - name: render
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), list_box ]
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       AllegroFlare::Elements::DialogBoxFrame(width, height).render();
       draw_choices_with_cursor_and_current_selection();
@@ -343,6 +343,7 @@ methods:
   - name: calculate_list_box_num_items
     type: int
     private: true
+    guards: [ list_box ]
     body: |
       return list_box->num_items();
 
@@ -350,6 +351,7 @@ methods:
   - name: obtain_list_box_items
     type: std::vector<std::string>
     private: true
+    guards: [ list_box ]
     body: |
       std::vector<std::string> result;
       for (auto &item : list_box->get_items())
@@ -362,6 +364,7 @@ methods:
   - name: obtain_list_box_cursor_position
     type: int
     private: true
+    guards: [ list_box ]
     body: |
       return list_box->get_cursor_position();
 

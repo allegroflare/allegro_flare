@@ -44,18 +44,6 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererTest, can_be_created_without_blowing
 }
 
 
-TEST_F(AllegroFlare_Elements_ListBoxRendererTest, render__without_a_list_box__throws_an_exception)
-{
-   al_init();
-   al_init_primitives_addon();
-   AllegroFlare::Elements::ListBoxRenderer list_box_renderer;
-   std::string expected_error_message = "ListBoxRenderer::render: error: guard \"list_box\" not met";
-   ASSERT_THROW_WITH_MESSAGE(list_box_renderer.render(), std::runtime_error, expected_error_message);
-   al_shutdown_primitives_addon();
-   al_uninstall_system();
-}
-
-
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__renders_the_elements)
 {
