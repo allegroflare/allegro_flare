@@ -239,7 +239,7 @@ methods:
       - name: list_item_position
         type: int
         default_argument: 0
-    guards: [ (!list_items.empty()), (list_item_position >= 0), (list_item_position < (list_items.size() - 1)) ]
+    guards: [ (!list_items.empty()), (list_item_position >= 0), (list_item_position < list_items.size()) ]
     body: |
       ALLEGRO_FONT* text_font = obtain_text_font();
       float item_max_width = calculate_list_item_max_width();

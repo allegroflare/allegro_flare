@@ -322,12 +322,12 @@ std::tuple<float, float, float, float> ListBoxRenderer::calculate_dimensions_for
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(list_item_position >= 0)\" not met");
    }
-   if (!((list_item_position < (list_items.size() - 1))))
+   if (!((list_item_position < list_items.size())))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position < (list_items.size() - 1))\" not met.";
+      error_message << "[ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position < list_items.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(list_item_position < (list_items.size() - 1))\" not met");
+      throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(list_item_position < list_items.size())\" not met");
    }
    ALLEGRO_FONT* text_font = obtain_text_font();
    float item_max_width = calculate_list_item_max_width();
