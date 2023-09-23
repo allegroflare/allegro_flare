@@ -279,7 +279,7 @@ void ListBoxRenderer::set_height_to_fit_content()
 void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 {
    ALLEGRO_FONT* text_font = obtain_text_font();
-   //std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
+   std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
 
    int current_selection_num = obtain_list_box_cursor_position();
    float item_max_width = calculate_list_item_max_width();
@@ -291,28 +291,28 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 
    // Calculate item heights
    std::vector<float> item_heights;
-   for (auto &option : list_box->get_items())
+   for (auto &list_item : list_items)
    {
-      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, option.first);
+      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item.first);
       float this_item_height = this_item_num_lines * line_height;
       item_heights.push_back(this_item_height);
    }
 
    // Render the items
-   int option_num = 0;
-   for (auto &option : list_box->get_items())
+   int list_item_num = 0;
+   for (auto &list_item : list_items)
    {
-      bool this_option_is_currently_selected = (option_num == current_selection_num);
+      bool this_list_item_is_currently_selected = (list_item_num == current_selection_num);
 
-      if (this_option_is_currently_selected)
+      if (this_list_item_is_currently_selected)
       {
          float summated_items_height_to_this_item = 0;
-         for (int i=0; i<option_num; i++)
+         for (int i=0; i<list_item_num; i++)
          {
             summated_items_height_to_this_item += (item_heights[i] + item_spacing_padding_y);
          }
 
-         float this_item_height = item_heights[option_num];
+         float this_item_height = item_heights[list_item_num];
          float manual_y_offset_due_to_line_height_being_visually_misaligned_on_this_font = 0;
          float this_item_x = text_padding_x * 0.5;
          float this_item_center_y = text_padding_y
@@ -345,17 +345,17 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 
       al_draw_multiline_text(
          text_font,
-         this_option_is_currently_selected ? text_color_selected : text_color_not_selected,
+         this_list_item_is_currently_selected ? text_color_selected : text_color_not_selected,
          x,
          render_cursor_y,
          item_max_width,
          line_height,
          ALLEGRO_ALIGN_LEFT,
-         option.first.c_str()
+         list_item.first.c_str()
       );
 
-      render_cursor_y += item_heights[option_num] + item_spacing_padding_y;
-      option_num++;
+      render_cursor_y += item_heights[list_item_num] + item_spacing_padding_y;
+      list_item_num++;
    }
 
    return;
