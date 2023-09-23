@@ -21,8 +21,8 @@ DialogBoxFrame::DialogBoxFrame(float width, float height)
    : width(width)
    , height(height)
    , backfill_opacity(0.8)
-   , backfill_color(ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f})
-   , border_color(al_color_html("909090"))
+   , backfill_color(DEFAULT_BACKFILL_COLOR)
+   , border_color(DEFAULT_BORDER_COLOR)
    , opacity(1.0f)
    , roundness(13.0f)
    , border_thickness(6.0f)
@@ -137,7 +137,8 @@ void DialogBoxFrame::render()
       throw std::runtime_error("DialogBoxFrame::render: error: guard \"al_get_current_display()\" not met");
    }
    float border_inner_padding = border_thickness * 2.25;
-   ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
+   ALLEGRO_COLOR backfill_color_with_opacity =
+      AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
    ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);
 
    // draw backfill

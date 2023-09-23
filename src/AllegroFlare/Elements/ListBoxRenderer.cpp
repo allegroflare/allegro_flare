@@ -188,7 +188,14 @@ void ListBoxRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   AllegroFlare::Elements::DialogBoxFrame(width, height).render();
+   AllegroFlare::Elements::DialogBoxFrame frame(width, height);
+   // Other options for customized rendering:
+      //backfill_opacity
+      //backfill_color
+      //border_color
+      //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
+      //AllegroFlare::Elements::DialogBoxFrame::ALLEGRO_COLOR
+   frame.render();
    draw_choices_with_cursor_and_current_selection();
    return;
 }

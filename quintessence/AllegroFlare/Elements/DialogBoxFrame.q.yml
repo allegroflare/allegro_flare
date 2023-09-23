@@ -22,12 +22,12 @@ properties:
 
   - name: backfill_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f}
+    init_with: DEFAULT_BACKFILL_COLOR
     setter: true
 
   - name: border_color
     type: ALLEGRO_COLOR
-    init_with: al_color_html("909090")
+    init_with: DEFAULT_BORDER_COLOR
     setter: true
 
   - name: opacity
@@ -48,8 +48,22 @@ properties:
     getter: true
     setter: true
 
+  - name: DEFAULT_BACKFILL_COLOR
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f}
+    constexpr: true
+    static: true
+    const: true
 
-functions:
+  - name: DEFAULT_BORDER_COLOR
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{0.565f, 0.565f, 0.565f, 0.9f}
+    constexpr: true
+    static: true
+    const: true
+
+
+methods:
 
 
   - name: render
@@ -59,7 +73,8 @@ functions:
       - al_get_current_display()
     body: |
       float border_inner_padding = border_thickness * 2.25;
-      ALLEGRO_COLOR backfill_color_with_opacity = AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
+      ALLEGRO_COLOR backfill_color_with_opacity =
+         AllegroFlare::color::color(backfill_color, backfill_opacity * opacity);
       ALLEGRO_COLOR border_color_with_opacity = AllegroFlare::color::color(border_color, opacity);
 
       // draw backfill

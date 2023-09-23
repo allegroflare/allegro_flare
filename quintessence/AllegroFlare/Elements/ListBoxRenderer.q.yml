@@ -116,7 +116,14 @@ methods:
   - name: render
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      AllegroFlare::Elements::DialogBoxFrame(width, height).render();
+      AllegroFlare::Elements::DialogBoxFrame frame(width, height);
+      // Other options for customized rendering:
+         //backfill_opacity
+         //backfill_color
+         //border_color
+         //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
+         //AllegroFlare::Elements::DialogBoxFrame::ALLEGRO_COLOR
+      frame.render();
       draw_choices_with_cursor_and_current_selection();
       return;
     body_dependency_symbols:
