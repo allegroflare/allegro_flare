@@ -68,7 +68,8 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
-   CAPTURE__calculate_dimensions_for_list_item_at_position__returns_dimensions_that_match_the_current_selected_object)
+   CAPTURE__VISUAL__calculate_dimensions_for_list_item_at_position__returns_dimensions_that_match_the_current_\
+selected_object)
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
@@ -144,52 +145,5 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
       al_flip_display();
    }
 }
-
-
-/*
-TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
-   CAPTURE__render__when_a_selection_cursor_box_is_present__renders_it)
-{
-   get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
-
-   std::vector<std::pair<std::string, std::string>> choice_options = {
-     { "I'm searching for the ancient lost treasure said to be hidden here.", "find_treasure" },
-     { "I heard rumors of strange occurrences, so I came to investigate.",    "investigate_rumors" },
-     { "I got lost while on a journey and ended up here by accident.",        "lost" },
-   };
-   AllegroFlare::Elements::ListBox list_box;
-   list_box.set_items(choice_options);
-   list_box.set_wrap_at_edges(true);
-
-   AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
-
-   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
-      &get_font_bin_ref(),
-      &get_bitmap_bin_ref(),
-      list_box.get_item_labels(),
-      &selection_cursor_box
-   );
-   list_box_renderer.set_height_to_fit_content();
-
-   AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
-
-   int passes = 240;
-   for (int i=0; i<passes; i++)
-   { 
-      if (i % (passes / 3) == (passes / 3) / 2) list_box.move_cursor_down();
-
-      clear();
-      place.start_transform();
-      list_box_renderer.render();
-      place.restore_transform();
-      al_flip_display();
-   }
-
-   //sleep_for(1);
-
-   SUCCEED();
-}
-*/
-
 
 
