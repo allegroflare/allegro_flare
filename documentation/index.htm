@@ -6933,6 +6933,12 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">resize_to(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
+</tr>
+<tr>
   <td class="method">set_position(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
 </tr>
 <tr>
@@ -6948,19 +6954,13 @@ table td
   <td class="method">set_padding(float padding_x=0.0f, float padding_y=0.0f, float time_now=0 /* this arg currently not used */)</td>
 </tr>
 <tr>
-  <td class="method">reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
-</tr>
-<tr>
-  <td class="method">resize_to(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
-</tr>
-<tr>
-  <td class="private_method">update_last_repositioned_at(float time_now=al_get_time())</td>
-</tr>
-<tr>
   <td class="method">update()</td>
 </tr>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">update_last_repositioned_at(float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="private_method">build_cursor_color()</td>
@@ -6972,7 +6972,7 @@ table td
   <td class="private_method">draw_cursor()</td>
 </tr>
 <tr>
-  <td class="method">infer_cursor_change_age(float time_now=al_get_time())</td>
+  <td class="private_method">infer_cursor_change_age(float time_now=al_get_time())</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

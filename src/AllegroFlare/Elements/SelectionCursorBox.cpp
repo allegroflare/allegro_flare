@@ -116,6 +116,20 @@ float SelectionCursorBox::get_last_repositioned_at() const
 }
 
 
+void SelectionCursorBox::reposition_to(float x, float y, float time_now)
+{
+   position_destination = AllegroFlare::Vec2D(x, y);
+   update_last_repositioned_at(time_now);
+   return;
+}
+
+void SelectionCursorBox::resize_to(float x, float y, float time_now)
+{
+   size_destination = AllegroFlare::Vec2D(x, y);
+   update_last_repositioned_at(time_now); // TODO: change this to a "last_resized_at"
+   return;
+}
+
 void SelectionCursorBox::set_position(float x, float y, float time_now)
 {
    set_position_quietly(x, y);
@@ -148,26 +162,6 @@ void SelectionCursorBox::set_padding(float padding_x, float padding_y, float tim
    return;
 }
 
-void SelectionCursorBox::reposition_to(float x, float y, float time_now)
-{
-   position_destination = AllegroFlare::Vec2D(x, y);
-   update_last_repositioned_at(time_now);
-   return;
-}
-
-void SelectionCursorBox::resize_to(float x, float y, float time_now)
-{
-   size_destination = AllegroFlare::Vec2D(x, y);
-   update_last_repositioned_at(time_now); // TODO: change this to a "last_resized_at"
-   return;
-}
-
-void SelectionCursorBox::update_last_repositioned_at(float time_now)
-{
-   this->last_repositioned_at = time_now;
-   return;
-}
-
 void SelectionCursorBox::update()
 {
    position = (position_destination - position)
@@ -194,6 +188,12 @@ void SelectionCursorBox::render()
       throw std::runtime_error("SelectionCursorBox::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    draw_cursor();
+   return;
+}
+
+void SelectionCursorBox::update_last_repositioned_at(float time_now)
+{
+   this->last_repositioned_at = time_now;
    return;
 }
 

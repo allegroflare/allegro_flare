@@ -79,6 +79,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    };
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items(choice_options);
+   list_box.set_wrap_at_edges(true);
 
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       &get_font_bin_ref(),
@@ -90,11 +91,24 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
+   list_box_renderer.set_cursor_position(list_box.get_cursor_position());
+
+   // Init the cursor position to the current selection
+   std::tuple<float, float, float, float> current_selection_dimensions =
+      list_box_renderer.calculate_dimensions_for_list_item_at_position(list_box.get_cursor_position());
+   float current_selection_x = std::get<0>(current_selection_dimensions);
+   float current_selection_y = std::get<1>(current_selection_dimensions);
+   float current_selection_width = std::get<2>(current_selection_dimensions);
+   float current_selection_height = std::get<3>(current_selection_dimensions);
+   selection_cursor_box.set_position(current_selection_x, current_selection_y);
+   selection_cursor_box.set_size(current_selection_width, current_selection_height);
+
    int passes = 240;
+   int cursor_presses = 2;
    for (int i=0; i<passes; i++)
    { 
       bool move_cursor_in_this_pass = false;
-      if (i % (passes / 3) == (passes / 3) / 2) move_cursor_in_this_pass = true;
+      if (i % (passes / cursor_presses) == (passes / cursor_presses) / 2) move_cursor_in_this_pass = true;
      
       if (move_cursor_in_this_pass)
       {
@@ -110,13 +124,12 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
          // (Build an ephemeral cursor box:)
          std::tuple<float, float, float, float> current_selection_dimensions =
             list_box_renderer.calculate_dimensions_for_list_item_at_position(list_box.get_cursor_position());
-         //AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          float current_selection_x = std::get<0>(current_selection_dimensions);
          float current_selection_y = std::get<1>(current_selection_dimensions);
          float current_selection_width = std::get<2>(current_selection_dimensions);
          float current_selection_height = std::get<3>(current_selection_dimensions);
-         selection_cursor_box.set_position(current_selection_x, current_selection_y);
-         selection_cursor_box.set_size(current_selection_width, current_selection_height);
+         selection_cursor_box.reposition_to(current_selection_x, current_selection_y);
+         selection_cursor_box.resize_to(current_selection_width, current_selection_height);
       }
 
       // Update the selection_cursor_box
