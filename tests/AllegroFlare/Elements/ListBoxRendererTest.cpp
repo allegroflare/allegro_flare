@@ -47,26 +47,22 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items(choice_options);
 
-   //AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
-
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       &get_font_bin_ref(),
       &get_bitmap_bin_ref(),
       list_box.get_item_labels()
-      //&selection_cursor_box
    );
    list_box_renderer.set_height_to_fit_content();
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
 
    list_box.move_cursor_down();
-   //list_box.move_cursor_down();
 
    place.start_transform();
    list_box_renderer.render();
    place.restore_transform();
    al_flip_display();
-   //sleep_for(1);
+   sleep_for(1);
 
    SUCCEED();
 }
