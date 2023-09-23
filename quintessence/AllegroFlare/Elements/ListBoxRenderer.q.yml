@@ -188,10 +188,9 @@ methods:
     body: |
        ALLEGRO_FONT* text_font = obtain_text_font();
 
-       int current_selection_num = cursor_position;
+       int current_selection_num = cursor_position; // TODO: Figure out what to do with an out-of-bounds cursor position
        float item_max_width = calculate_list_item_max_width();
        float line_height = calculate_line_height();
-       //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
        float item_spacing_padding_y = calculate_item_spacing_padding();
        float x = text_padding_x;
        float render_cursor_y = text_padding_y;

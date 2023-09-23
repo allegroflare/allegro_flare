@@ -89,22 +89,32 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
 
+   // Move the cursor in the list
    list_box.move_cursor_down();
 
-   // Build an (ephemeral) cursor box
+   // Update the cursor position in the renderer (currently only used to highlight the selected option text, consider
+                                              //  an alternative where elements in the list can have selected/unselected
+                                              //  selected_at, etc states.
+   list_box_renderer.set_cursor_position(list_box.get_cursor_position());
+
+   // As a consequence to teh above, update the cursor selection box rendering position
+   // (Build an ephemeral cursor box:)
    std::tuple<float, float, float, float> current_selection_dimensions =
-      list_box_renderer.calculate_dimensions_for_list_item_at_position(1);
+      list_box_renderer.calculate_dimensions_for_list_item_at_position(list_box.get_cursor_position());
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+   float current_selection_x = std::get<0>(current_selection_dimensions);
+   float current_selection_y = std::get<1>(current_selection_dimensions);
    float current_selection_width = std::get<2>(current_selection_dimensions);
    float current_selection_height = std::get<3>(current_selection_dimensions);
+   selection_cursor_box.set_position(current_selection_x, current_selection_y);
    selection_cursor_box.set_size(current_selection_width, current_selection_height);
-   selection_cursor_box.render();
 
    place.start_transform();
    list_box_renderer.render();
+   selection_cursor_box.render();
    place.restore_transform();
    al_flip_display();
-   //sleep_for(1);
+   sleep_for(1);
 }
 
 
