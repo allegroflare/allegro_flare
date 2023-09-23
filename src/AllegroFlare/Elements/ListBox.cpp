@@ -57,6 +57,16 @@ void ListBox::set_items(std::vector<std::pair<std::string, std::string>> items)
    return;
 }
 
+std::vector<std::string> ListBox::get_item_labels()
+{
+   std::vector<std::string> result;
+   for (auto &item : items)
+   {
+      result.push_back(item.first);
+   }
+   return result;
+}
+
 int ListBox::num_items()
 {
    return items.size();

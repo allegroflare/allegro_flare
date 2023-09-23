@@ -17,11 +17,10 @@ namespace Elements
 {
 
 
-ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::ListBox* list_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, bool show_frame_around_selection, ALLEGRO_COLOR selection_frame_color)
+ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> list_items, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, bool show_frame_around_selection, int show_frame_at_cursor_position, ALLEGRO_COLOR selection_frame_color)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
-   , list_box(list_box)
-   , selection_cursor_box(selection_cursor_box)
+   , list_items(list_items)
    , width(width)
    , height(height)
    , font_name(font_name)
@@ -31,6 +30,7 @@ ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::
    , text_color_selected(text_color_selected)
    , text_color_not_selected(text_color_not_selected)
    , show_frame_around_selection(show_frame_around_selection)
+   , show_frame_at_cursor_position(show_frame_at_cursor_position)
    , selection_frame_color(selection_frame_color)
 {
 }
@@ -41,9 +41,9 @@ ListBoxRenderer::~ListBoxRenderer()
 }
 
 
-void ListBoxRenderer::set_selection_cursor_box(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box)
+void ListBoxRenderer::set_list_items(std::vector<std::string> list_items)
 {
-   this->selection_cursor_box = selection_cursor_box;
+   this->list_items = list_items;
 }
 
 
@@ -101,15 +101,21 @@ void ListBoxRenderer::set_show_frame_around_selection(bool show_frame_around_sel
 }
 
 
+void ListBoxRenderer::set_show_frame_at_cursor_position(int show_frame_at_cursor_position)
+{
+   this->show_frame_at_cursor_position = show_frame_at_cursor_position;
+}
+
+
 void ListBoxRenderer::set_selection_frame_color(ALLEGRO_COLOR selection_frame_color)
 {
    this->selection_frame_color = selection_frame_color;
 }
 
 
-AllegroFlare::Elements::SelectionCursorBox* ListBoxRenderer::get_selection_cursor_box() const
+std::vector<std::string> ListBoxRenderer::get_list_items() const
 {
-   return selection_cursor_box;
+   return list_items;
 }
 
 
@@ -164,6 +170,12 @@ ALLEGRO_COLOR ListBoxRenderer::get_text_color_not_selected() const
 bool ListBoxRenderer::get_show_frame_around_selection() const
 {
    return show_frame_around_selection;
+}
+
+
+int ListBoxRenderer::get_show_frame_at_cursor_position() const
+{
+   return show_frame_at_cursor_position;
 }
 
 
@@ -227,7 +239,7 @@ float ListBoxRenderer::calculate_content_height()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   int num_items = calculate_list_box_num_items();
+   int num_items = list_items.size();
    if (num_items == 0) return 0;
 
    ALLEGRO_FONT* text_font = obtain_text_font();
@@ -236,7 +248,7 @@ float ListBoxRenderer::calculate_content_height()
 
    // Calculate the item heights
    std::vector<float> item_heights;
-   for (auto &list_item : obtain_list_box_items())
+   for (auto &list_item : list_items)
    {
       int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
       float this_item_height = this_item_num_lines * line_height;
@@ -266,9 +278,8 @@ void ListBoxRenderer::set_height_to_fit_content()
 void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 {
    ALLEGRO_FONT* text_font = obtain_text_font();
-   std::vector<std::string> list_items = obtain_list_box_items();
 
-   int current_selection_num = obtain_list_box_cursor_position();
+   int current_selection_num = show_frame_at_cursor_position;
    float item_max_width = calculate_list_item_max_width();
    float line_height = calculate_line_height();
    //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
@@ -290,45 +301,6 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
    for (auto &list_item : list_items)
    {
       bool this_list_item_is_currently_selected = (list_item_num == current_selection_num);
-
-      if (this_list_item_is_currently_selected)
-      {
-         float summated_items_height_to_this_item = 0;
-         for (int i=0; i<list_item_num; i++)
-         {
-            summated_items_height_to_this_item += (item_heights[i] + item_spacing_padding_y);
-         }
-
-         float this_item_height = item_heights[list_item_num];
-         float manual_y_offset_due_to_line_height_being_visually_misaligned_on_this_font = 0;
-         float this_item_x = text_padding_x * 0.5;
-         float this_item_center_y = text_padding_y
-                                 + summated_items_height_to_this_item
-                                 + (this_item_height * 0.5)
-                                 + manual_y_offset_due_to_line_height_being_visually_misaligned_on_this_font;
-         float selection_box_width = item_max_width + (text_padding_x * 2) * 0.5f;
-         float selection_box_height = this_item_height + (item_spacing_padding_y * 2) * 0.5f;
-
-         if (selection_cursor_box) // Use the injected cursor selection box
-         {
-            selection_cursor_box->set_position(
-              this_item_x,
-              this_item_center_y - (selection_box_height * 0.5)
-            );
-            selection_cursor_box->set_size(selection_box_width, selection_box_height);
-            selection_cursor_box->render();
-         }
-         else if (show_frame_around_selection) // Render an in-house selection_cursor_box
-         {
-            AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
-            local_selection_cursor_box.set_position_quietly(
-              this_item_x,
-              this_item_center_y - (selection_box_height * 0.5)
-            );
-            local_selection_cursor_box.set_size_quietly(selection_box_width, selection_box_height);
-            local_selection_cursor_box.render();
-         }
-      }
 
       al_draw_multiline_text(
          text_font,
@@ -399,47 +371,6 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
    font_identifier << font_name << " " << font_size;
    ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
    return result_font;
-}
-
-int ListBoxRenderer::calculate_list_box_num_items()
-{
-   if (!(list_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_list_box_num_items]: error: guard \"list_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_list_box_num_items: error: guard \"list_box\" not met");
-   }
-   return list_box->num_items();
-}
-
-std::vector<std::string> ListBoxRenderer::obtain_list_box_items()
-{
-   if (!(list_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_list_box_items]: error: guard \"list_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_list_box_items: error: guard \"list_box\" not met");
-   }
-   std::vector<std::string> result;
-   for (auto &item : list_box->get_items())
-   {
-      result.push_back(item.first);
-   }
-   return result;
-}
-
-int ListBoxRenderer::obtain_list_box_cursor_position()
-{
-   if (!(list_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_list_box_cursor_position]: error: guard \"list_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_list_box_cursor_position: error: guard \"list_box\" not met");
-   }
-   return list_box->get_cursor_position();
 }
 
 std::string ListBoxRenderer::concat_text(std::string source_text, int length)

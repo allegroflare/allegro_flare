@@ -3,19 +3,9 @@
 
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 
+#include <AllegroFlare/Elements/ListBox.hpp>
 #include <allegro5/allegro_primitives.h>
 
-
-TEST(AllegroFlare_Elements_ListBoxTest, can_be_created_without_blowing_up)
-{
-   AllegroFlare::Elements::ListBox list_box;
-}
-
-
-// TODO: Modify the tests below to make a list box
-
-
-#include <gtest/gtest.h>
 
 #define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
    try { code; FAIL() << "Expected " # raised_exception_type; } \
@@ -57,10 +47,13 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items(choice_options);
 
+   //AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       &get_font_bin_ref(),
       &get_bitmap_bin_ref(),
-      &list_box
+      list_box.get_item_labels()
+      //&selection_cursor_box
    );
    list_box_renderer.set_height_to_fit_content();
 
@@ -79,6 +72,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 }
 
 
+/*
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__when_a_selection_cursor_box_is_present__renders_it)
 {
@@ -98,7 +92,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       &get_font_bin_ref(),
       &get_bitmap_bin_ref(),
-      &list_box,
+      list_box.get_item_labels(),
       &selection_cursor_box
    );
    list_box_renderer.set_height_to_fit_content();
@@ -121,6 +115,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 
    SUCCEED();
 }
+*/
 
 
 

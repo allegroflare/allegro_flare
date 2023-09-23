@@ -48,3 +48,22 @@ TEST(AllegroFlare_Elements_ListBoxTest, set_items__will_set_the_cursor_position_
 }
 
 
+TEST(AllegroFlare_Elements_ListBoxTest, get_item_labels__will_return_a_list_of_just_the_labels_for_the_items)
+{
+   AllegroFlare::Elements::ListBox list_box;
+   list_box.set_items(build_food_test_data());
+
+   std::vector<std::string> expected_item_labels = {
+      "Spinach Quiche",
+      "Vegetable Stir-Fry",
+      "Caprese Salad",
+      "Mushroom Risotto",
+      "Eggplant Parmesan",
+      "Vegetarian Chili",
+      "Stuffed Bell Peppers",
+   };
+
+   EXPECT_EQ(expected_item_labels, list_box.get_item_labels());
+}
+
+

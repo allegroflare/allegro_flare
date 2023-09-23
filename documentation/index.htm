@@ -5761,6 +5761,9 @@ table td
   <td class="method">set_items(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; items={})</td>
 </tr>
 <tr>
+  <td class="method">get_item_labels()</td>
+</tr>
+<tr>
   <td class="method">num_items()</td>
 </tr>
 <tr>
@@ -5792,8 +5795,8 @@ table td
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
 <tr>
-  <td class="property">list_box</td>
-  <td class="property">AllegroFlare::Elements::ListBox*</td>
+  <td class="property">list_items</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
 </tr>
 <tr>
   <td class="property">selection_cursor_box</td>
@@ -5834,6 +5837,10 @@ table td
 <tr>
   <td class="property">show_frame_around_selection</td>
   <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">show_frame_at_cursor_position</td>
+  <td class="property">int</td>
 </tr>
 <tr>
   <td class="property">selection_frame_color</td>
@@ -5885,15 +5892,6 @@ table td
   <td class="private_method">obtain_text_font()</td>
 </tr>
 <tr>
-  <td class="private_method">calculate_list_box_num_items()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_list_box_items()</td>
-</tr>
-<tr>
-  <td class="private_method">obtain_list_box_cursor_position()</td>
-</tr>
-<tr>
   <td class="private_method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
 </tr>
     </table>
@@ -5934,9 +5932,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ListBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ListBox.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
@@ -27631,9 +27626,6 @@ table td
   "AllegroFlare/Elements/LevelSelect": [
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
-  ],
-  "AllegroFlare/Elements/ListBox": [
-    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",

@@ -1386,9 +1386,6 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
   ],
-  "AllegroFlare/Elements/ListBox": [
-    "AllegroFlare/Elements/ListBoxRenderer"
-  ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderer",

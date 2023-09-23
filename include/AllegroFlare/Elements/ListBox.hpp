@@ -29,6 +29,7 @@ namespace AllegroFlare
          int get_cursor_position() const;
          bool get_wrap_at_edges() const;
          void set_items(std::vector<std::pair<std::string, std::string>> items={});
+         std::vector<std::string> get_item_labels();
          int num_items();
          bool has_valid_currently_selected_item();
          std::string get_currently_selected_item_value();

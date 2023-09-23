@@ -34,6 +34,17 @@ methods:
       return;
 
 
+  - name: get_item_labels
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> result;
+      for (auto &item : items)
+      {
+         result.push_back(item.first);
+      }
+      return result;
+
+
   - name: num_items
     type: int
     body: |
