@@ -150,7 +150,7 @@ methods:
 
   - name: calculate_content_height
     type: float
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), list_box ]
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       int num_items = calculate_list_box_num_items();
       if (num_items == 0) return 0;
@@ -161,9 +161,9 @@ methods:
 
       // Calculate the item heights
       std::vector<float> item_heights;
-      for (auto &option : list_box->get_items())
+      for (auto &list_item : obtain_list_box_items())
       {
-         int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, option.first);
+         int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
          float this_item_height = this_item_num_lines * line_height;
          item_heights.push_back(this_item_height);
       }

@@ -234,13 +234,6 @@ float ListBoxRenderer::calculate_content_height()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   if (!(list_box))
-   {
-      std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_content_height]: error: guard \"list_box\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"list_box\" not met");
-   }
    int num_items = calculate_list_box_num_items();
    if (num_items == 0) return 0;
 
@@ -250,9 +243,9 @@ float ListBoxRenderer::calculate_content_height()
 
    // Calculate the item heights
    std::vector<float> item_heights;
-   for (auto &option : list_box->get_items())
+   for (auto &list_item : obtain_list_box_items())
    {
-      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, option.first);
+      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
       float this_item_height = this_item_num_lines * line_height;
       item_heights.push_back(this_item_height);
    }
