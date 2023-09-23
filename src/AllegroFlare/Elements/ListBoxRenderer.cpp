@@ -320,6 +320,84 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
    return;
 }
 
+std::tuple<float, float, float, float> ListBoxRenderer::calculate_dimensions_for_list_item_at_position(int list_item_position)
+{
+   if (!((list_item_position < 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position < 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(list_item_position < 0)\" not met");
+   }
+   if (!((list_item_position >= list_items.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position >= list_items.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(list_item_position >= list_items.size())\" not met");
+   }
+   ALLEGRO_FONT* text_font = obtain_text_font();
+   float item_max_width = calculate_list_item_max_width();
+   float line_height = calculate_line_height();
+   float item_spacing_padding_y = calculate_item_spacing_padding();
+
+   // Calculate item heights
+   std::vector<float> item_heights;
+   for (auto &list_item : list_items)
+   {
+      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
+      float this_item_height = this_item_num_lines * line_height;
+      item_heights.push_back(this_item_height);
+   }
+
+   // Calculate height up to this item position
+   float summated_items_height_to_this_item = 0;
+   for (int i=0; i<list_item_position; i++)
+   {
+      summated_items_height_to_this_item += (item_heights[i] + item_spacing_padding_y);
+   }
+
+   float this_item_height = item_heights[list_item_position];
+   float manual_y_offset_due_to_line_height_being_visually_misaligned_on_this_font = 0;
+   float this_item_x = text_padding_x * 0.5;
+   float this_item_center_y = text_padding_y
+                           + summated_items_height_to_this_item
+                           + (this_item_height * 0.5)
+                           + manual_y_offset_due_to_line_height_being_visually_misaligned_on_this_font;
+   float selection_box_width = item_max_width + (text_padding_x * 2) * 0.5f;
+   float selection_box_height = this_item_height + (item_spacing_padding_y * 2) * 0.5f;
+
+   return std::tuple<float, float, float, float>{
+      this_item_x,
+      this_item_center_y - (selection_box_height * 0.5),
+      selection_box_width,
+      selection_box_height,
+   };
+
+   /*
+   if (selection_cursor_box) // Use the injected cursor selection box
+   {
+      selection_cursor_box->set_position(
+        this_item_x,
+        this_item_center_y - (selection_box_height * 0.5)
+      );
+      selection_cursor_box->set_size(selection_box_width, selection_box_height);
+      selection_cursor_box->render();
+   }
+   else if (show_frame_around_selection) // Render an in-house selection_cursor_box
+   {
+      AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
+      local_selection_cursor_box.set_position_quietly(
+        this_item_x,
+        this_item_center_y - (selection_box_height * 0.5)
+      );
+      local_selection_cursor_box.set_size_quietly(selection_box_width, selection_box_height);
+      local_selection_cursor_box.render();
+   }
+   //}
+   */
+}
+
 bool ListBoxRenderer::multiline_text_draw_callback(int line_number, const char* line, int size, void* extra)
 {
    int &multiline_text_line_number = *((int*)extra);
