@@ -74,14 +74,7 @@ properties:
     getter: true
     setter: true
 
-  - name: show_frame_around_selection
-    type: bool
-    init_with: true
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: show_frame_at_cursor_position
+  - name: cursor_position
     type: int
     init_with: 0
     constructor_arg: true
@@ -195,7 +188,7 @@ methods:
     body: |
        ALLEGRO_FONT* text_font = obtain_text_font();
 
-       int current_selection_num = show_frame_at_cursor_position;
+       int current_selection_num = cursor_position;
        float item_max_width = calculate_list_item_max_width();
        float line_height = calculate_line_height();
        //float item_height = line_height * 1.4f; // TODO: Use a dynamic line-height
@@ -247,7 +240,7 @@ methods:
       - name: list_item_position
         type: int
         default_argument: 0
-    guards: [ (list_item_position < 0), (list_item_position >= list_items.size()) ]
+    guards: [ (!list_items.empty()), (list_item_position >= 0), (list_item_position < (list_items.size() - 1)) ]
     body: |
       ALLEGRO_FONT* text_font = obtain_text_font();
       float item_max_width = calculate_list_item_max_width();
@@ -280,6 +273,7 @@ methods:
       float selection_box_width = item_max_width + (text_padding_x * 2) * 0.5f;
       float selection_box_height = this_item_height + (item_spacing_padding_y * 2) * 0.5f;
 
+                   // { x    , y    , width, height }
       return std::tuple<float, float, float, float>{
          this_item_x,
          this_item_center_y - (selection_box_height * 0.5),
