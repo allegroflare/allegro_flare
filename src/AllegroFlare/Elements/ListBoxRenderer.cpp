@@ -279,7 +279,7 @@ void ListBoxRenderer::set_height_to_fit_content()
 void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 {
    ALLEGRO_FONT* text_font = obtain_text_font();
-   std::vector<std::pair<std::string, std::string>> list_items = obtain_list_box_items();
+   std::vector<std::string> list_items = obtain_list_box_items();
 
    int current_selection_num = obtain_list_box_cursor_position();
    float item_max_width = calculate_list_item_max_width();
@@ -293,7 +293,7 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
    std::vector<float> item_heights;
    for (auto &list_item : list_items)
    {
-      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item.first);
+      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
       float this_item_height = this_item_num_lines * line_height;
       item_heights.push_back(this_item_height);
    }
@@ -351,7 +351,7 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
          item_max_width,
          line_height,
          ALLEGRO_ALIGN_LEFT,
-         list_item.first.c_str()
+         list_item.c_str()
       );
 
       render_cursor_y += item_heights[list_item_num] + item_spacing_padding_y;
@@ -414,9 +414,14 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
    return result_font;
 }
 
-std::vector<std::pair<std::string, std::string>> ListBoxRenderer::obtain_list_box_items()
+std::vector<std::string> ListBoxRenderer::obtain_list_box_items()
 {
-   return list_box->get_items();
+   std::vector<std::string> result;
+   for (auto &item : list_box->get_items())
+   {
+      result.push_back(item.first);
+   }
+   return result;
 }
 
 int ListBoxRenderer::obtain_list_box_cursor_position()

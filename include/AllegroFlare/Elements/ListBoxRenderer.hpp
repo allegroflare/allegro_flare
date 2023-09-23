@@ -8,7 +8,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
-#include <utility>
 #include <vector>
 
 
@@ -40,7 +39,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR selection_frame_color;
          void draw_choices_with_cursor_and_current_selection();
          ALLEGRO_FONT* obtain_text_font();
-         std::vector<std::pair<std::string, std::string>> obtain_list_box_items();
+         std::vector<std::string> obtain_list_box_items();
          int obtain_list_box_cursor_position();
          std::string concat_text(std::string source_text="", int length=0);
 
