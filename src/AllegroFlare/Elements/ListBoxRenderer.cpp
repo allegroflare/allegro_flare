@@ -325,19 +325,18 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
          if (selection_cursor_box) // Use the injected cursor selection box
          {
             selection_cursor_box->set_position(
-                 this_item_x,
-                 this_item_center_y - (selection_box_height * 0.5)
+              this_item_x,
+              this_item_center_y - (selection_box_height * 0.5)
             );
             selection_cursor_box->set_size(selection_box_width, selection_box_height);
             selection_cursor_box->render();
          }
-         else if (show_frame_around_selection)
+         else if (show_frame_around_selection) // Render an in-house selection_cursor_box
          {
-            // 
             AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
             local_selection_cursor_box.set_position_quietly(
-                 this_item_x,
-                 this_item_center_y - (selection_box_height * 0.5)
+              this_item_x,
+              this_item_center_y - (selection_box_height * 0.5)
             );
             local_selection_cursor_box.set_size_quietly(selection_box_width, selection_box_height);
             local_selection_cursor_box.render();

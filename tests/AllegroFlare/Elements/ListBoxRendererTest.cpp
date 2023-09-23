@@ -103,7 +103,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    };
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items(choice_options);
-   //list_box.
+   list_box.set_wrap_at_edges(true);
 
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
@@ -114,14 +114,13 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
       &selection_cursor_box
    );
    list_box_renderer.set_height_to_fit_content();
-   list_box_renderer.set_height_to_fit_content();
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
 
-   int passes = 120;
+   int passes = 240;
    for (int i=0; i<passes; i++)
    { 
-      if (i % (passes / 3) == 0) list_box.move_cursor_down();
+      if (i % (passes / 3) == (passes / 3) / 2) list_box.move_cursor_down();
 
       clear();
       place.start_transform();
@@ -130,7 +129,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
       al_flip_display();
    }
 
-   sleep_for(1);
+   //sleep_for(1);
 
    SUCCEED();
 }
