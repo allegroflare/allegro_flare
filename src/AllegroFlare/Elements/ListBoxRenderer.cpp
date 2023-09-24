@@ -230,10 +230,6 @@ float ListBoxRenderer::calculate_curved_time(float time)
 
 void ListBoxRenderer::draw_frame()
 {
-   //float normalized_age = std::max(std::min(1.0f, age), 0.0f);
-   //float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
-   //float inv_curved_time = 1.0 - curved_time;
-
    AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
    frame_place.position.y += calculate_y_displacement_from_time(age);
    frame_place.start_transform();
@@ -410,13 +406,26 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
 
    // Render the items
    int list_item_num = 0;
+   float time_between_reveals = 0.2f;
    for (auto &list_item : list_items)
    {
       bool this_list_item_is_currently_selected = (list_item_num == current_selection_num);
 
+      float this_item_age = age - list_item_num * time_between_reveals;
+      float this_item_y_displacement = calculate_y_displacement_from_time(this_item_age);
+      float this_item_reveal_opacity = calculate_curved_time(this_item_age);
+
+      ALLEGRO_COLOR final_color = this_list_item_is_currently_selected
+                                ? text_color_selected
+                                : text_color_not_selected;
+      final_color = AllegroFlare::ColorKit::mix(ALLEGRO_COLOR{0, 0, 0, 0}, final_color, this_item_reveal_opacity);
+
+      AllegroFlare::Placement2D frame_place;
+      frame_place.position.y += this_item_y_displacement;
+      frame_place.start_transform();
       al_draw_multiline_text(
          text_font,
-         this_list_item_is_currently_selected ? text_color_selected : text_color_not_selected,
+         final_color,
          x,
          render_cursor_y,
          item_max_width,
@@ -424,6 +433,7 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
          ALLEGRO_ALIGN_LEFT,
          list_item.c_str()
       );
+      frame_place.restore_transform();
 
       render_cursor_y += item_heights[list_item_num] + item_spacing_padding_y;
       list_item_num++;
