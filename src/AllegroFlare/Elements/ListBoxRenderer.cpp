@@ -218,8 +218,7 @@ ALLEGRO_COLOR ListBoxRenderer::get_selection_frame_color() const
 
 float ListBoxRenderer::calculate_y_displacement_from_time(float time, float max_displacement)
 {
-   float curved_time = calculate_curved_time(time);
-   float inv_curved_time = 1.0 - calculate_curved_time();
+   float inv_curved_time = 1.0 - calculate_curved_time(time);
    return max_displacement * inv_curved_time;
 }
 
@@ -241,7 +240,7 @@ void ListBoxRenderer::draw_frame()
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
    dialog_box_frame.set_backfill_color(frame_backfill_color);
    dialog_box_frame.set_border_color(frame_border_color);
-   dialog_box_frame.set_opacity(calculate_curved_time(age));
+   //dialog_box_frame.set_opacity(calculate_curved_time(age));
    dialog_box_frame.render();
    frame_place.restore_transform();
    return;
