@@ -226,7 +226,6 @@ void ListBoxRenderer::draw_frame()
    frame_place.position.y += 10 * inv_curved_time;
    frame_place.start_transform();
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
-   //AllegroFlare::Elements::DialogBoxFrame frame(width, height);
    dialog_box_frame.set_backfill_color(frame_backfill_color);
    dialog_box_frame.set_border_color(frame_border_color);
    dialog_box_frame.set_opacity(curved_time);
