@@ -4,7 +4,6 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <string>
-#include <utility>
 #include <vector>
 
 
@@ -40,6 +39,8 @@ namespace AllegroFlare
             void render_button();
             void draw_special_state_empty_text(float width=1, float height=1);
             std::string concat_text(std::string source_text="", int length=0);
+            std::vector<std::string> obtain_choice_dialog_box_option_labels();
+            int obtain_choice_dialog_box_cursor_position();
             ALLEGRO_FONT* obtain_dialog_font();
 
          protected:
@@ -78,7 +79,7 @@ namespace AllegroFlare
             bool get_at_last_page() const;
             float get_age() const;
             void render();
-            void draw_choices_with_cursor_and_current_selection(float start_y=0, std::vector<std::pair<std::string, std::string>> options={}, int current_selection_num=0);
+            void draw_choices_with_cursor_and_current_selection();
             void draw_styled_revealed_text(float max_width=1, std::string text="[unset-text]", int num_revealed_characters=999);
          };
       }

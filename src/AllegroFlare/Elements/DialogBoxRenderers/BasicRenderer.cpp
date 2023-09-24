@@ -4,6 +4,8 @@
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogButton.hpp>
+#include <AllegroFlare/Elements/ListBoxRenderer.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_color.h>
@@ -282,46 +284,47 @@ void BasicRenderer::render()
    return;
 }
 
-void BasicRenderer::draw_choices_with_cursor_and_current_selection(float start_y, std::vector<std::pair<std::string, std::string>> options, int current_selection_num)
+void BasicRenderer::draw_choices_with_cursor_and_current_selection()
 {
-   ALLEGRO_FONT* text_font = obtain_dialog_font();
-   //std::vector<std::pair<std::string, std::string>> options = obtain_choice_dialog_box_options();
-   //int current_selection_num = obtain_choice_dialog_box_cursor_position();
-   float line_height = al_get_font_line_height(text_font);
-   ALLEGRO_COLOR text_color_not_selected = al_color_html("dfdfdf");
-   ALLEGRO_COLOR text_color_selected = al_color_html("000000");
-   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR selection_hilight_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
-   float selection_box_x_padding = 24;
-   float selection_box_y_padding = 0;
-   float x = 200;
+   float left_indent = 80;
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+      font_bin,
+      nullptr, // bitmap_bin,
+      obtain_choice_dialog_box_option_labels()
+   );
+   list_box_renderer.set_height_to_fit_content();
+   list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
 
-   int option_num = 0;
-   for (auto &option : options)
-   {
-      bool this_option_is_currently_selected = (option_num == current_selection_num);
-      std::string option_text = option.first;
-      if (this_option_is_currently_selected)
-      {
-         float text_width = al_get_text_width(text_font, option_text.c_str());
-         al_draw_filled_rectangle(
-            x - selection_box_x_padding,
-            start_y - selection_box_y_padding + option_num * line_height,
-            x+text_width + selection_box_x_padding,
-            start_y+line_height + selection_box_y_padding + option_num * line_height,
-            selection_hilight_color
-         );
-      }
-      al_draw_text(
-         text_font,
-         this_option_is_currently_selected ? text_color_selected : text_color_not_selected,
-         x,
-         start_y + line_height*option_num,
-         ALLEGRO_ALIGN_LEFT,
-         option_text.c_str()
+   AllegroFlare::Placement2D choice_box_place{
+      width - left_indent,
+      20,
+      list_box_renderer.get_width(),
+      list_box_renderer.get_height()
+   };
+   choice_box_place.align = { 1.0, 1.0 };
+
+   AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+
+   list_box_renderer.set_cursor_position(
+      obtain_choice_dialog_box_cursor_position()
+   );
+
+   // Init the cursor position to the current selection
+   std::tuple<float, float, float, float> current_selection_dimensions =
+      list_box_renderer.calculate_dimensions_for_list_item_at_position(
+         obtain_choice_dialog_box_cursor_position()
       );
-      option_num++;
-   }
+   float current_selection_x = std::get<0>(current_selection_dimensions);
+   float current_selection_y = std::get<1>(current_selection_dimensions);
+   float current_selection_width = std::get<2>(current_selection_dimensions);
+   float current_selection_height = std::get<3>(current_selection_dimensions);
+   selection_cursor_box.set_position(current_selection_x, current_selection_y);
+   selection_cursor_box.set_size(current_selection_width, current_selection_height);
+
+   choice_box_place.start_transform();
+   list_box_renderer.render();
+   selection_cursor_box.render();
+   choice_box_place.restore_transform();
    return;
 }
 
@@ -369,6 +372,20 @@ void BasicRenderer::draw_styled_revealed_text(float max_width, std::string text,
 std::string BasicRenderer::concat_text(std::string source_text, int length)
 {
    return source_text.substr(0, length);
+}
+
+std::vector<std::string> BasicRenderer::obtain_choice_dialog_box_option_labels()
+{
+   // TODO: Replace these
+   //return choice_dialog_box->get_item_labels();
+   return { "Foobar", "Boobaz", "Flipflop" };
+}
+
+int BasicRenderer::obtain_choice_dialog_box_cursor_position()
+{
+   // TODO: Replace these
+   //return choice_dialog_box->get_cursor_position();
+   return 0;
 }
 
 ALLEGRO_FONT* BasicRenderer::obtain_dialog_font()
