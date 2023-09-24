@@ -69,7 +69,7 @@ properties:
 
   - name: text_color_not_selected
     type: ALLEGRO_COLOR
-    init_with: calculate_DEFAULT_TEXT_COLOR_SELECTED()
+    init_with: DEFAULT_TEXT_NOT_SELECTED_COLOR
     constructor_arg: true
     getter: true
     setter: true
@@ -77,6 +77,20 @@ properties:
   - name: cursor_position
     type: int
     init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: frame_backfill_color
+    type: ALLEGRO_COLOR
+    init_with: calculate_DEFAULT_BACKFILL_COLOR()
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: frame_border_color
+    type: ALLEGRO_COLOR
+    init_with: calculate_DEFAULT_BORDER_COLOR()
     constructor_arg: true
     getter: true
     setter: true
@@ -109,6 +123,13 @@ properties:
     static: true
     const: true
 
+  - name: DEFAULT_TEXT_NOT_SELECTED_COLOR
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f}
+    constexpr: true
+    static: true
+    const: true
+
 
 methods:
 
@@ -116,28 +137,7 @@ methods:
   - name: render
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      AllegroFlare::Elements::DialogBoxFrame frame(width, height);
-         //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
-      ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
-            AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
-            selection_frame_color,
-            0.05
-         );
-      ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
-            AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
-            selection_frame_color,
-            0.4
-         );
-      //frame.set_backfill_color(frame_backfill_color);
-      frame.set_border_color(frame_border_color);
-
-      // Other options for customized rendering:
-         //backfill_opacity
-         //backfill_color
-         //border_color
-         //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
-         //AllegroFlare::Elements::DialogBoxFrame::ALLEGRO_COLOR
-      frame.render();
+      draw_frame();
       draw_choices_with_cursor_and_current_selection();
       return;
     body_dependency_symbols:
@@ -236,6 +236,16 @@ methods:
     body: |
       // TODO: Test this method
       width = (std::min(calculate_content_width(), max)) + text_padding_x * 2;
+      return;
+
+
+  - name: draw_frame
+    private: true
+    body: |
+      AllegroFlare::Elements::DialogBoxFrame frame(width, height);
+      frame.set_backfill_color(frame_backfill_color);
+      frame.set_border_color(frame_border_color);
+      frame.render();
       return;
 
 
@@ -341,6 +351,7 @@ methods:
 
   - name: multiline_text_draw_callback
     type: bool
+    private: true
     static: true
     parameters:
       - name: line_number
@@ -382,6 +393,7 @@ methods:
       return true;
     body_dependency_symbols:
       - AllegroFlare::Logger
+      - AllegroFlare::Elements::DialogBoxFrame
 
 
   - name: calculate_line_widths
@@ -414,6 +426,20 @@ methods:
       return multiline_text_line_number.second;
 
 
+  - name: calculate_DEFAULT_BACKFILL_COLOR
+    type: ALLEGRO_COLOR
+    static: true
+    body: |
+      return AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR;
+
+
+  - name: calculate_DEFAULT_BORDER_COLOR
+    type: ALLEGRO_COLOR
+    static: true
+    body: |
+      return AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR;
+
+
   - name: obtain_text_font
     private: true
     type: ALLEGRO_FONT*
@@ -423,19 +449,6 @@ methods:
       font_identifier << font_name << " " << font_size;
       ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
       return result_font;
-
-
-  - name: calculate_DEFAULT_TEXT_COLOR_SELECTED
-    type: ALLEGRO_COLOR
-    static: true
-    body: |
-      return AllegroFlare::ColorKit::mix(
-         ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
-         AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR,
-         0.4
-      );
-    body_dependency_symbols:
-      - AllegroFlare::ColorKit
 
 
   - name: concat_text

@@ -19,7 +19,7 @@ namespace Elements
 {
 
 
-ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> list_items, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, int cursor_position, ALLEGRO_COLOR selection_frame_color)
+ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> list_items, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, int cursor_position, ALLEGRO_COLOR frame_backfill_color, ALLEGRO_COLOR frame_border_color, ALLEGRO_COLOR selection_frame_color)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , list_items(list_items)
@@ -32,6 +32,8 @@ ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::
    , text_color_selected(text_color_selected)
    , text_color_not_selected(text_color_not_selected)
    , cursor_position(cursor_position)
+   , frame_backfill_color(frame_backfill_color)
+   , frame_border_color(frame_border_color)
    , selection_frame_color(selection_frame_color)
 {
 }
@@ -102,6 +104,18 @@ void ListBoxRenderer::set_cursor_position(int cursor_position)
 }
 
 
+void ListBoxRenderer::set_frame_backfill_color(ALLEGRO_COLOR frame_backfill_color)
+{
+   this->frame_backfill_color = frame_backfill_color;
+}
+
+
+void ListBoxRenderer::set_frame_border_color(ALLEGRO_COLOR frame_border_color)
+{
+   this->frame_border_color = frame_border_color;
+}
+
+
 void ListBoxRenderer::set_selection_frame_color(ALLEGRO_COLOR selection_frame_color)
 {
    this->selection_frame_color = selection_frame_color;
@@ -168,6 +182,18 @@ int ListBoxRenderer::get_cursor_position() const
 }
 
 
+ALLEGRO_COLOR ListBoxRenderer::get_frame_backfill_color() const
+{
+   return frame_backfill_color;
+}
+
+
+ALLEGRO_COLOR ListBoxRenderer::get_frame_border_color() const
+{
+   return frame_border_color;
+}
+
+
 ALLEGRO_COLOR ListBoxRenderer::get_selection_frame_color() const
 {
    return selection_frame_color;
@@ -190,28 +216,7 @@ void ListBoxRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   AllegroFlare::Elements::DialogBoxFrame frame(width, height);
-      //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
-   ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
-         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
-         selection_frame_color,
-         0.05
-      );
-   ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
-         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
-         selection_frame_color,
-         0.4
-      );
-   //frame.set_backfill_color(frame_backfill_color);
-   frame.set_border_color(frame_border_color);
-
-   // Other options for customized rendering:
-      //backfill_opacity
-      //backfill_color
-      //border_color
-      //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
-      //AllegroFlare::Elements::DialogBoxFrame::ALLEGRO_COLOR
-   frame.render();
+   draw_frame();
    draw_choices_with_cursor_and_current_selection();
    return;
 }
@@ -324,6 +329,15 @@ void ListBoxRenderer::set_width_to_fit_content_or_max(float max)
 {
    // TODO: Test this method
    width = (std::min(calculate_content_width(), max)) + text_padding_x * 2;
+   return;
+}
+
+void ListBoxRenderer::draw_frame()
+{
+   AllegroFlare::Elements::DialogBoxFrame frame(width, height);
+   frame.set_backfill_color(frame_backfill_color);
+   frame.set_border_color(frame_border_color);
+   frame.render();
    return;
 }
 
@@ -483,6 +497,16 @@ std::vector<float> ListBoxRenderer::calculate_line_widths(ALLEGRO_FONT* font, fl
    return multiline_text_line_number.second;
 }
 
+ALLEGRO_COLOR ListBoxRenderer::calculate_DEFAULT_BACKFILL_COLOR()
+{
+   return AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR;
+}
+
+ALLEGRO_COLOR ListBoxRenderer::calculate_DEFAULT_BORDER_COLOR()
+{
+   return AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR;
+}
+
 ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
 {
    if (!(al_is_font_addon_initialized()))
@@ -510,15 +534,6 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
    font_identifier << font_name << " " << font_size;
    ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
    return result_font;
-}
-
-ALLEGRO_COLOR ListBoxRenderer::calculate_DEFAULT_TEXT_COLOR_SELECTED()
-{
-   return AllegroFlare::ColorKit::mix(
-      ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
-      AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR,
-      0.4
-   );
 }
 
 std::string ListBoxRenderer::concat_text(std::string source_text, int length)
