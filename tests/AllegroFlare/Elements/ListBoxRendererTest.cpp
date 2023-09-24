@@ -60,7 +60,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__VISUAL__calculate_dimensions_for_list_item_at_position__returns_dimensions_that_match_the_current_\
+   CAPTURE__VISUAL__calculate_dimensions_for_list_item_at_position__returns_dimensions_that_match_the_current_\
 selected_object)
 {
    std::vector<std::pair<std::string, std::string>> choice_options = {
