@@ -119,6 +119,57 @@ methods:
       - name: start_y
         type: float
         default_argument: 0
+    guards: [ choice_dialog_box ]
+    body: |
+      AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+         font_bin,
+         bitmap_bin,
+         obtain_choice_dialog_box_option_labels()
+      );
+      list_box_renderer.set_height_to_fit_content();
+
+      AllegroFlare::Placement2D choice_box_place{
+         width - 70,
+         height + 30,
+         list_box_renderer.get_width(),
+         list_box_renderer.get_height()
+      };
+      choice_box_place.align = { 1.0, 0.0 };
+  
+      AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+
+      list_box_renderer.set_cursor_position(
+         obtain_choice_dialog_box_cursor_position()
+      );
+
+      // Init the cursor position to the current selection
+      std::tuple<float, float, float, float> current_selection_dimensions =
+         list_box_renderer.calculate_dimensions_for_list_item_at_position(
+            obtain_choice_dialog_box_cursor_position()
+         );
+      float current_selection_x = std::get<0>(current_selection_dimensions);
+      float current_selection_y = std::get<1>(current_selection_dimensions);
+      float current_selection_width = std::get<2>(current_selection_dimensions);
+      float current_selection_height = std::get<3>(current_selection_dimensions);
+      selection_cursor_box.set_position(current_selection_x, current_selection_y);
+      selection_cursor_box.set_size(current_selection_width, current_selection_height);
+
+      choice_box_place.start_transform();
+      list_box_renderer.render();
+      selection_cursor_box.render();
+      choice_box_place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::SelectionCursorBox
+      - AllegroFlare::Elements::ListBoxRenderer
+      - AllegroFlare::Placement2D
+
+
+  - name: draw_choices_with_cursor_and_current_selection_OLD
+    parameters:
+      - name: start_y
+        type: float
+        default_argument: 0
     body: |
        ALLEGRO_FONT* text_font = obtain_dialog_font();
        std::vector<std::pair<std::string, std::string>> options = obtain_choice_dialog_box_options();
@@ -191,6 +242,14 @@ methods:
       return choice_dialog_box->get_options();
 
 
+  - name: obtain_choice_dialog_box_option_labels
+    type: std::vector<std::string>
+    private: true
+    guards: [ choice_dialog_box ]
+    body: |
+      return choice_dialog_box->get_item_labels();
+
+
   - name: obtain_choice_dialog_box_cursor_position
     type: int
     private: true
@@ -251,5 +310,11 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Elements::ListBoxRenderer
+    headers: [ AllegroFlare/Elements/ListBoxRenderer.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
 
 

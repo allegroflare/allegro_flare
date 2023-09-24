@@ -460,6 +460,7 @@
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogButton",
@@ -1288,6 +1289,15 @@
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
   ],
+  "AllegroFlare/Elements/ListBoxRenderer": [
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+  ],
+  "AllegroFlare/Elements/SelectionCursorBox": [
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/InputDeviceConfigurationList",
+    "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/ListBoxRenderer"
+  ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/Notifications/Base",
@@ -1315,11 +1325,6 @@
   ],
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
-  ],
-  "AllegroFlare/Elements/SelectionCursorBox": [
-    "AllegroFlare/Elements/InputDeviceConfigurationList",
-    "AllegroFlare/Elements/InputDevicesList",
-    "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",

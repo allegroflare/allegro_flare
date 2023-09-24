@@ -193,3 +193,24 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_current_selection_value__
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
+   get_item_labels__will_return_a_list_of_the_labels_only)
+{
+   std::vector<std::pair<std::string, std::string>> choice_options = {
+     { "Post a log", "GOTO A" },
+     { "Keep coding", "GOTO B" },
+     { "Drink more soylent", "GOTO C" },
+   };
+   AllegroFlare::Elements::DialogBoxes::Choice choice("What will you do?", choice_options);
+   choice.initialize();
+
+   std::vector<std::string> expected_items = {
+     "Post a log",
+     "Keep coding",
+     "Drink more soylent",
+   };
+
+   EXPECT_EQ(expected_items, choice.get_item_labels());
+}
+
+

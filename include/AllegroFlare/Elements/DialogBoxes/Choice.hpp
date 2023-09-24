@@ -38,6 +38,7 @@ namespace AllegroFlare
             void initialize();
             std::string get_prompt();
             std::vector<std::pair<std::string, std::string>> get_options();
+            std::vector<std::string> get_item_labels();
             std::string get_current_selection_text();
             std::string get_current_selection_value();
             virtual void move_cursor_position_down() override;

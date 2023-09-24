@@ -35,6 +35,7 @@ namespace AllegroFlare
             ALLEGRO_FONT* obtain_dialog_font();
             std::string obtain_choice_dialog_box_prompt();
             std::vector<std::pair<std::string, std::string>> obtain_choice_dialog_box_options();
+            std::vector<std::string> obtain_choice_dialog_box_option_labels();
             int obtain_choice_dialog_box_cursor_position();
             std::string concat_text(std::string source_text="", int length=0);
 
@@ -60,6 +61,7 @@ namespace AllegroFlare
             void render();
             void draw_prompt_text();
             void draw_choices_with_cursor_and_current_selection(float start_y=0);
+            void draw_choices_with_cursor_and_current_selection_OLD(float start_y=0);
          };
       }
    }

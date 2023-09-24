@@ -84,6 +84,17 @@ methods:
     body: return options;
 
 
+  - name: get_item_labels
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> result;
+      for (auto &item : options)
+      {
+         result.push_back(item.first);
+      }
+      return result;
+
+
   - name: get_current_selection_text
     type: std::string
     guards: [ initialized ]

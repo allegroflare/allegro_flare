@@ -3,6 +3,9 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
+#include <AllegroFlare/Elements/ListBoxRenderer.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -158,6 +161,55 @@ void ChoiceRenderer::draw_prompt_text()
 
 void ChoiceRenderer::draw_choices_with_cursor_and_current_selection(float start_y)
 {
+   if (!(choice_dialog_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ChoiceRenderer::draw_choices_with_cursor_and_current_selection]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChoiceRenderer::draw_choices_with_cursor_and_current_selection: error: guard \"choice_dialog_box\" not met");
+   }
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+      font_bin,
+      bitmap_bin,
+      obtain_choice_dialog_box_option_labels()
+   );
+   list_box_renderer.set_height_to_fit_content();
+
+   AllegroFlare::Placement2D choice_box_place{
+      width - 70,
+      height + 30,
+      list_box_renderer.get_width(),
+      list_box_renderer.get_height()
+   };
+   choice_box_place.align = { 1.0, 0.0 };
+
+   AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+
+   list_box_renderer.set_cursor_position(
+      obtain_choice_dialog_box_cursor_position()
+   );
+
+   // Init the cursor position to the current selection
+   std::tuple<float, float, float, float> current_selection_dimensions =
+      list_box_renderer.calculate_dimensions_for_list_item_at_position(
+         obtain_choice_dialog_box_cursor_position()
+      );
+   float current_selection_x = std::get<0>(current_selection_dimensions);
+   float current_selection_y = std::get<1>(current_selection_dimensions);
+   float current_selection_width = std::get<2>(current_selection_dimensions);
+   float current_selection_height = std::get<3>(current_selection_dimensions);
+   selection_cursor_box.set_position(current_selection_x, current_selection_y);
+   selection_cursor_box.set_size(current_selection_width, current_selection_height);
+
+   choice_box_place.start_transform();
+   list_box_renderer.render();
+   selection_cursor_box.render();
+   choice_box_place.restore_transform();
+   return;
+}
+
+void ChoiceRenderer::draw_choices_with_cursor_and_current_selection_OLD(float start_y)
+{
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    std::vector<std::pair<std::string, std::string>> options = obtain_choice_dialog_box_options();
    int current_selection_num = obtain_choice_dialog_box_cursor_position();
@@ -250,6 +302,18 @@ std::vector<std::pair<std::string, std::string>> ChoiceRenderer::obtain_choice_d
       throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_options: error: guard \"choice_dialog_box\" not met");
    }
    return choice_dialog_box->get_options();
+}
+
+std::vector<std::string> ChoiceRenderer::obtain_choice_dialog_box_option_labels()
+{
+   if (!(choice_dialog_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_option_labels]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_option_labels: error: guard \"choice_dialog_box\" not met");
+   }
+   return choice_dialog_box->get_item_labels();
 }
 
 int ChoiceRenderer::obtain_choice_dialog_box_cursor_position()

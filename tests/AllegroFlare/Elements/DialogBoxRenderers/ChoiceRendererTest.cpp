@@ -40,11 +40,10 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest, render__with
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
-   render__renders_the_elements)
+   CAPTURE__render__renders_the_elements)
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
-   //AllegroFlare::Placement2D place{ 1920/2, 1080/4*3, 1920/5*3, 1080/4 };
    std::string choice_box_prompt = "Do you think you're making progress?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "Absolutely!", "GOTO A" },
@@ -57,12 +56,9 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
       &get_font_bin_ref(),
       &get_bitmap_bin_ref(),
       &choice_dialog_box
-      //place.size.x,
-      //place.size.y
    );
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, choice_renderer.get_width(), choice_renderer.get_height() };
-   //AllegroFlare::Placement2D place{ 1920/2, 1080/4*3, 1920/5*3, 1080/4 };
 
    choice_dialog_box.move_cursor_position_down();
    choice_dialog_box.move_cursor_position_down();
@@ -75,6 +71,5 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    SUCCEED();
 }
-
 
 

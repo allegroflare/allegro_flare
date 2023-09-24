@@ -96,6 +96,16 @@ std::vector<std::pair<std::string, std::string>> Choice::get_options()
    return options;
 }
 
+std::vector<std::string> Choice::get_item_labels()
+{
+   std::vector<std::string> result;
+   for (auto &item : options)
+   {
+      result.push_back(item.first);
+   }
+   return result;
+}
+
 std::string Choice::get_current_selection_text()
 {
    if (!(initialized))
