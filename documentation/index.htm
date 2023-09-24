@@ -5870,6 +5870,14 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">frame_backfill_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">frame_border_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">selection_frame_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
@@ -5917,22 +5925,28 @@ table td
   <td class="method">set_width_to_fit_content_or_max(float max=800)</td>
 </tr>
 <tr>
+  <td class="private_method">draw_frame()</td>
+</tr>
+<tr>
   <td class="private_method">draw_choices_with_cursor_and_current_selection()</td>
 </tr>
 <tr>
   <td class="method">calculate_dimensions_for_list_item_at_position(int list_item_position=0)</td>
 </tr>
 <tr>
-  <td class="method">multiline_text_draw_callback(int line_number=0, const char* line=nullptr, int size=0, void* extra=nullptr)</td>
+  <td class="private_method">multiline_text_draw_callback(int line_number=0, const char* line=nullptr, int size=0, void* extra=nullptr)</td>
 </tr>
 <tr>
   <td class="method">calculate_line_widths(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text=&quot;[unset-text]&quot;)</td>
 </tr>
 <tr>
-  <td class="private_method">obtain_text_font()</td>
+  <td class="method">calculate_DEFAULT_BACKFILL_COLOR()</td>
 </tr>
 <tr>
-  <td class="method">calculate_DEFAULT_TEXT_COLOR_SELECTED()</td>
+  <td class="method">calculate_DEFAULT_BORDER_COLOR()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_text_font()</td>
 </tr>
 <tr>
   <td class="private_method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
