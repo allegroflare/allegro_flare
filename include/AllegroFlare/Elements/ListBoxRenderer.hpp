@@ -26,6 +26,8 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::BitmapBin* bitmap_bin;
          std::vector<std::string> list_items;
+         int cursor_position;
+         float age;
          float width;
          float height;
          std::string font_name;
@@ -34,11 +36,11 @@ namespace AllegroFlare
          float text_padding_y;
          ALLEGRO_COLOR text_color_selected;
          ALLEGRO_COLOR text_color_not_selected;
-         int cursor_position;
          ALLEGRO_COLOR frame_backfill_color;
          ALLEGRO_COLOR frame_border_color;
          ALLEGRO_COLOR selection_frame_color;
          void draw_frame();
+         void draw_frame_raw();
          void draw_choices_with_cursor_and_current_selection();
          static bool multiline_text_draw_callback(int line_number=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          ALLEGRO_FONT* obtain_text_font();
@@ -48,10 +50,12 @@ namespace AllegroFlare
 
 
       public:
-         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector<std::string> list_items={}, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, ALLEGRO_COLOR text_color_selected=DEFAULT_SELECTION_COLOR, ALLEGRO_COLOR text_color_not_selected=DEFAULT_TEXT_NOT_SELECTED_COLOR, int cursor_position=0, ALLEGRO_COLOR frame_backfill_color=calculate_DEFAULT_BACKFILL_COLOR(), ALLEGRO_COLOR frame_border_color=calculate_DEFAULT_BORDER_COLOR(), ALLEGRO_COLOR selection_frame_color=DEFAULT_SELECTION_COLOR);
+         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector<std::string> list_items={}, int cursor_position=0, float age=999.0f);
          ~ListBoxRenderer();
 
          void set_list_items(std::vector<std::string> list_items);
+         void set_cursor_position(int cursor_position);
+         void set_age(float age);
          void set_width(float width);
          void set_height(float height);
          void set_font_name(std::string font_name);
@@ -60,11 +64,12 @@ namespace AllegroFlare
          void set_text_padding_y(float text_padding_y);
          void set_text_color_selected(ALLEGRO_COLOR text_color_selected);
          void set_text_color_not_selected(ALLEGRO_COLOR text_color_not_selected);
-         void set_cursor_position(int cursor_position);
          void set_frame_backfill_color(ALLEGRO_COLOR frame_backfill_color);
          void set_frame_border_color(ALLEGRO_COLOR frame_border_color);
          void set_selection_frame_color(ALLEGRO_COLOR selection_frame_color);
          std::vector<std::string> get_list_items() const;
+         int get_cursor_position() const;
+         float get_age() const;
          float get_width() const;
          float get_height() const;
          std::string get_font_name() const;
@@ -73,7 +78,6 @@ namespace AllegroFlare
          float get_text_padding_y() const;
          ALLEGRO_COLOR get_text_color_selected() const;
          ALLEGRO_COLOR get_text_color_not_selected() const;
-         int get_cursor_position() const;
          ALLEGRO_COLOR get_frame_backfill_color() const;
          ALLEGRO_COLOR get_frame_border_color() const;
          ALLEGRO_COLOR get_selection_frame_color() const;

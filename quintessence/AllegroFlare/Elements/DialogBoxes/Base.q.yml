@@ -96,8 +96,6 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
-  - symbol: std::vector<std::vector<std::string>>
-    headers: [ vector, string ]
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
 

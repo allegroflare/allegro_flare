@@ -8,6 +8,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: created_at
+    type: float
+    init_with: al_get_time()
+    setter: true
+    getter: true
+
   - name: cursor_position
     type: int
     init_with: 0
@@ -65,6 +71,20 @@ methods:
       return items[cursor_position].second;
 
 
+  - name: infer_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
+    guards: [ al_is_system_installed() ]
+    body: |
+      return time_now - get_created_at();
+    body_dependency_symbols:
+      - al_get_time
+
+
   - name: move_cursor_up
     body: |
       cursor_position--;
@@ -85,5 +105,12 @@ methods:
          else cursor_position = (items.size() - 1);
       }
       return;
+
+
+dependencies:
+
+
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
 
 

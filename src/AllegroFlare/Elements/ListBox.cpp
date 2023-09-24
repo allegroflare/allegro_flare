@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ListBox.hpp>
 
+#include <allegro5/allegro.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -15,6 +16,7 @@ namespace Elements
 
 ListBox::ListBox()
    : items({})
+   , created_at(al_get_time())
    , cursor_position(0)
    , wrap_at_edges(false)
 {
@@ -23,6 +25,12 @@ ListBox::ListBox()
 
 ListBox::~ListBox()
 {
+}
+
+
+void ListBox::set_created_at(float created_at)
+{
+   this->created_at = created_at;
 }
 
 
@@ -35,6 +43,12 @@ void ListBox::set_wrap_at_edges(bool wrap_at_edges)
 std::vector<std::pair<std::string, std::string>> ListBox::get_items() const
 {
    return items;
+}
+
+
+float ListBox::get_created_at() const
+{
+   return created_at;
 }
 
 
@@ -88,6 +102,18 @@ std::string ListBox::get_currently_selected_item_value()
       throw std::runtime_error("ListBox::get_currently_selected_item_value: error: guard \"has_valid_currently_selected_item()\" not met");
    }
    return items[cursor_position].second;
+}
+
+float ListBox::infer_age(float time_now)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBox::infer_age]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBox::infer_age: error: guard \"al_is_system_installed()\" not met");
+   }
+   return time_now - get_created_at();
 }
 
 void ListBox::move_cursor_up()

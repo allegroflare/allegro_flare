@@ -60,7 +60,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
-   CAPTURE__VISUAL__calculate_dimensions_for_list_item_at_position__returns_dimensions_that_match_the_current_\
+   FOCUS__CAPTURE__VISUAL__calculate_dimensions_for_list_item_at_position__returns_dimensions_that_match_the_current_\
 selected_object)
 {
    std::vector<std::pair<std::string, std::string>> choice_options = {
@@ -71,22 +71,29 @@ selected_object)
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items(choice_options);
    list_box.set_wrap_at_edges(true);
+   list_box.set_created_at(al_get_time());
 
-   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+   // Create a list_box_renderer to do the initial cursor position calculations
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer_for_dimensions(
       &get_font_bin_ref(),
       &get_bitmap_bin_ref(),
       list_box.get_item_labels()
    );
-   list_box_renderer.set_height_to_fit_content();
+   list_box_renderer_for_dimensions.set_height_to_fit_content();
 
-   AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
+   AllegroFlare::Placement2D place{
+      1920/2,
+      1080/2,
+      list_box_renderer_for_dimensions.get_width(),
+      list_box_renderer_for_dimensions.get_height()
+   };
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
-   list_box_renderer.set_cursor_position(list_box.get_cursor_position());
+   //list_box_renderer_for.set_cursor_position(list_box.get_cursor_position());
 
    // Init the cursor position to the current selection
    std::tuple<float, float, float, float> current_selection_dimensions =
-      list_box_renderer.calculate_dimensions_for_list_item_at_position(list_box.get_cursor_position());
+      list_box_renderer_for_dimensions.calculate_dimensions_for_list_item_at_position(list_box.get_cursor_position());
    float current_selection_x = std::get<0>(current_selection_dimensions);
    float current_selection_y = std::get<1>(current_selection_dimensions);
    float current_selection_width = std::get<2>(current_selection_dimensions);
@@ -100,7 +107,7 @@ selected_object)
    { 
       bool move_cursor_in_this_pass = false;
       if (i % (passes / cursor_presses) == (passes / cursor_presses) / 2) move_cursor_in_this_pass = true;
-     
+
       if (move_cursor_in_this_pass)
       {
          // Move the cursor in the list
@@ -109,12 +116,12 @@ selected_object)
          // Update the cursor position in the renderer (currently only used to highlight the selected option text)
          // TODO: Consider an alternative where elements in the list can have selected states, selected, unselected,
          // selected_at, etc.
-         list_box_renderer.set_cursor_position(list_box.get_cursor_position());
+         list_box_renderer_for_dimensions.set_cursor_position(list_box.get_cursor_position());
 
          // As a consequence to teh above, update the cursor selection box rendering position
          // (Build an ephemeral cursor box:)
          std::tuple<float, float, float, float> current_selection_dimensions =
-            list_box_renderer.calculate_dimensions_for_list_item_at_position(list_box.get_cursor_position());
+            list_box_renderer_for_dimensions.calculate_dimensions_for_list_item_at_position(list_box.get_cursor_position());
          float current_selection_x = std::get<0>(current_selection_dimensions);
          float current_selection_y = std::get<1>(current_selection_dimensions);
          float current_selection_width = std::get<2>(current_selection_dimensions);
@@ -129,6 +136,14 @@ selected_object)
       // Render the objects
       clear();
       place.start_transform();
+      AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+         &get_font_bin_ref(),
+         &get_bitmap_bin_ref(),
+         list_box.get_item_labels()
+      );
+      list_box_renderer.set_height_to_fit_content();
+      list_box_renderer.set_cursor_position(list_box.get_cursor_position());
+      list_box_renderer.set_age(list_box.infer_age());
       list_box_renderer.render();
       selection_cursor_box.render();
       place.restore_transform();
@@ -143,7 +158,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items({
      { "searching for treasure", "find_treasure" },
-     { "investigate rumors",    "investigate_rumors" },
+     { "investigate rumors",     "investigate_rumors" },
      { "here by accident",       "lost" },
    });
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(

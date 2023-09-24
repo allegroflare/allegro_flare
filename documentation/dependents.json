@@ -611,6 +611,7 @@
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
+    "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/Notifications/Base",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
@@ -1285,13 +1286,6 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
-  "std/vector<std/vector<std/string>>": [
-    "AllegroFlare/Elements/DialogBoxes/Base",
-    "AllegroFlare/Elements/Notifications/Base",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base",
-    "AllegroFlare/Elements/RollingCredits/Sections/Base",
-    "AllegroFlare/MotionComposer/Messages/Base"
-  ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
@@ -1411,6 +1405,12 @@
   ],
   "AllegroFlare/MotionFX/Sparkles2": [
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked"
+  ],
+  "std/vector<std/vector<std/string>>": [
+    "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base",
+    "AllegroFlare/Elements/RollingCredits/Sections/Base",
+    "AllegroFlare/MotionComposer/Messages/Base"
   ],
   "AllegroFlare/Elements/NotificationRenderer": [
     "AllegroFlare/Elements/NotificationsRenderer"

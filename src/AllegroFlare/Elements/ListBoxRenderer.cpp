@@ -5,7 +5,10 @@
 #include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
+#include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/Placement2D.hpp>
+#include <algorithm>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -19,22 +22,23 @@ namespace Elements
 {
 
 
-ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> list_items, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, ALLEGRO_COLOR text_color_selected, ALLEGRO_COLOR text_color_not_selected, int cursor_position, ALLEGRO_COLOR frame_backfill_color, ALLEGRO_COLOR frame_border_color, ALLEGRO_COLOR selection_frame_color)
+ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> list_items, int cursor_position, float age)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , list_items(list_items)
-   , width(width)
-   , height(height)
-   , font_name(font_name)
-   , font_size(font_size)
-   , text_padding_x(text_padding_x)
-   , text_padding_y(text_padding_y)
-   , text_color_selected(text_color_selected)
-   , text_color_not_selected(text_color_not_selected)
    , cursor_position(cursor_position)
-   , frame_backfill_color(frame_backfill_color)
-   , frame_border_color(frame_border_color)
-   , selection_frame_color(selection_frame_color)
+   , age(age)
+   , width((1920/3.0f))
+   , height((1080/5.0f))
+   , font_name(DEFAULT_FONT_NAME)
+   , font_size(DEFAULT_FONT_SIZE)
+   , text_padding_x(52.0f)
+   , text_padding_y(40.0f)
+   , text_color_selected(DEFAULT_SELECTION_COLOR)
+   , text_color_not_selected(DEFAULT_TEXT_NOT_SELECTED_COLOR)
+   , frame_backfill_color(calculate_DEFAULT_BACKFILL_COLOR())
+   , frame_border_color(calculate_DEFAULT_BORDER_COLOR())
+   , selection_frame_color(DEFAULT_SELECTION_COLOR)
 {
 }
 
@@ -47,6 +51,18 @@ ListBoxRenderer::~ListBoxRenderer()
 void ListBoxRenderer::set_list_items(std::vector<std::string> list_items)
 {
    this->list_items = list_items;
+}
+
+
+void ListBoxRenderer::set_cursor_position(int cursor_position)
+{
+   this->cursor_position = cursor_position;
+}
+
+
+void ListBoxRenderer::set_age(float age)
+{
+   this->age = age;
 }
 
 
@@ -98,12 +114,6 @@ void ListBoxRenderer::set_text_color_not_selected(ALLEGRO_COLOR text_color_not_s
 }
 
 
-void ListBoxRenderer::set_cursor_position(int cursor_position)
-{
-   this->cursor_position = cursor_position;
-}
-
-
 void ListBoxRenderer::set_frame_backfill_color(ALLEGRO_COLOR frame_backfill_color)
 {
    this->frame_backfill_color = frame_backfill_color;
@@ -125,6 +135,18 @@ void ListBoxRenderer::set_selection_frame_color(ALLEGRO_COLOR selection_frame_co
 std::vector<std::string> ListBoxRenderer::get_list_items() const
 {
    return list_items;
+}
+
+
+int ListBoxRenderer::get_cursor_position() const
+{
+   return cursor_position;
+}
+
+
+float ListBoxRenderer::get_age() const
+{
+   return age;
 }
 
 
@@ -176,12 +198,6 @@ ALLEGRO_COLOR ListBoxRenderer::get_text_color_not_selected() const
 }
 
 
-int ListBoxRenderer::get_cursor_position() const
-{
-   return cursor_position;
-}
-
-
 ALLEGRO_COLOR ListBoxRenderer::get_frame_backfill_color() const
 {
    return frame_backfill_color;
@@ -199,6 +215,25 @@ ALLEGRO_COLOR ListBoxRenderer::get_selection_frame_color() const
    return selection_frame_color;
 }
 
+
+void ListBoxRenderer::draw_frame()
+{
+   float normalized_age = std::max(std::min(1.0f, age), 0.0f);
+   float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
+   float inv_curved_time = 1.0 - curved_time;
+
+   AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
+   frame_place.position.y += 10 * inv_curved_time;
+   frame_place.start_transform();
+   AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
+   //AllegroFlare::Elements::DialogBoxFrame frame(width, height);
+   dialog_box_frame.set_backfill_color(frame_backfill_color);
+   dialog_box_frame.set_border_color(frame_border_color);
+   dialog_box_frame.set_opacity(curved_time);
+   dialog_box_frame.render();
+   frame_place.restore_transform();
+   return;
+}
 
 void ListBoxRenderer::render()
 {
@@ -332,7 +367,7 @@ void ListBoxRenderer::set_width_to_fit_content_or_max(float max)
    return;
 }
 
-void ListBoxRenderer::draw_frame()
+void ListBoxRenderer::draw_frame_raw()
 {
    AllegroFlare::Elements::DialogBoxFrame frame(width, height);
    frame.set_backfill_color(frame_backfill_color);

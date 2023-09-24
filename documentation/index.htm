@@ -4050,9 +4050,6 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::vector&lt;std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
@@ -5800,6 +5797,10 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">created_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">cursor_position</td>
   <td class="property">int</td>
 </tr>
@@ -5826,6 +5827,9 @@ table td
   <td class="method">get_currently_selected_item_value()</td>
 </tr>
 <tr>
+  <td class="method">infer_age(float time_now=al_get_time())</td>
+</tr>
+<tr>
   <td class="method">move_cursor_up()</td>
 </tr>
 <tr>
@@ -5833,7 +5837,12 @@ table td
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -5850,6 +5859,14 @@ table td
 <tr>
   <td class="property">list_items</td>
   <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">cursor_position</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">age</td>
+  <td class="property">int</td>
 </tr>
 <tr>
   <td class="property">width</td>
@@ -5882,10 +5899,6 @@ table td
 <tr>
   <td class="property">text_color_not_selected</td>
   <td class="property">ALLEGRO_COLOR</td>
-</tr>
-<tr>
-  <td class="property">cursor_position</td>
-  <td class="property">int</td>
 </tr>
 <tr>
   <td class="property">frame_backfill_color</td>
@@ -26933,6 +26946,7 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
+    "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/Notifications/Base",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
@@ -27607,13 +27621,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
-  "std/vector<std/vector<std/string>>": [
-    "AllegroFlare/Elements/DialogBoxes/Base",
-    "AllegroFlare/Elements/Notifications/Base",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base",
-    "AllegroFlare/Elements/RollingCredits/Sections/Base",
-    "AllegroFlare/MotionComposer/Messages/Base"
-  ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
@@ -27733,6 +27740,12 @@ table td
   ],
   "AllegroFlare/MotionFX/Sparkles2": [
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked"
+  ],
+  "std/vector<std/vector<std/string>>": [
+    "AllegroFlare/Elements/Notifications/Base",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base",
+    "AllegroFlare/Elements/RollingCredits/Sections/Base",
+    "AllegroFlare/MotionComposer/Messages/Base"
   ],
   "AllegroFlare/Elements/NotificationRenderer": [
     "AllegroFlare/Elements/NotificationsRenderer"
