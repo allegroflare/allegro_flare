@@ -130,7 +130,7 @@ void ChoiceRenderer::render()
    }
    AllegroFlare::Elements::DialogBoxFrame(width, height).render();
    draw_prompt_text();
-   draw_choices_with_cursor_and_current_selection(85);
+   draw_choices_with_cursor_and_current_selection();
    return;
 }
 
@@ -159,7 +159,7 @@ void ChoiceRenderer::draw_prompt_text()
    return;
 }
 
-void ChoiceRenderer::draw_choices_with_cursor_and_current_selection(float start_y)
+void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
 {
    if (!(choice_dialog_box))
    {
@@ -168,16 +168,18 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection(float start_
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChoiceRenderer::draw_choices_with_cursor_and_current_selection: error: guard \"choice_dialog_box\" not met");
    }
+   float left_indent = 80;
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       font_bin,
       bitmap_bin,
       obtain_choice_dialog_box_option_labels()
    );
    list_box_renderer.set_height_to_fit_content();
+   list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
 
    AllegroFlare::Placement2D choice_box_place{
-      width - 70,
-      height + 30,
+      width - left_indent,
+      height - 20,
       list_box_renderer.get_width(),
       list_box_renderer.get_height()
    };

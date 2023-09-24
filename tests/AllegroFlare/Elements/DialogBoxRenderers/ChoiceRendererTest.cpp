@@ -44,11 +44,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
-   std::string choice_box_prompt = "Do you think you're making progress?";
+   std::string choice_box_prompt = "Are you making progress?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "Absolutely!", "GOTO A" },
-     { "I hope so", "GOTO B" },
-     { "I think I am", "GOTO C" },
+     { "I would seem that I am", "GOTO B" },
+     { "I think so?", "GOTO C" },
    };
    AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
    choice_dialog_box.initialize();
@@ -60,7 +60,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, choice_renderer.get_width(), choice_renderer.get_height() };
 
-   choice_dialog_box.move_cursor_position_down();
    choice_dialog_box.move_cursor_position_down();
 
    place.start_transform();

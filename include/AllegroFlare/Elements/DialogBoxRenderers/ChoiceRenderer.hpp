@@ -60,7 +60,7 @@ namespace AllegroFlare
             float get_text_padding_y() const;
             void render();
             void draw_prompt_text();
-            void draw_choices_with_cursor_and_current_selection(float start_y=0);
+            void draw_choices_with_cursor_and_current_selection();
             void draw_choices_with_cursor_and_current_selection_OLD(float start_y=0);
          };
       }
