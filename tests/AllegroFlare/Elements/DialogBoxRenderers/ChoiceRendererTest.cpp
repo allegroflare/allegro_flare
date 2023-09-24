@@ -56,6 +56,40 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    choice_dialog_box.move_cursor_position_down();
 
+   AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer(
+      &get_font_bin_ref(),
+      &get_bitmap_bin_ref(),
+      &choice_dialog_box
+   );
+
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, choice_renderer.get_width(), choice_renderer.get_height() };
+
+   clear();
+   place.start_transform();
+   choice_renderer.render();
+   place.restore_transform();
+   al_flip_display();
+
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
+   CAPTURE__render__renders_elements_in_motion_when_revealing)
+{
+   get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
+
+   std::string choice_box_prompt = "Are you making progress?";
+   std::vector<std::pair<std::string, std::string>> choice_options = {
+     { "Absolutely!", "GOTO A" },
+     { "I would seem that I am", "GOTO B" },
+     { "I think so?", "GOTO C" },
+   };
+   AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
+   choice_dialog_box.initialize();
+
+   choice_dialog_box.move_cursor_position_down();
+
    int passes = 120;
    for (int i=0; i<passes; i++)
    {
