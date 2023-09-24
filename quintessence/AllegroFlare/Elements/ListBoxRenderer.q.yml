@@ -270,47 +270,47 @@ methods:
   - name: draw_choices_with_cursor_and_current_selection
     private: true
     body: |
-       ALLEGRO_FONT* text_font = obtain_text_font();
+      ALLEGRO_FONT* text_font = obtain_text_font();
 
-       int current_selection_num = cursor_position; // TODO: Figure out what to do with an out-of-bounds cursor position
-       float item_max_width = calculate_list_item_max_width();
-       float line_height = calculate_line_height();
-       float item_spacing_padding_y = calculate_item_spacing_padding();
-       float x = text_padding_x;
-       float render_cursor_y = text_padding_y;
+      int current_selection_num = cursor_position; // TODO: Figure out what to do with an out-of-bounds cursor position
+      float item_max_width = calculate_list_item_max_width();
+      float line_height = calculate_line_height();
+      float item_spacing_padding_y = calculate_item_spacing_padding();
+      float x = text_padding_x;
+      float render_cursor_y = text_padding_y;
 
-       // Calculate item heights
-       std::vector<float> item_heights;
-       for (auto &list_item : list_items)
-       {
-          std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
-          int this_item_num_lines = line_widths.size();
-          float this_item_height = this_item_num_lines * line_height;
-          item_heights.push_back(this_item_height);
-       }
+      // Calculate item heights
+      std::vector<float> item_heights;
+      for (auto &list_item : list_items)
+      {
+         std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
+         int this_item_num_lines = line_widths.size();
+         float this_item_height = this_item_num_lines * line_height;
+         item_heights.push_back(this_item_height);
+      }
 
-       // Render the items
-       int list_item_num = 0;
-       for (auto &list_item : list_items)
-       {
-          bool this_list_item_is_currently_selected = (list_item_num == current_selection_num);
+      // Render the items
+      int list_item_num = 0;
+      for (auto &list_item : list_items)
+      {
+         bool this_list_item_is_currently_selected = (list_item_num == current_selection_num);
 
-          al_draw_multiline_text(
-             text_font,
-             this_list_item_is_currently_selected ? text_color_selected : text_color_not_selected,
-             x,
-             render_cursor_y,
-             item_max_width,
-             line_height,
-             ALLEGRO_ALIGN_LEFT,
-             list_item.c_str()
-          );
+         al_draw_multiline_text(
+            text_font,
+            this_list_item_is_currently_selected ? text_color_selected : text_color_not_selected,
+            x,
+            render_cursor_y,
+            item_max_width,
+            line_height,
+            ALLEGRO_ALIGN_LEFT,
+            list_item.c_str()
+         );
 
-          render_cursor_y += item_heights[list_item_num] + item_spacing_padding_y;
-          list_item_num++;
-       }
+         render_cursor_y += item_heights[list_item_num] + item_spacing_padding_y;
+         list_item_num++;
+      }
 
-       return;
+      return;
     body_dependency_symbols:
       - al_color_html
       - al_draw_rectangle
