@@ -234,7 +234,22 @@ float ListBoxRenderer::calculate_content_width()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ListBoxRenderer::calculate_content_width: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   // TODO: This function
+   // TODO: Add more tests for this function
+   ALLEGRO_FONT* text_font = obtain_text_font();
+
+   // Calculate the item heights
+   float max_theoretical_width = 999999; // TODO: Consider using an std::max or something
+   float max_content_width = 0;
+   for (auto &list_item : list_items)
+   {
+      std::vector<float> line_widths = calculate_line_widths(text_font, max_theoretical_width, list_item);
+      if (line_widths.empty()) continue;
+
+      auto max_element = std::max_element(line_widths.begin(), line_widths.end());
+
+      // Set the max width
+      max_content_width = std::max(max_content_width, *max_element);
+   }
    return 0;
 }
 
