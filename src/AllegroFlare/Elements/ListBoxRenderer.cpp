@@ -265,7 +265,8 @@ float ListBoxRenderer::calculate_content_height()
    std::vector<float> item_heights;
    for (auto &list_item : list_items)
    {
-      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
+      std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
+      int this_item_num_lines = line_widths.size();
       float this_item_height = this_item_num_lines * line_height;
       item_heights.push_back(this_item_height);
    }
@@ -305,7 +306,8 @@ void ListBoxRenderer::draw_choices_with_cursor_and_current_selection()
    std::vector<float> item_heights;
    for (auto &list_item : list_items)
    {
-      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
+      std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
+      int this_item_num_lines = line_widths.size();
       float this_item_height = this_item_num_lines * line_height;
       item_heights.push_back(this_item_height);
    }
@@ -366,7 +368,8 @@ std::tuple<float, float, float, float> ListBoxRenderer::calculate_dimensions_for
    std::vector<float> item_heights;
    for (auto &list_item : list_items)
    {
-      int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
+      std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
+      int this_item_num_lines = line_widths.size();
       float this_item_height = this_item_num_lines * line_height;
       item_heights.push_back(this_item_height);
    }
@@ -424,9 +427,9 @@ bool ListBoxRenderer::multiline_text_draw_callback(int line_number, const char* 
    return true;
 }
 
-int ListBoxRenderer::count_num_lines_will_render(ALLEGRO_FONT* font, float max_width, std::string text)
+std::vector<float> ListBoxRenderer::calculate_line_widths(ALLEGRO_FONT* font, float max_width, std::string text)
 {
-   if (text.empty()) return 0;
+   if (text.empty()) return {};
 
    std::pair<ALLEGRO_FONT*, std::vector<float>> multiline_text_line_number;
    multiline_text_line_number.first = obtain_text_font();
@@ -440,7 +443,7 @@ int ListBoxRenderer::count_num_lines_will_render(ALLEGRO_FONT* font, float max_w
    );
 
    // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
-   return multiline_text_line_number.second.size();
+   return multiline_text_line_number.second;
 }
 
 ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()

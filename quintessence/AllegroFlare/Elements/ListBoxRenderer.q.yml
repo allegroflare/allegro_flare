@@ -173,7 +173,8 @@ methods:
       std::vector<float> item_heights;
       for (auto &list_item : list_items)
       {
-         int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
+         std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
+         int this_item_num_lines = line_widths.size();
          float this_item_height = this_item_num_lines * line_height;
          item_heights.push_back(this_item_height);
       }
@@ -214,7 +215,8 @@ methods:
        std::vector<float> item_heights;
        for (auto &list_item : list_items)
        {
-          int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
+          std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
+          int this_item_num_lines = line_widths.size();
           float this_item_height = this_item_num_lines * line_height;
           item_heights.push_back(this_item_height);
        }
@@ -265,7 +267,8 @@ methods:
       std::vector<float> item_heights;
       for (auto &list_item : list_items)
       {
-         int this_item_num_lines = count_num_lines_will_render(text_font, item_max_width, list_item);
+         std::vector<float> line_widths = calculate_line_widths(text_font, item_max_width, list_item);
+         int this_item_num_lines = line_widths.size();
          float this_item_height = this_item_num_lines * line_height;
          item_heights.push_back(this_item_height);
       }
@@ -340,8 +343,8 @@ methods:
       - AllegroFlare::Logger
 
 
-  - name: count_num_lines_will_render
-    type: int
+  - name: calculate_line_widths
+    type: std::vector<float>
     parameters:
       - name: font
         type: ALLEGRO_FONT*
@@ -353,7 +356,7 @@ methods:
         type: std::string
         default_argument: '"[unset-text]"'
     body: |
-      if (text.empty()) return 0;
+      if (text.empty()) return {};
 
       std::pair<ALLEGRO_FONT*, std::vector<float>> multiline_text_line_number;
       multiline_text_line_number.first = obtain_text_font();
@@ -367,7 +370,7 @@ methods:
       );
 
       // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
-      return multiline_text_line_number.second.size();
+      return multiline_text_line_number.second;
 
 
   - name: obtain_text_font
