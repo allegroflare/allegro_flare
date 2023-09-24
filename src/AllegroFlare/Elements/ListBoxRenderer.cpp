@@ -200,7 +200,7 @@ void ListBoxRenderer::render()
    ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
          AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
          selection_frame_color,
-         0.2
+         0.4
       );
    //frame.set_backfill_color(frame_backfill_color);
    frame.set_border_color(frame_border_color);
@@ -517,7 +517,7 @@ ALLEGRO_COLOR ListBoxRenderer::calculate_DEFAULT_TEXT_COLOR_SELECTED()
    return AllegroFlare::ColorKit::mix(
       ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
       AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR,
-      0.2
+      0.4
    );
 }
 

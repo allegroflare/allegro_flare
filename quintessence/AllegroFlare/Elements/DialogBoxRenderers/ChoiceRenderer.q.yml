@@ -128,11 +128,11 @@ methods:
 
       AllegroFlare::Placement2D choice_box_place{
          width - left_indent,
-         height - 20,
+         20,
          list_box_renderer.get_width(),
          list_box_renderer.get_height()
       };
-      choice_box_place.align = { 1.0, 0.0 };
+      choice_box_place.align = { 1.0, 1.0 };
   
       AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
@@ -161,56 +161,6 @@ methods:
       - AllegroFlare::Elements::SelectionCursorBox
       - AllegroFlare::Elements::ListBoxRenderer
       - AllegroFlare::Placement2D
-
-
-  - name: draw_choices_with_cursor_and_current_selection_OLD
-    parameters:
-      - name: start_y
-        type: float
-        default_argument: 0
-    body: |
-       ALLEGRO_FONT* text_font = obtain_dialog_font();
-       std::vector<std::pair<std::string, std::string>> options = obtain_choice_dialog_box_options();
-       int current_selection_num = obtain_choice_dialog_box_cursor_position();
-       float line_height = al_get_font_line_height(text_font);
-       ALLEGRO_COLOR text_color_not_selected = al_color_html("dfdfdf");
-       ALLEGRO_COLOR text_color_selected = al_color_html("000000");
-       //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-       ALLEGRO_COLOR selection_hilight_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
-       float selection_box_x_padding = 24;
-       float selection_box_y_padding = 0;
-       float x = 200;
-
-       int option_num = 0;
-       for (auto &option : options)
-       {
-          bool this_option_is_currently_selected = (option_num == current_selection_num);
-          std::string option_text = option.first;
-          if (this_option_is_currently_selected)
-          {
-             float text_width = al_get_text_width(text_font, option_text.c_str());
-             al_draw_filled_rectangle(
-                x - selection_box_x_padding,
-                start_y - selection_box_y_padding + option_num * line_height,
-                x+text_width + selection_box_x_padding,
-                start_y+line_height + selection_box_y_padding + option_num * line_height,
-                selection_hilight_color
-             );
-          }
-          al_draw_text(
-             text_font,
-             this_option_is_currently_selected ? text_color_selected : text_color_not_selected,
-             x,
-             start_y + line_height*option_num,
-             ALLEGRO_ALIGN_LEFT,
-             option_text.c_str()
-          );
-          option_num++;
-       }
-       return;
-    body_dependency_symbols:
-      - al_draw_rectangle
-      - al_draw_filled_rectangle
 
 
   - name: obtain_dialog_font
