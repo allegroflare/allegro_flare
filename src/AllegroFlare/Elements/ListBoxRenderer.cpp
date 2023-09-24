@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 
+#include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -190,6 +191,20 @@ void ListBoxRenderer::render()
       throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    AllegroFlare::Elements::DialogBoxFrame frame(width, height);
+      //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
+   ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
+         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
+         selection_frame_color,
+         0.05
+      );
+   ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
+         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
+         selection_frame_color,
+         0.2
+      );
+   //frame.set_backfill_color(frame_backfill_color);
+   frame.set_border_color(frame_border_color);
+
    // Other options for customized rendering:
       //backfill_opacity
       //backfill_color
@@ -495,6 +510,15 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
    font_identifier << font_name << " " << font_size;
    ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
    return result_font;
+}
+
+ALLEGRO_COLOR ListBoxRenderer::calculate_DEFAULT_TEXT_COLOR_SELECTED()
+{
+   return AllegroFlare::ColorKit::mix(
+      ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
+      AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR,
+      0.2
+   );
 }
 
 std::string ListBoxRenderer::concat_text(std::string source_text, int length)

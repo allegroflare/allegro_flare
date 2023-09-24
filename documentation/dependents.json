@@ -1392,6 +1392,10 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
   ],
+  "AllegroFlare/ColorKit": [
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
@@ -2619,9 +2623,6 @@
     "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Screens/TitleScreen": [
-    "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/ColorKit": [
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TransitionFX/Base": [

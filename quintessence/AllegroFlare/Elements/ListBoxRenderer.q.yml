@@ -69,7 +69,7 @@ properties:
 
   - name: text_color_not_selected
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f}
+    init_with: calculate_DEFAULT_TEXT_COLOR_SELECTED()
     constructor_arg: true
     getter: true
     setter: true
@@ -117,6 +117,20 @@ methods:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       AllegroFlare::Elements::DialogBoxFrame frame(width, height);
+         //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR
+      ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
+            AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
+            selection_frame_color,
+            0.05
+         );
+      ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
+            AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
+            selection_frame_color,
+            0.2
+         );
+      //frame.set_backfill_color(frame_backfill_color);
+      frame.set_border_color(frame_border_color);
+
       // Other options for customized rendering:
          //backfill_opacity
          //backfill_color
@@ -128,6 +142,7 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxFrame
+      - AllegroFlare::ColorKit
 
 
   - name: calculate_list_item_max_width
@@ -410,6 +425,19 @@ methods:
       return result_font;
 
 
+  - name: calculate_DEFAULT_TEXT_COLOR_SELECTED
+    type: ALLEGRO_COLOR
+    static: true
+    body: |
+      return AllegroFlare::ColorKit::mix(
+         ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
+         AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR,
+         0.2
+      );
+    body_dependency_symbols:
+      - AllegroFlare::ColorKit
+
+
   - name: concat_text
     type: std::string
     private: true
@@ -457,5 +485,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::ColorKit
+    headers: [ AllegroFlare/ColorKit.hpp ]
 
 

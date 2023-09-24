@@ -43,7 +43,7 @@ namespace AllegroFlare
 
 
       public:
-         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector<std::string> list_items={}, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, ALLEGRO_COLOR text_color_selected=DEFAULT_SELECTION_COLOR, ALLEGRO_COLOR text_color_not_selected=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f}, int cursor_position=0, ALLEGRO_COLOR selection_frame_color=DEFAULT_SELECTION_COLOR);
+         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector<std::string> list_items={}, float width=(1920/3.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, ALLEGRO_COLOR text_color_selected=DEFAULT_SELECTION_COLOR, ALLEGRO_COLOR text_color_not_selected=calculate_DEFAULT_TEXT_COLOR_SELECTED(), int cursor_position=0, ALLEGRO_COLOR selection_frame_color=DEFAULT_SELECTION_COLOR);
          ~ListBoxRenderer();
 
          void set_list_items(std::vector<std::string> list_items);
@@ -79,6 +79,7 @@ namespace AllegroFlare
          std::tuple<float, float, float, float> calculate_dimensions_for_list_item_at_position(int list_item_position=0);
          static bool multiline_text_draw_callback(int line_number=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          std::vector<float> calculate_line_widths(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text="[unset-text]");
+         static ALLEGRO_COLOR calculate_DEFAULT_TEXT_COLOR_SELECTED();
       };
    }
 }
