@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -398,10 +399,28 @@ std::tuple<float, float, float, float> ListBoxRenderer::calculate_dimensions_for
 
 bool ListBoxRenderer::multiline_text_draw_callback(int line_number, const char* line, int size, void* extra)
 {
+   // TODO: Improve tests on this
    std::pair<ALLEGRO_FONT*, std::vector<float>> &multiline_text_line_number =
       *((std::pair<ALLEGRO_FONT*, std::vector<float>>*)extra);
-   float this_line_size = 1.0f;
-   multiline_text_line_number.second.push_back(this_line_size);
+
+   // Guard that the font is valid
+   ALLEGRO_FONT *font = multiline_text_line_number.first;
+   if (!font)
+   {
+      AllegroFlare::Logger::throw_error("Elements::ListBoxRenderer::multiline_text_draw_callback",
+                                        "font cannot be a nullptr");
+   }
+
+   // Confirm the line is null-terminated
+   char* buffer = new char[size + 1];
+   strncpy(buffer, line, size); // Copy the first 'size' characters from 'input' to 'buffer'
+   buffer[size] = '\0'; // Null-terminate the 'buffer' explicitly
+
+   // Calculate the width of this line of text
+   float this_line_width = al_get_text_width(font, buffer);
+   delete[] buffer; // Free the allocated memory when done
+
+   multiline_text_line_number.second.push_back(this_line_width);
    return true;
 }
 

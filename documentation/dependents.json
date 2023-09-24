@@ -21,6 +21,7 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/GameSession",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
