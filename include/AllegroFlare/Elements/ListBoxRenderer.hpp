@@ -81,6 +81,8 @@ namespace AllegroFlare
          ALLEGRO_COLOR get_frame_backfill_color() const;
          ALLEGRO_COLOR get_frame_border_color() const;
          ALLEGRO_COLOR get_selection_frame_color() const;
+         float calculate_y_displacement_from_time(float time=0.0f, float max_displacement=10.0f);
+         float calculate_curved_time(float time=0.0f);
          void render();
          float calculate_list_item_max_width();
          float calculate_line_height();
