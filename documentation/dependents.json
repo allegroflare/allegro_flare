@@ -99,6 +99,7 @@
     "AllegroFlare/AudioProcessing/AudioMixer",
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Clock",
+    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -232,8 +233,6 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
@@ -337,7 +336,6 @@
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
@@ -451,7 +449,6 @@
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -658,7 +655,6 @@
   "ALLEGRO_COLOR": [
     "AllegroFlare/ColorKit",
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
@@ -840,7 +836,6 @@
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -1007,7 +1002,6 @@
     "AllegroFlare/Elements/StoryboardPages/Image"
   ],
   "AllegroFlare/Color": [
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
@@ -1033,7 +1027,6 @@
     "AllegroFlare/UnicodeFontViewer"
   ],
   "AllegroFlare/Screens/Base": [
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -1062,7 +1055,6 @@
     "WickedDemos/TileDemo"
   ],
   "al_draw_multiline_text": [
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -1071,7 +1063,6 @@
     "AllegroFlare/Screens/Storyboard"
   ],
   "al_draw_rounded_rectangle": [
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
@@ -1091,7 +1082,6 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/interpolator/": [
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
@@ -1104,7 +1094,6 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText"
   ],
   "fmod": [
-    "AllegroFlare/Elements/AdvancingText",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",

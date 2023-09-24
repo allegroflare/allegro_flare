@@ -1,58 +1,9 @@
 properties:
 
 
-  - name: font_bin
-    type: AllegroFlare::FontBin*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: text
     type: std::string
     init_with: '"[text-not-set]"'
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: font_name
-    type: std::string
-    init_with: '"Inter-Regular.ttf"'
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: font_size
-    type: int
-    init_with: -60
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: text_color
-    type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: width
-    type: float
-    init_with: 900.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: line_height_multiplier
-    type: float
-    init_with: 1.25f
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: line_height_padding
-    type: float
-    init_with: 0.0f
     constructor_arg: true
     getter: true
     setter: true
@@ -61,6 +12,8 @@ properties:
     type: int
     init_with: 0
     getter: true
+    getter_ref: false
+    setter: false
 
   - name: reveal_started_at
     type: float
@@ -97,6 +50,13 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - todos:
+      - consider if al_is_system_installed() could be removed and/or a "current_time" or "age" could be passed in
+
+
 methods:
 
 
@@ -108,6 +68,8 @@ methods:
       revealed_characters_count = 0;
       all_characters_are_revealed = false;
       return;
+    body_dependency_symbols:
+      - al_is_system_installed
 
 
   - name: set_reveal_rate_characters_per_second
@@ -139,32 +101,7 @@ methods:
       return;
     body_dependency_symbols:
       - std::min
-
-
-  - name: render
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
-    body: |
-      ALLEGRO_FONT *text_font = obtain_font();
-
-      std::string revealed_text = generate_revealed_text();
-      if (!revealed_text.empty())
-      {
-         al_draw_multiline_text(
-               text_font,
-               text_color,
-               0,
-               0,
-               width,
-               al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
-               0,
-               revealed_text.c_str()
-            );
-      }
-
-      return;
-    body_dependency_symbols:
-      - al_draw_multiline_text
-      - AllegroFlare::Color
+      - al_is_system_installed
 
 
   - name: reveal_all_characters
@@ -173,6 +110,8 @@ methods:
       revealed_characters_count = text.size();
       all_characters_are_revealed = true;
       reveal_ended_at = al_get_time(); // TODO: Consider passing a "time_now"
+    body_dependency_symbols:
+      - al_is_system_installed
 
 
   - name: generate_revealed_text
@@ -182,44 +121,12 @@ methods:
       return text.substr(0, revealed_characters_count);
 
 
-  - name: obtain_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
-    body: |
-      std::stringstream composite_font_str;
-      composite_font_str << font_name << " " << font_size;
-      return font_bin->auto_get(composite_font_str.str());
-
-
 dependencies:
 
 
-  - symbol: AllegroFlare::Color
-    headers: [ AllegroFlare/Color.hpp ]
-  - symbol: AllegroFlare::Placement2D
-    headers: [ AllegroFlare/Placement2D.hpp ]
-  - symbol: AllegroFlare::Screens::Base
-    headers: [ AllegroFlare/Screens/Base.hpp ]
-  - symbol: AllegroFlare::EventEmitter*
-    headers: [ AllegroFlare/EventEmitter.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_COLOR
+  - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
-  - symbol: al_draw_multiline_text
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: al_draw_rounded_rectangle
-    headers: [ allegro5/allegro_primitives.h ]
-  - symbol: AllegroFlare::interpolator::*
-    headers: [ AllegroFlare/Interpolators.hpp ]
-  - symbol: fmod
-    headers: [ cmath ]
   - symbol: std::min, std::max
     headers: [ algorithm ]
-  - symbol: ALLEGRO_FONT
-    headers: [ allegro5/allegro_font.h ]
-  - symbol: AllegroFlare::FontBin
-    headers: [ AllegroFlare/FontBin.hpp ]
 
 
