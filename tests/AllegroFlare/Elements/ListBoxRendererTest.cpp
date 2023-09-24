@@ -138,6 +138,30 @@ selected_object)
 
 
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
+   CAPTURE__VISUAL__calculate_content_width__will_return_the_maximum_width_among_all_content_elements)
+{
+   AllegroFlare::Elements::ListBox list_box;
+   list_box.set_items({
+     { "searching for treasure", "find_treasure" },
+     { "investigate rumors",    "investigate_rumors" },
+     { "here by accident",       "lost" },
+   });
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+      &get_font_bin_ref(),
+      &get_bitmap_bin_ref(),
+      {
+         "searching for treasure",
+         "investigate rumors",
+         "here by accident",
+      }
+   );
+   float expected_content_width = 312;
+   float actual_content_width = list_box_renderer.calculate_content_width();
+   EXPECT_EQ(expected_content_width, actual_content_width);
+}
+
+
+TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    CAPTURE__VISUAL__render__wil_fit_lists_of_various_sizes_and_styles)
 {
    // TODO: Include more styles and/or contents of the list
@@ -156,8 +180,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
       list_box.get_item_labels()
    );
    list_box_renderer.set_height_to_fit_content();
-
-
+   list_box_renderer.set_width_to_fit_content_or_max(1920);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;

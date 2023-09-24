@@ -244,13 +244,12 @@ float ListBoxRenderer::calculate_content_width()
    {
       std::vector<float> line_widths = calculate_line_widths(text_font, max_theoretical_width, list_item);
       if (line_widths.empty()) continue;
-
       auto max_element = std::max_element(line_widths.begin(), line_widths.end());
 
       // Set the max width
       max_content_width = std::max(max_content_width, *max_element);
    }
-   return 0;
+   return max_content_width;
 }
 
 float ListBoxRenderer::calculate_content_height()
@@ -303,6 +302,13 @@ float ListBoxRenderer::calculate_content_height()
 void ListBoxRenderer::set_height_to_fit_content()
 {
    height = calculate_content_height() + text_padding_y * 2;
+   return;
+}
+
+void ListBoxRenderer::set_width_to_fit_content_or_max(float max)
+{
+   // TODO: Test this method
+   width = (std::min(calculate_content_width(), max)) + text_padding_x * 2;
    return;
 }
 
@@ -436,6 +442,7 @@ bool ListBoxRenderer::multiline_text_draw_callback(int line_number, const char* 
 
    // Calculate the width of this line of text
    float this_line_width = al_get_text_width(font, buffer);
+
    delete[] buffer; // Free the allocated memory when done
 
    multiline_text_line_number.second.push_back(this_line_width);

@@ -75,6 +75,7 @@ namespace AllegroFlare
          float calculate_content_width();
          float calculate_content_height();
          void set_height_to_fit_content();
+         void set_width_to_fit_content_or_max(float max=800);
          std::tuple<float, float, float, float> calculate_dimensions_for_list_item_at_position(int list_item_position=0);
          static bool multiline_text_draw_callback(int line_number=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          std::vector<float> calculate_line_widths(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text="[unset-text]");
