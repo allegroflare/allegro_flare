@@ -29,6 +29,14 @@ properties:
 methods:
 
 
+  - name: start
+    virtual: true
+    body: |
+      // TODO: Implement this in the derived DialogBoxes, might consider renaming "crated_at" to "started_at"
+      //       and setting it here
+      return;
+
+
   - name: update
     virtual: true
     body: |

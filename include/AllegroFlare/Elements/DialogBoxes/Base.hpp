@@ -33,6 +33,7 @@ namespace AllegroFlare
             std::string get_type() const;
             float get_created_at() const;
             bool get_finished() const;
+            virtual void start();
             virtual void update();
             virtual void advance();
             virtual void move_cursor_position_up();

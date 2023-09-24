@@ -33,6 +33,7 @@ namespace AllegroFlare
             virtual ~Choice();
 
             int get_cursor_position() const;
+            virtual void start() override;
             virtual void update() override;
             virtual void advance() override;
             void initialize();

@@ -36,6 +36,12 @@ int Choice::get_cursor_position() const
 }
 
 
+void Choice::start()
+{
+   // TODO: Implement this, considering its relationship to "created_at"
+   return;
+}
+
 void Choice::update()
 {
    // NOTE: Refactoring when this method is created; expecting that nothing is to be done here

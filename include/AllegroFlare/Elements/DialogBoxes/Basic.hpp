@@ -39,6 +39,7 @@ namespace AllegroFlare
             float get_finished_at() const;
             bool get_page_finished() const;
             float get_page_finished_at() const;
+            virtual void start() override;
             virtual void update() override;
             virtual void advance() override;
             void set_pages(std::vector<std::string> pages={});

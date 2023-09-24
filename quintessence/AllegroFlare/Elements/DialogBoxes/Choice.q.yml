@@ -38,6 +38,14 @@ properties:
 methods:
 
 
+  - name: start
+    virtual: true
+    override: true
+    body: |
+      // TODO: Implement this, considering its relationship to "created_at"
+      return;
+
+
   - name: update
     virtual: true
     override: true

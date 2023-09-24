@@ -29,6 +29,7 @@ namespace AllegroFlare
 
             std::string get_item_name() const;
             std::string get_item_bitmap_identifier() const;
+            virtual void start() override;
             virtual void update() override;
             virtual void advance() override;
          };

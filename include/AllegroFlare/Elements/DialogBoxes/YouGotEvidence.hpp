@@ -29,6 +29,7 @@ namespace AllegroFlare
 
             std::string get_evidence_name() const;
             std::string get_evidence_bitmap_identifier() const;
+            virtual void start() override;
             virtual void update() override;
             virtual void advance() override;
          };

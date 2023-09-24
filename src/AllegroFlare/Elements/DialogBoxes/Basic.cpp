@@ -69,6 +69,12 @@ float Basic::get_page_finished_at() const
 }
 
 
+void Basic::start()
+{
+   // TODO: Implement this, considering its relationship to "created_at"
+   return;
+}
+
 void Basic::update()
 {
    if (get_finished()) return;

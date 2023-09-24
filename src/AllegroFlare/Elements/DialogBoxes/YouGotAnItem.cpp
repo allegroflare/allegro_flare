@@ -38,6 +38,12 @@ std::string YouGotAnItem::get_item_bitmap_identifier() const
 }
 
 
+void YouGotAnItem::start()
+{
+   // TODO: Implement this, considering its relationship to "created_at"
+   return;
+}
+
 void YouGotAnItem::update()
 {
    if (get_finished()) return;

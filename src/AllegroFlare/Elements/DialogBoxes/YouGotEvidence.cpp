@@ -38,6 +38,12 @@ std::string YouGotEvidence::get_evidence_bitmap_identifier() const
 }
 
 
+void YouGotEvidence::start()
+{
+   // TODO: Implement this, considering its relationship to "created_at"
+   return;
+}
+
 void YouGotEvidence::update()
 {
    if (get_finished()) return;

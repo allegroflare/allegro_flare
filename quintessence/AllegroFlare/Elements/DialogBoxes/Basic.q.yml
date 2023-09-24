@@ -50,6 +50,14 @@ properties:
 functions:
 
 
+  - name: start
+    virtual: true
+    override: true
+    body: |
+      // TODO: Implement this, considering its relationship to "created_at"
+      return;
+
+
   - name: update
     override: true
     virtual: true

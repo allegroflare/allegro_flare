@@ -59,6 +59,13 @@ bool Base::get_finished() const
 }
 
 
+void Base::start()
+{
+   // TODO: Implement this in the derived DialogBoxes, might consider renaming "crated_at" to "started_at"
+   //       and setting it here
+   return;
+}
+
 void Base::update()
 {
    // TODO: Consider if this should be pure_virtual
