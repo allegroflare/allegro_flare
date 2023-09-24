@@ -3,7 +3,6 @@
 #include <AllegroFlare/Elements/AdvancingTextRenderer.hpp>
 
 #include <AllegroFlare/Color.hpp>
-#include <algorithm>
 #include <allegro5/allegro_font.h>
 #include <iostream>
 #include <sstream>
@@ -16,20 +15,16 @@ namespace Elements
 {
 
 
-AdvancingTextRenderer::AdvancingTextRenderer(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float width, float line_height_multiplier, float line_height_padding)
+AdvancingTextRenderer::AdvancingTextRenderer(AllegroFlare::FontBin* font_bin, std::string text, int revealed_characters_count, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float width, float line_height_multiplier, float line_height_padding)
    : font_bin(font_bin)
    , text(text)
+   , revealed_characters_count(revealed_characters_count)
    , font_name(font_name)
    , font_size(font_size)
    , text_color(text_color)
    , width(width)
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
-   , revealed_characters_count(0)
-   , reveal_started_at(0.0f)
-   , reveal_ended_at(0.0f)
-   , reveal_rate_characters_per_second(DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND)
-   , all_characters_are_revealed(false)
 {
 }
 
@@ -48,6 +43,12 @@ void AdvancingTextRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 void AdvancingTextRenderer::set_text(std::string text)
 {
    this->text = text;
+}
+
+
+void AdvancingTextRenderer::set_revealed_characters_count(int revealed_characters_count)
+{
+   this->revealed_characters_count = revealed_characters_count;
 }
 
 
@@ -99,6 +100,12 @@ std::string AdvancingTextRenderer::get_text() const
 }
 
 
+int AdvancingTextRenderer::get_revealed_characters_count() const
+{
+   return revealed_characters_count;
+}
+
+
 std::string AdvancingTextRenderer::get_font_name() const
 {
    return font_name;
@@ -134,89 +141,6 @@ float AdvancingTextRenderer::get_line_height_padding() const
    return line_height_padding;
 }
 
-
-int AdvancingTextRenderer::get_revealed_characters_count() const
-{
-   return revealed_characters_count;
-}
-
-
-float AdvancingTextRenderer::get_reveal_started_at() const
-{
-   return reveal_started_at;
-}
-
-
-float AdvancingTextRenderer::get_reveal_ended_at() const
-{
-   return reveal_ended_at;
-}
-
-
-float AdvancingTextRenderer::get_reveal_rate_characters_per_second() const
-{
-   return reveal_rate_characters_per_second;
-}
-
-
-bool AdvancingTextRenderer::get_all_characters_are_revealed() const
-{
-   return all_characters_are_revealed;
-}
-
-
-void AdvancingTextRenderer::start()
-{
-   if (!(al_is_system_installed()))
-   {
-      std::stringstream error_message;
-      error_message << "[AdvancingTextRenderer::start]: error: guard \"al_is_system_installed()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingTextRenderer::start: error: guard \"al_is_system_installed()\" not met");
-   }
-   reveal_started_at = al_get_time(); // TODO: Replace with injected "time_now"
-   reveal_ended_at = 0;
-   revealed_characters_count = 0;
-   all_characters_are_revealed = false;
-   return;
-}
-
-void AdvancingTextRenderer::set_reveal_rate_characters_per_second(float reveal_rate_characters_per_second)
-{
-   if (!((reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)))
-   {
-      std::stringstream error_message;
-      error_message << "[AdvancingTextRenderer::set_reveal_rate_characters_per_second]: error: guard \"(reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingTextRenderer::set_reveal_rate_characters_per_second: error: guard \"(reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)\" not met");
-   }
-   this->reveal_rate_characters_per_second = reveal_rate_characters_per_second;
-   return;
-}
-
-void AdvancingTextRenderer::update()
-{
-   if (!(al_is_system_installed()))
-   {
-      std::stringstream error_message;
-      error_message << "[AdvancingTextRenderer::update]: error: guard \"al_is_system_installed()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingTextRenderer::update: error: guard \"al_is_system_installed()\" not met");
-   }
-   if (all_characters_are_revealed) return;
-
-   float time_now = al_get_time(); // TODO: Replace with injected "time_now"
-   float age = (time_now - reveal_started_at);
-   int theoretical_revealed_characters_count = (int)(age * reveal_rate_characters_per_second);
-   revealed_characters_count = std::min(theoretical_revealed_characters_count, (int)text.size());
-   if (revealed_characters_count >= text.size())
-   {
-      all_characters_are_revealed = true;
-      reveal_ended_at = time_now;
-   }
-
-   return;
-}
 
 void AdvancingTextRenderer::render()
 {
@@ -254,22 +178,9 @@ void AdvancingTextRenderer::render()
    return;
 }
 
-void AdvancingTextRenderer::reveal_all_characters()
-{
-   if (!(al_is_system_installed()))
-   {
-      std::stringstream error_message;
-      error_message << "[AdvancingTextRenderer::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingTextRenderer::reveal_all_characters: error: guard \"al_is_system_installed()\" not met");
-   }
-   revealed_characters_count = text.size();
-   all_characters_are_revealed = true;
-   reveal_ended_at = al_get_time(); // TODO: Consider passing a "time_now"
-}
-
 std::string AdvancingTextRenderer::generate_revealed_text()
 {
+   // TODO: Consider if this should be removed
    return text.substr(0, revealed_characters_count);
 }
 
