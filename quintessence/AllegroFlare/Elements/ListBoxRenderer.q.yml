@@ -174,7 +174,7 @@ methods:
       AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
       dialog_box_frame.set_backfill_color(frame_backfill_color);
       dialog_box_frame.set_border_color(frame_border_color);
-      //dialog_box_frame.set_opacity(calculate_curved_time(age));
+      dialog_box_frame.set_opacity(calculate_curved_time(age));
       dialog_box_frame.render();
       frame_place.restore_transform();
       return;
