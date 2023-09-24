@@ -22,12 +22,12 @@ namespace Elements
 {
 
 
-ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> list_items, int cursor_position, float age)
+ListBoxRenderer::ListBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> list_items)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , list_items(list_items)
-   , cursor_position(cursor_position)
-   , age(age)
+   , cursor_position(0)
+   , age(999.0f)
    , width((1920/3.0f))
    , height((1080/5.0f))
    , font_name(DEFAULT_FONT_NAME)

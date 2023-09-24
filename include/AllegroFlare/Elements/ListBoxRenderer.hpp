@@ -50,7 +50,7 @@ namespace AllegroFlare
 
 
       public:
-         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector<std::string> list_items={}, int cursor_position=0, float age=999.0f);
+         ListBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector<std::string> list_items={});
          ~ListBoxRenderer();
 
          void set_list_items(std::vector<std::string> list_items);

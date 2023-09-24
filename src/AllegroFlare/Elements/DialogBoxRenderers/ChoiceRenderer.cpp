@@ -302,6 +302,7 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    float left_indent = 80;
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       font_bin,
+
       nullptr, // bitmap_bin,
       obtain_choice_dialog_box_option_labels()
    );

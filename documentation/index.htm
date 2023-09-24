@@ -5866,7 +5866,7 @@ table td
 </tr>
 <tr>
   <td class="property">age</td>
-  <td class="property">int</td>
+  <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">width</td>
@@ -5932,6 +5932,9 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="private_method">draw_frame()</td>
+</tr>
+<tr>
   <td class="method">render()</td>
 </tr>
 <tr>
@@ -5956,7 +5959,7 @@ table td
   <td class="method">set_width_to_fit_content_or_max(float max=800)</td>
 </tr>
 <tr>
-  <td class="private_method">draw_frame()</td>
+  <td class="private_method">draw_frame_raw()</td>
 </tr>
 <tr>
   <td class="private_method">draw_choices_with_cursor_and_current_selection()</td>
@@ -6032,6 +6035,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -26801,6 +26810,7 @@ table td
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -27527,6 +27537,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2"
   ],
