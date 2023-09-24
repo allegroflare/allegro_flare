@@ -53,21 +53,31 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
    };
    AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
    choice_dialog_box.initialize();
-   AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer(
-      &get_font_bin_ref(),
-      &get_bitmap_bin_ref(),
-      &choice_dialog_box
-   );
-
-   AllegroFlare::Placement2D place{ 1920/2, 1080/2, choice_renderer.get_width(), choice_renderer.get_height() };
 
    choice_dialog_box.move_cursor_position_down();
 
-   place.start_transform();
-   choice_renderer.render();
-   place.restore_transform();
-   al_flip_display();
-   sleep_for(1);
+   int passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      // Update
+      choice_dialog_box.update();
+
+      // Render
+      AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer(
+         &get_font_bin_ref(),
+         &get_bitmap_bin_ref(),
+         &choice_dialog_box
+      );
+      choice_renderer.set_age(choice_dialog_box.infer_age());
+
+      AllegroFlare::Placement2D place{ 1920/2, 1080/2, choice_renderer.get_width(), choice_renderer.get_height() };
+
+      clear();
+      place.start_transform();
+      choice_renderer.render();
+      place.restore_transform();
+      al_flip_display();
+   }
 
    SUCCEED();
 }
