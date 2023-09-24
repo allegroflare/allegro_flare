@@ -168,14 +168,15 @@ void DialogBoxRenderer::render()
 
       AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_dialog_box_renderer(
          font_bin,
-         bitmap_bin,
-         choice_dialog_box,
-         place.size.x,
-         place.size.y
+         bitmap_bin
       );
-
+      choice_dialog_box_renderer.set_choice_dialog_box(choice_dialog_box);
       choice_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
       choice_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
+      choice_dialog_box_renderer.set_width(standard_dialog_box_width);
+      choice_dialog_box_renderer.set_height(standard_dialog_box_height);
+      choice_dialog_box_renderer.set_age(choice_dialog_box->infer_age());
+      // TODO: Finish adding params here
 
       place.start_transform();
       choice_dialog_box_renderer.render();

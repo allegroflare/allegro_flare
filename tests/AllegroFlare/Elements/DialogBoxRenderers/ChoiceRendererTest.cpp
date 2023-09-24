@@ -29,7 +29,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest, can_be_creat
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest, render__without_a_choice_dialog_box__throws_an_exception)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest,
+   render__without_a_choice_dialog_box__throws_an_exception)
 {
    al_init();
    AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer;

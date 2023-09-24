@@ -3680,6 +3680,30 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">num_revealed_characters</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">is_finished</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">page_is_finished</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">page_finished_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">at_last_page</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">age</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_FONT_NAME</td>
   <td class="property">char*</td>
 </tr>
@@ -3691,16 +3715,28 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">render()</td>
+  <td class="private_method">render_frame()</td>
 </tr>
 <tr>
-  <td class="method">draw_prompt_text()</td>
+  <td class="private_method">render_text()</td>
+</tr>
+<tr>
+  <td class="private_method">render_button()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
 </tr>
 <tr>
   <td class="method">draw_choices_with_cursor_and_current_selection()</td>
 </tr>
 <tr>
-  <td class="private_method">obtain_dialog_font()</td>
+  <td class="private_method">draw_special_state_empty_text(float width=1, float height=1)</td>
+</tr>
+<tr>
+  <td class="method">draw_styled_revealed_text(float max_width=1, std::string text=&quot;[unset-text]&quot;, int num_revealed_characters=999)</td>
+</tr>
+<tr>
+  <td class="private_method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_choice_dialog_box_prompt()</td>
@@ -3715,70 +3751,52 @@ table td
   <td class="private_method">obtain_choice_dialog_box_cursor_position()</td>
 </tr>
 <tr>
-  <td class="private_method">concat_text(std::string source_text=&quot;&quot;, int length=0)</td>
+  <td class="private_method">obtain_dialog_font()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_current_display&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_html&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFrame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFrame.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ListBoxRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ListBoxRenderer.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFrame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFrame.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogButton&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogButton.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ListBoxRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ListBoxRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -26448,7 +26466,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -26546,7 +26563,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
@@ -26648,7 +26664,6 @@ table td
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
@@ -27088,7 +27103,6 @@ table td
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "AllegroFlare/GameEvent": [
@@ -27237,7 +27251,6 @@ table td
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -27494,6 +27507,7 @@ table td
   "AllegroFlare/Interpolators/": [
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -27510,7 +27524,6 @@ table td
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Elements/DialogRollRenderer",
@@ -27527,7 +27540,8 @@ table td
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "al_color_html": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -27545,7 +27559,6 @@ table td
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxFrame": [
@@ -27570,11 +27583,11 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
   "al_draw_rectangle": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
@@ -27593,17 +27606,6 @@ table td
   "AllegroFlare/Elements/ListBoxRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
-  ],
-  "al_color_name": [
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/MultitextureModel3DObjLoader",
-    "AllegroFlare/ProfilerRenderer",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/DialogBoxes/Base",
@@ -27697,6 +27699,16 @@ table td
   "AllegroFlare/Elements/LevelSelect": [
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
+  ],
+  "al_color_name": [
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/MultitextureModel3DObjLoader",
+    "AllegroFlare/ProfilerRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/ColorKit": [
     "AllegroFlare/Elements/ListBoxRenderer",
