@@ -398,9 +398,10 @@ std::tuple<float, float, float, float> ListBoxRenderer::calculate_dimensions_for
 
 bool ListBoxRenderer::multiline_text_draw_callback(int line_number, const char* line, int size, void* extra)
 {
-   std::vector<float> &multiline_text_line_number = *((std::vector<float>*)extra);
+   std::pair<ALLEGRO_FONT*, std::vector<float>> &multiline_text_line_number =
+      *((std::pair<ALLEGRO_FONT*, std::vector<float>>*)extra);
    float this_line_size = 1.0f;
-   multiline_text_line_number.push_back(this_line_size);
+   multiline_text_line_number.second.push_back(this_line_size);
    return true;
 }
 
@@ -408,7 +409,9 @@ int ListBoxRenderer::count_num_lines_will_render(ALLEGRO_FONT* font, float max_w
 {
    if (text.empty()) return 0;
 
-   std::vector<float> multiline_text_line_number;
+   std::pair<ALLEGRO_FONT*, std::vector<float>> multiline_text_line_number;
+   multiline_text_line_number.first = obtain_text_font();
+
    al_do_multiline_text(
       font,
       max_width,
@@ -418,7 +421,7 @@ int ListBoxRenderer::count_num_lines_will_render(ALLEGRO_FONT* font, float max_w
    );
 
    // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
-   return multiline_text_line_number.size();
+   return multiline_text_line_number.second.size();
 }
 
 ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()

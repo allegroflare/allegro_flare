@@ -313,9 +313,10 @@ methods:
         type: void*
         default_argument: nullptr
     body: |
-      std::vector<float> &multiline_text_line_number = *((std::vector<float>*)extra);
+      std::pair<ALLEGRO_FONT*, std::vector<float>> &multiline_text_line_number =
+         *((std::pair<ALLEGRO_FONT*, std::vector<float>>*)extra);
       float this_line_size = 1.0f;
-      multiline_text_line_number.push_back(this_line_size);
+      multiline_text_line_number.second.push_back(this_line_size);
       return true;
 
 
@@ -334,7 +335,9 @@ methods:
     body: |
       if (text.empty()) return 0;
 
-      std::vector<float> multiline_text_line_number;
+      std::pair<ALLEGRO_FONT*, std::vector<float>> multiline_text_line_number;
+      multiline_text_line_number.first = obtain_text_font();
+
       al_do_multiline_text(
          font,
          max_width,
@@ -344,7 +347,7 @@ methods:
       );
 
       // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
-      return multiline_text_line_number.size();
+      return multiline_text_line_number.second.size();
 
 
   - name: obtain_text_font
