@@ -72,6 +72,7 @@ namespace AllegroFlare
          float calculate_list_item_max_width();
          float calculate_line_height();
          float calculate_item_spacing_padding();
+         float calculate_content_width();
          float calculate_content_height();
          void set_height_to_fit_content();
          std::tuple<float, float, float, float> calculate_dimensions_for_list_item_at_position(int list_item_position=0);

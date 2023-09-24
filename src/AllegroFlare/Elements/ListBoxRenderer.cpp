@@ -217,6 +217,26 @@ float ListBoxRenderer::calculate_item_spacing_padding()
    return line_height * 0.75;
 }
 
+float ListBoxRenderer::calculate_content_width()
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_content_width]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_content_width: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::calculate_content_width]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::calculate_content_width: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   // TODO: This function
+   return 0;
+}
+
 float ListBoxRenderer::calculate_content_height()
 {
    if (!(al_is_system_installed()))
@@ -378,8 +398,9 @@ std::tuple<float, float, float, float> ListBoxRenderer::calculate_dimensions_for
 
 bool ListBoxRenderer::multiline_text_draw_callback(int line_number, const char* line, int size, void* extra)
 {
-   int &multiline_text_line_number = *((int*)extra);
-   multiline_text_line_number = line_number;
+   std::vector<float> &multiline_text_line_number = *((std::vector<float>*)extra);
+   float this_line_size = 1.0f;
+   multiline_text_line_number.push_back(this_line_size);
    return true;
 }
 
@@ -387,7 +408,7 @@ int ListBoxRenderer::count_num_lines_will_render(ALLEGRO_FONT* font, float max_w
 {
    if (text.empty()) return 0;
 
-   int multiline_text_line_number = 0;
+   std::vector<float> multiline_text_line_number;
    al_do_multiline_text(
       font,
       max_width,
@@ -397,7 +418,7 @@ int ListBoxRenderer::count_num_lines_will_render(ALLEGRO_FONT* font, float max_w
    );
 
    // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
-   return multiline_text_line_number + 1;
+   return multiline_text_line_number.size();
 }
 
 ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()

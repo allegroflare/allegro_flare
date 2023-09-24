@@ -150,6 +150,14 @@ methods:
       return line_height * 0.75;
 
 
+  - name: calculate_content_width
+    type: float
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      // TODO: This function
+      return 0;
+
+
   - name: calculate_content_height
     type: float
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
@@ -305,8 +313,9 @@ methods:
         type: void*
         default_argument: nullptr
     body: |
-      int &multiline_text_line_number = *((int*)extra);
-      multiline_text_line_number = line_number;
+      std::vector<float> &multiline_text_line_number = *((std::vector<float>*)extra);
+      float this_line_size = 1.0f;
+      multiline_text_line_number.push_back(this_line_size);
       return true;
 
 
@@ -325,7 +334,7 @@ methods:
     body: |
       if (text.empty()) return 0;
 
-      int multiline_text_line_number = 0;
+      std::vector<float> multiline_text_line_number;
       al_do_multiline_text(
          font,
          max_width,
@@ -335,7 +344,7 @@ methods:
       );
 
       // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
-      return multiline_text_line_number + 1;
+      return multiline_text_line_number.size();
 
 
   - name: obtain_text_font
