@@ -28,6 +28,15 @@ properties:
     type: AllegroFlare::Elements::AdvancingText
     init_with: ''
 
+  - name: breakout_list_box
+    type: AllegroFlare::Elements::ListBox
+    init_with: ''
+    getter: false
+
+  - name: showing_breakout_list_box
+    type: bool
+    init_with: false
+
   - name: initialized
     type: bool
     init_with: false
@@ -59,6 +68,24 @@ methods:
       return;
 
 
+  - name: get_breakout_list_box
+    type: AllegroFlare::Elements::ListBox*
+    body: |
+       if (!showing_breakout_list_box) return nullptr;
+       return &breakout_list_box;
+
+
+  - name: reveal_breakout_list_box
+    body: |
+      if (!showing_breakout_list_box)
+      {
+         float time_now = al_get_time();
+         breakout_list_box.set_created_at(time_now);
+         showing_breakout_list_box = true;
+      }
+      return;
+
+
   - name: advance
     virtual: true
     override: true
@@ -67,6 +94,12 @@ methods:
       // has "advance()" called a second time, it will set finished to true.
       // NOTE: this is similar behavior to DialogBoxes/YouGotAnItem, it should be updated accordingly as well
       if (get_finished()) return;
+      if (!advancing_text.get_all_characters_are_revealed())
+      {
+         advancing_text.reveal_all_characters();
+         reveal_breakout_list_box();
+         // TODO: Consider playing a tone
+      }
       set_finished(true);
 
 
@@ -87,10 +120,16 @@ methods:
       return;
 
 
-  - name: get_prompt
+  - name: get_prompt_full_text
     type: std::string
     guards: [ initialized ]
     body: return prompt;
+
+
+  - name: get_prompt_revealed_text
+    type: std::string
+    guards: [ initialized ]
+    body: return advancing_text.generate_revealed_text();
 
 
   - name: get_options
@@ -166,5 +205,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
   - symbol: AllegroFlare::Elements::AdvancingText
     headers: [ AllegroFlare/Elements/AdvancingText.hpp ]
+  - symbol: AllegroFlare::Elements::ListBox
+    headers: [ AllegroFlare/Elements/ListBox.hpp ]
 
 

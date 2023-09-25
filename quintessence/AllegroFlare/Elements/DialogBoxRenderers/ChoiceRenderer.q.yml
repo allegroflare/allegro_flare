@@ -327,7 +327,7 @@ methods:
     private: true
     guards: [ choice_dialog_box ]
     body: |
-      return choice_dialog_box->get_prompt();
+      return choice_dialog_box->get_prompt_revealed_text();
 
 
   - name: obtain_choice_dialog_box_options

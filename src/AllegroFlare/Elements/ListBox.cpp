@@ -16,7 +16,7 @@ namespace Elements
 
 ListBox::ListBox()
    : items({})
-   , created_at(al_get_time())
+   , created_at(0)
    , cursor_position(0)
    , wrap_at_edges(false)
 {

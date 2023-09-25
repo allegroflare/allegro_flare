@@ -10,7 +10,7 @@ properties:
 
   - name: created_at
     type: float
-    init_with: al_get_time()
+    init_with: 0
     setter: true
     getter: true
 

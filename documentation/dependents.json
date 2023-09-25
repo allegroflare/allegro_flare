@@ -1293,6 +1293,9 @@
   "AllegroFlare/Elements/AdvancingText": [
     "AllegroFlare/Elements/DialogBoxes/Choice"
   ],
+  "AllegroFlare/Elements/ListBox": [
+    "AllegroFlare/Elements/DialogBoxes/Choice"
+  ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"

@@ -21,7 +21,6 @@ namespace AllegroFlare
          float reveal_ended_at;
          float reveal_rate_characters_per_second;
          bool all_characters_are_revealed;
-         std::string generate_revealed_text();
 
       protected:
 
@@ -41,6 +40,7 @@ namespace AllegroFlare
          void set_reveal_rate_characters_per_second(float reveal_rate_characters_per_second=DEFAULT_REVEAL_RATE_CHARACTERS_PER_SECOND);
          void update();
          void reveal_all_characters();
+         std::string generate_revealed_text();
       };
    }
 }

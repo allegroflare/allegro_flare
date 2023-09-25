@@ -29,11 +29,11 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, when_not_initialized__cursor_
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_prompt__when_not_initialized__raises_an_exception)
+TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_prompt_full_text__when_not_initialized__raises_an_exception)
 {
    AllegroFlare::Elements::DialogBoxes::Choice choice;
-   std::string expected_error_message = "Choice::get_prompt: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(choice.get_prompt(), std::runtime_error, expected_error_message);
+   std::string expected_error_message = "Choice::get_prompt_full_text: error: guard \"initialized\" not met";
+   EXPECT_THROW_WITH_MESSAGE(choice.get_prompt_full_text(), std::runtime_error, expected_error_message);
 }
 
 
@@ -153,19 +153,22 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_current_selection_text__with_no_options__returns_an_empty_string)
+TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
+   get_current_selection_text__with_no_options__returns_an_empty_string)
 {
    // WILL SKIP FOR NOW
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_current_selection_value__with_no_options__returns_an_empty_string)
+TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
+   get_current_selection_value__with_no_options__returns_an_empty_string)
 {
    // WILL SKIP FOR NOW
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_current_selection_text__returns_the_text_from_the_current_selection)
+TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
+   get_current_selection_text__returns_the_text_from_the_current_selection)
 {
    al_init();
    std::vector<std::pair<std::string, std::string>> choice_options = {
@@ -187,7 +190,8 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_current_selection_text__r
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_current_selection_value__returns_the_value_from_the_current_selection)
+TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
+   get_current_selection_value__returns_the_value_from_the_current_selection)
 {
    al_init();
    std::vector<std::pair<std::string, std::string>> choice_options = {

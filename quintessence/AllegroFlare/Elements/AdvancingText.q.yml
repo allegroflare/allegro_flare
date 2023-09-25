@@ -115,7 +115,6 @@ methods:
 
 
   - name: generate_revealed_text
-    private: true
     type: std::string
     body: |
       return text.substr(0, revealed_characters_count);

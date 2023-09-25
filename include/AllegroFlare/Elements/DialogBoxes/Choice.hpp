@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Elements/AdvancingText.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
+#include <AllegroFlare/Elements/ListBox.hpp>
 #include <string>
 #include <utility>
 #include <vector>
@@ -24,6 +25,8 @@ namespace AllegroFlare
             std::vector<std::pair<std::string, std::string>> options;
             int cursor_position;
             AllegroFlare::Elements::AdvancingText advancing_text;
+            AllegroFlare::Elements::ListBox breakout_list_box;
+            bool showing_breakout_list_box;
             bool initialized;
             bool has_valid_cursor_position();
 
@@ -37,9 +40,12 @@ namespace AllegroFlare
             int get_cursor_position() const;
             virtual void start() override;
             virtual void update() override;
+            AllegroFlare::Elements::ListBox* get_breakout_list_box();
+            void reveal_breakout_list_box();
             virtual void advance() override;
             void initialize();
-            std::string get_prompt();
+            std::string get_prompt_full_text();
+            std::string get_prompt_revealed_text();
             std::vector<std::pair<std::string, std::string>> get_options();
             std::vector<std::string> get_item_labels();
             std::string get_current_selection_text();

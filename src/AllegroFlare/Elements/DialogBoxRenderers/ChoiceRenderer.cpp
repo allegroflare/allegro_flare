@@ -404,7 +404,7 @@ std::string ChoiceRenderer::obtain_choice_dialog_box_prompt()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_prompt: error: guard \"choice_dialog_box\" not met");
    }
-   return choice_dialog_box->get_prompt();
+   return choice_dialog_box->get_prompt_revealed_text();
 }
 
 std::vector<std::pair<std::string, std::string>> ChoiceRenderer::obtain_choice_dialog_box_options()

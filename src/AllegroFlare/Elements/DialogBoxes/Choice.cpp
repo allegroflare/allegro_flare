@@ -21,6 +21,8 @@ Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::strin
    , options(options)
    , cursor_position(-1)
    , advancing_text()
+   , breakout_list_box()
+   , showing_breakout_list_box(false)
    , initialized(false)
 {
 }
@@ -50,12 +52,35 @@ void Choice::update()
    return;
 }
 
+AllegroFlare::Elements::ListBox* Choice::get_breakout_list_box()
+{
+   if (!showing_breakout_list_box) return nullptr;
+   return &breakout_list_box;
+}
+
+void Choice::reveal_breakout_list_box()
+{
+   if (!showing_breakout_list_box)
+   {
+      float time_now = al_get_time();
+      breakout_list_box.set_created_at(time_now);
+      showing_breakout_list_box = true;
+   }
+   return;
+}
+
 void Choice::advance()
 {
    // TODO: rather than have this "finish" it should advance the animation to the end.  Then, if the dialog
    // has "advance()" called a second time, it will set finished to true.
    // NOTE: this is similar behavior to DialogBoxes/YouGotAnItem, it should be updated accordingly as well
    if (get_finished()) return;
+   if (!advancing_text.get_all_characters_are_revealed())
+   {
+      advancing_text.reveal_all_characters();
+      reveal_breakout_list_box();
+      // TODO: Consider playing a tone
+   }
    set_finished(true);
 }
 
@@ -82,16 +107,28 @@ void Choice::initialize()
    return;
 }
 
-std::string Choice::get_prompt()
+std::string Choice::get_prompt_full_text()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Choice::get_prompt]: error: guard \"initialized\" not met.";
+      error_message << "[Choice::get_prompt_full_text]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Choice::get_prompt: error: guard \"initialized\" not met");
+      throw std::runtime_error("Choice::get_prompt_full_text: error: guard \"initialized\" not met");
    }
    return prompt;
+}
+
+std::string Choice::get_prompt_revealed_text()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Choice::get_prompt_revealed_text]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Choice::get_prompt_revealed_text: error: guard \"initialized\" not met");
+   }
+   return advancing_text.generate_revealed_text();
 }
 
 std::vector<std::pair<std::string, std::string>> Choice::get_options()
