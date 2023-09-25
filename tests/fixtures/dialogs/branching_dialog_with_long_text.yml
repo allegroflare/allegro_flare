@@ -1,57 +1,94 @@
 - name: start_node
   type: multipage_with_options
   data:
-    speaker: Ethan
+    speaker: Villager
     pages:
-      - Yuki, you've had a hard days work. Why don't you just relax for awhile.
+      - Do you know anything regarding the whereabouts and well-being of the villagers who mysteriously disappeared without a trace, leaving their loved ones in anguish and uncertainty?
     options:
-      - text: Head home
+      - text: I saw some strange tracks leading deeper into the forest. They might be related.
         type: go_to_node
-        data: { target_node_name: yuki_response_1 }
-      - text: Stay here for a while
+        data: { target_node_name: villager_response_1 }
+      - text: I haven't seen anyone, but I heard eerie whispers in the dark last night.
         type: go_to_node
-        data: { target_node_name: yuki_response_2 }
+        data: { target_node_name: villager_response_2 }
+      - text: I'm not from around here, so I don't have any information on the villagers.
+        type: go_to_node
+        data: { target_node_name: villager_response_3 }
 
-- name: yuki_response_1
+- name: villager_response_1
   type: multipage_with_options
   data:
-    speaker: Yuki
+    speaker: Villager
     pages:
-      - Ok. I'll head home. I've had a long day.
+      - Strange tracks, you say? That's intriguing! Can you show me where you found them?
     options:
-      - text: Continue
+      - text: Of course, follow me. I'll lead you to the spot.
         type: go_to_node
-        data: { target_node_name: ethan_response_1 }
+        data: { target_node_name: villager_response_4 }
+      - text: Sorry, I can't. It's too dangerous out there.
+        type: go_to_node
+        data: { target_node_name: villager_response_5 }
 
-- name: yuki_response_2
+- name: villager_response_2
   type: multipage_with_options
   data:
-    speaker: Yuki
+    speaker: Villager
     pages:
-      - I'm going to keep working. I'm almost close to being done.
-      - Not to mention the deadline is tomorrow and I just need to get one step further.
+      - Eerie whispers? That's terrifying! What did you hear, and where did it come from?
     options:
-      - text: Continue
+      - text: I heard them coming from the old abandoned mill near the river.
         type: go_to_node
-        data: { target_node_name: ethan_response_2 }
+        data: { target_node_name: villager_response_6 }
+      - text: I'm not sure where it came from. It was just unsettling.
+        type: go_to_node
+        data: { target_node_name: villager_response_7 }
 
-- name: ethan_response_1
+- name: villager_response_3
   type: multipage_with_options
   data:
-    speaker: Ethan
+    speaker: Villager
     pages:
-      - Sounds good. Take the rest of the day off and I'll see you back here tomorrow.
+      - That's alright, stranger. We're all worried about our missing friends and family. If you hear anything, please let us know.
     options:
-      - text: Finish
+      - text: I'll keep an ear out and inform you if I learn anything.
         type: exit_dialog
 
-- name: ethan_response_2
+- name: villager_response_4
   type: multipage_with_options
   data:
-    speaker: Ethan
+    speaker: Villager
     pages:
-      - Alright, have it your way!
+      - Thank you for your help. Let's go check those tracks together.
     options:
-      - text: Finish
+      - text: Lead the way.
         type: exit_dialog
 
+- name: villager_response_5
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - I understand. It's a dangerous world out there. Please be careful.
+    options:
+      - text: I will. Take care.
+        type: exit_dialog
+
+- name: villager_response_6
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - The old mill, you say? That's where some villagers went missing! Let's investigate it together.
+    options:
+      - text: Lead the way.
+        type: exit_dialog
+
+- name: villager_response_7
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - It's alright, stranger. The darkness in these woods can play tricks on the mind. Just be cautious.
+    options:
+      - text: I will. Stay safe.
+        type: exit_dialog

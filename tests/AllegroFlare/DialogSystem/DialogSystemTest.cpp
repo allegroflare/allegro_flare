@@ -310,7 +310,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   TIMED_INTERACTIVE__will_work_as_expected)
+   FOCUS__TIMED_INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -329,7 +329,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
-   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
+   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog_with_long_text.yml";
    std::string node_name_to_start = "start_node";
    AllegroFlare::DialogSystem::DialogSystem dialog_system(
       &get_bitmap_bin_ref(),
