@@ -190,7 +190,7 @@ methods:
       // TODO: Interesting visual bug, when "set_width_to_fit..." is called after "set_height_to_fit..." then
       // there could be a miss-alignment of the content and its presentation. Investigate this case and see if you can
       // restore it
-      list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
+      list_box_renderer.set_width_to_fit_content_or_max_and_min(width - left_indent*2);
       list_box_renderer.set_height_to_fit_content();
       list_box_renderer.set_age(breakout_list_box_age);
 

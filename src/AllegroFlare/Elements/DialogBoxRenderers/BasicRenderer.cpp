@@ -293,7 +293,7 @@ void BasicRenderer::draw_choices_with_cursor_and_current_selection()
       obtain_choice_dialog_box_option_labels()
    );
    list_box_renderer.set_height_to_fit_content();
-   list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
+   list_box_renderer.set_width_to_fit_content_or_max_and_min(width - left_indent*2);
 
    AllegroFlare::Placement2D choice_box_place{
       width - left_indent,
