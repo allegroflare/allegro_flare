@@ -214,9 +214,9 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   CAPTURE__load_dialog_node_bank_from_file__with_a_branching_dialog_that_include_choices__will_not_blow_up)
+   CAPTURE__load_dialog_node_bank_from_file__with_a_branching_dialog_that_includes_choices__will_not_blow_up)
 {
-   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog_with_long_text.yml";
+   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
 
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
@@ -239,8 +239,9 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       dialog_system.render();
       al_flip_display();
    }
+   dialog_system.dialog_advance(); // Advance the text to the end (and reveal the choice list box)
    dialog_system.move_dialog_cursor_position_down();
-   dialog_system.dialog_advance();
+   dialog_system.dialog_advance(); // Advance the dialog (with the 2nd choice option selected)
    EXPECT_EQ("yuki_response_2", dialog_system.get_active_dialog_node_name());
    passes = NUM_PASSES;
    for (int i=0; i<passes; i++)
