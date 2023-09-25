@@ -116,6 +116,26 @@ float ListBox::infer_age(float time_now)
    return time_now - get_created_at();
 }
 
+void ListBox::set_cursor_position(int cursor_position)
+{
+   if (!((cursor_position >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBox::set_cursor_position]: error: guard \"(cursor_position >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBox::set_cursor_position: error: guard \"(cursor_position >= 0)\" not met");
+   }
+   if (!(((cursor_position < (items.size() - 1)) || (cursor_position == 0))))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBox::set_cursor_position]: error: guard \"((cursor_position < (items.size() - 1)) || (cursor_position == 0))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBox::set_cursor_position: error: guard \"((cursor_position < (items.size() - 1)) || (cursor_position == 0))\" not met");
+   }
+   this->cursor_position = cursor_position;
+   return;
+}
+
 void ListBox::move_cursor_up()
 {
    cursor_position--;

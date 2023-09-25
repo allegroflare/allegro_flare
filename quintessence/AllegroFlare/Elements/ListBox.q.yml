@@ -85,6 +85,17 @@ methods:
       - al_get_time
 
 
+  - name: set_cursor_position
+    parameters:
+      - name: cursor_position
+        type: int
+        default_argument: 0
+    guards: [ (cursor_position >= 0), ((cursor_position < (items.size() - 1)) || (cursor_position == 0)) ]
+    body: |
+      this->cursor_position = cursor_position;
+      return;
+
+
   - name: move_cursor_up
     body: |
       cursor_position--;
@@ -112,5 +123,7 @@ dependencies:
 
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

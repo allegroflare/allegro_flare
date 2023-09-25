@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/Elements/ListBox.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 static std::vector<std::pair<std::string, std::string>> build_food_test_data()
@@ -64,6 +65,50 @@ TEST(AllegroFlare_Elements_ListBoxTest, get_item_labels__will_return_a_list_of_j
    };
 
    EXPECT_EQ(expected_item_labels, list_box.get_item_labels());
+}
+
+
+TEST(AllegroFlare_Elements_ListBoxTest, set_cursor_position__will_set_the_cursor_position)
+{
+   AllegroFlare::Elements::ListBox list_box;
+   list_box.set_items(build_food_test_data());
+   list_box.set_cursor_position(3);
+   EXPECT_EQ(3, list_box.get_cursor_position());
+}
+
+
+TEST(AllegroFlare_Elements_ListBoxTest, set_cursor_position__if_less_than_zero__will_throw_an_error)
+{
+   AllegroFlare::Elements::ListBox list_box;
+   EXPECT_THROW_WITH_MESSAGE(
+      list_box.set_cursor_position(-1),
+      std::runtime_error,
+      "ListBox::set_cursor_position: error: guard \"(cursor_position >= 0)\" not met"
+   );
+}
+
+
+TEST(AllegroFlare_Elements_ListBoxTest,
+   set_cursor_position__if_greater_than_or_equal_to_the_number_of_items__will_throw_an_error)
+{
+   AllegroFlare::Elements::ListBox list_box;
+   list_box.set_items(build_food_test_data());
+   int num_items = list_box.num_items();
+
+   std::string expected_error_message = "ListBox::set_cursor_position: error: guard \"((cursor_position < "
+                                        "(items.size() - 1)) || (cursor_position == 0))\" not met";
+    
+   EXPECT_THROW_WITH_MESSAGE(
+      list_box.set_cursor_position(num_items),
+      std::runtime_error,
+      expected_error_message
+   );
+
+   EXPECT_THROW_WITH_MESSAGE(
+      list_box.set_cursor_position(num_items+1),
+      std::runtime_error,
+      expected_error_message
+   );
 }
 
 

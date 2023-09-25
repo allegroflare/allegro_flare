@@ -38,6 +38,7 @@ namespace AllegroFlare
          bool has_valid_currently_selected_item();
          std::string get_currently_selected_item_value();
          float infer_age(float time_now=al_get_time());
+         void set_cursor_position(int cursor_position=0);
          void move_cursor_up();
          void move_cursor_down();
       };
