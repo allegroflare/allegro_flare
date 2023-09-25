@@ -21,6 +21,7 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/DialogBoxes/Basic",
+    "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",

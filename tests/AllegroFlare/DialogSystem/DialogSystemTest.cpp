@@ -216,7 +216,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    CAPTURE__load_dialog_node_bank_from_file__with_a_branching_dialog_that_include_choices__will_not_blow_up)
 {
-   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
+   std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog_with_long_text.yml";
 
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();

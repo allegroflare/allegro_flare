@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -72,13 +73,26 @@ void Choice::advance()
    // has "advance()" called a second time, it will set finished to true.
    // NOTE: this is similar behavior to DialogBoxes/YouGotAnItem, it should be updated accordingly as well
    if (get_finished()) return;
+
    if (!advancing_text.get_all_characters_are_revealed())
    {
       advancing_text.reveal_all_characters();
       reveal_breakout_list_box();
       // TODO: Consider playing a tone
    }
-   set_finished(true);
+   else if (breakout_list_box_active)
+   {
+      set_finished(true); // TODO: Look into if this is needed here or where it should be placed
+      // TODO: Consider playing a tone
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::DialogBoxes::Choice::advance",
+            "Reached unexpected branching path"
+         );
+   }
+   return;
 }
 
 void Choice::initialize()

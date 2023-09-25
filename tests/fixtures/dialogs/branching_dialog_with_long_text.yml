@@ -1,0 +1,57 @@
+- name: start_node
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Yuki, you've had a hard days work. Why don't you just relax for awhile.
+    options:
+      - text: Head home
+        type: go_to_node
+        data: { target_node_name: yuki_response_1 }
+      - text: Stay here for a while
+        type: go_to_node
+        data: { target_node_name: yuki_response_2 }
+
+- name: yuki_response_1
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - Ok. I'll head home. I've had a long day.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_1 }
+
+- name: yuki_response_2
+  type: multipage_with_options
+  data:
+    speaker: Yuki
+    pages:
+      - I'm going to keep working. I'm almost close to being done.
+      - Not to mention the deadline is tomorrow and I just need to get one step further.
+    options:
+      - text: Continue
+        type: go_to_node
+        data: { target_node_name: ethan_response_2 }
+
+- name: ethan_response_1
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Sounds good. Take the rest of the day off and I'll see you back here tomorrow.
+    options:
+      - text: Finish
+        type: exit_dialog
+
+- name: ethan_response_2
+  type: multipage_with_options
+  data:
+    speaker: Ethan
+    pages:
+      - Alright, have it your way!
+    options:
+      - text: Finish
+        type: exit_dialog
+
