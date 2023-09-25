@@ -249,23 +249,6 @@ void ChoiceRenderer::render_text()
    return;
 }
 
-void ChoiceRenderer::render_button()
-{
-   // draw the "next" or "finished" cursor (depending on context)
-   if (page_is_finished)
-   {
-      AllegroFlare::Elements::DialogButton dialog_button(font_bin);
-      dialog_button.set_started_at(page_finished_at);
-      dialog_button.set_x(width - 160);
-      dialog_button.set_y(height - 60);
-
-      if (at_last_page) dialog_button.set_at_last_advance(true);
-
-      dialog_button.render();
-   }
-   return;
-}
-
 void ChoiceRenderer::render()
 {
    if (!(al_is_system_installed))
@@ -292,7 +275,6 @@ void ChoiceRenderer::render()
    {
       render_text();
       draw_choices_with_cursor_and_current_selection();
-      //render_button();
    }
    return;
 }

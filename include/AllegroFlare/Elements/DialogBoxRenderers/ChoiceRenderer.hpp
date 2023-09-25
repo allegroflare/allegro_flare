@@ -40,7 +40,6 @@ namespace AllegroFlare
             float age;
             void render_frame();
             void render_text();
-            void render_button();
             void draw_special_state_empty_text(float width=1, float height=1);
             std::string concat_text(std::string source_text="", int length=0);
             std::string obtain_choice_dialog_box_prompt();
