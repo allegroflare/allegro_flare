@@ -79,7 +79,10 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
-   std::string choice_box_prompt = "Do you have any information about the whereabouts of the missing villagers?";
+   //std::string choice_box_prompt = "Do you have any information about the whereabouts of the missing villagers?";
+   std::string choice_box_prompt = "Do you know anything regarding the whereabouts and well-being of the villagers "
+                                   "who mysteriously disappeared without a trace, leaving their loved ones in anguish "
+                                   "and uncertainty?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "I saw some strange tracks leading deeper into the forest. They might be related.", "GOTO A" },
      { "I haven't seen anyone, but I heard eerie whispers in the dark last night.", "GOTO B" },
@@ -96,7 +99,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    choice_dialog_box.move_cursor_position_down();
 
-   int passes = 240;
+   int passes = 120 * 5;
    for (int i=0; i<passes; i++)
    {
       // Update
