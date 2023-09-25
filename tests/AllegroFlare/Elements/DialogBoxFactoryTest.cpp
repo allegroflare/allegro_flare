@@ -143,7 +143,7 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 
    ASSERT_NE(nullptr, created_dialog);
 
-   ASSERT_EQ(choice_prompt, created_dialog->get_prompt());
+   ASSERT_EQ(choice_prompt, created_dialog->get_prompt_full_text());
    ASSERT_EQ(choice_options, created_dialog->get_options());
 
    delete created_dialog;
