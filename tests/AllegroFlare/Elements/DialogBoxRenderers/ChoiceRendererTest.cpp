@@ -1,21 +1,10 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-
-#ifdef _WIN32
-#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
-#else
-#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
-#endif
 
 
 class AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest : public ::testing::Test {};
@@ -43,8 +32,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest,
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__renders_the_elements)
 {
-   get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
-
    std::string choice_box_prompt = "Are you making progress?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "Absolutely!", "GOTO A" },
@@ -77,8 +64,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__renders_elements_in_motion_when_revealing)
 {
-   get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
-
    //std::string choice_box_prompt = "Do you have any information about the whereabouts of the missing villagers?";
    std::string choice_box_prompt = "Do you know anything regarding the whereabouts and well-being of the villagers "
                                    "who mysteriously disappeared without a trace, leaving their loved ones in anguish "
