@@ -64,6 +64,13 @@ methods:
       return true;
 
 
+  - name: get_currently_selected_item_label
+    type: std::string
+    guards: [ has_valid_currently_selected_item() ]
+    body: |
+      return items[cursor_position].first;
+
+
   - name: get_currently_selected_item_value
     type: std::string
     guards: [ has_valid_currently_selected_item() ]

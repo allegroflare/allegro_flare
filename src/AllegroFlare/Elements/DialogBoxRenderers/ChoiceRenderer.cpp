@@ -428,7 +428,7 @@ std::vector<std::string> ChoiceRenderer::obtain_choice_dialog_box_option_labels(
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_option_labels: error: guard \"choice_dialog_box\" not met");
    }
-   return choice_dialog_box->get_item_labels();
+   return choice_dialog_box->get_options_labels();
 }
 
 int ChoiceRenderer::obtain_choice_dialog_box_cursor_position()

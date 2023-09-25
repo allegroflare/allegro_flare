@@ -163,8 +163,8 @@ methods:
 
   - name: render
     guards:
-      - al_is_system_installed
-      - al_is_primitives_addon_initialized
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
     body: |
       render_frame();
 

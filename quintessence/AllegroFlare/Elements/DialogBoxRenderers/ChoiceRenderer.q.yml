@@ -343,7 +343,7 @@ methods:
     private: true
     guards: [ choice_dialog_box ]
     body: |
-      return choice_dialog_box->get_item_labels();
+      return choice_dialog_box->get_options_labels();
 
 
   - name: obtain_choice_dialog_box_cursor_position

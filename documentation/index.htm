@@ -4197,10 +4197,6 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
-  <td class="property">cursor_position</td>
-  <td class="property">int</td>
-</tr>
-<tr>
   <td class="property">advancing_text</td>
   <td class="property">AllegroFlare::Elements::AdvancingText</td>
 </tr>
@@ -4230,16 +4226,22 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
-  <td class="method">get_breakout_list_box()</td>
-</tr>
-<tr>
-  <td class="method">reveal_breakout_list_box()</td>
-</tr>
-<tr>
   <td class="method">advance()</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">set_prompt(std::string prompt=&quot;[unset-prompt]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">set_options(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={})</td>
+</tr>
+<tr>
+  <td class="method">get_breakout_list_box()</td>
+</tr>
+<tr>
+  <td class="method">reveal_breakout_list_box()</td>
 </tr>
 <tr>
   <td class="method">get_prompt_full_text()</td>
@@ -4251,7 +4253,7 @@ table td
   <td class="method">get_options()</td>
 </tr>
 <tr>
-  <td class="method">get_item_labels()</td>
+  <td class="method">get_options_labels()</td>
 </tr>
 <tr>
   <td class="method">get_current_selection_text()</td>
@@ -4267,6 +4269,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">has_valid_cursor_position()</td>
+</tr>
+<tr>
+  <td class="method">get_cursor_position()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -5895,6 +5900,9 @@ table td
 </tr>
 <tr>
   <td class="method">has_valid_currently_selected_item()</td>
+</tr>
+<tr>
+  <td class="method">get_currently_selected_item_label()</td>
 </tr>
 <tr>
   <td class="method">get_currently_selected_item_value()</td>

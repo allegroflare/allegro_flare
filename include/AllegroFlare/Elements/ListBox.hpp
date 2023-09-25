@@ -36,6 +36,7 @@ namespace AllegroFlare
          std::vector<std::string> get_item_labels();
          int num_items();
          bool has_valid_currently_selected_item();
+         std::string get_currently_selected_item_label();
          std::string get_currently_selected_item_value();
          float infer_age(float time_now=al_get_time());
          void set_cursor_position(int cursor_position=0);

@@ -23,7 +23,6 @@ namespace AllegroFlare
          private:
             std::string prompt;
             std::vector<std::pair<std::string, std::string>> options;
-            int cursor_position;
             AllegroFlare::Elements::AdvancingText advancing_text;
             AllegroFlare::Elements::ListBox breakout_list_box;
             bool showing_breakout_list_box;
@@ -37,21 +36,23 @@ namespace AllegroFlare
             Choice(std::string prompt="[prompt-question-not-set]", std::vector<std::pair<std::string, std::string>> options={});
             virtual ~Choice();
 
-            int get_cursor_position() const;
             virtual void start() override;
             virtual void update() override;
-            AllegroFlare::Elements::ListBox* get_breakout_list_box();
-            void reveal_breakout_list_box();
             virtual void advance() override;
             void initialize();
+            void set_prompt(std::string prompt="[unset-prompt]");
+            void set_options(std::vector<std::pair<std::string, std::string>> options={});
+            AllegroFlare::Elements::ListBox* get_breakout_list_box();
+            void reveal_breakout_list_box();
             std::string get_prompt_full_text();
             std::string get_prompt_revealed_text();
             std::vector<std::pair<std::string, std::string>> get_options();
-            std::vector<std::string> get_item_labels();
+            std::vector<std::string> get_options_labels();
             std::string get_current_selection_text();
             std::string get_current_selection_value();
             virtual void move_cursor_position_down() override;
             virtual void move_cursor_position_up() override;
+            int get_cursor_position();
          };
       }
    }

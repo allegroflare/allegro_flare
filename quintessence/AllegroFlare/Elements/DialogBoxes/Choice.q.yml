@@ -13,16 +13,13 @@ properties:
     type: std::string
     init_with: '"[prompt-question-not-set]"'
     constructor_arg: true
+    setter: explicit
 
   - name: options
     type: std::vector<std::pair<std::string, std::string>>
     init_with: '{}'
     constructor_arg: true
-
-  - name: cursor_position
-    type: int
-    init_with: -1
-    getter: true
+    setter: explicit
 
   - name: advancing_text
     type: AllegroFlare::Elements::AdvancingText
@@ -68,24 +65,6 @@ methods:
       return;
 
 
-  - name: get_breakout_list_box
-    type: AllegroFlare::Elements::ListBox*
-    body: |
-       if (!showing_breakout_list_box) return nullptr;
-       return &breakout_list_box;
-
-
-  - name: reveal_breakout_list_box
-    body: |
-      if (!showing_breakout_list_box)
-      {
-         float time_now = al_get_time();
-         breakout_list_box.set_created_at(time_now);
-         showing_breakout_list_box = true;
-      }
-      return;
-
-
   - name: advance
     virtual: true
     override: true
@@ -108,15 +87,59 @@ methods:
     body: |
       if (options.empty())
       {
-         // do nothing
+         // TODO: Consider what behavior is expected here when there are no options. Maybe throw in the mean time
       }
       else
       {
+         // Initialize the advancing_text element
          advancing_text.set_text(prompt);
          advancing_text.start(); // TODO: Consider moving this to "start()", Consider removing al_is_system_installed()
-         cursor_position = 0;
+
+         // Initialize the breakout_list_box element
+         breakout_list_box.set_items(options);
+         breakout_list_box.set_wrap_at_edges(true);
       }
       initialized = true;
+      return;
+
+
+  - name: set_prompt
+    parameters:
+      - name: prompt
+        type: std::string
+        default_argument: '"[unset-prompt]"'
+    guards: [ (!initialized) ]
+    body: |
+      this->prompt = prompt;
+      return;
+
+
+  - name: set_options
+    parameters:
+      - name: options
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    guards: [ (!initialized) ]
+    body: |
+      this->options = options;
+      return;
+
+
+  - name: get_breakout_list_box
+    type: AllegroFlare::Elements::ListBox*
+    body: |
+       if (!showing_breakout_list_box) return nullptr;
+       return &breakout_list_box;
+
+
+  - name: reveal_breakout_list_box
+    body: |
+      if (!showing_breakout_list_box)
+      {
+         float time_now = al_get_time();
+         breakout_list_box.set_created_at(time_now);
+         showing_breakout_list_box = true;
+      }
       return;
 
 
@@ -138,7 +161,7 @@ methods:
     body: return options;
 
 
-  - name: get_item_labels
+  - name: get_options_labels
     type: std::vector<std::string>
     body: |
       std::vector<std::string> result;
@@ -154,7 +177,7 @@ methods:
     guards: [ initialized ]
     body: |
       if (!has_valid_cursor_position()) return "";
-      return options[cursor_position].first;
+      return breakout_list_box.get_currently_selected_item_label();
 
 
   - name: get_current_selection_value
@@ -162,7 +185,7 @@ methods:
     guards: [ initialized ]
     body: |
       if (!has_valid_cursor_position()) return "";
-      return options[cursor_position].second;
+      return breakout_list_box.get_currently_selected_item_value();
 
 
   - name: move_cursor_position_down
@@ -171,10 +194,7 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
-      if (!has_valid_cursor_position()) return;
-
-      cursor_position++;
-      if (cursor_position >= options.size()) cursor_position = cursor_position % options.size();
+      breakout_list_box.move_cursor_down();
       return;
 
 
@@ -184,10 +204,7 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
-      if (!has_valid_cursor_position()) return;
-
-      cursor_position--;
-      if (cursor_position < 0) cursor_position = (cursor_position + (options.size() * 100)) % options.size();
+      breakout_list_box.move_cursor_up();
       return;
 
 
@@ -195,7 +212,13 @@ methods:
     private: true
     type: bool
     body: |
-      return (cursor_position != -1);
+      return breakout_list_box.has_valid_currently_selected_item();
+
+
+  - name: get_cursor_position
+    type: int
+    body: |
+      return breakout_list_box.get_cursor_position();
 
 
 dependencies:

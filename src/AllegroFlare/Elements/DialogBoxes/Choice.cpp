@@ -19,7 +19,6 @@ Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::strin
    : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::Choice::TYPE)
    , prompt(prompt)
    , options(options)
-   , cursor_position(-1)
    , advancing_text()
    , breakout_list_box()
    , showing_breakout_list_box(false)
@@ -33,12 +32,6 @@ Choice::~Choice()
 }
 
 
-int Choice::get_cursor_position() const
-{
-   return cursor_position;
-}
-
-
 void Choice::start()
 {
    // TODO: Implement this, considering its relationship to "created_at"
@@ -49,23 +42,6 @@ void Choice::update()
 {
    advancing_text.update();
    // NOTE: Refactoring when this method is created; expecting that nothing is to be done here
-   return;
-}
-
-AllegroFlare::Elements::ListBox* Choice::get_breakout_list_box()
-{
-   if (!showing_breakout_list_box) return nullptr;
-   return &breakout_list_box;
-}
-
-void Choice::reveal_breakout_list_box()
-{
-   if (!showing_breakout_list_box)
-   {
-      float time_now = al_get_time();
-      breakout_list_box.set_created_at(time_now);
-      showing_breakout_list_box = true;
-   }
    return;
 }
 
@@ -95,15 +71,62 @@ void Choice::initialize()
    }
    if (options.empty())
    {
-      // do nothing
+      // TODO: Consider what behavior is expected here when there are no options. Maybe throw in the mean time
    }
    else
    {
+      // Initialize the advancing_text element
       advancing_text.set_text(prompt);
       advancing_text.start(); // TODO: Consider moving this to "start()", Consider removing al_is_system_installed()
-      cursor_position = 0;
+
+      // Initialize the breakout_list_box element
+      breakout_list_box.set_items(options);
+      breakout_list_box.set_wrap_at_edges(true);
    }
    initialized = true;
+   return;
+}
+
+void Choice::set_prompt(std::string prompt)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Choice::set_prompt]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Choice::set_prompt: error: guard \"(!initialized)\" not met");
+   }
+   this->prompt = prompt;
+   return;
+}
+
+void Choice::set_options(std::vector<std::pair<std::string, std::string>> options)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Choice::set_options]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Choice::set_options: error: guard \"(!initialized)\" not met");
+   }
+   this->options = options;
+   return;
+}
+
+AllegroFlare::Elements::ListBox* Choice::get_breakout_list_box()
+{
+   if (!showing_breakout_list_box) return nullptr;
+   return &breakout_list_box;
+}
+
+void Choice::reveal_breakout_list_box()
+{
+   if (!showing_breakout_list_box)
+   {
+      float time_now = al_get_time();
+      breakout_list_box.set_created_at(time_now);
+      showing_breakout_list_box = true;
+   }
    return;
 }
 
@@ -143,7 +166,7 @@ std::vector<std::pair<std::string, std::string>> Choice::get_options()
    return options;
 }
 
-std::vector<std::string> Choice::get_item_labels()
+std::vector<std::string> Choice::get_options_labels()
 {
    std::vector<std::string> result;
    for (auto &item : options)
@@ -163,7 +186,7 @@ std::string Choice::get_current_selection_text()
       throw std::runtime_error("Choice::get_current_selection_text: error: guard \"initialized\" not met");
    }
    if (!has_valid_cursor_position()) return "";
-   return options[cursor_position].first;
+   return breakout_list_box.get_currently_selected_item_label();
 }
 
 std::string Choice::get_current_selection_value()
@@ -176,7 +199,7 @@ std::string Choice::get_current_selection_value()
       throw std::runtime_error("Choice::get_current_selection_value: error: guard \"initialized\" not met");
    }
    if (!has_valid_cursor_position()) return "";
-   return options[cursor_position].second;
+   return breakout_list_box.get_currently_selected_item_value();
 }
 
 void Choice::move_cursor_position_down()
@@ -188,10 +211,7 @@ void Choice::move_cursor_position_down()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Choice::move_cursor_position_down: error: guard \"initialized\" not met");
    }
-   if (!has_valid_cursor_position()) return;
-
-   cursor_position++;
-   if (cursor_position >= options.size()) cursor_position = cursor_position % options.size();
+   breakout_list_box.move_cursor_down();
    return;
 }
 
@@ -204,16 +224,18 @@ void Choice::move_cursor_position_up()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Choice::move_cursor_position_up: error: guard \"initialized\" not met");
    }
-   if (!has_valid_cursor_position()) return;
-
-   cursor_position--;
-   if (cursor_position < 0) cursor_position = (cursor_position + (options.size() * 100)) % options.size();
+   breakout_list_box.move_cursor_up();
    return;
 }
 
 bool Choice::has_valid_cursor_position()
 {
-   return (cursor_position != -1);
+   return breakout_list_box.has_valid_currently_selected_item();
+}
+
+int Choice::get_cursor_position()
+{
+   return breakout_list_box.get_cursor_position();
 }
 
 

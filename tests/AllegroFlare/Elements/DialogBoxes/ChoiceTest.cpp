@@ -22,13 +22,6 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_type__returns_the_expecte
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, when_not_initialized__cursor_position_is_set_to_negative_1)
-{
-   AllegroFlare::Elements::DialogBoxes::Choice choice;
-   EXPECT_EQ(-1, choice.get_cursor_position());
-}
-
-
 TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_prompt_full_text__when_not_initialized__raises_an_exception)
 {
    AllegroFlare::Elements::DialogBoxes::Choice choice;
@@ -214,7 +207,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
-   get_item_labels__will_return_a_list_of_the_labels_only)
+   get_options_labels__will_return_a_list_of_the_labels_only)
 {
    al_init();
    std::vector<std::pair<std::string, std::string>> choice_options = {
@@ -231,7 +224,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
      "Drink more soylent",
    };
 
-   EXPECT_EQ(expected_items, choice.get_item_labels());
+   EXPECT_EQ(expected_items, choice.get_options_labels());
    al_uninstall_system();
 }
 

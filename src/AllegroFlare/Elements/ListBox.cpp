@@ -92,6 +92,18 @@ bool ListBox::has_valid_currently_selected_item()
    return true;
 }
 
+std::string ListBox::get_currently_selected_item_label()
+{
+   if (!(has_valid_currently_selected_item()))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBox::get_currently_selected_item_label]: error: guard \"has_valid_currently_selected_item()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBox::get_currently_selected_item_label: error: guard \"has_valid_currently_selected_item()\" not met");
+   }
+   return items[cursor_position].first;
+}
+
 std::string ListBox::get_currently_selected_item_value()
 {
    if (!(has_valid_currently_selected_item()))
