@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/AdvancingText.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <string>
 #include <utility>
@@ -22,6 +23,7 @@ namespace AllegroFlare
             std::string prompt;
             std::vector<std::pair<std::string, std::string>> options;
             int cursor_position;
+            AllegroFlare::Elements::AdvancingText advancing_text;
             bool initialized;
             bool has_valid_cursor_position();
 

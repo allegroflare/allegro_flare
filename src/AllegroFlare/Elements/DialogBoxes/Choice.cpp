@@ -20,6 +20,7 @@ Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::strin
    , prompt(prompt)
    , options(options)
    , cursor_position(-1)
+   , advancing_text()
    , initialized(false)
 {
 }
@@ -44,6 +45,7 @@ void Choice::start()
 
 void Choice::update()
 {
+   advancing_text.update();
    // NOTE: Refactoring when this method is created; expecting that nothing is to be done here
    return;
 }
@@ -72,6 +74,8 @@ void Choice::initialize()
    }
    else
    {
+      advancing_text.set_text(prompt);
+      advancing_text.start(); // TODO: Consider moving this to "start()", Consider removing al_is_system_installed()
       cursor_position = 0;
    }
    initialized = true;

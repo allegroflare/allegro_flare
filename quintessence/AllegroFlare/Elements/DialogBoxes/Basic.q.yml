@@ -47,15 +47,20 @@ properties:
     constexpr: true
 
 
-functions:
+methods:
 
 
   - name: start
     virtual: true
     override: true
     body: |
+      AllegroFlare::Logger::throw_error("AllegroFlare::Elements::DialogBoxes::Basic::start", "No implemented");
+      //reset();
+      //created_at = al_get_time();
       // TODO: Implement this, considering its relationship to "created_at"
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: update
@@ -199,5 +204,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

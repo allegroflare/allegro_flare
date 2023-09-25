@@ -20,6 +20,7 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/GameSession",
@@ -1207,7 +1208,6 @@
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -1289,6 +1289,9 @@
   "AllegroFlare/Elements/ListBoxRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+  ],
+  "AllegroFlare/Elements/AdvancingText": [
+    "AllegroFlare/Elements/DialogBoxes/Choice"
   ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",

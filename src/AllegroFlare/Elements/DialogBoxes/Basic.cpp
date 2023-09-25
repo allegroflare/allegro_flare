@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro.h>
 #include <iostream>
 #include <sstream>
@@ -71,6 +72,9 @@ float Basic::get_page_finished_at() const
 
 void Basic::start()
 {
+   AllegroFlare::Logger::throw_error("AllegroFlare::Elements::DialogBoxes::Basic::start", "No implemented");
+   //reset();
+   //created_at = al_get_time();
    // TODO: Implement this, considering its relationship to "created_at"
    return;
 }

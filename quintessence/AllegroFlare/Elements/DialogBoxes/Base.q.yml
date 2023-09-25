@@ -26,6 +26,13 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - notes:
+      - '"created_at" could be thought of as essentially "started_at"'
+
+
 methods:
 
 

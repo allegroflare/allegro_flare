@@ -24,6 +24,10 @@ properties:
     init_with: -1
     getter: true
 
+  - name: advancing_text
+    type: AllegroFlare::Elements::AdvancingText
+    init_with: ''
+
   - name: initialized
     type: bool
     init_with: false
@@ -50,6 +54,7 @@ methods:
     virtual: true
     override: true
     body: |
+      advancing_text.update();
       // NOTE: Refactoring when this method is created; expecting that nothing is to be done here
       return;
 
@@ -74,6 +79,8 @@ methods:
       }
       else
       {
+         advancing_text.set_text(prompt);
+         advancing_text.start(); // TODO: Consider moving this to "start()", Consider removing al_is_system_installed()
          cursor_position = 0;
       }
       initialized = true;
@@ -157,7 +164,7 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
-  - symbol: std::vector<std::pair<std::string, std::string>>
-    headers: [ vector, utility, string ]
+  - symbol: AllegroFlare::Elements::AdvancingText
+    headers: [ AllegroFlare/Elements/AdvancingText.hpp ]
 
 
