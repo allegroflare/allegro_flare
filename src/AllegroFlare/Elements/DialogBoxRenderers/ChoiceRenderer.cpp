@@ -281,7 +281,11 @@ void ChoiceRenderer::render()
 
 void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
 {
-   float choice_box_reveal_delay = 0.6;
+   //float choice_box_reveal_delay = 0.6;
+   if (!choice_dialog_box->get_showing_breakout_list_box()) return;
+
+   float breakout_list_box_age = choice_dialog_box->infer_breakout_list_box_age();
+
    float left_indent = 80;
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       font_bin,
@@ -293,8 +297,7 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    // restore it
    list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
    list_box_renderer.set_height_to_fit_content();
-   //list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
-   list_box_renderer.set_age(age - 0.6);
+   list_box_renderer.set_age(breakout_list_box_age);
 
    AllegroFlare::Placement2D choice_box_place{
       width - left_indent,
@@ -305,11 +308,7 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    choice_box_place.align = { 1.0, 1.0 };
 
    // Only show the cursor if the age is > 0.2
-   bool showing_cursor = age >= choice_box_reveal_delay; // TODO: Instead of using this "showing_cursor" mechanism,
-                                                         // the cursor (having been injected), would be "shown" or
-                                                         // "hidden" depending on the reveal state of the revealing
-                                                         // motion of the ChoiceRenderer
-
+   bool showing_cursor = choice_dialog_box->get_showing_cursor();
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
    list_box_renderer.set_cursor_position(

@@ -22,6 +22,7 @@ Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::strin
    , advancing_text()
    , breakout_list_box()
    , showing_breakout_list_box(false)
+   , showing_cursor(false)
    , initialized(false)
 {
 }
@@ -32,16 +33,36 @@ Choice::~Choice()
 }
 
 
+bool Choice::get_showing_breakout_list_box() const
+{
+   return showing_breakout_list_box;
+}
+
+
+bool Choice::get_showing_cursor() const
+{
+   return showing_cursor;
+}
+
+
 void Choice::start()
 {
    // TODO: Implement this, considering its relationship to "created_at"
+   throw std::runtime_error("DialogBoxes::Choice::start not implemented");
    return;
 }
 
 void Choice::update()
 {
-   advancing_text.update();
-   // NOTE: Refactoring when this method is created; expecting that nothing is to be done here
+   if (!advancing_text.get_all_characters_are_revealed())
+   {
+      advancing_text.update();
+      if (advancing_text.get_all_characters_are_revealed())
+      {
+         reveal_breakout_list_box();
+         // TODO: Consider playing a tone
+      }
+   }
    return;
 }
 
@@ -113,12 +134,6 @@ void Choice::set_options(std::vector<std::pair<std::string, std::string>> option
    return;
 }
 
-AllegroFlare::Elements::ListBox* Choice::get_breakout_list_box()
-{
-   if (!showing_breakout_list_box) return nullptr;
-   return &breakout_list_box;
-}
-
 void Choice::reveal_breakout_list_box()
 {
    if (!showing_breakout_list_box)
@@ -126,8 +141,17 @@ void Choice::reveal_breakout_list_box()
       float time_now = al_get_time();
       breakout_list_box.set_created_at(time_now);
       showing_breakout_list_box = true;
+      showing_cursor = true; // For now, using this "showing_cursor" mechanism.  Might consider using a different
+                             // mechanism that sends info to an injected cursor
    }
    return;
+}
+
+float Choice::infer_breakout_list_box_age()
+{
+   if (!showing_breakout_list_box) return 0;
+   float time_now = al_get_time(); // TODO: Consider injecting a "time_now"
+   return breakout_list_box.infer_age(time_now);
 }
 
 std::string Choice::get_prompt_full_text()
