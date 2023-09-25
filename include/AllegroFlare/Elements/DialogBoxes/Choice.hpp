@@ -25,8 +25,8 @@ namespace AllegroFlare
             std::vector<std::pair<std::string, std::string>> options;
             AllegroFlare::Elements::AdvancingText advancing_text;
             AllegroFlare::Elements::ListBox breakout_list_box;
-            bool showing_breakout_list_box;
-            bool showing_cursor;
+            bool breakout_list_box_active;
+            bool cursor_active;
             bool initialized;
             void reveal_breakout_list_box();
             bool has_valid_cursor_position();
@@ -38,8 +38,8 @@ namespace AllegroFlare
             Choice(std::string prompt="[prompt-question-not-set]", std::vector<std::pair<std::string, std::string>> options={});
             virtual ~Choice();
 
-            bool get_showing_breakout_list_box() const;
-            bool get_showing_cursor() const;
+            bool get_breakout_list_box_active() const;
+            bool get_cursor_active() const;
             virtual void start() override;
             virtual void update() override;
             virtual void advance() override;

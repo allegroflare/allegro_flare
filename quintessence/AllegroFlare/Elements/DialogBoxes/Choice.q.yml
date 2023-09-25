@@ -30,13 +30,13 @@ properties:
     init_with: ''
     getter: false
 
-  - name: showing_breakout_list_box
+  - name: breakout_list_box_active
     type: bool
     init_with: false
     setter: false
     getter: true
 
-  - name: showing_cursor
+  - name: cursor_active
     type: bool
     init_with: false
     setter: false
@@ -144,13 +144,13 @@ methods:
   - name: reveal_breakout_list_box
     private: true
     body: |
-      if (!showing_breakout_list_box)
+      if (!breakout_list_box_active)
       {
          float time_now = al_get_time();
          breakout_list_box.set_created_at(time_now);
-         showing_breakout_list_box = true;
-         showing_cursor = true; // For now, using this "showing_cursor" mechanism.  Might consider using a different
-                                // mechanism that sends info to an injected cursor
+         breakout_list_box_active = true;
+         cursor_active = true; // For now, using this "cursor_active" mechanism.  Might consider using a different
+                               // mechanism that sends info to an injected cursor
       }
       return;
 
@@ -158,7 +158,7 @@ methods:
   - name: infer_breakout_list_box_age
     type: float
     body: |
-      if (!showing_breakout_list_box) return 0;
+      if (!breakout_list_box_active) return 0;
       float time_now = al_get_time(); // TODO: Consider injecting a "time_now"
       return breakout_list_box.infer_age(time_now);
 

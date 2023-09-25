@@ -282,7 +282,7 @@ void ChoiceRenderer::render()
 void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
 {
    //float choice_box_reveal_delay = 0.6;
-   if (!choice_dialog_box->get_showing_breakout_list_box()) return;
+   if (!choice_dialog_box->get_breakout_list_box_active()) return;
 
    float breakout_list_box_age = choice_dialog_box->infer_breakout_list_box_age();
 
@@ -308,7 +308,7 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    choice_box_place.align = { 1.0, 1.0 };
 
    // Only show the cursor if the age is > 0.2
-   bool showing_cursor = choice_dialog_box->get_showing_cursor();
+   bool showing_cursor = choice_dialog_box->get_cursor_active();
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
    list_box_renderer.set_cursor_position(

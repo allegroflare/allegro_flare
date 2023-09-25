@@ -21,8 +21,8 @@ Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::strin
    , options(options)
    , advancing_text()
    , breakout_list_box()
-   , showing_breakout_list_box(false)
-   , showing_cursor(false)
+   , breakout_list_box_active(false)
+   , cursor_active(false)
    , initialized(false)
 {
 }
@@ -33,15 +33,15 @@ Choice::~Choice()
 }
 
 
-bool Choice::get_showing_breakout_list_box() const
+bool Choice::get_breakout_list_box_active() const
 {
-   return showing_breakout_list_box;
+   return breakout_list_box_active;
 }
 
 
-bool Choice::get_showing_cursor() const
+bool Choice::get_cursor_active() const
 {
-   return showing_cursor;
+   return cursor_active;
 }
 
 
@@ -136,20 +136,20 @@ void Choice::set_options(std::vector<std::pair<std::string, std::string>> option
 
 void Choice::reveal_breakout_list_box()
 {
-   if (!showing_breakout_list_box)
+   if (!breakout_list_box_active)
    {
       float time_now = al_get_time();
       breakout_list_box.set_created_at(time_now);
-      showing_breakout_list_box = true;
-      showing_cursor = true; // For now, using this "showing_cursor" mechanism.  Might consider using a different
-                             // mechanism that sends info to an injected cursor
+      breakout_list_box_active = true;
+      cursor_active = true; // For now, using this "cursor_active" mechanism.  Might consider using a different
+                            // mechanism that sends info to an injected cursor
    }
    return;
 }
 
 float Choice::infer_breakout_list_box_age()
 {
-   if (!showing_breakout_list_box) return 0;
+   if (!breakout_list_box_active) return 0;
    float time_now = al_get_time(); // TODO: Consider injecting a "time_now"
    return breakout_list_box.infer_age(time_now);
 }
