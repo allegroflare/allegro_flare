@@ -79,6 +79,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, move_cursor_position_down__in
    AllegroFlare::Elements::DialogBoxes::Choice choice("What will you do?", choice_options);
    choice.initialize();
 
+   choice.advance(); // TODO: Consider adding a separate "advance_to_selection"
    choice.move_cursor_position_down();
    EXPECT_EQ(1, choice.get_cursor_position());
    choice.move_cursor_position_down();
@@ -98,6 +99,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, move_cursor_position_down__de
    AllegroFlare::Elements::DialogBoxes::Choice choice("What will you do?", choice_options);
    choice.initialize();
 
+   choice.advance(); // TODO: Consider adding a separate "advance_to_selection"
    choice.move_cursor_position_down();
    choice.move_cursor_position_down();
    choice.move_cursor_position_up();
@@ -120,6 +122,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
    AllegroFlare::Elements::DialogBoxes::Choice choice("What will you do?", choice_options);
    choice.initialize();
 
+   choice.advance(); // TODO: Consider adding a separate "advance_to_selection"
    choice.move_cursor_position_up();
    EXPECT_EQ(2, choice.get_cursor_position());
    al_uninstall_system();
@@ -138,6 +141,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
    AllegroFlare::Elements::DialogBoxes::Choice choice("What will you do?", choice_options);
    choice.initialize();
 
+   choice.advance(); // TODO: Consider adding a separate "advance_to_selection"
    choice.move_cursor_position_down();
    choice.move_cursor_position_down();
    choice.move_cursor_position_down();
@@ -172,6 +176,8 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
    AllegroFlare::Elements::DialogBoxes::Choice choice("What will you do?", choice_options);
    choice.initialize();
 
+   choice.advance(); // TODO: Consider adding a separate "advance_to_selection"
+
    EXPECT_EQ("Post a log", choice.get_current_selection_text());
 
    choice.move_cursor_position_down();
@@ -194,6 +200,8 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest,
    };
    AllegroFlare::Elements::DialogBoxes::Choice choice("What will you do?", choice_options);
    choice.initialize();
+
+   choice.advance(); // TODO: Consider adding a separate "advance_to_selection"
 
    EXPECT_EQ("GOTO A", choice.get_current_selection_value());
 

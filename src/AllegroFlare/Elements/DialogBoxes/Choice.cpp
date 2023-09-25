@@ -249,6 +249,7 @@ void Choice::move_cursor_position_down()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Choice::move_cursor_position_down: error: guard \"initialized\" not met");
    }
+   if (!breakout_list_box_active) return; // TODO: Test this case, cursor does not move when list box is inactive
    breakout_list_box.move_cursor_down();
    return;
 }
@@ -262,13 +263,15 @@ void Choice::move_cursor_position_up()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Choice::move_cursor_position_up: error: guard \"initialized\" not met");
    }
+   if (!breakout_list_box_active) return; // TODO: Test this case, cursor does not move when list box is inactive
    breakout_list_box.move_cursor_up();
    return;
 }
 
 bool Choice::has_valid_cursor_position()
 {
-   return breakout_list_box.has_valid_currently_selected_item();
+   // TODO: Test this case with the usage of "breakout_list_box_active"
+   return breakout_list_box_active && breakout_list_box.has_valid_currently_selected_item();
 }
 
 int Choice::get_cursor_position()
