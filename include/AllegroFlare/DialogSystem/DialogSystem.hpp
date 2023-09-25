@@ -55,7 +55,7 @@ namespace AllegroFlare
          void initialize();
          void switch_in();
          void switch_out();
-         void spawn_named_dialog(std::string dialog_name="[unset-dialog_name]");
+         void spawn_dialog_by_name(std::string dialog_name="[unset-dialog_name]");
          void spawn_basic_dialog(std::vector<std::string> pages={});
          void spawn_choice_dialog(std::string prompt="[unset-prompt]", std::vector<std::string> options={});
          void update(float time_now=0);
