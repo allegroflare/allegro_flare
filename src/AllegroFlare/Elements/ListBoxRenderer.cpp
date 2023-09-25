@@ -370,7 +370,9 @@ void ListBoxRenderer::set_height_to_fit_content()
 void ListBoxRenderer::set_width_to_fit_content_or_max(float max)
 {
    // TODO: Test this method
-   width = (std::min(calculate_content_width(), max)) + text_padding_x * 2;
+   float max_content_width = max - (text_padding_x * 2);
+   float determined_content_width = std::min(calculate_content_width(), max_content_width);
+   width = determined_content_width + (text_padding_x * 2);
    return;
 }
 

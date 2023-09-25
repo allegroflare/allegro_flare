@@ -158,7 +158,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    AllegroFlare::Elements::ListBox list_box;
    list_box.set_items({
      { "searching for treasure", "find_treasure" },
-     { "investigate rumors",     "investigate_rumors" },
+     { "investigating rumors",   "investigate_rumors" },
      { "here by accident",       "lost" },
    });
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
@@ -174,6 +174,7 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    float actual_content_width = list_box_renderer.calculate_content_width();
    EXPECT_EQ(expected_content_width, actual_content_width);
 }
+
 
 
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
