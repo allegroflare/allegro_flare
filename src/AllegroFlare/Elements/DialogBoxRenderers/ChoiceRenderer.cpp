@@ -288,8 +288,12 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
       nullptr, // bitmap_bin,
       obtain_choice_dialog_box_option_labels()
    );
-   list_box_renderer.set_height_to_fit_content();
+   // TODO: Interesting visual bug, when "set_width_to_fit..." is called after "set_height_to_fit..." then
+   // there could be a miss-alignment of the content and its presentation. Investigate this case and see if you can
+   // restore it
    list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
+   list_box_renderer.set_height_to_fit_content();
+   //list_box_renderer.set_width_to_fit_content_or_max(width - left_indent*2);
    list_box_renderer.set_age(age - 0.6);
 
    AllegroFlare::Placement2D choice_box_place{

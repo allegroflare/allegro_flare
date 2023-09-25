@@ -79,18 +79,24 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 {
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
-   std::string choice_box_prompt = "Are you making progress?";
+   std::string choice_box_prompt = "Do you have any information about the whereabouts of the missing villagers?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
-     { "Absolutely!", "GOTO A" },
-     { "I would seem that I am", "GOTO B" },
-     { "I think so?", "GOTO C" },
+     { "I saw some strange tracks leading deeper into the forest. They might be related.", "GOTO A" },
+     { "I haven't seen anyone, but I heard eerie whispers in the dark last night.", "GOTO B" },
+     { "I'm not from around here, so I don't have any information on the villagers.", "GOTO C" },
    };
+   //std::string choice_box_prompt = "Are you making progress?";
+   //std::vector<std::pair<std::string, std::string>> choice_options = {
+     //{ "Absolutely!", "GOTO A" },
+     //{ "I would seem that I am", "GOTO B" },
+     //{ "I think so?", "GOTO C" },
+   //};
    AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
    choice_dialog_box.initialize();
 
    choice_dialog_box.move_cursor_position_down();
 
-   int passes = 120;
+   int passes = 240;
    for (int i=0; i<passes; i++)
    {
       // Update
