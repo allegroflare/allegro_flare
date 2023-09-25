@@ -1292,6 +1292,11 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
+  "AllegroFlare/ColorKit": [
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
   "AllegroFlare/Elements/AdvancingText": [
     "AllegroFlare/Elements/DialogBoxes/Choice"
   ],
@@ -1393,10 +1398,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/ColorKit": [
-    "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",

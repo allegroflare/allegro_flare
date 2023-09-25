@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 
+#include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogButton.hpp>
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
@@ -284,6 +285,24 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    //float choice_box_reveal_delay = 0.6;
    if (!choice_dialog_box->get_breakout_list_box_active()) return;
 
+   // Design some custom colors for the breakout box
+   ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;
+   ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
+         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
+         selection_frame_color,
+         0.03
+      );
+   ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
+         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
+         selection_frame_color,
+         0.4
+      );
+   ALLEGRO_COLOR text_color_not_selected = AllegroFlare::ColorKit::mix(
+         ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
+         selection_frame_color,
+         0.3
+      );
+
    float breakout_list_box_age = choice_dialog_box->infer_breakout_list_box_age();
 
    float left_indent = 80;
@@ -297,6 +316,10 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    // restore it
    list_box_renderer.set_width_to_fit_content_or_max_and_min(width - left_indent*2);
    list_box_renderer.set_height_to_fit_content();
+   list_box_renderer.set_text_color_not_selected(text_color_not_selected);
+   list_box_renderer.set_frame_backfill_color(frame_backfill_color);
+   list_box_renderer.set_frame_border_color(frame_border_color);
+
    list_box_renderer.set_age(breakout_list_box_age);
 
    AllegroFlare::Placement2D choice_box_place{
