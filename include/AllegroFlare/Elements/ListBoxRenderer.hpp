@@ -90,7 +90,7 @@ namespace AllegroFlare
          float calculate_content_width();
          float calculate_content_height();
          void set_height_to_fit_content();
-         void set_width_to_fit_content_or_max(float max=800);
+         void set_width_to_fit_content_or_max_and_min(float max=800.0f, float min=240.0f);
          std::tuple<float, float, float, float> calculate_dimensions_for_list_item_at_position(int list_item_position=0);
          std::vector<float> calculate_line_widths(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string text="[unset-text]");
          static ALLEGRO_COLOR calculate_DEFAULT_BACKFILL_COLOR();

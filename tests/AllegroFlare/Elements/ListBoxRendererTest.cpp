@@ -176,6 +176,37 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
 }
 
 
+TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
+   CAPTURE__VISUAL__set_width_to_fit_content_or_max_and_min__will_fit_min_if_the_content_width_is_smaller)
+{
+   // TODO: Include more styles and/or contents of the list
+
+   AllegroFlare::Elements::ListBox list_box;
+   list_box.set_items({
+     { "Yes", "yes" },
+     { "No",  "no" },
+   });
+   list_box.set_wrap_at_edges(true);
+
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+      &get_font_bin_ref(),
+      &get_bitmap_bin_ref(),
+      list_box.get_item_labels()
+   );
+   list_box_renderer.set_width_to_fit_content_or_max_and_min(1920);
+   list_box_renderer.set_height_to_fit_content();
+
+   list_box_renderer.get_width();
+
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
+
+   clear();
+   place.start_transform();
+   list_box_renderer.render();
+   place.restore_transform();
+   al_flip_display();
+}
+
 
 TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
    CAPTURE__VISUAL__render__wil_fit_lists_of_various_sizes_and_styles)
@@ -195,8 +226,8 @@ TEST_F(AllegroFlare_Elements_ListBoxRendererWithAllegroRenderingFixtureTest,
       &get_bitmap_bin_ref(),
       list_box.get_item_labels()
    );
+   list_box_renderer.set_width_to_fit_content_or_max_and_min(1920);
    list_box_renderer.set_height_to_fit_content();
-   list_box_renderer.set_width_to_fit_content_or_max(1920);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, list_box_renderer.get_width(), list_box_renderer.get_height() };
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;

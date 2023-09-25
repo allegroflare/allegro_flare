@@ -367,11 +367,23 @@ void ListBoxRenderer::set_height_to_fit_content()
    return;
 }
 
-void ListBoxRenderer::set_width_to_fit_content_or_max(float max)
+void ListBoxRenderer::set_width_to_fit_content_or_max_and_min(float max, float min)
 {
+   if (!((max >= min)))
+   {
+      std::stringstream error_message;
+      error_message << "[ListBoxRenderer::set_width_to_fit_content_or_max_and_min]: error: guard \"(max >= min)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ListBoxRenderer::set_width_to_fit_content_or_max_and_min: error: guard \"(max >= min)\" not met");
+   }
    // TODO: Test this method
    float max_content_width = max - (text_padding_x * 2);
-   float determined_content_width = std::min(calculate_content_width(), max_content_width);
+   float min_content_width = min - (text_padding_x * 2);
+   float determined_content_width =
+         std::max(
+            std::min(calculate_content_width(), max_content_width),
+            min_content_width
+         );
    width = determined_content_width + (text_padding_x * 2);
    return;
 }

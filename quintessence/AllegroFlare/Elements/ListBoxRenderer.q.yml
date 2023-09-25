@@ -272,15 +272,24 @@ methods:
       return;
 
 
-  - name: set_width_to_fit_content_or_max
+  - name: set_width_to_fit_content_or_max_and_min
     parameters:
       - name: max
         type: float
-        default_argument: 800
+        default_argument: 800.0f
+      - name: min
+        type: float
+        default_argument: 240.0f
+    guards: [ (max >= min) ]
     body: |
       // TODO: Test this method
       float max_content_width = max - (text_padding_x * 2);
-      float determined_content_width = std::min(calculate_content_width(), max_content_width);
+      float min_content_width = min - (text_padding_x * 2);
+      float determined_content_width =
+            std::max(
+               std::min(calculate_content_width(), max_content_width),
+               min_content_width
+            );
       width = determined_content_width + (text_padding_x * 2);
       return;
 
