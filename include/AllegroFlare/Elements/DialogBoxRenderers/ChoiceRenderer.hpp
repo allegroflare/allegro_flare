@@ -93,6 +93,8 @@ namespace AllegroFlare
             float get_age() const;
             void render();
             std::tuple<float, float, float, float> calculate_dimensions_of_current_selection();
+            static void helper__reposition_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::tuple<float, float, float, float> dimensions={});
+            static void helper__set_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::tuple<float, float, float, float> dimensions={});
             float get_left_indent();
             AllegroFlare::Elements::ListBoxRenderer build_list_box_renderer();
             void draw_choices_with_cursor_and_current_selection();

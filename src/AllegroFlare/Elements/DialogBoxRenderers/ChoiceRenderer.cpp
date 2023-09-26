@@ -295,9 +295,47 @@ void ChoiceRenderer::render()
 
 std::tuple<float, float, float, float> ChoiceRenderer::calculate_dimensions_of_current_selection()
 {
-   std::tuple<float, float, float, float> result;
-   // TODO: This method
-   return result;
+   //std::tuple<float, float, float, float> result;
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer_for_calculating_dimensions = build_list_box_renderer();
+   return list_box_renderer_for_calculating_dimensions.calculate_dimensions_for_list_item_at_position(
+         obtain_choice_dialog_box_cursor_position()
+      );
+}
+
+void ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, std::tuple<float, float, float, float> dimensions)
+{
+   if (!(selection_cursor_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to: error: guard \"selection_cursor_box\" not met");
+   }
+   float &x = std::get<0>(dimensions);
+   float &y = std::get<1>(dimensions);
+   float &width = std::get<2>(dimensions);
+   float &height = std::get<3>(dimensions);
+   selection_cursor_box->reposition_to(x, y);
+   selection_cursor_box->resize_to(width, height);
+   return;
+}
+
+void ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, std::tuple<float, float, float, float> dimensions)
+{
+   if (!(selection_cursor_box))
+   {
+      std::stringstream error_message;
+      error_message << "[ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to: error: guard \"selection_cursor_box\" not met");
+   }
+   float &x = std::get<0>(dimensions);
+   float &y = std::get<1>(dimensions);
+   float &width = std::get<2>(dimensions);
+   float &height = std::get<3>(dimensions);
+   selection_cursor_box->set_position(x, y);
+   selection_cursor_box->set_size(width, height);
+   return;
 }
 
 float ChoiceRenderer::get_left_indent()
