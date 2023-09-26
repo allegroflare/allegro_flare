@@ -345,12 +345,12 @@ float ChoiceRenderer::get_left_indent()
 
 AllegroFlare::Elements::ListBoxRenderer ChoiceRenderer::build_list_box_renderer()
 {
-   if (!((choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active())))
+   if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::build_list_box_renderer]: error: guard \"(choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active())\" not met.";
+      error_message << "[ChoiceRenderer::build_list_box_renderer]: error: guard \"choice_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::build_list_box_renderer: error: guard \"(choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active())\" not met");
+      throw std::runtime_error("ChoiceRenderer::build_list_box_renderer: error: guard \"choice_dialog_box\" not met");
    }
    // Design some custom colors for the breakout box
    ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;

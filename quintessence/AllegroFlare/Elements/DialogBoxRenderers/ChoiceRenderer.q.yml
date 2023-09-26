@@ -238,7 +238,7 @@ methods:
 
   - name: build_list_box_renderer
     type: AllegroFlare::Elements::ListBoxRenderer
-    guards: [ (choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active()) ]
+    guards: [ choice_dialog_box ]
     body: |
       // Design some custom colors for the breakout box
       ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;

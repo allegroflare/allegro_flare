@@ -134,7 +134,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    AllegroFlare::Elements::SelectionCursorBox my_selection_cursor_box;
 
-   choice_dialog_box.advance(); // Advance text so end so that selection box is visible and cursor can be moved
+   //choice_dialog_box.advance(); // Advance text so end so that selection box is visible and cursor can be moved
    //choice_dialog_box.move_cursor_position_down();
 
 
