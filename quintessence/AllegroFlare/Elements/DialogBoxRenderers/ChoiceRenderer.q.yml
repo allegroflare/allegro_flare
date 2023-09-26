@@ -22,6 +22,13 @@ properties:
     getter: true
     setter: true
 
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: width
     type: float
     init_with: (1920/2.0f)
@@ -152,7 +159,7 @@ methods:
 
   - name: render
     guards:
-      - al_is_system_installed
+      - al_is_system_installed()
       - choice_dialog_box
     body: |
       render_frame();
@@ -226,12 +233,16 @@ methods:
 
       // Only show the cursor if the age is > 0.2
       bool showing_cursor = choice_dialog_box->get_cursor_active();
-      AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
       list_box_renderer.set_cursor_position(
          obtain_choice_dialog_box_cursor_position()
       );
 
+      AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
+      AllegroFlare::Elements::SelectionCursorBox *selection_cursor_box_to_use = selection_cursor_box
+                                                                              ? selection_cursor_box
+                                                                              : &local_selection_cursor_box
+                                                                              ;
       // Init the cursor position to the current selection
       std::tuple<float, float, float, float> current_selection_dimensions =
          list_box_renderer.calculate_dimensions_for_list_item_at_position(
@@ -241,12 +252,12 @@ methods:
       float current_selection_y = std::get<1>(current_selection_dimensions);
       float current_selection_width = std::get<2>(current_selection_dimensions);
       float current_selection_height = std::get<3>(current_selection_dimensions);
-      selection_cursor_box.set_position(current_selection_x, current_selection_y);
-      selection_cursor_box.set_size(current_selection_width, current_selection_height);
+      selection_cursor_box_to_use->set_position(current_selection_x, current_selection_y);
+      selection_cursor_box_to_use->set_size(current_selection_width, current_selection_height);
 
       choice_box_place.start_transform();
       list_box_renderer.render();
-      if (showing_cursor) selection_cursor_box.render();
+      if (showing_cursor) selection_cursor_box_to_use->render();
       choice_box_place.restore_transform();
       return;
     body_dependency_symbols:

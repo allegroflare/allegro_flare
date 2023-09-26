@@ -23,10 +23,11 @@ namespace DialogBoxRenderers
 {
 
 
-ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age)
+ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , choice_dialog_box(choice_dialog_box)
+   , selection_cursor_box(selection_cursor_box)
    , width(width)
    , height(height)
    , font_name(font_name)
@@ -63,6 +64,12 @@ void ChoiceRenderer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 void ChoiceRenderer::set_choice_dialog_box(AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box)
 {
    this->choice_dialog_box = choice_dialog_box;
+}
+
+
+void ChoiceRenderer::set_selection_cursor_box(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box)
+{
+   this->selection_cursor_box = selection_cursor_box;
 }
 
 
@@ -153,6 +160,12 @@ AllegroFlare::BitmapBin* ChoiceRenderer::get_bitmap_bin() const
 AllegroFlare::Elements::DialogBoxes::Choice* ChoiceRenderer::get_choice_dialog_box() const
 {
    return choice_dialog_box;
+}
+
+
+AllegroFlare::Elements::SelectionCursorBox* ChoiceRenderer::get_selection_cursor_box() const
+{
+   return selection_cursor_box;
 }
 
 
@@ -252,12 +265,12 @@ void ChoiceRenderer::render_text()
 
 void ChoiceRenderer::render()
 {
-   if (!(al_is_system_installed))
+   if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::render]: error: guard \"al_is_system_installed\" not met.";
+      error_message << "[ChoiceRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::render: error: guard \"al_is_system_installed\" not met");
+      throw std::runtime_error("ChoiceRenderer::render: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(choice_dialog_box))
    {
@@ -332,12 +345,16 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
 
    // Only show the cursor if the age is > 0.2
    bool showing_cursor = choice_dialog_box->get_cursor_active();
-   AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
    list_box_renderer.set_cursor_position(
       obtain_choice_dialog_box_cursor_position()
    );
 
+   AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
+   AllegroFlare::Elements::SelectionCursorBox *selection_cursor_box_to_use = selection_cursor_box
+                                                                           ? selection_cursor_box
+                                                                           : &local_selection_cursor_box
+                                                                           ;
    // Init the cursor position to the current selection
    std::tuple<float, float, float, float> current_selection_dimensions =
       list_box_renderer.calculate_dimensions_for_list_item_at_position(
@@ -347,12 +364,12 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    float current_selection_y = std::get<1>(current_selection_dimensions);
    float current_selection_width = std::get<2>(current_selection_dimensions);
    float current_selection_height = std::get<3>(current_selection_dimensions);
-   selection_cursor_box.set_position(current_selection_x, current_selection_y);
-   selection_cursor_box.set_size(current_selection_width, current_selection_height);
+   selection_cursor_box_to_use->set_position(current_selection_x, current_selection_y);
+   selection_cursor_box_to_use->set_size(current_selection_width, current_selection_height);
 
    choice_box_place.start_transform();
    list_box_renderer.render();
-   if (showing_cursor) selection_cursor_box.render();
+   if (showing_cursor) selection_cursor_box_to_use->render();
    choice_box_place.restore_transform();
    return;
 }
