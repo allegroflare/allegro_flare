@@ -3,10 +3,12 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -90,6 +92,9 @@ namespace AllegroFlare
             bool get_at_last_page() const;
             float get_age() const;
             void render();
+            std::tuple<float, float, float, float> calculate_dimensions_of_current_selection();
+            float get_left_indent();
+            AllegroFlare::Elements::ListBoxRenderer build_list_box_renderer();
             void draw_choices_with_cursor_and_current_selection();
             void draw_styled_revealed_text(float max_width=1, std::string text="[unset-text]", int num_revealed_characters=999);
          };

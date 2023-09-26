@@ -181,11 +181,23 @@ methods:
       - AllegroFlare::Interpolators::*
 
 
-  - name: draw_choices_with_cursor_and_current_selection
+  - name: calculate_dimensions_of_current_selection
+    type: std::tuple<float, float, float, float>
     body: |
-      //float choice_box_reveal_delay = 0.6;
-      if (!choice_dialog_box->get_breakout_list_box_active()) return;
+      std::tuple<float, float, float, float> result;
+      // TODO: This method
+      return result;
 
+
+  - name: get_left_indent
+    type: float
+    body: return 80;
+
+
+  - name: build_list_box_renderer
+    type: AllegroFlare::Elements::ListBoxRenderer
+    guards: [ (choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active()) ]
+    body: |
       // Design some custom colors for the breakout box
       ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;
       ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
@@ -206,7 +218,7 @@ methods:
 
       float breakout_list_box_age = choice_dialog_box->infer_breakout_list_box_age();
 
-      float left_indent = 80;
+      float left_indent = get_left_indent();
       AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
          font_bin,
          nullptr, // bitmap_bin,
@@ -220,8 +232,25 @@ methods:
       list_box_renderer.set_text_color_not_selected(text_color_not_selected);
       list_box_renderer.set_frame_backfill_color(frame_backfill_color);
       list_box_renderer.set_frame_border_color(frame_border_color);
-
       list_box_renderer.set_age(breakout_list_box_age);
+
+      // Set the cursor position
+      list_box_renderer.set_cursor_position(
+         obtain_choice_dialog_box_cursor_position()
+      );
+
+      return list_box_renderer;
+
+
+  - name: draw_choices_with_cursor_and_current_selection
+    body: |
+      //float choice_box_reveal_delay = 0.6;
+      if (!choice_dialog_box->get_breakout_list_box_active()) return;
+
+      AllegroFlare::Elements::ListBoxRenderer list_box_renderer = build_list_box_renderer();
+
+      bool showing_cursor = choice_dialog_box->get_cursor_active();
+      float left_indent = get_left_indent();
 
       AllegroFlare::Placement2D choice_box_place{
          width - left_indent,
@@ -232,8 +261,6 @@ methods:
       choice_box_place.align = { 1.0, 1.0 };
 
       // Only show the cursor if the age is > 0.2
-      bool showing_cursor = choice_dialog_box->get_cursor_active();
-
       list_box_renderer.set_cursor_position(
          obtain_choice_dialog_box_cursor_position()
       );

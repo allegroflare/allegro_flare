@@ -293,11 +293,27 @@ void ChoiceRenderer::render()
    return;
 }
 
-void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
+std::tuple<float, float, float, float> ChoiceRenderer::calculate_dimensions_of_current_selection()
 {
-   //float choice_box_reveal_delay = 0.6;
-   if (!choice_dialog_box->get_breakout_list_box_active()) return;
+   std::tuple<float, float, float, float> result;
+   // TODO: This method
+   return result;
+}
 
+float ChoiceRenderer::get_left_indent()
+{
+   return 80;
+}
+
+AllegroFlare::Elements::ListBoxRenderer ChoiceRenderer::build_list_box_renderer()
+{
+   if (!((choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active())))
+   {
+      std::stringstream error_message;
+      error_message << "[ChoiceRenderer::build_list_box_renderer]: error: guard \"(choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChoiceRenderer::build_list_box_renderer: error: guard \"(choice_dialog_box) && (choice_dialog_box->get_breakout_list_box_active())\" not met");
+   }
    // Design some custom colors for the breakout box
    ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;
    ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
@@ -318,7 +334,7 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
 
    float breakout_list_box_age = choice_dialog_box->infer_breakout_list_box_age();
 
-   float left_indent = 80;
+   float left_indent = get_left_indent();
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       font_bin,
       nullptr, // bitmap_bin,
@@ -332,8 +348,25 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    list_box_renderer.set_text_color_not_selected(text_color_not_selected);
    list_box_renderer.set_frame_backfill_color(frame_backfill_color);
    list_box_renderer.set_frame_border_color(frame_border_color);
-
    list_box_renderer.set_age(breakout_list_box_age);
+
+   // Set the cursor position
+   list_box_renderer.set_cursor_position(
+      obtain_choice_dialog_box_cursor_position()
+   );
+
+   return list_box_renderer;
+}
+
+void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
+{
+   //float choice_box_reveal_delay = 0.6;
+   if (!choice_dialog_box->get_breakout_list_box_active()) return;
+
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer = build_list_box_renderer();
+
+   bool showing_cursor = choice_dialog_box->get_cursor_active();
+   float left_indent = get_left_indent();
 
    AllegroFlare::Placement2D choice_box_place{
       width - left_indent,
@@ -344,8 +377,6 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    choice_box_place.align = { 1.0, 1.0 };
 
    // Only show the cursor if the age is > 0.2
-   bool showing_cursor = choice_dialog_box->get_cursor_active();
-
    list_box_renderer.set_cursor_position(
       obtain_choice_dialog_box_cursor_position()
    );
