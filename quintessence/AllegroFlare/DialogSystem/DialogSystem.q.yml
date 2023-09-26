@@ -28,6 +28,10 @@ properties:
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
 
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox
+    init_with: '{}'
+
   - name: active_dialog_node
     type: AllegroFlare::DialogTree::Nodes::Base*
     init_with: nullptr
@@ -45,14 +49,12 @@ properties:
   - name: standard_dialog_box_font_name
     type: std::string
     init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: standard_dialog_box_font_size
     type: int
     init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
-    constructor_arg: true
     getter: true
     setter: true
 
@@ -585,5 +587,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::MultipageWithOptions
     headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
 
 

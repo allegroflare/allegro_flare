@@ -23,17 +23,18 @@ namespace DialogSystem
 {
 
 
-DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, std::string standard_dialog_box_font_name, int standard_dialog_box_font_size)
+DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , dialog_node_bank({})
    , active_dialog_box(nullptr)
+   , selection_cursor_box({})
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
    , switched_in(false)
-   , standard_dialog_box_font_name(standard_dialog_box_font_name)
-   , standard_dialog_box_font_size(standard_dialog_box_font_size)
+   , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
+   , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
    , initialized(false)
 {
 }
