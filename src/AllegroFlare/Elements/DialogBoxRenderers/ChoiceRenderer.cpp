@@ -362,19 +362,11 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
 {
    if (!choice_dialog_box->get_breakout_list_box_active()) return;
 
-   // Render the breakout list box
+   // Build up our list_box_renderer
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer = build_list_box_renderer();
    float left_indent = get_left_indent();
 
-   AllegroFlare::Placement2D choice_box_place{
-      width - left_indent,
-      20,
-      list_box_renderer.get_width(),
-      list_box_renderer.get_height()
-   };
-   choice_box_place.align = { 1.0, 1.0 };
-
-   // Render the selection cursor
+   // Build up our selection cursor
    bool showing_cursor = choice_dialog_box->get_cursor_active();
    AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
    AllegroFlare::Elements::SelectionCursorBox *selection_cursor_box_to_use = selection_cursor_box
@@ -392,6 +384,16 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    float current_selection_height = std::get<3>(current_selection_dimensions);
    selection_cursor_box_to_use->set_position(current_selection_x, current_selection_y);
    selection_cursor_box_to_use->set_size(current_selection_width, current_selection_height);
+
+   // Build a placement for the breakout box
+   // TODO: Consider adding options for this position
+   AllegroFlare::Placement2D choice_box_place{
+      width - left_indent,
+      20,
+      list_box_renderer.get_width(),
+      list_box_renderer.get_height()
+   };
+   choice_box_place.align = { 1.0, 1.0 };
 
    choice_box_place.start_transform();
    list_box_renderer.render();
