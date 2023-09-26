@@ -135,7 +135,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
    AllegroFlare::Elements::SelectionCursorBox my_selection_cursor_box;
 
    choice_dialog_box.advance(); // Advance text so end so that selection box is visible and cursor can be moved
-   choice_dialog_box.move_cursor_position_down();
+   //choice_dialog_box.move_cursor_position_down();
 
 
    // Set the initial position for our cursor
@@ -145,21 +145,43 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
       &get_bitmap_bin_ref(),
       &choice_dialog_box
    );
-   choice_renderer_for_dimensions.set_selection_cursor_box(&my_selection_cursor_box);
-   choice_renderer_for_dimensions.set_age(choice_dialog_box.infer_age());
 
    std::tuple<float, float, float, float> selection_dimensions =
          choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
-   choice_renderer_for_dimensions.helper__reposition_selection_cursor_box_dimensions_to(
-         &my_selection_cursor_box, 
+   choice_renderer_for_dimensions.helper__set_selection_cursor_box_dimensions_to(
+         &my_selection_cursor_box,
          selection_dimensions
       );
 
 
 
-   int passes = 120 * 3;
+   int passes = 120 * 5;
+   int cursor_presses = 4;
    for (int i=0; i<passes; i++)
    {
+      bool move_cursor_in_this_pass = false;
+      if (i % (passes / cursor_presses) == (passes / cursor_presses) / 2) move_cursor_in_this_pass = true;
+
+      if (move_cursor_in_this_pass)
+      {
+         // Move the cursor down
+         choice_dialog_box.move_cursor_position_down();
+
+         // Update the cursor position
+         AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer_for_dimensions(
+            &get_font_bin_ref(),
+            &get_bitmap_bin_ref(),
+            &choice_dialog_box
+         );
+
+         std::tuple<float, float, float, float> selection_dimensions =
+               choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
+         choice_renderer_for_dimensions.helper__reposition_selection_cursor_box_dimensions_to(
+               &my_selection_cursor_box,
+               selection_dimensions
+            );
+      }
+
       // Update
       my_selection_cursor_box.update();
       choice_dialog_box.update();
