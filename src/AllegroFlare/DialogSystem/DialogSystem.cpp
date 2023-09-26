@@ -356,6 +356,7 @@ void DialogSystem::update(float time_now)
    // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
    // TODO: Ensure time_now is passed down to active dialog updates()
    if (active_dialog_box) active_dialog_box->update();
+   selection_cursor_box.update();
    return;
 }
 
@@ -607,7 +608,25 @@ void DialogSystem::move_dialog_cursor_position_up()
    }
    if (!active_dialog_box) return;
    active_dialog_box->move_cursor_position_up();
-   // TODO: Reposition the cursor
+   if (active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
+   {
+      AllegroFlare::Elements::DialogBoxes::Choice *as_choice_dialog_box =
+            static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(active_dialog_box);
+
+      // Set the cursor selection box position to this point
+      AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer_for_dimensions(
+         font_bin,
+         bitmap_bin,
+         as_choice_dialog_box
+      );
+
+      std::tuple<float, float, float, float> selection_dimensions =
+            choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
+      choice_renderer_for_dimensions.helper__reposition_selection_cursor_box_dimensions_to(
+            &selection_cursor_box,
+            selection_dimensions
+         );
+   }
    return;
 }
 
@@ -623,6 +642,25 @@ void DialogSystem::move_dialog_cursor_position_down()
    if (!active_dialog_box) return;
    active_dialog_box->move_cursor_position_down();
    // TODO: Reposition the cursor
+   if (active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
+   {
+      AllegroFlare::Elements::DialogBoxes::Choice *as_choice_dialog_box =
+            static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(active_dialog_box);
+
+      // Set the cursor selection box position to this point
+      AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer_for_dimensions(
+         font_bin,
+         bitmap_bin,
+         as_choice_dialog_box
+      );
+
+      std::tuple<float, float, float, float> selection_dimensions =
+            choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
+      choice_renderer_for_dimensions.helper__reposition_selection_cursor_box_dimensions_to(
+            &selection_cursor_box,
+            selection_dimensions
+         );
+   }
    return;
 }
 
