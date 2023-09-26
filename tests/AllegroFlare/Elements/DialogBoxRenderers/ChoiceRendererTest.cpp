@@ -112,7 +112,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
-   CAPTURE__render__with_a_selection_cursor_box_injected__will_render_it)
+   FOCUS__CAPTURE__render__with_a_selection_cursor_box_injected__will_render_it)
 {
    //std::string choice_box_prompt = "Do you have any information about the whereabouts of the missing villagers?";
    //std::string choice_box_prompt = "Do you know anything regarding the whereabouts and well-being of the villagers "
@@ -134,12 +134,34 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    AllegroFlare::Elements::SelectionCursorBox my_selection_cursor_box;
 
+   choice_dialog_box.advance(); // Advance text so end so that selection box is visible and cursor can be moved
    choice_dialog_box.move_cursor_position_down();
+
+
+   // Set the initial position for our cursor
+
+   AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer_for_dimensions(
+      &get_font_bin_ref(),
+      &get_bitmap_bin_ref(),
+      &choice_dialog_box
+   );
+   choice_renderer_for_dimensions.set_selection_cursor_box(&my_selection_cursor_box);
+   choice_renderer_for_dimensions.set_age(choice_dialog_box.infer_age());
+
+   std::tuple<float, float, float, float> selection_dimensions =
+         choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
+   choice_renderer_for_dimensions.helper__reposition_selection_cursor_box_dimensions_to(
+         &my_selection_cursor_box, 
+         selection_dimensions
+      );
+
+
 
    int passes = 120 * 3;
    for (int i=0; i<passes; i++)
    {
       // Update
+      my_selection_cursor_box.update();
       choice_dialog_box.update();
 
       // Render
