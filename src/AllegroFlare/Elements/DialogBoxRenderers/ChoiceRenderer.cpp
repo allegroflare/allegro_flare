@@ -360,12 +360,10 @@ AllegroFlare::Elements::ListBoxRenderer ChoiceRenderer::build_list_box_renderer(
 
 void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
 {
-   //float choice_box_reveal_delay = 0.6;
    if (!choice_dialog_box->get_breakout_list_box_active()) return;
 
+   // Render the breakout list box
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer = build_list_box_renderer();
-
-   bool showing_cursor = choice_dialog_box->get_cursor_active();
    float left_indent = get_left_indent();
 
    AllegroFlare::Placement2D choice_box_place{
@@ -376,11 +374,8 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
    };
    choice_box_place.align = { 1.0, 1.0 };
 
-   // Only show the cursor if the age is > 0.2
-   list_box_renderer.set_cursor_position(
-      obtain_choice_dialog_box_cursor_position()
-   );
-
+   // Render the selection cursor
+   bool showing_cursor = choice_dialog_box->get_cursor_active();
    AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
    AllegroFlare::Elements::SelectionCursorBox *selection_cursor_box_to_use = selection_cursor_box
                                                                            ? selection_cursor_box

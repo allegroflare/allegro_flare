@@ -136,7 +136,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    choice_dialog_box.move_cursor_position_down();
 
-   int passes = 120 * 5;
+   int passes = 120 * 3;
    for (int i=0; i<passes; i++)
    {
       // Update
