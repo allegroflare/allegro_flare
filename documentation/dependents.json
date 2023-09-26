@@ -734,6 +734,8 @@
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog",
+    "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile",
+    "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
@@ -751,6 +753,24 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "ALLEGRO_EVENT": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -928,6 +948,14 @@
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/EventEmitter"
+  ],
+  "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
@@ -1509,23 +1537,6 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text"
-  ],
-  "ALLEGRO_EVENT": [
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Integrations/CameraProjectionChanges",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Screens/CharacterNameInput",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",

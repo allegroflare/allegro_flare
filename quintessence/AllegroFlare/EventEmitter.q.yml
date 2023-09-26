@@ -79,6 +79,10 @@ functions:
         default_argument: '"[unset-dialog_node_name_to_open]"'
     guards: [ initialized ]
     body: |
+      throw std::runtime_error("AllegroFlare::EventEmitter::emit_dialog_open_event: deprecation error: Using "
+            "ALLEGRO_FLARE_EVENT_DIALOG_OPEN in this way is depreciated, update to ALLEGRO_FLARE_EVENT_DIALOG"
+         );
+
       // TODO: Add test for this emission
       // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
       intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
@@ -86,6 +90,46 @@ functions:
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
+
+
+  - name: emit_spawn_dialog_by_name_event
+    parameters:
+      - name: dialog_node_name_to_open
+        type: std::string
+        default_argument: '"[unset-dialog_filename_to_load]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Add test for this emission
+      // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
+      //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+      intptr_t data_to_pass = (intptr_t)(void *)(
+         new AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName(dialog_node_name_to_open)
+      );
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+      - AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
+
+
+  - name: emit_load_dialog_yaml_file
+    parameters:
+      - name: dialog_yaml_filename_to_load
+        type: std::string
+        default_argument: '"[unset-dialog_yaml_filename_to_load]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Add test for this emission
+      // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
+      //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+      intptr_t data_to_pass = (intptr_t)(void *)(
+         new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile(dialog_yaml_filename_to_load)
+      );
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+      - AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile
 
 
   - name: destroy_dialog_open_event_data
@@ -99,17 +143,6 @@ functions:
       std::string *data = (std::string *)(user_event->data1);
       delete data;
       return;
-
-
-    guards: [ initialized ]
-    body: |
-      // TODO: Add test for this emission
-      // TODO: Find location to destroy this data after use and destroy it
-      intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
-      emit_event(ALLEGRO_FLARE_EVENT_DIALOG_OPEN, data_to_pass);
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::EventNames
 
 
   - name: emit_dialog_advance_event
@@ -398,5 +431,9 @@ dependencies:
     headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: AllegroFlare::RouteEventDatas::Base
     headers: [ AllegroFlare/RouteEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp ]
 
 

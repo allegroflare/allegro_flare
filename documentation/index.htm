@@ -73,6 +73,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml">quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/Base.q.yml</a></li>
@@ -1746,6 +1748,54 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">yaml_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
@@ -1861,9 +1911,15 @@ table td
 <tr>
   <td class="method">move_dialog_cursor_position_down()</td>
 </tr>
+<tr>
+  <td class="method">handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* ev=nullptr, AllegroFlare::GameEventDatas::Base* data=nullptr)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
@@ -1947,6 +2003,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -8181,6 +8243,12 @@ table td
   <td class="method">emit_dialog_open_event(std::string dialog_node_name_to_open=&quot;[unset-dialog_node_name_to_open]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">emit_spawn_dialog_by_name_event(std::string dialog_node_name_to_open=&quot;[unset-dialog_filename_to_load]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">emit_load_dialog_yaml_file(std::string dialog_yaml_filename_to_load=&quot;[unset-dialog_yaml_filename_to_load]&quot;)</td>
+</tr>
+<tr>
   <td class="method">destroy_dialog_open_event_data(ALLEGRO_USER_EVENT* user_event=nullptr)</td>
 </tr>
 <tr>
@@ -8311,6 +8379,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27202,6 +27276,8 @@ table td
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog",
+    "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile",
+    "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
@@ -27219,6 +27295,24 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "ALLEGRO_EVENT": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
+    "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -27396,6 +27490,14 @@ table td
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/EventEmitter"
+  ],
+  "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
@@ -27977,23 +28079,6 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text"
-  ],
-  "ALLEGRO_EVENT": [
-    "AllegroFlare/Elements/StoryboardPages/AdvancingText",
-    "AllegroFlare/Integrations/CameraProjectionChanges",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Screens/CharacterNameInput",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/VirtualControlsProcessor",
-    "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",

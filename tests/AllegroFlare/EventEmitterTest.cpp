@@ -39,6 +39,7 @@ TEST(AllegroFlare_EventEmitterTest,
 }
 
 
+/*
 TEST(AllegroFlare_EventEmitterTest,
    emit_dialog_open_event__and__destroy_dialog_open_event__will_allocate_and_deallocate_without_leaks)
 {
@@ -76,5 +77,6 @@ TEST(AllegroFlare_EventEmitterTest,
    al_destroy_event_queue(event_queue);
    al_uninstall_system();
 }
+*/
 
 

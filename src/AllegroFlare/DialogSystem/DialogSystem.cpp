@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
+#include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp>
+#include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
@@ -660,6 +662,40 @@ void DialogSystem::move_dialog_cursor_position_down()
             &selection_cursor_box,
             selection_dimensions
          );
+   }
+   return;
+}
+
+void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* ev, AllegroFlare::GameEventDatas::Base* data)
+{
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event: error: guard \"ev\" not met");
+   }
+   if (!(data))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event: error: guard \"data\" not met");
+   }
+   // TODO: Update this to a map caller pattern (static const)
+   if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile::TYPE))
+   {
+      auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile*>(data);
+      load_dialog_node_bank_from_file(as->get_yaml_filename());
+   }
+   else if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
+   {
+      auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName*>(data);
+      spawn_dialog_by_name(as->get_name());
+   }
+   else
+   {
+      throw std::runtime_error("handle_raw_ALLEGRO_EVENT_that_is_dialog_event unhandled case");
    }
    return;
 }

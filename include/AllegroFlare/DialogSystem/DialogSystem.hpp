@@ -8,6 +8,8 @@
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/GameEventDatas/Base.hpp>
+#include <allegro5/allegro.h>
 #include <string>
 #include <vector>
 
@@ -69,6 +71,7 @@ namespace AllegroFlare
          bool shutdown_dialog();
          void move_dialog_cursor_position_up();
          void move_dialog_cursor_position_down();
+         void handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* ev=nullptr, AllegroFlare::GameEventDatas::Base* data=nullptr);
       };
    }
 }

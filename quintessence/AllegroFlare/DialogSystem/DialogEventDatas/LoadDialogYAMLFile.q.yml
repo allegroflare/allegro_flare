@@ -1,0 +1,31 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameEventDatas::Base
+    scope: public
+    init_with: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile::TYPE
+
+
+properties:
+
+
+  - name: yaml_filename
+    type: std::string
+    init_with: '"[unset-yaml_filename]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+
+

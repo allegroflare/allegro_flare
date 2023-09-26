@@ -585,9 +585,42 @@ methods:
       return;
 
 
+  - name: handle_raw_ALLEGRO_EVENT_that_is_dialog_event
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+      - name: data
+        type: AllegroFlare::GameEventDatas::Base*
+        default_argument: nullptr
+    guards: [ ev, data ]
+    body: |
+      // TODO: Update this to a map caller pattern (static const)
+      if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile::TYPE))
+      {
+         auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile*>(data);
+         load_dialog_node_bank_from_file(as->get_yaml_filename());
+      }
+      else if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
+      {
+         auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName*>(data);
+         spawn_dialog_by_name(as->get_name());
+      }
+      else
+      {
+         throw std::runtime_error("handle_raw_ALLEGRO_EVENT_that_is_dialog_event unhandled case");
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
+      - AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile
+
+
 dependencies:
 
 
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::FontBin
@@ -644,5 +677,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp ]
 
 

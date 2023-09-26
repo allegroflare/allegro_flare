@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/EventEmitter.hpp>
 
+#include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp>
+#include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <iostream>
 #include <sstream>
@@ -99,10 +101,52 @@ void EventEmitter::emit_dialog_open_event(std::string dialog_node_name_to_open)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EventEmitter::emit_dialog_open_event: error: guard \"initialized\" not met");
    }
+   throw std::runtime_error("AllegroFlare::EventEmitter::emit_dialog_open_event: deprecation error: Using "
+         "ALLEGRO_FLARE_EVENT_DIALOG_OPEN in this way is depreciated, update to ALLEGRO_FLARE_EVENT_DIALOG"
+      );
+
    // TODO: Add test for this emission
    // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
    intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG_OPEN, data_to_pass);
+   return;
+}
+
+void EventEmitter::emit_spawn_dialog_by_name_event(std::string dialog_node_name_to_open)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_spawn_dialog_by_name_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_spawn_dialog_by_name_event: error: guard \"initialized\" not met");
+   }
+   // TODO: Add test for this emission
+   // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
+   //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+   intptr_t data_to_pass = (intptr_t)(void *)(
+      new AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName(dialog_node_name_to_open)
+   );
+   emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
+   return;
+}
+
+void EventEmitter::emit_load_dialog_yaml_file(std::string dialog_yaml_filename_to_load)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_load_dialog_yaml_file]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_load_dialog_yaml_file: error: guard \"initialized\" not met");
+   }
+   // TODO: Add test for this emission
+   // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
+   //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+   intptr_t data_to_pass = (intptr_t)(void *)(
+      new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile(dialog_yaml_filename_to_load)
+   );
+   emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
    return;
 }
 

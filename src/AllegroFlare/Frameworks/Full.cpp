@@ -1076,12 +1076,28 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             // TODO: Handle input case with dialog when it is "switched in"
             // TODO: Add this branching for each input event case
             // TODO: Add tests for these cases, with and without dialog swtiched in
+            switch(this_event.keyboard.keycode)
+            {
+               //case ALLEGRO_KEY_UP:
+                  //dialog_system.move_selection_cursor_up();
+               //break;
+
+               //case ALLEGRO_KEY_DOWN:
+                  //dialog_system.move_selection_cursor_down();
+               //break;
+
+               case ALLEGRO_KEY_SPACE:
+               case ALLEGRO_KEY_ENTER:
+                  dialog_system.dialog_advance();
+               break;
+            }
          }
          else
          {
             screens.key_down_funcs(&this_event);
+            virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
          }
-         virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
+         //virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_KEY_UP:
@@ -1101,8 +1117,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          else
          {
             screens.key_up_funcs(&this_event);
+            virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
          }
-         virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
+         //virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_KEY_CHAR:
@@ -1112,6 +1129,22 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             // TODO: Handle input case with dialog when it is "switched in"
             // TODO: Add this branching for each input event case
             // TODO: Add tests for these cases, with and without dialog swtiched in
+            switch(this_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+                  dialog_system.move_dialog_cursor_position_up();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  dialog_system.move_dialog_cursor_position_down();
+               break;
+
+               case ALLEGRO_KEY_SPACE:
+               case ALLEGRO_KEY_ENTER:
+                  //dialog_system.advance(); // Not for this case, this is handled in ALLEGRO_KEY_DOWN (until 
+                                             // upgraded to virtual controls)
+               break;
+            }
          }
          else
          {
@@ -1141,6 +1174,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             // TODO: Handle input case with dialog when it is "switched in"
             // TODO: Add this branching for each input event case
             // TODO: Add tests for these cases, with and without dialog swtiched in
+            dialog_system.dialog_advance();
          }
          else
          {
@@ -1187,8 +1221,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          else
          {
             screens.joy_button_down_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
          }
-         virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
+         //virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
@@ -1202,8 +1237,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          else
          {
             screens.joy_button_up_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
          }
-         virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
+         //virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_JOYSTICK_AXIS:
@@ -1217,8 +1253,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          else
          {
             screens.joy_axis_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
          }
-         virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
+         //virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
       break;
 
       case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
@@ -1602,6 +1639,24 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_DIALOG: {
+                     {
+                        AllegroFlare::GameEventDatas::Base *data =
+                           static_cast<AllegroFlare::GameEventDatas::Base *>((void *)this_event.user.data1);
+                        if (!data)
+                        {
+                           // TODO: Improve error message
+                           throw std::runtime_error("Frameworks::Full::error: ALLEGRO_FLARE_EVENT_DIALOG data is null");
+                        }
+                        else
+                        {
+                           dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ev, data);
+                           //screens.game_event_funcs(data);
+                           //achievements.unlock_manually(*data);
+                           //audio_controller.play_music_track_by_identifier(*data);
+                           delete data;
+                        }
+                     }
+                     //dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ev);
                      // TODO: Consider destroying event data here
                      // Consider implementation here for dialog_system
                      // TODO: Consider that "switch_in" and "switch_out" events might need to be passed down and

@@ -31,6 +31,8 @@ namespace AllegroFlare
       void emit_event(uint32_t type=0, intptr_t data1=0, intptr_t data2=0, intptr_t data3=0, intptr_t data4=0);
       void emit_router_event(uint32_t router_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
       void emit_dialog_open_event(std::string dialog_node_name_to_open="[unset-dialog_node_name_to_open]");
+      void emit_spawn_dialog_by_name_event(std::string dialog_node_name_to_open="[unset-dialog_filename_to_load]");
+      void emit_load_dialog_yaml_file(std::string dialog_yaml_filename_to_load="[unset-dialog_yaml_filename_to_load]");
       static void destroy_dialog_open_event_data(ALLEGRO_USER_EVENT* user_event=nullptr);
       void emit_dialog_advance_event();
       void emit_dialog_close_event();
