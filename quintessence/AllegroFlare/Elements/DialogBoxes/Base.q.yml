@@ -59,27 +59,17 @@ methods:
 
 
   - name: move_cursor_position_up
+    type: bool
     virtual: true
     body: |
-      return;
+      return false;
 
 
   - name: move_cursor_position_down
+    type: bool
     virtual: true
     body: |
-      return;
-
-
-  - name: move_cursor_position_left
-    virtual: true
-    body: |
-      return;
-
-
-  - name: move_cursor_position_right
-    virtual: true
-    body: |
-      return;
+      return false;
 
 
   - name: infer_age

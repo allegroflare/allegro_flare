@@ -69,8 +69,6 @@ namespace AllegroFlare
          bool shutdown_dialog();
          void move_dialog_cursor_position_up();
          void move_dialog_cursor_position_down();
-         void move_dialog_cursor_position_left();
-         void move_dialog_cursor_position_right();
       };
    }
 }

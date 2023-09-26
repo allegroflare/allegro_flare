@@ -53,8 +53,8 @@ namespace AllegroFlare
             std::vector<std::string> get_options_labels();
             std::string get_current_selection_text();
             std::string get_current_selection_value();
-            virtual void move_cursor_position_down() override;
-            virtual void move_cursor_position_up() override;
+            virtual bool move_cursor_position_down() override;
+            virtual bool move_cursor_position_up() override;
             int get_cursor_position();
          };
       }

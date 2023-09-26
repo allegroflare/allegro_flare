@@ -226,23 +226,25 @@ methods:
   - name: move_cursor_position_down
     virtual: true
     override: true
-    type: void
+    type: bool
     guards: [ initialized ]
     body: |
-      if (!breakout_list_box_active) return; // TODO: Test this case, cursor does not move when list box is inactive
+      if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+      // TODO: Consider if empty items in breakout_list_box should result in a return false
       breakout_list_box.move_cursor_down();
-      return;
+      return true;
 
 
   - name: move_cursor_position_up
     virtual: true
     override: true
-    type: void
+    type: bool
     guards: [ initialized ]
     body: |
-      if (!breakout_list_box_active) return; // TODO: Test this case, cursor does not move when list box is inactive
+      if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+      // TODO: Consider if empty items in breakout_list_box should result in a return false
       breakout_list_box.move_cursor_up();
-      return;
+      return true;
 
 
   - name: has_valid_cursor_position

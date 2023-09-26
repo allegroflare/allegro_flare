@@ -16,6 +16,11 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox*
+    init_with: nullptr
+    constructor_arg: true
+
   - name: standard_dialog_box_font_name
     type: std::string
     init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
@@ -129,6 +134,8 @@ functions:
          choice_dialog_box_renderer.set_width(standard_dialog_box_width);
          choice_dialog_box_renderer.set_height(standard_dialog_box_height);
          choice_dialog_box_renderer.set_age(choice_dialog_box->infer_age());
+         choice_dialog_box_renderer.set_selection_cursor_box(selection_cursor_box);
+
          // TODO: Finish adding params here
 
          place.start_transform();
@@ -261,4 +268,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
+
 

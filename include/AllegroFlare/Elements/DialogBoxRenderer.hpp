@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <string>
 
@@ -21,6 +22,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::Elements::DialogBoxes::Base* dialog_box;
+         AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
 
@@ -28,7 +30,7 @@ namespace AllegroFlare
 
 
       public:
-         DialogBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Base* dialog_box=nullptr, std::string standard_dialog_box_font_name=DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME, int standard_dialog_box_font_size=DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE);
+         DialogBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Base* dialog_box=nullptr, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::string standard_dialog_box_font_name=DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME, int standard_dialog_box_font_size=DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE);
          ~DialogBoxRenderer();
 
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);

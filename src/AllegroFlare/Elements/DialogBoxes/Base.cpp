@@ -78,24 +78,14 @@ void Base::advance()
    return;
 }
 
-void Base::move_cursor_position_up()
+bool Base::move_cursor_position_up()
 {
-   return;
+   return false;
 }
 
-void Base::move_cursor_position_down()
+bool Base::move_cursor_position_down()
 {
-   return;
-}
-
-void Base::move_cursor_position_left()
-{
-   return;
-}
-
-void Base::move_cursor_position_right()
-{
-   return;
+   return false;
 }
 
 float Base::infer_age(float time_now)

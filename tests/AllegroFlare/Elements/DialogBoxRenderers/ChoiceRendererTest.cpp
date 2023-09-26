@@ -112,7 +112,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__with_a_selection_cursor_box_injected__will_render_it)
+   CAPTURE__render__with_a_selection_cursor_box_injected__will_render_it)
 {
    //std::string choice_box_prompt = "Do you have any information about the whereabouts of the missing villagers?";
    //std::string choice_box_prompt = "Do you know anything regarding the whereabouts and well-being of the villagers "

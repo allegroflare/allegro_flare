@@ -240,7 +240,7 @@ std::string Choice::get_current_selection_value()
    return breakout_list_box.get_currently_selected_item_value();
 }
 
-void Choice::move_cursor_position_down()
+bool Choice::move_cursor_position_down()
 {
    if (!(initialized))
    {
@@ -249,12 +249,13 @@ void Choice::move_cursor_position_down()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Choice::move_cursor_position_down: error: guard \"initialized\" not met");
    }
-   if (!breakout_list_box_active) return; // TODO: Test this case, cursor does not move when list box is inactive
+   if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+   // TODO: Consider if empty items in breakout_list_box should result in a return false
    breakout_list_box.move_cursor_down();
-   return;
+   return true;
 }
 
-void Choice::move_cursor_position_up()
+bool Choice::move_cursor_position_up()
 {
    if (!(initialized))
    {
@@ -263,9 +264,10 @@ void Choice::move_cursor_position_up()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Choice::move_cursor_position_up: error: guard \"initialized\" not met");
    }
-   if (!breakout_list_box_active) return; // TODO: Test this case, cursor does not move when list box is inactive
+   if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+   // TODO: Consider if empty items in breakout_list_box should result in a return false
    breakout_list_box.move_cursor_up();
-   return;
+   return true;
 }
 
 bool Choice::has_valid_cursor_position()

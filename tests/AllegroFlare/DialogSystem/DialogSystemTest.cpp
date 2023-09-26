@@ -373,13 +373,13 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
                   dialog_system.move_dialog_cursor_position_down();
                break;
 
-               case ALLEGRO_KEY_LEFT:
-                  dialog_system.move_dialog_cursor_position_left();
-               break;
+               //case ALLEGRO_KEY_LEFT:
+                  //dialog_system.move_dialog_cursor_position_left();
+               //break;
 
-               case ALLEGRO_KEY_RIGHT:
-                  dialog_system.move_dialog_cursor_position_right();
-               break;
+               //case ALLEGRO_KEY_RIGHT:
+                  //dialog_system.move_dialog_cursor_position_right();
+               //break;
 
                case ALLEGRO_KEY_ENTER:
                   if (dialog_system.a_dialog_is_active())

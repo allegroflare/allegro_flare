@@ -26,10 +26,11 @@ namespace Elements
 {
 
 
-DialogBoxRenderer::DialogBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Base* dialog_box, std::string standard_dialog_box_font_name, int standard_dialog_box_font_size)
+DialogBoxRenderer::DialogBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Base* dialog_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, std::string standard_dialog_box_font_name, int standard_dialog_box_font_size)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , dialog_box(dialog_box)
+   , selection_cursor_box(selection_cursor_box)
    , standard_dialog_box_font_name(standard_dialog_box_font_name)
    , standard_dialog_box_font_size(standard_dialog_box_font_size)
 {
@@ -176,6 +177,8 @@ void DialogBoxRenderer::render()
       choice_dialog_box_renderer.set_width(standard_dialog_box_width);
       choice_dialog_box_renderer.set_height(standard_dialog_box_height);
       choice_dialog_box_renderer.set_age(choice_dialog_box->infer_age());
+      choice_dialog_box_renderer.set_selection_cursor_box(selection_cursor_box);
+
       // TODO: Finish adding params here
 
       place.start_transform();

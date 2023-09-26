@@ -8,6 +8,7 @@
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <filesystem>
@@ -312,7 +313,26 @@ void DialogSystem::spawn_choice_dialog(std::string prompt, std::vector<std::stri
    }
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-   active_dialog_box = dialog_box_factory.create_choice_dialog(prompt, options_that_are_also_values);
+   AllegroFlare::Elements::DialogBoxes::Choice *choice_dialog_box =
+         dialog_box_factory.create_choice_dialog(prompt, options_that_are_also_values);
+   active_dialog_box = choice_dialog_box;
+
+
+   // Set the cursor selection box position to this point
+   AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer_for_dimensions(
+      font_bin,
+      bitmap_bin,
+      choice_dialog_box
+   );
+
+   std::tuple<float, float, float, float> selection_dimensions =
+         choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
+   choice_renderer_for_dimensions.helper__set_selection_cursor_box_dimensions_to(
+         &selection_cursor_box,
+         selection_dimensions
+      );
+
+
 
    // TODO: Address when and where a switch_in should occur
    bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
@@ -350,7 +370,12 @@ void DialogSystem::render()
    }
    if (active_dialog_box)
    {
-      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(font_bin, bitmap_bin, active_dialog_box);
+      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(
+            font_bin,
+            bitmap_bin,
+            active_dialog_box,
+            &selection_cursor_box
+         );
       dialog_box_renderer.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
       dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
       dialog_box_renderer.render();
@@ -580,7 +605,9 @@ void DialogSystem::move_dialog_cursor_position_up()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::move_dialog_cursor_position_up: error: guard \"initialized\" not met");
    }
-   if (active_dialog_box) active_dialog_box->move_cursor_position_up();
+   if (!active_dialog_box) return;
+   active_dialog_box->move_cursor_position_up();
+   // TODO: Reposition the cursor
    return;
 }
 
@@ -593,33 +620,9 @@ void DialogSystem::move_dialog_cursor_position_down()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::move_dialog_cursor_position_down: error: guard \"initialized\" not met");
    }
-   if (active_dialog_box) active_dialog_box->move_cursor_position_down();
-   return;
-}
-
-void DialogSystem::move_dialog_cursor_position_left()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::move_dialog_cursor_position_left]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_left: error: guard \"initialized\" not met");
-   }
-   if (active_dialog_box) active_dialog_box->move_cursor_position_left();
-   return;
-}
-
-void DialogSystem::move_dialog_cursor_position_right()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::move_dialog_cursor_position_right]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_right: error: guard \"initialized\" not met");
-   }
-   if (active_dialog_box) active_dialog_box->move_cursor_position_right();
+   if (!active_dialog_box) return;
+   active_dialog_box->move_cursor_position_down();
+   // TODO: Reposition the cursor
    return;
 }
 
