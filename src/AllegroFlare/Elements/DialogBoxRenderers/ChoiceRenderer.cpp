@@ -373,17 +373,21 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
                                                                            ? selection_cursor_box
                                                                            : &local_selection_cursor_box
                                                                            ;
-   // Init the cursor position to the current selection
-   std::tuple<float, float, float, float> current_selection_dimensions =
-      list_box_renderer.calculate_dimensions_for_list_item_at_position(
-         obtain_choice_dialog_box_cursor_position()
-      );
-   float current_selection_x = std::get<0>(current_selection_dimensions);
-   float current_selection_y = std::get<1>(current_selection_dimensions);
-   float current_selection_width = std::get<2>(current_selection_dimensions);
-   float current_selection_height = std::get<3>(current_selection_dimensions);
-   selection_cursor_box_to_use->set_position(current_selection_x, current_selection_y);
-   selection_cursor_box_to_use->set_size(current_selection_width, current_selection_height);
+   if (selection_cursor_box_to_use == &local_selection_cursor_box)
+   {
+      // In this case, we're using our local selection_cursor_box. We need to position it manually
+      // Init the cursor position to the current selection
+      std::tuple<float, float, float, float> current_selection_dimensions =
+         list_box_renderer.calculate_dimensions_for_list_item_at_position(
+            obtain_choice_dialog_box_cursor_position()
+         );
+      float current_selection_x = std::get<0>(current_selection_dimensions);
+      float current_selection_y = std::get<1>(current_selection_dimensions);
+      float current_selection_width = std::get<2>(current_selection_dimensions);
+      float current_selection_height = std::get<3>(current_selection_dimensions);
+      selection_cursor_box_to_use->set_position(current_selection_x, current_selection_y);
+      selection_cursor_box_to_use->set_size(current_selection_width, current_selection_height);
+   }
 
    // Build a placement for the breakout box
    // TODO: Consider adding options for this position
