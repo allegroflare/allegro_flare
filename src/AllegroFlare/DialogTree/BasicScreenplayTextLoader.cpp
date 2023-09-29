@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 
+#include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -67,11 +68,64 @@ AllegroFlare::DialogTree::NodeBank BasicScreenplayTextLoader::load()
       throw std::runtime_error("BasicScreenplayTextLoader::load: error: guard \"(!loaded)\" not met");
    }
    std::vector<std::string> chunks = split(text, "\n\n");
+   int node_id = 1;
 
    // TODO: Process the chunks and create nodes
+   for (auto &chunk : chunks)
+   {
+      std::vector<std::string> sub_chunks = split(chunk, "\n");
+      if (sub_chunks.size() == 0)
+      {
+         std::cout << "Parsing line with no sub_chunks" << std::endl;
+      }
+      else if (sub_chunks.size() == 1)
+      {
+         std::cout << "Parsed line with one sub_chunk: \"" << sub_chunks[0] << "\"" << std::endl;
+      }
+      else if (sub_chunks.size() >= 2)
+      {
+         if (sub_chunks[0].empty()) continue;
+
+         std::string node_name = "dialog_node_" + std::to_string(node_id);
+         std::string next_node_name = "dialog_node_" + std::to_string(node_id+1);
+         std::string speaker = sub_chunks.front();
+         std::vector<std::string> dialog_pages = split(sub_chunks.back(), " / ");
+
+         AllegroFlare::DialogTree::Nodes::MultipageWithOptions *result_node =
+            new AllegroFlare::DialogTree::Nodes::MultipageWithOptions;
+
+
+         std::cout << "- speaker: " << speaker << std::endl;
+         std::cout << "    pages: " << dialog_pages.size() << std::endl;
+         int page_num = 1;
+         for (auto &dialog_page : dialog_pages)
+         {
+            std::cout << "     page " << page_num << ": " << dialog_page << std::endl;
+            page_num++;
+         }
+         std::cout << std::endl;
+
+         result_node->set_speaker(speaker);
+         result_node->set_pages(dialog_pages);
+         result_node->set_options({
+            { "next", create_GoToNode_option(next_node_name) },
+         });
+
+         node_id++;
+          
+         node_bank.add_node(node_name, result_node);
+      }
+   }
 
    loaded = true;
    return node_bank;
+}
+
+AllegroFlare::DialogTree::NodeOptions::GoToNode* BasicScreenplayTextLoader::create_GoToNode_option(std::string node_target_name)
+{
+   AllegroFlare::DialogTree::NodeOptions::GoToNode* result = new AllegroFlare::DialogTree::NodeOptions::GoToNode;
+   result->set_target_node_name(node_target_name);
+   return result;
 }
 
 std::vector<std::string> BasicScreenplayTextLoader::split(std::string input, std::string delimiter)

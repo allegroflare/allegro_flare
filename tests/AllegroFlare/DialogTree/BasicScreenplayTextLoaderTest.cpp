@@ -22,6 +22,8 @@ TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, load__will_build_the
    basic_screenplay_text_loader.load();
 
    AllegroFlare::DialogTree::NodeBank node_bank = basic_screenplay_text_loader.get_node_bank();
+
+   ASSERT_EQ(12, node_bank.num_nodes());
 }
 
 
