@@ -964,6 +964,9 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter"
   ],
+  "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",

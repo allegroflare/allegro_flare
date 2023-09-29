@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
+#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
@@ -35,7 +36,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , selection_cursor_box({})
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
-   , active_speaker_layout(nullptr)
+   , active_character_staging_layout(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -194,7 +195,16 @@ void DialogSystem::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::initialize: error: guard \"event_emitter\" not met");
    }
+   active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
    initialized = true;
+   return;
+}
+
+void DialogSystem::destroy()
+{
+   // TODO: This method requires consideration -- particularly active_speaker_layout which is currently owned
+   // by this object. Also, this method will need to be called in Frameworks::Full
+   delete active_character_staging_layout;
    return;
 }
 
@@ -221,6 +231,32 @@ void DialogSystem::switch_out()
       throw std::runtime_error("DialogSystem::switch_out: error: guard \"(switched_in)\" not met");
    }
    switched_in = false;
+   return;
+}
+
+void DialogSystem::set_speaking_character(std::string speaking_character_identifier)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::set_speaking_character]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::set_speaking_character: error: guard \"initialized\" not met");
+   }
+   if (active_character_staging_layout->is_type(
+            AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+         ))
+   {
+      // TODO: Set the character
+   }
+   else
+   {
+      throw std::runtime_error(
+         "DialogSystem::set_speaking_character: error: Unable to perform action because "
+            "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+            "and a condition is not provided to handle this type."
+      );
+   }
    return;
 }
 
@@ -257,6 +293,7 @@ void DialogSystem::spawn_dialog_by_name(std::string dialog_name)
       else if (node_options_as_text.size() == 1)
       {
          // If dialog has only one option, spawn a basic dialog
+         set_speaking_character(node_pages_speaker);
          spawn_basic_dialog(node_pages);
       }
       else // (node_options_as_text.size() > 1)
@@ -270,6 +307,7 @@ void DialogSystem::spawn_dialog_by_name(std::string dialog_name)
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
          }
+         set_speaking_character(node_pages_speaker);
          spawn_choice_dialog(node_pages[0], node_options_as_text);
       }
    }
@@ -372,9 +410,9 @@ void DialogSystem::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::render: error: guard \"initialized\" not met");
    }
-   if (active_speaker_layout)
+   if (active_character_staging_layout)
    {
-      active_speaker_layout->render();
+      active_character_staging_layout->render();
    }
 
    if (active_dialog_box)

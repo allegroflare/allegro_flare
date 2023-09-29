@@ -40,6 +40,11 @@ void Base::render()
    return;
 }
 
+bool Base::is_type(std::string possible_type)
+{
+   return (possible_type == get_type());
+}
+
 
 } // namespace CharacterStagingLayouts
 } // namespace DialogSystem

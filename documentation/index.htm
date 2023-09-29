@@ -1684,6 +1684,9 @@ table td
 <tr>
   <td class="method">render()</td>
 </tr>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
@@ -1882,7 +1885,7 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">active_speaker_layout</td>
+  <td class="property">active_character_staging_layout</td>
   <td class="property">AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*</td>
 </tr>
 <tr>
@@ -1928,10 +1931,16 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
+  <td class="method">destroy()</td>
+</tr>
+<tr>
   <td class="method">switch_in()</td>
 </tr>
 <tr>
   <td class="method">switch_out()</td>
+</tr>
+<tr>
+  <td class="method">set_speaking_character(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">spawn_dialog_by_name(std::string dialog_name=&quot;[unset-dialog_name]&quot;)</td>
@@ -2070,6 +2079,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27615,6 +27627,9 @@ table td
   "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter"
+  ],
+  "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",

@@ -41,7 +41,7 @@ properties:
     init_with: '"[unset-active_dialog_node_name]"'
     getter: true
 
-  - name: active_speaker_layout
+  - name: active_character_staging_layout
     type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
     init_with: nullptr
 
@@ -88,6 +88,8 @@ documentation:
      - modify process_dialog_event to branch based on the ALLEGRO_FLARE_EVENT_DIALOG_* event
      - consider if you need to make GameEventDatas for each of the different types of events
      - review overall the integrety of the system, Add lots of tests, make it so "anybody can emit a dialog event"
+  - todo:
+     - currently, "active_character_staging_layout" is owned by this system and requires destruction
 
 
 methods:
@@ -150,10 +152,20 @@ methods:
        - font_bin
        - event_emitter
     body: |
+      active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
       initialized = true;
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+      - AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
+
+
+  - name: destroy
+    body: |
+      // TODO: This method requires consideration -- particularly active_speaker_layout which is currently owned
+      // by this object. Also, this method will need to be called in Frameworks::Full
+      delete active_character_staging_layout;
+      return;
 
 
   - name: switch_in
@@ -167,6 +179,31 @@ methods:
     guards: [ (switched_in) ]
     body: |
       switched_in = false;
+      return;
+
+
+  - name: set_speaking_character
+    guards: [ initialized ]
+    parameters:
+      - name: speaking_character_identifier
+        type: std::string
+        default_argument: '"[unset-speaking_character_identifier]"'
+    guards: [ active_character_staging_layout ]
+    body: |
+      if (active_character_staging_layout->is_type(
+               AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+            ))
+      {
+         // TODO: Set the character
+      }
+      else
+      {
+         throw std::runtime_error(
+            "DialogSystem::set_speaking_character: error: Unable to perform action because "
+               "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+               "and a condition is not provided to handle this type."
+         );
+      }
       return;
 
 
@@ -207,6 +244,7 @@ methods:
          else if (node_options_as_text.size() == 1)
          {
             // If dialog has only one option, spawn a basic dialog
+            set_speaking_character(node_pages_speaker);
             spawn_basic_dialog(node_pages);
          }
          else // (node_options_as_text.size() > 1)
@@ -220,6 +258,7 @@ methods:
                      "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
                );
             }
+            set_speaking_character(node_pages_speaker);
             spawn_choice_dialog(node_pages[0], node_options_as_text);
          }
       }
@@ -333,9 +372,9 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
-      if (active_speaker_layout)
+      if (active_character_staging_layout)
       {
-         active_speaker_layout->render();
+         active_character_staging_layout->render();
       }
 
       if (active_dialog_box)
@@ -692,5 +731,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
+  - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
+    headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
 
 
