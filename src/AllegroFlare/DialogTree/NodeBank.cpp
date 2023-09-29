@@ -30,6 +30,12 @@ void NodeBank::set_nodes(std::map<std::string, AllegroFlare::DialogTree::Nodes::
 }
 
 
+std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*> &NodeBank::get_nodes_ref()
+{
+   return nodes;
+}
+
+
 uint32_t NodeBank::num_nodes()
 {
    return nodes.size();

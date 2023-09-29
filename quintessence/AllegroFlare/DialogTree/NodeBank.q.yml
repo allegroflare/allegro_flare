@@ -5,6 +5,7 @@ properties:
     type: std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*>
     init_with: '{}'
     setter: true
+    getter_ref: true
 
 
 methods:
