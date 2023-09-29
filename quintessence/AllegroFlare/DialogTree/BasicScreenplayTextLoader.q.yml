@@ -1,9 +1,9 @@
 properties:
 
 
-  - name: filename
+  - name: text
     type: std::string
-    init_with: '"[unset-filename]"'
+    init_with: '"[unset-text]"'
     constructor_arg: true
     setter: explicit
 
@@ -23,14 +23,14 @@ properties:
 methods:
 
 
-  - name: set_filename
+  - name: set_text
     parameters:
-      - name: filename
+      - name: text
         type: std::string
-        default_argument: '"[unset-filename]"'
+        default_argument: '"[unset-text]"'
     guards: [ (!loaded) ]
     body: |
-      this->filename = filename;
+      this->text = text;
       return;
 
 
@@ -39,6 +39,40 @@ methods:
     guards: [ loaded ]
     body: |
       return node_bank;
+
+
+  - name: load
+    type: AllegroFlare::DialogTree::NodeBank
+    guards: [ (!loaded) ]
+    body: |
+      std::vector<std::string> chunks = split(text, "\n\n");
+
+      // TODO: Process the chunks and create nodes
+
+      loaded = true;
+      return node_bank;
+
+
+  - name: split
+    static: true
+    type: std::vector<std::string>
+    parameters:
+      - name: input
+        type: std::string
+        default_argument: '"[unset-input]"'
+      - name: delimiter
+        type: std::string
+        default_argument: '"__"'
+    body: |
+      std::vector<std::string> tokens;
+      size_t start = 0, end = 0;
+      while ((end = input.find(delimiter, start)) != std::string::npos)
+      {
+         tokens.push_back(input.substr(start, end - start));
+         start = end + delimiter.length();
+      }
+      tokens.push_back(input.substr(start));
+      return tokens;
 
 
 dependencies:
