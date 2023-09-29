@@ -40,6 +40,17 @@ TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, load__will_build_the
    EXPECT_EQ("DETECTIVE", as->get_speaker());
    ASSERT_EQ(false, as->get_options().empty());
    EXPECT_EQ("next", as->get_options()[0].first);
+   ASSERT_NE(nullptr, as->get_options()[0].second);
+   EXPECT_EQ(
+      AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE,
+      as->get_options()[0].second->get_type()
+   );
+   AllegroFlare::DialogTree::NodeOptions::GoToNode* as_option_node =
+      static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(as->get_options()[0].second);
+   EXPECT_EQ(
+      "dialog_node_1",
+      as_option_node->get_target_node_name()
+   );
 
    as = static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(nodes["dialog_node_2"]);
    EXPECT_EQ("COMMISSIONER", as->get_speaker());
