@@ -730,6 +730,10 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog",

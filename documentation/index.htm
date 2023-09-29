@@ -70,6 +70,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/ClubCatt/Logo.q.yml">quintessence/AllegroFlare/ClubCatt/Logo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml</a></li>
@@ -1666,6 +1668,57 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">update(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">update(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
   <td class="property">property</td>
   <td class="property">std::string</td>
 </tr>
@@ -1827,6 +1880,10 @@ table td
 <tr>
   <td class="property">active_dialog_node_name</td>
   <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">active_speaker_layout</td>
+  <td class="property">AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*</td>
 </tr>
 <tr>
   <td class="property">switched_in</td>
@@ -2010,6 +2067,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27321,6 +27381,10 @@ table td
   "std/filesystem": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
+  ],
+  "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
