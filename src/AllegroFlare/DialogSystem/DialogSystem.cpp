@@ -35,6 +35,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , selection_cursor_box({})
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
+   , active_speaker_layout(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -371,6 +372,11 @@ void DialogSystem::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::render: error: guard \"initialized\" not met");
    }
+   if (active_speaker_layout)
+   {
+      active_speaker_layout->render();
+   }
+
    if (active_dialog_box)
    {
       AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(

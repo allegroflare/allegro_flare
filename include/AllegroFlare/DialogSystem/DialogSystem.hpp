@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
@@ -33,6 +34,7 @@ namespace AllegroFlare
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
+         AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_speaker_layout;
          bool switched_in;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;

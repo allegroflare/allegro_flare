@@ -41,6 +41,10 @@ properties:
     init_with: '"[unset-active_dialog_node_name]"'
     getter: true
 
+  - name: active_speaker_layout
+    type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
+    init_with: nullptr
+
   - name: switched_in
     type: bool
     init_with: false
@@ -329,6 +333,11 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
+      if (active_speaker_layout)
+      {
+         active_speaker_layout->render();
+      }
+
       if (active_dialog_box)
       {
          AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(
@@ -681,5 +690,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp ]
   - symbol: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp ]
+  - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base
+    headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
 
 
