@@ -1,0 +1,50 @@
+properties:
+
+
+  - name: filename
+    type: std::string
+    init_with: '"[unset-filename]"'
+    constructor_arg: true
+    setter: explicit
+
+  - name: node_bank
+    type: AllegroFlare::DialogTree::NodeBank
+    init_with: '{}'
+    getter: explicit
+    setter: false
+    getter_ref: false
+
+  - name: loaded
+    type: bool
+    init_with: false
+    getter: true
+
+
+methods:
+
+
+  - name: set_filename
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+    guards: [ (!loaded) ]
+    body: |
+      this->filename = filename;
+      return;
+
+
+  - name: get_node_bank
+    type: AllegroFlare::DialogTree::NodeBank
+    guards: [ loaded ]
+    body: |
+      return node_bank;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+
+
