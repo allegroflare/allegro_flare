@@ -27,11 +27,12 @@ namespace DialogSystem
 {
 
 
-DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
+DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::DialogSystem::CharacterRoster* character_roster)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , dialog_node_bank({})
+   , character_roster(character_roster)
    , active_dialog_box(nullptr)
    , selection_cursor_box({})
    , active_dialog_node(nullptr)

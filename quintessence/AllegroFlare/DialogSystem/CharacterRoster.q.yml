@@ -1,0 +1,62 @@
+properties:
+
+
+  - name: characters
+    type: std::map<std::string, AllegroFlare::DialogSystem::Characters::Base*>
+    init_with: '{}'
+    setter: true
+    getter_ref: true
+
+
+methods:
+
+
+  - name: num_characters
+    type: int
+    body: |
+      return characters.size();
+
+
+  - name: add_character
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: character
+        type: AllegroFlare::DialogSystem::Characters::Base*
+        default_argument: nullptr
+    guards: [ character, (!character_exists_by_name(name)) ]
+    body: |
+      characters[name] = character;
+
+
+  - name: character_exists_by_name
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      return (characters.find(name) != characters.end());
+
+
+  - name: find_character_by_name
+    type: AllegroFlare::DialogSystem::Characters::Base*
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ character_exists_by_name(name) ]
+    body: |
+      // TODO: This guard results in a double lookup. Might be faster to integrate it below.
+      if (characters.find(name) == characters.end()) return nullptr;
+      return characters[name];
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystem::Characters::Base
+    headers: [ AllegroFlare/DialogSystem/Characters/Base.hpp ]
+
+

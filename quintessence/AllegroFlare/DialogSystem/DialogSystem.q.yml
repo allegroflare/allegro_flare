@@ -24,6 +24,11 @@ properties:
     init_with: '{}'
     getter: true
 
+  - name: character_roster
+    type: AllegroFlare::DialogSystem::CharacterRoster*
+    constructor_arg: true
+    init_with: nullptr
+
   - name: active_dialog_box
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
@@ -766,5 +771,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
+  - symbol: AllegroFlare::DialogSystem::CharacterRoster
+    headers: [ AllegroFlare/DialogSystem/CharacterRoster.hpp ]
 
 

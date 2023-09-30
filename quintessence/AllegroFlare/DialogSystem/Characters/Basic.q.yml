@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogSystem::Characters::Base
+    scope: public
+    init_with: AllegroFlare::DialogSystem::Characters::Basic::TYPE
+
+
+properties:
+
+
+  - name: display_name
+    type: std::string
+    init_with: '"[unset-display_name]"'
+    constructor_arg: true
+    setter: true
+    getter: true
+
+  - name: avatar_thumbnail_identifier
+    type: std::string
+    init_with: '"[unset-avatar_thumbnail_identifier]"'
+    setter: true
+    getter: true
+
+  - name: avatar_portrait_identifier
+    type: std::string
+    init_with: '"[unset-avatar_portrait_identifier]"'
+    setter: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogSystem/Characters/Basic"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystem::Characters::Base
+    headers: [ AllegroFlare/DialogSystem/Characters/Base.hpp ]
+
+
