@@ -1,0 +1,59 @@
+properties:
+
+
+  - name: node_bank
+    type: AllegroFlare::DialogTree::NodeBank*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: obtain_list_of_speaking_characters
+    type: std::vector<std::string>
+    guards: [ node_bank ]
+    body: |
+      std::vector<std::string> speakers;
+
+      // TODO: Iterate all nodes on the node_bank, if type contains a speaker, add to the list;
+
+      return make_unique_and_retain_ordering(speakers);
+
+
+  - name: make_unique_and_retain_ordering
+    static: true
+    type: std::vector<std::string>
+    parameters:
+      - name: list
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      std::vector<std::string> uniqueVector;
+
+      for (auto &element : list)
+      {
+         // Check if the element is not in the uniqueVector
+         if (std::find(uniqueVector.begin(), uniqueVector.end(), element) == uniqueVector.end()) {
+            // If not found, add it to uniqueVector
+            uniqueVector.push_back(element);
+         }
+      }
+
+      // uniqueVector now contains unique elements while retaining the order
+      //for (auto &element : uniqueVector) {
+         //std::cout << element << " ";
+      //}
+
+      return uniqueVector;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+
+
