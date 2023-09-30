@@ -1,0 +1,32 @@
+methods:
+
+
+  - name: create_basic_character
+    type: AllegroFlare::DialogSystem::Characters::Basic*
+    parameters:
+      - name: display_name
+        type: std::string
+        default_argument: '"[unset-display_name]"'
+      - name: avatar_thumbnail_identifier
+        type: std::string
+        default_argument: '"[unset-avatar_thumbnail_identifier]"'
+      - name: avatar_portrait_identifier
+        type: std::string
+        default_argument: '"[unset-avatar_portrait_identifier]"'
+    body: |
+      AllegroFlare::DialogSystem::Characters::Basic *result = new AllegroFlare::DialogSystem::Characters::Basic();
+      result->set_display_name(display_name);
+      result->set_avatar_thumbnail_identifier(avatar_thumbnail_identifier);
+      result->set_avatar_portrait_identifier(avatar_portrait_identifier);
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::DialogSystem::Characters::Basic
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystem::Characters::Basic
+    headers: [ AllegroFlare/DialogSystem/Characters/Basic.hpp ]
+
+
