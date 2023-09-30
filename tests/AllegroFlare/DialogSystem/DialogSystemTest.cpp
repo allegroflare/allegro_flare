@@ -24,7 +24,7 @@ public:
       character->set_avatar_portrait_identifier("mystery-cat-512x512-01.gif");
       result_roster->add_character("MYSTERIOUS", character);
 
-      return result_roster;
+      return result_roster; // TODO: Delete after use
    }
 };
 

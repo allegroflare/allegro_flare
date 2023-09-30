@@ -227,7 +227,7 @@ methods:
         default_argument: '"[unset-speaking_character_identifier]"'
     guards: [ bitmap_bin ]
     body: |
-      // TODO: Replace this hard-coded list with a more dynamic system:
+      // TODO: Update this method to use the "character_roster" property on this class to dynamically obtain avatar
       if (speaking_character_identifier == "COMMISSIONER")
       {
          return bitmap_bin->auto_get("police-commissioner-avatar-01.png");

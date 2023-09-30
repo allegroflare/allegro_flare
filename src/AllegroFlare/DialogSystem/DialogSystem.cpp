@@ -277,7 +277,7 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
    }
-   // TODO: Replace this hard-coded list with a more dynamic system:
+   // TODO: Update this method to use the "character_roster" property on this class to dynamically obtain avatar
    if (speaking_character_identifier == "COMMISSIONER")
    {
       return bitmap_bin->auto_get("police-commissioner-avatar-01.png");
