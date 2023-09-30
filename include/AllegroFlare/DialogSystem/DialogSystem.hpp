@@ -63,6 +63,7 @@ namespace AllegroFlare
          void switch_in();
          void switch_out();
          void set_speaking_character(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
+         ALLEGRO_BITMAP* lookup_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          void spawn_dialog_by_name(std::string dialog_name="[unset-dialog_name]");
          void spawn_basic_dialog(std::vector<std::string> pages={});
          void spawn_choice_dialog(std::string prompt="[unset-prompt]", std::vector<std::string> options={});

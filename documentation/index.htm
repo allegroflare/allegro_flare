@@ -1696,12 +1696,34 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">speaking_character_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">speaking_character_bitmap_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">clear_speaking_character_bitmap()</td>
+</tr>
+<tr>
+  <td class="method">set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f)</td>
+</tr>
 <tr>
   <td class="method">update(float time_now=0.0f)</td>
 </tr>
@@ -1712,7 +1734,13 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1943,6 +1971,9 @@ table td
   <td class="method">set_speaking_character(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">lookup_speaking_character_avatar(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
+</tr>
+<tr>
   <td class="method">spawn_dialog_by_name(std::string dialog_name=&quot;[unset-dialog_name]&quot;)</td>
 </tr>
 <tr>
@@ -1984,6 +2015,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -27115,6 +27149,7 @@ table td
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
@@ -27165,6 +27200,8 @@ table td
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",

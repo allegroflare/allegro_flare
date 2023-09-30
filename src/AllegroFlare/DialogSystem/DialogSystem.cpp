@@ -247,6 +247,13 @@ void DialogSystem::set_speaking_character(std::string speaking_character_identif
             AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
          ))
    {
+      AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+         static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+            active_character_staging_layout
+         );
+      ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(speaking_character_identifier);
+      if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
+      else as->set_speaking_character_bitmap(speaking_character_bitmap);
       // TODO: Set the character
    }
    else
@@ -258,6 +265,31 @@ void DialogSystem::set_speaking_character(std::string speaking_character_identif
       );
    }
    return;
+}
+
+ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speaking_character_identifier)
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
+   }
+   // TODO: Replace this hard-coded list with a more dynamic system:
+   if (speaking_character_identifier == "COMMISSIONER")
+   {
+      return bitmap_bin->auto_get("police-commissioner-avatar-01.png");
+   }
+   else if (speaking_character_identifier == "DETECTIVE")
+   {
+      return bitmap_bin->auto_get("cat-detective-avatar-02.png");
+   }
+   else
+   {
+      return bitmap_bin->auto_get("mystery-cat-profile-feature-01.png");
+   }
+   return nullptr;
 }
 
 void DialogSystem::spawn_dialog_by_name(std::string dialog_name)

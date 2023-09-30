@@ -451,6 +451,7 @@
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
@@ -501,6 +502,8 @@
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",

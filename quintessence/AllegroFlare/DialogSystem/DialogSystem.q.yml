@@ -194,6 +194,13 @@ methods:
                AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
             ))
       {
+         AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+            static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+               active_character_staging_layout
+            );
+         ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(speaking_character_identifier);
+         if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
+         else as->set_speaking_character_bitmap(speaking_character_bitmap);
          // TODO: Set the character
       }
       else
@@ -205,6 +212,30 @@ methods:
          );
       }
       return;
+
+
+  - name: lookup_speaking_character_avatar
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: speaking_character_identifier
+        type: std::string
+        default_argument: '"[unset-speaking_character_identifier]"'
+    guards: [ bitmap_bin ]
+    body: |
+      // TODO: Replace this hard-coded list with a more dynamic system:
+      if (speaking_character_identifier == "COMMISSIONER")
+      {
+         return bitmap_bin->auto_get("police-commissioner-avatar-01.png");
+      }
+      else if (speaking_character_identifier == "DETECTIVE")
+      {
+         return bitmap_bin->auto_get("cat-detective-avatar-02.png");
+      }
+      else
+      {
+         return bitmap_bin->auto_get("mystery-cat-profile-feature-01.png");
+      }
+      return nullptr;
 
 
   - name: spawn_dialog_by_name
@@ -667,6 +698,8 @@ methods:
 dependencies:
 
 
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_EVENT
     headers: [ allegro5/allegro.h ]
   - symbol: al_is_primitives_addon_initialized
