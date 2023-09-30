@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/NodeBankInferencer.hpp>
 
+#include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -47,7 +48,15 @@ std::vector<std::string> NodeBankInferencer::obtain_list_of_speaking_characters(
    }
    std::vector<std::string> speakers;
 
-   // TODO: Iterate all nodes on the node_bank, if type contains a speaker, add to the list;
+   for (auto &node : node_bank->get_nodes_ref())
+   {
+      if (node.second->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+      {
+         AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
+            static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(node.second);
+         speakers.push_back(as->get_speaker());
+      }
+   }
 
    return make_unique_and_retain_ordering(speakers);
 }
@@ -55,21 +64,13 @@ std::vector<std::string> NodeBankInferencer::obtain_list_of_speaking_characters(
 std::vector<std::string> NodeBankInferencer::make_unique_and_retain_ordering(std::vector<std::string> list)
 {
    std::vector<std::string> uniqueVector;
-
    for (auto &element : list)
    {
-      // Check if the element is not in the uniqueVector
-      if (std::find(uniqueVector.begin(), uniqueVector.end(), element) == uniqueVector.end()) {
-         // If not found, add it to uniqueVector
+      if (std::find(uniqueVector.begin(), uniqueVector.end(), element) == uniqueVector.end())
+      {
          uniqueVector.push_back(element);
       }
    }
-
-   // uniqueVector now contains unique elements while retaining the order
-   //for (auto &element : uniqueVector) {
-      //std::cout << element << " ";
-   //}
-
    return uniqueVector;
 }
 

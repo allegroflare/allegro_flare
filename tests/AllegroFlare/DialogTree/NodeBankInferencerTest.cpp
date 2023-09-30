@@ -27,7 +27,10 @@ TEST(AllegroFlare_DialogTree_NodeBankInferencerTest, run__returns_the_expected_r
    AllegroFlare::DialogTree::NodeBankInferencer node_bank_inferencer(&node_bank);
 
    std::vector<std::string> expected_speaking_characters = {
-      "Foo"
+      "DETECTIVE",
+      "BANKER",
+      "COMMISSIONER",
+      "ASSISTANT",
    };
    std::vector<std::string> actual_speaking_characters = node_bank_inferencer.obtain_list_of_speaking_characters();
 

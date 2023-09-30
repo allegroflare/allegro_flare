@@ -945,6 +945,7 @@
   "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [

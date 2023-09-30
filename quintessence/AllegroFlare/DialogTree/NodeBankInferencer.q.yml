@@ -18,9 +18,19 @@ methods:
     body: |
       std::vector<std::string> speakers;
 
-      // TODO: Iterate all nodes on the node_bank, if type contains a speaker, add to the list;
+      for (auto &node : node_bank->get_nodes_ref())
+      {
+         if (node.second->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+         {
+            AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
+               static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(node.second);
+            speakers.push_back(as->get_speaker());
+         }
+      }
 
       return make_unique_and_retain_ordering(speakers);
+    body_dependency_symbols:
+      - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
 
 
   - name: make_unique_and_retain_ordering
@@ -32,21 +42,13 @@ methods:
         default_argument: '{}'
     body: |
       std::vector<std::string> uniqueVector;
-
       for (auto &element : list)
       {
-         // Check if the element is not in the uniqueVector
-         if (std::find(uniqueVector.begin(), uniqueVector.end(), element) == uniqueVector.end()) {
-            // If not found, add it to uniqueVector
+         if (std::find(uniqueVector.begin(), uniqueVector.end(), element) == uniqueVector.end())
+         {
             uniqueVector.push_back(element);
          }
       }
-
-      // uniqueVector now contains unique elements while retaining the order
-      //for (auto &element : uniqueVector) {
-         //std::cout << element << " ";
-      //}
-
       return uniqueVector;
 
 
@@ -55,5 +57,7 @@ dependencies:
 
   - symbol: AllegroFlare::DialogTree::NodeBank
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+    headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
 
 
