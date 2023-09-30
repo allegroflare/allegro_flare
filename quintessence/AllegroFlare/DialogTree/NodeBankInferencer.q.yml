@@ -8,6 +8,19 @@ properties:
     getter: true
     setter: true
 
+  - name: unrecognized_node_type_callback_func
+    type: std::function<bool()>
+    init_with: 0
+    getter: true
+    setter: true
+
+
+documentation:
+
+
+  - todos:
+      - Sort out parameters/arguments needed for unrecognized_node_type_callback_func
+
 
 methods:
 
@@ -26,11 +39,29 @@ methods:
                static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(node.second);
             speakers.push_back(as->get_speaker());
          }
+         else
+         {
+            // The node type is not known
+            bool is_handled = false;
+            if (unrecognized_node_type_callback_func)
+            {
+               is_handled = unrecognized_node_type_callback_func();
+            }
+
+            if (!is_handled)
+            {
+               AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::DialogTree::NodeBankInferencer::obtain_list_of_speaking_characters",
+                     "Unhandled case for type \"" + node.second->get_type() + "\""
+               );
+            }
+         }
       }
 
       return make_unique_and_retain_ordering(speakers);
     body_dependency_symbols:
       - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+      - AllegroFlare::Logger
 
 
   - name: make_unique_and_retain_ordering
@@ -59,5 +90,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::MultipageWithOptions
     headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

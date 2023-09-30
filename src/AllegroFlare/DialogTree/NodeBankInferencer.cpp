@@ -3,6 +3,7 @@
 #include <AllegroFlare/DialogTree/NodeBankInferencer.hpp>
 
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -16,6 +17,7 @@ namespace DialogTree
 
 NodeBankInferencer::NodeBankInferencer(AllegroFlare::DialogTree::NodeBank* node_bank)
    : node_bank(node_bank)
+   , unrecognized_node_type_callback_func(0)
 {
 }
 
@@ -31,9 +33,21 @@ void NodeBankInferencer::set_node_bank(AllegroFlare::DialogTree::NodeBank* node_
 }
 
 
+void NodeBankInferencer::set_unrecognized_node_type_callback_func(std::function<bool()> unrecognized_node_type_callback_func)
+{
+   this->unrecognized_node_type_callback_func = unrecognized_node_type_callback_func;
+}
+
+
 AllegroFlare::DialogTree::NodeBank* NodeBankInferencer::get_node_bank() const
 {
    return node_bank;
+}
+
+
+std::function<bool()> NodeBankInferencer::get_unrecognized_node_type_callback_func() const
+{
+   return unrecognized_node_type_callback_func;
 }
 
 
@@ -55,6 +69,23 @@ std::vector<std::string> NodeBankInferencer::obtain_list_of_speaking_characters(
          AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
             static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(node.second);
          speakers.push_back(as->get_speaker());
+      }
+      else
+      {
+         // The node type is not known
+         bool is_handled = false;
+         if (unrecognized_node_type_callback_func)
+         {
+            is_handled = unrecognized_node_type_callback_func();
+         }
+
+         if (!is_handled)
+         {
+            AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::DialogTree::NodeBankInferencer::obtain_list_of_speaking_characters",
+                  "Unhandled case for type \"" + node.second->get_type() + "\""
+            );
+         }
       }
    }
 

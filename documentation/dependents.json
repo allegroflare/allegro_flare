@@ -19,6 +19,7 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
