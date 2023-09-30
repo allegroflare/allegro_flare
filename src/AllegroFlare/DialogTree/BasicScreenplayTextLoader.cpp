@@ -80,7 +80,7 @@ AllegroFlare::DialogTree::NodeBank BasicScreenplayTextLoader::load()
       }
       else if (sub_chunks.size() == 1)
       {
-         std::cout << "Parsed line with one sub_chunk: \"" << sub_chunks[0] << "\"" << std::endl;
+         std::cout << "Skipping parsing on one-line chunk: \"" << sub_chunks[0] << "\"" << std::endl;
       }
       else if (sub_chunks.size() >= 2)
       {

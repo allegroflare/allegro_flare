@@ -20,6 +20,18 @@ properties:
     getter: true
 
 
+documentation:
+
+
+  - body: |
+      Formatting is relatively simple:
+        - All "chunks" are consecutive lines of text. Chunks are separated by two newlines.
+        - If there are two lines, the top line is the dialog speaker, and the bottom is their line of dialog
+        - If there is only one line, it's a type of command instruction or note or reference.
+        - If there is more than one line, the first line is the speaker and the last line is the dialog. Intermediate
+          lines are ignored (for now)
+
+
 methods:
 
 
@@ -58,7 +70,7 @@ methods:
          }
          else if (sub_chunks.size() == 1)
          {
-            std::cout << "Parsed line with one sub_chunk: \"" << sub_chunks[0] << "\"" << std::endl;
+            std::cout << "Skipping parsing on one-line chunk: \"" << sub_chunks[0] << "\"" << std::endl;
          }
          else if (sub_chunks.size() >= 2)
          {
