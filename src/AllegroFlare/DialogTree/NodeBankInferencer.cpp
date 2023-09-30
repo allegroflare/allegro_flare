@@ -109,6 +109,24 @@ bool NodeBankInferencer::character_names_are_present(std::vector<std::string> ch
    return true;
 }
 
+std::vector<std::string> NodeBankInferencer::find_missing_character_names(std::vector<std::string> character_names_that_must_be_present)
+{
+   std::vector<std::string> missing_character_names;
+   std::vector<std::string> actual_speaking_characters = obtain_list_of_speaking_characters();
+   for (const std::string& character_names_that_must_be_present : character_names_that_must_be_present)
+   {
+      if (std::find(
+               actual_speaking_characters.begin(),
+               actual_speaking_characters.end(),
+               character_names_that_must_be_present
+            ) == actual_speaking_characters.end())
+      {
+         missing_character_names.push_back(character_names_that_must_be_present);
+      }
+   }
+   return make_unique_and_retain_ordering(missing_character_names);
+}
+
 std::vector<std::string> NodeBankInferencer::make_unique_and_retain_ordering(std::vector<std::string> list)
 {
    std::vector<std::string> uniqueVector;
