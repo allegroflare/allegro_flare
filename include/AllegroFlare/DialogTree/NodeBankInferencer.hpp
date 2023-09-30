@@ -29,6 +29,7 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::NodeBank* get_node_bank() const;
          std::function<bool()> get_unrecognized_node_type_callback_func() const;
          std::vector<std::string> obtain_list_of_speaking_characters();
+         bool character_names_are_present(std::vector<std::string> character_names_that_must_be_present={});
          static std::vector<std::string> make_unique_and_retain_ordering(std::vector<std::string> list={});
       };
    }

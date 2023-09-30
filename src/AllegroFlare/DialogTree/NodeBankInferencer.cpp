@@ -92,6 +92,23 @@ std::vector<std::string> NodeBankInferencer::obtain_list_of_speaking_characters(
    return make_unique_and_retain_ordering(speakers);
 }
 
+bool NodeBankInferencer::character_names_are_present(std::vector<std::string> character_names_that_must_be_present)
+{
+   std::vector<std::string> actual_speaking_characters = obtain_list_of_speaking_characters();
+   for (const std::string& character_names_that_must_be_present : character_names_that_must_be_present)
+   {
+      if (std::find(
+               actual_speaking_characters.begin(),
+               actual_speaking_characters.end(),
+               character_names_that_must_be_present
+            ) == actual_speaking_characters.end())
+      {
+         return false;
+      }
+   }
+   return true;
+}
+
 std::vector<std::string> NodeBankInferencer::make_unique_and_retain_ordering(std::vector<std::string> list)
 {
    std::vector<std::string> uniqueVector;
