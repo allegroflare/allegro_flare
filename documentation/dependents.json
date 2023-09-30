@@ -734,6 +734,13 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/DialogSystem/Characters/Basic": [
+    "AllegroFlare/DialogSystem/CharacterFactory"
+  ],
+  "AllegroFlare/DialogSystem/Characters/Base": [
+    "AllegroFlare/DialogSystem/CharacterRoster",
+    "AllegroFlare/DialogSystem/Characters/Basic"
+  ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/DialogSystem/DialogSystem"
@@ -971,6 +978,9 @@
     "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/DialogSystem/CharacterRoster": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [

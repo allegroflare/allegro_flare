@@ -3,17 +3,36 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <AllegroFlare/DialogSystem/DialogSystem.hpp>
+#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 
 
-class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
+class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test
+{
+public:
+   AllegroFlare::DialogSystem::CharacterRoster *create_and_assemble_character_roster()
+   {
+      AllegroFlare::DialogSystem::CharacterRoster *result_roster = new AllegroFlare::DialogSystem::CharacterRoster();
+
+      AllegroFlare::DialogSystem::Characters::Basic *character = nullptr;
+     
+      character = new AllegroFlare::DialogSystem::Characters::Basic();
+      character->set_display_name("Mysterious Cat");
+      character->set_avatar_thumbnail_identifier("mystery-cat-128x128-01.gif");
+      character->set_avatar_portrait_identifier("mystery-cat-512x512-01.gif");
+      result_roster->add_character("MYSTERIOUS", character);
+
+      return result_roster;
+   }
+};
+
+
 class AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
-
-#include <AllegroFlare/DialogSystem/DialogSystem.hpp>
-#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, can_be_created_without_blowing_up)

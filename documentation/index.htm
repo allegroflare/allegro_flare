@@ -70,8 +70,12 @@ table td
   <li><a href="#quintessence/AllegroFlare/ClubCatt/Logo.q.yml">quintessence/AllegroFlare/ClubCatt/Logo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterFactory.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml">quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/Characters/Basic.q.yml">quintessence/AllegroFlare/DialogSystem/Characters/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.q.yml</a></li>
@@ -1667,6 +1671,55 @@ table td
 <ul>
   <div class="component">
     <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">create_basic_character(std::string display_name=&quot;[unset-display_name]&quot;, std::string avatar_thumbnail_identifier=&quot;[unset-avatar_thumbnail_identifier]&quot;, std::string avatar_portrait_identifier=&quot;[unset-avatar_portrait_identifier]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::Characters::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/Characters/Basic.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">characters</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::DialogSystem::Characters::Base*&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">num_characters()</td>
+</tr>
+<tr>
+  <td class="method">add_character(std::string name=&quot;[unset-name]&quot;, AllegroFlare::DialogSystem::Characters::Base* character=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">character_exists_by_name(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">find_character_by_name(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::Characters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/Characters/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">type</td>
@@ -1742,6 +1795,60 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">display_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">avatar_thumbnail_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">avatar_portrait_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::Characters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/Characters/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1896,6 +2003,10 @@ table td
 <tr>
   <td class="property">dialog_node_bank</td>
   <td class="property">AllegroFlare::DialogTree::NodeBank</td>
+</tr>
+<tr>
+  <td class="property">character_roster</td>
+  <td class="property">AllegroFlare::DialogSystem::CharacterRoster*</td>
 </tr>
 <tr>
   <td class="property">active_dialog_box</td>
@@ -2117,6 +2228,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterRoster&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterRoster.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27475,6 +27589,13 @@ table td
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/DialogSystem/Characters/Basic": [
+    "AllegroFlare/DialogSystem/CharacterFactory"
+  ],
+  "AllegroFlare/DialogSystem/Characters/Base": [
+    "AllegroFlare/DialogSystem/CharacterRoster",
+    "AllegroFlare/DialogSystem/Characters/Basic"
+  ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/DialogSystem/DialogSystem"
@@ -27712,6 +27833,9 @@ table td
     "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/DialogSystem/CharacterRoster": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
