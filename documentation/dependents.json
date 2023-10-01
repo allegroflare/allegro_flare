@@ -270,6 +270,7 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -369,6 +370,7 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -682,6 +684,7 @@
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -1522,6 +1525,7 @@
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/Header",
+    "AllegroFlare/Elements/RollingCredits/Sections/LegalText",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
     "AllegroFlare/Screens/RollingCredits"
   ],
@@ -1542,9 +1546,16 @@
   "AllegroFlare/Elements/RollingCredits/Sections/Text": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/LegalText": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits"
   ],
   "AllegroFlare/LegalClauseGenerator": [
@@ -1553,6 +1564,7 @@
   "AllegroFlare/Elements/RollingCredits/SectionRenderers/Base": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text"
   ],
   "std/vector<std/tuple<std/string, std/string>>": [

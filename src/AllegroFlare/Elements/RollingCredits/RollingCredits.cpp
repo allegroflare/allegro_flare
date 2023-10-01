@@ -4,9 +4,11 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.hpp>
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
 #include <iostream>
 #include <sstream>
@@ -209,6 +211,20 @@ float RollingCredits::render_or_calculate_height(bool only_calculate_height_dont
                font_bin,
                typed_section->get_text(),
                typed_section->get_alignment()
+            );
+         renderer.set_x(surface_center);
+         renderer.set_y(cursor_y);
+         this_section_height = renderer.render(only_calculate_height_dont_render);
+      }
+      else if (section->is_type(AllegroFlare::Elements::RollingCredits::Sections::LegalText::TYPE))
+      {
+         AllegroFlare::Elements::RollingCredits::Sections::LegalText *as =
+            static_cast<AllegroFlare::Elements::RollingCredits::Sections::LegalText*>(section);
+
+         AllegroFlare::Elements::RollingCredits::SectionRenderers::LegalText renderer(
+               font_bin,
+               as->get_text(),
+               as->get_alignment()
             );
          renderer.set_x(surface_center);
          renderer.set_y(cursor_y);
