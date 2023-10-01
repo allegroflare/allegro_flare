@@ -290,6 +290,7 @@ methods:
         type: std::string
         default_argument: '"[unset-dialog_name]"'
     body: |
+      // TODO: Rename this to "activate_dialog_node_by_name", because there are nodes that do not "spawn"
       active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
       active_dialog_node_name = dialog_name;
 
@@ -339,6 +340,12 @@ methods:
             spawn_choice_dialog(node_pages[0], node_options_as_text);
          }
       }
+      else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+      {
+         //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
+            //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
+         shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+      }
       else
       {
          throw std::runtime_error(
@@ -369,6 +376,7 @@ methods:
       if (a_new_dialog_was_created_and_dialog_system_is_now_active)
       {
          switch_in();
+         active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
       }
       return;
@@ -416,13 +424,12 @@ methods:
             selection_dimensions
          );
 
-
-
       // TODO: Address when and where a switch_in should occur
       bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
       if (a_new_dialog_was_created_and_dialog_system_is_now_active)
       {
          switch_in();
+         active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
       }
       return;
@@ -527,6 +534,12 @@ methods:
                   }
                }
             }
+            //else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+            //{
+               //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
+                  //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
+               //shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+            //}
             else
             {
                throw std::runtime_error(
@@ -542,6 +555,7 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxes::Choice
+      - AllegroFlare::DialogTree::Nodes::ExitDialog
 
 
   - name: activate_dialog_option
@@ -639,11 +653,17 @@ methods:
     guards: [ initialized ]
     body: |
       if (!active_dialog_box) return false;
-      delete active_dialog_box; // TODO: Consider a less intrusive soft delete (with cleanup during update)
+      delete active_dialog_box; // TODO: Consider a less intrusive soft delete (hide motion, with cleanup during update)
       active_dialog_box = nullptr;
 
       active_dialog_node = nullptr;
       active_dialog_node_name = "";
+
+      if (active_character_staging_layout)
+      {
+         // TODO: Confirm "hide" should occur here
+         active_character_staging_layout->hide(); // TODO: Test this hide occurs as expected
+      }
 
       // NOTE: Note that active_dialog_node is not deleted, because any pointer to a dialog node is a pointer
       // to one that is static in the dialog_node_bank
@@ -824,5 +844,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::UsefulPHP
     headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ExitDialog
+    headers: [ AllegroFlare/DialogTree/Nodes/ExitDialog.hpp ]
 
 

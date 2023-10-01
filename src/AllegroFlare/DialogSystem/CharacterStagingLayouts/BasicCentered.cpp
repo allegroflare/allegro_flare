@@ -78,6 +78,19 @@ void BasicCentered::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_chara
    return;
 }
 
+void BasicCentered::show(float time_now)
+{
+   // NOTE: Nothing to be done here at this time
+   return;
+}
+
+void BasicCentered::hide(float time_now)
+{
+   clear_speaking_character_bitmap();
+   // NOTE: Nothing to be done here at this time
+   return;
+}
+
 void BasicCentered::update(float time_now)
 {
    // NOTE: Nothing to be done here at this time

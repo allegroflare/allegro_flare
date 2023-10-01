@@ -27,6 +27,28 @@ methods:
       return;
 
 
+  - name: show
+    virtual: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      // TODO: Consider implementation
+      return;
+
+
+  - name: hide
+    virtual: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      // TODO: Consider implementation
+      return;
+
+
   - name: render
     virtual: true
     body: |

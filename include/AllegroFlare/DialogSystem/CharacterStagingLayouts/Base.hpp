@@ -27,6 +27,8 @@ namespace AllegroFlare
 
             std::string get_type() const;
             virtual void update(float time_now=0.0f);
+            virtual void show(float time_now=0.0f);
+            virtual void hide(float time_now=0.0f);
             virtual void render();
             bool is_type(std::string possible_type="");
          };

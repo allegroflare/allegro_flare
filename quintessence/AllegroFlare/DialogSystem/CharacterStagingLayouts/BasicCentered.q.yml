@@ -67,6 +67,31 @@ methods:
       return;
 
 
+  - name: show
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      // NOTE: Nothing to be done here at this time
+      return;
+
+
+  - name: hide
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      clear_speaking_character_bitmap();
+      // NOTE: Nothing to be done here at this time
+      return;
+
+
   - name: update
     virtual: true
     override: true
