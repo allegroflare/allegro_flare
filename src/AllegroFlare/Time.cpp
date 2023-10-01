@@ -15,7 +15,7 @@ namespace AllegroFlare
 Time::Time(float started_at)
    : started_at(started_at)
    , playhead(0.0f)
-   , rate(0.0f)
+   , rate(1.0f)
    , last_rate_changed_at(0.0f)
 {
 }

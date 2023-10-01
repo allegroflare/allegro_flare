@@ -14,7 +14,7 @@ properties:
 
   - name: rate
     type: float
-    init_with: 0.0f
+    init_with: 1.0f
 
   - name: last_rate_changed_at
     type: float
