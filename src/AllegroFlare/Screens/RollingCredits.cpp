@@ -234,6 +234,9 @@ void RollingCredits::set_sections(std::vector<AllegroFlare::Elements::RollingCre
 {
    // TODO: Test this method
    rolling_credits_component.set_sections(sections);
+   // TODO: Confirm this re-calculation of height is appropriate here
+   // TODO: Test this calculated height recalculation occurs
+   if (initialized) cached_calculated_height = rolling_credits_component.calculate_height();
    return;
 }
 
@@ -248,12 +251,18 @@ void RollingCredits::append_section(AllegroFlare::Elements::RollingCredits::Sect
    }
    // TODO: Test this method
    rolling_credits_component.append_section(section_to_append);
+   // TODO: Confirm this re-calculation of height is appropriate here
+   // TODO: Test this calculated height recalculation occurs
+   if (initialized) cached_calculated_height = rolling_credits_component.calculate_height();
    return;
 }
 
 void RollingCredits::append_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections)
 {
    rolling_credits_component.append_sections(sections);
+   // TODO: Confirm this re-calculation of height is appropriate here
+   // TODO: Test this calculated height recalculation occurs
+   if (initialized) cached_calculated_height = rolling_credits_component.calculate_height();
    return;
 }
 
