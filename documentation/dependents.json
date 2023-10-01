@@ -1526,6 +1526,7 @@
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/Header",
     "AllegroFlare/Elements/RollingCredits/Sections/LegalText",
+    "AllegroFlare/Elements/RollingCredits/Sections/Spacer",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
     "AllegroFlare/Screens/RollingCredits"
   ],

@@ -1,4 +1,54 @@
+properties:
+
+
+  - name: spacer_width
+    type: int
+    init_with: DEFAULT_SPACER_WIDTH
+    getter: true
+    setter: explicit
+    
+  - name: section_spacer_width
+    type: int
+    init_with: DEFAULT_SECTION_SPACER_WIDTH
+    getter: true
+    setter: explicit
+
+  - name: DEFAULT_SPACER_WIDTH
+    type: int
+    init_with: 1080/6
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_SECTION_SPACER_WIDTH
+    type: int
+    init_with: 1080/2
+    static: true
+    constexpr: true
+
+
 methods:
+
+
+  - name: set_spacer_width
+    parameters:
+      - name: spacer_width
+        type: int
+        default_argument: DEFAULT_SPACER_WIDTH
+    guards: [ (spacer_width >= 0) ]
+    body: |
+      this->spacer_width = spacer_width;
+      return;
+
+
+  - name: set_section_spacer_width
+    parameters:
+      - name: section_spacer_width
+        type: int
+        default_argument: DEFAULT_SECTION_SPACER_WIDTH
+    guards: [ (section_spacer_width >= 0) ]
+    body: |
+      this->section_spacer_width = section_spacer_width;
+      return;
 
 
   - name: create_column_with_labels
@@ -42,13 +92,19 @@ methods:
 
   - name: create_spacer
     type: AllegroFlare::Elements::RollingCredits::Sections::Spacer*
-    parameters:
-      - name: height_px
-        type: int
-        default_argument: 100
     body: |
       AllegroFlare::Elements::RollingCredits::Sections::Spacer* section =
-        new AllegroFlare::Elements::RollingCredits::Sections::Spacer(height_px);
+        new AllegroFlare::Elements::RollingCredits::Sections::Spacer(spacer_width);
+      return section;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::RollingCredits::Sections::Spacer
+
+
+  - name: create_section_spacer
+    type: AllegroFlare::Elements::RollingCredits::Sections::Spacer*
+    body: |
+      AllegroFlare::Elements::RollingCredits::Sections::Spacer* section =
+        new AllegroFlare::Elements::RollingCredits::Sections::Spacer(section_spacer_width);
       return section;
     body_dependency_symbols:
       - AllegroFlare::Elements::RollingCredits::Sections::Spacer

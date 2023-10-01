@@ -150,6 +150,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Header.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Header.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/LegalText.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/LegalText.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Spacer.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Spacer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Text.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Score.q.yml">quintessence/AllegroFlare/Elements/Score.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Scrollbar.q.yml">quintessence/AllegroFlare/Elements/Scrollbar.q.yml</a></li>
@@ -7255,8 +7256,32 @@ table td
     <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
-<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">spacer_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">section_spacer_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_SPACER_WIDTH</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_SECTION_SPACER_WIDTH</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_spacer_width(int spacer_width=DEFAULT_SPACER_WIDTH)</td>
+</tr>
+<tr>
+  <td class="method">set_section_spacer_width(int section_spacer_width=DEFAULT_SECTION_SPACER_WIDTH)</td>
+</tr>
 <tr>
   <td class="method">create_column_with_labels(std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt; elements={})</td>
 </tr>
@@ -7267,7 +7292,10 @@ table td
   <td class="method">create_text(std::string text={}, std::string alignment=AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT)</td>
 </tr>
 <tr>
-  <td class="method">create_spacer(int height_px=100)</td>
+  <td class="method">create_spacer()</td>
+</tr>
+<tr>
+  <td class="method">create_section_spacer()</td>
 </tr>
 <tr>
   <td class="method">create_standard_disclaimers_text(std::string company_name=&quot;this company&quot;, std::vector&lt;std::string&gt; non_endorced_software_and_software_company_names={})</td>
@@ -7748,6 +7776,35 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/Sections/Spacer.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Spacer.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">height_px</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_height_px(int height_px=100)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -29413,6 +29470,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/Header",
     "AllegroFlare/Elements/RollingCredits/Sections/LegalText",
+    "AllegroFlare/Elements/RollingCredits/Sections/Spacer",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
     "AllegroFlare/Screens/RollingCredits"
   ],

@@ -4,6 +4,9 @@
 
 #include <AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp>
 #include <AllegroFlare/LegalClauseGenerator.hpp>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -15,6 +18,8 @@ namespace RollingCredits
 
 
 SectionFactory::SectionFactory()
+   : spacer_width(DEFAULT_SPACER_WIDTH)
+   , section_spacer_width(DEFAULT_SECTION_SPACER_WIDTH)
 {
 }
 
@@ -23,6 +28,44 @@ SectionFactory::~SectionFactory()
 {
 }
 
+
+int SectionFactory::get_spacer_width() const
+{
+   return spacer_width;
+}
+
+
+int SectionFactory::get_section_spacer_width() const
+{
+   return section_spacer_width;
+}
+
+
+void SectionFactory::set_spacer_width(int spacer_width)
+{
+   if (!((spacer_width >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[SectionFactory::set_spacer_width]: error: guard \"(spacer_width >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SectionFactory::set_spacer_width: error: guard \"(spacer_width >= 0)\" not met");
+   }
+   this->spacer_width = spacer_width;
+   return;
+}
+
+void SectionFactory::set_section_spacer_width(int section_spacer_width)
+{
+   if (!((section_spacer_width >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[SectionFactory::set_section_spacer_width]: error: guard \"(section_spacer_width >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SectionFactory::set_section_spacer_width: error: guard \"(section_spacer_width >= 0)\" not met");
+   }
+   this->section_spacer_width = section_spacer_width;
+   return;
+}
 
 AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* SectionFactory::create_column_with_labels(std::vector<std::tuple<std::string, std::string>> elements)
 {
@@ -45,10 +88,17 @@ AllegroFlare::Elements::RollingCredits::Sections::Text* SectionFactory::create_t
    return section;
 }
 
-AllegroFlare::Elements::RollingCredits::Sections::Spacer* SectionFactory::create_spacer(int height_px)
+AllegroFlare::Elements::RollingCredits::Sections::Spacer* SectionFactory::create_spacer()
 {
    AllegroFlare::Elements::RollingCredits::Sections::Spacer* section =
-     new AllegroFlare::Elements::RollingCredits::Sections::Spacer(height_px);
+     new AllegroFlare::Elements::RollingCredits::Sections::Spacer(spacer_width);
+   return section;
+}
+
+AllegroFlare::Elements::RollingCredits::Sections::Spacer* SectionFactory::create_section_spacer()
+{
+   AllegroFlare::Elements::RollingCredits::Sections::Spacer* section =
+     new AllegroFlare::Elements::RollingCredits::Sections::Spacer(section_spacer_width);
    return section;
 }
 
