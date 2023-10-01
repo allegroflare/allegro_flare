@@ -9,6 +9,7 @@ namespace AllegroFlare
    {
    private:
       float started_at;
+      float offset;
 
    protected:
 
@@ -19,7 +20,9 @@ namespace AllegroFlare
 
       void set_started_at(float started_at);
       float get_started_at() const;
+      float absolute_now();
       float now();
+      void jump_ahead_sec(float distance=0.0f);
    };
 }
 

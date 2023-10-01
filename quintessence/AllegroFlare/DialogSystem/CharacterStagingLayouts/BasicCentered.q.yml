@@ -60,6 +60,7 @@ methods:
         default_argument: 0.0f
     guards: [ speaking_character_bitmap ]
     body: |
+      // TODO: Test this method
       if (speaking_character_bitmap == this->speaking_character_bitmap) return;
 
       this->speaking_character_bitmap = speaking_character_bitmap;
@@ -74,6 +75,7 @@ methods:
         default_argument: nullptr
     guards: [ speaking_character_bitmap ]
     body: |
+      // TODO: Test this method
       if (speaking_character_bitmap == this->speaking_character_bitmap) return;
       this->speaking_character_bitmap = speaking_character_bitmap;
       return;
