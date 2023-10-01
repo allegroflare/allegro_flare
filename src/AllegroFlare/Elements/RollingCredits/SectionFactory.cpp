@@ -44,9 +44,9 @@ AllegroFlare::Elements::RollingCredits::Sections::Text* SectionFactory::create_t
    return section;
 }
 
-std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFactory::create_standard_disclaimers_text(std::string company_name, std::vector<std::string> non_endorced_software_and_software_company_names)
+std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*> SectionFactory::create_standard_disclaimers_text(std::string company_name, std::vector<std::string> non_endorced_software_and_software_company_names)
 {
-   auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER;
+   auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::LegalText::ALIGN_CENTER;
 
    std::string disclaimer_1 = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
    std::string disclaimer_2 = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
@@ -57,12 +57,12 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*> SectionFact
    std::string disclaimer_4 = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
    std::string disclaimer_5 = AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer();
 
-   return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>{
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1, ALIGN_CENTER),
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2, ALIGN_CENTER),
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3, ALIGN_CENTER),
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_4, ALIGN_CENTER),
-      new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_5, ALIGN_CENTER),
+   return std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*>{
+      new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_1, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_2, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_3, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_4, ALIGN_CENTER),
+      new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_5, ALIGN_CENTER),
    };
 }
 

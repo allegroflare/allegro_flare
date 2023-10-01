@@ -41,7 +41,7 @@ functions:
     
 
   - name: create_standard_disclaimers_text
-    type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>
+    type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*>
     parameters:
       - name: company_name
         type: std::string
@@ -50,7 +50,7 @@ functions:
         type: std::vector<std::string>
         default_argument: '{}'
     body: |
-      auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER;
+      auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::LegalText::ALIGN_CENTER;
 
       std::string disclaimer_1 = AllegroFlare::LegalClauseGenerator::generate_persons_resemblance_disclaimer();
       std::string disclaimer_2 = AllegroFlare::LegalClauseGenerator::generate_views_and_opinions_disclaimer();
@@ -61,12 +61,12 @@ functions:
       std::string disclaimer_4 = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
       std::string disclaimer_5 = AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer();
 
-      return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Text*>{
-         new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_1, ALIGN_CENTER),
-         new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_2, ALIGN_CENTER),
-         new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_3, ALIGN_CENTER),
-         new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_4, ALIGN_CENTER),
-         new AllegroFlare::Elements::RollingCredits::Sections::Text(disclaimer_5, ALIGN_CENTER),
+      return std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*>{
+         new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_1, ALIGN_CENTER),
+         new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_2, ALIGN_CENTER),
+         new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_3, ALIGN_CENTER),
+         new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_4, ALIGN_CENTER),
+         new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_5, ALIGN_CENTER),
       };
     body_dependency_symbols:
       - AllegroFlare::LegalClauseGenerator
@@ -81,6 +81,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Text
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Text.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::LegalText
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp ]
   - symbol: AllegroFlare::LegalClauseGenerator
     headers: [ AllegroFlare/LegalClauseGenerator.hpp ]
 
