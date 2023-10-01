@@ -180,6 +180,12 @@ functions:
             renderer.set_y(cursor_y);
             this_section_height = renderer.render(only_calculate_height_dont_render);
          }
+         else if (section->is_type(AllegroFlare::Elements::RollingCredits::Sections::Spacer::TYPE))
+         {
+            AllegroFlare::Elements::RollingCredits::Sections::Spacer *as =
+               static_cast<AllegroFlare::Elements::RollingCredits::Sections::Spacer*>(section);
+            this_section_height = as->get_height_px();
+         }
          else
          {
             std::stringstream error_message;
@@ -206,6 +212,7 @@ functions:
       - AllegroFlare::Elements::RollingCredits::SectionRenderers::Text
       - AllegroFlare::Elements::RollingCredits::Sections::LegalText
       - AllegroFlare::Elements::RollingCredits::SectionRenderers::LegalText
+      - AllegroFlare::Elements::RollingCredits::Sections::Spacer
 
 
   - name: obtain_font
@@ -241,5 +248,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::LegalText
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Spacer
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp ]
 
 

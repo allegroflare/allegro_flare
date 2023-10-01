@@ -1559,6 +1559,10 @@
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Spacer": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
   "AllegroFlare/LegalClauseGenerator": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],

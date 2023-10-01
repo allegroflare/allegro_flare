@@ -1,0 +1,46 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::RollingCredits::Sections::Base
+    scope: public
+    init_with: AllegroFlare::Elements::RollingCredits::Sections::Spacer::TYPE
+
+
+properties:
+
+
+  - name: height_px
+    type: int
+    init_with: 100
+    constructor_arg: true
+    getter: true
+    setter: explicit
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/RollingCredits/Sections/Spacer"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: set_height_px
+    parameters:
+      - name: height_px
+        type: int
+        default_argument: 100
+    guards: [ (height_px > 0) ]
+    body: |
+      this->height_px = height_px;
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+
+

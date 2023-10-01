@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 
+#include <AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp>
 #include <AllegroFlare/LegalClauseGenerator.hpp>
 
 
@@ -41,6 +42,13 @@ AllegroFlare::Elements::RollingCredits::Sections::Text* SectionFactory::create_t
 {
    AllegroFlare::Elements::RollingCredits::Sections::Text* section =
      new AllegroFlare::Elements::RollingCredits::Sections::Text(text, alignment);
+   return section;
+}
+
+AllegroFlare::Elements::RollingCredits::Sections::Spacer* SectionFactory::create_spacer(int height_px)
+{
+   AllegroFlare::Elements::RollingCredits::Sections::Spacer* section =
+     new AllegroFlare::Elements::RollingCredits::Sections::Spacer(height_px);
    return section;
 }
 

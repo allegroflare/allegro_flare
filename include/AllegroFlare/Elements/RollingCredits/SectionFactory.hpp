@@ -4,6 +4,7 @@
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
 #include <string>
 #include <tuple>
@@ -30,6 +31,7 @@ namespace AllegroFlare
             AllegroFlare::Elements::RollingCredits::Sections::ColumnWithLabels* create_column_with_labels(std::vector<std::tuple<std::string, std::string>> elements={});
             AllegroFlare::Elements::RollingCredits::Sections::Header* create_header(std::string text={});
             AllegroFlare::Elements::RollingCredits::Sections::Text* create_text(std::string text={}, std::string alignment=AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT);
+            AllegroFlare::Elements::RollingCredits::Sections::Spacer* create_spacer(int height_px=100);
             std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*> create_standard_disclaimers_text(std::string company_name="this company", std::vector<std::string> non_endorced_software_and_software_company_names={});
          };
       }

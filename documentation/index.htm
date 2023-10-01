@@ -7244,6 +7244,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::LegalText&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Spacer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -7264,6 +7267,9 @@ table td
   <td class="method">create_text(std::string text={}, std::string alignment=AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT)</td>
 </tr>
 <tr>
+  <td class="method">create_spacer(int height_px=100)</td>
+</tr>
+<tr>
   <td class="method">create_standard_disclaimers_text(std::string company_name=&quot;this company&quot;, std::vector&lt;std::string&gt; non_endorced_software_and_software_company_names={})</td>
 </tr>
     </table>
@@ -7280,6 +7286,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::LegalText&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Spacer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LegalClauseGenerator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LegalClauseGenerator.hpp&quot;]}</td>
@@ -29434,6 +29443,10 @@ table td
     "AllegroFlare/Elements/RollingCredits/RollingCredits"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/LegalText": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Spacer": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],

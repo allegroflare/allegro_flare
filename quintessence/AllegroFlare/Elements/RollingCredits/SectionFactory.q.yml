@@ -1,4 +1,4 @@
-functions:
+methods:
 
 
   - name: create_column_with_labels
@@ -39,6 +39,20 @@ functions:
         new AllegroFlare::Elements::RollingCredits::Sections::Text(text, alignment);
       return section;
     
+
+  - name: create_spacer
+    type: AllegroFlare::Elements::RollingCredits::Sections::Spacer*
+    parameters:
+      - name: height_px
+        type: int
+        default_argument: 100
+    body: |
+      AllegroFlare::Elements::RollingCredits::Sections::Spacer* section =
+        new AllegroFlare::Elements::RollingCredits::Sections::Spacer(height_px);
+      return section;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::RollingCredits::Sections::Spacer
+
 
   - name: create_standard_disclaimers_text
     type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*>
@@ -83,6 +97,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Text.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::LegalText
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Spacer
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp ]
   - symbol: AllegroFlare::LegalClauseGenerator
     headers: [ AllegroFlare/LegalClauseGenerator.hpp ]
 
