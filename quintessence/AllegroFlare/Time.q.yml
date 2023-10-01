@@ -8,7 +8,15 @@ properties:
     getter: true
     setter: true
 
-  - name: offset
+  - name: playhead
+    type: float
+    init_with: 0.0f
+
+  - name: rate
+    type: float
+    init_with: 0.0f
+
+  - name: last_rate_changed_at
     type: float
     init_with: 0.0f
 
@@ -29,7 +37,10 @@ methods:
     type: float
     guards: [ al_is_system_installed() ]
     body: |
-      return absolute_now() + offset;
+      float time_now = al_get_time();
+      float rate_window_age = time_now - last_rate_changed_at;
+      playhead += (rate_window_age * rate);
+      return playhead;
     body_dependency_symbols:
       - al_is_system_installed
 
@@ -42,7 +53,19 @@ methods:
     guards: [ distance >= 0.0 ]
     body: |
       // TODO: Consider and account for possible overflows
-      offset += distance;
+      playhead += distance;
+
+
+  - name: set_rate
+    parameters:
+      - name: rate
+        type: float
+        default_argument: 1.0f
+    guards: [ rate >= 0.0001 ]
+    body: |
+      last_rate_changed_at = absolute_now();
+      this->rate = rate;
+      return;
 
 
 dependencies:

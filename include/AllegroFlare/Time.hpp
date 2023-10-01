@@ -9,7 +9,9 @@ namespace AllegroFlare
    {
    private:
       float started_at;
-      float offset;
+      float playhead;
+      float rate;
+      float last_rate_changed_at;
 
    protected:
 
@@ -23,6 +25,7 @@ namespace AllegroFlare
       float absolute_now();
       float now();
       void jump_ahead_sec(float distance=0.0f);
+      void set_rate(float rate=1.0f);
    };
 }
 
