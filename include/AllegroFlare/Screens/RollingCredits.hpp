@@ -78,6 +78,8 @@ namespace AllegroFlare
          virtual void on_deactivate() override;
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
+         void append_section(AllegroFlare::Elements::RollingCredits::Sections::Base* section_to_append=nullptr);
+         void append_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
          void clear_game_event_name_to_emit_after_completing();
          void clear_route_event_to_emit_after_completing();
          void initialize();

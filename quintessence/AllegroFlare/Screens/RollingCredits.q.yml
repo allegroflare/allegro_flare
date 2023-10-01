@@ -154,7 +154,30 @@ functions:
         type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
         default_argument: '{}'
     body: |
+      // TODO: Test this method
       rolling_credits_component.set_sections(sections);
+      return;
+
+
+  - name: append_section
+    parameters:
+      - name: section_to_append
+        type: AllegroFlare::Elements::RollingCredits::Sections::Base*
+        default_argument: nullptr
+    guards: [ section_to_append ]
+    body: |
+      // TODO: Test this method
+      rolling_credits_component.append_section(section_to_append);
+      return;
+
+
+  - name: append_sections
+    parameters:
+      - name: sections
+        type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
+        default_argument: '{}'
+    body: |
+      rolling_credits_component.append_sections(sections);
       return;
 
 
