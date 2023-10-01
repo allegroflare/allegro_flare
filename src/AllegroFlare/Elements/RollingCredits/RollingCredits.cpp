@@ -125,8 +125,32 @@ void RollingCredits::set_sections(std::vector<AllegroFlare::Elements::RollingCre
 {
    this->sections = sections;
    y_offset = 0;
-   if (initialized) height_calculated = calculate_height(); // only refresh the height calculation if the
-                                                            // component has already been initialized
+   if (initialized) height_calculated = calculate_height();
+   return;
+}
+
+void RollingCredits::append_section(AllegroFlare::Elements::RollingCredits::Sections::Base* section)
+{
+   if (!(section))
+   {
+      std::stringstream error_message;
+      error_message << "[RollingCredits::append_section]: error: guard \"section\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("RollingCredits::append_section: error: guard \"section\" not met");
+   }
+   // TODO: Test this method
+   sections.push_back(section);
+   y_offset = 0;
+   if (initialized) height_calculated = calculate_height();
+   return;
+}
+
+void RollingCredits::append_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections_to_append)
+{
+   // TODO: Test this method
+   sections.insert(sections.end(), sections_to_append.begin(), sections_to_append.end());
+   y_offset = 0;
+   if (initialized) height_calculated = calculate_height();
    return;
 }
 

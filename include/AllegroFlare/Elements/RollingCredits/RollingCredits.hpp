@@ -46,6 +46,8 @@ namespace AllegroFlare
             float get_height_calculated() const;
             void initialize();
             void set_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections={});
+            void append_section(AllegroFlare::Elements::RollingCredits::Sections::Base* section=nullptr);
+            void append_sections(std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> sections_to_append={});
             float calculate_height();
             void render();
             float render_or_calculate_height(bool only_calculate_height_dont_render=false);
