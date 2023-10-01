@@ -49,9 +49,11 @@ namespace AllegroFlare
          DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::DialogSystem::CharacterRoster* character_roster=nullptr);
          ~DialogSystem();
 
+         void set_character_roster(AllegroFlare::DialogSystem::CharacterRoster* character_roster);
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
+         AllegroFlare::DialogSystem::CharacterRoster* get_character_roster() const;
          std::string get_active_dialog_node_name() const;
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;

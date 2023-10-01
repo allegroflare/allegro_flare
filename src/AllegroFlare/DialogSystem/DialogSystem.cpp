@@ -3,8 +3,10 @@
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
+#include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
+#include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
@@ -13,6 +15,9 @@
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/StringFormatValidator.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <filesystem>
 #include <functional>
@@ -51,6 +56,12 @@ DialogSystem::~DialogSystem()
 }
 
 
+void DialogSystem::set_character_roster(AllegroFlare::DialogSystem::CharacterRoster* character_roster)
+{
+   this->character_roster = character_roster;
+}
+
+
 void DialogSystem::set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name)
 {
    this->standard_dialog_box_font_name = standard_dialog_box_font_name;
@@ -66,6 +77,12 @@ void DialogSystem::set_standard_dialog_box_font_size(int standard_dialog_box_fon
 AllegroFlare::DialogTree::NodeBank DialogSystem::get_dialog_node_bank() const
 {
    return dialog_node_bank;
+}
+
+
+AllegroFlare::DialogSystem::CharacterRoster* DialogSystem::get_character_roster() const
+{
+   return character_roster;
 }
 
 
@@ -139,9 +156,31 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
       throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_file: error: guard \"std::filesystem::exists(filename)\" not met");
    }
    // TODO: Validate a dialog is not currently running (or something)
-   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   yaml_loader.load_file(filename);
-   dialog_node_bank = yaml_loader.get_node_bank();
+   // TODO: Test these cases for loading multiple file formats with these extensions
+   AllegroFlare::StringFormatValidator validator(filename);
+   if (validator.ends_with(".screenplay.txt"))
+   {
+      AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
+      std::string screenplay_text = AllegroFlare::php::file_get_contents(filename); // TODO: Consider removing
+                                                                                    // file loading and move into
+                                                                                    // loader
+      loader.set_text(screenplay_text);
+      loader.load();
+      dialog_node_bank = loader.get_node_bank();
+   }
+   else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
+   {
+      AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+      yaml_loader.load_file(filename);
+      dialog_node_bank = yaml_loader.get_node_bank();
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file",
+         "Cannot load file. Unable to know what loader should be used for filename \"" + filename + "\""
+      );
+   }
    return;
 }
 
@@ -277,18 +316,28 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
    }
-   // TODO: Update this method to use the "character_roster" property on this class to dynamically obtain avatar
-   if (speaking_character_identifier == "COMMISSIONER")
+   if (character_roster)
    {
-      return bitmap_bin->auto_get("police-commissioner-avatar-01.png");
-   }
-   else if (speaking_character_identifier == "DETECTIVE")
-   {
-      return bitmap_bin->auto_get("cat-detective-avatar-02.png");
-   }
-   else
-   {
-      return bitmap_bin->auto_get("mystery-cat-profile-feature-01.png");
+      if (!character_roster->character_exists_by_name(speaking_character_identifier))
+      {
+         // Throw for now
+         throw std::runtime_error("Roster is present, but character \"" + speaking_character_identifier + "\" "
+                                  "does not exist in roster");
+      }
+
+      AllegroFlare::DialogSystem::Characters::Base *base =
+         character_roster->find_character_by_name(speaking_character_identifier);
+
+      if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
+      {
+         AllegroFlare::DialogSystem::Characters::Basic *as =
+            static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
+         return bitmap_bin->auto_get(as->get_avatar_portrait_identifier());
+      }
+      else
+      {
+         throw std::runtime_error("DialogSystem: unknown handled character type");
+      }
    }
    return nullptr;
 }

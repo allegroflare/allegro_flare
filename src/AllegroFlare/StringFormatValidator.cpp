@@ -47,6 +47,15 @@ bool StringFormatValidator::has_only_numerical_characters()
    return (string.find_first_not_of("9876543210") == std::string::npos);
 }
 
+bool StringFormatValidator::ends_with(std::string ending)
+{
+   if (string.length() >= ending.length())
+   {
+      return string.compare(string.length() - ending.length(), ending.length(), ending) == 0;
+   }
+   return false;
+}
+
 
 } // namespace AllegroFlare
 

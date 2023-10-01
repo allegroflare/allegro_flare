@@ -28,6 +28,8 @@ properties:
     type: AllegroFlare::DialogSystem::CharacterRoster*
     constructor_arg: true
     init_with: nullptr
+    getter: true
+    setter: true
 
   - name: active_dialog_box
     type: AllegroFlare::Elements::DialogBoxes::Base*
@@ -95,6 +97,7 @@ documentation:
      - review overall the integrety of the system, Add lots of tests, make it so "anybody can emit a dialog event"
   - todo:
      - currently, "active_character_staging_layout" is owned by this system and requires destruction
+     - consider owning "character_roster" and loading from a file
 
 
 methods:
@@ -138,13 +141,39 @@ methods:
     guards: [ 'std::filesystem::exists(filename)' ]
     body: |
       // TODO: Validate a dialog is not currently running (or something)
-      AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-      yaml_loader.load_file(filename);
-      dialog_node_bank = yaml_loader.get_node_bank();
+      // TODO: Test these cases for loading multiple file formats with these extensions
+      AllegroFlare::StringFormatValidator validator(filename);
+      if (validator.ends_with(".screenplay.txt"))
+      {
+         AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
+         std::string screenplay_text = AllegroFlare::php::file_get_contents(filename); // TODO: Consider removing
+                                                                                       // file loading and move into
+                                                                                       // loader
+         loader.set_text(screenplay_text);
+         loader.load();
+         dialog_node_bank = loader.get_node_bank();
+      }
+      else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
+      {
+         AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+         yaml_loader.load_file(filename);
+         dialog_node_bank = yaml_loader.get_node_bank();
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file",
+            "Cannot load file. Unable to know what loader should be used for filename \"" + filename + "\""
+         );
+      }
       return;
     body_dependency_symbols:
       - std::filesystem::exists
+      - AllegroFlare::UsefulPHP
       - AllegroFlare::DialogTree::YAMLLoader
+      - AllegroFlare::DialogTree::BasicScreenplayTextLoader
+      - AllegroFlare::StringFormatValidator
+      - AllegroFlare::Logger
 
 
   - name: initialize
@@ -227,20 +256,32 @@ methods:
         default_argument: '"[unset-speaking_character_identifier]"'
     guards: [ bitmap_bin ]
     body: |
-      // TODO: Update this method to use the "character_roster" property on this class to dynamically obtain avatar
-      if (speaking_character_identifier == "COMMISSIONER")
+      if (character_roster)
       {
-         return bitmap_bin->auto_get("police-commissioner-avatar-01.png");
-      }
-      else if (speaking_character_identifier == "DETECTIVE")
-      {
-         return bitmap_bin->auto_get("cat-detective-avatar-02.png");
-      }
-      else
-      {
-         return bitmap_bin->auto_get("mystery-cat-profile-feature-01.png");
+         if (!character_roster->character_exists_by_name(speaking_character_identifier))
+         {
+            // Throw for now
+            throw std::runtime_error("Roster is present, but character \"" + speaking_character_identifier + "\" "
+                                     "does not exist in roster");
+         }
+
+         AllegroFlare::DialogSystem::Characters::Base *base =
+            character_roster->find_character_by_name(speaking_character_identifier);
+
+         if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
+         {
+            AllegroFlare::DialogSystem::Characters::Basic *as =
+               static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
+            return bitmap_bin->auto_get(as->get_avatar_portrait_identifier());
+         }
+         else
+         {
+            throw std::runtime_error("DialogSystem: unknown handled character type");
+         }
       }
       return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::DialogSystem::Characters::Basic
 
 
   - name: spawn_dialog_by_name
@@ -773,5 +814,15 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterRoster
     headers: [ AllegroFlare/DialogSystem/CharacterRoster.hpp ]
+  - symbol: AllegroFlare::DialogSystem::Characters::Basic
+    headers: [ AllegroFlare/DialogSystem/Characters/Basic.hpp ]
+  - symbol: AllegroFlare::StringFormatValidator
+    headers: [ AllegroFlare/StringFormatValidator.hpp ]
+  - symbol: AllegroFlare::DialogTree::BasicScreenplayTextLoader
+    headers: [ AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 

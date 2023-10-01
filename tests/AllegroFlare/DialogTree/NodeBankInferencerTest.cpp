@@ -13,7 +13,7 @@ public:
    AllegroFlare::DialogTree::NodeBank build_node_bank()
    {
       std::string script_text = AllegroFlare::php::file_get_contents(
-         "/Users/markoates/Repos/allegro_flare/tests/fixtures/dialogs/basic_screenplay_text.txt"
+         "/Users/markoates/Repos/allegro_flare/tests/fixtures/dialogs/basic_screenplay_text.screenplay.txt"
       );
       AllegroFlare::DialogTree::BasicScreenplayTextLoader basic_screenplay_text_loader;
       basic_screenplay_text_loader.set_text(script_text);

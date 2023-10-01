@@ -19,6 +19,7 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/DialogBoxes/Basic",
@@ -735,7 +736,8 @@
     "AllegroFlare/Logger"
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
-    "AllegroFlare/DialogSystem/CharacterFactory"
+    "AllegroFlare/DialogSystem/CharacterFactory",
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/DialogSystem/Characters/Base": [
     "AllegroFlare/DialogSystem/CharacterRoster",
@@ -982,6 +984,17 @@
   ],
   "AllegroFlare/DialogSystem/CharacterRoster": [
     "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/StringFormatValidator": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/DialogTree/BasicScreenplayTextLoader": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
@@ -1645,10 +1658,6 @@
   ],
   "AllegroFlare/FrameAnimation/SpriteSheet": [
     "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
-  ],
-  "AllegroFlare/UsefulPHP": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book"
   ],

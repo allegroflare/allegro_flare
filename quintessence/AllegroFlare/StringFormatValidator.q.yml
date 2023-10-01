@@ -38,3 +38,17 @@ functions:
       return (string.find_first_not_of("9876543210") == std::string::npos);
 
 
+  - name: ends_with
+    type: bool
+    parameters:
+      - name: ending
+        type: std::string
+        default_argument: '""'
+    body: |
+      if (string.length() >= ending.length())
+      {
+         return string.compare(string.length() - ending.length(), ending.length(), ending) == 0;
+      }
+      return false;
+
+
