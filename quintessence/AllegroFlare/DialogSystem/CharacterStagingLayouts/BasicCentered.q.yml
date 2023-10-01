@@ -60,10 +60,22 @@ methods:
         default_argument: 0.0f
     guards: [ speaking_character_bitmap ]
     body: |
-      if (speaking_character_bitmap == this->speaking_character_bitmap) return; // TODO: Make this a controllable option
+      if (speaking_character_bitmap == this->speaking_character_bitmap) return;
 
       this->speaking_character_bitmap = speaking_character_bitmap;
       speaking_character_bitmap_changed_at = time_now;
+      return;
+
+
+  - name: swap_speaking_character_bitmap
+    parameters:
+      - name: speaking_character_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    guards: [ speaking_character_bitmap ]
+    body: |
+      if (speaking_character_bitmap == this->speaking_character_bitmap) return;
+      this->speaking_character_bitmap = speaking_character_bitmap;
       return;
 
 

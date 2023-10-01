@@ -35,6 +35,7 @@ namespace AllegroFlare
             int get_surface_height() const;
             void clear_speaking_character_bitmap();
             void set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f);
+            void swap_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr);
             virtual void show(float time_now=0.0f) override;
             virtual void hide(float time_now=0.0f) override;
             virtual void update(float time_now=0.0f) override;
