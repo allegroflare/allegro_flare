@@ -4,6 +4,7 @@
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 
 
 TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, can_be_created_without_blowing_up)
@@ -24,14 +25,26 @@ TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, load__will_build_the
 
    AllegroFlare::DialogTree::NodeBank node_bank = basic_screenplay_text_loader.get_node_bank();
 
-   ASSERT_EQ(12, node_bank.num_nodes());
+   ASSERT_EQ(13, node_bank.num_nodes());
 
    std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*> nodes = node_bank.get_nodes_ref();
 
+   // All nodes (except the last one) are the expected types
+   int count_MultipageWithOptions = 0;
+   int count_ExitDialog = 0;
    for (auto &node : nodes)
    {
-      EXPECT_EQ(true, node.second->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE));
+      if (node.second->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+      {
+         count_MultipageWithOptions++;
+      }
+      else if (node.second->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+      {
+         count_ExitDialog++;
+      }
    }
+   EXPECT_EQ(12, count_MultipageWithOptions);
+   EXPECT_EQ(1, count_ExitDialog);
 
    // Pluck a few nodes
    AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as = nullptr;

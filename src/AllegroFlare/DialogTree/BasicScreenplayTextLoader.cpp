@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 
+#include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <iostream>
 #include <sstream>
@@ -86,7 +87,7 @@ AllegroFlare::DialogTree::NodeBank BasicScreenplayTextLoader::load()
       {
          if (sub_chunks[0].empty()) continue;
 
-         std::string node_name = "dialog_node_" + std::to_string(node_id);
+         std::string node_name = "dialog_node_" + std::to_string(node_id); // TODO: Extract this to a function
          std::string next_node_name = "dialog_node_" + std::to_string(node_id+1);
          std::string speaker = sub_chunks.front();
          std::vector<std::string> dialog_pages = split(sub_chunks.back(), " / ");
@@ -111,11 +112,15 @@ AllegroFlare::DialogTree::NodeBank BasicScreenplayTextLoader::load()
             { "next", create_GoToNode_option(next_node_name) },
          });
 
-         node_id++;
-          
          node_bank.add_node(node_name, result_node);
+
+         node_id++;
       }
    }
+
+   // Add an ExitDialog node at the end
+   std::string node_name = "dialog_node_" + std::to_string(node_id); // TODO: Extract this to a function
+   node_bank.add_node(node_name, new AllegroFlare::DialogTree::Nodes::ExitDialog());
 
    loaded = true;
    return node_bank;

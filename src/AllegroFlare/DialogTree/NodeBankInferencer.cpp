@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/NodeBankInferencer.hpp>
 
+#include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <iostream>
@@ -69,6 +70,10 @@ std::vector<std::string> NodeBankInferencer::obtain_list_of_speaking_characters(
          AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
             static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(node.second);
          speakers.push_back(as->get_speaker());
+      }
+      else if (node.second->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+      {
+         // Do nothing for this node type
       }
       else
       {

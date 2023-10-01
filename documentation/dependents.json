@@ -930,6 +930,7 @@
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/NodeBank",
+    "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
@@ -995,6 +996,10 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitDialog": [
+    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/DialogTree/NodeBankInferencer"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",

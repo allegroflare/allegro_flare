@@ -39,6 +39,10 @@ methods:
                static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(node.second);
             speakers.push_back(as->get_speaker());
          }
+         else if (node.second->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+         {
+            // Do nothing for this node type
+         }
          else
          {
             // The node type is not known
@@ -61,6 +65,7 @@ methods:
       return make_unique_and_retain_ordering(speakers);
     body_dependency_symbols:
       - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+      - AllegroFlare::DialogTree::Nodes::ExitDialog
       - AllegroFlare::Logger
 
 
@@ -137,5 +142,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ExitDialog
+    headers: [ AllegroFlare/DialogTree/Nodes/ExitDialog.hpp ]
 
 
