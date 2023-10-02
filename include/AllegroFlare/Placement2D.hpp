@@ -30,7 +30,7 @@ namespace AllegroFlare
       void scale_to_fit_width(float target_width);
       void scale_to_fit_height(float target_height);
       void scale_to_fit_width_or_height(float target_width, float target_height);
-      void scale_to_fill_width_or_height(float target_width, float target_height); // TODO: This function
+      void scale_to_fill_width_or_height(float target_width, float target_height);
 
       void start_transform();
       void start_reverse_transform();
