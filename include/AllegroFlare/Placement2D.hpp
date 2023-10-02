@@ -27,6 +27,11 @@ namespace AllegroFlare
       Placement2D(float x, float y, float w, float h);
       Placement2D(float x, float y, float w, float h, float rotation, float scale_x=1.0, float scale_y=1.0, float align_x=0.5, float align_y=0.5, float anchor_x=0.0, float anchor_y=0.0);
 
+      void scale_to_fit_width(float target_width);
+      void scale_to_fit_height(float target_height);
+      void scale_to_fit_width_or_height(float target_width, float target_height);
+      void scale_to_fill_width_or_height(float target_width, float target_height); // TODO: This function
+
       void start_transform();
       void start_reverse_transform();
       void restore_transform();
