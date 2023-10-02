@@ -54,7 +54,36 @@ TEST_F(AllegroFlare_Placement2DTest,
 }
 
 
+TEST_F(AllegroFlare_Placement2DTest, scale_to_fit_width__will_modify_the_scale_to_fit_the_width)
+{
+   //void scale_to_fit_width(float target_width);
+   // TODO: Add test
+}
+
+
+TEST_F(AllegroFlare_Placement2DTest, scale_to_fit_height__will_modify_the_scale_to_fit_the_height)
+{
+   //void scale_to_fit_height(float target_height);
+   // TODO: Add test
+}
+
+
+TEST_F(AllegroFlare_Placement2DTest, scale_to_fit_width_or_height__will_modify_the_scale_to_fit_the_width_or_height)
+{
+   //void scale_to_fit_width_or_height(float target_width, float target_height);
+   // TODO: Add test
+}
+
+
+TEST_F(AllegroFlare_Placement2DTest, scale_to_fill_width_or_height__will_modify_the_scale_to_fill_the_width_or_height)
+{
+   //void scale_to_fit_width_or_height(float target_width, float target_height);
+   // TODO: Add test
+}
+
+
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
+   // TODO: Make this TIMED_INTERACTIVE
    DISABLED__INTERACTIVE__collide_as_if__will_check_pixel_perfect_collision_as_if_the_subject_under_placement_is_a_bitmap)
 {
    ALLEGRO_BITMAP *bitmap_a = get_bitmap_bin_ref()["monoplex-1.png"];
@@ -165,6 +194,7 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
+   // TODO: Make this TIMED_INTERACTIVE
    DISABLED__INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);

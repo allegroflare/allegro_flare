@@ -133,6 +133,10 @@ namespace AllegroFlare
    void Placement2D::scale_to_fit_width(float target_width)
    {
       // TODO: Test this function
+      // TODO: Have divide by zero to set scale to 0.0f or other if alternative scale is better
+      // TODO: Consider negative width/height
+      if (size.x == 0.0f) scale.x = scale.y = 1.0f;
+
       float new_scale_x = target_width / size.x;
       scale.x = new_scale_x;
       scale.y = new_scale_x;
@@ -143,6 +147,10 @@ namespace AllegroFlare
    void Placement2D::scale_to_fit_height(float target_height)
    {
       // TODO: Test this function
+      // TODO: Have divide by zero to set scale to 0.0f or other if alternative scale is better
+      // TODO: Consider negative width/height
+      if (size.y == 0.0f) scale.x = scale.y = 1.0f;
+
       float new_scale_y = target_height / size.y;
       scale.x = new_scale_y;
       scale.y = new_scale_y;
@@ -153,6 +161,10 @@ namespace AllegroFlare
    void Placement2D::scale_to_fit_width_or_height(float target_width, float target_height)
    {
       // TODO: Test this function
+      // TODO: Have divide by zero to set scale to 0.0f or other if alternative scale is better
+      // TODO: Consider negative width/height
+      if (size.x == 0.0f || size.y == 0.0f) scale.x = scale.y = 1.0f;
+
       float new_scale_x = target_width / size.x;
       float new_scale_y = target_height / size.y;
 
@@ -168,6 +180,10 @@ namespace AllegroFlare
    void Placement2D::scale_to_fill_width_or_height(float target_width, float target_height)
    {
       // TODO: Test this function
+      // TODO: Have divide by zero to set scale to 0.0f or other if alternative scale is better
+      // TODO: Consider negative width/height
+      if (size.x == 0.0f || size.y == 0.0f) scale.x = scale.y = 1.0f;
+
       float new_scale_x = target_width / size.x;
       float new_scale_y = target_height / size.y;
 
