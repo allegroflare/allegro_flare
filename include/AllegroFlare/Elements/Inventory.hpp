@@ -52,7 +52,7 @@ namespace AllegroFlare
          bool show_title_text;
          std::function<void(AllegroFlare::Elements::Inventory*, void*)> draw_details_pane_func;
          void* draw_details_pane_func_user_data;
-         std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func;
+         std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, int, int, void*)> draw_inventory_item_func;
          void* draw_inventory_item_func_user_data;
          bool render_selectable_items_before_details_pane;
          std::string inventory_show_sound_identifier;
@@ -100,7 +100,7 @@ namespace AllegroFlare
          void set_show_title_text(bool show_title_text);
          void set_draw_details_pane_func(std::function<void(AllegroFlare::Elements::Inventory*, void*)> draw_details_pane_func);
          void set_draw_details_pane_func_user_data(void* draw_details_pane_func_user_data);
-         void set_draw_inventory_item_func(std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func);
+         void set_draw_inventory_item_func(std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, int, int, void*)> draw_inventory_item_func);
          void set_draw_inventory_item_func_user_data(void* draw_inventory_item_func_user_data);
          void set_render_selectable_items_before_details_pane(bool render_selectable_items_before_details_pane);
          void set_inventory_show_sound_identifier(std::string inventory_show_sound_identifier);
@@ -128,7 +128,7 @@ namespace AllegroFlare
          bool get_show_title_text() const;
          std::function<void(AllegroFlare::Elements::Inventory*, void*)> get_draw_details_pane_func() const;
          void* get_draw_details_pane_func_user_data() const;
-         std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> get_draw_inventory_item_func() const;
+         std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, int, int, void*)> get_draw_inventory_item_func() const;
          void* get_draw_inventory_item_func_user_data() const;
          bool get_render_selectable_items_before_details_pane() const;
          std::string get_inventory_show_sound_identifier() const;

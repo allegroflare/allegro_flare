@@ -177,7 +177,7 @@ void Inventory::set_draw_details_pane_func_user_data(void* draw_details_pane_fun
 }
 
 
-void Inventory::set_draw_inventory_item_func(std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> draw_inventory_item_func)
+void Inventory::set_draw_inventory_item_func(std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, int, int, void*)> draw_inventory_item_func)
 {
    this->draw_inventory_item_func = draw_inventory_item_func;
 }
@@ -345,7 +345,7 @@ void* Inventory::get_draw_details_pane_func_user_data() const
 }
 
 
-std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)> Inventory::get_draw_inventory_item_func() const
+std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, int, int, void*)> Inventory::get_draw_inventory_item_func() const
 {
    return draw_inventory_item_func;
 }
@@ -762,6 +762,8 @@ void Inventory::draw_inventory_items()
                this,
                x + column * spacing_x,
                y + row * spacing_y,
+               column,
+               row,
                item_to_draw,
                draw_inventory_item_func_user_data
             );

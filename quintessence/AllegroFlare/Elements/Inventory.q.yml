@@ -169,7 +169,7 @@ properties:
     setter: true
 
   - name: draw_inventory_item_func
-    type: std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, void*)>
+    type: std::function<void(AllegroFlare::Elements::Inventory*, float, float, int, int, int, void*)>
     init_with: ''
     getter: true
     setter: true
@@ -544,6 +544,8 @@ functions:
                   this,
                   x + column * spacing_x,
                   y + row * spacing_y,
+                  column,
+                  row,
                   item_to_draw,
                   draw_inventory_item_func_user_data
                );
