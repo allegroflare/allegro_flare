@@ -349,15 +349,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    active_dialog_node_name = dialog_name;
 
-   // NOTE: The branching below is not needed because find_node_by_name will throw if not found
-   //if (!active_dialog_node)
-   //{
-      //throw std::runtime_error(
-         //"DialogSystem::spawn_dialog_by_name: error: no dialog exists with the name \"" + dialog_name + "\""
-      //);
-   //}
-   //else
-   //{
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
       AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
