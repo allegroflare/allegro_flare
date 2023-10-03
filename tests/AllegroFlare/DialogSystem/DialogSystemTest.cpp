@@ -217,7 +217,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    dialog_system.initialize();
 
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
-   dialog_system.spawn_dialog_by_name("start_node");
+   dialog_system.activate_dialog_node_by_name("start_node");
 
    int passes = 120;
    for (int i=0; i<passes; i++)
@@ -263,7 +263,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    dialog_system.initialize();
 
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
-   dialog_system.spawn_dialog_by_name("start_node");
+   dialog_system.activate_dialog_node_by_name("start_node");
 
    int NUM_PASSES = 20;
    int passes = NUM_PASSES;
@@ -396,7 +396,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
             switch (event.keyboard.keycode)
             {
                case ALLEGRO_KEY_R: // R for "Reset"
-                  dialog_system.spawn_dialog_by_name(node_name_to_start);
+                  dialog_system.activate_dialog_node_by_name(node_name_to_start);
                   EXPECT_EQ(true, dialog_system.get_switched_in()); // TODO: Move this to another test
                break;
 
@@ -523,7 +523,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
             switch (event.keyboard.keycode)
             {
                case ALLEGRO_KEY_R: // R for "Reset"
-                  dialog_system.spawn_dialog_by_name(node_name_to_start);
+                  dialog_system.activate_dialog_node_by_name(node_name_to_start);
                   EXPECT_EQ(true, dialog_system.get_switched_in()); // TODO: Move this to another test
                break;
 

@@ -343,7 +343,7 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
    return nullptr;
 }
 
-void DialogSystem::spawn_dialog_by_name(std::string dialog_name)
+void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
    // TODO: Rename this to "activate_dialog_node_by_name", because there are nodes that do not "spawn"
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
@@ -370,7 +370,7 @@ void DialogSystem::spawn_dialog_by_name(std::string dialog_name)
       if (node_options_as_text.empty())
       {
          throw std::runtime_error(
-            "DialogSystem::spawn_dialog_by_name: error: Expecting 1 or many options for node named \""
+            "DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
                + dialog_name + "\" but there are no options."
          );
       }
@@ -386,7 +386,7 @@ void DialogSystem::spawn_dialog_by_name(std::string dialog_name)
          if (node_pages.size() != 1)
          {
             throw std::runtime_error(
-               "DialogSystem::spawn_dialog_by_name: error: Expecting only 1 page for dialog node \""
+               "DialogSystem::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
                   + dialog_name + "\" (because it is going to be used to build a Choice dialog, "
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
@@ -404,7 +404,7 @@ void DialogSystem::spawn_dialog_by_name(std::string dialog_name)
    else
    {
       throw std::runtime_error(
-         "DialogSystem::spawn_dialog_by_name: error: Unable to spawn dialog *box* for dialog *node* type \""
+         "DialogSystem::activate_dialog_node_by_name: error: Unable to spawn dialog *box* for dialog *node* type \""
             + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
       );
    }
@@ -664,7 +664,7 @@ void DialogSystem::activate_dialog_option(int selection_choice)
             std::string target_node_name = as_go_to_node_dialog_node_option->get_target_node_name();
 
             //event_emitter->emit_dialog_open_event(target_node_name);
-            spawn_dialog_by_name(target_node_name);
+            activate_dialog_node_by_name(target_node_name);
          }},
       };
 
@@ -837,7 +837,7 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
    else if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
    {
       auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName*>(data);
-      spawn_dialog_by_name(as->get_name());
+      activate_dialog_node_by_name(as->get_name());
    }
    else
    {
