@@ -44,6 +44,8 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
    , active_character_staging_layout(nullptr)
+   , activate_dialog_node_type_unhandled_func()
+   , activate_dialog_node_type_unhandled_func_user_data(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -60,6 +62,18 @@ DialogSystem::~DialogSystem()
 void DialogSystem::set_character_roster(AllegroFlare::DialogSystem::CharacterRoster* character_roster)
 {
    this->character_roster = character_roster;
+}
+
+
+void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func)
+{
+   this->activate_dialog_node_type_unhandled_func = activate_dialog_node_type_unhandled_func;
+}
+
+
+void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data)
+{
+   this->activate_dialog_node_type_unhandled_func_user_data = activate_dialog_node_type_unhandled_func_user_data;
 }
 
 
@@ -90,6 +104,18 @@ AllegroFlare::DialogSystem::CharacterRoster* DialogSystem::get_character_roster(
 std::string DialogSystem::get_active_dialog_node_name() const
 {
    return active_dialog_node_name;
+}
+
+
+std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> DialogSystem::get_activate_dialog_node_type_unhandled_func() const
+{
+   return activate_dialog_node_type_unhandled_func;
+}
+
+
+void* DialogSystem::get_activate_dialog_node_type_unhandled_func_user_data() const
+{
+   return activate_dialog_node_type_unhandled_func_user_data;
 }
 
 
@@ -394,10 +420,22 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    }
    else
    {
-      throw std::runtime_error(
-         "DialogSystem::activate_dialog_node_by_name: error: Unable to spawn dialog *box* for dialog *node* type \""
-            + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
-      );
+      bool handled = false;
+      if (activate_dialog_node_type_unhandled_func)
+      {
+         handled = activate_dialog_node_type_unhandled_func(
+               this,
+               activate_dialog_node_type_unhandled_func_user_data
+         );
+      }
+
+      if (!handled)
+      {
+         throw std::runtime_error(
+            "DialogSystem::activate_dialog_node_by_name: error: Unable to handle dialog node activation on type \""
+               + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+         );
+      }
    }
    return;
 }

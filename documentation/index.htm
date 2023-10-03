@@ -2114,6 +2114,14 @@ table td
   <td class="property">AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*</td>
 </tr>
 <tr>
+  <td class="property">activate_dialog_node_type_unhandled_func</td>
+  <td class="property">std::function&lt;bool(AllegroFlare::DialogSystem::DialogSystem*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">activate_dialog_node_type_unhandled_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">switched_in</td>
   <td class="property">bool</td>
 </tr>
@@ -2212,6 +2220,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogSystem&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -28717,6 +28728,9 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/DialogSystem/DialogSystem": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/DialogSystem/DialogSystem",

@@ -774,6 +774,9 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/DialogSystem/DialogSystem": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
