@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 
+#include <AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp>
 #include <AllegroFlare/LegalClauseGenerator.hpp>
 #include <iostream>
@@ -102,7 +103,7 @@ AllegroFlare::Elements::RollingCredits::Sections::Spacer* SectionFactory::create
    return section;
 }
 
-std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*> SectionFactory::create_standard_disclaimers_text(std::string company_name, std::vector<std::string> non_endorced_software_and_software_company_names)
+std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> SectionFactory::create_standard_disclaimers_text(std::string company_name, std::vector<std::string> non_endorced_software_and_software_company_names)
 {
    auto &ALIGN_CENTER = AllegroFlare::Elements::RollingCredits::Sections::LegalText::ALIGN_CENTER;
 
@@ -115,7 +116,7 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*> Sectio
    std::string disclaimer_4 = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
    std::string disclaimer_5 = AllegroFlare::LegalClauseGenerator::generate_as_is_without_warranty_disclaimer();
 
-   return std::vector<AllegroFlare::Elements::RollingCredits::Sections::LegalText*>{
+   return std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>{
       new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_1, ALIGN_CENTER),
       new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_2, ALIGN_CENTER),
       new AllegroFlare::Elements::RollingCredits::Sections::LegalText(disclaimer_3, ALIGN_CENTER),
