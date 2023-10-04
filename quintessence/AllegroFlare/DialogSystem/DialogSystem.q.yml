@@ -322,14 +322,6 @@ methods:
                active_dialog_node,
                activate_dialog_node_by_name_func_user_data
             );
-         std::cout << "C" << std::endl;
-
-         //if (handled)
-         //{
-            //active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
-            //active_dialog_node_name = dialog_name;
-         //}
-         //std::cout << "D" << std::endl;
 
          if (!handled)
          {
@@ -342,7 +334,6 @@ methods:
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
       {
-         std::cout << "E" << std::endl;
          AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
             static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
 
@@ -380,14 +371,12 @@ methods:
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
       {
-         std::cout << "F" << std::endl;
          //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
             //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
          shutdown_dialog(); // TODO: See if this is a correct expectation for this event
       }
       else
       {
-         std::cout << "G" << std::endl;
          bool handled = false;
          if (activate_dialog_node_type_unhandled_func)
          {
