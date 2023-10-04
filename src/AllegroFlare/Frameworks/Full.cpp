@@ -801,6 +801,41 @@ bool Full::is_using_display_backbuffer_as_primary_render_surface()
 
 
 
+void Full::set_dialog_system_load_node_bank_func(
+      std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func
+   )
+{
+   dialog_system.set_load_node_bank_func(load_node_bank_func);
+}
+
+
+
+void Full::set_dialog_system_load_node_bank_func_user_data(void* load_node_bank_func_user_data)
+{
+   dialog_system.set_load_node_bank_func_user_data(load_node_bank_func_user_data);
+}
+
+
+
+void Full::set_dialog_system_activate_dialog_node_by_name_func(
+      std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)>
+            activate_dialog_node_by_name_func
+   )
+{
+   dialog_system.set_activate_dialog_node_by_name_func(activate_dialog_node_by_name_func);
+}
+
+
+
+void Full::set_dialog_system_activate_dialog_node_by_name_func_user_data(void* 
+      activate_dialog_node_by_name_func_user_data
+   )
+{
+   dialog_system.set_activate_dialog_node_by_name_func_user_data(activate_dialog_node_by_name_func_user_data);
+}
+
+
+
 bool Full::is_initialized()
 {
    return initialized;

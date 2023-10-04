@@ -179,6 +179,20 @@ namespace AllegroFlare
          void disable_using_display_backbuffer_as_primary_render_surface();
          bool is_using_display_backbuffer_as_primary_render_surface();
 
+         // Dialog System
+         void set_dialog_system_load_node_bank_func(
+               std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func
+            );
+         void set_dialog_system_load_node_bank_func_user_data(void* load_node_bank_func_user_data);
+         void set_dialog_system_activate_dialog_node_by_name_func(
+               std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)>
+                     activate_dialog_node_by_name_func
+            );
+         void set_dialog_system_activate_dialog_node_by_name_func_user_data(void* 
+               activate_dialog_node_by_name_func_user_data
+            );
+
+         // Audio Controller System
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
 
