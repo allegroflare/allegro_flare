@@ -3,6 +3,9 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+
+#include <iostream>
+
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>

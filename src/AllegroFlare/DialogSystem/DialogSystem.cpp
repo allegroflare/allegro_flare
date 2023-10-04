@@ -44,6 +44,8 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
    , active_character_staging_layout(nullptr)
+   , activate_dialog_node_by_name_func()
+   , activate_dialog_node_by_name_func_user_data(nullptr)
    , activate_dialog_node_type_unhandled_func()
    , activate_dialog_node_type_unhandled_func_user_data(nullptr)
    , switched_in(false)
@@ -62,6 +64,18 @@ DialogSystem::~DialogSystem()
 void DialogSystem::set_character_roster(AllegroFlare::DialogSystem::CharacterRoster* character_roster)
 {
    this->character_roster = character_roster;
+}
+
+
+void DialogSystem::set_activate_dialog_node_by_name_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> activate_dialog_node_by_name_func)
+{
+   this->activate_dialog_node_by_name_func = activate_dialog_node_by_name_func;
+}
+
+
+void DialogSystem::set_activate_dialog_node_by_name_func_user_data(void* activate_dialog_node_by_name_func_user_data)
+{
+   this->activate_dialog_node_by_name_func_user_data = activate_dialog_node_by_name_func_user_data;
 }
 
 
@@ -104,6 +118,18 @@ AllegroFlare::DialogSystem::CharacterRoster* DialogSystem::get_character_roster(
 std::string DialogSystem::get_active_dialog_node_name() const
 {
    return active_dialog_node_name;
+}
+
+
+std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_activate_dialog_node_by_name_func() const
+{
+   return activate_dialog_node_by_name_func;
+}
+
+
+void* DialogSystem::get_activate_dialog_node_by_name_func_user_data() const
+{
+   return activate_dialog_node_by_name_func_user_data;
 }
 
 
@@ -367,12 +393,38 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
 
 void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
-   // TODO: Rename this to "activate_dialog_node_by_name", because there are nodes that do not "spawn"
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    active_dialog_node_name = dialog_name;
 
-   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   if (activate_dialog_node_by_name_func)
    {
+      bool handled = activate_dialog_node_by_name_func(
+            this,
+            active_dialog_node_name,
+            active_dialog_node,
+            activate_dialog_node_by_name_func_user_data
+         );
+      std::cout << "C" << std::endl;
+
+      //if (handled)
+      //{
+         //active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+         //active_dialog_node_name = dialog_name;
+      //}
+      //std::cout << "D" << std::endl;
+
+      if (!handled)
+      {
+         throw std::runtime_error(
+               "DialogSystem::activate_dialog_node_by_name: error: a user \"activate_dialog_node_by_name_func\" has "
+                  "been provided, but it returned false when called, indicating that it was not able to handle the "
+                  "node activation."
+            );
+      }
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   {
+      std::cout << "E" << std::endl;
       AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
          static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
 
@@ -410,12 +462,14 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
+      std::cout << "F" << std::endl;
       //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
          //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
       shutdown_dialog(); // TODO: See if this is a correct expectation for this event
    }
    else
    {
+      std::cout << "G" << std::endl;
       bool handled = false;
       if (activate_dialog_node_type_unhandled_func)
       {
