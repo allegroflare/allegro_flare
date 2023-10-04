@@ -124,6 +124,7 @@ void EventEmitter::emit_spawn_dialog_by_name_event(std::string dialog_node_name_
    // TODO: Add test for this emission
    // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
    //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+   // TODO: Consider if this SpawnDialogByName event should be renamed to ActivateDialogNodeByName
    intptr_t data_to_pass = (intptr_t)(void *)(
       new AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName(dialog_node_name_to_open)
    );
