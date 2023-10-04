@@ -112,21 +112,21 @@ void EventEmitter::emit_dialog_open_event(std::string dialog_node_name_to_open)
    return;
 }
 
-void EventEmitter::emit_spawn_dialog_by_name_event(std::string dialog_node_name_to_open)
+void EventEmitter::emit_activate_dialog_node_by_name_event(std::string dialog_node_name_to_activate)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_spawn_dialog_by_name_event]: error: guard \"initialized\" not met.";
+      error_message << "[EventEmitter::emit_activate_dialog_node_by_name_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_spawn_dialog_by_name_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("EventEmitter::emit_activate_dialog_node_by_name_event: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
    //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
-   // TODO: Consider if this SpawnDialogByName event should be renamed to ActivateDialogNodeByName
    intptr_t data_to_pass = (intptr_t)(void *)(
-      new AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName(dialog_node_name_to_open)
+      // TODO: Rename this SpawnDialogByName event should be renamed to ActivateDialogNodeByName
+      new AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName(dialog_node_name_to_activate)
    );
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
    return;
