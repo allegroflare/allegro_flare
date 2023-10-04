@@ -131,17 +131,18 @@ void EventEmitter::emit_spawn_dialog_by_name_event(std::string dialog_node_name_
    return;
 }
 
-void EventEmitter::emit_load_dialog_yaml_file(std::string dialog_yaml_filename_to_load)
+void EventEmitter::emit_load_dialog_file(std::string dialog_yaml_filename_to_load)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_load_dialog_yaml_file]: error: guard \"initialized\" not met.";
+      error_message << "[EventEmitter::emit_load_dialog_file]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_load_dialog_yaml_file: error: guard \"initialized\" not met");
+      throw std::runtime_error("EventEmitter::emit_load_dialog_file: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
+   // TODO: Rename LoadDialogYAMLFile to a more abstract LoadDialogNodeBankFromFilename
    //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
    intptr_t data_to_pass = (intptr_t)(void *)(
       new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile(dialog_yaml_filename_to_load)
