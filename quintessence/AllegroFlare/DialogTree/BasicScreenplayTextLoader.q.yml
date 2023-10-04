@@ -53,8 +53,23 @@ methods:
       return node_bank;
 
 
+  - name: load_file
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+    guards: [ (!loaded), '(AllegroFlare::php::file_exists(filename))' ]
+    body: |
+      // TODO: Test this method
+      // TODO: Remove "file_exists" using php as dependency, consider alternative that outputs name of missing file
+      text = AllegroFlare::php::file_get_contents(filename);
+      load();
+    body_dependency_symbols:
+      - AllegroFlare::UsefulPHP
+
+
   - name: load
-    type: AllegroFlare::DialogTree::NodeBank
+    type: const AllegroFlare::DialogTree::NodeBank&
     guards: [ (!loaded) ]
     body: |
       std::vector<std::string> chunks = split(text, "\n\n");
@@ -163,5 +178,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::ExitDialog
     headers: [ AllegroFlare/DialogTree/Nodes/ExitDialog.hpp ]
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 

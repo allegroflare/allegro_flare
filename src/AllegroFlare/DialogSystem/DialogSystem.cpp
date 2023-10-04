@@ -188,11 +188,7 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
    if (validator.ends_with(".screenplay.txt"))
    {
       AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
-      std::string screenplay_text = AllegroFlare::php::file_get_contents(filename); // TODO: Consider removing
-                                                                                    // file loading and move into
-                                                                                    // loader
-      loader.set_text(screenplay_text);
-      loader.load();
+      loader.load_file(filename);
       dialog_node_bank = loader.get_node_bank();
    }
    else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))

@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -59,7 +60,29 @@ AllegroFlare::DialogTree::NodeBank BasicScreenplayTextLoader::get_node_bank()
    return node_bank;
 }
 
-AllegroFlare::DialogTree::NodeBank BasicScreenplayTextLoader::load()
+void BasicScreenplayTextLoader::load_file(std::string filename)
+{
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicScreenplayTextLoader::load_file]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicScreenplayTextLoader::load_file: error: guard \"(!loaded)\" not met");
+   }
+   if (!((AllegroFlare::php::file_exists(filename))))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicScreenplayTextLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicScreenplayTextLoader::load_file: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met");
+   }
+   // TODO: Test this method
+   // TODO: Remove "file_exists" using php as dependency, consider alternative that outputs name of missing file
+   text = AllegroFlare::php::file_get_contents(filename);
+   load();
+}
+
+const AllegroFlare::DialogTree::NodeBank& BasicScreenplayTextLoader::load()
 {
    if (!((!loaded)))
    {

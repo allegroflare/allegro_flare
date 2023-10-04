@@ -28,7 +28,8 @@ namespace AllegroFlare
          bool get_loaded() const;
          void set_text(std::string text="[unset-text]");
          AllegroFlare::DialogTree::NodeBank get_node_bank();
-         AllegroFlare::DialogTree::NodeBank load();
+         void load_file(std::string filename="[unset-filename]");
+         const AllegroFlare::DialogTree::NodeBank& load();
          AllegroFlare::DialogTree::NodeOptions::GoToNode* create_GoToNode_option(std::string node_target_name="[unset-node_target_name]");
          static std::vector<std::string> split(std::string input="[unset-input]", std::string delimiter="__");
       };
