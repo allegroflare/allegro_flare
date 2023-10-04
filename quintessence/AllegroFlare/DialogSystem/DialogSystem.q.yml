@@ -52,6 +52,18 @@ properties:
     type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
     init_with: nullptr
 
+  - name: load_node_bank_func
+    type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: load_node_bank_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: activate_dialog_node_by_name_func
     type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)>
     init_with: ''
@@ -168,24 +180,45 @@ methods:
       // TODO: Validate a dialog is not currently running (or something)
       // TODO: Test these cases for loading multiple file formats with these extensions
       AllegroFlare::StringFormatValidator validator(filename);
-      if (validator.ends_with(".screenplay.txt"))
+
+      if (load_node_bank_func)
       {
-         AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
-         loader.load_file(filename);
-         dialog_node_bank = loader.get_node_bank();
-      }
-      else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
-      {
-         AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-         yaml_loader.load_file(filename);
-         dialog_node_bank = yaml_loader.get_node_bank();
+         // TODO: Test the case where "load_node_bank_func"
+         AllegroFlare::DialogTree::NodeBank loader_result_node_bank;
+         bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
+
+         if (!handled)
+         {
+            AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file"
+                  "a user \"load_node_bank_func\" has been provided, but it returned false when called, indicating "
+                     "that it was not able to load the NodeBank as expected."
+               );
+         }
+
+         dialog_node_bank = loader_result_node_bank;
       }
       else
       {
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file",
-            "Cannot load file. Unable to know what loader should be used for filename \"" + filename + "\""
-         );
+         if (validator.ends_with(".screenplay.txt"))
+         {
+            AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
+            loader.load_file(filename);
+            dialog_node_bank = loader.get_node_bank();
+         }
+         else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
+         {
+            AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+            yaml_loader.load_file(filename);
+            dialog_node_bank = yaml_loader.get_node_bank();
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file",
+               "Cannot load file. Unable to know what loader should be used for filename \"" + filename + "\""
+            );
+         }
       }
       return;
     body_dependency_symbols:
