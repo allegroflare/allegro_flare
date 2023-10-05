@@ -117,6 +117,12 @@ void DialogSystem::set_standard_dialog_box_font_size(int standard_dialog_box_fon
 }
 
 
+AllegroFlare::EventEmitter* DialogSystem::get_event_emitter() const
+{
+   return event_emitter;
+}
+
+
 AllegroFlare::DialogTree::NodeBank DialogSystem::get_dialog_node_bank() const
 {
    return dialog_node_bank;

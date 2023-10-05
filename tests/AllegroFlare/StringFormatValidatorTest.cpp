@@ -130,3 +130,38 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
 }
 
 
+TEST(AllegroFlare_Network2_URLTokenizerTest,
+   is_uppercase_symbol_name__will_return_true_if_any_characters_in_the_string_are_valid_uppercase_symbols)
+{
+   std::vector<std::string> test_strings = {
+      "THIS_IS_VALID",
+      "VALID",
+      "A32BIT_ALLOWED_SYMBOL",
+   };
+
+   for (auto &test_string : test_strings)
+   {
+      AllegroFlare::StringFormatValidator string_format_validator(test_string);
+      EXPECT_EQ(true, string_format_validator.is_uppercase_symbol_name());
+   }
+}
+
+
+TEST(AllegroFlare_Network2_URLTokenizerTest,
+   is_uppercase_symbol_name__will_return_false_if_any_characters_in_the_string_are_not_valid_uppercase_symbols)
+{
+   std::vector<std::string> test_strings = {
+      " THIS_IS_ not VALID",
+      "_INVALID",
+      "32INVALID",
+      "not_valid",
+   };
+
+   for (auto &test_string : test_strings)
+   {
+      AllegroFlare::StringFormatValidator string_format_validator(test_string);
+      EXPECT_EQ(false, string_format_validator.is_uppercase_symbol_name());
+   }
+}
+
+

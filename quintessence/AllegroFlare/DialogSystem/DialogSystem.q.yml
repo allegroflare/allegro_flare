@@ -18,6 +18,7 @@ properties:
     init_with: nullptr
     constructor_arg: true
     setter: explicit
+    getter: true
 
   - name: dialog_node_bank
     type: AllegroFlare::DialogTree::NodeBank

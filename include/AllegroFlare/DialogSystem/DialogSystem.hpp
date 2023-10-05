@@ -65,6 +65,7 @@ namespace AllegroFlare
          void set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data);
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
+         AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
          AllegroFlare::DialogSystem::CharacterRoster* get_character_roster() const;
          std::string get_active_dialog_node_name() const;

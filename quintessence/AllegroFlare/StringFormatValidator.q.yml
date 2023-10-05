@@ -52,3 +52,57 @@ functions:
       return false;
 
 
+  - name: is_uppercase_symbol_name
+    type: bool
+    body: |
+      bool at_first_char = true; // Flag to track the first character
+
+      for (char c : string) {
+         if (at_first_char && !std::isupper(c))
+         {
+             return false; // First character must be uppercase
+         }
+         else if (!std::isalnum(c) && c != '_')
+         {
+             return false; // Characters must be uppercase, numbers, or underscores
+         }
+
+         at_first_char = false; // Set the flag to false after the first character
+      }
+      return true;
+
+
+  - name: is_blank
+    type: bool
+    body: |
+      // TODO: Test this function
+      return string.empty();
+
+
+  - name: matches
+    type: bool
+    parameters:
+      - name: other
+        type: std::string
+        default_argument: '"[unset-other]"'
+    body: |
+      return string == other;
+
+
+  - name: contains_none
+    type: bool
+    parameters:
+      - name: strings_to_match
+        type: std::vector<std::string>
+        default_argument: '{}'
+    guards: [ (!strings_to_match.empty()) ]
+    body: |
+      for (const std::string& str : strings_to_match)
+      {
+         if (string.find(str) != std::string::npos) {
+            return false;
+         }
+      }
+      return true;
+
+
