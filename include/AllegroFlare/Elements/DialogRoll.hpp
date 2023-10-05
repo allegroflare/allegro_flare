@@ -27,6 +27,7 @@ namespace AllegroFlare
 
          void set_log(std::vector<std::pair<std::string, std::string>> log);
          std::vector<std::pair<std::string, std::string>> get_log() const;
+         void append_log(std::string speaker="[unset-speaker]", std::string text="[unset-text]", float time=0.0f);
       };
    }
 }

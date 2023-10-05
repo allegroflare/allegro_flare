@@ -34,6 +34,11 @@ std::vector<std::pair<std::string, std::string>> DialogRoll::get_log() const
 }
 
 
+void DialogRoll::append_log(std::string speaker, std::string text, float time)
+{
+   log.push_back(std::pair<std::string, std::string>{ speaker, text });
+   return;
+}
 
 
 } // namespace Elements
