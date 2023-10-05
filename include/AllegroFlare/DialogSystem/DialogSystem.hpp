@@ -46,6 +46,8 @@ namespace AllegroFlare
          void* activate_dialog_node_by_name_func_user_data;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func;
          void* activate_dialog_node_type_unhandled_func_user_data;
+         std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> dialog_advance_is_finished_node_type_unhandled_func;
+         void* dialog_advance_is_finished_node_type_unhandled_func_user_data;
          bool switched_in;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
@@ -66,6 +68,8 @@ namespace AllegroFlare
          void set_activate_dialog_node_by_name_func_user_data(void* activate_dialog_node_by_name_func_user_data);
          void set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func);
          void set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data);
+         void set_dialog_advance_is_finished_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> dialog_advance_is_finished_node_type_unhandled_func);
+         void set_dialog_advance_is_finished_node_type_unhandled_func_user_data(void* dialog_advance_is_finished_node_type_unhandled_func_user_data);
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
          AllegroFlare::EventEmitter* get_event_emitter() const;
@@ -79,6 +83,8 @@ namespace AllegroFlare
          void* get_activate_dialog_node_by_name_func_user_data() const;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> get_activate_dialog_node_type_unhandled_func() const;
          void* get_activate_dialog_node_type_unhandled_func_user_data() const;
+         std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_dialog_advance_is_finished_node_type_unhandled_func() const;
+         void* get_dialog_advance_is_finished_node_type_unhandled_func_user_data() const;
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;

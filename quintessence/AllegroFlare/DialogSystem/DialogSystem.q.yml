@@ -96,6 +96,18 @@ properties:
     getter: true
     setter: true
 
+  - name: dialog_advance_is_finished_node_type_unhandled_func
+    type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: dialog_advance_is_finished_node_type_unhandled_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: switched_in
     type: bool
     init_with: false
@@ -624,11 +636,35 @@ methods:
             //}
             else
             {
-               throw std::runtime_error(
-                  "DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
-                     "the dialog *node* type \""
-                     + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
-               );
+               bool handled = false;
+               if (dialog_advance_is_finished_node_type_unhandled_func)
+               {
+                  handled = dialog_advance_is_finished_node_type_unhandled_func(
+                        this,
+                        active_dialog_box,
+                        active_dialog_node,
+                        dialog_advance_is_finished_node_type_unhandled_func_user_data
+                     );
+               }
+
+               if (!handled)
+               {
+                  throw std::runtime_error(
+                     "DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
+                        "the dialog *node* type \""
+                        + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+                  );
+                  //throw std::runtime_error(
+                     //"DialogSystem::activate_dialog_node_by_name: error: Unable to handle dialog node activation on type \""
+                        //+ active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+                  //);
+               }
+
+               //throw std::runtime_error(
+                  //"DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
+                     //"the dialog *node* type \""
+                     //+ active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+               //);
             }
          }
 

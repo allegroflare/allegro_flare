@@ -51,6 +51,8 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , activate_dialog_node_by_name_func_user_data(nullptr)
    , activate_dialog_node_type_unhandled_func()
    , activate_dialog_node_type_unhandled_func_user_data(nullptr)
+   , dialog_advance_is_finished_node_type_unhandled_func()
+   , dialog_advance_is_finished_node_type_unhandled_func_user_data(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -109,6 +111,18 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bo
 void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data)
 {
    this->activate_dialog_node_type_unhandled_func_user_data = activate_dialog_node_type_unhandled_func_user_data;
+}
+
+
+void DialogSystem::set_dialog_advance_is_finished_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> dialog_advance_is_finished_node_type_unhandled_func)
+{
+   this->dialog_advance_is_finished_node_type_unhandled_func = dialog_advance_is_finished_node_type_unhandled_func;
+}
+
+
+void DialogSystem::set_dialog_advance_is_finished_node_type_unhandled_func_user_data(void* dialog_advance_is_finished_node_type_unhandled_func_user_data)
+{
+   this->dialog_advance_is_finished_node_type_unhandled_func_user_data = dialog_advance_is_finished_node_type_unhandled_func_user_data;
 }
 
 
@@ -187,6 +201,18 @@ std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> DialogSyst
 void* DialogSystem::get_activate_dialog_node_type_unhandled_func_user_data() const
 {
    return activate_dialog_node_type_unhandled_func_user_data;
+}
+
+
+std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_dialog_advance_is_finished_node_type_unhandled_func() const
+{
+   return dialog_advance_is_finished_node_type_unhandled_func;
+}
+
+
+void* DialogSystem::get_dialog_advance_is_finished_node_type_unhandled_func_user_data() const
+{
+   return dialog_advance_is_finished_node_type_unhandled_func_user_data;
 }
 
 
@@ -736,11 +762,35 @@ void DialogSystem::dialog_advance()
          //}
          else
          {
-            throw std::runtime_error(
-               "DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
-                  "the dialog *node* type \""
-                  + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
-            );
+            bool handled = false;
+            if (dialog_advance_is_finished_node_type_unhandled_func)
+            {
+               handled = dialog_advance_is_finished_node_type_unhandled_func(
+                     this,
+                     active_dialog_box,
+                     active_dialog_node,
+                     dialog_advance_is_finished_node_type_unhandled_func_user_data
+                  );
+            }
+
+            if (!handled)
+            {
+               throw std::runtime_error(
+                  "DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
+                     "the dialog *node* type \""
+                     + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+               );
+               //throw std::runtime_error(
+                  //"DialogSystem::activate_dialog_node_by_name: error: Unable to handle dialog node activation on type \""
+                     //+ active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+               //);
+            }
+
+            //throw std::runtime_error(
+               //"DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
+                  //"the dialog *node* type \""
+                  //+ active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+            //);
          }
       }
 
