@@ -835,6 +835,12 @@ void Full::set_dialog_system_activate_dialog_node_by_name_func_user_data(void*
 }
 
 
+DialogSystem::DialogSystem &Full::get_dialog_system_ref()
+{
+   // TODO: Consider modifying this so that functions are used to access/assign the expected parts of the system
+   return dialog_system;
+}
+
 
 bool Full::is_initialized()
 {

@@ -191,6 +191,7 @@ namespace AllegroFlare
          void set_dialog_system_activate_dialog_node_by_name_func_user_data(void* 
                activate_dialog_node_by_name_func_user_data
             );
+         DialogSystem::DialogSystem &get_dialog_system_ref();
 
          // Audio Controller System
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
