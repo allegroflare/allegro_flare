@@ -62,6 +62,8 @@ bool StringFormatValidator::is_uppercase_symbol_name()
 {
    bool at_first_char = true; // Flag to track the first character
 
+   if (string.empty()) return false;
+
    for (char c : string) {
       if (at_first_char && !(std::isupper(c) || c == '_'))
       {

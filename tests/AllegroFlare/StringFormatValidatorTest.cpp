@@ -159,6 +159,7 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
       "32INVALID",
       "not_valid",
       "9",
+      "", // An empty string
    };
 
    for (auto &test_string : test_strings)
