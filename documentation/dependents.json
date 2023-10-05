@@ -1009,6 +1009,11 @@
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer"
   ],
+  "AllegroFlare/Elements/DialogRoll": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/DialogRollRenderer"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
@@ -1389,10 +1394,6 @@
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
-  ],
-  "AllegroFlare/Elements/DialogRoll": [
-    "AllegroFlare/Elements/DialogRollRenderer",
-    "AllegroFlare/Elements/DialogRollRenderer"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Basic",

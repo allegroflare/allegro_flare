@@ -59,6 +59,13 @@ properties:
     getter: true
     setter: true
 
+  - name: dialog_roll
+    type: AllegroFlare::Elements::DialogRoll
+    init_with: ''
+    getter_ref: true
+    getter: true
+    setter: true
+
   - name: load_node_bank_func_user_data
     type: void*
     init_with: nullptr
@@ -924,5 +931,7 @@ dependencies:
     headers: [ AllegroFlare/UsefulPHP.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::ExitDialog
     headers: [ AllegroFlare/DialogTree/Nodes/ExitDialog.hpp ]
+  - symbol: AllegroFlare::Elements::DialogRoll
+    headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
 
 

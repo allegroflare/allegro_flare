@@ -2118,6 +2118,10 @@ table td
   <td class="property">std::function&lt;bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)&gt;</td>
 </tr>
 <tr>
+  <td class="property">dialog_roll</td>
+  <td class="property">AllegroFlare::Elements::DialogRoll</td>
+</tr>
+<tr>
   <td class="property">load_node_bank_func_user_data</td>
   <td class="property">void*</td>
 </tr>
@@ -2361,6 +2365,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ExitDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogRoll&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogRoll.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -5114,6 +5121,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">append_log(std::string speaker=&quot;[unset-speaker]&quot;, std::string text=&quot;[unset-text]&quot;, float time=0.0f)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -29001,6 +29011,11 @@ table td
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer"
   ],
+  "AllegroFlare/Elements/DialogRoll": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/DialogRollRenderer"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
@@ -29381,10 +29396,6 @@ table td
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
-  ],
-  "AllegroFlare/Elements/DialogRoll": [
-    "AllegroFlare/Elements/DialogRollRenderer",
-    "AllegroFlare/Elements/DialogRollRenderer"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/HealthBars/Basic",

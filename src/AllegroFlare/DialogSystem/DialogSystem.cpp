@@ -45,6 +45,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_node_name("[unset-active_dialog_node_name]")
    , active_character_staging_layout(nullptr)
    , load_node_bank_func()
+   , dialog_roll()
    , load_node_bank_func_user_data(nullptr)
    , activate_dialog_node_by_name_func()
    , activate_dialog_node_by_name_func_user_data(nullptr)
@@ -72,6 +73,12 @@ void DialogSystem::set_character_roster(AllegroFlare::DialogSystem::CharacterRos
 void DialogSystem::set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func)
 {
    this->load_node_bank_func = load_node_bank_func;
+}
+
+
+void DialogSystem::set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll)
+{
+   this->dialog_roll = dialog_roll;
 }
 
 
@@ -147,6 +154,12 @@ std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> Dia
 }
 
 
+AllegroFlare::Elements::DialogRoll DialogSystem::get_dialog_roll() const
+{
+   return dialog_roll;
+}
+
+
 void* DialogSystem::get_load_node_bank_func_user_data() const
 {
    return load_node_bank_func_user_data;
@@ -192,6 +205,12 @@ std::string DialogSystem::get_standard_dialog_box_font_name() const
 int DialogSystem::get_standard_dialog_box_font_size() const
 {
    return standard_dialog_box_font_size;
+}
+
+
+AllegroFlare::Elements::DialogRoll &DialogSystem::get_dialog_roll_ref()
+{
+   return dialog_roll;
 }
 
 
