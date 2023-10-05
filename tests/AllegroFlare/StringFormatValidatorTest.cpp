@@ -105,7 +105,7 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
    for (auto &test_string : test_strings)
    {
       AllegroFlare::StringFormatValidator string_format_validator(test_string);
-      EXPECT_EQ(true, string_format_validator.has_only_numerical_characters());
+      EXPECT_EQ(true, string_format_validator.has_only_numerical_characters()) << test_string;
    }
 }
 
@@ -125,7 +125,7 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
    for (auto &test_string : test_strings)
    {
       AllegroFlare::StringFormatValidator string_format_validator(test_string);
-      EXPECT_EQ(false, string_format_validator.has_only_numerical_characters());
+      EXPECT_EQ(false, string_format_validator.has_only_numerical_characters()) << test_string;
    }
 }
 
@@ -137,12 +137,16 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
       "THIS_IS_VALID",
       "VALID",
       "A32BIT_ALLOWED_SYMBOL",
+      "_VALID",
+      "VALID_",
+      "_",
+      "_3",
    };
 
    for (auto &test_string : test_strings)
    {
       AllegroFlare::StringFormatValidator string_format_validator(test_string);
-      EXPECT_EQ(true, string_format_validator.is_uppercase_symbol_name());
+      EXPECT_EQ(true, string_format_validator.is_uppercase_symbol_name()) << test_string;
    }
 }
 
@@ -152,15 +156,15 @@ TEST(AllegroFlare_Network2_URLTokenizerTest,
 {
    std::vector<std::string> test_strings = {
       " THIS_IS_ not VALID",
-      "_INVALID",
       "32INVALID",
       "not_valid",
+      "9",
    };
 
    for (auto &test_string : test_strings)
    {
       AllegroFlare::StringFormatValidator string_format_validator(test_string);
-      EXPECT_EQ(false, string_format_validator.is_uppercase_symbol_name());
+      EXPECT_EQ(false, string_format_validator.is_uppercase_symbol_name()) << test_string;
    }
 }
 

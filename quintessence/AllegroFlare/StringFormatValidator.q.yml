@@ -58,7 +58,7 @@ functions:
       bool at_first_char = true; // Flag to track the first character
 
       for (char c : string) {
-         if (at_first_char && !std::isupper(c))
+         if (at_first_char && !(std::isupper(c) || c == '_'))
          {
              return false; // First character must be uppercase
          }
