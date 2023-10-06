@@ -421,14 +421,14 @@ void DialogSystem::switch_out()
    return;
 }
 
-void DialogSystem::set_speaking_character(std::string speaking_character_identifier)
+void DialogSystem::set_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_speaking_character]: error: guard \"initialized\" not met.";
+      error_message << "[DialogSystem::set_speaking_character_avatar]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_speaking_character: error: guard \"initialized\" not met");
+      throw std::runtime_error("DialogSystem::set_speaking_character_avatar: error: guard \"initialized\" not met");
    }
    if (active_character_staging_layout->is_type(
             AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
@@ -438,7 +438,10 @@ void DialogSystem::set_speaking_character(std::string speaking_character_identif
          static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
             active_character_staging_layout
          );
-      ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(speaking_character_identifier);
+      ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
+            speaking_character_identifier,
+            speaking_character_expression
+         );
       if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
       else as->set_speaking_character_bitmap(speaking_character_bitmap);
       // TODO: Set the character
@@ -454,7 +457,7 @@ void DialogSystem::set_speaking_character(std::string speaking_character_identif
    return;
 }
 
-ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speaking_character_identifier)
+ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
    if (!(bitmap_bin))
    {
@@ -479,7 +482,19 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
       {
          AllegroFlare::DialogSystem::Characters::Basic *as =
             static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
-         return bitmap_bin->auto_get(as->get_avatar_portrait_identifier());
+
+         std::string bitmap_identifier_to_use = "";
+         if (as->expression_exists(speaking_character_expression))
+         {
+            bitmap_identifier_to_use = as->find_expression(speaking_character_expression);
+         }
+         else
+         {
+            // TODO: Add report about missing expression
+            bitmap_identifier_to_use = as->get_avatar_portrait_identifier();
+         }
+
+         return bitmap_bin->auto_get(bitmap_identifier_to_use);
       }
       else
       {
@@ -531,7 +546,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       else if (node_options_as_text.size() == 1)
       {
          // If dialog has only one option, spawn a basic dialog
-         set_speaking_character(node_pages_speaker);
+         set_speaking_character_avatar(node_pages_speaker);
          spawn_basic_dialog(node_pages);
       }
       else // (node_options_as_text.size() > 1)
@@ -545,7 +560,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
          }
-         set_speaking_character(node_pages_speaker);
+         set_speaking_character_avatar(node_pages_speaker);
          spawn_choice_dialog(node_pages[0], node_options_as_text);
       }
    }
