@@ -264,7 +264,7 @@ void BasicRenderer::render_text()
    return;
 }
 
-void BasicRenderer::render_speaking_character_name()
+void BasicRenderer::render_speaking_character_name_tag()
 {
    draw_speaking_character_name();
    return;
@@ -303,19 +303,18 @@ void BasicRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   render_frame();
    if (is_finished)
    {
-      //render_frame();
+      render_frame();
       draw_special_state_empty_text(width, height);
    }
    else
    {
       if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
       {
-         render_speaking_character_name();
+         render_speaking_character_name_tag();
       }
-      //render_frame();
+      render_frame();
       render_text();
       render_button();
    }
@@ -386,7 +385,7 @@ void BasicRenderer::draw_special_state_empty_text(float width, float height)
 void BasicRenderer::draw_speaking_character_name()
 {
    int width = 220;
-   int height = 40;
+   int height = 46;
 
    AllegroFlare::Placement2D place(30, 0, width, height);
    place.align = { 0.0, 1.0 };

@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
+#include <AllegroFlare/Elements/DialogBoxNameTag.hpp>
 #include <AllegroFlare/Elements/DialogButton.hpp>
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
@@ -23,7 +24,7 @@ namespace DialogBoxRenderers
 {
 
 
-ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age)
+ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , choice_dialog_box(choice_dialog_box)
@@ -40,6 +41,8 @@ ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::Bi
    , page_finished_at(page_finished_at)
    , at_last_page(at_last_page)
    , age(age)
+   , showing_speaking_character_name(showing_speaking_character_name)
+   , speaking_character_name(speaking_character_name)
 {
 }
 
@@ -145,6 +148,18 @@ void ChoiceRenderer::set_age(float age)
 }
 
 
+void ChoiceRenderer::set_showing_speaking_character_name(bool showing_speaking_character_name)
+{
+   this->showing_speaking_character_name = showing_speaking_character_name;
+}
+
+
+void ChoiceRenderer::set_speaking_character_name(std::string speaking_character_name)
+{
+   this->speaking_character_name = speaking_character_name;
+}
+
+
 AllegroFlare::FontBin* ChoiceRenderer::get_font_bin() const
 {
    return font_bin;
@@ -241,6 +256,18 @@ float ChoiceRenderer::get_age() const
 }
 
 
+bool ChoiceRenderer::get_showing_speaking_character_name() const
+{
+   return showing_speaking_character_name;
+}
+
+
+std::string ChoiceRenderer::get_speaking_character_name() const
+{
+   return speaking_character_name;
+}
+
+
 void ChoiceRenderer::render_frame()
 {
    float normalized_age = std::max(std::min(1.0f, age), 0.0f);
@@ -263,6 +290,25 @@ void ChoiceRenderer::render_text()
    return;
 }
 
+void ChoiceRenderer::render_speaking_character_name_tag()
+{
+   int width = 220;
+   int height = 46;
+
+   AllegroFlare::Placement2D place(30, 0, width, height);
+   place.align = { 0.0, 1.0 };
+   place.start_transform();
+   AllegroFlare::Elements::DialogBoxNameTag name_tag(
+      font_bin,
+      speaking_character_name,
+      width,
+      height
+   );
+   name_tag.render();
+   place.restore_transform();
+   return;
+}
+
 void ChoiceRenderer::render()
 {
    if (!(al_is_system_installed()))
@@ -279,14 +325,18 @@ void ChoiceRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChoiceRenderer::render: error: guard \"choice_dialog_box\" not met");
    }
-   render_frame();
-
    if (is_finished)
    {
+      render_frame();
       draw_special_state_empty_text(width, height);
    }
    else
    {
+      if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+      {
+         render_speaking_character_name_tag();
+      }
+      render_frame();
       render_text();
       draw_choices_with_cursor_and_current_selection();
    }

@@ -38,7 +38,7 @@ namespace AllegroFlare
             std::string speaking_character_name;
             void render_frame();
             void render_text();
-            void render_speaking_character_name();
+            void render_speaking_character_name_tag();
             void render_button();
             void draw_special_state_empty_text(float width=1, float height=1);
             std::string concat_text(std::string source_text="", int length=0);

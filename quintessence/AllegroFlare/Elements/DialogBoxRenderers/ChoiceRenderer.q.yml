@@ -113,6 +113,20 @@ properties:
     getter: true
     setter: true
 
+  - name: showing_speaking_character_name
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: speaking_character_name
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: DEFAULT_FONT_NAME
     type: char*
     constexpr: true
@@ -157,19 +171,44 @@ methods:
       return;
 
 
+  - name: render_speaking_character_name_tag
+    body: |
+      int width = 220;
+      int height = 46;
+
+      AllegroFlare::Placement2D place(30, 0, width, height);
+      place.align = { 0.0, 1.0 };
+      place.start_transform();
+      AllegroFlare::Elements::DialogBoxNameTag name_tag(
+         font_bin,
+         speaking_character_name,
+         width,
+         height
+      );
+      name_tag.render();
+      place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxNameTag
+
+
   - name: render
     guards:
       - al_is_system_installed()
       - choice_dialog_box
     body: |
-      render_frame();
-
       if (is_finished)
       {
+         render_frame();
          draw_special_state_empty_text(width, height);
       }
       else
       {
+         if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+         {
+            render_speaking_character_name_tag();
+         }
+         render_frame();
          render_text();
          draw_choices_with_cursor_and_current_selection();
       }
@@ -481,5 +520,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::ColorKit
     headers: [ AllegroFlare/ColorKit.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxNameTag
+    headers: [ AllegroFlare/Elements/DialogBoxNameTag.hpp ]
 
 

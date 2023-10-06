@@ -24,7 +24,7 @@ properties:
     getter: true
 
 
-functions:
+methods:
 
 
   - name: render
@@ -34,7 +34,9 @@ functions:
       - al_is_primitives_addon_initialized()
       - al_get_current_display()
     body: |
-      AllegroFlare::Elements::DialogBoxFrame(width, height).render();
+      ALLEGRO_COLOR fill_color = al_color_html("ffffff");
+      al_draw_filled_rectangle(0, 0, width, height, fill_color);
+      //AllegroFlare::Elements::DialogBoxFrame(width, height).render();
       draw_text();
       return;
     body_dependency_symbols:
@@ -49,7 +51,7 @@ functions:
     private: true
     body: |
       ALLEGRO_FONT* font = obtain_dialog_font();
-      ALLEGRO_COLOR text_color = al_color_html("ffffff");
+      ALLEGRO_COLOR text_color = al_color_html("000000");
       al_draw_text(
          font,
          text_color,
@@ -68,7 +70,7 @@ functions:
     type: ALLEGRO_FONT*
     guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
     body: |
-      static const std::string FONT_IDENTIFIER = "Inter-Regular.ttf -36";
+      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
       ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
       return result_font;
 

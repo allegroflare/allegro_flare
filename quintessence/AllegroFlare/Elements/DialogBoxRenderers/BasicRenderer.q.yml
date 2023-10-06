@@ -157,7 +157,7 @@ methods:
       return;
 
 
-  - name: render_speaking_character_name
+  - name: render_speaking_character_name_tag
     private: true
     body: |
       draw_speaking_character_name();
@@ -187,19 +187,18 @@ methods:
       - al_is_system_installed()
       - al_is_primitives_addon_initialized()
     body: |
-      render_frame();
       if (is_finished)
       {
-         //render_frame();
+         render_frame();
          draw_special_state_empty_text(width, height);
       }
       else
       {
          if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
          {
-            render_speaking_character_name();
+            render_speaking_character_name_tag();
          }
-         //render_frame();
+         render_frame();
          render_text();
          render_button();
       }
@@ -288,7 +287,7 @@ methods:
   - name: draw_speaking_character_name
     body: |
       int width = 220;
-      int height = 40;
+      int height = 46;
 
       AllegroFlare::Placement2D place(30, 0, width, height);
       place.align = { 0.0, 1.0 };

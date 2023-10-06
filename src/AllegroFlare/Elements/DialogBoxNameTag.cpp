@@ -73,7 +73,9 @@ void DialogBoxNameTag::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxNameTag::render: error: guard \"al_get_current_display()\" not met");
    }
-   AllegroFlare::Elements::DialogBoxFrame(width, height).render();
+   ALLEGRO_COLOR fill_color = al_color_html("ffffff");
+   al_draw_filled_rectangle(0, 0, width, height, fill_color);
+   //AllegroFlare::Elements::DialogBoxFrame(width, height).render();
    draw_text();
    return;
 }
@@ -81,7 +83,7 @@ void DialogBoxNameTag::render()
 void DialogBoxNameTag::draw_text()
 {
    ALLEGRO_FONT* font = obtain_dialog_font();
-   ALLEGRO_COLOR text_color = al_color_html("ffffff");
+   ALLEGRO_COLOR text_color = al_color_html("000000");
    al_draw_text(
       font,
       text_color,
@@ -116,7 +118,7 @@ ALLEGRO_FONT* DialogBoxNameTag::obtain_dialog_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxNameTag::obtain_dialog_font: error: guard \"font_bin\" not met");
    }
-   static const std::string FONT_IDENTIFIER = "Inter-Regular.ttf -36";
+   static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }
