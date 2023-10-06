@@ -28,11 +28,73 @@ properties:
     setter: true
     getter: true
 
+  - name: expressions
+    type: std::map<std::string, std::string>
+    init_with: '{}'
+    setter: true
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogSystem/Characters/Basic"'
     static: true
     constexpr: true
+
+
+methods:
+
+
+  - name: add_expression
+    parameters:
+      - name: expression_name
+        type: std::string
+        default_argument: '"[unset-expression_name]"'
+      - name: image_identifier
+        type: std::string
+        default_argument: '"[unset-image_identifier]"'
+    guards: [ (!expression_exists(expression_name)), (!image_identifier.empty()) ]
+    body: |
+      // TODO: Consider improving the error message if a node does not exist
+      expressions[expression_name] = image_identifier;
+      return;
+
+
+  - name: remove_expression
+    parameters:
+      - name: expression_name
+        type: std::string
+        default_argument: '"[unset-expression_name]"'
+    guards: [ (!expression_exists(expression_name)) ]
+    body: |
+      // TODO: Consider improving the error message if a node does not exist
+      expressions.erase(expression_name);
+      return;
+
+
+  - name: clear_expressions
+    body: |
+      expressions.clear();
+
+
+  - name: expression_exists
+    parameters:
+      - name: expression_name
+        type: std::string
+        default_argument: '"[unset-expression_name]"'
+    type: bool
+    body: |
+      return expressions.count(expression_name) != 0;
+    
+
+  - name: find_expression
+    type: std::string
+    parameters:
+      - name: expression_name
+        type: std::string
+        default_argument: '"[unset-expression_name]"'
+    body: |
+      if (!expression_exists(expression_name)) return "";
+      return expressions[expression_name];
 
 
 dependencies:
