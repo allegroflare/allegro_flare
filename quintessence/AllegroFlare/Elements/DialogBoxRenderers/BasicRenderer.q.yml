@@ -99,6 +99,20 @@ properties:
     getter: true
     setter: true
 
+  - name: showing_speaking_character_name
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: speaking_character_name
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: DEFAULT_FONT_NAME
     type: char*
     constexpr: true
@@ -143,6 +157,13 @@ methods:
       return;
 
 
+  - name: render_speaking_character_name
+    private: true
+    body: |
+      draw_speaking_character_name();
+      return;
+
+
   - name: render_button
     private: true
     body: |
@@ -167,13 +188,18 @@ methods:
       - al_is_primitives_addon_initialized()
     body: |
       render_frame();
-
       if (is_finished)
       {
+         //render_frame();
          draw_special_state_empty_text(width, height);
       }
       else
       {
+         if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+         {
+            render_speaking_character_name();
+         }
+         //render_frame();
          render_text();
          render_button();
       }
@@ -257,6 +283,27 @@ methods:
          text.c_str()
       );
       return;
+
+
+  - name: draw_speaking_character_name
+    body: |
+      int width = 220;
+      int height = 40;
+
+      AllegroFlare::Placement2D place(30, 0, width, height);
+      place.align = { 0.0, 1.0 };
+      place.start_transform();
+      AllegroFlare::Elements::DialogBoxNameTag name_tag(
+         font_bin,
+         speaking_character_name,
+         width,
+         height
+      );
+      name_tag.render();
+      place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxNameTag
 
 
   - name: draw_styled_revealed_text
@@ -369,5 +416,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::Elements::ListBoxRenderer
     headers: [ AllegroFlare/Elements/ListBoxRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxNameTag
+    headers: [ AllegroFlare/Elements/DialogBoxNameTag.hpp ]
 
 

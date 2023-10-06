@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
+#include <AllegroFlare/Elements/DialogBoxNameTag.hpp>
 #include <AllegroFlare/Elements/DialogButton.hpp>
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
@@ -23,7 +24,7 @@ namespace DialogBoxRenderers
 {
 
 
-BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age)
+BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
    : font_bin(font_bin)
    , current_page_text(current_page_text)
    , width(width)
@@ -38,6 +39,8 @@ BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string curren
    , page_finished_at(page_finished_at)
    , at_last_page(at_last_page)
    , age(age)
+   , showing_speaking_character_name(showing_speaking_character_name)
+   , speaking_character_name(speaking_character_name)
 {
 }
 
@@ -131,6 +134,18 @@ void BasicRenderer::set_age(float age)
 }
 
 
+void BasicRenderer::set_showing_speaking_character_name(bool showing_speaking_character_name)
+{
+   this->showing_speaking_character_name = showing_speaking_character_name;
+}
+
+
+void BasicRenderer::set_speaking_character_name(std::string speaking_character_name)
+{
+   this->speaking_character_name = speaking_character_name;
+}
+
+
 AllegroFlare::FontBin* BasicRenderer::get_font_bin() const
 {
    return font_bin;
@@ -215,6 +230,18 @@ float BasicRenderer::get_age() const
 }
 
 
+bool BasicRenderer::get_showing_speaking_character_name() const
+{
+   return showing_speaking_character_name;
+}
+
+
+std::string BasicRenderer::get_speaking_character_name() const
+{
+   return speaking_character_name;
+}
+
+
 void BasicRenderer::render_frame()
 {
    float normalized_age = std::max(std::min(1.0f, age), 0.0f);
@@ -234,6 +261,12 @@ void BasicRenderer::render_frame()
 void BasicRenderer::render_text()
 {
    draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
+   return;
+}
+
+void BasicRenderer::render_speaking_character_name()
+{
+   draw_speaking_character_name();
    return;
 }
 
@@ -271,13 +304,18 @@ void BasicRenderer::render()
       throw std::runtime_error("BasicRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    render_frame();
-
    if (is_finished)
    {
+      //render_frame();
       draw_special_state_empty_text(width, height);
    }
    else
    {
+      if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+      {
+         render_speaking_character_name();
+      }
+      //render_frame();
       render_text();
       render_button();
    }
@@ -342,6 +380,25 @@ void BasicRenderer::draw_special_state_empty_text(float width, float height)
       ALLEGRO_ALIGN_CENTER,
       text.c_str()
    );
+   return;
+}
+
+void BasicRenderer::draw_speaking_character_name()
+{
+   int width = 220;
+   int height = 40;
+
+   AllegroFlare::Placement2D place(30, 0, width, height);
+   place.align = { 0.0, 1.0 };
+   place.start_transform();
+   AllegroFlare::Elements::DialogBoxNameTag name_tag(
+      font_bin,
+      speaking_character_name,
+      width,
+      height
+   );
+   name_tag.render();
+   place.restore_transform();
    return;
 }
 

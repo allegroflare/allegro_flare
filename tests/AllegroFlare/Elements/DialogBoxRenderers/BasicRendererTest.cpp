@@ -134,3 +134,38 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
 }
 
 
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest,
+   CAPTURE__render__when_showing_the_speaking_character_is_true__will_render_the_name_as_expected)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+
+   std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
+
+   int num_revealed_characters = 0;
+   for (unsigned i=0; i<page_text.size(); i++)
+   {
+      num_revealed_characters++;
+
+      AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&font_bin);
+      dialog_box_renderer.set_speaking_character_name("Princess");
+      dialog_box_renderer.set_showing_speaking_character_name(true);
+      dialog_box_renderer.set_current_page_text(page_text);
+      dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
+
+      AllegroFlare::Placement2D place{
+         1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
+      };
+
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      place.start_transform();
+      dialog_box_renderer.render();
+      place.restore_transform();
+
+      //al_flip_display();
+      //std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
+   }
+   al_flip_display();
+}
+
+

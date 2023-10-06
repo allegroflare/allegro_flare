@@ -34,8 +34,11 @@ namespace AllegroFlare
             float page_finished_at;
             bool at_last_page;
             float age;
+            bool showing_speaking_character_name;
+            std::string speaking_character_name;
             void render_frame();
             void render_text();
+            void render_speaking_character_name();
             void render_button();
             void draw_special_state_empty_text(float width=1, float height=1);
             std::string concat_text(std::string source_text="", int length=0);
@@ -47,7 +50,7 @@ namespace AllegroFlare
 
 
          public:
-            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text="[unset-current_page_text]", float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f);
+            BasicRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text="[unset-current_page_text]", float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f, bool showing_speaking_character_name=false, std::string speaking_character_name="");
             ~BasicRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -64,6 +67,8 @@ namespace AllegroFlare
             void set_page_finished_at(float page_finished_at);
             void set_at_last_page(bool at_last_page);
             void set_age(float age);
+            void set_showing_speaking_character_name(bool showing_speaking_character_name);
+            void set_speaking_character_name(std::string speaking_character_name);
             AllegroFlare::FontBin* get_font_bin() const;
             std::string get_current_page_text() const;
             float get_width() const;
@@ -78,8 +83,11 @@ namespace AllegroFlare
             float get_page_finished_at() const;
             bool get_at_last_page() const;
             float get_age() const;
+            bool get_showing_speaking_character_name() const;
+            std::string get_speaking_character_name() const;
             void render();
             void draw_choices_with_cursor_and_current_selection();
+            void draw_speaking_character_name();
             void draw_styled_revealed_text(float max_width=1, std::string text="[unset-text]", int num_revealed_characters=999);
          };
       }
