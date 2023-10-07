@@ -38,12 +38,20 @@ functions:
   - name: build_basic_dialog
     type: AllegroFlare::Elements::DialogBoxes::Basic
     parameters:
+      - name: speaking_character
+        type: std::string
+        default_argument: '"[unset-speaking_character]"'
       - name: pages
         type: std::vector<std::string>
         default_argument: '{}'
     guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Basic basic_dialog_box;
+      // TODO: Trim speaking character first before checking if empty
+      if (!speaking_character.empty())
+      {
+         basic_dialog_box.set_speaking_character(speaking_character);
+      }
       basic_dialog_box.set_pages(pages);
       basic_dialog_box.set_created_at(al_get_time());
       return basic_dialog_box;
@@ -54,12 +62,20 @@ functions:
   - name: create_basic_dialog
     type: AllegroFlare::Elements::DialogBoxes::Basic*
     parameters:
+      - name: speaking_character
+        type: std::string
+        default_argument: '"[unset-speaking_character]"'
       - name: pages
         type: std::vector<std::string>
         default_argument: '{}'
     guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box = new AllegroFlare::Elements::DialogBoxes::Basic();
+      // TODO: Trim speaking character first before checking if empty
+      if (!speaking_character.empty())
+      {
+         basic_dialog_box->set_speaking_character(speaking_character);
+      }
       basic_dialog_box->set_pages(pages);
       basic_dialog_box->set_created_at(al_get_time());
       return basic_dialog_box;
@@ -70,6 +86,9 @@ functions:
   - name: create_choice_dialog
     type: AllegroFlare::Elements::DialogBoxes::Choice*
     parameters:
+      - name: speaking_character
+        type: std::string
+        default_argument: '"[unset-speaking_character]"'
       - name: prompt
         type: std::string
         default_argument: '"[unset-prompt]"'
@@ -80,6 +99,11 @@ functions:
     body: |
       AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box
          = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
+      // TODO: Trim speaking character first before checking if empty
+      if (!speaking_character.empty())
+      {
+         choice_dialog_box->set_speaking_character(speaking_character);
+      }
       choice_dialog_box->set_created_at(al_get_time());
       choice_dialog_box->initialize();
 
@@ -134,15 +158,8 @@ dependencies:
 
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Choice*
-    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Basic*
-    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Basic
     headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
-  - symbol: std::vector<std::pair<std::string, std::string>>
-    headers: [ vector, utility, string ]
-
   - symbol: AllegroFlare::Elements::DialogBoxes::Choice
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem

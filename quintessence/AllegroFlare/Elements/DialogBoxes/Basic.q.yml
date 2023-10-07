@@ -15,6 +15,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: speaking_character
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: true
+
   - name: current_page_num
     type: int
     init_with: -1
@@ -61,6 +67,12 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
+
+
+  - name: has_speaking_character
+    type: bool
+    body: |
+      return (!speaking_character.empty());
 
 
   - name: update

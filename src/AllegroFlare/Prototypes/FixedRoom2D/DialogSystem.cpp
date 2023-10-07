@@ -282,7 +282,7 @@ void DialogSystem::spawn_basic_dialog(std::vector<std::string> pages)
    if (active_dialog) delete active_dialog; // TODO: address concern that this could clobber an active dialog
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-   active_dialog = dialog_box_factory.create_basic_dialog(pages);
+   active_dialog = dialog_box_factory.create_basic_dialog("", pages);
 
    bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
    if (a_new_dialog_was_created_and_dialog_system_is_now_active)

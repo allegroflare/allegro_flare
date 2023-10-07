@@ -21,6 +21,12 @@ properties:
     constructor_arg: true
     setter: explicit
 
+  - name: speaking_character
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: true
+
   - name: advancing_text
     type: AllegroFlare::Elements::AdvancingText
     init_with: ''
@@ -132,6 +138,12 @@ methods:
       }
       initialized = true;
       return;
+
+
+  - name: has_speaking_character
+    type: bool
+    body: |
+      return (!speaking_character.empty());
 
 
   - name: set_prompt

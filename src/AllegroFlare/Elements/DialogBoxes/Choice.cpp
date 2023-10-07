@@ -20,6 +20,7 @@ Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::strin
    : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::Choice::TYPE)
    , prompt(prompt)
    , options(options)
+   , speaking_character("")
    , advancing_text()
    , breakout_list_box()
    , breakout_list_box_active(false)
@@ -31,6 +32,18 @@ Choice::Choice(std::string prompt, std::vector<std::pair<std::string, std::strin
 
 Choice::~Choice()
 {
+}
+
+
+void Choice::set_speaking_character(std::string speaking_character)
+{
+   this->speaking_character = speaking_character;
+}
+
+
+std::string Choice::get_speaking_character() const
+{
+   return speaking_character;
 }
 
 
@@ -120,6 +133,11 @@ void Choice::initialize()
    }
    initialized = true;
    return;
+}
+
+bool Choice::has_speaking_character()
+{
+   return (!speaking_character.empty());
 }
 
 void Choice::set_prompt(std::string prompt)

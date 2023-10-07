@@ -20,6 +20,7 @@ namespace DialogBoxes
 Basic::Basic(std::vector<std::string> pages)
    : AllegroFlare::Elements::DialogBoxes::Base(TYPE)
    , pages(pages)
+   , speaking_character("")
    , current_page_num(-1)
    , num_revealed_characters(9999)
    , finished_at(0)
@@ -34,9 +35,21 @@ Basic::~Basic()
 }
 
 
+void Basic::set_speaking_character(std::string speaking_character)
+{
+   this->speaking_character = speaking_character;
+}
+
+
 std::vector<std::string> Basic::get_pages() const
 {
    return pages;
+}
+
+
+std::string Basic::get_speaking_character() const
+{
+   return speaking_character;
 }
 
 
@@ -77,6 +90,11 @@ void Basic::start()
    //created_at = al_get_time();
    // TODO: Implement this, considering its relationship to "created_at"
    return;
+}
+
+bool Basic::has_speaking_character()
+{
+   return (!speaking_character.empty());
 }
 
 void Basic::update()

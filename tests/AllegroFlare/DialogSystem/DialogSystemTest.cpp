@@ -174,7 +174,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
    dialog_system.initialize();
 
-   dialog_system.spawn_basic_dialog({ "Hello, basic dialog", "Good to see you today" });
+   dialog_system.spawn_basic_dialog("Hugo", { "Hello, basic dialog", "Good to see you today" });
 
    int passes = 120;
    for (int i=0; i<passes; i++)

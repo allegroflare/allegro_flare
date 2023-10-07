@@ -827,7 +827,6 @@
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
@@ -848,7 +847,6 @@
   ],
   "AllegroFlare/Elements/DialogBoxes/Basic": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -1306,16 +1304,6 @@
   "AllegroFlare/Elements/Button/Alignments": [
     "AllegroFlare/Elements/Button"
   ],
-  "std/vector<std/pair<std/string, std/string>>": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogRoll",
-    "AllegroFlare/Elements/DialogRollRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -1380,6 +1368,10 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxNameTag": [
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+  ],
   "AllegroFlare/ColorKit": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -1390,6 +1382,15 @@
   ],
   "AllegroFlare/Elements/ListBox": [
     "AllegroFlare/Elements/DialogBoxes/Choice"
+  ],
+  "std/vector<std/pair<std/string, std/string>>": [
+    "AllegroFlare/Elements/DialogRoll",
+    "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",

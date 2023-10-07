@@ -547,7 +547,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       {
          // If dialog has only one option, spawn a basic dialog
          set_speaking_character_avatar(node_pages_speaker);
-         spawn_basic_dialog(node_pages);
+         spawn_basic_dialog(node_pages_speaker, node_pages);
       }
       else // (node_options_as_text.size() > 1)
       {
@@ -561,7 +561,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
             );
          }
          set_speaking_character_avatar(node_pages_speaker);
-         spawn_choice_dialog(node_pages[0], node_options_as_text);
+         spawn_choice_dialog(node_pages_speaker, node_pages[0], node_options_as_text);
       }
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
@@ -592,14 +592,14 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    return;
 }
 
-void DialogSystem::spawn_basic_dialog(std::vector<std::string> pages)
+void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vector<std::string> pages)
 {
    bool a_dialog_existed_before = a_dialog_is_active();
    if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
                                                     // And/or address concerns that derived dialog be deleted proper
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-   active_dialog_box = dialog_box_factory.create_basic_dialog(pages);
+   active_dialog_box = dialog_box_factory.create_basic_dialog(speaking_character, pages);
 
    // TODO: Address when and where a switch_in should occur
    bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
@@ -612,7 +612,7 @@ void DialogSystem::spawn_basic_dialog(std::vector<std::string> pages)
    return;
 }
 
-void DialogSystem::spawn_choice_dialog(std::string prompt, std::vector<std::string> options)
+void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::string> options)
 {
    bool a_dialog_existed_before = a_dialog_is_active();
    if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
@@ -627,7 +627,7 @@ void DialogSystem::spawn_choice_dialog(std::string prompt, std::vector<std::stri
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    AllegroFlare::Elements::DialogBoxes::Choice *choice_dialog_box =
-         dialog_box_factory.create_choice_dialog(prompt, options_that_are_also_values);
+         dialog_box_factory.create_choice_dialog(speaking_character, prompt, options_that_are_also_values);
    active_dialog_box = choice_dialog_box;
 
 

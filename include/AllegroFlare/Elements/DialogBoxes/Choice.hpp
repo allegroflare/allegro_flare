@@ -23,6 +23,7 @@ namespace AllegroFlare
          private:
             std::string prompt;
             std::vector<std::pair<std::string, std::string>> options;
+            std::string speaking_character;
             AllegroFlare::Elements::AdvancingText advancing_text;
             AllegroFlare::Elements::ListBox breakout_list_box;
             bool breakout_list_box_active;
@@ -38,12 +39,15 @@ namespace AllegroFlare
             Choice(std::string prompt="[prompt-question-not-set]", std::vector<std::pair<std::string, std::string>> options={});
             virtual ~Choice();
 
+            void set_speaking_character(std::string speaking_character);
+            std::string get_speaking_character() const;
             bool get_breakout_list_box_active() const;
             bool get_cursor_active() const;
             virtual void start() override;
             virtual void update() override;
             virtual void advance() override;
             void initialize();
+            bool has_speaking_character();
             void set_prompt(std::string prompt="[unset-prompt]");
             void set_options(std::vector<std::pair<std::string, std::string>> options={});
             float infer_breakout_list_box_age();

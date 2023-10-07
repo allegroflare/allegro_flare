@@ -141,6 +141,12 @@ void DialogBoxRenderer::render()
 
       AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer basic_dialog_box_renderer(font_bin);
 
+      if (basic_dialog_box->has_speaking_character())
+      {
+         // TODO: Do lookup for speaking_chararacter -> speaking_character_name
+         basic_dialog_box_renderer.set_speaking_character_name(basic_dialog_box->get_speaking_character());
+         basic_dialog_box_renderer.set_showing_speaking_character_name(true);
+      }
       basic_dialog_box_renderer.set_current_page_text(basic_dialog_box->get_current_page_text());
       basic_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
       basic_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
@@ -171,6 +177,12 @@ void DialogBoxRenderer::render()
          font_bin,
          bitmap_bin
       );
+      if (choice_dialog_box->has_speaking_character())
+      {
+         // TODO: Do lookup for speaking_chararacter -> speaking_character_name
+         choice_dialog_box_renderer.set_speaking_character_name(choice_dialog_box->get_speaking_character());
+         choice_dialog_box_renderer.set_showing_speaking_character_name(true);
+      }
       choice_dialog_box_renderer.set_choice_dialog_box(choice_dialog_box);
       choice_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
       choice_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);

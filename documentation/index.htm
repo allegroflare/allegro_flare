@@ -2229,10 +2229,10 @@ table td
   <td class="method">activate_dialog_node_by_name(std::string dialog_name=&quot;[unset-dialog_name]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">spawn_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
+  <td class="method">spawn_basic_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">spawn_choice_dialog(std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::string&gt; options={})</td>
+  <td class="method">spawn_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::string&gt; options={})</td>
 </tr>
 <tr>
   <td class="method">update(float time_now=0)</td>
@@ -3823,13 +3823,13 @@ table td
   <td class="method">create_basic_test_dialog()</td>
 </tr>
 <tr>
-  <td class="method">build_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
+  <td class="method">build_basic_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">create_basic_dialog(std::vector&lt;std::string&gt; pages={})</td>
+  <td class="method">create_basic_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">create_choice_dialog(std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={})</td>
+  <td class="method">create_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={})</td>
 </tr>
 <tr>
   <td class="method">create_you_got_an_item_dialog(std::string item_name=&quot;[unset-item-name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item-bitmap-identifier]&quot;)</td>
@@ -3844,16 +3844,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;utility&quot;, &quot;string&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
@@ -4216,6 +4207,14 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">showing_speaking_character_name</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">speaking_character_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_FONT_NAME</td>
   <td class="property">char*</td>
 </tr>
@@ -4233,6 +4232,9 @@ table td
   <td class="private_method">render_text()</td>
 </tr>
 <tr>
+  <td class="private_method">render_speaking_character_name_tag()</td>
+</tr>
+<tr>
   <td class="private_method">render_button()</td>
 </tr>
 <tr>
@@ -4243,6 +4245,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">draw_special_state_empty_text(float width=1, float height=1)</td>
+</tr>
+<tr>
+  <td class="method">draw_speaking_character_name()</td>
 </tr>
 <tr>
   <td class="method">draw_styled_revealed_text(float max_width=1, std::string text=&quot;[unset-text]&quot;, int num_revealed_characters=999)</td>
@@ -4306,6 +4311,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ListBoxRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ListBoxRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxNameTag&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxNameTag.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -4381,6 +4389,14 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">showing_speaking_character_name</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">speaking_character_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_FONT_NAME</td>
   <td class="property">char*</td>
 </tr>
@@ -4396,6 +4412,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">render_text()</td>
+</tr>
+<tr>
+  <td class="method">render_speaking_character_name_tag()</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -4489,6 +4508,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxNameTag&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxNameTag.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -4761,6 +4783,10 @@ table td
   <td class="property">std::vector&lt;std::string&gt;</td>
 </tr>
 <tr>
+  <td class="property">speaking_character</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">current_page_num</td>
   <td class="property">int</td>
 </tr>
@@ -4789,6 +4815,9 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">start()</td>
+</tr>
+<tr>
+  <td class="method">has_speaking_character()</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -4862,6 +4891,10 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">speaking_character</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">advancing_text</td>
   <td class="property">AllegroFlare::Elements::AdvancingText</td>
 </tr>
@@ -4899,6 +4932,9 @@ table td
 </tr>
 <tr>
   <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">has_speaking_character()</td>
 </tr>
 <tr>
   <td class="method">set_prompt(std::string prompt=&quot;[unset-prompt]&quot;)</td>
@@ -28856,7 +28892,6 @@ table td
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
@@ -28877,7 +28912,6 @@ table td
   ],
   "AllegroFlare/Elements/DialogBoxes/Basic": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -29335,16 +29369,6 @@ table td
   "AllegroFlare/Elements/Button/Alignments": [
     "AllegroFlare/Elements/Button"
   ],
-  "std/vector<std/pair<std/string, std/string>>": [
-    "AllegroFlare/Elements/DialogBoxFactory",
-    "AllegroFlare/Elements/DialogRoll",
-    "AllegroFlare/Elements/DialogRollRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -29409,6 +29433,10 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxNameTag": [
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+  ],
   "AllegroFlare/ColorKit": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -29419,6 +29447,15 @@ table td
   ],
   "AllegroFlare/Elements/ListBox": [
     "AllegroFlare/Elements/DialogBoxes/Choice"
+  ],
+  "std/vector<std/pair<std/string, std/string>>": [
+    "AllegroFlare/Elements/DialogRoll",
+    "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",

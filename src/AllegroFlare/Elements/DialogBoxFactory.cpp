@@ -64,7 +64,7 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_test_
    return basic_dialog_box;
 }
 
-AllegroFlare::Elements::DialogBoxes::Basic DialogBoxFactory::build_basic_dialog(std::vector<std::string> pages)
+AllegroFlare::Elements::DialogBoxes::Basic DialogBoxFactory::build_basic_dialog(std::string speaking_character, std::vector<std::string> pages)
 {
    if (!(al_is_system_installed()))
    {
@@ -74,12 +74,17 @@ AllegroFlare::Elements::DialogBoxes::Basic DialogBoxFactory::build_basic_dialog(
       throw std::runtime_error("DialogBoxFactory::build_basic_dialog: error: guard \"al_is_system_installed()\" not met");
    }
    AllegroFlare::Elements::DialogBoxes::Basic basic_dialog_box;
+   // TODO: Trim speaking character first before checking if empty
+   if (!speaking_character.empty())
+   {
+      basic_dialog_box.set_speaking_character(speaking_character);
+   }
    basic_dialog_box.set_pages(pages);
    basic_dialog_box.set_created_at(al_get_time());
    return basic_dialog_box;
 }
 
-AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialog(std::vector<std::string> pages)
+AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialog(std::string speaking_character, std::vector<std::string> pages)
 {
    if (!(al_is_system_installed()))
    {
@@ -89,12 +94,17 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialo
       throw std::runtime_error("DialogBoxFactory::create_basic_dialog: error: guard \"al_is_system_installed()\" not met");
    }
    AllegroFlare::Elements::DialogBoxes::Basic* basic_dialog_box = new AllegroFlare::Elements::DialogBoxes::Basic();
+   // TODO: Trim speaking character first before checking if empty
+   if (!speaking_character.empty())
+   {
+      basic_dialog_box->set_speaking_character(speaking_character);
+   }
    basic_dialog_box->set_pages(pages);
    basic_dialog_box->set_created_at(al_get_time());
    return basic_dialog_box;
 }
 
-AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dialog(std::string prompt, std::vector<std::pair<std::string, std::string>> options)
+AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::pair<std::string, std::string>> options)
 {
    if (!(al_is_system_installed()))
    {
@@ -105,6 +115,11 @@ AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dia
    }
    AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box
       = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
+   // TODO: Trim speaking character first before checking if empty
+   if (!speaking_character.empty())
+   {
+      choice_dialog_box->set_speaking_character(speaking_character);
+   }
    choice_dialog_box->set_created_at(al_get_time());
    choice_dialog_box->initialize();
 

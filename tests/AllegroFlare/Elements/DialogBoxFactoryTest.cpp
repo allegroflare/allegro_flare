@@ -84,13 +84,17 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest, build_basic_dialog__without_all
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, build_basic_dialog__sets_the_lines_to_the_created_dialog)
 {
    al_init(); // only for al_get_time, might replace with an AllegroFlare::Time class (could speed up/slow down time)
+
+   std::string speaker = "Jonah";
+
    std::vector<std::string> pages = {
       { "This seems to be working." },
       { "Good thing I kept grinding." },
       { "I guess I didn't have to have the perfect answer in the beginning." },
    };
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   AllegroFlare::Elements::DialogBoxes::Basic created_dialog = dialog_factory.build_basic_dialog(pages);
+   AllegroFlare::Elements::DialogBoxes::Basic created_dialog = dialog_factory.build_basic_dialog(speaker, pages);
+   ASSERT_EQ(speaker, created_dialog.get_speaking_character());
    ASSERT_EQ(pages, created_dialog.get_pages());
    al_uninstall_system();
 }
@@ -108,13 +112,14 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_basic_dialog__without_al
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_basic_dialog__sets_the_lines_to_the_created_dialog)
 {
    al_init(); // only for al_get_time, might replace with an AllegroFlare::Time class (could speed up/slow down time)
+   std::string speaker = "Jonah";
    std::vector<std::string> pages = {
       { "This seems to be working." },
       { "Good thing I kept grinding." },
       { "I guess I didn't have to have the perfect answer in the beginning." },
    };
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   AllegroFlare::Elements::DialogBoxes::Basic* created_dialog = dialog_factory.create_basic_dialog(pages);
+   AllegroFlare::Elements::DialogBoxes::Basic* created_dialog = dialog_factory.create_basic_dialog(speaker, pages);
    delete created_dialog;
    al_uninstall_system();
 }
@@ -133,13 +138,18 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
    create_choice_dialog__creates_a_choice_dialog__passes_the_arguments__and_initializes_it)
 {
    al_init(); // only for al_get_time, might replace with an AllegroFlare::Time class (could speed up/slow down time)
+   std::string speaker = "Jonah";
    std::string choice_prompt = "What will the test return?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "A passing test.", "GOTO A" },
      { "A failing test.", "GOTO B" },
    };
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   AllegroFlare::Elements::DialogBoxes::Choice* created_dialog = dialog_factory.create_choice_dialog(choice_prompt, choice_options);
+   AllegroFlare::Elements::DialogBoxes::Choice* created_dialog = dialog_factory.create_choice_dialog(
+         speaker,
+         choice_prompt,
+         choice_options
+      );
 
    ASSERT_NE(nullptr, created_dialog);
 
