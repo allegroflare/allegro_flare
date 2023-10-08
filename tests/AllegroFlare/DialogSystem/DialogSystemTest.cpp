@@ -40,6 +40,10 @@ public:
       character->set_display_name("Commissioner Cat");
       character->set_avatar_thumbnail_identifier("mystery-cat-128x128-01.gif");
       character->set_avatar_portrait_identifier("commissioner-01.gif");
+      character->set_expressions({
+            { "happy", "smiling-01.gif" },
+            { "unsure", "unsure-01.gif" },
+         });
       result_roster->add_character("COMMISSIONER", character);
 
       character = new AllegroFlare::DialogSystem::Characters::Basic();

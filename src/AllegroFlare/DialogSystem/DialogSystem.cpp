@@ -504,6 +504,12 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
    return nullptr;
 }
 
+void DialogSystem::append_to_dialog_roll(std::string speaking_character, std::string dialog)
+{
+   dialog_roll.append_log(speaking_character, dialog);
+   return;
+}
+
 void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
@@ -548,6 +554,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
          // If dialog has only one option, spawn a basic dialog
          set_speaking_character_avatar(node_pages_speaker);
          spawn_basic_dialog(node_pages_speaker, node_pages);
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
       }
       else // (node_options_as_text.size() > 1)
       {
@@ -562,6 +569,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
          }
          set_speaking_character_avatar(node_pages_speaker);
          spawn_choice_dialog(node_pages_speaker, node_pages[0], node_options_as_text);
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
       }
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
