@@ -290,6 +290,30 @@ methods:
       return;
 
 
+  - name: clear_character_staging_layout
+    guards: [ initialized ]
+    body: |
+      if (active_character_staging_layout->is_type(
+               AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+            ))
+      {
+         AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+            static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+               active_character_staging_layout
+            );
+         as->clear_speaking_character_bitmap();
+      }
+      else
+      {
+         throw std::runtime_error(
+            "DialogSystem::set_speaking_character: error: Unable to perform action because "
+               "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+               "and a condition is not provided to handle this type."
+         );
+      }
+      return;
+
+
   - name: set_speaking_character_avatar
     guards: [ initialized ]
     parameters:
@@ -583,6 +607,7 @@ methods:
     body: |
       // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
       // TODO: Ensure time_now is passed down to active dialog updates()
+      if (active_dialog_node) active_dialog_node->update();
       if (active_dialog_box) active_dialog_box->update();
       selection_cursor_box.update();
       return;

@@ -7,6 +7,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: is_finished
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogTree/Nodes/Base"'
@@ -17,6 +23,28 @@ properties:
 methods:
 
 
+  - name: initialize
+    virtual: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 'AllegroFlare::Time::absolute_now()'
+        default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
+    body: |
+      return;
+
+
+  - name: update
+    virtual: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 'AllegroFlare::Time::absolute_now()'
+        default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
+    body: |
+      return;
+
+
   - name: is_type
     type: bool
     parameters:
@@ -25,5 +53,12 @@ methods:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Time
+    headers: [ AllegroFlare/Time.hpp ]
 
 

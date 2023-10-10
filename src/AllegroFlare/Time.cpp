@@ -92,6 +92,11 @@ void Time::set_rate(float rate)
    return;
 }
 
+float Time::calculate_age(float time_now, float time_begin)
+{
+   return time_now - time_begin;
+}
+
 
 } // namespace AllegroFlare
 

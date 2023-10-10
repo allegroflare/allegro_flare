@@ -421,6 +421,36 @@ void DialogSystem::switch_out()
    return;
 }
 
+void DialogSystem::clear_character_staging_layout()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::clear_character_staging_layout]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::clear_character_staging_layout: error: guard \"initialized\" not met");
+   }
+   if (active_character_staging_layout->is_type(
+            AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+         ))
+   {
+      AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+         static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+            active_character_staging_layout
+         );
+      as->clear_speaking_character_bitmap();
+   }
+   else
+   {
+      throw std::runtime_error(
+         "DialogSystem::set_speaking_character: error: Unable to perform action because "
+            "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+            "and a condition is not provided to handle this type."
+      );
+   }
+   return;
+}
+
 void DialogSystem::set_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
    if (!(initialized))
@@ -675,6 +705,7 @@ void DialogSystem::update(float time_now)
    }
    // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
    // TODO: Ensure time_now is passed down to active dialog updates()
+   if (active_dialog_node) active_dialog_node->update();
    if (active_dialog_box) active_dialog_box->update();
    selection_cursor_box.update();
    return;

@@ -1,0 +1,75 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::Nodes::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::Nodes::Wait::TYPE
+
+
+properties:
+
+
+  - name: duration_sec
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+
+  - name: started_at
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/Nodes/Wait"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: initialize
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 'AllegroFlare::Time::absolute_now()'
+        default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
+    body: |
+      started_at = time_now;
+      if (AllegroFlare::Time::calculate_age(started_at, time_now) >= duration_sec) set_is_finished(true);
+      else set_is_finished(false);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Time
+
+
+  - name: update
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 'AllegroFlare::Time::absolute_now()'
+        default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
+    body: |
+      if (AllegroFlare::Time::calculate_age(started_at, time_now) >= duration_sec) set_is_finished(true);
+      else set_is_finished(false);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Time
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+  - symbol: AllegroFlare::Time
+    headers: [ AllegroFlare/Time.hpp ]
+
+
