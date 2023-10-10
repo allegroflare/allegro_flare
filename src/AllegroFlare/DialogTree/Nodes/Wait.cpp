@@ -41,14 +41,14 @@ float Wait::get_started_at() const
 void Wait::initialize(float time_now)
 {
    started_at = time_now;
-   if (AllegroFlare::Time::calculate_age(started_at, time_now) >= duration_sec) set_is_finished(true);
+   if (AllegroFlare::Time::calculate_age(time_now, started_at) >= duration_sec) set_is_finished(true);
    else set_is_finished(false);
    return;
 }
 
 void Wait::update(float time_now)
 {
-   if (AllegroFlare::Time::calculate_age(started_at, time_now) >= duration_sec) set_is_finished(true);
+   if (AllegroFlare::Time::calculate_age(time_now, started_at) >= duration_sec) set_is_finished(true);
    else set_is_finished(false);
    return;
 }

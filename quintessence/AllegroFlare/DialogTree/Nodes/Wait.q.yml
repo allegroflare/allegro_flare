@@ -41,7 +41,7 @@ methods:
         default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
     body: |
       started_at = time_now;
-      if (AllegroFlare::Time::calculate_age(started_at, time_now) >= duration_sec) set_is_finished(true);
+      if (AllegroFlare::Time::calculate_age(time_now, started_at) >= duration_sec) set_is_finished(true);
       else set_is_finished(false);
       return;
     body_dependency_symbols:
@@ -57,7 +57,7 @@ methods:
         default_argument: 'AllegroFlare::Time::absolute_now()'
         default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
     body: |
-      if (AllegroFlare::Time::calculate_age(started_at, time_now) >= duration_sec) set_is_finished(true);
+      if (AllegroFlare::Time::calculate_age(time_now, started_at) >= duration_sec) set_is_finished(true);
       else set_is_finished(false);
       return;
     body_dependency_symbols:
