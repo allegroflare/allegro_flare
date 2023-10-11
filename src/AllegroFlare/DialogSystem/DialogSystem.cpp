@@ -1072,14 +1072,13 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
       throw std::runtime_error("DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event: error: guard \"data\" not met");
    }
    // TODO: Update this to a map caller pattern (static const)
-   // TODO: Rename this to LoadDialogNodeBankFromFile
    if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile::TYPE))
    {
       auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile*>(data);
       load_dialog_node_bank_from_file(as->get_yaml_filename());
    }
    // TODO: Rename this SpawnDialogByName to ActivateDialogNodeByName
-   if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
+   else if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
    {
       auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName*>(data);
       activate_dialog_node_by_name(as->get_name());
