@@ -925,11 +925,12 @@ methods:
     guards: [ ev, data ]
     body: |
       // TODO: Update this to a map caller pattern (static const)
-      //if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile::TYPE))
-      //{
-         //auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile*>(data);
-         //load_dialog_node_bank_from_file(as->get_yaml_filename());
-      //}
+      // TODO: Rename this to LoadDialogNodeBankFromFile
+      if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile::TYPE))
+      {
+         auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile*>(data);
+         load_dialog_node_bank_from_file(as->get_yaml_filename());
+      }
       // TODO: Rename this SpawnDialogByName to ActivateDialogNodeByName
       if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
       {
