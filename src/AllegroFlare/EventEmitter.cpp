@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/EventEmitter.hpp>
 
-#include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp>
+#include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <iostream>
@@ -146,7 +146,7 @@ void EventEmitter::emit_load_dialog_file(std::string dialog_yaml_filename_to_loa
    // TODO: Rename LoadDialogYAMLFile to a more abstract LoadDialogNodeBankFromFilename
    //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
    intptr_t data_to_pass = (intptr_t)(void *)(
-      new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile(dialog_yaml_filename_to_load)
+      new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile(dialog_yaml_filename_to_load)
    );
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
    return;

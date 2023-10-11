@@ -125,13 +125,13 @@ functions:
       // TODO: Rename LoadDialogYAMLFile to a more abstract LoadDialogNodeBankFromFilename
       //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
       intptr_t data_to_pass = (intptr_t)(void *)(
-         new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile(dialog_yaml_filename_to_load)
+         new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile(dialog_yaml_filename_to_load)
       );
       emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
-      - AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile
+      - AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile
 
 
   - name: destroy_dialog_open_event_data
@@ -435,7 +435,7 @@ dependencies:
     headers: [ AllegroFlare/RouteEventDatas/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp ]
-  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile
-    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp ]
 
 

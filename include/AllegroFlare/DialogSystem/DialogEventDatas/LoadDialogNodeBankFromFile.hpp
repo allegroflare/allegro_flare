@@ -11,10 +11,10 @@ namespace AllegroFlare
    {
       namespace DialogEventDatas
       {
-         class LoadDialogYAMLFile : public AllegroFlare::GameEventDatas::Base
+         class LoadDialogNodeBankFromFile : public AllegroFlare::GameEventDatas::Base
          {
          public:
-            static constexpr char* TYPE = (char*)"AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile";
+            static constexpr char* TYPE = (char*)"AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile";
 
          private:
             std::string yaml_filename;
@@ -23,8 +23,8 @@ namespace AllegroFlare
 
 
          public:
-            LoadDialogYAMLFile(std::string yaml_filename="[unset-yaml_filename]");
-            ~LoadDialogYAMLFile();
+            LoadDialogNodeBankFromFile(std::string yaml_filename="[unset-yaml_filename]");
+            ~LoadDialogNodeBankFromFile();
 
             std::string get_yaml_filename() const;
          };

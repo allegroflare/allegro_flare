@@ -754,7 +754,7 @@
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog",
-    "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile",
+    "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile",
     "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter",
@@ -978,7 +978,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter"
   ],
-  "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogYAMLFile": [
+  "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter"
   ],
