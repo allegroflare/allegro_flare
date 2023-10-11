@@ -10,6 +10,7 @@
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
+#include <AllegroFlare/DialogTree/YAMLLoader.hpp> // TODO: Consider alternative to this loader
 
 
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
@@ -53,6 +54,18 @@ public:
       result_roster->add_character("ASSISTANT", character);
 
       return result_roster; // TODO: Delete after use
+   }
+
+   static bool my_load_node_bank_func(
+         std::string filename,
+         AllegroFlare::DialogTree::NodeBank* node_bank,
+         void* user_data
+      )
+   {
+      AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+      yaml_loader.load_file(filename);
+      *node_bank = yaml_loader.get_node_bank();
+      return true;
    }
 };
 
@@ -221,6 +234,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
+   dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
 
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
@@ -267,6 +281,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
+   dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
 
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
@@ -378,6 +393,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
+   dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
 

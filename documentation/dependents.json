@@ -946,9 +946,6 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
-  "AllegroFlare/DialogTree/YAMLLoader": [
-    "AllegroFlare/DialogSystem/DialogSystem"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",

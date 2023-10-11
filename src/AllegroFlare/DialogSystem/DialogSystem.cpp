@@ -11,7 +11,6 @@
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
-#include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
@@ -287,8 +286,6 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
    }
    // TODO: Validate a dialog is not currently running (or something)
    // TODO: Test these cases for loading multiple file formats with these extensions
-   AllegroFlare::StringFormatValidator validator(filename);
-
    if (load_node_bank_func)
    {
       // TODO: Test the case where "load_node_bank_func"
@@ -308,18 +305,20 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
    }
    else
    {
+      AllegroFlare::StringFormatValidator validator(filename);
+
       if (validator.ends_with(".screenplay.txt"))
       {
          AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
          loader.load_file(filename);
          dialog_node_bank = loader.get_node_bank();
       }
-      else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
-      {
-         AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-         yaml_loader.load_file(filename);
-         dialog_node_bank = yaml_loader.get_node_bank();
-      }
+      //else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
+      //{
+         //AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+         //yaml_loader.load_file(filename);
+         //dialog_node_bank = yaml_loader.get_node_bank();
+      //}
       else
       {
          AllegroFlare::Logger::throw_error(
@@ -1073,20 +1072,23 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
       throw std::runtime_error("DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event: error: guard \"data\" not met");
    }
    // TODO: Update this to a map caller pattern (static const)
-   if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile::TYPE))
-   {
-      auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile*>(data);
-      load_dialog_node_bank_from_file(as->get_yaml_filename());
-   }
+   //if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile::TYPE))
+   //{
+      //auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogYAMLFile*>(data);
+      //load_dialog_node_bank_from_file(as->get_yaml_filename());
+   //}
    // TODO: Rename this SpawnDialogByName to ActivateDialogNodeByName
-   else if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
+   if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
    {
       auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName*>(data);
       activate_dialog_node_by_name(as->get_name());
    }
    else
    {
-      throw std::runtime_error("handle_raw_ALLEGRO_EVENT_that_is_dialog_event unhandled case");
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::DialogSystem::DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event",
+            "Unhandled case on type \"" + data->get_type() + "\"."
+         );
    }
    return;
 }
