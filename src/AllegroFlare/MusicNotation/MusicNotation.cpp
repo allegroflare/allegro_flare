@@ -11,12 +11,29 @@
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <AllegroFlare/Logger.hpp>
-#include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
 #include <AllegroFlare/MusicNotation/TieRenderer.hpp>
 #include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
 #include <AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.hpp>
 #include <AllegroFlare/MusicNotation/ChordDotPositionCalculator.hpp>
 
+
+
+//bool operator==(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color);
+//bool operator!=(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color);
+static bool operator==(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
+{
+   if (color.r != other_color.r) return false;
+   if (color.g != other_color.g) return false;
+   if (color.b != other_color.b) return false;
+   if (color.a != other_color.a) return false;
+   return true;
+}
+
+
+static bool operator!=(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
+{
+   return !(color == other_color);
+}
 
 
 
