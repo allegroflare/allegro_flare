@@ -621,3 +621,31 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
+   FOCUS__update__when_the_currently_active_node_is_of_type_Wait__will_wait_until_the_time_has_finished_before_continuing)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::BitmapBin bitmap_bin;
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::DialogSystem::DialogSystem dialog_system;
+   dialog_system.set_bitmap_bin(&bitmap_bin);
+   dialog_system.set_font_bin(&font_bin);
+   dialog_system.set_event_emitter(&event_emitter);
+
+   AllegroFlare::DialogTree::NodeBank node_bank;
+   node_bank.add_node(
+      "foobar",
+      AllegroFlare::Nodes::Wait
+   );
+   dialog_system.set_dialog_node_bank(node_bank);
+   dialog_system.initialize();
+
+   al_shutdown_font_addon();
+   al_shutdown_primitives_addon();
+   al_uninstall_system();
+}
+
+

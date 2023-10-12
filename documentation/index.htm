@@ -2208,6 +2208,9 @@ table td
   <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank={})</td>
+</tr>
+<tr>
   <td class="method">load_dialog_node_bank_from_file(std::string filename=&quot;[unset-filename]&quot;)</td>
 </tr>
 <tr>
@@ -2251,6 +2254,9 @@ table td
 </tr>
 <tr>
   <td class="method">a_dialog_is_active()</td>
+</tr>
+<tr>
+  <td class="method">evaluate_auto_advance_on_dialog_node()</td>
 </tr>
 <tr>
   <td class="method">dialog_advance()</td>
@@ -2401,6 +2407,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogRoll&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogRoll.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Wait.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2744,6 +2753,10 @@ table td
 <tr>
   <td class="property">started_at</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">next_node_identifier</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -29235,6 +29248,9 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer"
+  ],
+  "AllegroFlare/DialogTree/Nodes/Wait": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",

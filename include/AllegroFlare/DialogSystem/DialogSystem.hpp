@@ -92,6 +92,7 @@ namespace AllegroFlare
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
+         void set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank={});
          void load_dialog_node_bank_from_file(std::string filename="[unset-filename]");
          void initialize();
          void destroy();

@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
-#include <AllegroFlare/Time.hpp>
+#include <string>
 
 
 namespace AllegroFlare
@@ -18,19 +18,18 @@ namespace AllegroFlare
 
          private:
             float duration_sec;
-            float started_at;
+            std::string next_node_identifier;
 
          protected:
 
 
          public:
-            Wait(float duration_sec=0.0f, float started_at=0.0f);
-            virtual ~Wait();
+            Wait(float duration_sec=0.0f, std::string next_node_identifier="[unset-next_node_identifier]");
+            ~Wait();
 
+            void set_next_node_identifier(std::string next_node_identifier);
             float get_duration_sec() const;
-            float get_started_at() const;
-            virtual void initialize(float time_now=AllegroFlare::Time::absolute_now()) override;
-            virtual void update(float time_now=AllegroFlare::Time::absolute_now()) override;
+            std::string get_next_node_identifier() const;
          };
       }
    }

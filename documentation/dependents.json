@@ -1011,6 +1011,9 @@
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer"
   ],
+  "AllegroFlare/DialogTree/Nodes/Wait": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",

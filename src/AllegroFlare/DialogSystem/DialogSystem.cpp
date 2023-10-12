@@ -275,6 +275,22 @@ void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    this->event_emitter = event_emitter;
 }
 
+void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::set_dialog_node_bank]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::set_dialog_node_bank: error: guard \"(!initialized)\" not met");
+   }
+   // For now, assigning the dialog_node_bank will be restricted to only before initialization.  There are currently
+   // unknown side effects (for example, currently running dialog, sound effects playing, etc), that are not
+   // accounted for here. However, you can "load_dialog_node_bank_from_file", so maybe there's some shared logic
+   // there
+   this->dialog_node_bank = dialog_node_bank;
+}
+
 void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
 {
    if (!(std::filesystem::exists(filename)))
@@ -704,9 +720,12 @@ void DialogSystem::update(float time_now)
    }
    // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
    // TODO: Ensure time_now is passed down to active dialog updates()
-   if (active_dialog_node) active_dialog_node->update();
+   //if (active_dialog_node) active_dialog_node->update();
    if (active_dialog_box) active_dialog_box->update();
    selection_cursor_box.update();
+
+   //evaluate_auto_advance_on_dialog_node();
+
    return;
 }
 
@@ -807,6 +826,15 @@ void DialogSystem::dialog_advance()
                }
             }
          }
+         //else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+         //{
+            //AllegroFlare::DialogTree::Nodes::Wait *as =
+                  //static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+            //if (as->get_is_finished())
+            //{
+               //activate_dialog_node_by_name(as->get_next_node_identifier());
+            //}
+         //}
          //else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
          //{
             //AllegroFlare::DialogTree::Nodes::ExitDialog *as =

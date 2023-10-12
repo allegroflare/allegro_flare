@@ -15,11 +15,12 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: started_at
-    type: float
-    init_with: 0.0f
+  - name: next_node_identifier
+    type: std::string
+    init_with: '"[unset-next_node_identifier]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: TYPE
     type: char*
@@ -28,48 +29,10 @@ properties:
     constexpr: true
 
 
-methods:
-
-
-  - name: initialize
-    virtual: true
-    override: true
-    parameters:
-      - name: time_now
-        type: float
-        default_argument: 'AllegroFlare::Time::absolute_now()'
-        default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
-    body: |
-      started_at = time_now;
-      if (AllegroFlare::Time::calculate_age(time_now, started_at) >= duration_sec) set_is_finished(true);
-      else set_is_finished(false);
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Time
-
-
-  - name: update
-    virtual: true
-    override: true
-    parameters:
-      - name: time_now
-        type: float
-        default_argument: 'AllegroFlare::Time::absolute_now()'
-        default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
-    body: |
-      if (AllegroFlare::Time::calculate_age(time_now, started_at) >= duration_sec) set_is_finished(true);
-      else set_is_finished(false);
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Time
-
-
 dependencies:
 
 
   - symbol: AllegroFlare::DialogTree::Nodes::Base
     headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
-  - symbol: AllegroFlare::Time
-    headers: [ AllegroFlare/Time.hpp ]
 
 

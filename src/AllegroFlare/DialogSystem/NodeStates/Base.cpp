@@ -1,15 +1,15 @@
 
 
-#include <AllegroFlare/DialogTree/Nodes/Base.hpp>
+#include <AllegroFlare/DialogSystem/NodeStates/Base.hpp>
 
 
 
 
 namespace AllegroFlare
 {
-namespace DialogTree
+namespace DialogSystem
 {
-namespace Nodes
+namespace NodeStates
 {
 
 
@@ -30,14 +30,24 @@ std::string Base::get_type() const
 }
 
 
+void Base::initialize(float time_now)
+{
+   return;
+}
+
+void Base::update(float time_now)
+{
+   return;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
 }
 
 
-} // namespace Nodes
-} // namespace DialogTree
+} // namespace NodeStates
+} // namespace DialogSystem
 } // namespace AllegroFlare
 
 
