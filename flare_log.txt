@@ -1,0 +1,15 @@
+[1;36m[AllegroFlare::Frameworks::Full::]: info: Initialized AllegroFlare::Logger to "flare_log.txt"[0m
+[1;36m[AllegroFlare::DeploymentEnvironment::setup]: info: 
+    - Deployment environment is "test". 
+    - Initial working directory: "/Users/markoates/Repos/allegro_flare". 
+    - Current working directory: "/Users/markoates/Repos/allegro_flare".
+    - Data folder path: "tests/fixtures/".[0m
+[1;36m[AllegroFlare::Display::Display()]: info: creating display.[0m
+[1;36m[AllegroFlare::Display::Display()]: info: Display (0x122226fe0) created with the following configuration:
+   - sample_buffers: YES
+         depth_size: 32
+            samples: 4
+              vsync: NO
+             OpenGL: YES
+             As fullscreen window: NO
+[0m

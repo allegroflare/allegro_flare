@@ -33,6 +33,7 @@
 #include <AllegroFlare/InputDevicesList.hpp>
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -42,6 +43,7 @@ namespace AllegroFlare
       class Full
       {
       private:
+         AllegroFlare::Logger logger_instance;
          ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;

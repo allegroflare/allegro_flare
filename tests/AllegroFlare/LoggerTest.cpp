@@ -43,7 +43,7 @@ TEST(AllegroFlare_LoggerTest, warn_from_once__will_only_emit_an_warning_message_
 TEST(AllegroFlare_LoggerTest, initialize_log_file__will_open_a_logfile_and_use_it_for_writing)
 {
    // TODO: Test that target test_log_file does not exist
-   std::string TEST_LOG_FILENAME = "/Users/markoates/Repos/allegro_flare/tmp/test_log_file4.txt";
+   std::string TEST_LOG_FILENAME = "/Users/markoates/Repos/allegro_flare/tmp/test_log_file.txt";
    ASSERT_EQ(false, std::filesystem::exists(TEST_LOG_FILENAME));
 
    AllegroFlare::Logger logger;

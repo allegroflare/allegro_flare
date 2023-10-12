@@ -118,7 +118,7 @@ void Logger::close_log_file()
             "Attempted not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
          );
    }
-   log_file_initialized = true;
+   log_file_initialized = false;
    return;
 }
 
