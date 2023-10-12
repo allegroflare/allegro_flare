@@ -1,0 +1,31 @@
+methods:
+
+
+  - name: create_filename
+    type: std::string
+    body: |
+      return std::tmpnam(nullptr);
+    body_dependency_symbols:
+      - std::tmpnam
+
+
+  - name: create_within_guaranteed_unique_directory
+    type: std::string
+    body: |
+      AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator;
+      std::string unique_directory = temporary_directory_creator.create();
+      std::string unique_filename = std::filesystem::path(std::tmpnam(nullptr)).filename().string();
+      return unique_directory + "/" + unique_filename;
+    body_dependency_symbols:
+      - AllegroFlare::Testing::TemporaryDirectoryCreator
+
+
+dependencies:
+
+
+  - symbol: std::tmpnam
+    headers: [ cstdio ]
+  - symbol: AllegroFlare::Testing::TemporaryDirectoryCreator
+    headers: [ AllegroFlare/Testing/TemporaryDirectoryCreator.hpp ]
+
+
