@@ -23,7 +23,6 @@
 #include <AllegroFlare/InputHints.hpp>
 #include <AllegroFlare/Elements/NotificationsRenderer.hpp>
 #include <AllegroFlare/NotificationsFactory.hpp>
-//#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/ProfilerRenderer.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
@@ -33,33 +32,6 @@
 
 // TODO: Move this to Frameworks::Full instance variable, and make configurable and 
 static std::string LOG_FILENAME = "flare_log.txt";
-
-
-/*
-   // TODO: Test that target test_log_file does not exist
-   static std::string LOG_FILENAME = "flare_log.txt";
-   //ASSERT_EQ(false, std::filesystem::exists(TEST_LOG_FILENAME));
-
-   //AllegroFlare::Logger logger;
-   logger.set_log_filename(LOG_FILENAME);
-   logger.initialize_log_file();
-   AllegroFlare::Logger::set_instance(&logger);
-   AllegroFlare::Logger::info_from(
-         "AllegroFlare::Frameworks::Full::",
-         "Initializing logger to \"" + LOG_FILENAME + "\""
-      );
-
-   // Test contents of produced log file
-   //std::string expected_file_contents = AllegroFlare::Logger::build_info_message(
-         //"AllegroFlare::LoggerTest::initialize_log_file__will_open_a_logfile_and_use_it_for_writing",
-         //"All is well!"
-      //) + "\n";
-   //std::string actual_file_contents = AllegroFlare::php::file_get_contents(TEST_LOG_FILENAME);
-
-   //EXPECT_EQ(expected_file_contents, actual_file_contents);
-
-   logger.close_log_file();
-*/
 
 
 namespace AllegroFlare
