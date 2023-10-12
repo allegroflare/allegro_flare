@@ -20,7 +20,7 @@ namespace AllegroFlare
          ~TemporaryFilenameCreator();
 
          std::string create_filename();
-         std::string create_within_guaranteed_unique_directory();
+         std::string create_filename_within_guaranteed_unique_directory();
       };
    }
 }

@@ -21,41 +21,41 @@ TEST(AllegroFlare_Testing_TemporaryFilenameCreatorTest, create__on_successive_ru
 
 
 TEST(AllegroFlare_Testing_TemporaryFilenameCreatorTest,
-   create_within_guaranteed_unique_directory__on_successive_runs__will_return_unique_results)
+   create_filename_within_guaranteed_unique_directory__on_successive_runs__will_return_unique_results)
 {
    AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
-   std::string actual_first_value = temporary_filename_creator.create_within_guaranteed_unique_directory();
-   std::string actual_second_value = temporary_filename_creator.create_within_guaranteed_unique_directory();
+   std::string actual_first_value = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
+   std::string actual_second_value = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
    EXPECT_NE(actual_first_value, actual_second_value);
 }
 
 
 TEST(AllegroFlare_Testing_TemporaryFilenameCreatorTest,
-   create_within_guaranteed_unique_directory__will_create_a_filename_that_does_not_exist)
+   create_filename_within_guaranteed_unique_directory__will_create_a_filename_that_does_not_exist)
 {
    AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
-   std::string created_filename = temporary_filename_creator.create_within_guaranteed_unique_directory();
+   std::string created_filename = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
    EXPECT_EQ(false, std::filesystem::exists(created_filename));
 }
 
 
 TEST(AllegroFlare_Testing_TemporaryFilenameCreatorTest,
-   create_within_guaranteed_unique_directory__will_create_a_filename_in_a_directory_that_does_exist)
+   create_filename_within_guaranteed_unique_directory__will_create_a_filename_in_a_directory_that_does_exist)
 {
-   // TODO: This test
-   //AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
-   //std::string created_filename = temporary_filename_creator.create_within_guaranteed_unique_directory();
-   //EXPECT_EQ(false, std::filesystem::exists(created_filename));
+   AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
+   std::string created_filename = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
+   std::string directory = std::filesystem::path(created_filename).parent_path();
+   EXPECT_EQ(true, std::filesystem::exists(directory));
 }
 
 
 TEST(AllegroFlare_Testing_TemporaryFilenameCreatorTest,
-   create_within_guaranteed_unique_directory__will_create_a_filename_in_a_directory_that_is_empty)
+   create_filename_within_guaranteed_unique_directory__will_create_a_filename_in_a_directory_that_is_empty)
 {
-   // TODO: This test
-   //AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
-   //std::string created_filename = temporary_filename_creator.create_within_guaranteed_unique_directory();
-   //EXPECT_EQ(false, std::filesystem::exists(created_filename));
+   AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
+   std::string created_filename = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
+   std::string directory = std::filesystem::path(created_filename).parent_path();
+   EXPECT_EQ(true, std::filesystem::is_empty(directory));
 }
 
 

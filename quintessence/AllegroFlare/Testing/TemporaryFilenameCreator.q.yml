@@ -9,7 +9,7 @@ methods:
       - std::tmpnam
 
 
-  - name: create_within_guaranteed_unique_directory
+  - name: create_filename_within_guaranteed_unique_directory
     type: std::string
     body: |
       AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator;
