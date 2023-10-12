@@ -37,8 +37,74 @@ properties:
     type: std::set<std::string>
     init_with: '{}'
 
+  - name: log_filename
+    static: true
+    type: std::string
+    init_with: DEFAULT_LOG_FILENAME
+    setter: explicit
+
+  - name: log_file
+    static: true
+    type: std::ofstream
+    init_with: '{}'
+
+  - name: log_file_initialized
+    static: true
+    type: bool
+    init_with: false
+
+  - name: instance
+    static: true
+    type: AllegroFlare::Logger*
+    init_with: nullptr
+    setter: explicit
+
+  - name: DEFAULT_LOG_FILENAME
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"allegro_flare.log"'
+
 
 methods:
+
+
+  - name: set_instance
+    static: true
+    parameters:
+      - name: instance_to_use
+        type: AllegroFlare::Logger*
+        default_argument: nullptr
+    guards: [ (!instance) ]
+    body: |
+      instance = instance_to_use;
+      return;
+
+
+  - name: set_log_filename
+    guards: [ (!log_file_initialized) ]
+    parameters:
+      - name: log_filename
+        type: std::string
+        default_argument: DEFAULT_LOG_FILENAME
+    body: |
+      this->log_filename = log_filename;
+      return;
+
+
+  - name: initialize_log_file
+    guards: [ (!log_file_initialized) ]
+    body: |
+      log_file.open(log_filename);
+      if (!log_file.is_open()) {
+         std::string error_message = build_error_message(
+               "AllegroFlare::Logger",
+               "Could not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
+            );
+      }
+      log_file_initialized = true;
+      return;
 
 
   - name: build_error_message
@@ -219,7 +285,9 @@ methods:
         type: std::string
         default_argument: '"[unset-message]"'
     body: |
-      std::cout << build_warning_message(from, message) << std::endl;
+      std::string warning_message = build_warning_message(from, message);
+      std::cout << warning_message << std::endl;
+      if (instance && instance->log_file_initialized) instance->log_file << warning_message << std::endl;
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
       - std::stringstream
@@ -395,5 +463,7 @@ dependencies:
     headers: [ filesystem ]
   - symbol: AllegroFlare::ConsoleColors
     headers: [ AllegroFlare/ConsoleColors.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

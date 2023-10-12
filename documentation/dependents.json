@@ -28,6 +28,7 @@
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/GameSession",
+    "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",

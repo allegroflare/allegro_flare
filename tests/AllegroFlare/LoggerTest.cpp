@@ -39,3 +39,18 @@ TEST(AllegroFlare_LoggerTest, warn_from_once__will_only_emit_an_warning_message_
 }
 
 
+TEST(AllegroFlare_LoggerTest, initialize_log_file__will_open_a_logfile_and_use_it_for_writing)
+{
+   AllegroFlare::Logger logger;
+   logger.set_log_filename("/Users/markoates/Repos/allegro_flare/tmp/test_log_file.txt");
+   logger.initialize_log_file(); // TODO: Consider requiring some kind of acknoledgement of log file setup
+
+   AllegroFlare::Logger::set_instance(&logger);
+   AllegroFlare::Logger::warn_from(
+         "AllegroFlare::LoggerTest::initialize_log_file__will_open_a_logfile_and_use_it_for_writing",
+         "All is well!"
+      );
+   // TODO: Test contents of produced log file
+}
+
+

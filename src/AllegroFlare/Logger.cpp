@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -13,6 +14,18 @@ namespace AllegroFlare
 
 
 std::set<std::string> Logger::once_emitted_warnings = {};
+
+
+std::string Logger::log_filename = DEFAULT_LOG_FILENAME;
+
+
+std::ofstream Logger::log_file = {};
+
+
+bool Logger::log_file_initialized = false;
+
+
+AllegroFlare::Logger* Logger::instance = nullptr;
 
 
 Logger::Logger()
@@ -24,6 +37,52 @@ Logger::~Logger()
 {
 }
 
+
+void Logger::set_instance(AllegroFlare::Logger* instance_to_use)
+{
+   if (!((!instance)))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::set_instance]: error: guard \"(!instance)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::set_instance: error: guard \"(!instance)\" not met");
+   }
+   instance = instance_to_use;
+   return;
+}
+
+void Logger::set_log_filename(std::string log_filename)
+{
+   if (!((!log_file_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::set_log_filename]: error: guard \"(!log_file_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::set_log_filename: error: guard \"(!log_file_initialized)\" not met");
+   }
+   this->log_filename = log_filename;
+   return;
+}
+
+void Logger::initialize_log_file()
+{
+   if (!((!log_file_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::initialize_log_file]: error: guard \"(!log_file_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::initialize_log_file: error: guard \"(!log_file_initialized)\" not met");
+   }
+   log_file.open(log_filename);
+   if (!log_file.is_open()) {
+      std::string error_message = build_error_message(
+            "AllegroFlare::Logger",
+            "Could not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
+         );
+   }
+   log_file_initialized = true;
+   return;
+}
 
 std::string Logger::build_error_message(std::string from, std::string message)
 {
@@ -105,7 +164,9 @@ void Logger::info_from(std::string from, std::string message)
 
 void Logger::warn_from(std::string from, std::string message)
 {
-   std::cout << build_warning_message(from, message) << std::endl;
+   std::string warning_message = build_warning_message(from, message);
+   std::cout << warning_message << std::endl;
+   if (instance && instance->log_file_initialized) instance->log_file << warning_message << std::endl;
 }
 
 void Logger::warn_from_once(std::string from, std::string message)
