@@ -157,6 +157,7 @@ namespace AllegroFlare
          bool initialize();
          bool is_initialized();
          bool shutdown(); // TODO: make this private
+         void enable_log_file();
          void disable_log_file();
          void disable_mipmapping();
          void disable_fullscreen();

@@ -88,7 +88,7 @@ Full::Full()
    , input_hints_backfill_opacity(0.35)
    , input_hints_bar_height(60)
    , fullscreen(true)
-   , log_file_is_disabled(false)
+   , log_file_is_disabled(true)
    , mipmapping(true)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
@@ -559,6 +559,20 @@ void Full::disable_fullscreen()
                 << std::endl;
    }
    if (!initialized) fullscreen = false;
+}
+
+
+void Full::enable_log_file()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::enable_log_file",
+         "Could not enable because the framework has already been initialized. "
+            "You must call this function before initializing the framework for it to take effect."
+      );
+   }
+   log_file_is_disabled = false;
 }
 
 

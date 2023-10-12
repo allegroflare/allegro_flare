@@ -108,7 +108,6 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    framework.set_deployment_environment("test");
    framework.disable_auto_created_config_warning();
    framework.disable_fullscreen();
-   framework.disable_log_file();
    framework.initialize();
 
    this->framework_event_emitter = &framework.get_event_emitter_ref();
