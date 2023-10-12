@@ -84,7 +84,6 @@ methods:
 
   - name: clear_instance
     static: true
-    guards: [ instance ]
     body: |
       instance = nullptr;
       return;

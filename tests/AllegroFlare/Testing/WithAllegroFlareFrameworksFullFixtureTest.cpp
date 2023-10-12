@@ -85,3 +85,10 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
 }
 
 
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroFlareFrameworksFullFixture,
+   DISABLED__has_a_disabled_log_file)
+{
+   // TODO
+}
+
+
