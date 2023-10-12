@@ -1,32 +1,31 @@
 documentation:
 
 
-  - todos:
-      - consider removing "static" attribute from "once_emitter_warnings".
-  - internal: |
-      Below is a code example showing variadic arguments in C++ using std::format (will be available in C++20.
-      See: https://codereview.stackexchange.com/questions/269425/implementing-stdformat
+  todos:
+    - consider removing "static" attribute from "once_emitter_warnings".
+  internal: |
+    Below is a code example showing variadic arguments in C++ using std::format (will be available in C++20.
+    See: https://codereview.stackexchange.com/questions/269425/implementing-stdformat
 
-      template<typename T>
-      void format_helper(std::ostringstream& oss,
-                         std::string_view& str, const T& value)
-      {
-          std::size_t openBracket = str.find('{');
-          if (openBracket == std::string::npos) { return; }
-          std::size_t closeBracket = str.find('}', openBracket + 1);
-          if (closeBracket == std::string::npos) { return; }
-          oss << str.substr(0, openBracket) << value;
-          str = str.substr(closeBracket + 1);
-      }
+    template<typename T>
+    void format_helper(std::ostringstream& oss, std::string_view& str, const T& value)
+    {
+        std::size_t openBracket = str.find('{');
+        if (openBracket == std::string::npos) { return; }
+        std::size_t closeBracket = str.find('}', openBracket + 1);
+        if (closeBracket == std::string::npos) { return; }
+        oss << str.substr(0, openBracket) << value;
+        str = str.substr(closeBracket + 1);
+    }
 
-      template<typename... Targs>
-      std::string format(std::string_view str, Targs...args)
-      {
-          std::ostringstream oss;
-          (format_helper(oss, str, args),...);
-          oss << str;
-          return oss.str();
-      }
+    template<typename... Targs>
+    std::string format(std::string_view str, Targs...args)
+    {
+        std::ostringstream oss;
+        (format_helper(oss, str, args),...);
+        oss << str;
+        return oss.str();
+    }
 
 
 properties:
@@ -58,6 +57,7 @@ properties:
     type: AllegroFlare::Logger*
     init_with: nullptr
     setter: explicit
+    getter: false
 
   - name: DEFAULT_LOG_FILENAME
     type: char*
@@ -147,8 +147,6 @@ methods:
         default_argument: '"[unset-message]"'
     type: std::string
     body: |
-      //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-      //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
       std::stringstream result;
       result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;
       return result.str();
@@ -192,8 +190,6 @@ methods:
         default_argument: '"[unset-message]"'
     type: std::string
     body: |
-      //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-      //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
       std::stringstream result;
       result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning: " << message << CONSOLE_COLOR_DEFAULT;
       return result.str();
@@ -237,8 +233,6 @@ methods:
         default_argument: '"[unset-message]"'
     type: std::string
     body: |
-      //const std::string CONSOLE_COLOR_RED = "[1;31m";
-      //const std::string CONSOLE_COLOR_DEFAULT = "[0m";
       std::stringstream result;
       result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
       return result.str();
@@ -362,8 +356,6 @@ methods:
       std::stringstream error_message;
       error_message << "[" << from << "]: error: " << message;
 
-      //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-      //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
       std::stringstream error_message_for_cout;
       error_message_for_cout << CONSOLE_COLOR_RED
                              << "[" << from << "] error: " << message

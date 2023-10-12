@@ -365,6 +365,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/StringFormatValidator.q.yml">quintessence/AllegroFlare/StringFormatValidator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/Rulers.q.yml">quintessence/AllegroFlare/Testing/Rulers.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml">quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Testing/TemporaryFilenameCreator.q.yml">quintessence/AllegroFlare/Testing/TemporaryFilenameCreator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/TestNameInference.q.yml">quintessence/AllegroFlare/Testing/TestNameInference.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
@@ -11488,10 +11490,10 @@ table td
   <td class="method">build_not_included_message(std::string element_not_present=&quot;[unset-missing_element]&quot;, std::vector&lt;std::string&gt; valid_elements={})</td>
 </tr>
 <tr>
-  <td class="method">build_unhandled_case_message()</td>
+  <td class="method">build_info_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">build_info_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
+  <td class="method">build_unhandled_case_message()</td>
 </tr>
 <tr>
   <td class="method">throw_missing_file_error(std::string from=&quot;[unset-from]&quot;, std::string filename=&quot;[unset-filename]&quot;, std::string filetype=&quot;[unset-filetype]&quot;)</td>
@@ -23565,6 +23567,62 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml">quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">create(uint32_t max_tries=100000)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;random&quot;, &quot;headers&quot;=&gt;[&quot;random&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::random_device&quot;, &quot;headers&quot;=&gt;[&quot;random&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::mt19937&quot;, &quot;headers&quot;=&gt;[&quot;random&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::path&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Testing/TemporaryFilenameCreator.q.yml">quintessence/AllegroFlare/Testing/TemporaryFilenameCreator.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">create_filename()</td>
+</tr>
+<tr>
+  <td class="method">create_filename_within_guaranteed_unique_directory()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tmpnam&quot;, &quot;headers&quot;=&gt;[&quot;cstdio&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Testing::TemporaryDirectoryCreator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Testing/TemporaryDirectoryCreator.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Testing/TestNameInference.q.yml">quintessence/AllegroFlare/Testing/TestNameInference.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -30978,6 +31036,27 @@ table td
   ],
   "ALLEGRO_STATE": [
     "AllegroFlare/Testing/Rulers"
+  ],
+  "random": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/random_device": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/mt19937": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "filesystem": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/filesystem/path": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/tmpnam": [
+    "AllegroFlare/Testing/TemporaryFilenameCreator"
+  ],
+  "AllegroFlare/Testing/TemporaryDirectoryCreator": [
+    "AllegroFlare/Testing/TemporaryFilenameCreator"
   ],
   "AllegroFlare/Profiler": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"

@@ -95,6 +95,7 @@ namespace AllegroFlare
          float input_hints_backfill_opacity;
          float input_hints_bar_height;
          bool fullscreen;
+         bool log_file_is_disabled;
          bool mipmapping;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          bool unset_deployment_environment_warning_on_initialization_is_disabled;
@@ -156,6 +157,7 @@ namespace AllegroFlare
          bool initialize();
          bool is_initialized();
          bool shutdown(); // TODO: make this private
+         void disable_log_file();
          void disable_mipmapping();
          void disable_fullscreen();
          void disable_unset_deployment_environment_warning_on_initialization();

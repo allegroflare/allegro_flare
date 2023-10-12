@@ -124,8 +124,6 @@ void Logger::close_log_file()
 
 std::string Logger::build_error_message(std::string from, std::string message)
 {
-   //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-   //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
    std::stringstream result;
    result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;
    return result.str();
@@ -145,8 +143,6 @@ std::string Logger::build_guard_error_message(std::string from, std::string guar
 
 std::string Logger::build_warning_message(std::string from, std::string message)
 {
-   //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-   //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
    std::stringstream result;
    result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning: " << message << CONSOLE_COLOR_DEFAULT;
    return result.str();
@@ -169,8 +165,6 @@ std::string Logger::build_not_included_message(std::string element_not_present, 
 
 std::string Logger::build_info_message(std::string from, std::string message)
 {
-   //const std::string CONSOLE_COLOR_RED = "[1;31m";
-   //const std::string CONSOLE_COLOR_DEFAULT = "[0m";
    std::stringstream result;
    result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
    return result.str();
@@ -225,8 +219,6 @@ void Logger::throw_error(std::string from, std::string message)
    std::stringstream error_message;
    error_message << "[" << from << "]: error: " << message;
 
-   //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-   //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
    std::stringstream error_message_for_cout;
    error_message_for_cout << CONSOLE_COLOR_RED
                           << "[" << from << "] error: " << message

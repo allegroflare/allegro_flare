@@ -116,6 +116,7 @@ Full::Full()
    , input_hints_backfill_opacity(0.35)
    , input_hints_bar_height(60)
    , fullscreen(true)
+   , log_file_is_disabled(false)
    , mipmapping(true)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
@@ -277,14 +278,17 @@ bool Full::initialize_core_system()
    //ASSERT_EQ(false, std::filesystem::exists(TEST_LOG_FILENAME));
 
    //AllegroFlare::Logger logger;
-   logger_instance.set_log_filename(LOG_FILENAME);
-   logger_instance.initialize_log_file();
 
-   AllegroFlare::Logger::set_instance(&logger_instance);
-   AllegroFlare::Logger::info_from(
-         "AllegroFlare::Frameworks::Full::",
-         "Initialized AllegroFlare::Logger to \"" + LOG_FILENAME + "\""
-      );
+   if (!log_file_is_disabled)
+   {
+      logger_instance.set_log_filename(LOG_FILENAME);
+      logger_instance.initialize_log_file();
+      AllegroFlare::Logger::set_instance(&logger_instance);
+      AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::",
+            "Initialized AllegroFlare::Logger to \"" + LOG_FILENAME + "\""
+         );
+   }
 
 
    if (!al_init()) std::cerr << "al_init() failed" << std::endl;
@@ -586,6 +590,20 @@ void Full::disable_fullscreen()
 }
 
 
+void Full::disable_log_file()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::disable_log_file",
+         "Could not disable because the framework has already been initialized. "
+            "You must call this function before initializing the framework for it to take effect."
+      );
+   }
+   log_file_is_disabled = true;
+}
+
+
 void Full::disable_mipmapping()
 {
    if (initialized)
@@ -735,7 +753,11 @@ bool Full::shutdown()
    initialized = false;
 
    AllegroFlare::Logger::clear_instance();
-   logger_instance.close_log_file();
+
+   if (!log_file_is_disabled)
+   {
+      logger_instance.close_log_file();
+   }
 
    return true;
 }

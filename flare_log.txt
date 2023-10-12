@@ -5,7 +5,7 @@
     - Current working directory: "/Users/markoates/Repos/allegro_flare".
     - Data folder path: "tests/fixtures/".[0m
 [1;36m[AllegroFlare::Display::Display()]: info: creating display.[0m
-[1;36m[AllegroFlare::Display::Display()]: info: Display (0x122226fe0) created with the following configuration:
+[1;36m[AllegroFlare::Display::Display()]: info: Display (0x111e3c7e0) created with the following configuration:
    - sample_buffers: YES
          depth_size: 32
             samples: 4

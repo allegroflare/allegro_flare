@@ -2812,6 +2812,27 @@
   "ALLEGRO_STATE": [
     "AllegroFlare/Testing/Rulers"
   ],
+  "random": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/random_device": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/mt19937": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "filesystem": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/filesystem/path": [
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/tmpnam": [
+    "AllegroFlare/Testing/TemporaryFilenameCreator"
+  ],
+  "AllegroFlare/Testing/TemporaryDirectoryCreator": [
+    "AllegroFlare/Testing/TemporaryFilenameCreator"
+  ],
   "AllegroFlare/Profiler": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
