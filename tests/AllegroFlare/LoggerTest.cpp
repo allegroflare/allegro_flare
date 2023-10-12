@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
+#include <AllegroFlare/Testing/TemporaryFilenameCreator.hpp>
 
 
 TEST(AllegroFlare_LoggerTest, can_be_created_without_blowing_up)
@@ -42,12 +43,11 @@ TEST(AllegroFlare_LoggerTest, warn_from_once__will_only_emit_an_warning_message_
 
 TEST(AllegroFlare_LoggerTest, initialize_log_file__will_open_a_logfile_and_use_it_for_writing)
 {
-   // TODO: Test that target test_log_file does not exist
-   std::string TEST_LOG_FILENAME = "/Users/markoates/Repos/allegro_flare/tmp/test_log_file.txt";
-   ASSERT_EQ(false, std::filesystem::exists(TEST_LOG_FILENAME));
+   AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
+   std::string log_filename = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
 
    AllegroFlare::Logger logger;
-   logger.set_log_filename(TEST_LOG_FILENAME);
+   logger.set_log_filename(log_filename);
    logger.initialize_log_file(); // TODO: Consider requiring some kind of acknoledgement of log file setup
 
    AllegroFlare::Logger::set_instance(&logger);
@@ -61,7 +61,7 @@ TEST(AllegroFlare_LoggerTest, initialize_log_file__will_open_a_logfile_and_use_i
          "AllegroFlare::LoggerTest::initialize_log_file__will_open_a_logfile_and_use_it_for_writing",
          "All is well!"
       ) + "\n";
-   std::string actual_file_contents = AllegroFlare::php::file_get_contents(TEST_LOG_FILENAME);
+   std::string actual_file_contents = AllegroFlare::php::file_get_contents(log_filename);
 
    EXPECT_EQ(expected_file_contents, actual_file_contents);
 
