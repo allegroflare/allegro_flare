@@ -16,10 +16,10 @@ namespace NodeStates
 {
 
 
-Wait::Wait(AllegroFlare::DialogTree::Nodes::Wait* wait_node, float started_at)
+Wait::Wait(AllegroFlare::DialogTree::Nodes::Wait* wait_node)
    : AllegroFlare::DialogSystem::NodeStates::Base(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE)
    , wait_node(wait_node)
-   , started_at(started_at)
+   , started_at(0.0f)
    , is_finished(false)
 {
 }
@@ -59,7 +59,6 @@ void Wait::initialize(float time_now)
    }
    started_at = time_now;
    if (AllegroFlare::Time::calculate_age(time_now, started_at) >= wait_node->get_duration_sec()) is_finished = true;
-   //else is_finished = false;
    return;
 }
 
@@ -72,8 +71,8 @@ void Wait::update(float time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Wait::update: error: guard \"wait_node\" not met");
    }
+   if (is_finished) return;
    if (AllegroFlare::Time::calculate_age(time_now, started_at) >= wait_node->get_duration_sec()) is_finished = true;
-   //else is_finished = false;
    return;
 }
 

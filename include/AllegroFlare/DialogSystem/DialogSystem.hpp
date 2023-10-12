@@ -4,6 +4,7 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
+#include <AllegroFlare/DialogSystem/NodeStates/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
@@ -38,6 +39,7 @@ namespace AllegroFlare
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
+         AllegroFlare::DialogSystem::NodeStates::Base* active_dialog_node_state;
          AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_character_staging_layout;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func;
          AllegroFlare::Elements::DialogRoll dialog_roll;
@@ -106,6 +108,7 @@ namespace AllegroFlare
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_choice_dialog(std::string speaking_character="[unset-speaking_character]", std::string prompt="[unset-prompt]", std::vector<std::string> options={});
          void update(float time_now=0);
+         void evaluate_auto_advance_on_dialog_node_state();
          void render();
          bool a_dialog_is_active();
          void dialog_advance();

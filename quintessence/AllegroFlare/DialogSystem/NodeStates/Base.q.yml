@@ -17,17 +17,6 @@ properties:
 methods:
 
 
-  - name: initialize
-    virtual: true
-    parameters:
-      - name: time_now
-        type: float
-        default_argument: 'AllegroFlare::Time::absolute_now()'
-        default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
-    body: |
-      return;
-
-
   - name: update
     virtual: true
     parameters:

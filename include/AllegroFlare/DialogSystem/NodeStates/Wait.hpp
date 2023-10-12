@@ -26,13 +26,13 @@ namespace AllegroFlare
 
 
          public:
-            Wait(AllegroFlare::DialogTree::Nodes::Wait* wait_node=nullptr, float started_at=0.0f);
+            Wait(AllegroFlare::DialogTree::Nodes::Wait* wait_node=nullptr);
             virtual ~Wait();
 
             AllegroFlare::DialogTree::Nodes::Wait* get_wait_node() const;
             float get_started_at() const;
             bool get_is_finished() const;
-            virtual void initialize(float time_now=AllegroFlare::Time::absolute_now()) override;
+            void initialize(float time_now=AllegroFlare::Time::absolute_now());
             virtual void update(float time_now=AllegroFlare::Time::absolute_now()) override;
          };
       }

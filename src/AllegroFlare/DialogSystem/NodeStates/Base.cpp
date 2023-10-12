@@ -30,11 +30,6 @@ std::string Base::get_type() const
 }
 
 
-void Base::initialize(float time_now)
-{
-   return;
-}
-
 void Base::update(float time_now)
 {
    return;

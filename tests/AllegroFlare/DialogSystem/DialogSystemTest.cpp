@@ -11,6 +11,8 @@
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp> // TODO: Consider alternative to this loader
+#include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 
 
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
@@ -624,6 +626,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    FOCUS__update__when_the_currently_active_node_is_of_type_Wait__will_wait_until_the_time_has_finished_before_continuing)
 {
+   // Setup our test context
    al_init();
    al_init_primitives_addon();
    al_init_font_addon();
@@ -635,14 +638,24 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    dialog_system.set_font_bin(&font_bin);
    dialog_system.set_event_emitter(&event_emitter);
 
+   // Build up a node_bank with a wait node
    AllegroFlare::DialogTree::NodeBank node_bank;
-   node_bank.add_node(
-      "foobar",
-      AllegroFlare::Nodes::Wait
-   );
+   node_bank.add_node("wait_node_1", new AllegroFlare::DialogTree::Nodes::Wait(1, "cout_node"));
+   node_bank.add_node("cout_node", new AllegroFlare::DialogTree::Nodes::ExitDialog());
+
+   // Use our assembled node_bank
    dialog_system.set_dialog_node_bank(node_bank);
    dialog_system.initialize();
 
+   // Start on the wait node
+   dialog_system.activate_dialog_node_by_name("wait_node_1");
+   dialog_system.update(al_get_time()); // TODO: Use AllegroFlare::Time
+   EXPECT_EQ("wait_node_1", dialog_system.get_active_dialog_node_name());
+   al_rest(1.2);
+   dialog_system.update(al_get_time()); // TODO: Use AllegroFlare::Time
+   EXPECT_EQ("cout_node", dialog_system.get_active_dialog_node_name());
+
+   // Shutdown our test context
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

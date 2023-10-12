@@ -50,6 +50,10 @@ properties:
     init_with: '"[unset-active_dialog_node_name]"'
     getter: true
 
+  - name: active_dialog_node_state
+    type: AllegroFlare::DialogSystem::NodeStates::Base*
+    init_with: nullptr
+
   - name: active_character_staging_layout
     type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
     init_with: nullptr
@@ -438,6 +442,11 @@ methods:
     body: |
       active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
       active_dialog_node_name = dialog_name;
+      if (active_dialog_node_state)
+      {
+         delete active_dialog_node_state;
+         active_dialog_node_state = nullptr;
+      }
 
       if (activate_dialog_node_by_name_func)
       {
@@ -496,6 +505,20 @@ methods:
             //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
          }
       }
+      else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+      {
+         // Cast our class
+         AllegroFlare::DialogTree::Nodes::Wait *as =
+            static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+
+         // Create a new state for this node
+         AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
+               new AllegroFlare::DialogSystem::NodeStates::Wait(as);
+         wait_node_state->initialize();
+
+         // Assign the state to our "active_dialog_node_state" so it can be managed
+         active_dialog_node_state = wait_node_state;
+      }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
       {
          //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
@@ -524,6 +547,9 @@ methods:
       return;
     body_dependency_symbols:
      - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+     - AllegroFlare::DialogTree::Nodes::ExitDialog
+     - AllegroFlare::DialogTree::Nodes::Wait
+     - AllegroFlare::DialogSystem::NodeStates::Wait
 
 
   - name: spawn_basic_dialog
@@ -621,11 +647,33 @@ methods:
     body: |
       // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
       // TODO: Ensure time_now is passed down to active dialog updates()
-      //if (active_dialog_node) active_dialog_node->update();
+      // TODO: Consider if ordering of events is correct
       if (active_dialog_box) active_dialog_box->update();
       selection_cursor_box.update();
+      if (active_dialog_node_state) active_dialog_node_state->update(); // TODO: Pass down time_now
 
-      //evaluate_auto_advance_on_dialog_node();
+      evaluate_auto_advance_on_dialog_node_state();
+
+      return;
+
+
+  - name: evaluate_auto_advance_on_dialog_node_state
+    guards: [ initialized ]
+    body: |
+      if (!active_dialog_node_state) return;
+
+      if (active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
+      {
+         AllegroFlare::DialogSystem::NodeStates::Wait *as =
+            static_cast<AllegroFlare::DialogSystem::NodeStates::Wait*>(active_dialog_node_state);
+         if (as->get_is_finished())
+         {
+            activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
+         }
+      }
+      // TODO: Consider using blacklist for items that are handled, but have no behavior
+      // TODO: Consider throwing on unhandled type
+      // TODO: Consider user callback for handling unknown node state type
 
       return;
 
@@ -792,7 +840,7 @@ methods:
                "DialogSystem::activate_dialog_option: error: selection_choice must be >= 0"
             );
          }
-         if (!(selection_choice < as_multipage_with_options ->num_options()))
+         if (!(selection_choice < as_multipage_with_options->num_options()))
          {
             throw std::runtime_error(
                "DialogSystem::activate_dialog_option: error: selection_choice must be less than the num options"
@@ -1065,5 +1113,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::Wait
     headers: [ AllegroFlare/DialogTree/Nodes/Wait.hpp ]
+  - symbol: AllegroFlare::DialogSystem::NodeStates::Base
+    headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
+  - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
+    headers: [ AllegroFlare/DialogSystem/NodeStates/Wait.hpp ]
 
 

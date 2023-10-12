@@ -6,11 +6,13 @@
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
+#include <AllegroFlare/DialogSystem/NodeStates/Wait.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
+#include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
@@ -42,6 +44,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , selection_cursor_box({})
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
+   , active_dialog_node_state(nullptr)
    , active_character_staging_layout(nullptr)
    , load_node_bank_func()
    , dialog_roll()
@@ -559,6 +562,11 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    active_dialog_node_name = dialog_name;
+   if (active_dialog_node_state)
+   {
+      delete active_dialog_node_state;
+      active_dialog_node_state = nullptr;
+   }
 
    if (activate_dialog_node_by_name_func)
    {
@@ -616,6 +624,20 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
          spawn_choice_dialog(node_pages_speaker, node_pages[0], node_options_as_text);
          //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
       }
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+   {
+      // Cast our class
+      AllegroFlare::DialogTree::Nodes::Wait *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+
+      // Create a new state for this node
+      AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
+            new AllegroFlare::DialogSystem::NodeStates::Wait(as);
+      wait_node_state->initialize();
+
+      // Assign the state to our "active_dialog_node_state" so it can be managed
+      active_dialog_node_state = wait_node_state;
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
@@ -720,11 +742,39 @@ void DialogSystem::update(float time_now)
    }
    // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
    // TODO: Ensure time_now is passed down to active dialog updates()
-   //if (active_dialog_node) active_dialog_node->update();
+   // TODO: Consider if ordering of events is correct
    if (active_dialog_box) active_dialog_box->update();
    selection_cursor_box.update();
+   if (active_dialog_node_state) active_dialog_node_state->update(); // TODO: Pass down time_now
 
-   //evaluate_auto_advance_on_dialog_node();
+   evaluate_auto_advance_on_dialog_node_state();
+
+   return;
+}
+
+void DialogSystem::evaluate_auto_advance_on_dialog_node_state()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::evaluate_auto_advance_on_dialog_node_state]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::evaluate_auto_advance_on_dialog_node_state: error: guard \"initialized\" not met");
+   }
+   if (!active_dialog_node_state) return;
+
+   if (active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
+   {
+      AllegroFlare::DialogSystem::NodeStates::Wait *as =
+         static_cast<AllegroFlare::DialogSystem::NodeStates::Wait*>(active_dialog_node_state);
+      if (as->get_is_finished())
+      {
+         activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
+      }
+   }
+   // TODO: Consider using blacklist for items that are handled, but have no behavior
+   // TODO: Consider throwing on unhandled type
+   // TODO: Consider user callback for handling unknown node state type
 
    return;
 }
@@ -909,7 +959,7 @@ void DialogSystem::activate_dialog_option(int selection_choice)
             "DialogSystem::activate_dialog_option: error: selection_choice must be >= 0"
          );
       }
-      if (!(selection_choice < as_multipage_with_options ->num_options()))
+      if (!(selection_choice < as_multipage_with_options->num_options()))
       {
          throw std::runtime_error(
             "DialogSystem::activate_dialog_option: error: selection_choice must be less than the num options"

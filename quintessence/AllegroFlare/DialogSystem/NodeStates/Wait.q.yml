@@ -18,7 +18,6 @@ properties:
   - name: started_at
     type: float
     init_with: 0.0f
-    constructor_arg: true
     getter: true
 
   - name: is_finished
@@ -37,8 +36,6 @@ methods:
 
 
   - name: initialize
-    virtual: true
-    override: true
     parameters:
       - name: time_now
         type: float
@@ -48,7 +45,6 @@ methods:
     body: |
       started_at = time_now;
       if (AllegroFlare::Time::calculate_age(time_now, started_at) >= wait_node->get_duration_sec()) is_finished = true;
-      //else is_finished = false;
       return;
     body_dependency_symbols:
       - AllegroFlare::Time
@@ -64,8 +60,8 @@ methods:
         default_argument_dependency_symbols: [ 'AllegroFlare::Time' ]
     guards: [ wait_node ]
     body: |
+      if (is_finished) return;
       if (AllegroFlare::Time::calculate_age(time_now, started_at) >= wait_node->get_duration_sec()) is_finished = true;
-      //else is_finished = false;
       return;
     body_dependency_symbols:
       - AllegroFlare::Time

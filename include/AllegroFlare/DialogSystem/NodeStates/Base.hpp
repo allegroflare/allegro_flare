@@ -27,7 +27,6 @@ namespace AllegroFlare
             virtual ~Base();
 
             std::string get_type() const;
-            virtual void initialize(float time_now=AllegroFlare::Time::absolute_now());
             virtual void update(float time_now=AllegroFlare::Time::absolute_now());
             bool is_type(std::string possible_type="");
          };

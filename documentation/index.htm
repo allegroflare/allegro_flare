@@ -82,6 +82,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml">quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/NodeStates/Base.q.yml">quintessence/AllegroFlare/DialogSystem/NodeStates/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/NodeStates/Wait.q.yml">quintessence/AllegroFlare/DialogSystem/NodeStates/Wait.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/BasicScreenplayTextLoader.q.yml">quintessence/AllegroFlare/DialogTree/BasicScreenplayTextLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBankInferencer.q.yml">quintessence/AllegroFlare/DialogTree/NodeBankInferencer.q.yml</a></li>
@@ -2132,6 +2134,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">active_dialog_node_state</td>
+  <td class="property">AllegroFlare::DialogSystem::NodeStates::Base*</td>
+</tr>
+<tr>
   <td class="property">active_character_staging_layout</td>
   <td class="property">AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*</td>
 </tr>
@@ -2250,13 +2256,13 @@ table td
   <td class="method">update(float time_now=0)</td>
 </tr>
 <tr>
+  <td class="method">evaluate_auto_advance_on_dialog_node_state()</td>
+</tr>
+<tr>
   <td class="method">render()</td>
 </tr>
 <tr>
   <td class="method">a_dialog_is_active()</td>
-</tr>
-<tr>
-  <td class="method">evaluate_auto_advance_on_dialog_node()</td>
 </tr>
 <tr>
   <td class="method">dialog_advance()</td>
@@ -2410,6 +2416,90 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Wait.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::NodeStates::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/NodeStates/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::NodeStates::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/NodeStates/Wait.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystem/NodeStates/Base.q.yml">quintessence/AllegroFlare/DialogSystem/NodeStates/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">update(float time_now=AllegroFlare::Time::absolute_now())</td>
+</tr>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Time&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Time.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystem/NodeStates/Wait.q.yml">quintessence/AllegroFlare/DialogSystem/NodeStates/Wait.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">wait_node</td>
+  <td class="property">AllegroFlare::DialogTree::Nodes::Wait*</td>
+</tr>
+<tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">is_finished</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">initialize(float time_now=AllegroFlare::Time::absolute_now())</td>
+</tr>
+<tr>
+  <td class="method">update(float time_now=AllegroFlare::Time::absolute_now())</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Wait.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::NodeStates::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/NodeStates/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Time&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Time.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2638,22 +2728,12 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">is_finished</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">initialize(float time_now=AllegroFlare::Time::absolute_now())</td>
-</tr>
-<tr>
-  <td class="method">update(float time_now=AllegroFlare::Time::absolute_now())</td>
-</tr>
 <tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
@@ -2751,10 +2831,6 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">started_at</td>
-  <td class="property">float</td>
-</tr>
-<tr>
   <td class="property">next_node_identifier</td>
   <td class="property">std::string</td>
 </tr>
@@ -2765,20 +2841,11 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">initialize(float time_now=AllegroFlare::Time::absolute_now())</td>
-</tr>
-<tr>
-  <td class="method">update(float time_now=AllegroFlare::Time::absolute_now())</td>
-</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Time&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Time.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -29250,17 +29317,26 @@ table td
     "AllegroFlare/Elements/DialogRollRenderer"
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystem/NodeStates/Wait"
+  ],
+  "AllegroFlare/DialogSystem/NodeStates/Base": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystem/NodeStates/Wait"
+  ],
+  "AllegroFlare/DialogSystem/NodeStates/Wait": [
     "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/Time": [
+    "AllegroFlare/DialogSystem/NodeStates/Base",
+    "AllegroFlare/DialogSystem/NodeStates/Wait",
+    "AllegroFlare/DialogTree/Nodes/Base"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
-  ],
-  "AllegroFlare/Time": [
-    "AllegroFlare/DialogTree/Nodes/Base",
-    "AllegroFlare/DialogTree/Nodes/Wait"
   ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"
