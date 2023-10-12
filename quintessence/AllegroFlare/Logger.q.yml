@@ -82,6 +82,21 @@ methods:
       return;
 
 
+  - name: clear_instance
+    static: true
+    guards: [ instance ]
+    body: |
+      instance = nullptr;
+      return;
+
+
+  - name: has_instance
+    type: bool
+    static: true
+    body: |
+      return (instance != nullptr);
+
+
   - name: set_log_filename
     guards: [ (!log_file_initialized) ]
     parameters:
@@ -99,8 +114,22 @@ methods:
       log_file.open(log_filename);
       if (!log_file.is_open()) {
          std::string error_message = build_error_message(
-               "AllegroFlare::Logger",
+               "AllegroFlare::Logger::initialize_log_file",
                "Could not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
+            );
+      }
+      log_file_initialized = true;
+      return;
+
+
+  - name: close_log_file
+    guards: [ (log_file_initialized) ]
+    body: |
+      log_file.close();
+      if (log_file.is_open()) {
+         std::string error_message = build_error_message(
+               "AllegroFlare::Logger::close_log_file",
+               "Attempted not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
             );
       }
       log_file_initialized = true;
@@ -197,6 +226,28 @@ methods:
       return result.str();
 
 
+  - name: build_info_message
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: message
+        type: std::string
+        default_argument: '"[unset-message]"'
+    type: std::string
+    body: |
+      //const std::string CONSOLE_COLOR_RED = "[1;31m";
+      //const std::string CONSOLE_COLOR_DEFAULT = "[0m";
+      std::stringstream result;
+      result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
+      return result.str();
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
+
+
+
   - name: build_unhandled_case_message
     type: std::string
     static: true
@@ -209,27 +260,6 @@ methods:
       std::stringstream result;
       result << "Unhandled case for case " << quote_and_escape_inner_quotes(unhandled_case) << ".";
       return result.str();
-
-
-  - name: build_info_message
-    static: true
-    parameters:
-      - name: from
-        type: std::string
-        default_argument: '"[unset-from]"'
-      - name: message
-        type: std::string
-        default_argument: '"[unset-message]"'
-    type: std::string
-    body: |
-      //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-      //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
-      std::stringstream result;
-      result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
-      return result.str();
-    body_dependency_symbols:
-      - AllegroFlare::ConsoleColors
-      - std::stringstream
 
 
   - name: throw_missing_file_error
@@ -268,7 +298,9 @@ methods:
         type: std::string
         default_argument: '"[unset-message]"'
     body: |
-      std::cout << build_info_message(from, message) << std::endl;
+      std::string info_message = build_info_message(from, message);
+      std::cout << info_message << std::endl;
+      if (instance && instance->log_file_initialized) instance->log_file << info_message << std::endl;
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
       - std::stringstream

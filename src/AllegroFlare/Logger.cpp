@@ -51,6 +51,24 @@ void Logger::set_instance(AllegroFlare::Logger* instance_to_use)
    return;
 }
 
+void Logger::clear_instance()
+{
+   if (!(instance))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::clear_instance]: error: guard \"instance\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::clear_instance: error: guard \"instance\" not met");
+   }
+   instance = nullptr;
+   return;
+}
+
+bool Logger::has_instance()
+{
+   return (instance != nullptr);
+}
+
 void Logger::set_log_filename(std::string log_filename)
 {
    if (!((!log_file_initialized)))
@@ -76,8 +94,28 @@ void Logger::initialize_log_file()
    log_file.open(log_filename);
    if (!log_file.is_open()) {
       std::string error_message = build_error_message(
-            "AllegroFlare::Logger",
+            "AllegroFlare::Logger::initialize_log_file",
             "Could not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
+         );
+   }
+   log_file_initialized = true;
+   return;
+}
+
+void Logger::close_log_file()
+{
+   if (!((log_file_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::close_log_file]: error: guard \"(log_file_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::close_log_file: error: guard \"(log_file_initialized)\" not met");
+   }
+   log_file.close();
+   if (log_file.is_open()) {
+      std::string error_message = build_error_message(
+            "AllegroFlare::Logger::close_log_file",
+            "Attempted not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
          );
    }
    log_file_initialized = true;
@@ -129,19 +167,19 @@ std::string Logger::build_not_included_message(std::string element_not_present, 
    return result.str();
 }
 
+std::string Logger::build_info_message(std::string from, std::string message)
+{
+   //const std::string CONSOLE_COLOR_RED = "[1;31m";
+   //const std::string CONSOLE_COLOR_DEFAULT = "[0m";
+   std::stringstream result;
+   result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
+   return result.str();
+}
+
 std::string Logger::build_unhandled_case_message(std::string unhandled_case)
 {
    std::stringstream result;
    result << "Unhandled case for case " << quote_and_escape_inner_quotes(unhandled_case) << ".";
-   return result.str();
-}
-
-std::string Logger::build_info_message(std::string from, std::string message)
-{
-   //const std::string CONSOLE_COLOR_RED = "\033[1;31m";
-   //const std::string CONSOLE_COLOR_DEFAULT = "\033[0m";
-   std::stringstream result;
-   result << CONSOLE_COLOR_CYAN << "[" << from << "]: info: " << message << CONSOLE_COLOR_DEFAULT;
    return result.str();
 }
 
@@ -159,7 +197,9 @@ void Logger::throw_missing_file_error(std::string from, std::string filename, st
 
 void Logger::info_from(std::string from, std::string message)
 {
-   std::cout << build_info_message(from, message) << std::endl;
+   std::string info_message = build_info_message(from, message);
+   std::cout << info_message << std::endl;
+   if (instance && instance->log_file_initialized) instance->log_file << info_message << std::endl;
 }
 
 void Logger::warn_from(std::string from, std::string message)

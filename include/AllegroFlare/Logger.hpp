@@ -33,14 +33,17 @@ namespace AllegroFlare
       ~Logger();
 
       static void set_instance(AllegroFlare::Logger* instance_to_use=nullptr);
+      static void clear_instance();
+      static bool has_instance();
       void set_log_filename(std::string log_filename=DEFAULT_LOG_FILENAME);
       void initialize_log_file();
+      void close_log_file();
       static std::string build_error_message(std::string from="[unset-from]", std::string message="[unset-message]");
       static std::string build_guard_error_message(std::string from="[unset-from]", std::string guard_statement="[unset-guard_statement]");
       static std::string build_warning_message(std::string from="[unset-from]", std::string message="[unset-message]");
       static std::string build_not_included_message(std::string element_not_present="[unset-missing_element]", std::vector<std::string> valid_elements={});
-      static std::string build_unhandled_case_message(std::string unhandled_case="[unset-unhandled_case]");
       static std::string build_info_message(std::string from="[unset-from]", std::string message="[unset-message]");
+      static std::string build_unhandled_case_message(std::string unhandled_case="[unset-unhandled_case]");
       static void throw_missing_file_error(std::string from="[unset-from]", std::string filename="[unset-filename]", std::string filetype="[unset-filetype]");
       static void info_from(std::string from="[unset-from]", std::string message="[unset-message]");
       static void warn_from(std::string from="[unset-from]", std::string message="[unset-message]");
