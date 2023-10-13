@@ -20,10 +20,62 @@ properties:
     init_with: '{}'
     constructor_arg: true
     getter: true
+    setter: explicit
+
+  - name: focused_element_position
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: camera
+    type: AllegroFlare::Placement2D
+    init_with: ''
+    getter: true
     setter: true
 
 
 methods:
+
+
+  - name: set_elements
+    parameters:
+      - name: elements
+        type: std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*>
+        default_argument: '{}'
+    body: |
+      this->elements = elements;
+      focused_element_position = 0;
+      return;
+
+
+  - name: rotate_carousel_left
+    body: |
+      if (elements.empty()) return;
+
+      focused_element_position -= 1;
+      if (focused_element_position < 0) focused_element_position += elements.size();
+
+      reposition_camera_position_to_focused_element();
+      return;
+
+
+  - name: rotate_carousel_right
+    body: |
+      if (elements.empty()) return;
+
+      focused_element_position += 1;
+      if (focused_element_position >= elements.size()) focused_element_position -= elements.size();
+
+      reposition_camera_position_to_focused_element();
+      return;
+
+
+  - name: reposition_camera_position_to_focused_element
+    body: |
+      camera.position.x = get_element_x_position_for(focused_element_position);
+      return;
 
 
   - name: update
@@ -35,11 +87,34 @@ methods:
   - name: render
     guards: [ bitmap_bin, font_bin ]
     body: |
+      camera.start_reverse_transform();
+      AllegroFlare::Placement2D list_element_placement;
       AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
-      for (auto &element : elements) renderer.render(element);
+      int position = 0;
+      for (auto &element : elements)
+      {
+         list_element_placement.position.x = get_element_x_position_for(position);
+         list_element_placement.start_transform();
+         renderer.render(element);
+         list_element_placement.restore_transform();
+         position++;
+      }
+      camera.restore_transform();
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer
+
+
+  - name: get_element_x_position_for
+    type: float
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+    guards: [ (position >= 0), (position <= elements.size()) ]
+    body: |
+      float arbitrary_element_spacing = 1200;
+      return position * arbitrary_element_spacing;
 
 
 dependencies:
@@ -53,5 +128,7 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
 
 

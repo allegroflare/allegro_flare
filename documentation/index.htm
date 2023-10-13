@@ -3975,14 +3975,37 @@ table td
   <td class="property">elements</td>
   <td class="property">std::vector&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*&gt;</td>
 </tr>
+<tr>
+  <td class="property">focused_element_position</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_elements(std::vector&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*&gt; elements={})</td>
+</tr>
+<tr>
+  <td class="method">rotate_carousel_left()</td>
+</tr>
+<tr>
+  <td class="method">rotate_carousel_right()</td>
+</tr>
+<tr>
+  <td class="method">reposition_camera_position_to_focused_element()</td>
+</tr>
 <tr>
   <td class="method">update()</td>
 </tr>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">get_element_x_position_for(int position=0)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -3998,6 +4021,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -29148,6 +29174,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",

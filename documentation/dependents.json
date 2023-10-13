@@ -477,6 +477,7 @@
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
