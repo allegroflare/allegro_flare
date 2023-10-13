@@ -1,9 +1,70 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: carousel
+    type: AllegroFlare::Elements::ChapterSelect::Carousel
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: pagination_bar
+    type: AllegroFlare::Elements::ChapterSelect::PaginationBar
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
 methods:
 
 
-  - name: run
-    type: std::string
+  - name: initialize
+    guards: [ (!initialized) ]
     body: |
-      return "Hello World!";
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Elements::ChapterSelect::Carousel
+    headers: [ AllegroFlare/Elements/ChapterSelect/Carousel.hpp ]
+  - symbol: AllegroFlare::Elements::ChapterSelect::PaginationBar
+    headers: [ AllegroFlare/Elements/ChapterSelect/PaginationBar.hpp ]
 
 
