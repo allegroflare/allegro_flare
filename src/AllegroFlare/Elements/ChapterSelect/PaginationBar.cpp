@@ -16,13 +16,14 @@ namespace ChapterSelect
 {
 
 
-PaginationBar::PaginationBar(std::vector<bool> elements, int cursor_position, ALLEGRO_COLOR fill_color_reached, ALLEGRO_COLOR fill_color_unreached, ALLEGRO_COLOR cursor_stroke_line_color, float bar_width, float bar_spacing, float bar_height, float bar_stroke_thickness)
+PaginationBar::PaginationBar(std::vector<bool> elements, int cursor_position, ALLEGRO_COLOR fill_color_reached, ALLEGRO_COLOR fill_color_unreached, ALLEGRO_COLOR cursor_stroke_line_color, float cursor_stroke_line_thickness, float bar_width, float bar_spacing, float bar_height, float bar_stroke_thickness)
    : AllegroFlare::Elements::Base()
    , elements(elements)
    , cursor_position(cursor_position)
    , fill_color_reached(fill_color_reached)
    , fill_color_unreached(fill_color_unreached)
    , cursor_stroke_line_color(cursor_stroke_line_color)
+   , cursor_stroke_line_thickness(cursor_stroke_line_thickness)
    , bar_width(bar_width)
    , bar_spacing(bar_spacing)
    , bar_height(bar_height)
@@ -63,6 +64,12 @@ void PaginationBar::set_fill_color_unreached(ALLEGRO_COLOR fill_color_unreached)
 void PaginationBar::set_cursor_stroke_line_color(ALLEGRO_COLOR cursor_stroke_line_color)
 {
    this->cursor_stroke_line_color = cursor_stroke_line_color;
+}
+
+
+void PaginationBar::set_cursor_stroke_line_thickness(float cursor_stroke_line_thickness)
+{
+   this->cursor_stroke_line_thickness = cursor_stroke_line_thickness;
 }
 
 
@@ -120,6 +127,12 @@ ALLEGRO_COLOR PaginationBar::get_cursor_stroke_line_color() const
 }
 
 
+float PaginationBar::get_cursor_stroke_line_thickness() const
+{
+   return cursor_stroke_line_thickness;
+}
+
+
 float PaginationBar::get_bar_width() const
 {
    return bar_width;
@@ -161,19 +174,16 @@ void PaginationBar::render()
       throw std::runtime_error("PaginationBar::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    float h_thickness = bar_stroke_thickness * 0.5;
-   //ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
    get_placement_ref().start_transform();
 
    // TODO: This could be optimized to a single set of vertexes and a single draw call
    int i = 0;
    for (auto element : elements)
-   //for (int i=0; i<max; i++)
    {
       bool reached = false;
       if (element == true) reached = true;
-      //if (i <= (value - 1)) reached = true;
-      //{
+
       al_draw_filled_rectangle(
          i*bar_spacing,
          0,
@@ -182,19 +192,22 @@ void PaginationBar::render()
          reached ? fill_color_reached : fill_color_unreached
       );
 
+      if (i == cursor_position)
+      {
+         float cursor_padding_x = 8;
+         float cursor_padding_y = 8;
+
+         al_draw_rectangle(
+            i*bar_spacing - cursor_padding_x,
+            0 - cursor_padding_y,
+            i*bar_spacing+bar_width + cursor_padding_x,
+            bar_height + cursor_padding_y,
+            cursor_stroke_line_color,
+            cursor_stroke_line_thickness
+         );
+      }
+
       i++;
-      //}
-      //else
-      //{
-         //al_draw_filled_rectangle(
-               //i*bar_spacing + h_thickness,
-               //0 + h_thickness,
-               //i*bar_spacing+bar_width - h_thickness,
-               //bar_height - h_thickness,
-               //empty_box_fill_color
-               ////bar_stroke_thickness
-            //);
-      //}
    }
    get_placement_ref().restore_transform();
    return;

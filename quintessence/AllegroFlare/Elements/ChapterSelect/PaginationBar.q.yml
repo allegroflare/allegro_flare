@@ -44,6 +44,13 @@ properties:
     getter: true
     setter: true
 
+  - name: cursor_stroke_line_thickness
+    type: float
+    init_with: 2.0
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: bar_width
     type: float
     init_with: 35
@@ -73,7 +80,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: render
@@ -83,19 +90,16 @@ functions:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
       float h_thickness = bar_stroke_thickness * 0.5;
-      //ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
       get_placement_ref().start_transform();
 
       // TODO: This could be optimized to a single set of vertexes and a single draw call
       int i = 0;
       for (auto element : elements)
-      //for (int i=0; i<max; i++)
       {
          bool reached = false;
          if (element == true) reached = true;
-         //if (i <= (value - 1)) reached = true;
-         //{
+
          al_draw_filled_rectangle(
             i*bar_spacing,
             0,
@@ -104,19 +108,22 @@ functions:
             reached ? fill_color_reached : fill_color_unreached
          );
 
+         if (i == cursor_position)
+         {
+            float cursor_padding_x = 8;
+            float cursor_padding_y = 8;
+
+            al_draw_rectangle(
+               i*bar_spacing - cursor_padding_x,
+               0 - cursor_padding_y,
+               i*bar_spacing+bar_width + cursor_padding_x,
+               bar_height + cursor_padding_y,
+               cursor_stroke_line_color,
+               cursor_stroke_line_thickness
+            );
+         }
+
          i++;
-         //}
-         //else
-         //{
-            //al_draw_filled_rectangle(
-                  //i*bar_spacing + h_thickness,
-                  //0 + h_thickness,
-                  //i*bar_spacing+bar_width - h_thickness,
-                  //bar_height - h_thickness,
-                  //empty_box_fill_color
-                  ////bar_stroke_thickness
-               //);
-         //}
       }
       get_placement_ref().restore_transform();
       return;
