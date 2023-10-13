@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/ChapterSelect.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -9,6 +10,7 @@
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -40,6 +42,7 @@ namespace AllegroFlare
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void initialize();
+            void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});
             virtual void on_activate() override;
             virtual void on_deactivate() override;
             void update();

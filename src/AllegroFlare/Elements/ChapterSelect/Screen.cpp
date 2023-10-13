@@ -129,6 +129,20 @@ void Screen::initialize()
    return;
 }
 
+void Screen::set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_elements]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_elements: error: guard \"initialized\" not met");
+   }
+   // TODO: Introduce a mechanism where each chapter and its status is stored
+   chapter_select_element.set_carousel_elements(elements);
+   return;
+}
+
 void Screen::on_activate()
 {
    if (!(initialized))
@@ -138,6 +152,7 @@ void Screen::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
    }
+   // TODO: Introduce a "show" mechanism
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
    return;
@@ -152,6 +167,7 @@ void Screen::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
    }
+   // TODO: Introduce a "hide" mechanism
    //emit_hide_and_restore_size_input_hints_bar_event();
    return;
 }

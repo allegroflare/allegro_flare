@@ -5,7 +5,7 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
-//#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
 
 class AllegroFlare_Elements_ChapterSelect_ScreenTest : public ::testing::Test {};
 class AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroRenderingFixture
@@ -40,11 +40,20 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTest, type__has_the_expected_va
 TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFixture,
    TIMED_INTERACTIVE__will_run_as_expected)
 {
+   using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
+
    AllegroFlare::Elements::ChapterSelect::Screen screen;
    screen.set_event_emitter(get_framework_event_emitter());
    screen.set_bitmap_bin(get_framework_bitmap_bin());
    screen.set_font_bin(get_framework_font_bin());
    screen.initialize();
+
+   std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
+   };
+
+   screen.set_elements(carousel_elements);
 
    framework_register_and_activate_screen("screen", &screen);
 

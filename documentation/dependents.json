@@ -155,6 +155,7 @@
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -254,6 +255,7 @@
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -432,6 +434,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -651,6 +654,7 @@
   ],
   "AllegroFlare/ModelBin": [
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -798,6 +802,7 @@
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -900,6 +905,7 @@
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AdvancingTextRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -1161,6 +1167,7 @@
   ],
   "AllegroFlare/Screens/Base": [
     "AllegroFlare/Elements/AdvancingTextRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -1342,7 +1349,8 @@
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
-    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer": [
     "AllegroFlare/Elements/ChapterSelect/Carousel"
@@ -1380,6 +1388,52 @@
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
+  ],
+  "AllegroFlare/Player": [
+    "AllegroFlare/Elements/ChapterSelect/Screen",
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "AllegroFlare/Elements/ChapterSelect/Screen",
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/VirtualControllers/GenericController",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/ChapterSelect": [
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
@@ -1779,47 +1833,6 @@
   ],
   "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
     "AllegroFlare/FrameAnimation/Book"
-  ],
-  "AllegroFlare/Player": [
-    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/CharacterNameInput",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/VirtualControllers/Base": [
-    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/CharacterNameInput",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/VirtualControllers/GenericController",
-    "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

@@ -117,6 +117,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/ChapterSelect.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/ChapterSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/PaginationBar.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/PaginationBar.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/Screen.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml">quintessence/AllegroFlare/Elements/DialogBoxFrame.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxNameTag.q.yml">quintessence/AllegroFlare/Elements/DialogBoxNameTag.q.yml</a></li>
@@ -4447,6 +4448,117 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/ChapterSelect/Screen.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/Screen.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">chapter_select_element</td>
+  <td class="property">AllegroFlare::Elements::ChapterSelect::ChapterSelect</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">set_elements(std::vector&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*&gt; elements={})</td>
+</tr>
+<tr>
+  <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::ChapterSelect&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/ChapterSelect.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -28962,6 +29074,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -29061,6 +29174,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -29239,6 +29353,7 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -29458,6 +29573,7 @@ table td
   ],
   "AllegroFlare/ModelBin": [
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -29605,6 +29721,7 @@ table td
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -29707,6 +29824,7 @@ table td
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AdvancingTextRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -29968,6 +30086,7 @@ table td
   ],
   "AllegroFlare/Screens/Base": [
     "AllegroFlare/Elements/AdvancingTextRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -30149,7 +30268,8 @@ table td
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
-    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer": [
     "AllegroFlare/Elements/ChapterSelect/Carousel"
@@ -30187,6 +30307,52 @@ table td
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
+  ],
+  "AllegroFlare/Player": [
+    "AllegroFlare/Elements/ChapterSelect/Screen",
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "AllegroFlare/Elements/ChapterSelect/Screen",
+    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
+    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/VirtualControllers/GenericController",
+    "AllegroFlare/VirtualControlsProcessor",
+    "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/ChapterSelect": [
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
@@ -30586,47 +30752,6 @@ table td
   ],
   "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
     "AllegroFlare/FrameAnimation/Book"
-  ],
-  "AllegroFlare/Player": [
-    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/CharacterNameInput",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo"
-  ],
-  "AllegroFlare/VirtualControllers/Base": [
-    "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
-    "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/CharacterNameInput",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Version",
-    "AllegroFlare/VirtualControllers/GenericController",
-    "AllegroFlare/VirtualControlsProcessor",
-    "WickedDemos/TileDemo"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
