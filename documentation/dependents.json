@@ -148,7 +148,6 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -244,8 +243,6 @@
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
-    "AllegroFlare/Elements/ChapterSelect/Carousel",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -349,8 +346,6 @@
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
-    "AllegroFlare/Elements/ChapterSelect/Carousel",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -564,8 +559,6 @@
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/Elements/ChapterSelect/Carousel",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
@@ -1065,8 +1058,6 @@
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
-    "AllegroFlare/Elements/ChapterSelect/Carousel",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -1190,8 +1181,6 @@
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Button",
-    "AllegroFlare/Elements/ChapterSelect/Carousel",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -1331,6 +1320,12 @@
   ],
   "AllegroFlare/Elements/Button/Alignments": [
     "AllegroFlare/Elements/Button"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/CarouselElements/Base": [
+    "AllegroFlare/Elements/ChapterSelect/Carousel"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer": [
+    "AllegroFlare/Elements/ChapterSelect/Carousel"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",

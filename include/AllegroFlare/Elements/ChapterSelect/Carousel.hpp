@@ -1,9 +1,8 @@
 #pragma once
 
 
-#include <AllegroFlare/FontBin.hpp>
-#include <allegro5/allegro_font.h>
-#include <string>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -15,17 +14,18 @@ namespace AllegroFlare
          class Carousel
          {
          private:
-            AllegroFlare::FontBin* font_bin;
-            std::string quote;
-            ALLEGRO_FONT* obtain_font();
+            std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements;
 
          protected:
 
 
          public:
-            Carousel(AllegroFlare::FontBin* font_bin=nullptr, std::string quote="Hello!");
+            Carousel(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});
             ~Carousel();
 
+            void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements);
+            std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> get_elements() const;
+            void update();
             void render();
          };
       }

@@ -1,0 +1,101 @@
+methods:
+
+
+  - name: render_ThumbnailWithLabel
+    parameters:
+      - name: element
+        type: AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*
+        default_argument: nullptr
+    body: |
+      AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer renderer;
+      // TODO: Pass in elements to render
+      renderer.render();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer
+
+
+  - name: render
+    parameters:
+      - name: element
+        type: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*
+        default_argument: nullptr
+    guards: [ element ]
+    body: |
+      static std::map<std::string, std::function<void()>> items_map = {
+         { AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE, [this, element](){
+            AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel *as =
+               static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*>(element);
+            render_ThumbnailWithLabel(as);
+         }},
+         //{ "development_level", [this](){
+            //create_development_level();
+         //}},
+      };
+      //static const std::map<std::string, std::function> map = {
+         //{ AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE
+      //std::map<std::string, int> = {
+      //};
+      //if (element->is_type(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE))
+      //{
+         //AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel *as =
+            //static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*>(element);
+         //render_ThumbnailWithLabel(as);
+      //}
+      //else
+      //{
+         //AllegroFlare::Logger::throw_unhandled_case(
+               //"AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer",
+               //element->get_type()
+            //);
+      //}
+
+      // locate and call the function to handle the item
+      if (items_map.count(element->get_type()) == 0)
+      {
+         bool item_handled = false;
+         //if (unrecognized_key_callback_func)
+         //{
+            //item_handled = unrecognized_key_callback_func();
+         //}
+
+         if (!item_handled)
+         {
+            AllegroFlare::Logger::throw_unhandled_case(
+                  "AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer",
+                  element->get_type()
+            );
+            // item not found
+            //std::stringstream error_message;
+            //error_message << "[CubeShooter::LevelFactory::load_level]: error: Cannot load the item with the identifier \""
+                          //<< identifier << "\", it does not exist.";
+            //throw std::runtime_error(error_message.str());
+         }
+      }
+      else
+      {
+         // call the item
+         items_map[element->get_type()]();
+      }
+
+
+      return;
+    body_dependency_symbols:
+      - std::map
+      - AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel
+      - AllegroFlare::Logger
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base
+    headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp ]
+  - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel
+    headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp ]
+  - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer
+    headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+
+

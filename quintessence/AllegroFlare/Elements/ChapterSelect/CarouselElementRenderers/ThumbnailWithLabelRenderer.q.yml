@@ -1,0 +1,33 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::Base
+    scope: public
+    init_with: AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer::TYPE
+
+
+properties:
+
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: render
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::Base
+    headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base.hpp ]
+
+
