@@ -5,6 +5,7 @@
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <utility>
 
 
 namespace AllegroFlare
@@ -30,8 +31,10 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
-            void render_ThumbnailWithLabel(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel* element=nullptr);
             void render(AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element=nullptr);
+            std::pair<float, float> calculate_dimensions(AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element=nullptr);
+            std::pair<float, float> render_or_calculate_dimensions(AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element=nullptr, bool only_calculate_dimensions=false);
+            std::pair<float, float> render_or_calculate_dimensions_for__ThumbnailWithLabel(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel* element=nullptr, bool only_calculate_dimensions=false);
          };
       }
    }
