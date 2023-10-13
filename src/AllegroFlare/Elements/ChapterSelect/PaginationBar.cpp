@@ -157,6 +157,11 @@ float PaginationBar::get_bar_stroke_thickness() const
 }
 
 
+void PaginationBar::update()
+{
+   return;
+}
+
 void PaginationBar::render()
 {
    if (!(al_is_system_installed()))

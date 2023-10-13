@@ -6,14 +6,14 @@ properties:
     init_with: nullptr
     constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
 
   - name: carousel
     type: AllegroFlare::Elements::ChapterSelect::Carousel
@@ -37,21 +37,52 @@ properties:
 methods:
 
 
+  - name: set_bitmap_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      return;
+
+
+  - name: set_font_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->font_bin = font_bin;
+      return;
+
+
   - name: initialize
     guards: [ (!initialized) ]
     body: |
+      carousel.set_bitmap_bin(bitmap_bin);
+      carousel.set_font_bin(font_bin);
+      initialized = true;
       return;
 
 
   - name: update
     guards: [ initialized ]
     body: |
+      carousel.update();
+      pagination_bar.update();
       return;
 
 
   - name: render
     guards: [ initialized ]
     body: |
+      carousel.render();
+      pagination_bar.render();
       return;
 
 

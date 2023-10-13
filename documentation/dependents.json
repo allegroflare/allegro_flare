@@ -154,6 +154,7 @@
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -252,6 +253,7 @@
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -1361,6 +1363,12 @@
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base": [
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/Carousel": [
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/PaginationBar": [
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",

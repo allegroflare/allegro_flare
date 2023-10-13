@@ -4282,14 +4282,62 @@ table td
     <h3 id="quintessence/AllegroFlare/Elements/ChapterSelect/ChapterSelect.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/ChapterSelect.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
-<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">carousel</td>
+  <td class="property">AllegroFlare::Elements::ChapterSelect::Carousel</td>
+</tr>
+<tr>
+  <td class="property">pagination_bar</td>
+  <td class="property">AllegroFlare::Elements::ChapterSelect::PaginationBar</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">run()</td>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::Carousel&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/Carousel.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::PaginationBar&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/PaginationBar.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -4340,6 +4388,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
 <tr>
   <td class="method">render()</td>
 </tr>
@@ -28877,6 +28928,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -28975,6 +29027,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -30084,6 +30137,12 @@ table td
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base": [
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/Carousel": [
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/PaginationBar": [
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
