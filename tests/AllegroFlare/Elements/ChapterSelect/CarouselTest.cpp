@@ -28,17 +28,19 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 {
    AllegroFlare::Elements::ChapterSelect::Carousel carousel;
    carousel.render();
-   al_flip_display();
-   sleep_for(1);
 }
 
 
 TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_the_elements)
 {
+   using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
+
    AllegroFlare::Elements::ChapterSelect::Carousel carousel({
-      new AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel()
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
    });
+
    carousel.render();
    al_flip_display();
    sleep_for(1);
