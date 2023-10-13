@@ -70,14 +70,6 @@ methods:
       return;
 
 
-  - name: update
-    guards: [ initialized ]
-    body: |
-      carousel.update();
-      pagination_bar.update();
-      return;
-
-
   - name: set_carousel_elements
     parameters:
       - name: carousel_elements
@@ -89,6 +81,14 @@ methods:
       carousel.refresh_element_dimensions();
       refresh_pagination_bar_elements();
       refresh_cursor_position_on_pagination_bar();
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      carousel.update();
+      pagination_bar.update();
       return;
 
 

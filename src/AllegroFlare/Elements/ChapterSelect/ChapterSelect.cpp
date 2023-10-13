@@ -108,20 +108,6 @@ void ChapterSelect::initialize()
    return;
 }
 
-void ChapterSelect::update()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[ChapterSelect::update]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::update: error: guard \"initialized\" not met");
-   }
-   carousel.update();
-   pagination_bar.update();
-   return;
-}
-
 void ChapterSelect::set_carousel_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements)
 {
    if (!(initialized))
@@ -135,6 +121,20 @@ void ChapterSelect::set_carousel_elements(std::vector<AllegroFlare::Elements::Ch
    carousel.refresh_element_dimensions();
    refresh_pagination_bar_elements();
    refresh_cursor_position_on_pagination_bar();
+   return;
+}
+
+void ChapterSelect::update()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::update]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::update: error: guard \"initialized\" not met");
+   }
+   carousel.update();
+   pagination_bar.update();
    return;
 }
 
