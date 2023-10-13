@@ -45,7 +45,8 @@ methods:
         default_argument: nullptr
     guards: [ element ]
     body: |
-      static std::map<std::string, std::function<void()>> items_map = {
+      // TODO: See how to make this items_map static and not created at call-time for "render"
+      std::map<std::string, std::function<void()>> items_map = {
          { AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE, [this, element](){
             AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel *as =
                static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*>(element);

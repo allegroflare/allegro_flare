@@ -83,7 +83,8 @@ void CarouselElementRenderer::render(AllegroFlare::Elements::ChapterSelect::Caro
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CarouselElementRenderer::render: error: guard \"element\" not met");
    }
-   static std::map<std::string, std::function<void()>> items_map = {
+   // TODO: See how to make this items_map static and not created at call-time for "render"
+   std::map<std::string, std::function<void()>> items_map = {
       { AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE, [this, element](){
          AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel *as =
             static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*>(element);
