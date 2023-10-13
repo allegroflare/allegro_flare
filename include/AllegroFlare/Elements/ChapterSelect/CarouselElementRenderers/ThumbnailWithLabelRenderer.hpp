@@ -26,6 +26,9 @@ namespace AllegroFlare
                AllegroFlare::BitmapBin* bitmap_bin;
                AllegroFlare::FontBin* font_bin;
                std::string thumbnail_image_identifier;
+               float padding_x;
+               float padding_y;
+               float label_y_gutter;
                std::string label_text;
                ALLEGRO_BITMAP* obtain_thumbnail_image();
                ALLEGRO_FONT* obtain_label_font();
@@ -34,18 +37,27 @@ namespace AllegroFlare
 
 
             public:
-               ThumbnailWithLabelRenderer();
+               ThumbnailWithLabelRenderer(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
                ~ThumbnailWithLabelRenderer();
 
                void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
                void set_font_bin(AllegroFlare::FontBin* font_bin);
                void set_thumbnail_image_identifier(std::string thumbnail_image_identifier);
+               void set_padding_x(float padding_x);
+               void set_padding_y(float padding_y);
+               void set_label_y_gutter(float label_y_gutter);
                void set_label_text(std::string label_text);
                AllegroFlare::BitmapBin* get_bitmap_bin() const;
                AllegroFlare::FontBin* get_font_bin() const;
                std::string get_thumbnail_image_identifier() const;
+               float get_padding_x() const;
+               float get_padding_y() const;
+               float get_label_y_gutter() const;
                std::string get_label_text() const;
                void render();
+               float calculate_width();
+               float calculate_height();
+               float calculate_label_text_line_height();
             };
          }
       }
