@@ -24,13 +24,14 @@ namespace AllegroFlare
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements;
             int focused_element_position;
             std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::pair<float, float>> element_dimensions;
+            bool element_dimensions_refreshed;
             AllegroFlare::Placement2D camera;
 
          protected:
 
 
          public:
-            Carousel(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={}, int focused_element_position=0);
+            Carousel(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, int focused_element_position=0);
             ~Carousel();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);

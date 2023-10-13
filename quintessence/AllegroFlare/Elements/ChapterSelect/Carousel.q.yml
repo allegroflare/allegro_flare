@@ -18,7 +18,6 @@ properties:
   - name: elements
     type: std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*>
     init_with: '{}'
-    constructor_arg: true
     getter: true
     setter: explicit
 
@@ -32,6 +31,10 @@ properties:
   - name: element_dimensions
     type: std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::pair<float, float>>
     init_with: '{}'
+
+  - name: element_dimensions_refreshed
+    type: bool
+    init_with: false
 
   - name: camera
     type: AllegroFlare::Placement2D
@@ -51,6 +54,7 @@ methods:
     body: |
       this->elements = elements;
       element_dimensions.clear();
+      element_dimensions_refreshed = false;
       focused_element_position = 0;
       return;
 
@@ -116,7 +120,7 @@ methods:
       - name: position
         type: int
         default_argument: 0
-    guards: [ (position >= 0), (position <= elements.size()) ]
+    guards: [ (position >= 0), (position <= elements.size()), element_dimensions_refreshed ]
     body: |
       float arbitrary_element_spacing = 1200;
       return position * arbitrary_element_spacing;
@@ -141,6 +145,7 @@ methods:
                   "the carousel that can be mapped to dimensions, but elements contains a non-unique list."
             );
       }
+      element_dimensions_refreshed = true;
     body_dependency_symbols:
       - AllegroFlare::Logger
 

@@ -32,6 +32,13 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 
 
 TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixture,
+   render__before_refreshing_element_dimensions__will_throw_an_error)
+{
+   // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_the_elements)
 {
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
@@ -43,7 +50,8 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 
    AllegroFlare::Elements::ChapterSelect::Carousel carousel(&get_bitmap_bin_ref(), &get_font_bin_ref());
    carousel.set_elements(carousel_elements);
-
+   carousel.refresh_element_dimensions();
+    
    carousel.render();
    al_flip_display();
    sleep_for(1);

@@ -17,12 +17,13 @@ namespace ChapterSelect
 {
 
 
-Carousel::Carousel(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements, int focused_element_position)
+Carousel::Carousel(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, int focused_element_position)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
-   , elements(elements)
+   , elements({})
    , focused_element_position(focused_element_position)
    , element_dimensions({})
+   , element_dimensions_refreshed(false)
    , camera()
 {
 }
@@ -91,6 +92,7 @@ void Carousel::set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::C
 {
    this->elements = elements;
    element_dimensions.clear();
+   element_dimensions_refreshed = false;
    focused_element_position = 0;
    return;
 }
@@ -177,6 +179,13 @@ float Carousel::get_element_x_position_for(int position)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Carousel::get_element_x_position_for: error: guard \"(position <= elements.size())\" not met");
    }
+   if (!(element_dimensions_refreshed))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_x_position_for]: error: guard \"element_dimensions_refreshed\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_x_position_for: error: guard \"element_dimensions_refreshed\" not met");
+   }
    float arbitrary_element_spacing = 1200;
    return position * arbitrary_element_spacing;
 }
@@ -200,6 +209,7 @@ void Carousel::refresh_element_dimensions()
                "the carousel that can be mapped to dimensions, but elements contains a non-unique list."
          );
    }
+   element_dimensions_refreshed = true;
 }
 
 
