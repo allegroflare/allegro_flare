@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ChapterSelect/Screen.hpp>
 
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -219,6 +220,24 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       error_message << "[Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::virtual_control_button_down_func: error: guard \"initialized\" not met");
+   }
+   // TODO: Consider validating the controller is GenericController
+   //if (!processing_user_input()) return;
+
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_RIGHT)
+   {
+      chapter_select_element.rotate_carousel_right();
+   }
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_LEFT)
+   {
+      chapter_select_element.rotate_carousel_left();
+   }
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
+      || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
+      )
+   {
+      // TODO: Activate callback on selection
+      //select_menu_option();
    }
    // TODO: this function
    return;

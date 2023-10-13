@@ -189,8 +189,28 @@ methods:
         default_argument: false
     guards: [ initialized ]
     body: |
+      // TODO: Consider validating the controller is GenericController
+      //if (!processing_user_input()) return;
+
+      if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_RIGHT)
+      {
+         chapter_select_element.rotate_carousel_right();
+      }
+      if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_LEFT)
+      {
+         chapter_select_element.rotate_carousel_left();
+      }
+      if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
+         || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
+         )
+      {
+         // TODO: Activate callback on selection
+         //select_menu_option();
+      }
       // TODO: this function
       return;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControllers::GenericController
 
 
   - name: virtual_control_axis_change_func
@@ -232,5 +252,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/ChapterSelect/ChapterSelect.hpp ]
   - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base
     headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
 
 
