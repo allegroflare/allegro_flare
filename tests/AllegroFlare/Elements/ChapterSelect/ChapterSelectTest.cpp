@@ -1,12 +1,49 @@
-
 #include <gtest/gtest.h>
 
+#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
+   try { code; FAIL() << "Expected " # raised_exception_type; } \
+   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
+   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/ChapterSelect.hpp>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
 
 
-TEST(AllegroFlare_Elements_ChapterSelect_ChapterSelectTest, can_be_created_without_blowing_up)
+class AllegroFlare_Elements_ChapterSelect_ChapterSelectTest : public ::testing::Test {};
+class AllegroFlare_Elements_ChapterSelect_ChapterSelectTestWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
+
+
+
+TEST_F(AllegroFlare_Elements_ChapterSelect_ChapterSelectTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::ChapterSelect::ChapterSelect chapter_select;
+}
+
+
+TEST_F(AllegroFlare_Elements_ChapterSelect_ChapterSelectTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_as_expected)
+{
+   using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
+
+   AllegroFlare::Elements::ChapterSelect::ChapterSelect chapter_select;
+   chapter_select.set_bitmap_bin(&get_bitmap_bin_ref());
+   chapter_select.set_font_bin(&get_font_bin_ref());
+   chapter_select.initialize();
+
+   std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
+   };
+
+   chapter_select.set_carousel_elements(carousel_elements);
+
+   clear();
+   chapter_select.render();
+   al_flip_display();
+   al_rest(1);
 }
 
 
