@@ -27,6 +27,12 @@ properties:
     getter: true
     setter: true
 
+  - name: label_text
+    type: std::string
+    init_with: '"[unset-label_text]"'
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer"'
@@ -40,7 +46,42 @@ methods:
   - name: render
     guards: [ font_bin, bitmap_bin ]
     body: |
+      ALLEGRO_BITMAP *image = obtain_thumbnail_image();
+      ALLEGRO_FONT *label_font = obtain_label_font();
+      float label_y_offset = al_get_bitmap_height(image) + 30;
+      float label_text_max_width = 476;
+      float label_text_line_height = al_get_font_line_height(label_font);
+
+      // Render the image
+      al_draw_bitmap(image, 0, 0, 0);
+
+      // Render the text
+      al_draw_multiline_text(
+            label_font,
+            ALLEGRO_COLOR{1, 1, 1, 1},
+            0,
+            label_y_offset,
+            label_text_max_width,
+            label_text_line_height,
+            ALLEGRO_ALIGN_LEFT,
+            label_text.c_str()
+         );
       return;
+
+
+  - name: obtain_thumbnail_image
+    type: ALLEGRO_BITMAP*
+    private: true
+    body: |
+      return bitmap_bin->auto_get(thumbnail_image_identifier);
+
+
+  - name: obtain_label_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -26");
 
 
 dependencies:
@@ -52,5 +93,9 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
 
 
