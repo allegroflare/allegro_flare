@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -163,6 +164,15 @@ void Carousel::render()
 
       list_element_placement.start_transform();
       renderer.render(element);
+      // for debugging
+      al_draw_rectangle(
+            0,
+            0,
+            list_element_placement.size.x,
+            list_element_placement.size.y,
+            ALLEGRO_COLOR{0.6, 0.2, 0.2, 0.2},
+            2.0f
+         );
       list_element_placement.restore_transform();
       position++;
    }

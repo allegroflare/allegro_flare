@@ -112,6 +112,15 @@ methods:
 
          list_element_placement.start_transform();
          renderer.render(element);
+         // for debugging
+         al_draw_rectangle(
+               0,
+               0,
+               list_element_placement.size.x,
+               list_element_placement.size.y,
+               ALLEGRO_COLOR{0.6, 0.2, 0.2, 0.2},
+               2.0f
+            );
          list_element_placement.restore_transform();
          position++;
       }
@@ -119,6 +128,7 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer
+      - al_draw_rectangle
 
 
   - name: get_element_x_position_for
@@ -225,5 +235,7 @@ dependencies:
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
 
 
