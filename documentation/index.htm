@@ -3998,6 +3998,9 @@ table td
   <td class="method">set_elements(std::vector&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*&gt; elements={})</td>
 </tr>
 <tr>
+  <td class="method">get_num_elements()</td>
+</tr>
+<tr>
   <td class="method">rotate_carousel_left()</td>
 </tr>
 <tr>
@@ -4319,6 +4322,9 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
+  <td class="method">set_carousel_elements(std::vector&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*&gt; carousel_elements={})</td>
+</tr>
+<tr>
   <td class="method">render()</td>
 </tr>
 <tr>
@@ -4329,6 +4335,12 @@ table td
 </tr>
 <tr>
   <td class="method">draw_title_text()</td>
+</tr>
+<tr>
+  <td class="method">refresh_pagination_bar_elements()</td>
+</tr>
+<tr>
+  <td class="method">refresh_cursor_position_on_pagination_bar()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_title_font()</td>
@@ -4353,6 +4365,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30133,7 +30148,8 @@ table td
   "AllegroFlare/Elements/ChapterSelect/CarouselElements/Base": [
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel"
+    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer": [
     "AllegroFlare/Elements/ChapterSelect/Carousel"

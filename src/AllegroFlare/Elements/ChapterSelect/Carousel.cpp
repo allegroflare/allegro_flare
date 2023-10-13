@@ -98,6 +98,11 @@ void Carousel::set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::C
    return;
 }
 
+int Carousel::get_num_elements()
+{
+   return elements.size();
+}
+
 void Carousel::rotate_carousel_left()
 {
    if (elements.empty()) return;

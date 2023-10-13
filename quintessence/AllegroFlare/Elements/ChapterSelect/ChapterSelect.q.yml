@@ -78,6 +78,20 @@ methods:
       return;
 
 
+  - name: set_carousel_elements
+    parameters:
+      - name: carousel_elements
+        type: std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*>
+        default_argument: '{}'
+    guards: [ initialized ]
+    body: |
+      carousel.set_elements(carousel_elements);
+      carousel.refresh_element_dimensions();
+      refresh_pagination_bar_elements();
+      refresh_cursor_position_on_pagination_bar();
+      return;
+
+
   - name: render
     guards: [ initialized ]
     body: |
@@ -91,6 +105,7 @@ methods:
     guards: [ initialized ]
     body: |
       carousel.rotate_carousel_right();
+      refresh_cursor_position_on_pagination_bar();
       return;
 
 
@@ -98,6 +113,7 @@ methods:
     guards: [ initialized ]
     body: |
       carousel.rotate_carousel_left();
+      refresh_cursor_position_on_pagination_bar();
       return;
 
 
@@ -109,6 +125,20 @@ methods:
       return;
     body_dependency_symbols:
       - al_draw_text
+
+
+  - name: refresh_pagination_bar_elements
+    body: |
+      // TODO: Find a mechanism to store and obtain the "status" of a Chapter as hidden or unhidden, etc
+      std::vector<bool> pagination_bar_elements(carousel.get_num_elements(), true);
+      return;
+
+
+  - name: refresh_cursor_position_on_pagination_bar
+    body: |
+      int focused_element_position = carousel.get_focused_element_position();
+      pagination_bar.set_cursor_position(focused_element_position);
+      return;
 
 
   - name: obtain_title_font
@@ -134,5 +164,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base
+    headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp ]
 
 

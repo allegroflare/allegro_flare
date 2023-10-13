@@ -122,6 +122,22 @@ void ChapterSelect::update()
    return;
 }
 
+void ChapterSelect::set_carousel_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::set_carousel_elements]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::set_carousel_elements: error: guard \"initialized\" not met");
+   }
+   carousel.set_elements(carousel_elements);
+   carousel.refresh_element_dimensions();
+   refresh_pagination_bar_elements();
+   refresh_cursor_position_on_pagination_bar();
+   return;
+}
+
 void ChapterSelect::render()
 {
    if (!(initialized))
@@ -147,6 +163,7 @@ void ChapterSelect::rotate_carousel_right()
       throw std::runtime_error("ChapterSelect::rotate_carousel_right: error: guard \"initialized\" not met");
    }
    carousel.rotate_carousel_right();
+   refresh_cursor_position_on_pagination_bar();
    return;
 }
 
@@ -160,6 +177,7 @@ void ChapterSelect::rotate_carousel_left()
       throw std::runtime_error("ChapterSelect::rotate_carousel_left: error: guard \"initialized\" not met");
    }
    carousel.rotate_carousel_left();
+   refresh_cursor_position_on_pagination_bar();
    return;
 }
 
@@ -174,6 +192,20 @@ void ChapterSelect::draw_title_text()
    }
    ALLEGRO_FONT *title_font = obtain_title_font();
    al_draw_text(title_font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 100, ALLEGRO_ALIGN_LEFT, "CHAPTER SELECT");
+   return;
+}
+
+void ChapterSelect::refresh_pagination_bar_elements()
+{
+   // TODO: Find a mechanism to store and obtain the "status" of a Chapter as hidden or unhidden, etc
+   std::vector<bool> pagination_bar_elements(carousel.get_num_elements(), true);
+   return;
+}
+
+void ChapterSelect::refresh_cursor_position_on_pagination_bar()
+{
+   int focused_element_position = carousel.get_focused_element_position();
+   pagination_bar.set_cursor_position(focused_element_position);
    return;
 }
 

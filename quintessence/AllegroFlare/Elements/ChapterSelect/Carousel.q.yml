@@ -59,6 +59,12 @@ methods:
       return;
 
 
+  - name: get_num_elements
+    type: int
+    body: |
+      return elements.size();
+
+
   - name: rotate_carousel_left
     body: |
       if (elements.empty()) return;

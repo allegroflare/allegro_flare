@@ -1341,7 +1341,8 @@
   "AllegroFlare/Elements/ChapterSelect/CarouselElements/Base": [
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel"
+    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer": [
     "AllegroFlare/Elements/ChapterSelect/Carousel"

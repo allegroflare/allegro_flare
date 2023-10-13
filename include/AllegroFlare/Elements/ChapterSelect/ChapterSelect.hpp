@@ -3,9 +3,11 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/Carousel.hpp>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/PaginationBar.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro_font.h>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -41,10 +43,13 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void initialize();
             void update();
+            void set_carousel_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements={});
             void render();
             void rotate_carousel_right();
             void rotate_carousel_left();
             void draw_title_text();
+            void refresh_pagination_bar_elements();
+            void refresh_cursor_position_on_pagination_bar();
          };
       }
    }
