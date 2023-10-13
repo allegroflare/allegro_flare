@@ -150,7 +150,7 @@ void ChapterSelect::render()
    // Draw the carousel
    AllegroFlare::Placement2D carousel_placement;
    carousel_placement.position.x = 1920/2;
-   carousel_placement.position.y = 1080/2;
+   carousel_placement.position.y = 1080/2 - 200;
    carousel_placement.size = { 0, 0 };
    carousel_placement.start_transform();
    carousel.render();

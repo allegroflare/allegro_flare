@@ -206,10 +206,12 @@ methods:
       {
          // TODO: Use Renderer and calculate dimensions on these elements
          float element_width = arbitrary_element_spacing;
+         float element_height = 200;
+         float element_spacing = 80; // TODO: make this a property on the class
 
-         element_dimensions[element] = std::make_tuple(cursor_x, 0, element_width, 200.0f);
+         element_dimensions[element] = std::make_tuple(cursor_x, 0, element_width, element_height);
 
-         cursor_x += element_width;
+         cursor_x += element_width + element_spacing;
       }
 
       // Sanity check
