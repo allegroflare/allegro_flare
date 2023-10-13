@@ -36,6 +36,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ChapterSelectTestWithAllegroRendering
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 3: The Bridge"),
    };
 
    chapter_select.set_carousel_elements(carousel_elements);

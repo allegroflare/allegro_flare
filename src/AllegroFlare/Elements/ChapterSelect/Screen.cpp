@@ -23,6 +23,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , chapter_select_element({})
+   , background(nullptr)
    , initialized(false)
 {
 }
@@ -30,6 +31,18 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
 
 Screen::~Screen()
 {
+}
+
+
+void Screen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
+{
+   this->background = background;
+}
+
+
+AllegroFlare::Elements::Backgrounds::Base* Screen::get_background() const
+{
+   return background;
 }
 
 
@@ -194,7 +207,9 @@ void Screen::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::primary_timer_func: error: guard \"initialized\" not met");
    }
+   if (background) background->update();
    update();
+   if (background) background->render();
    render();
    return;
 }

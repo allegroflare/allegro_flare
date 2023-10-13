@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/ChapterSelect.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
@@ -29,6 +30,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::Elements::ChapterSelect::ChapterSelect chapter_select_element;
+            AllegroFlare::Elements::Backgrounds::Base* background;
             bool initialized;
 
          protected:
@@ -38,6 +40,8 @@ namespace AllegroFlare
             Screen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
             virtual ~Screen();
 
+            void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
+            AllegroFlare::Elements::Backgrounds::Base* get_background() const;
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

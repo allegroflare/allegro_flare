@@ -216,6 +216,7 @@ void ChapterSelect::refresh_pagination_bar_elements()
    // TODO: Find a mechanism to store and obtain the "status" of a Chapter as hidden or unhidden, etc
    std::vector<bool> pagination_bar_elements(carousel.get_num_elements(), true);
    pagination_bar.set_elements(pagination_bar_elements);
+   pagination_bar.fit_placement_width_and_height();
    return;
 }
 

@@ -28,6 +28,12 @@ properties:
     type: AllegroFlare::Elements::ChapterSelect::ChapterSelect
     init_with: '{}'
 
+  - name: background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    init_with: nullptr
+    setter: true
+    getter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -144,7 +150,9 @@ methods:
     override: true
     guards: [ initialized ]
     body: |
+      if (background) background->update();
       update();
+      if (background) background->render();
       render();
       return;
 
@@ -254,5 +262,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 
