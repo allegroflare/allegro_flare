@@ -97,11 +97,11 @@ std::pair<float, float> CarouselElementRenderer::render_or_calculate_dimensions(
                this,
                element,
                only_calculate_dimensions,
-               result_dimensions
-            ](){
+               &result_dimensions
+            ]() {
          AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel *as =
             static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*>(element);
-         render_or_calculate_dimensions_for__ThumbnailWithLabel(as, only_calculate_dimensions);
+         result_dimensions = render_or_calculate_dimensions_for__ThumbnailWithLabel(as, only_calculate_dimensions);
       }},
       //{ "development_level", [this](){
          //create_development_level();

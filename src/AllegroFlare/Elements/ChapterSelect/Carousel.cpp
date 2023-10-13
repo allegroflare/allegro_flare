@@ -289,11 +289,13 @@ void Carousel::refresh_element_dimensions()
    element_dimensions.clear();
    float arbitrary_element_spacing = 1200;
    float cursor_x = 0;
+   AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
    for (auto &element : elements)
    {
       // TODO: Use Renderer and calculate dimensions on these elements
-      float element_width = arbitrary_element_spacing;
-      float element_height = 200;
+      std::pair<float, float> this_element_dimensions = renderer.calculate_dimensions(element);
+      float element_width = this_element_dimensions.first;
+      float element_height = this_element_dimensions.second; //200;
       float element_spacing = 80; // TODO: make this a property on the class
 
       element_dimensions[element] = std::make_tuple(cursor_x, 0, element_width, element_height);
