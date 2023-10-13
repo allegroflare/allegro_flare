@@ -15,28 +15,17 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: label_text
+    type: std::string
+    init_with: '"[unset-label_text]"'
+    constructor_arg: true
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel"'
     static: true
     constexpr: true
-
-
-methods:
-
-
-  - name: calculate_width
-    type: float
-    virtual: true
-    body: |
-      return 0.0f;
-
-
-  - name: calculate_height
-    type: float
-    virtual: true
-    body: |
-      return 0.0f;
 
 
 dependencies:

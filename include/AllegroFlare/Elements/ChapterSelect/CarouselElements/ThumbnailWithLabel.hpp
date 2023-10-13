@@ -20,17 +20,17 @@ namespace AllegroFlare
 
             private:
                std::string bitmap_filename;
+               std::string label_text;
 
             protected:
 
 
             public:
-               ThumbnailWithLabel(std::string bitmap_filename="[unset-property]");
-               virtual ~ThumbnailWithLabel();
+               ThumbnailWithLabel(std::string bitmap_filename="[unset-property]", std::string label_text="[unset-label_text]");
+               ~ThumbnailWithLabel();
 
                std::string get_bitmap_filename() const;
-               virtual float calculate_width();
-               virtual float calculate_height();
+               std::string get_label_text() const;
             };
          }
       }

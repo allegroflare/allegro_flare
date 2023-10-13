@@ -23,10 +23,10 @@ ThumbnailWithLabelRenderer::ThumbnailWithLabelRenderer(AllegroFlare::BitmapBin* 
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , thumbnail_image_identifier("[unset-thumbnail_image_identifier]")
+   , label_text("[unset-label_text]")
    , padding_x(20)
    , padding_y(20)
    , label_y_gutter(30)
-   , label_text("[unset-label_text]")
 {
 }
 
@@ -54,6 +54,12 @@ void ThumbnailWithLabelRenderer::set_thumbnail_image_identifier(std::string thum
 }
 
 
+void ThumbnailWithLabelRenderer::set_label_text(std::string label_text)
+{
+   this->label_text = label_text;
+}
+
+
 void ThumbnailWithLabelRenderer::set_padding_x(float padding_x)
 {
    this->padding_x = padding_x;
@@ -69,12 +75,6 @@ void ThumbnailWithLabelRenderer::set_padding_y(float padding_y)
 void ThumbnailWithLabelRenderer::set_label_y_gutter(float label_y_gutter)
 {
    this->label_y_gutter = label_y_gutter;
-}
-
-
-void ThumbnailWithLabelRenderer::set_label_text(std::string label_text)
-{
-   this->label_text = label_text;
 }
 
 
@@ -96,6 +96,12 @@ std::string ThumbnailWithLabelRenderer::get_thumbnail_image_identifier() const
 }
 
 
+std::string ThumbnailWithLabelRenderer::get_label_text() const
+{
+   return label_text;
+}
+
+
 float ThumbnailWithLabelRenderer::get_padding_x() const
 {
    return padding_x;
@@ -111,12 +117,6 @@ float ThumbnailWithLabelRenderer::get_padding_y() const
 float ThumbnailWithLabelRenderer::get_label_y_gutter() const
 {
    return label_y_gutter;
-}
-
-
-std::string ThumbnailWithLabelRenderer::get_label_text() const
-{
-   return label_text;
 }
 
 

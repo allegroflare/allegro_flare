@@ -29,6 +29,12 @@ properties:
     getter: true
     setter: true
 
+  - name: label_text
+    type: std::string
+    init_with: '"[unset-label_text]"'
+    getter: true
+    setter: true
+
   - name: padding_x
     type: float
     init_with: 20
@@ -44,12 +50,6 @@ properties:
   - name: label_y_gutter
     type: float
     init_with: 30
-    getter: true
-    setter: true
-
-  - name: label_text
-    type: std::string
-    init_with: '"[unset-label_text]"'
     getter: true
     setter: true
 

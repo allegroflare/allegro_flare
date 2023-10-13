@@ -51,11 +51,12 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWit
 
 
 TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWithLabelRendererTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_not_blow_up)
+   CAPTURE__render__will_render_as_expected)
 {
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer
          thumbnail_with_label_renderer(&get_bitmap_bin_ref(), &get_font_bin_ref());
    thumbnail_with_label_renderer.set_thumbnail_image_identifier("storyboard-image-1164x500.png");
+   thumbnail_with_label_renderer.set_label_text("CHAPTER 12: RISE OF THE CITY");
    thumbnail_with_label_renderer.render();
    al_flip_display();
    sleep_for(1);

@@ -65,7 +65,11 @@ void CarouselElementRenderer::render_ThumbnailWithLabel(AllegroFlare::Elements::
       throw std::runtime_error("CarouselElementRenderer::render_ThumbnailWithLabel: error: guard \"element\" not met");
    }
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer renderer;
-   // TODO: Pass in elements to render
+   renderer.set_bitmap_bin(bitmap_bin);
+   renderer.set_font_bin(font_bin);
+   renderer.set_thumbnail_image_identifier(element->get_bitmap_filename());
+   renderer.set_label_text(element->get_label_text());
+
    renderer.render();
    return;
 }

@@ -15,9 +15,10 @@ namespace CarouselElements
 {
 
 
-ThumbnailWithLabel::ThumbnailWithLabel(std::string bitmap_filename)
+ThumbnailWithLabel::ThumbnailWithLabel(std::string bitmap_filename, std::string label_text)
    : AllegroFlare::Elements::ChapterSelect::CarouselElements::Base(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE)
    , bitmap_filename(bitmap_filename)
+   , label_text(label_text)
 {
 }
 
@@ -33,15 +34,12 @@ std::string ThumbnailWithLabel::get_bitmap_filename() const
 }
 
 
-float ThumbnailWithLabel::calculate_width()
+std::string ThumbnailWithLabel::get_label_text() const
 {
-   return 0.0f;
+   return label_text;
 }
 
-float ThumbnailWithLabel::calculate_height()
-{
-   return 0.0f;
-}
+
 
 
 } // namespace CarouselElements

@@ -4082,6 +4082,18 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">padding_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">padding_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">label_y_gutter</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -4090,6 +4102,15 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">calculate_width()</td>
+</tr>
+<tr>
+  <td class="method">calculate_height()</td>
+</tr>
+<tr>
+  <td class="method">calculate_label_text_line_height()</td>
 </tr>
 <tr>
   <td class="private_method">obtain_thumbnail_image()</td>
@@ -4114,6 +4135,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -4165,18 +4189,16 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">label_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">calculate_width()</td>
-</tr>
-<tr>
-  <td class="method">calculate_height()</td>
-</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -29059,6 +29081,7 @@ table td
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
