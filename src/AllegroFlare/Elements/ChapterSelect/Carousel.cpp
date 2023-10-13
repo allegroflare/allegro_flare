@@ -208,8 +208,8 @@ float Carousel::get_element_x_position_for(int position)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Carousel::get_element_x_position_for: error: guard \"element_dimensions_refreshed\" not met");
    }
-   float arbitrary_element_spacing = 1200;
-   return position * arbitrary_element_spacing;
+   std::tuple<float, float, float, float> this_element_dimensions = get_element_dimensions_at_position(position);
+   return std::get<0>(this_element_dimensions);
 }
 
 AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* Carousel::get_element_at_position(int position)

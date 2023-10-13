@@ -145,8 +145,8 @@ methods:
         default_argument: 0
     guards: [ (position >= 0), (position <= elements.size()), element_dimensions_refreshed ]
     body: |
-      float arbitrary_element_spacing = 1200;
-      return position * arbitrary_element_spacing;
+      std::tuple<float, float, float, float> this_element_dimensions = get_element_dimensions_at_position(position);
+      return std::get<0>(this_element_dimensions);
 
 
   - name: get_element_at_position

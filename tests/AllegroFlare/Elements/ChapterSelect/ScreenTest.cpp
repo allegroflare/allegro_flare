@@ -40,6 +40,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTest, type__has_the_expected_va
 TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFixture,
    TIMED_INTERACTIVE__will_run_as_expected)
 {
+   // TODO: Update test to not timeout after a keypress
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
 
    AllegroFlare::Elements::ChapterSelect::Screen screen;
@@ -51,6 +52,9 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 3: The Way Ahead"),
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 4: The Bridge"),
+      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 5: Without an Anchor"),
    };
 
    screen.set_elements(carousel_elements);
