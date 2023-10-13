@@ -37,7 +37,10 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTest, render__without_al
 TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTestWithAllegroRenderingFixture,
    CAPTURE__render__will_draw_the_health_bar_to_the_screen)
 {
-   AllegroFlare::Elements::ChapterSelect::PaginationBar health_bar(10, 6);
+   AllegroFlare::Elements::ChapterSelect::PaginationBar health_bar(
+      { true, true, true, true, true, true, false, false, false, false, },
+      6
+   );
    health_bar.get_placement_ref().position = {200, 300};
    health_bar.render();
    al_flip_display();
@@ -49,7 +52,10 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTestWithAllegroRendering
 TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTestWithAllegroRenderingFixture,
    calculate_width__will_return_the_width_of_the_entire_bar_when_rendered)
 {
-   AllegroFlare::Elements::ChapterSelect::PaginationBar health_bar(10, 6);
+   AllegroFlare::Elements::ChapterSelect::PaginationBar health_bar(
+      { true, true, true, true, true, true, false, false, false, false, },
+      6
+   );
    int bar_width = health_bar.get_bar_width();
    int bar_spacing = health_bar.get_bar_spacing();
    EXPECT_EQ(bar_spacing*(10-1)+bar_width, health_bar.calculate_width());
@@ -58,10 +64,10 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTestWithAllegroRendering
    health_bar.set_bar_width(30);
    EXPECT_EQ(36*(10-1)+30, health_bar.calculate_width());
 
-   health_bar.set_max(1);
+   health_bar.set_elements({ true });
    EXPECT_EQ(30, health_bar.calculate_width());
 
-   health_bar.set_max(0);
+   health_bar.set_elements({ /* empty */ });
    EXPECT_EQ(0, health_bar.calculate_width());
 }
 

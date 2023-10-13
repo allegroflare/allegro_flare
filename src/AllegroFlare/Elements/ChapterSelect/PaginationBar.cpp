@@ -16,12 +16,13 @@ namespace ChapterSelect
 {
 
 
-PaginationBar::PaginationBar(int max, int value, ALLEGRO_COLOR fill_color_reached, ALLEGRO_COLOR fill_color_unreached, float bar_width, float bar_spacing, float bar_height, float bar_stroke_thickness)
+PaginationBar::PaginationBar(std::vector<bool> elements, int cursor_position, ALLEGRO_COLOR fill_color_reached, ALLEGRO_COLOR fill_color_unreached, ALLEGRO_COLOR cursor_stroke_line_color, float bar_width, float bar_spacing, float bar_height, float bar_stroke_thickness)
    : AllegroFlare::Elements::Base()
-   , max(max)
-   , value(value)
+   , elements(elements)
+   , cursor_position(cursor_position)
    , fill_color_reached(fill_color_reached)
    , fill_color_unreached(fill_color_unreached)
+   , cursor_stroke_line_color(cursor_stroke_line_color)
    , bar_width(bar_width)
    , bar_spacing(bar_spacing)
    , bar_height(bar_height)
@@ -35,15 +36,15 @@ PaginationBar::~PaginationBar()
 }
 
 
-void PaginationBar::set_max(int max)
+void PaginationBar::set_elements(std::vector<bool> elements)
 {
-   this->max = max;
+   this->elements = elements;
 }
 
 
-void PaginationBar::set_value(int value)
+void PaginationBar::set_cursor_position(int cursor_position)
 {
-   this->value = value;
+   this->cursor_position = cursor_position;
 }
 
 
@@ -56,6 +57,12 @@ void PaginationBar::set_fill_color_reached(ALLEGRO_COLOR fill_color_reached)
 void PaginationBar::set_fill_color_unreached(ALLEGRO_COLOR fill_color_unreached)
 {
    this->fill_color_unreached = fill_color_unreached;
+}
+
+
+void PaginationBar::set_cursor_stroke_line_color(ALLEGRO_COLOR cursor_stroke_line_color)
+{
+   this->cursor_stroke_line_color = cursor_stroke_line_color;
 }
 
 
@@ -83,15 +90,15 @@ void PaginationBar::set_bar_stroke_thickness(float bar_stroke_thickness)
 }
 
 
-int PaginationBar::get_max() const
+std::vector<bool> PaginationBar::get_elements() const
 {
-   return max;
+   return elements;
 }
 
 
-int PaginationBar::get_value() const
+int PaginationBar::get_cursor_position() const
 {
-   return value;
+   return cursor_position;
 }
 
 
@@ -104,6 +111,12 @@ ALLEGRO_COLOR PaginationBar::get_fill_color_reached() const
 ALLEGRO_COLOR PaginationBar::get_fill_color_unreached() const
 {
    return fill_color_unreached;
+}
+
+
+ALLEGRO_COLOR PaginationBar::get_cursor_stroke_line_color() const
+{
+   return cursor_stroke_line_color;
 }
 
 
@@ -153,10 +166,13 @@ void PaginationBar::render()
    get_placement_ref().start_transform();
 
    // TODO: This could be optimized to a single set of vertexes and a single draw call
-   for (int i=0; i<max; i++)
+   int i = 0;
+   for (auto element : elements)
+   //for (int i=0; i<max; i++)
    {
       bool reached = false;
-      if (i <= (value - 1)) reached = true;
+      if (element == true) reached = true;
+      //if (i <= (value - 1)) reached = true;
       //{
       al_draw_filled_rectangle(
          i*bar_spacing,
@@ -165,6 +181,8 @@ void PaginationBar::render()
          bar_height,
          reached ? fill_color_reached : fill_color_unreached
       );
+
+      i++;
       //}
       //else
       //{
@@ -190,10 +208,15 @@ void PaginationBar::fit_placement_width_and_height()
 
 float PaginationBar::calculate_width()
 {
-   if (max <= 0) return 0;
+   if (get_num_elements() <= 0) return 0;
    // TODO: modify this so that it is coupled with render
    // TODO: add "fit_width" and "fit_height" functions to set the width and height of this Elements::Base dimensions
-   return (max - 1)*bar_spacing+bar_width;
+   return (get_num_elements() - 1)*bar_spacing+bar_width;
+}
+
+int PaginationBar::get_num_elements()
+{
+   return elements.size();
 }
 
 

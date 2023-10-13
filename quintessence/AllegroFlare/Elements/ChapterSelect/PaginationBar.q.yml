@@ -9,23 +9,23 @@ parent_classes:
 properties:
 
 
-  - name: max
-    type: int
-    init_with: 10
+  - name: elements
+    type: std::vector<bool>
+    init_with: '{}'
     constructor_arg: true
     getter: true
     setter: true
   
-  - name: value
+  - name: cursor_position
     type: int
-    init_with: 10
+    init_with: 0
     constructor_arg: true
     getter: true
     setter: true
 
   - name: fill_color_reached
     type: ALLEGRO_COLOR
-    init_with: '(ALLEGRO_COLOR{1, 1, 1, 1} /*crimson*/)'
+    init_with: '(ALLEGRO_COLOR{1, 1, 1, 1} /*white*/)'
     constructor_arg: true
     getter: true
     setter: true
@@ -33,6 +33,13 @@ properties:
   - name: fill_color_unreached
     type: ALLEGRO_COLOR
     init_with: '(ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3} /*gray*/)'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: cursor_stroke_line_color
+    type: ALLEGRO_COLOR
+    init_with: '(ALLEGRO_COLOR{1, 1, 1, 1} /*white*/)'
     constructor_arg: true
     getter: true
     setter: true
@@ -81,10 +88,13 @@ functions:
       get_placement_ref().start_transform();
 
       // TODO: This could be optimized to a single set of vertexes and a single draw call
-      for (int i=0; i<max; i++)
+      int i = 0;
+      for (auto element : elements)
+      //for (int i=0; i<max; i++)
       {
          bool reached = false;
-         if (i <= (value - 1)) reached = true;
+         if (element == true) reached = true;
+         //if (i <= (value - 1)) reached = true;
          //{
          al_draw_filled_rectangle(
             i*bar_spacing,
@@ -93,6 +103,8 @@ functions:
             bar_height,
             reached ? fill_color_reached : fill_color_unreached
          );
+
+         i++;
          //}
          //else
          //{
@@ -121,10 +133,16 @@ functions:
   - name: calculate_width
     type: float
     body: |
-      if (max <= 0) return 0;
+      if (get_num_elements() <= 0) return 0;
       // TODO: modify this so that it is coupled with render
       // TODO: add "fit_width" and "fit_height" functions to set the width and height of this Elements::Base dimensions
-      return (max - 1)*bar_spacing+bar_width;
+      return (get_num_elements() - 1)*bar_spacing+bar_width;
+
+
+  - name: get_num_elements
+    type: int
+    body: |
+      return elements.size();
 
 
 dependencies:
