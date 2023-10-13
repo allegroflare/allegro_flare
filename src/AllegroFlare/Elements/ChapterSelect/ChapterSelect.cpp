@@ -147,8 +147,24 @@ void ChapterSelect::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChapterSelect::render: error: guard \"initialized\" not met");
    }
+   // Draw the carousel
+   AllegroFlare::Placement2D carousel_placement;
+   carousel_placement.position.x = 1920/2;
+   carousel_placement.position.y = 1080/2;
+   carousel_placement.size = { 0, 0 };
+   carousel_placement.start_transform();
    carousel.render();
+   carousel_placement.restore_transform();
+
+   // Draw the pagination bar
+   AllegroFlare::Placement2D pagination_bar_placement;
+   pagination_bar_placement.position.x = 1920/2;
+   pagination_bar_placement.position.y = 1080/2;
+   pagination_bar_placement.size = { 0, 0 };
+   pagination_bar_placement.start_transform();
    pagination_bar.render();
+   pagination_bar_placement.restore_transform();
+
    draw_title_text();
    return;
 }
