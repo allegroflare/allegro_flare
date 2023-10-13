@@ -1435,6 +1435,23 @@
   "AllegroFlare/Elements/ChapterSelect/ChapterSelect": [
     "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
+  "AllegroFlare/VirtualControllers/GenericController": [
+    "AllegroFlare/Elements/ChapterSelect/Screen",
+    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Screens/Achievements",
+    "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/GameOverScreen",
+    "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Version",
+    "WickedDemos/TileDemo"
+  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -2175,22 +2192,6 @@
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
     "AllegroFlare/VirtualControlsProcessor"
-  ],
-  "AllegroFlare/VirtualControllers/GenericController": [
-    "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Screens/Achievements",
-    "AllegroFlare/Screens/CharacterNameInput",
-    "AllegroFlare/Screens/GameOverScreen",
-    "AllegroFlare/Screens/GameWonScreen",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Screens/LevelSelectScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Version",
-    "WickedDemos/TileDemo"
   ],
   "ALLEGRO_KEY_": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
