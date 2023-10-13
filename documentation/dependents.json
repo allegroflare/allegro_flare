@@ -1258,6 +1258,7 @@
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/Video",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",

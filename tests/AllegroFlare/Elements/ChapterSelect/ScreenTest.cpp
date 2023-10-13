@@ -50,6 +50,8 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
    screen.initialize();
 
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
+      //new ThumbnailWithLabel("scene1-01.jpg", "CHAPTER 1: Rise of the City"),
+      //new ThumbnailWithLabel("scene2-01.jpg", "CHAPTER 2: The Sanctuary"),
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 3: The Way Ahead"),
