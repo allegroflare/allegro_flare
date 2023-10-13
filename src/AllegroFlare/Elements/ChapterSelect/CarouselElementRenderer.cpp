@@ -20,6 +20,8 @@ namespace ChapterSelect
 
 
 CarouselElementRenderer::CarouselElementRenderer()
+   : bitmap_bin(nullptr)
+   , font_bin(nullptr)
 {
 }
 
@@ -29,8 +31,39 @@ CarouselElementRenderer::~CarouselElementRenderer()
 }
 
 
+void CarouselElementRenderer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void CarouselElementRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+AllegroFlare::BitmapBin* CarouselElementRenderer::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+AllegroFlare::FontBin* CarouselElementRenderer::get_font_bin() const
+{
+   return font_bin;
+}
+
+
 void CarouselElementRenderer::render_ThumbnailWithLabel(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel* element)
 {
+   if (!(element))
+   {
+      std::stringstream error_message;
+      error_message << "[CarouselElementRenderer::render_ThumbnailWithLabel]: error: guard \"element\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CarouselElementRenderer::render_ThumbnailWithLabel: error: guard \"element\" not met");
+   }
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer renderer;
    // TODO: Pass in elements to render
    renderer.render();
@@ -56,23 +89,6 @@ void CarouselElementRenderer::render(AllegroFlare::Elements::ChapterSelect::Caro
          //create_development_level();
       //}},
    };
-   //static const std::map<std::string, std::function> map = {
-      //{ AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE
-   //std::map<std::string, int> = {
-   //};
-   //if (element->is_type(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE))
-   //{
-      //AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel *as =
-         //static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*>(element);
-      //render_ThumbnailWithLabel(as);
-   //}
-   //else
-   //{
-      //AllegroFlare::Logger::throw_unhandled_case(
-            //"AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer",
-            //element->get_type()
-         //);
-   //}
 
    // locate and call the function to handle the item
    if (items_map.count(element->get_type()) == 0)
@@ -85,15 +101,11 @@ void CarouselElementRenderer::render(AllegroFlare::Elements::ChapterSelect::Caro
 
       if (!item_handled)
       {
+         // item not found
          AllegroFlare::Logger::throw_unhandled_case(
                "AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer",
                element->get_type()
          );
-         // item not found
-         //std::stringstream error_message;
-         //error_message << "[CubeShooter::LevelFactory::load_level]: error: Cannot load the item with the identifier \""
-                       //<< identifier << "\", it does not exist.";
-         //throw std::runtime_error(error_message.str());
       }
    }
    else
@@ -101,7 +113,6 @@ void CarouselElementRenderer::render(AllegroFlare::Elements::ChapterSelect::Caro
       // call the item
       items_map[element->get_type()]();
    }
-
 
    return;
 }

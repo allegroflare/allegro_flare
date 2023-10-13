@@ -1,3 +1,19 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
 methods:
 
 
@@ -6,6 +22,7 @@ methods:
       - name: element
         type: AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*
         default_argument: nullptr
+    guards: [ element ]
     body: |
       AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer renderer;
       // TODO: Pass in elements to render
@@ -32,23 +49,6 @@ methods:
             //create_development_level();
          //}},
       };
-      //static const std::map<std::string, std::function> map = {
-         //{ AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE
-      //std::map<std::string, int> = {
-      //};
-      //if (element->is_type(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel::TYPE))
-      //{
-         //AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel *as =
-            //static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel*>(element);
-         //render_ThumbnailWithLabel(as);
-      //}
-      //else
-      //{
-         //AllegroFlare::Logger::throw_unhandled_case(
-               //"AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer",
-               //element->get_type()
-            //);
-      //}
 
       // locate and call the function to handle the item
       if (items_map.count(element->get_type()) == 0)
@@ -61,15 +61,11 @@ methods:
 
          if (!item_handled)
          {
+            // item not found
             AllegroFlare::Logger::throw_unhandled_case(
                   "AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer",
                   element->get_type()
             );
-            // item not found
-            //std::stringstream error_message;
-            //error_message << "[CubeShooter::LevelFactory::load_level]: error: Cannot load the item with the identifier \""
-                          //<< identifier << "\", it does not exist.";
-            //throw std::runtime_error(error_message.str());
          }
       }
       else
@@ -77,7 +73,6 @@ methods:
          // call the item
          items_map[element->get_type()]();
       }
-
 
       return;
     body_dependency_symbols:
@@ -97,5 +92,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
 
 

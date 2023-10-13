@@ -22,6 +22,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/LevelSelect",
@@ -148,6 +149,8 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -243,6 +246,7 @@
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -1322,10 +1326,21 @@
     "AllegroFlare/Elements/Button"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElements/Base": [
-    "AllegroFlare/Elements/ChapterSelect/Carousel"
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer": [
     "AllegroFlare/Elements/ChapterSelect/Carousel"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel": [
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer": [
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base": [
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer"
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",

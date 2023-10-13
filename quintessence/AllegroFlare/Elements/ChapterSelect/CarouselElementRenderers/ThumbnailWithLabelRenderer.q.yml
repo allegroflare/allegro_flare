@@ -9,6 +9,24 @@ parent_classes:
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: thumbnail_image_identifier
+    type: std::string
+    init_with: '"[unset-thumbnail_image_identifier]"'
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer"'
@@ -20,6 +38,7 @@ methods:
 
 
   - name: render
+    guards: [ font_bin, bitmap_bin ]
     body: |
       return;
 
@@ -29,5 +48,9 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::Base
     headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
 
 

@@ -5,10 +5,11 @@
 
 
 
-using AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers;
+using namespace AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers;
 
 
-TEST(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWithLabelRendererTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWithLabelRendererTest,
+      can_be_created_without_blowing_up)
 {
    ThumbnailWithLabelRenderer thumbnail_with_label_renderer;
 }
