@@ -5,6 +5,7 @@
 #include <AllegroFlare/Elements/ChapterSelect/Carousel.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/PaginationBar.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <allegro5/allegro_font.h>
 
 
 namespace AllegroFlare
@@ -21,6 +22,7 @@ namespace AllegroFlare
             AllegroFlare::Elements::ChapterSelect::Carousel carousel;
             AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar;
             bool initialized;
+            ALLEGRO_FONT* obtain_title_font();
 
          protected:
 
@@ -40,6 +42,9 @@ namespace AllegroFlare
             void initialize();
             void update();
             void render();
+            void rotate_carousel_right();
+            void rotate_carousel_left();
+            void draw_title_text();
          };
       }
    }

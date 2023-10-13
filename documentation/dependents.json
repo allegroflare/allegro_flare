@@ -358,6 +358,7 @@
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -1073,6 +1074,7 @@
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",

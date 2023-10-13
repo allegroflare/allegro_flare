@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ChapterSelect/ChapterSelect.hpp>
 
+#include <allegro5/allegro_font.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -132,7 +133,60 @@ void ChapterSelect::render()
    }
    carousel.render();
    pagination_bar.render();
+   draw_title_text();
    return;
+}
+
+void ChapterSelect::rotate_carousel_right()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::rotate_carousel_right]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::rotate_carousel_right: error: guard \"initialized\" not met");
+   }
+   carousel.rotate_carousel_right();
+   return;
+}
+
+void ChapterSelect::rotate_carousel_left()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::rotate_carousel_left]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::rotate_carousel_left: error: guard \"initialized\" not met");
+   }
+   carousel.rotate_carousel_left();
+   return;
+}
+
+void ChapterSelect::draw_title_text()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::draw_title_text]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::draw_title_text: error: guard \"initialized\" not met");
+   }
+   ALLEGRO_FONT *title_font = obtain_title_font();
+   al_draw_text(title_font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 100, ALLEGRO_ALIGN_LEFT, "CHAPTER SELECT");
+   return;
+}
+
+ALLEGRO_FONT* ChapterSelect::obtain_title_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::obtain_title_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::obtain_title_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-Regular.ttf -46");
 }
 
 

@@ -83,7 +83,40 @@ methods:
     body: |
       carousel.render();
       pagination_bar.render();
+      draw_title_text();
       return;
+
+
+  - name: rotate_carousel_right
+    guards: [ initialized ]
+    body: |
+      carousel.rotate_carousel_right();
+      return;
+
+
+  - name: rotate_carousel_left
+    guards: [ initialized ]
+    body: |
+      carousel.rotate_carousel_left();
+      return;
+
+
+  - name: draw_title_text
+    guards: [ initialized ]
+    body: |
+      ALLEGRO_FONT *title_font = obtain_title_font();
+      al_draw_text(title_font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 100, ALLEGRO_ALIGN_LEFT, "CHAPTER SELECT");
+      return;
+    body_dependency_symbols:
+      - al_draw_text
+
+
+  - name: obtain_title_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -46");
 
 
 dependencies:
@@ -97,5 +130,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/ChapterSelect/Carousel.hpp ]
   - symbol: AllegroFlare::Elements::ChapterSelect::PaginationBar
     headers: [ AllegroFlare/Elements/ChapterSelect/PaginationBar.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
 
 
