@@ -148,6 +148,7 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -243,6 +244,8 @@
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -346,6 +349,8 @@
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -417,6 +422,7 @@
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -558,6 +564,8 @@
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
@@ -670,6 +678,7 @@
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -1056,6 +1065,8 @@
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -1179,6 +1190,8 @@
   "al_draw_rounded_rectangle": [
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElement",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -1319,6 +1332,14 @@
   "AllegroFlare/Elements/Button/Alignments": [
     "AllegroFlare/Elements/Button"
   ],
+  "AllegroFlare/Elements/Base": [
+    "AllegroFlare/Elements/ChapterSelect/PaginationBar",
+    "AllegroFlare/Elements/HealthBars/Basic",
+    "AllegroFlare/Elements/HealthBars/Classic",
+    "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/Elements/Text"
+  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -1410,13 +1431,6 @@
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
-  ],
-  "AllegroFlare/Elements/Base": [
-    "AllegroFlare/Elements/HealthBars/Basic",
-    "AllegroFlare/Elements/HealthBars/Classic",
-    "AllegroFlare/Elements/HealthBars/Hearts",
-    "AllegroFlare/Elements/Stopwatch",
-    "AllegroFlare/Elements/Text"
   ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
