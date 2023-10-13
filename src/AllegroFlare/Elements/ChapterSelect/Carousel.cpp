@@ -149,11 +149,18 @@ void Carousel::render()
    }
    camera.start_reverse_transform();
    AllegroFlare::Placement2D list_element_placement;
+   list_element_placement.align = AllegroFlare::Vec2D(0.5, 0.5);
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
    int position = 0;
    for (auto &element : elements)
    {
-      list_element_placement.position.x = get_element_x_position_for(position);
+      std::tuple<float, float, float, float> element_dimensions = get_element_dimensions(element);
+
+      list_element_placement.position.x = std::get<0>(element_dimensions);
+      list_element_placement.position.y = std::get<1>(element_dimensions);
+      list_element_placement.size.x = std::get<2>(element_dimensions);
+      list_element_placement.size.y = std::get<3>(element_dimensions);
+
       list_element_placement.start_transform();
       renderer.render(element);
       list_element_placement.restore_transform();
@@ -190,14 +197,91 @@ float Carousel::get_element_x_position_for(int position)
    return position * arbitrary_element_spacing;
 }
 
+AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* Carousel::get_element_at_position(int position)
+{
+   if (!((position >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_at_position]: error: guard \"(position >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_at_position: error: guard \"(position >= 0)\" not met");
+   }
+   if (!((position <= elements.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_at_position]: error: guard \"(position <= elements.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_at_position: error: guard \"(position <= elements.size())\" not met");
+   }
+   return elements[position];
+}
+
+std::tuple<float, float, float, float> Carousel::get_element_dimensions_at_position(int position)
+{
+   if (!((position >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_dimensions_at_position]: error: guard \"(position >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_dimensions_at_position: error: guard \"(position >= 0)\" not met");
+   }
+   if (!((position <= elements.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_dimensions_at_position]: error: guard \"(position <= elements.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_dimensions_at_position: error: guard \"(position <= elements.size())\" not met");
+   }
+   if (!(element_dimensions_refreshed))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_dimensions_at_position]: error: guard \"element_dimensions_refreshed\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_dimensions_at_position: error: guard \"element_dimensions_refreshed\" not met");
+   }
+   AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element = get_element_at_position(position);
+   if (element_dimensions.count(element) == 0)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::ChapterSelect::Carousel::get_element_dimensions_at_position",
+            "Unexpected error: Could not find element_dimensions on for this element."
+         );
+   }
+   return element_dimensions[element];
+}
+
+std::tuple<float, float, float, float> Carousel::get_element_dimensions(AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element)
+{
+   if (!(element))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_dimensions]: error: guard \"element\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_dimensions: error: guard \"element\" not met");
+   }
+   if (element_dimensions.count(element) == 0)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::ChapterSelect::Carousel::get_element_dimensions_at_position",
+            "Unexpected error: Could not find element_dimensions on for this element."
+         );
+   }
+   return element_dimensions[element];
+}
+
 void Carousel::refresh_element_dimensions()
 {
    element_dimensions.clear();
    float arbitrary_element_spacing = 1200;
+   float cursor_x = 0;
    for (auto &element : elements)
    {
       // TODO: Use Renderer and calculate dimensions on these elements
-      element_dimensions[element] = std::make_pair(arbitrary_element_spacing, 200.0f);
+      float element_width = arbitrary_element_spacing;
+
+      element_dimensions[element] = std::make_tuple(cursor_x, 0, element_width, 200.0f);
+
+      cursor_x += element_width;
    }
 
    // Sanity check

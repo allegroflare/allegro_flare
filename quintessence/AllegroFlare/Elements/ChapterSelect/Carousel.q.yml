@@ -29,7 +29,7 @@ properties:
     setter: true
 
   - name: element_dimensions
-    type: std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::pair<float, float>>
+    type: std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple<float, float, float, float>>
     init_with: '{}'
 
   - name: element_dimensions_refreshed
@@ -98,11 +98,18 @@ methods:
     body: |
       camera.start_reverse_transform();
       AllegroFlare::Placement2D list_element_placement;
+      list_element_placement.align = AllegroFlare::Vec2D(0.5, 0.5);
       AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
       int position = 0;
       for (auto &element : elements)
       {
-         list_element_placement.position.x = get_element_x_position_for(position);
+         std::tuple<float, float, float, float> element_dimensions = get_element_dimensions(element);
+
+         list_element_placement.position.x = std::get<0>(element_dimensions);
+         list_element_placement.position.y = std::get<1>(element_dimensions);
+         list_element_placement.size.x = std::get<2>(element_dimensions);
+         list_element_placement.size.y = std::get<3>(element_dimensions);
+
          list_element_placement.start_transform();
          renderer.render(element);
          list_element_placement.restore_transform();
@@ -126,14 +133,67 @@ methods:
       return position * arbitrary_element_spacing;
 
 
+  - name: get_element_at_position
+    type: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+    guards: [ (position >= 0), (position <= elements.size()) ]
+    body: |
+      return elements[position];
+
+
+  - name: get_element_dimensions_at_position
+    type: std::tuple<float, float, float, float>
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+    guards: [ (position >= 0), (position <= elements.size()), element_dimensions_refreshed ]
+    body: |
+      AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element = get_element_at_position(position);
+      if (element_dimensions.count(element) == 0)
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::ChapterSelect::Carousel::get_element_dimensions_at_position",
+               "Unexpected error: Could not find element_dimensions on for this element."
+            );
+      }
+      return element_dimensions[element];
+
+
+  - name: get_element_dimensions
+    type: std::tuple<float, float, float, float>
+    parameters:
+      - name: element
+        type: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*
+        default_argument: nullptr
+    guards: [ element ]
+    body: |
+      if (element_dimensions.count(element) == 0)
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::ChapterSelect::Carousel::get_element_dimensions_at_position",
+               "Unexpected error: Could not find element_dimensions on for this element."
+            );
+      }
+      return element_dimensions[element];
+
+
   - name: refresh_element_dimensions
     body: |
       element_dimensions.clear();
       float arbitrary_element_spacing = 1200;
+      float cursor_x = 0;
       for (auto &element : elements)
       {
          // TODO: Use Renderer and calculate dimensions on these elements
-         element_dimensions[element] = std::make_pair(arbitrary_element_spacing, 200.0f);
+         float element_width = arbitrary_element_spacing;
+
+         element_dimensions[element] = std::make_tuple(cursor_x, 0, element_width, 200.0f);
+
+         cursor_x += element_width;
       }
 
       // Sanity check

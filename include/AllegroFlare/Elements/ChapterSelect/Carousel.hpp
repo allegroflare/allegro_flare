@@ -6,7 +6,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <map>
-#include <utility>
+#include <tuple>
 #include <vector>
 
 
@@ -23,7 +23,7 @@ namespace AllegroFlare
             AllegroFlare::FontBin* font_bin;
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements;
             int focused_element_position;
-            std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::pair<float, float>> element_dimensions;
+            std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple<float, float, float, float>> element_dimensions;
             bool element_dimensions_refreshed;
             AllegroFlare::Placement2D camera;
 
@@ -50,6 +50,9 @@ namespace AllegroFlare
             void update();
             void render();
             float get_element_x_position_for(int position=0);
+            AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* get_element_at_position(int position=0);
+            std::tuple<float, float, float, float> get_element_dimensions_at_position(int position=0);
+            std::tuple<float, float, float, float> get_element_dimensions(AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element=nullptr);
             void refresh_element_dimensions();
          };
       }

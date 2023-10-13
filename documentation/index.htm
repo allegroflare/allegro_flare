@@ -3981,7 +3981,7 @@ table td
 </tr>
 <tr>
   <td class="property">element_dimensions</td>
-  <td class="property">std::map&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::pair&lt;float, float&gt;&gt;</td>
+  <td class="property">std::map&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple&lt;float, float, float, float&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">element_dimensions_refreshed</td>
@@ -4014,6 +4014,15 @@ table td
 </tr>
 <tr>
   <td class="method">get_element_x_position_for(int position=0)</td>
+</tr>
+<tr>
+  <td class="method">get_element_at_position(int position=0)</td>
+</tr>
+<tr>
+  <td class="method">get_element_dimensions_at_position(int position=0)</td>
+</tr>
+<tr>
+  <td class="method">get_element_dimensions(AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* element=nullptr)</td>
 </tr>
 <tr>
   <td class="method">refresh_element_dimensions()</td>
