@@ -4,12 +4,14 @@ properties:
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
+    constructor_arg: true
     getter: true
     setter: true
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
+    constructor_arg: true
     getter: true
     setter: true
 

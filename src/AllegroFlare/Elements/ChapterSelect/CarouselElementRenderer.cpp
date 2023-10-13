@@ -19,9 +19,9 @@ namespace ChapterSelect
 {
 
 
-CarouselElementRenderer::CarouselElementRenderer()
-   : bitmap_bin(nullptr)
-   , font_bin(nullptr)
+CarouselElementRenderer::CarouselElementRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+   : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
 {
 }
 

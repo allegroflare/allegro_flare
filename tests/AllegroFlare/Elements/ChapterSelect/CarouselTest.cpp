@@ -36,7 +36,8 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 {
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
 
-   AllegroFlare::Elements::ChapterSelect::Carousel carousel({
+   AllegroFlare::Elements::ChapterSelect::Carousel carousel(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   carousel.set_elements({
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
       new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
    });

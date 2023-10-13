@@ -23,7 +23,7 @@ namespace AllegroFlare
 
 
          public:
-            CarouselElementRenderer();
+            CarouselElementRenderer(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
             ~CarouselElementRenderer();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);

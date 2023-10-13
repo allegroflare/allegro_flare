@@ -1,6 +1,20 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: elements
     type: std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*>
     init_with: '{}'
@@ -19,8 +33,9 @@ methods:
 
 
   - name: render
+    guards: [ bitmap_bin, font_bin ]
     body: |
-      AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer;
+      AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
       for (auto &element : elements) renderer.render(element);
       return;
     body_dependency_symbols:
@@ -34,5 +49,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp ]
   - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer
     headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
 
 
