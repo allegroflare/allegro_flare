@@ -52,8 +52,16 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
    carousel.set_elements(carousel_elements);
    carousel.refresh_element_dimensions();
     
-   carousel.render();
-   al_flip_display();
+   int passes = 160;
+   for (int i=0; i<passes; i++)
+   {
+      clear();
+
+      if (i == passes/2) carousel.rotate_carousel_right();
+
+      carousel.render();
+      al_flip_display();
+   }
    sleep_for(1);
 }
 
