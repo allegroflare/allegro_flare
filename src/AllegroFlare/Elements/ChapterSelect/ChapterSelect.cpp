@@ -159,7 +159,7 @@ void ChapterSelect::render()
    // Draw the pagination bar
    AllegroFlare::Placement2D pagination_bar_placement;
    pagination_bar_placement.position.x = 1920/2;
-   pagination_bar_placement.position.y = 1080/2;
+   pagination_bar_placement.position.y = 1080/5*4;
    pagination_bar_placement.size = { 0, 0 };
    pagination_bar_placement.start_transform();
    pagination_bar.render();
@@ -215,6 +215,7 @@ void ChapterSelect::refresh_pagination_bar_elements()
 {
    // TODO: Find a mechanism to store and obtain the "status" of a Chapter as hidden or unhidden, etc
    std::vector<bool> pagination_bar_elements(carousel.get_num_elements(), true);
+   pagination_bar.set_elements(pagination_bar_elements);
    return;
 }
 
