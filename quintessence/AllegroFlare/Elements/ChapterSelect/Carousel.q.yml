@@ -29,6 +29,10 @@ properties:
     getter: true
     setter: true
 
+  - name: element_dimensions
+    type: std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::pair<float, float>>
+    init_with: '{}'
+
   - name: camera
     type: AllegroFlare::Placement2D
     init_with: ''
@@ -46,6 +50,7 @@ methods:
         default_argument: '{}'
     body: |
       this->elements = elements;
+      element_dimensions.clear();
       focused_element_position = 0;
       return;
 
@@ -117,6 +122,29 @@ methods:
       return position * arbitrary_element_spacing;
 
 
+  - name: refresh_element_dimensions
+    body: |
+      element_dimensions.clear();
+      float arbitrary_element_spacing = 1200;
+      for (auto &element : elements)
+      {
+         // TODO: Use Renderer and calculate dimensions on these elements
+         element_dimensions[element] = std::make_pair(arbitrary_element_spacing, 200.0f);
+      }
+
+      // Sanity check
+      if (element_dimensions.size() != elements.size())
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::ChapterSelect::Carousel",
+               "Expecting the number of element_dimensions to match number of elements. Expecting unique elements in "
+                  "the carousel that can be mapped to dimensions, but elements contains a non-unique list."
+            );
+      }
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
 dependencies:
 
 
@@ -130,5 +158,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

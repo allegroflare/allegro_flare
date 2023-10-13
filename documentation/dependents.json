@@ -22,6 +22,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",

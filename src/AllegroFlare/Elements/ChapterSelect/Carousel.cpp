@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/ChapterSelect/Carousel.hpp>
 
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -21,6 +22,7 @@ Carousel::Carousel(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* f
    , font_bin(font_bin)
    , elements(elements)
    , focused_element_position(focused_element_position)
+   , element_dimensions({})
    , camera()
 {
 }
@@ -88,6 +90,7 @@ AllegroFlare::Placement2D Carousel::get_camera() const
 void Carousel::set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements)
 {
    this->elements = elements;
+   element_dimensions.clear();
    focused_element_position = 0;
    return;
 }
@@ -176,6 +179,27 @@ float Carousel::get_element_x_position_for(int position)
    }
    float arbitrary_element_spacing = 1200;
    return position * arbitrary_element_spacing;
+}
+
+void Carousel::refresh_element_dimensions()
+{
+   element_dimensions.clear();
+   float arbitrary_element_spacing = 1200;
+   for (auto &element : elements)
+   {
+      // TODO: Use Renderer and calculate dimensions on these elements
+      element_dimensions[element] = std::make_pair(arbitrary_element_spacing, 200.0f);
+   }
+
+   // Sanity check
+   if (element_dimensions.size() != elements.size())
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::ChapterSelect::Carousel",
+            "Expecting the number of element_dimensions to match number of elements. Expecting unique elements in "
+               "the carousel that can be mapped to dimensions, but elements contains a non-unique list."
+         );
+   }
 }
 
 
