@@ -30,7 +30,7 @@ namespace AllegroFlare
 
 
          public:
-            PaginationBar(std::vector<bool> elements={}, int cursor_position=0, ALLEGRO_COLOR fill_color_reached=(ALLEGRO_COLOR{1, 1, 1, 1} /*white*/), ALLEGRO_COLOR fill_color_unreached=(ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3} /*gray*/), ALLEGRO_COLOR cursor_stroke_line_color=(ALLEGRO_COLOR{1, 1, 1, 1} /*white*/), float cursor_stroke_line_thickness=2.0, float bar_width=35, float bar_spacing=60, float bar_height=6, float bar_stroke_thickness=3.0f);
+            PaginationBar(std::vector<bool> elements={}, int cursor_position=-1, ALLEGRO_COLOR fill_color_reached=(ALLEGRO_COLOR{1, 1, 1, 1} /*white*/), ALLEGRO_COLOR fill_color_unreached=(ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3} /*gray*/), ALLEGRO_COLOR cursor_stroke_line_color=(ALLEGRO_COLOR{1, 1, 1, 1} /*white*/), float cursor_stroke_line_thickness=2.0, float bar_width=35, float bar_spacing=60, float bar_height=6, float bar_stroke_thickness=3.0f);
             virtual ~PaginationBar();
 
             void set_elements(std::vector<bool> elements);
