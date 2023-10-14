@@ -64,3 +64,19 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWit
 }
 
 
+TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWithLabelUnlockableRendererTestWithAllegroRenderingFixture,
+   CAPTURE__render__when_locked__will_render_as_expected)
+{
+   AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelUnlockableRenderer
+         thumbnail_with_label_renderer(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   thumbnail_with_label_renderer.set_thumbnail_image_identifier("storyboard-image-1164x500.png");
+   thumbnail_with_label_renderer.set_label_text("CHAPTER 12: RISE OF THE CITY");
+   thumbnail_with_label_renderer.set_locked_thumbnail_image_identifier("storyboard-image-1164x500.png");
+   thumbnail_with_label_renderer.set_locked_label_text("CHAPTER 12: LOCKED");
+   thumbnail_with_label_renderer.set_is_locked(true);
+   thumbnail_with_label_renderer.render();
+   al_flip_display();
+   sleep_for(1);
+}
+
+
