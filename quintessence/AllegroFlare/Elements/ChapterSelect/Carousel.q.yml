@@ -1,6 +1,13 @@
 properties:
 
 
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
@@ -21,12 +28,15 @@ properties:
     getter: true
     setter: explicit
 
+  - name: rotate_carousel_sound_effect_identifier
+    type: std::string
+    init_with: '"Carousel::rotate_carousel"'
+    getter: true
+    setter: true
+
   - name: focused_element_position
     type: int
     init_with: 0
-    constructor_arg: true
-    getter: true
-    setter: true
 
   - name: element_dimensions
     type: std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple<float, float, float, float>>
@@ -72,13 +82,19 @@ methods:
 
 
   - name: rotate_carousel_left
-    body: |
+    body:
       if (elements.empty()) return;
+
+      bool rotation_was_successful = true;
 
       focused_element_position -= 1;
       if (focused_element_position < 0) focused_element_position += elements.size();
 
-      reposition_camera_position_to_focused_element();
+      if (rotation_was_successful)
+      {
+         emit_rotation_sound_effect();
+         reposition_camera_position_to_focused_element();
+      }
       return;
 
 
@@ -86,10 +102,16 @@ methods:
     body: |
       if (elements.empty()) return;
 
+      bool rotation_was_successful = true;
+
       focused_element_position += 1;
       if (focused_element_position >= elements.size()) focused_element_position -= elements.size();
 
-      reposition_camera_position_to_focused_element();
+      if (rotation_was_successful)
+      {
+         emit_rotation_sound_effect();
+         reposition_camera_position_to_focused_element();
+      }
       return;
 
 
@@ -244,6 +266,15 @@ methods:
       - AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer
 
 
+  - name: emit_rotation_sound_effect
+    private: true
+    guards: [ event_emitter ]
+    body: |
+      // TODO: test this event emission
+      event_emitter->emit_play_sound_effect_event(rotate_carousel_sound_effect_identifier);
+      return;
+
+
 dependencies:
 
 
@@ -261,5 +292,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: al_draw_rectangle
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
 
 

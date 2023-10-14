@@ -18,11 +18,13 @@ namespace ChapterSelect
 {
 
 
-Carousel::Carousel(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, int focused_element_position)
-   : bitmap_bin(bitmap_bin)
+Carousel::Carousel(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+   : event_emitter(event_emitter)
+   , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , elements({})
-   , focused_element_position(focused_element_position)
+   , rotate_carousel_sound_effect_identifier("Carousel::rotate_carousel")
+   , focused_element_position(0)
    , element_dimensions({})
    , element_dimensions_refreshed(false)
    , camera()
@@ -33,6 +35,12 @@ Carousel::Carousel(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* f
 
 Carousel::~Carousel()
 {
+}
+
+
+void Carousel::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
 }
 
 
@@ -48,9 +56,9 @@ void Carousel::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void Carousel::set_focused_element_position(int focused_element_position)
+void Carousel::set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier)
 {
-   this->focused_element_position = focused_element_position;
+   this->rotate_carousel_sound_effect_identifier = rotate_carousel_sound_effect_identifier;
 }
 
 
@@ -63,6 +71,12 @@ void Carousel::set_camera(AllegroFlare::Placement2D camera)
 void Carousel::set_camera_target(AllegroFlare::Placement2D camera_target)
 {
    this->camera_target = camera_target;
+}
+
+
+AllegroFlare::EventEmitter* Carousel::get_event_emitter() const
+{
+   return event_emitter;
 }
 
 
@@ -84,9 +98,9 @@ std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> Caro
 }
 
 
-int Carousel::get_focused_element_position() const
+std::string Carousel::get_rotate_carousel_sound_effect_identifier() const
 {
-   return focused_element_position;
+   return rotate_carousel_sound_effect_identifier;
 }
 
 
@@ -119,22 +133,25 @@ int Carousel::get_num_elements()
 void Carousel::rotate_carousel_left()
 {
    if (elements.empty()) return;
-
-   focused_element_position -= 1;
-   if (focused_element_position < 0) focused_element_position += elements.size();
-
-   reposition_camera_position_to_focused_element();
-   return;
+   bool rotation_was_successful = true;
+   focused_element_position -= 1; if (focused_element_position < 0) focused_element_position += elements.size();
+   if (rotation_was_successful) { emit_rotation_sound_effect(); reposition_camera_position_to_focused_element(); } return;
 }
 
 void Carousel::rotate_carousel_right()
 {
    if (elements.empty()) return;
 
+   bool rotation_was_successful = true;
+
    focused_element_position += 1;
    if (focused_element_position >= elements.size()) focused_element_position -= elements.size();
 
-   reposition_camera_position_to_focused_element();
+   if (rotation_was_successful)
+   {
+      emit_rotation_sound_effect();
+      reposition_camera_position_to_focused_element();
+   }
    return;
 }
 
@@ -333,6 +350,20 @@ void Carousel::refresh_element_dimensions()
          );
    }
    element_dimensions_refreshed = true;
+}
+
+void Carousel::emit_rotation_sound_effect()
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::emit_rotation_sound_effect]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::emit_rotation_sound_effect: error: guard \"event_emitter\" not met");
+   }
+   // TODO: test this event emission
+   event_emitter->emit_play_sound_effect_event(rotate_carousel_sound_effect_identifier);
+   return;
 }
 
 

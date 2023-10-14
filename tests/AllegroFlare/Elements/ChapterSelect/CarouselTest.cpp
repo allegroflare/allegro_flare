@@ -26,7 +26,12 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTest, can_be_created_without_
 
 TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixture, render__will_not_blow_up)
 {
-   AllegroFlare::Elements::ChapterSelect::Carousel carousel(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::Elements::ChapterSelect::Carousel carousel(
+         &event_emitter,
+         &get_bitmap_bin_ref(),
+         &get_font_bin_ref()
+      );
    carousel.render();
 }
 
@@ -43,6 +48,8 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 {
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
 
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
@@ -60,7 +67,11 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
          ),
    };
 
-   AllegroFlare::Elements::ChapterSelect::Carousel carousel(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   AllegroFlare::Elements::ChapterSelect::Carousel carousel(
+         &event_emitter,
+         &get_bitmap_bin_ref(),
+         &get_font_bin_ref()
+      );
    carousel.set_elements(carousel_elements);
    carousel.refresh_element_dimensions();
     

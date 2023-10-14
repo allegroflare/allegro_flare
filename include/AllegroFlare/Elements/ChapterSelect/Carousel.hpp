@@ -3,9 +3,11 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <map>
+#include <string>
 #include <tuple>
 #include <vector>
 
@@ -19,31 +21,36 @@ namespace AllegroFlare
          class Carousel
          {
          private:
+            AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements;
+            std::string rotate_carousel_sound_effect_identifier;
             int focused_element_position;
             std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple<float, float, float, float>> element_dimensions;
             bool element_dimensions_refreshed;
             AllegroFlare::Placement2D camera;
             AllegroFlare::Placement2D camera_target;
+            void emit_rotation_sound_effect();
 
          protected:
 
 
          public:
-            Carousel(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, int focused_element_position=0);
+            Carousel(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
             ~Carousel();
 
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
-            void set_focused_element_position(int focused_element_position);
+            void set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier);
             void set_camera(AllegroFlare::Placement2D camera);
             void set_camera_target(AllegroFlare::Placement2D camera_target);
+            AllegroFlare::EventEmitter* get_event_emitter() const;
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> get_elements() const;
-            int get_focused_element_position() const;
+            std::string get_rotate_carousel_sound_effect_identifier() const;
             AllegroFlare::Placement2D get_camera() const;
             AllegroFlare::Placement2D get_camera_target() const;
             void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});
