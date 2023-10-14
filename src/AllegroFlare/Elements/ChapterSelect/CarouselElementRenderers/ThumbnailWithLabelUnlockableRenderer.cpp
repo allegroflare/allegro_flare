@@ -24,7 +24,7 @@ ThumbnailWithLabelUnlockableRenderer::ThumbnailWithLabelUnlockableRenderer(Alleg
    , font_bin(font_bin)
    , thumbnail_image_identifier("[unset-thumbnail_image_identifier]")
    , label_text("[unset-label_text]")
-   , locked_thumbnail_image_identifier("[unset-thumbnail_image_identifier]")
+   , locked_thumbnail_image_identifier("")
    , locked_label_text("[unset-label_text]")
    , is_locked(false)
    , padding_x(20)
@@ -184,17 +184,35 @@ void ThumbnailWithLabelUnlockableRenderer::render()
    }
    ALLEGRO_BITMAP *image = obtain_thumbnail_image();
    ALLEGRO_FONT *label_font = obtain_label_font();
-   float label_y_offset = al_get_bitmap_height(image) + label_y_gutter;
-   float label_text_max_width = al_get_bitmap_width(image);
+   float thumbnail_width = al_get_bitmap_width(image);
+   float thumbnail_height = al_get_bitmap_height(image);
+
+   // Text configuration
+   float label_y_offset = thumbnail_height + label_y_gutter;
+   float label_text_max_width = thumbnail_width;
    float label_text_line_height = calculate_label_text_line_height();
    ALLEGRO_COLOR locked_text_color = ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3};
    ALLEGRO_COLOR unlocked_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
    ALLEGRO_COLOR text_color = is_locked ? locked_text_color : unlocked_text_color;
 
-   // Render the image
-   al_draw_bitmap(image, padding_x, padding_y, 0);
+   // Frame configuration
+   ALLEGRO_COLOR locked_frame_color = ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3};
+   ALLEGRO_COLOR unlocked_frame_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR frame_color = is_locked ? locked_frame_color : unlocked_frame_color;
+   float frame_thickness = 2.0f;
 
-   // TODO: Render a frame around the text
+   // Render the image
+   if (!is_locked) al_draw_bitmap(image, padding_x, padding_y, 0);
+
+   // Render a frame around the text
+   al_draw_rectangle(
+         padding_x,
+         padding_y,
+         padding_x + thumbnail_width,
+         padding_y + thumbnail_height,
+         frame_color,
+         frame_thickness
+      );
 
    // Render the text
    al_draw_multiline_text(
@@ -231,7 +249,9 @@ float ThumbnailWithLabelUnlockableRenderer::calculate_label_text_line_height()
 
 ALLEGRO_BITMAP* ThumbnailWithLabelUnlockableRenderer::obtain_thumbnail_image()
 {
-   std::string identifier = is_locked ? locked_thumbnail_image_identifier : thumbnail_image_identifier;
+   std::string identifier = is_locked && !locked_thumbnail_image_identifier.empty()
+                          ? locked_thumbnail_image_identifier
+                          : thumbnail_image_identifier;
    return bitmap_bin->auto_get(identifier);
 }
 
