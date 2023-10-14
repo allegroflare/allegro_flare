@@ -113,8 +113,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/ChapterSelect.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/ChapterSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/PaginationBar.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/PaginationBar.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ChapterSelect/Screen.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/Screen.q.yml</a></li>
@@ -4220,6 +4222,89 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">thumbnail_image_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">label_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">padding_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">padding_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">label_y_gutter</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">calculate_width()</td>
+</tr>
+<tr>
+  <td class="method">calculate_height()</td>
+</tr>
+<tr>
+  <td class="method">calculate_label_text_line_height()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_thumbnail_image()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_label_font()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -4275,6 +4360,49 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.q.yml">quintessence/AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">label_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">is_locked</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">lock()</td>
+</tr>
+<tr>
+  <td class="method">unlock()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -29126,7 +29254,9 @@ table td
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -29227,6 +29357,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -29333,6 +29464,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -29406,6 +29538,7 @@ table td
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -29507,6 +29640,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
@@ -30323,6 +30457,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
@@ -30347,7 +30482,8 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base": [
-    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer"
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer"
   ],
   "AllegroFlare/Elements/ChapterSelect/Carousel": [
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect"
