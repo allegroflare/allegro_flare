@@ -21,7 +21,7 @@ namespace AllegroFlare
          class ChapterSelect
          {
          public:
-            static constexpr char* DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::rotate_carousel";
+            static constexpr char* DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::ChapterSelect::rotate_carousel";
 
          private:
             AllegroFlare::EventEmitter* event_emitter;

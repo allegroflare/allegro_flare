@@ -42,7 +42,7 @@ properties:
 
   - name: DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER
     type: char*
-    init_with: '(char*)"ChapterSelect::rotate_carousel"'
+    init_with: '(char*)"ChapterSelect::ChapterSelect::rotate_carousel"'
     static: true
     constexpr: true
 

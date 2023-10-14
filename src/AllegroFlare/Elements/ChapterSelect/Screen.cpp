@@ -29,7 +29,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , on_menu_choice_callback_func_user_data(nullptr)
    , on_exit_screen_callback_func()
    , on_exit_screen_callback_func_user_data(nullptr)
-   , select_menu_sound_effect_identifier("Screen::select_menu_sound_effect_identifier")
+   , select_menu_sound_effect_identifier(DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER)
    , initialized(false)
 {
 }
@@ -148,6 +148,12 @@ void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
       throw std::runtime_error("Screen::set_font_bin: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
+   return;
+}
+
+void Screen::set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier)
+{
+   chapter_select_element.set_rotate_carousel_sound_effect_identifier(rotate_carousel_sound_effect_identifier);
    return;
 }
 

@@ -102,6 +102,9 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
    screen.set_event_emitter(get_framework_event_emitter());
    screen.set_bitmap_bin(get_framework_bitmap_bin());
    screen.set_font_bin(get_framework_font_bin());
+   screen.set_rotate_carousel_sound_effect_identifier("foo");
+   screen.set_select_menu_sound_effect_identifier("bar");
+
    screen.initialize();
 
    screen.set_on_menu_choice_callback_func(

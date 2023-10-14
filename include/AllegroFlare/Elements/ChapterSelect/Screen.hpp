@@ -26,6 +26,8 @@ namespace AllegroFlare
          class Screen : public AllegroFlare::Screens::Base
          {
          public:
+            static constexpr char* DEFAULT_ROTATE_CAROUSEL_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::Screen::rotate_carousel";
+            static constexpr char* DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::Screen::select_menu_option";
             static constexpr char* TYPE = (char*)"AllegroFlare/Elements/ChapterSelect/Screen";
 
          private:
@@ -65,6 +67,7 @@ namespace AllegroFlare
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
+            void set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier=DEFAULT_ROTATE_CAROUSEL_SOUND_EFFECT_IDENTIFIER);
             void initialize();
             void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});
             void set_pagination_bar_elements(std::vector<bool> elements={});

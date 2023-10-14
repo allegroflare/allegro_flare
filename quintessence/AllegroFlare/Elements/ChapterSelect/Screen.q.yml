@@ -60,13 +60,25 @@ properties:
 
   - name: select_menu_sound_effect_identifier
     type: std::string
-    init_with: '"Screen::select_menu_sound_effect_identifier"'
+    init_with: DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER
     getter: true
     setter: true
 
   - name: initialized
     type: bool
     init_with: false
+
+  - name: DEFAULT_ROTATE_CAROUSEL_SOUND_EFFECT_IDENTIFIER
+    type: char*
+    init_with: '(char*)"ChapterSelect::Screen::rotate_carousel"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER
+    type: char*
+    init_with: '(char*)"ChapterSelect::Screen::select_menu_option"'
+    static: true
+    constexpr: true
 
   - name: TYPE
     type: char*
@@ -108,6 +120,16 @@ methods:
         default_argument: nullptr
     body: |
       this->font_bin = font_bin;
+      return;
+
+
+  - name: set_rotate_carousel_sound_effect_identifier
+    parameters:
+      - name: rotate_carousel_sound_effect_identifier
+        type: std::string
+        default_argument: DEFAULT_ROTATE_CAROUSEL_SOUND_EFFECT_IDENTIFIER
+    body: |
+      chapter_select_element.set_rotate_carousel_sound_effect_identifier(rotate_carousel_sound_effect_identifier);
       return;
 
 
