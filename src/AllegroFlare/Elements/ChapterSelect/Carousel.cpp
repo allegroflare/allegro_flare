@@ -104,6 +104,12 @@ std::string Carousel::get_rotate_carousel_sound_effect_identifier() const
 }
 
 
+int Carousel::get_focused_element_position() const
+{
+   return focused_element_position;
+}
+
+
 AllegroFlare::Placement2D Carousel::get_camera() const
 {
    return camera;

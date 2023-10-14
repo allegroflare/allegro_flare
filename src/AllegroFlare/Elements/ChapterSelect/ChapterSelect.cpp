@@ -16,8 +16,9 @@ namespace ChapterSelect
 {
 
 
-ChapterSelect::ChapterSelect(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::ChapterSelect::Carousel carousel, AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar)
-   : bitmap_bin(bitmap_bin)
+ChapterSelect::ChapterSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::ChapterSelect::Carousel carousel, AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar)
+   : event_emitter(event_emitter)
+   , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , carousel(carousel)
    , pagination_bar(pagination_bar)
@@ -40,6 +41,12 @@ void ChapterSelect::set_carousel(AllegroFlare::Elements::ChapterSelect::Carousel
 void ChapterSelect::set_pagination_bar(AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar)
 {
    this->pagination_bar = pagination_bar;
+}
+
+
+AllegroFlare::EventEmitter* ChapterSelect::get_event_emitter() const
+{
+   return event_emitter;
 }
 
 
@@ -67,6 +74,19 @@ AllegroFlare::Elements::ChapterSelect::PaginationBar ChapterSelect::get_paginati
 }
 
 
+void ChapterSelect::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::set_event_emitter: error: guard \"(!initialized)\" not met");
+   }
+   this->event_emitter = event_emitter;
+   return;
+}
+
 void ChapterSelect::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))
@@ -93,6 +113,19 @@ void ChapterSelect::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
+void ChapterSelect::set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::set_rotate_carousel_sound_effect_identifier]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::set_rotate_carousel_sound_effect_identifier: error: guard \"(!initialized)\" not met");
+   }
+   carousel.set_rotate_carousel_sound_effect_identifier(rotate_carousel_sound_effect_identifier);
+   return;
+}
+
 void ChapterSelect::initialize()
 {
    if (!((!initialized)))
@@ -102,6 +135,7 @@ void ChapterSelect::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChapterSelect::initialize: error: guard \"(!initialized)\" not met");
    }
+   carousel.set_event_emitter(event_emitter);
    carousel.set_bitmap_bin(bitmap_bin);
    carousel.set_font_bin(font_bin);
    initialized = true;

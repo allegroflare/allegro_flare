@@ -37,6 +37,7 @@ properties:
   - name: focused_element_position
     type: int
     init_with: 0
+    getter: true
 
   - name: element_dimensions
     type: std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple<float, float, float, float>>

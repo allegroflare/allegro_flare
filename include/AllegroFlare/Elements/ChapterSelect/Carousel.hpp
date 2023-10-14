@@ -51,6 +51,7 @@ namespace AllegroFlare
             AllegroFlare::FontBin* get_font_bin() const;
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> get_elements() const;
             std::string get_rotate_carousel_sound_effect_identifier() const;
+            int get_focused_element_position() const;
             AllegroFlare::Placement2D get_camera() const;
             AllegroFlare::Placement2D get_camera_target() const;
             void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});

@@ -28,7 +28,9 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ChapterSelectTestWithAllegroRendering
 {
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
 
+   AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::Elements::ChapterSelect::ChapterSelect chapter_select;
+   chapter_select.set_event_emitter(&event_emitter);
    chapter_select.set_bitmap_bin(&get_bitmap_bin_ref());
    chapter_select.set_font_bin(&get_font_bin_ref());
    chapter_select.initialize();
