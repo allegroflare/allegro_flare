@@ -24,6 +24,7 @@ class AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFix
 public:
    static void on_menu_choice_callback_func(AllegroFlare::Elements::ChapterSelect::Screen* screen, void* user_data)
    {
+      // Do nothing here
    }
 };
 
