@@ -33,7 +33,7 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: is_locked
+  - name: is_unlocked
     type: bool
     init_with: true
     constructor_arg: true
@@ -44,19 +44,6 @@ properties:
     init_with: '(char*)"AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable"'
     static: true
     constexpr: true
-
-
-methods:
-
-
-  - name: lock
-    body: |
-      is_locked = true;
-
-
-  - name: unlock
-    body: |
-      is_locked = false;
 
 
 dependencies:

@@ -72,7 +72,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWit
    thumbnail_with_label_renderer.set_thumbnail_image_identifier("storyboard-image-1164x500.png");
    thumbnail_with_label_renderer.set_label_text("CHAPTER 12: RISE OF THE CITY");
    thumbnail_with_label_renderer.set_locked_label_text("CHAPTER 12");
-   thumbnail_with_label_renderer.set_is_locked(true);
+   thumbnail_with_label_renderer.set_is_unlocked(false);
    thumbnail_with_label_renderer.render();
    al_flip_display();
    sleep_for(1);

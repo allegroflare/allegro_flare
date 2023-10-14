@@ -47,9 +47,9 @@ properties:
     getter: true
     setter: true
 
-  - name: is_locked
+  - name: is_unlocked
     type: bool
-    init_with: false
+    init_with: true
     getter: true
     setter: true
 
@@ -126,16 +126,16 @@ methods:
       float label_text_line_height = calculate_label_text_line_height();
       ALLEGRO_COLOR locked_text_color = ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3};
       ALLEGRO_COLOR unlocked_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR text_color = is_locked ? locked_text_color : unlocked_text_color;
+      ALLEGRO_COLOR text_color = !is_unlocked ? locked_text_color : unlocked_text_color;
 
       // Frame configuration
       ALLEGRO_COLOR locked_frame_color = ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3};
       ALLEGRO_COLOR unlocked_frame_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR frame_color = is_locked ? locked_frame_color : unlocked_frame_color;
+      ALLEGRO_COLOR frame_color = !is_unlocked ? locked_frame_color : unlocked_frame_color;
       float frame_thickness = 2.0f;
 
       // Render the image
-      if (!is_locked) al_draw_bitmap(image, padding_x, padding_y, 0);
+      if (is_unlocked) al_draw_bitmap(image, padding_x, padding_y, 0);
 
       // Render a frame around the text
       al_draw_rectangle(
@@ -156,7 +156,7 @@ methods:
             label_text_max_width,
             label_text_line_height,
             ALLEGRO_ALIGN_LEFT,
-            is_locked ? locked_label_text.c_str() : label_text.c_str()
+            !is_unlocked ? locked_label_text.c_str() : label_text.c_str()
          );
       return;
     body_dependency_symbols:
@@ -189,7 +189,7 @@ methods:
     type: ALLEGRO_BITMAP*
     private: true
     body: |
-      std::string identifier = is_locked && !locked_thumbnail_image_identifier.empty()
+      std::string identifier = !is_unlocked && !locked_thumbnail_image_identifier.empty()
                              ? locked_thumbnail_image_identifier
                              : thumbnail_image_identifier;
       return bitmap_bin->auto_get(identifier);

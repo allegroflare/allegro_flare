@@ -190,7 +190,7 @@ std::pair<float, float> CarouselElementRenderer::render_or_calculate_dimensions_
    renderer.set_label_text(element->get_label_text());
    renderer.set_locked_thumbnail_image_identifier(element->get_locked_bitmap_filename());
    renderer.set_locked_label_text(element->get_locked_label_text());
-   renderer.set_is_locked(element->get_is_locked());
+   renderer.set_is_unlocked(element->get_is_unlocked());
 
    if (!only_calculate_dimensions) renderer.render();
 

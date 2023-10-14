@@ -15,13 +15,13 @@ namespace CarouselElements
 {
 
 
-ThumbnailWithLabelUnlockable::ThumbnailWithLabelUnlockable(std::string bitmap_filename, std::string label_text, std::string locked_bitmap_filename, std::string locked_label_text, bool is_locked)
+ThumbnailWithLabelUnlockable::ThumbnailWithLabelUnlockable(std::string bitmap_filename, std::string label_text, std::string locked_bitmap_filename, std::string locked_label_text, bool is_unlocked)
    : AllegroFlare::Elements::ChapterSelect::CarouselElements::Base(AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable::TYPE)
    , bitmap_filename(bitmap_filename)
    , label_text(label_text)
    , locked_bitmap_filename(locked_bitmap_filename)
    , locked_label_text(locked_label_text)
-   , is_locked(is_locked)
+   , is_unlocked(is_unlocked)
 {
 }
 
@@ -55,21 +55,12 @@ std::string ThumbnailWithLabelUnlockable::get_locked_label_text() const
 }
 
 
-bool ThumbnailWithLabelUnlockable::get_is_locked() const
+bool ThumbnailWithLabelUnlockable::get_is_unlocked() const
 {
-   return is_locked;
+   return is_unlocked;
 }
 
 
-void ThumbnailWithLabelUnlockable::lock()
-{
-   is_locked = true;
-}
-
-void ThumbnailWithLabelUnlockable::unlock()
-{
-   is_locked = false;
-}
 
 
 } // namespace CarouselElements
