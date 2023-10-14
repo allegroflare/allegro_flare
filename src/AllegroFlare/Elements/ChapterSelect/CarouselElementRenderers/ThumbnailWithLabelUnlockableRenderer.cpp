@@ -187,7 +187,7 @@ void ThumbnailWithLabelUnlockableRenderer::render()
    float label_y_offset = al_get_bitmap_height(image) + label_y_gutter;
    float label_text_max_width = al_get_bitmap_width(image);
    float label_text_line_height = calculate_label_text_line_height();
-   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; // TODO: Update this for locked
 
    // Render the image
    al_draw_bitmap(image, padding_x, padding_y, 0);
@@ -201,7 +201,7 @@ void ThumbnailWithLabelUnlockableRenderer::render()
          label_text_max_width,
          label_text_line_height,
          ALLEGRO_ALIGN_LEFT,
-         label_text.c_str()
+         label_text.c_str() // TODO: Update this for locked
       );
    return;
 }
