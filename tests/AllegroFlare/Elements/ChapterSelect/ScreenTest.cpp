@@ -117,35 +117,35 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
             "CHAPTER 1: Rise of the City",
             "",
             "CHAPTER 1",
-            false
+            true
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 2: The Sanctuary",
             "",
             "CHAPTER 2",
-            false
+            true
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 3: The Way Ahead",
             "",
             "CHAPTER 3",
-            false
+            true
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 4: The Bridge",
             "",
             "CHAPTER 4",
-            true
+            false
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 5: Without an Anchor",
             "",
             "CHAPTER 5",
-            true
+            false
          ),
    };
 

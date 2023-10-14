@@ -42,6 +42,12 @@ properties:
     getter: true
     setter: true
 
+  - name: camera_target
+    type: AllegroFlare::Placement2D
+    init_with: ''
+    getter: true
+    setter: true
+
 
 methods:
 
@@ -89,13 +95,20 @@ methods:
 
   - name: reposition_camera_position_to_focused_element
     body: |
-      camera.position.x = get_element_x_position_for(focused_element_position);
+      camera_target.position.x = get_element_x_position_for(focused_element_position);
       return;
+
+
+  - name: update_camera_position
+    body: |
+      float refresh_rate = 0.18f;
+      camera.position.x = (camera_target.position.x - camera.position.x) * refresh_rate + camera.position.x;
 
 
   - name: update
     body: |
       for (auto &element : elements) element->update();
+      update_camera_position();
       return;
 
 

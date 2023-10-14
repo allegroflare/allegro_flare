@@ -49,14 +49,14 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
             "CHAPTER 1: Rise of the City",
             "",
             "CHAPTER 1",
-            false
+            true
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 2: The Sanctuary",
             "",
             "CHAPTER 2",
-            true
+            false
          ),
    };
 
@@ -71,6 +71,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 
       if (i == passes/2) carousel.rotate_carousel_right();
 
+      carousel.update();
       carousel.render();
       al_flip_display();
    }

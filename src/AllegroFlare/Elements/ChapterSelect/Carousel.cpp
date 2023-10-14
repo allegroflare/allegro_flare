@@ -26,6 +26,7 @@ Carousel::Carousel(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* f
    , element_dimensions({})
    , element_dimensions_refreshed(false)
    , camera()
+   , camera_target()
 {
 }
 
@@ -59,6 +60,12 @@ void Carousel::set_camera(AllegroFlare::Placement2D camera)
 }
 
 
+void Carousel::set_camera_target(AllegroFlare::Placement2D camera_target)
+{
+   this->camera_target = camera_target;
+}
+
+
 AllegroFlare::BitmapBin* Carousel::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -86,6 +93,12 @@ int Carousel::get_focused_element_position() const
 AllegroFlare::Placement2D Carousel::get_camera() const
 {
    return camera;
+}
+
+
+AllegroFlare::Placement2D Carousel::get_camera_target() const
+{
+   return camera_target;
 }
 
 
@@ -127,13 +140,20 @@ void Carousel::rotate_carousel_right()
 
 void Carousel::reposition_camera_position_to_focused_element()
 {
-   camera.position.x = get_element_x_position_for(focused_element_position);
+   camera_target.position.x = get_element_x_position_for(focused_element_position);
    return;
+}
+
+void Carousel::update_camera_position()
+{
+   float refresh_rate = 0.18f;
+   camera.position.x = (camera_target.position.x - camera.position.x) * refresh_rate + camera.position.x;
 }
 
 void Carousel::update()
 {
    for (auto &element : elements) element->update();
+   update_camera_position();
    return;
 }
 

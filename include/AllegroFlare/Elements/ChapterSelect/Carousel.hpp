@@ -26,6 +26,7 @@ namespace AllegroFlare
             std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple<float, float, float, float>> element_dimensions;
             bool element_dimensions_refreshed;
             AllegroFlare::Placement2D camera;
+            AllegroFlare::Placement2D camera_target;
 
          protected:
 
@@ -38,16 +39,19 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_focused_element_position(int focused_element_position);
             void set_camera(AllegroFlare::Placement2D camera);
+            void set_camera_target(AllegroFlare::Placement2D camera_target);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> get_elements() const;
             int get_focused_element_position() const;
             AllegroFlare::Placement2D get_camera() const;
+            AllegroFlare::Placement2D get_camera_target() const;
             void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});
             int get_num_elements();
             void rotate_carousel_left();
             void rotate_carousel_right();
             void reposition_camera_position_to_focused_element();
+            void update_camera_position();
             void update();
             void render();
             float get_element_x_position_for(int position=0);
