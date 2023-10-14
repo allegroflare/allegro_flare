@@ -13,6 +13,7 @@
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <functional>
+#include <string>
 #include <vector>
 
 
@@ -37,8 +38,10 @@ namespace AllegroFlare
             void* on_menu_choice_callback_func_user_data;
             std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> on_exit_screen_callback_func;
             void* on_exit_screen_callback_func_user_data;
+            std::string select_menu_sound_effect_identifier;
             bool initialized;
             void select_menu_option();
+            void emit_select_menu_sound_effect();
 
          protected:
 
@@ -52,11 +55,13 @@ namespace AllegroFlare
             void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
             void set_on_exit_screen_callback_func(std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> on_exit_screen_callback_func);
             void set_on_exit_screen_callback_func_user_data(void* on_exit_screen_callback_func_user_data);
+            void set_select_menu_sound_effect_identifier(std::string select_menu_sound_effect_identifier);
             AllegroFlare::Elements::Backgrounds::Base* get_background() const;
             std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> get_on_menu_choice_callback_func() const;
             void* get_on_menu_choice_callback_func_user_data() const;
             std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> get_on_exit_screen_callback_func() const;
             void* get_on_exit_screen_callback_func_user_data() const;
+            std::string get_select_menu_sound_effect_identifier() const;
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

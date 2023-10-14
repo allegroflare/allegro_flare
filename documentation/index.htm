@@ -3967,6 +3967,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
@@ -3977,6 +3981,10 @@ table td
 <tr>
   <td class="property">elements</td>
   <td class="property">std::vector&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*&gt;</td>
+</tr>
+<tr>
+  <td class="property">rotate_carousel_sound_effect_identifier</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">focused_element_position</td>
@@ -4040,6 +4048,9 @@ table td
 <tr>
   <td class="method">refresh_element_dimensions()</td>
 </tr>
+<tr>
+  <td class="private_method">emit_rotation_sound_effect()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -4063,6 +4074,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -4468,6 +4482,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
@@ -4487,14 +4505,24 @@ table td
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
 <tr>
   <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
   <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier=DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -4558,6 +4586,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -4687,6 +4718,10 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">select_menu_sound_effect_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -4744,6 +4779,9 @@ table td
 </tr>
 <tr>
   <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="private_method">emit_select_menu_sound_effect()</td>
 </tr>
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
@@ -30070,6 +30108,8 @@ table td
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AdvancingTextRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",

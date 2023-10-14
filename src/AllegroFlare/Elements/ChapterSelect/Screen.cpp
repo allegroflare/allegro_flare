@@ -29,6 +29,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , on_menu_choice_callback_func_user_data(nullptr)
    , on_exit_screen_callback_func()
    , on_exit_screen_callback_func_user_data(nullptr)
+   , select_menu_sound_effect_identifier("Screen::select_menu_sound_effect_identifier")
    , initialized(false)
 {
 }
@@ -69,6 +70,12 @@ void Screen::set_on_exit_screen_callback_func_user_data(void* on_exit_screen_cal
 }
 
 
+void Screen::set_select_menu_sound_effect_identifier(std::string select_menu_sound_effect_identifier)
+{
+   this->select_menu_sound_effect_identifier = select_menu_sound_effect_identifier;
+}
+
+
 AllegroFlare::Elements::Backgrounds::Base* Screen::get_background() const
 {
    return background;
@@ -96,6 +103,12 @@ std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> Scree
 void* Screen::get_on_exit_screen_callback_func_user_data() const
 {
    return on_exit_screen_callback_func_user_data;
+}
+
+
+std::string Screen::get_select_menu_sound_effect_identifier() const
+{
+   return select_menu_sound_effect_identifier;
 }
 
 
@@ -189,6 +202,7 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"font_bin\" not met");
    }
+   chapter_select_element.set_event_emitter(event_emitter);
    chapter_select_element.set_bitmap_bin(bitmap_bin);
    chapter_select_element.set_font_bin(font_bin);
    chapter_select_element.initialize();
@@ -289,7 +303,7 @@ void Screen::select_menu_option()
       return;
    }
 
-   // TODO: Play sound effect (guard on event_emitter)
+   emit_select_menu_sound_effect();
 
    // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
    activate_menu_option();
@@ -369,6 +383,20 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
    {
       exit_screen();
    }
+   return;
+}
+
+void Screen::emit_select_menu_sound_effect()
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::emit_select_menu_sound_effect]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::emit_select_menu_sound_effect: error: guard \"event_emitter\" not met");
+   }
+   // TODO: test this event emission
+   event_emitter->emit_play_sound_effect_event(select_menu_sound_effect_identifier);
    return;
 }
 

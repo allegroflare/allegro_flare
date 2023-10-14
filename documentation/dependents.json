@@ -912,6 +912,8 @@
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AdvancingTextRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Carousel",
+    "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",

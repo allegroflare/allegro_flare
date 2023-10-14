@@ -58,6 +58,12 @@ properties:
     getter: true
     setter: true
 
+  - name: select_menu_sound_effect_identifier
+    type: std::string
+    init_with: '"Screen::select_menu_sound_effect_identifier"'
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -115,6 +121,7 @@ methods:
       - bitmap_bin
       - font_bin
     body: |
+      chapter_select_element.set_event_emitter(event_emitter);
       chapter_select_element.set_bitmap_bin(bitmap_bin);
       chapter_select_element.set_font_bin(font_bin);
       chapter_select_element.initialize();
@@ -214,7 +221,7 @@ methods:
          return;
       }
 
-      // TODO: Play sound effect (guard on event_emitter)
+      emit_select_menu_sound_effect();
 
       // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
       activate_menu_option();
@@ -305,6 +312,15 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::VirtualControllers::GenericController
+
+
+  - name: emit_select_menu_sound_effect
+    private: true
+    guards: [ event_emitter ]
+    body: |
+      // TODO: test this event emission
+      event_emitter->emit_play_sound_effect_event(select_menu_sound_effect_identifier);
+      return;
 
 
   - name: virtual_control_axis_change_func
