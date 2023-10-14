@@ -21,9 +21,11 @@ namespace ChapterSelect
 {
 
 
-CarouselElementRenderer::CarouselElementRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+CarouselElementRenderer::CarouselElementRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string element_font_identifier, int element_font_size)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , element_font_identifier(element_font_identifier)
+   , element_font_size(element_font_size)
 {
 }
 
@@ -45,6 +47,18 @@ void CarouselElementRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void CarouselElementRenderer::set_element_font_identifier(std::string element_font_identifier)
+{
+   this->element_font_identifier = element_font_identifier;
+}
+
+
+void CarouselElementRenderer::set_element_font_size(int element_font_size)
+{
+   this->element_font_size = element_font_size;
+}
+
+
 AllegroFlare::BitmapBin* CarouselElementRenderer::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -54,6 +68,18 @@ AllegroFlare::BitmapBin* CarouselElementRenderer::get_bitmap_bin() const
 AllegroFlare::FontBin* CarouselElementRenderer::get_font_bin() const
 {
    return font_bin;
+}
+
+
+std::string CarouselElementRenderer::get_element_font_identifier() const
+{
+   return element_font_identifier;
+}
+
+
+int CarouselElementRenderer::get_element_font_size() const
+{
+   return element_font_size;
 }
 
 
@@ -191,6 +217,8 @@ std::pair<float, float> CarouselElementRenderer::render_or_calculate_dimensions_
    renderer.set_locked_thumbnail_image_identifier(element->get_locked_bitmap_filename());
    renderer.set_locked_label_text(element->get_locked_label_text());
    renderer.set_is_unlocked(element->get_is_unlocked());
+   renderer.set_font_identifier(element_font_identifier);
+   renderer.set_font_size(element_font_size);
 
    if (!only_calculate_dimensions) renderer.render();
 
