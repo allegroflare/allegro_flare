@@ -7,13 +7,25 @@
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
 
-class AllegroFlare_Elements_ChapterSelect_ScreenTest : public ::testing::Test {};
+class AllegroFlare_Elements_ChapterSelect_ScreenTest : public ::testing::Test
+{
+public:
+   static void on_menu_choice_callback_counter_func(AllegroFlare::Elements::ChapterSelect::Screen*, void* user_data)
+   {
+      (*static_cast<int*>(user_data))++;
+   }
+};
 class AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 class AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFixture
    : public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
-{};
+{
+public:
+   static void on_menu_choice_callback_func(AllegroFlare::Elements::ChapterSelect::Screen* screen, void* user_data)
+   {
+   }
+};
 
 
 
@@ -37,6 +49,23 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTest, type__has_the_expected_va
 }
 
 
+TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTest,
+      activate_menu_option__when_on_menu_choice_callback_func_is_assigned__will_call_the_callback
+   )
+{
+   AllegroFlare::Elements::ChapterSelect::Screen screen;
+   int callback_count_counter = 0;
+   screen.set_on_menu_choice_callback_func(
+         AllegroFlare_Elements_ChapterSelect_ScreenTest::on_menu_choice_callback_counter_func
+      );
+   screen.set_on_menu_choice_callback_func_user_data((void*)(&callback_count_counter));
+
+   screen.activate_menu_option();
+
+   EXPECT_EQ(1, callback_count_counter);
+}
+
+
 TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFixture,
    TIMED_INTERACTIVE__will_run_as_expected)
 {
@@ -48,6 +77,10 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
    screen.set_bitmap_bin(get_framework_bitmap_bin());
    screen.set_font_bin(get_framework_font_bin());
    screen.initialize();
+
+   screen.set_on_menu_choice_callback_func(
+         AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFixture::on_menu_choice_callback_func
+      );
 
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
       //new ThumbnailWithLabel("scene1-01.jpg", "CHAPTER 1: Rise of the City"),

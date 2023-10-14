@@ -60,7 +60,7 @@ namespace AllegroFlare
             virtual void on_deactivate() override;
             void update();
             void render();
-            virtual void activate_menu_option();
+            void activate_menu_option();
             virtual void primary_timer_func() override;
             virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
             virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;

@@ -227,13 +227,6 @@ void Screen::render()
 
 void Screen::activate_menu_option()
 {
-   if (!(event_emitter))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::activate_menu_option]: error: guard \"event_emitter\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::activate_menu_option: error: guard \"event_emitter\" not met");
-   }
    // TODO: Test this callback
    if (on_menu_choice_callback_func)
    {
@@ -247,6 +240,7 @@ void Screen::activate_menu_option()
                   "choice is not handled."
          );
    }
+
    return;
 }
 
@@ -263,6 +257,9 @@ void Screen::select_menu_option()
       return;
    }
 
+   // TODO: Play sound effect (guard on event_emitter)
+
+   // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
    activate_menu_option();
 
    return;

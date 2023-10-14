@@ -158,8 +158,6 @@ methods:
 
 
   - name: activate_menu_option
-    virtual: true
-    guards: [ event_emitter ]
     body: |
       // TODO: Test this callback
       if (on_menu_choice_callback_func)
@@ -174,6 +172,7 @@ methods:
                      "choice is not handled."
             );
       }
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
@@ -193,6 +192,9 @@ methods:
          return;
       }
 
+      // TODO: Play sound effect (guard on event_emitter)
+
+      // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
       activate_menu_option();
 
       return;
