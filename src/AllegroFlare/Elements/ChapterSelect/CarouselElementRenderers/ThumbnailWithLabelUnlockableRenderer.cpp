@@ -18,7 +18,7 @@ namespace CarouselElementRenderers
 {
 
 
-ThumbnailWithLabelUnlockableRenderer::ThumbnailWithLabelUnlockableRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+ThumbnailWithLabelUnlockableRenderer::ThumbnailWithLabelUnlockableRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string font_identifier, int font_size)
    : AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::Base(AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelUnlockableRenderer::TYPE)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
@@ -27,6 +27,8 @@ ThumbnailWithLabelUnlockableRenderer::ThumbnailWithLabelUnlockableRenderer(Alleg
    , locked_thumbnail_image_identifier("")
    , locked_label_text("[unset-label_text]")
    , is_locked(false)
+   , font_identifier(font_identifier)
+   , font_size(font_size)
    , padding_x(20)
    , padding_y(20)
    , label_y_gutter(30)
@@ -78,6 +80,18 @@ void ThumbnailWithLabelUnlockableRenderer::set_locked_label_text(std::string loc
 void ThumbnailWithLabelUnlockableRenderer::set_is_locked(bool is_locked)
 {
    this->is_locked = is_locked;
+}
+
+
+void ThumbnailWithLabelUnlockableRenderer::set_font_identifier(std::string font_identifier)
+{
+   this->font_identifier = font_identifier;
+}
+
+
+void ThumbnailWithLabelUnlockableRenderer::set_font_size(int font_size)
+{
+   this->font_size = font_size;
 }
 
 
@@ -138,6 +152,18 @@ std::string ThumbnailWithLabelUnlockableRenderer::get_locked_label_text() const
 bool ThumbnailWithLabelUnlockableRenderer::get_is_locked() const
 {
    return is_locked;
+}
+
+
+std::string ThumbnailWithLabelUnlockableRenderer::get_font_identifier() const
+{
+   return font_identifier;
+}
+
+
+int ThumbnailWithLabelUnlockableRenderer::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -264,7 +290,9 @@ ALLEGRO_FONT* ThumbnailWithLabelUnlockableRenderer::obtain_label_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ThumbnailWithLabelUnlockableRenderer::obtain_label_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Regular.ttf -46");
+   std::stringstream result_font_identifier;
+   result_font_identifier << font_identifier << " " << font_size;
+   return font_bin->auto_get(result_font_identifier.str());
 }
 
 

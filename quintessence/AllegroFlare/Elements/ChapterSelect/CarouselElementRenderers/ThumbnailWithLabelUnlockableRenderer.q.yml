@@ -53,6 +53,20 @@ properties:
     getter: true
     setter: true
 
+  - name: font_identifier
+    type: std::string
+    init_with: DEFAULT_FONT_IDENTIFIER
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: DEFAULT_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: padding_x
     type: float
     init_with: 20
@@ -70,6 +84,20 @@ properties:
     init_with: 30
     getter: true
     setter: true
+
+  - name: DEFAULT_FONT_IDENTIFIER
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -46
 
   - name: TYPE
     type: char*
@@ -172,7 +200,9 @@ methods:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Regular.ttf -46");
+      std::stringstream result_font_identifier;
+      result_font_identifier << font_identifier << " " << font_size;
+      return font_bin->auto_get(result_font_identifier.str());
 
 
 dependencies:
@@ -190,4 +220,5 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
+
 
