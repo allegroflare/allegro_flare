@@ -101,7 +101,7 @@ methods:
 
   - name: update_camera_position
     body: |
-      float refresh_rate = 0.18f;
+      float refresh_rate = 0.185f;
       camera.position.x = (camera_target.position.x - camera.position.x) * refresh_rate + camera.position.x;
 
 

@@ -146,7 +146,7 @@ void Carousel::reposition_camera_position_to_focused_element()
 
 void Carousel::update_camera_position()
 {
-   float refresh_rate = 0.18f;
+   float refresh_rate = 0.185f;
    camera.position.x = (camera_target.position.x - camera.position.x) * refresh_rate + camera.position.x;
 }
 
