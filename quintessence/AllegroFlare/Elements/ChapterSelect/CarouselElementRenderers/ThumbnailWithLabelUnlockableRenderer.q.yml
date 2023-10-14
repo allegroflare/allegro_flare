@@ -35,6 +35,24 @@ properties:
     getter: true
     setter: true
 
+  - name: locked_thumbnail_image_identifier
+    type: std::string
+    init_with: '"[unset-thumbnail_image_identifier]"'
+    getter: true
+    setter: true
+
+  - name: locked_label_text
+    type: std::string
+    init_with: '"[unset-label_text]"'
+    getter: true
+    setter: true
+
+  - name: is_locked
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: padding_x
     type: float
     init_with: 20
@@ -74,6 +92,7 @@ methods:
       float label_y_offset = al_get_bitmap_height(image) + label_y_gutter;
       float label_text_max_width = al_get_bitmap_width(image);
       float label_text_line_height = calculate_label_text_line_height();
+      ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
       // Render the image
       al_draw_bitmap(image, padding_x, padding_y, 0);
@@ -81,7 +100,7 @@ methods:
       // Render the text
       al_draw_multiline_text(
             label_font,
-            ALLEGRO_COLOR{1, 1, 1, 1},
+            text_color,
             padding_x,
             padding_y + label_y_offset,
             label_text_max_width,
@@ -120,7 +139,7 @@ methods:
     type: ALLEGRO_BITMAP*
     private: true
     body: |
-      return bitmap_bin->auto_get(thumbnail_image_identifier);
+      return bitmap_bin->auto_get(is_locked ? locked_thumbnail_image_identifier : thumbnail_image_identifier);
 
 
   - name: obtain_label_font

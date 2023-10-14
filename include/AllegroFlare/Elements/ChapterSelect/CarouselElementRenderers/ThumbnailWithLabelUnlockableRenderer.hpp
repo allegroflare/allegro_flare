@@ -27,6 +27,9 @@ namespace AllegroFlare
                AllegroFlare::FontBin* font_bin;
                std::string thumbnail_image_identifier;
                std::string label_text;
+               std::string locked_thumbnail_image_identifier;
+               std::string locked_label_text;
+               bool is_locked;
                float padding_x;
                float padding_y;
                float label_y_gutter;
@@ -44,6 +47,9 @@ namespace AllegroFlare
                void set_font_bin(AllegroFlare::FontBin* font_bin);
                void set_thumbnail_image_identifier(std::string thumbnail_image_identifier);
                void set_label_text(std::string label_text);
+               void set_locked_thumbnail_image_identifier(std::string locked_thumbnail_image_identifier);
+               void set_locked_label_text(std::string locked_label_text);
+               void set_is_locked(bool is_locked);
                void set_padding_x(float padding_x);
                void set_padding_y(float padding_y);
                void set_label_y_gutter(float label_y_gutter);
@@ -51,6 +57,9 @@ namespace AllegroFlare
                AllegroFlare::FontBin* get_font_bin() const;
                std::string get_thumbnail_image_identifier() const;
                std::string get_label_text() const;
+               std::string get_locked_thumbnail_image_identifier() const;
+               std::string get_locked_label_text() const;
+               bool get_is_locked() const;
                float get_padding_x() const;
                float get_padding_y() const;
                float get_label_y_gutter() const;
