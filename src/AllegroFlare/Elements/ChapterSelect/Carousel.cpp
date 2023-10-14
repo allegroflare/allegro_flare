@@ -18,12 +18,14 @@ namespace ChapterSelect
 {
 
 
-Carousel::Carousel(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
+Carousel::Carousel(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string element_font_identifier, int element_font_size)
    : event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , elements({})
    , rotate_carousel_sound_effect_identifier("Carousel::rotate_carousel")
+   , element_font_identifier(element_font_identifier)
+   , element_font_size(element_font_size)
    , focused_element_position(0)
    , element_dimensions({})
    , element_dimensions_refreshed(false)
@@ -59,6 +61,18 @@ void Carousel::set_font_bin(AllegroFlare::FontBin* font_bin)
 void Carousel::set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier)
 {
    this->rotate_carousel_sound_effect_identifier = rotate_carousel_sound_effect_identifier;
+}
+
+
+void Carousel::set_element_font_identifier(std::string element_font_identifier)
+{
+   this->element_font_identifier = element_font_identifier;
+}
+
+
+void Carousel::set_element_font_size(int element_font_size)
+{
+   this->element_font_size = element_font_size;
 }
 
 
@@ -101,6 +115,18 @@ std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> Caro
 std::string Carousel::get_rotate_carousel_sound_effect_identifier() const
 {
    return rotate_carousel_sound_effect_identifier;
+}
+
+
+std::string Carousel::get_element_font_identifier() const
+{
+   return element_font_identifier;
+}
+
+
+int Carousel::get_element_font_size() const
+{
+   return element_font_size;
 }
 
 
@@ -200,6 +226,8 @@ void Carousel::render()
    AllegroFlare::Placement2D list_element_placement;
    list_element_placement.align = AllegroFlare::Vec2D(0.5, 0.5);
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
+   renderer.set_element_font_identifier(element_font_identifier);
+   renderer.set_element_font_size(element_font_size);
    int position = 0;
    for (auto &element : elements)
    {

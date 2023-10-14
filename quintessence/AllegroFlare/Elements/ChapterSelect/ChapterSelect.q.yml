@@ -36,6 +36,20 @@ properties:
     getter: true
     setter: true
 
+  - name: DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -46
+
   - name: initialized
     type: bool
     init_with: false
@@ -95,6 +109,26 @@ methods:
     guards: [ (!initialized) ]
     body: |
       carousel.set_rotate_carousel_sound_effect_identifier(rotate_carousel_sound_effect_identifier);
+      return;
+
+
+  - name: set_carousel_element_font_identifier
+    parameters:
+      - name: carousel_element_font_identifier
+        type: std::string
+        default_argument: DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER
+    body: |
+      carousel.set_element_font_identifier(carousel_element_font_identifier);
+      return;
+
+
+  - name: set_carousel_element_font_size
+    parameters:
+      - name: carousel_element_font_size
+        type: int
+        default_argument: DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE
+    body: |
+      carousel.set_element_font_size(carousel_element_font_size);
       return;
 
 

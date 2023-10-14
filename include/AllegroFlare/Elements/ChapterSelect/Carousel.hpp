@@ -20,12 +20,18 @@ namespace AllegroFlare
       {
          class Carousel
          {
+         public:
+            static constexpr char* DEFAULT_FONT_IDENTIFIER = (char*)"Inter-Regular.ttf";
+            static constexpr int DEFAULT_FONT_SIZE = -46;
+
          private:
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements;
             std::string rotate_carousel_sound_effect_identifier;
+            std::string element_font_identifier;
+            int element_font_size;
             int focused_element_position;
             std::map<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*, std::tuple<float, float, float, float>> element_dimensions;
             bool element_dimensions_refreshed;
@@ -37,13 +43,15 @@ namespace AllegroFlare
 
 
          public:
-            Carousel(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
+            Carousel(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string element_font_identifier=DEFAULT_FONT_IDENTIFIER, int element_font_size=DEFAULT_FONT_SIZE);
             ~Carousel();
 
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier);
+            void set_element_font_identifier(std::string element_font_identifier);
+            void set_element_font_size(int element_font_size);
             void set_camera(AllegroFlare::Placement2D camera);
             void set_camera_target(AllegroFlare::Placement2D camera_target);
             AllegroFlare::EventEmitter* get_event_emitter() const;
@@ -51,6 +59,8 @@ namespace AllegroFlare
             AllegroFlare::FontBin* get_font_bin() const;
             std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> get_elements() const;
             std::string get_rotate_carousel_sound_effect_identifier() const;
+            std::string get_element_font_identifier() const;
+            int get_element_font_size() const;
             int get_focused_element_position() const;
             AllegroFlare::Placement2D get_camera() const;
             AllegroFlare::Placement2D get_camera_target() const;

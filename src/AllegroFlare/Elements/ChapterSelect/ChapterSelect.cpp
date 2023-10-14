@@ -126,6 +126,18 @@ void ChapterSelect::set_rotate_carousel_sound_effect_identifier(std::string rota
    return;
 }
 
+void ChapterSelect::set_carousel_element_font_identifier(std::string carousel_element_font_identifier)
+{
+   carousel.set_element_font_identifier(carousel_element_font_identifier);
+   return;
+}
+
+void ChapterSelect::set_carousel_element_font_size(int carousel_element_font_size)
+{
+   carousel.set_element_font_size(carousel_element_font_size);
+   return;
+}
+
 void ChapterSelect::initialize()
 {
    if (!((!initialized)))

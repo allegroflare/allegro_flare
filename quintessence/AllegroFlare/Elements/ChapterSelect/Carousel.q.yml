@@ -34,6 +34,20 @@ properties:
     getter: true
     setter: true
 
+  - name: element_font_identifier
+    type: std::string
+    init_with: DEFAULT_FONT_IDENTIFIER
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: element_font_size
+    type: int
+    init_with: DEFAULT_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: focused_element_position
     type: int
     init_with: 0
@@ -58,6 +72,20 @@ properties:
     init_with: ''
     getter: true
     setter: true
+
+  - name: DEFAULT_FONT_IDENTIFIER
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -46
 
 
 methods:
@@ -142,6 +170,8 @@ methods:
       AllegroFlare::Placement2D list_element_placement;
       list_element_placement.align = AllegroFlare::Vec2D(0.5, 0.5);
       AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
+      renderer.set_element_font_identifier(element_font_identifier);
+      renderer.set_element_font_size(element_font_size);
       int position = 0;
       for (auto &element : elements)
       {

@@ -21,6 +21,8 @@ namespace AllegroFlare
          class ChapterSelect
          {
          public:
+            static constexpr char* DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER = (char*)"Inter-Regular.ttf";
+            static constexpr int DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE = -46;
             static constexpr char* DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::ChapterSelect::rotate_carousel";
 
          private:
@@ -52,6 +54,8 @@ namespace AllegroFlare
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier=DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER);
+            void set_carousel_element_font_identifier(std::string carousel_element_font_identifier=DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER);
+            void set_carousel_element_font_size(int carousel_element_font_size=DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE);
             void initialize();
             void set_carousel_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements={});
             bool has_no_elements();
