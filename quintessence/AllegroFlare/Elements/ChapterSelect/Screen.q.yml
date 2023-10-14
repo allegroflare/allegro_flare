@@ -46,6 +46,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_exit_screen_callback_func
+    type: std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_exit_screen_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -159,7 +171,6 @@ methods:
 
   - name: activate_menu_option
     body: |
-      // TODO: Test this callback
       if (on_menu_choice_callback_func)
       {
          on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
@@ -197,6 +208,24 @@ methods:
       // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
       activate_menu_option();
 
+      return;
+
+
+  - name: exit_screen
+    guards: [ on_exit_screen_callback_func ]
+    body: |
+      // TODO: Test this callback
+      //if (!on_exit_screen_callback_func)
+      //{
+         //AllegroFlare::Logger::throw_error(
+               //"AllegroFlare::Elements::ChapterSelect::Screen::activate_menu_option",
+               //"No callback has been assigned to \"on_exit_screen_callback_func\" so an activation of a menu "
+                     //"choice is not handled."
+            //);
+         //on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
+      //}
+
+      on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
       return;
 
 
@@ -268,6 +297,10 @@ methods:
          )
       {
          select_menu_option();
+      }
+      if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_X)
+      {
+         exit_screen();
       }
       return;
     body_dependency_symbols:

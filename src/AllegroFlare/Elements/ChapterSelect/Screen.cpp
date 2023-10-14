@@ -27,6 +27,8 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , background(nullptr)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
+   , on_exit_screen_callback_func()
+   , on_exit_screen_callback_func_user_data(nullptr)
    , initialized(false)
 {
 }
@@ -55,6 +57,18 @@ void Screen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_cal
 }
 
 
+void Screen::set_on_exit_screen_callback_func(std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> on_exit_screen_callback_func)
+{
+   this->on_exit_screen_callback_func = on_exit_screen_callback_func;
+}
+
+
+void Screen::set_on_exit_screen_callback_func_user_data(void* on_exit_screen_callback_func_user_data)
+{
+   this->on_exit_screen_callback_func_user_data = on_exit_screen_callback_func_user_data;
+}
+
+
 AllegroFlare::Elements::Backgrounds::Base* Screen::get_background() const
 {
    return background;
@@ -70,6 +84,18 @@ std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> Scree
 void* Screen::get_on_menu_choice_callback_func_user_data() const
 {
    return on_menu_choice_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> Screen::get_on_exit_screen_callback_func() const
+{
+   return on_exit_screen_callback_func;
+}
+
+
+void* Screen::get_on_exit_screen_callback_func_user_data() const
+{
+   return on_exit_screen_callback_func_user_data;
 }
 
 
@@ -227,7 +253,6 @@ void Screen::render()
 
 void Screen::activate_menu_option()
 {
-   // TODO: Test this callback
    if (on_menu_choice_callback_func)
    {
       on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
@@ -262,6 +287,30 @@ void Screen::select_menu_option()
    // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
    activate_menu_option();
 
+   return;
+}
+
+void Screen::exit_screen()
+{
+   if (!(on_exit_screen_callback_func))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::exit_screen]: error: guard \"on_exit_screen_callback_func\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::exit_screen: error: guard \"on_exit_screen_callback_func\" not met");
+   }
+   // TODO: Test this callback
+   //if (!on_exit_screen_callback_func)
+   //{
+      //AllegroFlare::Logger::throw_error(
+            //"AllegroFlare::Elements::ChapterSelect::Screen::activate_menu_option",
+            //"No callback has been assigned to \"on_exit_screen_callback_func\" so an activation of a menu "
+                  //"choice is not handled."
+         //);
+      //on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
+   //}
+
+   on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
    return;
 }
 
@@ -319,6 +368,10 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       )
    {
       select_menu_option();
+   }
+   if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_X)
+   {
+      exit_screen();
    }
    return;
 }
