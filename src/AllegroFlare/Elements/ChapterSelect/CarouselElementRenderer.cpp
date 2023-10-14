@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer.hpp>
 
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer.hpp>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -182,11 +183,14 @@ std::pair<float, float> CarouselElementRenderer::render_or_calculate_dimensions_
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabelUnlockable: error: guard \"element\" not met");
    }
-   AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer renderer;
+   AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelUnlockableRenderer renderer;
    renderer.set_bitmap_bin(bitmap_bin);
    renderer.set_font_bin(font_bin);
    renderer.set_thumbnail_image_identifier(element->get_bitmap_filename());
    renderer.set_label_text(element->get_label_text());
+   renderer.set_locked_thumbnail_image_identifier(element->get_locked_bitmap_filename());
+   renderer.set_locked_label_text(element->get_locked_label_text());
+   renderer.set_is_locked(element->get_is_locked());
 
    if (!only_calculate_dimensions) renderer.render();
 

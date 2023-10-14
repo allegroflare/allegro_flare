@@ -5,7 +5,7 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
-#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.hpp>
 
 class AllegroFlare_Elements_ChapterSelect_ScreenTest : public ::testing::Test
 {
@@ -112,13 +112,41 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
       );
 
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
-      //new ThumbnailWithLabel("scene1-01.jpg", "CHAPTER 1: Rise of the City"),
-      //new ThumbnailWithLabel("scene2-01.jpg", "CHAPTER 2: The Sanctuary"),
-      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
-      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
-      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 3: The Way Ahead"),
-      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 4: The Bridge"),
-      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 5: Without an Anchor"),
+      new ThumbnailWithLabelUnlockable(
+            "storyboard-image-1164x500.png",
+            "CHAPTER 1: Rise of the City",
+            "",
+            "CHAPTER 1",
+            false
+         ),
+      new ThumbnailWithLabelUnlockable(
+            "storyboard-image-1164x500.png",
+            "CHAPTER 2: The Sanctuary",
+            "",
+            "CHAPTER 2",
+            false
+         ),
+      new ThumbnailWithLabelUnlockable(
+            "storyboard-image-1164x500.png",
+            "CHAPTER 3: The Way Ahead",
+            "",
+            "CHAPTER 3",
+            false
+         ),
+      new ThumbnailWithLabelUnlockable(
+            "storyboard-image-1164x500.png",
+            "CHAPTER 4: The Bridge",
+            "",
+            "CHAPTER 4",
+            true
+         ),
+      new ThumbnailWithLabelUnlockable(
+            "storyboard-image-1164x500.png",
+            "CHAPTER 5: Without an Anchor",
+            "",
+            "CHAPTER 5",
+            true
+         ),
    };
 
    screen.set_elements(carousel_elements);

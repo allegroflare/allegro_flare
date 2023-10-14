@@ -21,17 +21,21 @@ namespace AllegroFlare
             private:
                std::string bitmap_filename;
                std::string label_text;
+               std::string locked_bitmap_filename;
+               std::string locked_label_text;
                bool is_locked;
 
             protected:
 
 
             public:
-               ThumbnailWithLabelUnlockable(std::string bitmap_filename="[unset-property]", std::string label_text="[unset-label_text]", bool is_locked=true);
+               ThumbnailWithLabelUnlockable(std::string bitmap_filename="[unset-property]", std::string label_text="[unset-label_text]", std::string locked_bitmap_filename="[unset-locked_bitmap_filename]", std::string locked_label_text="[unset-locked_label_text]", bool is_locked=true);
                ~ThumbnailWithLabelUnlockable();
 
                std::string get_bitmap_filename() const;
                std::string get_label_text() const;
+               std::string get_locked_bitmap_filename() const;
+               std::string get_locked_label_text() const;
                bool get_is_locked() const;
                void lock();
                void unlock();

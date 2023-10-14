@@ -6,7 +6,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/Carousel.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
@@ -39,13 +39,25 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 
 
 TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixture,
-   CAPTURE__render__will_render_the_elements)
+   FOCUS__CAPTURE__render__will_render_the_elements)
 {
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
 
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
-      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 1: Rise of the City"),
-      new ThumbnailWithLabel("storyboard-image-1164x500.png", "CHAPTER 2: The Sanctuary"),
+      new ThumbnailWithLabelUnlockable(
+            "storyboard-image-1164x500.png",
+            "CHAPTER 1: Rise of the City",
+            "",
+            "CHAPTER 1",
+            false
+         ),
+      new ThumbnailWithLabelUnlockable(
+            "storyboard-image-1164x500.png",
+            "CHAPTER 2: The Sanctuary",
+            "",
+            "CHAPTER 2",
+            true
+         ),
    };
 
    AllegroFlare::Elements::ChapterSelect::Carousel carousel(&get_bitmap_bin_ref(), &get_font_bin_ref());

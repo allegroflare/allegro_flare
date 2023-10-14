@@ -21,6 +21,18 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: locked_bitmap_filename
+    type: std::string
+    init_with: '"[unset-locked_bitmap_filename]"'
+    constructor_arg: true
+    getter: true
+
+  - name: locked_label_text
+    type: std::string
+    init_with: '"[unset-locked_label_text]"'
+    constructor_arg: true
+    getter: true
+
   - name: is_locked
     type: bool
     init_with: true
