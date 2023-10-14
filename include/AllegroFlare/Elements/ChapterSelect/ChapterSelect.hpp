@@ -24,6 +24,8 @@ namespace AllegroFlare
             AllegroFlare::Elements::ChapterSelect::Carousel carousel;
             AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar;
             bool initialized;
+            void refresh_pagination_bar_elements();
+            void refresh_cursor_position_on_pagination_bar();
             ALLEGRO_FONT* obtain_title_font();
 
          protected:
@@ -48,10 +50,9 @@ namespace AllegroFlare
             void render();
             void rotate_carousel_right();
             void rotate_carousel_left();
-            void draw_title_text();
-            void refresh_pagination_bar_elements();
+            void set_pagination_bar_elements(std::vector<bool> elements={});
             void set_pagination_bar_element_at(int position=0, bool value=false);
-            void refresh_cursor_position_on_pagination_bar();
+            void draw_title_text();
          };
       }
    }

@@ -136,6 +136,17 @@ methods:
       return;
 
 
+  - name: set_pagination_bar_elements
+    parameters:
+      - name: elements
+        type: std::vector<bool>
+        default_argument: '{}'
+    body: |
+      // TODO: Introduce a mechanism where each chapter and its status is stored
+      chapter_select_element.set_pagination_bar_elements(elements);
+      return;
+
+
   - name: on_activate
     virtual: true
     override: true

@@ -209,6 +209,25 @@ void ChapterSelect::rotate_carousel_left()
    return;
 }
 
+void ChapterSelect::set_pagination_bar_elements(std::vector<bool> elements)
+{
+   if (!((elements.size() == pagination_bar.get_num_elements())))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::set_pagination_bar_elements]: error: guard \"(elements.size() == pagination_bar.get_num_elements())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::set_pagination_bar_elements: error: guard \"(elements.size() == pagination_bar.get_num_elements())\" not met");
+   }
+   pagination_bar.set_elements(elements);
+   return;
+}
+
+void ChapterSelect::set_pagination_bar_element_at(int position, bool value)
+{
+   pagination_bar.set_element_at(position, value);
+   return;
+}
+
 void ChapterSelect::draw_title_text()
 {
    if (!(initialized))
@@ -229,12 +248,6 @@ void ChapterSelect::refresh_pagination_bar_elements()
    std::vector<bool> pagination_bar_elements(carousel.get_num_elements(), true);
    pagination_bar.set_elements(pagination_bar_elements);
    pagination_bar.fit_placement_width_and_height();
-   return;
-}
-
-void ChapterSelect::set_pagination_bar_element_at(int position, bool value)
-{
-   pagination_bar.set_element_at(position, value);
    return;
 }
 

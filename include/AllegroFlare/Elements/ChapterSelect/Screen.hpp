@@ -62,6 +62,7 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void initialize();
             void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});
+            void set_pagination_bar_elements(std::vector<bool> elements={});
             virtual void on_activate() override;
             virtual void on_deactivate() override;
             void update();

@@ -210,6 +210,13 @@ void Screen::set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::Car
    return;
 }
 
+void Screen::set_pagination_bar_elements(std::vector<bool> elements)
+{
+   // TODO: Introduce a mechanism where each chapter and its status is stored
+   chapter_select_element.set_pagination_bar_elements(elements);
+   return;
+}
+
 void Screen::on_activate()
 {
    if (!(initialized))

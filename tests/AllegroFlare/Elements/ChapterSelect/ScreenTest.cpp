@@ -116,35 +116,41 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
             "storyboard-image-1164x500.png",
             "CHAPTER 1: Rise of the City",
             "",
-            "CHAPTER 1"
+            "CHAPTER 1",
+            false
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 2: The Sanctuary",
             "",
-            "CHAPTER 2"
+            "CHAPTER 2",
+            false
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 3: The Way Ahead",
             "",
-            "CHAPTER 3"
+            "CHAPTER 3",
+            false
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 4: The Bridge",
             "",
-            "CHAPTER 4"
+            "CHAPTER 4",
+            true
          ),
       new ThumbnailWithLabelUnlockable(
             "storyboard-image-1164x500.png",
             "CHAPTER 5: Without an Anchor",
             "",
-            "CHAPTER 5"
+            "CHAPTER 5",
+            true
          ),
    };
 
    screen.set_elements(carousel_elements);
+   screen.set_pagination_bar_elements({ true, true, true, false, false });
 
    framework_register_and_activate_screen("screen", &screen);
 

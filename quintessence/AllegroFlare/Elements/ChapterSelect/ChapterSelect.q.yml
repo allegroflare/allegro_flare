@@ -140,22 +140,14 @@ methods:
       return;
 
 
-  - name: draw_title_text
-    guards: [ initialized ]
+  - name: set_pagination_bar_elements
+    parameters:
+      - name: elements
+        type: std::vector<bool>
+        default_argument: '{}'
+    guards: [ (elements.size() == pagination_bar.get_num_elements()) ]
     body: |
-      ALLEGRO_FONT *title_font = obtain_title_font();
-      al_draw_text(title_font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 100, ALLEGRO_ALIGN_LEFT, "CHAPTER SELECT");
-      return;
-    body_dependency_symbols:
-      - al_draw_text
-
-
-  - name: refresh_pagination_bar_elements
-    body: |
-      // TODO: Find a mechanism to store and obtain the "status" of a Chapter as hidden or unhidden, etc
-      std::vector<bool> pagination_bar_elements(carousel.get_num_elements(), true);
-      pagination_bar.set_elements(pagination_bar_elements);
-      pagination_bar.fit_placement_width_and_height();
+      pagination_bar.set_elements(elements);
       return;
 
 
@@ -172,7 +164,28 @@ methods:
       return;
 
 
+  - name: draw_title_text
+    guards: [ initialized ]
+    body: |
+      ALLEGRO_FONT *title_font = obtain_title_font();
+      al_draw_text(title_font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 100, ALLEGRO_ALIGN_LEFT, "CHAPTER SELECT");
+      return;
+    body_dependency_symbols:
+      - al_draw_text
+
+
+  - name: refresh_pagination_bar_elements
+    private: true
+    body: |
+      // TODO: Find a mechanism to store and obtain the "status" of a Chapter as hidden or unhidden, etc
+      std::vector<bool> pagination_bar_elements(carousel.get_num_elements(), true);
+      pagination_bar.set_elements(pagination_bar_elements);
+      pagination_bar.fit_placement_width_and_height();
+      return;
+
+
   - name: refresh_cursor_position_on_pagination_bar
+    private: true
     body: |
       int focused_element_position = carousel.get_focused_element_position();
       pagination_bar.set_cursor_position(focused_element_position);
