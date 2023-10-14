@@ -214,17 +214,6 @@ methods:
   - name: exit_screen
     guards: [ on_exit_screen_callback_func ]
     body: |
-      // TODO: Test this callback
-      //if (!on_exit_screen_callback_func)
-      //{
-         //AllegroFlare::Logger::throw_error(
-               //"AllegroFlare::Elements::ChapterSelect::Screen::activate_menu_option",
-               //"No callback has been assigned to \"on_exit_screen_callback_func\" so an activation of a menu "
-                     //"choice is not handled."
-            //);
-         //on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
-      //}
-
       on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
       return;
 

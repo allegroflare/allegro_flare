@@ -299,17 +299,6 @@ void Screen::exit_screen()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::exit_screen: error: guard \"on_exit_screen_callback_func\" not met");
    }
-   // TODO: Test this callback
-   //if (!on_exit_screen_callback_func)
-   //{
-      //AllegroFlare::Logger::throw_error(
-            //"AllegroFlare::Elements::ChapterSelect::Screen::activate_menu_option",
-            //"No callback has been assigned to \"on_exit_screen_callback_func\" so an activation of a menu "
-                  //"choice is not handled."
-         //);
-      //on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
-   //}
-
    on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
    return;
 }
