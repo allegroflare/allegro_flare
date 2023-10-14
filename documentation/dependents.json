@@ -1381,6 +1381,12 @@
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer": [
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
   ],
+  "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable": [
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer": [
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
+  ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/Base": [
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer"
