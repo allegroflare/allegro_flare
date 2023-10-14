@@ -84,6 +84,13 @@ methods:
       return;
 
 
+  - name: has_no_elements
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return (carousel.get_num_elements() == 0);
+
+
   - name: update
     guards: [ initialized ]
     body: |

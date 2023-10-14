@@ -43,6 +43,7 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void initialize();
             void set_carousel_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements={});
+            bool has_no_elements();
             void update();
             void render();
             void rotate_carousel_right();

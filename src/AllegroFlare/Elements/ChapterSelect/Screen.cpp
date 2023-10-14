@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ChapterSelect/Screen.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -24,6 +25,8 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , font_bin(font_bin)
    , chapter_select_element({})
    , background(nullptr)
+   , on_menu_choice_callback_func()
+   , on_menu_choice_callback_func_user_data(nullptr)
    , initialized(false)
 {
 }
@@ -40,9 +43,33 @@ void Screen::set_background(AllegroFlare::Elements::Backgrounds::Base* backgroun
 }
 
 
+void Screen::set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> on_menu_choice_callback_func)
+{
+   this->on_menu_choice_callback_func = on_menu_choice_callback_func;
+}
+
+
+void Screen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
+{
+   this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
+}
+
+
 AllegroFlare::Elements::Backgrounds::Base* Screen::get_background() const
 {
    return background;
+}
+
+
+std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> Screen::get_on_menu_choice_callback_func() const
+{
+   return on_menu_choice_callback_func;
+}
+
+
+void* Screen::get_on_menu_choice_callback_func_user_data() const
+{
+   return on_menu_choice_callback_func_user_data;
 }
 
 
@@ -198,6 +225,49 @@ void Screen::render()
    return;
 }
 
+void Screen::activate_menu_option()
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::activate_menu_option]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::activate_menu_option: error: guard \"event_emitter\" not met");
+   }
+   // TODO: Test this callback
+   if (on_menu_choice_callback_func)
+   {
+      on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::ChapterSelect::Screen::activate_menu_option",
+            "No callback has been assigned to \"on_menu_choice_callback_func\" so an activation of a menu "
+                  "choice is not handled."
+         );
+   }
+   return;
+}
+
+void Screen::select_menu_option()
+{
+   if (!is_processing_user_input()) return;
+
+   if (chapter_select_element.has_no_elements())
+   {
+      std::cout <<
+         "[AllegroFlare::Elements::ChapterSelect::Screen::select_menu_option()] error: can not select a menu item, "
+         "the menu is empty."
+         << std::endl;
+      return;
+   }
+
+   activate_menu_option();
+
+   return;
+}
+
 void Screen::primary_timer_func()
 {
    if (!(initialized))
@@ -237,7 +307,7 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       throw std::runtime_error("Screen::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
    // TODO: Consider validating the controller is GenericController
-   //if (!processing_user_input()) return;
+   if (!is_processing_user_input()) return;
 
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_RIGHT)
    {
@@ -251,10 +321,8 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
       )
    {
-      // TODO: Activate callback on selection
-      //select_menu_option();
+      select_menu_option();
    }
-   // TODO: this function
    return;
 }
 
@@ -269,6 +337,12 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    }
    // TODO: this function
    return;
+}
+
+bool Screen::is_processing_user_input()
+{
+   // TODO: Update this to only return TRUE when the player is permitted to move the cursor
+   return true;
 }
 
 

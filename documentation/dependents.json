@@ -24,6 +24,7 @@
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/LevelSelect",
@@ -1452,6 +1453,9 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/Screen": [
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"

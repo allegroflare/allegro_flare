@@ -124,6 +124,18 @@ void ChapterSelect::set_carousel_elements(std::vector<AllegroFlare::Elements::Ch
    return;
 }
 
+bool ChapterSelect::has_no_elements()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::has_no_elements]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::has_no_elements: error: guard \"initialized\" not met");
+   }
+   return (carousel.get_num_elements() == 0);
+}
+
 void ChapterSelect::update()
 {
    if (!(initialized))

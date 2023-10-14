@@ -4329,6 +4329,9 @@ table td
   <td class="method">set_carousel_elements(std::vector&lt;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*&gt; carousel_elements={})</td>
 </tr>
 <tr>
+  <td class="method">has_no_elements()</td>
+</tr>
+<tr>
   <td class="method">update()</td>
 </tr>
 <tr>
@@ -4485,6 +4488,14 @@ table td
   <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
 <tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -4523,6 +4534,12 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
+  <td class="method">activate_menu_option()</td>
+</tr>
+<tr>
+  <td class="private_method">select_menu_option()</td>
+</tr>
+<tr>
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
@@ -4533,6 +4550,9 @@ table td
 </tr>
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">is_processing_user_input()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -4575,6 +4595,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -28959,6 +28985,7 @@ table td
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/LevelSelect",
@@ -30387,6 +30414,9 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Elements/ChapterSelect/Screen": [
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"

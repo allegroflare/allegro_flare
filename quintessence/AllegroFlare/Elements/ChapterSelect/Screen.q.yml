@@ -34,6 +34,18 @@ properties:
     setter: true
     getter: true
 
+  - name: on_menu_choice_callback_func
+    type: std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_menu_choice_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -145,6 +157,47 @@ methods:
       return;
 
 
+  - name: activate_menu_option
+    virtual: true
+    guards: [ event_emitter ]
+    body: |
+      // TODO: Test this callback
+      if (on_menu_choice_callback_func)
+      {
+         on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::ChapterSelect::Screen::activate_menu_option",
+               "No callback has been assigned to \"on_menu_choice_callback_func\" so an activation of a menu "
+                     "choice is not handled."
+            );
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+    
+
+  - name: select_menu_option
+    private: true
+    body: |
+      if (!is_processing_user_input()) return;
+
+      if (chapter_select_element.has_no_elements())
+      {
+         std::cout <<
+            "[AllegroFlare::Elements::ChapterSelect::Screen::select_menu_option()] error: can not select a menu item, "
+            "the menu is empty."
+            << std::endl;
+         return;
+      }
+
+      activate_menu_option();
+
+      return;
+
+
   - name: primary_timer_func
     virtual: true
     override: true
@@ -198,7 +251,7 @@ methods:
     guards: [ initialized ]
     body: |
       // TODO: Consider validating the controller is GenericController
-      //if (!processing_user_input()) return;
+      if (!is_processing_user_input()) return;
 
       if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_RIGHT)
       {
@@ -212,10 +265,8 @@ methods:
          || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
          )
       {
-         // TODO: Activate callback on selection
-         //select_menu_option();
+         select_menu_option();
       }
-      // TODO: this function
       return;
     body_dependency_symbols:
       - AllegroFlare::VirtualControllers::GenericController
@@ -233,6 +284,12 @@ methods:
       // TODO: this function
       return;
 
+
+  - name: is_processing_user_input
+    type: bool
+    body: |
+      // TODO: Update this to only return TRUE when the player is permitted to move the cursor
+      return true;
 
 
 dependencies:
@@ -264,5 +321,9 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Elements::ChapterSelect::Screen
+    headers: [ AllegroFlare/Elements/ChapterSelect/Screen.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
