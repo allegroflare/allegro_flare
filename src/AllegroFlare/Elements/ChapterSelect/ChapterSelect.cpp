@@ -232,6 +232,12 @@ void ChapterSelect::refresh_pagination_bar_elements()
    return;
 }
 
+void ChapterSelect::set_pagination_bar_element_at(int position, bool value)
+{
+   pagination_bar.set_element_at(position, value);
+   return;
+}
+
 void ChapterSelect::refresh_cursor_position_on_pagination_bar()
 {
    int focused_element_position = carousel.get_focused_element_position();

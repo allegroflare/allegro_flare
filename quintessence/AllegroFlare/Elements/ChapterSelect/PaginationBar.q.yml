@@ -88,6 +88,20 @@ methods:
       return;
 
 
+  - name: set_element_at
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+      - name: value
+        type: bool
+        default_argument: false
+    guards: [ (position >= 0), (position < elements.size()) ]
+    body: |
+      elements[position] = value;
+      return;
+
+
   - name: render
     type: void
     virtual: true

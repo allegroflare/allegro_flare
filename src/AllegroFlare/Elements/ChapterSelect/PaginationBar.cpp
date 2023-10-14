@@ -162,6 +162,26 @@ void PaginationBar::update()
    return;
 }
 
+void PaginationBar::set_element_at(int position, bool value)
+{
+   if (!((position >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[PaginationBar::set_element_at]: error: guard \"(position >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PaginationBar::set_element_at: error: guard \"(position >= 0)\" not met");
+   }
+   if (!((position < elements.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[PaginationBar::set_element_at]: error: guard \"(position < elements.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PaginationBar::set_element_at: error: guard \"(position < elements.size())\" not met");
+   }
+   elements[position] = value;
+   return;
+}
+
 void PaginationBar::render()
 {
    if (!(al_is_system_installed()))

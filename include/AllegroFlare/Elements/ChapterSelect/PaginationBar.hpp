@@ -54,6 +54,7 @@ namespace AllegroFlare
             float get_bar_height() const;
             float get_bar_stroke_thickness() const;
             void update();
+            void set_element_at(int position=0, bool value=false);
             virtual void render() override;
             void fit_placement_width_and_height();
             float calculate_width();

@@ -159,6 +159,19 @@ methods:
       return;
 
 
+  - name: set_pagination_bar_element_at
+    parameters:
+      - name: position
+        type: int
+        default_argument: 0
+      - name: value
+        type: bool
+        default_argument: false
+    body: |
+      pagination_bar.set_element_at(position, value);
+      return;
+
+
   - name: refresh_cursor_position_on_pagination_bar
     body: |
       int focused_element_position = carousel.get_focused_element_position();
