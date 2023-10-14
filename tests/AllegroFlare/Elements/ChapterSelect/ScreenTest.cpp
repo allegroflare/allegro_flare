@@ -95,6 +95,12 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTest,
 TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFixture,
    TIMED_INTERACTIVE__will_run_as_expected)
 {
+   get_framework_ref().load_jukebox_sound_effects({
+      // TODO: Use better examples or test fixture for these test sound effects
+      { "rotate_carousel",    { "pickup_health-01.ogg", false, "restart", 0.4 } },
+      { "select_on_carousel", { "pickup_health-01.ogg", false, "restart", 0.4 } },
+   });
+
    // TODO: Update test to not timeout after a keypress
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
 
@@ -102,8 +108,10 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
    screen.set_event_emitter(get_framework_event_emitter());
    screen.set_bitmap_bin(get_framework_bitmap_bin());
    screen.set_font_bin(get_framework_font_bin());
-   screen.set_rotate_carousel_sound_effect_identifier("foo");
-   screen.set_select_menu_sound_effect_identifier("bar");
+   screen.set_rotate_carousel_sound_effect_identifier("rotate_carousel");
+   // TODO: screen.set_failed_rotate_carousel_sound_effect_identifier("failed_foo");
+   screen.set_select_menu_sound_effect_identifier("select_on_carousel");
+   // TODO: screen.set_failed_select_menu_sound_effect_identifier("failed_bar");
 
    screen.initialize();
 
