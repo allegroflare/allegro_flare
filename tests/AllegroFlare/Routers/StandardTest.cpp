@@ -150,10 +150,11 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__when_a_callback_is_present__will_call_the_callback)
 {
+   uint32_t MY_CUSTOM_ROUTE_EVENT = AllegroFlare::Routers::Standard::EVENT_LAST_EVENT+1;
    int callback_count = 0;
    router.set_on_route_event_unhandled_func(my_on_route_event_unhandled_func_returns_true);
    router.set_on_route_event_unhandled_func_user_data(&callback_count);
-   router.on_route_event(123);
+   router.on_route_event(MY_CUSTOM_ROUTE_EVENT);
    EXPECT_EQ(1, callback_count);
 }
 
