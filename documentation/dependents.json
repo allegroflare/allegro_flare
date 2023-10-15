@@ -30,6 +30,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",

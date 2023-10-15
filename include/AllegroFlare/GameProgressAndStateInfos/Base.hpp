@@ -21,9 +21,11 @@ namespace AllegroFlare
 
       public:
          Base(std::string type=AllegroFlare::GameProgressAndStateInfos::Base::TYPE);
-         ~Base();
+         virtual ~Base();
 
          std::string get_type() const;
+         virtual std::string export_to_string();
+         virtual void import_from_string(std::string data_string="[unset-data_string]");
          bool is_type(std::string possible_type="");
       };
    }

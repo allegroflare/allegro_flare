@@ -17,6 +17,35 @@ properties:
 methods:
 
 
+  - name: export_to_string
+    type: std::string
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::GameProgressAndStateInfos::Base::export_to_string",
+            "not implemented"
+         );
+      return "";
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: import_from_string
+    parameters:
+      - name: data_string
+        type: std::string
+        default_argument: '"[unset-data_string]"'
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::GameProgressAndStateInfos::Base::import_from_string",
+            "not implemented"
+         );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
   - name: is_type
     type: bool
     parameters:
@@ -25,5 +54,12 @@ methods:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
