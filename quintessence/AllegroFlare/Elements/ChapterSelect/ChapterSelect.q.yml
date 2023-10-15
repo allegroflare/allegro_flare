@@ -156,11 +156,26 @@ methods:
       return;
 
 
+  - name: has_elements
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return (carousel.get_num_elements() != 0);
+
+
   - name: has_no_elements
     type: bool
     guards: [ initialized ]
     body: |
       return (carousel.get_num_elements() == 0);
+
+
+  - name: get_focused_carousel_element
+    type: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*
+    guards: [ has_elements() ]
+    body: |
+      // TODO: Test this method
+      return carousel.get_element_at_focused_element_position();
 
 
   - name: update

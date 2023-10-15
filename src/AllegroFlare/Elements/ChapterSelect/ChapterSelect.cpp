@@ -170,6 +170,18 @@ void ChapterSelect::set_carousel_elements(std::vector<AllegroFlare::Elements::Ch
    return;
 }
 
+bool ChapterSelect::has_elements()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::has_elements]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::has_elements: error: guard \"initialized\" not met");
+   }
+   return (carousel.get_num_elements() != 0);
+}
+
 bool ChapterSelect::has_no_elements()
 {
    if (!(initialized))
@@ -180,6 +192,19 @@ bool ChapterSelect::has_no_elements()
       throw std::runtime_error("ChapterSelect::has_no_elements: error: guard \"initialized\" not met");
    }
    return (carousel.get_num_elements() == 0);
+}
+
+AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* ChapterSelect::get_focused_carousel_element()
+{
+   if (!(has_elements()))
+   {
+      std::stringstream error_message;
+      error_message << "[ChapterSelect::get_focused_carousel_element]: error: guard \"has_elements()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ChapterSelect::get_focused_carousel_element: error: guard \"has_elements()\" not met");
+   }
+   // TODO: Test this method
+   return carousel.get_element_at_focused_element_position();
 }
 
 void ChapterSelect::update()

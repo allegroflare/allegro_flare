@@ -162,6 +162,19 @@ int Carousel::get_num_elements()
    return elements.size();
 }
 
+AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* Carousel::get_element_at_focused_element_position()
+{
+   if (!((!elements.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[Carousel::get_element_at_focused_element_position]: error: guard \"(!elements.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Carousel::get_element_at_focused_element_position: error: guard \"(!elements.empty())\" not met");
+   }
+   // TODO: Test this method
+   return get_element_at_position(focused_element_position);
+}
+
 void Carousel::rotate_carousel_left()
 {
    if (elements.empty()) return;

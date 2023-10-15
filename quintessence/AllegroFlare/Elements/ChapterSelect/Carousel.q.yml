@@ -110,6 +110,14 @@ methods:
       return elements.size();
 
 
+  - name: get_element_at_focused_element_position
+    type: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*
+    guards: [ (!elements.empty()) ]
+    body: |
+      // TODO: Test this method
+      return get_element_at_position(focused_element_position);
+
+
   - name: rotate_carousel_left
     body:
       if (elements.empty()) return;

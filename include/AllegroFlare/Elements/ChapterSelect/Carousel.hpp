@@ -66,6 +66,7 @@ namespace AllegroFlare
             AllegroFlare::Placement2D get_camera_target() const;
             void set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> elements={});
             int get_num_elements();
+            AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* get_element_at_focused_element_position();
             void rotate_carousel_left();
             void rotate_carousel_right();
             void reposition_camera_position_to_focused_element();

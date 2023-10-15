@@ -58,7 +58,9 @@ namespace AllegroFlare
             void set_carousel_element_font_size(int carousel_element_font_size=DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE);
             void initialize();
             void set_carousel_elements(std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements={});
+            bool has_elements();
             bool has_no_elements();
+            AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* get_focused_carousel_element();
             void update();
             void render();
             void rotate_carousel_right();
