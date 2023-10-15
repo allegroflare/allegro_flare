@@ -124,6 +124,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
 
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
       new ThumbnailWithLabelUnlockable(
+            "chapter_1",
             "storyboard-image-1164x500.png",
             "CHAPTER 1: Rise of the City",
             "",
@@ -131,6 +132,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
             true
          ),
       new ThumbnailWithLabelUnlockable(
+            "chapter_2",
             "storyboard-image-1164x500.png",
             "CHAPTER 2: The Sanctuary",
             "",
@@ -138,6 +140,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
             true
          ),
       new ThumbnailWithLabelUnlockable(
+            "chapter_3",
             "storyboard-image-1164x500.png",
             "CHAPTER 3: The Way Ahead",
             "",
@@ -145,6 +148,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
             true
          ),
       new ThumbnailWithLabelUnlockable(
+            "chapter_4",
             "storyboard-image-1164x500.png",
             "CHAPTER 4: The Bridge",
             "",
@@ -152,6 +156,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
             false
          ),
       new ThumbnailWithLabelUnlockable(
+            "chapter_5",
             "storyboard-image-1164x500.png",
             "CHAPTER 5: Without an Anchor",
             "",

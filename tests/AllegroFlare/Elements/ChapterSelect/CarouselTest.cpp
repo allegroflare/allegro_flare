@@ -52,6 +52,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
    event_emitter.initialize();
    std::vector<AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*> carousel_elements = {
       new ThumbnailWithLabelUnlockable(
+            "chapter_1",
             "storyboard-image-1164x500.png",
             "CHAPTER 1: Rise of the City",
             "",
@@ -59,6 +60,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
             true
          ),
       new ThumbnailWithLabelUnlockable(
+            "chapter_2",
             "storyboard-image-1164x500.png",
             "CHAPTER 2: The Sanctuary",
             "",

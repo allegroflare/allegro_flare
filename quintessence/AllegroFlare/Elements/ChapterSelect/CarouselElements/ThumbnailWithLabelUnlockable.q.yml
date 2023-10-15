@@ -9,6 +9,12 @@ parent_classes:
 properties:
 
 
+  - name: value
+    type: std::string
+    init_with: '"[unset-value]"'
+    constructor_arg: true
+    getter: true
+
   - name: bitmap_filename
     type: std::string
     init_with: '"[unset-property]"'
