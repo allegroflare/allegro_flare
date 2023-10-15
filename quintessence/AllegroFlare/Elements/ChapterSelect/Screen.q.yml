@@ -209,6 +209,14 @@ methods:
       return;
 
 
+  - name: get_focused_carousel_element
+    type: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base*
+    guards: [ chapter_select_element.has_elements() ]
+    body: |
+      // TODO: Test this method
+      return chapter_select_element.get_focused_carousel_element();
+
+
   - name: activate_menu_option
     body: |
       if (on_menu_choice_callback_func)

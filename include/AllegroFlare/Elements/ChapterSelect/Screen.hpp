@@ -75,6 +75,7 @@ namespace AllegroFlare
             virtual void on_deactivate() override;
             void update();
             void render();
+            AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* get_focused_carousel_element();
             void activate_menu_option();
             void exit_screen();
             virtual void primary_timer_func() override;

@@ -278,6 +278,19 @@ void Screen::render()
    return;
 }
 
+AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* Screen::get_focused_carousel_element()
+{
+   if (!(chapter_select_element.has_elements()))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::get_focused_carousel_element]: error: guard \"chapter_select_element.has_elements()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::get_focused_carousel_element: error: guard \"chapter_select_element.has_elements()\" not met");
+   }
+   // TODO: Test this method
+   return chapter_select_element.get_focused_carousel_element();
+}
+
 void Screen::activate_menu_option()
 {
    if (on_menu_choice_callback_func)
