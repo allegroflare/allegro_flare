@@ -96,14 +96,31 @@ public:
    {
       return false;
    }
-   static bool my_on_route_event_unhandled_func_returns_true(AllegroFlare::Routers::Standard *router, void* user_data)
+   static bool my_on_route_event_unhandled_func_returns_true(
+         uint32_t unhandled_event,
+         AllegroFlare::Routers::Standard *router,
+         void* user_data
+      )
    {
       (*((int*)user_data))++;
       return true;
    }
-   static bool my_on_route_event_unhandled_func_returns_false(AllegroFlare::Routers::Standard *router, void* user_data)
+   static bool my_on_route_event_unhandled_func_returns_false(
+         uint32_t unhandled_event,
+         AllegroFlare::Routers::Standard *router,
+         void* user_data
+      )
    {
       return false;
+   }
+   static bool my_on_route_event_unhandled_func_relays_unhandled_event(
+         uint32_t unhandled_event,
+         AllegroFlare::Routers::Standard *router,
+         void* user_data
+      )
+   {
+      (*((uint32_t*)user_data)) = unhandled_event;
+      return true;
    }
 };
 
@@ -170,6 +187,19 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
             "event of type 123, but the callback returned false, indicating that there was a failure to handle "
             "the event."
    );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__when_a_callback_is_present_that_returns_true__will_pass_the_unhandled_event_to_the_callback)
+{
+   router.set_on_route_event_unhandled_func(my_on_route_event_unhandled_func_relays_unhandled_event);
+   uint32_t MY_CUSTOM_ROUTE_EVENT = AllegroFlare::Routers::Standard::EVENT_LAST_EVENT+1;
+   uint32_t relayed_unhandled_event = 0;
+   router.set_on_route_event_unhandled_func(my_on_route_event_unhandled_func_relays_unhandled_event);
+   router.set_on_route_event_unhandled_func_user_data(&relayed_unhandled_event);
+   router.on_route_event(MY_CUSTOM_ROUTE_EVENT);
+   EXPECT_EQ(MY_CUSTOM_ROUTE_EVENT, relayed_unhandled_event);
 }
 
 

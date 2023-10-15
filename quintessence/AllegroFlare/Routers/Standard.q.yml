@@ -29,7 +29,7 @@ properties:
     getter_ref: true
 
   - name: on_route_event_unhandled_func
-    type: std::function<bool(AllegroFlare::Routers::Standard*, void*)>
+    type: std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)>
     init_with: ''
     getter: true
     setter: true
@@ -146,7 +146,7 @@ documentation:
   - todos:
       - consider a EVENT_FINISH_LEVEL type of event, something that denotes progress in the game, a save, level beaten
       - consider a EVENT_GAMEPLAY_SCREEN_FINISHED type of event
-      - test  on_route_event_unhandled_func
+      - test on_route_event_unhandled_func
 
 
 enums:
@@ -521,7 +521,7 @@ methods:
          if (on_route_event_unhandled_func)
          {
             bool callback_result_successful =
-               on_route_event_unhandled_func(this, on_route_event_unhandled_func_user_data);
+               on_route_event_unhandled_func(route_event, this, on_route_event_unhandled_func_user_data);
 
             if (!callback_result_successful)
             {
