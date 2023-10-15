@@ -1872,6 +1872,9 @@
   "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
     "AllegroFlare/FrameAnimation/Book"
   ],
+  "AllegroFlare/GameProgressAndStateInfos/Base": [
+    "AllegroFlare/GameSession"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],

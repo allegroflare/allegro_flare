@@ -1,9 +1,8 @@
 #pragma once
 
 
+#include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <allegro5/allegro.h>
-#include <set>
-#include <string>
 
 
 namespace AllegroFlare
@@ -14,7 +13,7 @@ namespace AllegroFlare
       float started_at;
       float ended_at;
       bool active;
-      std::set<std::string> level_progress;
+      AllegroFlare::GameProgressAndStateInfos::Base* game_progress_and_state_info;
 
    protected:
 
@@ -23,16 +22,14 @@ namespace AllegroFlare
       GameSession();
       ~GameSession();
 
-      void set_level_progress(std::set<std::string> level_progress);
+      void set_game_progress_and_state_info(AllegroFlare::GameProgressAndStateInfos::Base* game_progress_and_state_info);
       float get_started_at() const;
       float get_ended_at() const;
       bool get_active() const;
-      std::set<std::string> get_level_progress() const;
+      AllegroFlare::GameProgressAndStateInfos::Base* get_game_progress_and_state_info() const;
       void start_session(float started_at=al_get_time());
       void end_session(float ended_at=al_get_time());
       bool is_active();
-      void mark_level_as_finished(std::string level_identifier="[unset-level_identifier]");
-      bool is_level_as_finished(std::string level_identifier="[unset-level_identifier]");
    };
 }
 

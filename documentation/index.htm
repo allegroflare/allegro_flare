@@ -189,6 +189,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameProgressAndStateInfos/Base.q.yml">quintessence/AllegroFlare/GameProgressAndStateInfos/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameSession.q.yml">quintessence/AllegroFlare/GameSession.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml</a></li>
@@ -10915,6 +10916,30 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameProgressAndStateInfos/Base.q.yml">quintessence/AllegroFlare/GameProgressAndStateInfos/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/GameSession.q.yml">quintessence/AllegroFlare/GameSession.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -10932,8 +10957,8 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">level_progress</td>
-  <td class="property">std::set&lt;std::string&gt;</td>
+  <td class="property">game_progress_and_state_info</td>
+  <td class="property">AllegroFlare::GameProgressAndStateInfos::Base*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -10947,12 +10972,6 @@ table td
 <tr>
   <td class="method">is_active()</td>
 </tr>
-<tr>
-  <td class="method">mark_level_as_finished(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">is_level_as_finished(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
-</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -10964,6 +10983,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameProgressAndStateInfos::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameProgressAndStateInfos/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31151,6 +31173,9 @@ table td
   ],
   "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
     "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/GameProgressAndStateInfos/Base": [
+    "AllegroFlare/GameSession"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

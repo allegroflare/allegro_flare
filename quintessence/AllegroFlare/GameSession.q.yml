@@ -16,9 +16,9 @@ properties:
     init_with: false
     getter: true
 
-  - name: level_progress
-    type: std::set<std::string>
-    init_with: '{}'
+  - name: game_progress_and_state_info
+    type: AllegroFlare::GameProgressAndStateInfos::Base*
+    init_with: nullptr
     getter: true
     setter: true
 
@@ -62,29 +62,6 @@ functions:
       return active;
 
 
-  - name: mark_level_as_finished
-    parameters:
-      - name: level_identifier
-        type: std::string
-        default_argument: '"[unset-level_identifier]"'
-    body: |
-      // NOTE: Granted, this is a very basic way to record progress. A more advanced version might have levels
-      // with specific objectives, or a "completed_at" time, so on.
-      level_progress.insert(level_identifier);
-      return;
-
-
-  - name: is_level_as_finished
-    type: bool
-    parameters:
-      - name: level_identifier
-        type: std::string
-        default_argument: '"[unset-level_identifier]"'
-    body: |
-      // TODO: Test this
-      return level_progress.count(level_identifier) >= 1;
-
-
 dependencies:
 
 
@@ -94,5 +71,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::GameProgressAndStateInfos::Base
+    headers: [ AllegroFlare/GameProgressAndStateInfos/Base.hpp ]
 
 

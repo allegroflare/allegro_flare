@@ -16,7 +16,7 @@ GameSession::GameSession()
    : started_at(0.0f)
    , ended_at(0.0f)
    , active(false)
-   , level_progress({})
+   , game_progress_and_state_info(nullptr)
 {
 }
 
@@ -26,9 +26,9 @@ GameSession::~GameSession()
 }
 
 
-void GameSession::set_level_progress(std::set<std::string> level_progress)
+void GameSession::set_game_progress_and_state_info(AllegroFlare::GameProgressAndStateInfos::Base* game_progress_and_state_info)
 {
-   this->level_progress = level_progress;
+   this->game_progress_and_state_info = game_progress_and_state_info;
 }
 
 
@@ -50,9 +50,9 @@ bool GameSession::get_active() const
 }
 
 
-std::set<std::string> GameSession::get_level_progress() const
+AllegroFlare::GameProgressAndStateInfos::Base* GameSession::get_game_progress_and_state_info() const
 {
-   return level_progress;
+   return game_progress_and_state_info;
 }
 
 
@@ -89,20 +89,6 @@ void GameSession::end_session(float ended_at)
 bool GameSession::is_active()
 {
    return active;
-}
-
-void GameSession::mark_level_as_finished(std::string level_identifier)
-{
-   // NOTE: Granted, this is a very basic way to record progress. A more advanced version might have levels
-   // with specific objectives, or a "completed_at" time, so on.
-   level_progress.insert(level_identifier);
-   return;
-}
-
-bool GameSession::is_level_as_finished(std::string level_identifier)
-{
-   // TODO: Test this
-   return level_progress.count(level_identifier) >= 1;
 }
 
 
