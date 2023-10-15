@@ -33,6 +33,12 @@ namespace AllegroFlare
                ThumbnailWithLabelUnlockable(std::string value="[unset-value]", std::string bitmap_filename="[unset-property]", std::string label_text="[unset-label_text]", std::string locked_bitmap_filename="[unset-locked_bitmap_filename]", std::string locked_label_text="[unset-locked_label_text]", bool is_unlocked=true);
                ~ThumbnailWithLabelUnlockable();
 
+               void set_value(std::string value);
+               void set_bitmap_filename(std::string bitmap_filename);
+               void set_label_text(std::string label_text);
+               void set_locked_bitmap_filename(std::string locked_bitmap_filename);
+               void set_locked_label_text(std::string locked_label_text);
+               void set_is_unlocked(bool is_unlocked);
                std::string get_value() const;
                std::string get_bitmap_filename() const;
                std::string get_label_text() const;

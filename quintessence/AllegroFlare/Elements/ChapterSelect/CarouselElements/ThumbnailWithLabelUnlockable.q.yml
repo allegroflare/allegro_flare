@@ -14,36 +14,42 @@ properties:
     init_with: '"[unset-value]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: bitmap_filename
     type: std::string
     init_with: '"[unset-property]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: label_text
     type: std::string
     init_with: '"[unset-label_text]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: locked_bitmap_filename
     type: std::string
     init_with: '"[unset-locked_bitmap_filename]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: locked_label_text
     type: std::string
     init_with: '"[unset-locked_label_text]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: is_unlocked
     type: bool
     init_with: true
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: TYPE
     type: char*
