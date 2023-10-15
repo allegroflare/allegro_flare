@@ -96,6 +96,15 @@ public:
    {
       return false;
    }
+   static bool my_on_route_event_unhandled_func_returns_true(AllegroFlare::Routers::Standard *router, void* user_data)
+   {
+      (*((int*)user_data))++;
+      return true;
+   }
+   static bool my_on_route_event_unhandled_func_returns_false(AllegroFlare::Routers::Standard *router, void* user_data)
+   {
+      return false;
+   }
 };
 
 
@@ -134,6 +143,31 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
       router.on_route_event(123),
       std::runtime_error,
       "[AllegroFlare::Routers::Standard::on_route_event]: error: Unable to handle event of type 123."
+   );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__when_a_callback_is_present__will_call_the_callback)
+{
+   int callback_count = 0;
+   router.set_on_route_event_unhandled_func(my_on_route_event_unhandled_func_returns_true);
+   router.set_on_route_event_unhandled_func_user_data(&callback_count);
+   router.on_route_event(123);
+   EXPECT_EQ(1, callback_count);
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__when_a_callback_is_present_that_returns_false__will_raise_an_exception)
+{
+   router.set_on_route_event_unhandled_func(my_on_route_event_unhandled_func_returns_false);
+   EXPECT_THROW_WITH_MESSAGE(
+      router.on_route_event(123),
+      std::runtime_error,
+      "[AllegroFlare::Routers::Standard::on_route_event]: error: A user callback was used to handle an unknown "
+            "event of type 123, but the callback returned false, indicating that there was a failure to handle "
+            "the event."
    );
 }
 

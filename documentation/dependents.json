@@ -2738,6 +2738,9 @@
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"
   ],
+  "AllegroFlare/Routers/Standard": [
+    "AllegroFlare/Routers/Standard"
+  ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"
   ],

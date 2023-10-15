@@ -21,6 +21,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , event_emitter(event_emitter)
    , load_level_handler(load_level_handler)
    , game_session()
+   , on_route_event_unhandled_func()
+   , on_route_event_unhandled_func_user_data(nullptr)
 {
 }
 
@@ -42,6 +44,18 @@ void Standard::set_load_level_handler(std::function<bool(AllegroFlare::RouteEven
 }
 
 
+void Standard::set_on_route_event_unhandled_func(std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_route_event_unhandled_func)
+{
+   this->on_route_event_unhandled_func = on_route_event_unhandled_func;
+}
+
+
+void Standard::set_on_route_event_unhandled_func_user_data(void* on_route_event_unhandled_func_user_data)
+{
+   this->on_route_event_unhandled_func_user_data = on_route_event_unhandled_func_user_data;
+}
+
+
 AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 {
    return event_emitter;
@@ -51,6 +65,18 @@ AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 std::function<bool(AllegroFlare::RouteEventDatas::Base*)> Standard::get_load_level_handler() const
 {
    return load_level_handler;
+}
+
+
+std::function<bool(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_route_event_unhandled_func() const
+{
+   return on_route_event_unhandled_func;
+}
+
+
+void* Standard::get_on_route_event_unhandled_func_user_data() const
+{
+   return on_route_event_unhandled_func_user_data;
 }
 
 
@@ -368,14 +394,31 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       }},
    };
 
-   // locate and call the function to handle the event
+   // Locate and call the function to handle the event
    if (event_map.count(route_event) == 0)
    {
-      // event not found
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Routers::Standard::on_route_event",
-         "Unable to handle event of type " + std::to_string(route_event) + "."
-      );
+      if (on_route_event_unhandled_func)
+      {
+         bool callback_result_successful =
+            on_route_event_unhandled_func(this, on_route_event_unhandled_func_user_data);
+
+         if (!callback_result_successful)
+         {
+            AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "A user callback was used to handle an unknown event of type " + std::to_string(route_event) + ", "
+                     "but the callback returned false, indicating that there was a failure to handle the event."
+               );
+         }
+      }
+      else
+      {
+         // event not found
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "Unable to handle event of type " + std::to_string(route_event) + "."
+            );
+      }
    }
    else
    {

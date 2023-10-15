@@ -28,6 +28,18 @@ properties:
     init_with: ''
     getter_ref: true
 
+  - name: on_route_event_unhandled_func
+    type: std::function<bool(AllegroFlare::Routers::Standard*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_route_event_unhandled_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: INTRO_LOGOS_SCREEN_IDENTIFIER
     type: char*
     init_with: '(char*)"intro_logos_screen"'
@@ -134,6 +146,7 @@ documentation:
   - todos:
       - consider a EVENT_FINISH_LEVEL type of event, something that denotes progress in the game, a save, level beaten
       - consider a EVENT_GAMEPLAY_SCREEN_FINISHED type of event
+      - test  on_route_event_unhandled_func
 
 
 enums:
@@ -177,8 +190,10 @@ enums:
       - EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN
       - EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER
 
+      - EVENT_LAST_EVENT
 
-functions:
+
+methods:
 
 
   - name: emit_route_event
@@ -500,14 +515,31 @@ functions:
          }},
       };
 
-      // locate and call the function to handle the event
+      // Locate and call the function to handle the event
       if (event_map.count(route_event) == 0)
       {
-         // event not found
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::Routers::Standard::on_route_event",
-            "Unable to handle event of type " + std::to_string(route_event) + "."
-         );
+         if (on_route_event_unhandled_func)
+         {
+            bool callback_result_successful =
+               on_route_event_unhandled_func(this, on_route_event_unhandled_func_user_data);
+
+            if (!callback_result_successful)
+            {
+               AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::Routers::Standard::on_route_event",
+                     "A user callback was used to handle an unknown event of type " + std::to_string(route_event) + ", "
+                        "but the callback returned false, indicating that there was a failure to handle the event."
+                  );
+            }
+         }
+         else
+         {
+            // event not found
+            AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "Unable to handle event of type " + std::to_string(route_event) + "."
+               );
+         }
       }
       else
       {
@@ -524,6 +556,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Routers::Standard
+    headers: [ AllegroFlare/Routers/Standard.hpp ]
   - symbol: AllegroFlare::GameSession
     headers: [ AllegroFlare/GameSession.hpp ]
   - symbol: AllegroFlare::Screens::Base

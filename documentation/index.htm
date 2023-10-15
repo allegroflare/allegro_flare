@@ -3987,6 +3987,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">element_font_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">element_font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">focused_element_position</td>
   <td class="property">int</td>
 </tr>
@@ -4005,6 +4013,14 @@ table td
 <tr>
   <td class="property">camera_target</td>
   <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FONT_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FONT_SIZE</td>
+  <td class="property">int</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -4094,6 +4110,22 @@ table td
 <tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">element_font_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">element_font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FONT_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FONT_SIZE</td>
+  <td class="property">int</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -4502,6 +4534,14 @@ table td
   <td class="property">AllegroFlare::Elements::ChapterSelect::PaginationBar</td>
 </tr>
 <tr>
+  <td class="property">DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -4523,6 +4563,12 @@ table td
 </tr>
 <tr>
   <td class="method">set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier=DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER)</td>
+</tr>
+<tr>
+  <td class="method">set_carousel_element_font_identifier(std::string carousel_element_font_identifier=DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER)</td>
+</tr>
+<tr>
+  <td class="method">set_carousel_element_font_size(int carousel_element_font_size=DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -20840,6 +20886,14 @@ table td
   <td class="property">AllegroFlare::GameSession</td>
 </tr>
 <tr>
+  <td class="property">on_route_event_unhandled_func</td>
+  <td class="property">std::function&lt;bool(AllegroFlare::Routers::Standard*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_route_event_unhandled_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">INTRO_LOGOS_SCREEN_IDENTIFIER</td>
   <td class="property">char*</td>
 </tr>
@@ -20910,6 +20964,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameSession&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameSession.hpp&quot;]}</td>
 </tr>
@@ -31944,6 +32001,9 @@ table td
   ],
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"
+  ],
+  "AllegroFlare/Routers/Standard": [
+    "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"
