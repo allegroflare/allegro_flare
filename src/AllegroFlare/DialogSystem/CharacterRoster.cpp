@@ -41,6 +41,16 @@ int CharacterRoster::num_characters()
    return characters.size();
 }
 
+std::vector<std::string> CharacterRoster::get_character_names()
+{
+   std::vector<std::string> result;
+   for (auto &character : characters)
+   {
+      result.push_back(character.first);
+   }
+   return result;
+}
+
 void CharacterRoster::add_character(std::string name, AllegroFlare::DialogSystem::Characters::Base* character)
 {
    if (!(character))

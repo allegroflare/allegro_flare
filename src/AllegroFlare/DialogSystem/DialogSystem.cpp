@@ -519,8 +519,17 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
       if (!character_roster->character_exists_by_name(speaking_character_identifier))
       {
          // Throw for now
+         std::stringstream available_character_names;
+         available_character_names << "[ ";
+         for (auto &character_identifier : character_roster->get_character_names())
+         {
+            available_character_names << "\"" << character_identifier << "\", " << std::endl;
+         }
+         available_character_names << " ]";
+
          throw std::runtime_error("Roster is present, but character \"" + speaking_character_identifier + "\" "
-                                  "does not exist in roster");
+                                  "does not exist in roster. Available names are " + available_character_names.str()
+                                  );
       }
 
       AllegroFlare::DialogSystem::Characters::Base *base =

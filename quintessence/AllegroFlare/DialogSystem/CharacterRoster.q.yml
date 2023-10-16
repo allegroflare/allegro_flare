@@ -17,6 +17,17 @@ methods:
       return characters.size();
 
 
+  - name: get_character_names
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> result;
+      for (auto &character : characters)
+      {
+         result.push_back(character.first);
+      }
+      return result;
+ 
+
   - name: add_character
     parameters:
       - name: name
