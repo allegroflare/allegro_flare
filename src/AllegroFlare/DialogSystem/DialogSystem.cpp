@@ -523,7 +523,7 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
          available_character_names << "[ ";
          for (auto &character_identifier : character_roster->get_character_names())
          {
-            available_character_names << "\"" << character_identifier << "\", " << std::endl;
+            available_character_names << "\"" << character_identifier << "\", ";
          }
          available_character_names << " ]";
 
