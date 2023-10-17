@@ -24,17 +24,41 @@ properties:
 
   - name: carousel
     type: AllegroFlare::Elements::ChapterSelect::Carousel
-    constructor_arg: true
     init_with: '{}'
     getter: true
     setter: true
 
   - name: pagination_bar
     type: AllegroFlare::Elements::ChapterSelect::PaginationBar
-    constructor_arg: true
-    init_with: '{}'
+    init_with: ''
     getter: true
     setter: true
+
+  - name: title_font_identifier
+    type: std::string
+    init_with: DEFAULT_TITLE_FONT_IDENTIFIER
+    getter: true
+    setter: true
+
+  - name: title_font_size
+    type: int
+    init_with: DEFAULT_TITLE_FONT_SIZE
+    getter: true
+    setter: true
+
+  - name: DEFAULT_TITLE_FONT_IDENTIFIER
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_TITLE_FONT_SIZE
+    type: int
+    constexpr: true
+    const: true
+    static: true
+    init_with: -46
 
   - name: DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER
     type: char*
@@ -284,7 +308,7 @@ methods:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Regular.ttf -46");
+      return font_bin->auto_get(title_font_identifier + " " + std::to_string(title_font_size));
 
 
 dependencies:

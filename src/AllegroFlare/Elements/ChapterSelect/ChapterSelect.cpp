@@ -16,12 +16,14 @@ namespace ChapterSelect
 {
 
 
-ChapterSelect::ChapterSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::ChapterSelect::Carousel carousel, AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar)
+ChapterSelect::ChapterSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
    : event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
-   , carousel(carousel)
-   , pagination_bar(pagination_bar)
+   , carousel({})
+   , pagination_bar()
+   , title_font_identifier(DEFAULT_TITLE_FONT_IDENTIFIER)
+   , title_font_size(DEFAULT_TITLE_FONT_SIZE)
    , initialized(false)
 {
 }
@@ -41,6 +43,18 @@ void ChapterSelect::set_carousel(AllegroFlare::Elements::ChapterSelect::Carousel
 void ChapterSelect::set_pagination_bar(AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar)
 {
    this->pagination_bar = pagination_bar;
+}
+
+
+void ChapterSelect::set_title_font_identifier(std::string title_font_identifier)
+{
+   this->title_font_identifier = title_font_identifier;
+}
+
+
+void ChapterSelect::set_title_font_size(int title_font_size)
+{
+   this->title_font_size = title_font_size;
 }
 
 
@@ -71,6 +85,18 @@ AllegroFlare::Elements::ChapterSelect::Carousel ChapterSelect::get_carousel() co
 AllegroFlare::Elements::ChapterSelect::PaginationBar ChapterSelect::get_pagination_bar() const
 {
    return pagination_bar;
+}
+
+
+std::string ChapterSelect::get_title_font_identifier() const
+{
+   return title_font_identifier;
+}
+
+
+int ChapterSelect::get_title_font_size() const
+{
+   return title_font_size;
 }
 
 
@@ -338,7 +364,7 @@ ALLEGRO_FONT* ChapterSelect::obtain_title_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChapterSelect::obtain_title_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Regular.ttf -46");
+   return font_bin->auto_get(title_font_identifier + " " + std::to_string(title_font_size));
 }
 
 

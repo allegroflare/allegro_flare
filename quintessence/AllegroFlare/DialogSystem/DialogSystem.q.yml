@@ -341,7 +341,7 @@ methods:
       - name: speaking_character_expression
         type: std::string
         default_argument: '"[unset-speaking_character_expression]"'
-    guards: [ active_character_staging_layout ]
+    guards: [ active_character_staging_layout, (speaking_character_identifier.empty()) ]
     body: |
       if (active_character_staging_layout->is_type(
                AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE

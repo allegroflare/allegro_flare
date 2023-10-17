@@ -21,6 +21,8 @@ namespace AllegroFlare
          class ChapterSelect
          {
          public:
+            static constexpr char* DEFAULT_TITLE_FONT_IDENTIFIER = (char*)"Inter-Regular.ttf";
+            static constexpr int DEFAULT_TITLE_FONT_SIZE = -46;
             static constexpr char* DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER = (char*)"Inter-Regular.ttf";
             static constexpr int DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE = -46;
             static constexpr char* DEFAULT_CAROUSEL_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::ChapterSelect::rotate_carousel";
@@ -31,6 +33,8 @@ namespace AllegroFlare
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::Elements::ChapterSelect::Carousel carousel;
             AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar;
+            std::string title_font_identifier;
+            int title_font_size;
             bool initialized;
             void refresh_pagination_bar_elements();
             void refresh_cursor_position_on_pagination_bar();
@@ -40,16 +44,20 @@ namespace AllegroFlare
 
 
          public:
-            ChapterSelect(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::ChapterSelect::Carousel carousel={}, AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar={});
+            ChapterSelect(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
             ~ChapterSelect();
 
             void set_carousel(AllegroFlare::Elements::ChapterSelect::Carousel carousel);
             void set_pagination_bar(AllegroFlare::Elements::ChapterSelect::PaginationBar pagination_bar);
+            void set_title_font_identifier(std::string title_font_identifier);
+            void set_title_font_size(int title_font_size);
             AllegroFlare::EventEmitter* get_event_emitter() const;
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::Elements::ChapterSelect::Carousel get_carousel() const;
             AllegroFlare::Elements::ChapterSelect::PaginationBar get_pagination_bar() const;
+            std::string get_title_font_identifier() const;
+            int get_title_font_size() const;
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
