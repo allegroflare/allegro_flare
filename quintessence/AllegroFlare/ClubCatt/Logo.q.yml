@@ -68,6 +68,12 @@ properties:
     type: float
     init_with: 0.0f
 
+  - name: clear_background_to_color
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: finished
     type: bool
     init_with: false
@@ -291,7 +297,7 @@ functions:
 
       camera.setup_projection_on(get_display_backbuffer());
       al_clear_depth_buffer(1);
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
+      if (clear_background_to_color) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
 
       object_placement.start_transform();
       model->draw();

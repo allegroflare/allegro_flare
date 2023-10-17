@@ -30,6 +30,7 @@ Logo::Logo(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bi
    , playback_speed_multiplier(1.65)
    , playing(false)
    , playing_started_at(0.0f)
+   , clear_background_to_color(true)
    , finished(false)
    , on_finished_callback()
    , on_finished_callback_user_data(nullptr)
@@ -41,6 +42,12 @@ Logo::Logo(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bi
 
 Logo::~Logo()
 {
+}
+
+
+void Logo::set_clear_background_to_color(bool clear_background_to_color)
+{
+   this->clear_background_to_color = clear_background_to_color;
 }
 
 
@@ -71,6 +78,12 @@ AllegroFlare::ModelBin* Logo::get_model_bin() const
 bool Logo::get_playing() const
 {
    return playing;
+}
+
+
+bool Logo::get_clear_background_to_color() const
+{
+   return clear_background_to_color;
 }
 
 
@@ -342,7 +355,7 @@ void Logo::draw(float time_now)
 
    camera.setup_projection_on(get_display_backbuffer());
    al_clear_depth_buffer(1);
-   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
+   if (clear_background_to_color) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
 
    object_placement.start_transform();
    model->draw();

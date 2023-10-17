@@ -33,6 +33,7 @@ namespace AllegroFlare
          float playback_speed_multiplier;
          bool playing;
          float playing_started_at;
+         bool clear_background_to_color;
          bool finished;
          std::function<void(AllegroFlare::ClubCatt::Logo*, void*)> on_finished_callback;
          void* on_finished_callback_user_data;
@@ -46,11 +47,13 @@ namespace AllegroFlare
          Logo(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
          ~Logo();
 
+         void set_clear_background_to_color(bool clear_background_to_color);
          void set_on_finished_callback(std::function<void(AllegroFlare::ClubCatt::Logo*, void*)> on_finished_callback);
          void set_on_finished_callback_user_data(void* on_finished_callback_user_data);
          AllegroFlare::BitmapBin* get_bitmap_bin() const;
          AllegroFlare::ModelBin* get_model_bin() const;
          bool get_playing() const;
+         bool get_clear_background_to_color() const;
          bool get_finished() const;
          std::function<void(AllegroFlare::ClubCatt::Logo*, void*)> get_on_finished_callback() const;
          void* get_on_finished_callback_user_data() const;
