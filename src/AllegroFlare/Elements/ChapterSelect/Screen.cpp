@@ -157,7 +157,7 @@ void Screen::set_title_font_identifier(std::string title_font_identifier)
    return;
 }
 
-void Screen::title_font_size(int title_font_size)
+void Screen::set_title_font_size(int title_font_size)
 {
    chapter_select_element.set_title_font_size(title_font_size);
    return;

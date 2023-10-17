@@ -133,7 +133,7 @@ methods:
       return;
 
 
-  - name: title_font_size
+  - name: set_title_font_size
     parameters:
       - name: title_font_size
         type: int

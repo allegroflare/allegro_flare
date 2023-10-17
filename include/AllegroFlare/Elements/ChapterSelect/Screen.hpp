@@ -68,7 +68,7 @@ namespace AllegroFlare
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_title_font_identifier(std::string title_font_identifier=AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_TITLE_FONT_IDENTIFIER);
-            void title_font_size(int title_font_size=AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_TITLE_FONT_SIZE);
+            void set_title_font_size(int title_font_size=AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_TITLE_FONT_SIZE);
             void set_carousel_element_font_identifier(std::string carousel_element_font_identifier=AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER);
             void set_carousel_element_font_size(int carousel_element_font_size=AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE);
             void set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier=DEFAULT_ROTATE_CAROUSEL_SOUND_EFFECT_IDENTIFIER);
