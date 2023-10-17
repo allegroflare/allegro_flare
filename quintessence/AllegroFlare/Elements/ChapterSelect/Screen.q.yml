@@ -123,6 +123,46 @@ methods:
       return;
 
 
+  - name: set_title_font_identifier
+    parameters:
+      - name: title_font_identifier
+        type: std::string
+        default_argument: AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_TITLE_FONT_IDENTIFIER
+    body: |
+      chapter_select_element.set_title_font_identifier(title_font_identifier);
+      return;
+
+
+  - name: title_font_size
+    parameters:
+      - name: title_font_size
+        type: int
+        default_argument: AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_TITLE_FONT_SIZE
+    body: |
+      chapter_select_element.set_title_font_size(title_font_size);
+      return;
+
+
+  - name: set_carousel_element_font_identifier
+    parameters:
+      - name: carousel_element_font_identifier
+        type: std::string
+        default_argument: AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_CAROUSEL_ELEMENT_FONT_IDENTIFIER
+    body: |
+      chapter_select_element.set_carousel_element_font_identifier(carousel_element_font_identifier);
+      return;
+
+
+  - name: set_carousel_element_font_size
+    parameters:
+      - name: carousel_element_font_size
+        type: int
+        default_argument: AllegroFlare::Elements::ChapterSelect::ChapterSelect::DEFAULT_CAROUSEL_ELEMENT_FONT_SIZE
+    body: |
+      chapter_select_element.set_carousel_element_font_size(carousel_element_font_size);
+      return;
+
+
   - name: set_rotate_carousel_sound_effect_identifier
     parameters:
       - name: rotate_carousel_sound_effect_identifier

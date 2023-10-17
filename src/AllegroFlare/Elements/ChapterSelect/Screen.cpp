@@ -151,6 +151,30 @@ void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
    return;
 }
 
+void Screen::set_title_font_identifier(std::string title_font_identifier)
+{
+   chapter_select_element.set_title_font_identifier(title_font_identifier);
+   return;
+}
+
+void Screen::title_font_size(int title_font_size)
+{
+   chapter_select_element.set_title_font_size(title_font_size);
+   return;
+}
+
+void Screen::set_carousel_element_font_identifier(std::string carousel_element_font_identifier)
+{
+   chapter_select_element.set_carousel_element_font_identifier(carousel_element_font_identifier);
+   return;
+}
+
+void Screen::set_carousel_element_font_size(int carousel_element_font_size)
+{
+   chapter_select_element.set_carousel_element_font_size(carousel_element_font_size);
+   return;
+}
+
 void Screen::set_rotate_carousel_sound_effect_identifier(std::string rotate_carousel_sound_effect_identifier)
 {
    chapter_select_element.set_rotate_carousel_sound_effect_identifier(rotate_carousel_sound_effect_identifier);
