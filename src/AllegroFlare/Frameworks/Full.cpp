@@ -94,6 +94,8 @@ Full::Full()
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
    , shader_source_poller()
    , shader_target_for_hotloading(nullptr)
+   , on_activate_screen_callback_func({})
+   , on_activate_screen_callback_func_user_data(nullptr)
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
@@ -858,6 +860,22 @@ bool Full::is_using_display_backbuffer_as_primary_render_surface()
 
 
 
+void Full::set_on_activate_screen_callback_func(
+      std::function<void(AllegroFlare::Frameworks::Full*, void*)> on_activate_screen_callback_func
+   )
+{
+   this->on_activate_screen_callback_func = on_activate_screen_callback_func;
+}
+
+
+
+void Full::set_on_activate_screen_callback_func_user_data(void* on_activate_screen_callback_func_user_data = nullptr)
+{
+   this->on_activate_screen_callback_func_user_data = on_activate_screen_callback_func_user_data;
+}
+
+
+
 void Full::set_dialog_system_load_node_bank_func(
       std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func
    )
@@ -931,6 +949,10 @@ void Full::unregister_screen(AllegroFlare::Screens::Base *screen)
 
 void Full::activate_screen(std::string name)
 {
+   if (on_activate_screen_callback_func)
+   {
+      on_activate_screen_callback_func(this, on_activate_screen_callback_func_user_data);
+   }
    screens.activate(name);
 }
 
