@@ -36,6 +36,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::ModelBin* get_model_bin() const;
             void initialize();
+            void disable_clearing_background_color();
             virtual void start() override;
             virtual void update() override;
             virtual void render() override;

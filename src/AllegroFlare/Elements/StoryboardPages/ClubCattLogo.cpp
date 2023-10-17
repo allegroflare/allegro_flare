@@ -84,6 +84,13 @@ void ClubCattLogo::initialize()
    initialized = true;
 }
 
+void ClubCattLogo::disable_clearing_background_color()
+{
+   // TODO: Test this
+   clubcatt_logo.set_clear_background_to_color(false);
+   return;
+}
+
 void ClubCattLogo::start()
 {
    float time_now = al_get_time();

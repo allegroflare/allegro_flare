@@ -51,6 +51,13 @@ functions:
       initialized = true;
 
 
+  - name: disable_clearing_background_color
+    body: |
+      // TODO: Test this
+      clubcatt_logo.set_clear_background_to_color(false);
+      return;
+
+
   - name: start
     virtual: true
     override: true
