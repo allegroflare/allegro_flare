@@ -861,7 +861,14 @@ bool Full::is_using_display_backbuffer_as_primary_render_surface()
 
 
 void Full::set_on_activate_screen_callback_func(
-      std::function<void(AllegroFlare::Frameworks::Full*, void*)> on_activate_screen_callback_func
+         std::function<void(
+                     AllegroFlare::Frameworks::Full*, 
+                     std::string,
+                     //AllegroFlare::Screens::Base*,
+                     std::string,
+                     //AllegroFlare::Screens::Base*,
+                  void*)> on_activate_screen_callback_func
+      //std::function<void(AllegroFlare::Frameworks::Full*, void*)> on_activate_screen_callback_func
    )
 {
    this->on_activate_screen_callback_func = on_activate_screen_callback_func;
@@ -951,7 +958,13 @@ void Full::activate_screen(std::string name)
 {
    if (on_activate_screen_callback_func)
    {
-      on_activate_screen_callback_func(this, on_activate_screen_callback_func_user_data);
+      on_activate_screen_callback_func(
+            this,
+            "current_screen_identifier_not_yet_implemented",
+            name,
+            //current_screen,
+            on_activate_screen_callback_func_user_data
+         );
    }
    screens.activate(name);
 }

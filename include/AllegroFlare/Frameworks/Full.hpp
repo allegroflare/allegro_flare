@@ -105,7 +105,13 @@ namespace AllegroFlare
          void draw_overlay();
         
          // User callbacks
-         std::function<void(AllegroFlare::Frameworks::Full*, void*)> on_activate_screen_callback_func;
+         std::function<void(
+                     AllegroFlare::Frameworks::Full*, 
+                     std::string,
+                     //AllegroFlare::Screens::Base*,
+                     std::string,
+                     //AllegroFlare::Screens::Base*,
+                  void*)> on_activate_screen_callback_func;
          void* on_activate_screen_callback_func_user_data;
          std::map<uint32_t, std::pair<std::function<void(ALLEGRO_EVENT*, void*)>, void*>> event_callbacks;
          uint32_t next_event_callback_id;
@@ -190,7 +196,13 @@ namespace AllegroFlare
 
          // Callback funcs
          void set_on_activate_screen_callback_func(
-               std::function<void(AllegroFlare::Frameworks::Full*, void*)> on_activate_screen_callback_func
+               std::function<void(
+                     AllegroFlare::Frameworks::Full*,
+                     std::string,
+                     //AllegroFlare::Screens::Base*,
+                     std::string,
+                     //AllegroFlare::Screens::Base*,
+                     void*)> on_activate_screen_callback_func
             );
          void set_on_activate_screen_callback_func_user_data(void* on_activate_screen_callback_func_user_data);
 
