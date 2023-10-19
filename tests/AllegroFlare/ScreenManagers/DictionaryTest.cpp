@@ -30,8 +30,8 @@ public:
       , activation_order_tracker(activation_order_tracker)
    {}
 
-   //virtual void on_activate() override; { activation_order_tracker->push_back(identifier_duplicate + " - activate"); }
-   //virtual void on_deactivate() override; { activation_order_tracker->push_back(identifier_duplicate + " - deactivate"); }
+   virtual void on_activate() override { activation_order_tracker->push_back(identifier_duplicate + " - activate"); }
+   virtual void on_deactivate() override { activation_order_tracker->push_back(identifier_duplicate + " - deactivate"); }
 };
 
 
@@ -212,21 +212,30 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest,
    dictionary.add("screen_2", &screen_2);
    dictionary.add("screen_3", &screen_3);
 
-   EXPECT_EQ(false, dictionary.is_active("screen_1"));
-   EXPECT_EQ(false, dictionary.is_active("screen_2"));
-   EXPECT_EQ(false, dictionary.is_active("screen_3"));
-
+   // Using a somewhat random ordering
    dictionary.activate("screen_2");
-
-   EXPECT_EQ(false, dictionary.is_active("screen_1"));
-   EXPECT_EQ(true, dictionary.is_active("screen_2"));
-   EXPECT_EQ(false, dictionary.is_active("screen_3"));
-
    dictionary.activate("screen_3");
+   dictionary.activate("screen_1");
+   dictionary.activate("screen_3");
+   dictionary.activate("screen_2");
+   dictionary.activate("screen_1");
 
-   EXPECT_EQ(false, dictionary.is_active("screen_1"));
-   EXPECT_EQ(false, dictionary.is_active("screen_2"));
-   EXPECT_EQ(true, dictionary.is_active("screen_3"));
+   std::vector<std::string> expected_activation_order_tracker = {
+      "screen_2 - activate",
+      "screen_2 - deactivate",
+      "screen_3 - activate",
+      "screen_3 - deactivate",
+      "screen_1 - activate",
+      "screen_1 - deactivate",
+      "screen_3 - activate",
+      "screen_3 - deactivate",
+      "screen_2 - activate",
+      "screen_2 - deactivate",
+      "screen_1 - activate",
+   };
+
+   EXPECT_EQ(expected_activation_order_tracker, activation_order_tracker);
+
 
    al_uninstall_system();
 }
