@@ -49,6 +49,12 @@ void Dictionary::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
+void Dictionary::deactivate_all_screens_not_of(const std::string& screen_identifier)
+{
+   // TODO: this function
+}
+
+
 void Dictionary::allow_disabled_screens_to_receive_events()
 {
    disabled_screens_receive_events = true;

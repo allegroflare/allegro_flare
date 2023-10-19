@@ -790,6 +790,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEventDatas/ScreenActivated",
     "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
@@ -1835,6 +1836,9 @@
     "AllegroFlare/RouteEventDatas/StartLevel",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
+  ],
+  "AllegroFlare/GameEventDatas/ScreenActivated": [
+    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",

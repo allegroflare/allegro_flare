@@ -35,6 +35,7 @@ namespace AllegroFlare
          Listing *find_listing(std::string identifier);
          bool disabled_screens_receive_events;
          AllegroFlare::EventEmitter *event_emitter;
+         void deactivate_all_screens_not_of(const std::string& screen_identifier);
 
       public:
          Dictionary(bool disabled_screens_receive_events=false);

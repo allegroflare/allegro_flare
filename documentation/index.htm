@@ -186,6 +186,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Frame.q.yml">quintessence/AllegroFlare/FrameAnimation/Frame.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEvent.q.yml">quintessence/AllegroFlare/GameEvent.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/Base.q.yml">quintessence/AllegroFlare/GameEventDatas/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml">quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</a></li>
@@ -10316,9 +10317,6 @@ table td
   <td class="method">emit_screen_activated_event(std::string screen_identifier=&quot;[unset-screen_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">emit_screen_deactivated_event(std::string screen_identifier=&quot;[unset-screen_identifier]&quot;)</td>
-</tr>
-<tr>
   <td class="method">emit_activate_dialog_node_by_name_event(std::string dialog_node_name_to_activate=&quot;[unset-dialog_node_name_to_activate]&quot;)</td>
 </tr>
 <tr>
@@ -10461,6 +10459,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::ScreenActivated&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/ScreenActivated.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -10829,6 +10830,32 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml">quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">screen_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -30147,6 +30174,7 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEventDatas/ScreenActivated",
     "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
@@ -31192,6 +31220,9 @@ table td
     "AllegroFlare/RouteEventDatas/StartLevel",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
+  ],
+  "AllegroFlare/GameEventDatas/ScreenActivated": [
+    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
