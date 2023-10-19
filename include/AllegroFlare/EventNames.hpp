@@ -22,6 +22,12 @@
 #define ALLEGRO_FLARE_EVENT_ROUTER                      ALLEGRO_GET_EVENT_TYPE('F','R','t','r')
 
 
+// Notices
+
+#define ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED            ALLEGRO_GET_EVENT_TYPE('F','S','A','c')
+#define ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED          ALLEGRO_GET_EVENT_TYPE('F','S','D','a')
+
+
 // likely to only be internal
 
 #define ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR                    ALLEGRO_GET_EVENT_TYPE('F','S','I','H')

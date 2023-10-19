@@ -63,8 +63,13 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest,
 
 TEST(AllegroFlare_ScreenManagers_DictionaryTest, activate__when_a_screen_does_not_exist_with_the_name__throws_an_error)
 {
+   al_init(); // Required for event emitter
    AllegroFlare::Screens::Base screen;
+   AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::ScreenManagers::Dictionary dictionary;
+
+   event_emitter.initialize();
+   dictionary.set_event_emitter(&event_emitter);
 
    EXPECT_THROW_WITH_MESSAGE(
       dictionary.activate("a-record-identifier-that-does-not-exist"),
@@ -72,6 +77,7 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest, activate__when_a_screen_does_no
       "[AllegroFlare::ScreenManagers::Dictionary::activate]: error: Cannot activate screen \"a-record-identifier"
          "-that-does-not-exist\". No such screen exists."
    );
+   al_uninstall_system();
 }
 
 

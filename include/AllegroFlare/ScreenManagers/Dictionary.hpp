@@ -7,6 +7,7 @@
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
+#include <AllegroFlare/EventEmitter.hpp>
 
 
 namespace AllegroFlare
@@ -33,10 +34,13 @@ namespace AllegroFlare
          std::map<std::string, Listing> screens;
          Listing *find_listing(std::string identifier);
          bool disabled_screens_receive_events;
+         AllegroFlare::EventEmitter *event_emitter;
 
       public:
          Dictionary(bool disabled_screens_receive_events=false);
          ~Dictionary();
+
+         void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
 
          // states
          void allow_disabled_screens_to_receive_events();

@@ -355,6 +355,9 @@ bool Full::initialize_core_system()
       AllegroColorAttributeDatatype::to_str_func
    );
 
+   // Setup our screens, TODO: Consider an initializtion scheme
+   screens.set_event_emitter(&event_emitter);
+
    // Initialize our AudioController
    audio_controller.initialize();
 
@@ -723,6 +726,7 @@ bool Full::shutdown()
 
    // Restore the directory before start
    deployment_environment.restore_initial_working_directory();
+
 
    // TODO:
    // Destroy our list of input devices

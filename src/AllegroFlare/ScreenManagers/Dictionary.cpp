@@ -5,6 +5,7 @@
 #include <AllegroFlare/Screens/Base.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/EventNames.hpp>
 #include <algorithm>
 #include <sstream>
 
@@ -32,12 +33,19 @@ bool Dictionary::Listing::operator==(const Listing &other) const
 Dictionary::Dictionary(bool disabled_screens_receive_events)
    : screens({})
    , disabled_screens_receive_events(disabled_screens_receive_events)
+   , event_emitter(nullptr)
 {
 }
 
 
 Dictionary::~Dictionary()
 {
+}
+
+
+void Dictionary::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   this->event_emitter = event_emitter;
 }
 
 
@@ -161,6 +169,14 @@ bool Dictionary::remove(std::string identifier)
 
 bool Dictionary::activate(std::string identifier)
 {
+   if (!event_emitter)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::ScreenManagers::Dictionary::activate",
+         "guard: (event_emitter != nullptr) not met."
+      );
+   }
+
    // obtain record
    Listing *listing = Dictionary::find_listing(identifier);
 
@@ -185,17 +201,32 @@ bool Dictionary::activate(std::string identifier)
       if (&screen.second == listing)
       {
          screen.second.active = true;
-         if (screen.second.screen) screen.second.screen->on_activate();
+         if (screen.second.screen)
+         {
+            screen.second.screen->on_activate();
+            // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED
+            // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED
+         }
          else
          {
             // TODO: show warning, could not activate, no screen
          }
+         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED);
          activated = true;
       }
       else if (screen.second.active)
       {
          screen.second.active = false;
-         if (screen.second.screen) screen.second.screen->on_deactivate();
+         if (screen.second.screen)
+         {
+            screen.second.screen->on_deactivate();
+            // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED
+         }
+         else
+         {
+            // TODO: show warning, could not activate, no screen
+         }
+         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED);
       }
    }
    return activated;
