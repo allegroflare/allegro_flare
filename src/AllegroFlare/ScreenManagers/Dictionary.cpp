@@ -264,6 +264,9 @@ bool Dictionary::activate(std::string identifier)
       return false; // TODO add warning message
    }
 
+   // Deactivate all screens not of the screen to activate
+   deactivate_all_screens_not_of(identifier);
+
    // activate screen and deactivate all other screens that are active
    bool activated = false;
    for (auto &screen : screens)
@@ -284,20 +287,20 @@ bool Dictionary::activate(std::string identifier)
          event_emitter->emit_screen_activated_event(identifier);
          activated = true;
       }
-      else if (screen.second.active)
-      {
-         screen.second.active = false;
-         if (screen.second.screen)
-         {
-            screen.second.screen->on_deactivate();
+      //else if (screen.second.active)
+      //{
+         //screen.second.active = false;
+         //if (screen.second.screen)
+         //{
+            ////screen.second.screen->on_deactivate();
             // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED
-         }
-         else
-         {
-            // TODO: show warning, could not activate, no screen
-         }
-         //event_emitter->emit_screen_deactivated_event(identifier); // Not supported
-      }
+         //}
+         //else
+         //{
+            //// TODO: show warning, could not activate, no screen
+         //}
+         ////event_emitter->emit_screen_deactivated_event(identifier); // Not supported
+      //}
    }
    return activated;
 }
@@ -307,6 +310,19 @@ std::string Dictionary::get_currently_active_screen_name()
 {
    for (auto &screen : screens) if (screen.second.active) return screen.first;
    return "";
+}
+
+
+bool Dictionary::is_active(const std::string& identifier)
+{
+   if (screens.count(identifier) == 0)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::ScreenManagers::Dictionary::is_active",
+            "Screen named \"" + identifier + "\" does not exist."
+         );
+   }
+   return screens[identifier].active;
 }
 
 

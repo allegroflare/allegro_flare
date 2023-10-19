@@ -7,6 +7,15 @@
 #include <AllegroFlare/Screens/Base.hpp>
 
 
+
+class ScreenTestClass : public AllegroFlare::Screens::Base
+{
+public:
+   ScreenTestClass() {};
+};
+
+
+
 TEST(AllegroFlare_ScreenManagers_DictionaryTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::ScreenManagers::Dictionary dictionary;
@@ -94,6 +103,88 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest,
       std::runtime_error,
       "[AllegroFlare::ScreenManagers::Dictionary::add]: error: A screen name cannot be blank."
    );
+}
+
+
+TEST(AllegroFlare_ScreenManagers_DictionaryTest,
+   activate__will_set_the_screen_to_be_active)
+{
+   al_init();
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::ScreenManagers::Dictionary dictionary;
+   event_emitter.initialize();
+   dictionary.set_event_emitter(&event_emitter);
+
+   ScreenTestClass screen_1;
+   ScreenTestClass screen_2;
+   ScreenTestClass screen_3;
+
+   dictionary.add("screen_1", &screen_1);
+   dictionary.add("screen_2", &screen_2);
+   dictionary.add("screen_3", &screen_3);
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(false, dictionary.is_active("screen_2"));
+   EXPECT_EQ(false, dictionary.is_active("screen_3"));
+
+   dictionary.activate("screen_2");
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(true, dictionary.is_active("screen_2"));
+   EXPECT_EQ(false, dictionary.is_active("screen_3"));
+
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_ScreenManagers_DictionaryTest,
+   activate__will_deactivate_any_other_active_screens)
+{
+   al_init();
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::ScreenManagers::Dictionary dictionary;
+   event_emitter.initialize();
+   dictionary.set_event_emitter(&event_emitter);
+
+   ScreenTestClass screen_1;
+   ScreenTestClass screen_2;
+   ScreenTestClass screen_3;
+
+   dictionary.add("screen_1", &screen_1);
+   dictionary.add("screen_2", &screen_2);
+   dictionary.add("screen_3", &screen_3);
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(false, dictionary.is_active("screen_2"));
+   EXPECT_EQ(false, dictionary.is_active("screen_3"));
+
+   dictionary.activate("screen_2");
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(true, dictionary.is_active("screen_2"));
+   EXPECT_EQ(false, dictionary.is_active("screen_3"));
+
+   dictionary.activate("screen_3");
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(false, dictionary.is_active("screen_2"));
+   EXPECT_EQ(true, dictionary.is_active("screen_3"));
+
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_ScreenManagers_DictionaryTest,
+   activate__will_always_deactivate_any_other_active_screens_prior_to_activating_the_target_screen)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_ScreenManagers_DictionaryTest,
+   activate__will_emit_a_game_event_indicating_a_screen_has_been_activated)
+{
+   // TODO
 }
 
 
