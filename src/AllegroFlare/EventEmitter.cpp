@@ -5,6 +5,7 @@
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -121,24 +122,10 @@ void EventEmitter::emit_screen_activated_event(std::string screen_identifier)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("EventEmitter::emit_screen_activated_event: error: guard \"initialized\" not met");
    }
-   // NOTE: This method is only expected to be used from within ScreenManagers::* classes
-   intptr_t data_to_pass = (intptr_t)(void *)(new std::string(screen_identifier));
-   emit_event(ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED, data_to_pass);
-   return;
-}
-
-void EventEmitter::emit_screen_deactivated_event(std::string screen_identifier)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[EventEmitter::emit_screen_deactivated_event]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_screen_deactivated_event: error: guard \"initialized\" not met");
-   }
-   // NOTE: This method is only expected to be used from within ScreenManagers::* classes
-   intptr_t data_to_pass = (intptr_t)(void *)(new std::string(screen_identifier));
-   emit_event(ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED, data_to_pass);
+   emit_game_event(AllegroFlare::GameEvent(
+         "screen_activated",
+         new AllegroFlare::GameEventDatas::ScreenActivated(screen_identifier)
+      ));
    return;
 }
 

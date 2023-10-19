@@ -24,8 +24,8 @@
 
 // Notices
 
-#define ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED            ALLEGRO_GET_EVENT_TYPE('F','S','A','c')
-#define ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED          ALLEGRO_GET_EVENT_TYPE('F','S','D','a')
+//#define ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED            ALLEGRO_GET_EVENT_TYPE('F','S','A','c')
+//#define ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED          ALLEGRO_GET_EVENT_TYPE('F','S','D','a')
 
 
 // likely to only be internal

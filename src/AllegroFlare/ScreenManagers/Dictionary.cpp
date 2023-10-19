@@ -5,7 +5,7 @@
 #include <AllegroFlare/Screens/Base.hpp>
 
 #include <AllegroFlare/Logger.hpp>
-#include <AllegroFlare/EventNames.hpp>
+//#include <AllegroFlare/EventNames.hpp>
 #include <algorithm>
 #include <sstream>
 
@@ -226,7 +226,7 @@ bool Dictionary::activate(std::string identifier)
          {
             // TODO: show warning, could not activate, no screen
          }
-         event_emitter->emit_screen_deactivated_event(identifier);
+         //event_emitter->emit_screen_deactivated_event(identifier); // Not supported
       }
    }
    return activated;
