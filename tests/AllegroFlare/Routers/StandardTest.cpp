@@ -59,6 +59,8 @@ public:
       event_queue = al_create_event_queue();
       event_emitter.initialize();
       al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+      screen_manager.set_event_emitter(&event_emitter);
+      router.set_event_emitter(&event_emitter);
       router.set_screen_manager(&screen_manager);
       router.set_event_emitter(&event_emitter);
    }
