@@ -15,6 +15,25 @@ public:
 };
 
 
+class ScreenTestClassWithActivationDeactivationTracking : public AllegroFlare::Screens::Base
+{
+private:
+   std::string identifier_duplicate;
+   std::vector<std::string> *activation_order_tracker;
+
+public:
+   ScreenTestClassWithActivationDeactivationTracking(
+         std::string identifier_duplicate="",
+         std::vector<std::string> *activation_order_tracker=nullptr
+      )
+      : identifier_duplicate(identifier_duplicate)
+      , activation_order_tracker(activation_order_tracker)
+   {}
+
+   //virtual void on_activate() override; { activation_order_tracker->push_back(identifier_duplicate + " - activate"); }
+   //virtual void on_deactivate() override; { activation_order_tracker->push_back(identifier_duplicate + " - deactivate"); }
+};
+
 
 TEST(AllegroFlare_ScreenManagers_DictionaryTest, can_be_created_without_blowing_up)
 {
@@ -177,7 +196,39 @@ TEST(AllegroFlare_ScreenManagers_DictionaryTest,
 TEST(AllegroFlare_ScreenManagers_DictionaryTest,
    activate__will_always_deactivate_any_other_active_screens_prior_to_activating_the_target_screen)
 {
-   // TODO
+   al_init();
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::ScreenManagers::Dictionary dictionary;
+   event_emitter.initialize();
+   dictionary.set_event_emitter(&event_emitter);
+
+   std::vector<std::string> activation_order_tracker;
+
+   ScreenTestClassWithActivationDeactivationTracking screen_1("screen_1", &activation_order_tracker);
+   ScreenTestClassWithActivationDeactivationTracking screen_2("screen_2", &activation_order_tracker);
+   ScreenTestClassWithActivationDeactivationTracking screen_3("screen_3", &activation_order_tracker);
+
+   dictionary.add("screen_1", &screen_1);
+   dictionary.add("screen_2", &screen_2);
+   dictionary.add("screen_3", &screen_3);
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(false, dictionary.is_active("screen_2"));
+   EXPECT_EQ(false, dictionary.is_active("screen_3"));
+
+   dictionary.activate("screen_2");
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(true, dictionary.is_active("screen_2"));
+   EXPECT_EQ(false, dictionary.is_active("screen_3"));
+
+   dictionary.activate("screen_3");
+
+   EXPECT_EQ(false, dictionary.is_active("screen_1"));
+   EXPECT_EQ(false, dictionary.is_active("screen_2"));
+   EXPECT_EQ(true, dictionary.is_active("screen_3"));
+
+   al_uninstall_system();
 }
 
 
