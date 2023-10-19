@@ -56,6 +56,7 @@ namespace AllegroFlare
 
       Placement2D& operator+=(Placement2D &other);
       Placement2D operator-(Placement2D &other);
+      Placement2D operator+(Placement2D &other);
       Placement2D operator*(float f); // mostly used when Placement2D represents a velocity
    };
 }

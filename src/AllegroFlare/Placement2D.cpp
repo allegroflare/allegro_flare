@@ -566,6 +566,7 @@ Placement2D& Placement2D::operator+=(Placement2D& other)
 
 Placement2D Placement2D::operator-(Placement2D& other)
 {
+   // TODO: Test this
    AllegroFlare::Placement2D result = *this;
    position -= other.position;
    size -= other.size;
@@ -573,6 +574,23 @@ Placement2D Placement2D::operator-(Placement2D& other)
    scale -= other.scale;
    anchor -= other.anchor;
    rotation -= other.rotation;
+   // flip.x and flip.y are ignored
+   // however, they should flip whatever value is currently present if other.flip.x == true, or otherwise
+   return *this;
+}
+
+
+
+Placement2D Placement2D::operator+(Placement2D& other)
+{
+   // TODO: Test this
+   AllegroFlare::Placement2D result = *this;
+   position += other.position;
+   size += other.size;
+   align += other.align;
+   scale += other.scale;
+   anchor += other.anchor;
+   rotation += other.rotation;
    // flip.x and flip.y are ignored
    // however, they should flip whatever value is currently present if other.flip.x == true, or otherwise
    return *this;
