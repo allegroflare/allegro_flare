@@ -1564,6 +1564,23 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                     }
                   break;
 
+                  // TODO: Test these cases. This is the only location where deactivation is handled
+                  case ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED:
+                  case ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED:
+                    {
+                       std::string *data = (std::string *)this_event.user.data1;
+                       if (!data)
+                       {
+                          // TODO: add an error message
+                       }
+                       else
+                       {
+                          //audio_controller.play_sound_effect(*data);
+                          delete data;
+                       }
+                    }
+                  break;
+
                   case ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS:
                     {
                        audio_controller.stop_all_music_tracks();
