@@ -55,6 +55,7 @@ namespace AllegroFlare
       std::string get_string();
 
       Placement2D& operator+=(Placement2D &other);
+      Placement2D operator-(Placement2D &other);
       Placement2D operator*(float f); // mostly used when Placement2D represents a velocity
    };
 }
