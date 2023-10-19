@@ -112,7 +112,7 @@ int Dictionary::deactivate_all_screens_not_of(const std::string& screen_identifi
          {
             // TODO: show warning, could not activate, no screen
          }
-         //event_emitter->emit_screen_deactivated_event(screen_identifier); // Not supported
+         //event_emitter->emit_screen_deactivated_event(screen_identifier); // NOTE: This feature could added if needed
       }
    }
    return num_screens_deactivated;
