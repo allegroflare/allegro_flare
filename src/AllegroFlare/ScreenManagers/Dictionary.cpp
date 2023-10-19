@@ -49,9 +49,73 @@ void Dictionary::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 }
 
 
-void Dictionary::deactivate_all_screens_not_of(const std::string& screen_identifier)
+int Dictionary::deactivate_all_screens_not_of(const std::string& screen_identifier)
 {
-   // TODO: this function
+   // TODO: Include emitting events
+   int num_screens_deactivated = 0;
+
+   if (!event_emitter)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::ScreenManagers::Dictionary::deactivate_all_screens_not_of",
+         "guard: (event_emitter != nullptr) not met."
+      );
+   }
+
+   // obtain record
+   Listing *listing = Dictionary::find_listing(screen_identifier);
+
+   // validate exists
+   //if (listing == nullptr)
+   //{
+      //std::stringstream error_message;
+      //error_message << "Cannot activate screen \"" << screen_identifier << "\". No such screen exists.";
+      //AllegroFlare::Logger::throw_error("AllegroFlare::ScreenManagers::Dictionary::activate", error_message.str());
+   //}
+
+   // validate is not already active
+   //if (listing->active)
+   //{
+      //return 0; // TODO add warning message
+   //}
+
+   // activate screen and deactivate all other screens that are active
+   for (auto &screen : screens)
+   {
+      if (listing != nullptr && &screen.second == listing)
+      {
+         // This is the screen to NOT deactivate, so do nothing
+
+         //screen.second.active = true;
+         //if (screen.second.screen)
+         //{
+            //screen.second.screen->on_activate();
+            //// TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED
+            //// TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED
+         //}
+         //else
+         //{
+            //// TODO: show warning, could not activate, no screen
+         //}
+         //event_emitter->emit_screen_activated_event(screen_identifier);
+      }
+      else if (screen.second.active)
+      {
+         screen.second.active = false;
+         num_screens_deactivated++;
+         if (screen.second.screen)
+         {
+            screen.second.screen->on_deactivate();
+            // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED
+         }
+         else
+         {
+            // TODO: show warning, could not activate, no screen
+         }
+         //event_emitter->emit_screen_deactivated_event(screen_identifier); // Not supported
+      }
+   }
+   return num_screens_deactivated;
 }
 
 
