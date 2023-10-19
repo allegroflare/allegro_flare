@@ -211,7 +211,7 @@ bool Dictionary::activate(std::string identifier)
          {
             // TODO: show warning, could not activate, no screen
          }
-         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED);
+         event_emitter->emit_screen_activated_event(identifier);
          activated = true;
       }
       else if (screen.second.active)
@@ -226,7 +226,7 @@ bool Dictionary::activate(std::string identifier)
          {
             // TODO: show warning, could not activate, no screen
          }
-         event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED);
+         event_emitter->emit_screen_deactivated_event(identifier);
       }
    }
    return activated;
