@@ -85,7 +85,25 @@ void Base::managed_primary_timer_func()
 }
 
 
+void Base::managed_on_activate()
+{
+   if (background) background->activate();
+   on_activate();
+   if (foreground) foreground->activate();
+}
+
+
+void Base::managed_on_deactivate()
+{
+   if (background) background->deactivate();
+   on_deactivate();
+   if (foreground) foreground->deactivate();
+}
+
+
 void Base::on_activate() {}
+
+
 void Base::on_deactivate() {}
 void Base::on_event(ALLEGRO_EVENT *ev) {}
 void Base::primary_timer_func() {}

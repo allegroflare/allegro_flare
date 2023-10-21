@@ -36,9 +36,11 @@ namespace AllegroFlare
          AllegroFlare::Elements::Backgrounds::Base *get_foreground();
 
          virtual void managed_primary_timer_func() final; // renders the background and foreground
+         virtual void managed_on_activate() final;
+         virtual void managed_on_deactivate() final;
 
-         virtual void on_activate(); // activated through the manager
-         virtual void on_deactivate(); // deactivated thorugh the screen manager
+         virtual void on_activate(); // When controlled/managed through a ScreenManagers/*
+         virtual void on_deactivate(); // When controlled/managed through a ScreenManagers/*
          virtual void on_event(ALLEGRO_EVENT *ev);
          virtual void primary_timer_func();
          virtual void timer_func();
