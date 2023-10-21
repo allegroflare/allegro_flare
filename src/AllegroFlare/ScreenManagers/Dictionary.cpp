@@ -354,7 +354,7 @@ void Dictionary::primary_timer_funcs()
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
-         screen.second.screen->primary_timer_func();
+         screen.second.screen->managed_primary_timer_func();
 }
 
 

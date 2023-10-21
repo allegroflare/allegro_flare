@@ -27,7 +27,9 @@ namespace AllegroFlare
          std::string get_type();
          bool is_type(std::string possible_type);
 
-         virtual void on_activate(); // activted through the manager
+         virtual void managed_primary_timer_func() final; // renders the background and foreground
+
+         virtual void on_activate(); // activated through the manager
          virtual void on_deactivate(); // deactivated thorugh the screen manager
          virtual void on_event(ALLEGRO_EVENT *ev);
          virtual void primary_timer_func();

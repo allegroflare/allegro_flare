@@ -43,6 +43,12 @@ bool Base::is_type(std::string possible_type)
 }
 
 
+void Base::managed_primary_timer_func()
+{
+   primary_timer_func();
+}
+
+
 void Base::on_activate() {}
 void Base::on_deactivate() {}
 void Base::on_event(ALLEGRO_EVENT *ev) {}
