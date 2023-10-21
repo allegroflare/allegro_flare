@@ -8,6 +8,7 @@
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 
 
 namespace AllegroFlare
@@ -18,12 +19,14 @@ namespace AllegroFlare
       {
       private:
          std::string type;
+         //AllegroFlare::Elements::Backgrounds::Base *background;
+         //AllegroFlare::Elements::Backgrounds::Base *foreground;
 
       public:
          Base(std::string type="Base");
          virtual ~Base();
 
-         void set_type(std::string type);
+         //void set_type(std::string type);
          std::string get_type();
          bool is_type(std::string possible_type);
 
