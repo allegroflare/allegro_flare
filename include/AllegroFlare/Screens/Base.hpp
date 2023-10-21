@@ -19,8 +19,8 @@ namespace AllegroFlare
       {
       private:
          std::string type;
-         //AllegroFlare::Elements::Backgrounds::Base *background;
-         //AllegroFlare::Elements::Backgrounds::Base *foreground;
+         AllegroFlare::Elements::Backgrounds::Base *background;
+         AllegroFlare::Elements::Backgrounds::Base *foreground;
 
       public:
          Base(std::string type="Base");
@@ -29,6 +29,11 @@ namespace AllegroFlare
          //void set_type(std::string type);
          std::string get_type();
          bool is_type(std::string possible_type);
+
+         void set_background(AllegroFlare::Elements::Backgrounds::Base *background=nullptr);
+         void set_foreground(AllegroFlare::Elements::Backgrounds::Base *foreground=nullptr);
+         AllegroFlare::Elements::Backgrounds::Base *get_background();
+         AllegroFlare::Elements::Backgrounds::Base *get_foreground();
 
          virtual void managed_primary_timer_func() final; // renders the background and foreground
 

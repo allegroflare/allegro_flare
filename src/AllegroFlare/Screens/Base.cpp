@@ -16,6 +16,8 @@ namespace Screens
 
 Base::Base(std::string type)
    : type(type)
+   , background(nullptr)
+   , foreground(nullptr)
 {
 }
 
@@ -25,10 +27,10 @@ Base::~Base()
 }
 
 
-void Base::set_type(std::string type)
-{
-   this->type = type;
-}
+//void Base::set_type(std::string type)
+//{
+   //this->type = type;
+//}
 
 
 std::string Base::get_type()
@@ -43,9 +45,43 @@ bool Base::is_type(std::string possible_type)
 }
 
 
+void Base::set_background(AllegroFlare::Elements::Backgrounds::Base *background)
+{
+   this->background = background;
+}
+
+
+void Base::set_foreground(AllegroFlare::Elements::Backgrounds::Base *foreground)
+{
+   this->foreground = foreground;
+}
+
+
+AllegroFlare::Elements::Backgrounds::Base *Base::get_background()
+{
+   return background;
+}
+
+
+AllegroFlare::Elements::Backgrounds::Base *Base::get_foreground()
+{
+   return foreground;
+}
+
+
 void Base::managed_primary_timer_func()
 {
+   if (background)
+   {
+      background->update();
+      background->render();
+   }
    primary_timer_func();
+   if (foreground)
+   {
+      foreground->update();
+      foreground->render();
+   }
 }
 
 
