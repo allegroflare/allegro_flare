@@ -15,8 +15,7 @@ namespace Screens
 
 
 Base::Base(std::string type)
-   : AllegroFlare::ElementID(nullptr)
-   , type(type)
+   : type(type)
 {
 }
 

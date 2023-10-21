@@ -10,6 +10,9 @@
 #include <sstream>
 
 
+#include <iostream>
+
+
 
 namespace AllegroFlare
 {

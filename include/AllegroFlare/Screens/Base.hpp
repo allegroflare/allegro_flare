@@ -5,7 +5,6 @@
 #include <vector>
 #include <allegro5/allegro.h>
 #include <AllegroFlare/Display.hpp>
-#include <AllegroFlare/ElementID.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
@@ -15,7 +14,7 @@ namespace AllegroFlare
 {
    namespace Screens
    {
-      class Base : public ElementID
+      class Base
       {
       private:
          std::string type;
