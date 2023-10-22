@@ -108,7 +108,7 @@ int Dictionary::deactivate_all_screens_not_of(const std::string& screen_identifi
          num_screens_deactivated++;
          if (screen.second.screen)
          {
-            screen.second.screen->on_deactivate();
+            screen.second.screen->managed_on_deactivate();
             // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED
          }
          else
@@ -279,7 +279,7 @@ bool Dictionary::activate(std::string identifier)
          screen.second.active = true;
          if (screen.second.screen)
          {
-            screen.second.screen->on_activate();
+            screen.second.screen->managed_on_activate();
             // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED
             // TODO: emit ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED
          }

@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -26,7 +25,6 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          int mode;
          bool initialized;
 
@@ -34,13 +32,11 @@ namespace AllegroFlare
 
 
       public:
-         CharacterNameInput(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard={}, AllegroFlare::Elements::Backgrounds::Base* background=nullptr);
+         CharacterNameInput(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard={});
          virtual ~CharacterNameInput();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          void initialize();
          virtual void on_activate() override;
          virtual void on_deactivate() override;

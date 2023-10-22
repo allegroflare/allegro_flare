@@ -27,7 +27,6 @@ InputDeviceConfiguration::InputDeviceConfiguration(AllegroFlare::EventEmitter* e
    , input_devices_list(input_devices_list)
    , input_devices_list_element()
    , input_device_configuration_element()
-   , background(nullptr)
    , initialized(false)
 {
 }
@@ -62,12 +61,6 @@ void InputDeviceConfiguration::set_on_exit_callback_func_user_data(void* on_exit
 }
 
 
-void InputDeviceConfiguration::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
-}
-
-
 std::size_t InputDeviceConfiguration::get_surface_width() const
 {
    return surface_width;
@@ -89,12 +82,6 @@ std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> Inp
 void* InputDeviceConfiguration::get_on_exit_callback_func_user_data() const
 {
    return on_exit_callback_func_user_data;
-}
-
-
-AllegroFlare::Elements::Backgrounds::Base* InputDeviceConfiguration::get_background() const
-{
-   return background;
 }
 
 
@@ -231,7 +218,6 @@ void InputDeviceConfiguration::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDeviceConfiguration::on_activate: error: guard \"initialized\" not met");
    }
-   if (background) background->activate();
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
    return;
@@ -246,7 +232,6 @@ void InputDeviceConfiguration::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDeviceConfiguration::on_deactivate: error: guard \"initialized\" not met");
    }
-   if (background) background->deactivate();
    //emit_hide_and_restore_size_input_hints_bar_event();
    return;
 }
@@ -272,9 +257,7 @@ void InputDeviceConfiguration::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("InputDeviceConfiguration::primary_timer_func: error: guard \"initialized\" not met");
    }
-   if (background) background->update();
    update();
-   if (background) background->render();
    render();
    return;
 }

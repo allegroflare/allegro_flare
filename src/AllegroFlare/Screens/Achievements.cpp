@@ -15,7 +15,7 @@ namespace Screens
 {
 
 
-Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Achievements* achievements, float scrollbar_dest_position, std::string game_event_name_to_emit_on_exit, AllegroFlare::Elements::Backgrounds::Base* background)
+Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Achievements* achievements, float scrollbar_dest_position, std::string game_event_name_to_emit_on_exit)
    : AllegroFlare::Screens::Base("Achievements")
    , font_bin(font_bin)
    , event_emitter(event_emitter)
@@ -25,7 +25,6 @@ Achievements::Achievements(AllegroFlare::FontBin* font_bin, AllegroFlare::EventE
    , on_exit_callback_func()
    , on_exit_callback_func_user_data(nullptr)
    , game_event_name_to_emit_on_exit(game_event_name_to_emit_on_exit)
-   , background(background)
    , initialized(false)
 {
 }
@@ -60,12 +59,6 @@ void Achievements::set_game_event_name_to_emit_on_exit(std::string game_event_na
 }
 
 
-void Achievements::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
-}
-
-
 std::function<void(AllegroFlare::Screens::Achievements*, void*)> Achievements::get_on_exit_callback_func() const
 {
    return on_exit_callback_func;
@@ -81,12 +74,6 @@ void* Achievements::get_on_exit_callback_func_user_data() const
 std::string Achievements::get_game_event_name_to_emit_on_exit() const
 {
    return game_event_name_to_emit_on_exit;
-}
-
-
-AllegroFlare::Elements::Backgrounds::Base* Achievements::get_background() const
-{
-   return background;
 }
 
 
@@ -141,7 +128,6 @@ void Achievements::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Achievements::on_activate: error: guard \"initialized\" not met");
    }
-   if (background) background->activate();
    // refresh the achievements from the actual list of achievements
    refresh_achievements_list();
 
@@ -164,7 +150,6 @@ void Achievements::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Achievements::on_deactivate: error: guard \"initialized\" not met");
    }
-   if (background) background->deactivate();
    // emit events to show and set the input hints
    // TODO: add ALLEGRO_FLARE_EVENT_CLEAR_INPUT_HINTS_BAR
    event_emitter->emit_set_input_hints_bar_event({});
@@ -246,7 +231,6 @@ void Achievements::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Achievements::update: error: guard \"initialized\" not met");
    }
-   if (background) background->update();
    float scrollbar_position = achievements_list.get_scrollbar_position();
    if (scrollbar_position != scrollbar_dest_position)
    {
@@ -339,7 +323,6 @@ void Achievements::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Achievements::render: error: guard \"initialized\" not met");
    }
-   if (background) background->render();
    achievements_list.render();
    return;
 }

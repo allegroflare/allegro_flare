@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/Storyboard.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -33,7 +32,6 @@ namespace AllegroFlare
          bool auto_advance;
          std::string game_event_name_to_emit_after_completing;
          uint32_t route_event_to_emit_after_completing;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          bool initialized;
          void emit_completion_event();
          void advance();
@@ -52,13 +50,11 @@ namespace AllegroFlare
          void set_auto_advance(bool auto_advance);
          void set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing);
          void set_route_event_to_emit_after_completing(uint32_t route_event_to_emit_after_completing);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          std::function<void(AllegroFlare::Screens::Storyboard*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
          bool get_auto_advance() const;
          std::string get_game_event_name_to_emit_after_completing() const;
          uint32_t get_route_event_to_emit_after_completing() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          AllegroFlare::Elements::Storyboard &get_storyboard_element_ref();
          void initialize();
          virtual void on_activate() override;

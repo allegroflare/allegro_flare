@@ -26,13 +26,6 @@ properties:
     constructor_arg: true
     init_with: '{}'
 
-  - name: background
-    type: AllegroFlare::Elements::Backgrounds::Base*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-    getter: true
-
   - name: mode
     type: int
     init_with: MODE_USING_VIRTUAL_CONTROLS
@@ -77,7 +70,6 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->activate();
       software_keyboard.reset();
       return;
 
@@ -87,7 +79,6 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->deactivate();
       return;
 
 
@@ -96,8 +87,6 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->update();
-      if (background) background->render();
       render();
       return;
 

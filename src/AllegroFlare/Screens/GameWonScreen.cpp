@@ -19,14 +19,13 @@ std::string GameWonScreen::DEFAULT_TITLE_TEXT = "Y   O   U      W   I   N";
 std::string GameWonScreen::DEFAULT_INSTRUCTION_TEXT = "Press any button";
 
 
-GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, AllegroFlare::Elements::Backgrounds::Base* background, std::string title_font_name, int title_font_size, std::string instruction_text, std::string instruction_font_name, int instruction_font_size, std::string game_event_name_to_emit_on_submission)
+GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string instruction_text, std::string instruction_font_name, int instruction_font_size, std::string game_event_name_to_emit_on_submission)
    : AllegroFlare::Screens::Base("GameWonScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
    , on_submit_callback_func()
    , on_submit_callback_func_user_data(nullptr)
-   , background(background)
    , title_font_name(title_font_name)
    , title_font_size(title_font_size)
    , instruction_text(instruction_text)
@@ -69,12 +68,6 @@ void GameWonScreen::set_on_submit_callback_func(std::function<void(AllegroFlare:
 void GameWonScreen::set_on_submit_callback_func_user_data(void* on_submit_callback_func_user_data)
 {
    this->on_submit_callback_func_user_data = on_submit_callback_func_user_data;
-}
-
-
-void GameWonScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
 }
 
 
@@ -126,12 +119,6 @@ void* GameWonScreen::get_on_submit_callback_func_user_data() const
 }
 
 
-AllegroFlare::Elements::Backgrounds::Base* GameWonScreen::get_background() const
-{
-   return background;
-}
-
-
 std::string GameWonScreen::get_title_font_name() const
 {
    return title_font_name;
@@ -164,20 +151,16 @@ std::string GameWonScreen::get_game_event_name_to_emit_on_submission() const
 
 void GameWonScreen::on_activate()
 {
-   if (background) background->activate();
    return;
 }
 
 void GameWonScreen::on_deactivate()
 {
-   if (background) background->deactivate();
    return;
 }
 
 void GameWonScreen::primary_timer_func()
 {
-   if (background) background->update();
-   if (background) background->render();
    render();
    return;
 }

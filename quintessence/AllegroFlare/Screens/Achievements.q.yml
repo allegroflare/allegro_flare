@@ -56,13 +56,6 @@ properties:
     getter: true
     setter: true
 
-  - name: background
-    type: AllegroFlare::Elements::Backgrounds::Base*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-    getter: true
-
   - name: initialized
     type: bool
     init_with: false
@@ -127,7 +120,6 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->activate();
       // refresh the achievements from the actual list of achievements
       refresh_achievements_list();
 
@@ -146,7 +138,6 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->deactivate();
       // emit events to show and set the input hints
       // TODO: add ALLEGRO_FLARE_EVENT_CLEAR_INPUT_HINTS_BAR
       event_emitter->emit_set_input_hints_bar_event({});
@@ -184,7 +175,6 @@ functions:
     private: true
     guards: [ initialized ]
     body: |
-      if (background) background->update();
       float scrollbar_position = achievements_list.get_scrollbar_position();
       if (scrollbar_position != scrollbar_dest_position)
       {
@@ -280,7 +270,6 @@ functions:
     xprivate: true
     guards: [ initialized ]
     body: |
-      if (background) background->render();
       achievements_list.render();
       return;
     body_dependency_symbols:

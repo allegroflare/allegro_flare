@@ -28,7 +28,6 @@ GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, Allegr
    , menu_options(DEFAULT_MENU_OPTIONS)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
-   , background(nullptr)
    , cursor_position(0)
    , title_font_name(title_font_name)
    , title_font_size(title_font_size)
@@ -74,12 +73,6 @@ void GameOverScreen::set_on_menu_choice_callback_func_user_data(void* on_menu_ch
 }
 
 
-void GameOverScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
-}
-
-
 void GameOverScreen::set_title_font_name(std::string title_font_name)
 {
    this->title_font_name = title_font_name;
@@ -113,12 +106,6 @@ std::function<void(AllegroFlare::Screens::GameOverScreen*, void*)> GameOverScree
 void* GameOverScreen::get_on_menu_choice_callback_func_user_data() const
 {
    return on_menu_choice_callback_func_user_data;
-}
-
-
-AllegroFlare::Elements::Backgrounds::Base* GameOverScreen::get_background() const
-{
-   return background;
 }
 
 
@@ -178,13 +165,11 @@ void GameOverScreen::initialize()
 
 void GameOverScreen::on_activate()
 {
-   if (background) background->activate();
    return;
 }
 
 void GameOverScreen::on_deactivate()
 {
-   if (background) background->deactivate();
    return;
 }
 
@@ -220,8 +205,6 @@ void GameOverScreen::select_menu_option()
 
 void GameOverScreen::primary_timer_func()
 {
-   if (background) background->update();
-   if (background) background->render();
    render();
    return;
 }

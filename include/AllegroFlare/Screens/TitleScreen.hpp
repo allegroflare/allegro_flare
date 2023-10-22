@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -59,7 +58,6 @@ namespace AllegroFlare
          void* on_menu_choice_callback_func_user_data;
          std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> on_finished_callback_func;
          void* on_finished_callback_func_user_data;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          float title_position_x;
          float title_position_y;
          float menu_position_x;
@@ -122,7 +120,6 @@ namespace AllegroFlare
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
          void set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> on_finished_callback_func);
          void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          void set_title_position_x(float title_position_x);
          void set_title_position_y(float title_position_y);
          void set_menu_position_x(float menu_position_x);
@@ -156,7 +153,6 @@ namespace AllegroFlare
          void* get_on_menu_choice_callback_func_user_data() const;
          std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          float get_title_position_x() const;
          float get_title_position_y() const;
          float get_menu_position_x() const;

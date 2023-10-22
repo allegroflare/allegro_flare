@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -28,7 +27,6 @@ namespace AllegroFlare
          std::vector<std::pair<std::string, std::string>> menu_options;
          std::function<void(AllegroFlare::Screens::GameOverScreen*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          int cursor_position;
          std::string title_font_name;
          int title_font_size;
@@ -57,14 +55,12 @@ namespace AllegroFlare
          void set_title_text(std::string title_text);
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Screens::GameOverScreen*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          void set_title_font_name(std::string title_font_name);
          void set_title_font_size(int title_font_size);
          void set_menu_font_name(std::string menu_font_name);
          void set_menu_font_size(int menu_font_size);
          std::function<void(AllegroFlare::Screens::GameOverScreen*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          std::string get_title_font_name() const;
          int get_title_font_size() const;
          std::string get_menu_font_name() const;

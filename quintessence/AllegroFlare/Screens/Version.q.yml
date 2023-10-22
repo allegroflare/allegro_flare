@@ -70,12 +70,6 @@ properties:
     getter: true
     setter: true
 
-  - name: background
-    type: AllegroFlare::Elements::Backgrounds::Base*
-    init_with: nullptr
-    setter: true
-    getter: true
-
   - name: initialized
     type: bool
     init_with: false
@@ -211,7 +205,6 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->activate();
       //emit_event_to_update_input_hints_bar();
       //emit_show_and_size_input_hints_bar_event();
       return;
@@ -222,7 +215,6 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->deactivate();
       //emit_hide_and_restore_size_input_hints_bar_event();
       return;
 
@@ -244,9 +236,7 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      if (background) background->update();
       update();
-      if (background) background->render();
       render();
       return;
 
