@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/RollingCredits/RollingCredits.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
@@ -37,7 +36,6 @@ namespace AllegroFlare
          float cached_calculated_height;
          std::string game_event_name_to_emit_after_completing;
          uint32_t route_event_to_emit_after_completing;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          bool scroll_is_past_end;
          bool initialized;
          void emit_completion_event();
@@ -58,7 +56,6 @@ namespace AllegroFlare
          void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
          void set_game_event_name_to_emit_after_completing(std::string game_event_name_to_emit_after_completing);
          void set_route_event_to_emit_after_completing(uint32_t route_event_to_emit_after_completing);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          AllegroFlare::Elements::RollingCredits::RollingCredits get_rolling_credits_component() const;
          float get_surface_width() const;
          float get_surface_height() const;
@@ -69,7 +66,6 @@ namespace AllegroFlare
          float get_cached_calculated_height() const;
          std::string get_game_event_name_to_emit_after_completing() const;
          uint32_t get_route_event_to_emit_after_completing() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          bool get_scroll_is_past_end() const;
          AllegroFlare::Elements::RollingCredits::RollingCredits &get_rolling_credits_component_ref();
          float &get_y_offset_ref();

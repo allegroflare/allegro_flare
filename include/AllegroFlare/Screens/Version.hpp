@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/RollingCredits/RollingCredits.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -38,7 +37,6 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Screens::Version*, void*)> on_exit_callback_func;
          void* on_exit_callback_func_user_data;
          std::string game_event_name_to_emit_on_exit;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          bool initialized;
 
       protected:
@@ -53,14 +51,12 @@ namespace AllegroFlare
          void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::Version*, void*)> on_exit_callback_func);
          void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          void set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          float get_surface_width() const;
          float get_surface_height() const;
          float get_cached_calculated_height() const;
          std::function<void(AllegroFlare::Screens::Version*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
          std::string get_game_event_name_to_emit_on_exit() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

@@ -53,12 +53,6 @@ properties:
     getter: true
     setter: true
 
-  - name: background
-    type: AllegroFlare::Elements::Backgrounds::Base*
-    init_with: nullptr
-    getter: true
-    setter: true
-
   - name: title_bitmap_name
     type: std::string
     init_with: '""'
@@ -153,7 +147,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->activate();
       cursor_position = 0;
       return;
 
@@ -162,7 +155,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->deactivate();
       return;
 
 
@@ -235,8 +227,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->update();
-      if (background) background->render();
       render();
       return;
 

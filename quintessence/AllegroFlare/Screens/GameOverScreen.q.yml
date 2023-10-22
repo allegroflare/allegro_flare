@@ -44,12 +44,6 @@ properties:
     getter: true
     setter: true
 
-  - name: background
-    type: AllegroFlare::Elements::Backgrounds::Base*
-    init_with: nullptr
-    setter: true
-    getter: true
-
   - name: cursor_position
     type: int
     init_with: 0
@@ -141,7 +135,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->activate();
       return;
 
 
@@ -149,7 +142,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->deactivate();
       return;
 
 
@@ -184,8 +176,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->update();
-      if (background) background->render();
       render();
       return;
 

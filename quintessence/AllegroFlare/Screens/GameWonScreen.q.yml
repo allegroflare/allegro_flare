@@ -39,13 +39,6 @@ properties:
     getter: true
     setter: true
 
-  - name: background
-    type: AllegroFlare::Elements::Backgrounds::Base*
-    init_with: nullptr
-    constructor_arg: true
-    setter: true
-    getter: true
-
   - name: title_font_name
     type: std::string
     init_with: '"Inter-Regular.ttf"'
@@ -116,7 +109,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->activate();
       return;
 
 
@@ -124,7 +116,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->deactivate();
       return;
 
 
@@ -132,8 +123,6 @@ functions:
     virtual: true
     override: true
     body: |
-      if (background) background->update();
-      if (background) background->render();
       render();
       return;
 

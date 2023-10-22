@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -31,7 +30,6 @@ namespace AllegroFlare
          std::string footer_text;
          std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          std::string title_bitmap_name;
          std::string font_name;
          ALLEGRO_COLOR title_text_color;
@@ -71,7 +69,6 @@ namespace AllegroFlare
          void set_footer_text(std::string footer_text);
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          void set_title_bitmap_name(std::string title_bitmap_name);
          void set_font_name(std::string font_name);
          void set_title_text_color(ALLEGRO_COLOR title_text_color);
@@ -87,7 +84,6 @@ namespace AllegroFlare
          std::string get_footer_text() const;
          std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          std::string get_title_bitmap_name() const;
          std::string get_font_name() const;
          ALLEGRO_COLOR get_title_text_color() const;

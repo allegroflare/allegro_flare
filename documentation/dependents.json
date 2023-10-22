@@ -1279,7 +1279,6 @@
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
-    "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version"
   ],

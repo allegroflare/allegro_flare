@@ -26,7 +26,6 @@ PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , footer_text(footer_text)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
-   , background(nullptr)
    , title_bitmap_name(title_bitmap_name)
    , font_name(font_name)
    , title_text_color(title_text_color)
@@ -88,12 +87,6 @@ void PauseScreen::set_on_menu_choice_callback_func(std::function<void(AllegroFla
 void PauseScreen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
 {
    this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
-}
-
-
-void PauseScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
 }
 
 
@@ -187,12 +180,6 @@ void* PauseScreen::get_on_menu_choice_callback_func_user_data() const
 }
 
 
-AllegroFlare::Elements::Backgrounds::Base* PauseScreen::get_background() const
-{
-   return background;
-}
-
-
 std::string PauseScreen::get_title_bitmap_name() const
 {
    return title_bitmap_name;
@@ -273,14 +260,12 @@ float PauseScreen::get_title_menu_gutter() const
 
 void PauseScreen::on_activate()
 {
-   if (background) background->activate();
    cursor_position = 0;
    return;
 }
 
 void PauseScreen::on_deactivate()
 {
-   if (background) background->deactivate();
    return;
 }
 
@@ -343,8 +328,6 @@ void PauseScreen::select_menu_option()
 
 void PauseScreen::primary_timer_func()
 {
-   if (background) background->update();
-   if (background) background->render();
    render();
    return;
 }

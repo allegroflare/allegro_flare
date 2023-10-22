@@ -59,12 +59,6 @@ properties:
     getter: true
     setter: true
 
-  - name: background
-    type: AllegroFlare::Elements::Backgrounds::Base*
-    init_with: nullptr
-    setter: true
-    getter: true
-
   - name: DEFAULT_GAME_EVENT_NAME_TO_EMIT_AFTER_COMPLETING
     type: char*
     init_with: '(char*)"storyboard_finished"'
@@ -98,7 +92,6 @@ functions:
     override: true
     guards: [ initialized ] 
     body: |
-      if (background) background->activate();
       storyboard_element.reset();
       if (storyboard_element.infer_has_no_pages())
       {
@@ -117,7 +110,6 @@ functions:
     override: true
     guards: [ initialized ] 
     body: |
-      if (background) background->deactivate();
       return;
 
 
@@ -126,12 +118,10 @@ functions:
     override: true
     guards: [ initialized ] 
     body: |
-      if (background) background->update();
 
       storyboard_element.update();
       if (storyboard_element.get_can_advance_to_next_page() && auto_advance) advance();
 
-      if (background) background->render();
       storyboard_element.render();
       return;
 
@@ -250,7 +240,5 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Screens::Storyboard
     headers: [ AllegroFlare/Screens/Storyboard.hpp ]
-  - symbol: AllegroFlare::Elements::Backgrounds::Base
-    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 

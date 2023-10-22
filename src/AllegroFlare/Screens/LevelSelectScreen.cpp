@@ -23,7 +23,6 @@ LevelSelectScreen::LevelSelectScreen(AllegroFlare::EventEmitter* event_emitter, 
    , level_select_element()
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
-   , background(nullptr)
    , initialized(false)
 {
 }
@@ -46,12 +45,6 @@ void LevelSelectScreen::set_on_menu_choice_callback_func_user_data(void* on_menu
 }
 
 
-void LevelSelectScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
-}
-
-
 std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)> LevelSelectScreen::get_on_menu_choice_callback_func() const
 {
    return on_menu_choice_callback_func;
@@ -61,12 +54,6 @@ std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)> LevelSelec
 void* LevelSelectScreen::get_on_menu_choice_callback_func_user_data() const
 {
    return on_menu_choice_callback_func_user_data;
-}
-
-
-AllegroFlare::Elements::Backgrounds::Base* LevelSelectScreen::get_background() const
-{
-   return background;
 }
 
 
@@ -193,7 +180,6 @@ void LevelSelectScreen::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("LevelSelectScreen::on_activate: error: guard \"initialized\" not met");
    }
-   if (background) background->activate();
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
    return;
@@ -208,7 +194,6 @@ void LevelSelectScreen::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("LevelSelectScreen::on_deactivate: error: guard \"initialized\" not met");
    }
-   if (background) background->deactivate();
    //emit_hide_and_restore_size_input_hints_bar_event();
    return;
 }
@@ -272,9 +257,7 @@ void LevelSelectScreen::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("LevelSelectScreen::primary_timer_func: error: guard \"initialized\" not met");
    }
-   if (background) background->update();
    update();
-   if (background) background->render();
    render();
    return;
 }

@@ -25,7 +25,6 @@ Storyboard::Storyboard(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::
    , auto_advance(false)
    , game_event_name_to_emit_after_completing(game_event_name_to_emit_after_completing)
    , route_event_to_emit_after_completing(route_event_to_emit_after_completing)
-   , background(nullptr)
    , initialized(false)
 {
 }
@@ -78,12 +77,6 @@ void Storyboard::set_route_event_to_emit_after_completing(uint32_t route_event_t
 }
 
 
-void Storyboard::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
-}
-
-
 std::function<void(AllegroFlare::Screens::Storyboard*, void*)> Storyboard::get_on_finished_callback_func() const
 {
    return on_finished_callback_func;
@@ -111,12 +104,6 @@ std::string Storyboard::get_game_event_name_to_emit_after_completing() const
 uint32_t Storyboard::get_route_event_to_emit_after_completing() const
 {
    return route_event_to_emit_after_completing;
-}
-
-
-AllegroFlare::Elements::Backgrounds::Base* Storyboard::get_background() const
-{
-   return background;
 }
 
 
@@ -149,7 +136,6 @@ void Storyboard::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Storyboard::on_activate: error: guard \"initialized\" not met");
    }
-   if (background) background->activate();
    storyboard_element.reset();
    if (storyboard_element.infer_has_no_pages())
    {
@@ -172,7 +158,6 @@ void Storyboard::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Storyboard::on_deactivate: error: guard \"initialized\" not met");
    }
-   if (background) background->deactivate();
    return;
 }
 
@@ -185,12 +170,10 @@ void Storyboard::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Storyboard::primary_timer_func: error: guard \"initialized\" not met");
    }
-   if (background) background->update();
 
    storyboard_element.update();
    if (storyboard_element.get_can_advance_to_next_page() && auto_advance) advance();
 
-   if (background) background->render();
    storyboard_element.render();
    return;
 }

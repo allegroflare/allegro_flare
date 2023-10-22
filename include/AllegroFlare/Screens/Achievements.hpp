@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/Achievements.hpp>
 #include <AllegroFlare/Elements/AchievementsList.hpp>
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -34,7 +33,6 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Screens::Achievements*, void*)> on_exit_callback_func;
          void* on_exit_callback_func_user_data;
          std::string game_event_name_to_emit_on_exit;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          bool initialized;
          void update();
          void call_on_exit_callback();
@@ -48,18 +46,16 @@ namespace AllegroFlare
 
 
       public:
-         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_exit=DEFAULT_EVENT_NAME_ON_EXIT, AllegroFlare::Elements::Backgrounds::Base* background=nullptr);
+         Achievements(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Achievements* achievements=nullptr, float scrollbar_dest_position=0.0f, std::string game_event_name_to_emit_on_exit=DEFAULT_EVENT_NAME_ON_EXIT);
          virtual ~Achievements();
 
          void set_achievements(AllegroFlare::Achievements* achievements);
          void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::Achievements*, void*)> on_exit_callback_func);
          void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          void set_game_event_name_to_emit_on_exit(std::string game_event_name_to_emit_on_exit);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          std::function<void(AllegroFlare::Screens::Achievements*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
          std::string get_game_event_name_to_emit_on_exit() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          AllegroFlare::Elements::AchievementsList &get_achievements_list_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);

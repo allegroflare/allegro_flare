@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/LevelSelect.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -33,7 +32,6 @@ namespace AllegroFlare
          AllegroFlare::Elements::LevelSelect level_select_element;
          std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          bool initialized;
 
       protected:
@@ -45,10 +43,8 @@ namespace AllegroFlare
 
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          std::function<void(AllegroFlare::Screens::LevelSelectScreen*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          AllegroFlare::Elements::LevelSelect &get_level_select_element_ref();
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);

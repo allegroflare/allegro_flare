@@ -31,7 +31,6 @@ Version::Version(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bitmap
    , on_exit_callback_func()
    , on_exit_callback_func_user_data(nullptr)
    , game_event_name_to_emit_on_exit(DEFAULT_EVENT_NAME_ON_EXIT)
-   , background(nullptr)
    , initialized(false)
 {
 }
@@ -72,12 +71,6 @@ void Version::set_game_event_name_to_emit_on_exit(std::string game_event_name_to
 }
 
 
-void Version::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
-}
-
-
 float Version::get_surface_width() const
 {
    return surface_width;
@@ -111,12 +104,6 @@ void* Version::get_on_exit_callback_func_user_data() const
 std::string Version::get_game_event_name_to_emit_on_exit() const
 {
    return game_event_name_to_emit_on_exit;
-}
-
-
-AllegroFlare::Elements::Backgrounds::Base* Version::get_background() const
-{
-   return background;
 }
 
 
@@ -289,7 +276,6 @@ void Version::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Version::on_activate: error: guard \"initialized\" not met");
    }
-   if (background) background->activate();
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
    return;
@@ -304,7 +290,6 @@ void Version::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Version::on_deactivate: error: guard \"initialized\" not met");
    }
-   if (background) background->deactivate();
    //emit_hide_and_restore_size_input_hints_bar_event();
    return;
 }
@@ -330,9 +315,7 @@ void Version::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Version::primary_timer_func: error: guard \"initialized\" not met");
    }
-   if (background) background->update();
    update();
-   if (background) background->render();
    render();
    return;
 }

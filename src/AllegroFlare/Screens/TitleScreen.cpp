@@ -50,7 +50,6 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , on_menu_choice_callback_func_user_data(nullptr)
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
-   , background(nullptr)
    , title_position_x(1920 / 2)
    , title_position_y((1080 / 24 * 9))
    , menu_position_x(1920 / 2)
@@ -227,12 +226,6 @@ void TitleScreen::set_on_finished_callback_func(std::function<void(AllegroFlare:
 void TitleScreen::set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data)
 {
    this->on_finished_callback_func_user_data = on_finished_callback_func_user_data;
-}
-
-
-void TitleScreen::set_background(AllegroFlare::Elements::Backgrounds::Base* background)
-{
-   this->background = background;
 }
 
 
@@ -431,12 +424,6 @@ std::function<void(AllegroFlare::Screens::TitleScreen*, void*)> TitleScreen::get
 void* TitleScreen::get_on_finished_callback_func_user_data() const
 {
    return on_finished_callback_func_user_data;
-}
-
-
-AllegroFlare::Elements::Backgrounds::Base* TitleScreen::get_background() const
-{
-   return background;
 }
 
 
@@ -751,9 +738,7 @@ bool TitleScreen::is_state(uint32_t possible_state)
 
 void TitleScreen::primary_timer_func()
 {
-   if (background) background->update();
    update();
-   if (background) background->render();
    render();
    return;
 }

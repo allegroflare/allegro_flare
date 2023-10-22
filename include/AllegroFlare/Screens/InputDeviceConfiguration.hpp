@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/InputDeviceConfigurationList.hpp>
 #include <AllegroFlare/Elements/InputDevicesList.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
@@ -37,7 +36,6 @@ namespace AllegroFlare
          AllegroFlare::InputDevicesList* input_devices_list;
          AllegroFlare::Elements::InputDevicesList input_devices_list_element;
          AllegroFlare::Elements::InputDeviceConfigurationList input_device_configuration_element;
-         AllegroFlare::Elements::Backgrounds::Base* background;
          bool initialized;
          void call_on_exit_callback();
 
@@ -52,12 +50,10 @@ namespace AllegroFlare
          void set_surface_height(std::size_t surface_height);
          void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> on_exit_callback_func);
          void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
-         void set_background(AllegroFlare::Elements::Backgrounds::Base* background);
          std::size_t get_surface_width() const;
          std::size_t get_surface_height() const;
          std::function<void(AllegroFlare::Screens::InputDeviceConfiguration*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
-         AllegroFlare::Elements::Backgrounds::Base* get_background() const;
          AllegroFlare::Elements::InputDevicesList &get_input_devices_list_element_ref();
          AllegroFlare::Elements::InputDeviceConfigurationList &get_input_device_configuration_element_ref();
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
