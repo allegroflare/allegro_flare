@@ -9,13 +9,6 @@ parent_classes:
 properties:
 
 
-  - name: character_roster
-    type: AllegroFlare::DialogSystem::CharacterRoster*
-    constructor_arg: true
-    init_with: nullptr
-    getter: true
-    setter: true
-
   - name: active_character_staging_layout
     type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
     init_with: nullptr
@@ -26,6 +19,11 @@ properties:
     getter_ref: true
     getter: true
     setter: true
+
+  - name: character_roster
+    type: AllegroFlare::DialogSystem::CharacterRoster*
+    init_with: nullptr
+    exposed: true
 
   - name: TYPE
     type: char*

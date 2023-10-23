@@ -35,13 +35,12 @@ namespace DialogSystem
 {
 
 
-DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::DialogSystem::CharacterRoster* character_roster)
+DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , dialog_node_bank({})
    , driver()
-   , character_roster(character_roster)
    , active_dialog_box(nullptr)
    , selection_cursor_box({})
    , active_dialog_node(nullptr)
@@ -67,12 +66,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
 
 DialogSystem::~DialogSystem()
 {
-}
-
-
-void DialogSystem::set_character_roster(AllegroFlare::DialogSystem::CharacterRoster* character_roster)
-{
-   this->character_roster = character_roster;
 }
 
 
@@ -154,12 +147,6 @@ AllegroFlare::DialogTree::NodeBank DialogSystem::get_dialog_node_bank() const
 }
 
 
-AllegroFlare::DialogSystem::CharacterRoster* DialogSystem::get_character_roster() const
-{
-   return character_roster;
-}
-
-
 std::string DialogSystem::get_active_dialog_node_name() const
 {
    return active_dialog_node_name;
@@ -235,6 +222,12 @@ std::string DialogSystem::get_standard_dialog_box_font_name() const
 int DialogSystem::get_standard_dialog_box_font_size() const
 {
    return standard_dialog_box_font_size;
+}
+
+
+AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver &DialogSystem::get_driver_ref()
+{
+   return driver;
 }
 
 
@@ -516,14 +509,14 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
    }
-   if (character_roster)
+   if (driver.character_roster)
    {
-      if (!character_roster->character_exists_by_name(speaking_character_identifier))
+      if (!driver.character_roster->character_exists_by_name(speaking_character_identifier))
       {
          // Throw for now
          std::stringstream available_character_names;
          available_character_names << "[ ";
-         for (auto &character_identifier : character_roster->get_character_names())
+         for (auto &character_identifier : driver.character_roster->get_character_names())
          {
             available_character_names << "\"" << character_identifier << "\", ";
          }
@@ -535,7 +528,7 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
       }
 
       AllegroFlare::DialogSystem::Characters::Base *base =
-         character_roster->find_character_by_name(speaking_character_identifier);
+         driver.character_roster->find_character_by_name(speaking_character_identifier);
 
       if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
       {

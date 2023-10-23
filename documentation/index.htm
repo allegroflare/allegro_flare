@@ -2137,8 +2137,8 @@ table td
   <td class="property">AllegroFlare::DialogTree::NodeBank</td>
 </tr>
 <tr>
-  <td class="property">character_roster</td>
-  <td class="property">AllegroFlare::DialogSystem::CharacterRoster*</td>
+  <td class="property">driver</td>
+  <td class="property">AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver</td>
 </tr>
 <tr>
   <td class="property">active_dialog_box</td>
@@ -2448,6 +2448,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::NodeStates::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/NodeStates/Wait.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30670,6 +30673,9 @@ table td
   "AllegroFlare/DialogSystem/NodeStates/Wait": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+  ],
+  "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/Time": [
     "AllegroFlare/DialogSystem/NodeStates/Base",

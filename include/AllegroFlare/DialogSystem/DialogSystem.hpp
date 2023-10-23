@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/DialogSystem/CharacterRoster.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/DialogSystem/NodeStates/Base.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
@@ -36,7 +35,6 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::DialogTree::NodeBank dialog_node_bank;
          AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver driver;
-         AllegroFlare::DialogSystem::CharacterRoster* character_roster;
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
@@ -61,10 +59,9 @@ namespace AllegroFlare
 
 
       public:
-         DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::DialogSystem::CharacterRoster* character_roster=nullptr);
+         DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
          ~DialogSystem();
 
-         void set_character_roster(AllegroFlare::DialogSystem::CharacterRoster* character_roster);
          void set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func);
          void set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll);
          void set_load_node_bank_func_user_data(void* load_node_bank_func_user_data);
@@ -78,7 +75,6 @@ namespace AllegroFlare
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
-         AllegroFlare::DialogSystem::CharacterRoster* get_character_roster() const;
          std::string get_active_dialog_node_name() const;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> get_load_node_bank_func() const;
          AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
@@ -92,6 +88,7 @@ namespace AllegroFlare
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver &get_driver_ref();
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

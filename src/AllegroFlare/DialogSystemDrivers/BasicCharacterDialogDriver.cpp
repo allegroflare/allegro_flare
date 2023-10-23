@@ -11,11 +11,11 @@ namespace DialogSystemDrivers
 {
 
 
-BasicCharacterDialogDriver::BasicCharacterDialogDriver(AllegroFlare::DialogSystem::CharacterRoster* character_roster)
+BasicCharacterDialogDriver::BasicCharacterDialogDriver()
    : AllegroFlare::DialogSystemDrivers::Base(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE)
-   , character_roster(character_roster)
    , active_character_staging_layout(nullptr)
    , dialog_roll()
+   , character_roster(nullptr)
 {
 }
 
@@ -25,21 +25,9 @@ BasicCharacterDialogDriver::~BasicCharacterDialogDriver()
 }
 
 
-void BasicCharacterDialogDriver::set_character_roster(AllegroFlare::DialogSystem::CharacterRoster* character_roster)
-{
-   this->character_roster = character_roster;
-}
-
-
 void BasicCharacterDialogDriver::set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll)
 {
    this->dialog_roll = dialog_roll;
-}
-
-
-AllegroFlare::DialogSystem::CharacterRoster* BasicCharacterDialogDriver::get_character_roster() const
-{
-   return character_roster;
 }
 
 
