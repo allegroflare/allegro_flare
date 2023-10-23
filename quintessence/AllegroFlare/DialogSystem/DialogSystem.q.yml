@@ -534,6 +534,12 @@ methods:
             //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
          shutdown_dialog(); // TODO: See if this is a correct expectation for this event
       }
+      else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+      {
+         // TODO: Test this event emission
+         event_emitter->emit_exit_game_event();
+         // TODO: Exit program (either set shutdown_system on framework or emit event)
+      }
       else
       {
          bool handled = false;
@@ -557,6 +563,7 @@ methods:
     body_dependency_symbols:
      - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
      - AllegroFlare::DialogTree::Nodes::ExitDialog
+     - AllegroFlare::DialogTree::Nodes::ExitProgram
      - AllegroFlare::DialogTree::Nodes::Wait
      - AllegroFlare::DialogSystem::NodeStates::Wait
 
@@ -1118,6 +1125,8 @@ dependencies:
     headers: [ AllegroFlare/UsefulPHP.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::ExitDialog
     headers: [ AllegroFlare/DialogTree/Nodes/ExitDialog.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ExitProgram
+    headers: [ AllegroFlare/DialogTree/Nodes/ExitProgram.hpp ]
   - symbol: AllegroFlare::Elements::DialogRoll
     headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::Wait

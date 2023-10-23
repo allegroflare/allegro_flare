@@ -11,6 +11,7 @@
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
@@ -653,6 +654,12 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
          //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
       shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+   {
+      // TODO: Test this event emission
+      event_emitter->emit_exit_game_event();
+      // TODO: Exit program (either set shutdown_system on framework or emit event)
    }
    else
    {

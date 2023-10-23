@@ -1041,6 +1041,9 @@
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer"
   ],
+  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "AllegroFlare/Elements/DialogRoll": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogRollRenderer",
