@@ -47,7 +47,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_node_state(nullptr)
    , driver()
    , load_node_bank_func()
-   , dialog_roll()
    , load_node_bank_func_user_data(nullptr)
    , activate_dialog_node_by_name_func()
    , activate_dialog_node_by_name_func_user_data(nullptr)
@@ -71,12 +70,6 @@ DialogSystem::~DialogSystem()
 void DialogSystem::set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func)
 {
    this->load_node_bank_func = load_node_bank_func;
-}
-
-
-void DialogSystem::set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll)
-{
-   this->dialog_roll = dialog_roll;
 }
 
 
@@ -158,12 +151,6 @@ std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> Dia
 }
 
 
-AllegroFlare::Elements::DialogRoll DialogSystem::get_dialog_roll() const
-{
-   return dialog_roll;
-}
-
-
 void* DialogSystem::get_load_node_bank_func_user_data() const
 {
    return load_node_bank_func_user_data;
@@ -227,12 +214,6 @@ int DialogSystem::get_standard_dialog_box_font_size() const
 AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver &DialogSystem::get_driver_ref()
 {
    return driver;
-}
-
-
-AllegroFlare::Elements::DialogRoll &DialogSystem::get_dialog_roll_ref()
-{
-   return dialog_roll;
 }
 
 
@@ -553,12 +534,6 @@ ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speak
       }
    }
    return nullptr;
-}
-
-void DialogSystem::append_to_dialog_roll(std::string speaking_character, std::string dialog)
-{
-   dialog_roll.append_log(speaking_character, dialog);
-   return;
 }
 
 void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)

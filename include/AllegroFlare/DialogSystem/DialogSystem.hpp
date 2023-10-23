@@ -7,7 +7,6 @@
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
-#include <AllegroFlare/Elements/DialogRoll.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -40,7 +39,6 @@ namespace AllegroFlare
          AllegroFlare::DialogSystem::NodeStates::Base* active_dialog_node_state;
          AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver driver;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func;
-         AllegroFlare::Elements::DialogRoll dialog_roll;
          void* load_node_bank_func_user_data;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> activate_dialog_node_by_name_func;
          void* activate_dialog_node_by_name_func_user_data;
@@ -61,7 +59,6 @@ namespace AllegroFlare
          ~DialogSystem();
 
          void set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func);
-         void set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll);
          void set_load_node_bank_func_user_data(void* load_node_bank_func_user_data);
          void set_activate_dialog_node_by_name_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> activate_dialog_node_by_name_func);
          void set_activate_dialog_node_by_name_func_user_data(void* activate_dialog_node_by_name_func_user_data);
@@ -75,7 +72,6 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
          std::string get_active_dialog_node_name() const;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> get_load_node_bank_func() const;
-         AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
          void* get_load_node_bank_func_user_data() const;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_activate_dialog_node_by_name_func() const;
          void* get_activate_dialog_node_by_name_func_user_data() const;
@@ -87,7 +83,6 @@ namespace AllegroFlare
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
          AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver &get_driver_ref();
-         AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
@@ -100,7 +95,6 @@ namespace AllegroFlare
          void clear_character_staging_layout();
          void set_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");
          ALLEGRO_BITMAP* lookup_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");
-         void append_to_dialog_roll(std::string speaking_character="[unset-speaking_character]", std::string dialog="[unset-dialog]");
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_choice_dialog(std::string speaking_character="[unset-speaking_character]", std::string prompt="[unset-prompt]", std::vector<std::string> options={});

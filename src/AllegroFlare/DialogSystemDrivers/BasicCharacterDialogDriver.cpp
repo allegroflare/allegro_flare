@@ -43,6 +43,11 @@ AllegroFlare::Elements::DialogRoll &BasicCharacterDialogDriver::get_dialog_roll_
 }
 
 
+void BasicCharacterDialogDriver::append_to_dialog_roll(std::string speaking_character, std::string dialog)
+{
+   dialog_roll.append_log(speaking_character, dialog);
+   return;
+}
 
 
 } // namespace DialogSystemDrivers

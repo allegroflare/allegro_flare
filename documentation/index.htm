@@ -2161,10 +2161,6 @@ table td
   <td class="property">AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver</td>
 </tr>
 <tr>
-  <td class="property">active_character_staging_layout</td>
-  <td class="property">AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*</td>
-</tr>
-<tr>
   <td class="property">load_node_bank_func</td>
   <td class="property">std::function&lt;bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)&gt;</td>
 </tr>
@@ -2262,9 +2258,6 @@ table td
 </tr>
 <tr>
   <td class="method">lookup_speaking_character_avatar(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;, std::string speaking_character_expression=&quot;[unset-speaking_character_expression]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">append_to_dialog_roll(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string dialog=&quot;[unset-dialog]&quot;)</td>
 </tr>
 <tr>
   <td class="method">activate_dialog_node_by_name(std::string dialog_name=&quot;[unset-dialog_name]&quot;)</td>
@@ -2582,6 +2575,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">append_to_dialog_roll(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string dialog=&quot;[unset-dialog]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>

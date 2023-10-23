@@ -33,6 +33,21 @@ properties:
     constexpr: true
 
 
+methods:
+
+
+  - name: append_to_dialog_roll
+    parameters:
+      - name: speaking_character
+        type: std::string
+        default_argument: '"[unset-speaking_character]"'
+      - name: dialog
+        type: std::string
+        default_argument: '"[unset-dialog]"'
+    body: |
+      dialog_roll.append_log(speaking_character, dialog);
+      return;
+
 
 dependencies:
 

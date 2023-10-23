@@ -60,13 +60,6 @@ properties:
     getter: true
     setter: true
 
-  - name: dialog_roll
-    type: AllegroFlare::Elements::DialogRoll
-    init_with: ''
-    getter_ref: true
-    getter: true
-    setter: true
-
   - name: load_node_bank_func_user_data
     type: void*
     init_with: nullptr
@@ -424,19 +417,6 @@ methods:
       return nullptr;
     body_dependency_symbols:
       - AllegroFlare::DialogSystem::Characters::Basic
-
-
-  - name: append_to_dialog_roll
-    parameters:
-      - name: speaking_character
-        type: std::string
-        default_argument: '"[unset-speaking_character]"'
-      - name: dialog
-        type: std::string
-        default_argument: '"[unset-dialog]"'
-    body: |
-      dialog_roll.append_log(speaking_character, dialog);
-      return;
 
 
   - name: activate_dialog_node_by_name
