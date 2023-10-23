@@ -5,6 +5,7 @@
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/DialogSystem/NodeStates/Base.hpp>
+#include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
@@ -34,6 +35,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::DialogTree::NodeBank dialog_node_bank;
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver driver;
          AllegroFlare::DialogSystem::CharacterRoster* character_roster;
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;

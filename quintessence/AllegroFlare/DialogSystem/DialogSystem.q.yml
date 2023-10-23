@@ -26,6 +26,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: driver
+    type: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
+    init_with: ''
+    getter: false
+    setter: false
+
   - name: character_roster
     type: AllegroFlare::DialogSystem::CharacterRoster*
     constructor_arg: true
@@ -1135,5 +1141,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
     headers: [ AllegroFlare/DialogSystem/NodeStates/Wait.hpp ]
+  - symbol: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
+    headers: [ AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp ]
 
 

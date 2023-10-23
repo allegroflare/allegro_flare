@@ -40,6 +40,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , dialog_node_bank({})
+   , driver()
    , character_roster(character_roster)
    , active_dialog_box(nullptr)
    , selection_cursor_box({})

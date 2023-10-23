@@ -2561,8 +2561,16 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
+  <td class="property">character_roster</td>
+  <td class="property">AllegroFlare::DialogSystem::CharacterRoster*</td>
+</tr>
+<tr>
+  <td class="property">active_character_staging_layout</td>
+  <td class="property">AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*</td>
+</tr>
+<tr>
+  <td class="property">dialog_roll</td>
+  <td class="property">AllegroFlare::Elements::DialogRoll</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -2571,14 +2579,149 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
-</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystemDrivers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystemDrivers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogSystem&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotEvidence&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Choice&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Choice.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotAnItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotAnItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::WithAttributes&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotAnItemDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotEvidenceDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::GoToNode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::MultipageWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterRoster&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterRoster.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::Characters::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/Characters/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringFormatValidator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringFormatValidator.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::BasicScreenplayTextLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ExitDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ExitProgram&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ExitProgram.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogRoll&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogRoll.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Wait.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::NodeStates::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/NodeStates/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::NodeStates::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/NodeStates/Wait.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -29441,6 +29584,7 @@ table td
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
@@ -29569,6 +29713,7 @@ table td
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
@@ -29670,6 +29815,7 @@ table td
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
@@ -29859,6 +30005,7 @@ table td
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
@@ -29956,6 +30103,7 @@ table td
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
@@ -30192,7 +30340,8 @@ table td
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/Characters/Base": [
     "AllegroFlare/DialogSystem/CharacterRoster",
@@ -30200,7 +30349,8 @@ table td
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
@@ -30209,6 +30359,7 @@ table td
     "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile",
     "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEventDatas/ScreenActivated",
@@ -30228,10 +30379,12 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/DialogSystem/DialogSystem": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
@@ -30251,22 +30404,26 @@ table td
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/Elements/DialogBoxes/YouGotEvidence": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "AllegroFlare/Elements/DialogBoxes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxes/Base",
@@ -30280,6 +30437,7 @@ table td
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -30287,6 +30445,7 @@ table td
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
@@ -30296,11 +30455,13 @@ table td
   ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxes/Basic": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -30310,6 +30471,8 @@ table td
   "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -30318,22 +30481,27 @@ table td
   ],
   "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxFactory": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
@@ -30384,12 +30552,14 @@ table td
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
@@ -30399,6 +30569,7 @@ table td
   ],
   "std/filesystem/exists": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
@@ -30406,21 +30577,25 @@ table td
   ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -30430,57 +30605,71 @@ table td
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/CharacterRoster": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/StringFormatValidator": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/BasicScreenplayTextLoader": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book"
   ],
   "AllegroFlare/DialogTree/Nodes/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer"
   ],
   "AllegroFlare/DialogTree/Nodes/ExitProgram": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/Elements/DialogRoll": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer"
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/NodeStates/Wait"
+    "AllegroFlare/DialogSystem/NodeStates/Wait",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/NodeStates/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/NodeStates/Wait"
+    "AllegroFlare/DialogSystem/NodeStates/Wait",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/NodeStates/Wait": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/Time": [
     "AllegroFlare/DialogSystem/NodeStates/Base",

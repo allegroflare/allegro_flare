@@ -20,6 +20,7 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
@@ -148,6 +149,7 @@
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
@@ -249,6 +251,7 @@
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
@@ -438,6 +441,7 @@
   "al_is_primitives_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
@@ -535,6 +539,7 @@
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
@@ -771,7 +776,8 @@
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/Characters/Base": [
     "AllegroFlare/DialogSystem/CharacterRoster",
@@ -779,7 +785,8 @@
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
@@ -788,6 +795,7 @@
     "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile",
     "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEventDatas/ScreenActivated",
@@ -807,10 +815,12 @@
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
   "AllegroFlare/DialogSystem/DialogSystem": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "ALLEGRO_EVENT": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
@@ -830,22 +840,26 @@
   ],
   "AllegroFlare/EventNames": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/Elements/DialogBoxes/YouGotEvidence": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
   ],
   "AllegroFlare/Elements/DialogBoxes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxes/Base",
@@ -859,6 +873,7 @@
   ],
   "AllegroFlare/Elements/DialogBoxes/Choice": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -866,6 +881,7 @@
   ],
   "AllegroFlare/GameEvent": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
@@ -875,11 +891,13 @@
   ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxes/Basic": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -889,6 +907,8 @@
   "AllegroFlare/Elements/DialogBoxes/YouGotAnItem": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderer",
@@ -897,22 +917,27 @@
   ],
   "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/Elements/DialogBoxFactory": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/EventEmitter": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/ChapterSelect",
@@ -963,12 +988,14 @@
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
@@ -978,6 +1005,7 @@
   ],
   "std/filesystem/exists": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
@@ -985,21 +1013,25 @@
   ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
@@ -1009,57 +1041,71 @@
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/CharacterRoster": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/StringFormatValidator": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/BasicScreenplayTextLoader": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book"
   ],
   "AllegroFlare/DialogTree/Nodes/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer"
   ],
   "AllegroFlare/DialogTree/Nodes/ExitProgram": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/Elements/DialogRoll": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer"
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/NodeStates/Wait"
+    "AllegroFlare/DialogSystem/NodeStates/Wait",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/NodeStates/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/NodeStates/Wait"
+    "AllegroFlare/DialogSystem/NodeStates/Wait",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/NodeStates/Wait": [
-    "AllegroFlare/DialogSystem/DialogSystem"
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/Time": [
     "AllegroFlare/DialogSystem/NodeStates/Base",
