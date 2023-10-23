@@ -58,12 +58,11 @@ namespace AllegroFlare
          DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
          ~DialogSystem();
 
+         void set_active_dialog_node_state(AllegroFlare::DialogSystem::NodeStates::Base* active_dialog_node_state);
          void set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func);
          void set_load_node_bank_func_user_data(void* load_node_bank_func_user_data);
          void set_activate_dialog_node_by_name_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> activate_dialog_node_by_name_func);
          void set_activate_dialog_node_by_name_func_user_data(void* activate_dialog_node_by_name_func_user_data);
-         void set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func);
-         void set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data);
          void set_dialog_advance_is_finished_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> dialog_advance_is_finished_node_type_unhandled_func);
          void set_dialog_advance_is_finished_node_type_unhandled_func_user_data(void* dialog_advance_is_finished_node_type_unhandled_func_user_data);
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
@@ -86,6 +85,8 @@ namespace AllegroFlare
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
+         void set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func);
+         void set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data=nullptr);
          AllegroFlare::DialogSystemDrivers::Base* get__driver();
          void set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank={});
          void load_dialog_node_bank_from_file(std::string filename="[unset-filename]");
