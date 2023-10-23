@@ -1,0 +1,134 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogSystemDrivers::Base
+    scope: public
+    init_with: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE
+
+
+properties:
+
+
+  - name: character_roster
+    type: AllegroFlare::DialogSystem::CharacterRoster*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: active_character_staging_layout
+    type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
+    init_with: nullptr
+
+  - name: dialog_roll
+    type: AllegroFlare::Elements::DialogRoll
+    init_with: ''
+    getter_ref: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"'
+    static: true
+    constexpr: true
+
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystemDrivers::Base
+    headers: [ AllegroFlare/DialogSystemDrivers/Base.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogSystem
+    headers: [ ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventNames
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::CloseDialog
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Choice
+    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
+  - symbol: AllegroFlare::GameEvent
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderer.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Basic
+    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
+    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::InventoryDictionaryItems::WithAttributes
+    headers: [ AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxFactory
+    headers: [ AllegroFlare/Elements/DialogBoxFactory.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotAnItemDialog
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::CreateYouGotEvidenceDialog
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotEvidenceDialog.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::GoToNode
+    headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::ExitDialog
+    headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+    headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp ]
+  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile
+    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp ]
+  - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base
+    headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
+  - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
+    headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
+  - symbol: AllegroFlare::DialogSystem::CharacterRoster
+    headers: [ AllegroFlare/DialogSystem/CharacterRoster.hpp ]
+  - symbol: AllegroFlare::DialogSystem::Characters::Basic
+    headers: [ AllegroFlare/DialogSystem/Characters/Basic.hpp ]
+  - symbol: AllegroFlare::StringFormatValidator
+    headers: [ AllegroFlare/StringFormatValidator.hpp ]
+  - symbol: AllegroFlare::DialogTree::BasicScreenplayTextLoader
+    headers: [ AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ExitDialog
+    headers: [ AllegroFlare/DialogTree/Nodes/ExitDialog.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ExitProgram
+    headers: [ AllegroFlare/DialogTree/Nodes/ExitProgram.hpp ]
+  - symbol: AllegroFlare::Elements::DialogRoll
+    headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::Wait
+    headers: [ AllegroFlare/DialogTree/Nodes/Wait.hpp ]
+  - symbol: AllegroFlare::DialogSystem::NodeStates::Base
+    headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
+  - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
+    headers: [ AllegroFlare/DialogSystem/NodeStates/Wait.hpp ]

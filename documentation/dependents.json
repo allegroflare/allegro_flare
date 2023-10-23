@@ -1066,6 +1066,9 @@
     "AllegroFlare/DialogSystem/NodeStates/Wait",
     "AllegroFlare/DialogTree/Nodes/Base"
   ],
+  "AllegroFlare/DialogSystemDrivers/Base": [
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",

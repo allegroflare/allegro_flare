@@ -84,6 +84,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml">quintessence/AllegroFlare/DialogSystem/DialogSystem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/NodeStates/Base.q.yml">quintessence/AllegroFlare/DialogSystem/NodeStates/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/NodeStates/Wait.q.yml">quintessence/AllegroFlare/DialogSystem/NodeStates/Wait.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystemDrivers/Base.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/BasicScreenplayTextLoader.q.yml">quintessence/AllegroFlare/DialogTree/BasicScreenplayTextLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBankInferencer.q.yml">quintessence/AllegroFlare/DialogTree/NodeBankInferencer.q.yml</a></li>
@@ -2524,6 +2526,59 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Time&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Time.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystemDrivers/Base.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystemDrivers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystemDrivers/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30431,6 +30486,9 @@ table td
     "AllegroFlare/DialogSystem/NodeStates/Base",
     "AllegroFlare/DialogSystem/NodeStates/Wait",
     "AllegroFlare/DialogTree/Nodes/Base"
+  ],
+  "AllegroFlare/DialogSystemDrivers/Base": [
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
