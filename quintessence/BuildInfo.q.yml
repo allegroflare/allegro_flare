@@ -3,7 +3,7 @@ documentation:
 
   - note: |
       This class will be completely overwritten during release. The release process will create a new class that
-      will replace this one. For the purpose of building during development and testing, this current class is used.
+      will replace this one. For the purpose of building during development and testing, this stub class is used.
       Note that the class is kept at the top-level in include/ and src/ folders and is not nested in AllegroFlare/.
   - todos:
       - |
