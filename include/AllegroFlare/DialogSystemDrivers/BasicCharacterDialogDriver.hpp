@@ -38,7 +38,7 @@ namespace AllegroFlare
          void initialize();
          void destroy();
          void clear_character_staging_layout();
-         bool activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string dialog_node_identifier="[unset-dialog_node_identifier]", AllegroFlare::DialogTree::Nodes::Base* dialog_node_name=nullptr, void* user_data=nullptr);
+         bool activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name="[unset-dialog_node_identifier]", AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr);
          void append_to_dialog_roll(std::string speaking_character="[unset-speaking_character]", std::string dialog="[unset-dialog]");
       };
    }
