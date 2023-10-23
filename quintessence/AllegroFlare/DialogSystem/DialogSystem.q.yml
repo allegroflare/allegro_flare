@@ -47,11 +47,11 @@ properties:
     type: AllegroFlare::DialogSystem::NodeStates::Base*
     init_with: nullptr
 
-  - name: driver
-    type: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
-    init_with: ''
+  - name: _driver
+    type: AllegroFlare::DialogSystemDrivers::Base*
+    init_with: nullptr
     getter_ref: true
-    getter: false
+    getter: explicit
     setter: false
 
   - name: load_node_bank_func
@@ -184,6 +184,13 @@ methods:
       this->event_emitter = event_emitter;
 
 
+  - name: get__driver
+    type: AllegroFlare::DialogSystemDrivers::Base*
+    guards: [ (initialized) ]
+    body: |
+      return _driver;
+
+
   - name: set_dialog_node_bank
     parameters:
       - name: dialog_node_bank
@@ -267,7 +274,19 @@ methods:
        - font_bin
        - event_emitter
     body: |
-      driver.initialize();
+      _driver = new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
+         //{
+            //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
+               //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(base);
+         //}
+
+      if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      {
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         driver->initialize();
+      }
+      //_driver->initialize();
       //driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
       initialized = true;
       return;
@@ -280,7 +299,14 @@ methods:
     body: |
       // TODO: This method requires consideration -- particularly active_speaker_layout which is currently owned
       // by this object. Also, this method will need to be called in Frameworks::Full
-      driver.destroy();
+      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      {
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         driver->destroy();
+         //driver->initialize();
+      }
+      //if (_driver) _driver->destroy();
       //delete driver.active_character_staging_layout;
       return;
 
@@ -299,30 +325,6 @@ methods:
       return;
 
 
-  - name: clear_character_staging_layout
-    guards: [ initialized ]
-    body: |
-      if (driver.active_character_staging_layout->is_type(
-               AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
-            ))
-      {
-         AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
-            static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-               driver.active_character_staging_layout
-            );
-         as->clear_speaking_character_bitmap();
-      }
-      else
-      {
-         throw std::runtime_error(
-            "DialogSystem::set_speaking_character: error: Unable to perform action because "
-               "\"driver.active_character_staging_layout\" is of type \"" + driver.active_character_staging_layout->get_type() + "\" "
-               "and a condition is not provided to handle this type."
-         );
-      }
-      return;
-
-
   - name: set_speaking_character_avatar
     guards: [ initialized ]
     parameters:
@@ -332,33 +334,45 @@ methods:
       - name: speaking_character_expression
         type: std::string
         default_argument: '"[unset-speaking_character_expression]"'
-    guards: [ driver.active_character_staging_layout, (speaking_character_identifier.empty()) ]
+    guards: [ _driver ]
     body: |
-      if (driver.active_character_staging_layout->is_type(
-               AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
-            ))
+      
+      //guards: [ driver.active_character_staging_layout, (speaking_character_identifier.empty()) ]
+
+      if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
-         AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
-            static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-               driver.active_character_staging_layout
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+
+         //{
+         if (driver->active_character_staging_layout->is_type(
+                  AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+               ))
+         {
+            AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+               static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+                  driver->active_character_staging_layout
+               );
+            ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
+                  speaking_character_identifier,
+                  speaking_character_expression
+               );
+            if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
+            else as->set_speaking_character_bitmap(speaking_character_bitmap);
+            // TODO: Set the character
+         }
+         else
+         {
+            throw std::runtime_error(
+               "DialogSystem::set_speaking_character: error: Unable to perform action because "
+                  "\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
+                  "and a condition is not provided to handle this type."
             );
-         ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
-               speaking_character_identifier,
-               speaking_character_expression
-            );
-         if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
-         else as->set_speaking_character_bitmap(speaking_character_bitmap);
-         // TODO: Set the character
-      }
-      else
-      {
-         throw std::runtime_error(
-            "DialogSystem::set_speaking_character: error: Unable to perform action because "
-               "\"driver.active_character_staging_layout\" is of type \"" + driver.active_character_staging_layout->get_type() + "\" "
-               "and a condition is not provided to handle this type."
-         );
+         }
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
 
 
   - name: lookup_speaking_character_avatar
@@ -370,16 +384,25 @@ methods:
       - name: speaking_character_expression
         type: std::string
         default_argument: '"[unset-speaking_character_expression]"'
-    guards: [ bitmap_bin ]
+    guards: [ bitmap_bin, _driver ]
     body: |
-      if (driver.character_roster)
+      if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
-         if (!driver.character_roster->character_exists_by_name(speaking_character_identifier))
+         throw std::runtime_error("Unknown _driver type");
+      }
+
+
+      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+
+      if (driver->character_roster)
+      {
+         if (!driver->character_roster->character_exists_by_name(speaking_character_identifier))
          {
             // Throw for now
             std::stringstream available_character_names;
             available_character_names << "[ ";
-            for (auto &character_identifier : driver.character_roster->get_character_names())
+            for (auto &character_identifier : driver->character_roster->get_character_names())
             {
                available_character_names << "\"" << character_identifier << "\", ";
             }
@@ -391,7 +414,7 @@ methods:
          }
 
          AllegroFlare::DialogSystem::Characters::Base *base =
-            driver.character_roster->find_character_by_name(speaking_character_identifier);
+            driver->character_roster->find_character_by_name(speaking_character_identifier);
 
          if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
          {
@@ -567,7 +590,13 @@ methods:
       if (a_new_dialog_was_created_and_dialog_system_is_now_active)
       {
          switch_in();
-         driver.active_character_staging_layout->show(); // TODO: Test the show occurs
+         if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+         {
+            AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+               static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+            driver->active_character_staging_layout->show(); // TODO: Test the show occurs
+         }
+         //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
       }
       return;
@@ -623,7 +652,13 @@ methods:
       if (a_new_dialog_was_created_and_dialog_system_is_now_active)
       {
          switch_in();
-         driver.active_character_staging_layout->show(); // TODO: Test the show occurs
+         if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+         {
+            AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+               static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+            driver->active_character_staging_layout->show(); // TODO: Test the show occurs
+         }
+         //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
       }
       return;
@@ -676,10 +711,17 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
-      if (driver.active_character_staging_layout)
+      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
-         driver.active_character_staging_layout->render();
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         if (driver->active_character_staging_layout)      {
+            driver->active_character_staging_layout->render();
+         }
       }
+      //if (driver.active_character_staging_layout)      {
+         //driver.active_character_staging_layout->render();
+      //}
 
       if (active_dialog_box)
       {
@@ -912,11 +954,21 @@ methods:
       active_dialog_node = nullptr;
       active_dialog_node_name = "";
 
-      if (driver.active_character_staging_layout)
+      if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
          // TODO: Confirm "hide" should occur here
-         driver.active_character_staging_layout->hide(); // TODO: Test this hide occurs as expected
+         if (driver->active_character_staging_layout)
+         {
+            driver->active_character_staging_layout->hide();
+         }
       }
+      //if (driver.active_character_staging_layout)
+      //{
+         // TODO: Confirm "hide" should occur here
+         //driver.active_character_staging_layout->hide(); // TODO: Test this hide occurs as expected
+      //}
 
       // NOTE: Note that active_dialog_node is not deleted, because any pointer to a dialog node is a pointer
       // to one that is static in the dialog_node_bank
@@ -1113,6 +1165,8 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
     headers: [ AllegroFlare/DialogSystem/NodeStates/Wait.hpp ]
+  - symbol: AllegroFlare::DialogSystemDrivers::Base
+    headers: [ AllegroFlare/DialogSystemDrivers/Base.hpp ]
   - symbol: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
     headers: [ AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp ]
 

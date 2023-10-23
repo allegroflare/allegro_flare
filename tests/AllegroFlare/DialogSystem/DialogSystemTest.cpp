@@ -13,6 +13,8 @@
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp> // TODO: Consider alternative to this loader
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
+#include <AllegroFlare/DialogSystem/CharacterRoster.hpp> // TODO: Remove this dependency
+#include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp> // TODO: Remove this dependency
 
 
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
@@ -495,7 +497,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   TIMED_INTERACTIVE__when_a_character_roster_is_present__will_work_as_expected)
+   FOCUS__TIMED_INTERACTIVE__when_a_character_roster_is_present__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -522,8 +524,17 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
-   dialog_system.get_driver_ref().character_roster = character_roster; // TODO: Change this to a setter
+
    dialog_system.initialize();
+   AllegroFlare::DialogSystemDrivers::Base* _driver = dialog_system.get__driver();
+   if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+   {
+      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+      driver->character_roster = character_roster; // TODO: Change this to a setter
+   }
+   //dialog_system.get_driver_ref().character_roster = character_roster; // TODO: Change this to a setter
+   //dialog_system.initialize(); // NOTE: Initialization must happen before
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
 
    // run the interactive test
@@ -624,7 +635,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
-   FOCUS__update__when_the_currently_active_node_is_of_type_Wait__will_wait_until_the_time_has_finished_before_continuing)
+   update__when_the_currently_active_node_is_of_type_Wait__will_wait_until_the_time_has_finished_before_continuing)
 {
    // Setup our test context
    al_init();

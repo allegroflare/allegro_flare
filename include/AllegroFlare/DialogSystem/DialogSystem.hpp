@@ -3,7 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/DialogSystem/NodeStates/Base.hpp>
-#include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
+#include <AllegroFlare/DialogSystemDrivers/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
@@ -37,7 +37,7 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
          AllegroFlare::DialogSystem::NodeStates::Base* active_dialog_node_state;
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver driver;
+         AllegroFlare::DialogSystemDrivers::Base* _driver;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func;
          void* load_node_bank_func_user_data;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> activate_dialog_node_by_name_func;
@@ -82,17 +82,17 @@ namespace AllegroFlare
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver &get_driver_ref();
+         AllegroFlare::DialogSystemDrivers::Base* &get__driver_ref();
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
+         AllegroFlare::DialogSystemDrivers::Base* get__driver();
          void set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank={});
          void load_dialog_node_bank_from_file(std::string filename="[unset-filename]");
          void initialize();
          void destroy();
          void switch_in();
          void switch_out();
-         void clear_character_staging_layout();
          void set_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");
          ALLEGRO_BITMAP* lookup_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");

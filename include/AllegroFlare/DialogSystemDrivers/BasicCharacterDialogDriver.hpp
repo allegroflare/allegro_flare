@@ -3,7 +3,9 @@
 
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
+#include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/DialogSystemDrivers/Base.hpp>
+#include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogRoll.hpp>
 #include <string>
 
@@ -35,6 +37,8 @@ namespace AllegroFlare
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void initialize();
          void destroy();
+         void clear_character_staging_layout();
+         bool activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string dialog_node_identifier="[unset-dialog_node_identifier]", AllegroFlare::DialogTree::Nodes::Base* dialog_node_name=nullptr, void* user_data=nullptr);
          void append_to_dialog_roll(std::string speaking_character="[unset-speaking_character]", std::string dialog="[unset-dialog]");
       };
    }

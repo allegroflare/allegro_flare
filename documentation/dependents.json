@@ -816,6 +816,7 @@
   ],
   "AllegroFlare/DialogSystem/DialogSystem": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "ALLEGRO_EVENT": [
@@ -1056,6 +1057,7 @@
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/CharacterRoster": [
@@ -1107,6 +1109,10 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
+  "AllegroFlare/DialogSystemDrivers/Base": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+  ],
   "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
@@ -1114,9 +1120,6 @@
     "AllegroFlare/DialogSystem/NodeStates/Base",
     "AllegroFlare/DialogSystem/NodeStates/Wait",
     "AllegroFlare/DialogTree/Nodes/Base"
-  ],
-  "AllegroFlare/DialogSystemDrivers/Base": [
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",

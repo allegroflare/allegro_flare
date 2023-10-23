@@ -73,6 +73,41 @@ void BasicCharacterDialogDriver::destroy()
    delete active_character_staging_layout;
 }
 
+void BasicCharacterDialogDriver::clear_character_staging_layout()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::clear_character_staging_layout]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::clear_character_staging_layout: error: guard \"initialized\" not met");
+   }
+   if (active_character_staging_layout->is_type(
+            AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+         ))
+   {
+      AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+         static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+            active_character_staging_layout
+         );
+      as->clear_speaking_character_bitmap();
+   }
+   else
+   {
+      throw std::runtime_error(
+         "DialogSystem::set_speaking_character: error: Unable to perform action because "
+            "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+            "and a condition is not provided to handle this type."
+      );
+   }
+   return;
+}
+
+bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string dialog_node_identifier, AllegroFlare::DialogTree::Nodes::Base* dialog_node_name, void* user_data)
+{
+   return true;
+}
+
 void BasicCharacterDialogDriver::append_to_dialog_roll(std::string speaking_character, std::string dialog)
 {
    dialog_roll.append_log(speaking_character, dialog);

@@ -56,6 +56,49 @@ methods:
       delete active_character_staging_layout;
 
 
+  - name: clear_character_staging_layout
+    guards: [ initialized ]
+    body: |
+      if (active_character_staging_layout->is_type(
+               AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+            ))
+      {
+         AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+            static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+               active_character_staging_layout
+            );
+         as->clear_speaking_character_bitmap();
+      }
+      else
+      {
+         throw std::runtime_error(
+            "DialogSystem::set_speaking_character: error: Unable to perform action because "
+               "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+               "and a condition is not provided to handle this type."
+         );
+      }
+      return;
+
+
+  - name: activate_dialog_node_by_name_func
+    type: bool
+    parameters:
+      - name: dialog_system
+        type: AllegroFlare::DialogSystem::DialogSystem*
+        default_argument: nullptr
+      - name: dialog_node_identifier
+        type: std::string
+        default_argument: '"[unset-dialog_node_identifier]"'
+      - name: dialog_node_name
+        type: AllegroFlare::DialogTree::Nodes::Base*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    body: |
+      return true;
+
+
   - name: append_to_dialog_roll
     parameters:
       - name: speaking_character
@@ -72,6 +115,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::DialogSystem::DialogSystem
+    headers: [ AllegroFlare/DialogSystem/DialogSystem.hpp ]
   - symbol: AllegroFlare::DialogSystemDrivers::Base
     headers: [ AllegroFlare/DialogSystemDrivers/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::DialogSystem
