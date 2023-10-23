@@ -16,6 +16,10 @@ properties:
     getter: true
     setter: true
 
+  - name: initialized
+    type: bool
+    init_with: false
+
   - name: active_character_staging_layout
     type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
     init_with: nullptr
@@ -25,10 +29,6 @@ properties:
     type: AllegroFlare::DialogSystem::CharacterRoster*
     init_with: nullptr
     exposed: true
-
-  - name: initialized
-    type: bool
-    init_with: false
 
   - name: TYPE
     type: char*
@@ -46,6 +46,14 @@ methods:
       active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
       initialized = true;
       return;
+    body_dependency_symbols:
+      - AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
+
+
+  - name: destroy
+    guards: [ initialized ]
+    body: |
+      delete active_character_staging_layout;
 
 
   - name: append_to_dialog_roll
@@ -158,3 +166,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
     headers: [ AllegroFlare/DialogSystem/NodeStates/Wait.hpp ]
+  - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
+    headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
+
+

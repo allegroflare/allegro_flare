@@ -267,7 +267,8 @@ methods:
        - font_bin
        - event_emitter
     body: |
-      driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
+      driver.initialize();
+      //driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
       initialized = true;
       return;
     body_dependency_symbols:
@@ -279,7 +280,8 @@ methods:
     body: |
       // TODO: This method requires consideration -- particularly active_speaker_layout which is currently owned
       // by this object. Also, this method will need to be called in Frameworks::Full
-      delete driver.active_character_staging_layout;
+      driver.destroy();
+      //delete driver.active_character_staging_layout;
       return;
 
 

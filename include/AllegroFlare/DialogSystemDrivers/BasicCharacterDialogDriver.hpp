@@ -34,6 +34,7 @@ namespace AllegroFlare
          AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void initialize();
+         void destroy();
          void append_to_dialog_roll(std::string speaking_character="[unset-speaking_character]", std::string dialog="[unset-dialog]");
       };
    }

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 
+#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -16,9 +17,9 @@ namespace DialogSystemDrivers
 BasicCharacterDialogDriver::BasicCharacterDialogDriver()
    : AllegroFlare::DialogSystemDrivers::Base(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE)
    , dialog_roll()
+   , initialized(false)
    , active_character_staging_layout(nullptr)
    , character_roster(nullptr)
-   , initialized(false)
 {
 }
 
@@ -58,6 +59,18 @@ void BasicCharacterDialogDriver::initialize()
    active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
    initialized = true;
    return;
+}
+
+void BasicCharacterDialogDriver::destroy()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::destroy]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::destroy: error: guard \"initialized\" not met");
+   }
+   delete active_character_staging_layout;
 }
 
 void BasicCharacterDialogDriver::append_to_dialog_roll(std::string speaking_character, std::string dialog)

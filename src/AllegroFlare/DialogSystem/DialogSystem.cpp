@@ -375,7 +375,8 @@ void DialogSystem::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::initialize: error: guard \"event_emitter\" not met");
    }
-   driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
+   driver.initialize();
+   //driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
    initialized = true;
    return;
 }
@@ -384,7 +385,8 @@ void DialogSystem::destroy()
 {
    // TODO: This method requires consideration -- particularly active_speaker_layout which is currently owned
    // by this object. Also, this method will need to be called in Frameworks::Full
-   delete driver.active_character_staging_layout;
+   driver.destroy();
+   //delete driver.active_character_staging_layout;
    return;
 }
 
