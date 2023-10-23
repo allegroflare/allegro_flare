@@ -26,13 +26,6 @@ properties:
     getter: true
     setter: explicit
 
-  - name: driver
-    type: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
-    init_with: ''
-    getter_ref: true
-    getter: false
-    setter: false
-
   - name: active_dialog_box
     type: AllegroFlare::Elements::DialogBoxes::Base*
     init_with: nullptr
@@ -53,6 +46,13 @@ properties:
   - name: active_dialog_node_state
     type: AllegroFlare::DialogSystem::NodeStates::Base*
     init_with: nullptr
+
+  - name: driver
+    type: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
+    init_with: ''
+    getter_ref: true
+    getter: false
+    setter: false
 
   - name: active_character_staging_layout
     type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
@@ -278,7 +278,7 @@ methods:
        - font_bin
        - event_emitter
     body: |
-      active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
+      driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
       initialized = true;
       return;
     body_dependency_symbols:
@@ -290,7 +290,7 @@ methods:
     body: |
       // TODO: This method requires consideration -- particularly active_speaker_layout which is currently owned
       // by this object. Also, this method will need to be called in Frameworks::Full
-      delete active_character_staging_layout;
+      delete driver.active_character_staging_layout;
       return;
 
 
@@ -311,13 +311,13 @@ methods:
   - name: clear_character_staging_layout
     guards: [ initialized ]
     body: |
-      if (active_character_staging_layout->is_type(
+      if (driver.active_character_staging_layout->is_type(
                AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
             ))
       {
          AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
             static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-               active_character_staging_layout
+               driver.active_character_staging_layout
             );
          as->clear_speaking_character_bitmap();
       }
@@ -325,7 +325,7 @@ methods:
       {
          throw std::runtime_error(
             "DialogSystem::set_speaking_character: error: Unable to perform action because "
-               "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+               "\"driver.active_character_staging_layout\" is of type \"" + driver.active_character_staging_layout->get_type() + "\" "
                "and a condition is not provided to handle this type."
          );
       }
@@ -341,15 +341,15 @@ methods:
       - name: speaking_character_expression
         type: std::string
         default_argument: '"[unset-speaking_character_expression]"'
-    guards: [ active_character_staging_layout, (speaking_character_identifier.empty()) ]
+    guards: [ driver.active_character_staging_layout, (speaking_character_identifier.empty()) ]
     body: |
-      if (active_character_staging_layout->is_type(
+      if (driver.active_character_staging_layout->is_type(
                AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
             ))
       {
          AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
             static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-               active_character_staging_layout
+               driver.active_character_staging_layout
             );
          ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
                speaking_character_identifier,
@@ -363,7 +363,7 @@ methods:
       {
          throw std::runtime_error(
             "DialogSystem::set_speaking_character: error: Unable to perform action because "
-               "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
+               "\"driver.active_character_staging_layout\" is of type \"" + driver.active_character_staging_layout->get_type() + "\" "
                "and a condition is not provided to handle this type."
          );
       }
@@ -589,7 +589,7 @@ methods:
       if (a_new_dialog_was_created_and_dialog_system_is_now_active)
       {
          switch_in();
-         active_character_staging_layout->show(); // TODO: Test the show occurs
+         driver.active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
       }
       return;
@@ -645,7 +645,7 @@ methods:
       if (a_new_dialog_was_created_and_dialog_system_is_now_active)
       {
          switch_in();
-         active_character_staging_layout->show(); // TODO: Test the show occurs
+         driver.active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
       }
       return;
@@ -698,9 +698,9 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
-      if (active_character_staging_layout)
+      if (driver.active_character_staging_layout)
       {
-         active_character_staging_layout->render();
+         driver.active_character_staging_layout->render();
       }
 
       if (active_dialog_box)
@@ -934,10 +934,10 @@ methods:
       active_dialog_node = nullptr;
       active_dialog_node_name = "";
 
-      if (active_character_staging_layout)
+      if (driver.active_character_staging_layout)
       {
          // TODO: Confirm "hide" should occur here
-         active_character_staging_layout->hide(); // TODO: Test this hide occurs as expected
+         driver.active_character_staging_layout->hide(); // TODO: Test this hide occurs as expected
       }
 
       // NOTE: Note that active_dialog_node is not deleted, because any pointer to a dialog node is a pointer

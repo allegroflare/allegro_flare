@@ -13,8 +13,8 @@ namespace DialogSystemDrivers
 
 BasicCharacterDialogDriver::BasicCharacterDialogDriver()
    : AllegroFlare::DialogSystemDrivers::Base(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE)
-   , active_character_staging_layout(nullptr)
    , dialog_roll()
+   , active_character_staging_layout(nullptr)
    , character_roster(nullptr)
 {
 }

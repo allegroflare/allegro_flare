@@ -34,12 +34,12 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::DialogTree::NodeBank dialog_node_bank;
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver driver;
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
          AllegroFlare::DialogSystem::NodeStates::Base* active_dialog_node_state;
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver driver;
          AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_character_staging_layout;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func;
          AllegroFlare::Elements::DialogRoll dialog_roll;

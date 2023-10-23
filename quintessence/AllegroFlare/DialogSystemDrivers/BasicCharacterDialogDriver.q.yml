@@ -9,16 +9,17 @@ parent_classes:
 properties:
 
 
-  - name: active_character_staging_layout
-    type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
-    init_with: nullptr
-
   - name: dialog_roll
     type: AllegroFlare::Elements::DialogRoll
     init_with: ''
     getter_ref: true
     getter: true
     setter: true
+
+  - name: active_character_staging_layout
+    type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
+    init_with: nullptr
+    exposed: true
 
   - name: character_roster
     type: AllegroFlare::DialogSystem::CharacterRoster*

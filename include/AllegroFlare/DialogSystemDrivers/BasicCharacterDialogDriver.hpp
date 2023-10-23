@@ -17,13 +17,13 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver";
 
       private:
-         AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_character_staging_layout;
          AllegroFlare::Elements::DialogRoll dialog_roll;
 
       protected:
 
 
       public:
+         AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_character_staging_layout;
          AllegroFlare::DialogSystem::CharacterRoster* character_roster;
          BasicCharacterDialogDriver();
          ~BasicCharacterDialogDriver();

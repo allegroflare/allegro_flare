@@ -522,7 +522,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
-   dialog_system.set_character_roster(character_roster);
+   dialog_system.get_driver_ref().character_roster = character_roster; // TODO: Change this to a setter
    dialog_system.initialize();
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
 
