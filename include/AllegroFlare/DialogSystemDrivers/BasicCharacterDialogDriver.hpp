@@ -19,6 +19,7 @@ namespace AllegroFlare
 
       private:
          AllegroFlare::Elements::DialogRoll dialog_roll;
+         bool initialized;
 
       protected:
 
@@ -32,6 +33,7 @@ namespace AllegroFlare
          void set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll);
          AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
+         void initialize();
          void append_to_dialog_roll(std::string speaking_character="[unset-speaking_character]", std::string dialog="[unset-dialog]");
       };
    }

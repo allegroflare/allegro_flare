@@ -26,6 +26,10 @@ properties:
     init_with: nullptr
     exposed: true
 
+  - name: initialized
+    type: bool
+    init_with: false
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"'
@@ -34,6 +38,14 @@ properties:
 
 
 methods:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
+      initialized = true;
+      return;
 
 
   - name: append_to_dialog_roll
