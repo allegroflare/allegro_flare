@@ -1871,12 +1871,12 @@ void Full::draw_overlay()
 
    // TODO: do a full audit of render flags that should be restored in addition to setting the 
    // display_backbuffer_sub_bitmap
-   display_backbuffer_sub_bitmap.set_as_target();
+   display_backbuffer_sub_bitmap.set_as_target(); // TODO: Consider performance implications of this
    al_use_shader(NULL); // TODO: consider side-effects of this
 
    if (drawing_dialogs)
    {
-      dialog_system.render(); // Consider moving this to a dedcated DialogSystem::Renderer
+      dialog_system.render(); // TODO: Consider moving this to a dedcated DialogSystem::Renderer
       if (dialog_system.get_switched_in())
       {
          // Draw a debugging notice for when the dialog system is "switched in"
