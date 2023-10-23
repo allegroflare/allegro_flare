@@ -93,6 +93,12 @@ documentation:
 functions:
 
 
+  - name: compile_assertions
+    body: |
+      static_assert(sizeof(TYPE) > 0); // That's fun :)
+      return;
+
+
   - name: set_event_emitter
     guards: [ (!initialized) ]
     parameters:

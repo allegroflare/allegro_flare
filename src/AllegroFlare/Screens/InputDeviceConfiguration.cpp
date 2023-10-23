@@ -97,6 +97,12 @@ AllegroFlare::Elements::InputDeviceConfigurationList &InputDeviceConfiguration::
 }
 
 
+void InputDeviceConfiguration::compile_assertions()
+{
+   static_assert(sizeof(TYPE) > 0); // That's fun :)
+   return;
+}
+
 void InputDeviceConfiguration::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
    if (!((!initialized)))

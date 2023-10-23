@@ -56,6 +56,7 @@ namespace AllegroFlare
          void* get_on_exit_callback_func_user_data() const;
          AllegroFlare::Elements::InputDevicesList &get_input_devices_list_element_ref();
          AllegroFlare::Elements::InputDeviceConfigurationList &get_input_device_configuration_element_ref();
+         void compile_assertions();
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
