@@ -971,6 +971,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
+    "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/Nodes/Wait",
     "AllegroFlare/DialogTree/YAMLLoader"
