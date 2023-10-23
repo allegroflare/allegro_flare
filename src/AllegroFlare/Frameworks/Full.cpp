@@ -1748,13 +1748,13 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN: {
                      // Nothing do do here. But consider adding "dialog_switch_in" to screens
                      // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
-                     // that the dialog_system is not intercepting the inputs
+                     // that the dialog_system is now intercepting the inputs
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT: {
                      // Nothing do do here. But consider adding "dialog_switch_in" to screens
                      // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
-                     // that the dialog_system is not intercepting the inputs
+                     // that the dialog_system is not intercepting the inputs anymore
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_DIALOG: {
