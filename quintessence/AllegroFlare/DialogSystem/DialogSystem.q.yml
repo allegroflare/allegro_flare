@@ -151,6 +151,11 @@ documentation:
        a dialog roll, etc.
      - A "system" dialog driver is expected to be added, and include "system" dialogs that could be usable such as
        confirming an exit before actually exiting the program.
+     - Having different drivers would move us closer to switching dialogs in and out (maybe a push/pop mechanism)
+     - Having more context in the driver (character roster, etc), should make it easier to set the dialog_node_bank
+       and simultaniously clear any dialog state (current_active_dialog, etc) in the DialogSystem safely.
+     - Other features may need to be integrated to the driver (render(?)), and a clearer abstraction will need to be
+       used so that drivers can be easily used in the DialogSystem
   - next_steps:
      - modify process_dialog_event to branch based on the ALLEGRO_FLARE_EVENT_DIALOG_* event
      - consider if you need to make GameEventDatas for each of the different types of events
