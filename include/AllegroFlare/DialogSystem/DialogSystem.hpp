@@ -2,7 +2,6 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/DialogSystem/NodeStates/Base.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
@@ -40,7 +39,6 @@ namespace AllegroFlare
          std::string active_dialog_node_name;
          AllegroFlare::DialogSystem::NodeStates::Base* active_dialog_node_state;
          AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver driver;
-         AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_character_staging_layout;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func;
          AllegroFlare::Elements::DialogRoll dialog_roll;
          void* load_node_bank_func_user_data;

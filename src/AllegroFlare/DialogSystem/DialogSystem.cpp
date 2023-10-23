@@ -46,7 +46,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_node_name("[unset-active_dialog_node_name]")
    , active_dialog_node_state(nullptr)
    , driver()
-   , active_character_staging_layout(nullptr)
    , load_node_bank_func()
    , dialog_roll()
    , load_node_bank_func_user_data(nullptr)

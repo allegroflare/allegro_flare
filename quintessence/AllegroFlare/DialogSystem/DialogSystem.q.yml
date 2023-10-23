@@ -54,10 +54,6 @@ properties:
     getter: false
     setter: false
 
-  - name: active_character_staging_layout
-    type: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base*
-    init_with: nullptr
-
   - name: load_node_bank_func
     type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
     init_with: ''
