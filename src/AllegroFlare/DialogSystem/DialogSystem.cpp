@@ -205,6 +205,12 @@ int DialogSystem::get_standard_dialog_box_font_size() const
 }
 
 
+bool DialogSystem::get_initialized() const
+{
+   return initialized;
+}
+
+
 AllegroFlare::DialogSystemDrivers::Base* &DialogSystem::get__driver_ref()
 {
    return _driver;
