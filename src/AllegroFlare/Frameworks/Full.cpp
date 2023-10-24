@@ -861,6 +861,12 @@ bool Full::is_using_display_backbuffer_as_primary_render_surface()
 }
 
 
+void Full::set_dialog_system_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank)
+{
+   dialog_system.set_dialog_node_bank(dialog_node_bank);
+}
+
+
 
 void Full::set_dialog_system_load_node_bank_func(
       std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func

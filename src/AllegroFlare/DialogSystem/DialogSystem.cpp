@@ -796,15 +796,6 @@ void DialogSystem::dialog_advance()
                );
             }
 
-            //if (!active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
-            //{
-               //throw std::runtime_error(
-                  //"DialogSystem::dialog_advance: error: Expecting active_dialog_node_state to be of type "
-                     //"\"AllegroFlare::DialogSystem::NodeStates::Wait::TYPE\", but it is of type \""
-                     //+ active_dialog_node_state->get_type() + "\""
-               //);
-            //}
-
             AllegroFlare::DialogTree::Nodes::Wait *as =
                static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
             std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
