@@ -161,6 +161,13 @@ AllegroFlare::Elements::DialogBoxes::YouGotEvidence* DialogBoxFactory::create_yo
 
 AllegroFlare::Elements::DialogBoxes::Wait* DialogBoxFactory::create_wait_dialog(float duration_seconds)
 {
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogBoxFactory::create_wait_dialog]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogBoxFactory::create_wait_dialog: error: guard \"al_is_system_installed()\" not met");
+   }
    AllegroFlare::Elements::DialogBoxes::Wait* you_got_new_evidence_dialog_box =
       new AllegroFlare::Elements::DialogBoxes::Wait(duration_seconds);
    you_got_new_evidence_dialog_box->set_created_at(al_get_time());

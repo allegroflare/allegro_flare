@@ -139,7 +139,7 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 {
    al_init(); // only for al_get_time, might replace with an AllegroFlare::Time class (could speed up/slow down time)
    std::string speaker = "Jonah";
-   std::string choice_prompt = "What will the test return?";
+  std::string choice_prompt = "What will the test return?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "A passing test.", "GOTO A" },
      { "A failing test.", "GOTO B" },
@@ -161,13 +161,24 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_wait_dialog__without_allegro_initialized__throws_an_error)
+{
+   AllegroFlare::Elements::DialogBoxFactory dialog_factory;
+   std::string expected_error_message =
+      "DialogBoxFactory::create_wait_dialog: error: guard \"al_is_system_installed()\" not met";
+   EXPECT_THROW_WITH_MESSAGE(dialog_factory.create_wait_dialog(), std::runtime_error, expected_error_message);
+}
+
+
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_wait_dialog__creates_a_Wait_dialog_with_the_expected_values)
 {
+   al_init(); // only for al_get_time
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
    AllegroFlare::Elements::DialogBoxes::Wait* created_dialog = dialog_factory.create_wait_dialog(1.25f);
    EXPECT_EQ(1.25f, created_dialog->get_duration());
    
    delete created_dialog;
+   al_uninstall_system();
 }
 
 

@@ -159,6 +159,7 @@ functions:
       - name: duration_seconds
         type: float
         default_argument: 1.0f
+    guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Wait* you_got_new_evidence_dialog_box =
          new AllegroFlare::Elements::DialogBoxes::Wait(duration_seconds);
