@@ -28,6 +28,7 @@ namespace AllegroFlare
          public:
             static constexpr char* DEFAULT_ROTATE_CAROUSEL_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::Screen::rotate_carousel";
             static constexpr char* DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::Screen::select_menu_option";
+            static constexpr char* DEFAULT_FAILED_SELECT_MENU_SOUND_EFFECT_IDENTIFIER = (char*)"ChapterSelect::Screen::failed_select_menu_option";
             static constexpr char* TYPE = (char*)"AllegroFlare/Elements/ChapterSelect/Screen";
 
          private:
@@ -41,9 +42,11 @@ namespace AllegroFlare
             std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> on_exit_screen_callback_func;
             void* on_exit_screen_callback_func_user_data;
             std::string select_menu_sound_effect_identifier;
+            std::string failed_select_menu_sound_effect_identifier;
             bool initialized;
             void select_menu_option();
             void emit_select_menu_sound_effect();
+            void emit_failed_select_menu_sound_effect();
 
          protected:
 
@@ -58,12 +61,14 @@ namespace AllegroFlare
             void set_on_exit_screen_callback_func(std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> on_exit_screen_callback_func);
             void set_on_exit_screen_callback_func_user_data(void* on_exit_screen_callback_func_user_data);
             void set_select_menu_sound_effect_identifier(std::string select_menu_sound_effect_identifier);
+            void set_failed_select_menu_sound_effect_identifier(std::string failed_select_menu_sound_effect_identifier);
             AllegroFlare::Elements::Backgrounds::Base* get_background() const;
             std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> get_on_menu_choice_callback_func() const;
             void* get_on_menu_choice_callback_func_user_data() const;
             std::function<void(AllegroFlare::Elements::ChapterSelect::Screen*, void*)> get_on_exit_screen_callback_func() const;
             void* get_on_exit_screen_callback_func_user_data() const;
             std::string get_select_menu_sound_effect_identifier() const;
+            std::string get_failed_select_menu_sound_effect_identifier() const;
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
@@ -80,6 +85,7 @@ namespace AllegroFlare
             void update();
             void render();
             AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* get_focused_carousel_element();
+            bool current_focused_carousel_element_can_be_selected();
             void activate_menu_option();
             void exit_screen();
             virtual void primary_timer_func() override;

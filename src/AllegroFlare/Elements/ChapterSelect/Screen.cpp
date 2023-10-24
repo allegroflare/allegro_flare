@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ChapterSelect/Screen.hpp>
 
+#include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -30,6 +31,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , on_exit_screen_callback_func()
    , on_exit_screen_callback_func_user_data(nullptr)
    , select_menu_sound_effect_identifier(DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER)
+   , failed_select_menu_sound_effect_identifier(DEFAULT_FAILED_SELECT_MENU_SOUND_EFFECT_IDENTIFIER)
    , initialized(false)
 {
 }
@@ -76,6 +78,12 @@ void Screen::set_select_menu_sound_effect_identifier(std::string select_menu_sou
 }
 
 
+void Screen::set_failed_select_menu_sound_effect_identifier(std::string failed_select_menu_sound_effect_identifier)
+{
+   this->failed_select_menu_sound_effect_identifier = failed_select_menu_sound_effect_identifier;
+}
+
+
 AllegroFlare::Elements::Backgrounds::Base* Screen::get_background() const
 {
    return background;
@@ -109,6 +117,12 @@ void* Screen::get_on_exit_screen_callback_func_user_data() const
 std::string Screen::get_select_menu_sound_effect_identifier() const
 {
    return select_menu_sound_effect_identifier;
+}
+
+
+std::string Screen::get_failed_select_menu_sound_effect_identifier() const
+{
+   return failed_select_menu_sound_effect_identifier;
 }
 
 
@@ -315,6 +329,34 @@ AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* Screen::get_focus
    return chapter_select_element.get_focused_carousel_element();
 }
 
+bool Screen::current_focused_carousel_element_can_be_selected()
+{
+   AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* focused_element = get_focused_carousel_element();
+   if (!focused_element)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::ChapterSelect::Screen::current_focused_carousel_element_can_be_selected",
+            "\"focused_element\" cannot be a nullptr."
+         );
+   }
+
+   if (focused_element->is_type(
+            AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable::TYPE
+         )
+      )
+   {
+      // TODO: Determine selection status
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::ChapterSelect::Screen::current_focused_carousel_element_can_be_selected",
+            "Unable to determine selectability status of type \"" + focused_element->get_type() + "\"."
+         );
+   }
+   return true;
+}
+
 void Screen::activate_menu_option()
 {
    if (on_menu_choice_callback_func)
@@ -346,10 +388,17 @@ void Screen::select_menu_option()
       return;
    }
 
-   emit_select_menu_sound_effect();
-
-   // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
-   activate_menu_option();
+   if (current_focused_carousel_element_can_be_selected())
+   {
+      // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
+      emit_select_menu_sound_effect();
+      activate_menu_option();
+   }
+   else
+   {
+      // Play a bonk effect
+      emit_failed_select_menu_sound_effect();
+   }
 
    return;
 }
@@ -440,6 +489,20 @@ void Screen::emit_select_menu_sound_effect()
    }
    // TODO: test this event emission
    event_emitter->emit_play_sound_effect_event(select_menu_sound_effect_identifier);
+   return;
+}
+
+void Screen::emit_failed_select_menu_sound_effect()
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::emit_failed_select_menu_sound_effect]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::emit_failed_select_menu_sound_effect: error: guard \"event_emitter\" not met");
+   }
+   // TODO: test this event emission
+   event_emitter->emit_play_sound_effect_event(failed_select_menu_sound_effect_identifier);
    return;
 }
 

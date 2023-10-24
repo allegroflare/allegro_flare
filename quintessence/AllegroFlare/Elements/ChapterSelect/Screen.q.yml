@@ -64,6 +64,12 @@ properties:
     getter: true
     setter: true
 
+  - name: failed_select_menu_sound_effect_identifier
+    type: std::string
+    init_with: DEFAULT_FAILED_SELECT_MENU_SOUND_EFFECT_IDENTIFIER
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -77,6 +83,12 @@ properties:
   - name: DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER
     type: char*
     init_with: '(char*)"ChapterSelect::Screen::select_menu_option"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_FAILED_SELECT_MENU_SOUND_EFFECT_IDENTIFIER
+    type: char*
+    init_with: '(char*)"ChapterSelect::Screen::failed_select_menu_option"'
     static: true
     constexpr: true
 
@@ -257,6 +269,37 @@ methods:
       return chapter_select_element.get_focused_carousel_element();
 
 
+  - name: current_focused_carousel_element_can_be_selected
+    type: bool
+    body: |
+      AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* focused_element = get_focused_carousel_element();
+      if (!focused_element)
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::ChapterSelect::Screen::current_focused_carousel_element_can_be_selected",
+               "\"focused_element\" cannot be a nullptr."
+            );
+      }
+
+      if (focused_element->is_type(
+               AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable::TYPE
+            )
+         )
+      {
+         // TODO: Determine selection status
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::ChapterSelect::Screen::current_focused_carousel_element_can_be_selected",
+               "Unable to determine selectability status of type \"" + focused_element->get_type() + "\"."
+            );
+      }
+      return true;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable
+
+
   - name: activate_menu_option
     body: |
       if (on_menu_choice_callback_func)
@@ -291,10 +334,17 @@ methods:
          return;
       }
 
-      emit_select_menu_sound_effect();
-
-      // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
-      activate_menu_option();
+      if (current_focused_carousel_element_can_be_selected())
+      {
+         // TODO: Introduce a state so that this activate_menu_option() activation can be delayed
+         emit_select_menu_sound_effect();
+         activate_menu_option();
+      }
+      else
+      {
+         // Play a bonk effect
+         emit_failed_select_menu_sound_effect();
+      }
 
       return;
 
@@ -393,6 +443,15 @@ methods:
       return;
 
 
+  - name: emit_failed_select_menu_sound_effect
+    private: true
+    guards: [ event_emitter ]
+    body: |
+      // TODO: test this event emission
+      event_emitter->emit_play_sound_effect_event(failed_select_menu_sound_effect_identifier);
+      return;
+
+
   - name: virtual_control_axis_change_func
     virtual: true
     override: true
@@ -438,6 +497,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/ChapterSelect/ChapterSelect.hpp ]
   - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElements::Base
     headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp ]
+  - symbol: AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable
+    headers: [ AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base

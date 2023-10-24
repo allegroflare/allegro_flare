@@ -5125,6 +5125,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">failed_select_menu_sound_effect_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -5134,6 +5138,10 @@ table td
 </tr>
 <tr>
   <td class="property">DEFAULT_SELECT_MENU_SOUND_EFFECT_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FAILED_SELECT_MENU_SOUND_EFFECT_IDENTIFIER</td>
   <td class="property">char*</td>
 </tr>
 <tr>
@@ -5192,6 +5200,9 @@ table td
   <td class="method">get_focused_carousel_element()</td>
 </tr>
 <tr>
+  <td class="method">current_focused_carousel_element_can_be_selected()</td>
+</tr>
+<tr>
   <td class="method">activate_menu_option()</td>
 </tr>
 <tr>
@@ -5211,6 +5222,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">emit_select_menu_sound_effect()</td>
+</tr>
+<tr>
+  <td class="private_method">emit_failed_select_menu_sound_effect()</td>
 </tr>
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
@@ -5253,6 +5267,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::CarouselElements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/CarouselElements/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
@@ -31176,7 +31193,8 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable": [
-    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer": [
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"

@@ -1459,7 +1459,8 @@
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable": [
-    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
+    "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
   "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer": [
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer"
