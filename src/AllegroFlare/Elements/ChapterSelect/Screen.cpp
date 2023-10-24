@@ -340,12 +340,17 @@ bool Screen::current_focused_carousel_element_can_be_selected()
          );
    }
 
+   bool result = true;
    if (focused_element->is_type(
             AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable::TYPE
          )
       )
    {
-      // TODO: Determine selection status
+      AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable *as =
+         static_cast<AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable*>(
+               focused_element
+            );
+      result = as->get_is_unlocked();
    }
    else
    {
@@ -354,7 +359,7 @@ bool Screen::current_focused_carousel_element_can_be_selected()
             "Unable to determine selectability status of type \"" + focused_element->get_type() + "\"."
          );
    }
-   return true;
+   return result;
 }
 
 void Screen::activate_menu_option()

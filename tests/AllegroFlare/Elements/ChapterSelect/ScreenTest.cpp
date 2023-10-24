@@ -171,7 +171,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_ScreenTestWithAllegroFrameworksFullFi
 
    framework_register_and_activate_screen("screen", &screen);
 
-   framework_run_loop(3);
+   framework_run_loop(5);
 }
 
 
