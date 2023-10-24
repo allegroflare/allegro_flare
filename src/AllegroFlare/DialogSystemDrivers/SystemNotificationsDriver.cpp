@@ -43,6 +43,7 @@ AllegroFlare::DialogTree::NodeBank SystemNotificationsDriver::build_node_bank()
             "system",
             { "Are you sure you want to exit?" },
             { 
+               //{ "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("exit_program") },
                { "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("wait_before_exit_program") },
                { "No",  new AllegroFlare::DialogTree::NodeOptions::ExitDialog() },
             }

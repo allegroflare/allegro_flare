@@ -5,6 +5,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp> // TODO: Remove this dependency
+#include <AllegroFlare/EventNames.hpp> // For ALLEGRO_FLARE_EVENT_EXIT_GAME
 
 
 class AllegroFlare_DialogSystemDrivers_SystemNotificationsDriverTest: public ::testing::Test {};
@@ -177,6 +178,10 @@ TEST_F(AllegroFlare_DialogSystemDrivers_SystemNotificationsDriverTestWithAllegro
                break;
             }
          }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_EXIT_GAME:
+            abort = true;
          break;
 
          case ALLEGRO_EVENT_TIMER:
