@@ -315,6 +315,32 @@ AllegroFlare::DialogSystemDrivers::Base* DialogSystem::get__driver()
    return _driver;
 }
 
+void DialogSystem::clear_and_reset()
+{
+   if (active_dialog_box)
+   {
+      delete active_dialog_box;
+      active_dialog_box = nullptr;
+   }
+
+   // TODO: Hide selection cursor box (if showing)
+
+   if (active_dialog_node)
+   {
+      active_dialog_node = nullptr;
+   }
+
+   // TODO: Destroy dialog_node_bank
+
+   active_dialog_node_name = "";
+   if (active_dialog_node_state)
+   {
+      delete active_dialog_node_state;
+      active_dialog_node_state = nullptr;
+   }
+   return;
+}
+
 void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank)
 {
    if (!((!initialized)))
@@ -328,7 +354,9 @@ void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialo
    // unknown side effects (for example, currently running dialog, sound effects playing, etc), that are not
    // accounted for here. However, you can "load_dialog_node_bank_from_file", so maybe there's some shared logic
    // there
+   clear_and_reset();
    this->dialog_node_bank = dialog_node_bank;
+   //if (active_dialog_box) delete active_dialog_box;
 }
 
 void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
