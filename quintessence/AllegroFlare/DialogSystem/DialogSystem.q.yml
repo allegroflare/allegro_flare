@@ -143,6 +143,8 @@ properties:
 documentation:
 
 
+  - notes:
+     - Dialog nodes are created externally, and when calling
   - status:
      - Currently, this class is in refactor flux. Some functionality is being extracted to DialogSystemDrivers,
        specifically to an BasicCharacterDialogDriver in the interim.
@@ -289,15 +291,9 @@ methods:
       - name: dialog_node_bank
         type: AllegroFlare::DialogTree::NodeBank
         default_argument: '{}'
-    guards: [ (!initialized) ]
     body: |
-      // For now, assigning the dialog_node_bank will be restricted to only before initialization.  There are currently
-      // unknown side effects (for example, currently running dialog, sound effects playing, etc), that are not
-      // accounted for here. However, you can "load_dialog_node_bank_from_file", so maybe there's some shared logic
-      // there
-      clear_and_reset();
+      clear_and_reset(); // This step includes deleting all the nodes* in the node_bank
       this->dialog_node_bank = dialog_node_bank;
-      //if (active_dialog_box) delete active_dialog_box;
 
 
   - name: load_dialog_node_bank_from_file
@@ -324,7 +320,7 @@ methods:
                );
          }
 
-         dialog_node_bank = loader_result_node_bank;
+         set_dialog_node_bank(loader_result_node_bank);
       }
       else
       {
@@ -334,7 +330,7 @@ methods:
          {
             AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
             loader.load_file(filename);
-            dialog_node_bank = loader.get_node_bank();
+            set_dialog_node_bank(loader.get_node_bank());
          }
          //else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
          //{

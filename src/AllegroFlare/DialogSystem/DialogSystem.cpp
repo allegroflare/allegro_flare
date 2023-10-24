@@ -344,20 +344,8 @@ void DialogSystem::clear_and_reset()
 
 void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank)
 {
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::set_dialog_node_bank]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_dialog_node_bank: error: guard \"(!initialized)\" not met");
-   }
-   // For now, assigning the dialog_node_bank will be restricted to only before initialization.  There are currently
-   // unknown side effects (for example, currently running dialog, sound effects playing, etc), that are not
-   // accounted for here. However, you can "load_dialog_node_bank_from_file", so maybe there's some shared logic
-   // there
-   clear_and_reset();
+   clear_and_reset(); // This step includes deleting all the nodes* in the node_bank
    this->dialog_node_bank = dialog_node_bank;
-   //if (active_dialog_box) delete active_dialog_box;
 }
 
 void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
@@ -386,7 +374,7 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
             );
       }
 
-      dialog_node_bank = loader_result_node_bank;
+      set_dialog_node_bank(loader_result_node_bank);
    }
    else
    {
@@ -396,7 +384,7 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
       {
          AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
          loader.load_file(filename);
-         dialog_node_bank = loader.get_node_bank();
+         set_dialog_node_bank(loader.get_node_bank());
       }
       //else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
       //{
