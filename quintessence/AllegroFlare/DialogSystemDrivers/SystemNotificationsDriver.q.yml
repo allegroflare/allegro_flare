@@ -1,0 +1,48 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogSystemDrivers::Base
+    scope: public
+    init_with: AllegroFlare::DialogSystemDrivers::SystemNotificationsDriver::TYPE
+
+
+properties:
+
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: load_node_bank_func
+    type: bool
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+      - name: node_bank
+        type: AllegroFlare::DialogTree::NodeBank*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ node_bank ]
+    body: |
+      // TODO: Just fill this with some standard dialog nodes
+      return true;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystemDrivers::Base
+    headers: [ AllegroFlare/DialogSystemDrivers/Base.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+
+
