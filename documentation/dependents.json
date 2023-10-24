@@ -990,6 +990,7 @@
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
@@ -1015,17 +1016,20 @@
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
@@ -1082,12 +1086,14 @@
   "AllegroFlare/DialogTree/Nodes/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankInferencer"
   ],
   "AllegroFlare/DialogTree/Nodes/ExitProgram": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver"
   ],
   "AllegroFlare/Elements/DialogRoll": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1098,7 +1104,8 @@
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystem/NodeStates/Wait",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver"
   ],
   "AllegroFlare/DialogSystem/NodeStates/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1111,7 +1118,8 @@
   ],
   "AllegroFlare/DialogSystemDrivers/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver"
   ],
   "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
     "AllegroFlare/DialogSystem/DialogSystem"

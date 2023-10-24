@@ -24,7 +24,7 @@ namespace AllegroFlare
          SystemNotificationsDriver();
          ~SystemNotificationsDriver();
 
-         bool load_node_bank_func(std::string filename="[unset-filename]", AllegroFlare::DialogTree::NodeBank* node_bank=nullptr, void* user_data=nullptr);
+         bool load_node_bank_func(std::string filename="[unset-filename]", AllegroFlare::DialogTree::NodeBank* node_bank_to_fill=nullptr, void* user_data=nullptr);
       };
    }
 }
