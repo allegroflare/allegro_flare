@@ -32,7 +32,7 @@ static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_dri
 }
 
 
-void destroy_driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
+static void destroy_driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
 {
       if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
