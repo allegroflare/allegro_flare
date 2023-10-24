@@ -78,6 +78,12 @@ void Base::advance()
    return;
 }
 
+bool Base::ready_to_auto_advance()
+{
+   // TODO: Consider if this should be pure_virtual
+   return false;
+}
+
 bool Base::move_cursor_position_up()
 {
    return false;

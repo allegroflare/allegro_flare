@@ -153,6 +153,22 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
 
 
+  - name: create_wait_dialog
+    type: AllegroFlare::Elements::DialogBoxes::Wait*
+    parameters:
+      - name: duration_seconds
+        type: float
+        default_argument: 1.0f
+    body: |
+      AllegroFlare::Elements::DialogBoxes::Wait* you_got_new_evidence_dialog_box =
+         new AllegroFlare::Elements::DialogBoxes::Wait(duration_seconds);
+
+      return you_got_new_evidence_dialog_box;
+    body_dependency_symbols:
+      - al_get_time
+      - AllegroFlare::Elements::DialogBoxes::Wait
+
+
 dependencies:
 
 
@@ -166,5 +182,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Wait
+    headers: [ AllegroFlare/Elements/DialogBoxes/Wait.hpp ]
 
 

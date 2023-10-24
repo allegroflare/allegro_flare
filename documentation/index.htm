@@ -135,6 +135,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Base.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Basic.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Wait.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Wait.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/YouGotEvidence.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/YouGotEvidence.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogButton.q.yml">quintessence/AllegroFlare/Elements/DialogButton.q.yml</a></li>
@@ -2266,6 +2267,9 @@ table td
   <td class="method">spawn_basic_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
+  <td class="method">spawn_wait_dialog(float duration_seconds=1.0f)</td>
+</tr>
+<tr>
   <td class="method">spawn_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::string&gt; options={})</td>
 </tr>
 <tr>
@@ -2354,6 +2358,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotAnItem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Wait.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::WithAttributes&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp&quot;]}</td>
@@ -5297,6 +5304,9 @@ table td
 <tr>
   <td class="method">create_you_got_new_evidence_dialog(std::string evidence_name=&quot;[unset-evidence_name]&quot;, std::string evidence_bitmap_identifier=&quot;[unset-evidence_bitmap_identifier]&quot;)</td>
 </tr>
+<tr>
+  <td class="method">create_wait_dialog(float duration_seconds=1.0f)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -5314,6 +5324,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::YouGotEvidence&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Wait.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -6209,6 +6222,9 @@ table td
   <td class="method">advance()</td>
 </tr>
 <tr>
+  <td class="method">ready_to_auto_advance()</td>
+</tr>
+<tr>
   <td class="method">move_cursor_position_up()</td>
 </tr>
 <tr>
@@ -6452,6 +6468,45 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/DialogBoxes/Wait.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Wait.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">duration</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">ready_to_auto_advance()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30314,6 +30369,7 @@ table td
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
+    "AllegroFlare/Elements/DialogBoxes/Wait",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/ListBox",
@@ -30525,6 +30581,7 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/DialogBoxes/Wait",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
@@ -30574,6 +30631,10 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Wait": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory"
   ],
   "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
     "AllegroFlare/DialogSystem/DialogSystem",

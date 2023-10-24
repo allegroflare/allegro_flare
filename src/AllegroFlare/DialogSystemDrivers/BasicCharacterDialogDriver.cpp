@@ -206,12 +206,14 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
          static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
 
       // Create a new state for this node
-      AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
-            new AllegroFlare::DialogSystem::NodeStates::Wait(as);
-      wait_node_state->initialize();
+      //AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
+            //new AllegroFlare::DialogSystem::NodeStates::Wait(as);
+      //wait_node_state->initialize();
 
       // Assign the state to our "active_dialog_node_state" so it can be managed
-      dialog_system->set_active_dialog_node_state(wait_node_state);
+      float duration_seconds = as->get_duration_sec();
+      dialog_system->spawn_wait_dialog(duration_seconds);
+      //dialog_system->set_active_dialog_node_state(wait_node_state);
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {

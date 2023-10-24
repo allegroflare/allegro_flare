@@ -31,11 +31,14 @@ methods:
     body: |
       AllegroFlare::DialogTree::NodeBank node_bank;
 
-      node_bank.add_node("wait_before_exit_program", new AllegroFlare::DialogTree::Nodes::Wait(1.0, "exit_program"));
+      node_bank.add_node(
+            "wait_before_exit_program",
+            new AllegroFlare::DialogTree::Nodes::Wait(1.0, "exit_program")
+         );
       node_bank.add_node("exit_program", new AllegroFlare::DialogTree::Nodes::ExitProgram());
       node_bank.add_node(
-         CONFIRM_EXIT_PROGRAM,
-         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+            CONFIRM_EXIT_PROGRAM,
+            new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
             (
                "system",
                { "Are you sure you want to exit?" },

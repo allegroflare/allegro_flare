@@ -1,0 +1,72 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::DialogBoxes::Base
+    scope: public
+    init_with: AllegroFlare::Elements::DialogBoxes::Wait::TYPE
+
+
+properties:
+
+
+  - name: duration
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: started_at
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/Wait"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: ready_to_auto_advance
+    virtual: true
+    override: true
+    type: bool
+    body: |
+      // When the Wait dialog is finished, it's ready to auto advance
+      return get_finished();
+
+
+  - name: update
+    virtual: true
+    override: true
+    guards: [ al_is_system_installed() ]
+    body: |
+      // TODO: Test this update
+      // TODO: Use AllegroFlare::Time and speed up the advancing rate for a faster test
+      if (get_finished()) return;
+
+      float time_now = al_get_time();
+      if (time_now - started_at >= duration)
+      {
+         set_finished(true);
+      }
+      return;
+    body_dependency_symbols:
+      - al_get_time
+
+
+
+dependencies:
+
+
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+
+

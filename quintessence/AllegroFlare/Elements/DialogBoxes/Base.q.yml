@@ -58,6 +58,14 @@ methods:
       return;
 
 
+  - name: ready_to_auto_advance
+    virtual: true
+    type: bool
+    body: |
+      // TODO: Consider if this should be pure_virtual
+      return false;
+
+
   - name: move_cursor_position_up
     type: bool
     virtual: true

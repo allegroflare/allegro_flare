@@ -655,6 +655,7 @@
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
+    "AllegroFlare/Elements/DialogBoxes/Wait",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Elements/ListBox",
@@ -866,6 +867,7 @@
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/DialogBoxes/Wait",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogEventDatas/CloseDialog",
@@ -915,6 +917,10 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Wait": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory"
   ],
   "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
     "AllegroFlare/DialogSystem/DialogSystem",

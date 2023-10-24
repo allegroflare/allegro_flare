@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <allegro5/allegro.h>
 #include <iostream>
@@ -154,6 +155,14 @@ AllegroFlare::Elements::DialogBoxes::YouGotEvidence* DialogBoxFactory::create_yo
    AllegroFlare::Elements::DialogBoxes::YouGotEvidence* you_got_new_evidence_dialog_box =
       new AllegroFlare::Elements::DialogBoxes::YouGotEvidence(evidence_name, evidence_bitmap_identifier);
    you_got_new_evidence_dialog_box->set_created_at(al_get_time());
+
+   return you_got_new_evidence_dialog_box;
+}
+
+AllegroFlare::Elements::DialogBoxes::Wait* DialogBoxFactory::create_wait_dialog(float duration_seconds)
+{
+   AllegroFlare::Elements::DialogBoxes::Wait* you_got_new_evidence_dialog_box =
+      new AllegroFlare::Elements::DialogBoxes::Wait(duration_seconds);
 
    return you_got_new_evidence_dialog_box;
 }

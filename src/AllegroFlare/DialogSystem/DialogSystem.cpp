@@ -18,6 +18,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/StringFormatValidator.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
@@ -599,6 +600,33 @@ void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vecto
    return;
 }
 
+void DialogSystem::spawn_wait_dialog(float duration_seconds)
+{
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
+                                                    // And/or address concerns that derived dialog be deleted proper
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog_box = dialog_box_factory.create_wait_dialog(duration_seconds);
+
+   // TODO: Address when and where a switch_in should occur
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      switch_in();
+      // TODO: Consider alternative place for this show() call
+      if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      {
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         driver->active_character_staging_layout->show(); // TODO: Test the show occurs
+      }
+      //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
+      event_emitter->emit_dialog_switch_in_event();
+   }
+   return;
+}
+
 void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::string> options)
 {
    bool a_dialog_existed_before = a_dialog_is_active();
@@ -665,7 +693,7 @@ void DialogSystem::update(float time_now)
    selection_cursor_box.update();
    if (active_dialog_node_state) active_dialog_node_state->update(); // TODO: Pass down time_now
 
-   evaluate_auto_advance_on_dialog_node_state();
+   if (active_dialog_box && active_dialog_box->ready_to_auto_advance()) dialog_advance();
 
    return;
 }
@@ -803,7 +831,7 @@ void DialogSystem::dialog_advance()
          }
          else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
          {
-            if (active_dialog_box)
+            if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
             {
                throw std::runtime_error(
                   "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
@@ -811,37 +839,25 @@ void DialogSystem::dialog_advance()
                );
             }
 
-            if (!active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
-            {
-               throw std::runtime_error(
-                  "DialogSystem::dialog_advance: error: Expecting active_dialog_node_state to be of type "
-                     "\"AllegroFlare::DialogSystem::NodeStates::Wait::TYPE\", but it is of type \""
-                     + active_dialog_node_state->get_type() + "\""
-               );
-            }
+            //if (!active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
+            //{
+               //throw std::runtime_error(
+                  //"DialogSystem::dialog_advance: error: Expecting active_dialog_node_state to be of type "
+                     //"\"AllegroFlare::DialogSystem::NodeStates::Wait::TYPE\", but it is of type \""
+                     //+ active_dialog_node_state->get_type() + "\""
+               //);
+            //}
 
             AllegroFlare::DialogSystem::NodeStates::Wait *as =
                static_cast<AllegroFlare::DialogSystem::NodeStates::Wait*>(active_dialog_node_state);
-            //if (as->get_is_finished())
-            //{
             activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
-            //}
-
-            // Delete the active dialog node state
-            //delete active_dialog_node_state;
-            //active_dialog_node_state = nullptr;
-
-            // Activate the dialog node going forward
-            //AllegroFlare::Elements::DialogBoxes::Wait *as=
-               //static_cast<AllegroFlare::Elements::DialogBoxes::Wait*>(active_dialog_box);
-            //activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
          }
-         //else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
-         //{
+         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+         {
             //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
                //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
-            //shutdown_dialog(); // TODO: See if this is a correct expectation for this event
-         //}
+            shutdown_dialog(); // TODO: Verify if this is a correct complete action for this event
+         }
          else
          {
             bool handled = false;

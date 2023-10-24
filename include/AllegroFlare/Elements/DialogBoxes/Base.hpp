@@ -36,6 +36,7 @@ namespace AllegroFlare
             virtual void start();
             virtual void update();
             virtual void advance();
+            virtual bool ready_to_auto_advance();
             virtual bool move_cursor_position_up();
             virtual bool move_cursor_position_down();
             float infer_age(float time_now=al_get_time());

@@ -153,11 +153,21 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 
    ASSERT_NE(nullptr, created_dialog);
 
-   ASSERT_EQ(choice_prompt, created_dialog->get_prompt_full_text());
-   ASSERT_EQ(choice_options, created_dialog->get_options());
+   EXPECT_EQ(choice_prompt, created_dialog->get_prompt_full_text());
+   EXPECT_EQ(choice_options, created_dialog->get_options());
 
    delete created_dialog;
    al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_wait_dialog__creates_a_Wait_dialog_with_the_expected_values)
+{
+   AllegroFlare::Elements::DialogBoxFactory dialog_factory;
+   AllegroFlare::Elements::DialogBoxes::Wait* created_dialog = dialog_factory.create_wait_dialog(1.25f);
+   EXPECT_EQ(1.25f, created_dialog->get_duration());
+   
+   delete created_dialog;
 }
 
 
