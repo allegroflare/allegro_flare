@@ -4,13 +4,47 @@
 #include <AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
+#include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp> // TODO: Remove this dependency
 
 
 class AllegroFlare_DialogSystemDrivers_SystemNotificationsDriverTest: public ::testing::Test {};
-class AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture
+class AllegroFlare_DialogSystemDrivers_SystemNotificationsDriverTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
+static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_driver(AllegroFlare::BitmapBin *bitmap_bin)
+{
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+         new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
+
+   driver->set_bitmap_bin(bitmap_bin);
+   driver->initialize();
+
+      //if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      //{
+         //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         //driver->destroy();
+         ////driver->initialize();
+      //}
+   return driver;
+}
+
+
+void destroy_driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
+{
+      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      {
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         driver->destroy();
+         //driver->initialize();
+      }
+      else
+      {
+         throw std::runtime_error("in test: Could not destroy _driver");
+      }
+}
 
 
 
@@ -36,8 +70,8 @@ TEST_F(AllegroFlare_DialogSystemDrivers_SystemNotificationsDriverTest, type__has
 }
 
 
-TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   FOCUS__TIMED_INTERACTIVE__will_work_as_expected)
+TEST_F(AllegroFlare_DialogSystemDrivers_SystemNotificationsDriverTestWithAllegroRenderingFixture,
+   TIMED_INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -65,6 +99,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
 
    dialog_system.initialize();
+   dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
    //AllegroFlare::DialogSystemDrivers::Base* _driver = dialog_system.get__driver();
    //if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
    //{
