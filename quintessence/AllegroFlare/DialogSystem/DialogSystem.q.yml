@@ -43,11 +43,6 @@ properties:
     init_with: '"[unset-active_dialog_node_name]"'
     getter: true
 
-  - name: active_dialog_node_state
-    type: AllegroFlare::DialogSystem::NodeStates::Base*
-    init_with: nullptr
-    setter: true
-
   - name: _driver
     type: AllegroFlare::DialogSystemDrivers::Base*
     init_with: nullptr
@@ -278,11 +273,6 @@ methods:
       // TODO: Destroy dialog_node_bank
 
       active_dialog_node_name = "";
-      if (active_dialog_node_state)
-      {
-         delete active_dialog_node_state;
-         active_dialog_node_state = nullptr;
-      }
       return;
 
 
@@ -428,11 +418,6 @@ methods:
     body: |
       active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
       active_dialog_node_name = dialog_name;
-      if (active_dialog_node_state)
-      {
-         delete active_dialog_node_state;
-         active_dialog_node_state = nullptr;
-      }
 
       if (activate_dialog_node_by_name_func)
       {
@@ -628,30 +613,10 @@ methods:
       // TODO: Consider if ordering of events is correct
       if (active_dialog_box) active_dialog_box->update();
       selection_cursor_box.update();
-      if (active_dialog_node_state) active_dialog_node_state->update(); // TODO: Pass down time_now
+      //if (active_dialog_node_state) active_dialog_node_state->update(); // TODO: Pass down time_now
 
+      // TODO: Consider moving this block above with the normal update
       if (active_dialog_box && active_dialog_box->ready_to_auto_advance()) dialog_advance();
-
-      return;
-
-
-  - name: evaluate_auto_advance_on_dialog_node_state
-    guards: [ initialized ]
-    body: |
-      if (!active_dialog_node_state) return;
-
-      if (active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
-      {
-         AllegroFlare::DialogSystem::NodeStates::Wait *as =
-            static_cast<AllegroFlare::DialogSystem::NodeStates::Wait*>(active_dialog_node_state);
-         if (as->get_is_finished())
-         {
-            activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
-         }
-      }
-      // TODO: Consider using blacklist for items that are handled, but have no behavior
-      // TODO: Consider throwing on unhandled type
-      // TODO: Consider user callback for handling unknown node state type
 
       return;
 

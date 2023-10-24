@@ -45,7 +45,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , selection_cursor_box({})
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
-   , active_dialog_node_state(nullptr)
    , _driver(nullptr)
    , load_node_bank_func()
    , load_node_bank_func_user_data(nullptr)
@@ -65,12 +64,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
 
 DialogSystem::~DialogSystem()
 {
-}
-
-
-void DialogSystem::set_active_dialog_node_state(AllegroFlare::DialogSystem::NodeStates::Base* active_dialog_node_state)
-{
-   this->active_dialog_node_state = active_dialog_node_state;
 }
 
 
@@ -335,11 +328,6 @@ void DialogSystem::clear_and_reset()
    // TODO: Destroy dialog_node_bank
 
    active_dialog_node_name = "";
-   if (active_dialog_node_state)
-   {
-      delete active_dialog_node_state;
-      active_dialog_node_state = nullptr;
-   }
    return;
 }
 
@@ -523,11 +511,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    active_dialog_node_name = dialog_name;
-   if (active_dialog_node_state)
-   {
-      delete active_dialog_node_state;
-      active_dialog_node_state = nullptr;
-   }
 
    if (activate_dialog_node_by_name_func)
    {
@@ -691,36 +674,10 @@ void DialogSystem::update(float time_now)
    // TODO: Consider if ordering of events is correct
    if (active_dialog_box) active_dialog_box->update();
    selection_cursor_box.update();
-   if (active_dialog_node_state) active_dialog_node_state->update(); // TODO: Pass down time_now
+   //if (active_dialog_node_state) active_dialog_node_state->update(); // TODO: Pass down time_now
 
+   // TODO: Consider moving this block above with the normal update
    if (active_dialog_box && active_dialog_box->ready_to_auto_advance()) dialog_advance();
-
-   return;
-}
-
-void DialogSystem::evaluate_auto_advance_on_dialog_node_state()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::evaluate_auto_advance_on_dialog_node_state]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::evaluate_auto_advance_on_dialog_node_state: error: guard \"initialized\" not met");
-   }
-   if (!active_dialog_node_state) return;
-
-   if (active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
-   {
-      AllegroFlare::DialogSystem::NodeStates::Wait *as =
-         static_cast<AllegroFlare::DialogSystem::NodeStates::Wait*>(active_dialog_node_state);
-      if (as->get_is_finished())
-      {
-         activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
-      }
-   }
-   // TODO: Consider using blacklist for items that are handled, but have no behavior
-   // TODO: Consider throwing on unhandled type
-   // TODO: Consider user callback for handling unknown node state type
 
    return;
 }
