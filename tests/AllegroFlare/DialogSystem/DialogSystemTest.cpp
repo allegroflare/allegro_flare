@@ -75,6 +75,42 @@ public:
 
 
 
+static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_driver(AllegroFlare::BitmapBin *bitmap_bin)
+{
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+         new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
+
+   driver->set_bitmap_bin(bitmap_bin);
+   driver->initialize();
+
+      //if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      //{
+         //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         //driver->destroy();
+         ////driver->initialize();
+      //}
+   return driver;
+}
+
+
+void destroy_driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
+{
+      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      {
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         driver->destroy();
+         //driver->initialize();
+      }
+      else
+      {
+         throw std::runtime_error("in test: Could not destroy _driver");
+      }
+}
+
+
+
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
@@ -178,6 +214,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &event_emitter
    );
    dialog_system.initialize();
+   dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
    dialog_system.render();
    al_flip_display();
 }
@@ -194,6 +231,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &event_emitter
    );
    dialog_system.initialize();
+   dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
 
    dialog_system.spawn_basic_dialog("Hugo", { "Hello, basic dialog", "Good to see you today" });
 
@@ -240,6 +278,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
    dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
+   dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
 
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
    dialog_system.activate_dialog_node_by_name("start_node");
@@ -287,6 +326,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
    dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
+   dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
 
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
    dialog_system.activate_dialog_node_by_name("start_node");
@@ -399,7 +439,9 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
    dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
+   dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
+   //dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -526,6 +568,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    );
 
    dialog_system.initialize();
+
+   //AllegroFlare::DialogSystemDrivers::* _driver = dialog_system.get__driver();
+   dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
+
    AllegroFlare::DialogSystemDrivers::Base* _driver = dialog_system.get__driver();
    if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
    {
@@ -648,6 +694,20 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    dialog_system.set_bitmap_bin(&bitmap_bin);
    dialog_system.set_font_bin(&font_bin);
    dialog_system.set_event_emitter(&event_emitter);
+
+
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *_driver =
+      new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
+   if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+   {
+      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+      driver->set_bitmap_bin(&bitmap_bin);
+      driver->initialize();
+   }
+
+   dialog_system.set__driver(_driver);
+
 
    event_emitter.initialize();
 

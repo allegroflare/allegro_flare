@@ -56,6 +56,7 @@ namespace AllegroFlare
          DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
          ~DialogSystem();
 
+         void set__driver(AllegroFlare::DialogSystemDrivers::Base* _driver);
          void set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func);
          void set_load_node_bank_func_user_data(void* load_node_bank_func_user_data);
          void set_activate_dialog_node_by_name_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> activate_dialog_node_by_name_func);

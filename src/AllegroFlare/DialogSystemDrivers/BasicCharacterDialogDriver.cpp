@@ -158,6 +158,13 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::activate_dialog_node_by_name_func: error: guard \"active_dialog_node\" not met");
    }
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::activate_dialog_node_by_name_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::activate_dialog_node_by_name_func: error: guard \"initialized\" not met");
+   }
    std::string &dialog_name = active_dialog_node_name;
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
@@ -299,6 +306,13 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
 
 ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::lookup_speaking_character_avatar]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::lookup_speaking_character_avatar: error: guard \"initialized\" not met");
+   }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
@@ -367,6 +381,13 @@ ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std
 
 void BasicCharacterDialogDriver::append_to_dialog_roll(std::string speaking_character, std::string dialog)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::append_to_dialog_roll]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::append_to_dialog_roll: error: guard \"initialized\" not met");
+   }
    dialog_roll.append_log(speaking_character, dialog);
    return;
 }

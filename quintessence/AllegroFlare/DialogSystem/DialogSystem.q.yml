@@ -48,7 +48,7 @@ properties:
     init_with: nullptr
     getter_ref: true
     getter: explicit
-    setter: false
+    setter: true
 
   - name: load_node_bank_func
     type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
@@ -358,20 +358,6 @@ methods:
        - font_bin
        - event_emitter
     body: |
-      _driver = new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
-         //{
-            //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
-               //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(base);
-         //}
-
-      if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->set_bitmap_bin(bitmap_bin);
-         driver->initialize();
-      }
-
       //_driver->initialize();
       //driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
       initialized = true;
@@ -385,13 +371,6 @@ methods:
     body: |
       // TODO: This method requires consideration -- particularly active_speaker_layout which is currently owned
       // by this object. Also, this method will need to be called in Frameworks::Full
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->destroy();
-         //driver->initialize();
-      }
       //if (_driver) _driver->destroy();
       //delete driver.active_character_staging_layout;
       return;
@@ -438,8 +417,7 @@ methods:
                );
          }
       }
-
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      else if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
          AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
             static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
@@ -459,6 +437,12 @@ methods:
                      "node activation."
                );
          }
+      }
+      else
+      {
+            throw std::runtime_error(
+                  "DialogSystem::activate_dialog_node_by_name: error: expecting _driver but it is a nullptr"
+               );
       }
 
       return;
@@ -492,11 +476,17 @@ methods:
       {
          switch_in();
          // TODO: Consider alternative place for this show() call
-         if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+         if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
          {
             AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
                static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
             driver->active_character_staging_layout->show(); // TODO: Test the show occurs
+         }
+         else
+         {
+            throw std::runtime_error(
+                  "DialogSystem::spawn_basic_dialog: error: expecting _driver but it is a nullptr"
+               );
          }
          //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
@@ -525,11 +515,17 @@ methods:
       {
          switch_in();
          // TODO: Consider alternative place for this show() call
-         if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+         if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
          {
             AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
                static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
             driver->active_character_staging_layout->show(); // TODO: Test the show occurs
+         }
+         else
+         {
+            throw std::runtime_error(
+                  "DialogSystem::spawn_wait_dialog: error: expecting _driver but it is a nullptr"
+               );
          }
          //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
@@ -587,11 +583,17 @@ methods:
       if (a_new_dialog_was_created_and_dialog_system_is_now_active)
       {
          switch_in();
-         if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+         if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
          {
             AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
                static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
             driver->active_character_staging_layout->show(); // TODO: Test the show occurs
+         }
+         else
+         {
+            throw std::runtime_error(
+                  "DialogSystem::spawn_choice_dialog: error: expecting _driver but it is a nullptr"
+               );
          }
          //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
          event_emitter->emit_dialog_switch_in_event();
@@ -624,7 +626,7 @@ methods:
 
   - name: render
     type: void
-    guards: [ initialized ]
+    guards: [ initialized, _driver ]
     body: |
       if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
@@ -875,7 +877,7 @@ methods:
 
   - name: shutdown_dialog
     type: bool
-    guards: [ initialized ]
+    guards: [ initialized, _driver ]
     body: |
       if (!active_dialog_box) return false;
       delete active_dialog_box; // TODO: Consider a less intrusive soft delete (hide motion, with cleanup during update)

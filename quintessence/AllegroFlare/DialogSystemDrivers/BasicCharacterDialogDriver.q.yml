@@ -120,7 +120,7 @@ methods:
       - name: user_data
         type: void*
         default_argument: nullptr
-    guards: [ dialog_system, active_dialog_node ]
+    guards: [ dialog_system, active_dialog_node, initialized ]
     body: |
       std::string &dialog_name = active_dialog_node_name;
 
@@ -277,7 +277,7 @@ methods:
       - name: speaking_character_expression
         type: std::string
         default_argument: '"[unset-speaking_character_expression]"'
-    guards: [ bitmap_bin ]
+    guards: [ initialized, bitmap_bin ]
     body: |
       //if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       //{
@@ -341,6 +341,7 @@ methods:
 
 
   - name: append_to_dialog_roll
+    guards: [ initialized ]
     parameters:
       - name: speaking_character
         type: std::string

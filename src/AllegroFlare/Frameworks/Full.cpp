@@ -28,6 +28,7 @@
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
+#include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 
 
 // TODO: Move this to Frameworks::Full instance variable, and make configurable and 
@@ -378,6 +379,28 @@ bool Full::initialize_core_system()
    dialog_system.set_event_emitter(&event_emitter);
    dialog_system.initialize();
 
+   // Create a dialog system driver for use by default
+   // TODO: Consider how this should be destroyed if a different driver is used in its place
+
+//static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_driver(AllegroFlare::BitmapBin *bitmap_bin)
+//{
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *dialog_driver =
+         new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
+   dialog_driver->set_bitmap_bin(&bitmaps);
+   dialog_driver->initialize();
+   set_dialog_system_driver(dialog_driver);
+
+      //if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      //{
+         //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         //driver->destroy();
+         ////driver->initialize();
+      //}
+   //return driver;
+//}
+
+
    // Create a Router
    //router = new AllegroFlare::Routers::Standard;
    //router->set_event_emitter(&event_emitter);
@@ -683,7 +706,23 @@ bool Full::shutdown()
 {
    if (!initialized) return false;
 
-   // TODO autit this function
+   // TODO: Consider how to destroy the dialog system driver
+   //void destroy_driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
+   //{
+      //if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      //{
+         //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         //driver->destroy();
+      //}
+      //else
+      //{
+         //throw std::runtime_error("in test: Could not destroy _driver");
+      //}
+   //}
+
+
+   // TODO audit this function
    samples.clear();
    bitmaps.clear();
    fonts.clear();
@@ -866,6 +905,11 @@ void Full::set_dialog_system_dialog_node_bank(AllegroFlare::DialogTree::NodeBank
    dialog_system.set_dialog_node_bank(dialog_node_bank);
 }
 
+
+void Full::set_dialog_system_driver(AllegroFlare::DialogSystemDrivers::Base *dialog_system_driver)
+{
+   dialog_system.set__driver(dialog_system_driver); // TODO: Rename "_driver" property on DialogSystem
+}
 
 
 void Full::set_dialog_system_load_node_bank_func(
