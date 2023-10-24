@@ -344,6 +344,8 @@ void DialogSystem::clear_and_reset()
 
 void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank)
 {
+   // TODO: Test the expected conditions when calling "set_dialog_node_bank" after init and/or when the node bank
+   // is currently loaded (is it cleared? Does the active_dialog_box become nullptr, active_dialog_name empty, etc..)
    clear_and_reset(); // This step includes deleting all the nodes* in the node_bank
    this->dialog_node_bank = dialog_node_bank;
 }
