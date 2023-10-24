@@ -271,6 +271,7 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bo
    }
    else
    {
+      throw std::runtime_error("Uknonwn type here (1)");
       // TODO: Throw
    }
    return;
@@ -294,6 +295,7 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* 
    }
    else
    {
+      throw std::runtime_error("Uknonwn type here (2)");
       // TODO: Throw
    }
    return;

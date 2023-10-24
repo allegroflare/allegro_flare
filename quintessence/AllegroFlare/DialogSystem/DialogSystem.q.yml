@@ -216,6 +216,7 @@ methods:
       }
       else
       {
+         throw std::runtime_error("Uknonwn type here (1)");
          // TODO: Throw
       }
       return;
@@ -239,6 +240,7 @@ methods:
       }
       else
       {
+         throw std::runtime_error("Uknonwn type here (2)");
          // TODO: Throw
       }
       return;
