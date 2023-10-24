@@ -920,7 +920,8 @@
   ],
   "AllegroFlare/Elements/DialogBoxes/Wait": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/DialogBoxFactory"
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/InventoryDictionaryItems/WithAttributes": [
     "AllegroFlare/DialogSystem/DialogSystem",

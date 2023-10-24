@@ -816,6 +816,11 @@ void DialogSystem::dialog_advance()
                //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
             shutdown_dialog(); // TODO: Verify if this is a correct complete action for this event
          }
+         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+         {
+            // TODO: Consider renaming ExitProgram
+            event_emitter->emit_exit_game_event();
+         }
          else
          {
             bool handled = false;
@@ -849,8 +854,10 @@ void DialogSystem::dialog_advance()
             //);
          }
       }
-
-      // TODO: Figure out what to do when the dialog is finished.
+      else // There is no "active_dialog_node", even though there is an "active_dialog_box"
+      {
+         // TODO: Consider if should throw in this case
+      }
    }
    return;
 }
