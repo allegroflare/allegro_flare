@@ -231,7 +231,6 @@ methods:
   - name: on_activate
     virtual: true
     override: true
-    guards: [ initialized ]
     body: |
       // TODO: Introduce a "show" mechanism
       //emit_event_to_update_input_hints_bar();
@@ -242,7 +241,6 @@ methods:
   - name: on_deactivate
     virtual: true
     override: true
-    guards: [ initialized ]
     body: |
       // TODO: Introduce a "hide" mechanism
       //emit_hide_and_restore_size_input_hints_bar_event();
