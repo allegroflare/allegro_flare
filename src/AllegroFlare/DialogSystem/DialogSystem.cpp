@@ -596,7 +596,7 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
    active_dialog_box = choice_dialog_box;
 
 
-   // Set the cursor selection box position to this point
+   // Calculate the dimensions of the box, to set the cursor selection box on it
    AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer_for_dimensions(
       font_bin,
       bitmap_bin,
