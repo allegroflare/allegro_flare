@@ -201,6 +201,11 @@ functions:
          you_got_evidence_dialog_box_renderer.render();
          place.restore_transform();
       }
+      else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
+      {
+         // No rendering to be done for this type
+         // You might consider a debug mode that shows the wait time
+      }
       else
       {
          // TODO include this:
@@ -220,6 +225,7 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::Choice*
       - AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
       - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+      - AllegroFlare::Elements::DialogBoxes::Wait
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
@@ -259,6 +265,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Wait
+    headers: [ AllegroFlare/Elements/DialogBoxes/Wait.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer

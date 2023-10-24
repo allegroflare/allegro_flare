@@ -29,6 +29,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 
 
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, can_be_created_without_blowing_up)
@@ -392,6 +393,33 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_YouGotEvidence
    you_got_evidence_dialog_box.set_created_at(-999);
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &you_got_evidence_dialog_box);
 
+   dialog_box_renderer.render();
+   al_flip_display();
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   bitmap_bin.clear();
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__will_handle_a_Wait_dialog_box)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   al_init_image_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
+   AllegroFlare::Elements::DialogBoxes::Wait wait(1.0f);
+   wait.set_created_at(al_get_time());
+   wait.initialize();
+
+   AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &wait);
    dialog_box_renderer.render();
    al_flip_display();
    //std::this_thread::sleep_for(std::chrono::seconds(1));

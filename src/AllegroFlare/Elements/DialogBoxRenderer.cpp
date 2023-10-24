@@ -9,6 +9,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <AllegroFlare/Placement2D.hpp>
@@ -243,6 +244,11 @@ void DialogBoxRenderer::render()
       place.start_transform();
       you_got_evidence_dialog_box_renderer.render();
       place.restore_transform();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
+   {
+      // No rendering to be done for this type
+      // You might consider a debug mode that shows the wait time
    }
    else
    {
