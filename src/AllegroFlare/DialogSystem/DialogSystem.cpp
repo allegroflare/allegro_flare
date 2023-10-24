@@ -801,15 +801,41 @@ void DialogSystem::dialog_advance()
                }
             }
          }
-         //else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
-         //{
-            //AllegroFlare::DialogTree::Nodes::Wait *as =
-                  //static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+         {
+            if (active_dialog_box)
+            {
+               throw std::runtime_error(
+                  "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
+                     "is of type \"AllegroFlare::Elements::DialogBoxes::Wait::TYPE\"), but it is not."
+               );
+            }
+
+            if (!active_dialog_node_state->is_type(AllegroFlare::DialogSystem::NodeStates::Wait::TYPE))
+            {
+               throw std::runtime_error(
+                  "DialogSystem::dialog_advance: error: Expecting active_dialog_node_state to be of type "
+                     "\"AllegroFlare::DialogSystem::NodeStates::Wait::TYPE\", but it is of type \""
+                     + active_dialog_node_state->get_type() + "\""
+               );
+            }
+
+            AllegroFlare::DialogSystem::NodeStates::Wait *as =
+               static_cast<AllegroFlare::DialogSystem::NodeStates::Wait*>(active_dialog_node_state);
             //if (as->get_is_finished())
             //{
-               //activate_dialog_node_by_name(as->get_next_node_identifier());
+            activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
             //}
-         //}
+
+            // Delete the active dialog node state
+            //delete active_dialog_node_state;
+            //active_dialog_node_state = nullptr;
+
+            // Activate the dialog node going forward
+            //AllegroFlare::Elements::DialogBoxes::Wait *as=
+               //static_cast<AllegroFlare::Elements::DialogBoxes::Wait*>(active_dialog_box);
+            //activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
+         }
          //else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
          //{
             //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
