@@ -79,6 +79,19 @@ AllegroFlare::DialogTree::Nodes::Base* NodeBank::find_node_by_name(std::string n
    return nodes[name];
 }
 
+void NodeBank::delete_all_nodes_and_clear()
+{
+   for (auto &node : nodes)
+   {
+      // TODO: Consider deleting or placing this in a try{} catch{}
+      // TODO: Consider throwing if nullptr
+      // TODO: Add test for deleted nodes (see AllegroFlare/Testing/MemoryAllocationDeallocationObserver)
+      if (node.second != nullptr) delete node.second;
+   }
+   nodes.clear();
+   return;
+}
+
 
 } // namespace DialogTree
 } // namespace AllegroFlare
