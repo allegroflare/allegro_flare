@@ -134,7 +134,7 @@ void BasicCharacterDialogDriver::clear_character_staging_layout()
    else
    {
       throw std::runtime_error(
-         "DialogSystem::set_speaking_character: error: Unable to perform action because "
+         "DialogSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
             "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
             "and a condition is not provided to handle this type."
       );
@@ -172,7 +172,7 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
       if (node_options_as_text.empty())
       {
          throw std::runtime_error(
-            "DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
                + dialog_name + "\" but there are no options."
          );
       }
@@ -189,7 +189,7 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
          if (node_pages.size() != 1)
          {
             throw std::runtime_error(
-               "DialogSystem::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
+               "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
                   + dialog_name + "\" (because it is going to be used to build a Choice dialog, "
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
@@ -239,7 +239,7 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
       if (!handled)
       {
          throw std::runtime_error(
-            "DialogSystem::activate_dialog_node_by_name: error: Unable to handle dialog node activation on type \""
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Unable to handle dialog node activation on type \""
                + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
          );
       }
@@ -286,7 +286,7 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
       else
       {
          throw std::runtime_error(
-            "DialogSystem::set_speaking_character: error: Unable to perform action because "
+            "DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
                "\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
                "and a condition is not provided to handle this type."
          );
@@ -357,7 +357,7 @@ ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std
       }
       else
       {
-         throw std::runtime_error("DialogSystem: unknown handled character type");
+         throw std::runtime_error("DialogSystemDrivers::BasicCharacterDialogDriver: unknown handled character type");
       }
    }
    return nullptr;
