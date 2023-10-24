@@ -717,7 +717,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    node_bank.add_node("next_node", new AllegroFlare::DialogTree::Nodes::MultipageWithOptions(
          "Speaker man", // TODO: Improve this test data
          { "I'm a speaker" },
-         { { "Exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog() } }
+         {
+            //{ "Exit program", new AllegroFlare::DialogTree::NodeOptions::ExitProgram() }
+            { "Exit dialog", new AllegroFlare::DialogTree::NodeOptions::ExitDialog() }
+         }
       ));
 
    // Use our assembled node_bank
