@@ -330,6 +330,7 @@ void DialogSystem::clear_and_reset()
       active_dialog_node = nullptr;
    }
 
+   dialog_node_bank.delete_all_nodes_and_clear();
    // TODO: Destroy dialog_node_bank
 
    active_dialog_node_name = "";
