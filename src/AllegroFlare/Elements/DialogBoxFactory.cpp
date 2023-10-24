@@ -163,6 +163,8 @@ AllegroFlare::Elements::DialogBoxes::Wait* DialogBoxFactory::create_wait_dialog(
 {
    AllegroFlare::Elements::DialogBoxes::Wait* you_got_new_evidence_dialog_box =
       new AllegroFlare::Elements::DialogBoxes::Wait(duration_seconds);
+   you_got_new_evidence_dialog_box->set_created_at(al_get_time());
+   you_got_new_evidence_dialog_box->initialize();
 
    return you_got_new_evidence_dialog_box;
 }

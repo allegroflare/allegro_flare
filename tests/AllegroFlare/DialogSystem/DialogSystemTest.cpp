@@ -497,7 +497,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   FOCUS__TIMED_INTERACTIVE__when_a_character_roster_is_present__will_work_as_expected)
+   TIMED_INTERACTIVE__when_a_character_roster_is_present__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -649,10 +649,16 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    dialog_system.set_font_bin(&font_bin);
    dialog_system.set_event_emitter(&event_emitter);
 
+   event_emitter.initialize();
+
    // Build up a node_bank with a wait node
    AllegroFlare::DialogTree::NodeBank node_bank;
-   node_bank.add_node("wait_node_1", new AllegroFlare::DialogTree::Nodes::Wait(1, "cout_node"));
-   node_bank.add_node("cout_node", new AllegroFlare::DialogTree::Nodes::ExitDialog());
+   node_bank.add_node("wait_node_1", new AllegroFlare::DialogTree::Nodes::Wait(1, "next_node"));
+   node_bank.add_node("next_node", new AllegroFlare::DialogTree::Nodes::MultipageWithOptions(
+         "Speaker man", // TODO: Improve this test data
+         { "I'm a speaker" },
+         { { "Exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog() } }
+      ));
 
    // Use our assembled node_bank
    dialog_system.set_dialog_node_bank(node_bank);
@@ -662,9 +668,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    dialog_system.activate_dialog_node_by_name("wait_node_1");
    dialog_system.update(al_get_time()); // TODO: Use AllegroFlare::Time
    EXPECT_EQ("wait_node_1", dialog_system.get_active_dialog_node_name());
+   dialog_system.update(al_get_time()); // TODO: Use AllegroFlare::Time
+   EXPECT_EQ("wait_node_1", dialog_system.get_active_dialog_node_name());
    al_rest(1.2);
    dialog_system.update(al_get_time()); // TODO: Use AllegroFlare::Time
-   EXPECT_EQ("cout_node", dialog_system.get_active_dialog_node_name());
+   EXPECT_EQ("next_node", dialog_system.get_active_dialog_node_name());
 
    // Shutdown our test context
    al_shutdown_font_addon();

@@ -18,17 +18,19 @@ namespace AllegroFlare
          private:
             float duration;
             float started_at;
+            bool initialized;
 
          protected:
 
 
          public:
-            Wait(float duration=1.0, float started_at=1.0);
+            Wait(float duration=1.0, float started_at=0.0);
             virtual ~Wait();
 
             void set_duration(float duration);
             float get_duration() const;
             float get_started_at() const;
+            void initialize();
             virtual bool ready_to_auto_advance() override;
             virtual void update() override;
          };

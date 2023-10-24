@@ -20,6 +20,7 @@ Wait::Wait(float duration, float started_at)
    : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::Wait::TYPE)
    , duration(duration)
    , started_at(started_at)
+   , initialized(false)
 {
 }
 
@@ -46,6 +47,19 @@ float Wait::get_started_at() const
    return started_at;
 }
 
+
+void Wait::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Wait::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Wait::initialize: error: guard \"(!initialized)\" not met");
+   }
+   started_at = al_get_time();
+   return;
+}
 
 bool Wait::ready_to_auto_advance()
 {

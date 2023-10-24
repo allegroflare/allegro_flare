@@ -18,9 +18,13 @@ properties:
 
   - name: started_at
     type: float
-    init_with: 1.0
+    init_with: 0.0
     constructor_arg: true
     getter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
 
   - name: TYPE
     type: char*
@@ -30,6 +34,13 @@ properties:
 
 
 methods:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      started_at = al_get_time();
+      return;
 
 
   - name: ready_to_auto_advance

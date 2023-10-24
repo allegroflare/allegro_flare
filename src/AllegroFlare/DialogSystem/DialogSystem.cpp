@@ -848,9 +848,10 @@ void DialogSystem::dialog_advance()
                //);
             //}
 
-            AllegroFlare::DialogSystem::NodeStates::Wait *as =
-               static_cast<AllegroFlare::DialogSystem::NodeStates::Wait*>(active_dialog_node_state);
-            activate_dialog_node_by_name(as->get_wait_node()->get_next_node_identifier());
+            AllegroFlare::DialogTree::Nodes::Wait *as =
+               static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+            std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
+            activate_dialog_node_by_name(as->get_next_node_identifier());
          }
          else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
          {
