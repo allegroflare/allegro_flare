@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/DialogSystemDrivers/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
-#include <string>
 
 
 namespace AllegroFlare
@@ -13,6 +12,7 @@ namespace AllegroFlare
       class SystemNotificationsDriver : public AllegroFlare::DialogSystemDrivers::Base
       {
       public:
+         static constexpr char* CONFIRM_EXIT_PROGRAM = (char*)"confirm_exit_program";
          static constexpr char* TYPE = (char*)"AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver";
 
       private:
@@ -24,7 +24,7 @@ namespace AllegroFlare
          SystemNotificationsDriver();
          ~SystemNotificationsDriver();
 
-         bool load_node_bank_func(std::string filename="[unset-filename]", AllegroFlare::DialogTree::NodeBank* node_bank_to_fill=nullptr, void* user_data=nullptr);
+         static AllegroFlare::DialogTree::NodeBank build_node_bank();
       };
    }
 }
