@@ -291,7 +291,9 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* 
    {
       AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
          static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-      driver->set_activate_dialog_node_type_unhandled_func_user_data(activate_dialog_node_type_unhandled_func_user_data);
+      driver->set_activate_dialog_node_type_unhandled_func_user_data(
+            activate_dialog_node_type_unhandled_func_user_data
+         );
    }
    else
    {
