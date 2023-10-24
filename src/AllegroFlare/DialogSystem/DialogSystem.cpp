@@ -565,6 +565,7 @@ void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vecto
    if (a_new_dialog_was_created_and_dialog_system_is_now_active)
    {
       switch_in();
+      // TODO: Consider alternative place for this show() call
       if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
       {
          AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
