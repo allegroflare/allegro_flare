@@ -612,6 +612,39 @@ void DialogSystem::spawn_wait_dialog(float duration_seconds)
    return;
 }
 
+void DialogSystem::spawn_chapter_title_dialog(std::string title_text, float duration_seconds)
+{
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
+                                                    // And/or address concerns that derived dialog be deleted proper
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog_box = dialog_box_factory.create_chapter_title_dialog(title_text, duration_seconds);
+
+   // TODO: Address when and where a switch_in should occur
+   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   {
+      switch_in();
+      // TODO: Consider alternative place for this show() call
+      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      {
+         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         driver->active_character_staging_layout->show(); // TODO: Test the show occurs
+      }
+      else
+      {
+         throw std::runtime_error(
+               "DialogSystem::spawn_wait_dialog: error: expecting _driver but it is a nullptr"
+            );
+      }
+      //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
+      event_emitter->emit_dialog_switch_in_event();
+   }
+   return;
+}
+
 void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::string> options)
 {
    bool a_dialog_existed_before = a_dialog_is_active();
