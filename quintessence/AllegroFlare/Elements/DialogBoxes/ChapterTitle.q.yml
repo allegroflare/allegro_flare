@@ -1,0 +1,31 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::DialogBoxes::Base
+    scope: public
+    init_with: AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE
+
+
+properties:
+
+
+  - name: title_text
+    type: std::string
+    init_with: '"[unset-title_text]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/ChapterTitle"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+
+

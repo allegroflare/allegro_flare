@@ -1,0 +1,31 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::Nodes::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE
+
+
+properties:
+
+
+  - name: title_text
+    type: std::string
+    init_with: '"[unset-title_text]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/Nodes/ChapterTitle"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+
+
