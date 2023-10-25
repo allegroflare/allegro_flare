@@ -34,6 +34,78 @@ CharacterFeatureRenderer::~CharacterFeatureRenderer()
 }
 
 
+void CharacterFeatureRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void CharacterFeatureRenderer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void CharacterFeatureRenderer::set_character_name(std::string character_name)
+{
+   this->character_name = character_name;
+}
+
+
+void CharacterFeatureRenderer::set_description(std::string description)
+{
+   this->description = description;
+}
+
+
+void CharacterFeatureRenderer::set_character_image_identifier(std::string character_image_identifier)
+{
+   this->character_image_identifier = character_image_identifier;
+}
+
+
+void CharacterFeatureRenderer::set_age(float age)
+{
+   this->age = age;
+}
+
+
+AllegroFlare::FontBin* CharacterFeatureRenderer::get_font_bin() const
+{
+   return font_bin;
+}
+
+
+AllegroFlare::BitmapBin* CharacterFeatureRenderer::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+std::string CharacterFeatureRenderer::get_character_name() const
+{
+   return character_name;
+}
+
+
+std::string CharacterFeatureRenderer::get_description() const
+{
+   return description;
+}
+
+
+std::string CharacterFeatureRenderer::get_character_image_identifier() const
+{
+   return character_image_identifier;
+}
+
+
+float CharacterFeatureRenderer::get_age() const
+{
+   return age;
+}
+
+
 void CharacterFeatureRenderer::render()
 {
    if (!(al_is_system_installed()))
@@ -129,7 +201,7 @@ ALLEGRO_FONT* CharacterFeatureRenderer::obtain_character_name_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterFeatureRenderer::obtain_character_name_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -72");
+   return font_bin->auto_get("Inter-Medium.ttf -86");
 }
 
 ALLEGRO_FONT* CharacterFeatureRenderer::obtain_description_font()

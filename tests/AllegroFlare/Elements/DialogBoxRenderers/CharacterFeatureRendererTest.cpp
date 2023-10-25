@@ -95,6 +95,12 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTestWith
          &get_font_bin_ref(),
          &get_bitmap_bin_ref()
       );
+   character_feature_renderer.set_character_image_identifier("mystery-cat-x1080-01.png");
+   character_feature_renderer.set_character_name("Mystery Cat");
+   character_feature_renderer.set_description(
+      "Shrouded in a dark hood, this cat navigates the shadows while leaving linchpin clues for solving "
+         "perplexing riddles"
+   );
    character_feature_renderer.render();
    al_flip_display();
    sleep_for(1);

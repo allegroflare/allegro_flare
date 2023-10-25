@@ -5,31 +5,43 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: character_name
     type: std::string
     init_with: '"[unset-character_name]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: description
     type: std::string
     init_with: '"[unset-description]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: character_image_identifier
     type: std::string
     init_with: '"[unset-character_image_identifier]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: age
     type: float
     init_with: 999.0
     constructor_arg: true
+    getter: true
+    setter: true
 
 
 methods:
@@ -102,7 +114,7 @@ methods:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -72");
+      return font_bin->auto_get("Inter-Medium.ttf -86");
 
 
   - name: obtain_description_font
