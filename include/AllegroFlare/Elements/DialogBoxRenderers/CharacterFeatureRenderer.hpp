@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
 
@@ -24,6 +25,7 @@ namespace AllegroFlare
             float age;
             ALLEGRO_FONT* obtain_character_name_font();
             ALLEGRO_FONT* obtain_description_font();
+            ALLEGRO_BITMAP* obtain_character_image();
 
          protected:
 

@@ -52,6 +52,25 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTest, re
 }
 
 
+/*
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTest,
+   render__without_a_bitmap_bin__raises_an_error)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer character_feature_renderer(&font_bin);
+   std::string expected_error_message =
+      "CharacterFeatureRenderer::render: error: guard \"bitmap_bin\" not met";
+   EXPECT_THROW_WITH_MESSAGE(character_feature_renderer.render(), std::runtime_error, expected_error_message);
+   al_shutdown_font_addon();
+   al_shutdown_primitives_addon();
+   al_uninstall_system();
+}   
+*/
+
+
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTest, render__without_a_font_bin__raises_an_error)
 {
    al_init();
@@ -67,9 +86,13 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTest, re
 }   
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer character_feature_renderer(&get_font_bin_ref());
+   AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer character_feature_renderer(
+         &get_font_bin_ref(),
+         &get_bitmap_bin_ref()
+      );
    character_feature_renderer.render();
    al_flip_display();
    sleep_for(1);

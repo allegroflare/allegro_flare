@@ -39,7 +39,6 @@ methods:
     type: void
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
     body: |
-      // Draw Title
       float title_x = 875;
       float title_y = 500;
       float y_gutter = 60;
@@ -52,6 +51,7 @@ methods:
       //float h_text_height = text_height/2;
       //AllegroFlare::Vec2D padding = {30, 20};
 
+      // Draw the character name
       al_draw_text(
          character_name_font,
          ALLEGRO_COLOR{1, 1, 1, 1},
@@ -61,6 +61,7 @@ methods:
          character_name.c_str()
       );
 
+      // Draw the character description
       al_draw_multiline_text(
          font,
          ALLEGRO_COLOR{1, 1, 1, 1},
@@ -72,10 +73,23 @@ methods:
          description.c_str()
       );
 
+      // Draw the featured image
+      ALLEGRO_BITMAP* character_image = obtain_character_image();
+      if (character_image)
+      {
+         AllegroFlare::Placement2D placement;
+         placement.position = { 1920 / 3 * 2, 1080 / 2 };
+         placement.size = { (float)al_get_bitmap_width(character_image), (float)al_get_bitmap_height(character_image) };
+         placement.start_transform();
+         al_draw_bitmap(character_image, 0, 0, 0);
+         placement.restore_transform();
+      }
+
       return;
     body_dependency_symbols:
       - al_draw_rounded_rectangle
       - al_draw_text
+      - AllegroFlare::Placement2D
 
 
   - name: obtain_character_name_font
@@ -94,11 +108,22 @@ methods:
       return font_bin->auto_get("Inter-Medium.ttf -42");
 
 
+  - name: obtain_character_image
+    private: true
+    type: ALLEGRO_BITMAP*
+    guards: [ bitmap_bin ]
+    body: |
+      if (character_image_identifier.empty()) return nullptr;
+      return bitmap_bin->auto_get(character_image_identifier);
+
+
 dependencies:
 
 
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_draw_text
@@ -107,5 +132,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
 
 

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp>
 
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -63,7 +64,6 @@ void CharacterFeatureRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"font_bin\" not met");
    }
-   // Draw Title
    float title_x = 875;
    float title_y = 500;
    float y_gutter = 60;
@@ -76,6 +76,7 @@ void CharacterFeatureRenderer::render()
    //float h_text_height = text_height/2;
    //AllegroFlare::Vec2D padding = {30, 20};
 
+   // Draw the character name
    al_draw_text(
       character_name_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
@@ -85,6 +86,7 @@ void CharacterFeatureRenderer::render()
       character_name.c_str()
    );
 
+   // Draw the character description
    al_draw_multiline_text(
       font,
       ALLEGRO_COLOR{1, 1, 1, 1},
@@ -95,6 +97,18 @@ void CharacterFeatureRenderer::render()
       ALLEGRO_ALIGN_RIGHT,
       description.c_str()
    );
+
+   // Draw the featured image
+   ALLEGRO_BITMAP* character_image = obtain_character_image();
+   if (character_image)
+   {
+      AllegroFlare::Placement2D placement;
+      placement.position = { 1920 / 3 * 2, 1080 / 2 };
+      placement.size = { (float)al_get_bitmap_width(character_image), (float)al_get_bitmap_height(character_image) };
+      placement.start_transform();
+      al_draw_bitmap(character_image, 0, 0, 0);
+      placement.restore_transform();
+   }
 
    return;
 }
@@ -121,6 +135,19 @@ ALLEGRO_FONT* CharacterFeatureRenderer::obtain_description_font()
       throw std::runtime_error("CharacterFeatureRenderer::obtain_description_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf -42");
+}
+
+ALLEGRO_BITMAP* CharacterFeatureRenderer::obtain_character_image()
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterFeatureRenderer::obtain_character_image]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterFeatureRenderer::obtain_character_image: error: guard \"bitmap_bin\" not met");
+   }
+   if (character_image_identifier.empty()) return nullptr;
+   return bitmap_bin->auto_get(character_image_identifier);
 }
 
 
