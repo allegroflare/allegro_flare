@@ -18,12 +18,13 @@ namespace DialogBoxRenderers
 {
 
 
-CharacterFeatureRenderer::CharacterFeatureRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string character_name, std::string description, std::string character_image_identifier, float age, std::string character_name_font_name, int character_name_font_size, std::string description_font_name, int description_font_size)
+CharacterFeatureRenderer::CharacterFeatureRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string character_name, std::string description, std::string character_image_identifier, float duration, float age, std::string character_name_font_name, int character_name_font_size, std::string description_font_name, int description_font_size)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , character_name(character_name)
    , description(description)
    , character_image_identifier(character_image_identifier)
+   , duration(duration)
    , age(age)
    , character_name_font_name(character_name_font_name)
    , character_name_font_size(character_name_font_size)
@@ -65,6 +66,12 @@ void CharacterFeatureRenderer::set_description(std::string description)
 void CharacterFeatureRenderer::set_character_image_identifier(std::string character_image_identifier)
 {
    this->character_image_identifier = character_image_identifier;
+}
+
+
+void CharacterFeatureRenderer::set_duration(float duration)
+{
+   this->duration = duration;
 }
 
 
@@ -125,6 +132,12 @@ std::string CharacterFeatureRenderer::get_description() const
 std::string CharacterFeatureRenderer::get_character_image_identifier() const
 {
    return character_image_identifier;
+}
+
+
+float CharacterFeatureRenderer::get_duration() const
+{
+   return duration;
 }
 
 

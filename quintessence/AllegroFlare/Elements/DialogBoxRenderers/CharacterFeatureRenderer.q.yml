@@ -36,6 +36,13 @@ properties:
     getter: true
     setter: true
 
+  - name: duration
+    type: float
+    init_with: DEFAULT_DURATION
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: age
     type: float
     init_with: 999.0
@@ -98,6 +105,13 @@ properties:
     static: true
     const: true
     init_with: -44
+
+  - name: DEFAULT_DURATION
+    type: float
+    constexpr: true
+    static: true
+    const: true
+    init_with: 6.0f
 
 
 methods:

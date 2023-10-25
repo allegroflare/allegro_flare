@@ -273,7 +273,9 @@ void DialogBoxRenderer::render()
          bitmap_bin,
          as->get_character_name(),
          as->get_description(),
-         as->get_character_image_identifier()
+         as->get_character_image_identifier(),
+         as->DEFAULT_DURATION,
+         as->infer_age()
       );
 
       renderer.render();
