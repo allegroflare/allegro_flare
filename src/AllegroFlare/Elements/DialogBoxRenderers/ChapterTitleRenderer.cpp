@@ -119,11 +119,20 @@ void ChapterTitleRenderer::render()
       float normalized_fade_in = age / fade_in_duration;
       opacity = (normalized_fade_in);
    }
-   //else if ((duration-age) >= (duration-fade_out_duration))
-   //{
-      //float normalized_fade_out = age / fade_in_duration;
-      //opacity = (normalized_fade_in)
-   //}
+   else if (age >= (duration-fade_out_duration))
+   {
+      float end = duration;
+      float start = duration - fade_out_duration;
+      float in_pos = age - start;
+      float length = end - start;
+      float normalized = in_pos / length;
+
+      opacity = (1.0 - normalized);
+   }
+   else if (age >= duration)
+   {
+      opacity = 0.0f;
+   }
 
    float x = 1920/2;
    float y = 1080/9*4;
