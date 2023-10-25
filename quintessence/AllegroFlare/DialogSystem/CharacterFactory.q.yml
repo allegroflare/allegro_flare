@@ -7,6 +7,9 @@ methods:
       - name: display_name
         type: std::string
         default_argument: '"[unset-display_name]"'
+      - name: feature_description
+        type: std::string
+        default_argument: '"[unset-feature_description]"'
       - name: avatar_thumbnail_identifier
         type: std::string
         default_argument: '"[unset-avatar_thumbnail_identifier]"'
@@ -16,6 +19,7 @@ methods:
     body: |
       AllegroFlare::DialogSystem::Characters::Basic *result = new AllegroFlare::DialogSystem::Characters::Basic();
       result->set_display_name(display_name);
+      result->set_feature_description(feature_description);
       result->set_avatar_thumbnail_identifier(avatar_thumbnail_identifier);
       result->set_avatar_portrait_identifier(avatar_portrait_identifier);
       return result;

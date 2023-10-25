@@ -19,6 +19,7 @@ namespace AllegroFlare
 
          private:
             std::string display_name;
+            std::string feature_description;
             std::string avatar_thumbnail_identifier;
             std::string avatar_portrait_identifier;
             std::map<std::string, std::string> expressions;
@@ -31,10 +32,12 @@ namespace AllegroFlare
             ~Basic();
 
             void set_display_name(std::string display_name);
+            void set_feature_description(std::string feature_description);
             void set_avatar_thumbnail_identifier(std::string avatar_thumbnail_identifier);
             void set_avatar_portrait_identifier(std::string avatar_portrait_identifier);
             void set_expressions(std::map<std::string, std::string> expressions);
             std::string get_display_name() const;
+            std::string get_feature_description() const;
             std::string get_avatar_thumbnail_identifier() const;
             std::string get_avatar_portrait_identifier() const;
             std::map<std::string, std::string> get_expressions() const;

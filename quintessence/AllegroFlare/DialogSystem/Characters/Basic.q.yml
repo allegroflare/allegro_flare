@@ -16,6 +16,12 @@ properties:
     setter: true
     getter: true
 
+  - name: feature_description
+    type: std::string
+    init_with: '"[unset-feature_description]"'
+    setter: true
+    getter: true
+
   - name: avatar_thumbnail_identifier
     type: std::string
     init_with: '"[unset-avatar_thumbnail_identifier]"'

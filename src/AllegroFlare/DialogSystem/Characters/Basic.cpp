@@ -18,6 +18,7 @@ namespace Characters
 Basic::Basic(std::string display_name)
    : AllegroFlare::DialogSystem::Characters::Base(AllegroFlare::DialogSystem::Characters::Basic::TYPE)
    , display_name(display_name)
+   , feature_description("[unset-feature_description]")
    , avatar_thumbnail_identifier("[unset-avatar_thumbnail_identifier]")
    , avatar_portrait_identifier("[unset-avatar_portrait_identifier]")
    , expressions({})
@@ -33,6 +34,12 @@ Basic::~Basic()
 void Basic::set_display_name(std::string display_name)
 {
    this->display_name = display_name;
+}
+
+
+void Basic::set_feature_description(std::string feature_description)
+{
+   this->feature_description = feature_description;
 }
 
 
@@ -57,6 +64,12 @@ void Basic::set_expressions(std::map<std::string, std::string> expressions)
 std::string Basic::get_display_name() const
 {
    return display_name;
+}
+
+
+std::string Basic::get_feature_description() const
+{
+   return feature_description;
 }
 
 
