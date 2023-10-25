@@ -134,9 +134,9 @@ void ChapterTitleRenderer::render()
       opacity = 0.0f;
    }
 
-   float x = 1920/2;
-   float y = 1080/9*4;
    ALLEGRO_FONT *font = obtain_font();
+   float x = 1920/2;
+   float y = 1080/2 - al_get_font_line_height(font)/2;
    float text_width = al_get_text_width(font, title_text.c_str());
    float text_height = al_get_font_line_height(font);
    float h_text_width = text_width/2;
