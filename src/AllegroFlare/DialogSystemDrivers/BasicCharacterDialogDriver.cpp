@@ -10,6 +10,7 @@
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -396,6 +397,96 @@ ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std
          throw std::runtime_error("DialogSystemDrivers::BasicCharacterDialogDriver: unknown handled character type");
       }
    }
+   return nullptr;
+}
+
+AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_character_by_identifier_as_Basic(std::string character_identifier)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"initialized\" not met");
+   }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"bitmap_bin\" not met");
+   }
+   //if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+   //{
+      //throw std::runtime_error("Unknown _driver type");
+   //}
+
+    
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
+
+
+   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+      //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+
+   if (!driver->character_roster)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver"
+         "Expecting character_roster to not be a nullptr"
+      );
+   }
+
+      if (!driver->character_roster->character_exists_by_name(character_identifier))
+      {
+         // Throw for now
+         std::stringstream available_character_names;
+         available_character_names << "[ ";
+         for (auto &character_identifier : driver->character_roster->get_character_names())
+         {
+            available_character_names << "\"" << character_identifier << "\", ";
+         }
+         available_character_names << " ]";
+
+         std::string error_message = "Roster is present, but character \"" + character_identifier + "\" "
+                                  "does not exist in roster. Available names are " + available_character_names.str();
+
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver",
+            error_message
+         );
+      }
+
+      AllegroFlare::DialogSystem::Characters::Base *base =
+         driver->character_roster->find_character_by_name(character_identifier);
+
+      if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
+      {
+         AllegroFlare::DialogSystem::Characters::Basic *as =
+            static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
+
+         return as;
+
+         //std::string bitmap_identifier_to_use = "";
+         //if (as->expression_exists(speaking_character_expression))
+         //{
+            //bitmap_identifier_to_use = as->find_expression(speaking_character_expression);
+         //}
+         //else
+         //{
+            //// TODO: Add report about missing expression
+            //bitmap_identifier_to_use = as->get_avatar_portrait_identifier();
+         //}
+
+         //return bitmap_bin->auto_get(bitmap_identifier_to_use);
+      }
+      else
+      {
+         throw std::runtime_error(
+            "DialogSystemDrivers::BasicCharacterDialogDriver::lookup_speaking_character_as_Basic"
+            "unknown handled character type"
+         );
+      }
+   //}
    return nullptr;
 }
 
