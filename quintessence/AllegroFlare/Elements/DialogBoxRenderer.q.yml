@@ -201,6 +201,19 @@ functions:
          you_got_evidence_dialog_box_renderer.render();
          place.restore_transform();
       }
+      else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE))
+      {
+         AllegroFlare::Elements::DialogBoxes::ChapterTitle *as =
+            static_cast<AllegroFlare::Elements::DialogBoxes::ChapterTitle*>(dialog_box);
+
+         AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer renderer(
+            font_bin,
+            as->get_title_text(),
+            as->infer_age()
+         );
+
+         renderer.render();
+      }
       else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
       {
          // No rendering to be done for this type
@@ -225,18 +238,18 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::Choice*
       - AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
       - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
+      - AllegroFlare::Elements::DialogBoxes::ChapterTitle
       - AllegroFlare::Elements::DialogBoxes::Wait
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer
+      - AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer
 
 
 dependencies:
 
 
-  - symbol: ALLEGRO_FONT*
-    headers: [ allegro5/allegro.h ]
   - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
   - symbol: al_get_current_display
@@ -247,22 +260,10 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_filled_rounded_rectangle
     headers: [ allegro5/allegro_primitives.h ]
-  - symbol: AllegroFlare::BitmapBin*
-    headers: [ AllegroFlare/BitmapBin.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Base*
-    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Basic*
-    headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxFrame
     headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Choice*
-    headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem*
-    headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotEvidence
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Wait
@@ -275,7 +276,6 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp ]
-
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
@@ -288,7 +288,11 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
     headers: [ AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::ChapterTitle
+    headers: [ AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp ]
   - symbol: AllegroFlare::Elements::SelectionCursorBox
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp ]
 
 

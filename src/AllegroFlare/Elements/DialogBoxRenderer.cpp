@@ -4,10 +4,12 @@
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
@@ -244,6 +246,19 @@ void DialogBoxRenderer::render()
       place.start_transform();
       you_got_evidence_dialog_box_renderer.render();
       place.restore_transform();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE))
+   {
+      AllegroFlare::Elements::DialogBoxes::ChapterTitle *as =
+         static_cast<AllegroFlare::Elements::DialogBoxes::ChapterTitle*>(dialog_box);
+
+      AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer renderer(
+         font_bin,
+         as->get_title_text(),
+         as->infer_age()
+      );
+
+      renderer.render();
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
    {
