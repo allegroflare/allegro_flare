@@ -5,6 +5,7 @@
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogSystem/NodeStates/Wait.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
@@ -220,6 +221,25 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
       // Assign the state to our "active_dialog_node_state" so it can be managed
       float duration_seconds = as->get_duration_sec();
       dialog_system->spawn_wait_dialog(duration_seconds);
+      //dialog_system->set_active_dialog_node_state(wait_node_state);
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+   {
+      // Cast our class
+      AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
+
+      // Create a new state for this node
+      //AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
+            //new AllegroFlare::DialogSystem::NodeStates::Wait(as);
+      //wait_node_state->initialize();
+
+      // Assign the state to our "active_dialog_node_state" so it can be managed
+      //float duration_seconds = as->get_duration_sec();
+      dialog_system->spawn_chapter_title_dialog(
+            as->get_title_text(),
+            as->get_duration()
+         );
       //dialog_system->set_active_dialog_node_state(wait_node_state);
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))

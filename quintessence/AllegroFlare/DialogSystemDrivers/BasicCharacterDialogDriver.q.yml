@@ -179,6 +179,25 @@ methods:
          dialog_system->spawn_wait_dialog(duration_seconds);
          //dialog_system->set_active_dialog_node_state(wait_node_state);
       }
+      else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+      {
+         // Cast our class
+         AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+            static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
+
+         // Create a new state for this node
+         //AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
+               //new AllegroFlare::DialogSystem::NodeStates::Wait(as);
+         //wait_node_state->initialize();
+
+         // Assign the state to our "active_dialog_node_state" so it can be managed
+         //float duration_seconds = as->get_duration_sec();
+         dialog_system->spawn_chapter_title_dialog(
+               as->get_title_text(),
+               as->get_duration()
+            );
+         //dialog_system->set_active_dialog_node_state(wait_node_state);
+      }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
       {
          //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
@@ -216,6 +235,7 @@ methods:
      - AllegroFlare::DialogTree::Nodes::ExitDialog
      - AllegroFlare::DialogTree::Nodes::ExitProgram
      - AllegroFlare::DialogTree::Nodes::Wait
+     - AllegroFlare::DialogTree::Nodes::ChapterTitle
      - AllegroFlare::DialogSystem::NodeStates::Wait
 
 
@@ -449,6 +469,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::Wait
     headers: [ AllegroFlare/DialogTree/Nodes/Wait.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ChapterTitle
+    headers: [ AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp ]
   - symbol: AllegroFlare::DialogSystem::NodeStates::Base
     headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
