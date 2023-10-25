@@ -37,7 +37,12 @@ methods:
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+      - bitmap_bin
     body: |
       float title_x = 875;
       float title_y = 500;

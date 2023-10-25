@@ -64,6 +64,13 @@ void CharacterFeatureRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"font_bin\" not met");
    }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterFeatureRenderer::render]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"bitmap_bin\" not met");
+   }
    float title_x = 875;
    float title_y = 500;
    float y_gutter = 60;
