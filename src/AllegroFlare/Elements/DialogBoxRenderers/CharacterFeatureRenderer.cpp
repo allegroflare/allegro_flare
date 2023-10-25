@@ -18,13 +18,17 @@ namespace DialogBoxRenderers
 {
 
 
-CharacterFeatureRenderer::CharacterFeatureRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string character_name, std::string description, std::string character_image_identifier, float age)
+CharacterFeatureRenderer::CharacterFeatureRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::BitmapBin* bitmap_bin, std::string character_name, std::string description, std::string character_image_identifier, float age, std::string character_name_font_name, int character_name_font_size, std::string description_font_name, int description_font_size)
    : font_bin(font_bin)
    , bitmap_bin(bitmap_bin)
    , character_name(character_name)
    , description(description)
    , character_image_identifier(character_image_identifier)
    , age(age)
+   , character_name_font_name(character_name_font_name)
+   , character_name_font_size(character_name_font_size)
+   , description_font_name(description_font_name)
+   , description_font_size(description_font_size)
 {
 }
 
@@ -70,6 +74,30 @@ void CharacterFeatureRenderer::set_age(float age)
 }
 
 
+void CharacterFeatureRenderer::set_character_name_font_name(std::string character_name_font_name)
+{
+   this->character_name_font_name = character_name_font_name;
+}
+
+
+void CharacterFeatureRenderer::set_character_name_font_size(int character_name_font_size)
+{
+   this->character_name_font_size = character_name_font_size;
+}
+
+
+void CharacterFeatureRenderer::set_description_font_name(std::string description_font_name)
+{
+   this->description_font_name = description_font_name;
+}
+
+
+void CharacterFeatureRenderer::set_description_font_size(int description_font_size)
+{
+   this->description_font_size = description_font_size;
+}
+
+
 AllegroFlare::FontBin* CharacterFeatureRenderer::get_font_bin() const
 {
    return font_bin;
@@ -103,6 +131,30 @@ std::string CharacterFeatureRenderer::get_character_image_identifier() const
 float CharacterFeatureRenderer::get_age() const
 {
    return age;
+}
+
+
+std::string CharacterFeatureRenderer::get_character_name_font_name() const
+{
+   return character_name_font_name;
+}
+
+
+int CharacterFeatureRenderer::get_character_name_font_size() const
+{
+   return character_name_font_size;
+}
+
+
+std::string CharacterFeatureRenderer::get_description_font_name() const
+{
+   return description_font_name;
+}
+
+
+int CharacterFeatureRenderer::get_description_font_size() const
+{
+   return description_font_size;
 }
 
 
@@ -201,7 +253,10 @@ ALLEGRO_FONT* CharacterFeatureRenderer::obtain_character_name_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterFeatureRenderer::obtain_character_name_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -86");
+   std::stringstream font_identifier;
+   font_identifier << character_name_font_name << " " << character_name_font_size;
+   ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
+   return result_font;
 }
 
 ALLEGRO_FONT* CharacterFeatureRenderer::obtain_description_font()
@@ -213,7 +268,10 @@ ALLEGRO_FONT* CharacterFeatureRenderer::obtain_description_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterFeatureRenderer::obtain_description_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -42");
+   std::stringstream font_identifier;
+   font_identifier << description_font_name << " " << description_font_size;
+   ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
+   return result_font;
 }
 
 ALLEGRO_BITMAP* CharacterFeatureRenderer::obtain_character_image()

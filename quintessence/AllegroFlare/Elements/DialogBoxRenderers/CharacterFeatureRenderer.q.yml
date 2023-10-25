@@ -43,6 +43,62 @@ properties:
     getter: true
     setter: true
 
+  - name: character_name_font_name
+    type: std::string
+    init_with: DEFAULT_CHARACTER_NAME_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: character_name_font_size
+    type: int
+    init_with: DEFAULT_CHARACTER_NAME_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: description_font_name
+    type: std::string
+    init_with: DEFAULT_DESCRIPTION_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: description_font_size
+    type: int
+    init_with: DEFAULT_DESCRIPTION_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_CHARACTER_NAME_FONT_NAME
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"Inter-Medium.ttf"'
+
+  - name: DEFAULT_CHARACTER_NAME_FONT_SIZE
+    type: int
+    constexpr: true
+    static: true
+    const: true
+    init_with: -120
+
+  - name: DEFAULT_DESCRIPTION_FONT_NAME
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_DESCRIPTION_FONT_SIZE
+    type: int
+    constexpr: true
+    static: true
+    const: true
+    init_with: -44
+
 
 methods:
 
@@ -114,7 +170,11 @@ methods:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -86");
+      std::stringstream font_identifier;
+      font_identifier << character_name_font_name << " " << character_name_font_size;
+      ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
+      return result_font;
+
 
 
   - name: obtain_description_font
@@ -122,7 +182,10 @@ methods:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -42");
+      std::stringstream font_identifier;
+      font_identifier << description_font_name << " " << description_font_size;
+      ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
+      return result_font;
 
 
   - name: obtain_character_image
