@@ -13,6 +13,7 @@
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp> // TODO: Consider alternative to this loader
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp> // TODO: Remove this dependency
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp> // TODO: Remove this dependency
 
@@ -713,6 +714,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
 
    // Build up a node_bank with a wait node
    AllegroFlare::DialogTree::NodeBank node_bank;
+   //node_bank.add_node("chapter_title", new AllegroFlare::DialogTree::Nodes::Wait(1, "next_node"));
    node_bank.add_node("wait_node_1", new AllegroFlare::DialogTree::Nodes::Wait(1, "next_node"));
    node_bank.add_node("next_node", new AllegroFlare::DialogTree::Nodes::MultipageWithOptions(
          "Speaker man", // TODO: Improve this test data
@@ -742,5 +744,8 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
+
+
+// TODO: Add tests for ChapterTitle
 
 

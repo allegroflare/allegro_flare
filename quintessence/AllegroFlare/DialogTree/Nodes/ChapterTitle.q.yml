@@ -15,6 +15,25 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: duration
+    type: float
+    init_with: DEFAULT_DURATION
+    constructor_arg: true
+    getter: true
+
+  - name: next_node_identifier
+    type: std::string
+    init_with: '"[unset-next_node_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_DURATION
+    type: float
+    init_with: 6.0f
+    static: true
+    constexpr: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogTree/Nodes/ChapterTitle"'

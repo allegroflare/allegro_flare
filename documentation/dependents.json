@@ -1100,6 +1100,9 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver"
   ],
+  "AllegroFlare/DialogTree/Nodes/ChapterTitle": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "AllegroFlare/Elements/DialogRoll": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",

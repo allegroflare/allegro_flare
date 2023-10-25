@@ -10,6 +10,7 @@
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
@@ -619,7 +620,10 @@ void DialogSystem::spawn_chapter_title_dialog(std::string title_text, float dura
                                                     // And/or address concerns that derived dialog be deleted proper
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-   active_dialog_box = dialog_box_factory.create_chapter_title_dialog(title_text, duration_seconds);
+   active_dialog_box = dialog_box_factory.create_chapter_title_dialog(
+      title_text,
+      duration_seconds
+   );
 
    // TODO: Address when and where a switch_in should occur
    bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
@@ -846,6 +850,21 @@ void DialogSystem::dialog_advance()
 
             AllegroFlare::DialogTree::Nodes::Wait *as =
                static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+            std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
+            activate_dialog_node_by_name(as->get_next_node_identifier());
+         }
+         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+         {
+            if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE))
+            {
+               throw std::runtime_error(
+                  "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
+                     "is of type \"AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE\"), but it is not."
+               );
+            }
+
+            AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+               static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
             std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
             activate_dialog_node_by_name(as->get_next_node_identifier());
          }

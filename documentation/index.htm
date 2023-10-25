@@ -2269,6 +2269,9 @@ table td
   <td class="method">spawn_wait_dialog(float duration_seconds=1.0f)</td>
 </tr>
 <tr>
+  <td class="method">spawn_chapter_title_dialog(std::string title_text=&quot;[unset-title_text]&quot;, float duration_seconds=1.0f)</td>
+</tr>
+<tr>
   <td class="method">spawn_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::string&gt; options={})</td>
 </tr>
 <tr>
@@ -2432,6 +2435,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ExitProgram&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ExitProgram.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ChapterTitle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogRoll&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogRoll.hpp&quot;]}</td>
@@ -3075,6 +3081,18 @@ table td
 <tr>
   <td class="property">title_text</td>
   <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">duration</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">next_node_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_DURATION</td>
+  <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -30941,6 +30959,9 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ChapterTitle": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/Elements/DialogRoll": [
     "AllegroFlare/DialogSystem/DialogSystem",
