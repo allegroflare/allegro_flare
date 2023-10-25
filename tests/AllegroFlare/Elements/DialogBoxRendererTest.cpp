@@ -31,6 +31,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 
 
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, can_be_created_without_blowing_up)
@@ -421,6 +422,37 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_ChapterTitle_d
    );
    chapter_title.set_created_at(-999);
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &chapter_title);
+
+   dialog_box_renderer.render();
+   al_flip_display();
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   bitmap_bin.clear();
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_CharacterFeature_dialog_box)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   al_init_image_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
+   AllegroFlare::Elements::DialogBoxes::CharacterFeature character_feature;
+   character_feature.set_created_at(-999); // TODO: Consider a "middle-of-life" age
+   character_feature.set_character_name("Dr. Cat");
+   character_feature.set_description(
+      "A brilliant feline scientist, combines his sharp intellect and natural curiosity with scholarly zeal"
+   );
+   character_feature.set_character_image_identifier("a_character_feature_image_identifier.png");
+   AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &character_feature);
 
    dialog_box_renderer.render();
    al_flip_display();

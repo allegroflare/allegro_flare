@@ -1139,7 +1139,8 @@
   ],
   "AllegroFlare/Elements/DialogBoxes/CharacterFeature": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/DialogBoxFactory"
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Time": [
     "AllegroFlare/DialogSystem/NodeStates/Base",
@@ -1614,6 +1615,9 @@
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [

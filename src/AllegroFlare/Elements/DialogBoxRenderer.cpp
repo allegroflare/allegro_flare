@@ -5,11 +5,13 @@
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
@@ -257,6 +259,21 @@ void DialogBoxRenderer::render()
          as->get_title_text(),
          as->infer_age(),
          as->get_duration()
+      );
+
+      renderer.render();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::CharacterFeature::TYPE))
+   {
+      AllegroFlare::Elements::DialogBoxes::CharacterFeature *as =
+         static_cast<AllegroFlare::Elements::DialogBoxes::CharacterFeature*>(dialog_box);
+
+      AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer renderer(
+         font_bin,
+         bitmap_bin,
+         as->get_character_name(),
+         as->get_description(),
+         as->get_character_image_identifier()
       );
 
       renderer.render();
