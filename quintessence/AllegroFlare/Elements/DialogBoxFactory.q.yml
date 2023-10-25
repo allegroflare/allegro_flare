@@ -164,7 +164,6 @@ functions:
         default_argument: 6.0f
     guards: [ al_is_system_installed() ]
     body: |
-      // TODO: Test this method
       // TODO: Use a DEFAULT_DURATION_SECIONDS from ChapterTitle
       AllegroFlare::Elements::DialogBoxes::ChapterTitle* chapter_title=
          new AllegroFlare::Elements::DialogBoxes::ChapterTitle();

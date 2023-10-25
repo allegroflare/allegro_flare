@@ -182,3 +182,30 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_wait_dialog__creates_a_W
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
+   create_chapter_title_dialog__without_allegro_initialized__throws_an_error)
+{
+   AllegroFlare::Elements::DialogBoxFactory dialog_factory;
+   std::string expected_error_message =
+      "DialogBoxFactory::create_chapter_title_dialog: error: guard \"al_is_system_installed()\" not met";
+   EXPECT_THROW_WITH_MESSAGE(dialog_factory.create_chapter_title_dialog(), std::runtime_error, expected_error_message);
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
+   create_chapter_title_dialog__creates_a_ChapterTitle_dialog_with_the_expected_values)
+{
+   al_init(); // only for al_get_time
+   AllegroFlare::Elements::DialogBoxFactory dialog_factory;
+   AllegroFlare::Elements::DialogBoxes::ChapterTitle* created_dialog = dialog_factory.create_chapter_title_dialog(
+         "Chapter 2: The Discovery",
+         12.0f
+      );
+   EXPECT_EQ("Chapter 2: The Discovery", created_dialog->get_title_text());
+   EXPECT_EQ(12.0f, created_dialog->get_duration());
+   
+   delete created_dialog;
+   al_uninstall_system();
+}
+
+
