@@ -29,6 +29,34 @@ properties:
     getter: true
     setter: true
 
+  - name: font_name
+    type: std::string
+    init_with: DEFAULT_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: DEFAULT_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_FONT_NAME
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    static: true
+    const: true
+    init_with: -52
+
 
 methods:
 
@@ -94,7 +122,10 @@ methods:
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Medium.ttf -52");
+      std::stringstream font_identifier;
+      font_identifier << font_name << " " << font_size;
+      ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
+      return result_font;
 
 
 dependencies:

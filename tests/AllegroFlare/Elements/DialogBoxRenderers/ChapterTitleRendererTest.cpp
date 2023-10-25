@@ -86,6 +86,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTestWithAlle
    VISUAL__render__will_show_a_show_and_hide_animation)
 {
    AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer chapter_title_renderer(&get_font_bin_ref());
+   chapter_title_renderer.set_title_text("Chapter 4: Why I Write Such Good Titles");
    float started_at = al_get_time();
    float duration = 6.0f;
 

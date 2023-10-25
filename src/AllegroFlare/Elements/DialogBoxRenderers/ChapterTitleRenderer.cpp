@@ -19,11 +19,13 @@ namespace DialogBoxRenderers
 {
 
 
-ChapterTitleRenderer::ChapterTitleRenderer(AllegroFlare::FontBin* font_bin, std::string title_text, float age, float duration)
+ChapterTitleRenderer::ChapterTitleRenderer(AllegroFlare::FontBin* font_bin, std::string title_text, float age, float duration, std::string font_name, int font_size)
    : font_bin(font_bin)
    , title_text(title_text)
    , age(age)
    , duration(duration)
+   , font_name(font_name)
+   , font_size(font_size)
 {
 }
 
@@ -57,6 +59,18 @@ void ChapterTitleRenderer::set_duration(float duration)
 }
 
 
+void ChapterTitleRenderer::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void ChapterTitleRenderer::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
 AllegroFlare::FontBin* ChapterTitleRenderer::get_font_bin() const
 {
    return font_bin;
@@ -78,6 +92,18 @@ float ChapterTitleRenderer::get_age() const
 float ChapterTitleRenderer::get_duration() const
 {
    return duration;
+}
+
+
+std::string ChapterTitleRenderer::get_font_name() const
+{
+   return font_name;
+}
+
+
+int ChapterTitleRenderer::get_font_size() const
+{
+   return font_size;
 }
 
 
@@ -167,7 +193,10 @@ ALLEGRO_FONT* ChapterTitleRenderer::obtain_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChapterTitleRenderer::obtain_font: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -52");
+   std::stringstream font_identifier;
+   font_identifier << font_name << " " << font_size;
+   ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
+   return result_font;
 }
 
 
