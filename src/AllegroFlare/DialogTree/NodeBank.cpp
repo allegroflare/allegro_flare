@@ -83,8 +83,7 @@ void NodeBank::delete_all_nodes_and_clear()
 {
    for (auto &node : nodes)
    {
-      // TODO: Consider deleting or placing this in a try{} catch{}
-      // TODO: Consider throwing if nullptr
+      // TODO: Consider deleting or placing this in a try{} catch{}, Consider throwing if nullptr
       // TODO: Add test for deleted nodes (see AllegroFlare/Testing/MemoryAllocationDeallocationObserver)
       if (node.second != nullptr) delete node.second;
    }
