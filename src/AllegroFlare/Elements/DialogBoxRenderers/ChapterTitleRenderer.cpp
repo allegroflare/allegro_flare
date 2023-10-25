@@ -18,10 +18,11 @@ namespace DialogBoxRenderers
 {
 
 
-ChapterTitleRenderer::ChapterTitleRenderer(AllegroFlare::FontBin* font_bin, std::string title_text, float age)
+ChapterTitleRenderer::ChapterTitleRenderer(AllegroFlare::FontBin* font_bin, std::string title_text, float age, float duration)
    : font_bin(font_bin)
    , title_text(title_text)
    , age(age)
+   , duration(duration)
 {
 }
 
@@ -49,6 +50,12 @@ void ChapterTitleRenderer::set_age(float age)
 }
 
 
+void ChapterTitleRenderer::set_duration(float duration)
+{
+   this->duration = duration;
+}
+
+
 AllegroFlare::FontBin* ChapterTitleRenderer::get_font_bin() const
 {
    return font_bin;
@@ -64,6 +71,12 @@ std::string ChapterTitleRenderer::get_title_text() const
 float ChapterTitleRenderer::get_age() const
 {
    return age;
+}
+
+
+float ChapterTitleRenderer::get_duration() const
+{
+   return duration;
 }
 
 
@@ -97,6 +110,21 @@ void ChapterTitleRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ChapterTitleRenderer::render: error: guard \"font_bin\" not met");
    }
+   float fade_in_duration = 2.0f;
+   float fade_out_duration = 2.0f;
+   float opacity = 1.0f;
+
+   if (age <= fade_in_duration)
+   {
+      float normalized_fade_in = age / fade_in_duration;
+      opacity = (normalized_fade_in);
+   }
+   //else if ((duration-age) >= (duration-fade_out_duration))
+   //{
+      //float normalized_fade_out = age / fade_in_duration;
+      //opacity = (normalized_fade_in)
+   //}
+
    float x = 1920/2;
    float y = 1080/9*4;
    ALLEGRO_FONT *font = obtain_font();
@@ -106,19 +134,9 @@ void ChapterTitleRenderer::render()
    float h_text_height = text_height/2;
    AllegroFlare::Vec2D padding = {30, 20};
 
-   /*
-   al_draw_rounded_rectangle(
-      x-h_text_width - padding.x,
-      y-h_text_height - padding.y,
-      x+h_text_width + padding.x,
-      y+h_text_height + padding.y,
-      8.0f,
-      8.0f,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      8.0f
-   );
-   */
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, title_text.c_str());
+   ALLEGRO_COLOR color = ALLEGRO_COLOR{opacity, opacity, opacity, opacity};
+
+   al_draw_text(font, color, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, title_text.c_str());
    return;
 }
 

@@ -77,7 +77,26 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTestWithAlle
    AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer chapter_title_renderer(&get_font_bin_ref());
    chapter_title_renderer.render();
    al_flip_display();
-   sleep_for(1);
+   //sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTestWithAllegroRenderingFixture,
+   VISUAL__render__will_show_a_show_and_hide_animation)
+{
+   AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer chapter_title_renderer(&get_font_bin_ref());
+   float started_at = al_get_time();
+   float duration = 6.0f;
+
+   while ((al_get_time() - started_at) < duration)
+   {
+      float age = al_get_time() - started_at;
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      chapter_title_renderer.set_age(age);
+      chapter_title_renderer.render();
+      al_flip_display();
+      sleep_for_frame();
+   }
 }
 
 
