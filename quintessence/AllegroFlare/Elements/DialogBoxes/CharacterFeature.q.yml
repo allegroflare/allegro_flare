@@ -50,6 +50,30 @@ properties:
     constexpr: true
 
 
+methods:
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+      if (infer_age() > duration)
+      {
+         set_finished(true);
+      }
+      return;
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      // TODO: Consider a hide() animation. This will require dialogs that are "finished" to still be visible and
+      // playing
+      return;
+
+
 dependencies:
 
 

@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <allegro5/allegro.h>
@@ -177,6 +178,27 @@ AllegroFlare::Elements::DialogBoxes::ChapterTitle* DialogBoxFactory::create_chap
    chapter_title->set_duration(duration_seconds);
 
    return chapter_title;
+}
+
+AllegroFlare::Elements::DialogBoxes::CharacterFeature* DialogBoxFactory::create_character_feature_dialog(std::string character_name, std::string character_description, std::string character_image_identifier, float duration_seconds)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogBoxFactory::create_character_feature_dialog]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogBoxFactory::create_character_feature_dialog: error: guard \"al_is_system_installed()\" not met");
+   }
+   // TODO: Use a DEFAULT_DURATION_SECIONDS from CharacterFeature
+   AllegroFlare::Elements::DialogBoxes::CharacterFeature* dialog=
+      new AllegroFlare::Elements::DialogBoxes::CharacterFeature();
+   dialog->set_created_at(al_get_time());
+   dialog->set_character_name(character_name);
+   dialog->set_description(character_description);
+   dialog->set_character_image_identifier(character_image_identifier);
+   dialog->set_duration(duration_seconds);
+
+   return dialog;
 }
 
 AllegroFlare::Elements::DialogBoxes::Wait* DialogBoxFactory::create_wait_dialog(float duration_seconds)

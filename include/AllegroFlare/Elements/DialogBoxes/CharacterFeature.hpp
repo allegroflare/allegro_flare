@@ -28,7 +28,7 @@ namespace AllegroFlare
 
          public:
             CharacterFeature(std::string character_name="[unset-character_name]", std::string description="[unset-description]", std::string character_image_identifier="[unset-character_image_identifier]", float duration=DEFAULT_DURATION);
-            ~CharacterFeature();
+            virtual ~CharacterFeature();
 
             void set_character_name(std::string character_name);
             void set_description(std::string description);
@@ -38,6 +38,8 @@ namespace AllegroFlare
             std::string get_description() const;
             std::string get_character_image_identifier() const;
             float get_duration() const;
+            virtual void update() override;
+            virtual void advance() override;
          };
       }
    }

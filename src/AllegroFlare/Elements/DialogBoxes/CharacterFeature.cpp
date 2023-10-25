@@ -76,6 +76,22 @@ float CharacterFeature::get_duration() const
 }
 
 
+void CharacterFeature::update()
+{
+   if (get_finished()) return;
+   if (infer_age() > duration)
+   {
+      set_finished(true);
+   }
+   return;
+}
+
+void CharacterFeature::advance()
+{
+   // TODO: Consider a hide() animation. This will require dialogs that are "finished" to still be visible and
+   // playing
+   return;
+}
 
 
 } // namespace DialogBoxes

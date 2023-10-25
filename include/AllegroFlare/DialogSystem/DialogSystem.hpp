@@ -98,6 +98,7 @@ namespace AllegroFlare
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_wait_dialog(float duration_seconds=1.0f);
          void spawn_chapter_title_dialog(std::string title_text="[unset-title_text]", float duration_seconds=1.0f);
+         void spawn_character_feature_dialog(std::string character_name="[unset-character_name]", std::string character_description="[unset-character_description]", std::string character_image_identifier="[unset-character_image_identifier]", float duration_seconds=6.0f);
          void spawn_choice_dialog(std::string speaking_character="[unset-speaking_character]", std::string prompt="[unset-prompt]", std::vector<std::string> options={});
          void update(float time_now=0);
          void render();

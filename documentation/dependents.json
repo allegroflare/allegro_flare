@@ -1137,6 +1137,10 @@
   "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
+  "AllegroFlare/Elements/DialogBoxes/CharacterFeature": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory"
+  ],
   "AllegroFlare/Time": [
     "AllegroFlare/DialogSystem/NodeStates/Base",
     "AllegroFlare/DialogSystem/NodeStates/Wait",

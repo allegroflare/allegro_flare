@@ -177,6 +177,38 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::ChapterTitle
 
 
+  - name: create_character_feature_dialog
+    type: AllegroFlare::Elements::DialogBoxes::CharacterFeature*
+    parameters:
+      - name: character_name
+        type: std::string
+        default_argument: '"[unset-character_name]"'
+      - name: character_description
+        type: std::string
+        default_argument: '"[unset-character_description]"'
+      - name: character_image_identifier
+        type: std::string
+        default_argument: '"[unset-character_image_identifier]"'
+      - name: duration_seconds
+        type: float
+        default_argument: 1.0f
+    guards: [ al_is_system_installed() ]
+    body: |
+      // TODO: Use a DEFAULT_DURATION_SECIONDS from CharacterFeature
+      AllegroFlare::Elements::DialogBoxes::CharacterFeature* dialog=
+         new AllegroFlare::Elements::DialogBoxes::CharacterFeature();
+      dialog->set_created_at(al_get_time());
+      dialog->set_character_name(character_name);
+      dialog->set_description(character_description);
+      dialog->set_character_image_identifier(character_image_identifier);
+      dialog->set_duration(duration_seconds);
+
+      return dialog;
+    body_dependency_symbols:
+      - al_get_time
+      - AllegroFlare::Elements::DialogBoxes::CharacterFeature
+
+
   - name: create_wait_dialog
     type: AllegroFlare::Elements::DialogBoxes::Wait*
     parameters:
@@ -213,5 +245,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Wait.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::ChapterTitle
     headers: [ AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::CharacterFeature
+    headers: [ AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp ]
 
 

@@ -2274,6 +2274,9 @@ table td
   <td class="method">spawn_chapter_title_dialog(std::string title_text=&quot;[unset-title_text]&quot;, float duration_seconds=1.0f)</td>
 </tr>
 <tr>
+  <td class="method">spawn_character_feature_dialog(std::string character_name=&quot;[unset-character_name]&quot;, std::string character_description=&quot;[unset-character_description]&quot;, std::string character_image_identifier=&quot;[unset-character_image_identifier]&quot;, float duration_seconds=6.0f)</td>
+</tr>
+<tr>
   <td class="method">spawn_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::string&gt; options={})</td>
 </tr>
 <tr>
@@ -2458,6 +2461,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::CharacterFeature&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -5370,6 +5376,9 @@ table td
   <td class="method">create_chapter_title_dialog(std::string title_text=&quot;[unset-title_text]&quot;, float duration_seconds=6.0f)</td>
 </tr>
 <tr>
+  <td class="method">create_character_feature_dialog(std::string character_name=&quot;[unset-character_name]&quot;, std::string character_description=&quot;[unset-character_description]&quot;, std::string character_image_identifier=&quot;[unset-character_image_identifier]&quot;, float duration_seconds=1.0f)</td>
+</tr>
+<tr>
   <td class="method">create_wait_dialog(float duration_seconds=1.0f)</td>
 </tr>
     </table>
@@ -5395,6 +5404,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::ChapterTitle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::CharacterFeature&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -6611,6 +6623,12 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">advance()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -31125,6 +31143,10 @@ table td
   ],
   "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
     "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/CharacterFeature": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory"
   ],
   "AllegroFlare/Time": [
     "AllegroFlare/DialogSystem/NodeStates/Base",
