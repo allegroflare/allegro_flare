@@ -255,7 +255,8 @@ void DialogBoxRenderer::render()
       AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer renderer(
          font_bin,
          as->get_title_text(),
-         as->infer_age()
+         as->infer_age(),
+         as->get_duration()
       );
 
       renderer.render();

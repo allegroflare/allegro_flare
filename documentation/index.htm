@@ -5344,6 +5344,9 @@ table td
   <td class="method">create_you_got_new_evidence_dialog(std::string evidence_name=&quot;[unset-evidence_name]&quot;, std::string evidence_bitmap_identifier=&quot;[unset-evidence_bitmap_identifier]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">create_chapter_title_dialog(std::string title_text=&quot;[unset-title_text]&quot;, float duration_seconds=6.0f)</td>
+</tr>
+<tr>
   <td class="method">create_wait_dialog(float duration_seconds=1.0f)</td>
 </tr>
     </table>
@@ -5366,6 +5369,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Wait.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::ChapterTitle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31385,6 +31391,10 @@ table td
   "AllegroFlare/Elements/ChapterSelect/Screen": [
     "AllegroFlare/Elements/ChapterSelect/Screen"
   ],
+  "AllegroFlare/Elements/DialogBoxes/ChapterTitle": [
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
   ],
@@ -31429,9 +31439,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
-    "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/ChapterTitle": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [

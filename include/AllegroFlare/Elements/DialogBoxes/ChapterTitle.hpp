@@ -27,6 +27,8 @@ namespace AllegroFlare
             ChapterTitle(std::string title_text="[unset-title_text]", float duration=6.0f);
             virtual ~ChapterTitle();
 
+            void set_title_text(std::string title_text);
+            void set_duration(float duration);
             std::string get_title_text() const;
             float get_duration() const;
             virtual void update() override;

@@ -26,6 +26,18 @@ ChapterTitle::~ChapterTitle()
 }
 
 
+void ChapterTitle::set_title_text(std::string title_text)
+{
+   this->title_text = title_text;
+}
+
+
+void ChapterTitle::set_duration(float duration)
+{
+   this->duration = duration;
+}
+
+
 std::string ChapterTitle::get_title_text() const
 {
    return title_text;

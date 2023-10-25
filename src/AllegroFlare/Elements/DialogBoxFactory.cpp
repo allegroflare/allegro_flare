@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <allegro5/allegro.h>
@@ -157,6 +158,26 @@ AllegroFlare::Elements::DialogBoxes::YouGotEvidence* DialogBoxFactory::create_yo
    you_got_new_evidence_dialog_box->set_created_at(al_get_time());
 
    return you_got_new_evidence_dialog_box;
+}
+
+AllegroFlare::Elements::DialogBoxes::ChapterTitle* DialogBoxFactory::create_chapter_title_dialog(std::string title_text, float duration_seconds)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogBoxFactory::create_chapter_title_dialog]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogBoxFactory::create_chapter_title_dialog: error: guard \"al_is_system_installed()\" not met");
+   }
+   // TODO: Test this method
+   // TODO: Use a DEFAULT_DURATION_SECIONDS from ChapterTitle
+   AllegroFlare::Elements::DialogBoxes::ChapterTitle* chapter_title=
+      new AllegroFlare::Elements::DialogBoxes::ChapterTitle();
+   chapter_title->set_created_at(al_get_time());
+   chapter_title->set_title_text(title_text);
+   chapter_title->set_duration(duration_seconds);
+
+   return chapter_title;
 }
 
 AllegroFlare::Elements::DialogBoxes::Wait* DialogBoxFactory::create_wait_dialog(float duration_seconds)

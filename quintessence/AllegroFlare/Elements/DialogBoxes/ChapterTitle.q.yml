@@ -14,12 +14,14 @@ properties:
     init_with: '"[unset-title_text]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: duration
     type: float
     init_with: 6.0f
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: TYPE
     type: char*
