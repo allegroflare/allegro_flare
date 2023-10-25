@@ -18,15 +18,52 @@ namespace DialogBoxRenderers
 {
 
 
-ChapterTitleRenderer::ChapterTitleRenderer(AllegroFlare::FontBin* font_bin, std::string quote)
+ChapterTitleRenderer::ChapterTitleRenderer(AllegroFlare::FontBin* font_bin, std::string title_text, float age)
    : font_bin(font_bin)
-   , quote(quote)
+   , title_text(title_text)
+   , age(age)
 {
 }
 
 
 ChapterTitleRenderer::~ChapterTitleRenderer()
 {
+}
+
+
+void ChapterTitleRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void ChapterTitleRenderer::set_title_text(std::string title_text)
+{
+   this->title_text = title_text;
+}
+
+
+void ChapterTitleRenderer::set_age(float age)
+{
+   this->age = age;
+}
+
+
+AllegroFlare::FontBin* ChapterTitleRenderer::get_font_bin() const
+{
+   return font_bin;
+}
+
+
+std::string ChapterTitleRenderer::get_title_text() const
+{
+   return title_text;
+}
+
+
+float ChapterTitleRenderer::get_age() const
+{
+   return age;
 }
 
 
@@ -61,9 +98,9 @@ void ChapterTitleRenderer::render()
       throw std::runtime_error("ChapterTitleRenderer::render: error: guard \"font_bin\" not met");
    }
    float x = 1920/2;
-   float y = 1080/3;
+   float y = 1080/9*4;
    ALLEGRO_FONT *font = obtain_font();
-   float text_width = al_get_text_width(font, quote.c_str());
+   float text_width = al_get_text_width(font, title_text.c_str());
    float text_height = al_get_font_line_height(font);
    float h_text_width = text_width/2;
    float h_text_height = text_height/2;
@@ -81,7 +118,7 @@ void ChapterTitleRenderer::render()
       8.0f
    );
    */
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
+   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, title_text.c_str());
    return;
 }
 

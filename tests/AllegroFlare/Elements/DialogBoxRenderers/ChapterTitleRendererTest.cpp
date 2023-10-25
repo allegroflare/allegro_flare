@@ -19,7 +19,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, can_be
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest,
+   render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer chapter_title_renderer;
    std::string expected_error_message =
@@ -28,7 +29,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render__without_primitives_addon_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest,
+   render__without_primitives_addon_initialized__raises_an_error)
 {
    al_init();
    AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer chapter_title_renderer;
@@ -39,7 +41,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render__without_font_addon_initialized__raises_an_error)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest,
+   render__without_font_addon_initialized__raises_an_error)
 {
    al_init();
    al_init_primitives_addon();
@@ -52,7 +55,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render__without_a_font_bin__raises_an_error)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest,
+   render__without_a_font_bin__raises_an_error)
 {
    al_init();
    al_init_primitives_addon();
@@ -67,7 +71,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTest, render
 }   
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer chapter_title_renderer(&get_font_bin_ref());
    chapter_title_renderer.render();
