@@ -230,6 +230,18 @@ void CharacterFeatureRenderer::render()
    //AllegroFlare::Vec2D padding = {30, 20};
    float normalized_age = std::max(0.0f, std::min(1.0f, age / duration));
 
+   // Draw the featured image
+   ALLEGRO_BITMAP* character_image = obtain_character_image();
+   if (character_image)
+   {
+      AllegroFlare::Placement2D placement;
+      placement.position = { 1920 / 3 * 2, 1080 / 2 };
+      placement.size = { (float)al_get_bitmap_width(character_image), (float)al_get_bitmap_height(character_image) };
+      placement.start_transform();
+      al_draw_bitmap(character_image, 0, 0, 0);
+      placement.restore_transform();
+   }
+
    // Draw the character name
    al_draw_text(
       character_name_font,
@@ -251,18 +263,6 @@ void CharacterFeatureRenderer::render()
       ALLEGRO_ALIGN_RIGHT,
       description.c_str()
    );
-
-   // Draw the featured image
-   ALLEGRO_BITMAP* character_image = obtain_character_image();
-   if (character_image)
-   {
-      AllegroFlare::Placement2D placement;
-      placement.position = { 1920 / 3 * 2, 1080 / 2 };
-      placement.size = { (float)al_get_bitmap_width(character_image), (float)al_get_bitmap_height(character_image) };
-      placement.start_transform();
-      al_draw_bitmap(character_image, 0, 0, 0);
-      placement.restore_transform();
-   }
 
    // Draw a "wait" bar indicating cannot continue until duration has passed
    if (normalized_age < 1.0)
