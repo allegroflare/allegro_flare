@@ -75,9 +75,10 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChapterTitleRendererTestWithAlle
    CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer chapter_title_renderer(&get_font_bin_ref());
+   chapter_title_renderer.set_age(chapter_title_renderer.get_duration()/2);
    chapter_title_renderer.render();
    al_flip_display();
-   //sleep_for(1);
+   sleep_for(1);
 }
 
 
