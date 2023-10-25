@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp>
 
+#include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Placement2D.hpp>
+#include <algorithm>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -208,6 +210,13 @@ void CharacterFeatureRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"bitmap_bin\" not met");
    }
+   if (!((duration >= 0.1)))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterFeatureRenderer::render]: error: guard \"(duration >= 0.1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"(duration >= 0.1)\" not met");
+   }
    float title_x = 875;
    float title_y = 500;
    float y_gutter = 60;
@@ -219,6 +228,7 @@ void CharacterFeatureRenderer::render()
    //float h_text_width = text_width/2;
    //float h_text_height = text_height/2;
    //AllegroFlare::Vec2D padding = {30, 20};
+   float normalized_age = std::max(0.0f, std::min(1.0f, age / duration));
 
    // Draw the character name
    al_draw_text(
@@ -252,6 +262,19 @@ void CharacterFeatureRenderer::render()
       placement.start_transform();
       al_draw_bitmap(character_image, 0, 0, 0);
       placement.restore_transform();
+   }
+
+   // Draw a "wait" bar indicating cannot continue until duration has passed
+   if (normalized_age < 1.0)
+   {
+      float full_bar_width = 400;
+      float line_length = full_bar_width * AllegroFlare::interpolator::slow_in_out(normalized_age);
+      float h_bar_width = full_bar_width / 2;
+      float bar_x = 1920 / 2 - h_bar_width;
+      float bar_y = 1080 - 30;
+      //float bar_width = 400;
+      //float h_bar_width = bar_width / 2;
+      al_draw_line(bar_x, bar_y, bar_x + line_length, bar_y, ALLEGRO_COLOR{1, 1, 1, 1}, 4);
    }
 
    return;

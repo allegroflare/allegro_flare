@@ -106,3 +106,31 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTestWith
 }
 
 
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_CharacterFeatureRendererTestWithAllegroRenderingFixture,
+   VISUAL__render__will_render_a_reveal_animation)
+{
+   AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer character_feature_renderer(
+         &get_font_bin_ref(),
+         &get_bitmap_bin_ref()
+      );
+   character_feature_renderer.set_character_image_identifier("mystery-cat-x1080-01.png");
+   character_feature_renderer.set_character_name("Mystery Cat");
+   character_feature_renderer.set_description(
+      "Shrouded in a dark hood, this cat navigates the shadows while leaving critical clues to perplexing riddles"
+   );
+
+   float started_at = al_get_time();
+   float duration = character_feature_renderer.DEFAULT_DURATION + 0.2;
+
+   while ((al_get_time() - started_at) < duration)
+   {
+      float age = al_get_time() - started_at;
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      character_feature_renderer.set_age(age);
+      character_feature_renderer.render();
+      al_flip_display();
+      sleep_for_frame();
+   }
+}
+
+

@@ -1636,6 +1636,7 @@
   ],
   "AllegroFlare/Interpolators": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "Wicked/Weapons/DrawnBow"
   ],
   "AllegroFlare/ColorKit": [
