@@ -15,11 +15,42 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: duration
+    type: float
+    init_with: 6.0f
+    constructor_arg: true
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/ChapterTitle"'
     static: true
     constexpr: true
+
+
+methods:
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+
+      if (infer_age() >= duration)
+      {
+         set_finished(true);
+      }
+      return;
+
+
+  - name: ready_to_auto_advance
+    type: bool
+    virtual: true
+    override: true
+    body: |
+      // Automatically advance if finished
+      return get_finished();
 
 
 dependencies:
