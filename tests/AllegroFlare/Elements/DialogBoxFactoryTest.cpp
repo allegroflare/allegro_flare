@@ -209,3 +209,42 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
+   create_character_feature_dialog__without_allegro_initialized__throws_an_error)
+{
+   AllegroFlare::Elements::DialogBoxFactory dialog_factory;
+   std::string expected_error_message =
+      "DialogBoxFactory::create_character_feature_dialog: error: guard \"al_is_system_installed()\" not met";
+   EXPECT_THROW_WITH_MESSAGE(
+      dialog_factory.create_character_feature_dialog(),
+      std::runtime_error,
+      expected_error_message
+   );
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
+   create_character_feature_dialog__creates_a_ChapterTitle_dialog_with_the_expected_values)
+{
+   al_init(); // only for al_get_time
+   AllegroFlare::Elements::DialogBoxFactory dialog_factory;
+   AllegroFlare::Elements::DialogBoxes::CharacterFeature* created_dialog =
+      dialog_factory.create_character_feature_dialog(
+         "Dr. Cat",
+         "A brilliant feline scientist, combines his sharp intellect and natural curiosity with scholarly zeal",
+         "dr_cat_identifier.png",
+         4.125f
+      );
+   EXPECT_EQ("Dr. Cat", created_dialog->get_character_name());
+   EXPECT_EQ(
+      "A brilliant feline scientist, combines his sharp intellect and natural curiosity with scholarly zeal",
+      created_dialog->get_description()
+   );
+   EXPECT_EQ("dr_cat_identifier.png", created_dialog->get_character_image_identifier());
+   EXPECT_EQ(4.125f, created_dialog->get_duration());
+   
+   delete created_dialog;
+   al_uninstall_system();
+}
+
+
