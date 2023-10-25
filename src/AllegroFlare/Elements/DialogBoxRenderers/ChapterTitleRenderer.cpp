@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp>
 
+#include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -146,6 +147,14 @@ void ChapterTitleRenderer::render()
    ALLEGRO_COLOR color = ALLEGRO_COLOR{opacity, opacity, opacity, opacity};
 
    al_draw_text(font, color, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, title_text.c_str());
+
+   float line_full_width = 300;
+   float line_width = line_full_width * AllegroFlare::interpolator::slow_in_out(opacity);
+   float h_line_width = line_width / 2;
+   float y_offset = al_get_font_line_height(font);
+   float line_thickness = 4.0f;
+   al_draw_line(x-h_line_width, y+y_offset, x+h_line_width, y+y_offset, ALLEGRO_COLOR{1, 1, 1, 1}, line_thickness);
+
    return;
 }
 

@@ -1618,6 +1618,10 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
   ],
+  "AllegroFlare/Interpolators": [
+    "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer",
+    "Wicked/Weapons/DrawnBow"
+  ],
   "AllegroFlare/ColorKit": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -3265,9 +3269,6 @@
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "Wicked/Weapons/Base": [
-    "Wicked/Weapons/DrawnBow"
-  ],
-  "AllegroFlare/Interpolators": [
     "Wicked/Weapons/DrawnBow"
   ],
   "std/vector<Wicked/Entities/Basic2D>": [
