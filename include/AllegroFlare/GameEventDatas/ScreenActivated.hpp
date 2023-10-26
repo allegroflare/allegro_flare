@@ -12,6 +12,7 @@ namespace AllegroFlare
       class ScreenActivated : public AllegroFlare::GameEventDatas::Base
       {
       public:
+         static constexpr char* NAME = (char*)"AllegroFlare/GameEvent/ScreenActivated";
          static constexpr char* TYPE = (char*)"AllegroFlare/GameEventDatas/ScreenActivated";
 
       private:

@@ -15,6 +15,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: NAME
+    type: char*
+    init_with: '(char*)"AllegroFlare/GameEvent/ScreenActivated"'
+    static: true
+    constexpr: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/GameEventDatas/ScreenActivated"'

@@ -123,7 +123,7 @@ void EventEmitter::emit_screen_activated_event(std::string screen_identifier)
       throw std::runtime_error("EventEmitter::emit_screen_activated_event: error: guard \"initialized\" not met");
    }
    emit_game_event(AllegroFlare::GameEvent(
-         "screen_activated",
+         AllegroFlare::GameEventDatas::ScreenActivated::NAME,
          new AllegroFlare::GameEventDatas::ScreenActivated(screen_identifier)
       ));
    return;

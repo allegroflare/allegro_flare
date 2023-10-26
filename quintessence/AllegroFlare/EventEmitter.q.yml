@@ -100,7 +100,7 @@ functions:
     guards: [ initialized ]
     body: |
       emit_game_event(AllegroFlare::GameEvent(
-            "screen_activated",
+            AllegroFlare::GameEventDatas::ScreenActivated::NAME,
             new AllegroFlare::GameEventDatas::ScreenActivated(screen_identifier)
          ));
       return;
