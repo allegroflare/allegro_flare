@@ -251,6 +251,19 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
          //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
       dialog_system->shutdown_dialog(); // TODO: See if this is a correct expectation for this event
    }
+   /*
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EnterScene::TYPE))
+   {
+      // TODO: thrwo
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name_func",
+         "Handling of \"AllegroFlare::DialogTree::Nodes::EnterScene::TYPE\" not implemented"
+      );
+      //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
+         //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
+      //dialog_system->shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+   }
+   */
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
    {
       // TODO: Test this event emission
