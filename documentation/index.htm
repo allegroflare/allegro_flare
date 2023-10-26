@@ -98,6 +98,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ChapterTitle.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ChapterTitle.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml</a></li>
@@ -2707,6 +2708,10 @@ table td
   <td class="property">AllegroFlare::DialogSystem::CharacterRoster*</td>
 </tr>
 <tr>
+  <td class="property">scene_index</td>
+  <td class="property">AllegroFlare::DialogSystem::SceneIndex*</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -2850,6 +2855,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterRoster&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterRoster.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::SceneIndex&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/SceneIndex.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::Characters::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/Characters/Basic.hpp&quot;]}</td>
@@ -3217,6 +3225,35 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -31180,6 +31217,7 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ChapterTitle",
+    "AllegroFlare/DialogTree/Nodes/EnterScene",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
@@ -31322,6 +31360,9 @@ table td
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
+  ],
+  "AllegroFlare/DialogSystem/SceneIndex": [
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
