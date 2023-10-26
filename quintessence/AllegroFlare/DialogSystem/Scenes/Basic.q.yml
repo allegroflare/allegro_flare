@@ -1,0 +1,46 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogSystem::Scenes::Base
+    scope: public
+    init_with: AllegroFlare::DialogSystem::Scenes::Basic::TYPE
+
+
+properties:
+
+
+  - name: location_name
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: background_image_identifier
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: ambience_sound_effect_identifier
+    type: std::string
+    init_with: '"[unset-ambience_sound_effect_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogSystem/Scenes/Basic"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystem::Scenes::Base
+    headers: [ AllegroFlare/DialogSystem/Scenes/Base.hpp ]
+
+

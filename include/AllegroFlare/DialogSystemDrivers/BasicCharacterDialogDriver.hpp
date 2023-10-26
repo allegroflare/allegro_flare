@@ -6,6 +6,7 @@
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
+#include <AllegroFlare/DialogSystem/Scene.hpp>
 #include <AllegroFlare/DialogSystemDrivers/Base.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogRoll.hpp>
@@ -36,6 +37,7 @@ namespace AllegroFlare
       public:
          AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_character_staging_layout;
          AllegroFlare::DialogSystem::CharacterRoster* character_roster;
+         AllegroFlare::DialogSystem::Scene* scene_index;
          BasicCharacterDialogDriver(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          ~BasicCharacterDialogDriver();
 

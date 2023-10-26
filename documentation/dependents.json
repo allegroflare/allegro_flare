@@ -1149,6 +1149,10 @@
     "AllegroFlare/DialogSystem/NodeStates/Wait",
     "AllegroFlare/DialogTree/Nodes/Base"
   ],
+  "AllegroFlare/DialogSystem/Scenes/Base": [
+    "AllegroFlare/DialogSystem/SceneIndex",
+    "AllegroFlare/DialogSystem/Scenes/Basic"
+  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",

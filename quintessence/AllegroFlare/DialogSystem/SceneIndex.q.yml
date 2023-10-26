@@ -1,0 +1,73 @@
+properties:
+
+
+  - name: scenes
+    type: std::map<std::string, AllegroFlare::DialogSystem::Scenes::Base*>
+    init_with: '{}'
+    setter: true
+    getter_ref: true
+
+
+methods:
+
+
+  - name: num_scenes
+    type: int
+    body: |
+      return scenes.size();
+
+
+  - name: get_scene_names
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> result;
+      for (auto &scene : scenes)
+      {
+         result.push_back(scene.first);
+      }
+      return result;
+ 
+
+  - name: add_scene
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: scene
+        type: AllegroFlare::DialogSystem::Scenes::Base*
+        default_argument: nullptr
+    guards: [ scene, (!scene_exists_by_name(name)) ]
+    body: |
+      scenes[name] = scene;
+
+
+  - name: scene_exists_by_name
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      return (scenes.find(name) != scenes.end());
+
+
+  - name: find_scene_by_name
+    type: AllegroFlare::DialogSystem::Scenes::Base*
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ scene_exists_by_name(name) ]
+    body: |
+      // TODO: This guard results in a double lookup. Might be faster to integrate it below.
+      if (scenes.find(name) == scenes.end()) return nullptr;
+      return scenes[name];
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystem::Scenes::Base
+    headers: [ AllegroFlare/DialogSystem/Scenes/Base.hpp ]
+
+

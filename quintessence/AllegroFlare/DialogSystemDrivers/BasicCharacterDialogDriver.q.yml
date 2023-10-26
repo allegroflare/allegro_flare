@@ -48,6 +48,11 @@ properties:
     init_with: nullptr
     exposed: true
 
+  - name: scene_index
+    type: AllegroFlare::DialogSystem::Scene*
+    init_with: nullptr
+    exposed: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"'
@@ -78,6 +83,7 @@ methods:
   - name: destroy
     guards: [ initialized ]
     body: |
+      // TODO: consider where delete character_roster, scene_index should occour
       delete active_character_staging_layout;
 
 
@@ -536,6 +542,8 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterRoster
     headers: [ AllegroFlare/DialogSystem/CharacterRoster.hpp ]
+  - symbol: AllegroFlare::DialogSystem::Scene
+    headers: [ AllegroFlare/DialogSystem/Scene.hpp ]
   - symbol: AllegroFlare::DialogSystem::Characters::Basic
     headers: [ AllegroFlare/DialogSystem/Characters/Basic.hpp ]
   - symbol: AllegroFlare::StringFormatValidator
