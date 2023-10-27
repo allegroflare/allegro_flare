@@ -93,6 +93,7 @@ namespace AllegroFlare
          void initialize();
          void destroy();
          void switch_in();
+         void switch_in_if_not();
          void switch_out();
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});

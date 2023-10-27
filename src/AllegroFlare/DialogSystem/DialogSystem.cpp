@@ -478,18 +478,45 @@ void DialogSystem::switch_in()
    }
    switched_in = true;
    if (_driver) _driver->on_switch_in();
+   event_emitter->emit_dialog_switch_in_event();
+   return;
+}
+
+void DialogSystem::switch_in_if_not()
+{
+   if (!switched_in) switch_in();
    return;
 }
 
 void DialogSystem::switch_out()
 {
-   if (!((switched_in)))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::switch_out]: error: guard \"(switched_in)\" not met.";
+      error_message << "[DialogSystem::switch_out]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::switch_out: error: guard \"(switched_in)\" not met");
+      throw std::runtime_error("DialogSystem::switch_out: error: guard \"initialized\" not met");
    }
+   if (!(switched_in))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::switch_out]: error: guard \"switched_in\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::switch_out: error: guard \"switched_in\" not met");
+   }
+   if (active_dialog_box)
+   {
+      delete active_dialog_box; // TODO: Consider a less intrusive soft delete (hide motion, with cleanup during update)
+      active_dialog_box = nullptr;
+   }
+
+   active_dialog_node = nullptr;
+   active_dialog_node_name = "";
+
+   if (_driver) _driver->on_deactivate(); // TODO: This may need to be moved to "switch_out"
+
+   event_emitter->emit_dialog_switch_out_event();
+
    switched_in = false;
    return;
 }
@@ -550,6 +577,8 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
 void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vector<std::string> pages)
 {
+   switch_in_if_not();
+
    bool a_dialog_existed_before = a_dialog_is_active();
    if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
                                                     // And/or address concerns that derived dialog be deleted proper
@@ -558,31 +587,18 @@ void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vecto
    active_dialog_box = dialog_box_factory.create_basic_dialog(speaking_character, pages);
 
    // TODO: Address when and where a switch_in should occur
-   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-   {
-      switch_in();
-      // TODO: Consider alternative place for this show() call
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->active_character_staging_layout->show(); // TODO: Test the show occurs
-      }
-      else
-      {
-         throw std::runtime_error(
-               "DialogSystem::spawn_basic_dialog: error: expecting _driver but it is a nullptr"
-            );
-      }
-      //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
-      event_emitter->emit_dialog_switch_in_event();
-   }
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //switch_in();
+   //}
    return;
 }
 
 void DialogSystem::spawn_wait_dialog(float duration_seconds)
 {
+   switch_in_if_not();
+
    bool a_dialog_existed_before = a_dialog_is_active();
    if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
                                                     // And/or address concerns that derived dialog be deleted proper
@@ -591,31 +607,18 @@ void DialogSystem::spawn_wait_dialog(float duration_seconds)
    active_dialog_box = dialog_box_factory.create_wait_dialog(duration_seconds);
 
    // TODO: Address when and where a switch_in should occur
-   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-   {
-      switch_in();
-      // TODO: Consider alternative place for this show() call
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->active_character_staging_layout->show(); // TODO: Test the show occurs
-      }
-      else
-      {
-         throw std::runtime_error(
-               "DialogSystem::spawn_wait_dialog: error: expecting _driver but it is a nullptr"
-            );
-      }
-      //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
-      event_emitter->emit_dialog_switch_in_event();
-   }
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //switch_in();
+   //}
    return;
 }
 
 void DialogSystem::spawn_chapter_title_dialog(std::string title_text, float duration_seconds)
 {
+   switch_in_if_not();
+
    bool a_dialog_existed_before = a_dialog_is_active();
    if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
                                                     // And/or address concerns that derived dialog be deleted proper
@@ -627,31 +630,18 @@ void DialogSystem::spawn_chapter_title_dialog(std::string title_text, float dura
    );
 
    // TODO: Address when and where a switch_in should occur
-   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-   {
-      switch_in();
-      // TODO: Consider alternative place for this show() call
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->active_character_staging_layout->show(); // TODO: Test the show occurs
-      }
-      else
-      {
-         throw std::runtime_error(
-               "DialogSystem::spawn_wait_dialog: error: expecting _driver but it is a nullptr"
-            );
-      }
-      //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
-      event_emitter->emit_dialog_switch_in_event();
-   }
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //switch_in();
+   //}
    return;
 }
 
 void DialogSystem::spawn_character_feature_dialog(std::string character_name, std::string character_description, std::string character_image_identifier, float duration_seconds)
 {
+   switch_in_if_not();
+
    // TODO: Use a DEFAULT_DURATION_SECONDS
    bool a_dialog_existed_before = a_dialog_is_active();
    if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
@@ -666,31 +656,18 @@ void DialogSystem::spawn_character_feature_dialog(std::string character_name, st
    );
 
    // TODO: Address when and where a switch_in should occur
-   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-   {
-      switch_in();
-      // TODO: Consider alternative place for this show() call
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->active_character_staging_layout->show(); // TODO: Test the show occurs
-      }
-      else
-      {
-         throw std::runtime_error(
-               "DialogSystem::spawn_wait_dialog: error: expecting _driver but it is a nullptr"
-            );
-      }
-      //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
-      event_emitter->emit_dialog_switch_in_event();
-   }
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //switch_in();
+   //}
    return;
 }
 
 void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::string> options)
 {
+   switch_in_if_not();
+
    bool a_dialog_existed_before = a_dialog_is_active();
    if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
 
@@ -723,25 +700,11 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
       );
 
    // TODO: Address when and where a switch_in should occur
-   bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
-   if (a_new_dialog_was_created_and_dialog_system_is_now_active)
-   {
-      switch_in();
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->active_character_staging_layout->show(); // TODO: Test the show occurs
-      }
-      else
-      {
-         throw std::runtime_error(
-               "DialogSystem::spawn_choice_dialog: error: expecting _driver but it is a nullptr"
-            );
-      }
-      //driver.active_character_staging_layout->show(); // TODO: Test the show occurs
-      event_emitter->emit_dialog_switch_in_event();
-   }
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //switch_in();
+   //}
    return;
 }
 
@@ -1070,30 +1033,14 @@ bool DialogSystem::shutdown_dialog()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"_driver\" not met");
    }
-   if (!active_dialog_box) return false;
-   delete active_dialog_box; // TODO: Consider a less intrusive soft delete (hide motion, with cleanup during update)
-   active_dialog_box = nullptr;
-
-   active_dialog_node = nullptr;
-   active_dialog_node_name = "";
-
-
-   if (_driver) _driver->on_deactivate(); // TODO: This may need to be moved to switch_out
-
-   //*/
-   //if (driver.active_character_staging_layout)
-   //{
-      // TODO: Confirm "hide" should occur here
-      //driver.active_character_staging_layout->hide(); // TODO: Test this hide occurs as expected
-   //}
-
-   // NOTE: Note that active_dialog_node is not deleted, because any pointer to a dialog node is a pointer
-   // to one that is static in the dialog_node_bank
-   if (get_switched_in())
+   if (!(switched_in))
    {
-      switch_out();
-      event_emitter->emit_dialog_switch_out_event();
+      std::stringstream error_message;
+      error_message << "[DialogSystem::shutdown_dialog]: error: guard \"switched_in\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"switched_in\" not met");
    }
+   switch_out();
    return true;
 }
 
