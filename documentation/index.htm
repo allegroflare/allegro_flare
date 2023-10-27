@@ -2361,6 +2361,9 @@ table td
   <td class="method">switch_in()</td>
 </tr>
 <tr>
+  <td class="method">switch_in_if_not()</td>
+</tr>
+<tr>
   <td class="method">switch_out()</td>
 </tr>
 <tr>
@@ -2770,11 +2773,22 @@ table td
   <td class="method">on_render()</td>
 </tr>
 <tr>
+  <td class="method">activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
+</tr>
+<tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogSystem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ForwardDeclarations/AllegroFlare/DialogSystem/DialogSystem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -2842,6 +2856,9 @@ table td
 </tr>
 <tr>
   <td class="method">clear_character_staging_layout()</td>
+</tr>
+<tr>
+  <td class="method">activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
@@ -31156,6 +31173,7 @@ table td
   ],
   "AllegroFlare/DialogSystem/DialogSystem": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/Base",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
@@ -31341,6 +31359,7 @@ table td
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/Base",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ChapterTitle",

@@ -544,12 +544,14 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
             );
       }
    }
-   else if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+   else
    {
-      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+      if (!_driver)
+      {
+         throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: _driver is nullptr");
+      }
 
-      bool handled = driver->activate_dialog_node_by_name_func(
+      bool handled = _driver->activate_dialog_node_by_name(
             this,
             active_dialog_node_name,
             active_dialog_node,
@@ -559,17 +561,11 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       if (!handled)
       {
          throw std::runtime_error(
-               "DialogSystem::activate_dialog_node_by_name: error: the driver activate_dialog_node_by_name_func"
+               "DialogSystem::activate_dialog_node_by_name: error: the _driver activate_dialog_node_by_name_func"
                   "was called, but it returned false, indicating that it was not able to handle the "
                   "node activation."
             );
       }
-   }
-   else
-   {
-         throw std::runtime_error(
-               "DialogSystem::activate_dialog_node_by_name: error: expecting _driver but it is a nullptr"
-            );
    }
 
    return;

@@ -166,6 +166,12 @@ void BasicCharacterDialogDriver::clear_character_staging_layout()
    return;
 }
 
+bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
+{
+   // TODO: Remove this call  to _func and only call this containing method externally
+   return activate_dialog_node_by_name_func(dialog_system, active_dialog_node_name, active_dialog_node, user_data);
+}
+
 bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
 {
    if (!(dialog_system))
