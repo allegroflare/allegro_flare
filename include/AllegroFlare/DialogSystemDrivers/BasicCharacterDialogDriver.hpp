@@ -53,6 +53,7 @@ namespace AllegroFlare
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void initialize();
          void destroy();
+         virtual void on_switch_in() override;
          virtual void on_deactivate() override;
          virtual void on_render() override;
          void clear_character_staging_layout();

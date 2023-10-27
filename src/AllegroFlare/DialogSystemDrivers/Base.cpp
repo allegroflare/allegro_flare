@@ -28,8 +28,14 @@ std::string Base::get_type() const
 }
 
 
+void Base::on_switch_in()
+{
+   return;
+}
+
 void Base::on_deactivate()
 {
+   // Rename this to "on_switch_out"
    return;
 }
 

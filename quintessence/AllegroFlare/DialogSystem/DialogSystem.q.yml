@@ -380,6 +380,7 @@ methods:
     guards: [ (!switched_in) ]
     body: |
       switched_in = true;
+      if (_driver) _driver->on_switch_in();
       return;
 
 
@@ -727,21 +728,7 @@ methods:
     type: void
     guards: [ initialized, _driver ]
     body: |
-      _driver->on_render();
-
-      /*
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         if (driver->active_character_staging_layout)      {
-            driver->active_character_staging_layout->render();
-         }
-      }
-      */ // foo
-      //if (driver.active_character_staging_layout)      {
-         //driver.active_character_staging_layout->render();
-      //}
+      if (_driver) _driver->on_render();
 
       if (active_dialog_box)
       {
@@ -1006,7 +993,7 @@ methods:
       active_dialog_node_name = "";
 
 
-      _driver->on_deactivate();
+      if (_driver) _driver->on_deactivate(); // TODO: This may need to be moved to switch_out
 
       //*/
       //if (driver.active_character_staging_layout)

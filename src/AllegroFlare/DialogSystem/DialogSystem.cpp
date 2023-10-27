@@ -477,6 +477,7 @@ void DialogSystem::switch_in()
       throw std::runtime_error("DialogSystem::switch_in: error: guard \"(!switched_in)\" not met");
    }
    switched_in = true;
+   if (_driver) _driver->on_switch_in();
    return;
 }
 
@@ -782,21 +783,7 @@ void DialogSystem::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::render: error: guard \"_driver\" not met");
    }
-   _driver->on_render();
-
-   /*
-   if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   {
-      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-      if (driver->active_character_staging_layout)      {
-         driver->active_character_staging_layout->render();
-      }
-   }
-   */ // foo
-   //if (driver.active_character_staging_layout)      {
-      //driver.active_character_staging_layout->render();
-   //}
+   if (_driver) _driver->on_render();
 
    if (active_dialog_box)
    {
@@ -1091,7 +1078,7 @@ bool DialogSystem::shutdown_dialog()
    active_dialog_node_name = "";
 
 
-   _driver->on_deactivate();
+   if (_driver) _driver->on_deactivate(); // TODO: This may need to be moved to switch_out
 
    //*/
    //if (driver.active_character_staging_layout)

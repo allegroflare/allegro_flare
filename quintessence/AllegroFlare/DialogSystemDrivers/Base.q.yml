@@ -17,9 +17,16 @@ properties:
 methods:
 
 
+  - name: on_switch_in
+    virtual: true
+    body: |
+      return;
+
+
   - name: on_deactivate
     virtual: true
     body: |
+      // Rename this to "on_switch_out"
       return;
 
 

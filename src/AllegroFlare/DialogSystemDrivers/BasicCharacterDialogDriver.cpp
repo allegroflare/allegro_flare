@@ -115,6 +115,13 @@ void BasicCharacterDialogDriver::destroy()
    }
    // TODO: consider where delete character_roster, scene_index should occour
    delete active_character_staging_layout;
+   return;
+}
+
+void BasicCharacterDialogDriver::on_switch_in()
+{
+   if (active_character_staging_layout) active_character_staging_layout->show();
+   return;
 }
 
 void BasicCharacterDialogDriver::on_deactivate()

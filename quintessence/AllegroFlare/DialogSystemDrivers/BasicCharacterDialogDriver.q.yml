@@ -90,6 +90,15 @@ methods:
     body: |
       // TODO: consider where delete character_roster, scene_index should occour
       delete active_character_staging_layout;
+      return;
+
+
+  - name: on_switch_in
+    virtual: true
+    override: true
+    body: |
+      if (active_character_staging_layout) active_character_staging_layout->show();
+      return;
 
 
   - name: on_deactivate
