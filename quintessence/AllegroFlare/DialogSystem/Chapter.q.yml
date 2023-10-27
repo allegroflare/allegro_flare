@@ -1,9 +1,14 @@
-methods:
+properties:
 
 
-  - name: run
+  - name: title
     type: std::string
-    body: |
-      return "Hello World!";
+    init_with: '"[unset-title]"'
+    exposed: true
+
+  - name: chapter_select_image_identifier
+    type: std::string
+    init_with: '"[unset-chapter_select_image_identifier]"'
+    exposed: true
 
 

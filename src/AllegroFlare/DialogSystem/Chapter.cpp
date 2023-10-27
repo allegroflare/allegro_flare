@@ -12,6 +12,8 @@ namespace DialogSystem
 
 
 Chapter::Chapter()
+   : title("[unset-title]")
+   , chapter_select_image_identifier("[unset-chapter_select_image_identifier]")
 {
 }
 
@@ -21,10 +23,6 @@ Chapter::~Chapter()
 }
 
 
-std::string Chapter::run()
-{
-   return "Hello World!";
-}
 
 
 } // namespace DialogSystem

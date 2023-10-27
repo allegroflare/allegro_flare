@@ -70,6 +70,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/ClubCatt/Logo.q.yml">quintessence/AllegroFlare/ClubCatt/Logo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/Chapter.q.yml">quintessence/AllegroFlare/DialogSystem/Chapter.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/ChapterIndex.q.yml">quintessence/AllegroFlare/DialogSystem/ChapterIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterFactory.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml</a></li>
@@ -1746,6 +1748,60 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystem/Chapter.q.yml">quintessence/AllegroFlare/DialogSystem/Chapter.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">title</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystem/ChapterIndex.q.yml">quintessence/AllegroFlare/DialogSystem/ChapterIndex.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">chapters</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::DialogSystem::Chapter&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">num_chapters()</td>
+</tr>
+<tr>
+  <td class="method">get_chapter_names()</td>
+</tr>
+<tr>
+  <td class="method">add_chapter(std::string name=&quot;[unset-name]&quot;, AllegroFlare::DialogSystem::Chapter chapter={})</td>
+</tr>
+<tr>
+  <td class="method">chapter_exists_by_name(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">find_chapter_by_name(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::Chapter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/Chapter.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30990,6 +31046,9 @@ table td
   "std/filesystem": [
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
+  ],
+  "AllegroFlare/DialogSystem/Chapter": [
+    "AllegroFlare/DialogSystem/ChapterIndex"
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",

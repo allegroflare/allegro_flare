@@ -16,10 +16,11 @@ namespace AllegroFlare
 
 
       public:
+         std::string title;
+         std::string chapter_select_image_identifier;
          Chapter();
          ~Chapter();
 
-         std::string run();
       };
    }
 }

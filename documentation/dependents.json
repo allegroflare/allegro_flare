@@ -780,6 +780,9 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/DialogSystem/Chapter": [
+    "AllegroFlare/DialogSystem/ChapterIndex"
+  ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
     "AllegroFlare/DialogSystem/DialogSystem",
