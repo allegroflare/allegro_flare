@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/DialogSystem/ChapterIndex.hpp>
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
@@ -38,6 +39,7 @@ namespace AllegroFlare
          AllegroFlare::DialogSystem::CharacterStagingLayouts::Base* active_character_staging_layout;
          AllegroFlare::DialogSystem::CharacterRoster* character_roster;
          AllegroFlare::DialogSystem::SceneIndex* scene_index;
+         AllegroFlare::DialogSystem::ChapterIndex* chapter_index;
          BasicCharacterDialogDriver(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          ~BasicCharacterDialogDriver();
 

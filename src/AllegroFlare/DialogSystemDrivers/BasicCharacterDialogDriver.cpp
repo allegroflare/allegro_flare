@@ -32,6 +32,7 @@ BasicCharacterDialogDriver::BasicCharacterDialogDriver(AllegroFlare::BitmapBin* 
    , active_character_staging_layout(nullptr)
    , character_roster(nullptr)
    , scene_index(nullptr)
+   , chapter_index(nullptr)
 {
 }
 

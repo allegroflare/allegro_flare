@@ -53,6 +53,11 @@ properties:
     init_with: nullptr
     exposed: true
 
+  - name: chapter_index
+    type: AllegroFlare::DialogSystem::ChapterIndex*
+    init_with: nullptr
+    exposed: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"'
@@ -557,6 +562,8 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/CharacterRoster.hpp ]
   - symbol: AllegroFlare::DialogSystem::SceneIndex
     headers: [ AllegroFlare/DialogSystem/SceneIndex.hpp ]
+  - symbol: AllegroFlare::DialogSystem::ChapterIndex
+    headers: [ AllegroFlare/DialogSystem/ChapterIndex.hpp ]
   - symbol: AllegroFlare::DialogSystem::Characters::Basic
     headers: [ AllegroFlare/DialogSystem/Characters/Basic.hpp ]
   - symbol: AllegroFlare::StringFormatValidator
