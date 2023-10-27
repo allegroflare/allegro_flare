@@ -17,6 +17,12 @@ properties:
 methods:
 
 
+  - name: on_deactivate
+    virtual: true
+    body: |
+      return;
+
+
   - name: is_type
     type: bool
     parameters:

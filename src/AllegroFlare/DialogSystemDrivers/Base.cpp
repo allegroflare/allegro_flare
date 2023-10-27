@@ -28,6 +28,11 @@ std::string Base::get_type() const
 }
 
 
+void Base::on_deactivate()
+{
+   return;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());

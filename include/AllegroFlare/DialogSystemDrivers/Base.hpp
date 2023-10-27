@@ -21,9 +21,10 @@ namespace AllegroFlare
 
       public:
          Base(std::string type=AllegroFlare::DialogSystemDrivers::Base::TYPE);
-         ~Base();
+         virtual ~Base();
 
          std::string get_type() const;
+         virtual void on_deactivate();
          bool is_type(std::string possible_type="");
       };
    }

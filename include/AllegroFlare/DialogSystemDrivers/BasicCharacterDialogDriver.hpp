@@ -41,7 +41,7 @@ namespace AllegroFlare
          AllegroFlare::DialogSystem::SceneIndex* scene_index;
          AllegroFlare::DialogSystem::ChapterIndex* chapter_index;
          BasicCharacterDialogDriver(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
-         ~BasicCharacterDialogDriver();
+         virtual ~BasicCharacterDialogDriver();
 
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll);
@@ -53,6 +53,7 @@ namespace AllegroFlare
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void initialize();
          void destroy();
+         virtual void on_deactivate() override;
          void clear_character_staging_layout();
          bool activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name="[unset-dialog_node_identifier]", AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr);
          void set_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");

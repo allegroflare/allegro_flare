@@ -1086,6 +1086,11 @@ bool DialogSystem::shutdown_dialog()
    active_dialog_node = nullptr;
    active_dialog_node_name = "";
 
+
+   _driver->on_deactivate();
+   //on_shutdown();
+
+   /*
    if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
    {
       AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
@@ -1096,6 +1101,7 @@ bool DialogSystem::shutdown_dialog()
          driver->active_character_staging_layout->hide();
       }
    }
+   */
    //if (driver.active_character_staging_layout)
    //{
       // TODO: Confirm "hide" should occur here

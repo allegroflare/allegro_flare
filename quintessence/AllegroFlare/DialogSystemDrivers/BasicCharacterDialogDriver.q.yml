@@ -92,6 +92,14 @@ methods:
       delete active_character_staging_layout;
 
 
+  - name: on_deactivate
+    virtual: true
+    override: true
+    body: |
+      if (active_character_staging_layout) active_character_staging_layout->hide();
+      return;
+
+
   - name: clear_character_staging_layout
     guards: [ initialized ]
     body: |

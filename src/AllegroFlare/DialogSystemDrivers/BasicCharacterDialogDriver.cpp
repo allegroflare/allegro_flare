@@ -117,6 +117,12 @@ void BasicCharacterDialogDriver::destroy()
    delete active_character_staging_layout;
 }
 
+void BasicCharacterDialogDriver::on_deactivate()
+{
+   if (active_character_staging_layout) active_character_staging_layout->hide();
+   return;
+}
+
 void BasicCharacterDialogDriver::clear_character_staging_layout()
 {
    if (!(initialized))
