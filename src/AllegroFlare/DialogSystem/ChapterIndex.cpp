@@ -41,7 +41,7 @@ int ChapterIndex::num_chapters()
    return chapters.size();
 }
 
-std::vector<std::string> ChapterIndex::get_chapter_names()
+std::vector<std::string> ChapterIndex::get_chapter_identifiers()
 {
    std::vector<std::string> result;
    for (auto &chapter : chapters)
@@ -51,35 +51,35 @@ std::vector<std::string> ChapterIndex::get_chapter_names()
    return result;
 }
 
-void ChapterIndex::add_chapter(std::string name, AllegroFlare::DialogSystem::Chapters::Base* chapter)
+void ChapterIndex::add_chapter(std::string identifier, AllegroFlare::DialogSystem::Chapters::Base* chapter)
 {
-   if (!((!chapter_exists_by_name(name))))
+   if (!((!chapter_exists_by_identifier(identifier))))
    {
       std::stringstream error_message;
-      error_message << "[ChapterIndex::add_chapter]: error: guard \"(!chapter_exists_by_name(name))\" not met.";
+      error_message << "[ChapterIndex::add_chapter]: error: guard \"(!chapter_exists_by_identifier(identifier))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterIndex::add_chapter: error: guard \"(!chapter_exists_by_name(name))\" not met");
+      throw std::runtime_error("ChapterIndex::add_chapter: error: guard \"(!chapter_exists_by_identifier(identifier))\" not met");
    }
-   chapters[name] = chapter;
+   chapters[identifier] = chapter;
 }
 
-bool ChapterIndex::chapter_exists_by_name(std::string name)
+bool ChapterIndex::chapter_exists_by_identifier(std::string identifier)
 {
-   return (chapters.find(name) != chapters.end());
+   return (chapters.find(identifier) != chapters.end());
 }
 
-AllegroFlare::DialogSystem::Chapters::Base* ChapterIndex::find_chapter_by_name(std::string name)
+AllegroFlare::DialogSystem::Chapters::Base* ChapterIndex::find_chapter_by_identifier(std::string identifier)
 {
-   if (!(chapter_exists_by_name(name)))
+   if (!(chapter_exists_by_identifier(identifier)))
    {
       std::stringstream error_message;
-      error_message << "[ChapterIndex::find_chapter_by_name]: error: guard \"chapter_exists_by_name(name)\" not met.";
+      error_message << "[ChapterIndex::find_chapter_by_identifier]: error: guard \"chapter_exists_by_identifier(identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterIndex::find_chapter_by_name: error: guard \"chapter_exists_by_name(name)\" not met");
+      throw std::runtime_error("ChapterIndex::find_chapter_by_identifier: error: guard \"chapter_exists_by_identifier(identifier)\" not met");
    }
    // TODO: This guard results in a double lookup. Might be faster to integrate it below.
-   if (chapters.find(name) == chapters.end()) return nullptr;
-   return chapters[name];
+   if (chapters.find(identifier) == chapters.end()) return nullptr;
+   return chapters[identifier];
 }
 
 

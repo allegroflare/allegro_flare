@@ -17,7 +17,7 @@ methods:
       return chapters.size();
 
 
-  - name: get_chapter_names
+  - name: get_chapter_identifiers
     type: std::vector<std::string>
     body: |
       std::vector<std::string> result;
@@ -30,38 +30,38 @@ methods:
 
   - name: add_chapter
     parameters:
-      - name: name
+      - name: identifier
         type: std::string
-        default_argument: '"[unset-name]"'
+        default_argument: '"[unset-identifier]"'
       - name: chapter
         type: AllegroFlare::DialogSystem::Chapters::Base*
         default_argument: nullptr
-    guards: [ (!chapter_exists_by_name(name)) ]
+    guards: [ (!chapter_exists_by_identifier(identifier)) ]
     body: |
-      chapters[name] = chapter;
+      chapters[identifier] = chapter;
 
 
-  - name: chapter_exists_by_name
+  - name: chapter_exists_by_identifier
     type: bool
     parameters:
-      - name: name
+      - name: identifier
         type: std::string
-        default_argument: '"[unset-name]"'
+        default_argument: '"[unset-identifier]"'
     body: |
-      return (chapters.find(name) != chapters.end());
+      return (chapters.find(identifier) != chapters.end());
 
 
-  - name: find_chapter_by_name
+  - name: find_chapter_by_identifier
     type: AllegroFlare::DialogSystem::Chapters::Base*
     parameters:
-      - name: name
+      - name: identifier
         type: std::string
-        default_argument: '"[unset-name]"'
-    guards: [ chapter_exists_by_name(name) ]
+        default_argument: '"[unset-identifier]"'
+    guards: [ chapter_exists_by_identifier(identifier) ]
     body: |
       // TODO: This guard results in a double lookup. Might be faster to integrate it below.
-      if (chapters.find(name) == chapters.end()) return nullptr;
-      return chapters[name];
+      if (chapters.find(identifier) == chapters.end()) return nullptr;
+      return chapters[identifier];
 
 
 dependencies:

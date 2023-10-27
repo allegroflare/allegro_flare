@@ -781,7 +781,8 @@
     "AllegroFlare/Logger"
   ],
   "AllegroFlare/DialogSystem/Chapters/Base": [
-    "AllegroFlare/DialogSystem/ChapterIndex"
+    "AllegroFlare/DialogSystem/ChapterIndex",
+    "AllegroFlare/DialogSystem/Chapters/Basic"
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
