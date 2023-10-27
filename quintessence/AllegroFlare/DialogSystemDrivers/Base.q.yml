@@ -23,6 +23,12 @@ methods:
       return;
 
 
+  - name: on_render
+    virtual: true
+    body: |
+      return;
+
+
   - name: is_type
     type: bool
     parameters:

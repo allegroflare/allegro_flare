@@ -782,6 +782,9 @@ void DialogSystem::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::render: error: guard \"_driver\" not met");
    }
+   _driver->on_render();
+
+   /*
    if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
    {
       AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
@@ -790,6 +793,7 @@ void DialogSystem::render()
          driver->active_character_staging_layout->render();
       }
    }
+   */ // foo
    //if (driver.active_character_staging_layout)      {
       //driver.active_character_staging_layout->render();
    //}
@@ -1088,20 +1092,8 @@ bool DialogSystem::shutdown_dialog()
 
 
    _driver->on_deactivate();
-   //on_shutdown();
 
-   /*
-   if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   {
-      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-      // TODO: Confirm "hide" should occur here
-      if (driver->active_character_staging_layout)
-      {
-         driver->active_character_staging_layout->hide();
-      }
-   }
-   */
+   //*/
    //if (driver.active_character_staging_layout)
    //{
       // TODO: Confirm "hide" should occur here

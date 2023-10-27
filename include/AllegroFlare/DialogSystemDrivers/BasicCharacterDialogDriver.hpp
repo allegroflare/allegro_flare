@@ -54,6 +54,7 @@ namespace AllegroFlare
          void initialize();
          void destroy();
          virtual void on_deactivate() override;
+         virtual void on_render() override;
          void clear_character_staging_layout();
          bool activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name="[unset-dialog_node_identifier]", AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr);
          void set_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");

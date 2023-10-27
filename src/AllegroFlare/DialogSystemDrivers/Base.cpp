@@ -33,6 +33,11 @@ void Base::on_deactivate()
    return;
 }
 
+void Base::on_render()
+{
+   return;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());

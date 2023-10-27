@@ -123,6 +123,12 @@ void BasicCharacterDialogDriver::on_deactivate()
    return;
 }
 
+void BasicCharacterDialogDriver::on_render()
+{
+   if (active_character_staging_layout) active_character_staging_layout->render();
+   return;
+}
+
 void BasicCharacterDialogDriver::clear_character_staging_layout()
 {
    if (!(initialized))
