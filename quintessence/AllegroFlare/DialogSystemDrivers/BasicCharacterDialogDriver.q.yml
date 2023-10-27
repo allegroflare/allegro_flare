@@ -22,18 +22,6 @@ properties:
     getter: true
     setter: true
 
-  - name: activate_dialog_node_type_unhandled_func
-    type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)>
-    init_with: ''
-    getter: true
-    setter: true
-
-  - name: activate_dialog_node_type_unhandled_func_user_data
-    type: void*
-    init_with: nullptr
-    getter: true
-    setter: true
-
   - name: initialized
     type: bool
     init_with: false
@@ -285,11 +273,11 @@ methods:
       else
       {
          bool handled = false;
-         if (activate_dialog_node_type_unhandled_func)
+         if (get_activate_dialog_node_type_unhandled_func())
          {
-            handled = activate_dialog_node_type_unhandled_func(
+            handled = get_activate_dialog_node_type_unhandled_func()(
                   dialog_system,
-                  activate_dialog_node_type_unhandled_func_user_data
+                  get_activate_dialog_node_type_unhandled_func_user_data()
             );
          }
 

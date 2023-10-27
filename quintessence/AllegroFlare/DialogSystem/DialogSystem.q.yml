@@ -74,18 +74,6 @@ properties:
     getter: true
     setter: true
 
-  - name: activate_dialog_node_type_unhandled_func
-    type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)>
-    init_with: ''
-    getter: true
-    setter: explicit
-
-  - name: activate_dialog_node_type_unhandled_func_user_data
-    type: void*
-    init_with: nullptr
-    getter: true
-    setter: explicit
-
   - name: dialog_advance_is_finished_node_type_unhandled_func
     type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)>
     init_with: ''
@@ -205,18 +193,7 @@ methods:
         default_argument: ''
     guards: [ _driver ]
     body: |
-      this->activate_dialog_node_type_unhandled_func = activate_dialog_node_type_unhandled_func;
-      if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
-      }
-      else
-      {
-         throw std::runtime_error("Uknonwn type here (1)");
-         // TODO: Throw
-      }
+      _driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
       return;
     body_dependency_symbols:
       - AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
@@ -229,20 +206,9 @@ methods:
         default_argument: nullptr
     guards: [ _driver ]
     body: |
-      this->activate_dialog_node_type_unhandled_func_user_data = activate_dialog_node_type_unhandled_func_user_data;
-      if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->set_activate_dialog_node_type_unhandled_func_user_data(
-               activate_dialog_node_type_unhandled_func_user_data
-            );
-      }
-      else
-      {
-         throw std::runtime_error("Uknonwn type here (2)");
-         // TODO: Throw
-      }
+      _driver->set_activate_dialog_node_type_unhandled_func_user_data(
+            activate_dialog_node_type_unhandled_func_user_data
+         );
       return;
     body_dependency_symbols:
       - AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver

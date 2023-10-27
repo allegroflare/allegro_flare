@@ -26,8 +26,6 @@ BasicCharacterDialogDriver::BasicCharacterDialogDriver(AllegroFlare::BitmapBin* 
    : AllegroFlare::DialogSystemDrivers::Base(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE)
    , bitmap_bin(bitmap_bin)
    , dialog_roll()
-   , activate_dialog_node_type_unhandled_func()
-   , activate_dialog_node_type_unhandled_func_user_data(nullptr)
    , initialized(false)
    , active_character_staging_layout(nullptr)
    , character_roster(nullptr)
@@ -54,33 +52,9 @@ void BasicCharacterDialogDriver::set_dialog_roll(AllegroFlare::Elements::DialogR
 }
 
 
-void BasicCharacterDialogDriver::set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func)
-{
-   this->activate_dialog_node_type_unhandled_func = activate_dialog_node_type_unhandled_func;
-}
-
-
-void BasicCharacterDialogDriver::set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data)
-{
-   this->activate_dialog_node_type_unhandled_func_user_data = activate_dialog_node_type_unhandled_func_user_data;
-}
-
-
 AllegroFlare::Elements::DialogRoll BasicCharacterDialogDriver::get_dialog_roll() const
 {
    return dialog_roll;
-}
-
-
-std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> BasicCharacterDialogDriver::get_activate_dialog_node_type_unhandled_func() const
-{
-   return activate_dialog_node_type_unhandled_func;
-}
-
-
-void* BasicCharacterDialogDriver::get_activate_dialog_node_type_unhandled_func_user_data() const
-{
-   return activate_dialog_node_type_unhandled_func_user_data;
 }
 
 
@@ -299,11 +273,11 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name_func(AllegroFlare:
    else
    {
       bool handled = false;
-      if (activate_dialog_node_type_unhandled_func)
+      if (get_activate_dialog_node_type_unhandled_func())
       {
-         handled = activate_dialog_node_type_unhandled_func(
+         handled = get_activate_dialog_node_type_unhandled_func()(
                dialog_system,
-               activate_dialog_node_type_unhandled_func_user_data
+               get_activate_dialog_node_type_unhandled_func_user_data()
          );
       }
 

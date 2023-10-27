@@ -7,6 +7,18 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: activate_dialog_node_type_unhandled_func
+    type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: activate_dialog_node_type_unhandled_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogSystemDrivers/Base"'

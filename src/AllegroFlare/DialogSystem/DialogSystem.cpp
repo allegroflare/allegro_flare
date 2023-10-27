@@ -51,8 +51,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , load_node_bank_func_user_data(nullptr)
    , activate_dialog_node_by_name_func()
    , activate_dialog_node_by_name_func_user_data(nullptr)
-   , activate_dialog_node_type_unhandled_func()
-   , activate_dialog_node_type_unhandled_func_user_data(nullptr)
    , dialog_advance_is_finished_node_type_unhandled_func()
    , dialog_advance_is_finished_node_type_unhandled_func_user_data(nullptr)
    , switched_in(false)
@@ -164,18 +162,6 @@ void* DialogSystem::get_activate_dialog_node_by_name_func_user_data() const
 }
 
 
-std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> DialogSystem::get_activate_dialog_node_type_unhandled_func() const
-{
-   return activate_dialog_node_type_unhandled_func;
-}
-
-
-void* DialogSystem::get_activate_dialog_node_type_unhandled_func_user_data() const
-{
-   return activate_dialog_node_type_unhandled_func_user_data;
-}
-
-
 std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_dialog_advance_is_finished_node_type_unhandled_func() const
 {
    return dialog_advance_is_finished_node_type_unhandled_func;
@@ -263,18 +249,7 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bo
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func: error: guard \"_driver\" not met");
    }
-   this->activate_dialog_node_type_unhandled_func = activate_dialog_node_type_unhandled_func;
-   if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   {
-      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-      driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
-   }
-   else
-   {
-      throw std::runtime_error("Uknonwn type here (1)");
-      // TODO: Throw
-   }
+   _driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
    return;
 }
 
@@ -287,20 +262,9 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* 
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data: error: guard \"_driver\" not met");
    }
-   this->activate_dialog_node_type_unhandled_func_user_data = activate_dialog_node_type_unhandled_func_user_data;
-   if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   {
-      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-      driver->set_activate_dialog_node_type_unhandled_func_user_data(
-            activate_dialog_node_type_unhandled_func_user_data
-         );
-   }
-   else
-   {
-      throw std::runtime_error("Uknonwn type here (2)");
-      // TODO: Throw
-   }
+   _driver->set_activate_dialog_node_type_unhandled_func_user_data(
+         activate_dialog_node_type_unhandled_func_user_data
+      );
    return;
 }
 
