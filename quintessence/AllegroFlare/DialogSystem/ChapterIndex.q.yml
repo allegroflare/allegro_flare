@@ -1,0 +1,72 @@
+properties:
+
+
+  - name: chapters
+    type: std::map<std::string, AllegroFlare::DialogSystem::Chapter>
+    init_with: '{}'
+    setter: true
+    getter_ref: true
+
+
+methods:
+
+
+  - name: num_chapters
+    type: int
+    body: |
+      return chapters.size();
+
+
+  - name: get_chapter_names
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> result;
+      for (auto &chapter : chapters)
+      {
+         result.push_back(chapter.first);
+      }
+      return result;
+ 
+
+  - name: add_chapter
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: chapter
+        type: AllegroFlare::DialogSystem::Chapter
+        default_argument: '{}'
+    guards: [ (!chapter_exists_by_name(name)) ]
+    body: |
+      chapters[name] = chapter;
+
+
+  - name: chapter_exists_by_name
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      return (chapters.find(name) != chapters.end());
+
+
+  - name: find_chapter_by_name
+    type: AllegroFlare::DialogSystem::Chapter
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ chapter_exists_by_name(name) ]
+    body: |
+      // TODO: This guard results in a double lookup. Might be faster to integrate it below.
+      if (chapters.find(name) == chapters.end()) return {};
+      return chapters[name];
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystem::Chapter
+    headers: [ AllegroFlare/DialogSystem/Chapter.hpp ]
+
