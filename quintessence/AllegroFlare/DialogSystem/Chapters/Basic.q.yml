@@ -1,0 +1,37 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogSystem::Chapters::Base
+    scope: public
+    init_with: AllegroFlare::DialogSystem::Chapters::Basic::TYPE
+
+
+properties:
+
+
+  - name: title
+    type: std::string
+    init_with: '"[unset-title]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: chapter_select_image_identifier
+    type: std::string
+    init_with: '"[unset-chapter_select_image_identifier]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogSystem/Chapters/Basic"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystem::Chapters::Base
+    headers: [ AllegroFlare/DialogSystem/Chapters/Base.hpp ]
+
+

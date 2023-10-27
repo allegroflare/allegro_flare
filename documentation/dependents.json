@@ -780,7 +780,7 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
-  "AllegroFlare/DialogSystem/Chapter": [
+  "AllegroFlare/DialogSystem/Chapters/Base": [
     "AllegroFlare/DialogSystem/ChapterIndex"
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
@@ -1158,6 +1158,9 @@
     "AllegroFlare/DialogSystem/Scenes/Basic"
   ],
   "AllegroFlare/DialogSystem/SceneIndex": [
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+  ],
+  "AllegroFlare/DialogSystem/ChapterIndex": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [

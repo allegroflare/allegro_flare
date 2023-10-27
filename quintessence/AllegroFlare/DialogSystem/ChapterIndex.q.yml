@@ -2,7 +2,7 @@ properties:
 
 
   - name: chapters
-    type: std::map<std::string, AllegroFlare::DialogSystem::Chapter>
+    type: std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*>
     init_with: '{}'
     setter: true
     getter_ref: true
@@ -34,8 +34,8 @@ methods:
         type: std::string
         default_argument: '"[unset-name]"'
       - name: chapter
-        type: AllegroFlare::DialogSystem::Chapter
-        default_argument: '{}'
+        type: AllegroFlare::DialogSystem::Chapters::Base*
+        default_argument: nullptr
     guards: [ (!chapter_exists_by_name(name)) ]
     body: |
       chapters[name] = chapter;
@@ -52,7 +52,7 @@ methods:
 
 
   - name: find_chapter_by_name
-    type: AllegroFlare::DialogSystem::Chapter
+    type: AllegroFlare::DialogSystem::Chapters::Base*
     parameters:
       - name: name
         type: std::string
@@ -60,13 +60,14 @@ methods:
     guards: [ chapter_exists_by_name(name) ]
     body: |
       // TODO: This guard results in a double lookup. Might be faster to integrate it below.
-      if (chapters.find(name) == chapters.end()) return {};
+      if (chapters.find(name) == chapters.end()) return nullptr;
       return chapters[name];
 
 
 dependencies:
 
 
-  - symbol: AllegroFlare::DialogSystem::Chapter
-    headers: [ AllegroFlare/DialogSystem/Chapter.hpp ]
+  - symbol: AllegroFlare::DialogSystem::Chapters::Base
+    headers: [ AllegroFlare/DialogSystem/Chapters/Base.hpp ]
+
 

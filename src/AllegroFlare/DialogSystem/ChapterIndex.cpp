@@ -24,13 +24,13 @@ ChapterIndex::~ChapterIndex()
 }
 
 
-void ChapterIndex::set_chapters(std::map<std::string, AllegroFlare::DialogSystem::Chapter> chapters)
+void ChapterIndex::set_chapters(std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> chapters)
 {
    this->chapters = chapters;
 }
 
 
-std::map<std::string, AllegroFlare::DialogSystem::Chapter> &ChapterIndex::get_chapters_ref()
+std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> &ChapterIndex::get_chapters_ref()
 {
    return chapters;
 }
@@ -51,7 +51,7 @@ std::vector<std::string> ChapterIndex::get_chapter_names()
    return result;
 }
 
-void ChapterIndex::add_chapter(std::string name, AllegroFlare::DialogSystem::Chapter chapter)
+void ChapterIndex::add_chapter(std::string name, AllegroFlare::DialogSystem::Chapters::Base* chapter)
 {
    if (!((!chapter_exists_by_name(name))))
    {
@@ -68,7 +68,7 @@ bool ChapterIndex::chapter_exists_by_name(std::string name)
    return (chapters.find(name) != chapters.end());
 }
 
-AllegroFlare::DialogSystem::Chapter ChapterIndex::find_chapter_by_name(std::string name)
+AllegroFlare::DialogSystem::Chapters::Base* ChapterIndex::find_chapter_by_name(std::string name)
 {
    if (!(chapter_exists_by_name(name)))
    {
@@ -78,7 +78,7 @@ AllegroFlare::DialogSystem::Chapter ChapterIndex::find_chapter_by_name(std::stri
       throw std::runtime_error("ChapterIndex::find_chapter_by_name: error: guard \"chapter_exists_by_name(name)\" not met");
    }
    // TODO: This guard results in a double lookup. Might be faster to integrate it below.
-   if (chapters.find(name) == chapters.end()) return {};
+   if (chapters.find(name) == chapters.end()) return nullptr;
    return chapters[name];
 }
 
