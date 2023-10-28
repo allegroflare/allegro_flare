@@ -38,7 +38,7 @@ properties:
 
   - name: roundness
     type: float
-    init_with: 13.0f
+    init_with: 8.0f
     getter: true
     setter: true
 

@@ -24,7 +24,7 @@ DialogBoxFrame::DialogBoxFrame(float width, float height)
    , backfill_color(DEFAULT_BACKFILL_COLOR)
    , border_color(DEFAULT_BORDER_COLOR)
    , opacity(1.0f)
-   , roundness(13.0f)
+   , roundness(8.0f)
    , border_thickness(6.0f)
 {
 }

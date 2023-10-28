@@ -148,10 +148,10 @@ methods:
         default_argument: nullptr
     body: |
       // TODO: Remove this call  to _func and only call this containing method externally
-      return activate_dialog_node_by_name_func(dialog_system, active_dialog_node_name, active_dialog_node, user_data);
+      return __activate_dialog_node_by_name_func(dialog_system, active_dialog_node_name, active_dialog_node, user_data);
 
 
-  - name: activate_dialog_node_by_name_func
+  - name: __activate_dialog_node_by_name_func
     virtual: true
     type: bool
     parameters:
