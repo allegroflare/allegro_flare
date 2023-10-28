@@ -55,6 +55,8 @@ namespace AllegroFlare
          virtual void SetUp() override;
          virtual void TearDown() override;
          void framework_register_and_activate_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);
+         void framework_register_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);
+         void framework_activate_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);
          void framework_run_loop(float num_seconds_to_auto_abort=3);
          std::string get_test_name();
          std::string get_test_suite_name();

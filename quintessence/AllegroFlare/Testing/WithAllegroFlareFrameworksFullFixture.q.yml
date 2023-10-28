@@ -142,6 +142,38 @@ functions:
       return;
 
 
+  - name: framework_register_screen
+    type: void
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: screen
+        type: AllegroFlare::Screens::Base*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this method
+      framework.register_screen(name, screen);
+      return;
+
+
+  - name: framework_activate_screen
+    type: void
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: screen
+        type: AllegroFlare::Screens::Base*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this method
+      framework.activate_screen(name);
+      return;
+
+
   - name: framework_run_loop
     type: void
     parameters:
