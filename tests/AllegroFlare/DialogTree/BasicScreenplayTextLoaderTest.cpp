@@ -34,11 +34,11 @@ TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, load__will_build_the
    int count_ExitDialog = 0;
    for (auto &node : nodes)
    {
-      if (node.second->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+      if (std::get<1>(node)->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
       {
          count_MultipageWithOptions++;
       }
-      else if (node.second->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+      else if (std::get<1>(node)->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
       {
          count_ExitDialog++;
       }
@@ -52,14 +52,14 @@ TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, load__will_build_the
    as = static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(nodes["dialog_node_0"]);
    EXPECT_EQ("DETECTIVE", as->get_speaker());
    ASSERT_EQ(false, as->get_options().empty());
-   EXPECT_EQ("next", as->get_options()[0].first);
-   ASSERT_NE(nullptr, as->get_options()[0].second);
+   EXPECT_EQ("next", std::get<0>(as->get_options()[0])); //.first);
+   ASSERT_NE(nullptr, std::get<1>(as->get_options()[0])); //.second);
    EXPECT_EQ(
       AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE,
-      as->get_options()[0].second->get_type()
+      std::get<1>(as->get_options()[0])->get_type() //.second->get_type()
    );
    AllegroFlare::DialogTree::NodeOptions::GoToNode* as_option_node =
-      static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(as->get_options()[0].second);
+      static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(std::get<1>(as->get_options()[0])); //.second);
    EXPECT_EQ(
       "dialog_node_1",
       as_option_node->get_target_node_name()

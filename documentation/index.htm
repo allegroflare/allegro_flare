@@ -3358,7 +3358,7 @@ table td
 </tr>
 <tr>
   <td class="property">options</td>
-  <td class="property">std::vector&lt;std::pair&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*&gt;&gt;</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags&lt;uint32_t&gt;&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -3382,6 +3382,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitFlags&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitFlags.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
 </tr>
@@ -3541,6 +3544,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::MultipageWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitFlags&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitFlags.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31413,6 +31419,10 @@ table td
   ],
   "AllegroFlare/Time": [
     "AllegroFlare/DialogTree/Nodes/Base"
+  ],
+  "AllegroFlare/BitFlags": [
+    "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
+    "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"

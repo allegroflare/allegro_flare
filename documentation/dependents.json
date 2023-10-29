@@ -1162,6 +1162,10 @@
   "AllegroFlare/Time": [
     "AllegroFlare/DialogTree/Nodes/Base"
   ],
+  "AllegroFlare/BitFlags": [
+    "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
+    "AllegroFlare/DialogTree/YAMLLoader"
+  ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"
   ],
