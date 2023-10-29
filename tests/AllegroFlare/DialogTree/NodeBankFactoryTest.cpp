@@ -10,34 +10,6 @@
 
 
 
-static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_driver(AllegroFlare::BitmapBin *bitmap_bin)
-{
-   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-         new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
-
-   driver->set_bitmap_bin(bitmap_bin);
-   driver->initialize();
-   return driver;
-}
-
-
-static void destroy_driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
-{
-      if (_driver && _driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      {
-         AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         driver->destroy();
-      }
-      else
-      {
-         throw std::runtime_error("in test: Could not destroy _driver");
-      }
-}
-
-
-
-
 class AllegroFlare_DialogTree_NodeBankFactoryTest: public ::testing::Test {};
 class AllegroFlare_DialogTree_NodeBankFactoryTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
@@ -48,6 +20,7 @@ private:
    ALLEGRO_EVENT_QUEUE *event_queue;
    ALLEGRO_TIMER *primary_timer;
    AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver;
 
 public:
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
@@ -56,8 +29,7 @@ public:
    {
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
 
-      std::cout << "AAAA" << std::endl;
-      // setup system
+      // Setup system
       al_install_keyboard();
       al_install_joystick();
       event_queue = al_create_event_queue();
@@ -65,43 +37,30 @@ public:
       al_register_event_source(event_queue, al_get_keyboard_event_source());
       al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
       //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-      std::cout << "AAAA" << std::endl;
 
-      // setup environment
-      //AllegroFlare::EventEmitter event_emitter;
+      // Setup environment
       event_emitter.initialize();
       al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
-      std::cout << "AAAA" << std::endl;
 
-      // initialize test subject
-      //std::string dialog_filename = get_fixtures_path() + "/dialogs/basic_screenplay_text.screenplay.txt";
-      //AllegroFlare::DialogSystem::CharacterRoster *character_roster = create_and_assemble_character_roster();
+      // Create a driver for our dialog system
+      driver = new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
+      driver->set_bitmap_bin(&get_bitmap_bin_ref());
+      driver->initialize();
+
+      // Setup the dialog system (except for loading a node_bank, which is done in the test)
       dialog_system.set_bitmap_bin(&get_bitmap_bin_ref());
       dialog_system.set_font_bin(&get_font_bin_ref());
-      std::cout << "AAAA" << std::endl;
       dialog_system.set_event_emitter(&event_emitter);
       dialog_system.initialize();
-      std::cout << "AAAA" << std::endl;
-      dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
-      //AllegroFlare::DialogSystemDrivers::Base* _driver = dialog_system.get__driver();
-      //if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-      //{
-         //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-            //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-         //driver->character_roster = character_roster; // TODO: Change this to a setter
-      //}
-      //dialog_system.get_driver_ref().character_roster = character_roster; // TODO: Change this to a setter
-      //dialog_system.initialize(); // NOTE: Initialization must happen before
-      //AllegroFlare::DialogSystemDrivers::SystemNotificationsDriver::build_node_bank();
+      dialog_system.set__driver(driver);
    }
 
    virtual void TearDown() override
    {
-      // teardown
+      driver->destroy();
+      delete driver;
+
       // TODO: Audit if this teardown is complete. It may require other calls to destroy resources.
-
-      //delete character_roster;
-
       al_destroy_event_queue(event_queue);
       al_destroy_timer(primary_timer);
       al_uninstall_keyboard();
@@ -111,7 +70,6 @@ public:
 
    void run_interaction()
    {
-      std::cout << "BBBB" << std::endl;
       bool abort = false;
       ALLEGRO_EVENT event;
       // run the interactive test
@@ -121,7 +79,6 @@ public:
       float duration_until_abort_sec = 6.0f; // TODO: Add a countdown
       float interactive_started_at = al_get_time();
       bool abort_timer_in_effect = true;
-      std::cout << "BBBB" << std::endl;
 
       while(!abort)
       {
