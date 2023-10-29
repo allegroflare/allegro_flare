@@ -129,6 +129,29 @@ methods:
       return;
 
 
+  - name: activate_dialog_node_by_name__xx
+    virtual: true
+    xxoverride: true
+    type: bool
+    parameters:
+      - name: dialog_system
+        type: AllegroFlare::DialogSystem::DialogSystem*
+        default_argument: nullptr
+      - name: active_dialog_node_name
+        type: std::string
+        default_argument: '"[unset-dialog_node_identifier]"'
+      - name: active_dialog_node
+        type: AllegroFlare::DialogTree::Nodes::Base*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    body: |
+      // TODO: Remove this call  to _func and only call this containing method externally
+      //return __activate_dialog_node_by_name_func(dialog_system, active_dialog_node_name, active_dialog_node, user_data);
+      return false;
+
+
   - name: activate_dialog_node_by_name
     virtual: true
     override: true
@@ -146,29 +169,9 @@ methods:
       - name: user_data
         type: void*
         default_argument: nullptr
-    body: |
-      // TODO: Remove this call  to _func and only call this containing method externally
-      return __activate_dialog_node_by_name_func(dialog_system, active_dialog_node_name, active_dialog_node, user_data);
-
-
-  - name: __activate_dialog_node_by_name_func
-    virtual: true
-    type: bool
-    parameters:
-      - name: dialog_system
-        type: AllegroFlare::DialogSystem::DialogSystem*
-        default_argument: nullptr
-      - name: active_dialog_node_name
-        type: std::string
-        default_argument: '"[unset-dialog_node_identifier]"'
-      - name: active_dialog_node
-        type: AllegroFlare::DialogTree::Nodes::Base*
-        default_argument: nullptr
-      - name: user_data
-        type: void*
-        default_argument: nullptr
     guards: [ dialog_system, active_dialog_node, initialized, dialog_system ]
     body: |
+      // This function is responsible for 
       std::string &dialog_name = active_dialog_node_name;
 
       if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))

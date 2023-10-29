@@ -140,42 +140,44 @@ void BasicCharacterDialogDriver::clear_character_staging_layout()
    return;
 }
 
-bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
+bool BasicCharacterDialogDriver::activate_dialog_node_by_name__xx(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
 {
    // TODO: Remove this call  to _func and only call this containing method externally
-   return __activate_dialog_node_by_name_func(dialog_system, active_dialog_node_name, active_dialog_node, user_data);
+   //return __activate_dialog_node_by_name_func(dialog_system, active_dialog_node_name, active_dialog_node, user_data);
+   return false;
 }
 
-bool BasicCharacterDialogDriver::__activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
+bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
 {
    if (!(dialog_system))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::__activate_dialog_node_by_name_func]: error: guard \"dialog_system\" not met.";
+      error_message << "[BasicCharacterDialogDriver::activate_dialog_node_by_name]: error: guard \"dialog_system\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::__activate_dialog_node_by_name_func: error: guard \"dialog_system\" not met");
+      throw std::runtime_error("BasicCharacterDialogDriver::activate_dialog_node_by_name: error: guard \"dialog_system\" not met");
    }
    if (!(active_dialog_node))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::__activate_dialog_node_by_name_func]: error: guard \"active_dialog_node\" not met.";
+      error_message << "[BasicCharacterDialogDriver::activate_dialog_node_by_name]: error: guard \"active_dialog_node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::__activate_dialog_node_by_name_func: error: guard \"active_dialog_node\" not met");
+      throw std::runtime_error("BasicCharacterDialogDriver::activate_dialog_node_by_name: error: guard \"active_dialog_node\" not met");
    }
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::__activate_dialog_node_by_name_func]: error: guard \"initialized\" not met.";
+      error_message << "[BasicCharacterDialogDriver::activate_dialog_node_by_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::__activate_dialog_node_by_name_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("BasicCharacterDialogDriver::activate_dialog_node_by_name: error: guard \"initialized\" not met");
    }
    if (!(dialog_system))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::__activate_dialog_node_by_name_func]: error: guard \"dialog_system\" not met.";
+      error_message << "[BasicCharacterDialogDriver::activate_dialog_node_by_name]: error: guard \"dialog_system\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::__activate_dialog_node_by_name_func: error: guard \"dialog_system\" not met");
+      throw std::runtime_error("BasicCharacterDialogDriver::activate_dialog_node_by_name: error: guard \"dialog_system\" not met");
    }
+   // This function is responsible for 
    std::string &dialog_name = active_dialog_node_name;
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
