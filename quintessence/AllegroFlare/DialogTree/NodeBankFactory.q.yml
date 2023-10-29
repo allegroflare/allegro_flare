@@ -1,0 +1,60 @@
+methods:
+
+
+  - name: build_common_system_dialogs_node_bank
+    static: true
+    type: AllegroFlare::DialogTree::NodeBank
+    body: |
+      // TODO: Find out where to place constants
+      AllegroFlare::DialogTree::NodeBank node_bank;
+
+      node_bank.add_node(
+            "wait_before_exit_program",
+            new AllegroFlare::DialogTree::Nodes::Wait(1.0, "exit_program")
+         );
+      node_bank.add_node("exit_program", new AllegroFlare::DialogTree::Nodes::ExitProgram());
+      node_bank.add_node(
+            "confirm_exit_program",
+            new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+            (
+               "system",
+               { "Are you sure you want to exit?" },
+               { 
+                  //{ "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("exit_program") },
+                  { "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("wait_before_exit_program") },
+                  { "No",  new AllegroFlare::DialogTree::NodeOptions::ExitDialog() },
+               }
+            )
+         );
+
+      return node_bank;
+    body_dependency_symbols:
+     - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+     - AllegroFlare::DialogTree::Nodes::ExitDialog
+     - AllegroFlare::DialogTree::Nodes::ExitProgram
+     - AllegroFlare::DialogTree::Nodes::Wait
+     - AllegroFlare::DialogTree::NodeOptions::GoToNode
+     - AllegroFlare::DialogTree::NodeOptions::ExitDialog
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogSystemDrivers::Base
+    headers: [ AllegroFlare/DialogSystemDrivers/Base.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+    headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ExitDialog
+    headers: [ AllegroFlare/DialogTree/Nodes/ExitDialog.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::ExitProgram
+    headers: [ AllegroFlare/DialogTree/Nodes/ExitProgram.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::Wait
+    headers: [ AllegroFlare/DialogTree/Nodes/Wait.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::GoToNode
+    headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::ExitDialog
+    headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
+
+
