@@ -203,7 +203,7 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
       }
       else // (node_options_as_text.size() > 1)
       {
-         // TODO: Here, if dialog has multiple options, spawn a "choice" dialog
+         // If dialog has multiple options, spawn a "choice" dialog
          if (node_pages.size() != 1)
          {
             throw std::runtime_error(
@@ -219,38 +219,21 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
    {
-      // Cast our class
       AllegroFlare::DialogTree::Nodes::Wait *as =
          static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
 
-      // Create a new state for this node
-      //AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
-            //new AllegroFlare::DialogSystem::NodeStates::Wait(as);
-      //wait_node_state->initialize();
-
-      // Assign the state to our "active_dialog_node_state" so it can be managed
       float duration_seconds = as->get_duration_sec();
       dialog_system->spawn_wait_dialog(duration_seconds);
-      //dialog_system->set_active_dialog_node_state(wait_node_state);
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
    {
-      // Cast our class
       AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
          static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
 
-      // Create a new state for this node
-      //AllegroFlare::DialogSystem::NodeStates::Wait *wait_node_state =
-            //new AllegroFlare::DialogSystem::NodeStates::Wait(as);
-      //wait_node_state->initialize();
-
-      // Assign the state to our "active_dialog_node_state" so it can be managed
-      //float duration_seconds = as->get_duration_sec();
       dialog_system->spawn_chapter_title_dialog(
             as->get_title_text(),
             as->get_duration()
          );
-      //dialog_system->set_active_dialog_node_state(wait_node_state);
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
@@ -341,17 +324,16 @@ ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std
       throw std::runtime_error("BasicCharacterDialogDriver::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
    }
    // TODO: Review guards
+   // TODO: Consider throw on missing character_roster
 
-   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
-
-   if (driver->character_roster)
+   if (character_roster)
    {
-      if (!driver->character_roster->character_exists_by_name(speaking_character_identifier))
+      if (!character_roster->character_exists_by_name(speaking_character_identifier))
       {
          // Throw for now
          std::stringstream available_character_names;
          available_character_names << "[ ";
-         for (auto &character_identifier : driver->character_roster->get_character_names())
+         for (auto &character_identifier : character_roster->get_character_names())
          {
             available_character_names << "\"" << character_identifier << "\", ";
          }
@@ -363,7 +345,7 @@ ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std
       }
 
       AllegroFlare::DialogSystem::Characters::Base *base =
-         driver->character_roster->find_character_by_name(speaking_character_identifier);
+         character_roster->find_character_by_name(speaking_character_identifier);
 
       if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
       {
@@ -407,23 +389,21 @@ AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"bitmap_bin\" not met");
    }
-   // TOOD: Review guards
-   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
-
-   if (!driver->character_roster)
+   if (!(character_roster))
    {
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver"
-         "Expecting character_roster to not be a nullptr"
-      );
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"character_roster\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"character_roster\" not met");
    }
+   // TOOD: Review guards
 
-   if (!driver->character_roster->character_exists_by_name(character_identifier))
+   if (!character_roster->character_exists_by_name(character_identifier))
    {
       // Throw for now
       std::stringstream available_character_names;
       available_character_names << "[ ";
-      for (auto &character_identifier : driver->character_roster->get_character_names())
+      for (auto &character_identifier : character_roster->get_character_names())
       {
          available_character_names << "\"" << character_identifier << "\", ";
       }
@@ -439,7 +419,7 @@ AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_
    }
 
    AllegroFlare::DialogSystem::Characters::Base *base =
-      driver->character_roster->find_character_by_name(character_identifier);
+      character_roster->find_character_by_name(character_identifier);
 
    if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
    {
