@@ -167,7 +167,7 @@ methods:
       - name: user_data
         type: void*
         default_argument: nullptr
-    guards: [ dialog_system, active_dialog_node, initialized ]
+    guards: [ dialog_system, active_dialog_node, initialized, dialog_system ]
     body: |
       std::string &dialog_name = active_dialog_node_name;
 

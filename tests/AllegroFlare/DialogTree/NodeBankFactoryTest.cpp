@@ -114,7 +114,7 @@ TEST_F(AllegroFlare_DialogTree_NodeBankFactoryTestWithAllegroRenderingFixture,
             {
                case ALLEGRO_KEY_R: // R for "Reset"
                   dialog_system.activate_dialog_node_by_name(
-                        "exit_program"
+                        "confirm_exit_program"
                         //AllegroFlare::DialogSystemDrivers::SystemNotificationsDriver::CONFIRM_EXIT_PROGRAM
                      );
                   EXPECT_EQ(true, dialog_system.get_switched_in()); // TODO: Move this to another test

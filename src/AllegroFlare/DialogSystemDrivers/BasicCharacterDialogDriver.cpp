@@ -169,6 +169,13 @@ bool BasicCharacterDialogDriver::__activate_dialog_node_by_name_func(AllegroFlar
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::__activate_dialog_node_by_name_func: error: guard \"initialized\" not met");
    }
+   if (!(dialog_system))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::__activate_dialog_node_by_name_func]: error: guard \"dialog_system\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::__activate_dialog_node_by_name_func: error: guard \"dialog_system\" not met");
+   }
    std::string &dialog_name = active_dialog_node_name;
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))

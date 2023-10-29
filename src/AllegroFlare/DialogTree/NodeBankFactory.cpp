@@ -32,10 +32,10 @@ AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_
    AllegroFlare::DialogTree::NodeBank node_bank;
 
    node_bank.add_node(
-         "wait_before_exit_program",
-         new AllegroFlare::DialogTree::Nodes::Wait(1.0, "exit_program")
+         "System::INTERNAL::wait_before_exit_program",
+         new AllegroFlare::DialogTree::Nodes::Wait(1.0, "System::INTERNAL::exit_program_no_confirm")
       );
-   node_bank.add_node("exit_program", new AllegroFlare::DialogTree::Nodes::ExitProgram());
+   node_bank.add_node("System::INTERNAL::exit_program_no_confirm", new AllegroFlare::DialogTree::Nodes::ExitProgram());
    node_bank.add_node(
          "confirm_exit_program",
          new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
@@ -44,7 +44,7 @@ AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_
             { "Are you sure you want to exit?" },
             { 
                //{ "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("exit_program") },
-               { "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("wait_before_exit_program") },
+               { "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("System::INTERNAL::wait_before_exit_program") },
                { "No",  new AllegroFlare::DialogTree::NodeOptions::ExitDialog() },
             }
          )
