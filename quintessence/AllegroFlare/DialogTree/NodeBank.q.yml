@@ -72,8 +72,21 @@ methods:
         default_argument: nullptr
     guards: [ other_node_bank ]
     body: |
-      // TODO: This function
+      std::set<std::string> shared_node_names = find_shared_node_names(other_node_bank);
+      if (!shared_node_names.empty())
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::DialogTree::NodeBank::merge",
+            "Cannot merge two node_bank objects that do not have node names that are the same"
+         );
+      }
+
+      std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*> &other_nodes = other_node_bank->get_nodes_ref();
+      nodes.insert(other_nodes.begin(), other_nodes.end());
+
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: find_shared_node_names
@@ -99,5 +112,7 @@ dependencies:
     headers: [ ]
   - symbol: AllegroFlare::DialogTree::Nodes::Base
     headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

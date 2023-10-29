@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -100,7 +101,18 @@ void NodeBank::merge(AllegroFlare::DialogTree::NodeBank* other_node_bank)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("NodeBank::merge: error: guard \"other_node_bank\" not met");
    }
-   // TODO: This function
+   std::set<std::string> shared_node_names = find_shared_node_names(other_node_bank);
+   if (!shared_node_names.empty())
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogTree::NodeBank::merge",
+         "Cannot merge two node_bank objects that do not have node names that are the same"
+      );
+   }
+
+   std::map<std::string, AllegroFlare::DialogTree::Nodes::Base*> &other_nodes = other_node_bank->get_nodes_ref();
+   nodes.insert(other_nodes.begin(), other_nodes.end());
+
    return;
 }
 
