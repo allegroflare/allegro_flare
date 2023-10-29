@@ -108,8 +108,11 @@ functions:
          choice_dialog_box->set_speaking_character(speaking_character);
       }
       choice_dialog_box->set_created_at(al_get_time());
-      choice_dialog_box->set_cursor_position(cursor_position_on_spawn);
+      //choice_dialog_box->set_cursor_position(cursor_position_on_spawn);
       choice_dialog_box->initialize();
+      // TODO: Consider modifying this behavior so choice_dialog_box would be initialized with a cursor position, e.g.
+      // "initial_cursor_position" would be set/used before initialize();
+      if (cursor_position_on_spawn != 0) choice_dialog_box->set_cursor_position(cursor_position_on_spawn);
 
       return choice_dialog_box;
     body_dependency_symbols:

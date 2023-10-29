@@ -186,3 +186,10 @@ TEST_F(AllegroFlare_DialogTree_NodeBankFactoryTestWithInteractiveSetup,
 }
 
 
+TEST_F(AllegroFlare_DialogTree_NodeBankFactoryTestWithInteractiveSetup,
+   build_common_system_dialogs_node_bank__will_have_a_confirm_exit_program_node_with_the_no_option_focused_at_spawn)
+{
+   // TODO: This test
+}
+
+

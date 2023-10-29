@@ -272,7 +272,9 @@ methods:
       - name: cursor_position
         type: int
         default_argument: 0
+    guards: [ initialized ]
     body: |
+      // TODO: Modify this method so that an "start_cursor_position" could be provided
       // TODO: Test this method
       breakout_list_box.set_cursor_position(cursor_position);
       return;

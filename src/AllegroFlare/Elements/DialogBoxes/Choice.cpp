@@ -296,6 +296,14 @@ bool Choice::has_valid_cursor_position()
 
 void Choice::set_cursor_position(int cursor_position)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Choice::set_cursor_position]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Choice::set_cursor_position: error: guard \"initialized\" not met");
+   }
+   // TODO: Modify this method so that an "start_cursor_position" could be provided
    // TODO: Test this method
    breakout_list_box.set_cursor_position(cursor_position);
    return;
