@@ -92,7 +92,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogSystem/Scenes/Basic.q.yml">quintessence/AllegroFlare/DialogSystem/Scenes/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystemDrivers/Base.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/BasicScreenplayTextLoader.q.yml">quintessence/AllegroFlare/DialogTree/BasicScreenplayTextLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBank.q.yml">quintessence/AllegroFlare/DialogTree/NodeBank.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeBankFactory.q.yml">quintessence/AllegroFlare/DialogTree/NodeBankFactory.q.yml</a></li>
@@ -2851,10 +2850,10 @@ table td
   <td class="method">clear_character_staging_layout()</td>
 </tr>
 <tr>
-  <td class="method">activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
+  <td class="method">activate_dialog_node_by_name__xx(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">__activate_dialog_node_by_name_func(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
+  <td class="method">activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">set_speaking_character_avatar(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;, std::string speaking_character_expression=&quot;[unset-speaking_character_expression]&quot;)</td>
@@ -3026,56 +3025,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver.q.yml">quintessence/AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver.q.yml</h3>
-    <h4>Overview<h4>
-    <h3>Properties</h3>
-<div class="property-box properties">     <table>
-<tr>
-  <td class="property">CONFIRM_EXIT_PROGRAM</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-</div>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-<tr>
-  <td class="method">build_node_bank()</td>
-</tr>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystemDrivers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystemDrivers/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::MultipageWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ExitDialog.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ExitProgram&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ExitProgram.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Wait.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::GoToNode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31391,7 +31340,6 @@ table td
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
@@ -31421,7 +31369,6 @@ table td
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/YAMLLoader"
@@ -31429,14 +31376,12 @@ table td
   "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
@@ -31494,7 +31439,6 @@ table td
   "AllegroFlare/DialogTree/Nodes/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer"
@@ -31502,7 +31446,6 @@ table td
   "AllegroFlare/DialogTree/Nodes/ExitProgram": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/NodeBankFactory"
   ],
   "AllegroFlare/DialogTree/Nodes/ChapterTitle": [
@@ -31519,7 +31462,6 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystem/NodeStates/Wait",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/NodeBankFactory"
   ],
   "AllegroFlare/DialogSystem/NodeStates/Base": [
@@ -31534,7 +31476,6 @@ table td
   "AllegroFlare/DialogSystemDrivers/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/SystemNotificationsDriver",
     "AllegroFlare/DialogTree/NodeBankFactory"
   ],
   "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
