@@ -21,6 +21,7 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
