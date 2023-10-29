@@ -43,6 +43,7 @@ namespace AllegroFlare
             std::vector<std::string> build_options_as_text();
             int num_pages();
             int num_options();
+            int infer_cursor_position_on_spawn();
          };
       }
    }

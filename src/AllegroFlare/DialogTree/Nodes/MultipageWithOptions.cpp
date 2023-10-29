@@ -112,6 +112,18 @@ int MultipageWithOptions::num_options()
    return options.size();
 }
 
+int MultipageWithOptions::infer_cursor_position_on_spawn()
+{
+   // TODO: Test this method
+   for (int position=0; position<options.size(); position++)
+   {
+      AllegroFlare::BitFlags<uint32_t> &flags = std::get<2>(options[position]);
+      // TODO: Use a constant rather than 0x01 here
+      if (flags.has(0x01)) return position;
+   }
+   return 0;
+}
+
 
 } // namespace Nodes
 } // namespace DialogTree
