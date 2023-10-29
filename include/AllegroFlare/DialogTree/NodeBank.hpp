@@ -4,6 +4,7 @@
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <cstdint>
 #include <map>
+#include <set>
 #include <string>
 
 
@@ -30,6 +31,8 @@ namespace AllegroFlare
          bool node_exists_by_name(std::string name="[unset-name]");
          AllegroFlare::DialogTree::Nodes::Base* find_node_by_name(std::string name="[unset-name]");
          void delete_all_nodes_and_clear();
+         void merge(AllegroFlare::DialogTree::NodeBank* other_node_bank=nullptr);
+         std::set<std::string> find_shared_node_names(AllegroFlare::DialogTree::NodeBank* other_node_bank=nullptr);
       };
    }
 }

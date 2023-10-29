@@ -3114,9 +3114,18 @@ table td
 <tr>
   <td class="method">delete_all_nodes_and_clear()</td>
 </tr>
+<tr>
+  <td class="method">merge(AllegroFlare::DialogTree::NodeBank* other_node_bank=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">find_shared_node_names(AllegroFlare::DialogTree::NodeBank* other_node_bank=nullptr)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
 </tr>
@@ -31338,6 +31347,7 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"

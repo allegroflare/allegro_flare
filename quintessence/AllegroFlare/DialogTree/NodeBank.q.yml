@@ -65,9 +65,38 @@ methods:
       return;
 
 
+  - name: merge
+    parameters:
+      - name: other_node_bank
+        type: AllegroFlare::DialogTree::NodeBank*
+        default_argument: nullptr
+    guards: [ other_node_bank ]
+    body: |
+      // TODO: This function
+      return;
+
+
+  - name: find_shared_node_names
+    type: std::set<std::string>
+    parameters:
+      - name: other_node_bank
+        type: AllegroFlare::DialogTree::NodeBank*
+        default_argument: nullptr
+    guards: [ other_node_bank ]
+    body: |
+      std::set<std::string> shared_names;
+      for (auto &other_node : other_node_bank->get_nodes_ref())
+      {
+         if (this->node_exists_by_name(other_node.first)) shared_names.insert(other_node.first);
+      }
+      return shared_names;
+
+
 dependencies:
 
 
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ ]
   - symbol: AllegroFlare::DialogTree::Nodes::Base
     headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
 

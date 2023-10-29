@@ -91,6 +91,36 @@ void NodeBank::delete_all_nodes_and_clear()
    return;
 }
 
+void NodeBank::merge(AllegroFlare::DialogTree::NodeBank* other_node_bank)
+{
+   if (!(other_node_bank))
+   {
+      std::stringstream error_message;
+      error_message << "[NodeBank::merge]: error: guard \"other_node_bank\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NodeBank::merge: error: guard \"other_node_bank\" not met");
+   }
+   // TODO: This function
+   return;
+}
+
+std::set<std::string> NodeBank::find_shared_node_names(AllegroFlare::DialogTree::NodeBank* other_node_bank)
+{
+   if (!(other_node_bank))
+   {
+      std::stringstream error_message;
+      error_message << "[NodeBank::find_shared_node_names]: error: guard \"other_node_bank\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NodeBank::find_shared_node_names: error: guard \"other_node_bank\" not met");
+   }
+   std::set<std::string> shared_names;
+   for (auto &other_node : other_node_bank->get_nodes_ref())
+   {
+      if (this->node_exists_by_name(other_node.first)) shared_names.insert(other_node.first);
+   }
+   return shared_names;
+}
+
 
 } // namespace DialogTree
 } // namespace AllegroFlare
