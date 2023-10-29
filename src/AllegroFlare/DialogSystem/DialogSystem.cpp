@@ -623,8 +623,22 @@ void DialogSystem::spawn_character_feature_dialog(std::string character_name, st
    return;
 }
 
-void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::string> options)
+void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::string> options, int cursor_position_on_spawn)
 {
+   if (!((cursor_position_on_spawn >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::spawn_choice_dialog: error: guard \"(cursor_position_on_spawn >= 0)\" not met");
+   }
+   if (!((cursor_position_on_spawn < options.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn < options.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::spawn_choice_dialog: error: guard \"(cursor_position_on_spawn < options.size())\" not met");
+   }
    switch_in_if_not();
 
    bool a_dialog_existed_before = a_dialog_is_active();
@@ -640,7 +654,12 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    AllegroFlare::Elements::DialogBoxes::Choice *choice_dialog_box =
-         dialog_box_factory.create_choice_dialog(speaking_character, prompt, options_that_are_also_values);
+         dialog_box_factory.create_choice_dialog(
+            speaking_character,
+            prompt,
+            options_that_are_also_values,
+            cursor_position_on_spawn
+         );
    active_dialog_box = choice_dialog_box;
 
 

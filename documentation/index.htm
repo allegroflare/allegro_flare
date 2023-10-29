@@ -2372,7 +2372,7 @@ table td
   <td class="method">spawn_character_feature_dialog(std::string character_name=&quot;[unset-character_name]&quot;, std::string character_description=&quot;[unset-character_description]&quot;, std::string character_image_identifier=&quot;[unset-character_image_identifier]&quot;, float duration_seconds=6.0f)</td>
 </tr>
 <tr>
-  <td class="method">spawn_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::string&gt; options={})</td>
+  <td class="method">spawn_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::string&gt; options={}, int cursor_position_on_spawn=0)</td>
 </tr>
 <tr>
   <td class="method">update(float time_now=0)</td>
@@ -5553,7 +5553,7 @@ table td
   <td class="method">create_basic_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
-  <td class="method">create_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={})</td>
+  <td class="method">create_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={}, int cursor_position_on_spawn=0)</td>
 </tr>
 <tr>
   <td class="method">create_you_got_an_item_dialog(std::string item_name=&quot;[unset-item-name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item-bitmap-identifier]&quot;)</td>
@@ -6983,6 +6983,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">has_valid_cursor_position()</td>
+</tr>
+<tr>
+  <td class="method">set_cursor_position(int cursor_position=0)</td>
 </tr>
 <tr>
   <td class="method">get_cursor_position()</td>

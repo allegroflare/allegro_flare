@@ -294,6 +294,13 @@ bool Choice::has_valid_cursor_position()
    return breakout_list_box_active && breakout_list_box.has_valid_currently_selected_item();
 }
 
+void Choice::set_cursor_position(int cursor_position)
+{
+   // TODO: Test this method
+   breakout_list_box.set_cursor_position(cursor_position);
+   return;
+}
+
 int Choice::get_cursor_position()
 {
    return breakout_list_box.get_cursor_position();

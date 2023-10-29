@@ -185,6 +185,7 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
       std::string node_pages_speaker = as_multipage_with_options->get_speaker();
       std::vector<std::string> node_pages = as_multipage_with_options->get_pages();
       std::vector<std::string> node_options_as_text = as_multipage_with_options->build_options_as_text();
+      int cursor_position_on_spawn = as_multipage_with_options->infer_cursor_position_on_spawn();
 
 
       if (node_options_as_text.empty())
@@ -213,7 +214,12 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
             );
          }
          set_speaking_character_avatar(node_pages_speaker);
-         dialog_system->spawn_choice_dialog(node_pages_speaker, node_pages[0], node_options_as_text);
+         dialog_system->spawn_choice_dialog(
+            node_pages_speaker,
+            node_pages[0],
+            node_options_as_text,
+            cursor_position_on_spawn
+         );
          //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
       }
    }

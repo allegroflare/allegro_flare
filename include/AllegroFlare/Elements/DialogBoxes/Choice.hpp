@@ -59,6 +59,7 @@ namespace AllegroFlare
             std::string get_current_selection_value();
             virtual bool move_cursor_position_down() override;
             virtual bool move_cursor_position_up() override;
+            void set_cursor_position(int cursor_position=0);
             int get_cursor_position();
          };
       }

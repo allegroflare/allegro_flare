@@ -575,6 +575,10 @@ methods:
       - name: options
         type: std::vector<std::string>
         default_argument: '{}'
+      - name: cursor_position_on_spawn
+        type: int
+        default_argument: 0
+    guards: [ (cursor_position_on_spawn >= 0), (cursor_position_on_spawn < options.size()) ]
     body: |
       switch_in_if_not();
 
@@ -591,7 +595,12 @@ methods:
 
       AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
       AllegroFlare::Elements::DialogBoxes::Choice *choice_dialog_box =
-            dialog_box_factory.create_choice_dialog(speaking_character, prompt, options_that_are_also_values);
+            dialog_box_factory.create_choice_dialog(
+               speaking_character,
+               prompt,
+               options_that_are_also_values,
+               cursor_position_on_spawn
+            );
       active_dialog_box = choice_dialog_box;
 
 

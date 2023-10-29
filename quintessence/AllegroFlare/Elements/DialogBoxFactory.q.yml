@@ -95,7 +95,10 @@ functions:
       - name: options
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
-    guards: [ al_is_system_installed() ]
+      - name: cursor_position_on_spawn
+        type: int
+        default_argument: 0
+    guards: [ al_is_system_installed(), (cursor_position_on_spawn >= 0), (cursor_position_on_spawn < options.size()) ]
     body: |
       AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box
          = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
@@ -105,6 +108,7 @@ functions:
          choice_dialog_box->set_speaking_character(speaking_character);
       }
       choice_dialog_box->set_created_at(al_get_time());
+      choice_dialog_box->set_cursor_position(cursor_position_on_spawn);
       choice_dialog_box->initialize();
 
       return choice_dialog_box;

@@ -107,7 +107,7 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialo
    return basic_dialog_box;
 }
 
-AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::pair<std::string, std::string>> options)
+AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::pair<std::string, std::string>> options, int cursor_position_on_spawn)
 {
    if (!(al_is_system_installed()))
    {
@@ -115,6 +115,20 @@ AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dia
       error_message << "[DialogBoxFactory::create_choice_dialog]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxFactory::create_choice_dialog: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!((cursor_position_on_spawn >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogBoxFactory::create_choice_dialog]: error: guard \"(cursor_position_on_spawn >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogBoxFactory::create_choice_dialog: error: guard \"(cursor_position_on_spawn >= 0)\" not met");
+   }
+   if (!((cursor_position_on_spawn < options.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogBoxFactory::create_choice_dialog]: error: guard \"(cursor_position_on_spawn < options.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogBoxFactory::create_choice_dialog: error: guard \"(cursor_position_on_spawn < options.size())\" not met");
    }
    AllegroFlare::Elements::DialogBoxes::Choice* choice_dialog_box
       = new AllegroFlare::Elements::DialogBoxes::Choice(prompt, options);
@@ -124,6 +138,7 @@ AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dia
       choice_dialog_box->set_speaking_character(speaking_character);
    }
    choice_dialog_box->set_created_at(al_get_time());
+   choice_dialog_box->set_cursor_position(cursor_position_on_spawn);
    choice_dialog_box->initialize();
 
    return choice_dialog_box;

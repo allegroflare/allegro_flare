@@ -267,6 +267,17 @@ methods:
       return breakout_list_box_active && breakout_list_box.has_valid_currently_selected_item();
 
 
+  - name: set_cursor_position
+    parameters:
+      - name: cursor_position
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: Test this method
+      breakout_list_box.set_cursor_position(cursor_position);
+      return;
+
+
   - name: get_cursor_position
     type: int
     body: |
