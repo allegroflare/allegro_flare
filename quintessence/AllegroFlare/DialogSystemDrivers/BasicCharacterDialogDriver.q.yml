@@ -250,7 +250,6 @@ methods:
      - AllegroFlare::DialogTree::Nodes::ExitProgram
      - AllegroFlare::DialogTree::Nodes::Wait
      - AllegroFlare::DialogTree::Nodes::ChapterTitle
-     - AllegroFlare::DialogSystem::NodeStates::Wait
 
 
   - name: set_speaking_character_avatar
@@ -525,10 +524,6 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/Nodes/Wait.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::ChapterTitle
     headers: [ AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp ]
-  - symbol: AllegroFlare::DialogSystem::NodeStates::Base
-    headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
-  - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
-    headers: [ AllegroFlare/DialogSystem/NodeStates/Wait.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
 

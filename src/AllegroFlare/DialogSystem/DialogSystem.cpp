@@ -5,7 +5,6 @@
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
-#include <AllegroFlare/DialogSystem/NodeStates/Wait.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>

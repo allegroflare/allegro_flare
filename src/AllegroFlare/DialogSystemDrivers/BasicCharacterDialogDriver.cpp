@@ -4,7 +4,6 @@
 
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
-#include <AllegroFlare/DialogSystem/NodeStates/Wait.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>

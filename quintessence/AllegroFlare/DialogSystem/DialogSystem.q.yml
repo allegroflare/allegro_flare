@@ -434,7 +434,6 @@ methods:
      - AllegroFlare::DialogTree::Nodes::ExitDialog
      - AllegroFlare::DialogTree::Nodes::ExitProgram
      - AllegroFlare::DialogTree::Nodes::Wait
-     - AllegroFlare::DialogSystem::NodeStates::Wait
 
 
   - name: spawn_basic_dialog
@@ -1092,10 +1091,6 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::Wait
     headers: [ AllegroFlare/DialogTree/Nodes/Wait.hpp ]
-  - symbol: AllegroFlare::DialogSystem::NodeStates::Base
-    headers: [ AllegroFlare/DialogSystem/NodeStates/Base.hpp ]
-  - symbol: AllegroFlare::DialogSystem::NodeStates::Wait
-    headers: [ AllegroFlare/DialogSystem/NodeStates/Wait.hpp ]
   - symbol: AllegroFlare::DialogSystemDrivers::Base
     headers: [ AllegroFlare/DialogSystemDrivers/Base.hpp ]
   - symbol: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
