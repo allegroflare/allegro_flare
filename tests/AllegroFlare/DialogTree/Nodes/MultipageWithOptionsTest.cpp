@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
+#include <AllegroFlare/DialogTree/MultipageWithOptionsOptionFlags.hpp>
 
 
 TEST(AllegroFlare_DialogTree_Nodes_MultipageWithOptionsTest, can_be_created_without_blowing_up)
@@ -37,13 +38,15 @@ TEST(AllegroFlare_DialogTree_NodeTest, num_options__compares_correctly_against_s
 TEST(AllegroFlare_DialogTree_NodeTest,
    infer_cursor_position_on_spawn__will_return_the_position_of_the_option_with_the_flag_set)
 {
+   using namespace AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags;
+   //int flag = AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags::FLAG_CURSOR_HERE_ON_SPAWN;
    //using AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags;
 
    AllegroFlare::DialogTree::Nodes::MultipageWithOptions multipage_with_options;
    multipage_with_options.set_options({
       { "Choice 1", nullptr, 0 },
       { "Choice 2", nullptr, 0 },
-      { "Choice 3", nullptr, AllegroFlare::BitFlags<uint32_t>(0x01) }, // TODO: Use constant for flag here
+      { "Choice 3", nullptr, AllegroFlare::BitFlags<uint32_t>(FLAG_CURSOR_HERE_ON_SPAWN) },
       { "Choice 4", nullptr, 0 },
    });
 
