@@ -186,6 +186,7 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
       std::vector<std::string> node_pages = as_multipage_with_options->get_pages();
       std::vector<std::string> node_options_as_text = as_multipage_with_options->build_options_as_text();
 
+
       if (node_options_as_text.empty())
       {
          throw std::runtime_error(

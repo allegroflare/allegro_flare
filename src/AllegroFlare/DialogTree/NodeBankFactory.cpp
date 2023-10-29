@@ -31,6 +31,8 @@ AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_
    // TODO: Find out where to place constants
    AllegroFlare::DialogTree::NodeBank node_bank;
 
+   //using AllegroFlare::DialogTree::NodeOptions;
+
    node_bank.add_node(
          "System::INTERNAL::wait_before_exit_program",
          new AllegroFlare::DialogTree::Nodes::Wait(1.0, "System::INTERNAL::exit_program_no_confirm")
@@ -44,8 +46,16 @@ AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_
             { "Are you sure you want to exit?" },
             { 
                //{ "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("exit_program") },
-               { "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("System::INTERNAL::wait_before_exit_program") },
-               { "No",  new AllegroFlare::DialogTree::NodeOptions::ExitDialog() },
+               {
+                  "Yes",
+                  new AllegroFlare::DialogTree::NodeOptions::GoToNode("System::INTERNAL::wait_before_exit_program"),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+               {
+                  "No",
+                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
             }
          )
       );

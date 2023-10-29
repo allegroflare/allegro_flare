@@ -16,7 +16,7 @@ namespace Nodes
 {
 
 
-MultipageWithOptions::MultipageWithOptions(std::string speaker, std::vector<std::string> pages, std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options)
+MultipageWithOptions::MultipageWithOptions(std::string speaker, std::vector<std::string> pages, std::vector<std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>> options)
    : AllegroFlare::DialogTree::Nodes::Base(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE)
    , speaker(speaker)
    , pages(pages)
@@ -42,7 +42,7 @@ void MultipageWithOptions::set_pages(std::vector<std::string> pages)
 }
 
 
-void MultipageWithOptions::set_options(std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options)
+void MultipageWithOptions::set_options(std::vector<std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>> options)
 {
    this->options = options;
 }
@@ -60,13 +60,13 @@ std::vector<std::string> MultipageWithOptions::get_pages() const
 }
 
 
-std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> MultipageWithOptions::get_options() const
+std::vector<std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>> MultipageWithOptions::get_options() const
 {
    return options;
 }
 
 
-std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*> MultipageWithOptions::get_option_num(int option_num)
+std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>> MultipageWithOptions::get_option_num(int option_num)
 {
    if (!((option_num >= 0)))
    {
@@ -93,11 +93,11 @@ std::vector<std::string> MultipageWithOptions::build_options_as_text()
    for (auto &option : options)
    {
       // TODO: Consider if this check is necessary
-      if (!option.second)
+      if (!std::get<1>(option)) //.second)
       {
          AllegroFlare::Logger::throw_error("AllegroFlare/DialogTree/Node", "an option contains a nullptr");
       }
-      result.push_back(option.first);
+      result.push_back(std::get<0>(option)); //.first);
    }
    return result;
 }

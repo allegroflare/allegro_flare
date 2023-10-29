@@ -1127,18 +1127,8 @@
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/NodeStates/Wait",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBankFactory"
-  ],
-  "AllegroFlare/DialogSystem/NodeStates/Base": [
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/NodeStates/Wait",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
-  ],
-  "AllegroFlare/DialogSystem/NodeStates/Wait": [
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystemDrivers/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1152,11 +1142,6 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Time": [
-    "AllegroFlare/DialogSystem/NodeStates/Base",
-    "AllegroFlare/DialogSystem/NodeStates/Wait",
-    "AllegroFlare/DialogTree/Nodes/Base"
   ],
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
@@ -1173,6 +1158,9 @@
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/Time": [
+    "AllegroFlare/DialogTree/Nodes/Base"
   ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"

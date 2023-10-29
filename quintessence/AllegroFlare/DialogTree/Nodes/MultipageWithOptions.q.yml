@@ -24,7 +24,7 @@ properties:
     setter: true
 
   - name: options
-    type: std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>>
+    type: std::vector<std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>>
     constructor_arg: true
     init_with: '{}'
     getter: true
@@ -41,7 +41,7 @@ methods:
 
 
   - name: get_option_num
-    type: std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>
+    type: std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>
     parameters:
       - name: option_num
         type: int
@@ -60,11 +60,11 @@ methods:
       for (auto &option : options)
       {
          // TODO: Consider if this check is necessary
-         if (!option.second)
+         if (!std::get<1>(option)) //.second)
          {
             AllegroFlare::Logger::throw_error("AllegroFlare/DialogTree/Node", "an option contains a nullptr");
          }
-         result.push_back(option.first);
+         result.push_back(std::get<0>(option)); //.first);
       }
       return result;
     body_dependency_symbols:
@@ -86,6 +86,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::BitFlags
+    headers: [ AllegroFlare/BitFlags.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::Base
     headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::Base

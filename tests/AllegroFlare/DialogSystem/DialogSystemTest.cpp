@@ -721,7 +721,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
          { "I'm a speaker" },
          {
             //{ "Exit program", new AllegroFlare::DialogTree::NodeOptions::ExitProgram() }
-            { "Exit dialog", new AllegroFlare::DialogTree::NodeOptions::ExitDialog() }
+            { "Exit dialog", new AllegroFlare::DialogTree::NodeOptions::ExitDialog(), 0 }
          }
       ));
 

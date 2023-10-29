@@ -132,7 +132,7 @@ const AllegroFlare::DialogTree::NodeBank& BasicScreenplayTextLoader::load()
          result_node->set_speaker(speaker);
          result_node->set_pages(dialog_pages);
          result_node->set_options({
-            { "next", create_GoToNode_option(next_node_name) },
+            { "next", create_GoToNode_option(next_node_name), 0 },
          });
 
          node_bank.add_node(node_name, result_node);

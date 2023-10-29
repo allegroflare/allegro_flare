@@ -909,7 +909,7 @@ void DialogSystem::activate_dialog_option(int selection_choice)
       }
 
       AllegroFlare::DialogTree::NodeOptions::Base* node_option =
-         as_multipage_with_options->get_option_num(selection_choice).second;
+         std::get<1>(as_multipage_with_options->get_option_num(selection_choice)); //.second;
       std::string node_option_type = node_option->get_type();
 
       std::map<std::string, std::function<void()>> types_map = {

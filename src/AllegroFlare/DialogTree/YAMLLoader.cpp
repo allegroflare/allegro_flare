@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 
+#include <AllegroFlare/BitFlags.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
@@ -214,11 +215,14 @@ std::pair<std::string, AllegroFlare::DialogTree::Nodes::MultipageWithOptions*> Y
    {
       validate_node_type(root_node, OPTIONS_KEY, YAML::NodeType::Sequence);
       YAML::Node options_node = root_node[std::string(OPTIONS_KEY)];
-      std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> options_vector;
+      std::vector<
+            std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>
+         > options_vector;
       for (const auto& node : options_node)
       {
          std::string result_option_text = "[unset-result_text]";
          std::string result_option_type = "[unset-result_option_type]";
+         AllegroFlare::BitFlags<uint32_t> result_option_flags = 0;
          AllegroFlare::DialogTree::NodeOptions::Base* result_option = nullptr;
 
          // Parse out option->text
@@ -235,15 +239,17 @@ std::pair<std::string, AllegroFlare::DialogTree::Nodes::MultipageWithOptions*> Y
 
          result_option = parse_and_create_result_option(result_option_type_str, &result_option_data_node);
 
-         options_vector.push_back(std::make_pair(result_option_text, result_option));
+         options_vector.push_back(std::make_tuple(result_option_text, result_option, result_option_flags));
       }
       result_node->set_options(options_vector);
    }
    else // options_node_is_present is false
    {
       // If there are no "options:" in the YAML, create a default option to exit the script
-      std::vector<std::pair<std::string, AllegroFlare::DialogTree::NodeOptions::Base*>> exit_dialog_option = {
-         { "OK", new AllegroFlare::DialogTree::NodeOptions::ExitDialog },
+      std::vector<
+            std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>
+         > exit_dialog_option = {
+         { "OK", new AllegroFlare::DialogTree::NodeOptions::ExitDialog, 0 },
       };
       result_node->set_options(exit_dialog_option);
    }
