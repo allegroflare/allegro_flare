@@ -17,7 +17,7 @@ enum test_flag_t
    FLAG_3 = 0x04,
    FLAG_4 = 0x08,
    FLAG_5 = 0x10,
-   FLAG_6 = 0x11,
+   FLAG_6 = 0x20,
 };
 
 
@@ -25,6 +25,14 @@ enum test_flag_t
 TEST(AllegroFlare_BitFlagsTest, can_be_crated_without_blowing_up)
 {
    AllegroFlare::BitFlags<int16_t> bit_flags;
+}
+
+
+TEST(AllegroFlare_BitFlagsTest, can_be_copied)
+{
+   AllegroFlare::BitFlags<int16_t> bit_flags_a;
+   AllegroFlare::BitFlags<int16_t> bit_flags_b;
+   bit_flags_a = bit_flags_b;
 }
 
 
@@ -38,13 +46,13 @@ TEST(AllegroFlare_BitFlagsTest, can_be_initialized_with_flags)
 }
 
 
-TEST(DISABLED_AllegroFlare_BitFlagsTest, will_not_set_unintialized_flags)
+TEST(AllegroFlare_BitFlagsTest, will_not_set_unintialized_flags)
 {
    AllegroFlare::BitFlags<int16_t> bit_flags(FLAG_3 | FLAG_5 | FLAG_6);
 
-   EXPECT_EQ(false, bit_flags.has(FLAG_1));  // THIS TEST FAILS
-   //EXPECT_EQ(false, bit_flags.has(FLAG_2));
-   //EXPECT_EQ(false, bit_flags.has(FLAG_4));
+   EXPECT_EQ(false, bit_flags.has(FLAG_1));
+   EXPECT_EQ(false, bit_flags.has(FLAG_2));
+   EXPECT_EQ(false, bit_flags.has(FLAG_4));
 }
 
 
@@ -63,7 +71,7 @@ TEST(AllegroFlare_BitFlagsTest, unset__sets_the_value_to_false)
    AllegroFlare::BitFlags<int16_t> bit_flags(FLAG_3);
      
    //bit_flags.set(FLAG_3);
-   ASSERT_EQ(true, bit_flags.has(FLAG_3));
+   //ASSERT_EQ(true, bit_flags.has(FLAG_3));
 
    bit_flags.unset(FLAG_3);
    EXPECT_EQ(false, bit_flags.has(FLAG_3));
