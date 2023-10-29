@@ -297,30 +297,30 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
    // TODO: Test the guards. Is the second one (!speaking_character_identifier.empty()) necessary?
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
 
-      if (driver->active_character_staging_layout->is_type(
-               AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
-            ))
-      {
-         AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
-            static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-               driver->active_character_staging_layout
-            );
-         ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
-               speaking_character_identifier,
-               speaking_character_expression
-            );
-         if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
-         else as->set_speaking_character_bitmap(speaking_character_bitmap);
-         // TODO: Set the character
-      }
-      else
-      {
-         throw std::runtime_error(
-            "DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
-               "\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
-               "and a condition is not provided to handle this type."
+   if (driver->active_character_staging_layout->is_type(
+            AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+         ))
+   {
+      AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+         static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+            driver->active_character_staging_layout
          );
-      }
+      ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
+            speaking_character_identifier,
+            speaking_character_expression
+         );
+      if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
+      else as->set_speaking_character_bitmap(speaking_character_bitmap);
+      // TODO: Set the character
+   }
+   else
+   {
+      throw std::runtime_error(
+         "DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
+            "\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
+            "and a condition is not provided to handle this type."
+      );
+   }
    return;
 }
 
@@ -407,17 +407,8 @@ AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"bitmap_bin\" not met");
    }
-   //if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   //{
-      //throw std::runtime_error("Unknown _driver type");
-   //}
-
-    
+   // TOOD: Review guards
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
-
-
-   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-      //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
 
    if (!driver->character_roster)
    {
@@ -427,57 +418,43 @@ AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_
       );
    }
 
-      if (!driver->character_roster->character_exists_by_name(character_identifier))
+   if (!driver->character_roster->character_exists_by_name(character_identifier))
+   {
+      // Throw for now
+      std::stringstream available_character_names;
+      available_character_names << "[ ";
+      for (auto &character_identifier : driver->character_roster->get_character_names())
       {
-         // Throw for now
-         std::stringstream available_character_names;
-         available_character_names << "[ ";
-         for (auto &character_identifier : driver->character_roster->get_character_names())
-         {
-            available_character_names << "\"" << character_identifier << "\", ";
-         }
-         available_character_names << " ]";
-
-         std::string error_message = "Roster is present, but character \"" + character_identifier + "\" "
-                                  "does not exist in roster. Available names are " + available_character_names.str();
-
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver",
-            error_message
-         );
+         available_character_names << "\"" << character_identifier << "\", ";
       }
+      available_character_names << " ]";
 
-      AllegroFlare::DialogSystem::Characters::Base *base =
-         driver->character_roster->find_character_by_name(character_identifier);
+      std::string error_message = "Roster is present, but character \"" + character_identifier + "\" "
+                               "does not exist in roster. Available names are " + available_character_names.str();
 
-      if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
-      {
-         AllegroFlare::DialogSystem::Characters::Basic *as =
-            static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver",
+         error_message
+      );
+   }
 
-         return as;
+   AllegroFlare::DialogSystem::Characters::Base *base =
+      driver->character_roster->find_character_by_name(character_identifier);
 
-         //std::string bitmap_identifier_to_use = "";
-         //if (as->expression_exists(speaking_character_expression))
-         //{
-            //bitmap_identifier_to_use = as->find_expression(speaking_character_expression);
-         //}
-         //else
-         //{
-            //// TODO: Add report about missing expression
-            //bitmap_identifier_to_use = as->get_avatar_portrait_identifier();
-         //}
+   if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
+   {
+      AllegroFlare::DialogSystem::Characters::Basic *as =
+         static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
 
-         //return bitmap_bin->auto_get(bitmap_identifier_to_use);
-      }
-      else
-      {
-         throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::lookup_speaking_character_as_Basic"
-            "unknown handled character type"
-         );
-      }
-   //}
+      return as;
+   }
+   else
+   {
+      throw std::runtime_error(
+         "DialogSystemDrivers::BasicCharacterDialogDriver::lookup_speaking_character_as_Basic"
+         "unknown handled character type"
+      );
+   }
    return nullptr;
 }
 
