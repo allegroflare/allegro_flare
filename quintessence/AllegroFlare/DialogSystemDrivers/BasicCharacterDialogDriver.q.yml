@@ -57,7 +57,7 @@ documentation:
 
 
   - todo:
-     - guard against bitmap_bin being assigned after init
+     - consider guarding against bitmap_bin being assigned after init
 
 
 methods:
