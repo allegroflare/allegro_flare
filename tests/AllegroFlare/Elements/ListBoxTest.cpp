@@ -96,7 +96,7 @@ TEST(AllegroFlare_Elements_ListBoxTest,
    int num_items = list_box.num_items();
 
    std::string expected_error_message = "ListBox::set_cursor_position: error: guard \"((cursor_position < "
-                                        "(items.size() - 1)) || (cursor_position == 0))\" not met";
+                                        "items.size()) || (cursor_position == 0))\" not met";
     
    EXPECT_THROW_WITH_MESSAGE(list_box.set_cursor_position(num_items), std::runtime_error, expected_error_message);
    EXPECT_THROW_WITH_MESSAGE(list_box.set_cursor_position(num_items+1), std::runtime_error, expected_error_message);

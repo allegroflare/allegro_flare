@@ -97,8 +97,9 @@ methods:
       - name: cursor_position
         type: int
         default_argument: 0
-    guards: [ (cursor_position >= 0), ((cursor_position < (items.size() - 1)) || (cursor_position == 0)) ]
+    guards: [ (cursor_position >= 0), ((cursor_position < items.size()) || (cursor_position == 0)) ]
     body: |
+      // TODO: Test this method
       this->cursor_position = cursor_position;
       return;
 
