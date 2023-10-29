@@ -170,7 +170,12 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::activate_dialog_node_by_name: error: guard \"dialog_system\" not met");
    }
-   // This function is responsible for 
+   // NOTE: This function is responsible for interpreting a DialogSystem::Node* into an action.  In general
+   // this method should not focus on translating the parameters/properties of the node to another, single function
+   // call that is responsible for performing the action(s).  Avoid doing state-changing logic in this function
+   // (unless those state changes are done in the called functions themselves.).  If there is functionality like
+   // that here, consider extracting it to a function.
+
    std::string &dialog_name = active_dialog_node_name;
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
@@ -249,28 +254,13 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
-      //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
-         //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
-      dialog_system->shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+      dialog_system->shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+                                        // should it be "switch_out" or "shutdown", etc
    }
-   /*
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EnterScene::TYPE))
-   {
-      // TODO: thrwo
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name_func",
-         "Handling of \"AllegroFlare::DialogTree::Nodes::EnterScene::TYPE\" not implemented"
-      );
-      //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
-         //static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(base);
-      //dialog_system->shutdown_dialog(); // TODO: See if this is a correct expectation for this event
-   }
-   */
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
    {
       // TODO: Test this event emission
       dialog_system->get_event_emitter()->emit_exit_game_event();
-      // TODO: Exit program (either set shutdown_system on framework or emit event)
    }
    else
    {
@@ -286,7 +276,8 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
       if (!handled)
       {
          throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Unable to handle dialog node activation on type \""
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
+               "Unable to handle dialog node activation on type \""
                + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
          );
       }
@@ -303,17 +294,9 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::set_speaking_character_avatar: error: guard \"initialized\" not met");
    }
-
-   //guards: [ driver.active_character_staging_layout, (speaking_character_identifier.empty()) ]
-
+   // TODO: Test the guards. Is the second one (!speaking_character_identifier.empty()) necessary?
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
 
-   //if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   //{
-      //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-         //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-
-      //{
       if (driver->active_character_staging_layout->is_type(
                AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
             ))
@@ -338,7 +321,6 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
                "and a condition is not provided to handle this type."
          );
       }
-   //}
    return;
 }
 
@@ -358,17 +340,9 @@ ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
    }
-   //if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   //{
-      //throw std::runtime_error("Unknown _driver type");
-   //}
+   // TODO: Review guards
 
-    
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
-
-
-   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
-      //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
 
    if (driver->character_roster)
    {
