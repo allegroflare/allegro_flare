@@ -8,18 +8,12 @@ namespace AllegroFlare
 {
    namespace DialogTree
    {
-      class MultipageWithOptionsOptionFlags
+      namespace MultipageWithOptionsOptionFlags
       {
-      private:
-
-      protected:
-
-
-      public:
-         MultipageWithOptionsOptionFlags();
-         ~MultipageWithOptionsOptionFlags();
-
-         std::string run();
+         enum {
+            FLAG_NONE = 0x01,
+            FLAG_CURSOR_HERE_ON_SPAWN = 0x01,
+         };
       };
    }
 }
