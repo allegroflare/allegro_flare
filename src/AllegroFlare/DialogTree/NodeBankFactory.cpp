@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/DialogTree/NodeBankFactory.hpp>
 
+#include <AllegroFlare/DialogTree/MultipageWithOptionsOptionFlags.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
@@ -28,10 +29,9 @@ NodeBankFactory::~NodeBankFactory()
 
 AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_node_bank()
 {
-   // TODO: Find out where to place constants
-   AllegroFlare::DialogTree::NodeBank node_bank;
+   using namespace AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags;
 
-   //using AllegroFlare::DialogTree::NodeOptions;
+   AllegroFlare::DialogTree::NodeBank node_bank;
 
    node_bank.add_node(
          "System::INTERNAL::wait_before_exit_program",
@@ -45,7 +45,6 @@ AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_
             "system",
             { "Are you sure you want to exit?" },
             { 
-               //{ "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("exit_program") },
                {
                   "Yes",
                   new AllegroFlare::DialogTree::NodeOptions::GoToNode("System::INTERNAL::wait_before_exit_program"),
@@ -54,7 +53,8 @@ AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_
                {
                   "No",
                   new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
-                  AllegroFlare::BitFlags<uint32_t>(0)
+                  // TODO: Add test to ensure this option is focused
+                  AllegroFlare::BitFlags<uint32_t>(FLAG_CURSOR_HERE_ON_SPAWN)
                },
             }
          )

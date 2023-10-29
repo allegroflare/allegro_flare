@@ -5,10 +5,9 @@ methods:
     static: true
     type: AllegroFlare::DialogTree::NodeBank
     body: |
-      // TODO: Find out where to place constants
-      AllegroFlare::DialogTree::NodeBank node_bank;
+      using namespace AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags;
 
-      //using AllegroFlare::DialogTree::NodeOptions;
+      AllegroFlare::DialogTree::NodeBank node_bank;
 
       node_bank.add_node(
             "System::INTERNAL::wait_before_exit_program",
@@ -22,7 +21,6 @@ methods:
                "system",
                { "Are you sure you want to exit?" },
                { 
-                  //{ "Yes", new AllegroFlare::DialogTree::NodeOptions::GoToNode("exit_program") },
                   {
                      "Yes",
                      new AllegroFlare::DialogTree::NodeOptions::GoToNode("System::INTERNAL::wait_before_exit_program"),
@@ -31,7 +29,8 @@ methods:
                   {
                      "No",
                      new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
-                     AllegroFlare::BitFlags<uint32_t>(0)
+                     // TODO: Add test to ensure this option is focused
+                     AllegroFlare::BitFlags<uint32_t>(FLAG_CURSOR_HERE_ON_SPAWN)
                   },
                }
             )
@@ -45,6 +44,7 @@ methods:
      - AllegroFlare::DialogTree::Nodes::Wait
      - AllegroFlare::DialogTree::NodeOptions::GoToNode
      - AllegroFlare::DialogTree::NodeOptions::ExitDialog
+     - AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags
 
 
 dependencies:
@@ -66,5 +66,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::ExitDialog
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
+  - symbol: AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags
+    headers: [ AllegroFlare/DialogTree/MultipageWithOptionsOptionFlags.hpp ]
 
 
