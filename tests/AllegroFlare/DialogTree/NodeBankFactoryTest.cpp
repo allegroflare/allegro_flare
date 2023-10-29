@@ -9,10 +9,6 @@
 #include <AllegroFlare/EventNames.hpp>
 
 
-class AllegroFlare_DialogTree_NodeBankFactoryTest: public ::testing::Test {};
-class AllegroFlare_DialogTree_NodeBankFactoryTestWithAllegroRenderingFixture
-   : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
-
 
 static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_driver(AllegroFlare::BitmapBin *bitmap_bin)
 {
@@ -41,6 +37,57 @@ static void destroy_driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
 
 
 
+
+class AllegroFlare_DialogTree_NodeBankFactoryTest: public ::testing::Test {};
+class AllegroFlare_DialogTree_NodeBankFactoryTestWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
+class AllegroFlare_DialogTree_NodeBankFactoryTestWithInteractiveSetup
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+public:
+   AllegroFlare::DialogSystem::DialogSystem dialog_system;
+
+   virtual void SetUp() override
+   {
+      // setup system
+      al_install_keyboard();
+      al_install_joystick();
+      ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+      ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+      al_register_event_source(event_queue, al_get_keyboard_event_source());
+      al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+      //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+      bool abort = false;
+      ALLEGRO_EVENT event;
+
+      // setup environment
+      AllegroFlare::EventEmitter event_emitter;
+      event_emitter.initialize();
+      al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+
+      // initialize test subject
+      //std::string dialog_filename = get_fixtures_path() + "/dialogs/basic_screenplay_text.screenplay.txt";
+      //AllegroFlare::DialogSystem::CharacterRoster *character_roster = create_and_assemble_character_roster();
+      dialog_system.set_bitmap_bin(&get_bitmap_bin_ref());
+      dialog_system.set_font_bin(&get_font_bin_ref());
+      dialog_system.set_event_emitter(&event_emitter);
+      dialog_system.initialize();
+      dialog_system.set__driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
+      //AllegroFlare::DialogSystemDrivers::Base* _driver = dialog_system.get__driver();
+      //if (_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      //{
+         //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
+            //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+         //driver->character_roster = character_roster; // TODO: Change this to a setter
+      //}
+      //dialog_system.get_driver_ref().character_roster = character_roster; // TODO: Change this to a setter
+      //dialog_system.initialize(); // NOTE: Initialization must happen before
+      //AllegroFlare::DialogSystemDrivers::SystemNotificationsDriver::build_node_bank();
+   }
+};
+
+
+
 TEST_F(AllegroFlare_DialogTree_NodeBankFactoryTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::DialogTree::NodeBankFactory node_bank_factory;
@@ -48,7 +95,7 @@ TEST_F(AllegroFlare_DialogTree_NodeBankFactoryTest, can_be_created_without_blowi
 
 
 TEST_F(AllegroFlare_DialogTree_NodeBankFactoryTestWithAllegroRenderingFixture,
-   TIMED_INTERACTIVE__will_work_as_expected)
+   TIMED_INTERACTIVE__build_common_system_dialogs_node_bank__will_produce_a_node_bank_that_works_as_expected)
 {
    // setup system
    al_install_keyboard();
