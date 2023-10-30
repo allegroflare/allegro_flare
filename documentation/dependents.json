@@ -1998,6 +1998,9 @@
   "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader": [
     "AllegroFlare/FrameAnimation/Book"
   ],
+  "AllegroFlare/Levels/Base": [
+    "AllegroFlare/GameConfigurations/Base"
+  ],
   "AllegroFlare/GameProgressAndStateInfos/Base": [
     "AllegroFlare/GameSession"
   ],

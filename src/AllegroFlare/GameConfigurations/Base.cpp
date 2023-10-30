@@ -28,7 +28,7 @@ std::string Base::get_type() const
 }
 
 
-void* Base::load_level_by_identifier(std::string level_identifier)
+AllegroFlare::Levels::Base* Base::load_level_by_identifier(std::string level_identifier)
 {
    // TODO: Add tests for this method or consider making it a pure virtual
    AllegroFlare::Logger::throw_error(

@@ -19,7 +19,7 @@ methods:
 
   - name: load_level_by_identifier
     virtual: true
-    type: void*
+    type: AllegroFlare::Levels::Base*
     parameters:
       - name: level_identifier
         type: std::string
@@ -89,5 +89,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Levels::Base
+    headers: [ AllegroFlare/Levels/Base.hpp ]
 
 
