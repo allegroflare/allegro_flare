@@ -1,0 +1,78 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::GameConfigurations::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/GameConfigurations/Base"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: load_level_by_identifier
+    virtual: true
+    type: void*
+    parameters:
+      - name: level_identifier
+        type: std::string
+        default_argument: '"[unset-level_identifier]"'
+    body: |
+      // TODO: Replace void* with a class of some kind representing a level (AllegroFlare::Levels::Base* probably)
+      throw std::runtime_error("LevelFactories/Base Not implemented in base class");
+      return nullptr;
+
+
+  - name: build_level_list_for_level_select_screen_by_identifier
+    virtual: true
+    type: std::vector<std::pair<std::string, std::string>>
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      throw std::runtime_error(
+            "LevelFactories/Base build_level_list_for_level_select_screen_by_identifier Not implemented in base class"
+         );
+      return {};
+
+
+  - name: build_dialog_bank_by_identifier
+    virtual: true
+    type: AllegroFlare::DialogTree::NodeBank
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      AllegroFlare::DialogTree::NodeBank node_bank;
+      throw std::runtime_error(
+            "LevelFactories/Base build_dialog_bank_by_identifier Not implemented in base class"
+         );
+      return node_bank;
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+
+

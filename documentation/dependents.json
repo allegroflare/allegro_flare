@@ -1010,7 +1010,8 @@
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
-    "AllegroFlare/DialogTree/YAMLLoader"
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/GameConfigurations/Base"
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1018,7 +1019,6 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ChapterTitle",
-    "AllegroFlare/DialogTree/Nodes/EnterScene",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",

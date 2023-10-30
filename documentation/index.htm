@@ -99,7 +99,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ChapterTitle.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ChapterTitle.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml</a></li>
@@ -199,6 +198,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml">quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Book.q.yml">quintessence/AllegroFlare/FrameAnimation/Book.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Frame.q.yml">quintessence/AllegroFlare/FrameAnimation/Frame.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameConfigurations/Base.q.yml">quintessence/AllegroFlare/GameConfigurations/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEvent.q.yml">quintessence/AllegroFlare/GameEvent.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/Base.q.yml">quintessence/AllegroFlare/GameEventDatas/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml">quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml</a></li>
@@ -3263,35 +3263,6 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/EnterScene.q.yml</h3>
-    <h4>Overview<h4>
-    <h3>Properties</h3>
-<div class="property-box properties">     <table>
-<tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-</div>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-<tr>
-  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
-</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -11691,6 +11662,44 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameConfigurations/Base.q.yml">quintessence/AllegroFlare/GameConfigurations/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">load_level_by_identifier(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_level_list_for_level_select_screen_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_dialog_bank_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -31277,7 +31286,8 @@ table td
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
-    "AllegroFlare/DialogTree/YAMLLoader"
+    "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/GameConfigurations/Base"
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -31285,7 +31295,6 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ChapterTitle",
-    "AllegroFlare/DialogTree/Nodes/EnterScene",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
