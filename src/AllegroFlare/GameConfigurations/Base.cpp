@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/GameConfigurations/Base.hpp>
 
-
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -30,25 +30,32 @@ std::string Base::get_type() const
 
 void* Base::load_level_by_identifier(std::string level_identifier)
 {
-   // TODO: Replace void* with a class of some kind representing a level (AllegroFlare::Levels::Base* probably)
-   throw std::runtime_error("LevelFactories/Base Not implemented in base class");
+   // TODO: Add tests for this method or consider making it a pure virtual
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::load_level_by_identifier"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
    return nullptr;
 }
 
 std::vector<std::pair<std::string, std::string>> Base::build_level_list_for_level_select_screen_by_identifier(std::string identifier)
 {
-   throw std::runtime_error(
-         "LevelFactories/Base build_level_list_for_level_select_screen_by_identifier Not implemented in base class"
-      );
+   // TODO: Add tests for this method or consider making it a pure virtual
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::build_level_list_for_level_select_screen_by_identifier"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
    return {};
 }
 
 AllegroFlare::DialogTree::NodeBank Base::build_dialog_bank_by_identifier(std::string identifier)
 {
+   // TODO: Add tests for this method or consider making it a pure virtual
    AllegroFlare::DialogTree::NodeBank node_bank;
-   throw std::runtime_error(
-         "LevelFactories/Base build_dialog_bank_by_identifier Not implemented in base class"
-      );
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::build_dialog_bank_by_identifier",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
    return node_bank;
 }
 

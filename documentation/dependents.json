@@ -32,6 +32,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/Logger",

@@ -25,9 +25,14 @@ methods:
         type: std::string
         default_argument: '"[unset-level_identifier]"'
     body: |
-      // TODO: Replace void* with a class of some kind representing a level (AllegroFlare::Levels::Base* probably)
-      throw std::runtime_error("LevelFactories/Base Not implemented in base class");
+      // TODO: Add tests for this method or consider making it a pure virtual
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::load_level_by_identifier"
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
       return nullptr;
+    body_dependency_symbols:
+     - AllegroFlare::Logger
 
 
   - name: build_level_list_for_level_select_screen_by_identifier
@@ -38,10 +43,14 @@ methods:
         type: std::string
         default_argument: '"[unset-identifier]"'
     body: |
-      throw std::runtime_error(
-            "LevelFactories/Base build_level_list_for_level_select_screen_by_identifier Not implemented in base class"
-         );
+      // TODO: Add tests for this method or consider making it a pure virtual
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::build_level_list_for_level_select_screen_by_identifier"
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
       return {};
+    body_dependency_symbols:
+     - AllegroFlare::Logger
 
 
   - name: build_dialog_bank_by_identifier
@@ -52,11 +61,15 @@ methods:
         type: std::string
         default_argument: '"[unset-identifier]"'
     body: |
+      // TODO: Add tests for this method or consider making it a pure virtual
       AllegroFlare::DialogTree::NodeBank node_bank;
-      throw std::runtime_error(
-            "LevelFactories/Base build_dialog_bank_by_identifier Not implemented in base class"
-         );
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::build_dialog_bank_by_identifier",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
       return node_bank;
+    body_dependency_symbols:
+     - AllegroFlare::Logger
 
 
   - name: is_type
@@ -74,5 +87,7 @@ dependencies:
 
   - symbol: AllegroFlare::DialogTree::NodeBank
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
