@@ -58,6 +58,8 @@ documentation:
 
   - todo:
      - consider guarding against bitmap_bin being assigned after init
+     - consider ownership cycle of "active_character_staging_layout"
+     - consider owning "character_roster" and loading from a file
 
 
 methods:

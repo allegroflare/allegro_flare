@@ -137,11 +137,10 @@ documentation:
        used so that drivers can be easily used in the DialogSystem
   - next_steps:
      - modify process_dialog_event to branch based on the ALLEGRO_FLARE_EVENT_DIALOG_* event
+     - remove ALLEGRO_FLARE_OPEN_DIALOG, etc from EventEmitter type events that are no longer used
      - consider if you need to make GameEventDatas for each of the different types of events
      - review overall the integrety of the system, Add lots of tests, make it so "anybody can emit a dialog event"
   - todo:
-     - currently, "active_character_staging_layout" is owned by this system and requires destruction
-     - consider owning "character_roster" and loading from a file
      - consider revising the arguments in "activate_dialog_node_by_name_func", and when/where the activation occurs
        in coordination with the assignment of the "active_dialog_node" and "active_dialog_node_name"
      - consider that dialog node options in MultipageWithOptions are probably not be deleted properly
