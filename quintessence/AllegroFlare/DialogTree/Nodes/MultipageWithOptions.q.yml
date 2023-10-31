@@ -37,6 +37,17 @@ properties:
     constexpr: true
 
 
+enums:
+
+
+  - name: Flags
+    scope: public
+    bitwise: true
+    enumerators:
+      - FLAG_NONE
+      - FLAG_CURSOR_HERE_ON_SPAWN
+
+
 methods:
 
 

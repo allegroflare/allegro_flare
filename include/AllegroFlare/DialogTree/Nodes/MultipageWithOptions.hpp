@@ -21,6 +21,13 @@ namespace AllegroFlare
          public:
             static constexpr char* TYPE = (char*)"AllegroFlare/DialogTree/Nodes/MultipageWithOptions";
 
+         public:
+
+            enum Flags
+            {
+               FLAG_NONE = 0x0000,
+               FLAG_CURSOR_HERE_ON_SPAWN = 0x0001,
+            };
          private:
             std::string speaker;
             std::vector<std::string> pages;
