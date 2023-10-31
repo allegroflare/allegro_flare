@@ -1154,9 +1154,6 @@
   "AllegroFlare/DialogSystem/ChapterIndex": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
-  "AllegroFlare/DialogTree/MultipageWithOptionsOptionFlags": [
-    "AllegroFlare/DialogTree/NodeBankFactory"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
