@@ -179,11 +179,6 @@ void DialogBoxRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxRenderer::render: error: guard \"font_bin\" not met");
    }
-   //float standard_dialog_box_x = 1920/2;
-   //float standard_dialog_box_y = 1080/8*6;
-   //float standard_dialog_box_width = 1920/2;
-   //float standard_dialog_box_height = 1080/5;
-
    if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {
       AllegroFlare::Placement2D place{
