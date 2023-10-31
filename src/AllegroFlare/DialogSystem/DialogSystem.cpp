@@ -560,6 +560,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    }
    else
    {
+      // TODO: Inject code from this mehod here
       __new_on_activate_dialog_node_by_name(
          this,
          active_dialog_node_name,
