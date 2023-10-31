@@ -77,6 +77,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml">quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/Characters/Basic.q.yml">quintessence/AllegroFlare/DialogSystem/Characters/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml">quintessence/AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog.q.yml</a></li>
@@ -2005,6 +2006,71 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">speaking_character_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">speaking_character_bitmap_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">clear_speaking_character_bitmap()</td>
+</tr>
+<tr>
+  <td class="method">set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">swap_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">update(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">show(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">hide(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml">quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -2544,9 +2610,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterRoster&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterRoster.hpp&quot;]}</td>
@@ -30858,6 +30921,7 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
@@ -30911,6 +30975,7 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -31169,6 +31234,7 @@ table td
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
@@ -31452,11 +31518,6 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter"
   ],
-  "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
-  ],
   "AllegroFlare/DialogSystem/CharacterRoster": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
@@ -31516,6 +31577,10 @@ table td
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
+  ],
+  "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/SceneIndex": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"

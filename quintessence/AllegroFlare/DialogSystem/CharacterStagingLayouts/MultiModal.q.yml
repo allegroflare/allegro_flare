@@ -1,0 +1,152 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base
+    scope: public
+    init_with: AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE
+
+
+properties:
+
+
+  - name: speaking_character_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: false
+    setter: false
+
+  - name: speaking_character_bitmap_changed_at
+    type: float
+    init_with: 0.0f
+    getter: false
+    setter: false
+
+  - name: surface_width
+    type: int
+    init_with: 1920
+    getter: true
+    setter: true
+
+  - name: surface_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: clear_speaking_character_bitmap
+    body: |
+      speaking_character_bitmap = nullptr;
+      speaking_character_bitmap_changed_at = 0.0f;
+      return;
+
+
+  - name: set_speaking_character_bitmap
+    parameters:
+      - name: speaking_character_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    guards: [ speaking_character_bitmap ]
+    body: |
+      // TODO: Test this method
+      if (speaking_character_bitmap == this->speaking_character_bitmap) return;
+
+      this->speaking_character_bitmap = speaking_character_bitmap;
+      speaking_character_bitmap_changed_at = time_now;
+      return;
+
+
+  - name: swap_speaking_character_bitmap
+    parameters:
+      - name: speaking_character_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    guards: [ speaking_character_bitmap ]
+    body: |
+      // TODO: Test this method
+      if (speaking_character_bitmap == this->speaking_character_bitmap) return;
+      this->speaking_character_bitmap = speaking_character_bitmap;
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      // NOTE: Nothing to be done here at this time
+      return;
+
+
+  - name: show
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      // NOTE: Nothing to be done here at this time
+      return;
+
+
+  - name: hide
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      clear_speaking_character_bitmap();
+      // NOTE: Nothing to be done here at this time
+      return;
+
+
+  - name: render
+    virtual: true
+    override: true
+    guards: [ al_is_system_installed() ]
+    body: |
+      if (!speaking_character_bitmap) return;
+      AllegroFlare::Placement2D character_bitmap_placement_transform(
+         surface_width * 0.5,
+         surface_height * 1.0,
+         al_get_bitmap_width(speaking_character_bitmap),
+         al_get_bitmap_height(speaking_character_bitmap)
+      );
+      character_bitmap_placement_transform.scale_to_fit_height(surface_height * 2);
+      character_bitmap_placement_transform.start_transform();
+      ALLEGRO_COLOR tint{1.0, 1.0, 1.0, 1.0}; // TODO: Use motion effects for introducing different characters
+      al_draw_tinted_bitmap(speaking_character_bitmap, tint, 0, 0, 0);
+      character_bitmap_placement_transform.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base
+    headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+

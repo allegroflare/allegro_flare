@@ -79,7 +79,7 @@ methods:
     guards: [ initialized ]
     body: |
       // TODO: consider where delete character_roster, scene_index should occour
-      delete active_character_staging_layout;
+      if (active_character_staging_layout) delete active_character_staging_layout;
       return;
 
 

@@ -87,7 +87,7 @@ void BasicCharacterDialogDriver::destroy()
       throw std::runtime_error("BasicCharacterDialogDriver::destroy: error: guard \"initialized\" not met");
    }
    // TODO: consider where delete character_roster, scene_index should occour
-   delete active_character_staging_layout;
+   if (active_character_staging_layout) delete active_character_staging_layout;
    return;
 }
 
