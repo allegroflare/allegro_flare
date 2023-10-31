@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
-#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
@@ -466,8 +465,6 @@ void DialogSystem::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::initialize: error: guard \"event_emitter\" not met");
    }
-   //_driver->initialize();
-   //driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
    initialized = true;
    return;
 }

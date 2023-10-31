@@ -364,13 +364,10 @@ methods:
        - font_bin
        - event_emitter
     body: |
-      //_driver->initialize();
-      //driver.active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
       initialized = true;
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
-      - AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
 
 
   - name: destroy
@@ -1120,8 +1117,6 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
-  - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered
-    headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterRoster
     headers: [ AllegroFlare/DialogSystem/CharacterRoster.hpp ]
   - symbol: AllegroFlare::DialogSystem::Characters::Basic
