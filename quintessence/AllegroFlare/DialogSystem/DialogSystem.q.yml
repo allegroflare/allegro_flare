@@ -103,6 +103,30 @@ properties:
     getter: true
     setter: true
 
+  - name: standard_dialog_box_x
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_X
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_y
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_Y
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_width
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_WIDTH
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_height
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_HEIGHT
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -121,6 +145,34 @@ properties:
     const: true
     static: true
     init_with: -36
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_X
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1920/2.0f
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_Y
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1080/8.0f*6
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_WIDTH
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1920/2.0f
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_HEIGHT
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1080/5.0f
 
 
 documentation:
@@ -654,6 +706,10 @@ methods:
             );
          dialog_box_renderer.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
          dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
+         dialog_box_renderer.set_standard_dialog_box_x(standard_dialog_box_x);
+         dialog_box_renderer.set_standard_dialog_box_y(standard_dialog_box_y);
+         dialog_box_renderer.set_standard_dialog_box_width(standard_dialog_box_width);
+         dialog_box_renderer.set_standard_dialog_box_height(standard_dialog_box_height);
          dialog_box_renderer.render();
       }
     body_dependency_symbols:

@@ -54,6 +54,10 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
+   , standard_dialog_box_x(DEFAULT_STANDARD_DIALOG_BOX_X)
+   , standard_dialog_box_y(DEFAULT_STANDARD_DIALOG_BOX_Y)
+   , standard_dialog_box_width(DEFAULT_STANDARD_DIALOG_BOX_WIDTH)
+   , standard_dialog_box_height(DEFAULT_STANDARD_DIALOG_BOX_HEIGHT)
    , initialized(false)
 {
 }
@@ -115,6 +119,30 @@ void DialogSystem::set_standard_dialog_box_font_name(std::string standard_dialog
 void DialogSystem::set_standard_dialog_box_font_size(int standard_dialog_box_font_size)
 {
    this->standard_dialog_box_font_size = standard_dialog_box_font_size;
+}
+
+
+void DialogSystem::set_standard_dialog_box_x(float standard_dialog_box_x)
+{
+   this->standard_dialog_box_x = standard_dialog_box_x;
+}
+
+
+void DialogSystem::set_standard_dialog_box_y(float standard_dialog_box_y)
+{
+   this->standard_dialog_box_y = standard_dialog_box_y;
+}
+
+
+void DialogSystem::set_standard_dialog_box_width(float standard_dialog_box_width)
+{
+   this->standard_dialog_box_width = standard_dialog_box_width;
+}
+
+
+void DialogSystem::set_standard_dialog_box_height(float standard_dialog_box_height)
+{
+   this->standard_dialog_box_height = standard_dialog_box_height;
 }
 
 
@@ -187,6 +215,30 @@ std::string DialogSystem::get_standard_dialog_box_font_name() const
 int DialogSystem::get_standard_dialog_box_font_size() const
 {
    return standard_dialog_box_font_size;
+}
+
+
+float DialogSystem::get_standard_dialog_box_x() const
+{
+   return standard_dialog_box_x;
+}
+
+
+float DialogSystem::get_standard_dialog_box_y() const
+{
+   return standard_dialog_box_y;
+}
+
+
+float DialogSystem::get_standard_dialog_box_width() const
+{
+   return standard_dialog_box_width;
+}
+
+
+float DialogSystem::get_standard_dialog_box_height() const
+{
+   return standard_dialog_box_height;
 }
 
 
@@ -735,6 +787,10 @@ void DialogSystem::render()
          );
       dialog_box_renderer.set_standard_dialog_box_font_name(standard_dialog_box_font_name);
       dialog_box_renderer.set_standard_dialog_box_font_size(standard_dialog_box_font_size);
+      dialog_box_renderer.set_standard_dialog_box_x(standard_dialog_box_x);
+      dialog_box_renderer.set_standard_dialog_box_y(standard_dialog_box_y);
+      dialog_box_renderer.set_standard_dialog_box_width(standard_dialog_box_width);
+      dialog_box_renderer.set_standard_dialog_box_height(standard_dialog_box_height);
       dialog_box_renderer.render();
    }
 }
