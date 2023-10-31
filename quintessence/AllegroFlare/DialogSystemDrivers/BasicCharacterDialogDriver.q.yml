@@ -68,18 +68,16 @@ methods:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
-      active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
+      //active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
       initialized = true;
       return;
-    body_dependency_symbols:
-      - AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal
 
 
   - name: destroy
     guards: [ initialized ]
     body: |
       // TODO: consider where delete character_roster, scene_index should occour
-      if (active_character_staging_layout) delete active_character_staging_layout;
+      //if (active_character_staging_layout) delete active_character_staging_layout;
       return;
 
 
@@ -162,7 +160,10 @@ methods:
          {
             // If dialog has only one option, spawn a basic dialog
             set_speaking_character_avatar(node_pages_speaker);
-            dialog_system->spawn_basic_dialog(node_pages_speaker, node_pages);
+            dialog_system->spawn_basic_dialog(
+               node_pages_speaker,
+               node_pages
+            );
             //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
          }
          else // (node_options_as_text.size() > 1)

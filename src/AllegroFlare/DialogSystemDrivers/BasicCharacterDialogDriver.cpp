@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 
-#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
@@ -72,7 +71,7 @@ void BasicCharacterDialogDriver::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::initialize: error: guard \"(!initialized)\" not met");
    }
-   active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
+   //active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
    initialized = true;
    return;
 }
@@ -87,7 +86,7 @@ void BasicCharacterDialogDriver::destroy()
       throw std::runtime_error("BasicCharacterDialogDriver::destroy: error: guard \"initialized\" not met");
    }
    // TODO: consider where delete character_roster, scene_index should occour
-   if (active_character_staging_layout) delete active_character_staging_layout;
+   //if (active_character_staging_layout) delete active_character_staging_layout;
    return;
 }
 
@@ -181,7 +180,10 @@ bool BasicCharacterDialogDriver::activate_dialog_node_by_name(AllegroFlare::Dial
       {
          // If dialog has only one option, spawn a basic dialog
          set_speaking_character_avatar(node_pages_speaker);
-         dialog_system->spawn_basic_dialog(node_pages_speaker, node_pages);
+         dialog_system->spawn_basic_dialog(
+            node_pages_speaker,
+            node_pages
+         );
          //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
       }
       else // (node_options_as_text.size() > 1)
