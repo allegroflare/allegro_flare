@@ -195,8 +195,6 @@ methods:
     body: |
       _driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
       return;
-    body_dependency_symbols:
-      - AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
 
 
   - name: set_activate_dialog_node_type_unhandled_func_user_data
@@ -210,8 +208,6 @@ methods:
             activate_dialog_node_type_unhandled_func_user_data
          );
       return;
-    body_dependency_symbols:
-      - AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
 
 
   - name: get__driver
@@ -1102,8 +1098,6 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/Nodes/Wait.hpp ]
   - symbol: AllegroFlare::DialogSystemDrivers::Base
     headers: [ AllegroFlare/DialogSystemDrivers/Base.hpp ]
-  - symbol: AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
-    headers: [ AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::CharacterFeature
     headers: [ AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp ]
 
