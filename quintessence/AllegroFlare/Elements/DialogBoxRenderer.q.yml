@@ -35,6 +35,30 @@ properties:
     getter: true
     setter: true
 
+  - name: standard_dialog_box_x
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_X
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_y
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_Y
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_width
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_WIDTH
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_height
+    type: float
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_HEIGHT
+    getter: true
+    setter: true
+
   - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
     type: char*
     constexpr: true
@@ -48,6 +72,34 @@ properties:
     const: true
     static: true
     init_with: -36
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_X
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1920/2.0f
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_Y
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1080/8.0f*6
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_WIDTH
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1920/2.0f
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_HEIGHT
+    type: float
+    constexpr: true
+    const: true
+    static: true
+    init_with: 1080/5.0f
 
 
 documentation:
@@ -79,10 +131,10 @@ functions:
       - al_is_ttf_addon_initialized()
       - font_bin
     body: |
-      float standard_dialog_box_x = 1920/2;
-      float standard_dialog_box_y = 1080/8*6;
-      float standard_dialog_box_width = 1920/2;
-      float standard_dialog_box_height = 1080/5;
+      //float standard_dialog_box_x = 1920/2;
+      //float standard_dialog_box_y = 1080/8*6;
+      //float standard_dialog_box_width = 1920/2;
+      //float standard_dialog_box_height = 1080/5;
 
       if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
       {

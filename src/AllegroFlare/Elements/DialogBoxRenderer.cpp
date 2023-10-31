@@ -38,6 +38,10 @@ DialogBoxRenderer::DialogBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFla
    , selection_cursor_box(selection_cursor_box)
    , standard_dialog_box_font_name(standard_dialog_box_font_name)
    , standard_dialog_box_font_size(standard_dialog_box_font_size)
+   , standard_dialog_box_x(DEFAULT_STANDARD_DIALOG_BOX_X)
+   , standard_dialog_box_y(DEFAULT_STANDARD_DIALOG_BOX_Y)
+   , standard_dialog_box_width(DEFAULT_STANDARD_DIALOG_BOX_WIDTH)
+   , standard_dialog_box_height(DEFAULT_STANDARD_DIALOG_BOX_HEIGHT)
 {
 }
 
@@ -59,6 +63,30 @@ void DialogBoxRenderer::set_standard_dialog_box_font_size(int standard_dialog_bo
 }
 
 
+void DialogBoxRenderer::set_standard_dialog_box_x(float standard_dialog_box_x)
+{
+   this->standard_dialog_box_x = standard_dialog_box_x;
+}
+
+
+void DialogBoxRenderer::set_standard_dialog_box_y(float standard_dialog_box_y)
+{
+   this->standard_dialog_box_y = standard_dialog_box_y;
+}
+
+
+void DialogBoxRenderer::set_standard_dialog_box_width(float standard_dialog_box_width)
+{
+   this->standard_dialog_box_width = standard_dialog_box_width;
+}
+
+
+void DialogBoxRenderer::set_standard_dialog_box_height(float standard_dialog_box_height)
+{
+   this->standard_dialog_box_height = standard_dialog_box_height;
+}
+
+
 std::string DialogBoxRenderer::get_standard_dialog_box_font_name() const
 {
    return standard_dialog_box_font_name;
@@ -68,6 +96,30 @@ std::string DialogBoxRenderer::get_standard_dialog_box_font_name() const
 int DialogBoxRenderer::get_standard_dialog_box_font_size() const
 {
    return standard_dialog_box_font_size;
+}
+
+
+float DialogBoxRenderer::get_standard_dialog_box_x() const
+{
+   return standard_dialog_box_x;
+}
+
+
+float DialogBoxRenderer::get_standard_dialog_box_y() const
+{
+   return standard_dialog_box_y;
+}
+
+
+float DialogBoxRenderer::get_standard_dialog_box_width() const
+{
+   return standard_dialog_box_width;
+}
+
+
+float DialogBoxRenderer::get_standard_dialog_box_height() const
+{
+   return standard_dialog_box_height;
 }
 
 
@@ -127,10 +179,10 @@ void DialogBoxRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogBoxRenderer::render: error: guard \"font_bin\" not met");
    }
-   float standard_dialog_box_x = 1920/2;
-   float standard_dialog_box_y = 1080/8*6;
-   float standard_dialog_box_width = 1920/2;
-   float standard_dialog_box_height = 1080/5;
+   //float standard_dialog_box_x = 1920/2;
+   //float standard_dialog_box_y = 1080/8*6;
+   //float standard_dialog_box_width = 1920/2;
+   //float standard_dialog_box_height = 1080/5;
 
    if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Basic::TYPE))
    {

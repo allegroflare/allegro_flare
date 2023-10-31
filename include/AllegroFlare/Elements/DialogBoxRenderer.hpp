@@ -17,6 +17,10 @@ namespace AllegroFlare
       public:
          static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Regular.ttf";
          static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = -36;
+         static constexpr float DEFAULT_STANDARD_DIALOG_BOX_X = 1920/2.0f;
+         static constexpr float DEFAULT_STANDARD_DIALOG_BOX_Y = 1080/8.0f*6;
+         static constexpr float DEFAULT_STANDARD_DIALOG_BOX_WIDTH = 1920/2.0f;
+         static constexpr float DEFAULT_STANDARD_DIALOG_BOX_HEIGHT = 1080/5.0f;
 
       private:
          AllegroFlare::FontBin* font_bin;
@@ -25,6 +29,10 @@ namespace AllegroFlare
          AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
+         float standard_dialog_box_x;
+         float standard_dialog_box_y;
+         float standard_dialog_box_width;
+         float standard_dialog_box_height;
 
       protected:
 
@@ -35,8 +43,16 @@ namespace AllegroFlare
 
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
+         void set_standard_dialog_box_x(float standard_dialog_box_x);
+         void set_standard_dialog_box_y(float standard_dialog_box_y);
+         void set_standard_dialog_box_width(float standard_dialog_box_width);
+         void set_standard_dialog_box_height(float standard_dialog_box_height);
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
+         float get_standard_dialog_box_x() const;
+         float get_standard_dialog_box_y() const;
+         float get_standard_dialog_box_width() const;
+         float get_standard_dialog_box_height() const;
          void deps();
          void render();
       };
