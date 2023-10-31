@@ -40,7 +40,7 @@ properties:
 enums:
 
 
-  - name: Flags
+  - name: OptionFlags
     scope: public
     bitwise: true
     enumerators:

@@ -23,7 +23,7 @@ namespace AllegroFlare
 
          public:
 
-            enum Flags
+            enum OptionFlags
             {
                FLAG_NONE = 0x0000,
                FLAG_CURSOR_HERE_ON_SPAWN = 0x0001,

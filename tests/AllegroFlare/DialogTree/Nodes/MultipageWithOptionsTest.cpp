@@ -2,7 +2,6 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
-#include <AllegroFlare/DialogTree/MultipageWithOptionsOptionFlags.hpp>
 
 
 TEST(AllegroFlare_DialogTree_Nodes_MultipageWithOptionsTest, can_be_created_without_blowing_up)
@@ -43,7 +42,7 @@ TEST(AllegroFlare_DialogTree_NodeTest,
       { "Choice 1", nullptr, 0 },
       { "Choice 2", nullptr, 0 },
       { "Choice 3", nullptr, AllegroFlare::BitFlags<uint32_t>(
-            AllegroFlare::DialogTree::Nodes::MultipageWithOptions::Flags::FLAG_CURSOR_HERE_ON_SPAWN
+            AllegroFlare::DialogTree::Nodes::MultipageWithOptions::OptionFlags::FLAG_CURSOR_HERE_ON_SPAWN
          ) },
       { "Choice 4", nullptr, 0 },
    });
