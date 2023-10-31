@@ -449,29 +449,6 @@ methods:
             active_dialog_node,
             activate_dialog_node_by_name_func_user_data
          );
-
-         /*
-         if (!_driver)
-         {
-            throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: _driver is nullptr");
-         }
-
-         bool handled = _driver->activate_dialog_node_by_name(
-               this,
-               active_dialog_node_name,
-               active_dialog_node,
-               activate_dialog_node_by_name_func_user_data
-            );
-
-         if (!handled)
-         {
-            throw std::runtime_error(
-                  "DialogSystem::activate_dialog_node_by_name: error: the _driver activate_dialog_node_by_name_func"
-                     "was called, but it returned false, indicating that it was not able to handle the "
-                     "node activation."
-               );
-         }
-         */
       }
      
       return;
