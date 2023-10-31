@@ -142,9 +142,12 @@ functions:
             basic_dialog_box_renderer.set_speaking_character_name(basic_dialog_box->get_speaking_character());
             basic_dialog_box_renderer.set_showing_speaking_character_name(true);
          }
+         // TODO: Test assignment of these properties
          basic_dialog_box_renderer.set_current_page_text(basic_dialog_box->get_current_page_text());
          basic_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
          basic_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
+         basic_dialog_box_renderer.set_width(standard_dialog_box_width);
+         basic_dialog_box_renderer.set_height(standard_dialog_box_height);
          basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
          basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
          basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
@@ -178,6 +181,7 @@ functions:
             choice_dialog_box_renderer.set_speaking_character_name(choice_dialog_box->get_speaking_character());
             choice_dialog_box_renderer.set_showing_speaking_character_name(true);
          }
+         // TODO: Test assignment of these properties
          choice_dialog_box_renderer.set_choice_dialog_box(choice_dialog_box);
          choice_dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
          choice_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
