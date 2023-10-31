@@ -16,6 +16,7 @@
 #include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp> // TODO: Remove this dependency
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp> // TODO: Remove this dependency
+#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
 
 
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
@@ -540,7 +541,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   TIMED_INTERACTIVE__when_a_character_roster_is_present__will_work_as_expected)
+   TIMED_INTERACTIVE__when_a_character_roster_is_present__and_an_active_character_staging_layout__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -579,7 +580,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
          static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
       driver->character_roster = character_roster; // TODO: Change this to a setter
+      // TODO: Consider alternative place for all this assmeblage
+      driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
    }
+
    //dialog_system.get_driver_ref().character_roster = character_roster; // TODO: Change this to a setter
    //dialog_system.initialize(); // NOTE: Initialization must happen before
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
@@ -704,6 +708,8 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
       AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
          static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
       driver->set_bitmap_bin(&bitmap_bin);
+      // TODO: Consider alternative place for all this assmeblage
+      driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
       driver->initialize();
    }
 
@@ -738,6 +744,8 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    al_rest(1.2);
    dialog_system.update(al_get_time()); // TODO: Use AllegroFlare::Time
    EXPECT_EQ("next_node", dialog_system.get_active_dialog_node_name());
+
+   delete _driver->active_character_staging_layout; // TODO: Figure out where this should go
 
    // Shutdown our test context
    al_shutdown_font_addon();

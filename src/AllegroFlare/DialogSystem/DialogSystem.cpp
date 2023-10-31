@@ -2,8 +2,11 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
+#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
+#include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
+#include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
@@ -557,6 +560,14 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    }
    else
    {
+      __new_on_activate_dialog_node_by_name(
+         this,
+         active_dialog_node_name,
+         active_dialog_node,
+         activate_dialog_node_by_name_func_user_data
+      );
+
+      /*
       if (!_driver)
       {
          throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: _driver is nullptr");
@@ -577,6 +588,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
                   "node activation."
             );
       }
+      */
    }
 
    return;
@@ -1177,6 +1189,316 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
          );
    }
    return;
+}
+
+bool DialogSystem::__new_on_activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
+{
+   if (!(dialog_system))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::__new_on_activate_dialog_node_by_name]: error: guard \"dialog_system\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::__new_on_activate_dialog_node_by_name: error: guard \"dialog_system\" not met");
+   }
+   if (!(active_dialog_node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::__new_on_activate_dialog_node_by_name]: error: guard \"active_dialog_node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::__new_on_activate_dialog_node_by_name: error: guard \"active_dialog_node\" not met");
+   }
+   if (!(dialog_system))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::__new_on_activate_dialog_node_by_name]: error: guard \"dialog_system\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::__new_on_activate_dialog_node_by_name: error: guard \"dialog_system\" not met");
+   }
+   // NOTE: This function is responsible for interpreting a DialogSystem::Node* into an action.  In general
+   // this method should not focus on translating the parameters/properties of the node to another, single function
+   // call that is responsible for performing the action(s).  Avoid doing state-changing logic in this function
+   // (unless those state changes are done in the called functions themselves.).  If there is functionality like
+   // that here, consider extracting it to a function.
+
+   std::string &dialog_name = active_dialog_node_name;
+
+   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
+         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
+
+      std::string node_pages_speaker = as_multipage_with_options->get_speaker();
+      std::vector<std::string> node_pages = as_multipage_with_options->get_pages();
+      std::vector<std::string> node_options_as_text = as_multipage_with_options->build_options_as_text();
+      int cursor_position_on_spawn = as_multipage_with_options->infer_cursor_position_on_spawn();
+
+      if (node_options_as_text.empty())
+      {
+         throw std::runtime_error(
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
+               + dialog_name + "\" but there are no options."
+         );
+      }
+      else if (node_options_as_text.size() == 1)
+      {
+         // If dialog has only one option, spawn a basic dialog
+         dialog_system->set_speaking_character_avatar(node_pages_speaker);
+         dialog_system->spawn_basic_dialog(
+            node_pages_speaker,
+            node_pages
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
+      else // (node_options_as_text.size() > 1)
+      {
+         // If dialog has multiple options, spawn a "choice" dialog
+         if (node_pages.size() != 1)
+         {
+            throw std::runtime_error(
+               "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
+                  + dialog_name + "\" (because it is going to be used to build a Choice dialog, "
+                  "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
+            );
+         }
+         dialog_system->set_speaking_character_avatar(node_pages_speaker);
+         dialog_system->spawn_choice_dialog(
+            node_pages_speaker,
+            node_pages[0],
+            node_options_as_text,
+            cursor_position_on_spawn
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::Wait *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+
+      float duration_seconds = as->get_duration_sec();
+      dialog_system->spawn_wait_dialog(duration_seconds);
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
+
+      dialog_system->spawn_chapter_title_dialog(
+            as->get_title_text(),
+            as->get_duration()
+         );
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+   {
+      dialog_system->shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+                                        // should it be "switch_out" or "shutdown", etc
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+   {
+      // TODO: Test this event emission
+      dialog_system->get_event_emitter()->emit_exit_game_event();
+   }
+   else
+   {
+      bool handled = false;
+      if (!dialog_system->get__driver())
+      {
+         throw std::runtime_error(
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
+               "Expecting get__driver() not to be nullptr"
+         );
+      }
+
+      if (dialog_system->get__driver()->get_activate_dialog_node_type_unhandled_func())
+      {
+         handled = dialog_system->get__driver()->get_activate_dialog_node_type_unhandled_func()(
+               dialog_system,
+               dialog_system->get__driver()->get_activate_dialog_node_type_unhandled_func_user_data()
+         );
+      }
+
+      if (!handled)
+      {
+         throw std::runtime_error(
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
+               "Unable to handle dialog node activation on type \""
+               + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+         );
+      }
+   }
+   return true;
+}
+
+void DialogSystem::set_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
+{
+   if (!(_driver))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::set_speaking_character_avatar]: error: guard \"_driver\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::set_speaking_character_avatar: error: guard \"_driver\" not met");
+   }
+   if (!((!speaking_character_identifier.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::set_speaking_character_avatar]: error: guard \"(!speaking_character_identifier.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::set_speaking_character_avatar: error: guard \"(!speaking_character_identifier.empty())\" not met");
+   }
+   // TODO: Test the guards. Is the second one (!speaking_character_identifier.empty()) necessary?
+   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
+   if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+   {
+      throw std::runtime_error("expecting type aaaaa");
+      //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
+         //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+   }
+
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
+      static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+
+   //if (!_driver->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
+   //{
+      //throw std::runtime_error("expecting type aaaaa");
+   //}
+
+   if (!as->active_character_staging_layout)
+   {
+      return; // TODO: Hack, not sure if this is expected behavior
+      throw std::runtime_error("expecting type bbbbb");
+   }
+   //->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
+   if (!as->active_character_staging_layout->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
+   {
+      throw std::runtime_error("expecting type cccccc");
+   }
+
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal *layout_as =
+      static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal*>(
+         as->active_character_staging_layout
+      );
+
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::Base *layout = layout_as; ////layout_as->active_character_staging_layout;
+
+   //if (driver->active_character_staging_layout->is_type(
+            //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+         //))
+   //{
+      //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+         //static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+            //driver->active_character_staging_layout
+         //);
+      ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
+            speaking_character_identifier,
+            speaking_character_expression
+         );
+
+      //if (!speaking_character_bitmap) as->clear();
+      //else as->set_speaking_character_bitmap(speaking_character_bitmap);
+
+      if (!speaking_character_bitmap) layout->clear();
+      else layout->set_speaking_character_bitmap(speaking_character_bitmap);
+      // TODO: Set the character
+   //}
+   //else
+   //{
+      //throw std::runtime_error(
+         //"DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
+            //"\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
+            //"and a condition is not provided to handle this type."
+      //);
+   //}
+   return;
+}
+
+ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
+{
+   if (!(_driver))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::lookup_speaking_character_avatar]: error: guard \"_driver\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"_driver\" not met");
+   }
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::lookup_speaking_character_avatar]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"initialized\" not met");
+   }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
+   }
+   // TODO: Review guards
+   // TODO: Consider throw on missing character_roster
+   if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+   {
+      throw std::runtime_error("expecting type ddddd");
+      //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
+         //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+   }
+
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
+      static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+
+   AllegroFlare::DialogSystem::CharacterRoster *character_roster = as->character_roster;
+   //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+
+   //if (!_driver->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
+   //{
+      //throw std::runtime_error("expecting type aaaaa");
+   //}
+
+   if (character_roster)
+   {
+      if (!character_roster->character_exists_by_name(speaking_character_identifier))
+      {
+         // Throw for now
+         std::stringstream available_character_names;
+         available_character_names << "[ ";
+         for (auto &character_identifier : character_roster->get_character_names())
+         {
+            available_character_names << "\"" << character_identifier << "\", ";
+         }
+         available_character_names << " ]";
+
+         throw std::runtime_error("Roster is present, but character \"" + speaking_character_identifier + "\" "
+                                  "does not exist in roster. Available names are " + available_character_names.str()
+                                  );
+      }
+
+      AllegroFlare::DialogSystem::Characters::Base *base =
+         character_roster->find_character_by_name(speaking_character_identifier);
+
+      if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
+      {
+         AllegroFlare::DialogSystem::Characters::Basic *as =
+            static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
+
+         std::string bitmap_identifier_to_use = "";
+         if (as->expression_exists(speaking_character_expression))
+         {
+            bitmap_identifier_to_use = as->find_expression(speaking_character_expression);
+         }
+         else
+         {
+            // TODO: Add report about missing expression
+            bitmap_identifier_to_use = as->get_avatar_portrait_identifier();
+         }
+
+         return bitmap_bin->auto_get(bitmap_identifier_to_use);
+      }
+      else
+      {
+         throw std::runtime_error("DialogSystemDrivers::BasicCharacterDialogDriver: unknown handled character type");
+      }
+   }
+   return nullptr;
 }
 
 

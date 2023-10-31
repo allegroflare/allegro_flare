@@ -2511,6 +2511,15 @@ table td
 <tr>
   <td class="method">handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* ev=nullptr, AllegroFlare::GameEventDatas::Base* data=nullptr)</td>
 </tr>
+<tr>
+  <td class="method">__new_on_activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name=&quot;[unset-dialog_node_identifier]&quot;, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_speaking_character_avatar(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;, std::string speaking_character_expression=&quot;[unset-speaking_character_expression]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">lookup_speaking_character_avatar(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;, std::string speaking_character_expression=&quot;[unset-speaking_character_expression]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -2654,6 +2663,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::CharacterFeature&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31577,6 +31592,13 @@ table td
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+  ],
+  "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
@@ -31585,9 +31607,6 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/ChapterIndex": [
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
-  ],
-  "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
