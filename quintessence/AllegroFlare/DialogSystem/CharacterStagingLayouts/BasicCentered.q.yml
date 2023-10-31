@@ -43,14 +43,9 @@ properties:
 methods:
 
 
-  - name: clear_speaking_character_bitmap
-    body: |
-      speaking_character_bitmap = nullptr;
-      speaking_character_bitmap_changed_at = 0.0f;
-      return;
-
-
   - name: set_speaking_character_bitmap
+    virtual: true
+    override: true
     parameters:
       - name: speaking_character_bitmap
         type: ALLEGRO_BITMAP*
@@ -65,19 +60,6 @@ methods:
 
       this->speaking_character_bitmap = speaking_character_bitmap;
       speaking_character_bitmap_changed_at = time_now;
-      return;
-
-
-  - name: swap_speaking_character_bitmap
-    parameters:
-      - name: speaking_character_bitmap
-        type: ALLEGRO_BITMAP*
-        default_argument: nullptr
-    guards: [ speaking_character_bitmap ]
-    body: |
-      // TODO: Test this method
-      if (speaking_character_bitmap == this->speaking_character_bitmap) return;
-      this->speaking_character_bitmap = speaking_character_bitmap;
       return;
 
 
@@ -101,8 +83,7 @@ methods:
         type: float
         default_argument: 0.0f
     body: |
-      clear_speaking_character_bitmap();
-      // NOTE: Nothing to be done here at this time
+      clear(); // clear() for now
       return;
 
 
@@ -110,8 +91,8 @@ methods:
     virtual: true
     override: true
     body: |
-      clear_speaking_character_bitmap();
-      // NOTE: Nothing to be done here at this time
+      speaking_character_bitmap = nullptr;
+      speaking_character_bitmap_changed_at = 0.0f;
       return;
 
 

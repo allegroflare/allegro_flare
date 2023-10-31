@@ -55,13 +55,6 @@ int MultiModal::get_surface_height() const
 }
 
 
-void MultiModal::clear_speaking_character_bitmap()
-{
-   speaking_character_bitmap = nullptr;
-   speaking_character_bitmap_changed_at = 0.0f;
-   return;
-}
-
 void MultiModal::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
 {
    if (!(speaking_character_bitmap))
@@ -79,21 +72,6 @@ void MultiModal::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_characte
    return;
 }
 
-void MultiModal::swap_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap)
-{
-   if (!(speaking_character_bitmap))
-   {
-      std::stringstream error_message;
-      error_message << "[MultiModal::swap_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiModal::swap_speaking_character_bitmap: error: guard \"speaking_character_bitmap\" not met");
-   }
-   // TODO: Test this method
-   if (speaking_character_bitmap == this->speaking_character_bitmap) return;
-   this->speaking_character_bitmap = speaking_character_bitmap;
-   return;
-}
-
 void MultiModal::update(float time_now)
 {
    // NOTE: Nothing to be done here at this time
@@ -108,15 +86,14 @@ void MultiModal::show(float time_now)
 
 void MultiModal::hide(float time_now)
 {
-   clear_speaking_character_bitmap();
-   // NOTE: Nothing to be done here at this time
+   clear(); // clear() for now
    return;
 }
 
 void MultiModal::clear()
 {
-   clear_speaking_character_bitmap();
-   // NOTE: Nothing to be done here at this time
+   speaking_character_bitmap = nullptr;
+   speaking_character_bitmap_changed_at = 0.0f;
    return;
 }
 

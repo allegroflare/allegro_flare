@@ -30,6 +30,12 @@ std::string Base::get_type() const
 }
 
 
+void Base::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
+{
+   // TODO: This test is used in some derived classes. For now, moving it here as part of refactor
+   return;
+}
+
 void Base::update(float time_now)
 {
    return;

@@ -17,6 +17,20 @@ properties:
 methods:
 
 
+  - name: set_speaking_character_bitmap
+    virtual: true
+    parameters:
+      - name: speaking_character_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      // TODO: This test is used in some derived classes. For now, moving it here as part of refactor
+      return;
+
+
   - name: update
     virtual: true
     parameters:
@@ -70,5 +84,12 @@ methods:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
 
 

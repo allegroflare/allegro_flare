@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 
-#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.hpp>
+#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
@@ -72,7 +72,7 @@ void BasicCharacterDialogDriver::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::initialize: error: guard \"(!initialized)\" not met");
    }
-   active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered();
+   active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
    initialized = true;
    return;
 }
@@ -267,31 +267,36 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
    }
    // TODO: Test the guards. Is the second one (!speaking_character_identifier.empty()) necessary?
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::Base *layout = driver->active_character_staging_layout;
 
-   if (driver->active_character_staging_layout->is_type(
-            AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
-         ))
-   {
-      AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
-         static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-            driver->active_character_staging_layout
-         );
+   //if (driver->active_character_staging_layout->is_type(
+            //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
+         //))
+   //{
+      //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
+         //static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
+            //driver->active_character_staging_layout
+         //);
       ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
             speaking_character_identifier,
             speaking_character_expression
          );
-      if (!speaking_character_bitmap) as->clear_speaking_character_bitmap();
-      else as->set_speaking_character_bitmap(speaking_character_bitmap);
+
+      //if (!speaking_character_bitmap) as->clear();
+      //else as->set_speaking_character_bitmap(speaking_character_bitmap);
+
+      if (!speaking_character_bitmap) layout->clear();
+      else layout->set_speaking_character_bitmap(speaking_character_bitmap);
       // TODO: Set the character
-   }
-   else
-   {
-      throw std::runtime_error(
-         "DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
-            "\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
-            "and a condition is not provided to handle this type."
-      );
-   }
+   //}
+   //else
+   //{
+      //throw std::runtime_error(
+         //"DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
+            //"\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
+            //"and a condition is not provided to handle this type."
+      //);
+   //}
    return;
 }
 

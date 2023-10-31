@@ -543,6 +543,7 @@
   "ALLEGRO_BITMAP": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1147,14 +1148,13 @@
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
   ],
-  "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered": [
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
-  ],
   "AllegroFlare/DialogSystem/SceneIndex": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/ChapterIndex": [
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+  ],
+  "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/NodeOptions/Base": [
