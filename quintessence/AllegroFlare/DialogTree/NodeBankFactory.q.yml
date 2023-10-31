@@ -5,8 +5,6 @@ methods:
     static: true
     type: AllegroFlare::DialogTree::NodeBank
     body: |
-      using namespace AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags;
-
       AllegroFlare::DialogTree::NodeBank node_bank;
 
       node_bank.add_node(
@@ -30,7 +28,9 @@ methods:
                      "No",
                      new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
                      // TODO: Add test to ensure this option is focused
-                     AllegroFlare::BitFlags<uint32_t>(FLAG_CURSOR_HERE_ON_SPAWN)
+                     AllegroFlare::BitFlags<uint32_t>(
+                        AllegroFlare::DialogTree::Nodes::MultipageWithOptions::OptionFlags::FLAG_CURSOR_HERE_ON_SPAWN
+                     )
                   },
                }
             )
@@ -44,7 +44,6 @@ methods:
      - AllegroFlare::DialogTree::Nodes::Wait
      - AllegroFlare::DialogTree::NodeOptions::GoToNode
      - AllegroFlare::DialogTree::NodeOptions::ExitDialog
-     - AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags
 
 
 dependencies:
@@ -66,7 +65,5 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::ExitDialog
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
-  - symbol: AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags
-    headers: [ AllegroFlare/DialogTree/MultipageWithOptionsOptionFlags.hpp ]
 
 

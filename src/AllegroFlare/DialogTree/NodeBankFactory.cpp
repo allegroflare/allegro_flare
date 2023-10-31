@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/DialogTree/NodeBankFactory.hpp>
 
-#include <AllegroFlare/DialogTree/MultipageWithOptionsOptionFlags.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
@@ -29,8 +28,6 @@ NodeBankFactory::~NodeBankFactory()
 
 AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_node_bank()
 {
-   using namespace AllegroFlare::DialogTree::MultipageWithOptionsOptionFlags;
-
    AllegroFlare::DialogTree::NodeBank node_bank;
 
    node_bank.add_node(
@@ -54,7 +51,9 @@ AllegroFlare::DialogTree::NodeBank NodeBankFactory::build_common_system_dialogs_
                   "No",
                   new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
                   // TODO: Add test to ensure this option is focused
-                  AllegroFlare::BitFlags<uint32_t>(FLAG_CURSOR_HERE_ON_SPAWN)
+                  AllegroFlare::BitFlags<uint32_t>(
+                     AllegroFlare::DialogTree::Nodes::MultipageWithOptions::OptionFlags::FLAG_CURSOR_HERE_ON_SPAWN
+                  )
                },
             }
          )
