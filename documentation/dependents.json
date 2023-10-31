@@ -1136,9 +1136,6 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBankFactory"
   ],
-  "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [
-    "AllegroFlare/DialogSystem/DialogSystem"
-  ],
   "AllegroFlare/Elements/DialogBoxes/CharacterFeature": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/DialogBoxFactory",
