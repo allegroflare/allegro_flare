@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/DialogSystem/Chapters/Base.hpp>
-#include <map>
+#include <lib/tsl/ordered_map.h>
 #include <string>
 #include <vector>
 
@@ -14,7 +14,7 @@ namespace AllegroFlare
       class ChapterIndex
       {
       private:
-         std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> chapters;
+         tsl::ordered_map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> chapters;
 
       protected:
 
@@ -23,8 +23,8 @@ namespace AllegroFlare
          ChapterIndex();
          ~ChapterIndex();
 
-         void set_chapters(std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> chapters);
-         std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> &get_chapters_ref();
+         void set_chapters(tsl::ordered_map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> chapters);
+         tsl::ordered_map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> &get_chapters_ref();
          int num_chapters();
          std::vector<std::string> get_chapter_identifiers();
          void add_chapter(std::string identifier="[unset-identifier]", AllegroFlare::DialogSystem::Chapters::Base* chapter=nullptr);

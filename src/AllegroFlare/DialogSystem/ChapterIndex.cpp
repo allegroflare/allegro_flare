@@ -24,13 +24,13 @@ ChapterIndex::~ChapterIndex()
 }
 
 
-void ChapterIndex::set_chapters(std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> chapters)
+void ChapterIndex::set_chapters(tsl::ordered_map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> chapters)
 {
    this->chapters = chapters;
 }
 
 
-std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> &ChapterIndex::get_chapters_ref()
+tsl::ordered_map<std::string, AllegroFlare::DialogSystem::Chapters::Base*> &ChapterIndex::get_chapters_ref()
 {
    return chapters;
 }

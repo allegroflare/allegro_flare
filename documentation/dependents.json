@@ -786,6 +786,10 @@
     "AllegroFlare/DialogSystem/ChapterIndex",
     "AllegroFlare/DialogSystem/Chapters/Basic"
   ],
+  "tsl/ordered_map": [
+    "AllegroFlare/DialogSystem/ChapterIndex",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -2974,9 +2978,6 @@
   ],
   "AllegroFlare/CubemapTextureBinder": [
     "AllegroFlare/Shaders/Base"
-  ],
-  "tsl/ordered_map": [
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"

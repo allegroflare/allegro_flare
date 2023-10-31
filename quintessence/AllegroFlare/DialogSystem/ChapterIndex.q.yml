@@ -2,7 +2,7 @@ properties:
 
 
   - name: chapters
-    type: std::map<std::string, AllegroFlare::DialogSystem::Chapters::Base*>
+    type: tsl::ordered_map<std::string, AllegroFlare::DialogSystem::Chapters::Base*>
     init_with: '{}'
     setter: true
     getter_ref: true
@@ -69,5 +69,7 @@ dependencies:
 
   - symbol: AllegroFlare::DialogSystem::Chapters::Base
     headers: [ AllegroFlare/DialogSystem/Chapters/Base.hpp ]
+  - symbol: tsl::ordered_map
+    headers: [ lib/tsl/ordered_map.h ]
 
 

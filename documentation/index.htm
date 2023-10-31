@@ -1760,7 +1760,7 @@ table td
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">chapters</td>
-  <td class="property">std::map&lt;std::string, AllegroFlare::DialogSystem::Chapters::Base*&gt;</td>
+  <td class="property">tsl::ordered_map&lt;std::string, AllegroFlare::DialogSystem::Chapters::Base*&gt;</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -1785,6 +1785,9 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::Chapters::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/Chapters/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;tsl::ordered_map&quot;, &quot;headers&quot;=&gt;[&quot;lib/tsl/ordered_map.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31151,6 +31154,10 @@ table td
     "AllegroFlare/DialogSystem/ChapterIndex",
     "AllegroFlare/DialogSystem/Chapters/Basic"
   ],
+  "tsl/ordered_map": [
+    "AllegroFlare/DialogSystem/ChapterIndex",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -33339,9 +33346,6 @@ table td
   ],
   "AllegroFlare/CubemapTextureBinder": [
     "AllegroFlare/Shaders/Base"
-  ],
-  "tsl/ordered_map": [
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/SoftwareKeyboard/KeyboardKey": [
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
