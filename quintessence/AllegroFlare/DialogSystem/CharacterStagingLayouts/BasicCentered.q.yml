@@ -106,6 +106,15 @@ methods:
       return;
 
 
+  - name: clear
+    virtual: true
+    override: true
+    body: |
+      clear_speaking_character_bitmap();
+      // NOTE: Nothing to be done here at this time
+      return;
+
+
   - name: update
     virtual: true
     override: true

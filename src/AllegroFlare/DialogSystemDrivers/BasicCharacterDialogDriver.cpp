@@ -118,24 +118,7 @@ void BasicCharacterDialogDriver::clear_character_staging_layout()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::clear_character_staging_layout: error: guard \"initialized\" not met");
    }
-   if (active_character_staging_layout->is_type(
-            AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
-         ))
-   {
-      AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
-         static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-            active_character_staging_layout
-         );
-      as->clear_speaking_character_bitmap();
-   }
-   else
-   {
-      throw std::runtime_error(
-         "DialogSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
-            "\"active_character_staging_layout\" is of type \"" + active_character_staging_layout->get_type() + "\" "
-            "and a condition is not provided to handle this type."
-      );
-   }
+   if (active_character_staging_layout) active_character_staging_layout->clear();
    return;
 }
 

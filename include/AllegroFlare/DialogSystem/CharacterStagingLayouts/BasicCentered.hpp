@@ -38,6 +38,7 @@ namespace AllegroFlare
             void swap_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr);
             virtual void show(float time_now=0.0f) override;
             virtual void hide(float time_now=0.0f) override;
+            virtual void clear() override;
             virtual void update(float time_now=0.0f) override;
             virtual void render() override;
          };

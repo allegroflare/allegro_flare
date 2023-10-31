@@ -113,6 +113,13 @@ void MultiModal::hide(float time_now)
    return;
 }
 
+void MultiModal::clear()
+{
+   clear_speaking_character_bitmap();
+   // NOTE: Nothing to be done here at this time
+   return;
+}
+
 void MultiModal::render()
 {
    if (!(al_is_system_installed()))

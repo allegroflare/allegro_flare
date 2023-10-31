@@ -107,6 +107,13 @@ void BasicCentered::hide(float time_now)
    return;
 }
 
+void BasicCentered::clear()
+{
+   clear_speaking_character_bitmap();
+   // NOTE: Nothing to be done here at this time
+   return;
+}
+
 void BasicCentered::update(float time_now)
 {
    // NOTE: Nothing to be done here at this time

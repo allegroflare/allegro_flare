@@ -39,6 +39,7 @@ namespace AllegroFlare
             virtual void update(float time_now=0.0f) override;
             virtual void show(float time_now=0.0f) override;
             virtual void hide(float time_now=0.0f) override;
+            virtual void clear() override;
             virtual void render() override;
          };
       }

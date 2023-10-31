@@ -29,6 +29,7 @@ namespace AllegroFlare
             virtual void update(float time_now=0.0f);
             virtual void show(float time_now=0.0f);
             virtual void hide(float time_now=0.0f);
+            virtual void clear();
             virtual void render();
             bool is_type(std::string possible_type="");
          };

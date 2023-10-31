@@ -47,6 +47,12 @@ void Base::hide(float time_now)
    return;
 }
 
+void Base::clear()
+{
+   // TODO: Consider implementation
+   return;
+}
+
 void Base::render()
 {
    return;

@@ -49,6 +49,13 @@ methods:
       return;
 
 
+  - name: clear
+    virtual: true
+    body: |
+      // TODO: Consider implementation
+      return;
+
+
   - name: render
     virtual: true
     body: |
