@@ -6,8 +6,11 @@
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
+#include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/DialogSystem/SceneIndex.hpp>
 #include <AllegroFlare/DialogSystemDrivers/Base.hpp>
+#include <AllegroFlare/DialogTree/Nodes/Base.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/DialogRoll.hpp>
 #include <allegro5/allegro.h>
 #include <string>
@@ -49,6 +52,7 @@ namespace AllegroFlare
          virtual void on_render() override;
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
+         virtual void on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr) override;
          virtual std::string decorate_speaking_character_name(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
          void clear_character_staging_layout();
          AllegroFlare::DialogSystem::Characters::Basic* find_character_by_identifier_as_Basic(std::string character_identifier="[unset-character_identifier]");
