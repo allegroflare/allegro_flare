@@ -31,6 +31,7 @@
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 
 
+
 // TODO: Move this to Frameworks::Full instance variable, and make configurable and 
 static std::string LOG_FILENAME = "flare_log.txt";
 
