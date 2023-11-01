@@ -514,6 +514,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
    if (activate_dialog_node_by_name_func)
    {
+      // NEXT:
       // TODO: Remove this "activate_dialog_node_by_name_func" as a feature. Consider:
       // - Callbacks on specific event(s), spawning of dialog, closing of dialog, etc...
       // - Relying on the system as is
