@@ -61,12 +61,6 @@ void Basic::set_expressions(std::map<std::string, std::string> expressions)
 }
 
 
-std::string Basic::get_display_name() const
-{
-   return display_name;
-}
-
-
 std::string Basic::get_feature_description() const
 {
    return feature_description;
@@ -90,6 +84,11 @@ std::map<std::string, std::string> Basic::get_expressions() const
    return expressions;
 }
 
+
+std::string Basic::get_display_name()
+{
+   return display_name;
+}
 
 void Basic::add_expression(std::string expression_name, std::string image_identifier)
 {

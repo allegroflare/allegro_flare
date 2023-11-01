@@ -17,6 +17,19 @@ properties:
 methods:
 
 
+  - name: get_display_name
+    type: std::string
+    body: |
+      // TODO: Consider moving this to pure_virtual
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogSystem::Characters::Base::get_display_name",
+         "Not implemented in base class"
+      );
+      return "";
+    body_dependency_symbols:
+     - AllegroFlare::Logger
+
+
   - name: is_type
     type: bool
     parameters:
@@ -25,5 +38,12 @@ methods:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

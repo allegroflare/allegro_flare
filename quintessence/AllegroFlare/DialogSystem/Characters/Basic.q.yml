@@ -14,7 +14,7 @@ properties:
     init_with: '"[unset-display_name]"'
     constructor_arg: true
     setter: true
-    getter: true
+    getter: explicit
 
   - name: feature_description
     type: std::string
@@ -48,6 +48,14 @@ properties:
 
 
 methods:
+
+
+  - name: get_display_name
+    type: std::string
+    virtual: true
+    override: true
+    body: |
+      return display_name;
 
 
   - name: add_expression
