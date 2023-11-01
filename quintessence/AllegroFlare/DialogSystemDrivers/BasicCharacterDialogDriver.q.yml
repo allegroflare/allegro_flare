@@ -165,6 +165,93 @@ methods:
       - AllegroFlare::Logger
 
 
+
+  - name: lookup_speaking_character_avatar
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: speaking_character_identifier
+        type: std::string
+        default_argument: '"[unset-speaking_character_identifier]"'
+      - name: speaking_character_expression
+        type: std::string
+        default_argument: '"[unset-speaking_character_expression]"'
+    guards: [ initialized, bitmap_bin ]
+    body: |
+      auto _driver = this;
+      // TODO: Review guards
+      // TODO: Consider throw on missing character_roster
+      if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
+      {
+         throw std::runtime_error("expecting type ddddd");
+         //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
+            //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+      }
+
+      AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
+         static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+      
+      AllegroFlare::DialogSystem::CharacterRoster *character_roster = as->character_roster;
+      //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
+
+      //if (!_driver->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
+      //{
+         //throw std::runtime_error("expecting type aaaaa");
+      //}
+
+      if (character_roster)
+      {
+         if (!character_roster->character_exists_by_name(speaking_character_identifier))
+         {
+            // Throw for now
+            std::stringstream available_character_names;
+            available_character_names << "[ ";
+            for (auto &character_identifier : character_roster->get_character_names())
+            {
+               available_character_names << "\"" << character_identifier << "\", ";
+            }
+            available_character_names << " ]";
+
+            throw std::runtime_error("Roster is present, but character \"" + speaking_character_identifier + "\" "
+                                     "does not exist in roster. Available names are " + available_character_names.str()
+                                     );
+         }
+
+         AllegroFlare::DialogSystem::Characters::Base *base =
+            character_roster->find_character_by_name(speaking_character_identifier);
+
+         if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
+         {
+            AllegroFlare::DialogSystem::Characters::Basic *as =
+               static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
+
+            std::string bitmap_identifier_to_use = "";
+            if (as->expression_exists(speaking_character_expression))
+            {
+               bitmap_identifier_to_use = as->find_expression(speaking_character_expression);
+            }
+            else
+            {
+               // TODO: Add report about missing expression
+               bitmap_identifier_to_use = as->get_avatar_portrait_identifier();
+            }
+
+            return bitmap_bin->auto_get(bitmap_identifier_to_use);
+         }
+         else
+         {
+            throw std::runtime_error("DialogSystemDrivers::BasicCharacterDialogDriver: unknown handled character type");
+         }
+      }
+      return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::DialogSystem::Characters::Basic
+
+
+
+
+
+
+
   - name: append_to_dialog_roll
     guards: [ initialized ]
     parameters:

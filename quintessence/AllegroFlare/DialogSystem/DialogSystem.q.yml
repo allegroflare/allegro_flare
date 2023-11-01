@@ -1233,7 +1233,7 @@ methods:
             //static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
                //driver->active_character_staging_layout
             //);
-         ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
+         ALLEGRO_BITMAP *speaking_character_bitmap = as->lookup_speaking_character_avatar(
                speaking_character_identifier,
                speaking_character_expression
             );
@@ -1259,7 +1259,7 @@ methods:
       - AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver
 
 
-  - name: lookup_speaking_character_avatar
+  - name: __lookup_speaking_character_avatar
     type: ALLEGRO_BITMAP*
     parameters:
       - name: speaking_character_identifier

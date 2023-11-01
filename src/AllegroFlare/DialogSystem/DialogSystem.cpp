@@ -1355,7 +1355,7 @@ void DialogSystem::set_speaking_character_avatar(std::string speaking_character_
          //static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
             //driver->active_character_staging_layout
          //);
-      ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
+      ALLEGRO_BITMAP *speaking_character_bitmap = as->lookup_speaking_character_avatar(
             speaking_character_identifier,
             speaking_character_expression
          );
@@ -1378,28 +1378,28 @@ void DialogSystem::set_speaking_character_avatar(std::string speaking_character_
    return;
 }
 
-ALLEGRO_BITMAP* DialogSystem::lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
+ALLEGRO_BITMAP* DialogSystem::__lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
    if (!(_driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::lookup_speaking_character_avatar]: error: guard \"_driver\" not met.";
+      error_message << "[DialogSystem::__lookup_speaking_character_avatar]: error: guard \"_driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"_driver\" not met");
+      throw std::runtime_error("DialogSystem::__lookup_speaking_character_avatar: error: guard \"_driver\" not met");
    }
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::lookup_speaking_character_avatar]: error: guard \"initialized\" not met.";
+      error_message << "[DialogSystem::__lookup_speaking_character_avatar]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"initialized\" not met");
+      throw std::runtime_error("DialogSystem::__lookup_speaking_character_avatar: error: guard \"initialized\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[DialogSystem::__lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("DialogSystem::__lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
    }
    // TODO: Review guards
    // TODO: Consider throw on missing character_roster
