@@ -49,8 +49,8 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , load_node_bank_func_user_data(nullptr)
    , activate_dialog_node_by_name_func()
    , activate_dialog_node_by_name_func_user_data(nullptr)
-   , dialog_advance_is_finished_node_type_unhandled_func()
-   , dialog_advance_is_finished_node_type_unhandled_func_user_data(nullptr)
+   , handle_raw_script_line_func()
+   , handle_raw_script_line_func_user_data(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -98,15 +98,15 @@ void DialogSystem::set_activate_dialog_node_by_name_func_user_data(void* activat
 }
 
 
-void DialogSystem::set_dialog_advance_is_finished_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> dialog_advance_is_finished_node_type_unhandled_func)
+void DialogSystem::set_handle_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_raw_script_line_func)
 {
-   this->dialog_advance_is_finished_node_type_unhandled_func = dialog_advance_is_finished_node_type_unhandled_func;
+   this->handle_raw_script_line_func = handle_raw_script_line_func;
 }
 
 
-void DialogSystem::set_dialog_advance_is_finished_node_type_unhandled_func_user_data(void* dialog_advance_is_finished_node_type_unhandled_func_user_data)
+void DialogSystem::set_handle_raw_script_line_func_user_data(void* handle_raw_script_line_func_user_data)
 {
-   this->dialog_advance_is_finished_node_type_unhandled_func_user_data = dialog_advance_is_finished_node_type_unhandled_func_user_data;
+   this->handle_raw_script_line_func_user_data = handle_raw_script_line_func_user_data;
 }
 
 
@@ -188,15 +188,15 @@ void* DialogSystem::get_activate_dialog_node_by_name_func_user_data() const
 }
 
 
-std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_dialog_advance_is_finished_node_type_unhandled_func() const
+std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_handle_raw_script_line_func() const
 {
-   return dialog_advance_is_finished_node_type_unhandled_func;
+   return handle_raw_script_line_func;
 }
 
 
-void* DialogSystem::get_dialog_advance_is_finished_node_type_unhandled_func_user_data() const
+void* DialogSystem::get_handle_raw_script_line_func_user_data() const
 {
-   return dialog_advance_is_finished_node_type_unhandled_func_user_data;
+   return handle_raw_script_line_func_user_data;
 }
 
 
@@ -899,13 +899,13 @@ void DialogSystem::dialog_advance()
                //active_dialog_box,
                //active_dialog_node
             //);
-            if (dialog_advance_is_finished_node_type_unhandled_func) // This method does not do this
+            if (handle_raw_script_line_func)
             {
-               dialog_advance_is_finished_node_type_unhandled_func(
+               handle_raw_script_line_func(
                   this,
                   active_dialog_box,
                   active_dialog_node,
-                  dialog_advance_is_finished_node_type_unhandled_func_user_data
+                  handle_raw_script_line_func_user_data
                );
             }
          }
@@ -923,19 +923,6 @@ void DialogSystem::dialog_advance()
          }
          else
          {
-            bool handled = false;
-            //if (dialog_advance_is_finished_node_type_unhandled_func)
-            //{
-               //handled = dialog_advance_is_finished_node_type_unhandled_func(
-                     //this,
-                     //active_dialog_box,
-                     //active_dialog_node,
-                     //dialog_advance_is_finished_node_type_unhandled_func_user_data
-                  //);
-            //}
-
-            if (!handled)
-            {
                throw std::runtime_error(
                   "DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
                      "the dialog *node* type \""
@@ -945,7 +932,7 @@ void DialogSystem::dialog_advance()
                   //"DialogSystem::activate_dialog_node_by_name: error: Unable to handle dialog node activation on type \""
                      //+ active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
                //);
-            }
+            //}
 
             //throw std::runtime_error(
                //"DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
