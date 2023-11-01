@@ -22,6 +22,18 @@ properties:
     getter: true
     setter: true
 
+  - name: handle_finished_dialog_from_raw_script_line_func
+    type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: handle_finished_dialog_from_raw_script_line_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -143,6 +155,15 @@ methods:
         type: AllegroFlare::DialogTree::Nodes::Base*
         default_argument: nullptr
     body: |
+      if (handle_finished_dialog_from_raw_script_line_func)
+      {
+         handle_finished_dialog_from_raw_script_line_func(
+            dialog_system,
+            active_dialog_box,
+            active_dialog_node,
+            handle_finished_dialog_from_raw_script_line_func_user_data
+         );
+      }
       // Nothing to do in this case
       return;
 

@@ -49,8 +49,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , load_node_bank_func_user_data(nullptr)
    , activate_dialog_node_by_name_func()
    , activate_dialog_node_by_name_func_user_data(nullptr)
-   , handle_finished_dialog_from_raw_script_line_func()
-   , handle_finished_dialog_from_raw_script_line_func_user_data(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -95,18 +93,6 @@ void DialogSystem::set_activate_dialog_node_by_name_func(std::function<bool(Alle
 void DialogSystem::set_activate_dialog_node_by_name_func_user_data(void* activate_dialog_node_by_name_func_user_data)
 {
    this->activate_dialog_node_by_name_func_user_data = activate_dialog_node_by_name_func_user_data;
-}
-
-
-void DialogSystem::set_handle_finished_dialog_from_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func)
-{
-   this->handle_finished_dialog_from_raw_script_line_func = handle_finished_dialog_from_raw_script_line_func;
-}
-
-
-void DialogSystem::set_handle_finished_dialog_from_raw_script_line_func_user_data(void* handle_finished_dialog_from_raw_script_line_func_user_data)
-{
-   this->handle_finished_dialog_from_raw_script_line_func_user_data = handle_finished_dialog_from_raw_script_line_func_user_data;
 }
 
 
@@ -185,18 +171,6 @@ std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, Alleg
 void* DialogSystem::get_activate_dialog_node_by_name_func_user_data() const
 {
    return activate_dialog_node_by_name_func_user_data;
-}
-
-
-std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_handle_finished_dialog_from_raw_script_line_func() const
-{
-   return handle_finished_dialog_from_raw_script_line_func;
-}
-
-
-void* DialogSystem::get_handle_finished_dialog_from_raw_script_line_func_user_data() const
-{
-   return handle_finished_dialog_from_raw_script_line_func_user_data;
 }
 
 
@@ -894,20 +868,20 @@ void DialogSystem::dialog_advance()
             //if (_driver) _driver->on_render();
             //FadeToWhite::DialogSystemDriver *this_dialog_system_driver =
                //static_cast<FadeToWhite::DialogSystemDriver*>(user_data);
-            //if (_driver) _driver->on_raw_script_line_finished(
-               //this,
-               //active_dialog_box,
-               //active_dialog_node
-            //);
-            if (handle_finished_dialog_from_raw_script_line_func) // Name is more "handle_finished_dialog_on_raw_script_line"
-            {
-               handle_finished_dialog_from_raw_script_line_func(
-                  this,
-                  active_dialog_box,
-                  active_dialog_node,
-                  handle_finished_dialog_from_raw_script_line_func_user_data
-               );
-            }
+            if (_driver) _driver->on_raw_script_line_finished(
+               this,
+               active_dialog_box,
+               active_dialog_node
+            );
+            //if (handle_finished_dialog_from_raw_script_line_func) // Name is more "handle_finished_dialog_on_raw_script_line"
+            //{
+               //handle_finished_dialog_from_raw_script_line_func(
+                  //this,
+                  //active_dialog_box,
+                  //active_dialog_node,
+                  //handle_finished_dialog_from_raw_script_line_func_user_data
+               //);
+            //}
          }
          //}},
          else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))

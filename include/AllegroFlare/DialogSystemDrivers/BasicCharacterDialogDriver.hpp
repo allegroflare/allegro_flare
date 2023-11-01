@@ -13,6 +13,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/DialogRoll.hpp>
 #include <allegro5/allegro.h>
+#include <functional>
 #include <string>
 
 
@@ -28,6 +29,8 @@ namespace AllegroFlare
       private:
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::Elements::DialogRoll dialog_roll;
+         std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func;
+         void* handle_finished_dialog_from_raw_script_line_func_user_data;
          bool initialized;
 
       protected:
@@ -43,7 +46,11 @@ namespace AllegroFlare
 
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll);
+         void set_handle_finished_dialog_from_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func);
+         void set_handle_finished_dialog_from_raw_script_line_func_user_data(void* handle_finished_dialog_from_raw_script_line_func_user_data);
          AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
+         std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_handle_finished_dialog_from_raw_script_line_func() const;
+         void* get_handle_finished_dialog_from_raw_script_line_func_user_data() const;
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void initialize();
          void destroy();

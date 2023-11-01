@@ -74,18 +74,6 @@ properties:
     getter: true
     setter: true
 
-  - name: handle_finished_dialog_from_raw_script_line_func
-    type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)>
-    init_with: ''
-    getter: true
-    setter: true
-
-  - name: handle_finished_dialog_from_raw_script_line_func_user_data
-    type: void*
-    init_with: nullptr
-    getter: true
-    setter: true
-
   - name: switched_in
     type: bool
     init_with: false
@@ -802,20 +790,20 @@ methods:
                //if (_driver) _driver->on_render();
                //FadeToWhite::DialogSystemDriver *this_dialog_system_driver =
                   //static_cast<FadeToWhite::DialogSystemDriver*>(user_data);
-               //if (_driver) _driver->on_raw_script_line_finished(
-                  //this,
-                  //active_dialog_box,
-                  //active_dialog_node
-               //);
-               if (handle_finished_dialog_from_raw_script_line_func) // Name is more "handle_finished_dialog_on_raw_script_line"
-               {
-                  handle_finished_dialog_from_raw_script_line_func(
-                     this,
-                     active_dialog_box,
-                     active_dialog_node,
-                     handle_finished_dialog_from_raw_script_line_func_user_data
-                  );
-               }
+               if (_driver) _driver->on_raw_script_line_finished(
+                  this,
+                  active_dialog_box,
+                  active_dialog_node
+               );
+               //if (handle_finished_dialog_from_raw_script_line_func) // Name is more "handle_finished_dialog_on_raw_script_line"
+               //{
+                  //handle_finished_dialog_from_raw_script_line_func(
+                     //this,
+                     //active_dialog_box,
+                     //active_dialog_node,
+                     //handle_finished_dialog_from_raw_script_line_func_user_data
+                  //);
+               //}
             }
             //}},
             else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
