@@ -105,6 +105,30 @@ methods:
       return;
 
 
+  - name: on_before_spawn_basic_dialog
+    virtual: true
+    override: true
+    parameters:
+      - name: speaking_character_identifier
+        type: std::string
+        default_argument: '"[unset-speaking_character_identifier]"'
+    body: |
+      // TODO: This method, modify speaking character
+      return;
+
+
+  - name: on_before_spawn_choice_dialog
+    virtual: true
+    override: true
+    parameters:
+      - name: speaking_character_identifier
+        type: std::string
+        default_argument: '"[unset-speaking_character_identifier]"'
+    body: |
+      // TODO: This method, modify speaking character
+      return;
+
+
   - name: decorate_speaking_character_name
     type: std::string
     virtual: true

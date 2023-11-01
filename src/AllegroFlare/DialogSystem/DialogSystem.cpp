@@ -584,7 +584,7 @@ void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vecto
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog_box = dialog_box_factory.create_basic_dialog(
-      _driver ? _driver->decorate_speaking_character_name(speaking_character) : speaking_character,
+      speaking_character,
       //speaking_character,
       pages
    );
@@ -700,7 +700,8 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    AllegroFlare::Elements::DialogBoxes::Choice *choice_dialog_box =
          dialog_box_factory.create_choice_dialog(
-            _driver ? _driver->decorate_speaking_character_name(speaking_character) : speaking_character,
+            //_driver ? _driver->decorate_speaking_character_name(speaking_character) : speaking_character,
+            speaking_character,
             prompt,
             options_that_are_also_values,
             cursor_position_on_spawn
@@ -1214,8 +1215,10 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
       {
          // If dialog has only one option, spawn a basic dialog
          set_speaking_character_avatar(node_pages_speaker);
+         if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
          spawn_basic_dialog(
-            node_pages_speaker,
+            _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            //node_pages_speaker,
             node_pages
          );
          //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
@@ -1232,8 +1235,10 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
             );
          }
          set_speaking_character_avatar(node_pages_speaker);
+         if (_driver) _driver->on_before_spawn_choice_dialog(node_pages_speaker);
          spawn_choice_dialog(
-            node_pages_speaker,
+            _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            //node_pages_speaker,
             node_pages[0],
             node_options_as_text,
             cursor_position_on_spawn

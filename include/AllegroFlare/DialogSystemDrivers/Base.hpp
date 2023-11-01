@@ -35,6 +35,8 @@ namespace AllegroFlare
          virtual void on_switch_in();
          virtual void on_deactivate();
          virtual void on_render();
+         virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
+         virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          virtual std::string decorate_speaking_character_name(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          bool is_type(std::string possible_type="");
       };

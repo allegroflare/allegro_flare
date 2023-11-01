@@ -70,6 +70,18 @@ void Base::on_render()
    return;
 }
 
+void Base::on_before_spawn_basic_dialog(std::string speaking_character_identifier)
+{
+   // TODO: This method, modify speaking character
+   return;
+}
+
+void Base::on_before_spawn_choice_dialog(std::string speaking_character_identifier)
+{
+   // TODO: This method, modify speaking character
+   return;
+}
+
 std::string Base::decorate_speaking_character_name(std::string speaking_character_identifier)
 {
    return speaking_character_identifier;
