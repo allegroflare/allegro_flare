@@ -117,12 +117,6 @@ void BasicCharacterDialogDriver::on_before_spawn_choice_dialog(std::string speak
    return;
 }
 
-void BasicCharacterDialogDriver::on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
-{
-   // Nothing to do in this case
-   return;
-}
-
 std::string BasicCharacterDialogDriver::decorate_speaking_character_name(std::string speaking_character_identifier)
 {
    // TODO: Translate the speaking character identifier to display_name
