@@ -2,10 +2,8 @@
 
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
-#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
-#include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
@@ -1303,88 +1301,6 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
       }
    }
    return true;
-}
-
-void DialogSystem::__set_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
-{
-   if (!(_driver))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__set_speaking_character_avatar]: error: guard \"_driver\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__set_speaking_character_avatar: error: guard \"_driver\" not met");
-   }
-   if (!((!speaking_character_identifier.empty())))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__set_speaking_character_avatar]: error: guard \"(!speaking_character_identifier.empty())\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__set_speaking_character_avatar: error: guard \"(!speaking_character_identifier.empty())\" not met");
-   }
-   // TODO: Test the guards. Is the second one (!speaking_character_identifier.empty()) necessary?
-   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
-   if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   {
-      throw std::runtime_error("expecting type aaaaa");
-      //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
-         //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-   }
-
-   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
-      static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-
-   //if (!_driver->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
-   //{
-      //throw std::runtime_error("expecting type aaaaa");
-   //}
-
-   if (!as->active_character_staging_layout)
-   {
-      return; // TODO: Hack, not sure if this is expected behavior
-      throw std::runtime_error("expecting type bbbbb");
-   }
-   //->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
-   if (!as->active_character_staging_layout->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
-   {
-      throw std::runtime_error("expecting type cccccc");
-   }
-
-   AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal *layout_as =
-      static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal*>(
-         as->active_character_staging_layout
-      );
-
-   AllegroFlare::DialogSystem::CharacterStagingLayouts::Base *layout = layout_as; ////layout_as->active_character_staging_layout;
-
-   //if (driver->active_character_staging_layout->is_type(
-            //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
-         //))
-   //{
-      //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
-         //static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-            //driver->active_character_staging_layout
-         //);
-      ALLEGRO_BITMAP *speaking_character_bitmap = as->lookup_speaking_character_avatar(
-            speaking_character_identifier,
-            speaking_character_expression
-         );
-
-      //if (!speaking_character_bitmap) as->clear();
-      //else as->set_speaking_character_bitmap(speaking_character_bitmap);
-
-      if (!speaking_character_bitmap) layout->clear();
-      else layout->set_speaking_character_bitmap(speaking_character_bitmap);
-      // TODO: Set the character
-   //}
-   //else
-   //{
-      //throw std::runtime_error(
-         //"DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
-            //"\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
-            //"and a condition is not provided to handle this type."
-      //);
-   //}
-   return;
 }
 
 
