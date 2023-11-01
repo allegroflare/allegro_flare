@@ -1214,7 +1214,7 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
       else if (node_options_as_text.size() == 1)
       {
          // If dialog has only one option, spawn a basic dialog
-         set_speaking_character_avatar(node_pages_speaker);
+         //set_speaking_character_avatar(node_pages_speaker);
          if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
          spawn_basic_dialog(
             _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
@@ -1234,7 +1234,7 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
          }
-         set_speaking_character_avatar(node_pages_speaker);
+         //set_speaking_character_avatar(node_pages_speaker);
          if (_driver) _driver->on_before_spawn_choice_dialog(node_pages_speaker);
          spawn_choice_dialog(
             _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
@@ -1305,21 +1305,21 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
    return true;
 }
 
-void DialogSystem::set_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
+void DialogSystem::__set_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
    if (!(_driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_speaking_character_avatar]: error: guard \"_driver\" not met.";
+      error_message << "[DialogSystem::__set_speaking_character_avatar]: error: guard \"_driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_speaking_character_avatar: error: guard \"_driver\" not met");
+      throw std::runtime_error("DialogSystem::__set_speaking_character_avatar: error: guard \"_driver\" not met");
    }
    if (!((!speaking_character_identifier.empty())))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_speaking_character_avatar]: error: guard \"(!speaking_character_identifier.empty())\" not met.";
+      error_message << "[DialogSystem::__set_speaking_character_avatar]: error: guard \"(!speaking_character_identifier.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_speaking_character_avatar: error: guard \"(!speaking_character_identifier.empty())\" not met");
+      throw std::runtime_error("DialogSystem::__set_speaking_character_avatar: error: guard \"(!speaking_character_identifier.empty())\" not met");
    }
    // TODO: Test the guards. Is the second one (!speaking_character_identifier.empty()) necessary?
    //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;

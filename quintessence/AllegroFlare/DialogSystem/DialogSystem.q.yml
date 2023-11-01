@@ -1090,7 +1090,7 @@ methods:
          else if (node_options_as_text.size() == 1)
          {
             // If dialog has only one option, spawn a basic dialog
-            set_speaking_character_avatar(node_pages_speaker);
+            //set_speaking_character_avatar(node_pages_speaker);
             if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
             spawn_basic_dialog(
                _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
@@ -1110,7 +1110,7 @@ methods:
                      "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
                );
             }
-            set_speaking_character_avatar(node_pages_speaker);
+            //set_speaking_character_avatar(node_pages_speaker);
             if (_driver) _driver->on_before_spawn_choice_dialog(node_pages_speaker);
             spawn_choice_dialog(
                _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
@@ -1190,7 +1190,7 @@ methods:
 
 
 
-  - name: set_speaking_character_avatar
+  - name: __set_speaking_character_avatar
     parameters:
       - name: speaking_character_identifier
         type: std::string
