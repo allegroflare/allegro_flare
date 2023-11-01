@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include <AllegroFlare/DialogTree/Nodes/Base.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/ForwardDeclarations/AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <functional>
 #include <string>
@@ -37,6 +39,7 @@ namespace AllegroFlare
          virtual void on_render();
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
+         virtual void on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr);
          virtual std::string decorate_speaking_character_name(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          bool is_type(std::string possible_type="");
       };

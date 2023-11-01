@@ -82,6 +82,12 @@ void Base::on_before_spawn_choice_dialog(std::string speaking_character_identifi
    return;
 }
 
+void Base::on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
+{
+   // TODO: Consider if this method needs to be removed or modififed
+   return;
+}
+
 std::string Base::decorate_speaking_character_name(std::string speaking_character_identifier)
 {
    return speaking_character_identifier;

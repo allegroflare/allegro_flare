@@ -882,6 +882,7 @@
   ],
   "AllegroFlare/Elements/DialogBoxes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/Base",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxes/Base",
@@ -1032,6 +1033,7 @@
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
+    "AllegroFlare/DialogTree/Nodes/RawScriptLine",
     "AllegroFlare/DialogTree/Nodes/Wait",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
