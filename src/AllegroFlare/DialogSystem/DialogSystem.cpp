@@ -542,6 +542,9 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
    if (activate_dialog_node_by_name_func)
    {
+      // TODO: Remove this "activate_dialog_node_by_name_func" as a feature. Consider:
+      // - Callbacks on specific event(s), spawning of dialog, closing of dialog, etc...
+      // - Relying on the system as is
       bool handled = activate_dialog_node_by_name_func(
             this,
             active_dialog_node_name,
@@ -562,7 +565,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    {
       // TODO: Inject code from this mehod here
       __new_on_activate_dialog_node_by_name(
-         this,
+         //this,
          active_dialog_node_name,
          active_dialog_node,
          activate_dialog_node_by_name_func_user_data
@@ -1169,28 +1172,14 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
    return;
 }
 
-bool DialogSystem::__new_on_activate_dialog_node_by_name(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
+bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
 {
-   if (!(dialog_system))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__new_on_activate_dialog_node_by_name]: error: guard \"dialog_system\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__new_on_activate_dialog_node_by_name: error: guard \"dialog_system\" not met");
-   }
    if (!(active_dialog_node))
    {
       std::stringstream error_message;
       error_message << "[DialogSystem::__new_on_activate_dialog_node_by_name]: error: guard \"active_dialog_node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::__new_on_activate_dialog_node_by_name: error: guard \"active_dialog_node\" not met");
-   }
-   if (!(dialog_system))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__new_on_activate_dialog_node_by_name]: error: guard \"dialog_system\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__new_on_activate_dialog_node_by_name: error: guard \"dialog_system\" not met");
    }
    // NOTE: This function is responsible for interpreting a DialogSystem::Node* into an action.  In general
    // this method should not focus on translating the parameters/properties of the node to another, single function
@@ -1220,8 +1209,8 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(AllegroFlare::DialogSys
       else if (node_options_as_text.size() == 1)
       {
          // If dialog has only one option, spawn a basic dialog
-         dialog_system->set_speaking_character_avatar(node_pages_speaker);
-         dialog_system->spawn_basic_dialog(
+         set_speaking_character_avatar(node_pages_speaker);
+         spawn_basic_dialog(
             node_pages_speaker,
             node_pages
          );
@@ -1238,8 +1227,8 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(AllegroFlare::DialogSys
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
          }
-         dialog_system->set_speaking_character_avatar(node_pages_speaker);
-         dialog_system->spawn_choice_dialog(
+         set_speaking_character_avatar(node_pages_speaker);
+         spawn_choice_dialog(
             node_pages_speaker,
             node_pages[0],
             node_options_as_text,
@@ -1254,32 +1243,32 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(AllegroFlare::DialogSys
          static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
 
       float duration_seconds = as->get_duration_sec();
-      dialog_system->spawn_wait_dialog(duration_seconds);
+      spawn_wait_dialog(duration_seconds);
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
    {
       AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
          static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
 
-      dialog_system->spawn_chapter_title_dialog(
+      spawn_chapter_title_dialog(
             as->get_title_text(),
             as->get_duration()
          );
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
-      dialog_system->shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+      shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
                                         // should it be "switch_out" or "shutdown", etc
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
    {
       // TODO: Test this event emission
-      dialog_system->get_event_emitter()->emit_exit_game_event();
+      get_event_emitter()->emit_exit_game_event();
    }
    else
    {
       bool handled = false;
-      if (!dialog_system->get__driver())
+      if (!get__driver())
       {
          throw std::runtime_error(
             "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
@@ -1287,11 +1276,11 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(AllegroFlare::DialogSys
          );
       }
 
-      if (dialog_system->get__driver()->get_activate_dialog_node_type_unhandled_func())
+      if (get__driver()->get_activate_dialog_node_type_unhandled_func())
       {
-         handled = dialog_system->get__driver()->get_activate_dialog_node_type_unhandled_func()(
-               dialog_system,
-               dialog_system->get__driver()->get_activate_dialog_node_type_unhandled_func_user_data()
+         handled = get__driver()->get_activate_dialog_node_type_unhandled_func()(
+               this,
+               get__driver()->get_activate_dialog_node_type_unhandled_func_user_data()
          );
       }
 
