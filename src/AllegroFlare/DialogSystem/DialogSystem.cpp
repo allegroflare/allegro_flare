@@ -11,6 +11,7 @@
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
+#include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
@@ -887,6 +888,28 @@ void DialogSystem::dialog_advance()
             std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
             activate_dialog_node_by_name(as->get_next_node_identifier());
          }
+         else if (AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE)
+                     //, [dialog_system, active_dialog_box, active_dialog_node, user_data](){
+         {
+            //if (_driver) _driver->on_render();
+            //FadeToWhite::DialogSystemDriver *this_dialog_system_driver =
+               //static_cast<FadeToWhite::DialogSystemDriver*>(user_data);
+            //if (_driver) _driver->on_raw_script_line_finished(
+               //this,
+               //active_dialog_box,
+               //active_dialog_node
+            //);
+            if (dialog_advance_is_finished_node_type_unhandled_func) // This method does not do this
+            {
+               dialog_advance_is_finished_node_type_unhandled_func(
+                  this,
+                  active_dialog_box,
+                  active_dialog_node,
+                  dialog_advance_is_finished_node_type_unhandled_func_user_data
+               );
+            }
+         }
+         //}},
          else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
          {
             //AllegroFlare::DialogTree::Nodes::ExitDialog *as =
@@ -901,15 +924,15 @@ void DialogSystem::dialog_advance()
          else
          {
             bool handled = false;
-            if (dialog_advance_is_finished_node_type_unhandled_func)
-            {
-               handled = dialog_advance_is_finished_node_type_unhandled_func(
-                     this,
-                     active_dialog_box,
-                     active_dialog_node,
-                     dialog_advance_is_finished_node_type_unhandled_func_user_data
-                  );
-            }
+            //if (dialog_advance_is_finished_node_type_unhandled_func)
+            //{
+               //handled = dialog_advance_is_finished_node_type_unhandled_func(
+                     //this,
+                     //active_dialog_box,
+                     //active_dialog_node,
+                     //dialog_advance_is_finished_node_type_unhandled_func_user_data
+                  //);
+            //}
 
             if (!handled)
             {
