@@ -48,7 +48,7 @@ methods:
       return;
 
 
-  - name: decorate_speaking_character
+  - name: decorate_speaking_character_name
     type: std::string
     virtual: true
     parameters:

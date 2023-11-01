@@ -47,7 +47,7 @@ namespace AllegroFlare
          virtual void on_switch_in() override;
          virtual void on_deactivate() override;
          virtual void on_render() override;
-         virtual std::string decorate_speaking_character(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
+         virtual std::string decorate_speaking_character_name(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
          void clear_character_staging_layout();
          AllegroFlare::DialogSystem::Characters::Basic* find_character_by_identifier_as_Basic(std::string character_identifier="[unset-character_identifier]");
          ALLEGRO_BITMAP* lookup_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");
