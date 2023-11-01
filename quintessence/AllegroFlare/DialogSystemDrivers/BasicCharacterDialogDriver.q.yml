@@ -113,8 +113,7 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      // TODO: This method, modify speaking character
-      // TODO: set_speaking_character_avatar(speaking_character_identifier);
+      set_speaking_character_avatar(speaking_character_identifier);
       return;
 
 
@@ -126,8 +125,7 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      // TODO: This method, modify speaking character
-      // TODO: set_speaking_character_avatar(speaking_character_identifier);
+      set_speaking_character_avatar(speaking_character_identifier);
       return;
 
 

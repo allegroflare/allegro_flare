@@ -107,15 +107,13 @@ void BasicCharacterDialogDriver::on_render()
 
 void BasicCharacterDialogDriver::on_before_spawn_basic_dialog(std::string speaking_character_identifier)
 {
-   // TODO: This method, modify speaking character
-   // TODO: set_speaking_character_avatar(speaking_character_identifier);
+   set_speaking_character_avatar(speaking_character_identifier);
    return;
 }
 
 void BasicCharacterDialogDriver::on_before_spawn_choice_dialog(std::string speaking_character_identifier)
 {
-   // TODO: This method, modify speaking character
-   // TODO: set_speaking_character_avatar(speaking_character_identifier);
+   set_speaking_character_avatar(speaking_character_identifier);
    return;
 }
 
