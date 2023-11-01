@@ -23,10 +23,10 @@ namespace AllegroFlare
 
          public:
             Base(std::string type=AllegroFlare::DialogSystem::Characters::Base::TYPE);
-            ~Base();
+            virtual ~Base();
 
             std::string get_type() const;
-            std::string get_display_name();
+            virtual std::string get_display_name();
             bool is_type(std::string possible_type="");
          };
       }

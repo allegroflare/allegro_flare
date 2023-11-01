@@ -2092,11 +2092,19 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">get_display_name()</td>
+</tr>
+<tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -2131,6 +2139,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">get_display_name()</td>
+</tr>
 <tr>
   <td class="method">add_expression(std::string expression_name=&quot;[unset-expression_name]&quot;, std::string image_identifier=&quot;[unset-image_identifier]&quot;)</td>
 </tr>
@@ -2800,6 +2811,9 @@ table td
   <td class="method">on_render()</td>
 </tr>
 <tr>
+  <td class="method">decorate_speaking_character(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
+</tr>
+<tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
@@ -2869,6 +2883,9 @@ table td
 </tr>
 <tr>
   <td class="method">on_render()</td>
+</tr>
+<tr>
+  <td class="method">decorate_speaking_character(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">clear_character_staging_layout()</td>
@@ -30455,6 +30472,7 @@ table td
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/DialogSystem/Characters/Base",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",

@@ -18,6 +18,7 @@ methods:
 
 
   - name: get_display_name
+    virtual: true
     type: std::string
     body: |
       // TODO: Consider moving this to pure_virtual

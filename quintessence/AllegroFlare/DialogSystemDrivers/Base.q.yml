@@ -48,6 +48,17 @@ methods:
       return;
 
 
+  - name: decorate_speaking_character
+    type: std::string
+    virtual: true
+    parameters:
+      - name: speaking_character_identifier
+        type: std::string
+        default_argument: '"[unset-speaking_character_identifier]"'
+    body: |
+      return speaking_character_identifier;
+
+
   - name: is_type
     type: bool
     parameters:

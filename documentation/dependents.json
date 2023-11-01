@@ -19,6 +19,7 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/DialogSystem/Characters/Base",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",

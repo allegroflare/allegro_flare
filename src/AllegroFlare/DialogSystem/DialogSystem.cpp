@@ -583,7 +583,11 @@ void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vecto
                                                     // And/or address concerns that derived dialog be deleted proper
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
-   active_dialog_box = dialog_box_factory.create_basic_dialog(speaking_character, pages);
+   active_dialog_box = dialog_box_factory.create_basic_dialog(
+      _driver ? _driver->decorate_speaking_character(speaking_character) : speaking_character,
+      //speaking_character,
+      pages
+   );
 
    // TODO: Address when and where a switch_in should occur
    //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
@@ -648,6 +652,7 @@ void DialogSystem::spawn_character_feature_dialog(std::string character_name, st
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog_box = dialog_box_factory.create_character_feature_dialog(
+      //_driver ? _driver->decorate_speaking_character(speaking_character) : speaking_character,
       character_name,
       character_description,
       character_image_identifier,
@@ -695,7 +700,7 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    AllegroFlare::Elements::DialogBoxes::Choice *choice_dialog_box =
          dialog_box_factory.create_choice_dialog(
-            speaking_character,
+            _driver ? _driver->decorate_speaking_character(speaking_character) : speaking_character,
             prompt,
             options_that_are_also_values,
             cursor_position_on_spawn

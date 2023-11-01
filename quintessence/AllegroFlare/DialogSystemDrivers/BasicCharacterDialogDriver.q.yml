@@ -105,6 +105,19 @@ methods:
       return;
 
 
+  - name: decorate_speaking_character
+    type: std::string
+    virtual: true
+    override: true
+    parameters:
+      - name: speaking_character_identifier
+        type: std::string
+        default_argument: '"[unset-speaking_character_identifier]"'
+    body: |
+      // TODO: Translate the speaking character identifier to display_name
+      return speaking_character_identifier;
+
+
   - name: clear_character_staging_layout
     guards: [ initialized ]
     body: |

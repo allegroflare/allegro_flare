@@ -103,6 +103,12 @@ void BasicCharacterDialogDriver::on_render()
    return;
 }
 
+std::string BasicCharacterDialogDriver::decorate_speaking_character(std::string speaking_character_identifier)
+{
+   // TODO: Translate the speaking character identifier to display_name
+   return speaking_character_identifier;
+}
+
 void BasicCharacterDialogDriver::clear_character_staging_layout()
 {
    if (!(initialized))

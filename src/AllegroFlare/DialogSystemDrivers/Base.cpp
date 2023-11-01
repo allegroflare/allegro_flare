@@ -70,6 +70,11 @@ void Base::on_render()
    return;
 }
 
+std::string Base::decorate_speaking_character(std::string speaking_character_identifier)
+{
+   return speaking_character_identifier;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
