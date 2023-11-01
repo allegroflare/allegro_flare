@@ -1213,8 +1213,10 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
       {
          // If dialog has only one option, spawn a basic dialog
          //set_speaking_character_avatar(node_pages_speaker);
+         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_basic_dialog"
          if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
          spawn_basic_dialog(
+            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_basic_dialog"
             _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
             //node_pages_speaker,
             node_pages
@@ -1233,8 +1235,10 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
             );
          }
          //set_speaking_character_avatar(node_pages_speaker);
+         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_choice_dialog"
          if (_driver) _driver->on_before_spawn_choice_dialog(node_pages_speaker);
          spawn_choice_dialog(
+            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_choice_dialog"
             _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
             //node_pages_speaker,
             node_pages[0],
