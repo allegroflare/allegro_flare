@@ -3,7 +3,6 @@
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
-#include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
@@ -1376,96 +1375,6 @@ void DialogSystem::set_speaking_character_avatar(std::string speaking_character_
       //);
    //}
    return;
-}
-
-ALLEGRO_BITMAP* DialogSystem::__lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
-{
-   if (!(_driver))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__lookup_speaking_character_avatar]: error: guard \"_driver\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__lookup_speaking_character_avatar: error: guard \"_driver\" not met");
-   }
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__lookup_speaking_character_avatar]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__lookup_speaking_character_avatar: error: guard \"initialized\" not met");
-   }
-   if (!(bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
-   }
-   // TODO: Review guards
-   // TODO: Consider throw on missing character_roster
-   if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   {
-      throw std::runtime_error("expecting type ddddd");
-      //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
-         //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-   }
-
-   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
-      static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-
-   AllegroFlare::DialogSystem::CharacterRoster *character_roster = as->character_roster;
-   //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-
-   //if (!_driver->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
-   //{
-      //throw std::runtime_error("expecting type aaaaa");
-   //}
-
-   if (character_roster)
-   {
-      if (!character_roster->character_exists_by_name(speaking_character_identifier))
-      {
-         // Throw for now
-         std::stringstream available_character_names;
-         available_character_names << "[ ";
-         for (auto &character_identifier : character_roster->get_character_names())
-         {
-            available_character_names << "\"" << character_identifier << "\", ";
-         }
-         available_character_names << " ]";
-
-         throw std::runtime_error("Roster is present, but character \"" + speaking_character_identifier + "\" "
-                                  "does not exist in roster. Available names are " + available_character_names.str()
-                                  );
-      }
-
-      AllegroFlare::DialogSystem::Characters::Base *base =
-         character_roster->find_character_by_name(speaking_character_identifier);
-
-      if (base->is_type(AllegroFlare::DialogSystem::Characters::Basic::TYPE))
-      {
-         AllegroFlare::DialogSystem::Characters::Basic *as =
-            static_cast<AllegroFlare::DialogSystem::Characters::Basic*>(base);
-
-         std::string bitmap_identifier_to_use = "";
-         if (as->expression_exists(speaking_character_expression))
-         {
-            bitmap_identifier_to_use = as->find_expression(speaking_character_expression);
-         }
-         else
-         {
-            // TODO: Add report about missing expression
-            bitmap_identifier_to_use = as->get_avatar_portrait_identifier();
-         }
-
-         return bitmap_bin->auto_get(bitmap_identifier_to_use);
-      }
-      else
-      {
-         throw std::runtime_error("DialogSystemDrivers::BasicCharacterDialogDriver: unknown handled character type");
-      }
-   }
-   return nullptr;
 }
 
 
