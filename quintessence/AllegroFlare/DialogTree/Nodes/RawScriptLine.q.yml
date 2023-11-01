@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::Nodes::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE
+
+
+properties:
+
+
+  - name: line
+    type: std::string
+    init_with: '"[unset-line]"'
+    constructor_arg: true
+    getter: true
+
+  - name: line_number
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+
+  - name: next_line_identifier
+    type: std::string
+    init_with: '"[unset-next_line_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/Nodes/RawScriptLine"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+
+
