@@ -189,11 +189,6 @@ namespace AllegroFlare
          // Dialog System
          void set_dialog_system_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank);
          void set_dialog_system_driver(AllegroFlare::DialogSystemDrivers::Base *dialog_system_driver);
-
-         //void set_dialog_system_load_node_bank_func(
-               //std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func
-            //);
-         //void set_dialog_system_load_node_bank_func_user_data(void* load_node_bank_func_user_data);
          DialogSystem::DialogSystem &get_dialog_system_ref();
 
          // Audio Controller System
