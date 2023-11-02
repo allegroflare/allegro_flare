@@ -288,15 +288,11 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
       throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_file: error: guard \"driver\" not met");
    }
    // TODO: Validate a dialog is not currently running (or something)
-   //if (load_node_bank_func)
 
-   // TODO: Test the case where "load_node_bank_func"
    AllegroFlare::DialogTree::NodeBank loader_result_node_bank;
-   //bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
    bool handled = driver->on_load_node_bank_from_file(
-      filename, //
+      filename,
       &loader_result_node_bank
-      //load_node_bank_func_user_data
    );
 
    if (!handled)
