@@ -50,18 +50,6 @@ properties:
     getter: true
     setter: explicit
 
-  - name: load_node_bank_func
-    type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
-    init_with: ''
-    getter: true
-    setter: explicit
-
-  - name: load_node_bank_func_user_data
-    type: void*
-    init_with: nullptr
-    getter: true
-    setter: explicit
-
   - name: switched_in
     type: bool
     init_with: false
@@ -219,26 +207,6 @@ methods:
       this->driver = driver;
 
 
-  - name: set_load_node_bank_func
-    parameters:
-      - name: func
-        type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
-        default_argument: '{}'
-    body: |
-      load_node_bank_func = func;
-      return;
-
-
-  - name: set_load_node_bank_func_user_data
-    parameters:
-      - name: user_data
-        type: void*
-        default_argument: nullptr
-    body: |
-      load_node_bank_func_user_data = user_data;
-      return;
-
-
   - name: set_activate_dialog_node_type_unhandled_func
     parameters:
       - name: activate_dialog_node_type_unhandled_func
@@ -306,13 +274,22 @@ methods:
         default_argument: '"[unset-filename]"'
     guards: [ 'std::filesystem::exists(filename)' ]
     body: |
+      // TODO: Guard valid driver
+      // TODO: Remove exists requirement on this loading
       // TODO: Validate a dialog is not currently running (or something)
       // TODO: Test these cases for loading multiple file formats with these extensions
-      if (load_node_bank_func)
+      //if (load_node_bank_func)
+      if (driver)
       {
+
          // TODO: Test the case where "load_node_bank_func"
          AllegroFlare::DialogTree::NodeBank loader_result_node_bank;
-         bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
+         //bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
+         bool handled = driver->on_load_node_bank_from_file(
+            filename, //
+            &loader_result_node_bank
+            //load_node_bank_func_user_data
+         );
 
          if (!handled)
          {
@@ -327,6 +304,8 @@ methods:
       }
       else
       {
+         // TODO: Remove this logic branch, require driver
+         throw std::runtime_error("expecting driver");
          AllegroFlare::StringFormatValidator validator(filename);
 
          if (validator.ends_with(".screenplay.txt"))

@@ -40,8 +40,6 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
          AllegroFlare::DialogSystemDrivers::Base* driver;
-         std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func;
-         void* load_node_bank_func_user_data;
          bool switched_in;
          std::string standard_dialog_box_font_name;
          int standard_dialog_box_font_size;
@@ -68,8 +66,6 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
          std::string get_active_dialog_node_name() const;
          AllegroFlare::DialogSystemDrivers::Base* get_driver() const;
-         std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> get_load_node_bank_func() const;
-         void* get_load_node_bank_func_user_data() const;
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
          int get_standard_dialog_box_font_size() const;
@@ -83,8 +79,6 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_driver(AllegroFlare::DialogSystemDrivers::Base* driver=nullptr);
-         void set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> func={});
-         void set_load_node_bank_func_user_data(void* user_data=nullptr);
          void set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func);
          void set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data=nullptr);
          void clear_and_reset();

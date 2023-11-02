@@ -65,10 +65,10 @@ void Base::on_switch_out()
    return;
 }
 
-void Base::on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string activating_node_name)
+bool Base::on_load_node_bank_from_file(std::string filename, AllegroFlare::DialogTree::NodeBank* node_bank_to_load_into)
 {
-   // TODO: This method, modify speaking character
-   return;
+   // TODO: Consider if returning true is a good idea here for the base class
+   return true;
 }
 
 void Base::on_render()

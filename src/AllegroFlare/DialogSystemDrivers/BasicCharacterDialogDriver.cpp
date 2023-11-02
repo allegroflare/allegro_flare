@@ -177,9 +177,28 @@ void BasicCharacterDialogDriver::on_switch_out()
    return;
 }
 
-void BasicCharacterDialogDriver::on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string activating_node_name)
+bool BasicCharacterDialogDriver::on_load_node_bank_from_file(std::string filename, AllegroFlare::DialogTree::NodeBank* node_bank_to_load_into)
 {
-   return;
+   if (!(node_bank_to_load_into))
+   {
+      std::stringstream error_message;
+      error_message << "[BasicCharacterDialogDriver::on_load_node_bank_from_file]: error: guard \"node_bank_to_load_into\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BasicCharacterDialogDriver::on_load_node_bank_from_file: error: guard \"node_bank_to_load_into\" not met");
+   }
+   bool handled = true;
+   if (handle_load_node_bank_from_file_func)
+   {
+      handled = handle_load_node_bank_from_file_func(
+         filename,
+         node_bank_to_load_into,
+         handle_load_node_bank_from_file_func_user_data
+         //user_data
+      );
+
+      // TODO: Consider adding "handled == false" error throwing here
+   }
+   return handled;
 }
 
 void BasicCharacterDialogDriver::on_render()

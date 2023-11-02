@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/ForwardDeclarations/AllegroFlare/DialogSystem/DialogSystem.hpp>
@@ -36,7 +37,7 @@ namespace AllegroFlare
          void* get_activate_dialog_node_type_unhandled_func_user_data() const;
          virtual void on_switch_in();
          virtual void on_switch_out();
-         virtual void on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string activating_node_name="[unset-activating_node_name]");
+         virtual bool on_load_node_bank_from_file(std::string filename="[unset-filename]", AllegroFlare::DialogTree::NodeBank* node_bank_to_load_into=nullptr);
          virtual void on_render();
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");

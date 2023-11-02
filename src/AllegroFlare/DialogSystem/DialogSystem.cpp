@@ -45,8 +45,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
    , driver(nullptr)
-   , load_node_bank_func()
-   , load_node_bank_func_user_data(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -121,18 +119,6 @@ std::string DialogSystem::get_active_dialog_node_name() const
 AllegroFlare::DialogSystemDrivers::Base* DialogSystem::get_driver() const
 {
    return driver;
-}
-
-
-std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> DialogSystem::get_load_node_bank_func() const
-{
-   return load_node_bank_func;
-}
-
-
-void* DialogSystem::get_load_node_bank_func_user_data() const
-{
-   return load_node_bank_func_user_data;
 }
 
 
@@ -232,18 +218,6 @@ void DialogSystem::set_driver(AllegroFlare::DialogSystemDrivers::Base* driver)
    this->driver = driver;
 }
 
-void DialogSystem::set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> func)
-{
-   load_node_bank_func = func;
-   return;
-}
-
-void DialogSystem::set_load_node_bank_func_user_data(void* user_data)
-{
-   load_node_bank_func_user_data = user_data;
-   return;
-}
-
 void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func)
 {
    if (!(driver))
@@ -313,13 +287,22 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_file: error: guard \"std::filesystem::exists(filename)\" not met");
    }
+   // TODO: Guard valid driver
+   // TODO: Remove exists requirement on this loading
    // TODO: Validate a dialog is not currently running (or something)
    // TODO: Test these cases for loading multiple file formats with these extensions
-   if (load_node_bank_func)
+   //if (load_node_bank_func)
+   if (driver)
    {
+
       // TODO: Test the case where "load_node_bank_func"
       AllegroFlare::DialogTree::NodeBank loader_result_node_bank;
-      bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
+      //bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
+      bool handled = driver->on_load_node_bank_from_file(
+         filename, //
+         &loader_result_node_bank
+         //load_node_bank_func_user_data
+      );
 
       if (!handled)
       {
@@ -334,6 +317,8 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
    }
    else
    {
+      // TODO: Remove this logic branch, require driver
+      throw std::runtime_error("expecting driver");
       AllegroFlare::StringFormatValidator validator(filename);
 
       if (validator.ends_with(".screenplay.txt"))

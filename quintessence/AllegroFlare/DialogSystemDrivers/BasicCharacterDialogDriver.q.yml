@@ -139,17 +139,31 @@ methods:
 
 
   - name: on_load_node_bank_from_file
+    type: bool
     virtual: true
     override: true
     parameters:
-      - name: dialog_system
-        type: AllegroFlare::DialogSystem::DialogSystem*
-        default_argument: nullptr
-      - name: activating_node_name
+      - name: filename
         type: std::string
-        default_argument: '"[unset-activating_node_name]"'
+        default_argument: '"[unset-filename]"'
+      - name: node_bank_to_load_into
+        type: AllegroFlare::DialogTree::NodeBank*
+        default_argument: nullptr
+    guards: [ node_bank_to_load_into ]
     body: |
-      return;
+      bool handled = true;
+      if (handle_load_node_bank_from_file_func)
+      {
+         handled = handle_load_node_bank_from_file_func(
+            filename,
+            node_bank_to_load_into,
+            handle_load_node_bank_from_file_func_user_data
+            //user_data
+         );
+
+         // TODO: Consider adding "handled == false" error throwing here
+      }
+      return handled;
 
 
   - name: on_render

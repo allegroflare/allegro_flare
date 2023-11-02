@@ -43,17 +43,18 @@ methods:
 
 
   - name: on_load_node_bank_from_file
+    type: bool
     virtual: true
     parameters:
-      - name: dialog_system
-        type: AllegroFlare::DialogSystem::DialogSystem*
-        default_argument: nullptr
-      - name: activating_node_name
+      - name: filename
         type: std::string
-        default_argument: '"[unset-activating_node_name]"'
+        default_argument: '"[unset-filename]"'
+      - name: node_bank_to_load_into
+        type: AllegroFlare::DialogTree::NodeBank*
+        default_argument: nullptr
     body: |
-      // TODO: This method, modify speaking character
-      return;
+      // TODO: Consider if returning true is a good idea here for the base class
+      return true;
 
 
   - name: on_render
@@ -153,5 +154,7 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Base
     headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
 
 

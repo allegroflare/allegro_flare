@@ -17,6 +17,8 @@
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp> // TODO: Remove this dependency
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp> // TODO: Remove this dependency
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
+#include <AllegroFlare/StringFormatValidator.hpp>
+#include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 
 
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
@@ -73,6 +75,26 @@ public:
       *node_bank = yaml_loader.get_node_bank();
       return true;
    }
+
+   static bool my_basic_screenplay_load_node_bank_func(
+         std::string filename,
+         AllegroFlare::DialogTree::NodeBank* node_bank,
+         void* user_data
+      )
+   {
+      AllegroFlare::StringFormatValidator validator(filename);
+
+      if (validator.ends_with(".screenplay.txt"))
+      {
+         AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
+         loader.load_file(filename);
+         (*node_bank) = loader.get_node_bank();
+         //set_dialog_node_bank(node_bank());
+         return true;
+      }
+
+      return false;
+   }
 };
 
 
@@ -82,6 +104,11 @@ static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_dri
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
          new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
 
+   driver->set_handle_load_node_bank_from_file_func(
+      &AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture::my_load_node_bank_func
+   );
+   driver->set_handle_load_node_bank_from_file_func_user_data(nullptr); // Not sure what this would be used for
+   //driver->
    driver->set_bitmap_bin(bitmap_bin);
    driver->initialize();
 
@@ -278,7 +305,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
-   dialog_system.set_load_node_bank_func(my_load_node_bank_func);
+   //dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
    dialog_system.set_driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
 
@@ -326,7 +353,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
-   dialog_system.set_load_node_bank_func(my_load_node_bank_func);
+   //dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
    dialog_system.set_driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
 
@@ -439,7 +466,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
-   dialog_system.set_load_node_bank_func(my_load_node_bank_func);
+   //dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
    dialog_system.set_driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
    dialog_system.load_dialog_node_bank_from_file(dialog_filename);
@@ -572,7 +599,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    dialog_system.initialize();
 
    //AllegroFlare::DialogSystemDrivers::* _driver = dialog_system.get__driver();
-   dialog_system.set_driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
+   // TODO: Destroy this driver
+   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = create_driver(&get_bitmap_bin_ref());
+   //driver->set_handle_load_node_bank_from_file_func(0);
+   dialog_system.set_driver(create_driver(&get_bitmap_bin_ref()));
 
    AllegroFlare::DialogSystemDrivers::Base* driver = dialog_system.get_driver();
    if (driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
@@ -582,6 +612,9 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       __driver->character_roster = character_roster; // TODO: Change this to a setter
       // TODO: Consider alternative place for all this assmeblage
       __driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
+      __driver->set_handle_load_node_bank_from_file_func(
+         &AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture::my_basic_screenplay_load_node_bank_func
+      ); // For this specific test
    }
 
    //dialog_system.get_driver_ref().character_roster = character_roster; // TODO: Change this to a setter

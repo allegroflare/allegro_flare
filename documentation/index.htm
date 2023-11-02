@@ -2351,14 +2351,6 @@ table td
   <td class="property">AllegroFlare::DialogSystemDrivers::Base*</td>
 </tr>
 <tr>
-  <td class="property">load_node_bank_func</td>
-  <td class="property">std::function&lt;bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)&gt;</td>
-</tr>
-<tr>
-  <td class="property">load_node_bank_func_user_data</td>
-  <td class="property">void*</td>
-</tr>
-<tr>
   <td class="property">switched_in</td>
   <td class="property">bool</td>
 </tr>
@@ -2428,12 +2420,6 @@ table td
 </tr>
 <tr>
   <td class="method">set_driver(AllegroFlare::DialogSystemDrivers::Base* driver=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">set_load_node_bank_func(std::function&lt;bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)&gt; func={})</td>
-</tr>
-<tr>
-  <td class="method">set_load_node_bank_func_user_data(void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">set_activate_dialog_node_type_unhandled_func(std::function&lt;bool(AllegroFlare::DialogSystem::DialogSystem*, void*)&gt; activate_dialog_node_type_unhandled_func=)</td>
@@ -2796,7 +2782,7 @@ table td
   <td class="method">on_switch_out()</td>
 </tr>
 <tr>
-  <td class="method">on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string activating_node_name=&quot;[unset-activating_node_name]&quot;)</td>
+  <td class="method">on_load_node_bank_from_file(std::string filename=&quot;[unset-filename]&quot;, AllegroFlare::DialogTree::NodeBank* node_bank_to_load_into=nullptr)</td>
 </tr>
 <tr>
   <td class="method">on_render()</td>
@@ -2830,6 +2816,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2912,7 +2901,7 @@ table td
   <td class="method">on_switch_out()</td>
 </tr>
 <tr>
-  <td class="method">on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string activating_node_name=&quot;[unset-activating_node_name]&quot;)</td>
+  <td class="method">on_load_node_bank_from_file(std::string filename=&quot;[unset-filename]&quot;, AllegroFlare::DialogTree::NodeBank* node_bank_to_load_into=nullptr)</td>
 </tr>
 <tr>
   <td class="method">on_render()</td>
@@ -31554,6 +31543,7 @@ table td
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/Base",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
     "AllegroFlare/DialogTree/NodeBank",
