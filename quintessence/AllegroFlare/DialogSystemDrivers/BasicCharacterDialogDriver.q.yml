@@ -126,6 +126,20 @@ methods:
       return;
 
 
+  - name: on_load_node_bank_from_file
+    virtual: true
+    override: true
+    parameters:
+      - name: dialog_system
+        type: AllegroFlare::DialogSystem::DialogSystem*
+        default_argument: nullptr
+      - name: activating_node_name
+        type: std::string
+        default_argument: '"[unset-activating_node_name]"'
+    body: |
+      return;
+
+
   - name: on_render
     virtual: true
     override: true

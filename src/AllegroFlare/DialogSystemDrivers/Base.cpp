@@ -65,6 +65,12 @@ void Base::on_switch_out()
    return;
 }
 
+void Base::on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string activating_node_name)
+{
+   // TODO: This method, modify speaking character
+   return;
+}
+
 void Base::on_render()
 {
    return;

@@ -151,6 +151,11 @@ void BasicCharacterDialogDriver::on_switch_out()
    return;
 }
 
+void BasicCharacterDialogDriver::on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string activating_node_name)
+{
+   return;
+}
+
 void BasicCharacterDialogDriver::on_render()
 {
    if (active_character_staging_layout) active_character_staging_layout->render();
