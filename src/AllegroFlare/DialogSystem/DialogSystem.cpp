@@ -1177,7 +1177,7 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
 
    std::string &dialog_name = active_dialog_node_name;
 
-   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {
             if (_driver) _driver->on_raw_script_line_activate( // could find a better name for this method
                this,
