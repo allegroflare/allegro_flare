@@ -280,67 +280,36 @@ void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialo
 
 void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
 {
-   if (!(std::filesystem::exists(filename)))
+   if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::load_dialog_node_bank_from_file]: error: guard \"std::filesystem::exists(filename)\" not met.";
+      error_message << "[DialogSystem::load_dialog_node_bank_from_file]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_file: error: guard \"std::filesystem::exists(filename)\" not met");
+      throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_file: error: guard \"driver\" not met");
    }
-   // TODO: Guard valid driver
-   // TODO: Remove exists requirement on this loading
    // TODO: Validate a dialog is not currently running (or something)
-   // TODO: Test these cases for loading multiple file formats with these extensions
    //if (load_node_bank_func)
-   if (driver)
+
+   // TODO: Test the case where "load_node_bank_func"
+   AllegroFlare::DialogTree::NodeBank loader_result_node_bank;
+   //bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
+   bool handled = driver->on_load_node_bank_from_file(
+      filename, //
+      &loader_result_node_bank
+      //load_node_bank_func_user_data
+   );
+
+   if (!handled)
    {
-
-      // TODO: Test the case where "load_node_bank_func"
-      AllegroFlare::DialogTree::NodeBank loader_result_node_bank;
-      //bool handled = load_node_bank_func(filename, &loader_result_node_bank, load_node_bank_func_user_data);
-      bool handled = driver->on_load_node_bank_from_file(
-         filename, //
-         &loader_result_node_bank
-         //load_node_bank_func_user_data
-      );
-
-      if (!handled)
-      {
-         AllegroFlare::Logger::throw_error(
-               "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file"
-               "a user \"load_node_bank_func\" has been provided, but it returned false when called, indicating "
-                  "that it was not able to load the NodeBank as expected."
-            );
-      }
-
-      set_dialog_node_bank(loader_result_node_bank);
-   }
-   else
-   {
-      // TODO: Remove this logic branch, require driver
-      throw std::runtime_error("expecting driver");
-      AllegroFlare::StringFormatValidator validator(filename);
-
-      if (validator.ends_with(".screenplay.txt"))
-      {
-         AllegroFlare::DialogTree::BasicScreenplayTextLoader loader;
-         loader.load_file(filename);
-         set_dialog_node_bank(loader.get_node_bank());
-      }
-      //else if (validator.ends_with(".yml") || validator.ends_with(".yaml"))
-      //{
-         //AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-         //yaml_loader.load_file(filename);
-         //dialog_node_bank = yaml_loader.get_node_bank();
-      //}
-      else
-      {
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file",
-            "Cannot load file. Unable to know what loader should be used for filename \"" + filename + "\""
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file"
+            // TODO: Update this error message
+            "a user \"load_node_bank_func\" has been provided, but it returned false when called, indicating "
+               "that it was not able to load the NodeBank as expected."
          );
-      }
    }
+
+   set_dialog_node_bank(loader_result_node_bank);
    return;
 }
 
