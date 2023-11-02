@@ -488,14 +488,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    active_dialog_node_name = dialog_name;
 
-   //// TODO: Inject code from this mehod here
-   //__new_on_activate_dialog_node_by_name(
-      ////this,
-      //active_dialog_node_name,
-      //active_dialog_node
-      ////activate_dialog_node_by_name_func_user_data
-   //);
-
    // NOTE: This function is responsible for interpreting a DialogSystem::Node* into an action.  In general
    // this method should not focus on translating the parameters/properties of the node to another, single function
    // call that is responsible for performing the action(s).  Avoid doing state-changing logic in this function
