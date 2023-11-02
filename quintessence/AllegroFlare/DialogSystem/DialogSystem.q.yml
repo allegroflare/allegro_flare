@@ -47,7 +47,7 @@ properties:
     type: AllegroFlare::DialogSystemDrivers::Base*
     init_with: nullptr
     getter_ref: true
-    getter: explicit
+    getter: true
     setter: explicit
 
   - name: load_node_bank_func
@@ -243,13 +243,6 @@ methods:
             activate_dialog_node_type_unhandled_func_user_data
          );
       return;
-
-
-  - name: get_driver
-    type: AllegroFlare::DialogSystemDrivers::Base*
-    guards: [ (initialized) ]
-    body: |
-      return driver;
 
 
   - name: clear_and_reset

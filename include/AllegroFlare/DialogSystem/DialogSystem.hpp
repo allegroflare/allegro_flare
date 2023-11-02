@@ -69,6 +69,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
          std::string get_active_dialog_node_name() const;
+         AllegroFlare::DialogSystemDrivers::Base* get_driver() const;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> get_load_node_bank_func() const;
          void* get_load_node_bank_func_user_data() const;
          bool get_switched_in() const;
@@ -86,7 +87,6 @@ namespace AllegroFlare
          void set_driver(AllegroFlare::DialogSystemDrivers::Base* driver=nullptr);
          void set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func);
          void set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data=nullptr);
-         AllegroFlare::DialogSystemDrivers::Base* get_driver();
          void clear_and_reset();
          void set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank={});
          void load_dialog_node_bank_from_file(std::string filename="[unset-filename]");

@@ -130,6 +130,12 @@ std::string DialogSystem::get_active_dialog_node_name() const
 }
 
 
+AllegroFlare::DialogSystemDrivers::Base* DialogSystem::get_driver() const
+{
+   return driver;
+}
+
+
 std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> DialogSystem::get_load_node_bank_func() const
 {
    return load_node_bank_func;
@@ -266,18 +272,6 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* 
          activate_dialog_node_type_unhandled_func_user_data
       );
    return;
-}
-
-AllegroFlare::DialogSystemDrivers::Base* DialogSystem::get_driver()
-{
-   if (!((initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::get_driver]: error: guard \"(initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::get_driver: error: guard \"(initialized)\" not met");
-   }
-   return driver;
 }
 
 void DialogSystem::clear_and_reset()
