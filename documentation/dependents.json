@@ -1038,14 +1038,6 @@
     "AllegroFlare/DialogTree/Nodes/Wait",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
-  "std/filesystem/exists": [
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
-    "Tileo/TMJDataLoader"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
@@ -1162,6 +1154,13 @@
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
+  ],
+  "std/filesystem/exists": [
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/DialogSystem/SceneIndex": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
