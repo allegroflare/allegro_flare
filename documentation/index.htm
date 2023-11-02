@@ -2347,7 +2347,7 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">_driver</td>
+  <td class="property">driver</td>
   <td class="property">AllegroFlare::DialogSystemDrivers::Base*</td>
 </tr>
 <tr>
@@ -2427,13 +2427,16 @@ table td
   <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">set_driver(AllegroFlare::DialogSystemDrivers::Base* driver=nullptr)</td>
+</tr>
+<tr>
   <td class="method">set_activate_dialog_node_type_unhandled_func(std::function&lt;bool(AllegroFlare::DialogSystem::DialogSystem*, void*)&gt; activate_dialog_node_type_unhandled_func=)</td>
 </tr>
 <tr>
   <td class="method">set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">get__driver()</td>
+  <td class="method">get_driver()</td>
 </tr>
 <tr>
   <td class="method">clear_and_reset()</td>

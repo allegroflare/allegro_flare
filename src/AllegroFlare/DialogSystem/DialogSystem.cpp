@@ -44,7 +44,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , selection_cursor_box({})
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
-   , _driver(nullptr)
+   , driver(nullptr)
    , load_node_bank_func()
    , load_node_bank_func_user_data(nullptr)
    , switched_in(false)
@@ -61,12 +61,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
 
 DialogSystem::~DialogSystem()
 {
-}
-
-
-void DialogSystem::set__driver(AllegroFlare::DialogSystemDrivers::Base* _driver)
-{
-   this->_driver = _driver;
 }
 
 
@@ -196,9 +190,9 @@ bool DialogSystem::get_initialized() const
 }
 
 
-AllegroFlare::DialogSystemDrivers::Base* &DialogSystem::get__driver_ref()
+AllegroFlare::DialogSystemDrivers::Base* &DialogSystem::get_driver_ref()
 {
-   return _driver;
+   return driver;
 }
 
 
@@ -238,46 +232,52 @@ void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    this->event_emitter = event_emitter;
 }
 
+void DialogSystem::set_driver(AllegroFlare::DialogSystemDrivers::Base* driver)
+{
+   // TODO: Consider consequences of assigning the driver mid-flight
+   this->driver = driver;
+}
+
 void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func)
 {
-   if (!(_driver))
+   if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_activate_dialog_node_type_unhandled_func]: error: guard \"_driver\" not met.";
+      error_message << "[DialogSystem::set_activate_dialog_node_type_unhandled_func]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func: error: guard \"_driver\" not met");
+      throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func: error: guard \"driver\" not met");
    }
    throw std::runtime_error("set_activate_dialog_node_type_unhandled_func: This method is obsolete");
-   _driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
+   driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
    return;
 }
 
 void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data)
 {
-   if (!(_driver))
+   if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data]: error: guard \"_driver\" not met.";
+      error_message << "[DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data: error: guard \"_driver\" not met");
+      throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data: error: guard \"driver\" not met");
    }
    throw std::runtime_error("set_activate_dialog_node_type_unhandled_func_user_data: This method is obsolete");
-   _driver->set_activate_dialog_node_type_unhandled_func_user_data(
+   driver->set_activate_dialog_node_type_unhandled_func_user_data(
          activate_dialog_node_type_unhandled_func_user_data
       );
    return;
 }
 
-AllegroFlare::DialogSystemDrivers::Base* DialogSystem::get__driver()
+AllegroFlare::DialogSystemDrivers::Base* DialogSystem::get_driver()
 {
    if (!((initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::get__driver]: error: guard \"(initialized)\" not met.";
+      error_message << "[DialogSystem::get_driver]: error: guard \"(initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::get__driver: error: guard \"(initialized)\" not met");
+      throw std::runtime_error("DialogSystem::get_driver: error: guard \"(initialized)\" not met");
    }
-   return _driver;
+   return driver;
 }
 
 void DialogSystem::clear_and_reset()
@@ -439,7 +439,7 @@ void DialogSystem::switch_in()
       throw std::runtime_error("DialogSystem::switch_in: error: guard \"(!switched_in)\" not met");
    }
    switched_in = true;
-   if (_driver) _driver->on_switch_in();
+   if (driver) driver->on_switch_in();
    event_emitter->emit_dialog_switch_in_event();
    return;
 }
@@ -475,7 +475,7 @@ void DialogSystem::switch_out()
    active_dialog_node = nullptr;
    active_dialog_node_name = "";
 
-   if (_driver) _driver->on_switch_out(); // TODO: This may need to be moved to "switch_out"
+   if (driver) driver->on_switch_out(); // TODO: This may need to be moved to "switch_out"
 
    event_emitter->emit_dialog_switch_out_event();
 
@@ -577,7 +577,7 @@ void DialogSystem::spawn_character_feature_dialog(std::string character_name, st
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog_box = dialog_box_factory.create_character_feature_dialog(
-      //_driver ? _driver->decorate_speaking_character(speaking_character) : speaking_character,
+      //driver ? driver->decorate_speaking_character(speaking_character) : speaking_character,
       character_name,
       character_description,
       character_image_identifier,
@@ -625,7 +625,7 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    AllegroFlare::Elements::DialogBoxes::Choice *choice_dialog_box =
          dialog_box_factory.create_choice_dialog(
-            //_driver ? _driver->decorate_speaking_character_name(speaking_character) : speaking_character,
+            //driver ? driver->decorate_speaking_character_name(speaking_character) : speaking_character,
             speaking_character,
             prompt,
             options_that_are_also_values,
@@ -688,14 +688,14 @@ void DialogSystem::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::render: error: guard \"initialized\" not met");
    }
-   if (!(_driver))
+   if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::render]: error: guard \"_driver\" not met.";
+      error_message << "[DialogSystem::render]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::render: error: guard \"_driver\" not met");
+      throw std::runtime_error("DialogSystem::render: error: guard \"driver\" not met");
    }
-   if (_driver) _driver->on_render();
+   if (driver) driver->on_render();
 
    if (active_dialog_box)
    {
@@ -817,10 +817,10 @@ void DialogSystem::dialog_advance()
          else if (AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE)
                      //, [dialog_system, active_dialog_box, active_dialog_node, user_data](){
          {
-            //if (_driver) _driver->on_render();
+            //if (driver) driver->on_render();
             //FadeToWhite::DialogSystemDriver *this_dialog_system_driver =
                //static_cast<FadeToWhite::DialogSystemDriver*>(user_data);
-            if (_driver) _driver->on_raw_script_line_finished(
+            if (driver) driver->on_raw_script_line_finished(
                this,
                active_dialog_box,
                active_dialog_node
@@ -988,12 +988,12 @@ bool DialogSystem::shutdown_dialog()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"initialized\" not met");
    }
-   if (!(_driver))
+   if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::shutdown_dialog]: error: guard \"_driver\" not met.";
+      error_message << "[DialogSystem::shutdown_dialog]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"_driver\" not met");
+      throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"driver\" not met");
    }
    if (!(switched_in))
    {
@@ -1130,7 +1130,7 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {
-            if (_driver) _driver->on_raw_script_line_activate( // could find a better name for this method
+            if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
                this,
                active_dialog_node_name,
                //active_dialog_box,
@@ -1160,10 +1160,10 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
          // If dialog has only one option, spawn a basic dialog
          //set_speaking_character_avatar(node_pages_speaker);
          // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_basic_dialog"
-         if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
+         if (driver) driver->on_before_spawn_basic_dialog(node_pages_speaker);
          spawn_basic_dialog(
             // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_basic_dialog"
-            _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
             //node_pages_speaker,
             node_pages
          );
@@ -1182,10 +1182,10 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
          }
          //set_speaking_character_avatar(node_pages_speaker);
          // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_choice_dialog"
-         if (_driver) _driver->on_before_spawn_choice_dialog(node_pages_speaker);
+         if (driver) driver->on_before_spawn_choice_dialog(node_pages_speaker);
          spawn_choice_dialog(
             // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_choice_dialog"
-            _driver ? _driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
             //node_pages_speaker,
             node_pages[0],
             node_options_as_text,
@@ -1225,19 +1225,19 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
    else
    {
       bool handled = false;
-      if (!get__driver())
+      if (!get_driver())
       {
          throw std::runtime_error(
             "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
-               "Expecting get__driver() not to be nullptr"
+               "Expecting get_driver() not to be nullptr"
          );
       }
 
-      if (get__driver()->get_activate_dialog_node_type_unhandled_func())
+      if (get_driver()->get_activate_dialog_node_type_unhandled_func())
       {
-         handled = get__driver()->get_activate_dialog_node_type_unhandled_func()(
+         handled = get_driver()->get_activate_dialog_node_type_unhandled_func()(
                this,
-               get__driver()->get_activate_dialog_node_type_unhandled_func_user_data()
+               get_driver()->get_activate_dialog_node_type_unhandled_func_user_data()
          );
       }
 

@@ -909,7 +909,8 @@ void Full::set_dialog_system_dialog_node_bank(AllegroFlare::DialogTree::NodeBank
 
 void Full::set_dialog_system_driver(AllegroFlare::DialogSystemDrivers::Base *dialog_system_driver)
 {
-   dialog_system.set__driver(dialog_system_driver); // TODO: Rename "_driver" property on DialogSystem
+   // TODO: Consider "resetting" consequences when changing the driver mid-flight
+   dialog_system.set_driver(dialog_system_driver);
 }
 
 
