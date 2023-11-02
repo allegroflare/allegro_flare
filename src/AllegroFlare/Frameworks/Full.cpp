@@ -928,25 +928,6 @@ void Full::set_dialog_system_load_node_bank_func_user_data(void* load_node_bank_
 }
 
 
-
-void Full::set_dialog_system_activate_dialog_node_by_name_func(
-      std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)>
-            activate_dialog_node_by_name_func
-   )
-{
-   dialog_system.set_activate_dialog_node_by_name_func(activate_dialog_node_by_name_func);
-}
-
-
-
-void Full::set_dialog_system_activate_dialog_node_by_name_func_user_data(void* 
-      activate_dialog_node_by_name_func_user_data
-   )
-{
-   dialog_system.set_activate_dialog_node_by_name_func_user_data(activate_dialog_node_by_name_func_user_data);
-}
-
-
 DialogSystem::DialogSystem &Full::get_dialog_system_ref()
 {
    // TODO: Consider modifying this so that functions are used to access/assign the expected parts of the system

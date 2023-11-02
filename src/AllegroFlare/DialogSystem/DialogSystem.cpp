@@ -47,8 +47,6 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , _driver(nullptr)
    , load_node_bank_func()
    , load_node_bank_func_user_data(nullptr)
-   , activate_dialog_node_by_name_func()
-   , activate_dialog_node_by_name_func_user_data(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
    , standard_dialog_box_font_size(DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE)
@@ -81,18 +79,6 @@ void DialogSystem::set_load_node_bank_func(std::function<bool(std::string, Alleg
 void DialogSystem::set_load_node_bank_func_user_data(void* load_node_bank_func_user_data)
 {
    this->load_node_bank_func_user_data = load_node_bank_func_user_data;
-}
-
-
-void DialogSystem::set_activate_dialog_node_by_name_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> activate_dialog_node_by_name_func)
-{
-   this->activate_dialog_node_by_name_func = activate_dialog_node_by_name_func;
-}
-
-
-void DialogSystem::set_activate_dialog_node_by_name_func_user_data(void* activate_dialog_node_by_name_func_user_data)
-{
-   this->activate_dialog_node_by_name_func_user_data = activate_dialog_node_by_name_func_user_data;
 }
 
 
@@ -159,18 +145,6 @@ std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> Dia
 void* DialogSystem::get_load_node_bank_func_user_data() const
 {
    return load_node_bank_func_user_data;
-}
-
-
-std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_activate_dialog_node_by_name_func() const
-{
-   return activate_dialog_node_by_name_func;
-}
-
-
-void* DialogSystem::get_activate_dialog_node_by_name_func_user_data() const
-{
-   return activate_dialog_node_by_name_func_user_data;
 }
 
 
@@ -514,40 +488,13 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    active_dialog_node_name = dialog_name;
 
-   if (activate_dialog_node_by_name_func)
-   {
-      throw std::runtime_error("in activate_dialog_node_by_name: calling \"activate_dialog_node_by_name_func\" "
-         "method is obsolete");
-      // NEXT:
-      // TODO: Remove this "activate_dialog_node_by_name_func" as a feature. Consider:
-      // - Callbacks on specific event(s), spawning of dialog, closing of dialog, etc...
-      // - Relying on the system as is
-      bool handled = activate_dialog_node_by_name_func(
-            this,
-            active_dialog_node_name,
-            active_dialog_node,
-            activate_dialog_node_by_name_func_user_data
-         );
-
-      if (!handled)
-      {
-         throw std::runtime_error(
-               "DialogSystem::activate_dialog_node_by_name: error: a user \"activate_dialog_node_by_name_func\" has "
-                  "been provided, but it returned false when called, indicating that it was not able to handle the "
-                  "node activation."
-            );
-      }
-   }
-   else
-   {
-      // TODO: Inject code from this mehod here
-      __new_on_activate_dialog_node_by_name(
-         //this,
-         active_dialog_node_name,
-         active_dialog_node,
-         activate_dialog_node_by_name_func_user_data
-      );
-   }
+   // TODO: Inject code from this mehod here
+   __new_on_activate_dialog_node_by_name(
+      //this,
+      active_dialog_node_name,
+      active_dialog_node
+      //activate_dialog_node_by_name_func_user_data
+   );
 
    return;
 }
@@ -1164,7 +1111,7 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
    return;
 }
 
-bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node, void* user_data)
+bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
 {
    if (!(active_dialog_node))
    {
@@ -1190,25 +1137,6 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
                active_dialog_node
                //user_data
             );
-
-
-   /*
-   - name: dialog_system
-     type: AllegroFlare::DialogSystem::DialogSystem*
-     default_argument: nullptr
-   - name: activating_node_name
-     type: std::string
-     default_argument: '"[unset-activating_node_name]"'
-   - name: activating_node
-     type: AllegroFlare::DialogTree::Nodes::Base*
-     default_argument: nullptr
-   //- name: user_data
-     //type: void*
-     //default_argument: nullptr
-   */
-
-      //if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
-      // TODO: Handle raw script file through driver
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
