@@ -488,14 +488,144 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    active_dialog_node_name = dialog_name;
 
-   // TODO: Inject code from this mehod here
-   __new_on_activate_dialog_node_by_name(
-      //this,
-      active_dialog_node_name,
-      active_dialog_node
-      //activate_dialog_node_by_name_func_user_data
-   );
+   //// TODO: Inject code from this mehod here
+   //__new_on_activate_dialog_node_by_name(
+      ////this,
+      //active_dialog_node_name,
+      //active_dialog_node
+      ////activate_dialog_node_by_name_func_user_data
+   //);
 
+   // NOTE: This function is responsible for interpreting a DialogSystem::Node* into an action.  In general
+   // this method should not focus on translating the parameters/properties of the node to another, single function
+   // call that is responsible for performing the action(s).  Avoid doing state-changing logic in this function
+   // (unless those state changes are done in the called functions themselves.).  If you find functionality like
+   // that here, consider extracting it to a function.
+
+   //std::string &dialog_name = active_dialog_node_name;
+
+   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
+   {
+            if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
+               this,
+               active_dialog_node_name,
+               //active_dialog_box,
+               active_dialog_node
+               //user_data
+            );
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
+         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
+
+      std::string node_pages_speaker = as_multipage_with_options->get_speaker();
+      std::vector<std::string> node_pages = as_multipage_with_options->get_pages();
+      std::vector<std::string> node_options_as_text = as_multipage_with_options->build_options_as_text();
+      int cursor_position_on_spawn = as_multipage_with_options->infer_cursor_position_on_spawn();
+
+      if (node_options_as_text.empty())
+      {
+         throw std::runtime_error(
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
+               + dialog_name + "\" but there are no options."
+         );
+      }
+      else if (node_options_as_text.size() == 1)
+      {
+         // If dialog has only one option, spawn a basic dialog
+         //set_speaking_character_avatar(node_pages_speaker);
+         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_basic_dialog"
+         if (driver) driver->on_before_spawn_basic_dialog(node_pages_speaker);
+         spawn_basic_dialog(
+            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_basic_dialog"
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            //node_pages_speaker,
+            node_pages
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
+      else // (node_options_as_text.size() > 1)
+      {
+         // If dialog has multiple options, spawn a "choice" dialog
+         if (node_pages.size() != 1)
+         {
+            throw std::runtime_error(
+               "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
+                  + dialog_name + "\" (because it is going to be used to build a Choice dialog, "
+                  "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
+            );
+         }
+         //set_speaking_character_avatar(node_pages_speaker);
+         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_choice_dialog"
+         if (driver) driver->on_before_spawn_choice_dialog(node_pages_speaker);
+         spawn_choice_dialog(
+            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_choice_dialog"
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            //node_pages_speaker,
+            node_pages[0],
+            node_options_as_text,
+            cursor_position_on_spawn
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::Wait *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+
+      float duration_seconds = as->get_duration_sec();
+      spawn_wait_dialog(duration_seconds);
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
+
+      spawn_chapter_title_dialog(
+            as->get_title_text(),
+            as->get_duration()
+         );
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+   {
+      shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+                                        // should it be "switch_out" or "shutdown", etc
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+   {
+      // TODO: Test this event emission
+      get_event_emitter()->emit_exit_game_event();
+   }
+   else
+   {
+      bool handled = false;
+      if (!get_driver())
+      {
+         throw std::runtime_error(
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
+               "Expecting get_driver() not to be nullptr"
+         );
+      }
+
+      if (get_driver()->get_activate_dialog_node_type_unhandled_func())
+      {
+         handled = get_driver()->get_activate_dialog_node_type_unhandled_func()(
+               this,
+               get_driver()->get_activate_dialog_node_type_unhandled_func_user_data()
+         );
+      }
+
+      if (!handled)
+      {
+         throw std::runtime_error(
+            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
+               "Unable to handle dialog node activation on type \""
+               + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+         );
+      }
+   }
    return;
 }
 
@@ -1109,148 +1239,6 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
          );
    }
    return;
-}
-
-bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
-{
-   if (!(active_dialog_node))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::__new_on_activate_dialog_node_by_name]: error: guard \"active_dialog_node\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::__new_on_activate_dialog_node_by_name: error: guard \"active_dialog_node\" not met");
-   }
-   // NOTE: This function is responsible for interpreting a DialogSystem::Node* into an action.  In general
-   // this method should not focus on translating the parameters/properties of the node to another, single function
-   // call that is responsible for performing the action(s).  Avoid doing state-changing logic in this function
-   // (unless those state changes are done in the called functions themselves.).  If there is functionality like
-   // that here, consider extracting it to a function.
-
-   std::string &dialog_name = active_dialog_node_name;
-
-   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
-   {
-            if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
-               this,
-               active_dialog_node_name,
-               //active_dialog_box,
-               active_dialog_node
-               //user_data
-            );
-   }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
-         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
-
-      std::string node_pages_speaker = as_multipage_with_options->get_speaker();
-      std::vector<std::string> node_pages = as_multipage_with_options->get_pages();
-      std::vector<std::string> node_options_as_text = as_multipage_with_options->build_options_as_text();
-      int cursor_position_on_spawn = as_multipage_with_options->infer_cursor_position_on_spawn();
-
-      if (node_options_as_text.empty())
-      {
-         throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
-               + dialog_name + "\" but there are no options."
-         );
-      }
-      else if (node_options_as_text.size() == 1)
-      {
-         // If dialog has only one option, spawn a basic dialog
-         //set_speaking_character_avatar(node_pages_speaker);
-         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_basic_dialog"
-         if (driver) driver->on_before_spawn_basic_dialog(node_pages_speaker);
-         spawn_basic_dialog(
-            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_basic_dialog"
-            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
-            //node_pages_speaker,
-            node_pages
-         );
-         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
-      }
-      else // (node_options_as_text.size() > 1)
-      {
-         // If dialog has multiple options, spawn a "choice" dialog
-         if (node_pages.size() != 1)
-         {
-            throw std::runtime_error(
-               "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
-                  + dialog_name + "\" (because it is going to be used to build a Choice dialog, "
-                  "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
-            );
-         }
-         //set_speaking_character_avatar(node_pages_speaker);
-         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_choice_dialog"
-         if (driver) driver->on_before_spawn_choice_dialog(node_pages_speaker);
-         spawn_choice_dialog(
-            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_choice_dialog"
-            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
-            //node_pages_speaker,
-            node_pages[0],
-            node_options_as_text,
-            cursor_position_on_spawn
-         );
-         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
-      }
-   }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::Wait *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
-
-      float duration_seconds = as->get_duration_sec();
-      spawn_wait_dialog(duration_seconds);
-   }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
-
-      spawn_chapter_title_dialog(
-            as->get_title_text(),
-            as->get_duration()
-         );
-   }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
-   {
-      shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
-                                        // should it be "switch_out" or "shutdown", etc
-   }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
-   {
-      // TODO: Test this event emission
-      get_event_emitter()->emit_exit_game_event();
-   }
-   else
-   {
-      bool handled = false;
-      if (!get_driver())
-      {
-         throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
-               "Expecting get_driver() not to be nullptr"
-         );
-      }
-
-      if (get_driver()->get_activate_dialog_node_type_unhandled_func())
-      {
-         handled = get_driver()->get_activate_dialog_node_type_unhandled_func()(
-               this,
-               get_driver()->get_activate_dialog_node_type_unhandled_func_user_data()
-         );
-      }
-
-      if (!handled)
-      {
-         throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
-               "Unable to handle dialog node activation on type \""
-               + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
-         );
-      }
-   }
-   return true;
 }
 
 
