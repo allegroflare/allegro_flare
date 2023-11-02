@@ -1181,9 +1181,28 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
    {
             if (_driver) _driver->on_raw_script_line_activate( // could find a better name for this method
                this,
-               active_dialog_box,
+               active_dialog_node_name,
+               //active_dialog_box,
                active_dialog_node
+               //user_data
             );
+
+
+   /*
+   - name: dialog_system
+     type: AllegroFlare::DialogSystem::DialogSystem*
+     default_argument: nullptr
+   - name: activating_node_name
+     type: std::string
+     default_argument: '"[unset-activating_node_name]"'
+   - name: activating_node
+     type: AllegroFlare::DialogTree::Nodes::Base*
+     default_argument: nullptr
+   //- name: user_data
+     //type: void*
+     //default_argument: nullptr
+   */
+
       //if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
       // TODO: Handle raw script file through driver
    }
