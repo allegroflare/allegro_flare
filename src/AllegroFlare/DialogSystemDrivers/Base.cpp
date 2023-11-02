@@ -59,7 +59,7 @@ void Base::on_switch_in()
    return;
 }
 
-void Base::on_deactivate()
+void Base::on_switch_out()
 {
    // Rename this to "on_switch_out"
    return;

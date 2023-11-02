@@ -145,7 +145,7 @@ void BasicCharacterDialogDriver::on_switch_in()
    return;
 }
 
-void BasicCharacterDialogDriver::on_deactivate()
+void BasicCharacterDialogDriver::on_switch_out()
 {
    if (active_character_staging_layout) active_character_staging_layout->hide();
    return;

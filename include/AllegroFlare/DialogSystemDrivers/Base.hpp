@@ -35,7 +35,7 @@ namespace AllegroFlare
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> get_activate_dialog_node_type_unhandled_func() const;
          void* get_activate_dialog_node_type_unhandled_func_user_data() const;
          virtual void on_switch_in();
-         virtual void on_deactivate();
+         virtual void on_switch_out();
          virtual void on_render();
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");

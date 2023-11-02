@@ -61,7 +61,7 @@ namespace AllegroFlare
          void initialize();
          void destroy();
          virtual void on_switch_in() override;
-         virtual void on_deactivate() override;
+         virtual void on_switch_out() override;
          virtual void on_render() override;
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;

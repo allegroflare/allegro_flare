@@ -118,7 +118,7 @@ methods:
       return;
 
 
-  - name: on_deactivate
+  - name: on_switch_out
     virtual: true
     override: true
     body: |

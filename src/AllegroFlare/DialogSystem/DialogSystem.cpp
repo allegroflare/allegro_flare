@@ -501,7 +501,7 @@ void DialogSystem::switch_out()
    active_dialog_node = nullptr;
    active_dialog_node_name = "";
 
-   if (_driver) _driver->on_deactivate(); // TODO: This may need to be moved to "switch_out"
+   if (_driver) _driver->on_switch_out(); // TODO: This may need to be moved to "switch_out"
 
    event_emitter->emit_dialog_switch_out_event();
 
