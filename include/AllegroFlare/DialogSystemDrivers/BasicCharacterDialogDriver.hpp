@@ -29,6 +29,8 @@ namespace AllegroFlare
       private:
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::Elements::DialogRoll dialog_roll;
+         std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_activate_dialog_from_raw_script_line_func;
+         void* handle_activate_dialog_from_raw_script_line_func_user_data;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func;
          void* handle_finished_dialog_from_raw_script_line_func_user_data;
          bool initialized;
@@ -46,9 +48,13 @@ namespace AllegroFlare
 
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_dialog_roll(AllegroFlare::Elements::DialogRoll dialog_roll);
+         void set_handle_activate_dialog_from_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_activate_dialog_from_raw_script_line_func);
+         void set_handle_activate_dialog_from_raw_script_line_func_user_data(void* handle_activate_dialog_from_raw_script_line_func_user_data);
          void set_handle_finished_dialog_from_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func);
          void set_handle_finished_dialog_from_raw_script_line_func_user_data(void* handle_finished_dialog_from_raw_script_line_func_user_data);
          AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
+         std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_handle_activate_dialog_from_raw_script_line_func() const;
+         void* get_handle_activate_dialog_from_raw_script_line_func_user_data() const;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_handle_finished_dialog_from_raw_script_line_func() const;
          void* get_handle_finished_dialog_from_raw_script_line_func_user_data() const;
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
@@ -59,6 +65,7 @@ namespace AllegroFlare
          virtual void on_render() override;
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
+         virtual void on_raw_script_line_activate(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr) override;
          virtual void on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr) override;
          virtual std::string decorate_speaking_character_name(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
          void clear_character_staging_layout();

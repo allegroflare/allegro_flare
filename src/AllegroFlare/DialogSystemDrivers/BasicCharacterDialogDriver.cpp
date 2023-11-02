@@ -21,6 +21,8 @@ BasicCharacterDialogDriver::BasicCharacterDialogDriver(AllegroFlare::BitmapBin* 
    : AllegroFlare::DialogSystemDrivers::Base(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE)
    , bitmap_bin(bitmap_bin)
    , dialog_roll()
+   , handle_activate_dialog_from_raw_script_line_func()
+   , handle_activate_dialog_from_raw_script_line_func_user_data(nullptr)
    , handle_finished_dialog_from_raw_script_line_func()
    , handle_finished_dialog_from_raw_script_line_func_user_data(nullptr)
    , initialized(false)
@@ -49,6 +51,18 @@ void BasicCharacterDialogDriver::set_dialog_roll(AllegroFlare::Elements::DialogR
 }
 
 
+void BasicCharacterDialogDriver::set_handle_activate_dialog_from_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_activate_dialog_from_raw_script_line_func)
+{
+   this->handle_activate_dialog_from_raw_script_line_func = handle_activate_dialog_from_raw_script_line_func;
+}
+
+
+void BasicCharacterDialogDriver::set_handle_activate_dialog_from_raw_script_line_func_user_data(void* handle_activate_dialog_from_raw_script_line_func_user_data)
+{
+   this->handle_activate_dialog_from_raw_script_line_func_user_data = handle_activate_dialog_from_raw_script_line_func_user_data;
+}
+
+
 void BasicCharacterDialogDriver::set_handle_finished_dialog_from_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func)
 {
    this->handle_finished_dialog_from_raw_script_line_func = handle_finished_dialog_from_raw_script_line_func;
@@ -64,6 +78,18 @@ void BasicCharacterDialogDriver::set_handle_finished_dialog_from_raw_script_line
 AllegroFlare::Elements::DialogRoll BasicCharacterDialogDriver::get_dialog_roll() const
 {
    return dialog_roll;
+}
+
+
+std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> BasicCharacterDialogDriver::get_handle_activate_dialog_from_raw_script_line_func() const
+{
+   return handle_activate_dialog_from_raw_script_line_func;
+}
+
+
+void* BasicCharacterDialogDriver::get_handle_activate_dialog_from_raw_script_line_func_user_data() const
+{
+   return handle_activate_dialog_from_raw_script_line_func_user_data;
 }
 
 
@@ -140,6 +166,22 @@ void BasicCharacterDialogDriver::on_before_spawn_basic_dialog(std::string speaki
 void BasicCharacterDialogDriver::on_before_spawn_choice_dialog(std::string speaking_character_identifier)
 {
    set_speaking_character_avatar(speaking_character_identifier);
+   return;
+}
+
+void BasicCharacterDialogDriver::on_raw_script_line_activate(AllegroFlare::DialogSystem::DialogSystem* dialog_system, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
+{
+   // TODO: Will you need the dialog node name?
+   if (handle_activate_dialog_from_raw_script_line_func)
+   {
+      handle_activate_dialog_from_raw_script_line_func(
+         dialog_system,
+         active_dialog_box,
+         active_dialog_node,
+         handle_activate_dialog_from_raw_script_line_func_user_data
+      );
+   }
+   // Nothing to do in this case
    return;
 }
 

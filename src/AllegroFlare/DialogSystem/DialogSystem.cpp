@@ -1179,6 +1179,16 @@ bool DialogSystem::__new_on_activate_dialog_node_by_name(std::string active_dial
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
+            if (_driver) _driver->on_raw_script_line_activate( // could find a better name for this method
+               this,
+               active_dialog_box,
+               active_dialog_node
+            );
+      //if (_driver) _driver->on_before_spawn_basic_dialog(node_pages_speaker);
+      // TODO: Handle raw script file through driver
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   {
       AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
          static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
 

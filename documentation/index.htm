@@ -2810,6 +2810,9 @@ table td
   <td class="method">on_before_spawn_choice_dialog(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">on_raw_script_line_activate(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr)</td>
+</tr>
+<tr>
   <td class="method">on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr)</td>
 </tr>
 <tr>
@@ -2846,6 +2849,14 @@ table td
 <tr>
   <td class="property">dialog_roll</td>
   <td class="property">AllegroFlare::Elements::DialogRoll</td>
+</tr>
+<tr>
+  <td class="property">handle_activate_dialog_from_raw_script_line_func</td>
+  <td class="property">std::function&lt;bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">handle_activate_dialog_from_raw_script_line_func_user_data</td>
+  <td class="property">void*</td>
 </tr>
 <tr>
   <td class="property">handle_finished_dialog_from_raw_script_line_func</td>
@@ -2902,6 +2913,9 @@ table td
 </tr>
 <tr>
   <td class="method">on_before_spawn_choice_dialog(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">on_raw_script_line_activate(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr)</td>
 </tr>
 <tr>
   <td class="method">on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr)</td>

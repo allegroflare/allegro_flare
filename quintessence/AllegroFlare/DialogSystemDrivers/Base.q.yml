@@ -70,6 +70,23 @@ methods:
       return;
 
 
+  - name: on_raw_script_line_activate
+    virtual: true
+    parameters:
+      - name: dialog_system
+        type: AllegroFlare::DialogSystem::DialogSystem*
+        default_argument: nullptr
+      - name: active_dialog_box
+        type: AllegroFlare::Elements::DialogBoxes::Base*
+        default_argument: nullptr
+      - name: active_dialog_node
+        type: AllegroFlare::DialogTree::Nodes::Base*
+        default_argument: nullptr
+    body: |
+      // TODO: Consider if this method needs to be removed or modififed
+      return;
+
+
   - name: on_raw_script_line_finished
     virtual: true
     parameters:

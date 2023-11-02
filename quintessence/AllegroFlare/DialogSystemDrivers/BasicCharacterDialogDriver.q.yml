@@ -22,6 +22,18 @@ properties:
     getter: true
     setter: true
 
+  - name: handle_activate_dialog_from_raw_script_line_func
+    type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: handle_activate_dialog_from_raw_script_line_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: handle_finished_dialog_from_raw_script_line_func
     type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)>
     init_with: ''
@@ -138,6 +150,34 @@ methods:
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
       set_speaking_character_avatar(speaking_character_identifier);
+      return;
+
+
+  - name: on_raw_script_line_activate
+    virtual: true
+    override: true
+    parameters:
+      - name: dialog_system
+        type: AllegroFlare::DialogSystem::DialogSystem*
+        default_argument: nullptr
+      - name: active_dialog_box
+        type: AllegroFlare::Elements::DialogBoxes::Base*
+        default_argument: nullptr
+      - name: active_dialog_node
+        type: AllegroFlare::DialogTree::Nodes::Base*
+        default_argument: nullptr
+    body: |
+      // TODO: Will you need the dialog node name?
+      if (handle_activate_dialog_from_raw_script_line_func)
+      {
+         handle_activate_dialog_from_raw_script_line_func(
+            dialog_system,
+            active_dialog_box,
+            active_dialog_node,
+            handle_activate_dialog_from_raw_script_line_func_user_data
+         );
+      }
+      // Nothing to do in this case
       return;
 
 
