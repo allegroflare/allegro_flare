@@ -54,13 +54,13 @@ properties:
     type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
     init_with: ''
     getter: true
-    setter: true
+    setter: explicit
 
   - name: load_node_bank_func_user_data
     type: void*
     init_with: nullptr
     getter: true
-    setter: true
+    setter: explicit
 
   - name: switched_in
     type: bool
@@ -217,6 +217,26 @@ methods:
     body: |
       // TODO: Consider consequences of assigning the driver mid-flight
       this->driver = driver;
+
+
+  - name: set_load_node_bank_func
+    parameters:
+      - name: func
+        type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
+        default_argument: '{}'
+    body: |
+      load_node_bank_func = func;
+      return;
+
+
+  - name: set_load_node_bank_func_user_data
+    parameters:
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    body: |
+      load_node_bank_func_user_data = user_data;
+      return;
 
 
   - name: set_activate_dialog_node_type_unhandled_func

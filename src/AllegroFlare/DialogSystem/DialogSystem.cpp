@@ -64,18 +64,6 @@ DialogSystem::~DialogSystem()
 }
 
 
-void DialogSystem::set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> load_node_bank_func)
-{
-   this->load_node_bank_func = load_node_bank_func;
-}
-
-
-void DialogSystem::set_load_node_bank_func_user_data(void* load_node_bank_func_user_data)
-{
-   this->load_node_bank_func_user_data = load_node_bank_func_user_data;
-}
-
-
 void DialogSystem::set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name)
 {
    this->standard_dialog_box_font_name = standard_dialog_box_font_name;
@@ -242,6 +230,18 @@ void DialogSystem::set_driver(AllegroFlare::DialogSystemDrivers::Base* driver)
 {
    // TODO: Consider consequences of assigning the driver mid-flight
    this->driver = driver;
+}
+
+void DialogSystem::set_load_node_bank_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> func)
+{
+   load_node_bank_func = func;
+   return;
+}
+
+void DialogSystem::set_load_node_bank_func_user_data(void* user_data)
+{
+   load_node_bank_func_user_data = user_data;
+   return;
 }
 
 void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func)

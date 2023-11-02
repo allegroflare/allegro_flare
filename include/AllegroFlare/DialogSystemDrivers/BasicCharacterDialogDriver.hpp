@@ -9,6 +9,7 @@
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/DialogSystem/SceneIndex.hpp>
 #include <AllegroFlare/DialogSystemDrivers/Base.hpp>
+#include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/DialogRoll.hpp>
@@ -33,6 +34,8 @@ namespace AllegroFlare
          void* handle_activate_dialog_from_raw_script_line_func_user_data;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func;
          void* handle_finished_dialog_from_raw_script_line_func_user_data;
+         std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> handle_load_node_bank_from_file_func;
+         void* handle_load_node_bank_from_file_func_user_data;
          bool initialized;
 
       protected:
@@ -52,11 +55,15 @@ namespace AllegroFlare
          void set_handle_activate_dialog_from_raw_script_line_func_user_data(void* handle_activate_dialog_from_raw_script_line_func_user_data);
          void set_handle_finished_dialog_from_raw_script_line_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> handle_finished_dialog_from_raw_script_line_func);
          void set_handle_finished_dialog_from_raw_script_line_func_user_data(void* handle_finished_dialog_from_raw_script_line_func_user_data);
+         void set_handle_load_node_bank_from_file_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> handle_load_node_bank_from_file_func);
+         void set_handle_load_node_bank_from_file_func_user_data(void* handle_load_node_bank_from_file_func_user_data);
          AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
          std::function<bool( AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*) > get_handle_activate_dialog_from_raw_script_line_func() const;
          void* get_handle_activate_dialog_from_raw_script_line_func_user_data() const;
          std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elements::DialogBoxes::Base*, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_handle_finished_dialog_from_raw_script_line_func() const;
          void* get_handle_finished_dialog_from_raw_script_line_func_user_data() const;
+         std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> get_handle_load_node_bank_from_file_func() const;
+         void* get_handle_load_node_bank_from_file_func_user_data() const;
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void initialize();
          void destroy();

@@ -51,6 +51,18 @@ properties:
     getter: true
     setter: true
 
+  - name: handle_load_node_bank_from_file_func
+    type: std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: handle_load_node_bank_from_file_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false

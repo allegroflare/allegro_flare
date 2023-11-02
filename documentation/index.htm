@@ -2430,6 +2430,12 @@ table td
   <td class="method">set_driver(AllegroFlare::DialogSystemDrivers::Base* driver=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">set_load_node_bank_func(std::function&lt;bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)&gt; func={})</td>
+</tr>
+<tr>
+  <td class="method">set_load_node_bank_func_user_data(void* user_data=nullptr)</td>
+</tr>
+<tr>
   <td class="method">set_activate_dialog_node_type_unhandled_func(std::function&lt;bool(AllegroFlare::DialogSystem::DialogSystem*, void*)&gt; activate_dialog_node_type_unhandled_func=)</td>
 </tr>
 <tr>
@@ -2790,6 +2796,9 @@ table td
   <td class="method">on_switch_out()</td>
 </tr>
 <tr>
+  <td class="method">on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string activating_node_name=&quot;[unset-activating_node_name]&quot;)</td>
+</tr>
+<tr>
   <td class="method">on_render()</td>
 </tr>
 <tr>
@@ -2856,6 +2865,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">handle_load_node_bank_from_file_func</td>
+  <td class="property">std::function&lt;bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">handle_load_node_bank_from_file_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -2893,6 +2910,9 @@ table td
 </tr>
 <tr>
   <td class="method">on_switch_out()</td>
+</tr>
+<tr>
+  <td class="method">on_load_node_bank_from_file(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string activating_node_name=&quot;[unset-activating_node_name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">on_render()</td>

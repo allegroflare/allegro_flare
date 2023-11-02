@@ -25,6 +25,8 @@ BasicCharacterDialogDriver::BasicCharacterDialogDriver(AllegroFlare::BitmapBin* 
    , handle_activate_dialog_from_raw_script_line_func_user_data(nullptr)
    , handle_finished_dialog_from_raw_script_line_func()
    , handle_finished_dialog_from_raw_script_line_func_user_data(nullptr)
+   , handle_load_node_bank_from_file_func()
+   , handle_load_node_bank_from_file_func_user_data(nullptr)
    , initialized(false)
    , active_character_staging_layout(nullptr)
    , character_roster(nullptr)
@@ -75,6 +77,18 @@ void BasicCharacterDialogDriver::set_handle_finished_dialog_from_raw_script_line
 }
 
 
+void BasicCharacterDialogDriver::set_handle_load_node_bank_from_file_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> handle_load_node_bank_from_file_func)
+{
+   this->handle_load_node_bank_from_file_func = handle_load_node_bank_from_file_func;
+}
+
+
+void BasicCharacterDialogDriver::set_handle_load_node_bank_from_file_func_user_data(void* handle_load_node_bank_from_file_func_user_data)
+{
+   this->handle_load_node_bank_from_file_func_user_data = handle_load_node_bank_from_file_func_user_data;
+}
+
+
 AllegroFlare::Elements::DialogRoll BasicCharacterDialogDriver::get_dialog_roll() const
 {
    return dialog_roll;
@@ -102,6 +116,18 @@ std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, AllegroFlare::Elem
 void* BasicCharacterDialogDriver::get_handle_finished_dialog_from_raw_script_line_func_user_data() const
 {
    return handle_finished_dialog_from_raw_script_line_func_user_data;
+}
+
+
+std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> BasicCharacterDialogDriver::get_handle_load_node_bank_from_file_func() const
+{
+   return handle_load_node_bank_from_file_func;
+}
+
+
+void* BasicCharacterDialogDriver::get_handle_load_node_bank_from_file_func_user_data() const
+{
+   return handle_load_node_bank_from_file_func_user_data;
 }
 
 
