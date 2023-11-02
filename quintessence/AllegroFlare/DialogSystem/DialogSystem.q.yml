@@ -225,6 +225,7 @@ methods:
         default_argument: ''
     guards: [ _driver ]
     body: |
+      throw std::runtime_error("set_activate_dialog_node_type_unhandled_func: This method is obsolete");
       _driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
       return;
 
@@ -236,6 +237,7 @@ methods:
         default_argument: nullptr
     guards: [ _driver ]
     body: |
+      throw std::runtime_error("set_activate_dialog_node_type_unhandled_func_user_data: This method is obsolete");
       _driver->set_activate_dialog_node_type_unhandled_func_user_data(
             activate_dialog_node_type_unhandled_func_user_data
          );
@@ -413,6 +415,8 @@ methods:
 
       if (activate_dialog_node_by_name_func)
       {
+         throw std::runtime_error("in activate_dialog_node_by_name: calling \"activate_dialog_node_by_name_func\" "
+            "method is obsolete");
          // NEXT:
          // TODO: Remove this "activate_dialog_node_by_name_func" as a feature. Consider:
          // - Callbacks on specific event(s), spawning of dialog, closing of dialog, etc...

@@ -273,6 +273,7 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bo
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func: error: guard \"_driver\" not met");
    }
+   throw std::runtime_error("set_activate_dialog_node_type_unhandled_func: This method is obsolete");
    _driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
    return;
 }
@@ -286,6 +287,7 @@ void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* 
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data: error: guard \"_driver\" not met");
    }
+   throw std::runtime_error("set_activate_dialog_node_type_unhandled_func_user_data: This method is obsolete");
    _driver->set_activate_dialog_node_type_unhandled_func_user_data(
          activate_dialog_node_type_unhandled_func_user_data
       );
@@ -514,6 +516,8 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
    if (activate_dialog_node_by_name_func)
    {
+      throw std::runtime_error("in activate_dialog_node_by_name: calling \"activate_dialog_node_by_name_func\" "
+         "method is obsolete");
       // NEXT:
       // TODO: Remove this "activate_dialog_node_by_name_func" as a feature. Consider:
       // - Callbacks on specific event(s), spawning of dialog, closing of dialog, etc...
