@@ -22,7 +22,6 @@
 #include <AllegroFlare/StringFormatValidator.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro_primitives.h>
-#include <filesystem>
 #include <functional>
 #include <iostream>
 #include <sstream>
