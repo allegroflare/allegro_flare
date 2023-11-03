@@ -143,25 +143,22 @@ documentation:
 
 
   - notes:
-     - Dialog nodes are created externally, and when calling
-  - status:
-     - It's unclear if the call back "_func" design will stay in palce, or if they will all be replaced by a driver
+     - Consider this class mostly frozen for extending features, except in the following cases:
+       - New standard dialog types and logic to handle them and/or spawn them
+       - Additional "on_thing_that_happend" callbacks to the driver.
+     - Any additional features (emitting some consequential event, etc) would be handled in the driver
+  - todo:
      - Having different drivers would move us closer to switching dialogs in and out (maybe a push/pop mechanism)
      - Right now there is no consequence on the driver when the dialog_node_bank is set. It's uncertain what events
        would need to occour.
-     - Other features may need to be integrated to the driver (render(?)), and a clearer abstraction will need to be
-       used so that drivers can be easily used in the DialogSystem
-  - next_steps:
+  - leftover todos:
      - modify process_dialog_event to branch based on the ALLEGRO_FLARE_EVENT_DIALOG_* event
      - remove ALLEGRO_FLARE_OPEN_DIALOG, etc from EventEmitter type events that are no longer used
      - consider if you need to make GameEventDatas for each of the different types of events
-     - review overall the integrety of the system, Add lots of tests, make it so "anybody can emit a dialog event"
-  - todo:
+     - review overall the integrety of the system, Add lots of tests
      - consider revising the arguments in "activate_dialog_node_by_name_func", and when/where the activation occurs
        in coordination with the assignment of the "active_dialog_node" and "active_dialog_node_name"
      - consider that dialog node options in MultipageWithOptions are probably not be deleted properly
-     - Remove the "load_node_bank_func" and "load_node_bank_func_user_data", consider moving to driver but should
-       mostly rely on loading node banks explicitly
 
 
 methods:
