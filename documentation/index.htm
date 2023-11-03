@@ -100,6 +100,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml">quintessence/AllegroFlare/DialogTree/NodeOptions/GoToNode.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ChapterTitle.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ChapterTitle.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/EmitGameEvent.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/EmitGameEvent.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml</a></li>
@@ -2626,6 +2627,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::RawScriptLine&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::EmitGameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogRoll&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogRoll.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -3399,6 +3403,32 @@ table td
 <tr>
   <td class="property">DEFAULT_DURATION</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogTree/Nodes/EmitGameEvent.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/EmitGameEvent.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">game_event_name</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -31547,6 +31577,7 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ChapterTitle",
+    "AllegroFlare/DialogTree/Nodes/EmitGameEvent",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
@@ -31636,6 +31667,9 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/Nodes/RawScriptLine": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/DialogTree/Nodes/EmitGameEvent": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/Elements/DialogRoll": [

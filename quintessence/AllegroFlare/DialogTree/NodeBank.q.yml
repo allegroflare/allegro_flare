@@ -30,6 +30,20 @@ methods:
       nodes[name] = node;
 
 
+  - name: replace_node
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: node
+        type: AllegroFlare::DialogTree::Nodes::Base*
+        default_argument: nullptr
+    guards: [ node, node_exists_by_name(name) ]
+    body: |
+      // TODO: Test this
+      nodes[name] = node;
+
+
   - name: node_exists_by_name
     type: bool
     parameters:

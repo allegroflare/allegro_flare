@@ -1031,6 +1031,7 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/Nodes/ChapterTitle",
+    "AllegroFlare/DialogTree/Nodes/EmitGameEvent",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
@@ -1120,6 +1121,9 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogTree/Nodes/RawScriptLine": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/DialogTree/Nodes/EmitGameEvent": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/Elements/DialogRoll": [
