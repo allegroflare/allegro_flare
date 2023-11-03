@@ -441,13 +441,11 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {
-            if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
-               this,
-               active_dialog_node_name,
-               //active_dialog_box,
-               active_dialog_node
-               //user_data
-            );
+      if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
+         this,
+         active_dialog_node_name,
+         active_dialog_node
+      );
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
