@@ -11,7 +11,6 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <allegro5/allegro.h>
-#include <functional>
 #include <string>
 #include <vector>
 
@@ -79,8 +78,6 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_driver(AllegroFlare::DialogSystemDrivers::Base* driver=nullptr);
-         void set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func);
-         void set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data=nullptr);
          void clear_and_reset();
          void set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank={});
          void load_dialog_node_bank_from_file(std::string filename="[unset-filename]");

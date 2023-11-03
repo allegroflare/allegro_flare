@@ -217,36 +217,6 @@ void DialogSystem::set_driver(AllegroFlare::DialogSystemDrivers::Base* driver)
    this->driver = driver;
 }
 
-void DialogSystem::set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func)
-{
-   if (!(driver))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::set_activate_dialog_node_type_unhandled_func]: error: guard \"driver\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func: error: guard \"driver\" not met");
-   }
-   throw std::runtime_error("set_activate_dialog_node_type_unhandled_func: This method is obsolete");
-   driver->set_activate_dialog_node_type_unhandled_func(activate_dialog_node_type_unhandled_func);
-   return;
-}
-
-void DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data)
-{
-   if (!(driver))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data]: error: guard \"driver\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_activate_dialog_node_type_unhandled_func_user_data: error: guard \"driver\" not met");
-   }
-   throw std::runtime_error("set_activate_dialog_node_type_unhandled_func_user_data: This method is obsolete");
-   driver->set_activate_dialog_node_type_unhandled_func_user_data(
-         activate_dialog_node_type_unhandled_func_user_data
-      );
-   return;
-}
-
 void DialogSystem::clear_and_reset()
 {
    if (active_dialog_box)
@@ -534,22 +504,17 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    else
    {
       bool handled = false;
-      if (!get_driver())
+      if (driver)
       {
-         throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
-               "Expecting get_driver() not to be nullptr"
+         // TODO: Test calling on this "unhandled" case
+         handled = driver->on_activate_dialog_node_type_unhandled(
+            this,
+            active_dialog_node_name,
+            active_dialog_node
          );
       }
 
-      if (get_driver()->get_activate_dialog_node_type_unhandled_func())
-      {
-         handled = get_driver()->get_activate_dialog_node_type_unhandled_func()(
-               this,
-               get_driver()->get_activate_dialog_node_type_unhandled_func_user_data()
-         );
-      }
-
+      // TODO: Test throwing of this when not handled
       if (!handled)
       {
          throw std::runtime_error(

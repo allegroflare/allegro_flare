@@ -13,8 +13,6 @@ namespace DialogSystemDrivers
 
 Base::Base(std::string type)
    : type(type)
-   , activate_dialog_node_type_unhandled_func()
-   , activate_dialog_node_type_unhandled_func_user_data(nullptr)
 {
 }
 
@@ -24,33 +22,9 @@ Base::~Base()
 }
 
 
-void Base::set_activate_dialog_node_type_unhandled_func(std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> activate_dialog_node_type_unhandled_func)
-{
-   this->activate_dialog_node_type_unhandled_func = activate_dialog_node_type_unhandled_func;
-}
-
-
-void Base::set_activate_dialog_node_type_unhandled_func_user_data(void* activate_dialog_node_type_unhandled_func_user_data)
-{
-   this->activate_dialog_node_type_unhandled_func_user_data = activate_dialog_node_type_unhandled_func_user_data;
-}
-
-
 std::string Base::get_type() const
 {
    return type;
-}
-
-
-std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)> Base::get_activate_dialog_node_type_unhandled_func() const
-{
-   return activate_dialog_node_type_unhandled_func;
-}
-
-
-void* Base::get_activate_dialog_node_type_unhandled_func_user_data() const
-{
-   return activate_dialog_node_type_unhandled_func_user_data;
 }
 
 
@@ -100,6 +74,11 @@ void Base::on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem*
    // TODO: Consider renaming this for clarity
    // TODO: Consider if this method needs to be removed or modififed
    return;
+}
+
+bool Base::on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
+{
+   return false;
 }
 
 std::string Base::decorate_speaking_character_name(std::string speaking_character_identifier)

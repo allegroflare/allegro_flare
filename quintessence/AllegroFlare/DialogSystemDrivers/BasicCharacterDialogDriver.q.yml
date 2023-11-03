@@ -256,6 +256,38 @@ methods:
       return;
 
 
+  - name: on_activate_dialog_node_type_unhandled
+    type: bool
+    virtual: true
+    override: true
+    parameters:
+      - name: dialog_system
+        type: AllegroFlare::DialogSystem::DialogSystem*
+        default_argument: nullptr
+      - name: active_dialog_node_name
+        type: std::string
+        default_argument: '""'
+      - name: active_dialog_node
+        type: AllegroFlare::DialogTree::Nodes::Base*
+        default_argument: nullptr
+    body: |
+      // TODO: If you want handle custom dialog nodes, consider adding the properties below to this class, and
+      // calling/using them here in this function:
+
+      //- name: activate_dialog_node_type_unhandled_func
+         //type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)>
+         //init_with: ''
+         //getter: true
+         //setter: true
+
+      //- name: activate_dialog_node_type_unhandled_func_user_data
+         //type: void*
+         //init_with: nullptr
+         //getter: true
+         //setter: true
+      return false;
+
+
   - name: decorate_speaking_character_name
     type: std::string
     virtual: true

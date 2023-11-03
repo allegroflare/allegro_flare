@@ -250,6 +250,25 @@ void BasicCharacterDialogDriver::on_raw_script_line_finished(AllegroFlare::Dialo
    return;
 }
 
+bool BasicCharacterDialogDriver::on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
+{
+   // TODO: If you want handle custom dialog nodes, consider adding the properties below to this class, and
+   // calling/using them here in this function:
+
+   //- name: activate_dialog_node_type_unhandled_func
+      //type: std::function<bool(AllegroFlare::DialogSystem::DialogSystem*, void*)>
+      //init_with: ''
+      //getter: true
+      //setter: true
+
+   //- name: activate_dialog_node_type_unhandled_func_user_data
+      //type: void*
+      //init_with: nullptr
+      //getter: true
+      //setter: true
+   return false;
+}
+
 std::string BasicCharacterDialogDriver::decorate_speaking_character_name(std::string speaking_character_identifier)
 {
    // TODO: Translate the speaking character identifier to display_name
