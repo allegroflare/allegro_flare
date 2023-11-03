@@ -52,7 +52,7 @@ public:
       dialog_system.set_font_bin(&get_font_bin_ref());
       dialog_system.set_event_emitter(&event_emitter);
       dialog_system.initialize();
-      dialog_system.set__driver(driver);
+      dialog_system.set_driver(driver);
    }
 
    virtual void TearDown() override
