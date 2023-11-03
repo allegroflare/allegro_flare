@@ -417,6 +417,13 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       event_emitter->emit_game_event(
          AllegroFlare::GameEvent(as->get_game_event_name(), nullptr) // For now, nullptr data
       );
+      if (!as->get_immediate_next_node_identifier().empty())
+      {
+         // If the "immediate_next_node_identifier" is not blank, activate that node. Note that any
+         // expected consequences of the emitted game event will not have had time to process before this
+         // "immediate_next_node_identifier" is emitted
+         activate_dialog_node_by_name(as->get_immediate_next_node_identifier());
+      }
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {

@@ -15,6 +15,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: immediate_next_node_identifier
+    type: std::string
+    init_with: '"[unset-immediate_next_node_identifier]"'
+    constructor_arg: true
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/DialogTree/Nodes/EmitGameEvent"'
