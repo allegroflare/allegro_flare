@@ -8,6 +8,7 @@
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
+#include <AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
@@ -409,7 +410,15 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
    //std::string &dialog_name = active_dialog_node_name;
 
-   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
+   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(active_dialog_node);
+      event_emitter->emit_game_event(
+         AllegroFlare::GameEvent(as->get_game_event_name(), nullptr) // For now, nullptr data
+      );
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {
       if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
          this,

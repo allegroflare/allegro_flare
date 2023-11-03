@@ -349,7 +349,15 @@ methods:
 
       //std::string &dialog_name = active_dialog_node_name;
 
-      if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
+      if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
+      {
+         AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
+            static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(active_dialog_node);
+         event_emitter->emit_game_event(
+            AllegroFlare::GameEvent(as->get_game_event_name(), nullptr) // For now, nullptr data
+         );
+      }
+      else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
       {
          if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
             this,
@@ -468,6 +476,7 @@ methods:
     body_dependency_symbols:
      - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
      - AllegroFlare::DialogTree::Nodes::RawScriptLine
+     - AllegroFlare::DialogTree::Nodes::EmitGameEvent
      - AllegroFlare::DialogTree::Nodes::ExitDialog
      - AllegroFlare::DialogTree::Nodes::ExitProgram
      - AllegroFlare::DialogTree::Nodes::Wait
@@ -1152,6 +1161,8 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::RawScriptLine
     headers: [ AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::EmitGameEvent
+    headers: [ AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp ]
   - symbol: AllegroFlare::Elements::DialogRoll
     headers: [ AllegroFlare/Elements/DialogRoll.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::Wait
