@@ -299,7 +299,7 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
       AllegroFlare::Logger::throw_error(
             "AllegroFlare::DialogSystem::DialogSystem::load_dialog_node_bank_from_file"
             // TODO: Update this error message
-            "a user \"load_node_bank_func\" has been provided, but it returned false when called, indicating "
+            "\"on_load_node_bank_from_file\" was called on the driver but it returned false, indicating "
                "that it was not able to load the NodeBank as expected."
          );
    }
