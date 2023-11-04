@@ -130,6 +130,7 @@ TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
 
 TEST_F(AllegroFlare_Screens_PauseScreenTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
+   // TODO: Upgrade this to TIMED_INTERACTIVE
 {
    // setup system
    al_install_keyboard();

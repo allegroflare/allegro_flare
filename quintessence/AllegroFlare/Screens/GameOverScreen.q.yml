@@ -76,6 +76,11 @@ properties:
     getter: true
     setter: true
 
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
   - name: DEFAULT_TITLE_TEXT
     type: std::string
     init_with: '"G   A   M   E      O   V   E   R"'
@@ -90,10 +95,12 @@ properties:
     const: true
     setter: false
 
-  - name: initialized
-    type: bool
-    init_with: false
-    getter: true
+  - name: DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE
+    type: std::string
+    init_with: '"AllegroFlare/Screens/GameOverScreen/menu_choice"'
+    static: true
+    const: true
+    setter: false
 
 
 documentation:
@@ -125,7 +132,7 @@ functions:
 
   - name: initialize
     body: |
-      menu_options = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
+      //menu_options = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
       cursor_position = 0;
       initialized = true;
       return;
@@ -148,6 +155,7 @@ functions:
   - name: move_cursor_up
     private: true
     body: |
+      if (menu_options.empty()) return;
       cursor_position--;
       if (cursor_position < 0) cursor_position += menu_options.size();
       return;
@@ -156,6 +164,7 @@ functions:
   - name: move_cursor_down
     private: true
     body: |
+      if (menu_options.empty()) return;
       cursor_position++;
       if (cursor_position >= menu_options.size()) cursor_position = cursor_position % menu_options.size();
       return;
@@ -165,9 +174,20 @@ functions:
     private: true
     guards: [ event_emitter ]
     body: |
-      std::string current_menu_option_value = infer_current_menu_option_value();
-      event_emitter->emit_game_event(current_menu_option_value);
+      std::string game_event_name_to_emit = "";
+      if (!menu_options.empty())
+      {
+         std::string current_menu_option_value = infer_current_menu_option_value();
+         game_event_name_to_emit = current_menu_option_value;
+      }
+      else
+      {
+         // TODO: Test this emission of this default value
+         game_event_name_to_emit = DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE;
+      }
+      event_emitter->emit_game_event(game_event_name_to_emit);
       // TODO: Test this callback
+      // TODO: Consider if callback should override emission of game event
       if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
       return;
 

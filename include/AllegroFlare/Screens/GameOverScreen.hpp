@@ -32,9 +32,10 @@ namespace AllegroFlare
          int title_font_size;
          std::string menu_font_name;
          int menu_font_size;
+         bool initialized;
          static std::string DEFAULT_TITLE_TEXT;
          static std::vector<std::pair<std::string, std::string>> DEFAULT_MENU_OPTIONS;
-         bool initialized;
+         static std::string DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE;
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
