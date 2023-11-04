@@ -73,13 +73,6 @@ properties:
     getter: true
     setter: true
 
-  - name: game_event_name_to_emit_on_submission
-    type: std::string
-    init_with: '"game_won_finished"'
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: DEFAULT_TITLE_TEXT
     type: std::string
     init_with: '"Y   O   U      W   I   N"'
@@ -212,7 +205,6 @@ functions:
         type: bool
         default_argument: false
     body: |
-      event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
       // TODO: Test this callback
       if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
 

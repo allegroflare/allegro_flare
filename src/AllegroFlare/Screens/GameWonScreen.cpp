@@ -19,7 +19,7 @@ std::string GameWonScreen::DEFAULT_TITLE_TEXT = "Y   O   U      W   I   N";
 std::string GameWonScreen::DEFAULT_INSTRUCTION_TEXT = "Press any button";
 
 
-GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string instruction_text, std::string instruction_font_name, int instruction_font_size, std::string game_event_name_to_emit_on_submission)
+GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string instruction_text, std::string instruction_font_name, int instruction_font_size)
    : AllegroFlare::Screens::Base("GameWonScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -31,7 +31,6 @@ GameWonScreen::GameWonScreen(AllegroFlare::EventEmitter* event_emitter, AllegroF
    , instruction_text(instruction_text)
    , instruction_font_name(instruction_font_name)
    , instruction_font_size(instruction_font_size)
-   , game_event_name_to_emit_on_submission(game_event_name_to_emit_on_submission)
 {
 }
 
@@ -101,12 +100,6 @@ void GameWonScreen::set_instruction_font_size(int instruction_font_size)
 }
 
 
-void GameWonScreen::set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission)
-{
-   this->game_event_name_to_emit_on_submission = game_event_name_to_emit_on_submission;
-}
-
-
 std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)> GameWonScreen::get_on_submit_callback_func() const
 {
    return on_submit_callback_func;
@@ -140,12 +133,6 @@ std::string GameWonScreen::get_instruction_font_name() const
 int GameWonScreen::get_instruction_font_size() const
 {
    return instruction_font_size;
-}
-
-
-std::string GameWonScreen::get_game_event_name_to_emit_on_submission() const
-{
-   return game_event_name_to_emit_on_submission;
 }
 
 
@@ -256,7 +243,6 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
 
 void GameWonScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
-   event_emitter->emit_game_event(game_event_name_to_emit_on_submission);
    // TODO: Test this callback
    if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
 }

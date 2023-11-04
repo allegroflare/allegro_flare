@@ -29,7 +29,6 @@ namespace AllegroFlare
          std::string instruction_text;
          std::string instruction_font_name;
          int instruction_font_size;
-         std::string game_event_name_to_emit_on_submission;
          static std::string DEFAULT_TITLE_TEXT;
          static std::string DEFAULT_INSTRUCTION_TEXT;
          ALLEGRO_FONT* obtain_title_font();
@@ -39,7 +38,7 @@ namespace AllegroFlare
 
 
       public:
-         GameWonScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, std::string title_font_name="Inter-Regular.ttf", int title_font_size=-64, std::string instruction_text=DEFAULT_INSTRUCTION_TEXT, std::string instruction_font_name="Inter-Regular.ttf", int instruction_font_size=-32, std::string game_event_name_to_emit_on_submission="game_won_finished");
+         GameWonScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string title_text=DEFAULT_TITLE_TEXT, std::string title_font_name="Inter-Regular.ttf", int title_font_size=-64, std::string instruction_text=DEFAULT_INSTRUCTION_TEXT, std::string instruction_font_name="Inter-Regular.ttf", int instruction_font_size=-32);
          virtual ~GameWonScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
@@ -52,14 +51,12 @@ namespace AllegroFlare
          void set_instruction_text(std::string instruction_text);
          void set_instruction_font_name(std::string instruction_font_name);
          void set_instruction_font_size(int instruction_font_size);
-         void set_game_event_name_to_emit_on_submission(std::string game_event_name_to_emit_on_submission);
          std::function<void(AllegroFlare::Screens::GameWonScreen*, void*)> get_on_submit_callback_func() const;
          void* get_on_submit_callback_func_user_data() const;
          std::string get_title_font_name() const;
          int get_title_font_size() const;
          std::string get_instruction_font_name() const;
          int get_instruction_font_size() const;
-         std::string get_game_event_name_to_emit_on_submission() const;
          virtual void on_activate() override;
          virtual void on_deactivate() override;
          virtual void primary_timer_func() override;
