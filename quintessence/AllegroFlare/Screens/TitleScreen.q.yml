@@ -420,8 +420,8 @@ functions:
          case STATE_MENU_OPTION_IS_CHOSEN:
             if (!menu_option_activated && state_age > menu_option_selection_to_activation_delay)
             {
-               std::string current_menu_option_value = infer_current_menu_option_value();
-               activate_menu_option(current_menu_option_value);
+               //std::string current_menu_option_value = infer_current_menu_option_value();
+               activate_current_selected_menu_option(); //current_menu_option_value);
                menu_option_chosen = false;
                menu_option_activated = true;
                set_state(STATE_FINISHED);
@@ -558,15 +558,13 @@ functions:
       return;
 
 
-  - name: activate_menu_option
+  - name: activate_current_selected_menu_option
     virtual: true
-    parameters:
-      - name: menu_option_name
-        type: std::string
-        default_argument: '"[unset-menu-option-name]"'
     guards: [ event_emitter ]
     body: |
-      event_emitter->emit_game_event(menu_option_name);
+      // TODO: Consider case where there is an emtpy list
+      std::string current_menu_option_value = infer_current_menu_option_value();
+      event_emitter->emit_game_event(current_menu_option_value);
       // TODO: Test this callback
       if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
       return;

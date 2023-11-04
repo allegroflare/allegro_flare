@@ -588,8 +588,8 @@ void TitleScreen::update(float time_now)
       case STATE_MENU_OPTION_IS_CHOSEN:
          if (!menu_option_activated && state_age > menu_option_selection_to_activation_delay)
          {
-            std::string current_menu_option_value = infer_current_menu_option_value();
-            activate_menu_option(current_menu_option_value);
+            //std::string current_menu_option_value = infer_current_menu_option_value();
+            activate_current_selected_menu_option(); //current_menu_option_value);
             menu_option_chosen = false;
             menu_option_activated = true;
             set_state(STATE_FINISHED);
@@ -691,16 +691,18 @@ void TitleScreen::move_cursor_down()
    return;
 }
 
-void TitleScreen::activate_menu_option(std::string menu_option_name)
+void TitleScreen::activate_current_selected_menu_option()
 {
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::activate_menu_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[TitleScreen::activate_current_selected_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::activate_menu_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("TitleScreen::activate_current_selected_menu_option: error: guard \"event_emitter\" not met");
    }
-   event_emitter->emit_game_event(menu_option_name);
+   // TODO: Consider case where there is an emtpy list
+   std::string current_menu_option_value = infer_current_menu_option_value();
+   event_emitter->emit_game_event(current_menu_option_value);
    // TODO: Test this callback
    if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
    return;
