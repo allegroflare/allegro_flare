@@ -95,13 +95,6 @@ properties:
     const: true
     setter: false
 
-  - name: DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE
-    type: std::string
-    init_with: '"AllegroFlare/Screens/GameOverScreen/menu_choice"'
-    static: true
-    const: true
-    setter: false
-
 
 documentation:
 
@@ -182,19 +175,6 @@ functions:
     private: true
     guards: [ event_emitter ]
     body: |
-      std::string game_event_name_to_emit = "";
-      if (!menu_options.empty())
-      {
-         // TODO: Test this selection of the menu option
-         std::string current_menu_option_value = infer_current_menu_option_value();
-         game_event_name_to_emit = current_menu_option_value;
-      }
-      else
-      {
-         // TODO: Test this emission of this default value
-         game_event_name_to_emit = DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE;
-      }
-      event_emitter->emit_game_event(game_event_name_to_emit);
       // TODO: Test this callback
       // TODO: Consider if callback should override emission of game event
       if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
@@ -287,7 +267,6 @@ functions:
 
 
   - name: infer_current_menu_option_value
-    private: true
     type: std::string
     body: |
       if (menu_options.empty()) return "";
@@ -301,7 +280,6 @@ functions:
 
 
   - name: infer_current_menu_option_label
-    private: true
     type: std::string
     body: |
       if (menu_options.empty()) return "";

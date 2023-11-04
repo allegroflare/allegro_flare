@@ -72,12 +72,6 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
-   select_menu_option__when_menu_options_is_empty__will_emit_a_DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE)
-{
-   // TODO
-}
-
 
 TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)

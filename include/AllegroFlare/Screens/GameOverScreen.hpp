@@ -35,12 +35,9 @@ namespace AllegroFlare
          bool initialized;
          static std::string DEFAULT_TITLE_TEXT;
          static std::vector<std::pair<std::string, std::string>> DEFAULT_MENU_OPTIONS;
-         static std::string DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE;
          void move_cursor_up();
          void move_cursor_down();
          void activate_current_selected_menu_option();
-         std::string infer_current_menu_option_value();
-         std::string infer_current_menu_option_label();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_menu_font();
 
@@ -77,6 +74,8 @@ namespace AllegroFlare
          void render();
          void draw_primary_text();
          void draw_menu();
+         std::string infer_current_menu_option_value();
+         std::string infer_current_menu_option_label();
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
       };
    }

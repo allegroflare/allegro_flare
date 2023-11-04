@@ -20,9 +20,6 @@ std::string GameOverScreen::DEFAULT_TITLE_TEXT = "G   A   M   E      O   V   E  
 std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OPTIONS = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
 
 
-std::string GameOverScreen::DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE = "AllegroFlare/Screens/GameOverScreen/menu_choice";
-
-
 GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
    : AllegroFlare::Screens::Base("GameOverScreen")
    , event_emitter(event_emitter)
@@ -203,19 +200,6 @@ void GameOverScreen::activate_current_selected_menu_option()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("GameOverScreen::activate_current_selected_menu_option: error: guard \"event_emitter\" not met");
    }
-   std::string game_event_name_to_emit = "";
-   if (!menu_options.empty())
-   {
-      // TODO: Test this selection of the menu option
-      std::string current_menu_option_value = infer_current_menu_option_value();
-      game_event_name_to_emit = current_menu_option_value;
-   }
-   else
-   {
-      // TODO: Test this emission of this default value
-      game_event_name_to_emit = DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE;
-   }
-   event_emitter->emit_game_event(game_event_name_to_emit);
    // TODO: Test this callback
    // TODO: Consider if callback should override emission of game event
    if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
