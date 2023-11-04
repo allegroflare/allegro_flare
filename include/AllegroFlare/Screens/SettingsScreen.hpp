@@ -28,7 +28,8 @@ namespace AllegroFlare
          int surface_width;
          int surface_height;
          bool initialized;
-         ALLEGRO_FONT* obtain_font();
+         ALLEGRO_FONT* obtain_heading_font();
+         ALLEGRO_FONT* obtain_text_font();
 
       protected:
 

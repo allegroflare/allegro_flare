@@ -199,18 +199,23 @@ void SettingsScreen::update()
 
 void SettingsScreen::render()
 {
-   ALLEGRO_FONT *font = obtain_font();
-   int font_line_height = al_get_font_line_height(font);
+   ALLEGRO_FONT *heading_font = obtain_heading_font();
+   ALLEGRO_FONT *text_font = obtain_text_font();
+   int text_font_line_height = al_get_font_line_height(text_font);
+
+   // Draw the heading
    al_draw_text(
-      font,
+      heading_font,
       ALLEGRO_COLOR{1, 1, 1, 1},
       surface_width/2,
       surface_height/2-100,
       ALLEGRO_ALIGN_CENTER,
       "Settings"
    );
+
+   // Draw the placeholder text
    al_draw_text(
-      font,
+      text_font,
       ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
       surface_width/2,
       surface_height/2,
@@ -218,10 +223,10 @@ void SettingsScreen::render()
       "There are no settings to configure."
    );
    al_draw_text(
-      font,
+      text_font,
       ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
       surface_width/2,
-      surface_height/2+font_line_height,
+      surface_height/2+text_font_line_height,
       ALLEGRO_ALIGN_CENTER,
       "Press any key to continue"
    );
@@ -281,14 +286,26 @@ void SettingsScreen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    return;
 }
 
-ALLEGRO_FONT* SettingsScreen::obtain_font()
+ALLEGRO_FONT* SettingsScreen::obtain_heading_font()
 {
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[SettingsScreen::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[SettingsScreen::obtain_heading_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SettingsScreen::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("SettingsScreen::obtain_heading_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-Regular.ttf -52");
+}
+
+ALLEGRO_FONT* SettingsScreen::obtain_text_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[SettingsScreen::obtain_text_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SettingsScreen::obtain_text_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -32");
 }

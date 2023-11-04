@@ -143,18 +143,23 @@ methods:
 
   - name: render
     body: |
-      ALLEGRO_FONT *font = obtain_font();
-      int font_line_height = al_get_font_line_height(font);
+      ALLEGRO_FONT *heading_font = obtain_heading_font();
+      ALLEGRO_FONT *text_font = obtain_text_font();
+      int text_font_line_height = al_get_font_line_height(text_font);
+
+      // Draw the heading
       al_draw_text(
-         font,
+         heading_font,
          ALLEGRO_COLOR{1, 1, 1, 1},
          surface_width/2,
          surface_height/2-100,
          ALLEGRO_ALIGN_CENTER,
          "Settings"
       );
+
+      // Draw the placeholder text
       al_draw_text(
-         font,
+         text_font,
          ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
          surface_width/2,
          surface_height/2,
@@ -162,10 +167,10 @@ methods:
          "There are no settings to configure."
       );
       al_draw_text(
-         font,
+         text_font,
          ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5},
          surface_width/2,
-         surface_height/2+font_line_height,
+         surface_height/2+text_font_line_height,
          ALLEGRO_ALIGN_CENTER,
          "Press any key to continue"
       );
@@ -239,7 +244,15 @@ methods:
       return;
 
 
-  - name: obtain_font
+  - name: obtain_heading_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -52");
+
+
+  - name: obtain_text_font
     private: true
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
