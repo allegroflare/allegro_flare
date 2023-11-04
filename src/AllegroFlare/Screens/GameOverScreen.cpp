@@ -204,6 +204,7 @@ void GameOverScreen::activate_current_selected_menu_option()
    std::string game_event_name_to_emit = "";
    if (!menu_options.empty())
    {
+      // TODO: Test this selection of the menu option
       std::string current_menu_option_value = infer_current_menu_option_value();
       game_event_name_to_emit = current_menu_option_value;
    }
