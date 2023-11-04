@@ -7,8 +7,10 @@
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/SettingsScreen.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
+#include <functional>
 
 
 namespace AllegroFlare
@@ -25,6 +27,8 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::ModelBin* model_bin;
+         std::function<void(AllegroFlare::Screens::SettingsScreen*, void*)> on_exit_callback_func;
+         void* on_exit_callback_func_user_data;
          int surface_width;
          int surface_height;
          bool initialized;
@@ -38,7 +42,11 @@ namespace AllegroFlare
          SettingsScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
          virtual ~SettingsScreen();
 
+         void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::SettingsScreen*, void*)> on_exit_callback_func);
+         void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          void set_surface_height(int surface_height);
+         std::function<void(AllegroFlare::Screens::SettingsScreen*, void*)> get_on_exit_callback_func() const;
+         void* get_on_exit_callback_func_user_data() const;
          int get_surface_width() const;
          int get_surface_height() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
@@ -46,6 +54,7 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr);
          void initialize();
+         void exit_screen();
          virtual void on_activate() override;
          virtual void on_deactivate() override;
          void update();

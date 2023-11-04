@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/SettingsScreen.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -20,6 +21,8 @@ SettingsScreen::SettingsScreen(AllegroFlare::EventEmitter* event_emitter, Allegr
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , model_bin(model_bin)
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , surface_width(1920)
    , surface_height(1080)
    , initialized(false)
@@ -32,9 +35,33 @@ SettingsScreen::~SettingsScreen()
 }
 
 
+void SettingsScreen::set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::SettingsScreen*, void*)> on_exit_callback_func)
+{
+   this->on_exit_callback_func = on_exit_callback_func;
+}
+
+
+void SettingsScreen::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
+{
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
+}
+
+
 void SettingsScreen::set_surface_height(int surface_height)
 {
    this->surface_height = surface_height;
+}
+
+
+std::function<void(AllegroFlare::Screens::SettingsScreen*, void*)> SettingsScreen::get_on_exit_callback_func() const
+{
+   return on_exit_callback_func;
+}
+
+
+void* SettingsScreen::get_on_exit_callback_func_user_data() const
+{
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -165,6 +192,23 @@ void SettingsScreen::initialize()
    return;
 }
 
+void SettingsScreen::exit_screen()
+{
+   if (on_exit_callback_func)
+   {
+      on_exit_callback_func(this, on_exit_callback_func_user_data);
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::SettingsScreen::exit_screen",
+         "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+      );
+   }
+
+   return;
+}
+
 void SettingsScreen::on_activate()
 {
    if (!(initialized))
@@ -270,6 +314,7 @@ void SettingsScreen::virtual_control_button_down_func(AllegroFlare::Player* play
       throw std::runtime_error("SettingsScreen::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
    // TODO: this function
+   exit_screen();
    return;
 }
 

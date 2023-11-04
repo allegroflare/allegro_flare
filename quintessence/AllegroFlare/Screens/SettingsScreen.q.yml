@@ -29,6 +29,18 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: on_exit_callback_func
+    type: std::function<void(AllegroFlare::Screens::SettingsScreen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_exit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: surface_width
     type: int
     init_with: 1920
@@ -115,6 +127,25 @@ methods:
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+
+
+  - name: exit_screen
+    body: |
+      if (on_exit_callback_func)
+      {
+         on_exit_callback_func(this, on_exit_callback_func_user_data);
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Screens::SettingsScreen::exit_screen",
+            "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+         );
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: on_activate
@@ -228,6 +259,7 @@ methods:
     guards: [ initialized ]
     body: |
       // TODO: this function
+      exit_screen();
       return;
 
 
@@ -263,6 +295,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::Screens::SettingsScreen
+    headers: [ AllegroFlare/Screens/SettingsScreen.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_EVENT
@@ -283,5 +317,7 @@ dependencies:
     headers: [ AllegroFlare/Player.hpp ]
   - symbol: AllegroFlare::VirtualControllers::Base
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
