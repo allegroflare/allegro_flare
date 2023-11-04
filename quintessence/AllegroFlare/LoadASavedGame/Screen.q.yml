@@ -1,0 +1,227 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: AllegroFlare::LoadASavedGame::Screen::TYPE
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/LoadASavedGame/Screen"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: set_event_emitter
+    guards: [ (!initialized) ]
+    parameters:
+      - name: event_emitter
+        type: AllegroFlare::EventEmitter*
+        default_argument: nullptr
+    body: |
+      this->event_emitter = event_emitter;
+      return;
+
+
+  - name: set_bitmap_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    body: |
+      this->bitmap_bin = bitmap_bin;
+      return;
+
+
+  - name: set_font_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+    body: |
+      this->font_bin = font_bin;
+      return;
+
+
+  - name: set_model_bin
+    guards: [ (!initialized) ]
+    parameters:
+      - name: model_bin
+        type: AllegroFlare::ModelBin*
+        default_argument: nullptr
+    body: |
+      this->model_bin = model_bin;
+      return;
+      return;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - event_emitter
+      - bitmap_bin
+      - font_bin
+      - model_bin
+    body: |
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      //emit_event_to_update_input_hints_bar();
+      //emit_show_and_size_input_hints_bar_event();
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      //emit_hide_and_restore_size_input_hints_bar_event();
+      return;
+
+
+  - name: update
+    body: |
+      return;
+
+
+  - name: render
+    body: |
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      update();
+      render();
+      return;
+
+
+  - name: virtual_control_button_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    guards: [ initialized ]
+    body: |
+      // TODO: this function
+      return;
+
+
+  - name: virtual_control_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    guards: [ initialized ]
+    body: |
+      // TODO: this function
+      return;
+
+
+  - name: virtual_control_axis_change_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      // TODO: this function
+      return;
+
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+
+
