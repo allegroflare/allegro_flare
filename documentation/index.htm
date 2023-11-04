@@ -23683,6 +23683,14 @@ table td
   <td class="property">AllegroFlare::ModelBin*</td>
 </tr>
 <tr>
+  <td class="property">on_exit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::SettingsScreen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">surface_width</td>
   <td class="property">int</td>
 </tr>
@@ -23753,6 +23761,9 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::SettingsScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/SettingsScreen.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
@@ -23781,6 +23792,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30731,6 +30745,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor",
@@ -33647,6 +33662,9 @@ table td
   ],
   "AllegroFlare/Screens/RollingCredits": [
     "AllegroFlare/Screens/RollingCredits"
+  ],
+  "AllegroFlare/Screens/SettingsScreen": [
+    "AllegroFlare/Screens/SettingsScreen"
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"

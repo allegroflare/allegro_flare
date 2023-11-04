@@ -42,6 +42,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/VirtualControlsProcessor",
@@ -2958,6 +2959,9 @@
   ],
   "AllegroFlare/Screens/RollingCredits": [
     "AllegroFlare/Screens/RollingCredits"
+  ],
+  "AllegroFlare/Screens/SettingsScreen": [
+    "AllegroFlare/Screens/SettingsScreen"
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
