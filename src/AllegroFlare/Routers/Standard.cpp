@@ -107,6 +107,7 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_EXIT_GAME, "EVENT_EXIT_GAME"},
       {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
       {EVENT_CONTINUE_A_SAVED_GAME, "EVENT_CONTINUE_A_SAVED_GAME"},
+      {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
       {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
       {EVENT_LOSE_GAME, "EVENT_LOSE_GAME"},
       {EVENT_START_LEVEL, "EVENT_START_LEVEL"},
@@ -200,6 +201,9 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: game_session.continue_session();
 
          // activate gameplay_screen
+      }},
+      { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
+         // TODO: Implement an callback on this event
       }},
       { EVENT_WIN_GAME, [this](){
          // TODO: Finish the actions in this event

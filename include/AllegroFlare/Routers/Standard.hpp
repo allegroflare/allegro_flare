@@ -42,6 +42,7 @@ namespace AllegroFlare
             EVENT_EXIT_GAME,
             EVENT_START_NEW_GAME,
             EVENT_CONTINUE_A_SAVED_GAME,
+            EVENT_CONTINUE_FROM_LAST_SAVE,
             EVENT_WIN_GAME,
             EVENT_LOSE_GAME,
             EVENT_START_LEVEL,
