@@ -39,7 +39,6 @@ namespace AllegroFlare
          void move_cursor_up();
          void move_cursor_down();
          void activate_current_selected_menu_option();
-         void select_menu_option();
          std::string infer_current_menu_option_value();
          std::string infer_current_menu_option_label();
          ALLEGRO_FONT* obtain_title_font();
@@ -69,9 +68,11 @@ namespace AllegroFlare
          int get_menu_font_size() const;
          bool get_initialized() const;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
+         void clear_menu_options();
          void initialize();
          virtual void on_activate() override;
          virtual void on_deactivate() override;
+         void select_menu_option();
          virtual void primary_timer_func() override;
          void render();
          void draw_primary_text();

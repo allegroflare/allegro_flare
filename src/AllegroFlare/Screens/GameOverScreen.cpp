@@ -144,16 +144,18 @@ bool GameOverScreen::get_initialized() const
 
 void GameOverScreen::set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options)
 {
-   if (!((!menu_options.empty())))
-   {
-      std::stringstream error_message;
-      error_message << "[GameOverScreen::set_menu_options]: error: guard \"(!menu_options.empty())\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::set_menu_options: error: guard \"(!menu_options.empty())\" not met");
-   }
    // TODO: add tests for this feature
    // TODO: Validate menu options (unique labels, non-empty datas)
    this->menu_options = menu_options;
+   cursor_position = 0;
+   return;
+}
+
+void GameOverScreen::clear_menu_options()
+{
+   // TODO: add tests for this feature
+   // TODO: Validate menu options (unique labels, non-empty datas)
+   this->menu_options = {};
    cursor_position = 0;
    return;
 }

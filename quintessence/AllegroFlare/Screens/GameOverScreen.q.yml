@@ -121,11 +121,19 @@ functions:
       - name: menu_options
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
-    guards: [ (!menu_options.empty()) ]
     body: |
       // TODO: add tests for this feature
       // TODO: Validate menu options (unique labels, non-empty datas)
       this->menu_options = menu_options;
+      cursor_position = 0;
+      return;
+
+
+  - name: clear_menu_options
+    body: |
+      // TODO: add tests for this feature
+      // TODO: Validate menu options (unique labels, non-empty datas)
+      this->menu_options = {};
       cursor_position = 0;
       return;
 
@@ -194,7 +202,6 @@ functions:
 
 
   - name: select_menu_option
-    private: true
     guards: [ event_emitter ]
     body: |
       // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
