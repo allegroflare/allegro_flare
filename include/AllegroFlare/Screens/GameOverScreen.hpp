@@ -38,6 +38,7 @@ namespace AllegroFlare
          static std::string DEFAULT_GAME_EVENT_TO_EMIT_ON_EMPTY_MENU_CHOICE;
          void move_cursor_up();
          void move_cursor_down();
+         void activate_current_selected_menu_option();
          void select_menu_option();
          std::string infer_current_menu_option_value();
          std::string infer_current_menu_option_label();

@@ -170,7 +170,7 @@ functions:
       return;
 
 
-  - name: select_menu_option
+  - name: activate_current_selected_menu_option
     private: true
     guards: [ event_emitter ]
     body: |
@@ -189,6 +189,15 @@ functions:
       // TODO: Test this callback
       // TODO: Consider if callback should override emission of game event
       if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+      return;
+
+
+  - name: select_menu_option
+    private: true
+    guards: [ event_emitter ]
+    body: |
+      // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
+      activate_current_selected_menu_option();
       return;
 
 

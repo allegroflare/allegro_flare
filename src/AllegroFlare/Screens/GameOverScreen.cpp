@@ -192,14 +192,14 @@ void GameOverScreen::move_cursor_down()
    return;
 }
 
-void GameOverScreen::select_menu_option()
+void GameOverScreen::activate_current_selected_menu_option()
 {
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::select_menu_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[GameOverScreen::activate_current_selected_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::select_menu_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("GameOverScreen::activate_current_selected_menu_option: error: guard \"event_emitter\" not met");
    }
    std::string game_event_name_to_emit = "";
    if (!menu_options.empty())
@@ -216,6 +216,20 @@ void GameOverScreen::select_menu_option()
    // TODO: Test this callback
    // TODO: Consider if callback should override emission of game event
    if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+   return;
+}
+
+void GameOverScreen::select_menu_option()
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[GameOverScreen::select_menu_option]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("GameOverScreen::select_menu_option: error: guard \"event_emitter\" not met");
+   }
+   // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
+   activate_current_selected_menu_option();
    return;
 }
 
