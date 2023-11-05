@@ -3,6 +3,7 @@
 #include <AllegroFlare/LoadASavedGame/Screen.hpp>
 
 #include <AllegroFlare/LoadASavedGame/SaveSlotRenderer.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -22,6 +23,9 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , font_bin(font_bin)
    , model_bin(model_bin)
    , save_slots({})
+   , cursor_position(0)
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , initialized(false)
 {
 }
@@ -32,15 +36,33 @@ Screen::~Screen()
 }
 
 
-void Screen::set_save_slots(std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots)
+void Screen::set_on_exit_callback_func(std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_exit_callback_func)
 {
-   this->save_slots = save_slots;
+   this->on_exit_callback_func = on_exit_callback_func;
+}
+
+
+void Screen::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
+{
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
 }
 
 
 std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Screen::get_save_slots() const
 {
    return save_slots;
+}
+
+
+std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> Screen::get_on_exit_callback_func() const
+{
+   return on_exit_callback_func;
+}
+
+
+void* Screen::get_on_exit_callback_func_user_data() const
+{
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -94,6 +116,19 @@ void Screen::set_model_bin(AllegroFlare::ModelBin* model_bin)
    }
    this->model_bin = model_bin;
    return;
+}
+
+void Screen::set_save_slots(std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_save_slots]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_save_slots: error: guard \"(!initialized)\" not met");
+   }
+   this->save_slots = save_slots;
+   cursor_position = 0;
    return;
 }
 
@@ -168,6 +203,7 @@ void Screen::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
    }
+   cursor_position = 0;
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
    return;
@@ -183,6 +219,39 @@ void Screen::on_deactivate()
       throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
    }
    //emit_hide_and_restore_size_input_hints_bar_event();
+   return;
+}
+
+void Screen::move_cursor_up()
+{
+   if (save_slots.empty()) return;
+   cursor_position--;
+   if (cursor_position < 0) cursor_position += save_slots.size();
+   return;
+}
+
+void Screen::move_cursor_down()
+{
+   if (save_slots.empty()) return;
+   cursor_position++;
+   if (cursor_position >= save_slots.size()) cursor_position -= save_slots.size();
+   return;
+}
+
+void Screen::exit_screen()
+{
+   if (on_exit_callback_func)
+   {
+      on_exit_callback_func(this, on_exit_callback_func_user_data);
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::LoadASavedGame::Screen::exit_screen",
+         "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+      );
+   }
+
    return;
 }
 
@@ -240,16 +309,29 @@ void Screen::primary_timer_func()
    return;
 }
 
-void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
+void Screen::key_char_func(ALLEGRO_EVENT* event)
 {
-   if (!(initialized))
+   if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[Screen::key_char_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("Screen::key_char_func: error: guard \"event\" not met");
    }
-   // TODO: this function
+   switch(event->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_UP:
+         move_cursor_up();
+      break;
+
+      case ALLEGRO_KEY_DOWN:
+         move_cursor_down();
+      break;
+
+      case ALLEGRO_KEY_Q:
+         exit_screen();
+      break;
+   }
    return;
 }
 

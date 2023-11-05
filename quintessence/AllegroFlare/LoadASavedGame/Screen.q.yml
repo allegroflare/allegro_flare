@@ -33,6 +33,22 @@ properties:
     type: std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*>
     init_with: '{}'
     getter: true
+    setter: explicit
+
+  - name: cursor_position
+    type: int
+    init_with: 0
+
+  - name: on_exit_callback_func
+    type: std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_exit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
     setter: true
 
   - name: initialized
@@ -91,6 +107,18 @@ methods:
     body: |
       this->model_bin = model_bin;
       return;
+
+
+  - name: set_save_slots
+    guards: [ (!initialized) ]
+    parameters:
+      - name: save_slots
+        type: std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*>
+        default_argument: '{}'
+    guards: [ (save_slots.size() <= 3) ]
+    body: |
+      this->save_slots = save_slots;
+      cursor_position = 0;
       return;
 
 
@@ -116,6 +144,7 @@ methods:
     override: true
     guards: [ initialized ]
     body: |
+      cursor_position = 0;
       //emit_event_to_update_input_hints_bar();
       //emit_show_and_size_input_hints_bar_event();
       return;
@@ -128,6 +157,41 @@ methods:
     body: |
       //emit_hide_and_restore_size_input_hints_bar_event();
       return;
+
+
+  - name: move_cursor_up
+    body: |
+      if (save_slots.empty()) return;
+      cursor_position--;
+      if (cursor_position < 0) cursor_position += save_slots.size();
+      return;
+
+
+  - name: move_cursor_down
+    body: |
+      if (save_slots.empty()) return;
+      cursor_position++;
+      if (cursor_position >= save_slots.size()) cursor_position -= save_slots.size();
+      return;
+
+
+  - name: exit_screen
+    body: |
+      if (on_exit_callback_func)
+      {
+         on_exit_callback_func(this, on_exit_callback_func_user_data);
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::LoadASavedGame::Screen::exit_screen",
+            "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+         );
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: update
@@ -182,25 +246,29 @@ methods:
       return;
 
 
-  - name: virtual_control_button_up_func
+  - name: key_char_func
     virtual: true
     override: true
     parameters:
-      - name: player
-        type: AllegroFlare::Player*
+      - name: event
+        type: ALLEGRO_EVENT*
         default_argument: nullptr
-      - name: virtual_controller
-        type: AllegroFlare::VirtualControllers::Base*
-        default_argument: nullptr
-      - name: virtual_controller_button_num
-        type: int
-        default_argument: 0
-      - name: is_repeat
-        type: bool
-        default_argument: false
-    guards: [ initialized ]
+    guards: [ event ]
     body: |
-      // TODO: this function
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+            move_cursor_up();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            move_cursor_down();
+         break;
+
+         case ALLEGRO_KEY_Q:
+            exit_screen();
+         break;
+      }
       return;
 
 
@@ -258,6 +326,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::LoadASavedGame::Screen
+    headers: [ AllegroFlare/LoadASavedGame/Screen.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_EVENT
@@ -282,5 +352,7 @@ dependencies:
     headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
   - symbol: AllegroFlare::LoadASavedGame::SaveSlotRenderer
     headers: [ AllegroFlare/LoadASavedGame/SaveSlotRenderer.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
