@@ -82,6 +82,13 @@ properties:
     const: true
     constexpr: true
 
+  - name: LOAD_A_SAVED_GAME_SCREEN_IDENTIFIER
+    type: char*
+    init_with: '(char*)"load_a_saved_game_screen"'
+    static: true
+    const: true
+    constexpr: true
+
   - name: NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER
     type: char*
     init_with: '(char*)"new_game_intro_storyboard_screen"'
@@ -182,6 +189,7 @@ enums:
       - EVENT_ACTIVATE_ACHIEVEMENTS_SCREEN
       - EVENT_ACTIVATE_SETTINGS_SCREEN
       - EVENT_ACTIVATE_VERSION_SCREEN
+      - EVENT_ACTIVATE_LOAD_A_SAVED_GAME_SCREEN
       - EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN
       - EVENT_ACTIVATE_LEVEL_SELECT_SCREEN
       - EVENT_ACTIVATE_GAME_OVER_SCREEN
@@ -468,6 +476,9 @@ methods:
          }},
          { EVENT_ACTIVATE_VERSION_SCREEN, [this](){
             activate_screen(VERSION_SCREEN_IDENTIFIER);
+         }},
+         { EVENT_ACTIVATE_LOAD_A_SAVED_GAME_SCREEN, [this](){
+            activate_screen(LOAD_A_SAVED_GAME_SCREEN_IDENTIFIER);
          }},
          { EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN, [this](){
             activate_screen(NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER);

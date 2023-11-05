@@ -450,6 +450,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
          move_cursor_down();
       break;
 
+      case ALLEGRO_KEY_D:
+         erase_current_focused_save_slot();
+      break;
+
       case ALLEGRO_KEY_Q:
       case ALLEGRO_KEY_X:
          exit_screen();

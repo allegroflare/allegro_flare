@@ -347,6 +347,9 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       { EVENT_ACTIVATE_VERSION_SCREEN, [this](){
          activate_screen(VERSION_SCREEN_IDENTIFIER);
       }},
+      { EVENT_ACTIVATE_LOAD_A_SAVED_GAME_SCREEN, [this](){
+         activate_screen(LOAD_A_SAVED_GAME_SCREEN_IDENTIFIER);
+      }},
       { EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN, [this](){
          activate_screen(NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
