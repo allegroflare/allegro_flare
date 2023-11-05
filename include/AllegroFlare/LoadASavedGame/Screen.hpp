@@ -32,6 +32,8 @@ namespace AllegroFlare
          AllegroFlare::ModelBin* model_bin;
          std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots;
          int cursor_position;
+         std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_menu_choice_callback_func;
+         void* on_menu_choice_callback_func_user_data;
          std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_exit_callback_func;
          void* on_exit_callback_func_user_data;
          bool initialized;
@@ -45,9 +47,13 @@ namespace AllegroFlare
          Screen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
          virtual ~Screen();
 
+         void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_menu_choice_callback_func);
+         void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
          void set_on_exit_callback_func(std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_exit_callback_func);
          void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> get_save_slots() const;
+         std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> get_on_menu_choice_callback_func() const;
+         void* get_on_menu_choice_callback_func_user_data() const;
          std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
@@ -61,6 +67,8 @@ namespace AllegroFlare
          void move_cursor_up();
          void move_cursor_down();
          void exit_screen();
+         void activate_current_focused_menu_option();
+         void select_current_focused_menu_option();
          void update();
          void render();
          void render_title();

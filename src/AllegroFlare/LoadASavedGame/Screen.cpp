@@ -24,7 +24,9 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , model_bin(model_bin)
    , save_slots({})
    , cursor_position(0)
-   , on_exit_callback_func()
+   , on_menu_choice_callback_func({})
+   , on_menu_choice_callback_func_user_data(nullptr)
+   , on_exit_callback_func({})
    , on_exit_callback_func_user_data(nullptr)
    , initialized(false)
 {
@@ -33,6 +35,18 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
 
 Screen::~Screen()
 {
+}
+
+
+void Screen::set_on_menu_choice_callback_func(std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_menu_choice_callback_func)
+{
+   this->on_menu_choice_callback_func = on_menu_choice_callback_func;
+}
+
+
+void Screen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
+{
+   this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
 }
 
 
@@ -51,6 +65,18 @@ void Screen::set_on_exit_callback_func_user_data(void* on_exit_callback_func_use
 std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Screen::get_save_slots() const
 {
    return save_slots;
+}
+
+
+std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> Screen::get_on_menu_choice_callback_func() const
+{
+   return on_menu_choice_callback_func;
+}
+
+
+void* Screen::get_on_menu_choice_callback_func_user_data() const
+{
+   return on_menu_choice_callback_func_user_data;
 }
 
 
@@ -240,6 +266,7 @@ void Screen::move_cursor_down()
 
 void Screen::exit_screen()
 {
+   // TODO: Test this method
    if (on_exit_callback_func)
    {
       on_exit_callback_func(this, on_exit_callback_func_user_data);
@@ -252,6 +279,30 @@ void Screen::exit_screen()
       );
    }
 
+   return;
+}
+
+void Screen::activate_current_focused_menu_option()
+{
+   // TODO: Test this method
+   if (on_menu_choice_callback_func)
+   {
+      on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::LoadASavedGame::Screen::activate_current_focused_menu_option",
+         "Expecting an \"on_menu_choice_callback_func\" to be present, but it is not."
+      );
+   }
+   return;
+}
+
+void Screen::select_current_focused_menu_option()
+{
+   // For now, do a direct call to activate the option
+   select_current_focused_menu_option();
    return;
 }
 
@@ -330,6 +381,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
 
       case ALLEGRO_KEY_Q:
          exit_screen();
+      break;
+
+      case ALLEGRO_KEY_ENTER:
+         select_current_focused_menu_option();
       break;
    }
    return;

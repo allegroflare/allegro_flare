@@ -36,6 +36,7 @@
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
+    "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
@@ -2259,6 +2260,9 @@
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
+    "AllegroFlare/LoadASavedGame/Screen"
+  ],
+  "AllegroFlare/LoadASavedGame/Screen": [
     "AllegroFlare/LoadASavedGame/Screen"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlotRenderer": [
