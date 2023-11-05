@@ -14070,6 +14070,10 @@ table td
   <td class="property">AllegroFlare::ModelBin*</td>
 </tr>
 <tr>
+  <td class="property">save_slots</td>
+  <td class="property">std::vector&lt;AllegroFlare::LoadASavedGame::SaveSlots::Base*&gt;</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -14148,6 +14152,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlotRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlotRenderer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -33322,7 +33332,11 @@ table td
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
-    "AllegroFlare/LoadASavedGame/SaveSlots/Empty"
+    "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
+    "AllegroFlare/LoadASavedGame/Screen"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlotRenderer": [
+    "AllegroFlare/LoadASavedGame/Screen"
   ],
   "AllegroFlare/ConsoleColors": [
     "AllegroFlare/Logger"

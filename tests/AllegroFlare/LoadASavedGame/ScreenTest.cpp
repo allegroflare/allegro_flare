@@ -6,6 +6,8 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 //#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Basic.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 
 class AllegroFlare_LoadASavedGame_ScreenTest : public ::testing::Test {};
 class AllegroFlare_LoadASavedGame_ScreenTestWithAllegroRenderingFixture
@@ -14,7 +16,6 @@ class AllegroFlare_LoadASavedGame_ScreenTestWithAllegroRenderingFixture
 class AllegroFlare_LoadASavedGame_ScreenTestWithAllegroFrameworksFullFixture
    : public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
 {};
-
 
 
 TEST_F(AllegroFlare_LoadASavedGame_ScreenTest, can_be_created_without_blowing_up)
@@ -45,6 +46,13 @@ TEST_F(AllegroFlare_LoadASavedGame_ScreenTestWithAllegroFrameworksFullFixture,
    screen.set_bitmap_bin(get_framework_bitmap_bin());
    screen.set_font_bin(get_framework_font_bin());
    screen.set_model_bin(get_framework_model_bin());
+
+   screen.set_save_slots({
+      new AllegroFlare::LoadASavedGame::SaveSlots::Basic("Saved Game 1"),
+      new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
+      new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
+   });
+
    screen.initialize();
 
    framework_register_and_activate_screen("screen", &screen);

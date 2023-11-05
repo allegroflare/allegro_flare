@@ -27,7 +27,7 @@ properties:
 
   - name: height
     type: float
-    init_with: 1080/8
+    init_with: 1080/7
     getter: true
     setter: true
 
@@ -54,7 +54,7 @@ methods:
       //float text_height = al_get_font_line_height(font);
       float h_text_width = width/2;
       float h_text_height = height/2;
-      AllegroFlare::Vec2D padding = {30, 20};
+      AllegroFlare::Vec2D padding = {0, 0};
 
       al_draw_rounded_rectangle(
          x-h_text_width - padding.x,

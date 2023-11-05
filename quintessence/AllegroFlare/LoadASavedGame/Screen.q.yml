@@ -137,13 +137,14 @@ methods:
 
   - name: render
     body: |
-      float y_cursor = 300;
-      float y_distance = 1080/7;
+      float y_cursor = 400;
+      float y_distance = 1080/6;
       int i=0;
       for (auto &save_slot : save_slots)
       {
          // HERE: Continue on this
          AllegroFlare::LoadASavedGame::SaveSlotRenderer renderer;
+         renderer.set_font_bin(font_bin);
          renderer.render(
             save_slot,
             1920/2,

@@ -23,7 +23,7 @@ Basic::Basic(AllegroFlare::FontBin* font_bin, std::string save_name)
    , x(1920/2)
    , y(1080/3)
    , width(1920/2)
-   , height(1080/8)
+   , height(1080/7)
    , save_name(save_name)
 {
 }
@@ -138,7 +138,7 @@ void Basic::render()
    //float text_height = al_get_font_line_height(font);
    float h_text_width = width/2;
    float h_text_height = height/2;
-   AllegroFlare::Vec2D padding = {30, 20};
+   AllegroFlare::Vec2D padding = {0, 0};
 
    al_draw_rounded_rectangle(
       x-h_text_width - padding.x,

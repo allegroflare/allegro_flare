@@ -32,6 +32,18 @@ SaveSlotRenderer::~SaveSlotRenderer()
 }
 
 
+void SaveSlotRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+AllegroFlare::FontBin* SaveSlotRenderer::get_font_bin() const
+{
+   return font_bin;
+}
+
+
 void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* save_slot, float x, float y)
 {
    if (!(al_is_system_installed()))
