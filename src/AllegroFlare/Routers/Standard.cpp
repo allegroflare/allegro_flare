@@ -23,6 +23,10 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , game_session()
    , on_route_event_unhandled_func({})
    , on_route_event_unhandled_func_user_data(nullptr)
+   , on_load_last_played_session_or_start_new_func({})
+   , on_load_last_played_session_or_start_new_func_user_data(nullptr)
+   , on_create_new_session_func({})
+   , on_create_new_session_func_user_data(nullptr)
    , on_continue_from_last_save_func({})
    , on_continue_from_last_save_func_user_data(nullptr)
 {
@@ -55,6 +59,30 @@ void Standard::set_on_route_event_unhandled_func(std::function<bool(uint32_t, Al
 void Standard::set_on_route_event_unhandled_func_user_data(void* on_route_event_unhandled_func_user_data)
 {
    this->on_route_event_unhandled_func_user_data = on_route_event_unhandled_func_user_data;
+}
+
+
+void Standard::set_on_load_last_played_session_or_start_new_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_last_played_session_or_start_new_func)
+{
+   this->on_load_last_played_session_or_start_new_func = on_load_last_played_session_or_start_new_func;
+}
+
+
+void Standard::set_on_load_last_played_session_or_start_new_func_user_data(void* on_load_last_played_session_or_start_new_func_user_data)
+{
+   this->on_load_last_played_session_or_start_new_func_user_data = on_load_last_played_session_or_start_new_func_user_data;
+}
+
+
+void Standard::set_on_create_new_session_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_create_new_session_func)
+{
+   this->on_create_new_session_func = on_create_new_session_func;
+}
+
+
+void Standard::set_on_create_new_session_func_user_data(void* on_create_new_session_func_user_data)
+{
+   this->on_create_new_session_func_user_data = on_create_new_session_func_user_data;
 }
 
 
@@ -91,6 +119,30 @@ std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> Standard:
 void* Standard::get_on_route_event_unhandled_func_user_data() const
 {
    return on_route_event_unhandled_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_load_last_played_session_or_start_new_func() const
+{
+   return on_load_last_played_session_or_start_new_func;
+}
+
+
+void* Standard::get_on_load_last_played_session_or_start_new_func_user_data() const
+{
+   return on_load_last_played_session_or_start_new_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_create_new_session_func() const
+{
+   return on_create_new_session_func;
+}
+
+
+void* Standard::get_on_create_new_session_func_user_data() const
+{
+   return on_create_new_session_func_user_data;
 }
 
 
@@ -198,6 +250,29 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
 
       { EVENT_INITIALIZE, [this](){
          // TODO: Consider different initial route depending on deployment environment
+
+         // TODO: Test this method callback
+         if (on_load_last_played_session_or_start_new_func)
+         {
+            // TODO: Consider if this should return a boolean on success
+            // As a convenience, attempt to load the game session that was running the last time the game was
+            // played
+            on_load_last_played_session_or_start_new_func(
+               this,
+               on_load_last_played_session_or_start_new_func_user_data
+            );
+         }
+         else
+         {
+            // TODO: Add boolean option to remove this warning
+            AllegroFlare::Logger::warn_from(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "on EVENT_INITIALIZE, expecting an \"on_load_last_played_session_or_start_new_func\" to be present, "
+                  "but it is not."
+            );
+         }
+         game_session.start_session();
+
          emit_route_event(EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
       }},
       { EVENT_EXIT_GAME, [this](){
@@ -212,10 +287,27 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       // Game Events
 
       { EVENT_START_NEW_GAME, [this](){
-         // start new session
+         // Start new session
+         if (game_session.is_active()) { game_session.end_session(); }
+
+         // TODO: Test this method callback
+         if (on_create_new_session_func)
+         {
+            // TODO: Consider if this should return a boolean on success
+            on_create_new_session_func(this, on_create_new_session_func_user_data);
+         }
+         else
+         {
+            // TODO: Add boolean option to remove this warning
+            AllegroFlare::Logger::warn_from(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "on EVENT_START_NEW_GAME, expecting an \"on_create_new_session_func\" to be present, "
+                  "but it is not."
+            );
+         }
          game_session.start_session();
 
-         // activate new_game_intro_storyboards
+         // Start the intro storyboard
          emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
