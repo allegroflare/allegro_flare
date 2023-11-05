@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::LoadASavedGame::SaveSlots::Base
+    scope: public
+    init_with: AllegroFlare::LoadASavedGame::SaveSlots::Empty::TYPE
+
+
+properties:
+
+
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/LoadASavedGame/SaveSlots/Empty"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: property_is
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_property());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Base
+    headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
+
+

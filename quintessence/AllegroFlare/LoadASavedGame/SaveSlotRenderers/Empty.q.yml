@@ -5,6 +5,7 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: x
     type: float

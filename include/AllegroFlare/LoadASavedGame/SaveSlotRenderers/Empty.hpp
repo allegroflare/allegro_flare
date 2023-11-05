@@ -30,6 +30,7 @@ namespace AllegroFlare
             Empty(AllegroFlare::FontBin* font_bin=nullptr, std::string text="Empty");
             ~Empty();
 
+            void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_x(float x);
             void set_y(float y);
             void set_width(float width);

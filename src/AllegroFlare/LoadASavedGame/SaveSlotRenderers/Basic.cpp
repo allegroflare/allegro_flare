@@ -34,6 +34,12 @@ Basic::~Basic()
 }
 
 
+void Basic::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
 void Basic::set_x(float x)
 {
    this->x = x;
@@ -58,6 +64,12 @@ void Basic::set_height(float height)
 }
 
 
+void Basic::set_save_name(std::string save_name)
+{
+   this->save_name = save_name;
+}
+
+
 float Basic::get_x() const
 {
    return x;
@@ -79,6 +91,12 @@ float Basic::get_width() const
 float Basic::get_height() const
 {
    return height;
+}
+
+
+std::string Basic::get_save_name() const
+{
+   return save_name;
 }
 
 

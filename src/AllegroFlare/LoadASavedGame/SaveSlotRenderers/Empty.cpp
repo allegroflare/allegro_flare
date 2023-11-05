@@ -34,6 +34,12 @@ Empty::~Empty()
 }
 
 
+void Empty::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
 void Empty::set_x(float x)
 {
    this->x = x;

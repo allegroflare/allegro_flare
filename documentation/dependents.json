@@ -2242,7 +2242,20 @@
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
   ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Basic": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Empty": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic"
   ],
   "AllegroFlare/ConsoleColors": [

@@ -5,6 +5,7 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: x
     type: float
@@ -34,6 +35,8 @@ properties:
     type: std::string
     init_with: '"Saved Game"'
     constructor_arg: true
+    getter: true
+    setter: true
 
 
 methods:

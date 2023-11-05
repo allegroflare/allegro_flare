@@ -13806,7 +13806,7 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">render()</td>
+  <td class="method">render(AllegroFlare::LoadASavedGame::SaveSlots::Base* save_slot=nullptr, float x=0, float y=0)</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>
@@ -13828,6 +13828,21 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Empty&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlotRenderers::Empty&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -13983,7 +13998,7 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">property</td>
+  <td class="property">save_name</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -13993,9 +14008,6 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
-</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -33265,7 +33277,20 @@ table td
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
   ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Basic": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Empty": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic"
   ],
   "AllegroFlare/ConsoleColors": [

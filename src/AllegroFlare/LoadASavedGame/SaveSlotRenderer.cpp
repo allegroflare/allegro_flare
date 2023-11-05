@@ -67,8 +67,8 @@ void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* sav
    if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))
    {
       // TODO: Test this rendering type
-      AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic *as =
-         static_cast<AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic*>(base);
+      AllegroFlare::LoadASavedGame::SaveSlots::Basic *as =
+         static_cast<AllegroFlare::LoadASavedGame::SaveSlots::Basic*>(save_slot);
 
       AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic renderer;
       renderer.set_font_bin(font_bin);
@@ -89,6 +89,14 @@ void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* sav
       renderer.set_width(slot_width);
       renderer.set_height(slot_height);
       renderer.render();
+   }
+   else
+   {
+      // TODO: Test this thrown error
+      std::stringstream error_message;
+      error_message << "AllegroFlare::LoadASavedGame::SaveSlotRenderer::render error: "
+                    << "Unhandled type \"" << save_slot->get_type() << "\"";
+      throw std::runtime_error(error_message.str());
    }
    return;
 }
