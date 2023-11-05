@@ -343,26 +343,32 @@ void Screen::render_save_slots()
          x,
          y
       );
-      i++;
 
       // If this is currently focused under the cursor, draw the cursor (for now)
       // TODO: Replace this with a more active cursor
       bool this_save_slot_is_focused = (i == cursor_position);
       if (this_save_slot_is_focused)
       {
+         float roundness = 6.0f;
+         float padding_x = 20;
+         float padding_y = 15;
          float slot_width = renderer.get_slot_width();
          float slot_h_width = slot_width/2;
          float slot_height = renderer.get_slot_height();
          float slot_h_height = slot_height/2;
-         al_draw_rectangle(
-            x-slot_h_width,
-            y-slot_h_height,
-            x+slot_h_width,
-            y+slot_h_height,
+         al_draw_rounded_rectangle(
+            x-slot_h_width - padding_x,
+            y-slot_h_height - padding_y,
+            x+slot_h_width + padding_x,
+            y+slot_h_height + padding_y,
+            roundness,
+            roundness,
             ALLEGRO_COLOR{1, 1, 1, 1},
             6.0
          );
       }
+
+      i++;
    }
    return;
 }
