@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/LoadASavedGame/Screen.hpp>
 
+#include <AllegroFlare/LoadASavedGame/SaveSlotRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -20,6 +21,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , model_bin(model_bin)
+   , save_slots({})
    , initialized(false)
 {
 }
@@ -27,6 +29,18 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
 
 Screen::~Screen()
 {
+}
+
+
+void Screen::set_save_slots(std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots)
+{
+   this->save_slots = save_slots;
+}
+
+
+std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Screen::get_save_slots() const
+{
+   return save_slots;
 }
 
 
@@ -179,6 +193,20 @@ void Screen::update()
 
 void Screen::render()
 {
+   float y_cursor = 300;
+   float y_distance = 1080/7;
+   int i=0;
+   for (auto &save_slot : save_slots)
+   {
+      // HERE: Continue on this
+      AllegroFlare::LoadASavedGame::SaveSlotRenderer renderer;
+      renderer.render(
+         save_slot,
+         1920/2,
+         y_cursor + y_distance*i
+      );
+      i++;
+   }
    return;
 }
 

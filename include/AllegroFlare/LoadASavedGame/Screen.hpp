@@ -4,11 +4,13 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -25,6 +27,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::ModelBin* model_bin;
+         std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots;
          bool initialized;
 
       protected:
@@ -34,6 +37,8 @@ namespace AllegroFlare
          Screen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
          virtual ~Screen();
 
+         void set_save_slots(std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots);
+         std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> get_save_slots() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

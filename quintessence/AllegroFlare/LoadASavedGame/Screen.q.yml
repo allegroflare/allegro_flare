@@ -29,6 +29,12 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: save_slots
+    type: std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -131,7 +137,23 @@ methods:
 
   - name: render
     body: |
+      float y_cursor = 300;
+      float y_distance = 1080/7;
+      int i=0;
+      for (auto &save_slot : save_slots)
+      {
+         // HERE: Continue on this
+         AllegroFlare::LoadASavedGame::SaveSlotRenderer renderer;
+         renderer.render(
+            save_slot,
+            1920/2,
+            y_cursor + y_distance*i
+         );
+         i++;
+      }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::LoadASavedGame::SaveSlotRenderer
 
 
   - name: primary_timer_func
@@ -223,5 +245,9 @@ dependencies:
     headers: [ AllegroFlare/Player.hpp ]
   - symbol: AllegroFlare::VirtualControllers::Base
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Base
+    headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
+  - symbol: AllegroFlare::LoadASavedGame::SaveSlotRenderer
+    headers: [ AllegroFlare/LoadASavedGame/SaveSlotRenderer.hpp ]
 
 
