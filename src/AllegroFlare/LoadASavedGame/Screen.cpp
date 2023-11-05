@@ -407,6 +407,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
       break;
 
       case ALLEGRO_KEY_Q:
+      case ALLEGRO_KEY_X:
          exit_screen();
       break;
 
