@@ -124,6 +124,14 @@ public:
       (*((uint32_t*)user_data)) = unhandled_event;
       return true;
    }
+   static bool my_on_create_new_session_func(
+         AllegroFlare::Routers::Standard *router,
+         void* user_data
+      )
+   {
+      // TODO: Modify the game session Progress member: router->get_game_session_ref()...
+      (*((int*)user_data))++;
+   }
 };
 
 
@@ -238,11 +246,13 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 will_stop_the_existing_session__call_the__on_create_new_session_func__and_start_a_new_session)
 {
    router.get_game_session_ref().start_session();
-   //EXPECT_THROW_WITH_MESSAGE(
-      //router.on_route_event(AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME),
-      //std::runtime_error,
-      //"GameSession::start_session: error: guard \"(!active)\" not met"
-   //);
+
+   int call_count = 0;
+   router.set_on_create_new_session_func(my_on_create_new_session_func);
+   router.set_on_create_new_session_func_user_data(&call_count);
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME);
+
+   EXPECT_EQ(1, call_count);
 }
 
 
