@@ -42,7 +42,6 @@ namespace AllegroFlare
             EVENT_INITIALIZE,
             EVENT_EXIT_GAME,
             EVENT_START_NEW_GAME,
-            EVENT_CONTINUE_A_SAVED_GAME,
             EVENT_CONTINUE_FROM_LAST_SAVE,
             EVENT_WIN_GAME,
             EVENT_LOSE_GAME,
@@ -78,8 +77,8 @@ namespace AllegroFlare
          AllegroFlare::GameSession game_session;
          std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> on_route_event_unhandled_func;
          void* on_route_event_unhandled_func_user_data;
-         std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_a_saved_game_func;
-         void* on_continue_a_saved_game_func_user_data;
+         std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func;
+         void* on_continue_from_last_save_func_user_data;
 
       protected:
 
@@ -92,14 +91,14 @@ namespace AllegroFlare
          void set_load_level_handler(std::function<bool(AllegroFlare::RouteEventDatas::Base*)> load_level_handler);
          void set_on_route_event_unhandled_func(std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> on_route_event_unhandled_func);
          void set_on_route_event_unhandled_func_user_data(void* on_route_event_unhandled_func_user_data);
-         void set_on_continue_a_saved_game_func(std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_a_saved_game_func);
-         void set_on_continue_a_saved_game_func_user_data(void* on_continue_a_saved_game_func_user_data);
+         void set_on_continue_from_last_save_func(std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func);
+         void set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          std::function<bool(AllegroFlare::RouteEventDatas::Base*)> get_load_level_handler() const;
          std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> get_on_route_event_unhandled_func() const;
          void* get_on_route_event_unhandled_func_user_data() const;
-         std::function<bool(AllegroFlare::Routers::Standard*, void*)> get_on_continue_a_saved_game_func() const;
-         void* get_on_continue_a_saved_game_func_user_data() const;
+         std::function<bool(AllegroFlare::Routers::Standard*, void*)> get_on_continue_from_last_save_func() const;
+         void* get_on_continue_from_last_save_func_user_data() const;
          AllegroFlare::GameSession &get_game_session_ref();
          void emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
          static std::string name_for_route_event(uint32_t route_event=0);

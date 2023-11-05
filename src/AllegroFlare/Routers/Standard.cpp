@@ -23,8 +23,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , game_session()
    , on_route_event_unhandled_func({})
    , on_route_event_unhandled_func_user_data(nullptr)
-   , on_continue_a_saved_game_func({})
-   , on_continue_a_saved_game_func_user_data(nullptr)
+   , on_continue_from_last_save_func({})
+   , on_continue_from_last_save_func_user_data(nullptr)
 {
 }
 
@@ -58,15 +58,15 @@ void Standard::set_on_route_event_unhandled_func_user_data(void* on_route_event_
 }
 
 
-void Standard::set_on_continue_a_saved_game_func(std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_a_saved_game_func)
+void Standard::set_on_continue_from_last_save_func(std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func)
 {
-   this->on_continue_a_saved_game_func = on_continue_a_saved_game_func;
+   this->on_continue_from_last_save_func = on_continue_from_last_save_func;
 }
 
 
-void Standard::set_on_continue_a_saved_game_func_user_data(void* on_continue_a_saved_game_func_user_data)
+void Standard::set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data)
 {
-   this->on_continue_a_saved_game_func_user_data = on_continue_a_saved_game_func_user_data;
+   this->on_continue_from_last_save_func_user_data = on_continue_from_last_save_func_user_data;
 }
 
 
@@ -94,15 +94,15 @@ void* Standard::get_on_route_event_unhandled_func_user_data() const
 }
 
 
-std::function<bool(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_continue_a_saved_game_func() const
+std::function<bool(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_continue_from_last_save_func() const
 {
-   return on_continue_a_saved_game_func;
+   return on_continue_from_last_save_func;
 }
 
 
-void* Standard::get_on_continue_a_saved_game_func_user_data() const
+void* Standard::get_on_continue_from_last_save_func_user_data() const
 {
-   return on_continue_a_saved_game_func_user_data;
+   return on_continue_from_last_save_func_user_data;
 }
 
 
@@ -132,7 +132,6 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_INITIALIZE, "EVENT_INITIALIZE"},
       {EVENT_EXIT_GAME, "EVENT_EXIT_GAME"},
       {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
-      {EVENT_CONTINUE_A_SAVED_GAME, "EVENT_CONTINUE_A_SAVED_GAME"},
       {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
       {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
       {EVENT_LOSE_GAME, "EVENT_LOSE_GAME"},
@@ -219,7 +218,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // activate new_game_intro_storyboards
          emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
       }},
-      { EVENT_CONTINUE_A_SAVED_GAME, [this](){
+      { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
          // TODO: Finish the actions in this event
          // Event data: game session id
 
@@ -227,18 +226,17 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: game_session.continue_session();
 
          // activate gameplay_screen
-      }},
-      { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
+
          // TODO: Test this callback
-         if (on_continue_a_saved_game_func)
+         if (on_continue_from_last_save_func)
          {
-            on_continue_a_saved_game_func(this, on_continue_a_saved_game_func_user_data);
+            on_continue_from_last_save_func(this, on_continue_from_last_save_func_user_data);
          }
          else
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::Routers::Standard::on_route_event",
-               "on EVENT_CONTINUE_FROM_LAST_SAVE, expecting an \"on_continue_a_saved_game_func\" to be present, "
+               "on EVENT_CONTINUE_FROM_LAST_SAVE, expecting an \"on_continue_from_last_save_func\" to be present, "
                   "but it is not."
             );
          }
