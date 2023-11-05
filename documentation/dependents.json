@@ -429,6 +429,7 @@
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
+    "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",

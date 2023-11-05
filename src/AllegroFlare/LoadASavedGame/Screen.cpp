@@ -193,6 +193,21 @@ void Screen::update()
 
 void Screen::render()
 {
+   render_title();
+   render_save_slots();
+   return;
+}
+
+void Screen::render_title()
+{
+   ALLEGRO_FONT *font = obtain_heading_font();
+   float line_height = al_get_font_line_height(font);
+   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 300-line_height, ALLEGRO_ALIGN_CENTER, "Load a Saved Game");
+   return;
+}
+
+void Screen::render_save_slots()
+{
    float y_cursor = 400;
    float y_distance = 1080/6;
    int i=0;
@@ -262,6 +277,30 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    }
    // TODO: this function
    return;
+}
+
+ALLEGRO_FONT* Screen::obtain_heading_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_heading_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_heading_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-Regular.ttf -46");
+}
+
+ALLEGRO_FONT* Screen::obtain_text_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_text_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_text_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-Regular.ttf -32");
 }
 
 

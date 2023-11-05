@@ -137,6 +137,21 @@ methods:
 
   - name: render
     body: |
+      render_title();
+      render_save_slots();
+      return;
+
+
+  - name: render_title
+    body: |
+      ALLEGRO_FONT *font = obtain_heading_font();
+      float line_height = al_get_font_line_height(font);
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 300-line_height, ALLEGRO_ALIGN_CENTER, "Load a Saved Game");
+      return;
+
+
+  - name: render_save_slots
+    body: |
       float y_cursor = 400;
       float y_distance = 1080/6;
       int i=0;
@@ -224,10 +239,27 @@ methods:
       return;
 
 
+  - name: obtain_heading_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -46");
+
+
+  - name: obtain_text_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -32");
+
 
 dependencies:
 
 
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_EVENT
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Screens::Base

@@ -14112,6 +14112,12 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
+  <td class="method">render_title()</td>
+</tr>
+<tr>
+  <td class="method">render_save_slots()</td>
+</tr>
+<tr>
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
@@ -14123,9 +14129,18 @@ table td
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
 </tr>
+<tr>
+  <td class="private_method">obtain_heading_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_text_font()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -31504,6 +31519,7 @@ table td
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
+    "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
