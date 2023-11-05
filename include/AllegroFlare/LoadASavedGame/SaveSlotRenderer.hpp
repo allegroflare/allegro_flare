@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
 
@@ -24,7 +25,7 @@ namespace AllegroFlare
          SaveSlotRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string quote="Hello!");
          ~SaveSlotRenderer();
 
-         void render();
+         void render(AllegroFlare::LoadASavedGame::SaveSlots::Base* save_slot=nullptr, float x=0, float y=0);
       };
    }
 }

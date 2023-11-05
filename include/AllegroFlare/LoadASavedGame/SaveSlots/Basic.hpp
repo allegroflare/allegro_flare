@@ -17,17 +17,17 @@ namespace AllegroFlare
             static constexpr char* TYPE = (char*)"AllegroFlare/LoadASavedGame/SaveSlots/Basic";
 
          private:
-            std::string property;
+            std::string save_name;
 
          protected:
 
 
          public:
-            Basic(std::string property="[unset-property]");
+            Basic(std::string save_name="[unset-save_name]");
             ~Basic();
 
-            std::string get_property() const;
-            bool property_is(std::string possible_type="");
+            void set_save_name(std::string save_name);
+            std::string get_save_name() const;
          };
       }
    }

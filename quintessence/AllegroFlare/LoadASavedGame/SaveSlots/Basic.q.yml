@@ -9,30 +9,18 @@ parent_classes:
 properties:
 
 
-  - name: property
+  - name: save_name
     type: std::string
-    init_with: '"[unset-property]"'
+    init_with: '"[unset-save_name]"'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/LoadASavedGame/SaveSlots/Basic"'
     static: true
     constexpr: true
-
-
-methods:
-
-
-  - name: property_is
-    type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
-    body: |
-      return (possible_type == get_property());
 
 
 dependencies:

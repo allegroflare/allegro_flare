@@ -2,6 +2,10 @@
 
 #include <AllegroFlare/LoadASavedGame/SaveSlotRenderer.hpp>
 
+#include <AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Basic.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -28,7 +32,7 @@ SaveSlotRenderer::~SaveSlotRenderer()
 }
 
 
-void SaveSlotRenderer::render()
+void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* save_slot, float x, float y)
 {
    if (!(al_is_system_installed()))
    {
@@ -58,26 +62,34 @@ void SaveSlotRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SaveSlotRenderer::render: error: guard \"font_bin\" not met");
    }
-   float x = 1920/2;
-   float y = 1080/3;
-   ALLEGRO_FONT *font = obtain_font();
-   float text_width = al_get_text_width(font, quote.c_str());
-   float text_height = al_get_font_line_height(font);
-   float h_text_width = text_width/2;
-   float h_text_height = text_height/2;
-   AllegroFlare::Vec2D padding = {30, 20};
+   float slot_width = 1920/2;
+   float slot_height = 1080/8;
+   if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))
+   {
+      // TODO: Test this rendering type
+      AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic *as =
+         static_cast<AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic*>(base);
 
-   al_draw_rounded_rectangle(
-      x-h_text_width - padding.x,
-      y-h_text_height - padding.y,
-      x+h_text_width + padding.x,
-      y+h_text_height + padding.y,
-      8.0f,
-      8.0f,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      8.0f
-   );
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
+      AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic renderer;
+      renderer.set_font_bin(font_bin);
+      renderer.set_x(x);
+      renderer.set_y(y);
+      renderer.set_width(slot_width);
+      renderer.set_height(slot_height);
+      renderer.set_save_name(as->get_save_name());
+      renderer.render();
+   }
+   else if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Empty::TYPE))
+   {
+      // TODO: Test this rendering type
+      AllegroFlare::LoadASavedGame::SaveSlotRenderers::Empty renderer;
+      renderer.set_font_bin(font_bin);
+      renderer.set_x(x);
+      renderer.set_y(y);
+      renderer.set_width(slot_width);
+      renderer.set_height(slot_height);
+      renderer.render();
+   }
    return;
 }
 

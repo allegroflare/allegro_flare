@@ -240,6 +240,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Levels/Base.q.yml">quintessence/AllegroFlare/Levels/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderer.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Base.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Basic.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/Screen.q.yml">quintessence/AllegroFlare/LoadASavedGame/Screen.q.yml</a></li>
@@ -13842,6 +13843,14 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">width</td>
   <td class="property">float</td>
 </tr>
@@ -13851,6 +13860,66 @@ table td
 </tr>
 <tr>
   <td class="property">save_name</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">text</td>
   <td class="property">std::string</td>
 </tr>
     </table>
@@ -31275,6 +31344,7 @@ table td
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView",
@@ -31381,6 +31451,7 @@ table td
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
@@ -31574,6 +31645,7 @@ table td
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/MusicNotation/TieRenderer",
@@ -32195,6 +32267,7 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -32325,6 +32398,7 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",

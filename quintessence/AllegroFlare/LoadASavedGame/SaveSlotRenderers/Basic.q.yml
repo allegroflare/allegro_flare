@@ -6,6 +6,18 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: x
+    type: float
+    init_with: 1920/2
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 1080/3
+    getter: true
+    setter: true
+
   - name: width
     type: float
     init_with: 1920/2
@@ -31,8 +43,8 @@ methods:
     type: void
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
     body: |
-      float x = 1920/2;
-      float y = 1080/3;
+      //float x = 1920/2;
+      //float y = 1080/3;
       ALLEGRO_FONT *font = obtain_font();
       float h_font_line_height = al_get_font_line_height(font)/2;
       //float text_width = al_get_text_width(font, quote.c_str());

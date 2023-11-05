@@ -16,16 +16,28 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::FontBin* font_bin;
-            std::string quote;
+            float x;
+            float y;
+            float width;
+            float height;
+            std::string text;
             ALLEGRO_FONT* obtain_font();
 
          protected:
 
 
          public:
-            Empty(AllegroFlare::FontBin* font_bin=nullptr, std::string quote="Hello!");
+            Empty(AllegroFlare::FontBin* font_bin=nullptr, std::string text="Empty");
             ~Empty();
 
+            void set_x(float x);
+            void set_y(float y);
+            void set_width(float width);
+            void set_height(float height);
+            float get_x() const;
+            float get_y() const;
+            float get_width() const;
+            float get_height() const;
             void render();
          };
       }

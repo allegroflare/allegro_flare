@@ -13,9 +13,9 @@ namespace SaveSlots
 {
 
 
-Basic::Basic(std::string property)
+Basic::Basic(std::string save_name)
    : AllegroFlare::LoadASavedGame::SaveSlots::Base(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE)
-   , property(property)
+   , save_name(save_name)
 {
 }
 
@@ -25,16 +25,18 @@ Basic::~Basic()
 }
 
 
-std::string Basic::get_property() const
+void Basic::set_save_name(std::string save_name)
 {
-   return property;
+   this->save_name = save_name;
 }
 
 
-bool Basic::property_is(std::string possible_type)
+std::string Basic::get_save_name() const
 {
-   return (possible_type == get_property());
+   return save_name;
 }
+
+
 
 
 } // namespace SaveSlots

@@ -20,6 +20,8 @@ namespace SaveSlotRenderers
 
 Basic::Basic(AllegroFlare::FontBin* font_bin, std::string save_name)
    : font_bin(font_bin)
+   , x(1920/2)
+   , y(1080/3)
    , width(1920/2)
    , height(1080/8)
    , save_name(save_name)
@@ -32,6 +34,18 @@ Basic::~Basic()
 }
 
 
+void Basic::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void Basic::set_y(float y)
+{
+   this->y = y;
+}
+
+
 void Basic::set_width(float width)
 {
    this->width = width;
@@ -41,6 +55,18 @@ void Basic::set_width(float width)
 void Basic::set_height(float height)
 {
    this->height = height;
+}
+
+
+float Basic::get_x() const
+{
+   return x;
+}
+
+
+float Basic::get_y() const
+{
+   return y;
 }
 
 
@@ -86,8 +112,8 @@ void Basic::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic::render: error: guard \"font_bin\" not met");
    }
-   float x = 1920/2;
-   float y = 1080/3;
+   //float x = 1920/2;
+   //float y = 1080/3;
    ALLEGRO_FONT *font = obtain_font();
    float h_font_line_height = al_get_font_line_height(font)/2;
    //float text_width = al_get_text_width(font, quote.c_str());
