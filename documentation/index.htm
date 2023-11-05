@@ -14090,6 +14090,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_erase_focused_save_slot_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::LoadASavedGame::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_erase_focused_save_slot_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">on_exit_callback_func</td>
   <td class="property">std::function&lt;void(AllegroFlare::LoadASavedGame::Screen*, void*)&gt;</td>
 </tr>
@@ -14143,6 +14151,9 @@ table td
 </tr>
 <tr>
   <td class="method">activate_current_focused_menu_option()</td>
+</tr>
+<tr>
+  <td class="method">erase_current_focused_save_slot()</td>
 </tr>
 <tr>
   <td class="method">select_current_focused_menu_option()</td>

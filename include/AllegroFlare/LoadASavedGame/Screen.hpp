@@ -34,6 +34,8 @@ namespace AllegroFlare
          int cursor_position;
          std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
+         std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_erase_focused_save_slot_func;
+         void* on_erase_focused_save_slot_func_user_data;
          std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_exit_callback_func;
          void* on_exit_callback_func_user_data;
          bool initialized;
@@ -49,11 +51,15 @@ namespace AllegroFlare
 
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
+         void set_on_erase_focused_save_slot_func(std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_erase_focused_save_slot_func);
+         void set_on_erase_focused_save_slot_func_user_data(void* on_erase_focused_save_slot_func_user_data);
          void set_on_exit_callback_func(std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> on_exit_callback_func);
          void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> get_save_slots() const;
          std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
+         std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> get_on_erase_focused_save_slot_func() const;
+         void* get_on_erase_focused_save_slot_func_user_data() const;
          std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
@@ -68,6 +74,7 @@ namespace AllegroFlare
          void move_cursor_down();
          void exit_screen();
          void activate_current_focused_menu_option();
+         void erase_current_focused_save_slot();
          void select_current_focused_menu_option();
          void update();
          void render();

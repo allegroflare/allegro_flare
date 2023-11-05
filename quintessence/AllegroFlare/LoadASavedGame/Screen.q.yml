@@ -51,6 +51,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_erase_focused_save_slot_func
+    type: std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_erase_focused_save_slot_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: on_exit_callback_func
     type: std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)>
     init_with: '{}'
@@ -72,6 +84,13 @@ properties:
     init_with: '(char*)"AllegroFlare/LoadASavedGame/Screen"'
     static: true
     constexpr: true
+
+
+documentation:
+
+
+  - todos:
+      - add a technique to clear a save slot (after confirmation dialog)
 
 
 methods:
@@ -218,6 +237,26 @@ methods:
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::LoadASavedGame::Screen::activate_current_focused_menu_option",
+            "Expecting an \"on_menu_choice_callback_func\" to be present, but it is not."
+         );
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: erase_current_focused_save_slot
+    body: |
+      // TODO: Add dialog confirmation
+      // TODO: Test this method
+      if (on_erase_focused_save_slot_func)
+      {
+         on_erase_focused_save_slot_func(this, on_erase_focused_save_slot_func_user_data);
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::LoadASavedGame::Screen::on_erase_focused_save_slot_func",
             "Expecting an \"on_menu_choice_callback_func\" to be present, but it is not."
          );
       }
