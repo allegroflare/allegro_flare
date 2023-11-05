@@ -172,12 +172,12 @@ void Screen::set_model_bin(AllegroFlare::ModelBin* model_bin)
 
 void Screen::set_save_slots(std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots)
 {
-   if (!((!initialized)))
+   if (!((save_slots.size() <= 3)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_save_slots]: error: guard \"(!initialized)\" not met.";
+      error_message << "[Screen::set_save_slots]: error: guard \"(save_slots.size() <= 3)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_save_slots: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("Screen::set_save_slots: error: guard \"(save_slots.size() <= 3)\" not met");
    }
    this->save_slots = save_slots;
    cursor_position = 0;
@@ -346,7 +346,7 @@ void Screen::erase_current_focused_save_slot()
 void Screen::select_current_focused_menu_option()
 {
    // For now, do a direct call to activate the option
-   select_current_focused_menu_option();
+   activate_current_focused_menu_option();
    return;
 }
 

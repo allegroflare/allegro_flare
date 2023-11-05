@@ -106,11 +106,8 @@ void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* sav
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SaveSlotRenderer::render: error: guard \"save_slot\" not met");
    }
-   //float slot_width = 1920/2;
-   //float slot_height = 1080/8;
    if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))
    {
-      std::cout << "A" << std::endl;
       // TODO: Test this rendering type
       AllegroFlare::LoadASavedGame::SaveSlots::Basic *as =
          static_cast<AllegroFlare::LoadASavedGame::SaveSlots::Basic*>(save_slot);
@@ -123,7 +120,6 @@ void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* sav
       renderer.set_height(slot_height);
       renderer.set_save_name(as->get_save_name());
       renderer.render();
-      std::cout << "B" << std::endl;
    }
    else if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Empty::TYPE))
    {

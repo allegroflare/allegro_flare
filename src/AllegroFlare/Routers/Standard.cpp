@@ -21,8 +21,10 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , event_emitter(event_emitter)
    , load_level_handler(load_level_handler)
    , game_session()
-   , on_route_event_unhandled_func()
+   , on_route_event_unhandled_func({})
    , on_route_event_unhandled_func_user_data(nullptr)
+   , on_continue_a_saved_game_func({})
+   , on_continue_a_saved_game_func_user_data(nullptr)
 {
 }
 
@@ -56,6 +58,18 @@ void Standard::set_on_route_event_unhandled_func_user_data(void* on_route_event_
 }
 
 
+void Standard::set_on_continue_a_saved_game_func(std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_a_saved_game_func)
+{
+   this->on_continue_a_saved_game_func = on_continue_a_saved_game_func;
+}
+
+
+void Standard::set_on_continue_a_saved_game_func_user_data(void* on_continue_a_saved_game_func_user_data)
+{
+   this->on_continue_a_saved_game_func_user_data = on_continue_a_saved_game_func_user_data;
+}
+
+
 AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 {
    return event_emitter;
@@ -77,6 +91,18 @@ std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> Standard:
 void* Standard::get_on_route_event_unhandled_func_user_data() const
 {
    return on_route_event_unhandled_func_user_data;
+}
+
+
+std::function<bool(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_continue_a_saved_game_func() const
+{
+   return on_continue_a_saved_game_func;
+}
+
+
+void* Standard::get_on_continue_a_saved_game_func_user_data() const
+{
+   return on_continue_a_saved_game_func_user_data;
 }
 
 
@@ -203,6 +229,19 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // activate gameplay_screen
       }},
       { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
+         // TODO: Test this callback
+         if (on_continue_a_saved_game_func)
+         {
+            on_continue_a_saved_game_func(this, on_continue_a_saved_game_func_user_data);
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "on EVENT_CONTINUE_FROM_LAST_SAVE, expecting an \"on_continue_a_saved_game_func\" to be present, "
+                  "but it is not."
+            );
+         }
          // TODO: Implement an callback on this event
       }},
       { EVENT_WIN_GAME, [this](){

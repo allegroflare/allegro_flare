@@ -44,11 +44,8 @@ methods:
       - font_bin
       - save_slot
     body: |
-      //float slot_width = 1920/2;
-      //float slot_height = 1080/8;
       if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))
       {
-         std::cout << "A" << std::endl;
          // TODO: Test this rendering type
          AllegroFlare::LoadASavedGame::SaveSlots::Basic *as =
             static_cast<AllegroFlare::LoadASavedGame::SaveSlots::Basic*>(save_slot);
@@ -61,7 +58,6 @@ methods:
          renderer.set_height(slot_height);
          renderer.set_save_name(as->get_save_name());
          renderer.render();
-         std::cout << "B" << std::endl;
       }
       else if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Empty::TYPE))
       {

@@ -30,11 +30,23 @@ properties:
 
   - name: on_route_event_unhandled_func
     type: std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)>
-    init_with: ''
+    init_with: '{}'
     getter: true
     setter: true
 
   - name: on_route_event_unhandled_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: on_continue_a_saved_game_func
+    type: std::function<bool(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_continue_a_saved_game_func_user_data
     type: void*
     init_with: nullptr
     getter: true
@@ -333,6 +345,19 @@ methods:
             // activate gameplay_screen
          }},
          { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
+            // TODO: Test this callback
+            if (on_continue_a_saved_game_func)
+            {
+               on_continue_a_saved_game_func(this, on_continue_a_saved_game_func_user_data);
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "on EVENT_CONTINUE_FROM_LAST_SAVE, expecting an \"on_continue_a_saved_game_func\" to be present, "
+                     "but it is not."
+               );
+            }
             // TODO: Implement an callback on this event
          }},
          { EVENT_WIN_GAME, [this](){
