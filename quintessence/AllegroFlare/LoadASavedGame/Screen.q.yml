@@ -183,7 +183,7 @@ methods:
     body: |
       if (save_slots.empty()) return;
       cursor_position++;
-      if (cursor_position >= save_slots.size()) cursor_position -= save_slots.size();
+      if (cursor_position > save_slots.size()) cursor_position -= save_slots.size();
       return;
 
 
@@ -262,15 +262,36 @@ methods:
       int i=0;
       for (auto &save_slot : save_slots)
       {
+         float x = 1920/2;
+         float y = y_cursor + y_distance*i;
          // HERE: Continue on this
          AllegroFlare::LoadASavedGame::SaveSlotRenderer renderer;
          renderer.set_font_bin(font_bin);
          renderer.render(
             save_slot,
-            1920/2,
-            y_cursor + y_distance*i
+            x,
+            y
          );
          i++;
+
+         // If this is currently focused under the cursor, draw the cursor (for now)
+         // TODO: Replace this with a more active cursor
+         bool this_save_slot_is_focused = (i == cursor_position);
+         if (this_save_slot_is_focused)
+         {
+            float slot_width = renderer.get_slot_width();
+            float slot_h_width = slot_width/2;
+            float slot_height = renderer.get_slot_height();
+            float slot_h_height = slot_height/2;
+            al_draw_rectangle(
+               x-slot_h_width,
+               y-slot_h_height,
+               x+slot_h_width,
+               y+slot_h_height,
+               ALLEGRO_COLOR{1, 1, 1, 1},
+               6.0
+            );
+         }
       }
       return;
     body_dependency_symbols:

@@ -8,10 +8,19 @@ properties:
     getter: true
     setter: true
 
-  - name: quote
-    type: std::string
-    init_with: '"Hello!"'
+  - name: slot_width
+    type: float
+    init_with: 1920/2
     constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: slot_height
+    type: float
+    init_with: 1080/8
+    constructor_arg: true
+    getter: true
+    setter: true
 
 
 methods:
@@ -35,8 +44,8 @@ methods:
       - font_bin
       - save_slot
     body: |
-      float slot_width = 1920/2;
-      float slot_height = 1080/8;
+      //float slot_width = 1920/2;
+      //float slot_height = 1080/8;
       if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))
       {
          std::cout << "A" << std::endl;

@@ -20,9 +20,10 @@ namespace LoadASavedGame
 {
 
 
-SaveSlotRenderer::SaveSlotRenderer(AllegroFlare::FontBin* font_bin, std::string quote)
+SaveSlotRenderer::SaveSlotRenderer(AllegroFlare::FontBin* font_bin, float slot_width, float slot_height)
    : font_bin(font_bin)
-   , quote(quote)
+   , slot_width(slot_width)
+   , slot_height(slot_height)
 {
 }
 
@@ -38,9 +39,33 @@ void SaveSlotRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
+void SaveSlotRenderer::set_slot_width(float slot_width)
+{
+   this->slot_width = slot_width;
+}
+
+
+void SaveSlotRenderer::set_slot_height(float slot_height)
+{
+   this->slot_height = slot_height;
+}
+
+
 AllegroFlare::FontBin* SaveSlotRenderer::get_font_bin() const
 {
    return font_bin;
+}
+
+
+float SaveSlotRenderer::get_slot_width() const
+{
+   return slot_width;
+}
+
+
+float SaveSlotRenderer::get_slot_height() const
+{
+   return slot_height;
 }
 
 
@@ -81,8 +106,8 @@ void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* sav
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SaveSlotRenderer::render: error: guard \"save_slot\" not met");
    }
-   float slot_width = 1920/2;
-   float slot_height = 1080/8;
+   //float slot_width = 1920/2;
+   //float slot_height = 1080/8;
    if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))
    {
       std::cout << "A" << std::endl;
