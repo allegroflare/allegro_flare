@@ -141,6 +141,23 @@ public:
       );
       (*((int*)user_data))++;
    }
+   static bool my_on_load_last_played_session_or_start_new_func(
+         AllegroFlare::Routers::Standard *router,
+         void* user_data
+      )
+   {
+      // TODO: Modify the game session Progress member:
+      //AllegroFlare::GameProgressAndStateInfos::Base *game_progress =
+      if (router->get_game_session_ref().get_game_progress_and_state_info())
+      {
+         // In your game, you might delete existing progress here
+      }
+
+      router->get_game_session_ref().set_game_progress_and_state_info(
+         new AllegroFlare::GameProgressAndStateInfos::Base() // Use Base for now, to demonstrate creating new save info
+      );
+      (*((int*)user_data))++;
+   }
 };
 
 
@@ -251,10 +268,30 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_INITIALIZE_event__will_call_the__on_load_last_played_session_or_start_new_func__\
+and_start_a_new_session)
+{
+   ASSERT_EQ(nullptr, router.get_game_session_ref().get_game_progress_and_state_info());
+
+   int call_count = 0;
+   router.set_on_load_last_played_session_or_start_new_func(my_on_load_last_played_session_or_start_new_func);
+   router.set_on_load_last_played_session_or_start_new_func_user_data(&call_count);
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_INITIALIZE);
+
+   EXPECT_EQ(1, call_count);
+   EXPECT_EQ(true, router.get_game_session_ref().is_active());
+   // For our example usage in this test, we will create new GameProgressAndStateInfo in the session
+   EXPECT_NE(nullptr, router.get_game_session_ref().get_game_progress_and_state_info());
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_START_NEW_GAME_event__when_there_is_already_a_session_currently_active__\
 will_stop_the_existing_session__call_the__on_create_new_session_func__and_start_a_new_session)
 {
    router.get_game_session_ref().start_session();
+   float initial_session_started_at = router.get_game_session_ref().get_started_at();
+   al_rest(0.01);
    ASSERT_EQ(nullptr, router.get_game_session_ref().get_game_progress_and_state_info());
 
    int call_count = 0;
@@ -263,6 +300,8 @@ will_stop_the_existing_session__call_the__on_create_new_session_func__and_start_
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME);
 
    EXPECT_EQ(1, call_count);
+   EXPECT_EQ(true, router.get_game_session_ref().is_active());
+   EXPECT_NE(initial_session_started_at, router.get_game_session_ref().get_started_at());
    // For our example usage in this test, we will create new GameProgressAndStateInfo in the session
    EXPECT_NE(nullptr, router.get_game_session_ref().get_game_progress_and_state_info());
 }

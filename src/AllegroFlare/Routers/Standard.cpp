@@ -250,6 +250,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
 
       { EVENT_INITIALIZE, [this](){
          // TODO: Consider different initial route depending on deployment environment
+         // TODO: Consider guard on event when a session is already active (e.g. already initialized)
 
          // TODO: Test this method callback
          if (on_load_last_played_session_or_start_new_func)
