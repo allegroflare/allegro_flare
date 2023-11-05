@@ -202,7 +202,7 @@ void Screen::render_title()
 {
    ALLEGRO_FONT *font = obtain_heading_font();
    float line_height = al_get_font_line_height(font);
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 300-line_height, ALLEGRO_ALIGN_CENTER, "Load a Saved Game");
+   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 260-line_height, ALLEGRO_ALIGN_CENTER, "Load a Saved Game");
    return;
 }
 
