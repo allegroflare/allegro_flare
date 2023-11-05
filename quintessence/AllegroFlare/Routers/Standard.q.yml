@@ -41,7 +41,7 @@ properties:
     setter: true
 
   - name: on_continue_from_last_save_func
-    type: std::function<bool(AllegroFlare::Routers::Standard*, void*)>
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
     init_with: '{}'
     getter: true
     setter: true
@@ -345,6 +345,7 @@ methods:
             // TODO: Test this callback
             if (on_continue_from_last_save_func)
             {
+               // TODO: Consider if this should return a boolean on success
                on_continue_from_last_save_func(this, on_continue_from_last_save_func_user_data);
             }
             else

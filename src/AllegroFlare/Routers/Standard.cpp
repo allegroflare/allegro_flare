@@ -58,7 +58,7 @@ void Standard::set_on_route_event_unhandled_func_user_data(void* on_route_event_
 }
 
 
-void Standard::set_on_continue_from_last_save_func(std::function<bool(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func)
+void Standard::set_on_continue_from_last_save_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func)
 {
    this->on_continue_from_last_save_func = on_continue_from_last_save_func;
 }
@@ -94,7 +94,7 @@ void* Standard::get_on_route_event_unhandled_func_user_data() const
 }
 
 
-std::function<bool(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_continue_from_last_save_func() const
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_continue_from_last_save_func() const
 {
    return on_continue_from_last_save_func;
 }
@@ -230,6 +230,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: Test this callback
          if (on_continue_from_last_save_func)
          {
+            // TODO: Consider if this should return a boolean on success
             on_continue_from_last_save_func(this, on_continue_from_last_save_func_user_data);
          }
          else
