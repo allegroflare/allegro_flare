@@ -22,12 +22,18 @@ methods:
         default_argument: nullptr
       - name: x
         type: float
-        default_argument: 0
+        default_argument: 1920/2
       - name: y
         type: float
-        default_argument: 0
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+        default_argument: 1080/8
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+      - save_slot
     body: |
+      return;
       float slot_width = 1920/2;
       float slot_height = 1080/8;
       if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))

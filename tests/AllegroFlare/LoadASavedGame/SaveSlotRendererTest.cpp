@@ -4,6 +4,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlotRenderer.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Basic.hpp>
 
 
 class AllegroFlare_LoadASavedGame_SaveSlotRendererTest : public ::testing::Test {};
@@ -70,7 +71,8 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTest, render__without_a_font_
 TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::LoadASavedGame::SaveSlotRenderer save_slot_renderer(&get_font_bin_ref());
-   save_slot_renderer.render();
+   AllegroFlare::LoadASavedGame::SaveSlots::Basic basic_save_slot;
+   save_slot_renderer.render(&basic_save_slot);
    al_flip_display();
    sleep_for(1);
 }

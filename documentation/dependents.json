@@ -2256,7 +2256,8 @@
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
-    "AllegroFlare/LoadASavedGame/SaveSlots/Basic"
+    "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlots/Empty"
   ],
   "AllegroFlare/ConsoleColors": [
     "AllegroFlare/Logger"

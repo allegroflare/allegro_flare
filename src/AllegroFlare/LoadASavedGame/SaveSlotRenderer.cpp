@@ -62,6 +62,14 @@ void SaveSlotRenderer::render(AllegroFlare::LoadASavedGame::SaveSlots::Base* sav
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SaveSlotRenderer::render: error: guard \"font_bin\" not met");
    }
+   if (!(save_slot))
+   {
+      std::stringstream error_message;
+      error_message << "[SaveSlotRenderer::render]: error: guard \"save_slot\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SaveSlotRenderer::render: error: guard \"save_slot\" not met");
+   }
+   return;
    float slot_width = 1920/2;
    float slot_height = 1080/8;
    if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Basic::TYPE))
