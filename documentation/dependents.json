@@ -1437,6 +1437,7 @@
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -2103,6 +2104,10 @@
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Version"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ClearToColor": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -3042,9 +3047,6 @@
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/RouteEventDatas/StartLevel": [
-    "AllegroFlare/Runners/Complete"
-  ],
-  "AllegroFlare/Elements/Backgrounds/ClearToColor": [
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameConfigurations/Complete": [

@@ -133,19 +133,11 @@ void Complete::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Complete::initialize: error: guard \"model_bin\" not met");
    }
-   // Create the resources
+   // Create some references for convenience
    AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
    AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
 
-   // Create a storyboard factory and page factory
-   //AllegroFlare::StoryboardFactory storyboard_factory;
-   //storyboard_factory.set_font_bin(font_bin);
-   //storyboard_factory.set_event_emitter(event_emitter);
-   //AllegroFlare::StoryboardPageFactory page_factory;
-   //page_factory.set_font_bin(font_bin);
-   //page_factory.set_bitmap_bin(bitmap_bin);
-   //page_factory.set_model_bin(model_bin);
-
+   // Create the shared background
    shared_background = game_configuration->create_shared_background();
 
    // Setup our router
@@ -154,8 +146,7 @@ void Complete::initialize()
    // Set the framework to use our router
    framework->set_router(&router);
 
-   // TODO: Create the game configuration for our game
-   // Setup the configuration
+   // Create the game configuration for our game
    game_configuration = create_game_configuration();
 
    // Fill our dialog bank
