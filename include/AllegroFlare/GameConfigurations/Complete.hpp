@@ -8,6 +8,7 @@
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
+#include <ReleaseInfo.hpp>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -47,6 +48,7 @@ namespace AllegroFlare
          virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_audio_controller();
          virtual std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
+         virtual std::string build_copyright_text(ReleaseInfo* release_info=nullptr);
          virtual std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> build_rolling_credits_sections();
          bool is_type(std::string possible_type="");
       };

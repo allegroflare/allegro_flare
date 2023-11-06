@@ -2099,6 +2099,11 @@
     "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
     "AllegroFlare/LoadASavedGame/Screen"
   ],
+  "ReleaseInfo": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Version"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -3041,10 +3046,6 @@
   ],
   "AllegroFlare/Elements/Backgrounds/ClearToColor": [
     "AllegroFlare/Runners/Complete"
-  ],
-  "ReleaseInfo": [
-    "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Version"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "AllegroFlare/Runners/Complete"

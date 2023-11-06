@@ -12029,6 +12029,9 @@ table td
   <td class="method">build_title_screen_menu_options()</td>
 </tr>
 <tr>
+  <td class="method">build_copyright_text(ReleaseInfo* release_info=nullptr)</td>
+</tr>
+<tr>
   <td class="method">build_rolling_credits_sections()</td>
 </tr>
 <tr>
@@ -12066,6 +12069,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ReleaseInfo&quot;, &quot;headers&quot;=&gt;[&quot;ReleaseInfo.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -33686,6 +33692,11 @@ table td
     "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
     "AllegroFlare/LoadASavedGame/Screen"
   ],
+  "ReleaseInfo": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Version"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -34628,10 +34639,6 @@ table td
   ],
   "AllegroFlare/Elements/Backgrounds/ClearToColor": [
     "AllegroFlare/Runners/Complete"
-  ],
-  "ReleaseInfo": [
-    "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Version"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "AllegroFlare/Runners/Complete"

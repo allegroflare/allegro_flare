@@ -7,6 +7,7 @@
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <ReleaseInfo.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -232,6 +233,19 @@ std::vector<std::pair<std::string, std::string>> Complete::build_title_screen_me
       //{ "Quit",              "quit" },
    };
    return options;
+}
+
+std::string Complete::build_copyright_text(ReleaseInfo* release_info)
+{
+   if (!(release_info))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::build_copyright_text]: error: guard \"release_info\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::build_copyright_text: error: guard \"release_info\" not met");
+   }
+   std::string text = "(c) 2023 CLUBCATT Games         clubcatt.com         version " + release_info->get_version();
+   return text;
 }
 
 std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::build_rolling_credits_sections()

@@ -266,6 +266,21 @@ methods:
       return options;
 
 
+  - name: build_copyright_text
+    virtual: true
+    type: std::string
+    parameters:
+      - name: release_info
+        type: ReleaseInfo*
+        default_argument: nullptr
+    guards: [ release_info ]
+    body: |
+      std::string text = "(c) 2023 CLUBCATT Games         clubcatt.com         version " + release_info->get_version();
+      return text;
+    body_dependency_symbols:
+      - ReleaseInfo
+
+
   - name: build_rolling_credits_sections
     virtual: true
     type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
@@ -342,5 +357,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/SectionFactory.hpp ]
   - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Base
     headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
+  - symbol: ReleaseInfo
+    headers: [ ReleaseInfo.hpp ]
 
 
