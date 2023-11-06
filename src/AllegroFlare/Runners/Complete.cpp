@@ -133,9 +133,6 @@ void Complete::initialize()
    // Set the framework to use our router
    framework->set_router(&router);
 
-   // Create the game configuration for our game
-   //game_configuration = create_game_configuration();
-
    // Fill our dialog bank
    framework->set_dialog_system_dialog_node_bank(game_configuration->build_dialog_bank_by_identifier());
 

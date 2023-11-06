@@ -2,12 +2,18 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/Runners/Complete.hpp>
+#include <AllegroFlare/GameConfigurations/Complete.hpp>
 
 
-class MyGameConfiguration : public AllegroFlare::GameConfigurations::Complete
+class MyTestGameConfiguration : public AllegroFlare::GameConfigurations::Complete
 {
-   virtual AllegroFlare::Levels::Base*
-      load_level_by_identifier(std::string level_identifier="[unset-level_identifier]") override;
+public:
+   MyTestGameConfiguration()
+      : AllegroFlare::GameConfigurations::Complete()
+   {}
+
+   //virtual AllegroFlare::Levels::Base*
+      //load_level_by_identifier(std::string level_identifier="[unset-level_identifier]") override;
    //build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]");
    //build_dialog_bank_by_identifier(std::string identifier="[unset-identifier]");
    //build_achievements();
@@ -48,7 +54,7 @@ TEST(AllegroFlare_Runners_CompleteTest, type__has_the_expected_value_matching_TY
 
 TEST(AllegroFlare_Runners_CompleteTest, run__will_work_as_expected)
 {
-   AllegroFlare::GameConfigurations::Complete *configuration = new AllegroFlare::GameConfigurations::Complete();
+   AllegroFlare::GameConfigurations::Complete *configuration = new MyTestGameConfiguration();
    // TODO: HERE: Make this run:
    //AllegroFlare::Runners::Complete::run(configuration, "test");
 }
