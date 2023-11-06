@@ -40,6 +40,7 @@ namespace AllegroFlare
                SimpleConfiguration();
                virtual ~SimpleConfiguration();
 
+               virtual std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options() override;
                virtual void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr) override;
                virtual AllegroFlare::Levels::Base* load_level_by_identifier(std::string level_identifier="[unset-level_identifier]") override;
                virtual std::vector<std::pair<std::string, std::string>> build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]") override;
@@ -54,7 +55,6 @@ namespace AllegroFlare
                virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr) override;
                virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr) override;
                virtual void load_audio_controller() override;
-               virtual std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options() override;
                virtual std::string build_copyright_text(ReleaseInfo* release_info=nullptr) override;
                virtual std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> build_rolling_credits_sections() override;
                bool is_type(std::string possible_type="");

@@ -48,6 +48,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , player_controlled_entity(nullptr)
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
+   , gameplay_suspended(false)
    , player_controls()
    , camera_control_strategy(nullptr)
    , backbuffer_sub_bitmap(nullptr)
@@ -123,6 +124,12 @@ bool Screen::get_show_tile_mesh() const
 bool Screen::get_show_collision_tile_mesh() const
 {
    return show_collision_tile_mesh;
+}
+
+
+bool Screen::get_gameplay_suspended() const
+{
+   return gameplay_suspended;
 }
 
 
@@ -803,6 +810,20 @@ void Screen::update_player_controls_on_player_controlled_entity()
    return;
 }
 
+void Screen::suspend_gameplay()
+{
+   if (gameplay_suspended) return;
+   gameplay_suspended = true;
+   return;
+}
+
+void Screen::resume_suspended_gameplay()
+{
+   if (!gameplay_suspended) return;
+   gameplay_suspended = false;
+   return;
+}
+
 void Screen::update()
 {
    if (!(initialized))
@@ -812,10 +833,11 @@ void Screen::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update: error: guard \"initialized\" not met");
    }
-   //return;
-   if (player_controlled_entity) update_player_controls_on_player_controlled_entity();
-   //return;
-   update_entities();
+   if (!gameplay_suspended)
+   {
+      if (player_controlled_entity) update_player_controls_on_player_controlled_entity();
+      update_entities();
+   }
    return;
 }
 

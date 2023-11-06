@@ -26,6 +26,18 @@ documentation:
 methods:
 
 
+  - name: build_title_screen_menu_options
+    virtual: true
+    override: true
+    type: std::vector<std::pair<std::string, std::string>>
+    body: |
+      std::vector<std::pair<std::string, std::string>> options = {
+         { "Start New Game",    "start_new_game" },
+         { "Quit",              "quit" },
+      };
+      return options;
+
+
   - name: handle_game_event
     virtual: true
     override: true
@@ -181,18 +193,6 @@ methods:
     body: |
       // Nothing to do
       return;
-
-
-  - name: build_title_screen_menu_options
-    virtual: true
-    override: true
-    type: std::vector<std::pair<std::string, std::string>>
-    body: |
-      std::vector<std::pair<std::string, std::string>> options = {
-         { "Start New Game",    "start_new_game" },
-         { "Quit",              "quit" },
-      };
-      return options;
 
 
   - name: build_copyright_text

@@ -37,6 +37,15 @@ SimpleConfiguration::~SimpleConfiguration()
 }
 
 
+std::vector<std::pair<std::string, std::string>> SimpleConfiguration::build_title_screen_menu_options()
+{
+   std::vector<std::pair<std::string, std::string>> options = {
+      { "Start New Game",    "start_new_game" },
+      { "Quit",              "quit" },
+   };
+   return options;
+}
+
 void SimpleConfiguration::handle_game_event(AllegroFlare::GameEvent* game_event)
 {
    return;
@@ -128,15 +137,6 @@ void SimpleConfiguration::load_audio_controller()
 {
    // Nothing to do
    return;
-}
-
-std::vector<std::pair<std::string, std::string>> SimpleConfiguration::build_title_screen_menu_options()
-{
-   std::vector<std::pair<std::string, std::string>> options = {
-      { "Start New Game",    "start_new_game" },
-      { "Quit",              "quit" },
-   };
-   return options;
 }
 
 std::string SimpleConfiguration::build_copyright_text(ReleaseInfo* release_info)
