@@ -20,6 +20,7 @@ documentation:
   - notes:
      - this Complete class actually acts as a base class, but it's not clear and might appear to be derived from
        GameConfigurations/Base. I'm not sure how to resolve this if it will require a renaming or what.
+     - This Complete class is intended to be paired with the Runners/Complete class
 
 
 methods:
@@ -125,6 +126,84 @@ methods:
       return {};
 
 
+  - name: setup_new_game_progress_and_state_info
+    parameters:
+      - name: game_session
+        type: AllegroFlare::GameSession*
+        default_argument: nullptr
+    guards: [ game_session ]
+    body: |
+      // TODO: This method
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::setup_new_game_progress_and_state_info",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+        //game_session->get_game_progress_and_state_info();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::GameProgressAndStateInfos::Base
+
+
+  - name: load_last_played_session_or_start_new
+    parameters:
+      - name: game_session
+        type: AllegroFlare::GameSession*
+        default_argument: nullptr
+    guards: [ game_session ]
+    body: |
+      // TODO: This method
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::load_last_played_session_or_start_new",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+        //game_session->get_game_progress_and_state_info();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::GameProgressAndStateInfos::Base
+
+
+  - name: load_audio_controller
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::load_audio_controller",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      //AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
+      //audio_controller.set_and_load_sound_effect_elements({
+         //// { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
+      //});
+      //audio_controller.set_and_load_music_track_elements({
+         //// An example of how to load a music track:
+         ////{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
+      //});
+      //// An example of how to play a music track:
+      //// event_emitter->emit_play_music_track_event("intro_music");
+      return;
+
+
+  - name: build_title_screen_menu_options
+    type: std::vector<std::pair<std::string, std::string>>
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::build_title_screen_menu_options",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      std::vector<std::pair<std::string, std::string>> options = {
+         { "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
+         { "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
+                                                                   // and the game supports save slots
+         { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
+         { "Achievements",      "goto_achievements_screen" },
+         { "Settings",          "goto_settings_screen" },
+         { "Version",           "goto_version_screen" },
+         { "Credits",           "goto_credits_screen" },           // TODO: If game has been won
+         { "Quit",              "quit" },
+      };
+      return options;
+
+
   - name: is_type
     type: bool
     parameters:
@@ -148,33 +227,9 @@ dependencies:
     headers: [ AllegroFlare/Achievement.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
-
-properties:
-
-
-  - name: type
-    type: std::string
-    init_with: AllegroFlare::GameConfigurations::Complete::TYPE
-    constructor_arg: true
-    getter: true
-
-  - name: TYPE
-    type: char*
-    init_with: '(char*)"AllegroFlare/GameConfigurations/Complete"'
-    static: true
-    constexpr: true
-
-
-methods:
-
-
-  - name: is_type
-    type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
-    body: |
-      return (possible_type == get_type());
+  - symbol: AllegroFlare::GameProgressAndStateInfos::Base
+    headers: [ AllegroFlare/GameProgressAndStateInfos/Base.hpp ]
+  - symbol: AllegroFlare::GameSession
+    headers: [ AllegroFlare/GameSession.hpp ]
 
 

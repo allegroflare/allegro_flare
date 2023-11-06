@@ -3,7 +3,11 @@
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 
 #include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -97,6 +101,83 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
       //),
    //};
    return {};
+}
+
+void Complete::setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
+{
+   if (!(game_session))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::setup_new_game_progress_and_state_info: error: guard \"game_session\" not met");
+   }
+   // TODO: This method
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::setup_new_game_progress_and_state_info",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+     //game_session->get_game_progress_and_state_info();
+   return;
+}
+
+void Complete::load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session)
+{
+   if (!(game_session))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::load_last_played_session_or_start_new]: error: guard \"game_session\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::load_last_played_session_or_start_new: error: guard \"game_session\" not met");
+   }
+   // TODO: This method
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::load_last_played_session_or_start_new",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+     //game_session->get_game_progress_and_state_info();
+   return;
+}
+
+void Complete::load_audio_controller()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::load_audio_controller",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   //AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
+   //audio_controller.set_and_load_sound_effect_elements({
+      //// { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
+   //});
+   //audio_controller.set_and_load_music_track_elements({
+      //// An example of how to load a music track:
+      ////{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
+   //});
+   //// An example of how to play a music track:
+   //// event_emitter->emit_play_music_track_event("intro_music");
+   return;
+}
+
+std::vector<std::pair<std::string, std::string>> Complete::build_title_screen_menu_options()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::build_title_screen_menu_options",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   std::vector<std::pair<std::string, std::string>> options = {
+      { "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
+      { "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
+                                                                // and the game supports save slots
+      { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
+      { "Achievements",      "goto_achievements_screen" },
+      { "Settings",          "goto_settings_screen" },
+      { "Version",           "goto_version_screen" },
+      { "Credits",           "goto_credits_screen" },           // TODO: If game has been won
+      { "Quit",              "quit" },
+   };
+   return options;
 }
 
 bool Complete::is_type(std::string possible_type)

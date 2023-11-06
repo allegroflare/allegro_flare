@@ -34,6 +34,7 @@
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/GameConfigurations/Base",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/LoadASavedGame/Screen",
@@ -1055,7 +1056,8 @@
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
-    "AllegroFlare/GameConfigurations/Base"
+    "AllegroFlare/GameConfigurations/Base",
+    "AllegroFlare/GameConfigurations/Complete"
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1944,6 +1946,8 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/GameConfigurations/Base",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/MotionKit": [
@@ -2063,14 +2067,23 @@
     "AllegroFlare/FrameAnimation/Book"
   ],
   "AllegroFlare/Levels/Base": [
-    "AllegroFlare/GameConfigurations/Base"
+    "AllegroFlare/GameConfigurations/Base",
+    "AllegroFlare/GameConfigurations/Complete"
   ],
   "AllegroFlare/Achievement": [
     "AllegroFlare/GameConfigurations/Base",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameProgressAndStateInfos/Base": [
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/GameSession",
+    "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/GameSession": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Routers/Base",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
@@ -2959,11 +2972,6 @@
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
-  "AllegroFlare/GameSession": [
-    "AllegroFlare/Routers/Base",
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Runners/Complete"
-  ],
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"
   ],
@@ -3035,7 +3043,7 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Version"
   ],
-  "AllegroFlare/GameConfigurations/Base": [
+  "AllegroFlare/GameConfigurations/Complete": [
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/Screens/Gameplay": [
