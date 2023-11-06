@@ -270,7 +270,8 @@ std::string Complete::build_copyright_text(ReleaseInfo* release_info)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Complete::build_copyright_text: error: guard \"release_info\" not met");
    }
-   std::string text = "(c) 2023 CLUBCATT Games         clubcatt.com         version " + release_info->get_version();
+   std::string text = "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]";
+   //release_info->get_version();
    return text;
 }
 

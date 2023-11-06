@@ -309,7 +309,8 @@ methods:
         default_argument: nullptr
     guards: [ release_info ]
     body: |
-      std::string text = "(c) 2023 CLUBCATT Games         clubcatt.com         version " + release_info->get_version();
+      std::string text = "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]";
+      //release_info->get_version();
       return text;
     body_dependency_symbols:
       - ReleaseInfo
