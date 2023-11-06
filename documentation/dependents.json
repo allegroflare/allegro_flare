@@ -2112,6 +2112,12 @@
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
   ],
+  "AllegroFlare/TemplatedText": [
+    "AllegroFlare/GameConfigurations/Complete"
+  ],
+  "AllegroFlare/UnicodeCharacters": [
+    "AllegroFlare/GameConfigurations/Complete"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],

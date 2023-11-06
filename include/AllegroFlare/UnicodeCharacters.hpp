@@ -9,7 +9,7 @@ namespace AllegroFlare
    class UnicodeCharacters
    {
    public:
-      static constexpr char* COPYRIGHT_CHARACTER = (char*)"";
+      static constexpr char* COPYRIGHT_SYMBOL= (char*)"©";
    };
 }
 

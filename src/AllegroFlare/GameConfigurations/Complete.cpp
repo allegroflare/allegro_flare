@@ -10,6 +10,8 @@
 #include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/TemplatedText.hpp>
+#include <AllegroFlare/UnicodeCharacters.hpp>
 #include <ReleaseInfo.hpp>
 #include <iostream>
 #include <sstream>
@@ -270,9 +272,14 @@ std::string Complete::build_copyright_text(ReleaseInfo* release_info)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Complete::build_copyright_text: error: guard \"release_info\" not met");
    }
-   std::string text = "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]";
-   //release_info->get_version();
-   return text;
+   AllegroFlare::TemplatedText templated_text(
+      "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",
+      {
+         { "[[COPYRIGHT_SYMBOL]]", AllegroFlare::UnicodeCharacters::COPYRIGHT_SYMBOL },
+         { "[[VERSION_NUMBER]]",   release_info->get_version() },
+      }
+   );
+   return templated_text.generate_content();
 }
 
 std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::build_rolling_credits_sections()

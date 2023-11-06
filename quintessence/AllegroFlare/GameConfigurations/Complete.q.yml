@@ -309,11 +309,18 @@ methods:
         default_argument: nullptr
     guards: [ release_info ]
     body: |
-      std::string text = "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]";
-      //release_info->get_version();
-      return text;
+      AllegroFlare::TemplatedText templated_text(
+         "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",
+         {
+            { "[[COPYRIGHT_SYMBOL]]", AllegroFlare::UnicodeCharacters::COPYRIGHT_SYMBOL },
+            { "[[VERSION_NUMBER]]",   release_info->get_version() },
+         }
+      );
+      return templated_text.generate_content();
     body_dependency_symbols:
       - ReleaseInfo
+      - AllegroFlare::TemplatedText
+      - AllegroFlare::UnicodeCharacters
 
 
   - name: build_rolling_credits_sections
@@ -406,5 +413,9 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::GameEventDatas::ScreenActivated
     headers: [ AllegroFlare/GameEventDatas/ScreenActivated.hpp ]
+  - symbol: AllegroFlare::TemplatedText
+    headers: [ AllegroFlare/TemplatedText.hpp ]
+  - symbol: AllegroFlare::UnicodeCharacters
+    headers: [ AllegroFlare/UnicodeCharacters.hpp ]
 
 
