@@ -132,29 +132,6 @@ properties:
 methods:
 
 
-  - name: game_event_func
-    virtual: true
-    override: true
-    parameters:
-      - name: game_event
-        type: AllegroFlare::GameEvent*
-        default_argument: nullptr
-    guards: [ game_event ]
-    body: |
-      // TODO: Handle top-level game events here
-      if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
-      {
-         AllegroFlare::GameEventDatas::ScreenActivated* as =
-           static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
-
-         // TODO: Handle game-specific logic for a after a screen switch
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::EventNames
-      - AllegroFlare::GameEventDatas::ScreenActivated
-
-
   - name: create_game_configuration
     type: AllegroFlare::GameConfigurations::Base*
     body: |
@@ -172,6 +149,39 @@ methods:
          },
       };
       return result;
+
+
+  - name: handle_game_event
+    parameters:
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    body: |
+      // TODO: Handle top-level game events here
+      if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
+      {
+         AllegroFlare::GameEventDatas::ScreenActivated* as =
+           static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
+
+         // TODO: Handle game-specific logic for a after a screen switch
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+      - AllegroFlare::GameEventDatas::ScreenActivated
+
+
+  - name: game_event_func
+    virtual: true
+    override: true
+    parameters:
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    guards: [ game_event ]
+    body: |
+      handle_game_event(game_event);
+      return;
 
 
   - name: initialize

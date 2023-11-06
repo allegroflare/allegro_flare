@@ -76,9 +76,10 @@ namespace AllegroFlare
          Complete(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
          virtual ~Complete();
 
-         virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          AllegroFlare::GameConfigurations::Base* create_game_configuration();
          std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements();
+         void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
+         virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
          std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);

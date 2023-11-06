@@ -59,26 +59,6 @@ Complete::~Complete()
 }
 
 
-void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
-{
-   if (!(game_event))
-   {
-      std::stringstream error_message;
-      error_message << "[Complete::game_event_func]: error: guard \"game_event\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::game_event_func: error: guard \"game_event\" not met");
-   }
-   // TODO: Handle top-level game events here
-   if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
-   {
-      AllegroFlare::GameEventDatas::ScreenActivated* as =
-        static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
-
-      // TODO: Handle game-specific logic for a after a screen switch
-   }
-   return;
-}
-
 AllegroFlare::GameConfigurations::Base* Complete::create_game_configuration()
 {
    return new AllegroFlare::GameConfigurations::Base(); // TODO: Replace this with a real configuration
@@ -94,6 +74,32 @@ std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Com
       },
    };
    return result;
+}
+
+void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
+{
+   // TODO: Handle top-level game events here
+   if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
+   {
+      AllegroFlare::GameEventDatas::ScreenActivated* as =
+        static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
+
+      // TODO: Handle game-specific logic for a after a screen switch
+   }
+   return;
+}
+
+void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
+{
+   if (!(game_event))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::game_event_func]: error: guard \"game_event\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::game_event_func: error: guard \"game_event\" not met");
+   }
+   handle_game_event(game_event);
+   return;
 }
 
 void Complete::initialize()
