@@ -274,6 +274,8 @@ and_start_a_new_session)
    ASSERT_EQ(nullptr, router.get_game_session_ref().get_game_progress_and_state_info());
 
    int call_count = 0;
+   router.set_on_create_new_session_func(my_on_create_new_session_func);
+   router.set_on_create_new_session_func_user_data(&call_count);
    router.set_on_load_last_played_session_or_start_new_func(my_on_load_last_played_session_or_start_new_func);
    router.set_on_load_last_played_session_or_start_new_func_user_data(&call_count);
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_INITIALIZE);
