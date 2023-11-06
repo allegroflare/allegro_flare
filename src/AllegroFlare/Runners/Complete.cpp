@@ -168,11 +168,6 @@ void Complete::initialize()
    intro_logos_screen.set_auto_advance(true);
    intro_logos_screen.set_background(&solid_black_background);
    intro_logos_screen.initialize();
-   //intro_logos_screen.get_storyboard_element_ref().set_pages({
-      //game_configuration->create_intro_logos_storyboard_pages()
-      //page_factory.create_clubcatt_logo_page(),
-      //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
-   //});
    intro_logos_screen.get_storyboard_element_ref().set_pages(
       game_configuration->create_intro_logos_storyboard_pages()
    );
