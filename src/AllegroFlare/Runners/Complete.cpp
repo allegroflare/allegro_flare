@@ -4,9 +4,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
-#include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
-#include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -58,19 +56,6 @@ Complete::~Complete()
 }
 
 
-void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
-{
-   // TODO: Handle top-level game events here
-   if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
-   {
-      AllegroFlare::GameEventDatas::ScreenActivated* as =
-        static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
-
-      // TODO: Handle game-specific logic for a after a screen switch
-   }
-   return;
-}
-
 void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
 {
    if (!(game_event))
@@ -80,7 +65,7 @@ void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Complete::game_event_func: error: guard \"game_event\" not met");
    }
-   handle_game_event(game_event);
+   game_configuration->handle_game_event(game_event);
    return;
 }
 

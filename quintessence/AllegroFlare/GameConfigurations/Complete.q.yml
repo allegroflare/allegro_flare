@@ -26,6 +26,27 @@ documentation:
 methods:
 
 
+  - name: handle_game_event
+    virtual: true
+    parameters:
+      - name: game_event
+        type: AllegroFlare::GameEvent*
+        default_argument: nullptr
+    body: |
+      // TODO: Handle top-level game events here
+      if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
+      {
+         AllegroFlare::GameEventDatas::ScreenActivated* as =
+           static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
+
+         // TODO: Handle game-specific logic for a after a screen switch
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+      - AllegroFlare::GameEventDatas::ScreenActivated
+
+
   - name: load_level_by_identifier
     virtual: true
     type: AllegroFlare::Levels::Base*
@@ -378,5 +399,11 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::ClearToColor
     headers: [ AllegroFlare/Elements/Backgrounds/ClearToColor.hpp ]
+  - symbol: AllegroFlare::GameEvent
+    headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::EventNames
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::ScreenActivated
+    headers: [ AllegroFlare/GameEventDatas/ScreenActivated.hpp ]
 
 

@@ -6,6 +6,8 @@
 #include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
+#include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <ReleaseInfo.hpp>
@@ -36,6 +38,19 @@ std::string Complete::get_type() const
    return type;
 }
 
+
+void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
+{
+   // TODO: Handle top-level game events here
+   if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
+   {
+      AllegroFlare::GameEventDatas::ScreenActivated* as =
+        static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
+
+      // TODO: Handle game-specific logic for a after a screen switch
+   }
+   return;
+}
 
 AllegroFlare::Levels::Base* Complete::load_level_by_identifier(std::string level_identifier)
 {

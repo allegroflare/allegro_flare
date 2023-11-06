@@ -6,6 +6,7 @@
 #include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
+#include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
@@ -36,6 +37,7 @@ namespace AllegroFlare
          virtual ~Complete();
 
          std::string get_type() const;
+         virtual void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          virtual AllegroFlare::Levels::Base* load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          virtual std::vector<std::pair<std::string, std::string>> build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]");
          virtual AllegroFlare::DialogTree::NodeBank build_dialog_bank_by_identifier(std::string identifier="[unset-identifier]");
