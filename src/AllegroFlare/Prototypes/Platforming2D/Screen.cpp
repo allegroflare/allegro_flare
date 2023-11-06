@@ -1004,25 +1004,31 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
    }
-   switch (event->keyboard.keycode)
+   if (!gameplay_suspended)
    {
-      case ALLEGRO_KEY_LEFT:
-         player_controls.set_left_button_pressed(true);
-      break;
+      switch (event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_LEFT:
+            player_controls.set_left_button_pressed(true);
+         break;
 
-      case ALLEGRO_KEY_RIGHT:
-         player_controls.set_right_button_pressed(true);
-      break;
+         case ALLEGRO_KEY_RIGHT:
+            player_controls.set_right_button_pressed(true);
+         break;
 
-      case ALLEGRO_KEY_UP:
-         player_controls.set_up_button_pressed(true);
-         check_player_collisions_with_doors();
-      break;
+         case ALLEGRO_KEY_UP:
+            player_controls.set_up_button_pressed(true);
+            check_player_collisions_with_doors();
+         break;
 
-      case ALLEGRO_KEY_SPACE:
-         set_player_controlled_entity_jump();
-      break;
+         case ALLEGRO_KEY_SPACE:
+            set_player_controlled_entity_jump();
+         break;
+      }
+   }
 
+   switch (event->keyboard.keycode) // TODO: Add boolean option to disable this "manual" toggling of pause
+   {
       case ALLEGRO_KEY_P:
          toggle_suspend_gameplay();
       break;
@@ -1043,42 +1049,41 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
 
    // TODO: validate virtual controller type
 
-   if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
+   if (!gameplay_suspended)
    {
-      // TODO: block if gameplay is suspended
-      player_controls.set_a_button_pressed(true);
-      set_player_controlled_entity_jump();
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
-   {
-      // TODO: block if gameplay is suspended
-      reverse_gravity();
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
-   {
-      // TODO: block if gameplay is suspended
-      player_emit_projectile();
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
-   {
-      // TODO: block if gameplay is suspended
-      player_controls.set_right_button_pressed(true);
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
-   {
-      // TODO: block if gameplay is suspended
-      player_controls.set_left_button_pressed(true);
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_UP)
-   {
-      // TODO: block if gameplay is suspended
-      player_controls.set_up_button_pressed(true);
-      check_player_collisions_with_doors();
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
-   {
-      // TODO: block if gameplay is suspended
-      player_controls.set_right_bumper_pressed(true);
+      // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
+      // continuing moving forward if paused mid-jump, etc)
+      if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
+      {
+         player_controls.set_a_button_pressed(true);
+         set_player_controlled_entity_jump();
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
+      {
+         reverse_gravity();
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
+      {
+         player_emit_projectile();
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
+      {
+         player_controls.set_right_button_pressed(true);
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
+      {
+         player_controls.set_left_button_pressed(true);
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_UP)
+      {
+         player_controls.set_up_button_pressed(true);
+         check_player_collisions_with_doors();
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
+      {
+         // TODO: block if gameplay is suspended
+         player_controls.set_right_bumper_pressed(true);
+      }
    }
    return;
 }
@@ -1096,25 +1101,26 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
 
    // TODO: validate virtual controller type
 
-   if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
+   if (!gameplay_suspended)
    {
-      // TODO: block if gameplay is suspended
-      player_controls.set_a_button_pressed(false);
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
-   {
-      // TODO: block if gameplay is suspended
-      player_controls.set_right_button_pressed(false);
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
-   {
-      // TODO: block if gameplay is suspended
-      player_controls.set_left_button_pressed(false);
-   }
-   else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
-   {
-      // TODO: block if gameplay is suspended
-      player_controls.set_right_bumper_pressed(false);
+      // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
+      // continuing moving forward if paused mid-jump, etc)
+      if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
+      {
+         player_controls.set_a_button_pressed(false);
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
+      {
+         player_controls.set_right_button_pressed(false);
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
+      {
+         player_controls.set_left_button_pressed(false);
+      }
+      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
+      {
+         player_controls.set_right_bumper_pressed(false);
+      }
    }
    return;
 }
