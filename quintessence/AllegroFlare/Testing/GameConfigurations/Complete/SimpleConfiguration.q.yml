@@ -1,15 +1,17 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameConfigurations::Complete
+    scope: public
+    init_with: AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::TYPE
+
+
 properties:
 
 
-  - name: type
-    type: std::string
-    init_with: AllegroFlare::GameConfigurations::Complete::TYPE
-    constructor_arg: true
-    getter: true
-
   - name: TYPE
     type: char*
-    init_with: '(char*)"AllegroFlare/GameConfigurations/Complete"'
+    init_with: '(char*)"AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"'
     static: true
     constexpr: true
 
@@ -18,9 +20,7 @@ documentation:
 
 
   - notes:
-     - this Complete class actually acts as a base class, but it's not clear and might appear to be derived from
-       GameConfigurations/Base. I'm not sure how to resolve this if it will require a renaming or what.
-     - This Complete class is intended to be paired with the Runners/Complete class
+     - This testing class represents bare-bones setup when creating a custom GameConfigurations/Complete derived class
 
 
 methods:
@@ -28,19 +28,12 @@ methods:
 
   - name: handle_game_event
     virtual: true
+    override: true
     parameters:
       - name: game_event
         type: AllegroFlare::GameEvent*
         default_argument: nullptr
     body: |
-      // TODO: Handle top-level game events here
-      if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
-      {
-         AllegroFlare::GameEventDatas::ScreenActivated* as =
-           static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
-
-         // TODO: Handle game-specific logic for a after a screen switch
-      }
       return;
     body_dependency_symbols:
       - AllegroFlare::EventNames
@@ -49,17 +42,14 @@ methods:
 
   - name: load_level_by_identifier
     virtual: true
+    override: true
     type: AllegroFlare::Levels::Base*
     parameters:
       - name: level_identifier
         type: std::string
         default_argument: '"[unset-level_identifier]"'
     body: |
-      // TODO: Add tests for this method or consider making it a pure virtual
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::load_level_by_identifier"
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
+      // TODO
       return nullptr;
     body_dependency_symbols:
      - AllegroFlare::Logger
@@ -67,17 +57,14 @@ methods:
 
   - name: build_level_list_for_level_select_screen_by_identifier
     virtual: true
+    override: true
     type: std::vector<std::pair<std::string, std::string>>
     parameters:
       - name: identifier
         type: std::string
         default_argument: '"[unset-identifier]"'
     body: |
-      // TODO: Add tests for this method or consider making it a pure virtual
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::build_level_list_for_level_select_screen_by_identifier"
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
+      // TODO
       return {};
     body_dependency_symbols:
      - AllegroFlare::Logger
@@ -85,18 +72,15 @@ methods:
 
   - name: build_dialog_bank_by_identifier
     virtual: true
+    override: true
     type: AllegroFlare::DialogTree::NodeBank
     parameters:
       - name: identifier
         type: std::string
         default_argument: '"[unset-identifier]"'
     body: |
-      // TODO: Add tests for this method or consider making it a pure virtual
+      // TODO
       AllegroFlare::DialogTree::NodeBank node_bank;
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::build_dialog_bank_by_identifier",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
       return node_bank;
     body_dependency_symbols:
       - AllegroFlare::Logger
@@ -104,12 +88,10 @@ methods:
 
   - name: build_achievements
     virtual: true
+    override: true
     type: std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>>
     body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::build_achievements",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
+      // TODO
       return {};
     body_dependency_symbols:
       - AllegroFlare::Achievement
@@ -117,22 +99,17 @@ methods:
 
   - name: create_intro_logos_storyboard_pages
     virtual: true
+    override: true
     type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
     body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::create_intro_logos_storyboard_pages",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
-      //page_factory.create_clubcatt_logo_page(),
-      //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
       return {};
 
 
   - name: create_shared_background
     virtual: true
+    override: true
     type: AllegroFlare::Elements::Backgrounds::Base*
     body: |
-      // TODO: Customize this
       return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
     body_dependency_symbols:
       - AllegroFlare::Elements::Backgrounds::ClearToColor
@@ -140,81 +117,31 @@ methods:
 
   - name: create_new_game_intro_storyboard_pages
     virtual: true
+    override: true
     type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
     body: |
-      // Create a storyboard factory and page factory
-      //AllegroFlare::StoryboardFactory storyboard_factory;
-      //storyboard_factory.set_font_bin(font_bin);
-      //storyboard_factory.set_event_emitter(event_emitter);
-      //AllegroFlare::StoryboardPageFactory page_factory;
-      //page_factory.set_font_bin(font_bin);
-      //page_factory.set_bitmap_bin(bitmap_bin);
-      //page_factory.set_model_bin(model_bin);
-
-      //std::vector<AllegroFlare::Elements::StoryboardPages::Base *> result =
-      //{
-         //page_factory.create_advancing_text_page(
-           //"In a land beset by darkness, a young hero embarks on a perilous journey to retrieve a powerful "
-              //"artifact that can restore light to the kingdom."
-         //),
-         //page_factory.create_advancing_text_page(
-           //"With nothing but a trusty sword and his wits to guide him, he sets out to face whatever dangers "
-              //"lie ahead."
-         //),
-      //};
-      //return result;
       return {};
 
 
   - name: create_intro_storyboard_pages
     virtual: true
+    override: true
     type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
     body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::create_intro_storyboard_pages",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
-      //AllegroFlare::StoryboardPageFactory page_factory;
-      //page_factory.set_font_bin(font_bin);
-      //page_factory.set_bitmap_bin(bitmap_bin);
-      //page_factory.set_model_bin(model_bin);
-
-      //std::vector<AllegroFlare::Elements::StoryboardPages::Base *> result =
-      //{
-         //page_factory.create_image_with_advancing_text_page(
-            //"storyboard-1-01-1165x500.png",
-            //"Once upon a time, in a magical kingdom ruled by a wise and just queen, a young hero sets out on a "
-               //"journey to prove himself and save his people from a terrible curse."
-         //),
-         //page_factory.create_image_with_advancing_text_page(
-            //"storyboard-2-01-1165x500.png",
-            //"With the help of his trusty sidekick and a band of unlikely allies, he must navigate treacherous "
-               //"terrain and battle fierce foes."
-         //),
-         //page_factory.create_advancing_text_page(
-           //"And achieve his goal to save the kingdom."
-         //),
-      //};
       return {};
 
 
   - name: build_save_slots_for_load_screen
     virtual: true
+    override: true
     type: std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*>
     body: |
-      /*
-      std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> result = {
-         new AllegroFlare::LoadASavedGame::SaveSlots::Empty(), // TODO: Fill this list with items from save file
-         new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
-         new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
-      };
-      return result;
-      */
       return {};
 
 
   - name: continue_from_last_save
     virtual: true
+    override: true
     body: |
       // TODO: This method
       return;
@@ -222,6 +149,7 @@ methods:
 
   - name: setup_new_game_progress_and_state_info
     virtual: true
+    override: true
     parameters:
       - name: game_session
         type: AllegroFlare::GameSession*
@@ -242,6 +170,7 @@ methods:
 
   - name: load_last_played_session_or_start_new
     virtual: true
+    override: true
     parameters:
       - name: game_session
         type: AllegroFlare::GameSession*
@@ -262,48 +191,34 @@ methods:
 
   - name: load_audio_controller
     virtual: true
+    override: true
     body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::load_audio_controller",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
-      //AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
-      //audio_controller.set_and_load_sound_effect_elements({
-         //// { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
-      //});
-      //audio_controller.set_and_load_music_track_elements({
-         //// An example of how to load a music track:
-         ////{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
-      //});
-      //// An example of how to play a music track:
-      //// event_emitter->emit_play_music_track_event("intro_music");
+      // Nothing to do
       return;
 
 
   - name: build_title_screen_menu_options
     virtual: true
+    override: true
     type: std::vector<std::pair<std::string, std::string>>
     body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::build_title_screen_menu_options",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
       std::vector<std::pair<std::string, std::string>> options = {
          //{ "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
          //{ "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
                                                                    // and the game supports save slots
-         //{ "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
+         { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
          //{ "Achievements",      "goto_achievements_screen" },
          //{ "Settings",          "goto_settings_screen" },
          //{ "Version",           "goto_version_screen" },
          //{ "Credits",           "goto_credits_screen" },           // TODO: If game has been won
-         //{ "Quit",              "quit" },
+         { "Quit",              "quit" },
       };
       return options;
 
 
   - name: build_copyright_text
     virtual: true
+    override: true
     type: std::string
     parameters:
       - name: release_info
@@ -327,47 +242,10 @@ methods:
 
   - name: build_rolling_credits_sections
     virtual: true
+    override: true
     type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
     body: |
-      /*
-      AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
-      std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
-         section_factory.create_spacer(),
-
-         section_factory.create_text(
-            "A game by Mark Oates"
-         ),
-
-         section_factory.create_spacer(),
-
-         section_factory.create_text(
-            "KrampusHack 2023\nhttps://tins.amarillion.org/krampu23"
-         ),
-
-         section_factory.create_section_spacer(),
-
-         section_factory.create_header("Programming"),
-         section_factory.create_column_with_labels({
-            { "Made with", "Allegro (5.2.9)" },
-            {          "", "https://liballeg.org/" },
-            //{          "", "by Allegro Developers" },
-            { "Framework", "AllegroFlare (0.8.11-wip)" },
-            {          "", "https://github.com/allegroflare/allegro_flare" },
-            {          "", "by Mark Oates" },
-         }),
-
-         section_factory.create_section_spacer(),
-      //});
-      //std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
-      };
-      // TODO: Append disclaimers
-      rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
-      return result;
-      */
       return {};
-    body_dependency_symbols:
-      - AllegroFlare::Elements::RollingCredits::Sections::Base
-      - AllegroFlare::Elements::RollingCredits::SectionFactory
 
 
   - name: is_type
@@ -383,6 +261,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::GameConfigurations::Complete
+    headers: [ AllegroFlare/GameConfigurations/Complete.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeBank
     headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
   - symbol: AllegroFlare::Logger
