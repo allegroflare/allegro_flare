@@ -3,13 +3,11 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
-#include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
-#include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/LoadASavedGame/Screen.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
@@ -27,8 +25,6 @@
 #include <ReleaseInfo.hpp>
 #include <cstdint>
 #include <string>
-#include <utility>
-#include <vector>
 
 
 namespace AllegroFlare
@@ -77,12 +73,6 @@ namespace AllegroFlare
 
          AllegroFlare::GameConfigurations::Complete* create_game_configuration();
          void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
-         void continue_from_last_save();
-         void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
-         void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
-         void load_audio_controller();
-         std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
-         std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_logos_storyboard_pages();
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);

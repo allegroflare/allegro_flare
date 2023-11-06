@@ -4,8 +4,23 @@
 #include <AllegroFlare/Runners/Complete.hpp>
 
 
-class MyGameConfiguration : public AllegroFlare::GameConfigurations::Base
+class MyGameConfiguration : public AllegroFlare::GameConfigurations::Complete
 {
+   virtual AllegroFlare::Levels::Base*
+      load_level_by_identifier(std::string level_identifier="[unset-level_identifier]") override;
+   //build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]");
+   //build_dialog_bank_by_identifier(std::string identifier="[unset-identifier]");
+   //build_achievements();
+   //create_intro_logos_storyboard_pages();
+   //continue_from_last_save();
+   //setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
+   //load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
+   //load_audio_controller();
+   //build_title_screen_menu_options();
+   //is_type(std::string possible_type="");
+
+   //void configure_level_select_screen(AllegroFlare::LevelSelectScreen::Screen *level_select_screen=nullptr);
+   //void configure_load_a_saved_game_screen(AllegroFlare::LoadASavedGame::Screen *load_a_saved_game_screen=nullptr);
 };
 
 

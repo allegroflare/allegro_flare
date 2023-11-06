@@ -76,7 +76,18 @@ std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Com
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_logos_storyboard_pages()
 {
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::create_intro_logos_storyboard_pagse",
+      "AllegroFlare::GameConfigurations::Base::create_intro_logos_storyboard_pages",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   //page_factory.create_clubcatt_logo_page(),
+   //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
+   return {};
+}
+
+std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_storyboard_pages()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::create_intro_storyboard_pages",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    //AllegroFlare::StoryboardPageFactory page_factory;

@@ -37,6 +37,7 @@ namespace AllegroFlare
          virtual AllegroFlare::DialogTree::NodeBank build_dialog_bank_by_identifier(std::string identifier="[unset-identifier]");
          virtual std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_logos_storyboard_pages();
+         virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages();
          virtual void continue_from_last_save();
          virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);

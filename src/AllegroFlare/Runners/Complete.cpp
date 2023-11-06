@@ -7,7 +7,6 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
-#include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -75,100 +74,6 @@ void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
       // TODO: Handle game-specific logic for a after a screen switch
    }
    return;
-}
-
-void Complete::continue_from_last_save()
-{
-   // TODO: This method
-   return;
-}
-
-void Complete::setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
-{
-   if (!(game_session))
-   {
-      std::stringstream error_message;
-      error_message << "[Complete::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::setup_new_game_progress_and_state_info: error: guard \"game_session\" not met");
-   }
-   // TODO: This method
-   AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
-     game_session->get_game_progress_and_state_info();
-   return;
-}
-
-void Complete::load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session)
-{
-   if (!(game_session))
-   {
-      std::stringstream error_message;
-      error_message << "[Complete::load_last_played_session_or_start_new]: error: guard \"game_session\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::load_last_played_session_or_start_new: error: guard \"game_session\" not met");
-   }
-   // TODO: This method
-   AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
-     game_session->get_game_progress_and_state_info();
-   return;
-}
-
-void Complete::load_audio_controller()
-{
-   AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
-   audio_controller.set_and_load_sound_effect_elements({
-      // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
-   });
-   audio_controller.set_and_load_music_track_elements({
-      // An example of how to load a music track:
-      //{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
-   });
-   // An example of how to play a music track:
-   // event_emitter->emit_play_music_track_event("intro_music");
-   return;
-}
-
-std::vector<std::pair<std::string, std::string>> Complete::build_title_screen_menu_options()
-{
-   std::vector<std::pair<std::string, std::string>> options = {
-      { "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
-      { "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
-                                                                // and the game supports save slots
-      { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
-      { "Achievements",      "goto_achievements_screen" },
-      { "Settings",          "goto_settings_screen" },
-      { "Version",           "goto_version_screen" },
-      { "Credits",           "goto_credits_screen" },           // TODO: If game has been won
-      { "Quit",              "quit" },
-   };
-   return options;
-}
-
-std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_logos_storyboard_pages()
-{
-   AllegroFlare::StoryboardPageFactory page_factory;
-   page_factory.set_font_bin(font_bin);
-   page_factory.set_bitmap_bin(bitmap_bin);
-   page_factory.set_model_bin(model_bin);
-
-   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> result =
-   {
-      page_factory.create_image_with_advancing_text_page(
-         "storyboard-1-01-1165x500.png",
-         "Once upon a time, in a magical kingdom ruled by a wise and just queen, a young hero sets out on a "
-            "journey to prove himself and save his people from a terrible curse."
-      ),
-      page_factory.create_image_with_advancing_text_page(
-         "storyboard-2-01-1165x500.png",
-         "With the help of his trusty sidekick and a band of unlikely allies, he must navigate treacherous "
-            "terrain and battle fierce foes."
-      ),
-      page_factory.create_advancing_text_page(
-        "And achieve his goal to save the kingdom."
-      ),
-   };
-
-   return result;
 }
 
 void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
@@ -263,10 +168,14 @@ void Complete::initialize()
    intro_logos_screen.set_auto_advance(true);
    intro_logos_screen.set_background(&solid_black_background);
    intro_logos_screen.initialize();
-   intro_logos_screen.get_storyboard_element_ref().set_pages({
-      page_factory.create_clubcatt_logo_page(),
-      page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
-   });
+   //intro_logos_screen.get_storyboard_element_ref().set_pages({
+      //game_configuration->create_intro_logos_storyboard_pages()
+      //page_factory.create_clubcatt_logo_page(),
+      //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
+   //});
+   intro_logos_screen.get_storyboard_element_ref().set_pages(
+      game_configuration->create_intro_logos_storyboard_pages()
+   );
 
    // TODO: Setup intro storyboard screen
    intro_storyboard_screen.set_event_emitter(event_emitter);
@@ -274,11 +183,13 @@ void Complete::initialize()
    intro_storyboard_screen.set_auto_advance(true);
    intro_storyboard_screen.set_background(&solid_black_background);
    intro_storyboard_screen.initialize();
-   intro_storyboard_screen.get_storyboard_element_ref().set_pages(create_intro_logos_storyboard_pages());
+   intro_storyboard_screen.get_storyboard_element_ref().set_pages(
+      game_configuration->create_intro_storyboard_pages()
+   );
 
    // TODO: Setup title screen
    title_screen.set_event_emitter(event_emitter);
-   title_screen.set_menu_options( build_title_screen_menu_options());
+   title_screen.set_menu_options(game_configuration->build_title_screen_menu_options());
    title_screen.set_font_bin(font_bin);
    // TODO: Update this text to include the copyright symbol
    std::string copyright_text = "(c) 2023 CLUBCATT Games         clubcatt.com         version " + release_info.get_version();
@@ -419,7 +330,7 @@ void Complete::initialize()
    */
 
    // TODO: Load up our sound effects and music tracks
-   load_audio_controller();
+   game_configuration->load_audio_controller();
 
    return;
 }
@@ -490,7 +401,7 @@ void Complete::setup_router()
       [this](AllegroFlare::Routers::Standard* screen, void* user_data) {
          // TODO: Test this method
          AllegroFlare::GameSession &game_session = screen->get_game_session_ref();
-         this->setup_new_game_progress_and_state_info(&game_session); // NOTE: user_data is not necessary
+         this->game_configuration->setup_new_game_progress_and_state_info(&game_session); // NOTE: user_data is not necessary
       }
    );
    //router.set_on_create_new_session_func_user_data(this);
@@ -500,7 +411,7 @@ void Complete::setup_router()
          // TODO: Test this method
          AllegroFlare::GameSession &game_session = screen->get_game_session_ref();
          // NOTE: user_data is not necessary
-         this->load_last_played_session_or_start_new(&game_session);
+         this->game_configuration->load_last_played_session_or_start_new(&game_session);
       }
    );
    //router.set_on_load_last_played_session_or_start_new_func_user_data(this); // NOTE: user_data is not necessary
