@@ -80,14 +80,14 @@ namespace AllegroFlare
          AllegroFlare::GameConfigurations::Base* create_game_configuration();
          std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements();
          void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
+         void continue_from_last_save();
+         void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
+         void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_logos_storyboard_pages();
          void initialize();
          std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
-         void continue_from_last_save();
-         void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
-         void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
          void setup_router();
          static void run(std::string deployment_environment_mode="[unset-deployment_environment_mode]");
       };

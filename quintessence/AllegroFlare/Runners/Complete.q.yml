@@ -171,6 +171,42 @@ methods:
       - AllegroFlare::GameEventDatas::ScreenActivated
 
 
+  - name: continue_from_last_save
+    body: |
+      // TODO: This method
+      return;
+
+
+  - name: setup_new_game_progress_and_state_info
+    parameters:
+      - name: game_session
+        type: AllegroFlare::GameSession*
+        default_argument: nullptr
+    guards: [ game_session ]
+    body: |
+      // TODO: This method
+      AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+        game_session->get_game_progress_and_state_info();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::GameProgressAndStateInfos::Base
+
+
+  - name: load_last_played_session_or_start_new
+    parameters:
+      - name: game_session
+        type: AllegroFlare::GameSession*
+        default_argument: nullptr
+    guards: [ game_session ]
+    body: |
+      // TODO: This method
+      AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+        game_session->get_game_progress_and_state_info();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::GameProgressAndStateInfos::Base
+
+
   - name: game_event_func
     virtual: true
     override: true
@@ -477,42 +513,6 @@ methods:
       }
 
       return handled;
-
-
-  - name: continue_from_last_save
-    body: |
-      // TODO: This method
-      return;
-
-
-  - name: setup_new_game_progress_and_state_info
-    parameters:
-      - name: game_session
-        type: AllegroFlare::GameSession*
-        default_argument: nullptr
-    guards: [ game_session ]
-    body: |
-      // TODO: This method
-      AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
-        game_session->get_game_progress_and_state_info();
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::GameProgressAndStateInfos::Base
-
-
-  - name: load_last_played_session_or_start_new
-    parameters:
-      - name: game_session
-        type: AllegroFlare::GameSession*
-        default_argument: nullptr
-    guards: [ game_session ]
-    body: |
-      // TODO: This method
-      AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
-        game_session->get_game_progress_and_state_info();
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::GameProgressAndStateInfos::Base
 
 
   - name: setup_router
