@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
@@ -28,7 +27,6 @@
 #include <ReleaseInfo.hpp>
 #include <cstdint>
 #include <string>
-#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -78,7 +76,6 @@ namespace AllegroFlare
          virtual ~Complete();
 
          AllegroFlare::GameConfigurations::Complete* create_game_configuration();
-         std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements();
          void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          void continue_from_last_save();
          void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);

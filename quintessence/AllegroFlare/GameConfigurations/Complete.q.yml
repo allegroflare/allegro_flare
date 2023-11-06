@@ -126,7 +126,15 @@ methods:
       return {};
 
 
+  - name: continue_from_last_save
+    virtual: true
+    body: |
+      // TODO: This method
+      return;
+
+
   - name: setup_new_game_progress_and_state_info
+    virtual: true
     parameters:
       - name: game_session
         type: AllegroFlare::GameSession*
@@ -146,6 +154,7 @@ methods:
 
 
   - name: load_last_played_session_or_start_new
+    virtual: true
     parameters:
       - name: game_session
         type: AllegroFlare::GameSession*
@@ -165,6 +174,7 @@ methods:
 
 
   - name: load_audio_controller
+    virtual: true
     body: |
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::GameConfigurations::Base::load_audio_controller",
@@ -184,6 +194,7 @@ methods:
 
 
   - name: build_title_screen_menu_options
+    virtual: true
     type: std::vector<std::pair<std::string, std::string>>
     body: |
       AllegroFlare::Logger::throw_error(

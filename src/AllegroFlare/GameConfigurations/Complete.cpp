@@ -103,6 +103,12 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
    return {};
 }
 
+void Complete::continue_from_last_save()
+{
+   // TODO: This method
+   return;
+}
+
 void Complete::setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
 {
    if (!(game_session))

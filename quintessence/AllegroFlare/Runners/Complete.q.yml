@@ -138,19 +138,6 @@ methods:
       return new AllegroFlare::GameConfigurations::Complete(); // TODO: Replace this with a real configuration
 
 
-  - name: build_achievements
-    type: std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>>
-    body: |
-      std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> result = {
-         { "stay_through_the_credits",
-            new AllegroFlare::Achievement("Stay Through the Credits", "Watch the credits"),
-            false,
-            false,
-         },
-      };
-      return result;
-
-
   - name: handle_game_event
     parameters:
       - name: game_event
@@ -807,7 +794,7 @@ methods:
             }
             else if (menu_choice == "continue_from_last_save")
             {
-               this->continue_from_last_save();
+               this->game_configuration->continue_from_last_save();
             }
             else if (menu_choice == "quit")
             {

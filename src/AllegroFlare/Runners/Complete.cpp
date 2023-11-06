@@ -64,18 +64,6 @@ AllegroFlare::GameConfigurations::Complete* Complete::create_game_configuration(
    return new AllegroFlare::GameConfigurations::Complete(); // TODO: Replace this with a real configuration
 }
 
-std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Complete::build_achievements()
-{
-   std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> result = {
-      { "stay_through_the_credits",
-         new AllegroFlare::Achievement("Stay Through the Credits", "Watch the credits"),
-         false,
-         false,
-      },
-   };
-   return result;
-}
-
 void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
 {
    // TODO: Handle top-level game events here
@@ -754,7 +742,7 @@ void Complete::setup_router()
          }
          else if (menu_choice == "continue_from_last_save")
          {
-            this->continue_from_last_save();
+            this->game_configuration->continue_from_last_save();
          }
          else if (menu_choice == "quit")
          {
