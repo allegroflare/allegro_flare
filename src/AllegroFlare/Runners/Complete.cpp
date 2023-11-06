@@ -84,6 +84,18 @@ AllegroFlare::GameConfigurations::Base* Complete::create_game_configuration()
    return new AllegroFlare::GameConfigurations::Base(); // TODO: Replace this with a real configuration
 }
 
+std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Complete::build_achievements()
+{
+   std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> result = {
+      { "stay_through_the_credits",
+         new AllegroFlare::Achievement("Stay Through the Credits", "Watch the credits"),
+         false,
+         false,
+      },
+   };
+   return result;
+}
+
 void Complete::initialize()
 {
    if (!((!initialized)))
@@ -155,13 +167,7 @@ void Complete::initialize()
    framework->set_dialog_system_dialog_node_bank(game_configuration->build_dialog_bank_by_identifier());
 
    // TODO: Setup achievements
-   achievements.set_achievements({
-      { "stay_through_the_credits",
-         new AllegroFlare::Achievement("Stay Through the Credits", "Watch the credits"),
-         false,
-         false,
-      },
-   });
+   achievements.set_achievements(build_achievements());
 
    // TODO: Setup intro logos screen
    intro_logos_screen.set_event_emitter(event_emitter);
