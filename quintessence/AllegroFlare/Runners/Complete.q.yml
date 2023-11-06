@@ -34,6 +34,11 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: game_configuration
+    type: AllegroFlare::GameConfigurations::Complete*
+    init_with: nullptr
+    constructor_arg: true
+
   - name: router
     type: AllegroFlare::Routers::Standard
     init_with: ''
@@ -94,10 +99,6 @@ properties:
     type: AllegroFlare::Screens::Gameplay
     init_with: ''
 
-  - name: game_configuration
-    type: AllegroFlare::GameConfigurations::Complete*
-    init_with: nullptr
-
   - name: shared_background
     type: AllegroFlare::Elements::Backgrounds::Base*
     init_with: nullptr
@@ -130,12 +131,6 @@ properties:
 
 
 methods:
-
-
-  - name: create_game_configuration
-    type: AllegroFlare::GameConfigurations::Complete*
-    body: |
-      return new AllegroFlare::GameConfigurations::Complete(); // TODO: Replace this with a real configuration
 
 
   - name: handle_game_event
@@ -179,6 +174,7 @@ methods:
       - bitmap_bin
       - font_bin
       - model_bin
+      - game_configuration
     body: |
       // Create some references for convenience
       AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
@@ -194,7 +190,7 @@ methods:
       framework->set_router(&router);
 
       // Create the game configuration for our game
-      game_configuration = create_game_configuration();
+      //game_configuration = create_game_configuration();
 
       // Fill our dialog bank
       framework->set_dialog_system_dialog_node_bank(game_configuration->build_dialog_bank_by_identifier());
@@ -728,9 +724,13 @@ methods:
 
   - name: run
     parameters:
+      - name: game_configuration
+        type: AllegroFlare::GameConfigurations::Complete*
+        default_argument: nullptr
       - name: deployment_environment_mode
         type: std::string
         default_argument: '"[unset-deployment_environment_mode]"'
+    guards: [ game_configuration ]
     static: true
     body: |
       // setup the framework
@@ -745,7 +745,8 @@ methods:
          &framework->get_event_emitter_ref(),
          &framework->get_bitmap_bin_ref(),
          &framework->get_font_bin_ref(),
-         &framework->get_model_bin_ref()
+         &framework->get_model_bin_ref(),
+         game_configuration
       );
       runner.initialize();
       framework->register_screen("runner", &runner);

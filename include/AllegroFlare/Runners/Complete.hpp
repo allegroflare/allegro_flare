@@ -44,6 +44,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::ModelBin* model_bin;
+         AllegroFlare::GameConfigurations::Complete* game_configuration;
          AllegroFlare::Routers::Standard router;
          AllegroFlare::Screens::Storyboard intro_logos_screen;
          AllegroFlare::Screens::Storyboard intro_storyboard_screen;
@@ -59,7 +60,6 @@ namespace AllegroFlare
          AllegroFlare::Screens::SettingsScreen settings_screen;
          AllegroFlare::Screens::RollingCredits rolling_credits_screen;
          AllegroFlare::Screens::Gameplay primary_gameplay_screen;
-         AllegroFlare::GameConfigurations::Complete* game_configuration;
          AllegroFlare::Elements::Backgrounds::Base* shared_background;
          ReleaseInfo release_info;
          bool initialized;
@@ -68,16 +68,15 @@ namespace AllegroFlare
 
 
       public:
-         Complete(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
+         Complete(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::GameConfigurations::Complete* game_configuration=nullptr);
          virtual ~Complete();
 
-         AllegroFlare::GameConfigurations::Complete* create_game_configuration();
          void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          void setup_router();
-         static void run(std::string deployment_environment_mode="[unset-deployment_environment_mode]");
+         static void run(AllegroFlare::GameConfigurations::Complete* game_configuration=nullptr, std::string deployment_environment_mode="[unset-deployment_environment_mode]");
       };
    }
 }

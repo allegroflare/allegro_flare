@@ -96,6 +96,10 @@ AllegroFlare::Elements::Backgrounds::Base* Complete::create_shared_background()
 
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_new_game_intro_storyboard_pages()
 {
+   // Create a storyboard factory and page factory
+   //AllegroFlare::StoryboardFactory storyboard_factory;
+   //storyboard_factory.set_font_bin(font_bin);
+   //storyboard_factory.set_event_emitter(event_emitter);
    //AllegroFlare::StoryboardPageFactory page_factory;
    //page_factory.set_font_bin(font_bin);
    //page_factory.set_bitmap_bin(bitmap_bin);

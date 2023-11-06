@@ -120,6 +120,10 @@ methods:
     virtual: true
     type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
     body: |
+      // Create a storyboard factory and page factory
+      //AllegroFlare::StoryboardFactory storyboard_factory;
+      //storyboard_factory.set_font_bin(font_bin);
+      //storyboard_factory.set_event_emitter(event_emitter);
       //AllegroFlare::StoryboardPageFactory page_factory;
       //page_factory.set_font_bin(font_bin);
       //page_factory.set_bitmap_bin(bitmap_bin);

@@ -23,13 +23,14 @@ namespace Runners
 {
 
 
-Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin)
+Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::GameConfigurations::Complete* game_configuration)
    : AllegroFlare::Screens::Base(AllegroFlare::Runners::Complete::TYPE)
    , framework(framework)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , model_bin(model_bin)
+   , game_configuration(game_configuration)
    , router()
    , intro_logos_screen()
    , intro_storyboard_screen()
@@ -45,7 +46,6 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , settings_screen()
    , rolling_credits_screen()
    , primary_gameplay_screen()
-   , game_configuration(nullptr)
    , shared_background(nullptr)
    , release_info({})
    , initialized(false)
@@ -57,11 +57,6 @@ Complete::~Complete()
 {
 }
 
-
-AllegroFlare::GameConfigurations::Complete* Complete::create_game_configuration()
-{
-   return new AllegroFlare::GameConfigurations::Complete(); // TODO: Replace this with a real configuration
-}
 
 void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
 {
@@ -133,6 +128,13 @@ void Complete::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Complete::initialize: error: guard \"model_bin\" not met");
    }
+   if (!(game_configuration))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::initialize]: error: guard \"game_configuration\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::initialize: error: guard \"game_configuration\" not met");
+   }
    // Create some references for convenience
    AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
    AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
@@ -147,7 +149,7 @@ void Complete::initialize()
    framework->set_router(&router);
 
    // Create the game configuration for our game
-   game_configuration = create_game_configuration();
+   //game_configuration = create_game_configuration();
 
    // Fill our dialog bank
    framework->set_dialog_system_dialog_node_bank(game_configuration->build_dialog_bank_by_identifier());
@@ -671,8 +673,15 @@ void Complete::setup_router()
    return;
 }
 
-void Complete::run(std::string deployment_environment_mode)
+void Complete::run(AllegroFlare::GameConfigurations::Complete* game_configuration, std::string deployment_environment_mode)
 {
+   if (!(game_configuration))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::run]: error: guard \"game_configuration\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::run: error: guard \"game_configuration\" not met");
+   }
    // setup the framework
    AllegroFlare::Frameworks::Full *framework = new AllegroFlare::Frameworks::Full();
    framework->set_deployment_environment(deployment_environment_mode);
@@ -685,7 +694,8 @@ void Complete::run(std::string deployment_environment_mode)
       &framework->get_event_emitter_ref(),
       &framework->get_bitmap_bin_ref(),
       &framework->get_font_bin_ref(),
-      &framework->get_model_bin_ref()
+      &framework->get_model_bin_ref(),
+      game_configuration
    );
    runner.initialize();
    framework->register_screen("runner", &runner);

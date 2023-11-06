@@ -22978,6 +22978,10 @@ table td
   <td class="property">AllegroFlare::ModelBin*</td>
 </tr>
 <tr>
+  <td class="property">game_configuration</td>
+  <td class="property">AllegroFlare::GameConfigurations::Complete*</td>
+</tr>
+<tr>
   <td class="property">router</td>
   <td class="property">AllegroFlare::Routers::Standard</td>
 </tr>
@@ -23038,10 +23042,6 @@ table td
   <td class="property">AllegroFlare::Screens::Gameplay</td>
 </tr>
 <tr>
-  <td class="property">game_configuration</td>
-  <td class="property">AllegroFlare::GameConfigurations::Complete*</td>
-</tr>
-<tr>
   <td class="property">shared_background</td>
   <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
@@ -23069,9 +23069,6 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">create_game_configuration()</td>
-</tr>
-<tr>
   <td class="method">handle_game_event(AllegroFlare::GameEvent* game_event=nullptr)</td>
 </tr>
 <tr>
@@ -23087,7 +23084,7 @@ table td
   <td class="method">setup_router()</td>
 </tr>
 <tr>
-  <td class="method">run(std::string deployment_environment_mode=&quot;[unset-deployment_environment_mode]&quot;)</td>
+  <td class="method">run(AllegroFlare::GameConfigurations::Complete* game_configuration=nullptr, std::string deployment_environment_mode=&quot;[unset-deployment_environment_mode]&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
