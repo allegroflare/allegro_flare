@@ -324,38 +324,7 @@ methods:
       rolling_credits_screen.set_event_emitter(event_emitter); // TODO: See if this is necessary
       rolling_credits_screen.set_font_bin(font_bin);
       rolling_credits_screen.set_background(&solid_black_background);
-      rolling_credits_screen.set_sections(
-         game_configuration->build_rolling_credits_sections()
-      );
-      /*
-      {
-         section_factory.create_spacer(),
-
-         section_factory.create_text(
-            "A game by Mark Oates"
-         ),
-
-         section_factory.create_spacer(),
-
-         section_factory.create_text(
-            "KrampusHack 2023\nhttps://tins.amarillion.org/krampu23"
-         ),
-
-         section_factory.create_section_spacer(),
-
-         section_factory.create_header("Programming"),
-         section_factory.create_column_with_labels({
-            { "Made with", "Allegro (5.2.9)" },
-            {          "", "https://liballeg.org/" },
-            //{          "", "by Allegro Developers" },
-            { "Framework", "AllegroFlare (0.8.11-wip)" },
-            {          "", "https://github.com/allegroflare/allegro_flare" },
-            {          "", "by Mark Oates" },
-         }),
-
-         section_factory.create_section_spacer(),
-      });
-      */
+      rolling_credits_screen.set_sections(game_configuration->build_rolling_credits_sections());
       rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
       rolling_credits_screen.initialize();
 

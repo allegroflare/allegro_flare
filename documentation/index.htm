@@ -12026,6 +12026,9 @@ table td
   <td class="method">build_title_screen_menu_options()</td>
 </tr>
 <tr>
+  <td class="method">build_rolling_credits_sections()</td>
+</tr>
+<tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
@@ -12051,6 +12054,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameSession&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameSession.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionFactory.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -33446,6 +33455,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/Sections/LegalText",
     "AllegroFlare/Elements/RollingCredits/Sections/Spacer",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Screens/RollingCredits"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Header": [
@@ -33657,6 +33667,11 @@ table td
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Version"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -34608,10 +34623,6 @@ table td
     "AllegroFlare/Runners/Complete"
   ],
   "ReleaseInfo": [
-    "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Version"
-  ],
-  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Version"
   ],

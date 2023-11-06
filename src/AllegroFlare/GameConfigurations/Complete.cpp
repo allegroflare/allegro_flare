@@ -3,6 +3,7 @@
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 
 #include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -207,24 +208,55 @@ std::vector<std::pair<std::string, std::string>> Complete::build_title_screen_me
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    std::vector<std::pair<std::string, std::string>> options = {
-      { "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
-      { "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
+      //{ "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
+      //{ "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
                                                                 // and the game supports save slots
-      { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
-      { "Achievements",      "goto_achievements_screen" },
-      { "Settings",          "goto_settings_screen" },
-      { "Version",           "goto_version_screen" },
-      { "Credits",           "goto_credits_screen" },           // TODO: If game has been won
-      { "Quit",              "quit" },
+      //{ "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
+      //{ "Achievements",      "goto_achievements_screen" },
+      //{ "Settings",          "goto_settings_screen" },
+      //{ "Version",           "goto_version_screen" },
+      //{ "Credits",           "goto_credits_screen" },           // TODO: If game has been won
+      //{ "Quit",              "quit" },
    };
    return options;
 }
 
 std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::build_rolling_credits_sections()
 {
+   /*
+   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
    std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
+      section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "A game by Mark Oates"
+      ),
+
+      section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "KrampusHack 2023\nhttps://tins.amarillion.org/krampu23"
+      ),
+
+      section_factory.create_section_spacer(),
+
+      section_factory.create_header("Programming"),
+      section_factory.create_column_with_labels({
+         { "Made with", "Allegro (5.2.9)" },
+         {          "", "https://liballeg.org/" },
+         //{          "", "by Allegro Developers" },
+         { "Framework", "AllegroFlare (0.8.11-wip)" },
+         {          "", "https://github.com/allegroflare/allegro_flare" },
+         {          "", "by Mark Oates" },
+      }),
+
+      section_factory.create_section_spacer(),
+   //});
+   //std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
    };
    return result;
+   */
+   return {};
 }
 
 bool Complete::is_type(std::string possible_type)

@@ -1874,6 +1874,7 @@
     "AllegroFlare/Elements/RollingCredits/Sections/LegalText",
     "AllegroFlare/Elements/RollingCredits/Sections/Spacer",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Screens/RollingCredits"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Header": [
@@ -2085,6 +2086,11 @@
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Version"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -3036,10 +3042,6 @@
     "AllegroFlare/Runners/Complete"
   ],
   "ReleaseInfo": [
-    "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Version"
-  ],
-  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Version"
   ],
