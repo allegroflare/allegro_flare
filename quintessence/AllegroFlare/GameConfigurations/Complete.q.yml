@@ -107,6 +107,15 @@ methods:
       return {};
 
 
+  - name: create_shared_background
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    body:
+      // TODO: Customize this
+      return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
+    body_dependency_symbols:
+      - AllegroFlare::Elements::Backgrounds::ClearToColor
+
+
   - name: create_new_game_intro_storyboard_pages
     virtual: true
     type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
@@ -361,5 +370,9 @@ dependencies:
     headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
   - symbol: ReleaseInfo
     headers: [ ReleaseInfo.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::ClearToColor
+    headers: [ AllegroFlare/Elements/Backgrounds/ClearToColor.hpp ]
 
 

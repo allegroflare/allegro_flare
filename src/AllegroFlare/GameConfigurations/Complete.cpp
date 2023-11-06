@@ -3,6 +3,7 @@
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 
 #include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
@@ -85,6 +86,11 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
    //page_factory.create_clubcatt_logo_page(),
    //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
    return {};
+}
+
+AllegroFlare::Elements::Backgrounds::Base* Complete::create_shared_background()
+{
+   return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
 }
 
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_new_game_intro_storyboard_pages()

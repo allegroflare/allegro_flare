@@ -147,6 +147,8 @@ void Complete::initialize()
    page_factory.set_bitmap_bin(bitmap_bin);
    page_factory.set_model_bin(model_bin);
 
+   shared_background = game_configuration->create_shared_background();
+
    // Setup our router
    setup_router();
 
