@@ -60,7 +60,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::RollingCredits rolling_credits_screen;
          AllegroFlare::Screens::Gameplay primary_gameplay_screen;
          AllegroFlare::GameConfigurations::Complete* game_configuration;
-         AllegroFlare::Elements::Backgrounds::ClearToColor solid_black_background;
+         AllegroFlare::Elements::Backgrounds::ClearToColor shared_background;
          ReleaseInfo release_info;
          bool initialized;
 
