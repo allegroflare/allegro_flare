@@ -281,6 +281,8 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::b
    //});
    //std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
    };
+   // TODO: Append disclaimers
+   rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
    return result;
    */
    return {};

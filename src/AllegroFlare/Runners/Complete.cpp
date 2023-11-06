@@ -3,7 +3,6 @@
 #include <AllegroFlare/Runners/Complete.hpp>
 
 #include <AllegroFlare/Color.hpp>
-#include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
@@ -159,10 +158,10 @@ void Complete::initialize()
    // Fill our dialog bank
    framework->set_dialog_system_dialog_node_bank(game_configuration->build_dialog_bank_by_identifier());
 
-   // TODO: Setup achievements
+   // Setup achievements
    achievements.set_achievements(game_configuration->build_achievements());
 
-   // TODO: Setup intro logos screen
+   // Setup intro logos screen (if empty, will simply be skipped)
    intro_logos_screen.set_event_emitter(event_emitter);
    intro_logos_screen.set_font_bin(font_bin);
    intro_logos_screen.set_auto_advance(true);
@@ -172,7 +171,7 @@ void Complete::initialize()
       game_configuration->create_intro_logos_storyboard_pages()
    );
 
-   // TODO: Setup intro storyboard screen
+   // Setup intro storyboard screen (if empty, will simply be skipped)
    intro_storyboard_screen.set_event_emitter(event_emitter);
    intro_storyboard_screen.set_font_bin(font_bin);
    intro_storyboard_screen.set_auto_advance(true);
@@ -182,7 +181,7 @@ void Complete::initialize()
       game_configuration->create_intro_storyboard_pages()
    );
 
-   // TODO: Setup title screen
+   // Setup title screen
    title_screen.set_event_emitter(event_emitter);
    title_screen.set_menu_options(game_configuration->build_title_screen_menu_options());
    title_screen.set_font_bin(font_bin);
@@ -190,14 +189,14 @@ void Complete::initialize()
    title_screen.set_background(&solid_black_background);
    //title_screen.initialize(); // NOTE: Initialization is not necessary for this screen
 
-   // TODO: Setup achievements screen
+   // Setup achievements screen
    achievements_screen.set_achievements(&achievements);
    achievements_screen.set_event_emitter(event_emitter);
    achievements_screen.set_font_bin(font_bin);
    achievements_screen.set_background(&solid_black_background);
    achievements_screen.initialize();
 
-   // TODO: Setup version screen
+   // Setup version screen
    version_screen.set_bitmap_bin(bitmap_bin);
    version_screen.set_font_bin(font_bin);
    version_screen.set_model_bin(model_bin);
@@ -205,7 +204,7 @@ void Complete::initialize()
    version_screen.set_background(&solid_black_background);
    version_screen.initialize();
 
-   // TODO: Setup new game intro storyboard screen
+   // Setup new game intro storyboard screen
    new_game_intro_storyboard_screen.set_event_emitter(event_emitter);
    new_game_intro_storyboard_screen.set_font_bin(font_bin);
    new_game_intro_storyboard_screen.set_background(&solid_black_background);
@@ -214,7 +213,7 @@ void Complete::initialize()
       game_configuration->create_new_game_intro_storyboard_pages()
    );
 
-   // TODO: Setup load a saved game screen
+   // Setup load a saved game screen
    load_a_saved_game_screen.set_event_emitter(event_emitter);
    load_a_saved_game_screen.set_bitmap_bin(bitmap_bin);
    load_a_saved_game_screen.set_font_bin(font_bin);
@@ -239,17 +238,17 @@ void Complete::initialize()
    game_over_screen.set_background(&solid_black_background);
    game_over_screen.initialize();
 
-   // TODO: Setup game won screen
+   // Setup game won screen
    game_won_screen.set_font_bin(font_bin);
    game_won_screen.set_background(&solid_black_background);
    //game_won_screen.initialize(); // NOTE: Initialization is not necessary for this screen
 
-   // TODO: Setup game won outro storyboard screen
+   // Setup game won outro storyboard screen
    game_won_outro_storyboard_screen.set_event_emitter(event_emitter);
    game_won_outro_storyboard_screen.set_background(&solid_black_background);
    game_won_outro_storyboard_screen.initialize();
 
-   // TODO: Setup the settings screen
+   // Setup the settings screen
    settings_screen.set_event_emitter(event_emitter); // TODO: See if this is necessary
    settings_screen.set_bitmap_bin(bitmap_bin); // Currently not used, but required
    settings_screen.set_font_bin(font_bin);
@@ -257,16 +256,14 @@ void Complete::initialize()
    settings_screen.set_background(&solid_black_background);
    settings_screen.initialize();
 
-   // TODO: Setup rolling credits screen
-   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
+   // Setup rolling credits screen
    rolling_credits_screen.set_event_emitter(event_emitter); // TODO: See if this is necessary
    rolling_credits_screen.set_font_bin(font_bin);
    rolling_credits_screen.set_background(&solid_black_background);
    rolling_credits_screen.set_sections(game_configuration->build_rolling_credits_sections());
-   rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
    rolling_credits_screen.initialize();
 
-   // Setup our main gameplay screen
+   // TODO: Setup our main gameplay screen
    /* TODO: Setup a gameplay screen
    primary_gameplay_screen.set_event_emitter(event_emitter);
    primary_gameplay_screen.set_bitmap_bin(bitmap_bin);

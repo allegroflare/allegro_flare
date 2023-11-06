@@ -2089,7 +2089,6 @@
   ],
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Version"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
