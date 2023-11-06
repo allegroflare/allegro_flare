@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/GameConfigurations/Base.hpp>
 
-#include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/Logger.hpp>
 
 
@@ -58,15 +57,6 @@ AllegroFlare::DialogTree::NodeBank Base::build_dialog_bank_by_identifier(std::st
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return node_bank;
-}
-
-std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Base::build_achievements()
-{
-   AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::build_achievements",
-      "Not implemented in the base class. This method must be implemented in the derived class"
-   );
-   return {};
 }
 
 bool Base::is_type(std::string possible_type)

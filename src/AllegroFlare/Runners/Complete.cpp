@@ -59,9 +59,9 @@ Complete::~Complete()
 }
 
 
-AllegroFlare::GameConfigurations::Base* Complete::create_game_configuration()
+AllegroFlare::GameConfigurations::Complete* Complete::create_game_configuration()
 {
-   return new AllegroFlare::GameConfigurations::Base(); // TODO: Replace this with a real configuration
+   return new AllegroFlare::GameConfigurations::Complete(); // TODO: Replace this with a real configuration
 }
 
 std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Complete::build_achievements()

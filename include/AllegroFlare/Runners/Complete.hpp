@@ -8,7 +8,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
-#include <AllegroFlare/GameConfigurations/Base.hpp>
+#include <AllegroFlare/GameConfigurations/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/LoadASavedGame/Screen.hpp>
@@ -65,7 +65,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::SettingsScreen settings_screen;
          AllegroFlare::Screens::RollingCredits rolling_credits_screen;
          AllegroFlare::Screens::Gameplay primary_gameplay_screen;
-         AllegroFlare::GameConfigurations::Base* game_configuration;
+         AllegroFlare::GameConfigurations::Complete* game_configuration;
          AllegroFlare::Elements::Backgrounds::ClearToColor solid_black_background;
          ReleaseInfo release_info;
          bool initialized;
@@ -77,7 +77,7 @@ namespace AllegroFlare
          Complete(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
          virtual ~Complete();
 
-         AllegroFlare::GameConfigurations::Base* create_game_configuration();
+         AllegroFlare::GameConfigurations::Complete* create_game_configuration();
          std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements();
          void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          void continue_from_last_save();

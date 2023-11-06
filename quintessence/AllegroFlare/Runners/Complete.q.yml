@@ -95,7 +95,7 @@ properties:
     init_with: ''
 
   - name: game_configuration
-    type: AllegroFlare::GameConfigurations::Base*
+    type: AllegroFlare::GameConfigurations::Complete*
     init_with: nullptr
 
   - name: solid_black_background
@@ -133,9 +133,9 @@ methods:
 
 
   - name: create_game_configuration
-    type: AllegroFlare::GameConfigurations::Base*
+    type: AllegroFlare::GameConfigurations::Complete*
     body: |
-      return new AllegroFlare::GameConfigurations::Base(); // TODO: Replace this with a real configuration
+      return new AllegroFlare::GameConfigurations::Complete(); // TODO: Replace this with a real configuration
 
 
   - name: build_achievements
@@ -984,8 +984,8 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::GameEventDatas::ScreenActivated
     headers: [ AllegroFlare/GameEventDatas/ScreenActivated.hpp ]
-  - symbol: AllegroFlare::GameConfigurations::Base
-    headers: [ AllegroFlare/GameConfigurations/Base.hpp ]
+  - symbol: AllegroFlare::GameConfigurations::Complete
+    headers: [ AllegroFlare/GameConfigurations/Complete.hpp ]
   - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Empty
     headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp ]
   - symbol: AllegroFlare::Screens::Gameplay
