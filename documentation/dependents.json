@@ -893,6 +893,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/VirtualControlsProcessor",
@@ -937,6 +938,7 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -2030,6 +2032,7 @@
   ],
   "AllegroFlare/GameEventDatas/ScreenActivated": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/FrameAnimation/Frame": [

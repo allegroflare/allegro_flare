@@ -11990,6 +11990,9 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">handle_game_event(AllegroFlare::GameEvent* game_event=nullptr)</td>
+</tr>
+<tr>
   <td class="method">load_level_by_identifier(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
@@ -12081,6 +12084,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ClearToColor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ClearToColor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::ScreenActivated&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/ScreenActivated.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -23069,9 +23081,6 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">handle_game_event(AllegroFlare::GameEvent* game_event=nullptr)</td>
-</tr>
-<tr>
   <td class="method">game_event_func(AllegroFlare::GameEvent* game_event=nullptr)</td>
 </tr>
 <tr>
@@ -32492,6 +32501,7 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/VirtualControlsProcessor",
@@ -32536,6 +32546,7 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
@@ -33629,6 +33640,7 @@ table td
   ],
   "AllegroFlare/GameEventDatas/ScreenActivated": [
     "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
