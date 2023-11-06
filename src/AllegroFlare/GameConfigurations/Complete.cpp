@@ -3,6 +3,7 @@
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 
 #include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <iostream>
@@ -81,6 +82,28 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
    );
    //page_factory.create_clubcatt_logo_page(),
    //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
+   return {};
+}
+
+std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_new_game_intro_storyboard_pages()
+{
+   //AllegroFlare::StoryboardPageFactory page_factory;
+   //page_factory.set_font_bin(font_bin);
+   //page_factory.set_bitmap_bin(bitmap_bin);
+   //page_factory.set_model_bin(model_bin);
+
+   //std::vector<AllegroFlare::Elements::StoryboardPages::Base *> result =
+   //{
+      //page_factory.create_advancing_text_page(
+        //"In a land beset by darkness, a young hero embarks on a perilous journey to retrieve a powerful "
+           //"artifact that can restore light to the kingdom."
+      //),
+      //page_factory.create_advancing_text_page(
+        //"With nothing but a trusty sword and his wits to guide him, he sets out to face whatever dangers "
+           //"lie ahead."
+      //),
+   //};
+   //return result;
    return {};
 }
 
@@ -195,6 +218,13 @@ std::vector<std::pair<std::string, std::string>> Complete::build_title_screen_me
       { "Quit",              "quit" },
    };
    return options;
+}
+
+std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::build_rolling_credits_sections()
+{
+   std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
+   };
+   return result;
 }
 
 bool Complete::is_type(std::string possible_type)

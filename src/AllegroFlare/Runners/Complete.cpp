@@ -212,16 +212,9 @@ void Complete::initialize()
    new_game_intro_storyboard_screen.set_font_bin(font_bin);
    new_game_intro_storyboard_screen.set_background(&solid_black_background);
    new_game_intro_storyboard_screen.initialize();
-   new_game_intro_storyboard_screen.get_storyboard_element_ref().set_pages({
-       page_factory.create_advancing_text_page(
-         "In a land beset by darkness, a young hero embarks on a perilous journey to retrieve a powerful "
-            "artifact that can restore light to the kingdom."
-       ),
-       page_factory.create_advancing_text_page(
-         "With nothing but a trusty sword and his wits to guide him, he sets out to face whatever dangers "
-            "lie ahead."
-       ),
-   });
+   new_game_intro_storyboard_screen.get_storyboard_element_ref().set_pages(
+      game_configuration->create_new_game_intro_storyboard_pages()
+   );
 
    // TODO: Setup load a saved game screen
    load_a_saved_game_screen.set_event_emitter(event_emitter);
@@ -284,7 +277,11 @@ void Complete::initialize()
    rolling_credits_screen.set_event_emitter(event_emitter); // TODO: See if this is necessary
    rolling_credits_screen.set_font_bin(font_bin);
    rolling_credits_screen.set_background(&solid_black_background);
-   rolling_credits_screen.set_sections({
+   rolling_credits_screen.set_sections(
+      game_configuration->build_rolling_credits_sections()
+   );
+   /*
+   {
       section_factory.create_spacer(),
 
       section_factory.create_text(
@@ -311,6 +308,7 @@ void Complete::initialize()
 
       section_factory.create_section_spacer(),
    });
+   */
    rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
    rolling_credits_screen.initialize();
 

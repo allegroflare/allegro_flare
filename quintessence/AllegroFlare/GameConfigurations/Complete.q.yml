@@ -107,6 +107,30 @@ methods:
       return {};
 
 
+  - name: create_new_game_intro_storyboard_pages
+    virtual: true
+    type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
+    body: |
+      //AllegroFlare::StoryboardPageFactory page_factory;
+      //page_factory.set_font_bin(font_bin);
+      //page_factory.set_bitmap_bin(bitmap_bin);
+      //page_factory.set_model_bin(model_bin);
+
+      //std::vector<AllegroFlare::Elements::StoryboardPages::Base *> result =
+      //{
+         //page_factory.create_advancing_text_page(
+           //"In a land beset by darkness, a young hero embarks on a perilous journey to retrieve a powerful "
+              //"artifact that can restore light to the kingdom."
+         //),
+         //page_factory.create_advancing_text_page(
+           //"With nothing but a trusty sword and his wits to guide him, he sets out to face whatever dangers "
+              //"lie ahead."
+         //),
+      //};
+      //return result;
+      return {};
+
+
   - name: create_intro_storyboard_pages
     virtual: true
     type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
@@ -228,6 +252,17 @@ methods:
       return options;
 
 
+  - name: build_rolling_credits_sections
+    virtual: true
+    type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
+    body: |
+      std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
+      };
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::RollingCredits::Sections::Base
+
+
   - name: is_type
     type: bool
     parameters:
@@ -255,5 +290,7 @@ dependencies:
     headers: [ AllegroFlare/GameProgressAndStateInfos/Base.hpp ]
   - symbol: AllegroFlare::GameSession
     headers: [ AllegroFlare/GameSession.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
 
 
