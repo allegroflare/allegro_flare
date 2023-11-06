@@ -3,6 +3,7 @@
 #include <AllegroFlare/Runners/Complete.hpp>
 
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
@@ -45,7 +46,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , rolling_credits_screen()
    , primary_gameplay_screen()
    , game_configuration(nullptr)
-   , shared_background(ALLEGRO_COLOR{0, 0, 0, 1})
+   , shared_background(nullptr)
    , release_info({})
    , initialized(false)
 {
@@ -135,6 +136,7 @@ void Complete::initialize()
    // Create the resources
    AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
    AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
+   shared_background = new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0, 0, 1});
 
    // Create a storyboard factory and page factory
    AllegroFlare::StoryboardFactory storyboard_factory;
@@ -165,7 +167,7 @@ void Complete::initialize()
    intro_logos_screen.set_event_emitter(event_emitter);
    intro_logos_screen.set_font_bin(font_bin);
    intro_logos_screen.set_auto_advance(true);
-   intro_logos_screen.set_background(&shared_background);
+   intro_logos_screen.set_background(shared_background);
    intro_logos_screen.initialize();
    intro_logos_screen.get_storyboard_element_ref().set_pages(
       game_configuration->create_intro_logos_storyboard_pages()
@@ -175,7 +177,7 @@ void Complete::initialize()
    intro_storyboard_screen.set_event_emitter(event_emitter);
    intro_storyboard_screen.set_font_bin(font_bin);
    intro_storyboard_screen.set_auto_advance(true);
-   intro_storyboard_screen.set_background(&shared_background);
+   intro_storyboard_screen.set_background(shared_background);
    intro_storyboard_screen.initialize();
    intro_storyboard_screen.get_storyboard_element_ref().set_pages(
       game_configuration->create_intro_storyboard_pages()
@@ -186,14 +188,14 @@ void Complete::initialize()
    title_screen.set_menu_options(game_configuration->build_title_screen_menu_options());
    title_screen.set_font_bin(font_bin);
    title_screen.set_copyright_text(game_configuration->build_copyright_text(&release_info));
-   title_screen.set_background(&shared_background);
+   title_screen.set_background(shared_background);
    //title_screen.initialize(); // NOTE: Initialization is not necessary for this screen
 
    // Setup achievements screen
    achievements_screen.set_achievements(&achievements);
    achievements_screen.set_event_emitter(event_emitter);
    achievements_screen.set_font_bin(font_bin);
-   achievements_screen.set_background(&shared_background);
+   achievements_screen.set_background(shared_background);
    achievements_screen.initialize();
 
    // Setup version screen
@@ -201,13 +203,13 @@ void Complete::initialize()
    version_screen.set_font_bin(font_bin);
    version_screen.set_model_bin(model_bin);
    version_screen.set_event_emitter(event_emitter);
-   version_screen.set_background(&shared_background);
+   version_screen.set_background(shared_background);
    version_screen.initialize();
 
    // Setup new game intro storyboard screen
    new_game_intro_storyboard_screen.set_event_emitter(event_emitter);
    new_game_intro_storyboard_screen.set_font_bin(font_bin);
-   new_game_intro_storyboard_screen.set_background(&shared_background);
+   new_game_intro_storyboard_screen.set_background(shared_background);
    new_game_intro_storyboard_screen.initialize();
    new_game_intro_storyboard_screen.get_storyboard_element_ref().set_pages(
       game_configuration->create_new_game_intro_storyboard_pages()
@@ -219,7 +221,7 @@ void Complete::initialize()
    load_a_saved_game_screen.set_font_bin(font_bin);
    load_a_saved_game_screen.set_model_bin(model_bin); // Currently not used, but required
    load_a_saved_game_screen.initialize();
-   load_a_saved_game_screen.set_background(&shared_background);
+   load_a_saved_game_screen.set_background(shared_background);
    load_a_saved_game_screen.set_save_slots(game_configuration->build_save_slots_for_load_screen());
 
    // TODO: Setup level select screen
@@ -229,23 +231,23 @@ void Complete::initialize()
    level_select_screen.set_levels_list(
       game_configuration->build_level_list_for_level_select_screen_by_identifier("discarded-for-now")
    );
-   level_select_screen.set_background(&shared_background);
+   level_select_screen.set_background(shared_background);
    level_select_screen.initialize();
 
    // TODO: Setup game over screen
    game_over_screen.set_event_emitter(event_emitter);
    game_over_screen.set_font_bin(font_bin);
-   game_over_screen.set_background(&shared_background);
+   game_over_screen.set_background(shared_background);
    game_over_screen.initialize();
 
    // Setup game won screen
    game_won_screen.set_font_bin(font_bin);
-   game_won_screen.set_background(&shared_background);
+   game_won_screen.set_background(shared_background);
    //game_won_screen.initialize(); // NOTE: Initialization is not necessary for this screen
 
    // Setup game won outro storyboard screen
    game_won_outro_storyboard_screen.set_event_emitter(event_emitter);
-   game_won_outro_storyboard_screen.set_background(&shared_background);
+   game_won_outro_storyboard_screen.set_background(shared_background);
    game_won_outro_storyboard_screen.initialize();
 
    // Setup the settings screen
@@ -253,13 +255,13 @@ void Complete::initialize()
    settings_screen.set_bitmap_bin(bitmap_bin); // Currently not used, but required
    settings_screen.set_font_bin(font_bin);
    settings_screen.set_model_bin(model_bin); // Currently not used, but required
-   settings_screen.set_background(&shared_background);
+   settings_screen.set_background(shared_background);
    settings_screen.initialize();
 
    // Setup rolling credits screen
    rolling_credits_screen.set_event_emitter(event_emitter); // TODO: See if this is necessary
    rolling_credits_screen.set_font_bin(font_bin);
-   rolling_credits_screen.set_background(&shared_background);
+   rolling_credits_screen.set_background(shared_background);
    rolling_credits_screen.set_sections(game_configuration->build_rolling_credits_sections());
    rolling_credits_screen.initialize();
 

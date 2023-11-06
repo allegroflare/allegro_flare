@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
-#include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
@@ -60,7 +60,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::RollingCredits rolling_credits_screen;
          AllegroFlare::Screens::Gameplay primary_gameplay_screen;
          AllegroFlare::GameConfigurations::Complete* game_configuration;
-         AllegroFlare::Elements::Backgrounds::ClearToColor shared_background;
+         AllegroFlare::Elements::Backgrounds::Base* shared_background;
          ReleaseInfo release_info;
          bool initialized;
 

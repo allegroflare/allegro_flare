@@ -1437,6 +1437,7 @@
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/Storyboard",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
