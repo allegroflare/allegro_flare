@@ -1438,6 +1438,7 @@
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/None",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/Video",
@@ -2127,6 +2128,9 @@
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/Elements/Backgrounds/None": [
+    "AllegroFlare/GameConfigurations/Complete"
   ],
   "AllegroFlare/TemplatedText": [
     "AllegroFlare/GameConfigurations/Complete",

@@ -115,6 +115,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Monoplex.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/None.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/None.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml</a></li>
@@ -4335,6 +4336,28 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/None.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/None.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -12013,6 +12036,9 @@ table td
   <td class="method">create_shared_background()</td>
 </tr>
 <tr>
+  <td class="method">create_shared_foreground()</td>
+</tr>
+<tr>
   <td class="method">create_new_game_intro_storyboard_pages()</td>
 </tr>
 <tr>
@@ -12086,6 +12112,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ClearToColor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ClearToColor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::None&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/None.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
@@ -23066,6 +23095,10 @@ table td
   <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
 <tr>
+  <td class="property">shared_foreground</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
+</tr>
+<tr>
   <td class="property">release_info</td>
   <td class="property">ReleaseInfo</td>
 </tr>
@@ -33211,6 +33244,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
+    "AllegroFlare/Elements/Backgrounds/None",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/Video",
@@ -33900,6 +33934,9 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/Elements/Backgrounds/None": [
+    "AllegroFlare/GameConfigurations/Complete"
   ],
   "AllegroFlare/TemplatedText": [
     "AllegroFlare/GameConfigurations/Complete",

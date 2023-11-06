@@ -138,6 +138,16 @@ methods:
       - AllegroFlare::Elements::Backgrounds::ClearToColor
 
 
+  - name: create_shared_foreground
+    virtual: true
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    body: |
+      // TODO: Customize this
+      return new AllegroFlare::Elements::Backgrounds::None();
+    body_dependency_symbols:
+      - AllegroFlare::Elements::Backgrounds::None
+
+
   - name: create_new_game_intro_storyboard_pages
     virtual: true
     type: std::vector<AllegroFlare::Elements::StoryboardPages::Base *>
@@ -409,6 +419,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::ClearToColor
     headers: [ AllegroFlare/Elements/Backgrounds/ClearToColor.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::None
+    headers: [ AllegroFlare/Elements/Backgrounds/None.hpp ]
   - symbol: AllegroFlare::GameEvent
     headers: [ AllegroFlare/GameEvent.hpp ]
   - symbol: AllegroFlare::EventNames

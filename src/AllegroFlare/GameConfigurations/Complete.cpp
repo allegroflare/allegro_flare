@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
+#include <AllegroFlare/Elements/Backgrounds/None.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/EventNames.hpp>
@@ -109,6 +110,12 @@ AllegroFlare::Elements::Backgrounds::Base* Complete::create_shared_background()
 {
    // TODO: Customize this
    return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
+}
+
+AllegroFlare::Elements::Backgrounds::Base* Complete::create_shared_foreground()
+{
+   // TODO: Customize this
+   return new AllegroFlare::Elements::Backgrounds::None();
 }
 
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_new_game_intro_storyboard_pages()
