@@ -102,6 +102,33 @@ void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
    return;
 }
 
+std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_logos_storyboard_pages()
+{
+   AllegroFlare::StoryboardPageFactory page_factory;
+   page_factory.set_font_bin(font_bin);
+   page_factory.set_bitmap_bin(bitmap_bin);
+   page_factory.set_model_bin(model_bin);
+
+   std::vector<AllegroFlare::Elements::StoryboardPages::Base *> result =
+   {
+      page_factory.create_image_with_advancing_text_page(
+         "storyboard-1-01-1165x500.png",
+         "Once upon a time, in a magical kingdom ruled by a wise and just queen, a young hero sets out on a "
+            "journey to prove himself and save his people from a terrible curse."
+      ),
+      page_factory.create_image_with_advancing_text_page(
+         "storyboard-2-01-1165x500.png",
+         "With the help of his trusty sidekick and a band of unlikely allies, he must navigate treacherous "
+            "terrain and battle fierce foes."
+      ),
+      page_factory.create_advancing_text_page(
+        "And achieve his goal to save the kingdom."
+      ),
+   };
+
+   return result;
+}
+
 void Complete::initialize()
 {
    if (!((!initialized)))
@@ -192,21 +219,7 @@ void Complete::initialize()
    intro_storyboard_screen.set_auto_advance(true);
    intro_storyboard_screen.set_background(&solid_black_background);
    intro_storyboard_screen.initialize();
-   intro_storyboard_screen.get_storyboard_element_ref().set_pages({
-      page_factory.create_image_with_advancing_text_page(
-         "storyboard-1-01-1165x500.png",
-         "Once upon a time, in a magical kingdom ruled by a wise and just queen, a young hero sets out on a "
-            "journey to prove himself and save his people from a terrible curse."
-      ),
-      page_factory.create_image_with_advancing_text_page(
-         "storyboard-2-01-1165x500.png",
-         "With the help of his trusty sidekick and a band of unlikely allies, he must navigate treacherous "
-            "terrain and battle fierce foes."
-      ),
-      page_factory.create_advancing_text_page(
-        "And achieve his goal to save the kingdom."
-      ),
-   });
+   intro_storyboard_screen.get_storyboard_element_ref().set_pages(create_intro_logos_storyboard_pages());
 
    // TODO: Setup title screen
    title_screen.set_event_emitter(event_emitter);
