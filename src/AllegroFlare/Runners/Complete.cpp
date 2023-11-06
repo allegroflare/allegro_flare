@@ -292,6 +292,7 @@ void Complete::initialize()
    title_screen.set_event_emitter(event_emitter);
    title_screen.set_menu_options( build_title_screen_menu_options());
    title_screen.set_font_bin(font_bin);
+   // TODO: Update this text to include the copyright symbol
    std::string copyright_text = "(c) 2023 CLUBCATT Games         clubcatt.com         version " + release_info.get_version();
    title_screen.set_copyright_text(copyright_text);
    title_screen.set_background(&solid_black_background);
