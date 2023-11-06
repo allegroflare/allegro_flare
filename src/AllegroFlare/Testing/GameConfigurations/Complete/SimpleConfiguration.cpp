@@ -94,7 +94,7 @@ std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> SimpleConfiguration:
 
 void SimpleConfiguration::continue_from_last_save()
 {
-   // TODO: This method
+   // Nothing to do
    return;
 }
 
@@ -107,13 +107,7 @@ void SimpleConfiguration::setup_new_game_progress_and_state_info(AllegroFlare::G
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SimpleConfiguration::setup_new_game_progress_and_state_info: error: guard \"game_session\" not met");
    }
-   // TODO: This method
-   AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::setup_new_game_progress_and_state_info",
-      "Not implemented in the base class. This method must be implemented in the derived class"
-   );
-   //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
-     //game_session->get_game_progress_and_state_info();
+   // Nothing to do
    return;
 }
 
@@ -126,13 +120,7 @@ void SimpleConfiguration::load_last_played_session_or_start_new(AllegroFlare::Ga
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SimpleConfiguration::load_last_played_session_or_start_new: error: guard \"game_session\" not met");
    }
-   // TODO: This method
-   AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::load_last_played_session_or_start_new",
-      "Not implemented in the base class. This method must be implemented in the derived class"
-   );
-   //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
-     //game_session->get_game_progress_and_state_info();
+   // Nothing to do
    return;
 }
 
@@ -145,14 +133,7 @@ void SimpleConfiguration::load_audio_controller()
 std::vector<std::pair<std::string, std::string>> SimpleConfiguration::build_title_screen_menu_options()
 {
    std::vector<std::pair<std::string, std::string>> options = {
-      //{ "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
-      //{ "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
-                                                                // and the game supports save slots
-      { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
-      //{ "Achievements",      "goto_achievements_screen" },
-      //{ "Settings",          "goto_settings_screen" },
-      //{ "Version",           "goto_version_screen" },
-      //{ "Credits",           "goto_credits_screen" },           // TODO: If game has been won
+      { "Start New Game",    "start_new_game" },
       { "Quit",              "quit" },
    };
    return options;

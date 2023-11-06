@@ -411,6 +411,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/StringFormatValidator.q.yml">quintessence/AllegroFlare/StringFormatValidator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TemplatedText.q.yml">quintessence/AllegroFlare/TemplatedText.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml">quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/Rulers.q.yml">quintessence/AllegroFlare/Testing/Rulers.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml">quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/TemporaryFilenameCreator.q.yml">quintessence/AllegroFlare/Testing/TemporaryFilenameCreator.q.yml</a></li>
@@ -26947,6 +26948,136 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml">quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">handle_game_event(AllegroFlare::GameEvent* game_event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">load_level_by_identifier(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_level_list_for_level_select_screen_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_dialog_bank_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_achievements()</td>
+</tr>
+<tr>
+  <td class="method">create_intro_logos_storyboard_pages()</td>
+</tr>
+<tr>
+  <td class="method">create_shared_background()</td>
+</tr>
+<tr>
+  <td class="method">create_new_game_intro_storyboard_pages()</td>
+</tr>
+<tr>
+  <td class="method">create_intro_storyboard_pages()</td>
+</tr>
+<tr>
+  <td class="method">build_save_slots_for_load_screen()</td>
+</tr>
+<tr>
+  <td class="method">continue_from_last_save()</td>
+</tr>
+<tr>
+  <td class="method">setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">load_audio_controller()</td>
+</tr>
+<tr>
+  <td class="method">build_title_screen_menu_options()</td>
+</tr>
+<tr>
+  <td class="method">build_copyright_text(ReleaseInfo* release_info=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">build_rolling_credits_sections()</td>
+</tr>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameConfigurations::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameConfigurations/Complete.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Levels::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Levels/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Achievement&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Achievement.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameProgressAndStateInfos::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameProgressAndStateInfos/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameSession&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameSession.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ReleaseInfo&quot;, &quot;headers&quot;=&gt;[&quot;ReleaseInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ClearToColor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ClearToColor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::ScreenActivated&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/ScreenActivated.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TemplatedText&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TemplatedText.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UnicodeCharacters&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UnicodeCharacters.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Testing/Rulers.q.yml">quintessence/AllegroFlare/Testing/Rulers.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -31690,6 +31821,7 @@ table td
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/YAMLValidator"
   ],
@@ -32538,6 +32670,7 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
@@ -32586,7 +32719,8 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -32701,7 +32835,8 @@ table td
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/GameConfigurations/Base",
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -33092,7 +33227,8 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Version"
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",
@@ -33521,7 +33657,8 @@ table td
     "AllegroFlare/Elements/RollingCredits/Sections/Spacer",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Screens/RollingCredits"
+    "AllegroFlare/Screens/RollingCredits",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Header": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -33595,7 +33732,8 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -33675,7 +33813,8 @@ table td
   "AllegroFlare/GameEventDatas/ScreenActivated": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
@@ -33716,49 +33855,59 @@ table td
   ],
   "AllegroFlare/Levels/Base": [
     "AllegroFlare/GameConfigurations/Base",
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Achievement": [
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameProgressAndStateInfos/Base": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/GameSession",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameSession": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Screens/Version"
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
-    "AllegroFlare/LoadASavedGame/Screen"
+    "AllegroFlare/LoadASavedGame/Screen",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "ReleaseInfo": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Version"
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/Backgrounds/ClearToColor": [
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/TemplatedText": [
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/UnicodeCharacters": [
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -34701,7 +34850,8 @@ table td
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/Runners/Complete"

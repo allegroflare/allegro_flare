@@ -3,31 +3,7 @@
 
 #include <AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
-
-
-class MyTestGameConfiguration : public AllegroFlare::GameConfigurations::Complete
-{
-public:
-   MyTestGameConfiguration()
-      : AllegroFlare::GameConfigurations::Complete()
-   {}
-
-   //virtual AllegroFlare::Levels::Base*
-      //load_level_by_identifier(std::string level_identifier="[unset-level_identifier]") override;
-   //build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]");
-   //build_dialog_bank_by_identifier(std::string identifier="[unset-identifier]");
-   //build_achievements();
-   //create_intro_logos_storyboard_pages();
-   //continue_from_last_save();
-   //setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
-   //load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
-   //load_audio_controller();
-   //build_title_screen_menu_options();
-
-   // Consider
-   //void configure_level_select_screen(AllegroFlare::LevelSelectScreen::Screen *level_select_screen=nullptr);
-   //void configure_load_a_saved_game_screen(AllegroFlare::LoadASavedGame::Screen *load_a_saved_game_screen=nullptr);
-};
+#include <AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.hpp>
 
 
 TEST(AllegroFlare_Runners_CompleteTest, can_be_created_without_blowing_up)
@@ -52,11 +28,12 @@ TEST(AllegroFlare_Runners_CompleteTest, type__has_the_expected_value_matching_TY
 }
 
 
-TEST(AllegroFlare_Runners_CompleteTest, run__will_work_as_expected)
+TEST(AllegroFlare_Runners_CompleteTest, INTERACTIVE__run__will_work_as_expected)
 {
-   AllegroFlare::GameConfigurations::Complete *configuration = new MyTestGameConfiguration();
+   AllegroFlare::GameConfigurations::Complete *configuration =
+      new AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration();
    // TODO: HERE: Make this run:
-   //AllegroFlare::Runners::Complete::run(configuration, "test");
+   AllegroFlare::Runners::Complete::run(configuration, "test");
 }
 
 

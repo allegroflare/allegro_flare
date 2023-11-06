@@ -48,6 +48,7 @@
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/YAMLValidator"
   ],
@@ -896,6 +897,7 @@
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
@@ -944,7 +946,8 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1059,7 +1062,8 @@
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/GameConfigurations/Base",
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/DialogTree/Nodes/Base": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1450,7 +1454,8 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Version"
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",
@@ -1879,7 +1884,8 @@
     "AllegroFlare/Elements/RollingCredits/Sections/Spacer",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Screens/RollingCredits"
+    "AllegroFlare/Screens/RollingCredits",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Header": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
@@ -1953,7 +1959,8 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -2033,7 +2040,8 @@
   "AllegroFlare/GameEventDatas/ScreenActivated": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
@@ -2074,49 +2082,59 @@
   ],
   "AllegroFlare/Levels/Base": [
     "AllegroFlare/GameConfigurations/Base",
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Achievement": [
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameProgressAndStateInfos/Base": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/GameSession",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameSession": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Screens/Version"
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
-    "AllegroFlare/LoadASavedGame/Screen"
+    "AllegroFlare/LoadASavedGame/Screen",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "ReleaseInfo": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Version"
+    "AllegroFlare/Screens/Version",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Elements/Backgrounds/ClearToColor": [
     "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/TemplatedText": [
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/UnicodeCharacters": [
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -3059,7 +3077,8 @@
     "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/Runners/Complete"
