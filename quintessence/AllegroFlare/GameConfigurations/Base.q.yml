@@ -69,7 +69,20 @@ methods:
       );
       return node_bank;
     body_dependency_symbols:
-     - AllegroFlare::Logger
+      - AllegroFlare::Logger
+
+
+  - name: build_achievements
+    virtual: true
+    type: std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>>
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::build_achievements",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return {};
+    body_dependency_symbols:
+      - AllegroFlare::Achievement
 
 
   - name: is_type
@@ -91,5 +104,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Levels::Base
     headers: [ AllegroFlare/Levels/Base.hpp ]
+  - symbol: AllegroFlare::Achievement
+    headers: [ AllegroFlare/Achievement.hpp ]
 
 

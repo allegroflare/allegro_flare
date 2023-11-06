@@ -4,6 +4,11 @@
 #include <AllegroFlare/Runners/Complete.hpp>
 
 
+class MyGameConfiguration : public AllegroFlare::GameConfigurations::Base
+{
+};
+
+
 TEST(AllegroFlare_Runners_CompleteTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Runners::Complete complete;

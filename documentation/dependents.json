@@ -43,6 +43,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
@@ -208,6 +209,7 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -350,6 +352,7 @@
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -705,6 +708,7 @@
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
@@ -889,6 +893,7 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
@@ -935,7 +940,8 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/Elements/DialogBoxRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1017,6 +1023,7 @@
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
@@ -1319,6 +1326,7 @@
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/UnicodeFontViewer"
@@ -1338,10 +1346,12 @@
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -1933,7 +1943,8 @@
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
-    "AllegroFlare/Elements/StoryboardPages/Text"
+    "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -2011,7 +2022,8 @@
     "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/GameEventDatas/ScreenActivated": [
-    "AllegroFlare/EventEmitter"
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
@@ -2053,8 +2065,13 @@
   "AllegroFlare/Levels/Base": [
     "AllegroFlare/GameConfigurations/Base"
   ],
+  "AllegroFlare/Achievement": [
+    "AllegroFlare/GameConfigurations/Base",
+    "AllegroFlare/Runners/Complete"
+  ],
   "AllegroFlare/GameProgressAndStateInfos/Base": [
-    "AllegroFlare/GameSession"
+    "AllegroFlare/GameSession",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -2181,6 +2198,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
@@ -2248,7 +2266,8 @@
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Empty": [
-    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
@@ -2263,7 +2282,8 @@
     "AllegroFlare/LoadASavedGame/Screen"
   ],
   "AllegroFlare/LoadASavedGame/Screen": [
-    "AllegroFlare/LoadASavedGame/Screen"
+    "AllegroFlare/LoadASavedGame/Screen",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlotRenderer": [
     "AllegroFlare/LoadASavedGame/Screen"
@@ -2941,13 +2961,15 @@
   ],
   "AllegroFlare/GameSession": [
     "AllegroFlare/Routers/Base",
-    "AllegroFlare/Routers/Standard"
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"
   ],
   "AllegroFlare/Routers/Standard": [
-    "AllegroFlare/Routers/Standard"
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"
@@ -2955,26 +2977,78 @@
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
   ],
-  "AllegroFlare/Elements/AchievementsList": [
-    "AllegroFlare/Screens/Achievements"
-  ],
-  "AllegroFlare/Achievements": [
-    "AllegroFlare/Screens/Achievements"
+  "AllegroFlare/Screens/Storyboard": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/StoryboardFactory"
   ],
   "AllegroFlare/Screens/Achievements": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Achievements"
+  ],
+  "AllegroFlare/Screens/TitleScreen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Screens/GameOverScreen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/GameOverScreen"
+  ],
+  "AllegroFlare/Screens/GameWonScreen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/GameWonScreen"
+  ],
+  "AllegroFlare/Screens/RollingCredits": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/RollingCredits"
+  ],
+  "AllegroFlare/Screens/Version": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Version"
+  ],
+  "AllegroFlare/Screens/LevelSelectScreen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/LevelSelectScreen"
+  ],
+  "AllegroFlare/Screens/SettingsScreen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/SettingsScreen"
+  ],
+  "AllegroFlare/Achievements": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Achievements"
+  ],
+  "AllegroFlare/StoryboardFactory": [
+    "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/RouteEventDatas/StartLevel": [
+    "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ClearToColor": [
+    "AllegroFlare/Runners/Complete"
+  ],
+  "ReleaseInfo": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Version"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Version"
+  ],
+  "AllegroFlare/GameConfigurations/Base": [
+    "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/Screens/Gameplay": [
+    "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
-  "AllegroFlare/Screens/GameOverScreen": [
-    "AllegroFlare/Screens/GameOverScreen"
-  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
-    "AllegroFlare/Screens/GameWonScreen"
-  ],
-  "AllegroFlare/Screens/GameWonScreen": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [
@@ -2990,9 +3064,6 @@
   "AllegroFlare/Screens/InputDeviceConfiguration": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
-  "AllegroFlare/Screens/LevelSelectScreen": [
-    "AllegroFlare/Screens/LevelSelectScreen"
-  ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
@@ -3007,21 +3078,8 @@
   "std/vector<AllegroFlare/Elements/RollingCredits/Sections/Base>": [
     "AllegroFlare/Screens/RollingCredits"
   ],
-  "AllegroFlare/Screens/RollingCredits": [
-    "AllegroFlare/Screens/RollingCredits"
-  ],
-  "AllegroFlare/Screens/SettingsScreen": [
-    "AllegroFlare/Screens/SettingsScreen"
-  ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
-  ],
-  "AllegroFlare/Screens/Storyboard": [
-    "AllegroFlare/Screens/Storyboard",
-    "AllegroFlare/StoryboardFactory"
-  ],
-  "AllegroFlare/Screens/TitleScreen": [
-    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
@@ -3029,16 +3087,7 @@
   "AllegroFlare/Screens/Transition": [
     "AllegroFlare/Screens/Transition"
   ],
-  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
-    "AllegroFlare/Screens/Version"
-  ],
-  "ReleaseInfo": [
-    "AllegroFlare/Screens/Version"
-  ],
   "BuildInfo": [
-    "AllegroFlare/Screens/Version"
-  ],
-  "AllegroFlare/Screens/Version": [
     "AllegroFlare/Screens/Version"
   ],
   "std/filesystem/file_time_type": [

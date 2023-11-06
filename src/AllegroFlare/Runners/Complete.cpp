@@ -125,17 +125,35 @@ void Complete::load_last_played_session_or_start_new(AllegroFlare::GameSession* 
    return;
 }
 
-void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
+void Complete::load_audio_controller()
 {
-   if (!(game_event))
-   {
-      std::stringstream error_message;
-      error_message << "[Complete::game_event_func]: error: guard \"game_event\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::game_event_func: error: guard \"game_event\" not met");
-   }
-   handle_game_event(game_event);
+   AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
+   audio_controller.set_and_load_sound_effect_elements({
+      // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
+   });
+   audio_controller.set_and_load_music_track_elements({
+      // An example of how to load a music track:
+      //{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
+   });
+   // An example of how to play a music track:
+   // event_emitter->emit_play_music_track_event("intro_music");
    return;
+}
+
+std::vector<std::pair<std::string, std::string>> Complete::build_title_screen_menu_options()
+{
+   std::vector<std::pair<std::string, std::string>> options = {
+      { "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
+      { "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
+                                                                // and the game supports save slots
+      { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
+      { "Achievements",      "goto_achievements_screen" },
+      { "Settings",          "goto_settings_screen" },
+      { "Version",           "goto_version_screen" },
+      { "Credits",           "goto_credits_screen" },           // TODO: If game has been won
+      { "Quit",              "quit" },
+   };
+   return options;
 }
 
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_logos_storyboard_pages()
@@ -163,6 +181,19 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
    };
 
    return result;
+}
+
+void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
+{
+   if (!(game_event))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::game_event_func]: error: guard \"game_event\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::game_event_func: error: guard \"game_event\" not met");
+   }
+   handle_game_event(game_event);
+   return;
 }
 
 void Complete::initialize()
@@ -236,7 +267,7 @@ void Complete::initialize()
    framework->set_dialog_system_dialog_node_bank(game_configuration->build_dialog_bank_by_identifier());
 
    // TODO: Setup achievements
-   achievements.set_achievements(build_achievements());
+   achievements.set_achievements(game_configuration->build_achievements());
 
    // TODO: Setup intro logos screen
    intro_logos_screen.set_event_emitter(event_emitter);
@@ -261,7 +292,7 @@ void Complete::initialize()
    title_screen.set_event_emitter(event_emitter);
    title_screen.set_menu_options( build_title_screen_menu_options());
    title_screen.set_font_bin(font_bin);
-   std::string copyright_text = "© 2023 CLUBCATT Games         clubcatt.com         version " + release_info.get_version();
+   std::string copyright_text = "(c) 2023 CLUBCATT Games         clubcatt.com         version " + release_info.get_version();
    title_screen.set_copyright_text(copyright_text);
    title_screen.set_background(&solid_black_background);
    //title_screen.initialize(); // NOTE: Initialization is not necessary for this screen
@@ -398,37 +429,10 @@ void Complete::initialize()
    primary_gameplay_screen.initialize();
    */
 
-   // TODO: Load up our sound effects
-   audio_controller.set_and_load_sound_effect_elements({
-      // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
-   });
-
-   // TODO: Load up our music tracks
-   audio_controller.set_and_load_music_track_elements({
-      // An example of how to load a music track:
-      //{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
-   });
-
-   // An example of how to play a music track:
-   // event_emitter->emit_play_music_track_event("intro_music");
+   // TODO: Load up our sound effects and music tracks
+   load_audio_controller();
 
    return;
-}
-
-std::vector<std::pair<std::string, std::string>> Complete::build_title_screen_menu_options()
-{
-   std::vector<std::pair<std::string, std::string>> options = {
-      { "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
-      { "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
-                                                                // and the game supports save slots
-      { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
-      { "Achievements",      "goto_achievements_screen" },
-      { "Settings",          "goto_settings_screen" },
-      { "Version",           "goto_version_screen" },
-      { "Credits",           "goto_credits_screen" },           // TODO: If game has been won
-      { "Quit",              "quit" },
-   };
-   return options;
 }
 
 bool Complete::on_route_event_unhandled_func(uint32_t unhandled_event, AllegroFlare::Routers::Standard* router, void* user_data)
@@ -832,23 +836,25 @@ void Complete::setup_router()
 void Complete::run(std::string deployment_environment_mode)
 {
    // setup the framework
-   AllegroFlare::Frameworks::Full framework;
-   framework.set_deployment_environment(deployment_environment_mode);
+   AllegroFlare::Frameworks::Full *framework = new AllegroFlare::Frameworks::Full();
+   framework->set_deployment_environment(deployment_environment_mode);
    //if (disable_escape_key_will_shutdown) framework.disable_escape_key_will_shutdown();
-   framework.initialize();
+   framework->initialize();
 
    // instantiate our actual game runner
    AllegroFlare::Runners::Complete runner(
-      &framework,
-      &framework.get_event_emitter_ref(),
-      &framework.get_bitmap_bin_ref(),
-      &framework.get_font_bin_ref(),
-      &framework.get_model_bin_ref()
+      framework,
+      &framework->get_event_emitter_ref(),
+      &framework->get_bitmap_bin_ref(),
+      &framework->get_font_bin_ref(),
+      &framework->get_model_bin_ref()
    );
    runner.initialize();
-   framework.register_screen("runner", &runner);
+   framework->register_screen("runner", &runner);
 
-   framework.run_loop();
+   framework->run_loop();
+
+   delete framework;
    return;
 }
 
