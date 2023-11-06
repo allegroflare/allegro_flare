@@ -109,7 +109,7 @@ methods:
 
   - name: create_shared_background
     type: AllegroFlare::Elements::Backgrounds::Base*
-    body:
+    body: |
       // TODO: Customize this
       return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
     body_dependency_symbols:

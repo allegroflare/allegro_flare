@@ -136,16 +136,15 @@ void Complete::initialize()
    // Create the resources
    AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
    AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
-   shared_background = new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0, 0, 1});
 
    // Create a storyboard factory and page factory
-   AllegroFlare::StoryboardFactory storyboard_factory;
-   storyboard_factory.set_font_bin(font_bin);
-   storyboard_factory.set_event_emitter(event_emitter);
-   AllegroFlare::StoryboardPageFactory page_factory;
-   page_factory.set_font_bin(font_bin);
-   page_factory.set_bitmap_bin(bitmap_bin);
-   page_factory.set_model_bin(model_bin);
+   //AllegroFlare::StoryboardFactory storyboard_factory;
+   //storyboard_factory.set_font_bin(font_bin);
+   //storyboard_factory.set_event_emitter(event_emitter);
+   //AllegroFlare::StoryboardPageFactory page_factory;
+   //page_factory.set_font_bin(font_bin);
+   //page_factory.set_bitmap_bin(bitmap_bin);
+   //page_factory.set_model_bin(model_bin);
 
    shared_background = game_configuration->create_shared_background();
 

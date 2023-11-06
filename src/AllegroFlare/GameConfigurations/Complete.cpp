@@ -90,6 +90,7 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
 
 AllegroFlare::Elements::Backgrounds::Base* Complete::create_shared_background()
 {
+   // TODO: Customize this
    return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
 }
 
