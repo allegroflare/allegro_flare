@@ -12011,6 +12011,9 @@ table td
   <td class="method">create_intro_storyboard_pages()</td>
 </tr>
 <tr>
+  <td class="method">build_save_slots_for_load_screen()</td>
+</tr>
+<tr>
   <td class="method">continue_from_last_save()</td>
 </tr>
 <tr>
@@ -12060,6 +12063,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -33673,6 +33679,13 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Version"
   ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
+    "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
+    "AllegroFlare/LoadASavedGame/Screen"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -33874,12 +33887,6 @@ table td
   ],
   "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
-  ],
-  "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
-    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
-    "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
-    "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
-    "AllegroFlare/LoadASavedGame/Screen"
   ],
   "AllegroFlare/LoadASavedGame/Screen": [
     "AllegroFlare/LoadASavedGame/Screen",

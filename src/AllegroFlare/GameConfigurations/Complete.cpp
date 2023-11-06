@@ -138,6 +138,19 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
    return {};
 }
 
+std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Complete::build_save_slots_for_load_screen()
+{
+   /*
+   std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> result = {
+      new AllegroFlare::LoadASavedGame::SaveSlots::Empty(), // TODO: Fill this list with items from save file
+      new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
+      new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
+   };
+   return result;
+   */
+   return {};
+}
+
 void Complete::continue_from_last_save()
 {
    // TODO: This method

@@ -2092,6 +2092,13 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Version"
   ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
+    "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
+    "AllegroFlare/LoadASavedGame/Screen"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -2293,12 +2300,6 @@
   ],
   "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
-  ],
-  "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
-    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
-    "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
-    "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
-    "AllegroFlare/LoadASavedGame/Screen"
   ],
   "AllegroFlare/LoadASavedGame/Screen": [
     "AllegroFlare/LoadASavedGame/Screen",

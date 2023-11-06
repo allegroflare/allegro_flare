@@ -7,6 +7,7 @@
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -40,6 +41,7 @@ namespace AllegroFlare
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_logos_storyboard_pages();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_new_game_intro_storyboard_pages();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages();
+         std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> build_save_slots_for_load_screen();
          virtual void continue_from_last_save();
          virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);

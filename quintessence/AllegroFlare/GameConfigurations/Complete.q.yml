@@ -163,6 +163,20 @@ methods:
       return {};
 
 
+  - name: build_save_slots_for_load_screen
+    type: std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*>
+    body: |
+      /*
+      std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> result = {
+         new AllegroFlare::LoadASavedGame::SaveSlots::Empty(), // TODO: Fill this list with items from save file
+         new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
+         new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
+      };
+      return result;
+      */
+      return {};
+
+
   - name: continue_from_last_save
     virtual: true
     body: |
@@ -326,5 +340,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::SectionFactory
     headers: [ AllegroFlare/Elements/RollingCredits/SectionFactory.hpp ]
+  - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Base
+    headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
 
 
