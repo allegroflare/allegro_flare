@@ -101,6 +101,7 @@ namespace AllegroFlare
             void update_player_controls_on_player_controlled_entity();
             void suspend_gameplay();
             void resume_suspended_gameplay();
+            void toggle_suspend_gameplay();
             void update();
             void draw();
             void toggle_show_collision_tile_mesh();
