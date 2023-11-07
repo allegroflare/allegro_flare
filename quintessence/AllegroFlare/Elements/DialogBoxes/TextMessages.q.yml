@@ -1,0 +1,47 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::DialogBoxes::Base
+    scope: public
+    init_with: AllegroFlare::Elements::DialogBoxes::TextMessages::TYPE
+
+
+documentation:
+
+
+  - notes:
+     - messages contains three elements, <0> the sender name, <1> the message text, <2> the time the message was sent
+     - Any sender name that is not SELF is likely to be rendered as a left-side dialog bubble, with SELF on the right.
+       This could vary depending on what renderer is used
+
+
+properties:
+
+
+  - name: messages
+    type: std::vector<std::tuple<std::string, std::string, float>>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: SELF
+    type: char*
+    init_with: '(char*)"SELF"'
+    static: true
+    constexpr: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/TextMessages"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+
+
