@@ -59,6 +59,24 @@ passed__will_not_set_finished_to_true)
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
+   update__after_all_characters_have_been_revealed__and_after_wait_duration_after_all_characters_are_revealed_has_\
+passed__will_set_finished_to_true)
+{
+   al_init();
+   std::string text = "Hello DialogBoxes::Intertitle!";
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
+
+   storyboard.start(); // TODO: Inject time
+   storyboard.reveal_all_characters();
+   EXPECT_EQ(false, storyboard.get_finished());
+   al_rest(3.1); // TODO: Replace this wait with injected time and a configurable wait duration
+   storyboard.update(); // TODO: Inject time
+   EXPECT_EQ(true, storyboard.get_finished());
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    start__after_finished__will_set_finished_to_false)
 {
    al_init();
@@ -77,51 +95,38 @@ TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
 }
 
 
-/*
-
-TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
-   update__after_all_characters_have_been_revealed__and_after_wait_duration_after_all_characters_are_revealed_has_\
-passed__will_set_finished_to_true)
-{
-   std::string text = "Hello DialogBoxes::Intertitle!";
-   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
-
-   storyboard.start(); // TODO: Inject time
-   storyboard.reveal_all_characters();
-   EXPECT_EQ(false, storyboard.get_finished());
-   al_rest(3.1); // TODO: Replace this wait with injected time and a configurable wait duration
-   storyboard.update(); // TODO: Inject time
-   EXPECT_EQ(true, storyboard.get_finished());
-}
-
-
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    reveal_all_characters__will_reveal_all_the_characters_on_the_current_page)
 {
+   al_init();
    std::string text = "This are characters that need to be revealed one-by-one.";
    AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
 
    EXPECT_EQ(false, storyboard.all_characters_are_revealed());
    storyboard.reveal_all_characters();
    EXPECT_EQ(true, storyboard.all_characters_are_revealed());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    reveal_all_characters__will_not_automatically_set_the_page_to_finished)
 {
+   al_init();
    std::string text = "This are characters that need to be revealed one-by-one.";
    AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
 
    storyboard.start();
    storyboard.reveal_all_characters();
    EXPECT_EQ(false, storyboard.get_finished());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    advance__when_all_characters_have_been_revealed__will_set_finished_to_true)
 {
+   al_init();
    std::string text = "Hello DialogBoxes::Intertitle!";
    AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
 
@@ -130,31 +135,35 @@ TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    EXPECT_EQ(false, storyboard.get_finished());
    storyboard.advance();
    EXPECT_EQ(true, storyboard.get_finished());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    advance__when_not_all_characters_have_been_revealed__will_reveal_all_the_characters)
 {
+   al_init();
    std::string text = "In this test, there is some text.";
    AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
 
    storyboard.start();
    storyboard.advance();
    EXPECT_EQ(true, storyboard.all_characters_are_revealed());
+   al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    advance__when_not_all_characters_have_been_revealed__will_not_set_finished_to_true)
 {
+   al_init();
    std::string text = "In this test, there is some text.";
    AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
 
    storyboard.start();
    storyboard.advance();
    EXPECT_EQ(false, storyboard.get_finished());
+   al_uninstall_system();
 }
-*/
 
 
