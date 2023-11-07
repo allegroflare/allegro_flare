@@ -16,12 +16,12 @@ namespace DialogBoxRenderers
 {
 
 
-TextMessages::TextMessages(AllegroFlare::FontBin* font_bin, float window_width, float window_height, std::vector<std::string> messages, float reveal_counter)
+TextMessages::TextMessages(AllegroFlare::FontBin* font_bin, float window_width, float window_height, std::vector<std::tuple<std::string, std::string, float>> messages, float age)
    : font_bin(font_bin)
    , window_width(window_width)
    , window_height(window_height)
    , messages(messages)
-   , reveal_counter(reveal_counter)
+   , age(age)
    , draw_background_fill(false)
 {
 }
@@ -47,7 +47,7 @@ bool TextMessages::get_draw_background_fill() const
 void TextMessages::render()
 {
    //int line = 0;
-   float dialog_box_height = 180;
+   float dialog_box_height = 160;
    float dialog_box_spacing = dialog_box_height + 30;
    AllegroFlare::Placement2D dialog_bubble_placement;
    float window_padding = 30;
@@ -69,21 +69,26 @@ void TextMessages::render()
 
    for (unsigned i=0; i<messages.size(); i++)
    {
-      float sanitized_reveal_counter = build_sanitized_reveal_counter();
-      float y_reveal_offset = (1.0 - AllegroFlare::interpolator::tripple_fast_in(sanitized_reveal_counter))
-                            * 80
-                            + (1.0 - AllegroFlare::interpolator::tripple_fast_in(sanitized_reveal_counter))
-                            * i * 20;
-      float reveal_scale = AllegroFlare::interpolator::tripple_fast_in(sanitized_reveal_counter);
-      float y_position = i * dialog_box_spacing + y_reveal_offset + window_padding;
       auto &message = messages[i];
+      std::string message_sender = std::get<0>(message); // TODO: Incorporate this property
+      std::string message_text = std::get<1>(message);
+      float message_sent_at = std::get<2>(message);      // TODO: Incorporate this property
+
+      float sanitized_age = build_sanitized_age();
+      float y_reveal_offset = (1.0 - AllegroFlare::interpolator::tripple_fast_in(sanitized_age))
+                            * 80
+                            + (1.0 - AllegroFlare::interpolator::tripple_fast_in(sanitized_age))
+                            * i * 20;
+      float reveal_scale = AllegroFlare::interpolator::tripple_fast_in(sanitized_age);
+      float y_position = i * dialog_box_spacing + y_reveal_offset + window_padding;
+      //auto &message = messages[i];
       AllegroFlare::Placement2D dialog_bubble_placement{window_padding, y_position, 0, 0};
       dialog_bubble_placement.scale.y = 0.7 + reveal_scale * 0.3;
 
       dialog_bubble_placement.start_transform();
       AllegroFlare::Elements::TextMessageBubble dialog_bubble_element(
          font_bin,
-         message,
+         message_text,
          bubble_width,
          dialog_box_height,
          true
@@ -100,12 +105,12 @@ void TextMessages::render()
    return;
 }
 
-float TextMessages::build_sanitized_reveal_counter()
+float TextMessages::build_sanitized_age()
 {
-   float sanitized_reveal_counter = reveal_counter;
-   if (sanitized_reveal_counter < 0.0) sanitized_reveal_counter = 0.0f;
-   if (sanitized_reveal_counter >= 1.0) sanitized_reveal_counter = 1.0f;
-   return sanitized_reveal_counter;
+   float sanitized_age = age;
+   if (sanitized_age < 0.0) sanitized_age = 0.0f;
+   if (sanitized_age >= 1.0) sanitized_age = 1.0f;
+   return sanitized_age;
 }
 
 

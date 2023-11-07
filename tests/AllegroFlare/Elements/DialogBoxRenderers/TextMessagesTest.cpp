@@ -23,7 +23,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTestWithAllegroRende
 {
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, 600/2, 600 };
    int passes = 60;
-   float reveal_counter = 0;
+   float age = 0;
    for (unsigned i=0; i<passes; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
@@ -31,16 +31,22 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTestWithAllegroRende
          &get_font_bin_ref(),
          600,
          100,
-         { "Hello, this is bubble text", "And this is a second line", "And finally the last line" },
-         reveal_counter
+         {
+            { "Friend", "Hello, this is bubble text", 0.0f },
+            { "Friend", "And this is a second line", 0.0f },
+            { "Friend", "And finally the last line", 0.0f },
+          },
+         age
       );
+
+      smart_phone_dialog_renderer.set_draw_background_fill(true);
 
       place.start_transform();
       smart_phone_dialog_renderer.render();
       place.restore_transform();
       al_flip_display();
       std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
-      reveal_counter += (1.0/60.0f) * 2;
+      age += (1.0/60.0f) * 2;
    }
 }
 
