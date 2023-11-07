@@ -248,7 +248,7 @@ void IntertitleRenderer::render()
    }
    ALLEGRO_FONT *text_font = obtain_font();
 
-   // Draw a backfill (consider alternative options like graphic
+   // Draw a backfill (consider alternative options like graphic or fadeout gradient on top/bottom)
    al_draw_filled_rectangle(
       0,
       top_padding / 2,

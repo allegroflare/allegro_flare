@@ -208,7 +208,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
    for (int i=0; i<32; i++)
    {
       clear();
-      //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       num_revealed_characters++;
 
       storyboard.set_revealed_characters_count(num_revealed_characters);
