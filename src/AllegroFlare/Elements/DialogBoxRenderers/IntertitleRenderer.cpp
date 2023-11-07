@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -17,15 +18,18 @@ namespace DialogBoxRenderers
 {
 
 
-IntertitleRenderer::IntertitleRenderer(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float top_padding, float left_padding, float right_padding, float line_height_multiplier, float line_height_padding)
+IntertitleRenderer::IntertitleRenderer(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float surface_width, float surface_height, float top_padding, float left_padding, float right_padding, float bottom_padding, float line_height_multiplier, float line_height_padding)
    : font_bin(font_bin)
    , text(text)
    , font_name(font_name)
    , font_size(font_size)
    , text_color(text_color)
+   , surface_width(surface_width)
+   , surface_height(surface_height)
    , top_padding(top_padding)
    , left_padding(left_padding)
    , right_padding(right_padding)
+   , bottom_padding(bottom_padding)
    , line_height_multiplier(line_height_multiplier)
    , line_height_padding(line_height_padding)
    , revealed_characters_count(0)
@@ -69,6 +73,18 @@ void IntertitleRenderer::set_text_color(ALLEGRO_COLOR text_color)
 }
 
 
+void IntertitleRenderer::set_surface_width(float surface_width)
+{
+   this->surface_width = surface_width;
+}
+
+
+void IntertitleRenderer::set_surface_height(float surface_height)
+{
+   this->surface_height = surface_height;
+}
+
+
 void IntertitleRenderer::set_top_padding(float top_padding)
 {
    this->top_padding = top_padding;
@@ -84,6 +100,12 @@ void IntertitleRenderer::set_left_padding(float left_padding)
 void IntertitleRenderer::set_right_padding(float right_padding)
 {
    this->right_padding = right_padding;
+}
+
+
+void IntertitleRenderer::set_bottom_padding(float bottom_padding)
+{
+   this->bottom_padding = bottom_padding;
 }
 
 
@@ -141,6 +163,18 @@ ALLEGRO_COLOR IntertitleRenderer::get_text_color() const
 }
 
 
+float IntertitleRenderer::get_surface_width() const
+{
+   return surface_width;
+}
+
+
+float IntertitleRenderer::get_surface_height() const
+{
+   return surface_height;
+}
+
+
 float IntertitleRenderer::get_top_padding() const
 {
    return top_padding;
@@ -156,6 +190,12 @@ float IntertitleRenderer::get_left_padding() const
 float IntertitleRenderer::get_right_padding() const
 {
    return right_padding;
+}
+
+
+float IntertitleRenderer::get_bottom_padding() const
+{
+   return bottom_padding;
 }
 
 
@@ -199,22 +239,39 @@ void IntertitleRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("IntertitleRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[IntertitleRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("IntertitleRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
    ALLEGRO_FONT *text_font = obtain_font();
 
+   // Draw a backfill (consider alternative options like graphic
+   al_draw_filled_rectangle(
+      0,
+      top_padding / 2,
+      surface_width,
+      surface_height - bottom_padding / 2,
+      ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.7}
+   );
+
+   // Draw the text
    std::string revealed_text = generate_revealed_text();
    if (!revealed_text.empty())
    {
-      float box_width = 1920 - (left_padding + right_padding);
+      float box_width = surface_width - (left_padding + right_padding);
       al_draw_multiline_text(
-            text_font,
-            text_color,
-            left_padding,
-            top_padding,
-            box_width,
-            al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
-            0,
-            revealed_text.c_str()
-         );
+         text_font,
+         text_color,
+         left_padding,
+         top_padding,
+         box_width,
+         al_get_font_line_height(text_font)*line_height_multiplier + line_height_padding,
+         0,
+         revealed_text.c_str()
+      );
    }
 
    return;

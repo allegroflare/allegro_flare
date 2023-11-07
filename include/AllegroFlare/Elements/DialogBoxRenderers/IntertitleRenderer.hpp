@@ -25,9 +25,12 @@ namespace AllegroFlare
             std::string font_name;
             int font_size;
             ALLEGRO_COLOR text_color;
+            float surface_width;
+            float surface_height;
             float top_padding;
             float left_padding;
             float right_padding;
+            float bottom_padding;
             float line_height_multiplier;
             float line_height_padding;
             int revealed_characters_count;
@@ -39,7 +42,7 @@ namespace AllegroFlare
 
 
          public:
-            IntertitleRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float top_padding=400, float left_padding=360, float right_padding=360, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
+            IntertitleRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string text="[text-not-set]", std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{1, 1, 1, 1}, float surface_width=1920, float surface_height=1080, float top_padding=400, float left_padding=360, float right_padding=360, float bottom_padding=400, float line_height_multiplier=1.75f, float line_height_padding=0.0f);
             ~IntertitleRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -47,9 +50,12 @@ namespace AllegroFlare
             void set_font_name(std::string font_name);
             void set_font_size(int font_size);
             void set_text_color(ALLEGRO_COLOR text_color);
+            void set_surface_width(float surface_width);
+            void set_surface_height(float surface_height);
             void set_top_padding(float top_padding);
             void set_left_padding(float left_padding);
             void set_right_padding(float right_padding);
+            void set_bottom_padding(float bottom_padding);
             void set_line_height_multiplier(float line_height_multiplier);
             void set_line_height_padding(float line_height_padding);
             void set_revealed_characters_count(int revealed_characters_count);
@@ -59,9 +65,12 @@ namespace AllegroFlare
             std::string get_font_name() const;
             int get_font_size() const;
             ALLEGRO_COLOR get_text_color() const;
+            float get_surface_width() const;
+            float get_surface_height() const;
             float get_top_padding() const;
             float get_left_padding() const;
             float get_right_padding() const;
+            float get_bottom_padding() const;
             float get_line_height_multiplier() const;
             float get_line_height_padding() const;
             int get_revealed_characters_count() const;

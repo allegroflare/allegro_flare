@@ -6739,6 +6739,14 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">surface_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">top_padding</td>
   <td class="property">float</td>
 </tr>
@@ -6748,6 +6756,10 @@ table td
 </tr>
 <tr>
   <td class="property">right_padding</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">bottom_padding</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -6818,6 +6830,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
@@ -33479,6 +33494,7 @@ table td
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
