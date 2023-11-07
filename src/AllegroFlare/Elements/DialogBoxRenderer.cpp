@@ -335,6 +335,13 @@ void DialogBoxRenderer::render()
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::TextMessages::TYPE))
    {
+      AllegroFlare::Placement2D place{
+         1920/2,
+         1080/2,
+         600, // TODO: Consider different sizes here
+         1080-200,
+      };
+
       AllegroFlare::Elements::DialogBoxes::TextMessages *as =
          static_cast<AllegroFlare::Elements::DialogBoxes::TextMessages*>(dialog_box);
 
@@ -342,11 +349,13 @@ void DialogBoxRenderer::render()
          font_bin,
          as->get_messages(),
          as->infer_age(),
-         600, // TODO: Consider different sizes here
-         900
+         place.size.x,
+         place.size.y
       );
 
+      place.start_transform();
       renderer.render();
+      place.restore_transform();
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
    {

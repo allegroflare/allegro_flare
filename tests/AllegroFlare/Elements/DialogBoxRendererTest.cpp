@@ -465,7 +465,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_CharacterFeatu
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_TextMessages_dialog_box)
+TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_a_TextMessages_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
