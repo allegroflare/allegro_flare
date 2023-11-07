@@ -1,0 +1,167 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::DialogBoxes::Base
+    scope: public
+    init_with: AllegroFlare::Elements::DialogBoxes::Intertitle::TYPE
+
+
+properties:
+
+
+  - name: text
+    type: std::string
+    init_with: '"[text-not-set]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: revealed_characters_count
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: all_characters_revealed_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: wait_duration_after_all_characters_are_revealed
+    type: float
+    init_with: 3.0f
+    getter: true
+    setter: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/Intertitle"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: start
+    virtual: true
+    override: true
+    body: |
+      revealed_characters_count = 0;
+      all_characters_revealed_at = 0.0f;
+      set_finished(false);
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+
+      float time_now = al_get_time();
+
+      if (!all_characters_are_revealed())
+      {
+         revealed_characters_count++;
+         if (revealed_characters_count >= text.size())
+         {
+            all_characters_revealed_at = time_now;
+         }
+      }
+      else // all characters are revealed
+      {
+         float all_characters_revealed_age = time_now - all_characters_revealed_at;
+
+         bool should_finish = (all_characters_revealed_age > wait_duration_after_all_characters_are_revealed);
+
+         if (should_finish)
+         {
+            set_finished(true);
+         }
+      }
+      return;
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+
+      float time_now = al_get_time();
+
+      if (!all_characters_are_revealed())
+      {
+         reveal_all_characters();
+         all_characters_revealed_at = time_now;
+      }
+      else // all characters are revealed
+      {
+         // TODO: Consider triggering a fade out
+         set_finished(true);
+      }
+
+      // TODO - should this also finished = true?
+      return;
+
+
+  - name: generate_revealed_text
+    type: std::string
+    body: |
+      return text.substr(0, revealed_characters_count);
+
+
+  - name: reveal_all_characters
+    body: |
+      revealed_characters_count = text.size();
+
+
+  - name: all_characters_are_revealed
+    type: bool
+    body: |
+      return revealed_characters_count >= text.size();
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::StoryboardPages::Base
+    headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::EventEmitter*
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_EVENT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_draw_multiline_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::interpolator::*
+    headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: fmod
+    headers: [ cmath ]
+  - symbol: std::min, std::max
+    headers: [ algorithm ]
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+
+
+
+
