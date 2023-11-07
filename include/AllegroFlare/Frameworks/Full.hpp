@@ -122,7 +122,7 @@ namespace AllegroFlare
          ALLEGRO_EVENT *current_event;
          double time_now; // used to be current_event_time
 
-         int key_alt, key_shift, key_ctrl;
+         int key_alt, key_shift, key_ctrl, key_command;
          bool drawing_profiler_graph;
 
          ALLEGRO_FONT *font(std::string identifier);

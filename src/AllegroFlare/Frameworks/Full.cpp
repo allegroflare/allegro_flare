@@ -106,6 +106,7 @@ Full::Full()
    , key_alt(0)
    , key_shift(0)
    , key_ctrl(0)
+   , key_command(0)
    , drawing_profiler_graph(false)
 {}
 
@@ -247,6 +248,9 @@ bool Full::initialize_core_system()
 {
    if (initialized) return false;
 
+
+   // TODO: throw if alt, shift, command, or ctrl are pressed, or capture initial state and
+   // set the values for these to correct values
 
    //static std::string LOG_FILENAME = "flare_log.txt";
    //ASSERT_EQ(false, std::filesystem::exists(TEST_LOG_FILENAME));
@@ -1175,7 +1179,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          }
       break;
 
-      case ALLEGRO_EVENT_KEY_DOWN:
+      case ALLEGRO_EVENT_KEY_DOWN: {
          if (this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
          {
             if (escape_key_will_shutdown) shutdown_program = true;
@@ -1187,8 +1191,18 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt++;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl++;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command++;
          if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
+
+         if (
+            Full::key_shift > 0
+            && Full::key_command > 0
+            && Full::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT)
+         {
+            int MICROSECONDS_PER_FRAME = 16670;
+            offset_primary_timer(MICROSECONDS_PER_FRAME / 10);
+         }
 
          if (dialog_system.get_switched_in())
          {
@@ -1218,7 +1232,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
          }
          //virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
-      break;
+      } break;
 
       case ALLEGRO_EVENT_KEY_UP:
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
@@ -1227,6 +1241,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command--;
          if (dialog_system.get_switched_in())
          {
             // HERE:
