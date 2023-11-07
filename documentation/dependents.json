@@ -282,6 +282,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -317,6 +318,7 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Elements/TextMessageBubble",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -426,6 +428,7 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Elements/TextMessageBubble",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
@@ -527,6 +530,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogButton",
@@ -771,6 +775,7 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Elements/TextMessageBubble",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -1238,6 +1243,7 @@
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -1378,6 +1384,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Elements/TextMessageBubble",
     "AllegroFlare/Screens/Storyboard"
   ],
   "al_draw_rounded_rectangle": [
@@ -1507,6 +1514,7 @@
   ],
   "AllegroFlare/interpolator": [
     "AllegroFlare/Elements/Button",
+    "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
@@ -1685,7 +1693,8 @@
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer"
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/TextMessageBubble"
   ],
   "AllegroFlare/Elements/DialogBoxFrame": [
     "AllegroFlare/Elements/DialogBoxNameTag",
@@ -1732,6 +1741,9 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/Elements/TextMessageBubble": [
+    "AllegroFlare/Elements/DialogBoxRenderers/TextMessages"
   ],
   "AllegroFlare/Elements/AdvancingText": [
     "AllegroFlare/Elements/DialogBoxes/Choice"
@@ -1825,6 +1837,7 @@
   ],
   "al_color_name": [
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/TextMessageBubble",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",

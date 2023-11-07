@@ -81,7 +81,7 @@ functions:
   - name: obtain_text_font
     private: true
     type: ALLEGRO_FONT*
-    body: return font_bin->auto_get("Lato-Regular.ttf -42");
+    body: return font_bin->auto_get("Inter-Medium.ttf -42");
 
 
 dependencies:

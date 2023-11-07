@@ -87,7 +87,7 @@ void TextMessageBubble::render()
 
 ALLEGRO_FONT* TextMessageBubble::obtain_text_font()
 {
-   return font_bin->auto_get("Lato-Regular.ttf -42");
+   return font_bin->auto_get("Inter-Medium.ttf -42");
 }
 
 
