@@ -33,6 +33,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
 
 
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, can_be_created_without_blowing_up)
@@ -486,6 +487,41 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_a_TextM
    });
 
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &text_messages);
+
+   dialog_box_renderer.render();
+   al_flip_display();
+   //std::this_thread::sleep_for(std::chrono::seconds(1));
+
+   bitmap_bin.clear();
+   al_destroy_display(display);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_an_Intertitle_dialog_box)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   al_init_image_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
+   AllegroFlare::Elements::DialogBoxes::Intertitle intertitle;
+
+   intertitle.set_text(
+      "At the tail end of his final year at university, we meet our protagonist in his dorm room diligently studying."
+   );
+   intertitle.start(); // TODO: Consider a "middle-of-life" age or alternative to manual time
+   for (int i=0; i<60; i++)
+   {
+      intertitle.update(); // NOTE: To reveal characters
+   }
+
+   AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &intertitle);
 
    dialog_box_renderer.render();
    al_flip_display();

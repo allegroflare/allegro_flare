@@ -7,6 +7,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp>
@@ -14,6 +15,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
@@ -356,6 +358,10 @@ void DialogBoxRenderer::render()
       place.start_transform();
       renderer.render();
       place.restore_transform();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Intertitle::TYPE))
+   {
+      // TODO: This render
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
    {

@@ -298,6 +298,10 @@ functions:
          renderer.render();
          place.restore_transform();
       }
+      else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Intertitle::TYPE))
+      {
+         // TODO: This render
+      }
       else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
       {
          // No rendering to be done for this type
@@ -325,6 +329,7 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::ChapterTitle
       - AllegroFlare::Elements::DialogBoxes::CharacterFeature
       - AllegroFlare::Elements::DialogBoxes::TextMessages
+      - AllegroFlare::Elements::DialogBoxes::Intertitle
       - AllegroFlare::Elements::DialogBoxes::Wait
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
@@ -333,6 +338,7 @@ functions:
       - AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::TextMessages
+      - AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer
 
 
 dependencies:
@@ -382,6 +388,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::TextMessages
     headers: [ AllegroFlare/Elements/DialogBoxes/TextMessages.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Intertitle
+    headers: [ AllegroFlare/Elements/DialogBoxes/Intertitle.hpp ]
   - symbol: AllegroFlare::Elements::SelectionCursorBox
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer
@@ -390,5 +398,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::TextMessages
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp ]
 
 

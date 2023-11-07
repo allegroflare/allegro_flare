@@ -1748,6 +1748,9 @@
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxes/Intertitle": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
@@ -1755,6 +1758,9 @@
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/TextMessages": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [
