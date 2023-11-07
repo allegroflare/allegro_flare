@@ -26,14 +26,12 @@ TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest, type__has_the_expected_va
 }
 
 
-// TODO: Add tests
-
 /*
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    start__will_set_the_number_of_revealed_characters_to_zero)
 {
-   std::string text = "Hello DialogBoxRenderers::IntertitleRenderer!";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   std::string text = "Hello DialogBoxes::Intertitle!";
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    storyboard.reveal_all_characters();
    EXPECT_EQ(true, storyboard.all_characters_are_revealed());
@@ -43,11 +41,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    start__will_set_finished_to_false)
 {
-   std::string text = "Hello DialogBoxRenderers::IntertitleRenderer!";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   std::string text = "Hello DialogBoxes::Intertitle!";
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    EXPECT_EQ(true, storyboard.get_finished());
    storyboard.start();
@@ -55,12 +53,12 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    update__after_all_characters_have_been_revealed__and_before_wait_duration_after_all_characters_are_revealed_has_\
 passed__will_not_set_finished_to_true)
 {
-   std::string text = "Hello DialogBoxRenderers::IntertitleRenderer!";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   std::string text = "Hello DialogBoxes::Intertitle!";
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    storyboard.start(); // TODO: Inject time
    storyboard.reveal_all_characters();
@@ -70,12 +68,12 @@ passed__will_not_set_finished_to_true)
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    update__after_all_characters_have_been_revealed__and_after_wait_duration_after_all_characters_are_revealed_has_\
 passed__will_set_finished_to_true)
 {
-   std::string text = "Hello DialogBoxRenderers::IntertitleRenderer!";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   std::string text = "Hello DialogBoxes::Intertitle!";
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    storyboard.start(); // TODO: Inject time
    storyboard.reveal_all_characters();
@@ -86,11 +84,11 @@ passed__will_set_finished_to_true)
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    reveal_all_characters__will_reveal_all_the_characters_on_the_current_page)
 {
    std::string text = "This are characters that need to be revealed one-by-one.";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    EXPECT_EQ(false, storyboard.all_characters_are_revealed());
    storyboard.reveal_all_characters();
@@ -98,11 +96,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    reveal_all_characters__will_not_automatically_set_the_page_to_finished)
 {
    std::string text = "This are characters that need to be revealed one-by-one.";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    storyboard.start();
    storyboard.reveal_all_characters();
@@ -110,11 +108,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    advance__when_all_characters_have_been_revealed__will_set_finished_to_true)
 {
-   std::string text = "Hello DialogBoxRenderers::IntertitleRenderer!";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   std::string text = "Hello DialogBoxes::Intertitle!";
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    storyboard.start();
    storyboard.reveal_all_characters();
@@ -124,11 +122,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    advance__when_not_all_characters_have_been_revealed__will_reveal_all_the_characters)
 {
    std::string text = "In this test, there is some text.";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    storyboard.start();
    storyboard.advance();
@@ -136,17 +134,16 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_DialogBoxes_IntertitleTestWithAllegroRenderingFixture,
    advance__when_not_all_characters_have_been_revealed__will_not_set_finished_to_true)
 {
    std::string text = "In this test, there is some text.";
-   AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(&get_font_bin_ref(), text);
 
    storyboard.start();
    storyboard.advance();
    EXPECT_EQ(false, storyboard.get_finished());
 }
 */
-
 
 
