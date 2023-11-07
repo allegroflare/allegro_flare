@@ -85,10 +85,11 @@ methods:
   - name: advance
     virtual: true
     override: true
+    guards: [ al_is_system_installed() ]
     body: |
       if (get_finished()) return;
 
-      float time_now = al_get_time();
+      float time_now = al_get_time(); // TODO: Consider injected alternative
 
       if (!all_characters_are_revealed())
       {
@@ -112,7 +113,13 @@ methods:
 
 
   - name: reveal_all_characters
+    guards: [ al_is_system_installed() ]
     body: |
+      if (all_characters_are_revealed()) return;
+
+      float time_now = al_get_time(); // TODO: Consider injected alternative
+
+      all_characters_revealed_at = time_now;
       revealed_characters_count = text.size();
 
 

@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
 
-
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -96,9 +98,16 @@ void Intertitle::update()
 
 void Intertitle::advance()
 {
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Intertitle::advance]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Intertitle::advance: error: guard \"al_is_system_installed()\" not met");
+   }
    if (get_finished()) return;
 
-   float time_now = al_get_time();
+   float time_now = al_get_time(); // TODO: Consider injected alternative
 
    if (!all_characters_are_revealed())
    {
@@ -122,6 +131,18 @@ std::string Intertitle::generate_revealed_text()
 
 void Intertitle::reveal_all_characters()
 {
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Intertitle::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Intertitle::reveal_all_characters: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (all_characters_are_revealed()) return;
+
+   float time_now = al_get_time(); // TODO: Consider injected alternative
+
+   all_characters_revealed_at = time_now;
    revealed_characters_count = text.size();
 }
 
