@@ -40,21 +40,6 @@ TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    al_uninstall_system();
 }
 
-/*
-
-TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
-   start__will_set_finished_to_false)
-{
-   al_init();
-   std::string text = "Hello DialogBoxes::Intertitle!";
-   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
-
-   EXPECT_EQ(true, storyboard.get_finished());
-   storyboard.start();
-   EXPECT_EQ(false, storyboard.get_finished());
-   al_uninstall_system();
-}
-
 
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    update__after_all_characters_have_been_revealed__and_before_wait_duration_after_all_characters_are_revealed_has_\
@@ -72,6 +57,27 @@ passed__will_not_set_finished_to_true)
    al_uninstall_system();
 }
 
+
+TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
+   start__after_finished__will_set_finished_to_false)
+{
+   al_init();
+   std::string text = "Hello DialogBoxes::Intertitle!";
+   AllegroFlare::Elements::DialogBoxes::Intertitle storyboard(text);
+
+   storyboard.start(); // TODO: Inject time
+   storyboard.reveal_all_characters();
+   EXPECT_EQ(false, storyboard.get_finished());
+   storyboard.advance();
+   EXPECT_EQ(true, storyboard.get_finished());
+
+   storyboard.start();
+   EXPECT_EQ(false, storyboard.get_finished());
+   al_uninstall_system();
+}
+
+
+/*
 
 TEST(AllegroFlare_Elements_DialogBoxes_IntertitleTest,
    update__after_all_characters_have_been_revealed__and_after_wait_duration_after_all_characters_are_revealed_has_\
