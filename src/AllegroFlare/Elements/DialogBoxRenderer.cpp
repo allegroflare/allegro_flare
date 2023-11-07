@@ -361,6 +361,18 @@ void DialogBoxRenderer::render()
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Intertitle::TYPE))
    {
+      AllegroFlare::Elements::DialogBoxes::Intertitle *as =
+         static_cast<AllegroFlare::Elements::DialogBoxes::Intertitle*>(dialog_box);
+
+      AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer renderer(
+         font_bin,
+         as->get_text(),
+         as->get_revealed_characters_count()
+      );
+      renderer.set_surface_width(1920);
+      renderer.set_surface_height(1080);
+
+      renderer.render();
       // TODO: This render
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))

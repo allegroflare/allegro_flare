@@ -15,23 +15,9 @@ properties:
     getter: true
     setter: true
 
-  - name: font_name
-    type: std::string
-    init_with: DEFAULT_FONT_NAME
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: font_size
+  - name: revealed_characters_count
     type: int
-    init_with: DEFAULT_FONT_SIZE
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: text_color
-    type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    init_with: 0
     constructor_arg: true
     getter: true
     setter: true
@@ -39,68 +25,66 @@ properties:
   - name: surface_width
     type: float
     init_with: 1920
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: surface_height
     type: float
     init_with: 1080
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: top_padding
     type: float
     init_with: 400
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: left_padding
     type: float
     init_with: 360
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: right_padding
     type: float
     init_with: 360
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: bottom_padding
     type: float
     init_with: 400
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: line_height_multiplier
     type: float
     init_with: 1.75f
-    constructor_arg: true
     getter: true
     setter: true
 
   - name: line_height_padding
     type: float
     init_with: 0.0f
-    constructor_arg: true
     getter: true
     setter: true
 
-  - name: revealed_characters_count
+  - name: font_name
+    type: std::string
+    init_with: DEFAULT_FONT_NAME
+    getter: true
+    setter: true
+
+  - name: font_size
     type: int
-    init_with: 0
+    init_with: DEFAULT_FONT_SIZE
     getter: true
     setter: true
 
-  - name: all_characters_revealed_at
-    type: float
-    init_with: 0.0f
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
     getter: true
     setter: true
 

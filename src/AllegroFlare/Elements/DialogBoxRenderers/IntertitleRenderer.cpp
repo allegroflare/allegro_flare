@@ -18,22 +18,21 @@ namespace DialogBoxRenderers
 {
 
 
-IntertitleRenderer::IntertitleRenderer(AllegroFlare::FontBin* font_bin, std::string text, std::string font_name, int font_size, ALLEGRO_COLOR text_color, float surface_width, float surface_height, float top_padding, float left_padding, float right_padding, float bottom_padding, float line_height_multiplier, float line_height_padding)
+IntertitleRenderer::IntertitleRenderer(AllegroFlare::FontBin* font_bin, std::string text, int revealed_characters_count)
    : font_bin(font_bin)
    , text(text)
-   , font_name(font_name)
-   , font_size(font_size)
-   , text_color(text_color)
-   , surface_width(surface_width)
-   , surface_height(surface_height)
-   , top_padding(top_padding)
-   , left_padding(left_padding)
-   , right_padding(right_padding)
-   , bottom_padding(bottom_padding)
-   , line_height_multiplier(line_height_multiplier)
-   , line_height_padding(line_height_padding)
-   , revealed_characters_count(0)
-   , all_characters_revealed_at(0.0f)
+   , revealed_characters_count(revealed_characters_count)
+   , surface_width(1920)
+   , surface_height(1080)
+   , top_padding(400)
+   , left_padding(360)
+   , right_padding(360)
+   , bottom_padding(400)
+   , line_height_multiplier(1.75f)
+   , line_height_padding(0.0f)
+   , font_name(DEFAULT_FONT_NAME)
+   , font_size(DEFAULT_FONT_SIZE)
+   , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {
 }
 
@@ -55,21 +54,9 @@ void IntertitleRenderer::set_text(std::string text)
 }
 
 
-void IntertitleRenderer::set_font_name(std::string font_name)
+void IntertitleRenderer::set_revealed_characters_count(int revealed_characters_count)
 {
-   this->font_name = font_name;
-}
-
-
-void IntertitleRenderer::set_font_size(int font_size)
-{
-   this->font_size = font_size;
-}
-
-
-void IntertitleRenderer::set_text_color(ALLEGRO_COLOR text_color)
-{
-   this->text_color = text_color;
+   this->revealed_characters_count = revealed_characters_count;
 }
 
 
@@ -121,15 +108,21 @@ void IntertitleRenderer::set_line_height_padding(float line_height_padding)
 }
 
 
-void IntertitleRenderer::set_revealed_characters_count(int revealed_characters_count)
+void IntertitleRenderer::set_font_name(std::string font_name)
 {
-   this->revealed_characters_count = revealed_characters_count;
+   this->font_name = font_name;
 }
 
 
-void IntertitleRenderer::set_all_characters_revealed_at(float all_characters_revealed_at)
+void IntertitleRenderer::set_font_size(int font_size)
 {
-   this->all_characters_revealed_at = all_characters_revealed_at;
+   this->font_size = font_size;
+}
+
+
+void IntertitleRenderer::set_text_color(ALLEGRO_COLOR text_color)
+{
+   this->text_color = text_color;
 }
 
 
@@ -145,21 +138,9 @@ std::string IntertitleRenderer::get_text() const
 }
 
 
-std::string IntertitleRenderer::get_font_name() const
+int IntertitleRenderer::get_revealed_characters_count() const
 {
-   return font_name;
-}
-
-
-int IntertitleRenderer::get_font_size() const
-{
-   return font_size;
-}
-
-
-ALLEGRO_COLOR IntertitleRenderer::get_text_color() const
-{
-   return text_color;
+   return revealed_characters_count;
 }
 
 
@@ -211,15 +192,21 @@ float IntertitleRenderer::get_line_height_padding() const
 }
 
 
-int IntertitleRenderer::get_revealed_characters_count() const
+std::string IntertitleRenderer::get_font_name() const
 {
-   return revealed_characters_count;
+   return font_name;
 }
 
 
-float IntertitleRenderer::get_all_characters_revealed_at() const
+int IntertitleRenderer::get_font_size() const
 {
-   return all_characters_revealed_at;
+   return font_size;
+}
+
+
+ALLEGRO_COLOR IntertitleRenderer::get_text_color() const
+{
+   return text_color;
 }
 
 
