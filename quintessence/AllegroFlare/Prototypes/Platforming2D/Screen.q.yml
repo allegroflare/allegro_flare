@@ -124,7 +124,7 @@ documentation:
          - user controls may become backlogged, need to be cleared or recaptured at unsuspend
          - other things not considered
          - possible re-collisions on unpause
-         - audio
+         - audio (pausing in-environment and in-game sound effects)
 
 
 methods:
