@@ -199,13 +199,13 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderi
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleTestWithAllegroRenderingFixture,
-   DISABLED__VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
+   CAPTURE__VISUAL__update__will_reveal_the_characters_in_the_page_one_by_one)
 {
    std::string text = "Hello DialogBoxRenderers::IntertitleRenderer!";
    AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard(&get_font_bin_ref(), text);
 
    int num_revealed_characters = 0;
-   for (int i=0; i<18; i++)
+   for (int i=0; i<32; i++)
    {
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       num_revealed_characters++;
