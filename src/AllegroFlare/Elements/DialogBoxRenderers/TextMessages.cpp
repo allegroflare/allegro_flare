@@ -16,12 +16,12 @@ namespace DialogBoxRenderers
 {
 
 
-TextMessages::TextMessages(AllegroFlare::FontBin* font_bin, float phone_screen_width, float phone_screen_height, std::vector<std::tuple<std::string, std::string, float>> messages, float age)
+TextMessages::TextMessages(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<std::string, std::string, float>> messages, float age, float phone_screen_width, float phone_screen_height)
    : font_bin(font_bin)
-   , phone_screen_width(phone_screen_width)
-   , phone_screen_height(phone_screen_height)
    , messages(messages)
    , age(age)
+   , phone_screen_width(phone_screen_width)
+   , phone_screen_height(phone_screen_height)
    , draw_background_fill(false)
 {
 }

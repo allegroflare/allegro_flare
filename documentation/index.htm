@@ -6136,6 +6136,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::CharacterFeature&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::TextMessages&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/TextMessages.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -6143,6 +6146,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::TextMessages&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -6715,19 +6721,19 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
-  <td class="property">phone_screen_width</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">phone_screen_height</td>
-  <td class="property">float</td>
-</tr>
-<tr>
   <td class="property">messages</td>
   <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, float&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">age</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">phone_screen_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">phone_screen_height</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -33652,7 +33658,8 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxes/TextMessages": [
-    "AllegroFlare/Elements/DialogBoxFactory"
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"
@@ -33705,6 +33712,9 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderers/TextMessages": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [

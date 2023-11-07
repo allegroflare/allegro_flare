@@ -6,16 +6,6 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: phone_screen_width
-    type: float
-    init_with: 1
-    constructor_arg: true
-
-  - name: phone_screen_height
-    type: float
-    init_with: 1
-    constructor_arg: true
-
   - name: messages
     type: std::vector<std::tuple<std::string, std::string, float>>
     init_with: '{}'
@@ -26,11 +16,28 @@ properties:
     init_with: 0
     constructor_arg: true
 
+  - name: phone_screen_width
+    type: float
+    init_with: 1
+    constructor_arg: true
+
+  - name: phone_screen_height
+    type: float
+    init_with: 1
+    constructor_arg: true
+
   - name: draw_background_fill
     type: bool
     init_with: false
     getter: true
     setter: true
+
+
+documentation:
+
+
+  - todo:
+     - rename this to TextMessagesRenderer
 
 
 methods:

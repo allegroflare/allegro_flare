@@ -274,6 +274,21 @@ functions:
 
          renderer.render();
       }
+      else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::TextMessages::TYPE))
+      {
+         AllegroFlare::Elements::DialogBoxes::TextMessages *as =
+            static_cast<AllegroFlare::Elements::DialogBoxes::TextMessages*>(dialog_box);
+
+         AllegroFlare::Elements::DialogBoxRenderers::TextMessages renderer(
+            font_bin,
+            as->get_messages(),
+            as->infer_age(),
+            600, // TODO: Consider different sizes here
+            900
+         );
+
+         renderer.render();
+      }
       else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
       {
          // No rendering to be done for this type
@@ -300,6 +315,7 @@ functions:
       - AllegroFlare::Elements::DialogBoxes::YouGotEvidence
       - AllegroFlare::Elements::DialogBoxes::ChapterTitle
       - AllegroFlare::Elements::DialogBoxes::CharacterFeature
+      - AllegroFlare::Elements::DialogBoxes::TextMessages
       - AllegroFlare::Elements::DialogBoxes::Wait
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
@@ -307,6 +323,7 @@ functions:
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotEvidenceRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer
+      - AllegroFlare::Elements::DialogBoxRenderers::TextMessages
 
 
 dependencies:
@@ -354,11 +371,15 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::CharacterFeature
     headers: [ AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::TextMessages
+    headers: [ AllegroFlare/Elements/DialogBoxes/TextMessages.hpp ]
   - symbol: AllegroFlare::Elements::SelectionCursorBox
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChapterTitleRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderers::TextMessages
+    headers: [ AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp ]
 
 

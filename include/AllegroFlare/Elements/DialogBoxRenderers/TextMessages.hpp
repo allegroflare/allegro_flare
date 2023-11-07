@@ -17,17 +17,17 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::FontBin* font_bin;
-            float phone_screen_width;
-            float phone_screen_height;
             std::vector<std::tuple<std::string, std::string, float>> messages;
             float age;
+            float phone_screen_width;
+            float phone_screen_height;
             bool draw_background_fill;
 
          protected:
 
 
          public:
-            TextMessages(AllegroFlare::FontBin* font_bin=nullptr, float phone_screen_width=1, float phone_screen_height=1, std::vector<std::tuple<std::string, std::string, float>> messages={}, float age=0);
+            TextMessages(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string, float>> messages={}, float age=0, float phone_screen_width=1, float phone_screen_height=1);
             ~TextMessages();
 
             void set_draw_background_fill(bool draw_background_fill);

@@ -7,12 +7,14 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
@@ -327,6 +329,21 @@ void DialogBoxRenderer::render()
          as->get_character_image_identifier(),
          as->DEFAULT_DURATION,
          as->infer_age()
+      );
+
+      renderer.render();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::TextMessages::TYPE))
+   {
+      AllegroFlare::Elements::DialogBoxes::TextMessages *as =
+         static_cast<AllegroFlare::Elements::DialogBoxes::TextMessages*>(dialog_box);
+
+      AllegroFlare::Elements::DialogBoxRenderers::TextMessages renderer(
+         font_bin,
+         as->get_messages(),
+         as->infer_age(),
+         600, // TODO: Consider different sizes here
+         900
       );
 
       renderer.render();

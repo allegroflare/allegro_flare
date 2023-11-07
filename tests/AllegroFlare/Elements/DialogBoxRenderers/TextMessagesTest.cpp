@@ -29,14 +29,14 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTestWithAllegroRende
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       AllegroFlare::Elements::DialogBoxRenderers::TextMessages smart_phone_dialog_renderer(
          &get_font_bin_ref(),
-         place.size.x,
-         place.size.y,
          {
             { "Friend", "Hello, this is bubble text", 0.0f },
             { "Friend", "And this is a second line", 0.0f },
             { "Friend", "And finally the last line", 0.0f },
           },
-         age
+         age,
+         place.size.x,
+         place.size.y
       );
 
       smart_phone_dialog_renderer.set_draw_background_fill(true);
