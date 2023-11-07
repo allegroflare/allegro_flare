@@ -7,8 +7,8 @@
 #include <thread>
 
 
-class Krampus21_DialogBoxRenderers_SmartPhoneTest : public ::testing::Test {};
-class Krampus21_DialogBoxRenderers_SmartPhoneWithAllegroRenderingFixtureTest
+class AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTest : public ::testing::Test {};
+class AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTestWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 
@@ -18,27 +18,9 @@ TEST(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTest, can_be_created_w
 }
 
 
-//#include <Krampus21/DialogBoxRenderers/SmartPhone.hpp>
-
-//#ifdef _WIN32
-//#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/Krampus21/bin/programs/data/fonts/"
-//#else
-//#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/Krampus21/bin/programs/data/fonts/"
-//#endif
-
-//#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-//#include <chrono>
-//#include <thread>
-
-//class Krampus21_DialogBoxRenderers_SmartPhoneTest : public ::testing::Test {};
-//class Krampus21_DialogBoxRenderers_SmartPhoneWithAllegroRenderingFixtureTest
-   //: public AllegroFlare::Testing::WithAllegroRenderingFixture {};
-
-
-TEST_F(Krampus21_DialogBoxRenderers_SmartPhoneWithAllegroRenderingFixtureTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTestWithAllegroRenderingFixtureTest,
+   render__will_work_as_expected)
 {
-   //get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
-
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, 600/2, 600 };
    int passes = 60;
    float reveal_counter = 0;
@@ -60,8 +42,6 @@ TEST_F(Krampus21_DialogBoxRenderers_SmartPhoneWithAllegroRenderingFixtureTest, c
       std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
       reveal_counter += (1.0/60.0f) * 2;
    }
-
-   //std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 

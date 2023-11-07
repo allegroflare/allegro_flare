@@ -33,7 +33,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: render

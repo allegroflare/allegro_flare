@@ -27,7 +27,7 @@ properties:
     constructor_arg: true
 
 
-functions:
+methods:
 
 
   - name: render
