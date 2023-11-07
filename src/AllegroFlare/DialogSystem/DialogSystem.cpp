@@ -567,6 +567,31 @@ void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vecto
    return;
 }
 
+void DialogSystem::spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages)
+{
+   switch_in_if_not();
+
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
+                                                    // And/or address concerns that derived dialog be deleted proper
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog_box = dialog_box_factory.create_text_messages_dialog(
+      messages
+      //speaking_character,
+      //speaking_character,
+      //pages
+   );
+
+   // TODO: Address when and where a switch_in should occur
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //switch_in();
+   //}
+   return;
+}
+
 void DialogSystem::spawn_wait_dialog(float duration_seconds)
 {
    switch_in_if_not();

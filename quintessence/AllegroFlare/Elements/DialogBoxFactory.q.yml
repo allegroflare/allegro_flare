@@ -83,6 +83,28 @@ functions:
       - al_get_time
 
 
+  - name: create_text_messages_dialog
+    type: AllegroFlare::Elements::DialogBoxes::TextMessages*
+    parameters:
+      - name: messages
+        type: std::vector<std::tuple<std::string, std::string, float>>
+        default_argument: '{}'
+    guards: [ al_is_system_installed() ]
+    body: |
+      AllegroFlare::Elements::DialogBoxes::TextMessages* text_messages_dialog_box =
+         new AllegroFlare::Elements::DialogBoxes::TextMessages();
+      //if (!speaking_character.empty())
+      //{
+         //basic_dialog_box->set_speaking_character(speaking_character);
+      //}
+      text_messages_dialog_box->set_messages(messages);
+      text_messages_dialog_box->set_created_at(al_get_time());
+      return text_messages_dialog_box;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::TextMessages
+      - al_get_time
+
+
   - name: create_choice_dialog
     type: AllegroFlare::Elements::DialogBoxes::Choice*
     parameters:
@@ -254,5 +276,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::CharacterFeature
     headers: [ AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::TextMessages
+    headers: [ AllegroFlare/Elements/DialogBoxes/TextMessages.hpp ]
 
 

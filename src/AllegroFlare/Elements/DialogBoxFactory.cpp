@@ -5,6 +5,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
 #include <allegro5/allegro.h>
@@ -105,6 +106,26 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialo
    basic_dialog_box->set_pages(pages);
    basic_dialog_box->set_created_at(al_get_time());
    return basic_dialog_box;
+}
+
+AllegroFlare::Elements::DialogBoxes::TextMessages* DialogBoxFactory::create_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogBoxFactory::create_text_messages_dialog]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogBoxFactory::create_text_messages_dialog: error: guard \"al_is_system_installed()\" not met");
+   }
+   AllegroFlare::Elements::DialogBoxes::TextMessages* text_messages_dialog_box =
+      new AllegroFlare::Elements::DialogBoxes::TextMessages();
+   //if (!speaking_character.empty())
+   //{
+      //basic_dialog_box->set_speaking_character(speaking_character);
+   //}
+   text_messages_dialog_box->set_messages(messages);
+   text_messages_dialog_box->set_created_at(al_get_time());
+   return text_messages_dialog_box;
 }
 
 AllegroFlare::Elements::DialogBoxes::Choice* DialogBoxFactory::create_choice_dialog(std::string speaking_character, std::string prompt, std::vector<std::pair<std::string, std::string>> options, int cursor_position_on_spawn)

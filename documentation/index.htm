@@ -149,6 +149,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/ChapterTitle.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/ChapterTitle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/CharacterFeature.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/CharacterFeature.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Choice.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/TextMessages.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/TextMessages.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Wait.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Wait.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/YouGotAnItem.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/YouGotEvidence.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/YouGotEvidence.q.yml</a></li>
@@ -2468,6 +2469,9 @@ table td
 </tr>
 <tr>
   <td class="method">spawn_basic_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={})</td>
+</tr>
+<tr>
+  <td class="method">spawn_text_messages_dialog(std::vector&lt;std::tuple&lt;std::string, std::string, float&gt;&gt; messages={})</td>
 </tr>
 <tr>
   <td class="method">spawn_wait_dialog(float duration_seconds=1.0f)</td>
@@ -5778,6 +5782,9 @@ table td
   <td class="method">create_basic_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={})</td>
 </tr>
 <tr>
+  <td class="method">create_text_messages_dialog(std::vector&lt;std::tuple&lt;std::string, std::string, float&gt;&gt; messages={})</td>
+</tr>
+<tr>
   <td class="method">create_choice_dialog(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::string prompt=&quot;[unset-prompt]&quot;, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={}, int cursor_position_on_spawn=0)</td>
 </tr>
 <tr>
@@ -5821,6 +5828,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::CharacterFeature&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::TextMessages&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/TextMessages.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -7321,6 +7331,36 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/DialogBoxes/TextMessages.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/TextMessages.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">messages</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, float&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">SELF</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -32867,6 +32907,7 @@ table td
     "AllegroFlare/Elements/DialogBoxes/ChapterTitle",
     "AllegroFlare/Elements/DialogBoxes/CharacterFeature",
     "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/DialogBoxes/TextMessages",
     "AllegroFlare/Elements/DialogBoxes/Wait",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
@@ -33606,6 +33647,9 @@ table td
   "AllegroFlare/Elements/DialogBoxes/ChapterTitle": [
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/TextMessages": [
+    "AllegroFlare/Elements/DialogBoxFactory"
   ],
   "AllegroFlare/color/color": [
     "AllegroFlare/Elements/DialogBoxFrame"

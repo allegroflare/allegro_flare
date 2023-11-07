@@ -12,6 +12,7 @@
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <allegro5/allegro.h>
 #include <string>
+#include <tuple>
 #include <vector>
 
 
@@ -88,6 +89,7 @@ namespace AllegroFlare
          void switch_out();
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
+         void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
          void spawn_wait_dialog(float duration_seconds=1.0f);
          void spawn_chapter_title_dialog(std::string title_text="[unset-title_text]", float duration_seconds=1.0f);
          void spawn_character_feature_dialog(std::string character_name="[unset-character_name]", std::string character_description="[unset-character_description]", std::string character_image_identifier="[unset-character_image_identifier]", float duration_seconds=6.0f);

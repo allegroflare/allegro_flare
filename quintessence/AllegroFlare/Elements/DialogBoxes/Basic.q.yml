@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Elements::DialogBoxes::Base
     scope: public
-    init_with: TYPE
+    init_with: AllegroFlare::Elements::DialogBoxes::Basic::TYPE
 
 
 properties:
@@ -48,9 +48,16 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '(char*)"DialogBoxes/Basic"'
+    init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/Basic"'
     static: true
     constexpr: true
+
+
+documentation:
+
+
+  - todos:
+    - update TYPE and use correct naming in 
 
 
 methods:

@@ -14,7 +14,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, can_be_created_without_blowing
 TEST(AllegroFlare_Elements_DialogBoxes_BasicTest, get_type__returns_the_expected_value)
 {
    AllegroFlare::Elements::DialogBoxes::Basic basic;
-   EXPECT_EQ("DialogBoxes/Basic", basic.get_type());
+   EXPECT_EQ("AllegroFlare/Elements/DialogBoxes/Basic", basic.get_type());
 }
 
 
