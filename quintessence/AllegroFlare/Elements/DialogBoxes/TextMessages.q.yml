@@ -38,6 +38,18 @@ properties:
     constexpr: true
 
 
+methods:
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+      set_finished(true);
+      return;
+
+
 dependencies:
 
 

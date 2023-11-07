@@ -27,10 +27,11 @@ namespace AllegroFlare
 
          public:
             TextMessages(std::vector<std::tuple<std::string, std::string, float>> messages={});
-            ~TextMessages();
+            virtual ~TextMessages();
 
             void set_messages(std::vector<std::tuple<std::string, std::string, float>> messages);
             std::vector<std::tuple<std::string, std::string, float>> get_messages() const;
+            virtual void advance() override;
          };
       }
    }

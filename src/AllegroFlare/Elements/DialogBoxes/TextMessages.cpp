@@ -37,6 +37,12 @@ std::vector<std::tuple<std::string, std::string, float>> TextMessages::get_messa
 }
 
 
+void TextMessages::advance()
+{
+   if (get_finished()) return;
+   set_finished(true);
+   return;
+}
 
 
 } // namespace DialogBoxes
