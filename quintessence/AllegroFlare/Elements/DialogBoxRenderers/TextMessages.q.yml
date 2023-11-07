@@ -1,0 +1,124 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: window_width
+    type: float
+    init_with: 1
+    constructor_arg: true
+
+  - name: window_height
+    type: float
+    init_with: 1
+    constructor_arg: true
+
+  - name: messages
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+
+  - name: reveal_counter
+    type: float
+    init_with: 0
+    constructor_arg: true
+
+  - name: draw_background_fill
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+
+functions:
+
+
+  - name: render
+    gurads: [ al_is_primitives_addon_initialized() ]
+    body: |
+      //int line = 0;
+      float dialog_box_height = 180;
+      float dialog_box_spacing = dialog_box_height + 30;
+      AllegroFlare::Placement2D dialog_bubble_placement;
+      float window_padding = 30;
+      float bubble_width = window_width - window_padding * 2;
+
+      float window_roundness = 22;
+      if (draw_background_fill)
+      {
+         al_draw_filled_rounded_rectangle(
+            0,
+            0,
+            window_width,
+            window_height,
+            window_roundness,
+            window_roundness,
+            ALLEGRO_COLOR{0, 0.08, 0.1, 0.95}
+         );
+      }
+
+      for (unsigned i=0; i<messages.size(); i++)
+      {
+         float sanitized_reveal_counter = build_sanitized_reveal_counter();
+         float y_reveal_offset = (1.0 - AllegroFlare::interpolator::tripple_fast_in(sanitized_reveal_counter))
+                               * 80
+                               + (1.0 - AllegroFlare::interpolator::tripple_fast_in(sanitized_reveal_counter))
+                               * i * 20;
+         float reveal_scale = AllegroFlare::interpolator::tripple_fast_in(sanitized_reveal_counter);
+         float y_position = i * dialog_box_spacing + y_reveal_offset + window_padding;
+         auto &message = messages[i];
+         AllegroFlare::Placement2D dialog_bubble_placement{window_padding, y_position, 0, 0};
+         dialog_bubble_placement.scale.y = 0.7 + reveal_scale * 0.3;
+
+         dialog_bubble_placement.start_transform();
+         AllegroFlare::Elements::TextMessageBubble dialog_bubble_element(
+            font_bin,
+            message,
+            bubble_width,
+            dialog_box_height,
+            true
+         );
+           //- name: font_bin
+           //- name: text
+           //- name: width
+           //- name: height
+           //- name: callout_on_left
+
+         dialog_bubble_element.render();
+         dialog_bubble_placement.restore_transform();
+      }
+      return;
+    body_dependency_symbols:
+      - al_draw_filled_rectangle
+      - AllegroFlare::interpolator
+      - AllegroFlare::Elements::TextMessageBubble
+      - AllegroFlare::Placement2D
+
+
+  - name: build_sanitized_reveal_counter
+    type: float
+    body: |
+      float sanitized_reveal_counter = reveal_counter;
+      if (sanitized_reveal_counter < 0.0) sanitized_reveal_counter = 0.0f;
+      if (sanitized_reveal_counter >= 1.0) sanitized_reveal_counter = 1.0f;
+      return sanitized_reveal_counter;
+
+
+dependencies:
+
+
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::TextMessageBubble
+    headers: [ AllegroFlare/Elements/TextMessageBubble.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::interpolator
+    headers: [ AllegroFlare/Interpolators.hpp ]
+
+
