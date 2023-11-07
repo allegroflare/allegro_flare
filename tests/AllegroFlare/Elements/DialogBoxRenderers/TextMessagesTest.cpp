@@ -21,7 +21,7 @@ TEST(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTest, can_be_created_w
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTestWithAllegroRenderingFixtureTest,
    render__will_work_as_expected)
 {
-   AllegroFlare::Placement2D place{ 1920/2, 1080/2, 600/2, 600 };
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, 600, 900 };
    int passes = 60;
    float age = 0;
    for (unsigned i=0; i<passes; i++)
@@ -29,8 +29,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_TextMessagesTestWithAllegroRende
       al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       AllegroFlare::Elements::DialogBoxRenderers::TextMessages smart_phone_dialog_renderer(
          &get_font_bin_ref(),
-         600,
-         100,
+         place.size.x,
+         place.size.y,
          {
             { "Friend", "Hello, this is bubble text", 0.0f },
             { "Friend", "And this is a second line", 0.0f },

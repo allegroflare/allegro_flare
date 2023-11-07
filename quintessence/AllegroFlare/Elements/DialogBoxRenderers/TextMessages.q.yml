@@ -6,12 +6,12 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: window_width
+  - name: phone_screen_width
     type: float
     init_with: 1
     constructor_arg: true
 
-  - name: window_height
+  - name: phone_screen_height
     type: float
     init_with: 1
     constructor_arg: true
@@ -44,7 +44,7 @@ methods:
       float dialog_box_spacing = dialog_box_height + 30;
       AllegroFlare::Placement2D dialog_bubble_placement;
       float window_padding = 30;
-      float bubble_width = window_width - window_padding * 2;
+      float bubble_width = phone_screen_width - window_padding * 2;
 
       float window_roundness = 22;
       if (draw_background_fill)
@@ -52,8 +52,8 @@ methods:
          al_draw_filled_rounded_rectangle(
             0,
             0,
-            window_width,
-            window_height,
+            phone_screen_width,
+            phone_screen_height,
             window_roundness,
             window_roundness,
             ALLEGRO_COLOR{0, 0.08, 0.1, 0.95}

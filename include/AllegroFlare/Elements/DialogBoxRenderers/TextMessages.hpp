@@ -17,8 +17,8 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::FontBin* font_bin;
-            float window_width;
-            float window_height;
+            float phone_screen_width;
+            float phone_screen_height;
             std::vector<std::tuple<std::string, std::string, float>> messages;
             float age;
             bool draw_background_fill;
@@ -27,7 +27,7 @@ namespace AllegroFlare
 
 
          public:
-            TextMessages(AllegroFlare::FontBin* font_bin=nullptr, float window_width=1, float window_height=1, std::vector<std::tuple<std::string, std::string, float>> messages={}, float age=0);
+            TextMessages(AllegroFlare::FontBin* font_bin=nullptr, float phone_screen_width=1, float phone_screen_height=1, std::vector<std::tuple<std::string, std::string, float>> messages={}, float age=0);
             ~TextMessages();
 
             void set_draw_background_fill(bool draw_background_fill);

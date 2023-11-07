@@ -16,10 +16,10 @@ namespace DialogBoxRenderers
 {
 
 
-TextMessages::TextMessages(AllegroFlare::FontBin* font_bin, float window_width, float window_height, std::vector<std::tuple<std::string, std::string, float>> messages, float age)
+TextMessages::TextMessages(AllegroFlare::FontBin* font_bin, float phone_screen_width, float phone_screen_height, std::vector<std::tuple<std::string, std::string, float>> messages, float age)
    : font_bin(font_bin)
-   , window_width(window_width)
-   , window_height(window_height)
+   , phone_screen_width(phone_screen_width)
+   , phone_screen_height(phone_screen_height)
    , messages(messages)
    , age(age)
    , draw_background_fill(false)
@@ -51,7 +51,7 @@ void TextMessages::render()
    float dialog_box_spacing = dialog_box_height + 30;
    AllegroFlare::Placement2D dialog_bubble_placement;
    float window_padding = 30;
-   float bubble_width = window_width - window_padding * 2;
+   float bubble_width = phone_screen_width - window_padding * 2;
 
    float window_roundness = 22;
    if (draw_background_fill)
@@ -59,8 +59,8 @@ void TextMessages::render()
       al_draw_filled_rounded_rectangle(
          0,
          0,
-         window_width,
-         window_height,
+         phone_screen_width,
+         phone_screen_height,
          window_roundness,
          window_roundness,
          ALLEGRO_COLOR{0, 0.08, 0.1, 0.95}
