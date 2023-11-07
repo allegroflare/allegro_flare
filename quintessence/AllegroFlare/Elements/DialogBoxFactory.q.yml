@@ -83,6 +83,31 @@ functions:
       - al_get_time
 
 
+  - name: create_intertitle_dialog
+    type: AllegroFlare::Elements::DialogBoxes::Intertitle*
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    guards: [ al_is_system_installed() ]
+    body: |
+      AllegroFlare::Elements::DialogBoxes::Intertitle* dialog_box
+         = new AllegroFlare::Elements::DialogBoxes::Intertitle();
+      // TODO: Trim speaking character first before checking if empty
+      //if (!speaking_character.empty())
+      //{
+         //basic_dialog_box->set_speaking_character(speaking_character);
+      //}
+      //basic_dialog_box->set_pages(pages);
+      dialog_box->set_text(text);
+      dialog_box->set_created_at(al_get_time());
+      dialog_box->start(); // TODO: Consider if start() is appropriate here or should be done by the caller
+      return dialog_box;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxes::Intertitle
+      - al_get_time
+
+
   - name: create_text_messages_dialog
     type: AllegroFlare::Elements::DialogBoxes::TextMessages*
     parameters:
@@ -278,5 +303,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::TextMessages
     headers: [ AllegroFlare/Elements/DialogBoxes/TextMessages.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Intertitle
+    headers: [ AllegroFlare/Elements/DialogBoxes/Intertitle.hpp ]
 
 

@@ -5,6 +5,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
@@ -106,6 +107,29 @@ AllegroFlare::Elements::DialogBoxes::Basic* DialogBoxFactory::create_basic_dialo
    basic_dialog_box->set_pages(pages);
    basic_dialog_box->set_created_at(al_get_time());
    return basic_dialog_box;
+}
+
+AllegroFlare::Elements::DialogBoxes::Intertitle* DialogBoxFactory::create_intertitle_dialog(std::string text)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogBoxFactory::create_intertitle_dialog]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogBoxFactory::create_intertitle_dialog: error: guard \"al_is_system_installed()\" not met");
+   }
+   AllegroFlare::Elements::DialogBoxes::Intertitle* dialog_box
+      = new AllegroFlare::Elements::DialogBoxes::Intertitle();
+   // TODO: Trim speaking character first before checking if empty
+   //if (!speaking_character.empty())
+   //{
+      //basic_dialog_box->set_speaking_character(speaking_character);
+   //}
+   //basic_dialog_box->set_pages(pages);
+   dialog_box->set_text(text);
+   dialog_box->set_created_at(al_get_time());
+   dialog_box->start(); // TODO: Consider if start() is appropriate here or should be done by the caller
+   return dialog_box;
 }
 
 AllegroFlare::Elements::DialogBoxes::TextMessages* DialogBoxFactory::create_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages)
