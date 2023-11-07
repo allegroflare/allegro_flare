@@ -75,17 +75,13 @@ properties:
     type: int
     init_with: 0
     getter: true
+    setter: true
 
   - name: all_characters_revealed_at
     type: float
     init_with: 0.0f
     getter: true
-
-  - name: wait_duration_after_all_characters_are_revealed
-    type: float
-    init_with: 3.0f
-    getter: true
-    setter: false
+    setter: true
 
   - name: DEFAULT_FONT_NAME
     type: char*

@@ -32,7 +32,6 @@ namespace AllegroFlare
             float line_height_padding;
             int revealed_characters_count;
             float all_characters_revealed_at;
-            float wait_duration_after_all_characters_are_revealed;
             ALLEGRO_FONT* obtain_font();
             ALLEGRO_FONT* obtain_next_button_font();
 
@@ -53,6 +52,8 @@ namespace AllegroFlare
             void set_right_padding(float right_padding);
             void set_line_height_multiplier(float line_height_multiplier);
             void set_line_height_padding(float line_height_padding);
+            void set_revealed_characters_count(int revealed_characters_count);
+            void set_all_characters_revealed_at(float all_characters_revealed_at);
             AllegroFlare::FontBin* get_font_bin() const;
             std::string get_text() const;
             std::string get_font_name() const;
@@ -65,7 +66,6 @@ namespace AllegroFlare
             float get_line_height_padding() const;
             int get_revealed_characters_count() const;
             float get_all_characters_revealed_at() const;
-            float get_wait_duration_after_all_characters_are_revealed() const;
             void render();
             std::string generate_revealed_text();
             bool all_characters_are_revealed();

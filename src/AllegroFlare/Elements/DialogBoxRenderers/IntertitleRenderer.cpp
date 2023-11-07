@@ -30,7 +30,6 @@ IntertitleRenderer::IntertitleRenderer(AllegroFlare::FontBin* font_bin, std::str
    , line_height_padding(line_height_padding)
    , revealed_characters_count(0)
    , all_characters_revealed_at(0.0f)
-   , wait_duration_after_all_characters_are_revealed(3.0f)
 {
 }
 
@@ -97,6 +96,18 @@ void IntertitleRenderer::set_line_height_multiplier(float line_height_multiplier
 void IntertitleRenderer::set_line_height_padding(float line_height_padding)
 {
    this->line_height_padding = line_height_padding;
+}
+
+
+void IntertitleRenderer::set_revealed_characters_count(int revealed_characters_count)
+{
+   this->revealed_characters_count = revealed_characters_count;
+}
+
+
+void IntertitleRenderer::set_all_characters_revealed_at(float all_characters_revealed_at)
+{
+   this->all_characters_revealed_at = all_characters_revealed_at;
 }
 
 
@@ -169,12 +180,6 @@ int IntertitleRenderer::get_revealed_characters_count() const
 float IntertitleRenderer::get_all_characters_revealed_at() const
 {
    return all_characters_revealed_at;
-}
-
-
-float IntertitleRenderer::get_wait_duration_after_all_characters_are_revealed() const
-{
-   return wait_duration_after_all_characters_are_revealed;
 }
 
 
