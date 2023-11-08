@@ -1648,9 +1648,11 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                         }
                         else
                         {
+                           // TODO: Test this
                            std::string achievement_title = data->get_title();
                            event_emitter.emit_post_unlocked_achievement_notification_event(achievement_title);
-                           // delete data; // NOTE: do NOT delete the data here
+                           event_emitter.emit_achievement_unlocked_game_event(achievement_title);
+                           // delete data; // NOTE: do NOT delete the data here // TODO: Why not? Erase this code?
                         }
                      }
                   break;
