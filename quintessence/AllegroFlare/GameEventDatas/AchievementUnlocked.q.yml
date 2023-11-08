@@ -1,0 +1,37 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameEventDatas::Base
+    scope: public
+    init_with: AllegroFlare::GameEventDatas::AchievementUnlocked::TYPE
+
+
+properties:
+
+
+  - name: achievement_identifier
+    type: std::string
+    init_with: '"[unset-achievement_identifier]"'
+    constructor_arg: true
+    getter: true
+
+  - name: NAME
+    type: char*
+    init_with: '(char*)"AllegroFlare/GameEvent/AchievementUnlocked"'
+    static: true
+    constexpr: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/GameEventDatas/AchievementUnlocked"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+
+
