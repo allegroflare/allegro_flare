@@ -41,8 +41,13 @@ namespace AllegroFlare
          std::get<2>(*achievement) = true;
          if (emit_event && event_emitter)
          {
+            std::string* completed_achievement_identifier = &std::get<0>(*achievement);
             Achievement* completed_achievement = std::get<1>(*achievement);
-            event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
+            event_emitter->emit_event(
+               ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED,
+               (intptr_t)completed_achievement,
+               (intptr_t)completed_achievement_identifier
+            );
          }
          return true;
       }

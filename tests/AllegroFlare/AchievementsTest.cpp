@@ -64,6 +64,11 @@ TEST(AllegroFlare_AchievementsTest,
    ALLEGRO_EVENT event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &event));
    EXPECT_EQ(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, event.type);
+   AllegroFlare::Achievement *data1 = (AllegroFlare::Achievement*)event.user.data1;
+   std::string *data2 = (std::string*)event.user.data2;
+   //ASSERT_NE(nullptr, data1);
+   //ASSERT_NE(nullptr, data2);
+   //EXPECT_EQ("my_achievement", data->);
 
    al_uninstall_system();
 }
