@@ -5,6 +5,8 @@
 
 #include <AllegroFlare/Achievements.hpp>
 
+#include <AllegroFlare/EventNames.hpp>
+
 
 class AchievementTestClass : public AllegroFlare::Achievement
 {};
@@ -49,18 +51,20 @@ TEST(AllegroFlare_AchievementsTest,
 {
    // TODO: This test
    al_init();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
    AllegroFlare::EventEmitter event_emitter;
    event_emitter.initialize();
+   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
    AllegroFlare::Achievements achievements(&event_emitter);
    AchievementTestClass achievement;
    achievements.add("my_achievement", &achievement);
 
    EXPECT_EQ(true, achievements.unlock_manually("my_achievement"));
 
-   
-   //std::string expected_dump_string = "achievement: \"my_achievement\", unlocked: true\n";
-   //std::string actual_dump_string = achievements.dump();
-   //EXPECT_EQ(expected_dump_string, actual_dump_string);
+   ALLEGRO_EVENT event;
+   ASSERT_EQ(true, al_peek_next_event(event_queue, &event));
+   EXPECT_EQ(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, event.type);
+
    al_uninstall_system();
 }
 
