@@ -337,6 +337,20 @@ functions:
       - ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE
 
 
+  - name: emit_unlock_achievement_event
+    parameters:
+      - name: achievement_name
+        type: std::string
+        default_argument: '"[unset-achievement_name]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      intptr_t data_to_pass = (intptr_t)(void *)(new std::string(achievement_name));
+      emit_event(ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT, data_to_pass);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT
+
+
   - name: emit_post_unlocked_achievement_notification_event
     parameters:
       - name: achievement_name
@@ -433,6 +447,8 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_EVENT_SOURCE
     headers: [ allegro5/allegro.h ]

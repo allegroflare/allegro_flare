@@ -11970,6 +11970,9 @@ table td
   <td class="method">emit_hotload_shader_source_event(std::string vertex_shader_source=&quot;[unset-vertex_shader_source]&quot;, std::string fragment_shader_source=&quot;[unset-fragment_shader_source]&quot;, AllegroFlare::Shaders::Base* shader=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">emit_unlock_achievement_event(std::string achievement_name=&quot;[unset-achievement_name]&quot;)</td>
+</tr>
+<tr>
   <td class="method">emit_post_unlocked_achievement_notification_event(std::string achievement_name=&quot;[unset-achievement_name]&quot;)</td>
 </tr>
 <tr>
@@ -12028,6 +12031,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_SOURCE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -34309,6 +34315,9 @@ table td
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_EVENT_SOURCE": [

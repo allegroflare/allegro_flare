@@ -2065,6 +2065,9 @@
   "ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT": [
     "AllegroFlare/EventEmitter"
   ],
+  "ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_EVENT_SOURCE": [
     "AllegroFlare/EventEmitter"
   ],

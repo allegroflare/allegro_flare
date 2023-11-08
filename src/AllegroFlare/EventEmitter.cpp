@@ -328,6 +328,20 @@ void EventEmitter::emit_hotload_shader_source_event(std::string vertex_shader_so
    );
 }
 
+void EventEmitter::emit_unlock_achievement_event(std::string achievement_name)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_unlock_achievement_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_unlock_achievement_event: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   intptr_t data_to_pass = (intptr_t)(void *)(new std::string(achievement_name));
+   emit_event(ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT, data_to_pass);
+}
+
 void EventEmitter::emit_post_unlocked_achievement_notification_event(std::string achievement_name)
 {
    if (!(initialized))
