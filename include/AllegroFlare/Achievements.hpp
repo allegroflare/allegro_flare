@@ -15,7 +15,7 @@ namespace AllegroFlare
    private:
       EventEmitter *event_emitter;
       std::vector<std::tuple<std::string, Achievement *, bool, bool>> all_achievements;
-      bool unlock(std::tuple<std::string, Achievement *, bool, bool> *achievement);
+      bool unlock(std::tuple<std::string, Achievement *, bool, bool> *achievement, bool emit_event=true);
       std::tuple<std::string, Achievement *, bool, bool>* find(std::string identifier);
 
    public:
@@ -31,6 +31,7 @@ namespace AllegroFlare
       void clear_all();
       bool all_unlocked();
       bool unlock_manually(std::string identifier);
+      bool unlock_silently(std::string identifier);
 
       void set_achievements(std::vector<std::tuple<std::string, Achievement *, bool, bool>> all_achievements={});
       std::vector<std::tuple<std::string, Achievement *, bool, bool>> get_achievements();

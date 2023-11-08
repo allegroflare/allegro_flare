@@ -23,7 +23,7 @@ namespace AllegroFlare
    {}
 
 
-   bool Achievements::unlock(std::tuple<std::string, Achievement *, bool, bool> *achievement)
+   bool Achievements::unlock(std::tuple<std::string, Achievement *, bool, bool> *achievement, bool emit_event)
    {
       if (!achievement)
       {
@@ -39,7 +39,7 @@ namespace AllegroFlare
       {
          std::get<1>(*achievement)->on_unlocked();
          std::get<2>(*achievement) = true;
-         if (event_emitter)
+         if (emit_event && event_emitter)
          {
             Achievement* completed_achievement = std::get<1>(*achievement);
             event_emitter->emit_event(ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, (intptr_t)completed_achievement);
@@ -140,6 +140,24 @@ namespace AllegroFlare
       //std::tuple<std::string, Achievement *, bool, bool> &achievement = (*it);
 
       return unlock(found_achievement);
+   }
+
+
+   bool Achievements::unlock_silently(std::string identifier)
+   {
+      std::tuple<std::string, Achievement *, bool, bool> *found_achievement = find(identifier);
+      if (!found_achievement)
+      {
+         std::stringstream ss;
+         ss << "[Achievements::unlock_silently] error: Could not find achievement with identifier \""
+            << identifier << "\"";
+         std::cout << ss.str();
+         return false;
+      }
+
+      //std::tuple<std::string, Achievement *, bool, bool> &achievement = (*it);
+
+      return unlock(found_achievement, false);
    }
 
 
