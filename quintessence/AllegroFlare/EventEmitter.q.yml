@@ -351,6 +351,28 @@ functions:
       - ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT
 
 
+  - name: emit_achievement_unlocked_game_event
+    parameters:
+      - name: achievement_name
+        type: std::string
+        default_argument: '"[unset-achievement_name]"'
+    guards: [ initialized ]
+    body: |
+      // NOTE: This event is used by the framework after an achievement successfully becomes unlocked. It's useful
+      // for framework users who wish to perform some consequential action in their game after an achievement becomes
+      // unlocked, such as save the achievement in the gamer's GameProgressAndStateInfos
+      // TODO: Test this
+      emit_game_event(
+         AllegroFlare::GameEvent(
+            AllegroFlare::GameEventDatas::AchievementUnlocked::NAME,
+            new AllegroFlare::GameEventDatas::AchievementUnlocked(achievement_name)
+         )
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::GameEventDatas::AchievementUnlocked
+
+
   - name: emit_post_unlocked_achievement_notification_event
     parameters:
       - name: achievement_name
@@ -472,5 +494,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp ]
   - symbol: AllegroFlare::GameEventDatas::ScreenActivated
     headers: [ AllegroFlare/GameEventDatas/ScreenActivated.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::AchievementUnlocked
+    headers: [ AllegroFlare/GameEventDatas/AchievementUnlocked.hpp ]
 
 

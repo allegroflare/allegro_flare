@@ -5,6 +5,7 @@
 #include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/GameEventDatas/AchievementUnlocked.hpp>
 #include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
 #include <iostream>
 #include <sstream>
@@ -340,6 +341,28 @@ void EventEmitter::emit_unlock_achievement_event(std::string achievement_name)
    // TODO: Test this
    intptr_t data_to_pass = (intptr_t)(void *)(new std::string(achievement_name));
    emit_event(ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT, data_to_pass);
+}
+
+void EventEmitter::emit_achievement_unlocked_game_event(std::string achievement_name)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_achievement_unlocked_game_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_achievement_unlocked_game_event: error: guard \"initialized\" not met");
+   }
+   // NOTE: This event is used by the framework after an achievement successfully becomes unlocked. It's useful
+   // for framework users who wish to perform some consequential action in their game after an achievement becomes
+   // unlocked, such as save the achievement in the gamer's GameProgressAndStateInfos
+   // TODO: Test this
+   emit_game_event(
+      AllegroFlare::GameEvent(
+         AllegroFlare::GameEventDatas::AchievementUnlocked::NAME,
+         new AllegroFlare::GameEventDatas::AchievementUnlocked(achievement_name)
+      )
+   );
+   return;
 }
 
 void EventEmitter::emit_post_unlocked_achievement_notification_event(std::string achievement_name)

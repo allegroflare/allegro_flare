@@ -210,6 +210,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameConfigurations/Base.q.yml">quintessence/AllegroFlare/GameConfigurations/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameConfigurations/Complete.q.yml">quintessence/AllegroFlare/GameConfigurations/Complete.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEvent.q.yml">quintessence/AllegroFlare/GameEvent.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameEventDatas/AchievementUnlocked.q.yml">quintessence/AllegroFlare/GameEventDatas/AchievementUnlocked.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/Base.q.yml">quintessence/AllegroFlare/GameEventDatas/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml">quintessence/AllegroFlare/GameEventDatas/ScreenActivated.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData.q.yml</a></li>
@@ -11973,6 +11974,9 @@ table td
   <td class="method">emit_unlock_achievement_event(std::string achievement_name=&quot;[unset-achievement_name]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">emit_achievement_unlocked_game_event(std::string achievement_name=&quot;[unset-achievement_name]&quot;)</td>
+</tr>
+<tr>
   <td class="method">emit_post_unlocked_achievement_notification_event(std::string achievement_name=&quot;[unset-achievement_name]&quot;)</td>
 </tr>
 <tr>
@@ -12067,6 +12071,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::ScreenActivated&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/ScreenActivated.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/AchievementUnlocked.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -12590,6 +12597,36 @@ table td
 <tr>
   <td class="method">data_is_type(std::string data_possible_type=&quot;[unset-data_possible_type]&quot;)</td>
 </tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameEventDatas/AchievementUnlocked.q.yml">quintessence/AllegroFlare/GameEventDatas/AchievementUnlocked.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">achievement_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">NAME</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -33114,6 +33151,7 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEventDatas/AchievementUnlocked",
     "AllegroFlare/GameEventDatas/ScreenActivated",
     "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
@@ -34357,6 +34395,9 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/GameEventDatas/AchievementUnlocked": [
+    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",

@@ -862,6 +862,7 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameEvent",
+    "AllegroFlare/GameEventDatas/AchievementUnlocked",
     "AllegroFlare/GameEventDatas/ScreenActivated",
     "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
@@ -2105,6 +2106,9 @@
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/GameEventDatas/AchievementUnlocked": [
+    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
