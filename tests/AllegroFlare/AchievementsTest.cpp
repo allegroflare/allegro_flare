@@ -45,18 +45,23 @@ TEST(AllegroFlare_AchievementsTest,
 
 
 TEST(AllegroFlare_AchievementsTest,
-   DISABLED__unlock_manually__will_emit_an_ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED_event)
+   unlock_manually__will_emit_an_ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED_event)
 {
    // TODO: This test
-   //AllegroFlare::Achievements achievements;
-   //AchievementTestClass achievement;
-   //achievements.add("my_achievement", &achievement);
+   al_init();
+   AllegroFlare::EventEmitter event_emitter;
+   event_emitter.initialize();
+   AllegroFlare::Achievements achievements(&event_emitter);
+   AchievementTestClass achievement;
+   achievements.add("my_achievement", &achievement);
 
-   //EXPECT_EQ(true, achievements.unlock_manually("my_achievement"));
+   EXPECT_EQ(true, achievements.unlock_manually("my_achievement"));
 
+   
    //std::string expected_dump_string = "achievement: \"my_achievement\", unlocked: true\n";
    //std::string actual_dump_string = achievements.dump();
    //EXPECT_EQ(expected_dump_string, actual_dump_string);
+   al_uninstall_system();
 }
 
 
@@ -133,15 +138,12 @@ TEST(AllegroFlare_AchievementsTest,
    DISABLED__unlock_silently__will_not_emit_an_ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED_event)
 {
    // TODO: This test
-   //AllegroFlare::Achievements achievements;
-   //AchievementTestClass achievement;
-   //achievements.add("my_achievement", &achievement);
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::Achievements achievements(&event_emitter);
+   AchievementTestClass achievement;
+   achievements.add("my_achievement", &achievement);
 
-   //EXPECT_EQ(true, achievements.unlock_silently("my_achievement"));
-
-   //std::string expected_dump_string = "achievement: \"my_achievement\", unlocked: true\n";
-   //std::string actual_dump_string = achievements.dump();
-   //EXPECT_EQ(expected_dump_string, actual_dump_string);
+   EXPECT_EQ(true, achievements.unlock_silently("my_achievement"));
 }
 
 
