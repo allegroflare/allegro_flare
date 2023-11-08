@@ -1641,18 +1641,26 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
                   case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
                      {
-                        AllegroFlare::Achievement *data = (AllegroFlare::Achievement *)this_event.user.data1;
-                        if (!data)
+                        AllegroFlare::Achievement *data1 = (AllegroFlare::Achievement *)this_event.user.data1;
+                        std::string *data2 = (std::string *)this_event.user.data2;
+                        if (!data1 || !data2)
                         {
-                           // TODO: add an error message
+                           AllegroFlare::Logger::throw_error(
+                              "AllegroFlare::Frameworks::Full::primary_process_event",
+                              "When handling a ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, expecting data1 and data2 to "
+                                 "be present but one or ther other is a nullptr."
+                           );
                         }
                         else
                         {
                            // TODO: Test this
-                           std::string achievement_title = data->get_title();
+                           std::string achievement_title = data1->get_title();
+                           std::string achievement_identifier = *data2;
                            event_emitter.emit_post_unlocked_achievement_notification_event(achievement_title);
-                           event_emitter.emit_achievement_unlocked_game_event(achievement_title);
-                           // delete data; // NOTE: do NOT delete the data here // TODO: Why not? Erase this code?
+                           event_emitter.emit_achievement_unlocked_game_event(*data2);
+                           // NOTE: data1 and data2 do NOT get deleted here. Normally this is where it happens, but
+                           // in the case of this particular event, the pointers used point directly to data
+                           // owned by Achievements.
                         }
                      }
                   break;
