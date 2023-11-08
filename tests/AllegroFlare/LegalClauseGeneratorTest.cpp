@@ -33,8 +33,8 @@ TEST(AllegroFlare_LegalClauseGeneratorTest,
 TEST(AllegroFlare_LegalClauseGeneratorTest,
    generate_no_mistreatment_of_animals_disclaimer__will_generate_the_expected_text)
 {
-   std::string expected_disclaimer = "During the production of this game, no animals were suject to injury, indignity, "
-      "or mistreatment of any kind.";
+   std::string expected_disclaimer = "During the production of this game, no animals were subject to injury, "
+      "indignity, or mistreatment of any kind.";
    std::string actual_disclaimer = AllegroFlare::LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer();
    EXPECT_EQ(expected_disclaimer, actual_disclaimer);
 }

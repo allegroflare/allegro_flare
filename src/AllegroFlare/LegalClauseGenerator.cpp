@@ -35,7 +35,7 @@ std::string LegalClauseGenerator::generate_no_mistreatment_of_animals_disclaimer
 {
    // NOTE: This statement is an alternative to this trademarked phrase: "No animals were harmed.":
    // see: https://www.dvm360.com/view/movies-misuse-no-animals-were-harmed-disclaimer
-   return "During the production of this game, no animals were suject to injury, indignity, or mistreatment of "
+   return "During the production of this game, no animals were subject to injury, indignity, or mistreatment of "
       "any kind.";
 }
 
