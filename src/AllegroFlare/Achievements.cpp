@@ -45,7 +45,7 @@ namespace AllegroFlare
             Achievement* completed_achievement = std::get<1>(*achievement);
             event_emitter->emit_event(
                ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED,
-               (intptr_t)completed_achievement,
+               (intptr_t)completed_achievement, // TODO: Consider reversing these two arguments
                (intptr_t)completed_achievement_identifier
             );
          }
