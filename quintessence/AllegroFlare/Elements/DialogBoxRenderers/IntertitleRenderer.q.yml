@@ -112,6 +112,9 @@ methods:
       ALLEGRO_FONT *text_font = obtain_font();
 
       // Draw a backfill (consider alternative options like graphic or fadeout gradient on top/bottom)
+
+      
+
       al_draw_filled_rectangle(
          0,
          top_padding / 2,
@@ -148,6 +151,39 @@ methods:
     type: std::string
     body: |
       return text.substr(0, revealed_characters_count);
+
+
+  - name: draw_gradient_prim
+    parameters:
+      - name: y1
+        type: float
+        default_argument: 0
+      - name: y2
+        type: float
+        default_argument: 0
+      - name: top_color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0, 0, 0, 0}
+      - name: bottom_color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0, 0, 0, 0.7}
+    guards: [ al_is_primitives_addon_initialized(), (y2 > y1) ]
+    body: |
+      ALLEGRO_VERTEX v[4];
+      float padding = 0;
+      float w = surface_width;
+      float h = y2-y1;
+      
+      v[0] = AllegroFlare::build_vertex(0+padding, y1+0+padding, 0, top_color, 0, 0);
+      v[1] = AllegroFlare::build_vertex(w-padding, y1+0+padding, 0, top_color, 0, 0);
+      v[2] = AllegroFlare::build_vertex(w-padding, y1+h-padding, 0, bottom_color, 0, 0);
+      v[3] = AllegroFlare::build_vertex(0+padding, y1+h-padding, 0, bottom_color, 0, 0);
+
+      // draw it to the surface
+      al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::build_vertex
 
 
   - name: all_characters_are_revealed
@@ -207,5 +243,9 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_VERTEX[4]
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::build_vertex
+    headers: [ AllegroFlare/Useful.hpp ]
 
 

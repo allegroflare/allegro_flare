@@ -74,6 +74,7 @@ namespace AllegroFlare
             ALLEGRO_COLOR get_text_color() const;
             void render();
             std::string generate_revealed_text();
+            void draw_gradient_prim(float y1=0, float y2=0, ALLEGRO_COLOR top_color=ALLEGRO_COLOR{0, 0, 0, 0}, ALLEGRO_COLOR bottom_color=ALLEGRO_COLOR{0, 0, 0, 0.7});
             bool all_characters_are_revealed();
          };
       }

@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp>
 
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -236,6 +237,9 @@ void IntertitleRenderer::render()
    ALLEGRO_FONT *text_font = obtain_font();
 
    // Draw a backfill (consider alternative options like graphic or fadeout gradient on top/bottom)
+
+
+
    al_draw_filled_rectangle(
       0,
       top_padding / 2,
@@ -267,6 +271,37 @@ void IntertitleRenderer::render()
 std::string IntertitleRenderer::generate_revealed_text()
 {
    return text.substr(0, revealed_characters_count);
+}
+
+void IntertitleRenderer::draw_gradient_prim(float y1, float y2, ALLEGRO_COLOR top_color, ALLEGRO_COLOR bottom_color)
+{
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[IntertitleRenderer::draw_gradient_prim]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("IntertitleRenderer::draw_gradient_prim: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   if (!((y2 > y1)))
+   {
+      std::stringstream error_message;
+      error_message << "[IntertitleRenderer::draw_gradient_prim]: error: guard \"(y2 > y1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("IntertitleRenderer::draw_gradient_prim: error: guard \"(y2 > y1)\" not met");
+   }
+   ALLEGRO_VERTEX v[4];
+   float padding = 0;
+   float w = surface_width;
+   float h = y2-y1;
+
+   v[0] = AllegroFlare::build_vertex(0+padding, y1+0+padding, 0, top_color, 0, 0);
+   v[1] = AllegroFlare::build_vertex(w-padding, y1+0+padding, 0, top_color, 0, 0);
+   v[2] = AllegroFlare::build_vertex(w-padding, y1+h-padding, 0, bottom_color, 0, 0);
+   v[3] = AllegroFlare::build_vertex(0+padding, y1+h-padding, 0, bottom_color, 0, 0);
+
+   // draw it to the surface
+   al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
+   return;
 }
 
 bool IntertitleRenderer::all_characters_are_revealed()
