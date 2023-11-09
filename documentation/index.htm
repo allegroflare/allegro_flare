@@ -6808,6 +6808,9 @@ table td
   <td class="method">generate_revealed_text()</td>
 </tr>
 <tr>
+  <td class="method">draw_gradient_prim(float y1=0, float y2=0, ALLEGRO_COLOR top_color=ALLEGRO_COLOR{0, 0, 0, 0}, ALLEGRO_COLOR bottom_color=ALLEGRO_COLOR{0, 0, 0, 0.7})</td>
+</tr>
+<tr>
   <td class="method">all_characters_are_revealed()</td>
 </tr>
 <tr>
@@ -6860,6 +6863,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX[4]&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::build_vertex&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -34089,6 +34098,12 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "ALLEGRO_VERTEX[4]": [
+    "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer"
+  ],
+  "AllegroFlare/build_vertex": [
+    "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer"
   ],
   "AllegroFlare/Elements/TextMessageBubble": [
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages"

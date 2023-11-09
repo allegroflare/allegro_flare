@@ -1801,6 +1801,12 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
+  "ALLEGRO_VERTEX[4]": [
+    "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer"
+  ],
+  "AllegroFlare/build_vertex": [
+    "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer"
+  ],
   "AllegroFlare/Elements/TextMessageBubble": [
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages"
   ],

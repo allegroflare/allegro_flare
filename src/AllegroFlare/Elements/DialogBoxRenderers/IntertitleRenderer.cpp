@@ -234,18 +234,34 @@ void IntertitleRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("IntertitleRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   ALLEGRO_COLOR transparent_color = ALLEGRO_COLOR{0, 0, 0, 0};
+   ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, 0.7};
+   float gradient_depth = 140;
+   float gradient_h_depth = gradient_depth * 0.5;
    ALLEGRO_FONT *text_font = obtain_font();
 
-   // Draw a backfill (consider alternative options like graphic or fadeout gradient on top/bottom)
-
-
+   // Draw top gradient prim
+   draw_gradient_prim(
+      top_padding/2 - gradient_h_depth,
+      top_padding/2 + gradient_h_depth,
+      transparent_color,
+      backfill_color
+   );
 
    al_draw_filled_rectangle(
       0,
-      top_padding / 2,
+      top_padding/2 + gradient_h_depth,
       surface_width,
-      surface_height - bottom_padding / 2,
+      surface_height - bottom_padding/2 - gradient_h_depth,
       ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.7}
+   );
+
+   // Draw bottom gradient prim
+   draw_gradient_prim(
+      surface_height - bottom_padding/2 - gradient_h_depth,
+      surface_height - bottom_padding/2 + gradient_h_depth,
+      backfill_color,
+      transparent_color
    );
 
    // Draw the text
