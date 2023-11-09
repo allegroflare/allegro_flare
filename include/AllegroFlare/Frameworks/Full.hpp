@@ -70,6 +70,7 @@ namespace AllegroFlare
          //ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          ALLEGRO_TIMER *primary_timer;
          Camera2D camera_2d;
+         bool showing_dialog_switched_in_debug_text; // TODO: Add methods to enable/disable this option
 
          AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
          AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap display_backbuffer_sub_bitmap;

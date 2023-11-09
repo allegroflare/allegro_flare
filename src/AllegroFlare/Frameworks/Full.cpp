@@ -70,6 +70,7 @@ Full::Full()
    //, primary_display_sub_bitmap_for_overlay(nullptr)
    , primary_timer(nullptr)
    , camera_2d()
+   , showing_dialog_switched_in_debug_text(false)
    , display_backbuffer()
    , display_backbuffer_sub_bitmap()
    , primary_render_surface(nullptr)
@@ -1920,7 +1921,7 @@ void Full::draw_overlay()
    if (drawing_dialogs)
    {
       dialog_system.render(); // TODO: Consider moving this to a dedcated DialogSystem::Renderer
-      if (dialog_system.get_switched_in())
+      if (showing_dialog_switched_in_debug_text && dialog_system.get_switched_in())
       {
          // Draw a debugging notice for when the dialog system is "switched in"
          // TODO: Add a flag to enable/disable this text notice
