@@ -594,6 +594,10 @@ methods:
          { EVENT_ACTIVATE_GAME_OVER_SCREEN, [this](){
             activate_screen(GAME_OVER_SCREEN_IDENTIFIER);
          }},
+         // TODO: Test this emit reaction
+         { EVENT_ACTIVATE_CHARACTER_NAME_INPUT_SCREEN, [this](){
+            activate_screen(CHARACTER_NAME_INPUT_SCREEN_IDENTIFIER);
+         }},
          { EVENT_ACTIVATE_GAME_WON_SCREEN, [this](){
             activate_screen(GAME_WON_SCREEN_IDENTIFIER);
          }},
