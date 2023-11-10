@@ -246,6 +246,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Shaders/Cubemap",
     "Wicked/Entities/Basic3D"
   ],
