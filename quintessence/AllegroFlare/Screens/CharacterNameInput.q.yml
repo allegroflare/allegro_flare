@@ -25,6 +25,7 @@ properties:
     type: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard
     constructor_arg: true
     init_with: '{}'
+    getter_ref: true
 
   - name: on_submit_callback_func
     type: std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)>
@@ -103,12 +104,37 @@ functions:
       return;
 
 
+  - name: set_result_string
+    parameters:
+      - name: result_string
+        type: std::string
+        default_argument: '"[unset-result_string]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      software_keyboard.set_result_string(result_string);
+      return;
+
+
   - name: get_result_string
     type: std::string
     guards: [ initialized ]
     body: |
       // TODO: Test this
       return software_keyboard.get_result_string();
+
+
+  - name: silently_position_cursor_over_key_by_name
+    parameters:
+      - name: key_name
+        type: std::string
+        default_argument: '"[unset-key_name]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      // TODO: Create and use a different method in the SoftwareKeyboard that would silently reposition the cursor
+      // without motion delay
+      return software_keyboard.jump_cursor_pos_to_index_of_key_name(key_name);
 
 
   - name: on_activate

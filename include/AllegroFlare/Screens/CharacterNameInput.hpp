@@ -45,9 +45,12 @@ namespace AllegroFlare
          void set_on_submit_callback_func_user_data(void* on_submit_callback_func_user_data);
          std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> get_on_submit_callback_func() const;
          void* get_on_submit_callback_func_user_data() const;
+         AllegroFlare::SoftwareKeyboard::SoftwareKeyboard &get_software_keyboard_ref();
          void initialize();
          static void on_software_keyboard_on_submit_callback_func(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard* software_keyboard=nullptr, void* user_data=nullptr);
+         void set_result_string(std::string result_string="[unset-result_string]");
          std::string get_result_string();
+         void silently_position_cursor_over_key_by_name(std::string key_name="[unset-key_name]");
          virtual void on_activate() override;
          virtual void on_deactivate() override;
          virtual void primary_timer_func() override;

@@ -68,6 +68,12 @@ void* CharacterNameInput::get_on_submit_callback_func_user_data() const
 }
 
 
+AllegroFlare::SoftwareKeyboard::SoftwareKeyboard &CharacterNameInput::get_software_keyboard_ref()
+{
+   return software_keyboard;
+}
+
+
 void CharacterNameInput::initialize()
 {
    if (!((!initialized)))
@@ -134,6 +140,20 @@ void CharacterNameInput::on_software_keyboard_on_submit_callback_func(AllegroFla
    return;
 }
 
+void CharacterNameInput::set_result_string(std::string result_string)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterNameInput::set_result_string]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterNameInput::set_result_string: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   software_keyboard.set_result_string(result_string);
+   return;
+}
+
 std::string CharacterNameInput::get_result_string()
 {
    if (!(initialized))
@@ -145,6 +165,21 @@ std::string CharacterNameInput::get_result_string()
    }
    // TODO: Test this
    return software_keyboard.get_result_string();
+}
+
+void CharacterNameInput::silently_position_cursor_over_key_by_name(std::string key_name)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterNameInput::silently_position_cursor_over_key_by_name: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   // TODO: Create and use a different method in the SoftwareKeyboard that would silently reposition the cursor
+   // without motion delay
+   return software_keyboard.jump_cursor_pos_to_index_of_key_name(key_name);
 }
 
 void CharacterNameInput::on_activate()
