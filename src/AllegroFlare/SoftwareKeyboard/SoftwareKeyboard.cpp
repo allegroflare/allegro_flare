@@ -257,12 +257,13 @@ void SoftwareKeyboard::set_font_bin(AllegroFlare::FontBin* font_bin)
 
 void SoftwareKeyboard::reset()
 {
-   reset_with("", "");
+   reset_with_defaults("", "");
    return;
 }
 
 void SoftwareKeyboard::reset_with_defaults(std::string initial_result_string, std::string initial_cursor_position_over_key_name)
 {
+   // TODO: Test this method
    cursor_destination = {0, 0};
    cursor_size_destination = {80, 80};
    cursor_location = cursor_destination;
@@ -277,6 +278,8 @@ void SoftwareKeyboard::reset_with_defaults(std::string initial_result_string, st
    if (!initial_cursor_position_over_key_name.empty())
    {
       jump_cursor_pos_to_index_of_key_name(initial_cursor_position_over_key_name);
+      update_cursor_destination();
+      cursor_location = cursor_destination;
    }
    // TODO: test this clear
    result_string = initial_result_string;
