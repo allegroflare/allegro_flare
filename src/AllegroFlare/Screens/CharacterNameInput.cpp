@@ -198,7 +198,8 @@ void CharacterNameInput::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterNameInput::on_activate: error: guard \"initialized\" not met");
    }
-   software_keyboard.reset();
+   software_keyboard.reset_with();
+   //software_keyboard.set_result_text(
    return;
 }
 

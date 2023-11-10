@@ -142,7 +142,8 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      software_keyboard.reset();
+      software_keyboard.reset_with();
+      //software_keyboard.set_result_text(
       return;
 
 

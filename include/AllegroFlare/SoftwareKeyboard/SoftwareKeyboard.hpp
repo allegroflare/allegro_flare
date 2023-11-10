@@ -116,6 +116,7 @@ namespace AllegroFlare
          tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> &get_keys_ref();
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void reset();
+         void reset_with_defaults(std::string initial_result_string="", std::string initial_cursor_position_over_key_name="");
          void set_cursor_reposition_multiplier(float cursor_reposition_multiplier=DEFAULT_CURSOR_REPOSITION_MULTIPLIER);
          void set_keys(tsl::ordered_map<std::string, AllegroFlare::SoftwareKeyboard::KeyboardKey> keys={});
          void set_keyboard_dimensions(float width=1, float height=1);
