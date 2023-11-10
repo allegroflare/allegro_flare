@@ -26,6 +26,18 @@ properties:
     constructor_arg: true
     init_with: '{}'
 
+  - name: on_submit_callback_func
+    type: std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_submit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: mode
     type: int
     init_with: MODE_USING_VIRTUAL_CONTROLS
@@ -61,6 +73,11 @@ functions:
       AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimensions();
       software_keyboard.set_keyboard_dimensions(keyboard_dimensions.x, keyboard_dimensions.y);
       software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+
+      // TODO: Setup the software_keyboard to do a callback to this class, and have the callback
+      // call the AllegroFlare::Screens::CharacterNameInput::on_submit_callback
+      //software_keyboard.set_on_submit_callback_func(...)
+
       initialized = true;
       return;
 
@@ -283,5 +300,7 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Screens::CharacterNameInput
+    headers: [ AllegroFlare/Screens/CharacterNameInput.hpp ]
 
 

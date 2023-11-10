@@ -5,9 +5,11 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/CharacterNameInput.hpp>
 #include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
+#include <functional>
 #include <string>
 
 
@@ -25,6 +27,8 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
+         std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> on_submit_callback_func;
+         void* on_submit_callback_func_user_data;
          int mode;
          bool initialized;
 
@@ -37,6 +41,10 @@ namespace AllegroFlare
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
+         void set_on_submit_callback_func(std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> on_submit_callback_func);
+         void set_on_submit_callback_func_user_data(void* on_submit_callback_func_user_data);
+         std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> get_on_submit_callback_func() const;
+         void* get_on_submit_callback_func_user_data() const;
          void initialize();
          virtual void on_activate() override;
          virtual void on_deactivate() override;

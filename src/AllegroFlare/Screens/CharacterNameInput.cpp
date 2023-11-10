@@ -19,6 +19,8 @@ CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , software_keyboard(software_keyboard)
+   , on_submit_callback_func()
+   , on_submit_callback_func_user_data(nullptr)
    , mode(MODE_USING_VIRTUAL_CONTROLS)
    , initialized(false)
 {
@@ -39,6 +41,30 @@ void CharacterNameInput::set_event_emitter(AllegroFlare::EventEmitter* event_emi
 void CharacterNameInput::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+}
+
+
+void CharacterNameInput::set_on_submit_callback_func(std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> on_submit_callback_func)
+{
+   this->on_submit_callback_func = on_submit_callback_func;
+}
+
+
+void CharacterNameInput::set_on_submit_callback_func_user_data(void* on_submit_callback_func_user_data)
+{
+   this->on_submit_callback_func_user_data = on_submit_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> CharacterNameInput::get_on_submit_callback_func() const
+{
+   return on_submit_callback_func;
+}
+
+
+void* CharacterNameInput::get_on_submit_callback_func_user_data() const
+{
+   return on_submit_callback_func_user_data;
 }
 
 
@@ -73,6 +99,11 @@ void CharacterNameInput::initialize()
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimensions();
    software_keyboard.set_keyboard_dimensions(keyboard_dimensions.x, keyboard_dimensions.y);
    software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+
+   // TODO: Setup the software_keyboard to do a callback to this class, and have the callback
+   // call the AllegroFlare::Screens::CharacterNameInput::on_submit_callback
+   //software_keyboard.set_on_submit_callback_func(...)
+
    initialized = true;
    return;
 }
