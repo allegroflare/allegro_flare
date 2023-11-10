@@ -103,6 +103,14 @@ functions:
       return;
 
 
+  - name: get_result_string
+    type: std::string
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      return software_keyboard.get_result_string();
+
+
   - name: on_activate
     virtual: true
     override: true

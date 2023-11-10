@@ -134,6 +134,19 @@ void CharacterNameInput::on_software_keyboard_on_submit_callback_func(AllegroFla
    return;
 }
 
+std::string CharacterNameInput::get_result_string()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterNameInput::get_result_string]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterNameInput::get_result_string: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   return software_keyboard.get_result_string();
+}
+
 void CharacterNameInput::on_activate()
 {
    if (!(initialized))
