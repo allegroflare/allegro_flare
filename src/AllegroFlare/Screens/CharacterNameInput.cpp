@@ -100,11 +100,37 @@ void CharacterNameInput::initialize()
    software_keyboard.set_keyboard_dimensions(keyboard_dimensions.x, keyboard_dimensions.y);
    software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
 
-   // TODO: Setup the software_keyboard to do a callback to this class, and have the callback
-   // call the AllegroFlare::Screens::CharacterNameInput::on_submit_callback
-   //software_keyboard.set_on_submit_callback_func(...)
+   // Setup our screen to manage handling the submit on the software keyboard
+   software_keyboard.set_on_submit_callback_func(on_software_keyboard_on_submit_callback_func);
+   software_keyboard.set_on_submit_callback_func_user_data(this);
 
    initialized = true;
+   return;
+}
+
+void CharacterNameInput::on_software_keyboard_on_submit_callback_func(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard* software_keyboard, void* user_data)
+{
+   if (!(software_keyboard))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"software_keyboard\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterNameInput::on_software_keyboard_on_submit_callback_func: error: guard \"software_keyboard\" not met");
+   }
+   if (!(user_data))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"user_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterNameInput::on_software_keyboard_on_submit_callback_func: error: guard \"user_data\" not met");
+   }
+   // TODO: Test this callback
+   AllegroFlare::Screens::CharacterNameInput *as =
+      static_cast<AllegroFlare::Screens::CharacterNameInput*>(user_data);
+   if (as->get_on_submit_callback_func())
+   {
+      as->on_submit_callback_func(as, as->get_on_submit_callback_func_user_data());
+   }
    return;
 }
 

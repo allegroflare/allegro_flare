@@ -24042,6 +24042,14 @@ table td
   <td class="property">AllegroFlare::SoftwareKeyboard::SoftwareKeyboard</td>
 </tr>
 <tr>
+  <td class="property">on_submit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::CharacterNameInput*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_submit_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">mode</td>
   <td class="property">int</td>
 </tr>
@@ -24062,6 +24070,9 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">on_software_keyboard_on_submit_callback_func(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard* software_keyboard=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">on_activate()</td>
@@ -24131,6 +24142,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::CharacterNameInput&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/CharacterNameInput.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -35463,6 +35477,9 @@ table td
   "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard": [
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+  ],
+  "AllegroFlare/Screens/CharacterNameInput": [
+    "AllegroFlare/Screens/CharacterNameInput"
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"

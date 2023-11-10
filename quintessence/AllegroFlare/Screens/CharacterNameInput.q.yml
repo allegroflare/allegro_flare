@@ -74,11 +74,32 @@ functions:
       software_keyboard.set_keyboard_dimensions(keyboard_dimensions.x, keyboard_dimensions.y);
       software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
 
-      // TODO: Setup the software_keyboard to do a callback to this class, and have the callback
-      // call the AllegroFlare::Screens::CharacterNameInput::on_submit_callback
-      //software_keyboard.set_on_submit_callback_func(...)
+      // Setup our screen to manage handling the submit on the software keyboard
+      software_keyboard.set_on_submit_callback_func(on_software_keyboard_on_submit_callback_func);
+      software_keyboard.set_on_submit_callback_func_user_data(this);
 
       initialized = true;
+      return;
+
+
+  - name: on_software_keyboard_on_submit_callback_func
+    static: true
+    parameters:
+      - name: software_keyboard
+        type: AllegroFlare::SoftwareKeyboard::SoftwareKeyboard*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ software_keyboard, user_data ]
+    body: |
+      // TODO: Test this callback
+      AllegroFlare::Screens::CharacterNameInput *as =
+         static_cast<AllegroFlare::Screens::CharacterNameInput*>(user_data);
+      if (as->get_on_submit_callback_func())
+      {
+         as->on_submit_callback_func(as, as->get_on_submit_callback_func_user_data());
+      }
       return;
 
 
