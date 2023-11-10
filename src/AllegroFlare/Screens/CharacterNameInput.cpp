@@ -14,13 +14,15 @@ namespace Screens
 {
 
 
-CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard)
+CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard, std::string default_result_text_on_activate, std::string default_cursor_position_over_key_name_on_activate)
    : AllegroFlare::Screens::Base("CharacterNameInput")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , software_keyboard(software_keyboard)
    , on_submit_callback_func()
    , on_submit_callback_func_user_data(nullptr)
+   , default_result_text_on_activate(default_result_text_on_activate)
+   , default_cursor_position_over_key_name_on_activate(default_cursor_position_over_key_name_on_activate)
    , mode(MODE_USING_VIRTUAL_CONTROLS)
    , initialized(false)
 {
@@ -56,6 +58,18 @@ void CharacterNameInput::set_on_submit_callback_func_user_data(void* on_submit_c
 }
 
 
+void CharacterNameInput::set_default_result_text_on_activate(std::string default_result_text_on_activate)
+{
+   this->default_result_text_on_activate = default_result_text_on_activate;
+}
+
+
+void CharacterNameInput::set_default_cursor_position_over_key_name_on_activate(std::string default_cursor_position_over_key_name_on_activate)
+{
+   this->default_cursor_position_over_key_name_on_activate = default_cursor_position_over_key_name_on_activate;
+}
+
+
 std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> CharacterNameInput::get_on_submit_callback_func() const
 {
    return on_submit_callback_func;
@@ -65,6 +79,18 @@ std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> Character
 void* CharacterNameInput::get_on_submit_callback_func_user_data() const
 {
    return on_submit_callback_func_user_data;
+}
+
+
+std::string CharacterNameInput::get_default_result_text_on_activate() const
+{
+   return default_result_text_on_activate;
+}
+
+
+std::string CharacterNameInput::get_default_cursor_position_over_key_name_on_activate() const
+{
+   return default_cursor_position_over_key_name_on_activate;
 }
 
 
@@ -198,8 +224,11 @@ void CharacterNameInput::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterNameInput::on_activate: error: guard \"initialized\" not met");
    }
-   software_keyboard.reset_with();
-   //software_keyboard.set_result_text(
+   // TODO: Considider a "reset_on_activate" boolean option
+   software_keyboard.reset_with_defaults(
+      default_result_text_on_activate,
+      default_cursor_position_over_key_name_on_activate
+   );
    return;
 }
 

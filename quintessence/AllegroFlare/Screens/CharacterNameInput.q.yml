@@ -39,6 +39,20 @@ properties:
     getter: true
     setter: true
 
+  - name: default_result_text_on_activate
+    type: std::string
+    constructor_arg: true
+    init_with: '""'
+    getter: true
+    setter: true
+
+  - name: default_cursor_position_over_key_name_on_activate
+    type: std::string
+    constructor_arg: true
+    init_with: '""'
+    getter: true
+    setter: true
+
   - name: mode
     type: int
     init_with: MODE_USING_VIRTUAL_CONTROLS
@@ -58,6 +72,14 @@ properties:
     static: true
     constexpr: true
     init_with: 2
+
+
+documentation:
+
+
+  - notes:
+     - default_cursor_position_over_key_name_on_activate might be renamed to something differet, or removed and
+       have the sysrem rely on an on_activate callback or something
 
 
 functions:
@@ -142,8 +164,11 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
-      software_keyboard.reset_with();
-      //software_keyboard.set_result_text(
+      // TODO: Considider a "reset_on_activate" boolean option
+      software_keyboard.reset_with_defaults(
+         default_result_text_on_activate,
+         default_cursor_position_over_key_name_on_activate
+      );
       return;
 
 
