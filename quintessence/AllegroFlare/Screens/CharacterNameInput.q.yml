@@ -129,7 +129,7 @@ functions:
       - name: key_name
         type: std::string
         default_argument: '"[unset-key_name]"'
-    guards: [ initialized ]
+    guards: [ initialized, software_keyboard.key_exists(key_name) ]
     body: |
       // TODO: Test this
       // TODO: Create and use a different method in the SoftwareKeyboard that would silently reposition the cursor

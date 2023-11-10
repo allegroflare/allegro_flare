@@ -885,7 +885,6 @@ functions:
 
 
   - name: key_exists
-    private: true
     type: bool
     parameters:
       - name: identifier

@@ -67,7 +67,6 @@ namespace AllegroFlare
          void draw_input_error_frame(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f);
          void draw_cursor();
          void draw_keyboard_backfill_and_frame();
-         bool key_exists(std::string identifier="[unset-identifier]");
          void emit_bonk_sound_effect();
          void emit_key_click_sound_effect();
          void emit_erase_sound_effect();
@@ -132,6 +131,7 @@ namespace AllegroFlare
          void increment_cursor_pos();
          void decrement_cursor_pos();
          void render();
+         bool key_exists(std::string identifier="[unset-identifier]");
          static AllegroFlare::Vec2D calculate_boilerplate_keyboard_dimensions();
          void move_cursor_down();
          void move_cursor_up();

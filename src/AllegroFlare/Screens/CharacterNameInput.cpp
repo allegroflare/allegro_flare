@@ -176,6 +176,13 @@ void CharacterNameInput::silently_position_cursor_over_key_by_name(std::string k
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterNameInput::silently_position_cursor_over_key_by_name: error: guard \"initialized\" not met");
    }
+   if (!(software_keyboard.key_exists(key_name)))
+   {
+      std::stringstream error_message;
+      error_message << "[CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"software_keyboard.key_exists(key_name)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CharacterNameInput::silently_position_cursor_over_key_by_name: error: guard \"software_keyboard.key_exists(key_name)\" not met");
+   }
    // TODO: Test this
    // TODO: Create and use a different method in the SoftwareKeyboard that would silently reposition the cursor
    // without motion delay
