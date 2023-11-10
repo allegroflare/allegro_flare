@@ -14,7 +14,7 @@ namespace Screens
 {
 
 
-CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard, std::string default_result_text_on_activate, std::string default_cursor_position_over_key_name_on_activate)
+CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard, std::string default_result_text_on_activate, std::string default_cursor_position_over_key_name_on_activate, AllegroFlare::Placement3D software_keyboard_placement)
    : AllegroFlare::Screens::Base("CharacterNameInput")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
@@ -23,6 +23,7 @@ CharacterNameInput::CharacterNameInput(AllegroFlare::EventEmitter* event_emitter
    , on_submit_callback_func_user_data(nullptr)
    , default_result_text_on_activate(default_result_text_on_activate)
    , default_cursor_position_over_key_name_on_activate(default_cursor_position_over_key_name_on_activate)
+   , software_keyboard_placement(software_keyboard_placement)
    , mode(MODE_USING_VIRTUAL_CONTROLS)
    , initialized(false)
 {
@@ -70,6 +71,12 @@ void CharacterNameInput::set_default_cursor_position_over_key_name_on_activate(s
 }
 
 
+void CharacterNameInput::set_software_keyboard_placement(AllegroFlare::Placement3D software_keyboard_placement)
+{
+   this->software_keyboard_placement = software_keyboard_placement;
+}
+
+
 std::function<void(AllegroFlare::Screens::CharacterNameInput*, void*)> CharacterNameInput::get_on_submit_callback_func() const
 {
    return on_submit_callback_func;
@@ -94,9 +101,21 @@ std::string CharacterNameInput::get_default_cursor_position_over_key_name_on_act
 }
 
 
+AllegroFlare::Placement3D CharacterNameInput::get_software_keyboard_placement() const
+{
+   return software_keyboard_placement;
+}
+
+
 AllegroFlare::SoftwareKeyboard::SoftwareKeyboard &CharacterNameInput::get_software_keyboard_ref()
 {
    return software_keyboard;
+}
+
+
+AllegroFlare::Placement3D &CharacterNameInput::get_software_keyboard_placement_ref()
+{
+   return software_keyboard_placement;
 }
 
 
@@ -412,7 +431,9 @@ void CharacterNameInput::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CharacterNameInput::render: error: guard \"initialized\" not met");
    }
+   software_keyboard_placement.start_transform();
    software_keyboard.render();
+   software_keyboard_placement.restore_transform();
    return;
 }
 

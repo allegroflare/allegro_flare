@@ -53,6 +53,14 @@ properties:
     getter: true
     setter: true
 
+  - name: software_keyboard_placement
+    type: AllegroFlare::Placement3D
+    constructor_arg: true
+    init_with: '{}'
+    getter_ref: true
+    getter: true
+    setter: true
+
   - name: mode
     type: int
     init_with: MODE_USING_VIRTUAL_CONTROLS
@@ -356,7 +364,9 @@ functions:
   - name: render
     guards: [ initialized ]
     body: |
+      software_keyboard_placement.start_transform();
       software_keyboard.render();
+      software_keyboard_placement.restore_transform();
       return;
 
 
@@ -383,5 +393,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
   - symbol: AllegroFlare::Screens::CharacterNameInput
     headers: [ AllegroFlare/Screens/CharacterNameInput.hpp ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
 
 
