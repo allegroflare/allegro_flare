@@ -446,7 +446,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       if (node_options_as_text.empty())
       {
          throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
+            "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
                + dialog_name + "\" but there are no options."
          );
       }
@@ -469,7 +469,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
          if (node_pages.size() != 1)
          {
             throw std::runtime_error(
-               "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
+               "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting only 1 page for dialog node \""
                   + dialog_name + "\" (because it is going to be used to build a Choice dialog, "
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
@@ -532,7 +532,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       if (!handled)
       {
          throw std::runtime_error(
-            "DialogSystemDrivers::BasicCharacterDialogDriver::activate_dialog_node_by_name: error: "
+            "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: "
                "Unable to handle dialog node activation on type \""
                + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
          );
