@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/LevelSelectScreen.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -180,8 +181,23 @@ void LevelSelectScreen::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("LevelSelectScreen::on_activate: error: guard \"initialized\" not met");
    }
-   //emit_event_to_update_input_hints_bar();
-   //emit_show_and_size_input_hints_bar_event();
+   // TODO: emit_event_to_update_input_hints_bar();
+   // TODO: emit_show_and_size_input_hints_bar_event();
+
+   // TODO: Test the calling and error message response here in this "submit_on_activate_if_empty" block
+   bool submit_on_activate_if_empty = true;
+   if (submit_on_activate_if_empty)
+   {
+      if (!on_menu_choice_callback_func)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Screens::LevelSelectScreen",
+            "\"submit_on_activate_if_empty\" is set to true, thus expecting an \"on_menu_choice_callback_func\" "
+               " to be present but it is not."
+         );
+      }
+      on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+   }
    return;
 }
 
@@ -194,7 +210,7 @@ void LevelSelectScreen::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("LevelSelectScreen::on_deactivate: error: guard \"initialized\" not met");
    }
-   //emit_hide_and_restore_size_input_hints_bar_event();
+   // TODO: emit_hide_and_restore_size_input_hints_bar_event();
    return;
 }
 

@@ -454,6 +454,7 @@ void LevelSelect::activate_selected_menu_option()
    else
    {
       std::string *string_to_pass = new std::string(current_menu_option_value);
+      // TODO: Consider removing this event emission
       event_emitter->emit_event(ALLEGRO_FLARE_EVENT_SELECT_LEVEL, (intptr_t)string_to_pass);
 
       // TODO: Test this callback

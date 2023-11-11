@@ -297,6 +297,8 @@ bool BasicCharacterDialogDriver::on_activate_dialog_node_type_unhandled(AllegroF
 
 std::string BasicCharacterDialogDriver::decorate_speaking_character_name(std::string speaking_character_identifier)
 {
+   // TODO: Consider asking for find_character_by_identifier_as_Basic and use "display_name" as return value
+   // if present
    std::string result = speaking_character_identifier;
    if (handle_decorate_speaking_character_name_func)
    {
