@@ -398,36 +398,11 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCharacterDialogDriver::set_speaking_character_avatar: error: guard \"(!speaking_character_identifier.empty())\" not met");
    }
-   //auto _driver = this;
-   // TODO: Test the guards. Is the second one (!speaking_character_identifier.empty()) necessary?
-   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = this;
-   //if (!_driver->is_type(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::TYPE))
-   //{
-      //throw std::runtime_error("expecting type aaaaa");
-      //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
-         //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-   //}
-
-   //AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
-      //static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
-
-   //if (!as->active_character_staging_layout)
    if (!active_character_staging_layout)
    {
       return; // TODO: Hack, not sure if this is expected behavior
       throw std::runtime_error("expecting type bbbbb");
    }
-   //if (!as->active_character_staging_layout->is_type(
-         //AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE)
-      //)
-   //{
-      //throw std::runtime_error("expecting type cccccc");
-   //}
-
-   //AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal *layout_as =
-      //static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal*>(
-         //as->active_character_staging_layout
-      //);
 
    AllegroFlare::DialogSystem::CharacterStagingLayouts::Base *layout = active_character_staging_layout;
 
