@@ -26,10 +26,6 @@ properties:
     getter: true
     setter: explicit
 
-  - name: active_dialog_box
-    type: AllegroFlare::Elements::DialogBoxes::Base*
-    init_with: nullptr
-
   - name: selection_cursor_box
     type: AllegroFlare::Elements::SelectionCursorBox
     init_with: '{}'
@@ -42,6 +38,10 @@ properties:
     type: std::string
     init_with: '"[unset-active_dialog_node_name]"'
     getter: true
+
+  - name: active_dialog_box
+    type: AllegroFlare::Elements::DialogBoxes::Base*
+    init_with: nullptr
 
   - name: driver
     type: AllegroFlare::DialogSystemDrivers::Base*

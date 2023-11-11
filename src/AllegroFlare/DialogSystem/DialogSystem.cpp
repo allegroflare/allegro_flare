@@ -40,10 +40,10 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , font_bin(font_bin)
    , event_emitter(event_emitter)
    , dialog_node_bank({})
-   , active_dialog_box(nullptr)
    , selection_cursor_box({})
    , active_dialog_node(nullptr)
    , active_dialog_node_name("[unset-active_dialog_node_name]")
+   , active_dialog_box(nullptr)
    , driver(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
@@ -640,6 +640,91 @@ void DialogSystem::dialog_advance()
    return;
 }
 
+void DialogSystem::activate_dialog_option(int selection_choice)
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"event_emitter\" not met");
+   }
+   if (!(active_dialog_node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"active_dialog_node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"active_dialog_node\" not met");
+   }
+   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   {
+
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
+         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
+
+      // TODO: Consider case where dialog node has no (empty) options
+      if (!(selection_choice >= 0))
+      {
+         throw std::runtime_error(
+            "DialogSystem::activate_dialog_option: error: selection_choice must be >= 0"
+         );
+      }
+      if (!(selection_choice < as_multipage_with_options->num_options()))
+      {
+         throw std::runtime_error(
+            "DialogSystem::activate_dialog_option: error: selection_choice must be less than the num options"
+         );
+      }
+
+      AllegroFlare::DialogTree::NodeOptions::Base* node_option =
+         std::get<1>(as_multipage_with_options->get_option_num(selection_choice)); //.second;
+      std::string node_option_type = node_option->get_type();
+
+      std::map<std::string, std::function<void()>> types_map = {
+         { AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE, [this, node_option]() {
+            AllegroFlare::DialogTree::NodeOptions::ExitDialog* as_exit_dialog_node_option =
+               static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
+
+            //event_emitter->emit_dialog_close_event();
+            shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+         }},
+         { AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE, [this, node_option]() {
+            // TODO: Test this case
+            AllegroFlare::DialogTree::NodeOptions::GoToNode* as_go_to_node_dialog_node_option =
+               static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(node_option);
+            std::string target_node_name = as_go_to_node_dialog_node_option->get_target_node_name();
+
+            //event_emitter->emit_dialog_open_event(target_node_name);
+            activate_dialog_node_by_name(target_node_name);
+         }},
+      };
+
+      // locate and call the function to handle the item
+      if (types_map.count(node_option_type) == 0)
+      {
+         // item not found
+         std::stringstream error_message;
+         error_message << "[DialogTree::NodeOptionActivator::activate]: error: Cannot activate a node with the "
+                       << "node_option_type \"" << node_option_type << "\", a handling for that type does not exist.";
+         throw std::runtime_error(error_message.str());
+      }
+      else
+      {
+         // call the item
+         types_map[node_option_type]();
+      }
+   }
+   else
+   {
+      throw std::runtime_error(
+         "DialogSystem::activate_dialog_option: error: Unable to handle case where dialog *node* is of type \""
+            + active_dialog_node->get_type() + "\"."
+      );
+   }
+
+   return;
+}
+
 void DialogSystem::spawn_basic_dialog(std::string speaking_character, std::vector<std::string> pages)
 {
    switch_in_if_not();
@@ -908,91 +993,6 @@ void DialogSystem::render()
 bool DialogSystem::a_dialog_is_active()
 {
    return (active_dialog_box != nullptr);
-}
-
-void DialogSystem::activate_dialog_option(int selection_choice)
-{
-   if (!(event_emitter))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"event_emitter\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"event_emitter\" not met");
-   }
-   if (!(active_dialog_node))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"active_dialog_node\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"active_dialog_node\" not met");
-   }
-   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
-   {
-
-      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
-         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
-
-      // TODO: Consider case where dialog node has no (empty) options
-      if (!(selection_choice >= 0))
-      {
-         throw std::runtime_error(
-            "DialogSystem::activate_dialog_option: error: selection_choice must be >= 0"
-         );
-      }
-      if (!(selection_choice < as_multipage_with_options->num_options()))
-      {
-         throw std::runtime_error(
-            "DialogSystem::activate_dialog_option: error: selection_choice must be less than the num options"
-         );
-      }
-
-      AllegroFlare::DialogTree::NodeOptions::Base* node_option =
-         std::get<1>(as_multipage_with_options->get_option_num(selection_choice)); //.second;
-      std::string node_option_type = node_option->get_type();
-
-      std::map<std::string, std::function<void()>> types_map = {
-         { AllegroFlare::DialogTree::NodeOptions::ExitDialog::TYPE, [this, node_option]() {
-            AllegroFlare::DialogTree::NodeOptions::ExitDialog* as_exit_dialog_node_option =
-               static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
-
-            //event_emitter->emit_dialog_close_event();
-            shutdown_dialog(); // TODO: See if this is a correct expectation for this event
-         }},
-         { AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE, [this, node_option]() {
-            // TODO: Test this case
-            AllegroFlare::DialogTree::NodeOptions::GoToNode* as_go_to_node_dialog_node_option =
-               static_cast<AllegroFlare::DialogTree::NodeOptions::GoToNode*>(node_option);
-            std::string target_node_name = as_go_to_node_dialog_node_option->get_target_node_name();
-
-            //event_emitter->emit_dialog_open_event(target_node_name);
-            activate_dialog_node_by_name(target_node_name);
-         }},
-      };
-
-      // locate and call the function to handle the item
-      if (types_map.count(node_option_type) == 0)
-      {
-         // item not found
-         std::stringstream error_message;
-         error_message << "[DialogTree::NodeOptionActivator::activate]: error: Cannot activate a node with the "
-                       << "node_option_type \"" << node_option_type << "\", a handling for that type does not exist.";
-         throw std::runtime_error(error_message.str());
-      }
-      else
-      {
-         // call the item
-         types_map[node_option_type]();
-      }
-   }
-   else
-   {
-      throw std::runtime_error(
-         "DialogSystem::activate_dialog_option: error: Unable to handle case where dialog *node* is of type \""
-            + active_dialog_node->get_type() + "\"."
-      );
-   }
-
-   return;
 }
 
 bool DialogSystem::dialog_is_finished()

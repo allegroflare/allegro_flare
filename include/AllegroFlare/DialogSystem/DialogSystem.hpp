@@ -35,10 +35,10 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::DialogTree::NodeBank dialog_node_bank;
-         AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
+         AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          AllegroFlare::DialogSystemDrivers::Base* driver;
          bool switched_in;
          std::string standard_dialog_box_font_name;
@@ -89,6 +89,7 @@ namespace AllegroFlare
          void switch_out();
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void dialog_advance();
+         void activate_dialog_option(int selection_choice=0);
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_intertitle_dialog(std::string text="[unset-text]");
          void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
@@ -99,7 +100,6 @@ namespace AllegroFlare
          void update(float time_now=0);
          void render();
          bool a_dialog_is_active();
-         void activate_dialog_option(int selection_choice=0);
          bool dialog_is_finished();
          bool shutdown_dialog();
          void move_dialog_cursor_position_up();
