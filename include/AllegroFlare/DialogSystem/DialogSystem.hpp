@@ -88,6 +88,7 @@ namespace AllegroFlare
          void switch_in_if_not();
          void switch_out();
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
+         void dialog_advance();
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_intertitle_dialog(std::string text="[unset-text]");
          void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
@@ -98,7 +99,6 @@ namespace AllegroFlare
          void update(float time_now=0);
          void render();
          bool a_dialog_is_active();
-         void dialog_advance();
          void activate_dialog_option(int selection_choice=0);
          bool dialog_is_finished();
          bool shutdown_dialog();
