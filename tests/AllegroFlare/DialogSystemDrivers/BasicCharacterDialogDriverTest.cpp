@@ -26,3 +26,12 @@ TEST(AllegroFlare_DialogSystemDrivers_BasicCharacterDialogDriverTest, type__has_
 }
 
 
+TEST(AllegroFlare_DialogSystemDrivers_BasicCharacterDialogDriverTest,
+   decorate_speaking_character_name__will_return_the_passed_argument_unmodified)
+{
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver basic_character_dialog_driver;
+   std::string character_name = "JONAS";
+   EXPECT_EQ(character_name, basic_character_dialog_driver.decorate_speaking_character_name(character_name));
+}
+
+

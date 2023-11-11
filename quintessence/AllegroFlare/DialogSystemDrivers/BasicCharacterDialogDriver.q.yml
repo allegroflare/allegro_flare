@@ -63,6 +63,18 @@ properties:
     getter: true
     setter: true
 
+  - name: handle_decorate_speaking_character_name_func
+    type: std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: handle_decorate_speaking_character_name_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -101,6 +113,7 @@ documentation:
      - consider guarding against bitmap_bin being assigned after init
      - consider ownership cycle of "active_character_staging_layout"
      - consider owning "character_roster" and loading from a file
+     - remove "exposed" on properties, move the properties back up towards the top of the list
 
 
 methods:
@@ -297,8 +310,17 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      // TODO: Translate the speaking character identifier to display_name
-      return speaking_character_identifier;
+      // HERE
+      // TODO: Test this method (when _func is present, and when is not)
+      std::string result = speaking_character_identifier;
+      if (handle_decorate_speaking_character_name_func)
+      {
+         result = handle_decorate_speaking_character_name_func(
+            this,
+            handle_decorate_speaking_character_name_func_user_data
+         );
+      }
+      return result;
 
 
   - name: clear_character_staging_layout
