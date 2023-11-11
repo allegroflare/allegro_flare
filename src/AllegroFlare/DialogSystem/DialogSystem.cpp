@@ -453,7 +453,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       else if (node_options_as_text.size() == 1)
       {
          // If dialog has only one option, spawn a basic dialog
-         //set_speaking_character_avatar(node_pages_speaker);
          // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_basic_dialog"
          if (driver) driver->on_before_spawn_basic_dialog(node_pages_speaker);
          spawn_basic_dialog(
@@ -475,7 +474,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
                   "but there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
          }
-         //set_speaking_character_avatar(node_pages_speaker);
          // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_choice_dialog"
          if (driver) driver->on_before_spawn_choice_dialog(node_pages_speaker);
          spawn_choice_dialog(

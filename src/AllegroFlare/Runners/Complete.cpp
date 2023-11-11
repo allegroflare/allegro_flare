@@ -213,6 +213,7 @@ void Complete::initialize()
    level_select_screen.set_bitmap_bin(bitmap_bin);
    level_select_screen.set_font_bin(font_bin);
    level_select_screen.set_levels_list(
+      // NOTE: if this list is empty, then the screen will automatically submit on activate
       game_configuration->build_level_list_for_level_select_screen_by_identifier("discarded-for-now")
    );
    level_select_screen.set_background(shared_background);

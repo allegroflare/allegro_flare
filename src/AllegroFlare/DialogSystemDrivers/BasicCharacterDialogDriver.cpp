@@ -411,18 +411,14 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *as =
       static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(_driver);
 
-   //if (!_driver->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
-   //{
-      //throw std::runtime_error("expecting type aaaaa");
-   //}
-
    if (!as->active_character_staging_layout)
    {
       return; // TODO: Hack, not sure if this is expected behavior
       throw std::runtime_error("expecting type bbbbb");
    }
-   //->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
-   if (!as->active_character_staging_layout->is_type(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE))
+   if (!as->active_character_staging_layout->is_type(
+         AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE)
+      )
    {
       throw std::runtime_error("expecting type cccccc");
    }
@@ -432,36 +428,22 @@ void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speak
          as->active_character_staging_layout
       );
 
-   AllegroFlare::DialogSystem::CharacterStagingLayouts::Base *layout = layout_as; ////layout_as->active_character_staging_layout;
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::Base *layout = layout_as;
 
-   //if (driver->active_character_staging_layout->is_type(
-            //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::TYPE
-         //))
-   //{
-      //AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered *as =
-         //static_cast<AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered*>(
-            //driver->active_character_staging_layout
-         //);
-      ALLEGRO_BITMAP *speaking_character_bitmap = as->lookup_speaking_character_avatar(
-            speaking_character_identifier,
-            speaking_character_expression
-         );
+   ALLEGRO_BITMAP *speaking_character_bitmap = as->lookup_speaking_character_avatar(
+      speaking_character_identifier,
+      speaking_character_expression
+   );
 
-      //if (!speaking_character_bitmap) as->clear();
-      //else as->set_speaking_character_bitmap(speaking_character_bitmap);
+   if (!speaking_character_bitmap)
+   {
+      layout->clear();
+   }
+   else
+   {
+      layout->set_speaking_character_bitmap(speaking_character_bitmap);
+   }
 
-      if (!speaking_character_bitmap) layout->clear();
-      else layout->set_speaking_character_bitmap(speaking_character_bitmap);
-      // TODO: Set the character
-   //}
-   //else
-   //{
-      //throw std::runtime_error(
-         //"DialogSystemSystemDrivers::BasicCharacterDialogDriver::set_speaking_character: error: Unable to perform action because "
-            //"\"driver.active_character_staging_layout\" is of type \"" + driver->active_character_staging_layout->get_type() + "\" "
-            //"and a condition is not provided to handle this type."
-      //);
-   //}
    return;
 }
 
