@@ -919,9 +919,9 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
    std::tuple<float, float, float, float> selection_dimensions =
          choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
    choice_renderer_for_dimensions.helper__set_selection_cursor_box_dimensions_to(
-         &selection_cursor_box,
-         selection_dimensions
-      );
+      &selection_cursor_box,
+      selection_dimensions
+   );
 
    // TODO: Address when and where a switch_in should occur
    //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
@@ -1067,9 +1067,9 @@ void DialogSystem::move_dialog_cursor_position_up()
       std::tuple<float, float, float, float> selection_dimensions =
             choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
       choice_renderer_for_dimensions.helper__reposition_selection_cursor_box_dimensions_to(
-            &selection_cursor_box,
-            selection_dimensions
-         );
+         &selection_cursor_box,
+         selection_dimensions
+      );
    }
    return;
 }
@@ -1101,9 +1101,9 @@ void DialogSystem::move_dialog_cursor_position_down()
       std::tuple<float, float, float, float> selection_dimensions =
             choice_renderer_for_dimensions.calculate_dimensions_of_current_selection();
       choice_renderer_for_dimensions.helper__reposition_selection_cursor_box_dimensions_to(
-            &selection_cursor_box,
-            selection_dimensions
-         );
+         &selection_cursor_box,
+         selection_dimensions
+      );
    }
    return;
 }
@@ -1139,9 +1139,9 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
    else
    {
       AllegroFlare::Logger::throw_error(
-            "AllegroFlare::DialogSystem::DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event",
-            "Unhandled case on type \"" + data->get_type() + "\"."
-         );
+         "AllegroFlare::DialogSystem::DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event",
+         "Unhandled case on type \"" + data->get_type() + "\"."
+      );
    }
    return;
 }
