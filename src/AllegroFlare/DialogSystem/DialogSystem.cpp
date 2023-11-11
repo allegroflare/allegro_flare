@@ -828,113 +828,106 @@ void DialogSystem::dialog_advance()
       throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"active_dialog_box\" not met");
    }
    active_dialog_box->advance();
-   if (active_dialog_box->get_finished())
+   if (!active_dialog_box->get_finished()) return;
+   if (!active_dialog_node) return; // TODO: Consider a throw in this case
+
+   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
-      if (active_dialog_node)
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
+         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
+
+      if (as_multipage_with_options->num_options() == 0)
       {
-         if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+         // If this dialog node has no options, then proceed to a "shutdown" state
+
+         // TODO: Replace this throw with a shutdown
+         throw std::runtime_error(
+            "DialogSystem::dialog_advance: error: Expecting 1 or many options for node named \""
+               + active_dialog_node_name + "\" but there are no options."
+         );
+      }
+      else if (as_multipage_with_options->num_options() == 1)
+      {
+         // If the dialog node has 1 option, "activate" it
+         int current_dialog_selection_choice = 0;
+         activate_dialog_option(current_dialog_selection_choice);
+      }
+      else
+      {
+         // If the dialog *node* has more than 1 option, correlate the dialog *box*'s current cursor position
+            // with the result and "activate" it
+         if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
          {
-            AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
-               static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
-
-            if (as_multipage_with_options->num_options() == 0)
-            {
-               // If this dialog node has no options, then proceed to a "shutdown" state
-
-               // TODO: Replace this throw with a shutdown
-               throw std::runtime_error(
-                  "DialogSystem::dialog_advance: error: Expecting 1 or many options for node named \""
-                     + active_dialog_node_name + "\" but there are no options."
-               );
-            }
-            else if (as_multipage_with_options->num_options() == 1)
-            {
-               // If the dialog node has 1 option, "activate" it
-               int current_dialog_selection_choice = 0;
-               activate_dialog_option(current_dialog_selection_choice);
-            }
-            else
-            {
-               // If the dialog *node* has more than 1 option, correlate the dialog *box*'s current cursor position
-                  // with the result and "activate" it
-               if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
-               {
-                  throw std::runtime_error(
-                     "DialogSystem::dialog_advance: error: Expecting active_dialog_box (with more than one option) "
-                        "to be of type \"AllegroFlare::Elements::DialogBoxes::Choice::TYPE\", but it is of type \""
-                        + active_dialog_box->get_type() + "\""
-                  );
-               }
-               else
-               {
-                  AllegroFlare::Elements::DialogBoxes::Choice *as_choice_dialog_box = 
-                     static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(active_dialog_box);
-
-                  int current_dialog_selection_choice = as_choice_dialog_box->get_cursor_position();
-                  activate_dialog_option(current_dialog_selection_choice);
-               }
-            }
-         }
-         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
-         {
-            if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
-            {
-               throw std::runtime_error(
-                  "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
-                     "is of type \"AllegroFlare::Elements::DialogBoxes::Wait::TYPE\"), but it is not."
-               );
-            }
-
-            AllegroFlare::DialogTree::Nodes::Wait *as =
-               static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
-            std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
-            activate_dialog_node_by_name(as->get_next_node_identifier());
-         }
-         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
-         {
-            if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE))
-            {
-               throw std::runtime_error(
-                  "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
-                     "is of type \"AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE\"), but it is not."
-               );
-            }
-
-            AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
-               static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
-            std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
-            activate_dialog_node_by_name(as->get_next_node_identifier());
-         }
-         else if (AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE)
-         {
-            if (driver) driver->on_raw_script_line_finished(
-               this,
-               active_dialog_box,
-               active_dialog_node
+            throw std::runtime_error(
+               "DialogSystem::dialog_advance: error: Expecting active_dialog_box (with more than one option) "
+                  "to be of type \"AllegroFlare::Elements::DialogBoxes::Choice::TYPE\", but it is of type \""
+                  + active_dialog_box->get_type() + "\""
             );
-         }
-         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
-         {
-            shutdown_dialog(); // TODO: Verify if this is a correct complete action for this event
-         }
-         else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
-         {
-            // TODO: Consider renaming ExitProgram
-            event_emitter->emit_exit_game_event();
          }
          else
          {
-            throw std::runtime_error(
-               "DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
-                  "the dialog *node* type \""
-                  + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
-            );
+            AllegroFlare::Elements::DialogBoxes::Choice *as_choice_dialog_box = 
+               static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(active_dialog_box);
+
+            int current_dialog_selection_choice = as_choice_dialog_box->get_cursor_position();
+            activate_dialog_option(current_dialog_selection_choice);
          }
       }
-      else // There is no "active_dialog_node", even though there is an "active_dialog_box"
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+   {
+      if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
       {
-         // TODO: Consider if should throw in this case
+         throw std::runtime_error(
+            "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
+               "is of type \"AllegroFlare::Elements::DialogBoxes::Wait::TYPE\"), but it is not."
+         );
       }
+
+      AllegroFlare::DialogTree::Nodes::Wait *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+      std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
+      activate_dialog_node_by_name(as->get_next_node_identifier());
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+   {
+      if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE))
+      {
+         throw std::runtime_error(
+            "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
+               "is of type \"AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE\"), but it is not."
+         );
+      }
+
+      AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
+      std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
+      activate_dialog_node_by_name(as->get_next_node_identifier());
+   }
+   else if (AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE)
+   {
+      if (driver) driver->on_raw_script_line_finished(
+         this,
+         active_dialog_box,
+         active_dialog_node
+      );
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+   {
+      shutdown_dialog(); // TODO: Verify if this is a correct complete action for this event
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+   {
+      // TODO: Consider renaming ExitProgram
+      event_emitter->emit_exit_game_event();
+   }
+   else
+   {
+      throw std::runtime_error(
+         "DialogSystem::dialog_advance: error: Unable to handle case where dialog *box* is finished when "
+            "the dialog *node* type \""
+            + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+      );
    }
    return;
 }
