@@ -196,6 +196,13 @@ void LevelSelectScreen::on_activate()
                " to be present but it is not."
          );
       }
+
+      // TODO: Add boolean option to supress this message
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Screens::LevelSelectScreen",
+         "\"submit_on_activate_if_empty\" is true, so now calling \"on_menu_choice_callback_func\"."
+      );
+
       on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
    }
    return;

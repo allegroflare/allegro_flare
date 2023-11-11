@@ -91,19 +91,19 @@ TEST_F(AllegroFlare_Screens_LevelSelectScreenTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_Screens_LevelSelectScreenTestWithAllegroFrameworksFullFixture,
    TIMED_INTERACTIVE__will_run_as_expected)
 {
-   // TODO: Restore this test
-   /*
    AllegroFlare::Screens::LevelSelectScreen level_select_screen;
    level_select_screen.set_event_emitter(get_framework_event_emitter());
    level_select_screen.set_bitmap_bin(get_framework_bitmap_bin());
    level_select_screen.set_font_bin(get_framework_font_bin());
-   //level_select_screen.set_model_bin(get_framework_model_bin());
+   // TODO: As alternative to creating this dummy callback, could (and and) set submit_on_activate_if_empty to false
+   level_select_screen.set_on_menu_choice_callback_func(
+      [this](AllegroFlare::Screens::LevelSelectScreen*, void* data) {} // Nothing to do
+   );
    level_select_screen.initialize();
 
    framework_register_and_activate_screen("level_select_screen", &level_select_screen);
 
    framework_run_loop(3);
-   */
 }
 
 
@@ -115,7 +115,6 @@ is_not_present__will_throw_an_error)
    level_select_screen.set_event_emitter(get_framework_event_emitter());
    level_select_screen.set_bitmap_bin(get_framework_bitmap_bin());
    level_select_screen.set_font_bin(get_framework_font_bin());
-   //level_select_screen.set_model_bin(get_framework_model_bin());
    level_select_screen.initialize();
 
    ASSERT_THROW_WITH_MESSAGE(
