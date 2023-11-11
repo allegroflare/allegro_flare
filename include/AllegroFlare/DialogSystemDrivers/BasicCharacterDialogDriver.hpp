@@ -37,7 +37,7 @@ namespace AllegroFlare
          void* handle_finished_dialog_from_raw_script_line_func_user_data;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> handle_load_node_bank_from_file_func;
          void* handle_load_node_bank_from_file_func_user_data;
-         std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, void*)> handle_decorate_speaking_character_name_func;
+         std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, std::string, void*)> handle_decorate_speaking_character_name_func;
          void* handle_decorate_speaking_character_name_func_user_data;
          bool initialized;
 
@@ -60,7 +60,7 @@ namespace AllegroFlare
          void set_handle_finished_dialog_from_raw_script_line_func_user_data(void* handle_finished_dialog_from_raw_script_line_func_user_data);
          void set_handle_load_node_bank_from_file_func(std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> handle_load_node_bank_from_file_func);
          void set_handle_load_node_bank_from_file_func_user_data(void* handle_load_node_bank_from_file_func_user_data);
-         void set_handle_decorate_speaking_character_name_func(std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, void*)> handle_decorate_speaking_character_name_func);
+         void set_handle_decorate_speaking_character_name_func(std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, std::string, void*)> handle_decorate_speaking_character_name_func);
          void set_handle_decorate_speaking_character_name_func_user_data(void* handle_decorate_speaking_character_name_func_user_data);
          AllegroFlare::Elements::DialogRoll get_dialog_roll() const;
          std::function<bool( AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*) > get_handle_activate_dialog_from_raw_script_line_func() const;
@@ -69,7 +69,7 @@ namespace AllegroFlare
          void* get_handle_finished_dialog_from_raw_script_line_func_user_data() const;
          std::function<bool(std::string, AllegroFlare::DialogTree::NodeBank*, void*)> get_handle_load_node_bank_from_file_func() const;
          void* get_handle_load_node_bank_from_file_func_user_data() const;
-         std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, void*)> get_handle_decorate_speaking_character_name_func() const;
+         std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, std::string, void*)> get_handle_decorate_speaking_character_name_func() const;
          void* get_handle_decorate_speaking_character_name_func_user_data() const;
          AllegroFlare::Elements::DialogRoll &get_dialog_roll_ref();
          void initialize();

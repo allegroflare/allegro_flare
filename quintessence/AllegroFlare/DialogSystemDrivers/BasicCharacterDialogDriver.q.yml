@@ -64,7 +64,7 @@ properties:
     setter: true
 
   - name: handle_decorate_speaking_character_name_func
-    type: std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, void*)>
+    type: std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, std::string, void*)>
     init_with: ''
     getter: true
     setter: true
@@ -310,13 +310,12 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      // HERE
-      // TODO: Test this method (when _func is present, and when is not)
       std::string result = speaking_character_identifier;
       if (handle_decorate_speaking_character_name_func)
       {
          result = handle_decorate_speaking_character_name_func(
             this,
+            speaking_character_identifier,
             handle_decorate_speaking_character_name_func_user_data
          );
       }

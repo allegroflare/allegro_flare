@@ -91,7 +91,7 @@ void BasicCharacterDialogDriver::set_handle_load_node_bank_from_file_func_user_d
 }
 
 
-void BasicCharacterDialogDriver::set_handle_decorate_speaking_character_name_func(std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, void*)> handle_decorate_speaking_character_name_func)
+void BasicCharacterDialogDriver::set_handle_decorate_speaking_character_name_func(std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, std::string, void*)> handle_decorate_speaking_character_name_func)
 {
    this->handle_decorate_speaking_character_name_func = handle_decorate_speaking_character_name_func;
 }
@@ -145,7 +145,7 @@ void* BasicCharacterDialogDriver::get_handle_load_node_bank_from_file_func_user_
 }
 
 
-std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, void*)> BasicCharacterDialogDriver::get_handle_decorate_speaking_character_name_func() const
+std::function<std::string(AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*, std::string, void*)> BasicCharacterDialogDriver::get_handle_decorate_speaking_character_name_func() const
 {
    return handle_decorate_speaking_character_name_func;
 }
@@ -297,13 +297,12 @@ bool BasicCharacterDialogDriver::on_activate_dialog_node_type_unhandled(AllegroF
 
 std::string BasicCharacterDialogDriver::decorate_speaking_character_name(std::string speaking_character_identifier)
 {
-   // HERE
-   // TODO: Test this method (when _func is present, and when is not)
    std::string result = speaking_character_identifier;
    if (handle_decorate_speaking_character_name_func)
    {
       result = handle_decorate_speaking_character_name_func(
          this,
+         speaking_character_identifier,
          handle_decorate_speaking_character_name_func_user_data
       );
    }
