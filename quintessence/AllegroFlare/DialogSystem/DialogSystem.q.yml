@@ -853,41 +853,20 @@ methods:
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
       {
-         if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Wait::TYPE))
-         {
-            throw std::runtime_error(
-               "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
-                  "is of type \"AllegroFlare::Elements::DialogBoxes::Wait::TYPE\"), but it is not."
-            );
-         }
-
          AllegroFlare::DialogTree::Nodes::Wait *as =
             static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
-         std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
          activate_dialog_node_by_name(as->get_next_node_identifier());
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
       {
-         if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE))
-         {
-            throw std::runtime_error(
-               "DialogSystem::dialog_advance: error: Expecting active_dialog_box to be a nullptr (when node "
-                  "is of type \"AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE\"), but it is not."
-            );
-         }
-
          AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
             static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
-         std::cout << " next_node_identifier: " << as->get_next_node_identifier() << std::endl;
          activate_dialog_node_by_name(as->get_next_node_identifier());
       }
       else if (AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE)
       {
-         if (driver) driver->on_raw_script_line_finished(
-            this,
-            active_dialog_box,
-            active_dialog_node
-         );
+         // TODO: Throw when no driver is present
+         if (driver) driver->on_raw_script_line_finished(this, active_dialog_box, active_dialog_node);
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
       {
@@ -895,7 +874,6 @@ methods:
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
       {
-         // TODO: Consider renaming ExitProgram
          event_emitter->emit_exit_game_event();
       }
       else
