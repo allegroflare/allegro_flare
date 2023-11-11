@@ -233,8 +233,8 @@ void DialogSystem::clear_and_reset()
       active_dialog_node = nullptr;
    }
 
-   dialog_node_bank.delete_all_nodes_and_clear();
-   // TODO: Destroy dialog_node_bank
+   dialog_node_bank.delete_all_nodes_and_clear(); // TODO: Consider that pointers contained in this class could
+                                                  // potentially be owned or in use by other objects
 
    active_dialog_node_name = "";
    return;
