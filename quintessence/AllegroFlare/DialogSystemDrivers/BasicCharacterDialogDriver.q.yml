@@ -179,6 +179,17 @@ methods:
       return handled;
 
 
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      if (active_character_staging_layout)
+      {
+         active_character_staging_layout->update();
+      }
+      return;
+
+
   - name: on_render
     virtual: true
     override: true

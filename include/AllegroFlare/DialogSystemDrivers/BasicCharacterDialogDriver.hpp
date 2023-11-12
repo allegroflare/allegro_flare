@@ -76,6 +76,7 @@ namespace AllegroFlare
          virtual void on_switch_in() override;
          virtual void on_switch_out() override;
          virtual bool on_load_node_bank_from_file(std::string filename="[unset-filename]", AllegroFlare::DialogTree::NodeBank* node_bank_to_load_into=nullptr) override;
+         virtual void update() override;
          virtual void on_render() override;
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;

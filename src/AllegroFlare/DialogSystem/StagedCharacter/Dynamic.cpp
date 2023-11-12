@@ -21,7 +21,7 @@ Dynamic::Dynamic(std::string expression, AllegroFlare::Placement3D placement)
    , placement(placement)
    , expression_bitmap(nullptr)
    , opacity(1.0f)
-   , state(STATE_UNDEF)
+   , state(STATE_NORMAL)
    , state_is_busy(false)
    , state_changed_at(0.0f)
 {
@@ -45,6 +45,12 @@ void Dynamic::set_placement(AllegroFlare::Placement3D placement)
 }
 
 
+void Dynamic::set_expression_bitmap(ALLEGRO_BITMAP* expression_bitmap)
+{
+   this->expression_bitmap = expression_bitmap;
+}
+
+
 std::string Dynamic::get_expression() const
 {
    return expression;
@@ -54,6 +60,12 @@ std::string Dynamic::get_expression() const
 AllegroFlare::Placement3D Dynamic::get_placement() const
 {
    return placement;
+}
+
+
+ALLEGRO_BITMAP* Dynamic::get_expression_bitmap() const
+{
+   return expression_bitmap;
 }
 
 
@@ -156,7 +168,6 @@ void Dynamic::update_state(float time_now)
       break;
 
       case STATE_NORMAL:
-         opacity = 1.0f;
       break;
 
       case STATE_HIDING:
@@ -168,7 +179,6 @@ void Dynamic::update_state(float time_now)
       break;
 
       case STATE_HIDDEN:
-         opacity = 0.0f;
       break;
 
       default:

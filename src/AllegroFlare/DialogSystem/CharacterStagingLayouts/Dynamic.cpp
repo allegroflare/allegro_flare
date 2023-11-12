@@ -102,6 +102,11 @@ bool Dynamic::get_hidden() const
 
 void Dynamic::update(float time_now)
 {
+   for (auto &staged_character : staged_characters)
+   {
+      staged_character.second.update();
+   }
+
    // NOTE: Nothing to be done here at this time
    return;
 }
@@ -312,7 +317,12 @@ void Dynamic::render()
       ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(bitmap_identifier);
       if (!bitmap) continue;
 
-      AllegroFlare::Placement3D placement = staged_character.second.get_placement();
+      
+      staged_character.second.set_expression_bitmap(bitmap);
+      staged_character.second.render();
+
+      //AllegroFlare::Placement3D placement = staged_character.second.get_placement();
+      //float opacity = staged_character.second.get_opacity();
       //AllegroFlare::Placement2D character_bitmap_placement_transform(
          //surface_width * 0.5,
          //surface_height * 1.0,
@@ -320,10 +330,10 @@ void Dynamic::render()
          //al_get_bitmap_height(bitmap)
       //);
       //character_bitmap_placement_transform.scale_to_fit_height(surface_height * 2);
-      placement.start_transform();
-      ALLEGRO_COLOR tint{1.0, 1.0, 1.0, 1.0}; // TODO: Use motion effects for introducing different characters
-      al_draw_tinted_bitmap(bitmap, tint, 0, 0, 0);
-      placement.restore_transform();
+      //placement.start_transform();
+      //ALLEGRO_COLOR tint{1.0, 1.0, 1.0, 1.0}; // TODO: Use motion effects for introducing different characters
+      //al_draw_tinted_bitmap(bitmap, tint, 0, 0, 0);
+      //placement.restore_transform();
    }
    return;
 }

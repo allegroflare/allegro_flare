@@ -45,6 +45,11 @@ bool Base::on_load_node_bank_from_file(std::string filename, AllegroFlare::Dialo
    return true;
 }
 
+void Base::update()
+{
+   return;
+}
+
 void Base::on_render()
 {
    return;

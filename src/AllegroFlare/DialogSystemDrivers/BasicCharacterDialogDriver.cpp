@@ -226,6 +226,15 @@ bool BasicCharacterDialogDriver::on_load_node_bank_from_file(std::string filenam
    return handled;
 }
 
+void BasicCharacterDialogDriver::update()
+{
+   if (active_character_staging_layout)
+   {
+      active_character_staging_layout->update();
+   }
+   return;
+}
+
 void BasicCharacterDialogDriver::on_render()
 {
    if (active_character_staging_layout) active_character_staging_layout->render();

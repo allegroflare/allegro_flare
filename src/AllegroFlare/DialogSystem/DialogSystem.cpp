@@ -950,6 +950,7 @@ void DialogSystem::update(float time_now)
 
    // TODO: Consider moving this block above with the normal update
    if (active_dialog_box && active_dialog_box->ready_to_auto_advance()) dialog_advance();
+   if (driver) driver->update();
 
    return;
 }

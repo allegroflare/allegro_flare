@@ -18,6 +18,8 @@ properties:
   - name: expression_bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
+    getter: true
+    setter: true
 
   - name: opacity
     type: float
@@ -25,7 +27,7 @@ properties:
 
   - name: state
     type: uint32_t
-    init_with: STATE_UNDEF
+    init_with: STATE_NORMAL
 
   - name: state_is_busy
     type: bool
@@ -46,6 +48,13 @@ enums:
       - STATE_ENTERING
       - STATE_HIDING
       - STATE_HIDDEN
+
+
+documentation:
+
+
+  - TODO:
+    - have state initialization be a little more clear, should start with STATE_UNDEF and require init
 
 
 methods:
@@ -145,7 +154,6 @@ methods:
          break;
 
          case STATE_NORMAL:
-            opacity = 1.0f;
          break;
 
          case STATE_HIDING:
@@ -157,7 +165,6 @@ methods:
          break;
 
          case STATE_HIDDEN:
-            opacity = 0.0f;
          break;
 
          default:

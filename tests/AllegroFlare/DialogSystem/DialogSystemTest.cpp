@@ -628,6 +628,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
         { { "COMMISSIONER", "-normal-" }, "commissioner-01.gif" },
         { { "ASSISTANT", "-normal-" }, "assistant-01.gif" },
       });
+      dynamic->exit_character("BANKER");
+      dynamic->exit_character("COMMISSIONER");
+      dynamic->exit_character("DETECTIVE");
+      dynamic->exit_character("ASSISTANT");
          //new AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic(&get_bitmap_bin_ref());
       __driver->active_character_staging_layout = dynamic;
          //new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal(&get_bitmap_bin_ref());

@@ -45,6 +45,12 @@ methods:
       return true;
 
 
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
   - name: on_render
     virtual: true
     body: |
