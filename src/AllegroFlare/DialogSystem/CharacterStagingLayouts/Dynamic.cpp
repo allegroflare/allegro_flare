@@ -248,6 +248,32 @@ void Dynamic::move_staged_character_backward(std::string staged_character_identi
    return;
 }
 
+void Dynamic::enter_character(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::enter_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::enter_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   find_staged_character(staged_character_identifier)->enter();
+   return;
+}
+
+void Dynamic::exit_character(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::exit_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::exit_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   find_staged_character(staged_character_identifier)->exit();
+   return;
+}
+
 void Dynamic::render()
 {
    if (!(al_is_system_installed()))

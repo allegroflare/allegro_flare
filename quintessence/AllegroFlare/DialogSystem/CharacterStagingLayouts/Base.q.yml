@@ -33,6 +33,28 @@ methods:
       return;
 
 
+  - name: enter_character
+    virtual: true
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    body: |
+      // To Implement
+      return;
+
+
+  - name: exit_character
+    virtual: true
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    body: |
+      // To Implement
+      return;
+
+
   - name: set_speaking_character_bitmap
     virtual: true
     parameters:

@@ -62,6 +62,17 @@ void Base::on_before_spawn_choice_dialog(std::string speaking_character_identifi
    return;
 }
 
+void Base::enter_character(std::string character_identifier)
+{
+   return;
+}
+
+void Base::exit_character(std::string character_identifier)
+{
+   // HERE
+   return;
+}
+
 void Base::on_raw_script_line_activate(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string activating_node_name, AllegroFlare::DialogTree::Nodes::Base* activating_node, void* user_data)
 {
    // TODO: Consider renaming this for clarity

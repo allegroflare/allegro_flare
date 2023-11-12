@@ -73,6 +73,27 @@ methods:
       return;
 
 
+  - name: enter_character
+    virtual: true
+    parameters:
+      - name: character_identifier
+        type: std::string
+        default_argument: '"[unset-character_identifier]"'
+    body: |
+      return;
+
+
+  - name: exit_character
+    virtual: true
+    parameters:
+      - name: character_identifier
+        type: std::string
+        default_argument: '"[unset-character_identifier]"'
+    body: |
+      // HERE
+      return;
+
+
   - name: on_raw_script_line_activate
     virtual: true
     parameters:

@@ -234,13 +234,15 @@ void BasicCharacterDialogDriver::on_render()
 
 void BasicCharacterDialogDriver::on_before_spawn_basic_dialog(std::string speaking_character_identifier)
 {
-   set_speaking_character_expression(speaking_character_identifier);
+   // TODO: Consider an "set_speaking_character" as a technique for highlighting the speaking character
+   //set_speaking_character_expression(speaking_character_identifier);
    return;
 }
 
 void BasicCharacterDialogDriver::on_before_spawn_choice_dialog(std::string speaking_character_identifier)
 {
-   set_speaking_character_expression(speaking_character_identifier);
+   // TODO: Consider an "set_speaking_character" as a technique for highlighting the speaking character
+   //set_speaking_character_expression(speaking_character_identifier);
    return;
 }
 
@@ -392,6 +394,18 @@ void BasicCharacterDialogDriver::set_speaking_character(std::string speaking_cha
 {
    // TODO: Use this method, consider modifying a character's appearance to "talking" or something
    // depending on the layout
+   return;
+}
+
+void BasicCharacterDialogDriver::enter_character(std::string character_identifier)
+{
+   if (active_character_staging_layout) active_character_staging_layout->enter_character(character_identifier);
+   return;
+}
+
+void BasicCharacterDialogDriver::exit_character(std::string character_identifier)
+{
+   if (active_character_staging_layout) active_character_staging_layout->exit_character(character_identifier);
    return;
 }
 

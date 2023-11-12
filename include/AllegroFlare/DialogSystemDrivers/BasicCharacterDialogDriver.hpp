@@ -86,6 +86,8 @@ namespace AllegroFlare
          void clear_character_staging_layout();
          AllegroFlare::DialogSystem::Characters::Basic* find_character_by_identifier_as_Basic(std::string character_identifier="[unset-character_identifier]");
          void set_speaking_character(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
+         virtual void enter_character(std::string character_identifier="[unset-character_identifier]") override;
+         virtual void exit_character(std::string character_identifier="[unset-character_identifier]") override;
          void set_speaking_character_expression(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");
          std::string lookup_speaking_character_avatar(std::string speaking_character_identifier="[unset-speaking_character_identifier]", std::string speaking_character_expression="[unset-speaking_character_expression]");
          void append_to_dialog_roll(std::string speaking_character="[unset-speaking_character]", std::string dialog="[unset-dialog]");

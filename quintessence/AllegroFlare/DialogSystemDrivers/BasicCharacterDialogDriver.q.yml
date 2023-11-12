@@ -195,7 +195,8 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      set_speaking_character_expression(speaking_character_identifier);
+      // TODO: Consider an "set_speaking_character" as a technique for highlighting the speaking character
+      //set_speaking_character_expression(speaking_character_identifier);
       return;
 
 
@@ -207,7 +208,8 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      set_speaking_character_expression(speaking_character_identifier);
+      // TODO: Consider an "set_speaking_character" as a technique for highlighting the speaking character
+      //set_speaking_character_expression(speaking_character_identifier);
       return;
 
 
@@ -392,6 +394,30 @@ methods:
     body: |
       // TODO: Use this method, consider modifying a character's appearance to "talking" or something
       // depending on the layout
+      return;
+
+
+  - name: enter_character
+    virtual: true
+    override: true
+    parameters:
+      - name: character_identifier
+        type: std::string
+        default_argument: '"[unset-character_identifier]"'
+    body: |
+      if (active_character_staging_layout) active_character_staging_layout->enter_character(character_identifier);
+      return;
+
+
+  - name: exit_character
+    virtual: true
+    override: true
+    parameters:
+      - name: character_identifier
+        type: std::string
+        default_argument: '"[unset-character_identifier]"'
+    body: |
+      if (active_character_staging_layout) active_character_staging_layout->exit_character(character_identifier);
       return;
 
 

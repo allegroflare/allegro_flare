@@ -35,6 +35,18 @@ void Base::set_staged_character_expression(std::string staged_character_identifi
    return;
 }
 
+void Base::enter_character(std::string staged_character_identifier)
+{
+   // To Implement
+   return;
+}
+
+void Base::exit_character(std::string staged_character_identifier)
+{
+   // To Implement
+   return;
+}
+
 void Base::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
 {
    throw std::runtime_error("---- no longer implemented, remove from derived classes ----");

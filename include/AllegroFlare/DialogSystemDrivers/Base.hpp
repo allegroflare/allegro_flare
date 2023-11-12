@@ -34,6 +34,8 @@ namespace AllegroFlare
          virtual void on_render();
          virtual void on_before_spawn_basic_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          virtual void on_before_spawn_choice_dialog(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
+         virtual void enter_character(std::string character_identifier="[unset-character_identifier]");
+         virtual void exit_character(std::string character_identifier="[unset-character_identifier]");
          virtual void on_raw_script_line_activate(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string activating_node_name="[unset-activating_node_name]", AllegroFlare::DialogTree::Nodes::Base* activating_node=nullptr, void* user_data=nullptr);
          virtual void on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr);
          virtual bool on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name="", AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr);

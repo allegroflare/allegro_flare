@@ -256,6 +256,32 @@ methods:
       return;
 
 
+  - name: enter_character
+    virtual: true
+    override: true
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      find_staged_character(staged_character_identifier)->enter();
+      return;
+
+
+  - name: exit_character
+    virtual: true
+    override: true
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      find_staged_character(staged_character_identifier)->exit();
+      return;
+
+
   - name: render
     virtual: true
     override: true
