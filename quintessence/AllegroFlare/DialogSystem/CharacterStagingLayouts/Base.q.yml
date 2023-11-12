@@ -44,6 +44,13 @@ methods:
       return;
 
 
+  - name: hide_all_characters
+    virtual: true
+    body: |
+      // To Implement
+      return;
+
+
   - name: hide_characters_not_of
     virtual: true
     parameters:

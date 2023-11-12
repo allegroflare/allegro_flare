@@ -267,7 +267,17 @@ void Dynamic::hide_characters_not_of(std::string staged_character_identifier)
    for (auto &staged_character : staged_characters)
    {
       if (staged_character.first == staged_character_identifier) continue;
-      find_staged_character(staged_character_identifier)->hide();
+      staged_character.second.hide();
+   }
+   return;
+}
+
+void Dynamic::hide_all_characters()
+{
+   // TODO: Modify the passed in value to be a list
+   for (auto &staged_character : staged_characters)
+   {
+      staged_character.second.hide();
    }
    return;
 }

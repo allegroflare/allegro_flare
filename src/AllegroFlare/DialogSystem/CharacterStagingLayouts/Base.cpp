@@ -41,6 +41,12 @@ void Base::show_character(std::string staged_character_identifier)
    return;
 }
 
+void Base::hide_all_characters()
+{
+   // To Implement
+   return;
+}
+
 void Base::hide_characters_not_of(std::string staged_character_identifier)
 {
    // To Implement

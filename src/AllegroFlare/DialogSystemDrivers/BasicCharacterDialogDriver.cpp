@@ -228,10 +228,7 @@ bool BasicCharacterDialogDriver::on_load_node_bank_from_file(std::string filenam
 
 void BasicCharacterDialogDriver::update()
 {
-   if (active_character_staging_layout)
-   {
-      active_character_staging_layout->update();
-   }
+   if (active_character_staging_layout) active_character_staging_layout->update();
    return;
 }
 
