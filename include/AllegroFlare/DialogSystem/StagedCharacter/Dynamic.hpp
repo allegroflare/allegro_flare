@@ -53,6 +53,8 @@ namespace AllegroFlare
             float get_opacity() const;
             void update();
             void render();
+            bool is_visible();
+            bool is_hidden();
             void enter();
             void exit();
             void show();

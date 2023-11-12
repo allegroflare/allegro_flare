@@ -106,6 +106,16 @@ void Dynamic::render()
    return;
 }
 
+bool Dynamic::is_visible()
+{
+   return !is_state(STATE_HIDDEN);
+}
+
+bool Dynamic::is_hidden()
+{
+   return is_state(STATE_HIDDEN);
+}
+
 void Dynamic::enter()
 {
    set_state(STATE_ENTERING);

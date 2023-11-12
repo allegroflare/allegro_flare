@@ -81,6 +81,18 @@ methods:
       return;
 
 
+  - name: is_visible
+    type: bool
+    body: |
+      return !is_state(STATE_HIDDEN);
+
+
+  - name: is_hidden
+    type: bool
+    body: |
+      return is_state(STATE_HIDDEN);
+
+
   - name: enter
     body: |
       set_state(STATE_ENTERING);
