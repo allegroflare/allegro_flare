@@ -1057,12 +1057,6 @@ methods:
         default_argument: nullptr
     guards: [ ev, data ]
     body: |
-      // TODO: Update this to a map caller pattern (static const)
-      if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile::TYPE))
-      {
-         auto *as = static_cast<AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile*>(data);
-         load_dialog_node_bank_from_file(as->get_yaml_filename());
-      }
       // TODO: Rename this SpawnDialogByName to ActivateDialogNodeByName
       else if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName::TYPE))
       {
@@ -1079,7 +1073,6 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
-      - AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile
 
 
 dependencies:
@@ -1147,8 +1140,6 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp ]
   - symbol: AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
     headers: [ AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp ]
-  - symbol: AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile
-    headers: [ AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterStagingLayouts::Base
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
   - symbol: AllegroFlare::DialogSystem::CharacterRoster
