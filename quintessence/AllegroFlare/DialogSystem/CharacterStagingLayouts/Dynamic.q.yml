@@ -312,6 +312,8 @@ methods:
     body: |
       find_staged_character(staged_character_identifier)->hide();
       return;
+    body_dependency_symbols:
+      - std::cout
 
 
   - name: enter_character

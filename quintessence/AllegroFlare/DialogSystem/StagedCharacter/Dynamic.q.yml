@@ -114,7 +114,7 @@ methods:
       - name: override_if_busy
         type: bool
         default_argument: false
-    guards: [ is_valid_state(state) ]
+    guards: [ al_is_system_installed(), is_valid_state(state) ]
     body: |
       if (this->state == state) return;
       if (!override_if_busy && state_is_busy) return;
