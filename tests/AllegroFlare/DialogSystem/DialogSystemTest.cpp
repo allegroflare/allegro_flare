@@ -615,9 +615,9 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic *dynamic =
          new AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic(&get_bitmap_bin_ref());
       // TODO: Load from roster
-      AllegroFlare::Placement3D standard_placement(1920/2, 1080/2, 0);
-      standard_placement.size = {256.0f, 256.0f, 0};
-      standard_placement.scale = {2.0, 2.0, 1.0};
+      AllegroFlare::Placement3D standard_placement(1920/2, 1080/2 - 150, 0);
+      standard_placement.size = {256.0f, 256.0f, 0.0f};
+      standard_placement.scale = {3.6f, 3.6f, 1.0f};
       dynamic->add_staged_character("DETECTIVE",    { "-normal-", standard_placement } );
       dynamic->add_staged_character("BANKER",       { "-normal-", standard_placement } );
       dynamic->add_staged_character("COMMISSIONER", { "-normal-", standard_placement } );
