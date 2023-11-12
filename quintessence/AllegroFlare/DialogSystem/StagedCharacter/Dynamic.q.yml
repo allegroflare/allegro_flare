@@ -56,6 +56,7 @@ methods:
 
 
   - name: render
+    guards: [ al_is_system_installed() ]
     body: |
       if (!expression_bitmap) return;
       {
