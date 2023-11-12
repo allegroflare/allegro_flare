@@ -1144,6 +1144,11 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter"
   ],
+  "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/EventEmitter"
+  ],
   "AllegroFlare/DialogSystem/CharacterRoster": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
@@ -1216,10 +1221,6 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
-  ],
-  "AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile": [
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/EventEmitter"
   ],
   "AllegroFlare/DialogSystem/SceneIndex": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
