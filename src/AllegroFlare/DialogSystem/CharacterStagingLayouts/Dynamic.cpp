@@ -178,9 +178,17 @@ void Dynamic::set_staged_character_expression(std::string staged_character_ident
 {
    if (!staged_character_exists(staged_character_identifier))
    {
+      std::stringstream error_message;
+      error_message << "Possible names include [";
+      for (auto &staged_character : staged_characters)
+      {
+         error_message << "\"" << staged_character.first << "\", ";
+      }
+      error_message << "]";
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::set_staged_character_expression",
-         "staged_character with identifier \"" + staged_character_identifier + "\" does not exist."
+         "staged_character with identifier \"" + staged_character_identifier + "\" does not exist. "
+            + error_message.str()
       );
    }
    find_staged_character(staged_character_identifier)->set_expression(expression);
