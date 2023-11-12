@@ -185,8 +185,14 @@ methods:
       - name: time_now
         type: float
         default_argument: 0.0f
-    guards: [ staged_character_exists(staged_character_identifier) ]
     body: |
+      if (!staged_character_exists(staged_character_identifier))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::set_staged_character_expression",
+            "staged_character with identifier \"" + staged_character_identifier + "\" does not exist."
+         );
+      }
       find_staged_character(staged_character_identifier)->set_expression(expression);
       // TODO: Assign bitmap here?
       return;
