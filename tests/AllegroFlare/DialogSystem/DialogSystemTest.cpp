@@ -17,6 +17,7 @@
 #include <AllegroFlare/DialogSystem/CharacterRoster.hpp> // TODO: Remove this dependency
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp> // TODO: Remove this dependency
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
+#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.hpp>
 #include <AllegroFlare/StringFormatValidator.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
 
@@ -611,8 +612,25 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
          static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(driver);
       __driver->character_roster = character_roster; // TODO: Change this to a setter
       // TODO: Consider alternative place for all this assmeblage
-      __driver->active_character_staging_layout =
-         new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal(&get_bitmap_bin_ref());
+      AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic *dynamic =
+         new AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic(&get_bitmap_bin_ref());
+      // TODO: Load from roster
+      AllegroFlare::Placement3D standard_placement(1920/2, 1080/2, 0);
+      standard_placement.size = {256.0f, 256.0f, 0};
+      standard_placement.scale = {2.0, 2.0, 1.0};
+      dynamic->add_staged_character("DETECTIVE",    { "-normal-", standard_placement } );
+      dynamic->add_staged_character("BANKER",       { "-normal-", standard_placement } );
+      dynamic->add_staged_character("COMMISSIONER", { "-normal-", standard_placement } );
+      dynamic->add_staged_character("ASSISTANT",    { "-normal-", standard_placement } );
+      dynamic->set_staged_character_expressions_db({
+        { { "BANKER", "-normal-" }, "banker-01.gif" },
+        { { "DETECTIVE", "-normal-" }, "detective-01.gif" },
+        { { "COMMISSIONER", "-normal-" }, "commissioner-01.gif" },
+        { { "ASSISTANT", "-normal-" }, "assistant-01.gif" },
+      });
+         //new AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic(&get_bitmap_bin_ref());
+      __driver->active_character_staging_layout = dynamic;
+         //new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal(&get_bitmap_bin_ref());
       __driver->set_handle_load_node_bank_from_file_func(
          &AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture::my_basic_screenplay_load_node_bank_func
       ); // For this specific test
@@ -744,9 +762,17 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
          static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(driver);
       __driver->set_bitmap_bin(&bitmap_bin);
       // TODO: Consider alternative place for all this assmeblage
-      __driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal(
-         &bitmap_bin
-      );
+      AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic *dynamic =
+         new AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic(&bitmap_bin);
+      dynamic->add_staged_character("SPEAKING_CHARACTER", { "-normal-", {} } );
+      //dynamic->add_staged_character("SPEAKING_CHARACTER");
+      dynamic->set_staged_character_expressions_db({
+        { { "SPEAKING_CHARACTER", "-normal-" }, "banker-01.gif" },
+      });
+      __driver->active_character_staging_layout = dynamic;
+      //__driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic(
+         //&bitmap_bin
+      //);
       __driver->initialize();
    }
 
@@ -760,7 +786,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    //node_bank.add_node("chapter_title", new AllegroFlare::DialogTree::Nodes::Wait(1, "next_node"));
    node_bank.add_node("wait_node_1", new AllegroFlare::DialogTree::Nodes::Wait(1, "next_node"));
    node_bank.add_node("next_node", new AllegroFlare::DialogTree::Nodes::MultipageWithOptions(
-         "Speaker man", // TODO: Improve this test data
+         "SPEAKING_CHARACTER", // TODO: Improve this test data
          { "I'm a speaker" },
          {
             //{ "Exit program", new AllegroFlare::DialogTree::NodeOptions::ExitProgram() }
