@@ -16,8 +16,9 @@ namespace CharacterStagingLayouts
 {
 
 
-MultiModal::MultiModal()
+MultiModal::MultiModal(AllegroFlare::BitmapBin* bitmap_bin)
    : AllegroFlare::DialogSystem::CharacterStagingLayouts::Base(AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::TYPE)
+   , bitmap_bin(bitmap_bin)
    , speaking_character_bitmap(nullptr)
    , speaking_character_bitmap_changed_at(0.0f)
    , surface_width(1920)
@@ -28,6 +29,12 @@ MultiModal::MultiModal()
 
 MultiModal::~MultiModal()
 {
+}
+
+
+void MultiModal::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
 }
 
 
@@ -55,14 +62,32 @@ int MultiModal::get_surface_height() const
 }
 
 
-void MultiModal::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
+void MultiModal::set_staged_character_expression(std::string staged_character_identifier, std::string expression, float time_now)
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[MultiModal::set_staged_character_expression]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("MultiModal::set_staged_character_expression: error: guard \"bitmap_bin\" not met");
+   }
+   // NOTE: Assume that "expression" in in fact a bitmap identifier in this case
+   ALLEGRO_BITMAP *bmp = bitmap_bin->auto_get(expression);
+   if (bmp == this->speaking_character_bitmap) return;
+   //if (bmp == 
+   this->speaking_character_bitmap = bmp;
+   speaking_character_bitmap_changed_at = time_now;
+   return;
+}
+
+void MultiModal::__set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
 {
    if (!(speaking_character_bitmap))
    {
       std::stringstream error_message;
-      error_message << "[MultiModal::set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
+      error_message << "[MultiModal::__set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiModal::set_speaking_character_bitmap: error: guard \"speaking_character_bitmap\" not met");
+      throw std::runtime_error("MultiModal::__set_speaking_character_bitmap: error: guard \"speaking_character_bitmap\" not met");
    }
    // TODO: Test this method
    if (speaking_character_bitmap == this->speaking_character_bitmap) return;

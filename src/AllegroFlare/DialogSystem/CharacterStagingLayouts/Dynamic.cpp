@@ -169,7 +169,7 @@ void Dynamic::add_staged_character(std::string staged_character_identifier, Alle
    return;
 }
 
-void Dynamic::set_staged_character_expression(std::string staged_character_identifier, std::string expression)
+void Dynamic::set_staged_character_expression(std::string staged_character_identifier, std::string expression, float time_now)
 {
    if (!(staged_character_exists(staged_character_identifier)))
    {

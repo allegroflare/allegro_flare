@@ -1946,6 +1946,9 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">set_staged_character_expression(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;, float time_now=0.0f)</td>
+</tr>
+<tr>
   <td class="method">set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f)</td>
 </tr>
 <tr>
@@ -2105,7 +2108,7 @@ table td
   <td class="method">add_staged_character(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, AllegroFlare::DialogSystem::StagedCharacter::Dynamic staged_character={})</td>
 </tr>
 <tr>
-  <td class="method">set_staged_character_expression(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;)</td>
+  <td class="method">set_staged_character_expression(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;, float time_now=0.0f)</td>
 </tr>
 <tr>
   <td class="method">set_staged_character_placement(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, AllegroFlare::Placement3D placement={})</td>
@@ -2165,6 +2168,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">speaking_character_bitmap</td>
   <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
@@ -2188,7 +2195,10 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f)</td>
+  <td class="method">set_staged_character_expression(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;, float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">__set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f)</td>
 </tr>
 <tr>
   <td class="method">update(float time_now=0.0f)</td>
@@ -2216,6 +2226,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -3149,7 +3162,10 @@ table td
   <td class="method">find_character_by_identifier_as_Basic(std::string character_identifier=&quot;[unset-character_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_speaking_character_avatar(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;, std::string speaking_character_expression=&quot;[unset-speaking_character_expression]&quot;)</td>
+  <td class="method">set_speaking_character(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">set_speaking_character_expression(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;, std::string speaking_character_expression=&quot;[unset-speaking_character_expression]&quot;)</td>
 </tr>
 <tr>
   <td class="method">lookup_speaking_character_avatar(std::string speaking_character_identifier=&quot;[unset-speaking_character_identifier]&quot;, std::string speaking_character_expression=&quot;[unset-speaking_character_expression]&quot;)</td>
@@ -3303,9 +3319,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ChapterTitle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp&quot;]}</td>
@@ -32706,6 +32719,7 @@ table td
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -33785,9 +33799,6 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/ChapterIndex": [
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
-  ],
-  "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [

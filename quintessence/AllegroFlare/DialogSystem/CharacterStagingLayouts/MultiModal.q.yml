@@ -9,6 +9,12 @@ parent_classes:
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
   - name: speaking_character_bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
@@ -43,9 +49,33 @@ properties:
 methods:
 
 
-  - name: set_speaking_character_bitmap
+  - name: set_staged_character_expression
     virtual: true
     override: true
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+      - name: expression
+        type: std::string
+        default_argument: '"[unset-expression]"'
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    guards: [ bitmap_bin ]
+    body: |
+      // NOTE: Assume that "expression" in in fact a bitmap identifier in this case
+      ALLEGRO_BITMAP *bmp = bitmap_bin->auto_get(expression);
+      if (bmp == this->speaking_character_bitmap) return;
+      //if (bmp == 
+      this->speaking_character_bitmap = bmp;
+      speaking_character_bitmap_changed_at = time_now;
+      return;
+
+
+  - name: __set_speaking_character_bitmap
+    xvirtual: true
+    xoverride: true
     parameters:
       - name: speaking_character_bitmap
         type: ALLEGRO_BITMAP*
@@ -139,5 +169,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

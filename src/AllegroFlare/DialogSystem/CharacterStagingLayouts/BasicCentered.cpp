@@ -64,6 +64,7 @@ void BasicCentered::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_chara
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicCentered::set_speaking_character_bitmap: error: guard \"speaking_character_bitmap\" not met");
    }
+   throw std::runtime_error("This class is obaabaabasolete");
    // TODO: Test this method
    if (speaking_character_bitmap == this->speaking_character_bitmap) return;
 

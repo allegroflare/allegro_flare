@@ -173,6 +173,8 @@ methods:
 
 
   - name: set_staged_character_expression
+    virtual: true
+    override: true
     parameters:
       - name: staged_character_identifier
         type: std::string
@@ -180,6 +182,9 @@ methods:
       - name: expression
         type: std::string
         default_argument: '"[unset-expression]"'
+      - name: time_now
+        type: float
+        default_argument: 0.0f
     guards: [ staged_character_exists(staged_character_identifier) ]
     body: |
       find_staged_character(staged_character_identifier)->set_expression(expression);

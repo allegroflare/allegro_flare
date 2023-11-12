@@ -611,7 +611,8 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
          static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(driver);
       __driver->character_roster = character_roster; // TODO: Change this to a setter
       // TODO: Consider alternative place for all this assmeblage
-      __driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
+      __driver->active_character_staging_layout =
+         new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal(&get_bitmap_bin_ref());
       __driver->set_handle_load_node_bank_from_file_func(
          &AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture::my_basic_screenplay_load_node_bank_func
       ); // For this specific test
@@ -732,6 +733,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    dialog_system.set_bitmap_bin(&bitmap_bin);
    dialog_system.set_font_bin(&font_bin);
    dialog_system.set_event_emitter(&event_emitter);
+   bitmap_bin.set_full_path(""); // Required to be valid
 
 
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver =
@@ -742,7 +744,9 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
          static_cast<AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver*>(driver);
       __driver->set_bitmap_bin(&bitmap_bin);
       // TODO: Consider alternative place for all this assmeblage
-      __driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
+      __driver->active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal(
+         &bitmap_bin
+      );
       __driver->initialize();
    }
 

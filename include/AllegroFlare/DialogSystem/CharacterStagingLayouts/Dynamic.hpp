@@ -59,7 +59,7 @@ namespace AllegroFlare
             bool staged_character_expression_exists(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             std::string find_staged_character_expression_bitmap_identifier(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]", AllegroFlare::DialogSystem::StagedCharacter::Dynamic staged_character={});
-            void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
+            virtual void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]", float time_now=0.0f) override;
             void set_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]", AllegroFlare::Placement3D placement={});
             void move_staged_character_to_front(std::string staged_character_identifier="[unset-staged_character_identifier]");
             void move_staged_character_to_back(std::string staged_character_identifier="[unset-staged_character_identifier]");

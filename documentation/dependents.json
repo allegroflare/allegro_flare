@@ -159,6 +159,7 @@
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -1238,9 +1239,6 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystem/ChapterIndex": [
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
-  ],
-  "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
   "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver": [

@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 
-#include <AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -235,13 +234,13 @@ void BasicCharacterDialogDriver::on_render()
 
 void BasicCharacterDialogDriver::on_before_spawn_basic_dialog(std::string speaking_character_identifier)
 {
-   set_speaking_character_avatar(speaking_character_identifier);
+   set_speaking_character_expression(speaking_character_identifier);
    return;
 }
 
 void BasicCharacterDialogDriver::on_before_spawn_choice_dialog(std::string speaking_character_identifier)
 {
-   set_speaking_character_avatar(speaking_character_identifier);
+   set_speaking_character_expression(speaking_character_identifier);
    return;
 }
 
@@ -389,41 +388,34 @@ AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_
    return nullptr;
 }
 
-void BasicCharacterDialogDriver::set_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
+void BasicCharacterDialogDriver::set_speaking_character(std::string speaking_character_identifier)
+{
+   // TODO: Use this method, consider modifying a character's appearance to "talking" or something
+   // depending on the layout
+   return;
+}
+
+void BasicCharacterDialogDriver::set_speaking_character_expression(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
    if (!((!speaking_character_identifier.empty())))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::set_speaking_character_avatar]: error: guard \"(!speaking_character_identifier.empty())\" not met.";
+      error_message << "[BasicCharacterDialogDriver::set_speaking_character_expression]: error: guard \"(!speaking_character_identifier.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::set_speaking_character_avatar: error: guard \"(!speaking_character_identifier.empty())\" not met");
+      throw std::runtime_error("BasicCharacterDialogDriver::set_speaking_character_expression: error: guard \"(!speaking_character_identifier.empty())\" not met");
    }
-   if (!active_character_staging_layout)
+   if (active_character_staging_layout)
    {
-      return; // TODO: Hack, not sure if this is expected behavior
-      throw std::runtime_error("expecting type bbbbb");
+      active_character_staging_layout->set_staged_character_expression(
+         speaking_character_identifier,
+         lookup_speaking_character_avatar(speaking_character_identifier, speaking_character_expression),
+         al_get_time()
+      );
    }
-
-   AllegroFlare::DialogSystem::CharacterStagingLayouts::Base *layout = active_character_staging_layout;
-
-   ALLEGRO_BITMAP *speaking_character_bitmap = lookup_speaking_character_avatar(
-      speaking_character_identifier,
-      speaking_character_expression
-   );
-
-   if (!speaking_character_bitmap)
-   {
-      layout->clear();
-   }
-   else
-   {
-      layout->set_speaking_character_bitmap(speaking_character_bitmap);
-   }
-
    return;
 }
 
-ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
+std::string BasicCharacterDialogDriver::lookup_speaking_character_avatar(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
    if (!(initialized))
    {
@@ -497,14 +489,15 @@ ALLEGRO_BITMAP* BasicCharacterDialogDriver::lookup_speaking_character_avatar(std
             bitmap_identifier_to_use = as->get_avatar_portrait_identifier();
          }
 
-         return bitmap_bin->auto_get(bitmap_identifier_to_use);
+         //return bitmap_bin->auto_get(bitmap_identifier_to_use);
+         return bitmap_identifier_to_use;
       }
       else
       {
          throw std::runtime_error("DialogSystemDrivers::BasicCharacterDialogDriver: unknown handled character type");
       }
    }
-   return nullptr;
+   return "avatar-expression-bitmap-identifier-not-found";
 }
 
 void BasicCharacterDialogDriver::append_to_dialog_roll(std::string speaking_character, std::string dialog)

@@ -55,6 +55,7 @@ methods:
         default_argument: 0.0f
     guards: [ speaking_character_bitmap ]
     body: |
+      throw std::runtime_error("This class is obaabaabasolete");
       // TODO: Test this method
       if (speaking_character_bitmap == this->speaking_character_bitmap) return;
 
