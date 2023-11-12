@@ -21,6 +21,7 @@ Dynamic::Dynamic()
    , expression_bitmap(nullptr)
    , placement()
    , placement_destination()
+   , opacity(1.0f)
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
@@ -35,6 +36,7 @@ Dynamic::~Dynamic()
 
 void Dynamic::update()
 {
+   update_state();
    return;
 }
 

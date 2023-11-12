@@ -17,6 +17,10 @@ properties:
     type: AllegroFlare::Placement3D
     init_with: ''
 
+  - name: opacity
+    type: float
+    init_with: 1.0f
+
   - name: state
     type: uint32_t
     init_with: STATE_UNDEF
@@ -54,6 +58,7 @@ methods:
 
   - name: update
     body: |
+      update_state();
       return;
 
 
@@ -69,6 +74,7 @@ methods:
 
 
   - name: set_state
+    private: true
     parameters:
       - name: state
         type: uint32_t
@@ -108,6 +114,7 @@ methods:
 
 
   - name: update_state
+    private: true
     parameters:
       - name: time_now
         type: float
@@ -159,6 +166,7 @@ methods:
 
 
   - name: is_state
+    private: true
     type: bool
     parameters:
       - name: possible_state
@@ -169,6 +177,7 @@ methods:
 
 
   - name: infer_current_state_age
+    private: true
     type: float
     parameters:
       - name: time_now

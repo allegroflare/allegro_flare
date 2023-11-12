@@ -31,9 +31,14 @@ namespace AllegroFlare
             ALLEGRO_BITMAP* expression_bitmap;
             AllegroFlare::Placement3D placement;
             AllegroFlare::Placement3D placement_destination;
+            float opacity;
             uint32_t state;
             bool state_is_busy;
             float state_changed_at;
+            void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
+            void update_state(float time_now=al_get_time());
+            bool is_state(uint32_t possible_state=STATE_UNDEF);
+            float infer_current_state_age(float time_now=al_get_time());
 
          protected:
 
@@ -44,11 +49,7 @@ namespace AllegroFlare
 
             void update();
             void render();
-            void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
-            void update_state(float time_now=al_get_time());
             static bool is_valid_state(uint32_t state=STATE_UNDEF);
-            bool is_state(uint32_t possible_state=STATE_UNDEF);
-            float infer_current_state_age(float time_now=al_get_time());
          };
       }
    }
