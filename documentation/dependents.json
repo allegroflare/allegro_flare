@@ -863,6 +863,9 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
   ],
+  "AllegroFlare/DialogSystem/StagedCharacter/Dynamic": [
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic"
+  ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",
     "AllegroFlare/DialogSystem/DialogEventDatas/CreateYouGotAnItemDialog",

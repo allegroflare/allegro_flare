@@ -2052,6 +2052,10 @@ table td
   <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, AllegroFlare::Placement3D&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">staged_characters2</td>
+  <td class="property">std::vector&lt;std::pair&lt;std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic&gt;&gt;</td>
+</tr>
+<tr>
   <td class="property">staged_character_expressions_db</td>
   <td class="property">std::map&lt;std::pair&lt;std::string, std::string&gt;, std::string&gt;</td>
 </tr>
@@ -2154,6 +2158,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::StagedCharacter::Dynamic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/StagedCharacter/Dynamic.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2935,6 +2942,12 @@ table td
 </tr>
 <tr>
   <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">enter()</td>
+</tr>
+<tr>
+  <td class="method">exit()</td>
 </tr>
 <tr>
   <td class="private_method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
@@ -33407,6 +33420,9 @@ table td
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
+  ],
+  "AllegroFlare/DialogSystem/StagedCharacter/Dynamic": [
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic"
   ],
   "AllegroFlare/GameEventDatas/Base": [
     "AllegroFlare/DialogSystem/DialogEventDatas/CloseDialog",

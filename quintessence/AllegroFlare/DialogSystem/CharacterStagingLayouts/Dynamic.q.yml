@@ -22,6 +22,12 @@ properties:
     getter: true
     setter: true
 
+  - name: staged_characters2
+    type: std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>>
+    init_with: ''
+    getter: true
+    setter: true
+
   - name: staged_character_expressions_db
     type: std::map<std::pair<std::string, std::string>, std::string>
     init_with: ''
@@ -96,6 +102,7 @@ methods:
     override: true
     body: |
       staged_characters.clear();
+      //staged_characters2.clear();
       return;
 
 
@@ -103,6 +110,7 @@ methods:
     type: int
     body: |
       return staged_characters.size();
+      //return staged_characters2.size();
 
 
   - name: staged_character_exists
@@ -126,6 +134,10 @@ methods:
       {
          if (std::get<0>(staged_character) == staged_character_identifier) return &staged_character;
       }
+      //for (auto &staged_character2 : staged_characters2)
+      //{
+         //if (std::get<0>(staged_character2) == staged_character_identifier) return &staged_character2;
+      //}
       return nullptr;
 
 
@@ -141,6 +153,7 @@ methods:
     body: |
       std::string _default = "[unfound-staged_character_expression_bitmap_identifier]";
       return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
+      //return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
 
 
   - name: find_staged_character_expression_bitmap_identifier
@@ -344,5 +357,7 @@ dependencies:
     headers: [ lib/tsl/ordered_map.h ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::DialogSystem::StagedCharacter::Dynamic
+    headers: [ AllegroFlare/DialogSystem/StagedCharacter/Dynamic.hpp ]
 
 

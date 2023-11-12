@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
+#include <AllegroFlare/DialogSystem/StagedCharacter/Dynamic.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <allegro5/allegro.h>
 #include <map>
@@ -26,6 +27,7 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> staged_characters;
+            std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters2;
             std::map<std::pair<std::string, std::string>, std::string> staged_character_expressions_db;
             int surface_width;
             int surface_height;
@@ -40,11 +42,13 @@ namespace AllegroFlare
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_staged_characters(std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> staged_characters);
+            void set_staged_characters2(std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters2);
             void set_staged_character_expressions_db(std::map<std::pair<std::string, std::string>, std::string> staged_character_expressions_db);
             void set_surface_width(int surface_width);
             void set_surface_height(int surface_height);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> get_staged_characters() const;
+            std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> get_staged_characters2() const;
             std::map<std::pair<std::string, std::string>, std::string> get_staged_character_expressions_db() const;
             int get_surface_width() const;
             int get_surface_height() const;

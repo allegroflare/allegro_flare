@@ -58,6 +58,18 @@ void Dynamic::render()
    return;
 }
 
+void Dynamic::enter()
+{
+   set_state(STATE_ENTERING);
+   return;
+}
+
+void Dynamic::exit()
+{
+   set_state(STATE_HIDING);
+   return;
+}
+
 void Dynamic::set_state(uint32_t state, bool override_if_busy)
 {
    if (!(is_valid_state(state)))
@@ -73,16 +85,18 @@ void Dynamic::set_state(uint32_t state, bool override_if_busy)
 
    switch (state)
    {
-      case STATE_SHOWING:
+      case STATE_ENTERING:
       break;
 
       case STATE_NORMAL:
+         opacity = 1.0f;
       break;
 
       case STATE_HIDING:
       break;
 
       case STATE_HIDDEN:
+         opacity = 0.0f;
       break;
 
       default:
@@ -109,16 +123,29 @@ void Dynamic::update_state(float time_now)
 
    switch (state)
    {
-      case STATE_SHOWING:
+      case STATE_ENTERING:
+         opacity += 0.05f;
+         if (opacity >= 1)
+         {
+            opacity = 1.0f;
+            set_state(STATE_NORMAL);
+         }
       break;
 
       case STATE_NORMAL:
+         opacity = 1.0f;
       break;
 
       case STATE_HIDING:
+         opacity -= 0.05f;
+         if (opacity <= 0.0)
+         {
+            set_state(STATE_NORMAL);
+         }
       break;
 
       case STATE_HIDDEN:
+         opacity = 0.0f;
       break;
 
       default:
@@ -133,7 +160,7 @@ bool Dynamic::is_valid_state(uint32_t state)
 {
    std::set<uint32_t> valid_states =
    {
-      STATE_SHOWING,
+      STATE_ENTERING,
       STATE_NORMAL,
       STATE_HIDING,
       STATE_HIDDEN,

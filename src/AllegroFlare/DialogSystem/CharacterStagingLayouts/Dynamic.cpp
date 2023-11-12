@@ -21,6 +21,7 @@ Dynamic::Dynamic(AllegroFlare::BitmapBin* bitmap_bin)
    : AllegroFlare::DialogSystem::CharacterStagingLayouts::Base(AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::TYPE)
    , bitmap_bin(bitmap_bin)
    , staged_characters()
+   , staged_characters2()
    , staged_character_expressions_db()
    , surface_width(1920)
    , surface_height(1080)
@@ -43,6 +44,12 @@ void Dynamic::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 void Dynamic::set_staged_characters(std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> staged_characters)
 {
    this->staged_characters = staged_characters;
+}
+
+
+void Dynamic::set_staged_characters2(std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters2)
+{
+   this->staged_characters2 = staged_characters2;
 }
 
 
@@ -73,6 +80,12 @@ AllegroFlare::BitmapBin* Dynamic::get_bitmap_bin() const
 std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> Dynamic::get_staged_characters() const
 {
    return staged_characters;
+}
+
+
+std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> Dynamic::get_staged_characters2() const
+{
+   return staged_characters2;
 }
 
 
@@ -121,12 +134,14 @@ void Dynamic::hide(float time_now)
 void Dynamic::clear()
 {
    staged_characters.clear();
+   //staged_characters2.clear();
    return;
 }
 
 int Dynamic::num_staged_characters()
 {
    return staged_characters.size();
+   //return staged_characters2.size();
 }
 
 bool Dynamic::staged_character_exists(std::string staged_character_identifier)
@@ -140,6 +155,10 @@ std::tuple<std::string, std::string, AllegroFlare::Placement3D>* Dynamic::find_s
    {
       if (std::get<0>(staged_character) == staged_character_identifier) return &staged_character;
    }
+   //for (auto &staged_character2 : staged_characters2)
+   //{
+      //if (std::get<0>(staged_character2) == staged_character_identifier) return &staged_character2;
+   //}
    return nullptr;
 }
 
@@ -147,6 +166,7 @@ bool Dynamic::staged_character_expression_exists(std::string staged_character_id
 {
    std::string _default = "[unfound-staged_character_expression_bitmap_identifier]";
    return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
+   //return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
 }
 
 std::string Dynamic::find_staged_character_expression_bitmap_identifier(std::string staged_character_identifier, std::string expression)

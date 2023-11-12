@@ -20,7 +20,7 @@ namespace AllegroFlare
             {
                STATE_UNDEF = 0,
                STATE_NORMAL,
-               STATE_SHOWING,
+               STATE_ENTERING,
                STATE_HIDING,
                STATE_HIDDEN,
             };
@@ -46,6 +46,8 @@ namespace AllegroFlare
 
             void update();
             void render();
+            void enter();
+            void exit();
             static bool is_valid_state(uint32_t state=STATE_UNDEF);
          };
       }

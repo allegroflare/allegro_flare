@@ -41,7 +41,7 @@ enums:
     enumerators:
       - STATE_UNDEF
       - STATE_NORMAL
-      - STATE_SHOWING
+      - STATE_ENTERING
       - STATE_HIDING
       - STATE_HIDDEN
 
@@ -67,6 +67,18 @@ methods:
       return;
 
 
+  - name: enter
+    body: |
+      set_state(STATE_ENTERING);
+      return;
+
+
+  - name: exit
+    body: |
+      set_state(STATE_HIDING);
+      return;
+
+
   - name: set_state
     private: true
     parameters:
@@ -84,16 +96,18 @@ methods:
 
       switch (state)
       {
-         case STATE_SHOWING:
+         case STATE_ENTERING:
          break;
 
          case STATE_NORMAL:
+            opacity = 1.0f;
          break;
 
          case STATE_HIDING:
          break;
 
          case STATE_HIDDEN:
+            opacity = 0.0f;
          break;
 
          default:
@@ -119,16 +133,29 @@ methods:
 
       switch (state)
       {
-         case STATE_SHOWING:
+         case STATE_ENTERING:
+            opacity += 0.05f;
+            if (opacity >= 1)
+            {
+               opacity = 1.0f;
+               set_state(STATE_NORMAL);
+            }
          break;
 
          case STATE_NORMAL:
+            opacity = 1.0f;
          break;
 
          case STATE_HIDING:
+            opacity -= 0.05f;
+            if (opacity <= 0.0)
+            {
+               set_state(STATE_NORMAL);
+            }
          break;
 
          case STATE_HIDDEN:
+            opacity = 0.0f;
          break;
 
          default:
@@ -149,7 +176,7 @@ methods:
     body: |
       std::set<uint32_t> valid_states =
       {
-         STATE_SHOWING,
+         STATE_ENTERING,
          STATE_NORMAL,
          STATE_HIDING,
          STATE_HIDDEN,
