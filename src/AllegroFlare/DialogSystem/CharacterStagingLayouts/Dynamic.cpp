@@ -264,8 +264,10 @@ void Dynamic::render()
    }
    if (hidden) return;
 
-   for (auto &staged_character : staged_characters)
+   for (int i=staged_characters.size()-1; i>=0; i--)
+   //for (auto &staged_character : staged_characters)
    {
+      auto &staged_character = staged_characters[i];
       ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(std::get<1>(staged_character));
       if (!bitmap) continue;
 

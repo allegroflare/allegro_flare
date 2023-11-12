@@ -2048,7 +2048,7 @@ table td
 </tr>
 <tr>
   <td class="property">staged_characters</td>
-  <td class="property">tsl::ordered_map&lt;std::string, std::tuple&lt;std::string, AllegroFlare::Placement3D&gt;&gt;</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, AllegroFlare::Placement3D&gt;&gt;</td>
 </tr>
 <tr>
   <td class="property">staged_character_expression_db</td>
@@ -2090,6 +2090,9 @@ table td
 </tr>
 <tr>
   <td class="method">staged_character_exists(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">find_staged_character(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">staged_character_expression_exists(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;)</td>
