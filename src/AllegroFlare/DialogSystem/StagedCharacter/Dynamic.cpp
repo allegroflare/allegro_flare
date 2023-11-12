@@ -16,11 +16,10 @@ namespace StagedCharacter
 {
 
 
-Dynamic::Dynamic()
-   : expression("[unset-bitmap_identifier]")
+Dynamic::Dynamic(std::string expression, AllegroFlare::Placement3D placement)
+   : expression(expression)
+   , placement(placement)
    , expression_bitmap(nullptr)
-   , placement()
-   , placement_destination()
    , opacity(1.0f)
    , state(STATE_UNDEF)
    , state_is_busy(false)
@@ -31,6 +30,30 @@ Dynamic::Dynamic()
 
 Dynamic::~Dynamic()
 {
+}
+
+
+void Dynamic::set_expression(std::string expression)
+{
+   this->expression = expression;
+}
+
+
+void Dynamic::set_placement(AllegroFlare::Placement3D placement)
+{
+   this->placement = placement;
+}
+
+
+std::string Dynamic::get_expression() const
+{
+   return expression;
+}
+
+
+AllegroFlare::Placement3D Dynamic::get_placement() const
+{
+   return placement;
 }
 
 

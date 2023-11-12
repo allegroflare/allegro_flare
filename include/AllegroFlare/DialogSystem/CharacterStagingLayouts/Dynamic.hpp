@@ -8,7 +8,6 @@
 #include <allegro5/allegro.h>
 #include <map>
 #include <string>
-#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -26,8 +25,7 @@ namespace AllegroFlare
 
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
-            std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> staged_characters;
-            std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters2;
+            std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters;
             std::map<std::pair<std::string, std::string>, std::string> staged_character_expressions_db;
             int surface_width;
             int surface_height;
@@ -41,14 +39,12 @@ namespace AllegroFlare
             virtual ~Dynamic();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
-            void set_staged_characters(std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> staged_characters);
-            void set_staged_characters2(std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters2);
+            void set_staged_characters(std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters);
             void set_staged_character_expressions_db(std::map<std::pair<std::string, std::string>, std::string> staged_character_expressions_db);
             void set_surface_width(int surface_width);
             void set_surface_height(int surface_height);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
-            std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> get_staged_characters() const;
-            std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> get_staged_characters2() const;
+            std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> get_staged_characters() const;
             std::map<std::pair<std::string, std::string>, std::string> get_staged_character_expressions_db() const;
             int get_surface_width() const;
             int get_surface_height() const;
@@ -59,12 +55,11 @@ namespace AllegroFlare
             virtual void clear() override;
             int num_staged_characters();
             bool staged_character_exists(std::string staged_character_identifier="[unset-staged_character_identifier]");
-            std::tuple<std::string, std::string, AllegroFlare::Placement3D>* find_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            AllegroFlare::DialogSystem::StagedCharacter::Dynamic* find_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
             bool staged_character_expression_exists(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             std::string find_staged_character_expression_bitmap_identifier(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
-            void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]", std::tuple<std::string, AllegroFlare::Placement3D> staging={});
+            void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]", AllegroFlare::DialogSystem::StagedCharacter::Dynamic staged_character={});
             void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
-            AllegroFlare::Placement3D get_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]");
             void set_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]", AllegroFlare::Placement3D placement={});
             void move_staged_character_to_front(std::string staged_character_identifier="[unset-staged_character_identifier]");
             void move_staged_character_to_back(std::string staged_character_identifier="[unset-staged_character_identifier]");

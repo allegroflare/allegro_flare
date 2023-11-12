@@ -4,18 +4,20 @@ properties:
   - name: expression
     type: std::string
     init_with: '"[unset-bitmap_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: placement
+    type: AllegroFlare::Placement3D
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: expression_bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
-
-  - name: placement
-    type: AllegroFlare::Placement3D
-    init_with: ''
-
-  - name: placement_destination
-    type: AllegroFlare::Placement3D
-    init_with: ''
 
   - name: opacity
     type: float

@@ -25,9 +25,8 @@ namespace AllegroFlare
                STATE_HIDDEN,
             };
             std::string expression;
-            ALLEGRO_BITMAP* expression_bitmap;
             AllegroFlare::Placement3D placement;
-            AllegroFlare::Placement3D placement_destination;
+            ALLEGRO_BITMAP* expression_bitmap;
             float opacity;
             uint32_t state;
             bool state_is_busy;
@@ -41,9 +40,13 @@ namespace AllegroFlare
 
 
          public:
-            Dynamic();
+            Dynamic(std::string expression="[unset-bitmap_identifier]", AllegroFlare::Placement3D placement={});
             ~Dynamic();
 
+            void set_expression(std::string expression);
+            void set_placement(AllegroFlare::Placement3D placement);
+            std::string get_expression() const;
+            AllegroFlare::Placement3D get_placement() const;
             void update();
             void render();
             void enter();

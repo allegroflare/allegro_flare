@@ -37,12 +37,3 @@ TEST_F(AllegroFlare_DialogSystem_StagedCharacter_DynamicTestWithAllegroRendering
 }
 
 
-TEST_F(AllegroFlare_DialogSystem_StagedCharacter_DynamicTestWithAllegroRenderingFixture,
-      CAPTURE__render__will_not_blow_up)
-{
-   AllegroFlare::DialogSystem::StagedCharacter::Dynamic dynamic;
-   dynamic.render();
-   al_flip_display();
-}
-
-

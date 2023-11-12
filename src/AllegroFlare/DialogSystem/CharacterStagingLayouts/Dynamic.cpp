@@ -21,7 +21,6 @@ Dynamic::Dynamic(AllegroFlare::BitmapBin* bitmap_bin)
    : AllegroFlare::DialogSystem::CharacterStagingLayouts::Base(AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::TYPE)
    , bitmap_bin(bitmap_bin)
    , staged_characters()
-   , staged_characters2()
    , staged_character_expressions_db()
    , surface_width(1920)
    , surface_height(1080)
@@ -41,15 +40,9 @@ void Dynamic::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 }
 
 
-void Dynamic::set_staged_characters(std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> staged_characters)
+void Dynamic::set_staged_characters(std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters)
 {
    this->staged_characters = staged_characters;
-}
-
-
-void Dynamic::set_staged_characters2(std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> staged_characters2)
-{
-   this->staged_characters2 = staged_characters2;
 }
 
 
@@ -77,15 +70,9 @@ AllegroFlare::BitmapBin* Dynamic::get_bitmap_bin() const
 }
 
 
-std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>> Dynamic::get_staged_characters() const
+std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> Dynamic::get_staged_characters() const
 {
    return staged_characters;
-}
-
-
-std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>> Dynamic::get_staged_characters2() const
-{
-   return staged_characters2;
 }
 
 
@@ -134,14 +121,12 @@ void Dynamic::hide(float time_now)
 void Dynamic::clear()
 {
    staged_characters.clear();
-   //staged_characters2.clear();
    return;
 }
 
 int Dynamic::num_staged_characters()
 {
    return staged_characters.size();
-   //return staged_characters2.size();
 }
 
 bool Dynamic::staged_character_exists(std::string staged_character_identifier)
@@ -149,16 +134,12 @@ bool Dynamic::staged_character_exists(std::string staged_character_identifier)
    return (find_staged_character(staged_character_identifier) != nullptr);
 }
 
-std::tuple<std::string, std::string, AllegroFlare::Placement3D>* Dynamic::find_staged_character(std::string staged_character_identifier)
+AllegroFlare::DialogSystem::StagedCharacter::Dynamic* Dynamic::find_staged_character(std::string staged_character_identifier)
 {
    for (auto &staged_character : staged_characters)
    {
-      if (std::get<0>(staged_character) == staged_character_identifier) return &staged_character;
+      if (staged_character.first == staged_character_identifier) return &staged_character.second;
    }
-   //for (auto &staged_character2 : staged_characters2)
-   //{
-      //if (std::get<0>(staged_character2) == staged_character_identifier) return &staged_character2;
-   //}
    return nullptr;
 }
 
@@ -166,7 +147,6 @@ bool Dynamic::staged_character_expression_exists(std::string staged_character_id
 {
    std::string _default = "[unfound-staged_character_expression_bitmap_identifier]";
    return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
-   //return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
 }
 
 std::string Dynamic::find_staged_character_expression_bitmap_identifier(std::string staged_character_identifier, std::string expression)
@@ -176,7 +156,7 @@ std::string Dynamic::find_staged_character_expression_bitmap_identifier(std::str
    return staged_character_expressions_db[std::make_pair(staged_character_identifier, expression)];
 }
 
-void Dynamic::add_staged_character(std::string staged_character_identifier, std::tuple<std::string, AllegroFlare::Placement3D> staging)
+void Dynamic::add_staged_character(std::string staged_character_identifier, AllegroFlare::DialogSystem::StagedCharacter::Dynamic staged_character)
 {
    if (!((!staged_character_exists(staged_character_identifier))))
    {
@@ -185,27 +165,22 @@ void Dynamic::add_staged_character(std::string staged_character_identifier, std:
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Dynamic::add_staged_character: error: guard \"(!staged_character_exists(staged_character_identifier))\" not met");
    }
-   staged_characters.push_back({ staged_character_identifier, std::get<0>(staging), std::get<1>(staging) });
+   staged_characters.push_back({ staged_character_identifier, staged_character });
    return;
 }
 
 void Dynamic::set_staged_character_expression(std::string staged_character_identifier, std::string expression)
 {
-   std::get<1>(*find_staged_character(staged_character_identifier)) = expression;
-   //std::get<1>(staged_characters[staged_character_identifier]) = expression;
-   return;
-}
-
-AllegroFlare::Placement3D Dynamic::get_staged_character_placement(std::string staged_character_identifier)
-{
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::get_staged_character_placement]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[Dynamic::set_staged_character_expression]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::get_staged_character_placement: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("Dynamic::set_staged_character_expression: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
-   return std::get<2>(*find_staged_character(staged_character_identifier));
+   find_staged_character(staged_character_identifier)->set_expression(expression);
+   // TODO: Assign bitmap here?
+   return;
 }
 
 void Dynamic::set_staged_character_placement(std::string staged_character_identifier, AllegroFlare::Placement3D placement)
@@ -217,8 +192,7 @@ void Dynamic::set_staged_character_placement(std::string staged_character_identi
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Dynamic::set_staged_character_placement: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
-   std::get<2>(*find_staged_character(staged_character_identifier)) = placement;
-   //std::get<2>(staged_characters[staged_character_identifier]) = placement;
+   find_staged_character(staged_character_identifier)->set_placement(placement);
    return;
 }
 
@@ -296,23 +270,23 @@ void Dynamic::render()
    //for (auto &staged_character : staged_characters)
    {
       auto &staged_character = staged_characters[i];
-      std::string bitmap_identifier = std::get<1>(staged_character);
+      std::string bitmap_identifier = staged_character.second.get_expression();
 
       // TODO: Note somewhere that an empty db will default to use the "expression" as the bitmap identifier
       if (!staged_character_expressions_db.empty())
       {
-         std::string character_identifier = std::get<0>(staged_character);
-         std::string character_expression = std::get<1>(staged_character);
+         std::string character_identifier = staged_character.first;
+         //std::string character_expression = staged_character.second.expression);
          bitmap_identifier = find_staged_character_expression_bitmap_identifier(
             character_identifier,
-            character_expression
+            bitmap_identifier
          );
       }
 
       ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(bitmap_identifier);
       if (!bitmap) continue;
 
-      AllegroFlare::Placement3D placement = std::get<2>(staged_character);
+      AllegroFlare::Placement3D placement = staged_character.second.get_placement();
       //AllegroFlare::Placement2D character_bitmap_placement_transform(
          //surface_width * 0.5,
          //surface_height * 1.0,

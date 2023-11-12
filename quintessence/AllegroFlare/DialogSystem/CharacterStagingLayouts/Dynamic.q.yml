@@ -17,12 +17,6 @@ properties:
     setter: true
 
   - name: staged_characters
-    type: std::vector<std::tuple<std::string, std::string, AllegroFlare::Placement3D>>
-    init_with: ''
-    getter: true
-    setter: true
-
-  - name: staged_characters2
     type: std::vector<std::pair<std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic>>
     init_with: ''
     getter: true
@@ -102,7 +96,6 @@ methods:
     override: true
     body: |
       staged_characters.clear();
-      //staged_characters2.clear();
       return;
 
 
@@ -110,7 +103,6 @@ methods:
     type: int
     body: |
       return staged_characters.size();
-      //return staged_characters2.size();
 
 
   - name: staged_character_exists
@@ -124,7 +116,7 @@ methods:
 
 
   - name: find_staged_character
-    type: std::tuple<std::string, std::string, AllegroFlare::Placement3D>*
+    type: AllegroFlare::DialogSystem::StagedCharacter::Dynamic*
     parameters:
       - name: staged_character_identifier
         type: std::string
@@ -132,12 +124,8 @@ methods:
     body: |
       for (auto &staged_character : staged_characters)
       {
-         if (std::get<0>(staged_character) == staged_character_identifier) return &staged_character;
+         if (staged_character.first == staged_character_identifier) return &staged_character.second;
       }
-      //for (auto &staged_character2 : staged_characters2)
-      //{
-         //if (std::get<0>(staged_character2) == staged_character_identifier) return &staged_character2;
-      //}
       return nullptr;
 
 
@@ -153,7 +141,6 @@ methods:
     body: |
       std::string _default = "[unfound-staged_character_expression_bitmap_identifier]";
       return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
-      //return find_staged_character_expression_bitmap_identifier(staged_character_identifier, expression) != _default;
 
 
   - name: find_staged_character_expression_bitmap_identifier
@@ -176,12 +163,12 @@ methods:
       - name: staged_character_identifier
         type: std::string
         default_argument: '"[unset-staged_character_identifier]"'
-      - name: staging
-        type: std::tuple<std::string, AllegroFlare::Placement3D>
+      - name: staged_character
+        type: AllegroFlare::DialogSystem::StagedCharacter::Dynamic
         default_argument: '{}'
     guards: [ (!staged_character_exists(staged_character_identifier)) ]
     body: |
-      staged_characters.push_back({ staged_character_identifier, std::get<0>(staging), std::get<1>(staging) });
+      staged_characters.push_back({ staged_character_identifier, staged_character });
       return;
 
 
@@ -193,21 +180,11 @@ methods:
       - name: expression
         type: std::string
         default_argument: '"[unset-expression]"'
-    body: |
-      std::get<1>(*find_staged_character(staged_character_identifier)) = expression;
-      //std::get<1>(staged_characters[staged_character_identifier]) = expression;
-      return;
-
-
-  - name: get_staged_character_placement
-    type: AllegroFlare::Placement3D
-    parameters:
-      - name: staged_character_identifier
-        type: std::string
-        default_argument: '"[unset-staged_character_identifier]"'
     guards: [ staged_character_exists(staged_character_identifier) ]
     body: |
-      return std::get<2>(*find_staged_character(staged_character_identifier));
+      find_staged_character(staged_character_identifier)->set_expression(expression);
+      // TODO: Assign bitmap here?
+      return;
 
 
   - name: set_staged_character_placement
@@ -220,8 +197,7 @@ methods:
         default_argument: '{}'
     guards: [ staged_character_exists(staged_character_identifier) ]
     body: |
-      std::get<2>(*find_staged_character(staged_character_identifier)) = placement;
-      //std::get<2>(staged_characters[staged_character_identifier]) = placement;
+      find_staged_character(staged_character_identifier)->set_placement(placement);
       return;
 
 
@@ -280,23 +256,23 @@ methods:
       //for (auto &staged_character : staged_characters)
       {
          auto &staged_character = staged_characters[i];
-         std::string bitmap_identifier = std::get<1>(staged_character);
+         std::string bitmap_identifier = staged_character.second.get_expression();
 
          // TODO: Note somewhere that an empty db will default to use the "expression" as the bitmap identifier
          if (!staged_character_expressions_db.empty())
          {
-            std::string character_identifier = std::get<0>(staged_character);
-            std::string character_expression = std::get<1>(staged_character);
+            std::string character_identifier = staged_character.first;
+            //std::string character_expression = staged_character.second.expression);
             bitmap_identifier = find_staged_character_expression_bitmap_identifier(
                character_identifier,
-               character_expression
+               bitmap_identifier
             );
          }
 
          ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(bitmap_identifier);
          if (!bitmap) continue;
 
-         AllegroFlare::Placement3D placement = std::get<2>(staged_character);
+         AllegroFlare::Placement3D placement = staged_character.second.get_placement();
          //AllegroFlare::Placement2D character_bitmap_placement_transform(
             //surface_width * 0.5,
             //surface_height * 1.0,

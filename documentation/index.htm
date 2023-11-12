@@ -2049,10 +2049,6 @@ table td
 </tr>
 <tr>
   <td class="property">staged_characters</td>
-  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string, AllegroFlare::Placement3D&gt;&gt;</td>
-</tr>
-<tr>
-  <td class="property">staged_characters2</td>
   <td class="property">std::vector&lt;std::pair&lt;std::string, AllegroFlare::DialogSystem::StagedCharacter::Dynamic&gt;&gt;</td>
 </tr>
 <tr>
@@ -2106,13 +2102,10 @@ table td
   <td class="method">find_staged_character_expression_bitmap_identifier(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">add_staged_character(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::tuple&lt;std::string, AllegroFlare::Placement3D&gt; staging={})</td>
+  <td class="method">add_staged_character(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, AllegroFlare::DialogSystem::StagedCharacter::Dynamic staged_character={})</td>
 </tr>
 <tr>
   <td class="method">set_staged_character_expression(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">get_staged_character_placement(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">set_staged_character_placement(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, AllegroFlare::Placement3D placement={})</td>
@@ -2907,16 +2900,12 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">expression_bitmap</td>
-  <td class="property">ALLEGRO_BITMAP*</td>
-</tr>
-<tr>
   <td class="property">placement</td>
   <td class="property">AllegroFlare::Placement3D</td>
 </tr>
 <tr>
-  <td class="property">placement_destination</td>
-  <td class="property">AllegroFlare::Placement3D</td>
+  <td class="property">expression_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
 <tr>
   <td class="property">opacity</td>
