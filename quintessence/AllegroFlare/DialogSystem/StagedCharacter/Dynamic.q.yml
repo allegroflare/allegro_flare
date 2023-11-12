@@ -93,6 +93,18 @@ methods:
       return;
 
 
+  - name: show
+    body: |
+      set_state(STATE_NORMAL);
+      return;
+
+
+  - name: hide
+    body: |
+      set_state(STATE_HIDDEN);
+      return;
+
+
   - name: set_state
     private: true
     parameters:

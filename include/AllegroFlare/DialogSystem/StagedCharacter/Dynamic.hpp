@@ -55,6 +55,8 @@ namespace AllegroFlare
             void render();
             void enter();
             void exit();
+            void show();
+            void hide();
             static bool is_valid_state(uint32_t state=STATE_UNDEF);
          };
       }

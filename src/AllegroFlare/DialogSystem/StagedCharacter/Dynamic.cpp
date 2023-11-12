@@ -118,6 +118,18 @@ void Dynamic::exit()
    return;
 }
 
+void Dynamic::show()
+{
+   set_state(STATE_NORMAL);
+   return;
+}
+
+void Dynamic::hide()
+{
+   set_state(STATE_HIDDEN);
+   return;
+}
+
 void Dynamic::set_state(uint32_t state, bool override_if_busy)
 {
    if (!(is_valid_state(state)))

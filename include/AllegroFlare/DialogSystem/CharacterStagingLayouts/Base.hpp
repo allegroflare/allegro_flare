@@ -28,6 +28,8 @@ namespace AllegroFlare
 
             std::string get_type() const;
             virtual void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]", float time_now=0.0f);
+            virtual void show_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            virtual void hide_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
             virtual void enter_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
             virtual void exit_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
             virtual void set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f);

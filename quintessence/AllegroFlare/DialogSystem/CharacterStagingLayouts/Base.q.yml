@@ -33,6 +33,28 @@ methods:
       return;
 
 
+  - name: show_character
+    virtual: true
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    body: |
+      // To Implement
+      return;
+
+
+  - name: hide_character
+    virtual: true
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    body: |
+      // To Implement
+      return;
+
+
   - name: enter_character
     virtual: true
     parameters:

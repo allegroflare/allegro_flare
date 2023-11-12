@@ -35,6 +35,18 @@ void Base::set_staged_character_expression(std::string staged_character_identifi
    return;
 }
 
+void Base::show_character(std::string staged_character_identifier)
+{
+   // To Implement
+   return;
+}
+
+void Base::hide_character(std::string staged_character_identifier)
+{
+   // To Implement
+   return;
+}
+
 void Base::enter_character(std::string staged_character_identifier)
 {
    // To Implement

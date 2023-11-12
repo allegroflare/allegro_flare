@@ -253,6 +253,32 @@ void Dynamic::move_staged_character_backward(std::string staged_character_identi
    return;
 }
 
+void Dynamic::show_character(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::show_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::show_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   find_staged_character(staged_character_identifier)->show();
+   return;
+}
+
+void Dynamic::hide_character(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::hide_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::hide_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   find_staged_character(staged_character_identifier)->hide();
+   return;
+}
+
 void Dynamic::enter_character(std::string staged_character_identifier)
 {
    if (!(staged_character_exists(staged_character_identifier)))
