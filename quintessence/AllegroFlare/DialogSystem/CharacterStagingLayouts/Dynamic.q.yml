@@ -139,7 +139,22 @@ methods:
         type: std::string
         default_argument: '"[unset-expression]"'
     body: |
-      return (staged_character_expression_db.count(std::make_pair(staged_character_identifier, expression)) > 0);
+      return find_saged_character_expression_bitmap(staged_character_identifier, expression) != nullptr;
+
+
+  - name: find_saged_character_expression_bitmap
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+      - name: expression
+        type: std::string
+        default_argument: '"[unset-expression]"'
+    body: |
+      if (staged_character_expression_db.count(std::make_pair(staged_character_identifier, expression)) == 0)
+         return nullptr;
+      return staged_character_expression_db[std::make_pair(staged_character_identifier, expression)];
 
 
   - name: add_staged_character

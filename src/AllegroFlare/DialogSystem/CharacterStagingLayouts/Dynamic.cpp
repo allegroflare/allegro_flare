@@ -145,7 +145,14 @@ std::tuple<std::string, std::string, AllegroFlare::Placement3D>* Dynamic::find_s
 
 bool Dynamic::staged_character_expression_exists(std::string staged_character_identifier, std::string expression)
 {
-   return (staged_character_expression_db.count(std::make_pair(staged_character_identifier, expression)) > 0);
+   return find_saged_character_expression_bitmap(staged_character_identifier, expression) != nullptr;
+}
+
+ALLEGRO_BITMAP* Dynamic::find_saged_character_expression_bitmap(std::string staged_character_identifier, std::string expression)
+{
+   if (staged_character_expression_db.count(std::make_pair(staged_character_identifier, expression)) == 0)
+      return nullptr;
+   return staged_character_expression_db[std::make_pair(staged_character_identifier, expression)];
 }
 
 void Dynamic::add_staged_character(std::string staged_character_identifier, std::tuple<std::string, AllegroFlare::Placement3D> staging)

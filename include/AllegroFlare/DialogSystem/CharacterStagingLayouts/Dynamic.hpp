@@ -57,6 +57,7 @@ namespace AllegroFlare
             bool staged_character_exists(std::string staged_character_identifier="[unset-staged_character_identifier]");
             std::tuple<std::string, std::string, AllegroFlare::Placement3D>* find_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
             bool staged_character_expression_exists(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
+            ALLEGRO_BITMAP* find_saged_character_expression_bitmap(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]", std::tuple<std::string, AllegroFlare::Placement3D> staging={});
             void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             AllegroFlare::Placement3D get_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]");
