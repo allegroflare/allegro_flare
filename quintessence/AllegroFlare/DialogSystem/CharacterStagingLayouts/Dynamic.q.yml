@@ -22,7 +22,7 @@ properties:
     getter: true
     setter: true
 
-  - name: staged_character_expression_db
+  - name: staged_character_expressions_db
     type: std::map<std::pair<std::string, std::string>, std::string>
     init_with: ''
     getter: true
@@ -153,9 +153,9 @@ methods:
         type: std::string
         default_argument: '"[unset-expression]"'
     body: |
-      if (staged_character_expression_db.count(std::make_pair(staged_character_identifier, expression)) == 0)
+      if (staged_character_expressions_db.count(std::make_pair(staged_character_identifier, expression)) == 0)
          return "[unfound-staged_character_expression_bitmap_identifier]";
-      return staged_character_expression_db[std::make_pair(staged_character_identifier, expression)];
+      return staged_character_expressions_db[std::make_pair(staged_character_identifier, expression)];
 
 
   - name: add_staged_character
@@ -270,10 +270,14 @@ methods:
          std::string bitmap_identifier = std::get<1>(staged_character);
 
          // TODO: Note somewhere that an empty db will default to use the "expression" as the bitmap identifier
-         if (!staged_character_expression_db.empty())
+         if (!staged_character_expressions_db.empty())
          {
             std::string character_identifier = std::get<0>(staged_character);
-            bitmap_identifier = find_staged_character_expression_bitmap_identifier(character_identifier);
+            std::string character_expression = std::get<1>(staged_character);
+            bitmap_identifier = find_staged_character_expression_bitmap_identifier(
+               character_identifier,
+               character_expression
+            );
          }
 
          ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(bitmap_identifier);

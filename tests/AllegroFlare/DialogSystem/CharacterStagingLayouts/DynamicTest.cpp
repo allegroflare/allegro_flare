@@ -108,11 +108,9 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroR
    CAPTURE__render__with_several_staged_characters__when_an_expression_db_is_present__will_not_blow_up)
 {
    AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging(&get_bitmap_bin_ref());
-   staging.set_staged_character_expression_db({
-      { { "BANKER_CAT", "normal" }, "banker-01.png" },
-      { { "DETECTIVE_CAT", "normal" }, "detective-01.png" },
-      //std::map<std::pair<std::string, std::string>, std::string> // TODO: Finish this, make it so map cannot
-                                                                   // be assigned
+   staging.set_staged_character_expressions_db({
+      { { "BANKER_CAT", "normal" }, "banker-01.gif" },
+      { { "DETECTIVE_CAT", "normal" }, "detective-01.gif" },
    });
    staging.add_staged_character(
       "BANKER_CAT",
