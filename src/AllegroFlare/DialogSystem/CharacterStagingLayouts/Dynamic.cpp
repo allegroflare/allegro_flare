@@ -253,6 +253,17 @@ void Dynamic::move_staged_character_backward(std::string staged_character_identi
    return;
 }
 
+void Dynamic::hide_characters_not_of(std::string staged_character_identifier)
+{
+   // TODO: Modify the passed in value to be a list
+   for (auto &staged_character : staged_characters)
+   {
+      if (staged_character.first == staged_character_identifier) continue;
+      find_staged_character(staged_character_identifier)->hide();
+   }
+   return;
+}
+
 void Dynamic::show_character(std::string staged_character_identifier)
 {
    if (!(staged_character_exists(staged_character_identifier)))
@@ -366,13 +377,6 @@ void Dynamic::render()
 
 void Dynamic::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
 {
-   if (!(speaking_character_bitmap))
-   {
-      std::stringstream error_message;
-      error_message << "[Dynamic::set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::set_speaking_character_bitmap: error: guard \"speaking_character_bitmap\" not met");
-   }
    // TODO: Test this method
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::set_speaking_character_bitmap",

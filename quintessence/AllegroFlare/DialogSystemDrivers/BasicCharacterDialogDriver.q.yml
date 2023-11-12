@@ -206,8 +206,11 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      // TODO: Consider an "set_speaking_character" as a technique for highlighting the speaking character
-      //set_speaking_character_expression(speaking_character_identifier);
+      if (active_character_staging_layout)
+      {
+         active_character_staging_layout->hide_characters_not_of(speaking_character_identifier);
+         active_character_staging_layout->show_character(speaking_character_identifier);
+      }
       return;
 
 
@@ -219,8 +222,11 @@ methods:
         type: std::string
         default_argument: '"[unset-speaking_character_identifier]"'
     body: |
-      // TODO: Consider an "set_speaking_character" as a technique for highlighting the speaking character
-      //set_speaking_character_expression(speaking_character_identifier);
+      if (active_character_staging_layout)
+      {
+         active_character_staging_layout->hide_characters_not_of(speaking_character_identifier);
+         active_character_staging_layout->show_character(speaking_character_identifier);
+      }
       return;
 
 

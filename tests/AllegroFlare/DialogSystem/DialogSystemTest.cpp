@@ -148,7 +148,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, can_be_created_without_blowin
 
 
 
-/*
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
@@ -565,7 +564,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    al_destroy_timer(primary_timer);
    al_uninstall_keyboard();
 }
-*/
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
@@ -628,10 +626,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
         { { "COMMISSIONER", "-normal-" }, "commissioner-01.gif" },
         { { "ASSISTANT", "-normal-" }, "assistant-01.gif" },
       });
-      dynamic->exit_character("BANKER");
-      dynamic->exit_character("COMMISSIONER");
-      dynamic->exit_character("DETECTIVE");
-      dynamic->exit_character("ASSISTANT");
+      dynamic->hide_character("BANKER");
+      dynamic->hide_character("COMMISSIONER");
+      dynamic->hide_character("DETECTIVE");
+      dynamic->hide_character("ASSISTANT");
          //new AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic(&get_bitmap_bin_ref());
       __driver->active_character_staging_layout = dynamic;
          //new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal(&get_bitmap_bin_ref());
