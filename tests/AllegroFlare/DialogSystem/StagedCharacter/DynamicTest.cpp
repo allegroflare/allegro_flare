@@ -28,15 +28,12 @@ TEST_F(AllegroFlare_DialogSystem_StagedCharacter_DynamicTest, render__without_al
 }
 
 
-/*
 TEST_F(AllegroFlare_DialogSystem_StagedCharacter_DynamicTestWithAllegroRenderingFixture,
       CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::DialogSystem::StagedCharacter::Dynamic dynamic;
    dynamic.render();
    al_flip_display();
-   sleep_for(1);
 }
-*/
 
 
