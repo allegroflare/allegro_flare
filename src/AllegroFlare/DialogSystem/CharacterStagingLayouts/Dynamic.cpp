@@ -105,7 +105,6 @@ void Dynamic::update(float time_now)
    for (auto &staged_character : staged_characters)
    {
       staged_character.second.update();
-      std::cout << staged_character.first << " opac: " << staged_character.second.get_opacity();
    }
 
    // NOTE: Nothing to be done here at this time
