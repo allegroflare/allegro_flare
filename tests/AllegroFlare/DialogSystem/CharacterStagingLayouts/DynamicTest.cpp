@@ -4,6 +4,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.hpp>
 //#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest : public ::testing::Test {};
@@ -150,11 +151,31 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCh
 
 
 TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCharacters,
-   CAPTURE__exit_character__will)
+   CAPTURE__exit_character__on_a_character_that_does_not_exist__will_blow_up)
 {
-   staging.render();
-   al_flip_display();
-   sleep_for(1);
+   EXPECT_THROW_WITH_MESSAGE(
+      staging.exit_character("A_CHARACTER_THAT_DOES_NOT_EXIST"),
+      std::runtime_error,
+      "Dynamic::exit_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met"
+   );
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCharacters,
+   CAPTURE__exit_character__will_remove_the_character_from_the_scene) // More specific
+{
+   staging.exit_character("BANKER_CAT");
+   int passes = 120;
+   for (int i=0; i<passes; i++)
+   {
+      staging.update();
+
+      clear();
+      staging.render();
+
+      al_flip_display();
+      sleep_for_frame();
+   }
 }
 
 
