@@ -48,8 +48,9 @@ namespace AllegroFlare
             virtual void show(float time_now=0.0f) override;
             virtual void hide(float time_now=0.0f) override;
             virtual void clear() override;
+            int num_staged_characters();
             bool staged_character_exists(std::string staged_character_identifier="[unset-staged_character_identifier]");
-            void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]", std::tuple<std::string, AllegroFlare::Placement3D> staging={});
             void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             AllegroFlare::Placement3D get_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]");
             void set_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]", AllegroFlare::Placement3D placement={});

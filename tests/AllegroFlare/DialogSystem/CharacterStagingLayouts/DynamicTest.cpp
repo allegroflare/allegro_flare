@@ -21,8 +21,24 @@ TEST(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest, TYPE__has_th
 
 TEST(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest, type__has_the_expected_value_matching_TYPE)
 {
-   AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic dynamic;
-   EXPECT_EQ(AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::TYPE, dynamic.get_type());
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging;
+   EXPECT_EQ(AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::TYPE, staging.get_type());
+}
+
+
+TEST(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest,
+   add_staged_characer__will_add_the_character_to_the_staging)
+{
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging;
+   staging.add_staged_character(
+      "HUGO",
+      {
+         "hugo.png",
+         AllegroFlare::Placement3D(0, 0, 0)
+      }
+   );
+   ASSERT_EQ(1, staging.num_staged_characters());
+   EXPECT_EQ(true, staging.staged_character_exists("HUGO"));
 }
 
 

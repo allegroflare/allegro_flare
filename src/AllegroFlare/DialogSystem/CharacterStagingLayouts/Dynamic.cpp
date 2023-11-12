@@ -111,21 +111,26 @@ void Dynamic::clear()
    return;
 }
 
+int Dynamic::num_staged_characters()
+{
+   return staged_characters.size();
+}
+
 bool Dynamic::staged_character_exists(std::string staged_character_identifier)
 {
    return (staged_characters.count(staged_character_identifier) > 0);
 }
 
-void Dynamic::add_staged_character(std::string staged_character_identifier)
+void Dynamic::add_staged_character(std::string staged_character_identifier, std::tuple<std::string, AllegroFlare::Placement3D> staging)
 {
-   if (!(staged_character_exists(staged_character_identifier)))
+   if (!((!staged_character_exists(staged_character_identifier))))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::add_staged_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[Dynamic::add_staged_character]: error: guard \"(!staged_character_exists(staged_character_identifier))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::add_staged_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("Dynamic::add_staged_character: error: guard \"(!staged_character_exists(staged_character_identifier))\" not met");
    }
-   staged_characters[staged_character_identifier] = std::tuple<std::string, AllegroFlare::Placement3D>();
+   staged_characters[staged_character_identifier] = staging;
    return;
 }
 
@@ -138,6 +143,7 @@ void Dynamic::set_staged_character_expression(std::string staged_character_ident
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Dynamic::set_staged_character_expression: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
+   std::get<0>(staged_characters[staged_character_identifier]) = expression;
    // TODO: Figure out if expression should be set as a string, as a bitmap, if a table should be present here, etc
    return;
 }

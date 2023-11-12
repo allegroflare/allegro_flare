@@ -93,6 +93,12 @@ methods:
       return;
 
 
+  - name: num_staged_characters
+    type: int
+    body: |
+      return staged_characters.size();
+
+
   - name: staged_character_exists
     type: bool
     parameters:
@@ -108,9 +114,12 @@ methods:
       - name: staged_character_identifier
         type: std::string
         default_argument: '"[unset-staged_character_identifier]"'
-    guards: [ staged_character_exists(staged_character_identifier) ]
+      - name: staging
+        type: std::tuple<std::string, AllegroFlare::Placement3D>
+        default_argument: '{}'
+    guards: [ (!staged_character_exists(staged_character_identifier)) ]
     body: |
-      staged_characters[staged_character_identifier] = std::tuple<std::string, AllegroFlare::Placement3D>();
+      staged_characters[staged_character_identifier] = staging;
       return;
 
 
@@ -124,6 +133,7 @@ methods:
         default_argument: '"[unset-expression]"'
     guards: [ staged_character_exists(staged_character_identifier) ]
     body: |
+      std::get<0>(staged_characters[staged_character_identifier]) = expression;
       // TODO: Figure out if expression should be set as a string, as a bitmap, if a table should be present here, etc
       return;
 
