@@ -15,13 +15,10 @@ namespace AllegroFlare
       {
          class Dynamic
          {
-         public:
-            static constexpr uint32_t STATE_UNDEF = 0;
-
          private:
             enum State : uint32_t
             {
-               STATE_NONE = 0,
+               STATE_UNDEF = 0,
                STATE_NORMAL,
                STATE_SHOWING,
                STATE_HIDING,

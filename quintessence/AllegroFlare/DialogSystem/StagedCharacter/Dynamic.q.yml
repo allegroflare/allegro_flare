@@ -33,20 +33,13 @@ properties:
     type: float
     init_with: 0.0f
 
-  - name: STATE_UNDEF
-    type: uint32_t
-    init_with: 0
-    const: true
-    static: true
-    constexpr: true
-
 
 enums:
 
   - name: State
     type: uint32_t
     enumerators:
-      - STATE_NONE
+      - STATE_UNDEF
       - STATE_NORMAL
       - STATE_SHOWING
       - STATE_HIDING
