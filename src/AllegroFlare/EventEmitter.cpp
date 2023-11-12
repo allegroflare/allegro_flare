@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/EventEmitter.hpp>
 
+#include <AllegroFlare/DialogSystem/DialogEventDatas/LoadDialogNodeBankFromFile.hpp>
 #include <AllegroFlare/DialogSystem/DialogEventDatas/SpawnDialogByName.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/GameEventDatas/AchievementUnlocked.hpp>
@@ -144,6 +145,26 @@ void EventEmitter::emit_activate_dialog_node_by_name_event(std::string dialog_no
    intptr_t data_to_pass = (intptr_t)(void *)(
       // TODO: Rename this SpawnDialogByName event should be renamed to ActivateDialogNodeByName
       new AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName(dialog_node_name_to_activate)
+   );
+   emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
+   return;
+}
+
+void EventEmitter::emit_load_dialog_file(std::string dialog_yaml_filename_to_load)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_load_dialog_file]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_load_dialog_file: error: guard \"initialized\" not met");
+   }
+   // TODO: Add test for this emission
+   // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
+   // TODO: Rename LoadDialogYAMLFile to a more abstract LoadDialogNodeBankFromFilename
+   //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+   intptr_t data_to_pass = (intptr_t)(void *)(
+      new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile(dialog_yaml_filename_to_load)
    );
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
    return;

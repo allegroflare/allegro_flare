@@ -130,6 +130,27 @@ functions:
       - AllegroFlare::DialogSystem::DialogEventDatas::SpawnDialogByName
 
 
+  - name: emit_load_dialog_file
+    parameters:
+      - name: dialog_yaml_filename_to_load
+        type: std::string
+        default_argument: '"[unset-dialog_yaml_filename_to_load]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Add test for this emission
+      // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
+      // TODO: Rename LoadDialogYAMLFile to a more abstract LoadDialogNodeBankFromFilename
+      //intptr_t data_to_pass = (intptr_t)(void *)(new std::string(dialog_node_name_to_open));
+      intptr_t data_to_pass = (intptr_t)(void *)(
+         new AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile(dialog_yaml_filename_to_load)
+      );
+      emit_event(ALLEGRO_FLARE_EVENT_DIALOG, data_to_pass);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::EventNames
+      - AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile
+
+
   - name: destroy_dialog_open_event_data
     static: true
     parameters:
