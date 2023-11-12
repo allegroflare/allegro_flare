@@ -133,7 +133,6 @@ blow_up)
          AllegroFlare::Placement3D(600, 0, 0)
       }
    );
-   //*/
 
    staging.render();
    al_flip_display();
