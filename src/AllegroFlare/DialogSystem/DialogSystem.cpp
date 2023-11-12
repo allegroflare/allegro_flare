@@ -446,8 +446,8 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       if (node_options_as_text.empty())
       {
          throw std::runtime_error(
-            "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options for node named \""
-               + dialog_name + "\" but there are no options."
+            "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options for "
+               "node named \"" + dialog_name + "\" but there are no options."
          );
       }
       else if (node_options_as_text.size() == 1)

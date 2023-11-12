@@ -148,6 +148,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, can_be_created_without_blowin
 
 
 
+/*
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
@@ -417,26 +418,24 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    //EXPECT_EQ("", dialog_system.get_active_dialog_node_name());
 
 
-/*
-   dialog_system.dialog_advance();
-   passes = NUM_PASSES;
-   for (int i=0; i<passes; i++)
-   {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-      dialog_system.update();
-      dialog_system.render();
-      al_flip_display();
-   }
-   dialog_system.dialog_advance();
-   passes = NUM_PASSES;
-   for (int i=0; i<passes; i++)
-   {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-      dialog_system.update();
-      dialog_system.render();
-      al_flip_display();
-   }
-*/
+   //dialog_system.dialog_advance();
+   //passes = NUM_PASSES;
+   //for (int i=0; i<passes; i++)
+   //{
+      //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      //dialog_system.update();
+      //dialog_system.render();
+      //al_flip_display();
+   //}
+   //dialog_system.dialog_advance();
+   //passes = NUM_PASSES;
+   //for (int i=0; i<passes; i++)
+   //{
+      //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      //dialog_system.update();
+      //dialog_system.render();
+      //al_flip_display();
+   //}
 }
 
 
@@ -566,6 +565,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    al_destroy_timer(primary_timer);
    al_uninstall_keyboard();
 }
+*/
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,

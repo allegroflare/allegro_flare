@@ -10,6 +10,39 @@ class AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest : public ::t
 class AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
+class AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCharacters
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+public:
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging;
+   virtual void SetUp() override
+   {
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+      staging.set_bitmap_bin(&get_bitmap_bin_ref());
+      setup_staged_characters();
+   }
+
+   void setup_staged_characters()
+   {
+      staging.set_staged_character_expressions_db({
+         { { "BANKER_CAT", "normal" }, "banker-01.gif" },
+         { { "DETECTIVE_CAT", "normal" }, "detective-01.gif" },
+      });
+      staging.add_staged_character(
+         "BANKER_CAT",
+         {
+            "normal",
+            AllegroFlare::Placement3D(300, 0, 0)
+         });
+      staging.add_staged_character(
+         "DETECTIVE_CAT",
+         {
+            "normal",
+            AllegroFlare::Placement3D(600, 0, 0)
+         }
+      );
+   }
+};
 
 
 TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest, can_be_created_without_blowing_up)
@@ -81,9 +114,12 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroR
 
 
 TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroRenderingFixture,
-   CAPTURE__render__with_several_staged_characters__will_not_blow_up)
+   CAPTURE__render__with_several_staged_characters__when_a_staged_character_expressions_db_is_not_present__will_not_\
+blow_up)
 {
-   AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging(&get_bitmap_bin_ref());
+   AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging;
+   staging.set_bitmap_bin(&get_bitmap_bin_ref());
+
    staging.add_staged_character(
       "BANKER_CAT",
       {
@@ -97,6 +133,7 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroR
          AllegroFlare::Placement3D(600, 0, 0)
       }
    );
+   //*/
 
    staging.render();
    al_flip_display();
@@ -104,28 +141,18 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroR
 }
 
 
-TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCharacters,
    CAPTURE__render__with_several_staged_characters__when_an_expression_db_is_present__will_not_blow_up)
 {
-   AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging(&get_bitmap_bin_ref());
-   staging.set_staged_character_expressions_db({
-      { { "BANKER_CAT", "normal" }, "banker-01.gif" },
-      { { "DETECTIVE_CAT", "normal" }, "detective-01.gif" },
-   });
-   staging.add_staged_character(
-      "BANKER_CAT",
-      {
-         "normal",
-         AllegroFlare::Placement3D(300, 0, 0)
-      });
-   staging.add_staged_character(
-      "DETECTIVE_CAT",
-      {
-         "normal",
-         AllegroFlare::Placement3D(600, 0, 0)
-      }
-   );
+   staging.render();
+   al_flip_display();
+   sleep_for(1);
+}
 
+
+TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCharacters,
+   CAPTURE__exit_character__will)
+{
    staging.render();
    al_flip_display();
    sleep_for(1);
