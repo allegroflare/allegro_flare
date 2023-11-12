@@ -109,19 +109,21 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithAllegroR
 {
    AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging(&get_bitmap_bin_ref());
    staging.set_staged_character_expression_db({
+      { { "BANKER_CAT", "normal" }, "banker-01.png" },
+      { { "DETECTIVE_CAT", "normal" }, "detective-01.png" },
       //std::map<std::pair<std::string, std::string>, std::string> // TODO: Finish this, make it so map cannot
                                                                    // be assigned
    });
    staging.add_staged_character(
       "BANKER_CAT",
       {
-         "banker-01.gif",
+         "normal",
          AllegroFlare::Placement3D(300, 0, 0)
       });
    staging.add_staged_character(
       "DETECTIVE_CAT",
       {
-         "detective-01.gif",
+         "normal",
          AllegroFlare::Placement3D(600, 0, 0)
       }
    );
