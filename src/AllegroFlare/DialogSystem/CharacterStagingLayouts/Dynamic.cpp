@@ -20,7 +20,8 @@ namespace CharacterStagingLayouts
 Dynamic::Dynamic(AllegroFlare::BitmapBin* bitmap_bin)
    : AllegroFlare::DialogSystem::CharacterStagingLayouts::Base(AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::TYPE)
    , bitmap_bin(bitmap_bin)
-   , staged_characters({})
+   , staged_characters()
+   , staged_character_expression_db()
    , surface_width(1920)
    , surface_height(1080)
    , hidden(false)
@@ -45,6 +46,12 @@ void Dynamic::set_staged_characters(tsl::ordered_map<std::string, std::tuple<std
 }
 
 
+void Dynamic::set_staged_character_expression_db(std::map<std::pair<std::string, std::string>, ALLEGRO_BITMAP*> staged_character_expression_db)
+{
+   this->staged_character_expression_db = staged_character_expression_db;
+}
+
+
 void Dynamic::set_surface_width(int surface_width)
 {
    this->surface_width = surface_width;
@@ -66,6 +73,12 @@ AllegroFlare::BitmapBin* Dynamic::get_bitmap_bin() const
 tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> Dynamic::get_staged_characters() const
 {
    return staged_characters;
+}
+
+
+std::map<std::pair<std::string, std::string>, ALLEGRO_BITMAP*> Dynamic::get_staged_character_expression_db() const
+{
+   return staged_character_expression_db;
 }
 
 
@@ -95,7 +108,7 @@ void Dynamic::update(float time_now)
 
 void Dynamic::show(float time_now)
 {
-   // NOTE: Nothing to be done here at this time
+   hidden = false;
    return;
 }
 
@@ -121,6 +134,12 @@ bool Dynamic::staged_character_exists(std::string staged_character_identifier)
    return (staged_characters.count(staged_character_identifier) > 0);
 }
 
+bool Dynamic::staged_character_expression_exists(std::string staged_character_identifier, std::string expression)
+{
+   return true;
+   //return (staged_character_expression_db.count(std::pair<staged_character_identifier, expression>) > 0);
+}
+
 void Dynamic::add_staged_character(std::string staged_character_identifier, std::tuple<std::string, AllegroFlare::Placement3D> staging)
 {
    if (!((!staged_character_exists(staged_character_identifier))))
@@ -136,14 +155,7 @@ void Dynamic::add_staged_character(std::string staged_character_identifier, std:
 
 void Dynamic::set_staged_character_expression(std::string staged_character_identifier, std::string expression)
 {
-   if (!(staged_character_exists(staged_character_identifier)))
-   {
-      std::stringstream error_message;
-      error_message << "[Dynamic::set_staged_character_expression]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::set_staged_character_expression: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
-   }
-   std::get<0>(staged_characters[staged_character_identifier]) = expression;
+   //std::get<0>(staged_characters[staged_character_identifier]) = expression;
    // TODO: Figure out if expression should be set as a string, as a bitmap, if a table should be present here, etc
    return;
 }

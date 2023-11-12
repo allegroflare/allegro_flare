@@ -18,7 +18,13 @@ properties:
 
   - name: staged_characters
     type: tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>>
-    init_with: '{}'
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: staged_character_expression_db
+    type: std::map<std::pair<std::string, std::string>, ALLEGRO_BITMAP*>
+    init_with: ''
     getter: true
     setter: true
 
@@ -69,7 +75,7 @@ methods:
         type: float
         default_argument: 0.0f
     body: |
-      // NOTE: Nothing to be done here at this time
+      hidden = false;
       return;
 
 
@@ -109,6 +115,20 @@ methods:
       return (staged_characters.count(staged_character_identifier) > 0);
 
 
+  - name: staged_character_expression_exists
+    type: bool
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+      - name: expression
+        type: std::string
+        default_argument: '"[unset-expression]"'
+    body: |
+      return true;
+      //return (staged_character_expression_db.count(std::pair<staged_character_identifier, expression>) > 0);
+
+
   - name: add_staged_character
     parameters:
       - name: staged_character_identifier
@@ -131,9 +151,9 @@ methods:
       - name: expression
         type: std::string
         default_argument: '"[unset-expression]"'
-    guards: [ staged_character_exists(staged_character_identifier) ]
+    xguards: [ staged_character_expression_exists(staged_character_identifier, expression) ]
     body: |
-      std::get<0>(staged_characters[staged_character_identifier]) = expression;
+      //std::get<0>(staged_characters[staged_character_identifier]) = expression;
       // TODO: Figure out if expression should be set as a string, as a bitmap, if a table should be present here, etc
       return;
 

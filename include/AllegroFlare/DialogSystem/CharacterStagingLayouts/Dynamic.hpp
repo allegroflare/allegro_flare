@@ -6,8 +6,10 @@
 #include <AllegroFlare/Placement3D.hpp>
 #include <allegro5/allegro.h>
 #include <lib/tsl/ordered_map.h>
+#include <map>
 #include <string>
 #include <tuple>
+#include <utility>
 
 
 namespace AllegroFlare
@@ -24,6 +26,7 @@ namespace AllegroFlare
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> staged_characters;
+            std::map<std::pair<std::string, std::string>, ALLEGRO_BITMAP*> staged_character_expression_db;
             int surface_width;
             int surface_height;
             bool hidden;
@@ -37,10 +40,12 @@ namespace AllegroFlare
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_staged_characters(tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> staged_characters);
+            void set_staged_character_expression_db(std::map<std::pair<std::string, std::string>, ALLEGRO_BITMAP*> staged_character_expression_db);
             void set_surface_width(int surface_width);
             void set_surface_height(int surface_height);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> get_staged_characters() const;
+            std::map<std::pair<std::string, std::string>, ALLEGRO_BITMAP*> get_staged_character_expression_db() const;
             int get_surface_width() const;
             int get_surface_height() const;
             bool get_hidden() const;
@@ -50,6 +55,7 @@ namespace AllegroFlare
             virtual void clear() override;
             int num_staged_characters();
             bool staged_character_exists(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            bool staged_character_expression_exists(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]", std::tuple<std::string, AllegroFlare::Placement3D> staging={});
             void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
             AllegroFlare::Placement3D get_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]");
