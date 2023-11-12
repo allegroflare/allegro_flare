@@ -77,6 +77,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterRoster.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml">quintessence/AllegroFlare/DialogSystem/Characters/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogSystem/Characters/Basic.q.yml">quintessence/AllegroFlare/DialogSystem/Characters/Basic.q.yml</a></li>
@@ -2031,6 +2032,111 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.q.yml">quintessence/AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">staged_characters</td>
+  <td class="property">tsl::ordered_map&lt;std::string, std::tuple&lt;std::string, AllegroFlare::Placement3D&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">hidden</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">update(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">show(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">hide(float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">clear()</td>
+</tr>
+<tr>
+  <td class="method">staged_character_exists(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">add_staged_character(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">set_staged_character_expression(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, std::string expression=&quot;[unset-expression]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">get_staged_character_placement(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">set_staged_character_placement(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;, AllegroFlare::Placement3D placement={})</td>
+</tr>
+<tr>
+  <td class="method">move_staged_character_to_front(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">move_staged_character_to_back(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">move_staged_character_forward(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">move_staged_character_backward(std::string staged_character_identifier=&quot;[unset-staged_character_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::CharacterStagingLayouts::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;tsl::ordered_map&quot;, &quot;headers&quot;=&gt;[&quot;lib/tsl/ordered_map.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -32367,6 +32473,7 @@ table td
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/Characters/Base",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
@@ -32505,6 +32612,7 @@ table td
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -32587,6 +32695,7 @@ table td
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
@@ -32872,6 +32981,7 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
@@ -32930,6 +33040,7 @@ table td
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
@@ -33185,6 +33296,7 @@ table td
   ],
   "tsl/ordered_map": [
     "AllegroFlare/DialogSystem/ChapterIndex",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
@@ -33198,6 +33310,7 @@ table td
   ],
   "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base": [
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"

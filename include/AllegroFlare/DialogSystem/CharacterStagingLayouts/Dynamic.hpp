@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <allegro5/allegro.h>
@@ -21,7 +22,8 @@ namespace AllegroFlare
             static constexpr char* TYPE = (char*)"AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic";
 
          private:
-            tsl::ordered_map<std::string, std::tuple<ALLEGRO_BITMAP*, AllegroFlare::Placement3D>> staged_characters;
+            AllegroFlare::BitmapBin* bitmap_bin;
+            tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> staged_characters;
             int surface_width;
             int surface_height;
             bool hidden;
@@ -30,13 +32,15 @@ namespace AllegroFlare
 
 
          public:
-            Dynamic();
+            Dynamic(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             virtual ~Dynamic();
 
-            void set_staged_characters(tsl::ordered_map<std::string, std::tuple<ALLEGRO_BITMAP*, AllegroFlare::Placement3D>> staged_characters);
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+            void set_staged_characters(tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> staged_characters);
             void set_surface_width(int surface_width);
             void set_surface_height(int surface_height);
-            tsl::ordered_map<std::string, std::tuple<ALLEGRO_BITMAP*, AllegroFlare::Placement3D>> get_staged_characters() const;
+            AllegroFlare::BitmapBin* get_bitmap_bin() const;
+            tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> get_staged_characters() const;
             int get_surface_width() const;
             int get_surface_height() const;
             bool get_hidden() const;
@@ -44,6 +48,15 @@ namespace AllegroFlare
             virtual void show(float time_now=0.0f) override;
             virtual void hide(float time_now=0.0f) override;
             virtual void clear() override;
+            bool staged_character_exists(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            void add_staged_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            void set_staged_character_expression(std::string staged_character_identifier="[unset-staged_character_identifier]", std::string expression="[unset-expression]");
+            AllegroFlare::Placement3D get_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            void set_staged_character_placement(std::string staged_character_identifier="[unset-staged_character_identifier]", AllegroFlare::Placement3D placement={});
+            void move_staged_character_to_front(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            void move_staged_character_to_back(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            void move_staged_character_forward(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            void move_staged_character_backward(std::string staged_character_identifier="[unset-staged_character_identifier]");
             virtual void render() override;
             virtual void set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f) override;
          };

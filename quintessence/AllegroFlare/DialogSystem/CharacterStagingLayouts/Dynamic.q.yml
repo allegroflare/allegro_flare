@@ -9,8 +9,15 @@ parent_classes:
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: staged_characters
-    type: tsl::ordered_map<std::string, std::tuple<ALLEGRO_BITMAP*, AllegroFlare::Placement3D>>
+    type: tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>>
     init_with: '{}'
     getter: true
     setter: true
@@ -86,17 +93,122 @@ methods:
       return;
 
 
+  - name: staged_character_exists
+    type: bool
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    body: |
+      return (staged_characters.count(staged_character_identifier) > 0);
+
+
+  - name: add_staged_character
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      staged_characters[staged_character_identifier] = std::tuple<std::string, AllegroFlare::Placement3D>();
+      return;
+
+
+  - name: set_staged_character_expression
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+      - name: expression
+        type: std::string
+        default_argument: '"[unset-expression]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      // TODO: Figure out if expression should be set as a string, as a bitmap, if a table should be present here, etc
+      return;
+
+
+  - name: get_staged_character_placement
+    type: AllegroFlare::Placement3D
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      return std::get<1>(staged_characters[staged_character_identifier]);
+
+
+  - name: set_staged_character_placement
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+      - name: placement
+        type: AllegroFlare::Placement3D
+        default_argument: '{}'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      // TODO
+      //std::get<1>(staged_characters[staged_character_identifier])
+      return;
+
+
+  - name: move_staged_character_to_front
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      // TODO
+      return;
+
+
+  - name: move_staged_character_to_back
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      // TODO
+      return;
+
+
+  - name: move_staged_character_forward
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      // TODO
+      return;
+
+
+  - name: move_staged_character_backward
+    parameters:
+      - name: staged_character_identifier
+        type: std::string
+        default_argument: '"[unset-staged_character_identifier]"'
+    guards: [ staged_character_exists(staged_character_identifier) ]
+    body: |
+      // TODO
+      return;
+
+
   - name: render
     virtual: true
     override: true
-    guards: [ al_is_system_installed() ]
+    guards: [ al_is_system_installed(), bitmap_bin ]
     body: |
       if (hidden) return;
 
       for (auto &staged_character : staged_characters)
       {
-         ALLEGRO_BITMAP *bitmap = std::get<0>(staged_character.second);
-         if (!bitmap) return;
+         ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(std::get<0>(staged_character.second));
+         if (!bitmap) continue;
 
          AllegroFlare::Placement3D placement = std::get<1>(staged_character.second);
          //AllegroFlare::Placement2D character_bitmap_placement_transform(
@@ -157,5 +269,7 @@ dependencies:
     headers: [ AllegroFlare/Placement3D.hpp ]
   - symbol: tsl::ordered_map
     headers: [ lib/tsl/ordered_map.h ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

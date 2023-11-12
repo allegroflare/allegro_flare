@@ -17,8 +17,9 @@ namespace CharacterStagingLayouts
 {
 
 
-Dynamic::Dynamic()
+Dynamic::Dynamic(AllegroFlare::BitmapBin* bitmap_bin)
    : AllegroFlare::DialogSystem::CharacterStagingLayouts::Base(AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::TYPE)
+   , bitmap_bin(bitmap_bin)
    , staged_characters({})
    , surface_width(1920)
    , surface_height(1080)
@@ -32,7 +33,13 @@ Dynamic::~Dynamic()
 }
 
 
-void Dynamic::set_staged_characters(tsl::ordered_map<std::string, std::tuple<ALLEGRO_BITMAP*, AllegroFlare::Placement3D>> staged_characters)
+void Dynamic::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void Dynamic::set_staged_characters(tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> staged_characters)
 {
    this->staged_characters = staged_characters;
 }
@@ -50,7 +57,13 @@ void Dynamic::set_surface_height(int surface_height)
 }
 
 
-tsl::ordered_map<std::string, std::tuple<ALLEGRO_BITMAP*, AllegroFlare::Placement3D>> Dynamic::get_staged_characters() const
+AllegroFlare::BitmapBin* Dynamic::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+tsl::ordered_map<std::string, std::tuple<std::string, AllegroFlare::Placement3D>> Dynamic::get_staged_characters() const
 {
    return staged_characters;
 }
@@ -98,6 +111,115 @@ void Dynamic::clear()
    return;
 }
 
+bool Dynamic::staged_character_exists(std::string staged_character_identifier)
+{
+   return (staged_characters.count(staged_character_identifier) > 0);
+}
+
+void Dynamic::add_staged_character(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::add_staged_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::add_staged_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   staged_characters[staged_character_identifier] = std::tuple<std::string, AllegroFlare::Placement3D>();
+   return;
+}
+
+void Dynamic::set_staged_character_expression(std::string staged_character_identifier, std::string expression)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::set_staged_character_expression]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::set_staged_character_expression: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   // TODO: Figure out if expression should be set as a string, as a bitmap, if a table should be present here, etc
+   return;
+}
+
+AllegroFlare::Placement3D Dynamic::get_staged_character_placement(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::get_staged_character_placement]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::get_staged_character_placement: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   return std::get<1>(staged_characters[staged_character_identifier]);
+}
+
+void Dynamic::set_staged_character_placement(std::string staged_character_identifier, AllegroFlare::Placement3D placement)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::set_staged_character_placement]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::set_staged_character_placement: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   // TODO
+   //std::get<1>(staged_characters[staged_character_identifier])
+   return;
+}
+
+void Dynamic::move_staged_character_to_front(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::move_staged_character_to_front]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::move_staged_character_to_front: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   // TODO
+   return;
+}
+
+void Dynamic::move_staged_character_to_back(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::move_staged_character_to_back]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::move_staged_character_to_back: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   // TODO
+   return;
+}
+
+void Dynamic::move_staged_character_forward(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::move_staged_character_forward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::move_staged_character_forward: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   // TODO
+   return;
+}
+
+void Dynamic::move_staged_character_backward(std::string staged_character_identifier)
+{
+   if (!(staged_character_exists(staged_character_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::move_staged_character_backward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::move_staged_character_backward: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+   }
+   // TODO
+   return;
+}
+
 void Dynamic::render()
 {
    if (!(al_is_system_installed()))
@@ -107,12 +229,19 @@ void Dynamic::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Dynamic::render: error: guard \"al_is_system_installed()\" not met");
    }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Dynamic::render]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Dynamic::render: error: guard \"bitmap_bin\" not met");
+   }
    if (hidden) return;
 
    for (auto &staged_character : staged_characters)
    {
-      ALLEGRO_BITMAP *bitmap = std::get<0>(staged_character.second);
-      if (!bitmap) return;
+      ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(std::get<0>(staged_character.second));
+      if (!bitmap) continue;
 
       AllegroFlare::Placement3D placement = std::get<1>(staged_character.second);
       //AllegroFlare::Placement2D character_bitmap_placement_transform(
