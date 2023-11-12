@@ -1,0 +1,189 @@
+properties:
+
+
+  - name: expression
+    type: std::string
+    init_with: '"[unset-bitmap_identifier]"'
+
+  - name: expression_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+
+  - name: placement
+    type: AllegroFlare::Placement3D
+    init_with: ''
+
+  - name: placement_destination
+    type: AllegroFlare::Placement3D
+    init_with: ''
+
+  - name: state
+    type: uint32_t
+    init_with: STATE_UNDEF
+
+  - name: state_is_busy
+    type: bool
+    init_with: false
+
+  - name: state_changed_at
+    type: float
+    init_with: 0.0f
+
+  - name: STATE_UNDEF
+    type: uint32_t
+    init_with: 0
+    const: true
+    static: true
+    constexpr: true
+
+
+enums:
+
+  - name: State
+    type: uint32_t
+    enumerators:
+      - STATE_NONE
+      - STATE_NORMAL
+      - STATE_SHOWING
+      - STATE_HIDING
+      - STATE_HIDDEN
+
+
+methods:
+
+
+  - name: update
+    body: |
+      return;
+
+
+  - name: render
+    body: |
+      if (!expression_bitmap) return;
+      {
+         placement.start_transform();
+         al_draw_bitmap(expression_bitmap, 0, 0, 0);
+         placement.restore_transform();
+      }
+      return;
+
+
+  - name: set_state
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+      - name: override_if_busy
+        type: bool
+        default_argument: false
+    guards: [ is_valid_state(state) ]
+    body: |
+      if (this->state == state) return;
+      if (!override_if_busy && state_is_busy) return;
+      uint32_t previous_state = this->state;
+
+      switch (state)
+      {
+         case STATE_SHOWING:
+         break;
+
+         case STATE_NORMAL:
+         break;
+
+         case STATE_HIDING:
+         break;
+
+         case STATE_HIDDEN:
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      this->state = state;
+      state_changed_at = al_get_time();
+
+      return;
+
+
+  - name: update_state
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    guards: [ is_valid_state(state) ]
+    body: |
+      float age = infer_current_state_age(time_now);
+
+      switch (state)
+      {
+         case STATE_SHOWING:
+         break;
+
+         case STATE_NORMAL:
+         break;
+
+         case STATE_HIDING:
+         break;
+
+         case STATE_HIDDEN:
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      return;
+
+
+  - name: is_valid_state
+    type: bool
+    static: true
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+      std::set<uint32_t> valid_states =
+      {
+         STATE_SHOWING,
+         STATE_NORMAL,
+         STATE_HIDING,
+         STATE_HIDDEN,
+      };
+      return (valid_states.count(state) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_state
+    type: bool
+    parameters:
+      - name: possible_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+     return (state == possible_state);
+
+
+  - name: infer_current_state_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return (time_now - state_changed_at);
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+
+
