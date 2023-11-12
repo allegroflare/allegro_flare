@@ -24,6 +24,8 @@ properties:
   - name: opacity
     type: float
     init_with: 1.0f
+    getter: true
+    setter: true
 
   - name: state
     type: uint32_t
@@ -72,7 +74,8 @@ methods:
       if (!expression_bitmap) return;
       {
          placement.start_transform();
-         al_draw_bitmap(expression_bitmap, 0, 0, 0);
+         ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
+         al_draw_tinted_bitmap(expression_bitmap, tint, 0, 0, 0);
          placement.restore_transform();
       }
       return;
@@ -160,7 +163,7 @@ methods:
             opacity -= 0.05f;
             if (opacity <= 0.0)
             {
-               set_state(STATE_NORMAL);
+               set_state(STATE_HIDDEN);
             }
          break;
 

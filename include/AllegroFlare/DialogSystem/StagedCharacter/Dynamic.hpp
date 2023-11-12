@@ -46,9 +46,11 @@ namespace AllegroFlare
             void set_expression(std::string expression);
             void set_placement(AllegroFlare::Placement3D placement);
             void set_expression_bitmap(ALLEGRO_BITMAP* expression_bitmap);
+            void set_opacity(float opacity);
             std::string get_expression() const;
             AllegroFlare::Placement3D get_placement() const;
             ALLEGRO_BITMAP* get_expression_bitmap() const;
+            float get_opacity() const;
             void update();
             void render();
             void enter();

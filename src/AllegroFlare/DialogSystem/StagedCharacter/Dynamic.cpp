@@ -51,6 +51,12 @@ void Dynamic::set_expression_bitmap(ALLEGRO_BITMAP* expression_bitmap)
 }
 
 
+void Dynamic::set_opacity(float opacity)
+{
+   this->opacity = opacity;
+}
+
+
 std::string Dynamic::get_expression() const
 {
    return expression;
@@ -66,6 +72,12 @@ AllegroFlare::Placement3D Dynamic::get_placement() const
 ALLEGRO_BITMAP* Dynamic::get_expression_bitmap() const
 {
    return expression_bitmap;
+}
+
+
+float Dynamic::get_opacity() const
+{
+   return opacity;
 }
 
 
@@ -87,7 +99,8 @@ void Dynamic::render()
    if (!expression_bitmap) return;
    {
       placement.start_transform();
-      al_draw_bitmap(expression_bitmap, 0, 0, 0);
+      ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
+      al_draw_tinted_bitmap(expression_bitmap, tint, 0, 0, 0);
       placement.restore_transform();
    }
    return;
@@ -174,7 +187,7 @@ void Dynamic::update_state(float time_now)
          opacity -= 0.05f;
          if (opacity <= 0.0)
          {
-            set_state(STATE_NORMAL);
+            set_state(STATE_HIDDEN);
          }
       break;
 
