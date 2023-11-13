@@ -523,7 +523,7 @@ methods:
       }
       else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
       {
-         active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+         active_dialog_node = found_dialog_node;
          // TODO: Test this event emission
          get_event_emitter()->emit_exit_game_event();
       }
