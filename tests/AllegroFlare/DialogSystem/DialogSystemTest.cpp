@@ -348,7 +348,10 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    AllegroFlare::DialogTree::Nodes::Wait node(3, "my_next_node_name_after_wait");
    dialog_system.activate_Wait_dialog_node(&node);
 
-   EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+   // Check the node is the expected node
+   EXPECT_EQ(&node, dialog_system.get_active_dialog_node()); // TODO: Consider this a separate test
+
+   // Check a dialog box was created with the expected data
    ASSERT_NE(nullptr, dialog_system.get_active_dialog_box());
    ASSERT_EQ("AllegroFlare/Elements/DialogBoxes/Wait", dialog_system.get_active_dialog_box()->get_type());
    // TODO: Continue with assertions on content of Wait dialog box
@@ -362,16 +365,19 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    AllegroFlare::DialogTree::Nodes::ChapterTitle node("Title of the Chapter", 3.0, "my_next_node_identifier");
    dialog_system.activate_ChapterTitle_dialog_node(&node);
 
+   // Check the node is the expected node
    EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+
+   // Check a dialog box was created with the expected data
    ASSERT_NE(nullptr, dialog_system.get_active_dialog_box());
    ASSERT_EQ(
       AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE,
       dialog_system.get_active_dialog_box()->get_type()
    );
-   //AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
-      //static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(dialog_system.get_active_dialog_box());
-   //EXPECT_EQ("Title of the Chapter", as->get_title_text());
-   //EXPECT_EQ(duration, as->get_duration());
+   AllegroFlare::Elements::DialogBoxes::ChapterTitle *as =
+      static_cast<AllegroFlare::Elements::DialogBoxes::ChapterTitle*>(dialog_system.get_active_dialog_box());
+   EXPECT_EQ("Title of the Chapter", as->get_title_text());
+   EXPECT_FLOAT_EQ(3.0, as->get_duration());
 }
 
 
