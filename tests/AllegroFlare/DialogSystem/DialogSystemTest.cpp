@@ -386,6 +386,21 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 }
 
 
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_ExitDialog_dialog_node__will_deactivate_the_dialog_system)
+{
+   // Ensure the dialog system is currently active
+   dialog_system.switch_in();
+   ASSERT_EQ(true, dialog_system.get_switched_in());
+
+   AllegroFlare::DialogTree::Nodes::ExitDialog node;
+
+   // Call the subject
+   dialog_system.activate_ExitDialog_dialog_node(&node);
+   EXPECT_EQ(false, dialog_system.get_switched_in());
+}
+
+
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    DISABLED__CAPTURE__render__when_a_dialog_box_is_open__will_work_as_expected)

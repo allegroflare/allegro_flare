@@ -401,6 +401,18 @@ methods:
       return;
 
 
+  - name: activate_ExitDialog_dialog_node
+    parameters:
+      - name: node
+        type: AllegroFlare::DialogTree::Nodes::ExitDialog*
+        default_argument: nullptr
+    guards: [ node ]
+    body: |
+      shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+                         //       should it be "switch_out" or "shutdown", etc
+      return;
+
+
   - name: activate_MultipageWithOptions_dialog_node
     parameters:
       - name: node
@@ -541,9 +553,7 @@ methods:
       {
          AllegroFlare::DialogTree::Nodes::ExitDialog *as =
             static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(found_dialog_node);
-         active_dialog_node = found_dialog_node;
-         shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
-                                           // should it be "switch_out" or "shutdown", etc
+         activate_ExitDialog_dialog_node(as);
       }
       else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
       {

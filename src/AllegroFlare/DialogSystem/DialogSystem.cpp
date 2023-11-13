@@ -484,6 +484,20 @@ void DialogSystem::activate_ChapterTitle_dialog_node(AllegroFlare::DialogTree::N
    return;
 }
 
+void DialogSystem::activate_ExitDialog_dialog_node(AllegroFlare::DialogTree::Nodes::ExitDialog* node)
+{
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_ExitDialog_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_ExitDialog_dialog_node: error: guard \"node\" not met");
+   }
+   shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+                      //       should it be "switch_out" or "shutdown", etc
+   return;
+}
+
 void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node, std::string node_identifier)
 {
    if (!(node))
@@ -625,9 +639,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    {
       AllegroFlare::DialogTree::Nodes::ExitDialog *as =
          static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(found_dialog_node);
-      active_dialog_node = found_dialog_node;
-      shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
-                                        // should it be "switch_out" or "shutdown", etc
+      activate_ExitDialog_dialog_node(as);
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
    {
