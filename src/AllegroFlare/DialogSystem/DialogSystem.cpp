@@ -418,6 +418,7 @@ void DialogSystem::activate_EmitGameEvent_dialog_node(const AllegroFlare::Dialog
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_EmitGameEvent_dialog_node: error: guard \"node\" not met");
    }
+   active_dialog_node = node; // TODO: Test this line
    // For now, nullptr data
    event_emitter->emit_game_event(AllegroFlare::GameEvent(node->get_game_event_name(), nullptr));
    if (!node->get_immediate_next_node_identifier().empty())
@@ -442,6 +443,7 @@ void DialogSystem::activate_RawScriptLine_dialog_node(const AllegroFlare::Dialog
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_RawScriptLine_dialog_node: error: guard \"node\" not met");
    }
+   active_dialog_node = node; // TODO: Test this line
    // TODO: Investigate why no properties from RawScriptLine are used in this command
    // TODO: Test with driver and without driver
    if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
@@ -461,6 +463,7 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_MultipageWithOptions_dialog_node: error: guard \"node\" not met");
    }
+   active_dialog_node = node; // TODO: Test this line
    //active_dialog_node = node; //dialog_node_bank.find_node_by_name(dialog_name);
    // NOTE: The actual technique used to handle the "MutlipageWithOptions" node will vary depending on the
    //       content of the node.
@@ -481,7 +484,7 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
             
 
    // TODO: Consider making node const (will require const on "build_options_as_text")
-   // TODO: Consider removing "node_identifier" from this method
+   // TODO: Consider removing "node_identifier" from this method, it's present only for debugging reasons
    // TODO: Unindent this method
    //AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
          //static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
@@ -552,43 +555,44 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    // (unless those state changes are done in the called functions themselves.).  If you find functionality like
    // that here, consider extracting it to a function.
 
+   // NOTE: Each activation should probably, in itself, assign the dialog as the "active_dialog_node". However,
+   // may consider alternative. Importantce being that there should be a synchronization of between the "activate"
+   // and "advance" actions
+
    //std::string &dialog_name = active_dialog_node_name;
 
    if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
    {
-      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(active_dialog_node);
+         static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(found_dialog_node);
       activate_EmitGameEvent_dialog_node(as);
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {
-      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::RawScriptLine *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::RawScriptLine*>(active_dialog_node);
+         static_cast<AllegroFlare::DialogTree::Nodes::RawScriptLine*>(found_dialog_node);
       activate_RawScriptLine_dialog_node(as);
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
-      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
-         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
+         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(found_dialog_node);
       activate_MultipageWithOptions_dialog_node(as_multipage_with_options);
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
    {
-      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::Wait *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(found_dialog_node);
+      active_dialog_node = found_dialog_node;
 
       float duration_seconds = as->get_duration_sec();
       spawn_wait_dialog(duration_seconds);
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
    {
-      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
+         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(found_dialog_node);
+      active_dialog_node = found_dialog_node;
 
       spawn_chapter_title_dialog(
             as->get_title_text(),
@@ -597,19 +601,23 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
+      AllegroFlare::DialogTree::Nodes::ExitDialog *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(found_dialog_node);
       active_dialog_node = found_dialog_node;
       shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
                                         // should it be "switch_out" or "shutdown", etc
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
    {
+      AllegroFlare::DialogTree::Nodes::ExitProgram *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ExitProgram*>(found_dialog_node);
       active_dialog_node = found_dialog_node;
       // TODO: Test this event emission
       get_event_emitter()->emit_exit_game_event();
    }
    else
    {
-      active_dialog_node = found_dialog_node;
+      active_dialog_node = found_dialog_node; // NOTE: Unsure if assignment should occour here
       bool handled = false;
       if (driver)
       {
