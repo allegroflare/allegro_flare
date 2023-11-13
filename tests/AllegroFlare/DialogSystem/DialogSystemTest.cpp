@@ -9,6 +9,7 @@
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp> // TODO: Consider alternative to this loader
@@ -344,8 +345,9 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
    activate_Wait_dialog_node__will_spawn_a_wait_dialog_with_the_expected_data)
 {
-   // TODO: Test with an imediate_next_node_identifier
    AllegroFlare::DialogTree::Nodes::Wait node(3, "my_next_node_name_after_wait");
+
+   // Call the subject
    dialog_system.activate_Wait_dialog_node(&node);
 
    // Check the node is the expected node
@@ -353,16 +355,19 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 
    // Check a dialog box was created with the expected data
    ASSERT_NE(nullptr, dialog_system.get_active_dialog_box());
-   ASSERT_EQ("AllegroFlare/Elements/DialogBoxes/Wait", dialog_system.get_active_dialog_box()->get_type());
-   // TODO: Continue with assertions on content of Wait dialog box
+   ASSERT_EQ(AllegroFlare::Elements::DialogBoxes::Wait::TYPE, dialog_system.get_active_dialog_box()->get_type());
+   AllegroFlare::Elements::DialogBoxes::Wait *as =
+      static_cast<AllegroFlare::Elements::DialogBoxes::Wait*>(dialog_system.get_active_dialog_box());
+   EXPECT_FLOAT_EQ(3.0, as->get_duration()); // TODO: Fix name to "duration_seconds"
 }
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
    activate_ChapterTitle_dialog_node__will_spawn_a_chapter_dialog_dialog_with_the_expected_data)
 {
-   // TODO: Test with an imediate_next_node_identifier
    AllegroFlare::DialogTree::Nodes::ChapterTitle node("Title of the Chapter", 3.0, "my_next_node_identifier");
+
+   // Call the subject
    dialog_system.activate_ChapterTitle_dialog_node(&node);
 
    // Check the node is the expected node
