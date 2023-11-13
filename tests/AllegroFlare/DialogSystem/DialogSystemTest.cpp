@@ -336,6 +336,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    dialog_system.activate_MultipageWithOptions_dialog_node(&node);
 
    // TODO: Test consequence of activation
+   //EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
 }
 
 

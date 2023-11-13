@@ -110,9 +110,21 @@ AllegroFlare::DialogTree::NodeBank DialogSystem::get_dialog_node_bank() const
 }
 
 
+AllegroFlare::DialogTree::Nodes::Base* DialogSystem::get_active_dialog_node() const
+{
+   return active_dialog_node;
+}
+
+
 std::string DialogSystem::get_active_dialog_node_name() const
 {
    return active_dialog_node_name;
+}
+
+
+AllegroFlare::Elements::DialogBoxes::Base* DialogSystem::get_active_dialog_box() const
+{
+   return active_dialog_box;
 }
 
 
@@ -449,8 +461,9 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_MultipageWithOptions_dialog_node: error: guard \"node\" not met");
    }
-   // NOTE: The actual technique used to handle the "MutlipageWithOptions" node will vary depending
-   //       on the content of the node.
+   //active_dialog_node = node; //dialog_node_bank.find_node_by_name(dialog_name);
+   // NOTE: The actual technique used to handle the "MutlipageWithOptions" node will vary depending on the
+   //       content of the node.
    //    1) If it has a only one choice, then only a BasicDialog will be spawned
    //       and on advance(), will activate the choice as if it were the only choice. This was done for downstream
    //       simplicity, but should likely be fixed.
@@ -522,8 +535,16 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
 
 void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
-   active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+   if (!(dialog_node_bank.node_exists_by_name(dialog_name)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_dialog_node_by_name]: error: guard \"dialog_node_bank.node_exists_by_name(dialog_name)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: guard \"dialog_node_bank.node_exists_by_name(dialog_name)\" not met");
+   }
    active_dialog_node_name = dialog_name;
+   AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+   //active_dialog_node_name = dialog_name;
 
    // NOTE: This function is responsible for interpreting a DialogSystem::Node* into an action.  In general
    // this method should not focus on translating the parameters/properties of the node to another, single function
@@ -533,34 +554,39 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
    //std::string &dialog_name = active_dialog_node_name;
 
-   if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
+   if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
    {
+      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
          static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(active_dialog_node);
       activate_EmitGameEvent_dialog_node(as);
    }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
+   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {
+      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::RawScriptLine *as =
          static_cast<AllegroFlare::DialogTree::Nodes::RawScriptLine*>(active_dialog_node);
       activate_RawScriptLine_dialog_node(as);
    }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
+      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
          static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
       activate_MultipageWithOptions_dialog_node(as_multipage_with_options);
    }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
    {
+      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::Wait *as =
          static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
 
       float duration_seconds = as->get_duration_sec();
       spawn_wait_dialog(duration_seconds);
    }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
    {
+      active_dialog_node = found_dialog_node;
       AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
          static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
 
@@ -569,18 +595,21 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
             as->get_duration()
          );
    }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
+      active_dialog_node = found_dialog_node;
       shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
                                         // should it be "switch_out" or "shutdown", etc
    }
-   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
    {
+      active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
       // TODO: Test this event emission
       get_event_emitter()->emit_exit_game_event();
    }
    else
    {
+      active_dialog_node = found_dialog_node;
       bool handled = false;
       if (driver)
       {

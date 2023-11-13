@@ -67,7 +67,9 @@ namespace AllegroFlare
          void set_standard_dialog_box_height(float standard_dialog_box_height);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::DialogTree::NodeBank get_dialog_node_bank() const;
+         AllegroFlare::DialogTree::Nodes::Base* get_active_dialog_node() const;
          std::string get_active_dialog_node_name() const;
+         AllegroFlare::Elements::DialogBoxes::Base* get_active_dialog_box() const;
          AllegroFlare::DialogSystemDrivers::Base* get_driver() const;
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
