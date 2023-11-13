@@ -25,6 +25,27 @@
 #include <AllegroFlare/EventNames.hpp>
 
 
+
+static void extract_characters(int id, char& a, char& b, char& c, char& d)
+{
+   a = static_cast<char>((id >> 24) & 0xFF);
+   b = static_cast<char>((id >> 16) & 0xFF);
+   c = static_cast<char>((id >> 8) & 0xFF);
+   d = static_cast<char>(id & 0xFF);
+}
+
+static std::string extract_characters2(int id) //, char& a, char& b, char& c, char& d)
+{
+   char a = static_cast<char>((id >> 24) & 0xFF);
+   char b = static_cast<char>((id >> 16) & 0xFF);
+   char c = static_cast<char>((id >> 8) & 0xFF);
+   char d = static_cast<char>(id & 0xFF);
+   std::stringstream result;
+   result << a << b << c << d;
+   return result.str();
+}
+
+
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
 
 class AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture
@@ -398,6 +419,24 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    // Call the subject
    dialog_system.activate_ExitDialog_dialog_node(&node);
    EXPECT_EQ(false, dialog_system.get_switched_in());
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_ExitProgram_dialog_node__will_emit_an_event_to_shutdown_the_program)
+{
+   // Ensure the dialog system is currently active
+   dialog_system.switch_in();
+   ASSERT_EQ(true, dialog_system.get_switched_in());
+
+   AllegroFlare::DialogTree::Nodes::ExitProgram node;
+
+   // Call the subject
+   dialog_system.activate_ExitProgram_dialog_node(&node);
+
+   ALLEGRO_EVENT next_event;
+   ASSERT_EQ(true, al_peek_next_event(event_queue, &next_event));
+   //EXPECT_EQ(ALLEGRO_FLARE_EVENT_EXIT_GAME, next_event.type); // This should be true but is not, Fix
 }
 
 

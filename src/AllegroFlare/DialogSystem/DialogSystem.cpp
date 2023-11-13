@@ -493,8 +493,23 @@ void DialogSystem::activate_ExitDialog_dialog_node(AllegroFlare::DialogTree::Nod
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_ExitDialog_dialog_node: error: guard \"node\" not met");
    }
+   active_dialog_node = node; // Mostly redundant (shutdown_dialog will clear this value anyway)
    shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
                       //       should it be "switch_out" or "shutdown", etc
+   return;
+}
+
+void DialogSystem::activate_ExitProgram_dialog_node(AllegroFlare::DialogTree::Nodes::ExitProgram* node)
+{
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_ExitProgram_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_ExitProgram_dialog_node: error: guard \"node\" not met");
+   }
+   active_dialog_node = node;
+   get_event_emitter()->emit_exit_game_event();
    return;
 }
 
@@ -645,9 +660,10 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    {
       AllegroFlare::DialogTree::Nodes::ExitProgram *as =
          static_cast<AllegroFlare::DialogTree::Nodes::ExitProgram*>(found_dialog_node);
-      active_dialog_node = found_dialog_node;
+      //active_dialog_node = found_dialog_node;
+      activate_ExitProgram_dialog_node(as);
       // TODO: Test this event emission
-      get_event_emitter()->emit_exit_game_event();
+      //get_event_emitter()->emit_exit_game_event();
    }
    else
    {
