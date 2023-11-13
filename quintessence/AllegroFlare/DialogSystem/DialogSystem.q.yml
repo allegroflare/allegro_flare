@@ -376,6 +376,19 @@ methods:
       return;
 
 
+  - name: activate_Wait_dialog_node
+    parameters:
+      - name: node
+        type: AllegroFlare::DialogTree::Nodes::Wait*
+        default_argument: nullptr
+    guards: [ node ]
+    body: |
+      active_dialog_node = node; // TODO: Test this line
+      float duration_seconds = node->get_duration_sec();
+      spawn_wait_dialog(duration_seconds);
+      return;
+
+
   - name: activate_MultipageWithOptions_dialog_node
     parameters:
       - name: node
@@ -504,10 +517,7 @@ methods:
       {
          AllegroFlare::DialogTree::Nodes::Wait *as =
             static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(found_dialog_node);
-         active_dialog_node = found_dialog_node;
-
-         float duration_seconds = as->get_duration_sec();
-         spawn_wait_dialog(duration_seconds);
+         activate_Wait_dialog_node(as);
       }
       else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
       {

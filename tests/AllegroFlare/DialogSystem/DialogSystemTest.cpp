@@ -340,6 +340,19 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 }
 
 
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_Wait_dialog_node__will_spawn_a_wait_dialog_with_the_expected_data)
+{
+   // TODO: Test with an imediate_next_node_identifier
+   AllegroFlare::DialogTree::Nodes::Wait node(3, "my_next_node_name_after_wait");
+   dialog_system.activate_Wait_dialog_node(&node);
+
+   ASSERT_NE(nullptr, dialog_system.get_active_dialog_box());
+   ASSERT_EQ("AllegroFlare/Elements/DialogBoxes/Wait", dialog_system.get_active_dialog_box()->get_type());
+   // TODO: Continue with assertions on content of Wait dialog box
+}
+
+
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    DISABLED__CAPTURE__render__when_a_dialog_box_is_open__will_work_as_expected)

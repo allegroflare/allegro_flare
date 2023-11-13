@@ -455,6 +455,21 @@ void DialogSystem::activate_RawScriptLine_dialog_node(AllegroFlare::DialogTree::
    return;
 }
 
+void DialogSystem::activate_Wait_dialog_node(AllegroFlare::DialogTree::Nodes::Wait* node)
+{
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_Wait_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_Wait_dialog_node: error: guard \"node\" not met");
+   }
+   active_dialog_node = node; // TODO: Test this line
+   float duration_seconds = node->get_duration_sec();
+   spawn_wait_dialog(duration_seconds);
+   return;
+}
+
 void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node, std::string node_identifier)
 {
    if (!(node))
@@ -584,10 +599,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    {
       AllegroFlare::DialogTree::Nodes::Wait *as =
          static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(found_dialog_node);
-      active_dialog_node = found_dialog_node;
-
-      float duration_seconds = as->get_duration_sec();
-      spawn_wait_dialog(duration_seconds);
+      activate_Wait_dialog_node(as);
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
    {
