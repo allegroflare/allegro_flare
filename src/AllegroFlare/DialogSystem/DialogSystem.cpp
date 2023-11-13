@@ -397,6 +397,27 @@ void DialogSystem::switch_out()
    return;
 }
 
+void DialogSystem::activate_EmitGameEvent_dialog_node(AllegroFlare::DialogTree::Nodes::EmitGameEvent* node)
+{
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_EmitGameEvent_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_EmitGameEvent_dialog_node: error: guard \"node\" not met");
+   }
+   // For now, nullptr data
+   event_emitter->emit_game_event(AllegroFlare::GameEvent(node->get_game_event_name(), nullptr));
+   if (!node->get_immediate_next_node_identifier().empty())
+   {
+      // If the "immediate_next_node_identifier" is not blank, activate that node. Note that any
+      // expected consequences of the emitted game event will not have had time to process before this
+      // "immediate_next_node_identifier" is emitted
+      activate_dialog_node_by_name(node->get_immediate_next_node_identifier());
+   }
+   return;
+}
+
 void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
    active_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
@@ -414,16 +435,17 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    {
       AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
          static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(active_dialog_node);
-      event_emitter->emit_game_event(
-         AllegroFlare::GameEvent(as->get_game_event_name(), nullptr) // For now, nullptr data
-      );
-      if (!as->get_immediate_next_node_identifier().empty())
-      {
+      activate_EmitGameEvent_dialog_node(as);
+      //event_emitter->emit_game_event(
+         //AllegroFlare::GameEvent(as->get_game_event_name(), nullptr) // For now, nullptr data
+      //);
+      //if (!as->get_immediate_next_node_identifier().empty())
+      //{
          // If the "immediate_next_node_identifier" is not blank, activate that node. Note that any
          // expected consequences of the emitted game event will not have had time to process before this
          // "immediate_next_node_identifier" is emitted
-         activate_dialog_node_by_name(as->get_immediate_next_node_identifier());
-      }
+         //activate_dialog_node_by_name(as->get_immediate_next_node_identifier());
+      //}
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {

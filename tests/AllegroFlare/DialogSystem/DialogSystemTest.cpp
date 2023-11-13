@@ -244,9 +244,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &event_emitter
    );
    dialog_system.initialize();
-   dialog_system.set_driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
+   AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *driver = create_driver(&get_bitmap_bin_ref());
+   dialog_system.set_driver(driver);
    dialog_system.render();
    al_flip_display();
+   delete driver;
 }
 
 
@@ -306,7 +308,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
       &get_font_bin_ref(),
       &event_emitter
    );
-   //dialog_system.set_load_node_bank_func(my_load_node_bank_func);
    dialog_system.initialize();
    dialog_system.set_driver(create_driver(&get_bitmap_bin_ref())); // TODO: Destroy this driver
 
