@@ -103,12 +103,18 @@ class AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharact
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
 public:
+   ALLEGRO_EVENT_QUEUE *event_queue;
    AllegroFlare::EventEmitter event_emitter;
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver dialog_system_driver;
    virtual void SetUp() override
    {
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+      ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
+      // Initialize our event emitter
+      event_emitter.initialize();
+      al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
       // Setup the dialog system
       dialog_system.set_bitmap_bin(&get_bitmap_bin_ref());
@@ -284,7 +290,8 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
    activate_EmitGameEvent_dialog_node__will_emit_a_game_event)
 {
-   // TODO: Implement test here
+   AllegroFlare::DialogTree::Nodes::EmitGameEvent node("my_game_event", ""); // TODO: Test with an imediate_next_node_identifier
+   dialog_system.activate_EmitGameEvent_dialog_node(&node);
 }
 
 
