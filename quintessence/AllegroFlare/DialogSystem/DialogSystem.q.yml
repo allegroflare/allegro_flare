@@ -381,60 +381,74 @@ methods:
         default_argument: '"[unset-node_identifier-for-MultipageWithOptions]"'
     guards: [ node ]
     body: |
+      // NOTE: The actual technique used to handle the "MutlipageWithOptions" node will vary depending
+      //       on the content of the node.
+      //    1) If it has a only one choice, then only a BasicDialog will be spawned
+      //       and on advance(), will activate the choice as if it were the only choice. This was done for downstream
+      //       simplicity, but should likely be fixed.
+      //    2) If no options are listed at all, will throw an error
+      //    3) When options are present, only 1 page of dialog is allowed. Again, this was probably for downstream
+      //       simplicity, and should likely be fixed.
+
+      // NOTE: Additional side-effects include:
+      //    1) A callback is used on the driver (on_before_spawn_basic_dialog) and (on_before_spawn_choice_dialog),
+      //       typically used for changing the layout. TODO: Consider alternative placement for this feature. I don't
+      //       think it should go into the spawning of the dialog box itself.
+      //    2) The dialog box speaking characters are decorated (via a deletgated call to the driver) before being
+      //       passed along to the dialog box on the creation call
+      //    3) Consider where/when any spoken text should be appended to the dialog roll
+               
+      
       // TODO: Consider making node const (will require const on "build_options_as_text")
       // TODO: Consider removing "node_identifier" from this method
       // TODO: Unindent this method
       //AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
             //static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
 
-         std::string node_pages_speaker = node->get_speaker();
-         std::vector<std::string> node_pages = node->get_pages();
-         std::vector<std::string> node_options_as_text = node->build_options_as_text();
-         int cursor_position_on_spawn = node->infer_cursor_position_on_spawn();
 
-         if (node_options_as_text.empty())
+      std::string node_pages_speaker = node->get_speaker();
+      std::vector<std::string> node_pages = node->get_pages();
+      std::vector<std::string> node_options_as_text = node->build_options_as_text();
+      int cursor_position_on_spawn = node->infer_cursor_position_on_spawn();
+
+      if (node_options_as_text.empty())
+      {
+         throw std::runtime_error(
+            "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options on "
+               "node with node_identifier \"" + node_identifier + "\" but there are no options."
+         );
+      }
+      else if (node_options_as_text.size() == 1)
+      {
+         // If dialog has only one option, spawn a basic dialog
+         if (driver) driver->on_before_spawn_basic_dialog(node_pages_speaker);
+         spawn_basic_dialog(
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            //node_pages_speaker,
+            node_pages
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
+      else // (node_options_as_text.size() > 1)
+      {
+         // If dialog has multiple options, spawn a "choice" dialog
+         if (node_pages.size() != 1)
          {
             throw std::runtime_error(
-               "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options on "
-                  "node with node_identifier \"" + node_identifier + "\" but there are no options."
+               "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting only 1 page for dialog "
+                  "node (with identifier \"" + node_identifier + "\") because it is going to be used to build a "
+                  "Choice dialog, however there are \"" + std::to_string(node_pages.size()) + "\" pages."
             );
          }
-         else if (node_options_as_text.size() == 1)
-         {
-            // If dialog has only one option, spawn a basic dialog
-            // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_basic_dialog"
-            if (driver) driver->on_before_spawn_basic_dialog(node_pages_speaker);
-            spawn_basic_dialog(
-               // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_basic_dialog"
-               driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
-               //node_pages_speaker,
-               node_pages
-            );
-            //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
-         }
-         else // (node_options_as_text.size() > 1)
-         {
-            // If dialog has multiple options, spawn a "choice" dialog
-            if (node_pages.size() != 1)
-            {
-               throw std::runtime_error(
-                  "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting only 1 page for dialog "
-                     "node (with identifier \"" + node_identifier + "\") because it is going to be used to build a "
-                     "Choice dialog, however there are \"" + std::to_string(node_pages.size()) + "\" pages."
-               );
-            }
-            // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_choice_dialog"
-            if (driver) driver->on_before_spawn_choice_dialog(node_pages_speaker);
-            spawn_choice_dialog(
-               // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_choice_dialog"
-               driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
-               //node_pages_speaker,
-               node_pages[0],
-               node_options_as_text,
-               cursor_position_on_spawn
-            );
-            //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
-         }
+         if (driver) driver->on_before_spawn_choice_dialog(node_pages_speaker);
+         spawn_choice_dialog(
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            node_pages[0],
+            node_options_as_text,
+            cursor_position_on_spawn
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
       return;
 
 
@@ -471,7 +485,9 @@ methods:
       {
          AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
             static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
-
+         activate_MultipageWithOptions_dialog_node(as_multipage_with_options);
+         
+         /*
          std::string node_pages_speaker = as_multipage_with_options->get_speaker();
          std::vector<std::string> node_pages = as_multipage_with_options->get_pages();
          std::vector<std::string> node_options_as_text = as_multipage_with_options->build_options_as_text();
@@ -520,6 +536,7 @@ methods:
             );
             //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
          }
+         */
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
       {
