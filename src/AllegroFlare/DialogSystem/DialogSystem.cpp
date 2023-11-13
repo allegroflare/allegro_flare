@@ -409,7 +409,7 @@ void DialogSystem::switch_out()
    return;
 }
 
-void DialogSystem::activate_EmitGameEvent_dialog_node(const AllegroFlare::DialogTree::Nodes::EmitGameEvent* node)
+void DialogSystem::activate_EmitGameEvent_dialog_node(AllegroFlare::DialogTree::Nodes::EmitGameEvent* node)
 {
    if (!(node))
    {
@@ -423,6 +423,7 @@ void DialogSystem::activate_EmitGameEvent_dialog_node(const AllegroFlare::Dialog
    event_emitter->emit_game_event(AllegroFlare::GameEvent(node->get_game_event_name(), nullptr));
    if (!node->get_immediate_next_node_identifier().empty())
    {
+
       // If the "immediate_next_node_identifier" is not blank, activate that node. Note that any
       // expected consequences of the emitted game event will not have had time to process before this
       // "immediate_next_node_identifier" is emitted
@@ -434,7 +435,7 @@ void DialogSystem::activate_EmitGameEvent_dialog_node(const AllegroFlare::Dialog
    return;
 }
 
-void DialogSystem::activate_RawScriptLine_dialog_node(const AllegroFlare::DialogTree::Nodes::RawScriptLine* node)
+void DialogSystem::activate_RawScriptLine_dialog_node(AllegroFlare::DialogTree::Nodes::RawScriptLine* node)
 {
    if (!(node))
    {

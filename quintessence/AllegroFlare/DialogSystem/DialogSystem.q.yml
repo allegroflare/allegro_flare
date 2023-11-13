@@ -337,7 +337,7 @@ methods:
   - name: activate_EmitGameEvent_dialog_node
     parameters:
       - name: node
-        type: const AllegroFlare::DialogTree::Nodes::EmitGameEvent*
+        type: AllegroFlare::DialogTree::Nodes::EmitGameEvent*
         default_argument: nullptr
     guards: [ node ]
     body: |
@@ -346,6 +346,7 @@ methods:
       event_emitter->emit_game_event(AllegroFlare::GameEvent(node->get_game_event_name(), nullptr));
       if (!node->get_immediate_next_node_identifier().empty())
       {
+
          // If the "immediate_next_node_identifier" is not blank, activate that node. Note that any
          // expected consequences of the emitted game event will not have had time to process before this
          // "immediate_next_node_identifier" is emitted
@@ -360,7 +361,7 @@ methods:
   - name: activate_RawScriptLine_dialog_node
     parameters:
       - name: node
-        type: const AllegroFlare::DialogTree::Nodes::RawScriptLine*
+        type: AllegroFlare::DialogTree::Nodes::RawScriptLine*
         default_argument: nullptr
     guards: [ node ]
     body: |
