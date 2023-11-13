@@ -71,13 +71,13 @@ methods:
   - name: render
     guards: [ al_is_system_installed() ]
     body: |
+      if (is_hidden()) return;
       if (!expression_bitmap) return;
-      {
-         placement.start_transform();
-         ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
-         al_draw_tinted_bitmap(expression_bitmap, tint, 0, 0, 0);
-         placement.restore_transform();
-      }
+
+      placement.start_transform();
+      ALLEGRO_COLOR tint{opacity, opacity, opacity, opacity};
+      al_draw_tinted_bitmap(expression_bitmap, tint, 0, 0, 0);
+      placement.restore_transform();
       return;
 
 
