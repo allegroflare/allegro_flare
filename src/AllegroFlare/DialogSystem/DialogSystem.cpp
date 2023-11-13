@@ -591,9 +591,9 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
-      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
          static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(found_dialog_node);
-      activate_MultipageWithOptions_dialog_node(as_multipage_with_options);
+      activate_MultipageWithOptions_dialog_node(as);
    }
    else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
    {
