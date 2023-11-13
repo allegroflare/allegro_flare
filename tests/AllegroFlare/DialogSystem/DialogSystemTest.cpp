@@ -291,14 +291,19 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
-   activate_EmitGameEvent_dialog_node__will_emit_a_game_event)
+   activate_EmitGameEvent_dialog_node__will_emit_a_game_event_with_the_expected_data)
 {
    // TODO: Test with an imediate_next_node_identifier
    AllegroFlare::DialogTree::Nodes::EmitGameEvent node("my_game_event", "");
    dialog_system.activate_EmitGameEvent_dialog_node(&node);
+
+   // Check the emitted game event data is valid
    ALLEGRO_EVENT next_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &next_event));
    ASSERT_EQ(ALLEGRO_FLARE_EVENT_GAME_EVENT, next_event.type);
+   ASSERT_NE(0, next_event.user.data1);
+   AllegroFlare::GameEvent *game_event = (AllegroFlare::GameEvent*)((intptr_t)next_event.user.data1);
+   EXPECT_EQ("my_game_event", game_event->get_type());
 }
 
 
