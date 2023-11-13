@@ -347,6 +347,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    AllegroFlare::DialogTree::Nodes::Wait node(3, "my_next_node_name_after_wait");
    dialog_system.activate_Wait_dialog_node(&node);
 
+   EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
    ASSERT_NE(nullptr, dialog_system.get_active_dialog_box());
    ASSERT_EQ("AllegroFlare/Elements/DialogBoxes/Wait", dialog_system.get_active_dialog_box()->get_type());
    // TODO: Continue with assertions on content of Wait dialog box

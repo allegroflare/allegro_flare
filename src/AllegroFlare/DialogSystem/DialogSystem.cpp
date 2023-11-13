@@ -464,7 +464,7 @@ void DialogSystem::activate_Wait_dialog_node(AllegroFlare::DialogTree::Nodes::Wa
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_Wait_dialog_node: error: guard \"node\" not met");
    }
-   active_dialog_node = node; // TODO: Test this line
+   active_dialog_node = node;
    float duration_seconds = node->get_duration_sec();
    spawn_wait_dialog(duration_seconds);
    return;
