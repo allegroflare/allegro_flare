@@ -412,7 +412,6 @@ void BasicCharacterDialogDriver::set_speaking_character_expression(std::string s
 {
    if (active_character_staging_layout)
    {
-      // DEBUG:
       active_character_staging_layout->set_staged_character_expression(
          speaking_character_identifier,
          lookup_speaking_character_avatar(speaking_character_identifier, speaking_character_expression),
