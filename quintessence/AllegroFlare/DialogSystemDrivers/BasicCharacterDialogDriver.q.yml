@@ -436,10 +436,11 @@ methods:
       - name: speaking_character_expression
         type: std::string
         default_argument: '"[unset-speaking_character_expression]"'
-    guards: [ (!speaking_character_identifier.empty()) ]
+    xguards: [ (!speaking_character_identifier.empty()) ]
     body: |
       if (active_character_staging_layout)
       {
+         // DEBUG:
          active_character_staging_layout->set_staged_character_expression(
             speaking_character_identifier,
             lookup_speaking_character_avatar(speaking_character_identifier, speaking_character_expression),

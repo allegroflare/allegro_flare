@@ -410,15 +410,9 @@ void BasicCharacterDialogDriver::exit_character(std::string character_identifier
 
 void BasicCharacterDialogDriver::set_speaking_character_expression(std::string speaking_character_identifier, std::string speaking_character_expression)
 {
-   if (!((!speaking_character_identifier.empty())))
-   {
-      std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::set_speaking_character_expression]: error: guard \"(!speaking_character_identifier.empty())\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::set_speaking_character_expression: error: guard \"(!speaking_character_identifier.empty())\" not met");
-   }
    if (active_character_staging_layout)
    {
+      // DEBUG:
       active_character_staging_layout->set_staged_character_expression(
          speaking_character_identifier,
          lookup_speaking_character_avatar(speaking_character_identifier, speaking_character_expression),
