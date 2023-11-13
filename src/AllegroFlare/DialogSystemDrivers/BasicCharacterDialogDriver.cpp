@@ -324,19 +324,6 @@ std::string BasicCharacterDialogDriver::decorate_speaking_character_name(std::st
    return result;
 }
 
-void BasicCharacterDialogDriver::clear_character_staging_layout()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::clear_character_staging_layout]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::clear_character_staging_layout: error: guard \"initialized\" not met");
-   }
-   if (active_character_staging_layout) active_character_staging_layout->clear();
-   return;
-}
-
 AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_character_by_identifier_as_Basic(std::string character_identifier)
 {
    if (!(initialized))

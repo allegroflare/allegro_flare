@@ -84,7 +84,6 @@ namespace AllegroFlare
          virtual void on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box=nullptr, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr) override;
          virtual bool on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system=nullptr, std::string active_dialog_node_name="", AllegroFlare::DialogTree::Nodes::Base* active_dialog_node=nullptr) override;
          virtual std::string decorate_speaking_character_name(std::string speaking_character_identifier="[unset-speaking_character_identifier]") override;
-         void clear_character_staging_layout();
          AllegroFlare::DialogSystem::Characters::Basic* find_character_by_identifier_as_Basic(std::string character_identifier="[unset-character_identifier]");
          void set_speaking_character(std::string speaking_character_identifier="[unset-speaking_character_identifier]");
          virtual void enter_character(std::string character_identifier="[unset-character_identifier]") override;
