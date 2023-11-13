@@ -335,7 +335,7 @@ methods:
   - name: activate_EmitGameEvent_dialog_node
     parameters:
       - name: node
-        type: AllegroFlare::DialogTree::Nodes::EmitGameEvent*
+        type: const AllegroFlare::DialogTree::Nodes::EmitGameEvent*
         default_argument: nullptr
     guards: [ node ]
     body: |

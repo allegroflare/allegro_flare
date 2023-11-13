@@ -88,7 +88,7 @@ namespace AllegroFlare
          void switch_in();
          void switch_in_if_not();
          void switch_out();
-         void activate_EmitGameEvent_dialog_node(AllegroFlare::DialogTree::Nodes::EmitGameEvent* node=nullptr);
+         void activate_EmitGameEvent_dialog_node(const AllegroFlare::DialogTree::Nodes::EmitGameEvent* node=nullptr);
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void dialog_advance();
          void activate_dialog_option(int selection_choice=0);

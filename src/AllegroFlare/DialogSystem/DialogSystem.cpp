@@ -397,7 +397,7 @@ void DialogSystem::switch_out()
    return;
 }
 
-void DialogSystem::activate_EmitGameEvent_dialog_node(AllegroFlare::DialogTree::Nodes::EmitGameEvent* node)
+void DialogSystem::activate_EmitGameEvent_dialog_node(const AllegroFlare::DialogTree::Nodes::EmitGameEvent* node)
 {
    if (!(node))
    {
