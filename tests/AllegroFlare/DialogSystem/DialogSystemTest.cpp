@@ -20,6 +20,7 @@
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.hpp>
 #include <AllegroFlare/StringFormatValidator.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
+#include <AllegroFlare/EventNames.hpp>
 
 
 class AllegroFlare_DialogSystem_DialogSystemTest : public ::testing::Test {};
@@ -296,7 +297,8 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    AllegroFlare::DialogTree::Nodes::EmitGameEvent node("my_game_event", "");
    dialog_system.activate_EmitGameEvent_dialog_node(&node);
    ALLEGRO_EVENT next_event;
-   EXPECT_EQ(true, al_peek_next_event(event_queue, &next_event));
+   ASSERT_EQ(true, al_peek_next_event(event_queue, &next_event));
+   ASSERT_EQ(ALLEGRO_FLARE_EVENT_GAME_EVENT, next_event.type);
 }
 
 
