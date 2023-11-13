@@ -425,21 +425,12 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
    activate_ExitProgram_dialog_node__will_emit_an_event_to_shutdown_the_program)
 {
-   // Ensure the dialog system is currently active
-   dialog_system.switch_in();
-   ASSERT_EQ(true, dialog_system.get_switched_in());
-
-   // Drop the swtich in event
-   ALLEGRO_EVENT next_event;
-   ASSERT_EQ(true, al_peek_next_event(event_queue, &next_event));
-   ASSERT_EQ(ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN, next_event.type) << extract_characters2(next_event.type);
-   ASSERT_EQ(true, al_drop_next_event(event_queue));
-
    AllegroFlare::DialogTree::Nodes::ExitProgram node;
 
    // Call the subject
    dialog_system.activate_ExitProgram_dialog_node(&node);
 
+   ALLEGRO_EVENT next_event;
    ASSERT_EQ(true, al_peek_next_event(event_queue, &next_event));
    EXPECT_EQ(ALLEGRO_FLARE_EVENT_EXIT_GAME, next_event.type) << extract_characters2(next_event.type);
 }
