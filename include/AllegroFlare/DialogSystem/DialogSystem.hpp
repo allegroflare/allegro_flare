@@ -5,6 +5,7 @@
 #include <AllegroFlare/DialogSystemDrivers/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
@@ -96,6 +97,7 @@ namespace AllegroFlare
          void activate_EmitGameEvent_dialog_node(AllegroFlare::DialogTree::Nodes::EmitGameEvent* node=nullptr);
          void activate_RawScriptLine_dialog_node(AllegroFlare::DialogTree::Nodes::RawScriptLine* node=nullptr);
          void activate_Wait_dialog_node(AllegroFlare::DialogTree::Nodes::Wait* node=nullptr);
+         void activate_ChapterTitle_dialog_node(AllegroFlare::DialogTree::Nodes::ChapterTitle* node=nullptr);
          void activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, std::string node_identifier="[unset-node_identifier-for-MultipageWithOptions]");
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void dialog_advance();

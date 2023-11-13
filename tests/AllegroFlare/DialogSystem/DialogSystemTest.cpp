@@ -9,6 +9,7 @@
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/DialogSystem/Characters/Basic.hpp>
 #include <AllegroFlare/DialogTree/YAMLLoader.hpp> // TODO: Consider alternative to this loader
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
@@ -351,6 +352,26 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    ASSERT_NE(nullptr, dialog_system.get_active_dialog_box());
    ASSERT_EQ("AllegroFlare/Elements/DialogBoxes/Wait", dialog_system.get_active_dialog_box()->get_type());
    // TODO: Continue with assertions on content of Wait dialog box
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_ChapterTitle_dialog_node__will_spawn_a_chapter_dialog_dialog_with_the_expected_data)
+{
+   // TODO: Test with an imediate_next_node_identifier
+   AllegroFlare::DialogTree::Nodes::ChapterTitle node("Title of the Chapter", 3.0, "my_next_node_identifier");
+   dialog_system.activate_ChapterTitle_dialog_node(&node);
+
+   EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+   ASSERT_NE(nullptr, dialog_system.get_active_dialog_box());
+   ASSERT_EQ(
+      AllegroFlare::Elements::DialogBoxes::ChapterTitle::TYPE,
+      dialog_system.get_active_dialog_box()->get_type()
+   );
+   //AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+      //static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(dialog_system.get_active_dialog_box());
+   //EXPECT_EQ("Title of the Chapter", as->get_title_text());
+   //EXPECT_EQ(duration, as->get_duration());
 }
 
 

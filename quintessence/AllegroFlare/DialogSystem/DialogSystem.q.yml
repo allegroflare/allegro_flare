@@ -389,6 +389,18 @@ methods:
       return;
 
 
+  - name: activate_ChapterTitle_dialog_node
+    parameters:
+      - name: node
+        type: AllegroFlare::DialogTree::Nodes::ChapterTitle*
+        default_argument: nullptr
+    guards: [ node ]
+    body: |
+      active_dialog_node = node;
+      spawn_chapter_title_dialog(node->get_title_text(), node->get_duration());
+      return;
+
+
   - name: activate_MultipageWithOptions_dialog_node
     parameters:
       - name: node
@@ -523,12 +535,7 @@ methods:
       {
          AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
             static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(found_dialog_node);
-         active_dialog_node = found_dialog_node;
-
-         spawn_chapter_title_dialog(
-               as->get_title_text(),
-               as->get_duration()
-            );
+         activate_ChapterTitle_dialog_node(as);
       }
       else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
       {
