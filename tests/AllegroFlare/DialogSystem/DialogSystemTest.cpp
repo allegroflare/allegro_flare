@@ -318,6 +318,27 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 }
 
 
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_MultipageWithOptions_dialog_node__will_call_the_drivers_on_raw_script_line_activate_callback)
+{
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions node(
+      "JONAH",
+      {
+         "This is page 1.",
+         //"This is page 2.", // NOTE: Support for multiple pages is broken for some downstream compatibility reason
+                              // TODO: Restore support and figure out what the fix needs to be fixed downstream
+      },
+      {
+         { "Goto another node", new AllegroFlare::DialogTree::NodeOptions::GoToNode("unused-test-node-name"), 0 },
+         { "Exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog(), 0 },
+      }
+   );
+   dialog_system.activate_MultipageWithOptions_dialog_node(&node);
+
+   // TODO: Test consequence of activation
+}
+
+
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    DISABLED__CAPTURE__render__when_a_dialog_box_is_open__will_work_as_expected)

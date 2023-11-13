@@ -431,11 +431,78 @@ void DialogSystem::activate_RawScriptLine_dialog_node(const AllegroFlare::Dialog
       throw std::runtime_error("DialogSystem::activate_RawScriptLine_dialog_node: error: guard \"node\" not met");
    }
    // TODO: Investigate why no properties from RawScriptLine are used in this command
+   // TODO: Test with driver and without driver
    if (driver) driver->on_raw_script_line_activate( // could find a better name for this method
       this,
       active_dialog_node_name,
       active_dialog_node
    );
+   return;
+}
+
+void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node, std::string node_identifier)
+{
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_MultipageWithOptions_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_MultipageWithOptions_dialog_node: error: guard \"node\" not met");
+   }
+   // TODO: Consider making node const (will require const on "build_options_as_text")
+   // TODO: Consider removing "node_identifier" from this method
+   // TODO: Unindent this method
+   //AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
+         //static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
+
+      std::string node_pages_speaker = node->get_speaker();
+      std::vector<std::string> node_pages = node->get_pages();
+      std::vector<std::string> node_options_as_text = node->build_options_as_text();
+      int cursor_position_on_spawn = node->infer_cursor_position_on_spawn();
+
+      if (node_options_as_text.empty())
+      {
+         throw std::runtime_error(
+            "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting 1 or many options on "
+               "node with node_identifier \"" + node_identifier + "\" but there are no options."
+         );
+      }
+      else if (node_options_as_text.size() == 1)
+      {
+         // If dialog has only one option, spawn a basic dialog
+         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_basic_dialog"
+         if (driver) driver->on_before_spawn_basic_dialog(node_pages_speaker);
+         spawn_basic_dialog(
+            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_basic_dialog"
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            //node_pages_speaker,
+            node_pages
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
+      else // (node_options_as_text.size() > 1)
+      {
+         // If dialog has multiple options, spawn a "choice" dialog
+         if (node_pages.size() != 1)
+         {
+            throw std::runtime_error(
+               "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: Expecting only 1 page for dialog "
+                  "node (with identifier \"" + node_identifier + "\") because it is going to be used to build a "
+                  "Choice dialog, however there are \"" + std::to_string(node_pages.size()) + "\" pages."
+            );
+         }
+         // TODO: Consider moving this call to _driver->on_before_spawn_choice_dialog into the "spawn_choice_dialog"
+         if (driver) driver->on_before_spawn_choice_dialog(node_pages_speaker);
+         spawn_choice_dialog(
+            // TODO: Consider moving this call to _driver->decorate_speaking_char... into the "spawn_choice_dialog"
+            driver ? driver->decorate_speaking_character_name(node_pages_speaker) : node_pages_speaker,
+            //node_pages_speaker,
+            node_pages[0],
+            node_options_as_text,
+            cursor_position_on_spawn
+         );
+         //append_to_dialog_roll(node_pages_speaker, node_pages[0]); // TODO: join(node_pages);
+      }
    return;
 }
 
