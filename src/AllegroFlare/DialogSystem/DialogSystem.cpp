@@ -660,10 +660,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    {
       AllegroFlare::DialogTree::Nodes::ExitProgram *as =
          static_cast<AllegroFlare::DialogTree::Nodes::ExitProgram*>(found_dialog_node);
-      //active_dialog_node = found_dialog_node;
       activate_ExitProgram_dialog_node(as);
-      // TODO: Test this event emission
-      //get_event_emitter()->emit_exit_game_event();
    }
    else
    {
