@@ -110,7 +110,8 @@ public:
    virtual void SetUp() override
    {
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
-      ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+      event_queue = al_create_event_queue();
+      ASSERT_NE(nullptr, event_queue);
 
       // Initialize our event emitter
       event_emitter.initialize();
@@ -130,6 +131,7 @@ public:
    }
    virtual void TearDown() override
    {
+      al_destroy_event_queue(event_queue);
       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
    }
 };
@@ -290,8 +292,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
    activate_EmitGameEvent_dialog_node__will_emit_a_game_event)
 {
-   AllegroFlare::DialogTree::Nodes::EmitGameEvent node("my_game_event", ""); // TODO: Test with an imediate_next_node_identifier
+   // TODO: Test with an imediate_next_node_identifier
+   AllegroFlare::DialogTree::Nodes::EmitGameEvent node("my_game_event", "");
    dialog_system.activate_EmitGameEvent_dialog_node(&node);
+   ALLEGRO_EVENT next_event;
+   EXPECT_EQ(true, al_peek_next_event(event_queue, &next_event));
 }
 
 
