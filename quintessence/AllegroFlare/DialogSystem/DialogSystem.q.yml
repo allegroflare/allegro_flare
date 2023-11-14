@@ -721,6 +721,7 @@ methods:
 
 
   - name: activate_dialog_option
+    private: true
     type: void
     parameters:
       - name: selection_choice

@@ -55,6 +55,7 @@ namespace AllegroFlare
          float standard_dialog_box_width;
          float standard_dialog_box_height;
          bool initialized;
+         void activate_dialog_option(int selection_choice=0);
 
       protected:
 
@@ -107,7 +108,6 @@ namespace AllegroFlare
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void advance_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, int cursor_position=0);
          void dialog_advance();
-         void activate_dialog_option(int selection_choice=0);
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_intertitle_dialog(std::string text="[unset-text]");
          void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
