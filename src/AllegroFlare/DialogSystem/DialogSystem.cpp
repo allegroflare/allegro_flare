@@ -595,6 +595,77 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
    return;
 }
 
+void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* dialog_node)
+{
+   if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(dialog_node);
+      activate_EmitGameEvent_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::RawScriptLine *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::RawScriptLine*>(dialog_node);
+      activate_RawScriptLine_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(dialog_node);
+      activate_MultipageWithOptions_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::Wait *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(dialog_node);
+      activate_Wait_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(dialog_node);
+      activate_ChapterTitle_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::ExitDialog *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(dialog_node);
+      activate_ExitDialog_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::ExitProgram *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::ExitProgram*>(dialog_node);
+      activate_ExitProgram_dialog_node(as);
+   }
+   else
+   {
+      active_dialog_node = dialog_node; // NOTE: Unsure if assignment should occour here
+      bool handled = false;
+      if (driver)
+      {
+         // TODO: Test calling on this "unhandled" case
+         handled = driver->on_activate_dialog_node_type_unhandled(
+            this,
+            active_dialog_node_name,
+            active_dialog_node
+         );
+      }
+
+      // TODO: Test throwing of this when not handled
+      if (!handled)
+      {
+         throw std::runtime_error(
+            "DialogSystem::DialogSystem::activate_dialog_node: error: "
+               "Unable to handle dialog node activation on type \""
+               + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
+         );
+      }
+   }
+   return;
+}
+
 void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
    if (!(dialog_node_bank.node_exists_by_name(dialog_name)))

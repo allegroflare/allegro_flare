@@ -26,6 +26,13 @@
 
 
 
+class MyCustomNodeType : public AllegroFlare::DialogTree::Nodes::Base
+{
+public:
+   MyCustomNodeType() : AllegroFlare::DialogTree::Nodes::Base("MyCustomNodeType") {}
+};
+
+
 static void extract_characters(int id, char& a, char& b, char& c, char& d)
 {
    a = static_cast<char>((id >> 24) & 0xFF);
@@ -380,6 +387,19 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
    AllegroFlare::Elements::DialogBoxes::Wait *as =
       static_cast<AllegroFlare::Elements::DialogBoxes::Wait*>(dialog_system.get_active_dialog_box());
    EXPECT_FLOAT_EQ(3.0, as->get_duration()); // TODO: Fix name to "duration_seconds"
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_dialog_node__when_a_node_type_does_not_exist__throws_an_error)
+{
+   MyCustomNodeType node;
+   EXPECT_THROW_WITH_MESSAGE(
+      dialog_system.activate_dialog_node(&node),
+      std::runtime_error,
+      "DialogSystem::DialogSystem::activate_dialog_node: error: Unable to handle dialog node activation on type "
+         "\"MyCustomNodeType\". A condition is not provided to handle this type."
+   );
 }
 
 
