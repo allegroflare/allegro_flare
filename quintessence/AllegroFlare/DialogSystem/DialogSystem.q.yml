@@ -620,8 +620,6 @@ methods:
         default_argument: 0
     guards: [ node, node->has_options(), (cursor_position >= 0), (cursor_position < node->num_options()) ]
     body: |
-      // TODO: guards: [ node, node->has_options(), (cursor_position >= 0), (cursor_position < node.num_options()) ]
-      // TODO: This method
       activate_dialog_option(cursor_position);
       return;
 

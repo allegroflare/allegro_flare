@@ -720,8 +720,6 @@ void DialogSystem::advance_MultipageWithOptions_dialog_node(AllegroFlare::Dialog
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"(cursor_position < node->num_options())\" not met");
    }
-   // TODO: guards: [ node, node->has_options(), (cursor_position >= 0), (cursor_position < node.num_options()) ]
-   // TODO: This method
    activate_dialog_option(cursor_position);
    return;
 }
