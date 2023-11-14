@@ -523,7 +523,6 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
       throw std::runtime_error("DialogSystem::activate_MultipageWithOptions_dialog_node: error: guard \"node\" not met");
    }
    active_dialog_node = node; // TODO: Test this line
-   //active_dialog_node = node; //dialog_node_bank.find_node_by_name(dialog_name);
    // NOTE: The actual technique used to handle the "MutlipageWithOptions" node will vary depending on the
    //       content of the node.
    //    1) If it has a only one choice, then only a BasicDialog will be spawned
@@ -678,6 +677,13 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    active_dialog_node_name = dialog_name;
    // TODO: Consider modifying "find_node_by_name" to not throw, and move the throw to here.
    AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+   if (!found_dialog_node)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogSystem::DialogSystem::activate_dialog_node_by_name",
+         "Could not find node with identifier \"" + dialog_name + "\"."
+      );
+   }
    //active_dialog_node_name = dialog_name;
 
    // NOTE: Each activation should probably, in itself, assign the dialog as the "active_dialog_node". However,
