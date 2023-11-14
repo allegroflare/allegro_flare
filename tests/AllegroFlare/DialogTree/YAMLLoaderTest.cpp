@@ -137,6 +137,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
       node_bank.find_node_by_name("my_node_345")
    );
 
+   ASSERT_NE(nullptr, my_node_345);
    EXPECT_EQ("yuki", my_node_345->get_speaker());
    EXPECT_EQ(3, my_node_345->get_pages().size());
 
@@ -145,6 +146,7 @@ TEST_F(AllegroFlare_DialogTree_YAMLLoaderTestWithSequenceOfNodesFixtureData,
    AllegroFlare::DialogTree::Nodes::MultipageWithOptions* my_node_567 = as_multipage(
       node_bank.find_node_by_name("my_node_567")
    );
+   ASSERT_NE(nullptr, my_node_567);
    EXPECT_EQ(1, my_node_567->get_pages().size());
    EXPECT_EQ("charlie", my_node_567->get_speaker());
 }
