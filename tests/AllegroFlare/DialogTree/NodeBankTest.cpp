@@ -11,6 +11,13 @@ TEST(AllegroFlare_DialogTree_NodeBankTest, can_be_created_without_blowing_up)
 }
 
 
+TEST(AllegroFlare_DialogTree_NodeBankTest, find_node_by_name__when_a_node_does_not_exist__returns_a_nullptr)
+{
+   AllegroFlare::DialogTree::NodeBank node_bank;
+   EXPECT_EQ(nullptr, node_bank.find_node_by_name("a-node-name-that-does-not-exist"));
+}
+
+
 TEST(AllegroFlare_DialogTree_NodeBankTest, find_shared_node_names__will_return_node_names_that_are_shared)
 {
    AllegroFlare::DialogTree::NodeBank node_bank;
