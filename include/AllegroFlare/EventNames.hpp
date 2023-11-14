@@ -46,12 +46,12 @@
 #define ALLEGRO_FLARE_EVENT_DIALOG_OPEN                             ALLEGRO_GET_EVENT_TYPE('F','D','O','p')
 #define ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE                          ALLEGRO_GET_EVENT_TYPE('F','D','A','v')
 #define ALLEGRO_FLARE_EVENT_DIALOG_CLOSE                            ALLEGRO_GET_EVENT_TYPE('F','D','C','l')
-#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN                        ALLEGRO_GET_EVENT_TYPE('F','D','S','I')
-#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT                       ALLEGRO_GET_EVENT_TYPE('F','D','S','O')
+#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_IN                      ALLEGRO_GET_EVENT_TYPE('F','D','S','I')
+#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT                     ALLEGRO_GET_EVENT_TYPE('F','D','S','O')
 
 
-#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN_NAME                   "dialog_switch_in"
-#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT_NAME                  "dialog_switch_out"
+#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_IN_NAME                   "dialog_switched_in"
+#define ALLEGRO_FLARE_EVENT_DIALOG_SWITCH_OUT_NAME                  "dialog_switched_out"
 
 // User's Events in their game
 #define ALLEGRO_FLARE_EVENT_GAME_EVENT                  ALLEGRO_GET_EVENT_TYPE('F','E','G','E')

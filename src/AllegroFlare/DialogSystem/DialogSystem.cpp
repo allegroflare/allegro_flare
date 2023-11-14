@@ -366,7 +366,7 @@ void DialogSystem::switch_in()
    }
    switched_in = true;
    if (driver) driver->on_switch_in();
-   event_emitter->emit_dialog_switch_in_event();
+   event_emitter->emit_dialog_switched_in_event();
    return;
 }
 
@@ -403,7 +403,7 @@ void DialogSystem::switch_out()
 
    if (driver) driver->on_switch_out(); // TODO: This may need to be moved to "switch_out"
 
-   event_emitter->emit_dialog_switch_out_event();
+   event_emitter->emit_dialog_switched_out_event();
 
    switched_in = false;
    return;

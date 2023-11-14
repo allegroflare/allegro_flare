@@ -37,8 +37,8 @@ namespace AllegroFlare
       static void destroy_dialog_open_event_data(ALLEGRO_USER_EVENT* user_event=nullptr);
       void emit_dialog_advance_event();
       void emit_dialog_close_event();
-      void emit_dialog_switch_in_event();
-      void emit_dialog_switch_out_event();
+      void emit_dialog_switched_in_event();
+      void emit_dialog_switched_out_event();
       void emit_switch_screen_event(std::string screen_identifier_to_switch_to=0);
       void emit_exit_game_event();
       void emit_show_input_hints_bar_event();
