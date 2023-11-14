@@ -117,7 +117,7 @@ namespace AllegroFlare
          void render();
          bool a_dialog_is_active();
          bool dialog_is_finished();
-         bool shutdown_dialog();
+         bool shutdown();
          void move_dialog_cursor_position_up();
          void move_dialog_cursor_position_down();
          void handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* ev=nullptr, AllegroFlare::GameEventDatas::Base* data=nullptr);

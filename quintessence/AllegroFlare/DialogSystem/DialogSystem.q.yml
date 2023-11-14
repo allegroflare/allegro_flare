@@ -409,7 +409,7 @@ methods:
     guards: [ node ]
     body: |
       active_dialog_node = node; // Mostly redundant (shutdown_dialog will clear this value anyway)
-      shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+      shutdown(); // TODO: See if this is a correct action for this event, e.g.
                          //       should it be "switch_out" or "shutdown", etc
       return;
 
@@ -517,6 +517,7 @@ methods:
     guards: [ dialog_node_bank.node_exists_by_name(dialog_name) ]
     body: |
       active_dialog_node_name = dialog_name;
+      // TODO: Consider modifying "find_node_by_name" to not throw, and move the throw to here.
       AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
       //active_dialog_node_name = dialog_name;
 
@@ -678,7 +679,7 @@ methods:
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
       {
-         shutdown_dialog(); // TODO: Verify if this is a correct complete action for this event
+         shutdown(); // TODO: Verify if this is a correct complete action for this event
       }
       else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
       {
@@ -742,7 +743,7 @@ methods:
                   static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
 
                //event_emitter->emit_dialog_close_event();
-               shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+               shutdown(); // TODO: See if this is a correct expectation for this event
             }},
             { AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE, [this, node_option]() {
                // TODO: Test this case
@@ -1106,7 +1107,7 @@ methods:
       return active_dialog_box->get_finished();
 
 
-  - name: shutdown_dialog
+  - name: shutdown
     type: bool
     guards: [ initialized, driver, switched_in ]
     body: |

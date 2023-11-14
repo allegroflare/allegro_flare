@@ -494,7 +494,7 @@ void DialogSystem::activate_ExitDialog_dialog_node(AllegroFlare::DialogTree::Nod
       throw std::runtime_error("DialogSystem::activate_ExitDialog_dialog_node: error: guard \"node\" not met");
    }
    active_dialog_node = node; // Mostly redundant (shutdown_dialog will clear this value anyway)
-   shutdown_dialog(); // TODO: See if this is a correct action for this event, e.g.
+   shutdown(); // TODO: See if this is a correct action for this event, e.g.
                       //       should it be "switch_out" or "shutdown", etc
    return;
 }
@@ -605,6 +605,7 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: guard \"dialog_node_bank.node_exists_by_name(dialog_name)\" not met");
    }
    active_dialog_node_name = dialog_name;
+   // TODO: Consider modifying "find_node_by_name" to not throw, and move the throw to here.
    AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    //active_dialog_node_name = dialog_name;
 
@@ -771,7 +772,7 @@ void DialogSystem::dialog_advance()
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
    {
-      shutdown_dialog(); // TODO: Verify if this is a correct complete action for this event
+      shutdown(); // TODO: Verify if this is a correct complete action for this event
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
    {
@@ -834,7 +835,7 @@ void DialogSystem::activate_dialog_option(int selection_choice)
                static_cast<AllegroFlare::DialogTree::NodeOptions::ExitDialog*>(node_option);
 
             //event_emitter->emit_dialog_close_event();
-            shutdown_dialog(); // TODO: See if this is a correct expectation for this event
+            shutdown(); // TODO: See if this is a correct expectation for this event
          }},
          { AllegroFlare::DialogTree::NodeOptions::GoToNode::TYPE, [this, node_option]() {
             // TODO: Test this case
@@ -1163,28 +1164,28 @@ bool DialogSystem::dialog_is_finished()
    return active_dialog_box->get_finished();
 }
 
-bool DialogSystem::shutdown_dialog()
+bool DialogSystem::shutdown()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::shutdown_dialog]: error: guard \"initialized\" not met.";
+      error_message << "[DialogSystem::shutdown]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"initialized\" not met");
+      throw std::runtime_error("DialogSystem::shutdown: error: guard \"initialized\" not met");
    }
    if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::shutdown_dialog]: error: guard \"driver\" not met.";
+      error_message << "[DialogSystem::shutdown]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"driver\" not met");
+      throw std::runtime_error("DialogSystem::shutdown: error: guard \"driver\" not met");
    }
    if (!(switched_in))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::shutdown_dialog]: error: guard \"switched_in\" not met.";
+      error_message << "[DialogSystem::shutdown]: error: guard \"switched_in\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::shutdown_dialog: error: guard \"switched_in\" not met");
+      throw std::runtime_error("DialogSystem::shutdown: error: guard \"switched_in\" not met");
    }
    switch_out();
    return true;
