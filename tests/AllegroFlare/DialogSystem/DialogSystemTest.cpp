@@ -33,6 +33,34 @@ public:
 };
 
 
+class MyCustomDialogDriver : public AllegroFlare::DialogSystemDrivers::Base
+{
+public:
+   MyCustomDialogDriver() : AllegroFlare::DialogSystemDrivers::Base("MyCustomDialogDriver") {}
+   virtual void on_raw_script_line_activate(
+          AllegroFlare::DialogSystem::DialogSystem* dialog_system,
+          std::string activating_node_name,
+          AllegroFlare::DialogTree::Nodes::Base* activating_node,
+          void* user_data
+       ) override
+    {
+      // TODO: Consider renaming this for clarity
+      // TODO: Consider if this method needs to be removed or modififed
+       return;
+    };
+    virtual void on_raw_script_line_finished(
+          AllegroFlare::DialogSystem::DialogSystem* dialog_system,
+          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box,
+          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node
+       ) override
+    {
+      // TODO: Consider renaming this for clarity
+      // TODO: Consider if this method needs to be removed or modififed
+       return;
+    };
+};
+
+
 static void extract_characters(int id, char& a, char& b, char& c, char& d)
 {
    a = static_cast<char>((id >> 24) & 0xFF);
