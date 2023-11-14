@@ -692,8 +692,37 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 
 void DialogSystem::advance_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node, int cursor_position)
 {
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"node\" not met");
+   }
+   if (!(node->has_options()))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node->has_options()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"node->has_options()\" not met");
+   }
+   if (!((cursor_position >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"(cursor_position >= 0)\" not met");
+   }
+   if (!((cursor_position < node->num_options())))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position < node->num_options())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"(cursor_position < node->num_options())\" not met");
+   }
    // TODO: guards: [ node, node->has_options(), (cursor_position >= 0), (cursor_position < node.num_options()) ]
    // TODO: This method
+   activate_dialog_option(cursor_position);
    return;
 }
 
@@ -719,24 +748,26 @@ void DialogSystem::dialog_advance()
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
-      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as_multipage_with_options =
+      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
          static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(active_dialog_node);
 
-      if (as_multipage_with_options->num_options() == 0)
-      {
-         // If this dialog node has no options, then proceed to a "shutdown" state
+      //if (as->num_options() == 0)
+      //{
+         //// If this dialog node has no options, then proceed to a "shutdown" state
 
-         // TODO: Replace this throw with a shutdown
-         throw std::runtime_error(
-            "DialogSystem::dialog_advance: error: Expecting 1 or many options for node named \""
-               + active_dialog_node_name + "\" but there are no options."
-         );
-      }
-      else if (as_multipage_with_options->num_options() == 1)
+         //// TODO: Replace this throw with a shutdown
+         //throw std::runtime_error(
+            //"DialogSystem::dialog_advance: error: Expecting 1 or many options for node named \""
+               //+ active_dialog_node_name + "\" but there are no options."
+         //);
+      //}
+      //else if (as->num_options() == 1)
+      if (as->num_options() == 1)
       {
          // If the dialog node has 1 option, "activate" it
          int current_dialog_selection_choice = 0;
-         activate_dialog_option(current_dialog_selection_choice);
+         advance_MultipageWithOptions_dialog_node(as, current_dialog_selection_choice);
+         //activate_dialog_option(current_dialog_selection_choice);
       }
       else
       {
@@ -756,7 +787,8 @@ void DialogSystem::dialog_advance()
                static_cast<AllegroFlare::Elements::DialogBoxes::Choice*>(active_dialog_box);
 
             int current_dialog_selection_choice = as_choice_dialog_box->get_cursor_position();
-            activate_dialog_option(current_dialog_selection_choice);
+            advance_MultipageWithOptions_dialog_node(as, current_dialog_selection_choice);
+            //activate_dialog_option(current_dialog_selection_choice);
          }
       }
    }
