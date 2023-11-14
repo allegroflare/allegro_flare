@@ -551,7 +551,6 @@ void InputDevicesList::draw_scrollarea_contents()
    float input_devices_box_list_x = 0;
    float input_devices_box_list_y = 0;
    float y_spacing = infer_list_item_y_spacing();
-   bool currently_selected_item_is_disconnected_or();
 
    for (int i=0; i<input_devices.size(); i++)
    {
