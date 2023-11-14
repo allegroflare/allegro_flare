@@ -596,6 +596,13 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
 
 void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* dialog_node)
 {
+   if (!(dialog_node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_dialog_node]: error: guard \"dialog_node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_dialog_node: error: guard \"dialog_node\" not met");
+   }
    if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
    {
       AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
@@ -670,7 +677,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: guard \"dialog_node_bank.node_exists_by_name(dialog_name)\" not met");
    }
-   active_dialog_node_name = dialog_name;
    AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    if (!found_dialog_node)
    {
@@ -679,79 +685,8 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
          "Could not find node with identifier \"" + dialog_name + "\"."
       );
    }
-   //active_dialog_node_name = dialog_name;
-
-   // NOTE: Each activation should probably, in itself, assign the dialog as the "active_dialog_node". However,
-   // may consider alternative. Importantce being that there should be a synchronization of between the "activate"
-   // and "advance" actions
-
-   //std::string &dialog_name = active_dialog_node_name;
-
-   if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::EmitGameEvent*>(found_dialog_node);
-      activate_EmitGameEvent_dialog_node(as);
-   }
-   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::RawScriptLine *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::RawScriptLine*>(found_dialog_node);
-      activate_RawScriptLine_dialog_node(as);
-   }
-   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(found_dialog_node);
-      activate_MultipageWithOptions_dialog_node(as);
-   }
-   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::Wait *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(found_dialog_node);
-      activate_Wait_dialog_node(as);
-   }
-   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ChapterTitle::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::ChapterTitle *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(found_dialog_node);
-      activate_ChapterTitle_dialog_node(as);
-   }
-   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::ExitDialog *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::ExitDialog*>(found_dialog_node);
-      activate_ExitDialog_dialog_node(as);
-   }
-   else if (found_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitProgram::TYPE))
-   {
-      AllegroFlare::DialogTree::Nodes::ExitProgram *as =
-         static_cast<AllegroFlare::DialogTree::Nodes::ExitProgram*>(found_dialog_node);
-      activate_ExitProgram_dialog_node(as);
-   }
-   else
-   {
-      active_dialog_node = found_dialog_node; // NOTE: Unsure if assignment should occour here
-      bool handled = false;
-      if (driver)
-      {
-         // TODO: Test calling on this "unhandled" case
-         handled = driver->on_activate_dialog_node_type_unhandled(
-            this,
-            active_dialog_node
-         );
-      }
-
-      // TODO: Test throwing of this when not handled
-      if (!handled)
-      {
-         throw std::runtime_error(
-            "DialogSystem::DialogSystem::activate_dialog_node_by_name: error: "
-               "Unable to handle dialog node activation on type \""
-               + active_dialog_node->get_type() + "\". A condition is not provided to handle this type."
-         );
-      }
-   }
+   active_dialog_node_name = dialog_name;
+   activate_dialog_node(found_dialog_node);
    return;
 }
 
