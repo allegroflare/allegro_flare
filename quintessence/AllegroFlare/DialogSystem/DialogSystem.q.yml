@@ -599,7 +599,6 @@ methods:
     guards: [ dialog_node_bank.node_exists_by_name(dialog_name) ]
     body: |
       active_dialog_node_name = dialog_name;
-      // TODO: Consider modifying "find_node_by_name" to not throw, and move the throw to here.
       AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
       if (!found_dialog_node)
       {

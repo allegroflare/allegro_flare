@@ -675,7 +675,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
       throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: guard \"dialog_node_bank.node_exists_by_name(dialog_name)\" not met");
    }
    active_dialog_node_name = dialog_name;
-   // TODO: Consider modifying "find_node_by_name" to not throw, and move the throw to here.
    AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    if (!found_dialog_node)
    {
