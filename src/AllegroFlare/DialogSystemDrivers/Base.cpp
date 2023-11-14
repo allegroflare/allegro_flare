@@ -92,7 +92,7 @@ void Base::on_raw_script_line_finished(AllegroFlare::DialogSystem::DialogSystem*
    return;
 }
 
-bool Base::on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
+bool Base::on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
 {
    return false;
 }

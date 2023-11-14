@@ -645,11 +645,7 @@ void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* d
       if (driver)
       {
          // TODO: Test calling on this "unhandled" case
-         handled = driver->on_activate_dialog_node_type_unhandled(
-            this,
-            active_dialog_node_name,
-            active_dialog_node
-         );
+         handled = driver->on_activate_dialog_node_type_unhandled(this, active_dialog_node);
       }
 
       // TODO: Test throwing of this when not handled
@@ -742,7 +738,6 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
          // TODO: Test calling on this "unhandled" case
          handled = driver->on_activate_dialog_node_type_unhandled(
             this,
-            active_dialog_node_name,
             active_dialog_node
          );
       }

@@ -289,7 +289,7 @@ void BasicCharacterDialogDriver::on_raw_script_line_finished(AllegroFlare::Dialo
    return;
 }
 
-bool BasicCharacterDialogDriver::on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system, std::string active_dialog_node_name, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
+bool BasicCharacterDialogDriver::on_activate_dialog_node_type_unhandled(AllegroFlare::DialogSystem::DialogSystem* dialog_system, AllegroFlare::DialogTree::Nodes::Base* active_dialog_node)
 {
    // TODO: If you want handle custom dialog nodes, consider adding the properties below to this class, and
    // calling/using them here in this function:
