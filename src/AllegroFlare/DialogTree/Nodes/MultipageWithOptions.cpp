@@ -112,6 +112,37 @@ int MultipageWithOptions::num_options()
    return options.size();
 }
 
+bool MultipageWithOptions::has_options()
+{
+   return !options.empty();
+}
+
+bool MultipageWithOptions::has_no_options()
+{
+   return options.empty();
+}
+
+bool MultipageWithOptions::option_is_selectable(int option_num)
+{
+   if (!((option_num >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[MultipageWithOptions::option_is_selectable]: error: guard \"(option_num >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("MultipageWithOptions::option_is_selectable: error: guard \"(option_num >= 0)\" not met");
+   }
+   if (!((option_num < options.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[MultipageWithOptions::option_is_selectable]: error: guard \"(option_num < options.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("MultipageWithOptions::option_is_selectable: error: guard \"(option_num < options.size())\" not met");
+   }
+   // TODO: Test guards
+   AllegroFlare::BitFlags<uint32_t> &flags = std::get<2>(options[option_num]);
+   return !flags.has(FLAG_DISABLED);
+}
+
 int MultipageWithOptions::infer_cursor_position_on_spawn()
 {
    // TODO: Test this method

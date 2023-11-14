@@ -104,6 +104,7 @@ namespace AllegroFlare
          void activate_ExitProgram_dialog_node(AllegroFlare::DialogTree::Nodes::ExitProgram* node=nullptr);
          void activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, std::string node_identifier="[unset-node_identifier-for-MultipageWithOptions]");
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
+         void advance_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, int cursor_position=0);
          void dialog_advance();
          void activate_dialog_option(int selection_choice=0);
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});

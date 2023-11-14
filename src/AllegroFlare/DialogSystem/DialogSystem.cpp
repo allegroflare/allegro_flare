@@ -690,6 +690,13 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
    return;
 }
 
+void DialogSystem::advance_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node, int cursor_position)
+{
+   // TODO: guards: [ node, node->has_options(), (cursor_position >= 0), (cursor_position < node.num_options()) ]
+   // TODO: This method
+   return;
+}
+
 void DialogSystem::dialog_advance()
 {
    if (!(initialized))

@@ -610,6 +610,20 @@ methods:
      - AllegroFlare::DialogTree::Nodes::ChapterTitle
 
 
+  - name: advance_MultipageWithOptions_dialog_node
+    parameters:
+      - name: node
+        type: AllegroFlare::DialogTree::Nodes::MultipageWithOptions*
+        default_argument: nullptr
+      - name: cursor_position
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: guards: [ node, node->has_options(), (cursor_position >= 0), (cursor_position < node.num_options()) ]
+      // TODO: This method
+      return;
+
+
   - name: dialog_advance
     guards: [ initialized, active_dialog_box ]
     body: |

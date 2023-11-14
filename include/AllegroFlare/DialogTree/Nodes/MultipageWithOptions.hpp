@@ -27,6 +27,7 @@ namespace AllegroFlare
             {
                FLAG_NONE = 0x0000,
                FLAG_CURSOR_HERE_ON_SPAWN = 0x0001,
+               FLAG_DISABLED = 0x0002,
             };
          private:
             std::string speaker;
@@ -50,6 +51,9 @@ namespace AllegroFlare
             std::vector<std::string> build_options_as_text();
             int num_pages();
             int num_options();
+            bool has_options();
+            bool has_no_options();
+            bool option_is_selectable(int option_num=0);
             int infer_cursor_position_on_spawn();
          };
       }

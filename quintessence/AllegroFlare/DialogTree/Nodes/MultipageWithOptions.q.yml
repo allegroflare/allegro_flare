@@ -46,6 +46,7 @@ enums:
     enumerators:
       - FLAG_NONE
       - FLAG_CURSOR_HERE_ON_SPAWN
+      - FLAG_DISABLED
 
 
 methods:
@@ -92,6 +93,31 @@ methods:
     type: int
     body: |
       return options.size();
+
+
+  - name: has_options
+    type: bool
+    body: |
+      return !options.empty();
+
+
+  - name: has_no_options
+    type: bool
+    body: |
+      return options.empty();
+
+
+  - name: option_is_selectable
+    type: bool
+    parameters:
+      - name: option_num
+        type: int
+        default_argument: 0
+    guards: [ (option_num >= 0), (option_num < options.size()) ]
+    body: |
+      // TODO: Test guards
+      AllegroFlare::BitFlags<uint32_t> &flags = std::get<2>(options[option_num]);
+      return !flags.has(FLAG_DISABLED);
 
 
   - name: infer_cursor_position_on_spawn

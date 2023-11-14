@@ -51,3 +51,27 @@ TEST(AllegroFlare_DialogTree_NodeTest,
 }
 
 
+TEST(AllegroFlare_DialogTree_NodeTest, option_is_selectable__will_return_true_if_an_option_is_not_disabled)
+{
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions multipage_with_options;
+   multipage_with_options.set_options({
+      { "Choice 1", nullptr, 0 },
+   });
+
+   EXPECT_EQ(true, multipage_with_options.option_is_selectable(0));
+}
+
+
+TEST(AllegroFlare_DialogTree_NodeTest, option_is_selectable__will_return_false_if_an_option_is_disabled)
+{
+   AllegroFlare::DialogTree::Nodes::MultipageWithOptions multipage_with_options;
+   multipage_with_options.set_options({
+      { "Choice 1", nullptr, AllegroFlare::BitFlags<uint32_t>(
+         AllegroFlare::DialogTree::Nodes::MultipageWithOptions::OptionFlags::FLAG_DISABLED
+      ) },
+   });
+
+   EXPECT_EQ(false, multipage_with_options.option_is_selectable(0));
+}
+
+
