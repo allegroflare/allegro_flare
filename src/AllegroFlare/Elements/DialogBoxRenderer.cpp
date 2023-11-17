@@ -11,6 +11,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxStyles.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Basic.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
@@ -127,7 +128,7 @@ float DialogBoxRenderer::get_standard_dialog_box_height() const
 }
 
 
-void DialogBoxRenderer::deps()
+void DialogBoxRenderer::deps(int _ignore)
 {
    return;
 }

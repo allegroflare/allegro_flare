@@ -23,14 +23,14 @@ properties:
 
   - name: standard_dialog_box_font_name
     type: std::string
-    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
+    init_with: AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_NAME
     constructor_arg: true
     getter: true
     setter: true
 
   - name: standard_dialog_box_font_size
     type: int
-    init_with: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
+    init_with: AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE
     constructor_arg: true
     getter: true
     setter: true
@@ -58,20 +58,6 @@ properties:
     init_with: DEFAULT_STANDARD_DIALOG_BOX_HEIGHT
     getter: true
     setter: true
-
-  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME
-    type: char*
-    constexpr: true
-    const: true
-    static: true
-    init_with: '(char*)"Inter-Regular.ttf"'
-
-  - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
-    type: int
-    constexpr: true
-    const: true
-    static: true
-    init_with: -36
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_X
     type: float
@@ -102,14 +88,20 @@ properties:
     init_with: 1080/5.0f
 
 
-functions:
+methods:
 
 
   - name: deps
+    parameters:
+      - name: _ignore
+        type: int
+        default_argument: AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE
+        default_argument_dependency_symbols: [ 'AllegroFlare::Elements::DialogBoxStyles' ]
     body: |
       return;
     body_dependency_symbols:
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
+      - AllegroFlare::Elements::DialogBoxStyles
 
 
   - name: render
@@ -412,5 +404,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxStyles
+    headers: [ AllegroFlare/Elements/DialogBoxStyles.hpp ]
 
 

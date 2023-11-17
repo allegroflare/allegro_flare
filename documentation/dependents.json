@@ -1775,6 +1775,9 @@
   "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxStyles": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
   "AllegroFlare/Elements/DialogButton": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"

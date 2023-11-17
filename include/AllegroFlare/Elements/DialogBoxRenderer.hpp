@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Elements/DialogBoxStyles.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -15,8 +16,6 @@ namespace AllegroFlare
       class DialogBoxRenderer
       {
       public:
-         static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Regular.ttf";
-         static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = -36;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_X = 1920/2.0f;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_Y = 1080/8.0f*6;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_WIDTH = 1920/2.0f;
@@ -38,7 +37,7 @@ namespace AllegroFlare
 
 
       public:
-         DialogBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Base* dialog_box=nullptr, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::string standard_dialog_box_font_name=DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME, int standard_dialog_box_font_size=DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE);
+         DialogBoxRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Elements::DialogBoxes::Base* dialog_box=nullptr, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::string standard_dialog_box_font_name=AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_NAME, int standard_dialog_box_font_size=AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE);
          ~DialogBoxRenderer();
 
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
@@ -53,7 +52,7 @@ namespace AllegroFlare
          float get_standard_dialog_box_y() const;
          float get_standard_dialog_box_width() const;
          float get_standard_dialog_box_height() const;
-         void deps();
+         void deps(int _ignore=AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE);
          void render();
       };
    }

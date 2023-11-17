@@ -1,9 +1,18 @@
-methods:
+properties:
 
 
-  - name: run
-    type: std::string
-    body: |
-      return "Hello World!";
+  - name: DEFAULT_FONT_NAME
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    static: true
+    const: true
+    init_with: -36
 
 

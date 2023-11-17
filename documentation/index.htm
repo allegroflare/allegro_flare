@@ -147,6 +147,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxRenderers/TextMessages.q.yml">quintessence/AllegroFlare/Elements/DialogBoxRenderers/TextMessages.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.q.yml">quintessence/AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.q.yml">quintessence/AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxStyles.q.yml">quintessence/AllegroFlare/Elements/DialogBoxStyles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Base.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/Basic.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogBoxes/ChapterTitle.q.yml">quintessence/AllegroFlare/Elements/DialogBoxes/ChapterTitle.q.yml</a></li>
@@ -6362,14 +6363,6 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE</td>
-  <td class="property">int</td>
-</tr>
-<tr>
   <td class="property">DEFAULT_STANDARD_DIALOG_BOX_X</td>
   <td class="property">float</td>
 </tr>
@@ -6389,7 +6382,7 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">deps()</td>
+  <td class="method">deps(int _ignore=AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE)</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -6480,6 +6473,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxStyles&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxStyles.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -7444,6 +7440,27 @@ table td
 </tr>
     </table>
 </div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/DialogBoxStyles.q.yml">quintessence/AllegroFlare/Elements/DialogBoxStyles.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">DEFAULT_FONT_NAME</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FONT_SIZE</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -34432,6 +34449,9 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxStyles": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [
