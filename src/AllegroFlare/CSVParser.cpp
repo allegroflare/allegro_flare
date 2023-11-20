@@ -24,39 +24,42 @@ CSVParser::~CSVParser()
 
 std::vector<std::string> CSVParser::parse_row(std::string line)
 {
-   std::vector<std::string> columns;
-   std::stringstream ss(line);
-   std::string column;
+   ParseState state = ParseState::NORMAL;
+   std::string token;
+   std::vector<std::string> tokens;
 
-   while (std::getline(ss, column, ',')) {
-      // Handle nested commas and escaped quotes
-      bool inQuotes = false;
-      size_t i = 0;
-
-      while (i < column.length())
+   for (char ch : line)
+   {
+      switch (state)
       {
-         if (column[i] == '"') {
-             inQuotes = !inQuotes;
+         case ParseState::NORMAL: {
+            if (ch == '"') {
+               state = ParseState::INSIDE_QUOTES;
+            } else if (ch == ',') {
+               // Process the token
+               tokens.push_back(token);
+               token.clear();
+            } else {
+               token += ch;
+            }
+            break;
+         } break;
 
-             // Handle escaped quotes
-             if (i > 0 && column[i - 1] == '\\' && inQuotes) {
-                 column.erase(i - 1, 1);
-             }
-         }
-
-         // Remove escape characters
-         if (column[i] == '\\' && i + 1 < column.length())
-         {
-            column.erase(i, 1);
-         }
-
-         ++i;
+         case ParseState::INSIDE_QUOTES: {
+            if (ch == '"') {
+               state = ParseState::NORMAL;
+            } else {
+               token += ch;
+            }
+            break;
+         } break;
       }
-
-      columns.push_back(column);
    }
 
-   return columns;
+   // Process the last token
+   tokens.push_back(token);
+
+   return tokens;
 }
 
 
