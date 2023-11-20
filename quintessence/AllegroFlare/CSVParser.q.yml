@@ -1,13 +1,15 @@
 properties:
 
 
-  - name: csv_content
+  - name: raw_csv_content
     type: std::string
+    constructor_arg: true
     init_with: '"[unset-csv_content]"'
 
   - name: parsed_content
     type: std::vector<std::vector<std::string>>
     init_with: '{}'
+    getter: true
 
 
 enums:
@@ -20,6 +22,22 @@ enums:
 
 
 methods:
+
+
+  - name: parse
+    body: |
+      std::stringstream ss;
+      ss.str(raw_csv_content);
+      int line_num = 0;
+      std::string line;
+      while (std::getline(ss, line))
+      {
+         std::cout << line << std::endl;
+         line_num++;
+      }
+      return;
+    body_dependency_symbols:
+      - std::cout
 
 
   - name: parse_row
