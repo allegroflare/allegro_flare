@@ -1128,7 +1128,9 @@ void Full::primary_render()
    render_screens_to_primary_render_surface();
    profiler.stop(".render_screens_to_primary_render_surface()");
 
+   profiler.start(".draw_overlay()");
    draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
+   profiler.stop(".draw_overlay()");
 
    profiler.start("al_flip_display()");
    al_flip_display();
