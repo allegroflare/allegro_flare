@@ -27,6 +27,8 @@ namespace AllegroFlare
       ~CSVParser();
 
       bool get_parsed() const;
+      int num_rows();
+      int num_columns();
       void set_raw_csv_content(std::string raw_csv_content="[unset-raw_csv_content]");
       std::vector<std::vector<std::string>> get_parsed_content();
       void parse();

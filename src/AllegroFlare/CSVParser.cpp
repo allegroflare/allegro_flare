@@ -31,6 +31,31 @@ bool CSVParser::get_parsed() const
 }
 
 
+int CSVParser::num_rows()
+{
+   if (!(parsed))
+   {
+      std::stringstream error_message;
+      error_message << "[CSVParser::num_rows]: error: guard \"parsed\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CSVParser::num_rows: error: guard \"parsed\" not met");
+   }
+   return parsed_content.size();
+}
+
+int CSVParser::num_columns()
+{
+   if (!(parsed))
+   {
+      std::stringstream error_message;
+      error_message << "[CSVParser::num_columns]: error: guard \"parsed\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CSVParser::num_columns: error: guard \"parsed\" not met");
+   }
+   if (parsed_content.empty()) return 0;
+   return parsed_content[0].size();
+}
+
 void CSVParser::set_raw_csv_content(std::string raw_csv_content)
 {
    this->raw_csv_content = raw_csv_content;

@@ -30,6 +30,21 @@ enums:
 methods:
 
 
+  - name: num_rows
+    type: int
+    guards: [ parsed ]
+    body: |
+      return parsed_content.size();
+
+
+  - name: num_columns
+    type: int
+    guards: [ parsed ]
+    body: |
+      if (parsed_content.empty()) return 0;
+      return parsed_content[0].size();
+
+
   - name: set_raw_csv_content
     parameters:
       - name: raw_csv_content

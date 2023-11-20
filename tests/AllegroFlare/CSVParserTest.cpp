@@ -5,6 +5,28 @@
 #include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a test-local fixture file
 
 
+class AllegroFlare_CSVParserTestWithLoadedFixture : public ::testing::Test
+{
+private:
+   // TODO: Replace this path with a test-local fixture file
+   std::string FIXTURE_FILE = "/Users/markoates/Repos/allegro_flare/tests/fixtures/csv/game_content_csv.csv";
+   AllegroFlare::CSVParser csv_parser;
+
+public:
+   virtual void SetUp() override
+   {
+      // TODO: Validate existence of test fixture file
+      std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
+      EXPECT_EQ(false, content.empty());
+      csv_parser.set_raw_csv_content(content);
+      csv_parser.parse();
+   }
+   virtual void TearDown() override
+   {
+   }
+};
+
+
 TEST(AllegroFlare_CSVParserTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::CSVParser csvparser;
@@ -119,6 +141,12 @@ TEST(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
    EXPECT_EQ("range+10", parsed_content[17][8]);
    EXPECT_EQ("bravery+3, persuasion+2", parsed_content[23][13]);
    EXPECT_EQ("achievement", parsed_content[208][2]);
+}
+
+
+TEST(AllegroFlare_CSVParserTestWithLoadedFixture, num_rows__will_return_the_expected_number_of_rows)
+{
+   // TODO: Add test
 }
 
 
