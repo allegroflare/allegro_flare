@@ -526,6 +526,14 @@
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
@@ -1174,13 +1182,6 @@
   "AllegroFlare/DialogTree/BasicScreenplayTextLoader": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
-  ],
-  "AllegroFlare/UsefulPHP": [
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
   ],
   "AllegroFlare/DialogTree/Nodes/ExitDialog": [
     "AllegroFlare/DialogSystem/DialogSystem",

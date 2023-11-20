@@ -3,6 +3,7 @@
 #include <AllegroFlare/CSVParser.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -148,7 +149,7 @@ std::vector<std::string> CSVParser::parse_row(std::string line)
    }
 
    // Process the last token
-   tokens.push_back(token);
+   tokens.push_back(AllegroFlare::php::trim(token));
 
    return tokens;
 }

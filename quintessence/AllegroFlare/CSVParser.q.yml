@@ -137,12 +137,13 @@ methods:
       }
 
       // Process the last token
-      tokens.push_back(token);
+      tokens.push_back(AllegroFlare::php::trim(token));
 
       return tokens;
     body_dependency_symbols:
       - std::stringstream
       - std::vector
+      - AllegroFlare::UsefulPHP
 
 
 dependencies:
@@ -150,5 +151,7 @@ dependencies:
 
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 
