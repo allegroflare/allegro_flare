@@ -67,7 +67,7 @@ TEST(AllegroFlare_CSVParserTest, parse__will_parse_the_content)
    csv_parser.parse();
    std::vector<std::vector<std::string>> parsed_content = csv_parser.get_parsed_content();
 
-   //EXPECT_EQ(3, parsed_content.size());
+   EXPECT_EQ(3, parsed_content.size());
 
    //TODO: Assert parsed_tokens
 

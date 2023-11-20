@@ -31,13 +31,17 @@ std::vector<std::vector<std::string>> CSVParser::get_parsed_content() const
 
 void CSVParser::parse()
 {
+   parsed_content.clear();
    std::stringstream ss;
    ss.str(raw_csv_content);
    int line_num = 0;
    std::string line;
    while (std::getline(ss, line))
    {
-      std::cout << line << std::endl;
+      //std::cout << line << std::endl;
+      std::vector<std::string> parsed_row = parse_row(line);
+      // TODO: Validate size
+      parsed_content.push_back(parsed_row);
       line_num++;
    }
    return;
