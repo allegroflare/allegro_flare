@@ -18,6 +18,7 @@
   "AllegroFlare/Logger": [
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
+    "AllegroFlare/CSVParser",
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/Characters/Base",

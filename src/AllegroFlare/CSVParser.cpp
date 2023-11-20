@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/CSVParser.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -90,10 +91,21 @@ void CSVParser::parse()
    ss.str(raw_csv_content);
    int line_num = 0;
    std::string line;
+   int num_columns = -1;
    while (std::getline(ss, line))
    {
       std::vector<std::string> parsed_row = parse_row(line);
-      // TODO: Validate size
+      if (num_columns == -1) num_columns = parsed_row.size();
+      if (parsed_row.size() != num_columns)
+      {
+         // TODO: Test this throw
+         std::stringstream error_message;
+         error_message << "The first row contained \"" << num_columns << "\", However the row \""
+               << (line_num+1) << "\" containes \"" << parsed_row.size() << "\" columns. The number "
+                  "of columns must be the same on all rows.";
+         AllegroFlare::Logger::throw_error("AllegroFlare::CSVParser", error_message.str());
+      }
+
       parsed_content.push_back(parsed_row);
       line_num++;
    }
