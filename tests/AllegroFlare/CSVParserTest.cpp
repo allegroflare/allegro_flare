@@ -5,14 +5,17 @@
 #include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a test-local fixture file
 
 
+class AllegroFlare_CSVParserTest: public ::testing::Test {};
+
 class AllegroFlare_CSVParserTestWithLoadedFixture : public ::testing::Test
 {
 private:
    // TODO: Replace this path with a test-local fixture file
    std::string FIXTURE_FILE = "/Users/markoates/Repos/allegro_flare/tests/fixtures/csv/game_content_csv.csv";
-   AllegroFlare::CSVParser csv_parser;
 
 public:
+   AllegroFlare::CSVParser csv_parser;
+
    virtual void SetUp() override
    {
       // TODO: Validate existence of test fixture file
@@ -27,13 +30,13 @@ public:
 };
 
 
-TEST(AllegroFlare_CSVParserTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_CSVParserTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::CSVParser csvparser;
 }
 
 
-TEST(AllegroFlare_CSVParserTest, parse_row__returns_the_row_parsed_into_tokens)
+TEST_F(AllegroFlare_CSVParserTest, parse_row__returns_the_row_parsed_into_tokens)
 {
    AllegroFlare::CSVParser csv_parser;
    std::string line = "Name,Age,Address,\"City, State\",Country";
@@ -51,7 +54,7 @@ TEST(AllegroFlare_CSVParserTest, parse_row__returns_the_row_parsed_into_tokens)
 }
 
 
-TEST(AllegroFlare_CSVParserTest,
+TEST_F(AllegroFlare_CSVParserTest,
    DISABLED__parse_row__will_account_for_quoted_tokens_and_escaped_quotes_within_quoted_tokens)
 {
    // TODO: Enable quotes within quoted string tokens
@@ -78,7 +81,7 @@ TEST(AllegroFlare_CSVParserTest,
 }
 
 
-TEST(AllegroFlare_CSVParserTest, parse__will_parse_the_content)
+TEST_F(AllegroFlare_CSVParserTest, parse__will_parse_the_content)
 {
    std::string raw_csv_content =
       "Name,LastName,Address,\"City, State\",Age\n"
@@ -120,7 +123,7 @@ TEST(AllegroFlare_CSVParserTest, parse__will_parse_the_content)
 }
 
 
-TEST(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
+TEST_F(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
 {
    // TODO: Replace this path with a test-local fixture file
    std::string FIXTURE_FILE = "/Users/markoates/Repos/allegro_flare/tests/fixtures/csv/game_content_csv.csv";
@@ -144,9 +147,16 @@ TEST(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
 }
 
 
-TEST(AllegroFlare_CSVParserTestWithLoadedFixture, num_rows__will_return_the_expected_number_of_rows)
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_rows__will_return_the_expected_number_of_rows)
 {
-   // TODO: Add test
+   EXPECT_EQ(209, csv_parser.num_rows());
+
+}
+
+
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_columns__will_return_the_expected_number_of_columns)
+{
+   EXPECT_EQ(33, csv_parser.num_columns());
 }
 
 
