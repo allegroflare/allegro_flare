@@ -105,6 +105,13 @@ TEST(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
    // TODO: Validate existence of test fixture file
    std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
    EXPECT_EQ(false, content.empty());
+
+   AllegroFlare::CSVParser csv_parser(content);
+   csv_parser.parse();
+
+   std::vector<std::vector<std::string>> parsed_content = csv_parser.get_parsed_content();
+
+   EXPECT_EQ(209, parsed_content.size());
    // TODO: Parse content of test fixture
 }
 
