@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/CSVParser.hpp>
+#include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a test-local fixture file
 
 
 TEST(AllegroFlare_CSVParserTest, can_be_created_without_blowing_up)
@@ -94,6 +95,17 @@ TEST(AllegroFlare_CSVParserTest, parse__will_parse_the_content)
    };
 
    EXPECT_EQ(expected_parsed_content, actual_parsed_content);
+}
+
+
+TEST(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
+{
+   // TODO: Replace this path with a test-local fixture file
+   std::string FIXTURE_FILE = "/Users/markoates/Repos/allegro_flare/tests/fixtures/csv/game_content_csv.csv";
+   // TODO: Validate existence of test fixture file
+   std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
+   EXPECT_EQ(false, content.empty());
+   // TODO: Parse content of test fixture
 }
 
 
