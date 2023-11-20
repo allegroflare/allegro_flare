@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <vector>
 
 
@@ -14,6 +15,7 @@ namespace AllegroFlare
 CSVParser::CSVParser(std::string raw_csv_content)
    : raw_csv_content(raw_csv_content)
    , parsed_content({})
+   , parsed(false)
 {
 }
 
@@ -23,14 +25,41 @@ CSVParser::~CSVParser()
 }
 
 
-std::vector<std::vector<std::string>> CSVParser::get_parsed_content() const
+bool CSVParser::get_parsed() const
 {
-   return parsed_content;
+   return parsed;
 }
 
 
+void CSVParser::set_raw_csv_content(std::string raw_csv_content)
+{
+   this->raw_csv_content = raw_csv_content;
+   parsed = false;
+   parsed_content.clear();
+   return;
+}
+
+std::vector<std::vector<std::string>> CSVParser::get_parsed_content()
+{
+   if (!(parsed))
+   {
+      std::stringstream error_message;
+      error_message << "[CSVParser::get_parsed_content]: error: guard \"parsed\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CSVParser::get_parsed_content: error: guard \"parsed\" not met");
+   }
+   return parsed_content;
+}
+
 void CSVParser::parse()
 {
+   if (!((!parsed)))
+   {
+      std::stringstream error_message;
+      error_message << "[CSVParser::parse]: error: guard \"(!parsed)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CSVParser::parse: error: guard \"(!parsed)\" not met");
+   }
    parsed_content.clear();
    std::stringstream ss;
    ss.str(raw_csv_content);
@@ -38,12 +67,12 @@ void CSVParser::parse()
    std::string line;
    while (std::getline(ss, line))
    {
-      //std::cout << line << std::endl;
       std::vector<std::string> parsed_row = parse_row(line);
       // TODO: Validate size
       parsed_content.push_back(parsed_row);
       line_num++;
    }
+   parsed = true;
    return;
 }
 

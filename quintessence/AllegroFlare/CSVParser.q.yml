@@ -5,10 +5,16 @@ properties:
     type: std::string
     constructor_arg: true
     init_with: '"[unset-csv_content]"'
+    setter: explicit
 
   - name: parsed_content
     type: std::vector<std::vector<std::string>>
     init_with: '{}'
+    getter: explicit
+
+  - name: parsed
+    type: bool
+    init_with: false
     getter: true
 
 
@@ -24,7 +30,27 @@ enums:
 methods:
 
 
+  - name: set_raw_csv_content
+    parameters:
+      - name: raw_csv_content
+        type: std::string
+        default_argument: '"[unset-raw_csv_content]"'
+    body: |
+      this->raw_csv_content = raw_csv_content;
+      parsed = false;
+      parsed_content.clear();
+      return;
+
+
+  - name: get_parsed_content
+    type: std::vector<std::vector<std::string>>
+    guards: [ parsed ]
+    body: |
+      return parsed_content;
+
+
   - name: parse
+    guards: [ (!parsed) ]
     body: |
       parsed_content.clear();
       std::stringstream ss;
@@ -33,12 +59,12 @@ methods:
       std::string line;
       while (std::getline(ss, line))
       {
-         //std::cout << line << std::endl;
          std::vector<std::string> parsed_row = parse_row(line);
          // TODO: Validate size
          parsed_content.push_back(parsed_row);
          line_num++;
       }
+      parsed = true;
       return;
     body_dependency_symbols:
       - std::cout

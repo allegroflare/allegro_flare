@@ -17,6 +17,7 @@ namespace AllegroFlare
       };
       std::string raw_csv_content;
       std::vector<std::vector<std::string>> parsed_content;
+      bool parsed;
 
    protected:
 
@@ -25,7 +26,9 @@ namespace AllegroFlare
       CSVParser(std::string raw_csv_content="[unset-csv_content]");
       ~CSVParser();
 
-      std::vector<std::vector<std::string>> get_parsed_content() const;
+      bool get_parsed() const;
+      void set_raw_csv_content(std::string raw_csv_content="[unset-raw_csv_content]");
+      std::vector<std::vector<std::string>> get_parsed_content();
       void parse();
       std::vector<std::string> parse_row(std::string line="[unset-line]");
    };
