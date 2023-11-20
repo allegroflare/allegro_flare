@@ -111,8 +111,14 @@ TEST(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
 
    std::vector<std::vector<std::string>> parsed_content = csv_parser.get_parsed_content();
 
-   EXPECT_EQ(209, parsed_content.size());
-   // TODO: Parse content of test fixture
+   ASSERT_EQ(209, parsed_content.size());
+
+   // Check some spot data
+   EXPECT_EQ("Card, Location, Event", parsed_content[0][0]);
+   EXPECT_EQ("happiness", parsed_content[1][6]);
+   EXPECT_EQ("range+10", parsed_content[17][8]);
+   EXPECT_EQ("bravery+3, persuasion+2", parsed_content[23][13]);
+   EXPECT_EQ("achievement", parsed_content[208][2]);
 }
 
 
