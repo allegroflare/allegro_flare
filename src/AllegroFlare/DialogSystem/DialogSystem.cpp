@@ -670,19 +670,13 @@ void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* d
 
 void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
 {
-   if (!(dialog_node_bank.node_exists_by_name(dialog_name)))
-   {
-      std::stringstream error_message;
-      error_message << "[DialogSystem::activate_dialog_node_by_name]: error: guard \"dialog_node_bank.node_exists_by_name(dialog_name)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_dialog_node_by_name: error: guard \"dialog_node_bank.node_exists_by_name(dialog_name)\" not met");
-   }
    AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
    if (!found_dialog_node)
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::DialogSystem::DialogSystem::activate_dialog_node_by_name",
-         "Could not find node with identifier \"" + dialog_name + "\"."
+         "Could not find node with identifier \"" + dialog_name + "\". "
+            "The node bank contains " + std::to_string(dialog_node_bank.num_nodes()) + " nodes."
       );
    }
    active_dialog_node_name = dialog_name;
