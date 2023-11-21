@@ -51,12 +51,13 @@ void NodeBank::add_node(std::string name, AllegroFlare::DialogTree::Nodes::Base*
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("NodeBank::add_node: error: guard \"node\" not met");
    }
-   if (!((!node_exists_by_name(name))))
+   // TODO: Test this guard
+   if (node_exists_by_name(name))
    {
-      std::stringstream error_message;
-      error_message << "[NodeBank::add_node]: error: guard \"(!node_exists_by_name(name))\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeBank::add_node: error: guard \"(!node_exists_by_name(name))\" not met");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogTree::NodeBank::add_node",
+         "This node bank already contains an node with the identifier \"" + name + "\""
+      );
    }
    nodes[name] = node;
 }

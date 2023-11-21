@@ -25,8 +25,16 @@ methods:
       - name: node
         type: AllegroFlare::DialogTree::Nodes::Base*
         default_argument: nullptr
-    guards: [ node, (!node_exists_by_name(name)) ]
+    guards: [ node ]
     body: |
+      // TODO: Test this guard
+      if (node_exists_by_name(name))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::DialogTree::NodeBank::add_node",
+            "This node bank already contains an node with the identifier \"" + name + "\""
+         );
+      }
       nodes[name] = node;
 
 
