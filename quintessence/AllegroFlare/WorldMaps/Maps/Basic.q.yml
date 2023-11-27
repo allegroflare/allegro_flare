@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: background_image_identifier
+    type: std::string
+    init_with: '"[unset-background_image_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+    
   - name: locations
     type: std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*>
     init_with: '{}'

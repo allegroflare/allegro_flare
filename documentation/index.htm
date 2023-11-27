@@ -30344,6 +30344,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
@@ -30367,11 +30371,20 @@ table td
 <tr>
   <td class="private_method">obtain_font()</td>
 </tr>
+<tr>
+  <td class="private_method">obtain_background_image()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
@@ -30507,6 +30520,10 @@ table td
     <h4>Overview<h4>
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
+<tr>
+  <td class="property">background_image_identifier</td>
+  <td class="property">std::string</td>
+</tr>
 <tr>
   <td class="property">locations</td>
   <td class="property">std::map&lt;std::string, AllegroFlare::WorldMaps::Locations::Base*&gt;</td>
@@ -33316,6 +33333,7 @@ table td
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
   ],
@@ -33738,6 +33756,7 @@ table td
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
     "AllegroFlare/TransitionFX/Base",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],

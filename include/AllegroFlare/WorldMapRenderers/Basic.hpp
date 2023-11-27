@@ -1,9 +1,11 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Base.hpp>
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
 
@@ -15,16 +17,18 @@ namespace AllegroFlare
       class Basic
       {
       private:
+         AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::WorldMaps::Maps::Basic* map;
          std::string quote;
          ALLEGRO_FONT* obtain_font();
+         ALLEGRO_BITMAP* obtain_background_image();
 
       protected:
 
 
       public:
-         Basic(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::WorldMaps::Maps::Basic* map=nullptr, std::string quote="Hello!");
+         Basic(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::WorldMaps::Maps::Basic* map=nullptr, std::string quote="Hello!");
          ~Basic();
 
          void set_map(AllegroFlare::WorldMaps::Maps::Basic* map);

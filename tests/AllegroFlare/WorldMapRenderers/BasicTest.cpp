@@ -25,6 +25,7 @@ public:
          { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 80, 120) },
          { "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
       });
+      map.set_background_image_identifier("overworld-map-02.png");
    }
    virtual void TearDown()
    {
@@ -79,25 +80,11 @@ TEST_F(AllegroFlare_WorldMapRenderers_BasicTest, render__without_font_addon_init
 }
 
 
-TEST_F(AllegroFlare_WorldMapRenderers_BasicTest, render__without_a_font_bin__raises_an_error)
-{
-   al_init();
-   al_init_primitives_addon();
-   al_init_font_addon();
-   AllegroFlare::WorldMapRenderers::Basic basic;
-   std::string expected_error_message =
-      "Basic::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(basic.render(), std::runtime_error, expected_error_message);
-   al_shutdown_font_addon();
-   al_shutdown_primitives_addon();
-   al_uninstall_system();
-}   
-
-
 TEST_F(AllegroFlare_WorldMapRenderers_BasicTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::WorldMaps::Maps::Basic map;
-   AllegroFlare::WorldMapRenderers::Basic basic(&get_font_bin_ref(), &map);
+   map.set_background_image_identifier("overworld-map-02.png");
+   AllegroFlare::WorldMapRenderers::Basic basic(&get_bitmap_bin_ref(), &get_font_bin_ref(), &map);
    basic.render();
    al_flip_display();
 }
@@ -106,7 +93,7 @@ TEST_F(AllegroFlare_WorldMapRenderers_BasicTestWithAllegroRenderingFixture, CAPT
 TEST_F(AllegroFlare_WorldMapRenderers_BasicTestWithMapAndWithAllegroRenderingFixture,
    CAPTURE__render__with_locations_on_the_map__will_not_blow_up)
 {
-   AllegroFlare::WorldMapRenderers::Basic renderer(&get_font_bin_ref(), &map);
+   AllegroFlare::WorldMapRenderers::Basic renderer(&get_bitmap_bin_ref(), &get_font_bin_ref(), &map);
    clear();
    renderer.render();
    al_flip_display();

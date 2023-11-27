@@ -18,8 +18,9 @@ namespace WorldMapRenderers
 {
 
 
-Basic::Basic(AllegroFlare::FontBin* font_bin, AllegroFlare::WorldMaps::Maps::Basic* map, std::string quote)
-   : font_bin(font_bin)
+Basic::Basic(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::WorldMaps::Maps::Basic* map, std::string quote)
+   : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
    , map(map)
    , quote(quote)
 {
@@ -57,6 +58,7 @@ void Basic::render_location(AllegroFlare::WorldMaps::Locations::Base* location)
       float size = 10;
       AllegroFlare::WorldMaps::Locations::Basic *as =
          static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
+      // TODO: Do some nice rendering
       al_draw_filled_circle(as->get_x(), as->get_y(), size * 0.5, ALLEGRO_COLOR{0.5, 0.8, 0.89, 1.0});
    }
    else
@@ -92,6 +94,13 @@ void Basic::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic::render]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic::render: error: guard \"bitmap_bin\" not met");
+   }
    if (!(font_bin))
    {
       std::stringstream error_message;
@@ -106,6 +115,10 @@ void Basic::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic::render: error: guard \"map\" not met");
    }
+   // Draw the background
+   al_draw_bitmap(obtain_background_image(), 0, 0, 0);
+
+   // background_image_identifier
    for (auto &location : map->get_locations())
    {
       render_location(location.second);
@@ -116,14 +129,12 @@ void Basic::render()
 
 ALLEGRO_FONT* Basic::obtain_font()
 {
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[Basic::obtain_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic::obtain_font: error: guard \"font_bin\" not met");
-   }
    return font_bin->auto_get("Inter-Medium.ttf -52");
+}
+
+ALLEGRO_BITMAP* Basic::obtain_background_image()
+{
+   return bitmap_bin->auto_get(map->get_background_image_identifier());
 }
 
 
