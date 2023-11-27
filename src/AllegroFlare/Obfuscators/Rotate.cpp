@@ -68,11 +68,8 @@ std::string Rotate::encode(std::string text)
    }
    std::string result;
 
-   // Rotate
-   //char c = 'a';
    for (auto &c : text)
    {
-      //int rotation = 4;
       std::size_t pos;
       if ((pos=rotation_set.find(c))==std::string::npos)
       {
@@ -83,8 +80,6 @@ std::string Rotate::encode(std::string text)
          result += rotation_set[(pos+rotation) % rotation_set.size()];
       }
    }
-
-   // TODO: Map chars to their encodings
 
    return result;
 }
@@ -100,15 +95,13 @@ std::string Rotate::decode(std::string text)
    }
    std::string result;
 
-   // Rotate
-   //char c = 'a';
+   // Ensure the unsigned-ness of "rotation" does not break the backward rotation math
    int rev_rotation_i = -((int)rotation);
    while (rev_rotation_i < 0) rev_rotation_i += rotation_set.size();
    std::size_t rev_rotation = (std::size_t)(rev_rotation_i);
 
    for (auto &c : text)
    {
-      //int rotation = -4;
       std::size_t pos;
       if ((pos=rotation_set.find(c))==std::string::npos)
       {
@@ -119,8 +112,6 @@ std::string Rotate::decode(std::string text)
          result += rotation_set[(pos+rev_rotation) % rotation_set.size()];
       }
    }
-
-   // TODO: Map chars to their encodings
 
    return result;
 }

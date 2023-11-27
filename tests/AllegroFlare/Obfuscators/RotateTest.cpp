@@ -32,6 +32,18 @@ TEST(AllegroFlare_Obfuscators_RotateTest, encode__when_the_rotation_set_contains
 }
 
 
+TEST(AllegroFlare_Obfuscators_RotateTest, decode__when_the_rotation_set_contains_duplicate_character__throws_an_error)
+{
+   AllegroFlare::Obfuscators::Rotate obfuscator;
+   obfuscator.set_rotation_set("aa");
+   EXPECT_THROW_WITH_MESSAGE(
+      obfuscator.decode("some irrelevant text"),
+      std::runtime_error,
+      "Rotate::decode: error: guard \"rotation_set_contains_unique_characters()\" not met"
+   );
+}
+
+
 TEST(AllegroFlare_Obfuscators_RotateTest, encode_and_decode_are_symmetrical)
 {
    AllegroFlare::Obfuscators::Rotate obfuscator;
@@ -44,6 +56,8 @@ TEST(AllegroFlare_Obfuscators_RotateTest, encode_and_decode_will_work_on_large_t
 {
    AllegroFlare::Obfuscators::Rotate obfuscator;
    std::string subject;
+   // TODO: Use a seed for the random() so not to have a flakey test
+   // Alternatively, rely on a random seed for each test, and feed the seed value of the EXPECT_EQ in case of failure
    subject.resize(14000); // Approximately 10 pages of text
    for (auto &c : subject)
    {
