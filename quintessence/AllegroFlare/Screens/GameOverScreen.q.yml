@@ -197,7 +197,7 @@ functions:
       return;
 
 
-  - name: activate_current_selected_menu_option
+  - name: activate_current_chosen_menu_option
     private: true
     guards: [ event_emitter ]
     body: |
@@ -207,11 +207,11 @@ functions:
       return;
 
 
-  - name: select_menu_option
+  - name: choose_menu_option
     guards: [ event_emitter ]
     body: |
       // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
-      activate_current_selected_menu_option();
+      activate_current_chosen_menu_option();
       return;
 
 
@@ -241,7 +241,7 @@ functions:
       int surface_height = 1080;
       al_draw_text(
          title_font,
-         ALLEGRO_COLOR{1, 1, 1, 1},
+         ALLEGRO_COLOR{0.8, 0.72, 0.61, 1.0},
          surface_width / 2,
          surface_height / 2 - font_line_height,
          ALLEGRO_ALIGN_CENTER,
@@ -356,13 +356,15 @@ functions:
         type: bool
         default_argument: false
     body: |
+      if (!is_state(STATE_AWAITING_USER_INPUT)) return;
+
       if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
       if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
       if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
          || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
          )
       {
-         select_menu_option();
+         choose_menu_option();
       }
     body_dependency_symbols:
       - AllegroFlare::VirtualControllers::GenericController

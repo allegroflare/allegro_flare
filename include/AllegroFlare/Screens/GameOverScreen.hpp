@@ -49,7 +49,7 @@ namespace AllegroFlare
          static std::vector<std::pair<std::string, std::string>> DEFAULT_MENU_OPTIONS;
          void move_cursor_up();
          void move_cursor_down();
-         void activate_current_selected_menu_option();
+         void activate_current_chosen_menu_option();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_menu_font();
 
@@ -81,7 +81,7 @@ namespace AllegroFlare
          void initialize();
          virtual void on_activate() override;
          virtual void on_deactivate() override;
-         void select_menu_option();
+         void choose_menu_option();
          virtual void primary_timer_func() override;
          void render();
          void draw_primary_text();

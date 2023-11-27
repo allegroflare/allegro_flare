@@ -197,14 +197,14 @@ void GameOverScreen::move_cursor_down()
    return;
 }
 
-void GameOverScreen::activate_current_selected_menu_option()
+void GameOverScreen::activate_current_chosen_menu_option()
 {
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::activate_current_selected_menu_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[GameOverScreen::activate_current_chosen_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::activate_current_selected_menu_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("GameOverScreen::activate_current_chosen_menu_option: error: guard \"event_emitter\" not met");
    }
    // TODO: Test this callback
    // TODO: Consider if callback should override emission of game event
@@ -212,17 +212,17 @@ void GameOverScreen::activate_current_selected_menu_option()
    return;
 }
 
-void GameOverScreen::select_menu_option()
+void GameOverScreen::choose_menu_option()
 {
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::select_menu_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[GameOverScreen::choose_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::select_menu_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("GameOverScreen::choose_menu_option: error: guard \"event_emitter\" not met");
    }
    // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
-   activate_current_selected_menu_option();
+   activate_current_chosen_menu_option();
    return;
 }
 
@@ -270,7 +270,7 @@ void GameOverScreen::draw_primary_text()
    int surface_height = 1080;
    al_draw_text(
       title_font,
-      ALLEGRO_COLOR{1, 1, 1, 1},
+      ALLEGRO_COLOR{0.8, 0.72, 0.61, 1.0},
       surface_width / 2,
       surface_height / 2 - font_line_height,
       ALLEGRO_ALIGN_CENTER,
@@ -376,13 +376,15 @@ ALLEGRO_FONT* GameOverScreen::obtain_menu_font()
 
 void GameOverScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
+   if (!is_state(STATE_AWAITING_USER_INPUT)) return;
+
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_A
       || virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_MENU
       )
    {
-      select_menu_option();
+      choose_menu_option();
    }
 }
 
