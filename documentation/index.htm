@@ -459,6 +459,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/Base.q.yml">quintessence/AllegroFlare/VirtualControllers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/WorldMapRenderer.q.yml">quintessence/AllegroFlare/WorldMapRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/WorldMapRenderers/Basic.q.yml">quintessence/AllegroFlare/WorldMapRenderers/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml</a></li>
@@ -30293,6 +30295,106 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/WorldMapRenderer.q.yml">quintessence/AllegroFlare/WorldMapRenderer.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">quote</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/WorldMapRenderers/Basic.q.yml">quintessence/AllegroFlare/WorldMapRenderers/Basic.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">quote</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render_location(AllegroFlare::WorldMaps::Locations::Base* location=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -33027,6 +33129,7 @@ table td
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
     "AllegroFlare/YAMLValidator"
   ],
@@ -33365,6 +33468,8 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Wicked/Hud"
   ],
   "ALLEGRO_FONT": [
@@ -33453,6 +33558,8 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Wicked/Hud"
   ],
   "al_is_primitives_addon_initialized": [
@@ -33649,7 +33756,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/VirtualControllers/GenericController"
+    "AllegroFlare/VirtualControllers/GenericController",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -34276,7 +34385,9 @@ table td
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
@@ -34423,7 +34534,9 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingTextRenderer",
@@ -36397,8 +36510,12 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/WorldMaps/Locations/Base": [
+    "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Locations/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
+  ],
+  "AllegroFlare/WorldMaps/Locations/Basic": [
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [
     "AllegroFlare/WorldMaps/Maps/Basic"

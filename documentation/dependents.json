@@ -53,6 +53,7 @@
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
     "AllegroFlare/YAMLValidator"
   ],
@@ -391,6 +392,8 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Wicked/Hud"
   ],
   "ALLEGRO_FONT": [
@@ -479,6 +482,8 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Wicked/Hud"
   ],
   "al_is_primitives_addon_initialized": [
@@ -675,7 +680,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/VirtualControllers/GenericController"
+    "AllegroFlare/VirtualControllers/GenericController",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -1302,7 +1309,9 @@
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "std/vector<std/tuple<std/string, std/string, std/string>>": [
     "AllegroFlare/Elements/AchievementsList",
@@ -1449,7 +1458,9 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/WorldMapRenderer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/interpolator/": [
     "AllegroFlare/Elements/AdvancingTextRenderer",
@@ -3423,8 +3434,12 @@
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/WorldMaps/Locations/Base": [
+    "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Locations/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
+  ],
+  "AllegroFlare/WorldMaps/Locations/Basic": [
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [
     "AllegroFlare/WorldMaps/Maps/Basic"

@@ -4,12 +4,39 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/WorldMapRenderers/Basic.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+#include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
 
 
 class AllegroFlare_WorldMapRenderers_BasicTest : public ::testing::Test {};
 class AllegroFlare_WorldMapRenderers_BasicTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
+class AllegroFlare_WorldMapRenderers_BasicTestWithMapAndWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+public:
+   AllegroFlare::WorldMaps::Maps::Basic map;
+   virtual void SetUp()
+   {
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+      map.set_locations({
+         { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
+         //{ "office", new AllegroFlare::WorldMaps::Locations::Basic(80, 120) },
+         //{ "store",  new AllegroFlare::WorldMaps::Locations::Basic(-100, -30) },
+      });
+   }
+   virtual void TearDown()
+   {
+      // Cleanup
+      //for (auto &location : map.get_locations())
+      //{
+         //delete location.second;
+         //location.second = nullptr;
+      //}
+      AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+   }
+};
 
 
 
