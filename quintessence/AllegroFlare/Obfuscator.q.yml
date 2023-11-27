@@ -1,0 +1,23 @@
+methods:
+
+
+  - name: encode
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    type: std::string
+    body: |
+      std::string rotation_set =
+         " \n\r\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]{}1234567890!@#$%^&*()_+-=,./<>?:;\"'\\~";
+      std::set<char> chars;
+      for (auto &c : rotation_set) chars.insert(c);
+
+      // TODO: Map chars to their encodings
+
+      return text;
+    body_dependency_symbols:
+      - std::set
+
+
+
