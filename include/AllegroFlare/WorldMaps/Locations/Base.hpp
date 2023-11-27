@@ -27,6 +27,7 @@ namespace AllegroFlare
 
             std::string get_type() const;
             virtual bool collides(float x=0.0f, float y=0.0f);
+            bool is_type(std::string possible_type="");
          };
       }
    }

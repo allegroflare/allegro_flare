@@ -1,0 +1,100 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: quote
+    type: std::string
+    init_with: '"Hello!"'
+    constructor_arg: true
+
+
+methods:
+
+
+  - name: render_location
+    parameters:
+      - name: location
+        type: AllegroFlare::WorldMaps::Locations::Base*
+        default_argument: nullptr
+    body: |
+      if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
+      {
+         float size = 10;
+         AllegroFlare::WorldMaps::Locations::Basic *as =
+            static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
+         al_draw_filled_circle(as->get_x(), as->get_y(), size * 0.5, ALLEGRO_COLOR{0.5, 0.8, 0.89, 1.0});
+      }
+      else
+      {
+         // TODO: Throw, Could not handle this type
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::WorldMaps::Locations::Basic
+      - AllegroFlare::Logger
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+    body: |
+      float x = 1920/2;
+      float y = 1080/3;
+      ALLEGRO_FONT *font = obtain_font();
+      float text_width = al_get_text_width(font, quote.c_str());
+      float text_height = al_get_font_line_height(font);
+      float h_text_width = text_width/2;
+      float h_text_height = text_height/2;
+      AllegroFlare::Vec2D padding = {30, 20};
+
+      al_draw_rounded_rectangle(
+         x-h_text_width - padding.x,
+         y-h_text_height - padding.y,
+         x+h_text_width + padding.x,
+         y+h_text_height + padding.y,
+         8.0f,
+         8.0f,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         8.0f
+      );
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf -52");
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Base
+    headers: [ AllegroFlare/WorldMaps/Locations/Base.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Basic
+    headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+
+

@@ -35,6 +35,11 @@ bool Base::collides(float x, float y)
    return false;
 }
 
+bool Base::is_type(std::string possible_type)
+{
+   return (possible_type == get_type());
+}
+
 
 } // namespace Locations
 } // namespace WorldMaps
