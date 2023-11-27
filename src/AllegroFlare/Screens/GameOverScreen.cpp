@@ -21,12 +21,16 @@ std::string GameOverScreen::DEFAULT_TITLE_TEXT = "GAME OVER";
 std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OPTIONS = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };
 
 
+std::string GameOverScreen::DEFAULT_FALLBACK_INSTRUCTION_TEXT_WHEN_NO_MENU_OPTIONS = "press any key to continue";
+
+
 GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
    : AllegroFlare::Screens::Base("GameOverScreen")
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)
    , menu_options(DEFAULT_MENU_OPTIONS)
+   , fallback_instruction_text_when_no_menu_options(DEFAULT_FALLBACK_INSTRUCTION_TEXT_WHEN_NO_MENU_OPTIONS)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
    , cursor_position(0)
@@ -155,10 +159,7 @@ void GameOverScreen::set_menu_options(std::vector<std::pair<std::string, std::st
 
 void GameOverScreen::clear_menu_options()
 {
-   // TODO: add tests for this feature
-   // TODO: Validate menu options (unique labels, non-empty datas)
-   this->menu_options.clear();
-   cursor_position = 0;
+   set_menu_options({});
    return;
 }
 
@@ -298,38 +299,53 @@ void GameOverScreen::draw_menu()
    float font_line_height = al_get_font_line_height(menu_font);
    int surface_width = 1920;
    int surface_height = 1080;
+
    float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.25f);
    int menu_item_num = 0;
 
-   for (auto &menu_option : menu_options)
+   if (menu_options.empty())
    {
-      bool showing_cursor_on_this_option = false;
-      if (menu_item_num == cursor_position) showing_cursor_on_this_option = true;
-
-      std::string menu_item_text = std::get<0>(menu_option);
       al_draw_text(
          menu_font,
          ALLEGRO_COLOR{1, 1, 1, 1},
          surface_width / 2,
          surface_height / 2 + menu_item_vertical_spacing * menu_item_num + font_line_height * 2,
          ALLEGRO_ALIGN_CENTER,
-         menu_item_text.c_str()
+         fallback_instruction_text_when_no_menu_options.c_str()
       );
-
-      if (showing_cursor_on_this_option)
+   }
+   else
+   {
+      for (auto &menu_option : menu_options)
       {
-         float menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
+         bool showing_cursor_on_this_option = false;
+         if (menu_item_num == cursor_position) showing_cursor_on_this_option = true;
+
+         std::string menu_item_text = std::get<0>(menu_option);
          al_draw_text(
             menu_font,
             ALLEGRO_COLOR{1, 1, 1, 1},
-            surface_width / 2 - (menu_item_text_width * 0.5),
+            surface_width / 2,
             surface_height / 2 + menu_item_vertical_spacing * menu_item_num + font_line_height * 2,
-            ALLEGRO_ALIGN_RIGHT,
-            ">  "
+            ALLEGRO_ALIGN_CENTER,
+            menu_item_text.c_str()
          );
-      }
 
-      menu_item_num++;
+         if (showing_cursor_on_this_option)
+         {
+            float menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
+            al_draw_text(
+               menu_font,
+               ALLEGRO_COLOR{1, 1, 1, 1},
+               surface_width / 2 - (menu_item_text_width * 0.5),
+               surface_height / 2 + menu_item_vertical_spacing * menu_item_num + font_line_height * 2,
+               ALLEGRO_ALIGN_RIGHT,
+               ">  "
+            );
+         }
+
+         menu_item_num++;
+      }
    }
    return;
 }

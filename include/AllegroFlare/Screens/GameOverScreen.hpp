@@ -34,6 +34,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::string title_text;
          std::vector<std::pair<std::string, std::string>> menu_options;
+         std::string fallback_instruction_text_when_no_menu_options;
          std::function<void(AllegroFlare::Screens::GameOverScreen*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
          int cursor_position;
@@ -48,6 +49,7 @@ namespace AllegroFlare
          bool initialized;
          static std::string DEFAULT_TITLE_TEXT;
          static std::vector<std::pair<std::string, std::string>> DEFAULT_MENU_OPTIONS;
+         static std::string DEFAULT_FALLBACK_INSTRUCTION_TEXT_WHEN_NO_MENU_OPTIONS;
          void move_cursor_up();
          void move_cursor_down();
          void activate_current_chosen_menu_option();

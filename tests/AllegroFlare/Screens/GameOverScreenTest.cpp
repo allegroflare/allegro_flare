@@ -176,6 +176,7 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroFlareFrameworksFullFixt
    AllegroFlare::Screens::GameOverScreen game_over_screen;
    game_over_screen.set_event_emitter(get_framework_event_emitter());
    game_over_screen.set_font_bin(get_framework_font_bin());
+   game_over_screen.clear_menu_options();
    game_over_screen.initialize();
 
    framework_register_and_activate_screen("game_over_screen", &game_over_screen);
