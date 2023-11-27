@@ -2586,6 +2586,9 @@
   "std/copy_if": [
     "AllegroFlare/Notifications"
   ],
+  "AllegroFlare/Obfuscators/Rotate": [
+    "AllegroFlare/Obfuscator"
+  ],
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
     "AllegroFlare/VirtualControlsProcessor"

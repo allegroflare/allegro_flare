@@ -4,6 +4,8 @@ properties:
   - name: rotation_set
     type: std::string
     init_with: '" \n\r\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]{}1234567890!@#$%^&*()_+-=,./<>?:;\"\\~"'
+    getter: true
+    setter: true
 
   - name: rotation
     type: std::size_t
@@ -15,12 +17,23 @@ properties:
 methods:
 
 
+  - name: rotation_set_contains_unique_characters
+    type: bool
+    body: |
+      std::set<char> uniq_chars;
+      for (auto &c : rotation_set) uniq_chars.insert(c);
+      return (uniq_chars.size() == rotation_set.size());
+    body_dependency_symbols:
+      - std::set
+
+
   - name: encode
     parameters:
       - name: text
         type: std::string
         default_argument: '"[unset-text]"'
     type: std::string
+    guards: [ rotation_set_contains_unique_characters() ]
     body: |
       std::string result;
 
@@ -53,6 +66,7 @@ methods:
         type: std::string
         default_argument: '"[unset-text]"'
     type: std::string
+    guards: [ rotation_set_contains_unique_characters() ]
     body: |
       std::string result;
 
@@ -79,7 +93,5 @@ methods:
       // TODO: Map chars to their encodings
 
       return result;
-    body_dependency_symbols:
-      - std::set
 
 

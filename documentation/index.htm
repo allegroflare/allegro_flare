@@ -16928,12 +16928,8 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">rotation_set</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">rotation</td>
-  <td class="property">std::size_t</td>
+  <td class="property">rotator_engine</td>
+  <td class="property">AllegroFlare::Obfuscators::Rotate</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -16946,7 +16942,12 @@ table td
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Obfuscators::Rotate&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Obfuscators/Rotate.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -16965,6 +16966,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">rotation_set_contains_unique_characters()</td>
+</tr>
 <tr>
   <td class="method">encode(std::string text=&quot;[unset-text]&quot;)</td>
 </tr>
@@ -35412,6 +35416,9 @@ table td
   ],
   "std/copy_if": [
     "AllegroFlare/Notifications"
+  ],
+  "AllegroFlare/Obfuscators/Rotate": [
+    "AllegroFlare/Obfuscator"
   ],
   "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping": [
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
