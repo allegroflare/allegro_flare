@@ -5,7 +5,8 @@ import bpy
 
 text = "GAME OVER"
 font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOne-Regular.ttf"
-extrude_depth = 0.25
+extrude_depth = 0.1
+output_path = "/Users/markoates/Desktop/text_3d_model.obj"  # Specify the desired output path
 
 # Clear existing mesh objects
 bpy.ops.object.select_all(action='DESELECT')
@@ -49,6 +50,8 @@ bpy.ops.mesh.extrude_region_move(TRANSFORM_OT_translate={"value":(0, extrude_dep
 
 # Exit edit mode
 bpy.ops.object.mode_set(mode='OBJECT')
+
+bpy.ops.export_scene.obj(filepath=output_path, use_selection=True, use_materials=False)
 
 # Print a message to the console
 print("Text object created at the origin with custom font.")
