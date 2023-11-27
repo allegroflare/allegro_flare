@@ -41,6 +41,7 @@ namespace AllegroFlare
          int title_font_size;
          std::string menu_font_name;
          int menu_font_size;
+         float reveal_counter;
          uint32_t state;
          bool state_is_busy;
          float state_changed_at;

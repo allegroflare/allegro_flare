@@ -34,6 +34,7 @@ GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, Allegr
    , title_font_size(title_font_size)
    , menu_font_name(menu_font_name)
    , menu_font_size(menu_font_size)
+   , reveal_counter(0)
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
@@ -171,6 +172,7 @@ void GameOverScreen::initialize()
 
 void GameOverScreen::on_activate()
 {
+   cursor_position = 0;
    set_state(STATE_REVEALING);
    return;
 }
@@ -222,7 +224,8 @@ void GameOverScreen::choose_menu_option()
       throw std::runtime_error("GameOverScreen::choose_menu_option: error: guard \"event_emitter\" not met");
    }
    // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
-   activate_current_chosen_menu_option();
+   //activate_current_chosen_menu_option();
+   set_state(STATE_CLOSING_DOWN);
    return;
 }
 
@@ -403,21 +406,23 @@ void GameOverScreen::set_state(uint32_t state, bool override_if_busy)
 
    switch (state)
    {
-      case STATE_REVEALING:
-      break;
+      case STATE_REVEALING: {
+         reveal_counter = 0.0f;
+      } break;
 
-      case STATE_AWAITING_USER_INPUT:
-      break;
+      case STATE_AWAITING_USER_INPUT: {
+         reveal_counter = 1.0f;
+      } break;
 
-      case STATE_CLOSING_DOWN:
-      break;
+      case STATE_CLOSING_DOWN: {
+      } break;
 
-      case STATE_DISABLED:
-      break;
+      case STATE_DISABLED: {
+      } break;
 
-      default:
+      default: {
          throw std::runtime_error("weird error");
-      break;
+      } break;
    }
 
    this->state = state;
@@ -439,21 +444,35 @@ void GameOverScreen::update(float time_now)
 
    switch (state)
    {
-      case STATE_REVEALING:
-      break;
+      case STATE_REVEALING: {
+         float reveal_speed = 0.01f;
+         reveal_counter += reveal_speed;
+         if (reveal_counter >= 1.0)
+         {
+            reveal_counter = 0.01f;
+            set_state(STATE_AWAITING_USER_INPUT);
+         }
+      } break;
 
-      case STATE_AWAITING_USER_INPUT:
-      break;
+      case STATE_AWAITING_USER_INPUT: {
+      } break;
 
-      case STATE_CLOSING_DOWN:
-      break;
+      case STATE_CLOSING_DOWN: {
+         float hide_speed = 0.01f;
+         reveal_counter -= hide_speed;
+         if (reveal_counter <= 0.0)
+         {
+            reveal_counter = 0.0f;
+            activate_current_chosen_menu_option();
+         }
+      } break;
 
-      case STATE_DISABLED:
-      break;
+      case STATE_DISABLED: {
+      } break;
 
-      default:
+      default: {
          throw std::runtime_error("weird error");
-      break;
+      } break;
    }
 
    return;

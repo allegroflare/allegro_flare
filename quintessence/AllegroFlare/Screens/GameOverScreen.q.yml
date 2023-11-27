@@ -76,6 +76,10 @@ properties:
     getter: true
     setter: true
 
+  - name: reveal_counter
+    type: float
+    init_with: 0
+
   - name: state
     type: uint32_t
     init_with: STATE_UNDEF
@@ -167,6 +171,7 @@ functions:
     virtual: true
     override: true
     body: |
+      cursor_position = 0;
       set_state(STATE_REVEALING);
       return;
 
@@ -211,7 +216,8 @@ functions:
     guards: [ event_emitter ]
     body: |
       // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
-      activate_current_chosen_menu_option();
+      //activate_current_chosen_menu_option();
+      set_state(STATE_CLOSING_DOWN);
       return;
 
 
@@ -386,21 +392,23 @@ functions:
 
       switch (state)
       {
-         case STATE_REVEALING:
-         break;
+         case STATE_REVEALING: {
+            reveal_counter = 0.0f;
+         } break;
 
-         case STATE_AWAITING_USER_INPUT:
-         break;
+         case STATE_AWAITING_USER_INPUT: {
+            reveal_counter = 1.0f;
+         } break;
 
-         case STATE_CLOSING_DOWN:
-         break;
+         case STATE_CLOSING_DOWN: {
+         } break;
 
-         case STATE_DISABLED:
-         break;
+         case STATE_DISABLED: {
+         } break;
 
-         default:
+         default: {
             throw std::runtime_error("weird error");
-         break;
+         } break;
       }
 
       this->state = state;
@@ -420,21 +428,35 @@ functions:
 
       switch (state)
       {
-         case STATE_REVEALING:
-         break;
+         case STATE_REVEALING: {
+            float reveal_speed = 0.01f;
+            reveal_counter += reveal_speed;
+            if (reveal_counter >= 1.0)
+            {
+               reveal_counter = 0.01f;
+               set_state(STATE_AWAITING_USER_INPUT);
+            }
+         } break;
 
-         case STATE_AWAITING_USER_INPUT:
-         break;
+         case STATE_AWAITING_USER_INPUT: {
+         } break;
 
-         case STATE_CLOSING_DOWN:
-         break;
+         case STATE_CLOSING_DOWN: {
+            float hide_speed = 0.01f;
+            reveal_counter -= hide_speed;
+            if (reveal_counter <= 0.0)
+            {
+               reveal_counter = 0.0f;
+               activate_current_chosen_menu_option();
+            }
+         } break;
 
-         case STATE_DISABLED:
-         break;
+         case STATE_DISABLED: {
+         } break;
 
-         default:
+         default: {
             throw std::runtime_error("weird error");
-         break;
+         } break;
       }
 
       return;
