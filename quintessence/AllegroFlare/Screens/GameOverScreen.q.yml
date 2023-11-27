@@ -117,6 +117,7 @@ enums:
       - STATE_REVEALING
       - STATE_AWAITING_USER_INPUT
       - STATE_CLOSING_DOWN
+      - STATE_DISABLED
 
 
 documentation:
@@ -149,7 +150,7 @@ functions:
     body: |
       // TODO: add tests for this feature
       // TODO: Validate menu options (unique labels, non-empty datas)
-      this->menu_options = {};
+      this->menu_options.clear();
       cursor_position = 0;
       return;
 
@@ -174,6 +175,7 @@ functions:
     virtual: true
     override: true
     body: |
+      set_state(STATE_DISABLED);
       return;
 
 
@@ -391,6 +393,9 @@ functions:
          case STATE_CLOSING_DOWN:
          break;
 
+         case STATE_DISABLED:
+         break;
+
          default:
             throw std::runtime_error("weird error");
          break;
@@ -422,6 +427,9 @@ functions:
          case STATE_CLOSING_DOWN:
          break;
 
+         case STATE_DISABLED:
+         break;
+
          default:
             throw std::runtime_error("weird error");
          break;
@@ -443,6 +451,7 @@ functions:
          STATE_REVEALING,
          STATE_AWAITING_USER_INPUT,
          STATE_CLOSING_DOWN,
+         STATE_DISABLED,
       };
       return (valid_states.count(state) > 0);
     body_dependency_symbols:

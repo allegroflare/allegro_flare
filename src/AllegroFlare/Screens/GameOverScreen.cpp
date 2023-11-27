@@ -156,7 +156,7 @@ void GameOverScreen::clear_menu_options()
 {
    // TODO: add tests for this feature
    // TODO: Validate menu options (unique labels, non-empty datas)
-   this->menu_options = {};
+   this->menu_options.clear();
    cursor_position = 0;
    return;
 }
@@ -177,6 +177,7 @@ void GameOverScreen::on_activate()
 
 void GameOverScreen::on_deactivate()
 {
+   set_state(STATE_DISABLED);
    return;
 }
 
@@ -409,6 +410,9 @@ void GameOverScreen::set_state(uint32_t state, bool override_if_busy)
       case STATE_CLOSING_DOWN:
       break;
 
+      case STATE_DISABLED:
+      break;
+
       default:
          throw std::runtime_error("weird error");
       break;
@@ -442,6 +446,9 @@ void GameOverScreen::update(float time_now)
       case STATE_CLOSING_DOWN:
       break;
 
+      case STATE_DISABLED:
+      break;
+
       default:
          throw std::runtime_error("weird error");
       break;
@@ -457,6 +464,7 @@ bool GameOverScreen::is_valid_state(uint32_t state)
       STATE_REVEALING,
       STATE_AWAITING_USER_INPUT,
       STATE_CLOSING_DOWN,
+      STATE_DISABLED,
    };
    return (valid_states.count(state) > 0);
 }

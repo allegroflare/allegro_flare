@@ -28,6 +28,7 @@ namespace AllegroFlare
             STATE_REVEALING,
             STATE_AWAITING_USER_INPUT,
             STATE_CLOSING_DOWN,
+            STATE_DISABLED,
          };
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
