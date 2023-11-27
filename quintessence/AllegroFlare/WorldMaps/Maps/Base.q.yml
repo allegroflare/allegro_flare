@@ -28,6 +28,18 @@ methods:
         type: float
         default_argument: 0
     body: |
+      AllegroFlare::Logger::throw_unimplemented_for_base_class_error(
+         "AllegroFlare::WorldMaps::Maps::Base::location_id_at"
+      );
       return "";
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

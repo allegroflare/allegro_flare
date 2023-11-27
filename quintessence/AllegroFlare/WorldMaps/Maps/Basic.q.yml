@@ -38,6 +38,7 @@ methods:
         type: float
         default_argument: 0
     body: |
+      for (auto &location : locations) if (location.second->collides(x, y)) return location.first;
       return "";
 
 

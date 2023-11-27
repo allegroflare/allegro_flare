@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/WorldMaps/Maps/Base.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class MapsBaseTestClass : public AllegroFlare::WorldMaps::Maps::Base
@@ -32,6 +33,18 @@ TEST(AllegroFlare_WorldMaps_Maps_BaseTest, type__has_the_expected_value_matching
 {
    AllegroFlare::WorldMaps::Maps::Base base;
    EXPECT_EQ(AllegroFlare::WorldMaps::Maps::Base::TYPE, base.get_type());
+}
+
+
+TEST(AllegroFlare_WorldMaps_Maps_BaseTest, DISABLED__location_id_at__throws_a_not_implemented_for_the_base_class_error)
+{
+   // TODO: Fix this test
+   MapsBaseTestClass test_class;
+   EXPECT_THROW_WITH_MESSAGE(
+      test_class.location_id_at(),
+      std::runtime_error,
+      "foo"
+   );
 }
 
 

@@ -39,6 +39,7 @@ std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> Basic::get_loca
 
 std::string Basic::location_id_at(float x, float y)
 {
+   for (auto &location : locations) if (location.second->collides(x, y)) return location.first;
    return "";
 }
 

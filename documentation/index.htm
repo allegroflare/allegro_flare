@@ -15339,6 +15339,9 @@ table td
   <td class="method">build_not_included_message(std::string element_not_present=&quot;[unset-missing_element]&quot;, std::vector&lt;std::string&gt; valid_elements={})</td>
 </tr>
 <tr>
+  <td class="method">build_unimplemented_for_base_class_message(std::string from=&quot;[unset-from]&quot;)</td>
+</tr>
+<tr>
   <td class="method">build_info_message(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
 </tr>
 <tr>
@@ -15346,6 +15349,9 @@ table td
 </tr>
 <tr>
   <td class="method">throw_missing_file_error(std::string from=&quot;[unset-from]&quot;, std::string filename=&quot;[unset-filename]&quot;, std::string filetype=&quot;[unset-filetype]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">throw_unimplemented_for_base_class_error(std::string from=&quot;[unset-from]&quot;)</td>
 </tr>
 <tr>
   <td class="method">info_from(std::string from=&quot;[unset-from]&quot;, std::string message=&quot;[unset-message]&quot;)</td>
@@ -30376,7 +30382,12 @@ table td
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -30386,7 +30397,7 @@ table td
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">locations</td>
-  <td class="property">std::vector&lt;AllegroFlare::WorldMaps::Locations::Base*&gt;</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::WorldMaps::Locations::Base*&gt;</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -33013,6 +33024,7 @@ table td
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/WorldMaps/Maps/Base",
     "AllegroFlare/YAMLValidator"
   ],
   "AllegroFlare/TerminalColors": [

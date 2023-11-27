@@ -53,6 +53,7 @@
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/VirtualControlsProcessor",
+    "AllegroFlare/WorldMaps/Maps/Base",
     "AllegroFlare/YAMLValidator"
   ],
   "AllegroFlare/TerminalColors": [

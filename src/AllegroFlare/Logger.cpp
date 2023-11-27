@@ -156,6 +156,14 @@ std::string Logger::build_not_included_message(std::string element_not_present, 
    return result.str();
 }
 
+std::string Logger::build_unimplemented_for_base_class_message(std::string from)
+{
+   return build_error_message(from,
+                              "This method is a virtual method an is expected to be implemented by the "
+                              "derived class that is calling it"
+                             );
+}
+
 std::string Logger::build_info_message(std::string from, std::string message)
 {
    std::stringstream result;
@@ -179,6 +187,13 @@ void Logger::throw_missing_file_error(std::string from, std::string filename, st
                  << "Looking for \"" << filename << "\" from the current path "
                  << "\"" << current_path << "\".";
    throw_error(from, error_message.str());
+   return;
+}
+
+void Logger::throw_unimplemented_for_base_class_error(std::string from)
+{
+   // This is incorrect somehow, feel free to fix
+   throw_error(from, build_unimplemented_for_base_class_message(from));
    return;
 }
 

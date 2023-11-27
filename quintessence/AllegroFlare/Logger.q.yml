@@ -221,6 +221,24 @@ methods:
       return result.str();
 
 
+  - name: build_unimplemented_for_base_class_message
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+    type: std::string
+    body: |
+      return build_error_message(from,
+                                 "This method is a virtual method an is expected to be implemented by the "
+                                 "derived class that is calling it"
+                                );
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
+
+
+
   - name: build_info_message
     static: true
     parameters:
@@ -238,7 +256,6 @@ methods:
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
       - std::stringstream
-
 
 
   - name: build_unhandled_case_message
@@ -275,6 +292,21 @@ methods:
                     << "Looking for \"" << filename << "\" from the current path "
                     << "\"" << current_path << "\".";
       throw_error(from, error_message.str());
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::filesystem
+
+
+  - name: throw_unimplemented_for_base_class_error
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+    body: |
+      // This is incorrect somehow, feel free to fix
+      throw_error(from, build_unimplemented_for_base_class_message(from));
       return;
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
