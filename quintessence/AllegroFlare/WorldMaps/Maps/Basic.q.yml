@@ -10,7 +10,7 @@ properties:
 
 
   - name: locations
-    type: std::vector<AllegroFlare::WorldMaps::Locations::Base*>
+    type: std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*>
     init_with: '{}'
     constructor_arg: true
     setter: true

@@ -3422,7 +3422,8 @@
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/WorldMaps/Locations/Base": [
-    "AllegroFlare/WorldMaps/Locations/Basic"
+    "AllegroFlare/WorldMaps/Locations/Basic",
+    "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [
     "AllegroFlare/WorldMaps/Maps/Basic"

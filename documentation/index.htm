@@ -30385,8 +30385,8 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
+  <td class="property">locations</td>
+  <td class="property">std::vector&lt;AllegroFlare::WorldMaps::Locations::Base*&gt;</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -30403,6 +30403,9 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Maps::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Maps/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36379,7 +36382,8 @@ table td
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "AllegroFlare/WorldMaps/Locations/Base": [
-    "AllegroFlare/WorldMaps/Locations/Basic"
+    "AllegroFlare/WorldMaps/Locations/Basic",
+    "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [
     "AllegroFlare/WorldMaps/Maps/Basic"

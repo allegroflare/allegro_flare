@@ -13,7 +13,7 @@ namespace Maps
 {
 
 
-Basic::Basic(std::vector<AllegroFlare::WorldMaps::Locations::Base*> locations)
+Basic::Basic(std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> locations)
    : AllegroFlare::WorldMaps::Maps::Base(AllegroFlare::WorldMaps::Maps::Basic::TYPE)
    , locations(locations)
 {
@@ -25,13 +25,13 @@ Basic::~Basic()
 }
 
 
-void Basic::set_locations(std::vector<AllegroFlare::WorldMaps::Locations::Base*> locations)
+void Basic::set_locations(std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> locations)
 {
    this->locations = locations;
 }
 
 
-std::vector<AllegroFlare::WorldMaps::Locations::Base*> Basic::get_locations() const
+std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> Basic::get_locations() const
 {
    return locations;
 }
