@@ -140,6 +140,7 @@ public:
          new AllegroFlare::GameProgressAndStateInfos::Base() // Use Base for now, to demonstrate creating new save info
       );
       (*((int*)user_data))++;
+      return true;
    }
    static bool my_on_load_last_played_session_or_start_new_func(
          AllegroFlare::Routers::Standard *router,
@@ -157,6 +158,7 @@ public:
          new AllegroFlare::GameProgressAndStateInfos::Base() // Use Base for now, to demonstrate creating new save info
       );
       (*((int*)user_data))++;
+      return true;
    }
 };
 
