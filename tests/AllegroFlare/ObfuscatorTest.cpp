@@ -23,8 +23,7 @@ TEST(AllegroFlare_ObfuscatorTest, encode_and_decode_are_symmetrical)
 {
    AllegroFlare::Obfuscator obfuscator;
    std::string initial_string = "Hello World!";
-   std::string expected_string = "Hello World!";
-   EXPECT_EQ(expected_string, obfuscator.decode(obfuscator.encode(initial_string)));
+   EXPECT_EQ(initial_string, obfuscator.decode(obfuscator.encode(initial_string)));
 }
 
 
@@ -32,10 +31,10 @@ TEST(AllegroFlare_ObfuscatorTest, encode_and_decode_will_work_on_large_tests)
 {
    AllegroFlare::Obfuscator obfuscator;
    std::string subject;
-   subject.resize(1024);
+   subject.resize(64);
    for (auto &c : subject)
    {
-      c = rand()%256;
+      c = rand()%92 + 32;
    }
    //EXPECT_EQ(subject, obfuscator.decode(obfuscator.encode(subject)));
 }
