@@ -245,9 +245,16 @@ functions:
       float font_line_height = al_get_font_line_height(title_font);
       int surface_width = 1920;
       int surface_height = 1080;
+
+      ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.8, 0.72, 0.61, 1.0};
+      text_color.r *= reveal_counter;
+      text_color.g *= reveal_counter;
+      text_color.b *= reveal_counter;
+      text_color.a *= reveal_counter;
+
       al_draw_text(
          title_font,
-         ALLEGRO_COLOR{0.8, 0.72, 0.61, 1.0},
+         text_color,
          surface_width / 2,
          surface_height / 2 - font_line_height,
          ALLEGRO_ALIGN_CENTER,
@@ -258,6 +265,8 @@ functions:
 
   - name: draw_menu
     body: |
+      if (!is_state(STATE_AWAITING_USER_INPUT)) return;
+
       // TODO: review guards on this function
       ALLEGRO_FONT *menu_font = obtain_menu_font();
       float font_line_height = al_get_font_line_height(menu_font);
