@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Screens::Base
     scope: public
-    init_with: '"GameOverScreen"'
+    init_with: AllegroFlare::Screens::GameOverScreen::TYPE
 
 
 properties:
@@ -120,6 +120,13 @@ properties:
   - name: DEFAULT_FALLBACK_INSTRUCTION_TEXT_WHEN_NO_MENU_OPTIONS
     type: std::string
     init_with: '"press any key to continue"'
+    static: true
+    const: true
+    setter: false
+
+  - name: TYPE
+    type: std::string
+    init_with: '"AllegroFlare/Screens/GameOverScreen"'
     static: true
     const: true
     setter: false

@@ -24,8 +24,11 @@ std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OP
 std::string GameOverScreen::DEFAULT_FALLBACK_INSTRUCTION_TEXT_WHEN_NO_MENU_OPTIONS = "press any key to continue";
 
 
+std::string GameOverScreen::TYPE = "AllegroFlare/Screens/GameOverScreen";
+
+
 GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::string title_text, std::string title_font_name, int title_font_size, std::string menu_font_name, int menu_font_size)
-   : AllegroFlare::Screens::Base("GameOverScreen")
+   : AllegroFlare::Screens::Base(AllegroFlare::Screens::GameOverScreen::TYPE)
    , event_emitter(event_emitter)
    , font_bin(font_bin)
    , title_text(title_text)

@@ -50,6 +50,7 @@ namespace AllegroFlare
          static std::string DEFAULT_TITLE_TEXT;
          static std::vector<std::pair<std::string, std::string>> DEFAULT_MENU_OPTIONS;
          static std::string DEFAULT_FALLBACK_INSTRUCTION_TEXT_WHEN_NO_MENU_OPTIONS;
+         static std::string TYPE;
          void move_cursor_up();
          void move_cursor_down();
          void activate_current_chosen_menu_option();
