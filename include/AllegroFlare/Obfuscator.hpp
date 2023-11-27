@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <cstddef>
 #include <string>
 
 
@@ -10,6 +11,7 @@ namespace AllegroFlare
    {
    private:
       std::string rotation_set;
+      std::size_t rotation;
 
    protected:
 
@@ -18,7 +20,10 @@ namespace AllegroFlare
       Obfuscator();
       ~Obfuscator();
 
+      void set_rotation(std::size_t rotation);
+      std::size_t get_rotation() const;
       std::string encode(std::string text="[unset-text]");
+      std::string decode(std::string text="[unset-text]");
    };
 }
 
