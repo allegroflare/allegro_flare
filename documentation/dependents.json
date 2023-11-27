@@ -3421,6 +3421,12 @@
   "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData": [
     "AllegroFlare/VirtualControlsProcessor"
   ],
+  "AllegroFlare/WorldMaps/Locations/Base": [
+    "AllegroFlare/WorldMaps/Locations/Basic"
+  ],
+  "AllegroFlare/WorldMaps/Maps/Base": [
+    "AllegroFlare/WorldMaps/Maps/Basic"
+  ],
   "std/any_of": [
     "AllegroFlare/YAMLValidator"
   ],

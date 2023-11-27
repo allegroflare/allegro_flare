@@ -1,0 +1,33 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::WorldMaps::Locations::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/WorldMaps/Locations/Base"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: collides
+    type: bool
+    virtual: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      return false;
+
+

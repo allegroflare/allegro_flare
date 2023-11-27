@@ -1,0 +1,52 @@
+parent_classes:
+
+
+  - class: AllegroFlare::WorldMaps::Maps::Base
+    scope: public
+    init_with: AllegroFlare::WorldMaps::Maps::Basic::TYPE
+
+
+properties:
+
+
+  - name: locations
+    type: std::vector<AllegroFlare::WorldMaps::Locations::Base*>
+    init_with: '{}'
+    constructor_arg: true
+    setter: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/WorldMaps/Maps/Basic"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: location_id_at
+    type: std::string
+    virtual: true
+    override: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0
+      - name: y
+        type: float
+        default_argument: 0
+    body: |
+      return "";
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::WorldMaps::Maps::Base
+    headers: [ AllegroFlare/WorldMaps/Maps/Base.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Base
+    headers: [ AllegroFlare/WorldMaps/Locations/Base.hpp ]
+
+

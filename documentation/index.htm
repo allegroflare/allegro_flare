@@ -459,6 +459,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/Base.q.yml">quintessence/AllegroFlare/VirtualControllers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml">quintessence/AllegroFlare/VirtualControllers/GenericController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/VirtualControlsProcessor.q.yml">quintessence/AllegroFlare/VirtualControlsProcessor.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/WorldMaps/Maps/Basic.q.yml">quintessence/AllegroFlare/WorldMaps/Maps/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/YAMLValidator.q.yml">quintessence/AllegroFlare/YAMLValidator.q.yml</a></li>
   <li><a href="#quintessence/BuildInfo.q.yml">quintessence/BuildInfo.q.yml</a></li>
   <li><a href="#quintessence/ReleaseInfo.q.yml">quintessence/ReleaseInfo.q.yml</a></li>
@@ -30283,6 +30287,128 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">collides(float x=0.0f, float y=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">label</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">collides(float point_x=0.0f, float point_y=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">location_id_at(float x=0, float y=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/WorldMaps/Maps/Basic.q.yml">quintessence/AllegroFlare/WorldMaps/Maps/Basic.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">location_id_at(float x=0, float y=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Maps::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Maps/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/YAMLValidator.q.yml">quintessence/AllegroFlare/YAMLValidator.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -36251,6 +36377,12 @@ table td
   ],
   "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData": [
     "AllegroFlare/VirtualControlsProcessor"
+  ],
+  "AllegroFlare/WorldMaps/Locations/Base": [
+    "AllegroFlare/WorldMaps/Locations/Basic"
+  ],
+  "AllegroFlare/WorldMaps/Maps/Base": [
+    "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "std/any_of": [
     "AllegroFlare/YAMLValidator"
