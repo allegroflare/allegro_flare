@@ -24610,6 +24610,18 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -24677,6 +24689,21 @@ table td
 </tr>
 <tr>
   <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">update(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">is_state(uint32_t possible_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

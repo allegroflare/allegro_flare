@@ -52,6 +52,22 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture, CAPTU
 
 
 TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
+   CAPTURE__primary_timer_func__will_not_blow_up)
+{
+   AllegroFlare::Screens::GameOverScreen game_over_screen;
+   game_over_screen.set_font_bin(&get_font_bin_ref());
+   game_over_screen.initialize();
+
+   game_over_screen.on_activate();
+   game_over_screen.primary_timer_func();
+
+   al_flip_display();
+   //sleep_for(2);
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
    select_menu_option__without_an_event_emitter__will_raise_an_exception)
 {
    // TODO

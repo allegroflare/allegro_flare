@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -33,6 +34,9 @@ GameOverScreen::GameOverScreen(AllegroFlare::EventEmitter* event_emitter, Allegr
    , title_font_size(title_font_size)
    , menu_font_name(menu_font_name)
    , menu_font_size(menu_font_size)
+   , state(STATE_UNDEF)
+   , state_is_busy(false)
+   , state_changed_at(0.0f)
    , initialized(false)
 {
 }
@@ -167,6 +171,7 @@ void GameOverScreen::initialize()
 
 void GameOverScreen::on_activate()
 {
+   set_state(STATE_REVEALING);
    return;
 }
 
@@ -222,6 +227,7 @@ void GameOverScreen::select_menu_option()
 
 void GameOverScreen::primary_timer_func()
 {
+   update();
    render();
    return;
 }
@@ -377,6 +383,92 @@ void GameOverScreen::virtual_control_button_down_func(AllegroFlare::Player* play
    {
       select_menu_option();
    }
+}
+
+void GameOverScreen::set_state(uint32_t state, bool override_if_busy)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[GameOverScreen::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("GameOverScreen::set_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   if (this->state == state) return;
+   if (!override_if_busy && state_is_busy) return;
+   uint32_t previous_state = this->state;
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   this->state = state;
+   state_changed_at = al_get_time();
+
+   return;
+}
+
+void GameOverScreen::update(float time_now)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[GameOverScreen::update]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("GameOverScreen::update: error: guard \"is_valid_state(state)\" not met");
+   }
+   float age = infer_current_state_age(time_now);
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   return;
+}
+
+bool GameOverScreen::is_valid_state(uint32_t state)
+{
+   std::set<uint32_t> valid_states =
+   {
+      STATE_REVEALING,
+      STATE_AWAITING_USER_INPUT,
+      STATE_CLOSING_DOWN,
+   };
+   return (valid_states.count(state) > 0);
+}
+
+bool GameOverScreen::is_state(uint32_t possible_state)
+{
+   return (state == possible_state);
+}
+
+float GameOverScreen::infer_current_state_age(float time_now)
+{
+   return (time_now - state_changed_at);
 }
 
 

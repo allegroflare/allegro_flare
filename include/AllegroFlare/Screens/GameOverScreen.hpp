@@ -8,6 +8,7 @@
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro_font.h>
+#include <cstdint>
 #include <functional>
 #include <string>
 #include <utility>
@@ -21,6 +22,13 @@ namespace AllegroFlare
       class GameOverScreen : public AllegroFlare::Screens::Base
       {
       private:
+         enum States
+         {
+            STATE_UNDEF = 0,
+            STATE_REVEALING,
+            STATE_AWAITING_USER_INPUT,
+            STATE_CLOSING_DOWN,
+         };
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          std::string title_text;
@@ -32,6 +40,9 @@ namespace AllegroFlare
          int title_font_size;
          std::string menu_font_name;
          int menu_font_size;
+         uint32_t state;
+         bool state_is_busy;
+         float state_changed_at;
          bool initialized;
          static std::string DEFAULT_TITLE_TEXT;
          static std::vector<std::pair<std::string, std::string>> DEFAULT_MENU_OPTIONS;
@@ -77,6 +88,11 @@ namespace AllegroFlare
          std::string infer_current_menu_option_value();
          std::string infer_current_menu_option_label();
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
+         void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
+         void update(float time_now=al_get_time());
+         static bool is_valid_state(uint32_t state=STATE_UNDEF);
+         bool is_state(uint32_t possible_state=STATE_UNDEF);
+         float infer_current_state_age(float time_now=al_get_time());
       };
    }
 }
