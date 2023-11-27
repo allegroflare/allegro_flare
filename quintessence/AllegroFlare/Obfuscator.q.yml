@@ -1,3 +1,11 @@
+properties:
+
+
+  - name: rotation_set
+    type: std::string
+    init_with: '" \n\r\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]{}1234567890!@#$%^&*()_+-=,./<>?:;\"\\~"'
+
+
 methods:
 
 
@@ -8,14 +16,32 @@ methods:
         default_argument: '"[unset-text]"'
     type: std::string
     body: |
-      std::string rotation_set =
-         " \n\r\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]{}1234567890!@#$%^&*()_+-=,./<>?:;\"'\\~";
-      std::set<char> chars;
-      for (auto &c : rotation_set) chars.insert(c);
+      //std::string rotation_set =
+         //" \n\r\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]{}1234567890!@#$%^&*()_+-=,./<>?:;\"'\\~";
+      //std::set<char> chars;
+      //for (auto &c : rotation_set) chars.insert(c);
+
+      std::string result;
+
+      // Rotate
+      //char c = 'a';
+      for (auto &c : text)
+      {
+         int rotation = 4;
+         std::size_t pos;
+         if ((pos=rotation_set.find(c))==std::string::npos)
+         {
+            result += c;
+         }
+         else
+         {
+            result += rotation_set[(pos+rotation) % rotation_set.size()];
+         }
+      }
 
       // TODO: Map chars to their encodings
 
-      return text;
+      return result;
     body_dependency_symbols:
       - std::set
 

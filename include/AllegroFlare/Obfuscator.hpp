@@ -9,6 +9,7 @@ namespace AllegroFlare
    class Obfuscator
    {
    private:
+      std::string rotation_set;
 
    protected:
 
