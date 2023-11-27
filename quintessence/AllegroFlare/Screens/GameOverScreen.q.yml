@@ -359,26 +359,6 @@ functions:
       return current_menu_option_value;
 
 
-  - name: obtain_title_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
-    body: |
-      std::stringstream title_font_identifier;
-      title_font_identifier << title_font_name << " " << title_font_size;
-      return font_bin->auto_get(title_font_identifier.str());
-
-
-  - name: obtain_menu_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
-    body: |
-      std::stringstream menu_font_identifier;
-      menu_font_identifier << menu_font_name << " " << menu_font_size;
-      return font_bin->auto_get(menu_font_identifier.str());
-
-
   - name: virtual_control_button_down_func
     virtual: true
     override: true
@@ -534,6 +514,26 @@ functions:
         default_argument: al_get_time()
     body: |
       return (time_now - state_changed_at);
+
+
+  - name: obtain_title_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream title_font_identifier;
+      title_font_identifier << title_font_name << " " << title_font_size;
+      return font_bin->auto_get(title_font_identifier.str());
+
+
+  - name: obtain_menu_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream menu_font_identifier;
+      menu_font_identifier << menu_font_name << " " << menu_font_size;
+      return font_bin->auto_get(menu_font_identifier.str());
 
 
 dependencies:
