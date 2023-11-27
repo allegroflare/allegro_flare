@@ -20,12 +20,24 @@ public:
    virtual void SetUp()
    {
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
-      map.set_locations({
-         { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
-         { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 80, 120) },
-         { "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
-      });
       map.set_background_image_identifier("overworld-map-02.png");
+      map.set_locations({
+         { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 221, 423) },
+         { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1351, 551) },
+         { "office2", new AllegroFlare::WorldMaps::Locations::Basic("Office", 611, 268) },
+         { "office3", new AllegroFlare::WorldMaps::Locations::Basic("Office", 528, 414) },
+         { "office4", new AllegroFlare::WorldMaps::Locations::Basic("Office", 807, 428) },
+         { "office5", new AllegroFlare::WorldMaps::Locations::Basic("Office", 584, 713) },
+
+         { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
+         { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1132, 772) },
+         { "office8", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1315, 473) },
+         { "office9", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1662, 250) },
+         { "office10", new AllegroFlare::WorldMaps::Locations::Basic("Office", 961, 678) }, // Forrest
+
+         //{ "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
+      });
+      //map.set_background_image_identifier("overworld-map-02.png");
    }
    virtual void TearDown()
    {

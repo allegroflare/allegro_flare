@@ -55,11 +55,15 @@ void Basic::render_location(AllegroFlare::WorldMaps::Locations::Base* location)
    }
    if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
    {
-      float size = 10;
+      float size = 20;
       AllegroFlare::WorldMaps::Locations::Basic *as =
          static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
       // TODO: Do some nice rendering
-      al_draw_filled_circle(as->get_x(), as->get_y(), size * 0.5, ALLEGRO_COLOR{0.5, 0.8, 0.89, 1.0});
+      //ALLEGRO_COLOR point_color = ALLEGRO_COLOR{0.5, 0.8, 0.89, 1.0};
+      ALLEGRO_COLOR point_color = ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0}; // A yellow color
+      ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{0.2, 0.18, 0.0, 1.0}; // A dark brown color
+      al_draw_filled_circle(as->get_x(), as->get_y(), size * 0.5, point_color);
+      al_draw_circle(as->get_x(), as->get_y(), size * 0.5, outline_color, 3.0f);
    }
    else
    {
