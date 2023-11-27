@@ -31,12 +31,12 @@ TEST(AllegroFlare_ObfuscatorTest, encode_and_decode_will_work_on_large_tests)
 {
    AllegroFlare::Obfuscator obfuscator;
    std::string subject;
-   subject.resize(64);
+   subject.resize(1024);
    for (auto &c : subject)
    {
       c = rand()%92 + 32;
    }
-   //EXPECT_EQ(subject, obfuscator.decode(obfuscator.encode(subject)));
+   EXPECT_EQ(subject, obfuscator.decode(obfuscator.encode(subject)));
 }
 
 

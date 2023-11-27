@@ -1,9 +1,85 @@
+properties:
+
+
+  - name: rotation_set
+    type: std::string
+    init_with: '" \n\r\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]{}1234567890!@#$%^&*()_+-=,./<>?:;\"\\~"'
+
+  - name: rotation
+    type: std::size_t
+    init_with: 4
+    getter: true
+    setter: true
+
+
 methods:
 
 
-  - name: run
+  - name: encode
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
     type: std::string
     body: |
-      return "Hello World!";
+      std::string result;
+
+      // Rotate
+      //char c = 'a';
+      for (auto &c : text)
+      {
+         //int rotation = 4;
+         std::size_t pos;
+         if ((pos=rotation_set.find(c))==std::string::npos)
+         {
+            result += c;
+         }
+         else
+         {
+            result += rotation_set[(pos+rotation) % rotation_set.size()];
+         }
+      }
+
+      // TODO: Map chars to their encodings
+
+      return result;
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: decode
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+    type: std::string
+    body: |
+      std::string result;
+
+      // Rotate
+      //char c = 'a';
+      int rev_rotation_i = -((int)rotation);
+      while (rev_rotation_i < 0) rev_rotation_i += rotation_set.size();
+      std::size_t rev_rotation = (std::size_t)(rev_rotation_i);
+      
+      for (auto &c : text)
+      {
+         //int rotation = -4;
+         std::size_t pos;
+         if ((pos=rotation_set.find(c))==std::string::npos)
+         {
+            result += c;
+         }
+         else
+         {
+            result += rotation_set[(pos+rev_rotation) % rotation_set.size()];
+         }
+      }
+
+      // TODO: Map chars to their encodings
+
+      return result;
+    body_dependency_symbols:
+      - std::set
 
 
