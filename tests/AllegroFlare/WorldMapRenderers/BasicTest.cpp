@@ -22,18 +22,18 @@ public:
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
       map.set_locations({
          { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
-         //{ "office", new AllegroFlare::WorldMaps::Locations::Basic(80, 120) },
-         //{ "store",  new AllegroFlare::WorldMaps::Locations::Basic(-100, -30) },
+         { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 80, 120) },
+         { "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
       });
    }
    virtual void TearDown()
    {
       // Cleanup
-      //for (auto &location : map.get_locations())
-      //{
-         //delete location.second;
-         //location.second = nullptr;
-      //}
+      for (auto &location : map.get_locations())
+      {
+         delete location.second;
+         location.second = nullptr;
+      }
       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
    }
 };
@@ -96,8 +96,19 @@ TEST_F(AllegroFlare_WorldMapRenderers_BasicTest, render__without_a_font_bin__rai
 
 TEST_F(AllegroFlare_WorldMapRenderers_BasicTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::WorldMapRenderers::Basic basic(&get_font_bin_ref());
+   AllegroFlare::WorldMaps::Maps::Basic map;
+   AllegroFlare::WorldMapRenderers::Basic basic(&get_font_bin_ref(), &map);
    basic.render();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_WorldMapRenderers_BasicTestWithMapAndWithAllegroRenderingFixture,
+   CAPTURE__render__with_locations_on_the_map__will_not_blow_up)
+{
+   AllegroFlare::WorldMapRenderers::Basic renderer(&get_font_bin_ref(), &map);
+   clear();
+   renderer.render();
    al_flip_display();
    sleep_for(1);
 }

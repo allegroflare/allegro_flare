@@ -18,8 +18,9 @@ namespace WorldMapRenderers
 {
 
 
-Basic::Basic(AllegroFlare::FontBin* font_bin, std::string quote)
+Basic::Basic(AllegroFlare::FontBin* font_bin, AllegroFlare::WorldMaps::Maps::Basic* map, std::string quote)
    : font_bin(font_bin)
+   , map(map)
    , quote(quote)
 {
 }
@@ -30,8 +31,27 @@ Basic::~Basic()
 }
 
 
+void Basic::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
+{
+   this->map = map;
+}
+
+
+AllegroFlare::WorldMaps::Maps::Basic* Basic::get_map() const
+{
+   return map;
+}
+
+
 void Basic::render_location(AllegroFlare::WorldMaps::Locations::Base* location)
 {
+   if (!(location))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic::render_location]: error: guard \"location\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic::render_location: error: guard \"location\" not met");
+   }
    if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
    {
       float size = 10;
@@ -76,6 +96,18 @@ void Basic::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic::render: error: guard \"font_bin\" not met");
    }
+   if (!(map))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic::render]: error: guard \"map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic::render: error: guard \"map\" not met");
+   }
+   for (auto &location : map->get_locations())
+   {
+      render_location(location.second);
+   }
+   return;
    float x = 1920/2;
    float y = 1080/3;
    ALLEGRO_FONT *font = obtain_font();

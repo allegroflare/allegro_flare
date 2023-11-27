@@ -6,6 +6,13 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: map
+    type: AllegroFlare::WorldMaps::Maps::Basic*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: quote
     type: std::string
     init_with: '"Hello!"'
@@ -20,6 +27,7 @@ methods:
       - name: location
         type: AllegroFlare::WorldMaps::Locations::Base*
         default_argument: nullptr
+    guards: [ location ]
     body: |
       if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
       {
@@ -40,8 +48,18 @@ methods:
 
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+      - map
     body: |
+      for (auto &location : map->get_locations())
+      {
+         render_location(location.second);
+      }
+      return;
       float x = 1920/2;
       float y = 1080/3;
       ALLEGRO_FONT *font = obtain_font();
@@ -96,5 +114,7 @@ dependencies:
     headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Maps::Basic
+    headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
 
 
