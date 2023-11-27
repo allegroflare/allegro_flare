@@ -7,6 +7,8 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
+
 
 class AllegroFlare_Screens_GameOverScreenTest : public ::testing::Test
 {};
@@ -14,6 +16,17 @@ class AllegroFlare_Screens_GameOverScreenTest : public ::testing::Test
 class AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
+
+class AllegroFlare_Screens_GameOverScreenTestWithAllegroFlareFrameworksFullFixture :
+   public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
+{
+   virtual void SetUp() override
+   {
+      // HERE:
+      get_framework_ref().disable_using_display_backbuffer_as_primary_render_surface();
+      AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::SetUp();
+   }
+};
 
 
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
@@ -154,6 +167,20 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroRenderingFixture,
    al_destroy_event_queue(event_queue);
    al_destroy_timer(primary_timer);
    al_uninstall_keyboard();
+}
+
+
+TEST_F(AllegroFlare_Screens_GameOverScreenTestWithAllegroFlareFrameworksFullFixture,
+   TIMED_INTERACTIVE__will_work_in_a_frameworks_full_context)
+{
+   AllegroFlare::Screens::GameOverScreen game_over_screen;
+   game_over_screen.set_event_emitter(get_framework_event_emitter());
+   game_over_screen.set_font_bin(get_framework_font_bin());
+   game_over_screen.initialize();
+
+   framework_register_and_activate_screen("game_over_screen", &game_over_screen);
+
+   framework_run_loop(3);
 }
 
 
