@@ -15,7 +15,7 @@ namespace Screens
 {
 
 
-std::string GameOverScreen::DEFAULT_TITLE_TEXT = "G   A   M   E      O   V   E   R";
+std::string GameOverScreen::DEFAULT_TITLE_TEXT = "GAME OVER";
 
 
 std::vector<std::pair<std::string, std::string>> GameOverScreen::DEFAULT_MENU_OPTIONS = { { "Try again", "try_again" }, { "Go to Title Screen", "start_title_screen" } };

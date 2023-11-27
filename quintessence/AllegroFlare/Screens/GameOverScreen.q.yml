@@ -95,7 +95,7 @@ properties:
 
   - name: DEFAULT_TITLE_TEXT
     type: std::string
-    init_with: '"G   A   M   E      O   V   E   R"'
+    init_with: '"GAME OVER"'
     static: true
     const: true
     setter: false
