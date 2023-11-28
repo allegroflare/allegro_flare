@@ -308,10 +308,11 @@ void WorldMapViewer::fit_camera_range_to_first_page_dimensions()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::fit_camera_range_to_first_page_dimensions: error: guard \"initialized\" not met");
    }
-   /* TODO
-   if (pages.empty()) reset_document_camera_range();
-   CatDetective::Chronicle::Panes::CrimeSummaryPage &first_page = pages[0];
-   AllegroFlare::Placement2D &first_page_placement = first_page.get_place_ref();
+   ///* TODO
+   if (map == nullptr) reset_document_camera_range();
+
+   //CatDetective::Chronicle::Panes::CrimeSummaryPage &first_page = pages[0];
+   AllegroFlare::Placement2D &first_page_placement = map_placement; //first_page.get_place_ref();
 
    float h_width = first_page_placement.size.x * 0.5;
    float h_height = first_page_placement.size.y * 0.5;
@@ -319,7 +320,7 @@ void WorldMapViewer::fit_camera_range_to_first_page_dimensions()
    camera_range_y1 = -h_height;
    camera_range_x2 = h_width;
    camera_range_y2 = h_height;
-   */
+   //*/
 
    return;
 }
