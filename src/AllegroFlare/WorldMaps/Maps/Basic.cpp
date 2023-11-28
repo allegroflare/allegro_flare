@@ -13,10 +13,12 @@ namespace Maps
 {
 
 
-Basic::Basic(std::string background_image_identifier, std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> locations)
+Basic::Basic(std::string background_image_identifier, std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> locations, float width, float height)
    : AllegroFlare::WorldMaps::Maps::Base(AllegroFlare::WorldMaps::Maps::Basic::TYPE)
    , background_image_identifier(background_image_identifier)
    , locations(locations)
+   , width(width)
+   , height(height)
 {
 }
 
@@ -38,6 +40,18 @@ void Basic::set_locations(std::map<std::string, AllegroFlare::WorldMaps::Locatio
 }
 
 
+void Basic::set_width(float width)
+{
+   this->width = width;
+}
+
+
+void Basic::set_height(float height)
+{
+   this->height = height;
+}
+
+
 std::string Basic::get_background_image_identifier() const
 {
    return background_image_identifier;
@@ -47,6 +61,18 @@ std::string Basic::get_background_image_identifier() const
 std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> Basic::get_locations() const
 {
    return locations;
+}
+
+
+float Basic::get_width() const
+{
+   return width;
+}
+
+
+float Basic::get_height() const
+{
+   return height;
 }
 
 

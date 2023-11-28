@@ -5,6 +5,7 @@
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
 #include <vector>
@@ -23,7 +24,8 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::Placement2D place;
-         std::vector<std::string> pages;
+         AllegroFlare::WorldMaps::Maps::Basic* map;
+         AllegroFlare::Placement2D map_placement;
          int current_page_index_num;
          AllegroFlare::Camera2D document_camera;
          float document_camera_target_zoom;
@@ -37,7 +39,7 @@ namespace AllegroFlare
          float camera_range_y2;
          float camera_max_velocity;
          bool initialized;
-         void fit_and_position_pages();
+         void fit_and_position_map();
          void render_pages();
          void render_page_numbers();
          ALLEGRO_FONT* obtain_font();
@@ -60,7 +62,8 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* get_bitmap_bin() const;
          AllegroFlare::FontBin* get_font_bin() const;
          AllegroFlare::Placement2D get_place() const;
-         std::vector<std::string> get_pages() const;
+         AllegroFlare::WorldMaps::Maps::Basic* get_map() const;
+         AllegroFlare::Placement2D get_map_placement() const;
          float get_camera_velocity_magnitude_axis_x() const;
          float get_camera_velocity_magnitude_axis_y() const;
          float get_camera_range_x1() const;
@@ -90,7 +93,6 @@ namespace AllegroFlare
          void page_next(bool play_and_show_effects=true);
          void page_previous(bool play_and_show_effects=true);
          bool infer_no_pages_are_present();
-         bool infer_pages_are_present();
          void update();
          void render();
          void render_zoom_scale();

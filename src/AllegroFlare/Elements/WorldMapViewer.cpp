@@ -23,7 +23,8 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , place()
-   , pages()
+   , map(nullptr)
+   , map_placement()
    , current_page_index_num(0)
    , document_camera()
    , document_camera_target_zoom(0)
@@ -112,9 +113,15 @@ AllegroFlare::Placement2D WorldMapViewer::get_place() const
 }
 
 
-std::vector<std::string> WorldMapViewer::get_pages() const
+AllegroFlare::WorldMaps::Maps::Basic* WorldMapViewer::get_map() const
 {
-   return pages;
+   return map;
+}
+
+
+AllegroFlare::Placement2D WorldMapViewer::get_map_placement() const
+{
+   return map_placement;
 }
 
 
@@ -244,32 +251,49 @@ void WorldMapViewer::initialize()
    int margin_y = 142;
    place = AllegroFlare::Placement2D(1920/2, 1080/2, 1920-margin_x*2, 1080-margin_y*2);
 
-   fit_and_position_pages();
+   fit_and_position_map();
    reset_document_camera();
 
    initialized = true;
    return;
 }
 
-void WorldMapViewer::fit_and_position_pages()
+void WorldMapViewer::fit_and_position_map()
 {
-   /* // TODO
-   static AllegroFlare::Random random;
-   random.set_seed(4321);
-   // TODO: create aesthetic random positioning of pages
-   int num_pages = pages.size();
-   float page_distance = 40.0f;
-   //float rotation_range = 0.3;
-   for (auto &page : pages)
+   if (!(bitmap_bin))
    {
-      page.fit_placement_size_to_bitmap(bitmap_bin);
-      page.get_place_ref().position.x = place.size.x * 0.5;
-      page.get_place_ref().position.y = place.size.y * 0.5;
-      page.get_place_ref().align.x = 0.5;
-      page.get_place_ref().align.y = 0.5;
-      page.get_place_ref().rotation = random.get_random_float(-0.1, 0.1);
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::fit_and_position_map]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::fit_and_position_map: error: guard \"bitmap_bin\" not met");
    }
-   */
+   if (!map) return;
+   ///* // TODO
+   //static AllegroFlare::Random random;
+   //random.set_seed(4321);
+   // TODO: create aesthetic random positioning of pages
+   //int num_pages = pages.size();
+   //float page_distance = 40.0f;
+   //float rotation_range = 0.3;
+   //for (auto &page : pages)
+   //{
+   //map_placement.fir
+      //page.fit_placement_size_to_bitmap(bitmap_bin);
+      ALLEGRO_BITMAP *map_image = bitmap_bin->auto_get(map->get_background_image_identifier());
+      map_placement.size = { 0.0f, 0.0f };
+
+      if (map_image)
+      {
+         map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
+      }
+
+      map_placement.position.x = place.size.x * 0.5;
+      map_placement.position.y = place.size.y * 0.5;
+      map_placement.align.x = 0.5;
+      map_placement.align.y = 0.5;
+      map_placement.rotation = 0; //random.get_random_float(-0.1, 0.1);
+   //}
+   //*/
 
    return;
 }
@@ -400,7 +424,7 @@ void WorldMapViewer::set_pages(std::vector<std::string> pages)
    current_page_index_num = 0;
    this->pages = pages;
    */
-   fit_and_position_pages();
+   fit_and_position_map();
    reset_document_camera();
    return;
 }
@@ -439,9 +463,9 @@ void WorldMapViewer::page_next(bool play_and_show_effects)
 
 void WorldMapViewer::page_previous(bool play_and_show_effects)
 {
+   /* // HERE
    if (pages.empty()) return;
    // TODO: add tests to ensure this will work
-   /* // HERE
    current_page_index_num -= 1;
    current_page_index_num += pages.size();
    current_page_index_num = current_page_index_num % pages.size();
@@ -505,10 +529,12 @@ void WorldMapViewer::render_pages()
       document_camera.start_reverse_transform();
 
       // render pages in reverse order from back to front
+      /* // HERE
       for (int i=(pages.size()-1); i>=0; i--)
       {
-         // HERE: pages[i].render(bitmap_bin);
+         HERE: pages[i].render(bitmap_bin);
       }
+      */
       document_camera.restore_transform();
 
       al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
@@ -519,12 +545,8 @@ void WorldMapViewer::render_pages()
 
 bool WorldMapViewer::infer_no_pages_are_present()
 {
-   return pages.empty();
-}
-
-bool WorldMapViewer::infer_pages_are_present()
-{
-   return !pages.empty();
+   return map == nullptr;
+   //return pages.empty();
 }
 
 void WorldMapViewer::update()

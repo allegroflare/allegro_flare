@@ -2101,6 +2101,10 @@
   "AllegroFlare/clamp": [
     "AllegroFlare/Elements/WorldMapViewer"
   ],
+  "AllegroFlare/WorldMaps/Maps/Basic": [
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/WorldMapRenderers/Basic"
+  ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
   ],
@@ -3464,9 +3468,6 @@
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Locations/Basic": [
-    "AllegroFlare/WorldMapRenderers/Basic"
-  ],
-  "AllegroFlare/WorldMaps/Maps/Basic": [
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [

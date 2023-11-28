@@ -12272,8 +12272,12 @@ table td
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
 <tr>
-  <td class="property">pages</td>
-  <td class="property">std::vector&lt;std::string&gt;</td>
+  <td class="property">map</td>
+  <td class="property">AllegroFlare::WorldMaps::Maps::Basic*</td>
+</tr>
+<tr>
+  <td class="property">map_placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
 </tr>
 <tr>
   <td class="property">current_page_index_num</td>
@@ -12344,7 +12348,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="private_method">fit_and_position_pages()</td>
+  <td class="private_method">fit_and_position_map()</td>
 </tr>
 <tr>
   <td class="method">fit_camera_range_to_first_page_dimensions()</td>
@@ -12405,9 +12409,6 @@ table td
 </tr>
 <tr>
   <td class="method">infer_no_pages_are_present()</td>
-</tr>
-<tr>
-  <td class="method">infer_pages_are_present()</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -12477,6 +12478,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Maps::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Maps/Basic.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30758,6 +30762,14 @@ table td
   <td class="property">std::map&lt;std::string, AllegroFlare::WorldMaps::Locations::Base*&gt;</td>
 </tr>
 <tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -35430,6 +35442,10 @@ table td
   "AllegroFlare/clamp": [
     "AllegroFlare/Elements/WorldMapViewer"
   ],
+  "AllegroFlare/WorldMaps/Maps/Basic": [
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/WorldMapRenderers/Basic"
+  ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
   ],
@@ -36793,9 +36809,6 @@ table td
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Locations/Basic": [
-    "AllegroFlare/WorldMapRenderers/Basic"
-  ],
-  "AllegroFlare/WorldMaps/Maps/Basic": [
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [

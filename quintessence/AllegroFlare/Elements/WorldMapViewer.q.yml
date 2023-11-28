@@ -21,9 +21,16 @@ properties:
     getter: true
     setter: true
 
-  - name: pages
+  - name: map
     xtype: std::vector<CatDetective::Chronicle::Panes::CrimeSummaryPage>
-    type: std::vector<std::string>
+    xxtype: std::vector<std::string>
+    type: AllegroFlare::WorldMaps::Maps::Basic*
+    init_with: nullptr
+    getter: true
+    setter: false
+
+  - name: map_placement
+    type: AllegroFlare::Placement2D
     init_with: ''
     getter: true
     setter: false
@@ -143,7 +150,7 @@ functions:
       int margin_y = 142;
       place = AllegroFlare::Placement2D(1920/2, 1080/2, 1920-margin_x*2, 1080-margin_y*2);
 
-      fit_and_position_pages();
+      fit_and_position_map();
       reset_document_camera();
 
       initialized = true;
@@ -155,26 +162,37 @@ functions:
       - al_is_ttf_addon_initialized
 
 
-  - name: fit_and_position_pages
+  - name: fit_and_position_map
     private: true
+    guards: [ bitmap_bin ]
     body: |
-      /* // TODO
-      static AllegroFlare::Random random;
-      random.set_seed(4321);
+      if (!map) return;
+      ///* // TODO
+      //static AllegroFlare::Random random;
+      //random.set_seed(4321);
       // TODO: create aesthetic random positioning of pages
-      int num_pages = pages.size();
-      float page_distance = 40.0f;
+      //int num_pages = pages.size();
+      //float page_distance = 40.0f;
       //float rotation_range = 0.3;
-      for (auto &page : pages)
-      {
-         page.fit_placement_size_to_bitmap(bitmap_bin);
-         page.get_place_ref().position.x = place.size.x * 0.5;
-         page.get_place_ref().position.y = place.size.y * 0.5;
-         page.get_place_ref().align.x = 0.5;
-         page.get_place_ref().align.y = 0.5;
-         page.get_place_ref().rotation = random.get_random_float(-0.1, 0.1);
-      }
-      */
+      //for (auto &page : pages)
+      //{
+      //map_placement.fir
+         //page.fit_placement_size_to_bitmap(bitmap_bin);
+         ALLEGRO_BITMAP *map_image = bitmap_bin->auto_get(map->get_background_image_identifier());
+         map_placement.size = { 0.0f, 0.0f };
+ 
+         if (map_image)
+         {
+            map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
+         }
+
+         map_placement.position.x = place.size.x * 0.5;
+         map_placement.position.y = place.size.y * 0.5;
+         map_placement.align.x = 0.5;
+         map_placement.align.y = 0.5;
+         map_placement.rotation = 0; //random.get_random_float(-0.1, 0.1);
+      //}
+      //*/
 
       return;
     body_dependency_symbols:
@@ -308,7 +326,7 @@ functions:
       current_page_index_num = 0;
       this->pages = pages;
       */
-      fit_and_position_pages();
+      fit_and_position_map();
       reset_document_camera();
       return;
 
@@ -355,9 +373,9 @@ functions:
         type: bool
         default_argument: true
     body: |
+      /* // HERE
       if (pages.empty()) return;
       // TODO: add tests to ensure this will work
-      /* // HERE
       current_page_index_num -= 1;
       current_page_index_num += pages.size();
       current_page_index_num = current_page_index_num % pages.size();
@@ -416,10 +434,12 @@ functions:
          document_camera.start_reverse_transform();
 
          // render pages in reverse order from back to front
+         /* // HERE
          for (int i=(pages.size()-1); i>=0; i--)
          {
-            // HERE: pages[i].render(bitmap_bin);
+            HERE: pages[i].render(bitmap_bin);
          }
+         */
          document_camera.restore_transform();
 
          al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
@@ -431,13 +451,8 @@ functions:
   - name: infer_no_pages_are_present
     type: bool
     body: |
-      return pages.empty();
-
-
-  - name: infer_pages_are_present
-    type: bool
-    body: |
-      return !pages.empty();
+      return map == nullptr;
+      //return pages.empty();
 
 
   - name: update
@@ -657,5 +672,7 @@ dependencies:
     headers: [ AllegroFlare/Useful.hpp ]
   - symbol: al_draw_rectangle
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::WorldMaps::Maps::Basic
+    headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
 
 

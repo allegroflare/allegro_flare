@@ -15,10 +15,24 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
-    
+
   - name: locations
     type: std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*>
     init_with: '{}'
+    constructor_arg: true
+    setter: true
+    getter: true
+
+  - name: width
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    setter: true
+    getter: true
+
+  - name: height
+    type: float
+    init_with: 0.0f
     constructor_arg: true
     setter: true
     getter: true
