@@ -5,6 +5,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Player.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -44,6 +45,15 @@ AllegroFlare::WorldMaps::Maps::Basic* Basic::get_map() const
 }
 
 
+void Basic::draw_point(float x, float y, ALLEGRO_COLOR point_color)
+{
+   float size = 20;
+   ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{0.2, 0.18, 0.0, 1.0}; // A dark brown color
+   al_draw_filled_circle(x, y, size * 0.5, point_color);
+   al_draw_circle(x, y, size * 0.5, outline_color, 3.0f);
+   return;
+}
+
 void Basic::render_location(AllegroFlare::WorldMaps::Locations::Base* location)
 {
    if (!(location))
@@ -55,15 +65,15 @@ void Basic::render_location(AllegroFlare::WorldMaps::Locations::Base* location)
    }
    if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
    {
-      float size = 20;
       AllegroFlare::WorldMaps::Locations::Basic *as =
          static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
-      // TODO: Do some nice rendering
-      //ALLEGRO_COLOR point_color = ALLEGRO_COLOR{0.5, 0.8, 0.89, 1.0};
-      ALLEGRO_COLOR point_color = ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0}; // A yellow color
-      ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{0.2, 0.18, 0.0, 1.0}; // A dark brown color
-      al_draw_filled_circle(as->get_x(), as->get_y(), size * 0.5, point_color);
-      al_draw_circle(as->get_x(), as->get_y(), size * 0.5, outline_color, 3.0f);
+      draw_point(as->get_x(), as->get_y(), ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0});
+   }
+   else if (location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+   {
+      AllegroFlare::WorldMaps::Locations::Player *as =
+         static_cast<AllegroFlare::WorldMaps::Locations::Player*>(location);
+      draw_point(as->get_x(), as->get_y(), ALLEGRO_COLOR{0.42, 0.69, 0.965, 1.0});
    }
    else
    {

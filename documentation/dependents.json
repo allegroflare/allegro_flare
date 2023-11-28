@@ -855,6 +855,7 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/Shaders/AllegroDefault",
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D",
@@ -2115,6 +2116,10 @@
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
+  ],
+  "AllegroFlare/WorldMaps/Locations/Player": [
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
@@ -3476,6 +3481,7 @@
   "AllegroFlare/WorldMaps/Locations/Base": [
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Locations/Basic",
+    "AllegroFlare/WorldMaps/Locations/Player",
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [

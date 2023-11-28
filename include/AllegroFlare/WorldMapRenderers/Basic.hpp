@@ -33,6 +33,7 @@ namespace AllegroFlare
 
          void set_map(AllegroFlare::WorldMaps::Maps::Basic* map);
          AllegroFlare::WorldMaps::Maps::Basic* get_map() const;
+         void draw_point(float x=0.0f, float y=0.0f, ALLEGRO_COLOR point_color=ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0});
          void render_location(AllegroFlare::WorldMaps::Locations::Base* location=nullptr);
          void render();
       };

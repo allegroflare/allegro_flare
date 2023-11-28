@@ -464,6 +464,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/WorldMapRenderers/Basic.q.yml">quintessence/AllegroFlare/WorldMapRenderers/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/WorldMaps/Locations/Player.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Player.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml">quintessence/AllegroFlare/WorldMaps/Maps/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/WorldMaps/Maps/Basic.q.yml">quintessence/AllegroFlare/WorldMaps/Maps/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/YAMLValidator.q.yml">quintessence/AllegroFlare/YAMLValidator.q.yml</a></li>
@@ -12471,7 +12472,7 @@ table td
   <td class="method">render()</td>
 </tr>
 <tr>
-  <td class="method">infer_focused_location_label(std::string fallback=&quot;- no location -&quot;)</td>
+  <td class="method">infer_focused_location_label()</td>
 </tr>
 <tr>
   <td class="private_method">render_page_numbers()</td>
@@ -12547,6 +12548,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Player.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30662,6 +30666,9 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">draw_point(float x=0.0f, float y=0.0f, ALLEGRO_COLOR point_color=ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0})</td>
+</tr>
+<tr>
   <td class="method">render_location(AllegroFlare::WorldMaps::Locations::Base* location=nullptr)</td>
 </tr>
 <tr>
@@ -30689,6 +30696,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
@@ -30702,6 +30712,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Player.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
@@ -30749,6 +30762,47 @@ table td
   <td class="property">label</td>
   <td class="property">std::string</td>
 </tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">collides(float point_x=0.0f, float point_y=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/WorldMaps/Locations/Player.q.yml">quintessence/AllegroFlare/WorldMaps/Locations/Player.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
 <tr>
   <td class="property">x</td>
   <td class="property">float</td>
@@ -34297,6 +34351,7 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
+    "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/Shaders/AllegroDefault",
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D",
@@ -35557,6 +35612,10 @@ table td
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
+  ],
+  "AllegroFlare/WorldMaps/Locations/Player": [
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
@@ -36918,6 +36977,7 @@ table td
   "AllegroFlare/WorldMaps/Locations/Base": [
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Locations/Basic",
+    "AllegroFlare/WorldMaps/Locations/Player",
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [

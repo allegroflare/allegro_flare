@@ -27,6 +27,25 @@ properties:
 methods:
 
 
+  - name: draw_point
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: point_color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0}
+    body: |
+      float size = 20;
+      ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{0.2, 0.18, 0.0, 1.0}; // A dark brown color
+      al_draw_filled_circle(x, y, size * 0.5, point_color);
+      al_draw_circle(x, y, size * 0.5, outline_color, 3.0f);
+      return;
+
+
   - name: render_location
     parameters:
       - name: location
@@ -36,15 +55,15 @@ methods:
     body: |
       if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
       {
-         float size = 20;
          AllegroFlare::WorldMaps::Locations::Basic *as =
             static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
-         // TODO: Do some nice rendering
-         //ALLEGRO_COLOR point_color = ALLEGRO_COLOR{0.5, 0.8, 0.89, 1.0};
-         ALLEGRO_COLOR point_color = ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0}; // A yellow color
-         ALLEGRO_COLOR outline_color = ALLEGRO_COLOR{0.2, 0.18, 0.0, 1.0}; // A dark brown color
-         al_draw_filled_circle(as->get_x(), as->get_y(), size * 0.5, point_color);
-         al_draw_circle(as->get_x(), as->get_y(), size * 0.5, outline_color, 3.0f);
+         draw_point(as->get_x(), as->get_y(), ALLEGRO_COLOR{0.96, 0.89, 0.5, 1.0});
+      }
+      else if (location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+      {
+         AllegroFlare::WorldMaps::Locations::Player *as =
+            static_cast<AllegroFlare::WorldMaps::Locations::Player*>(location);
+         draw_point(as->get_x(), as->get_y(), ALLEGRO_COLOR{0.42, 0.69, 0.965, 1.0});
       }
       else
       {
@@ -56,6 +75,7 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::WorldMaps::Locations::Basic
+      - AllegroFlare::WorldMaps::Locations::Player
       - AllegroFlare::Logger
 
 
@@ -110,6 +130,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: al_draw_text
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_draw_rounded_rectangle
@@ -120,6 +142,8 @@ dependencies:
     headers: [ AllegroFlare/WorldMaps/Locations/Base.hpp ]
   - symbol: AllegroFlare::WorldMaps::Locations::Basic
     headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Player
+    headers: [ AllegroFlare/WorldMaps/Locations/Player.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::WorldMaps::Maps::Basic
