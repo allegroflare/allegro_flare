@@ -35,6 +35,14 @@ bool MotionKit::strobe(float start_time, float time_now, float strobes_per_secon
    return (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
 }
 
+bool MotionKit::smooth_strobe(float start_time, float time_now, float strobes_per_second)
+{
+   // TODO: Update this method to actually be smooth (it's a copy of "strobe")
+   float strobe_frequency = 1.0 / strobes_per_second;
+   float age = (time_now - start_time);
+   return (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
+}
+
 float MotionKit::age(float start_time, float end_time)
 {
    return (end_time - start_time);

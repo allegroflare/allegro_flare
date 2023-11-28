@@ -43,6 +43,28 @@ functions:
       - fmod
 
 
+  - name: smooth_strobe
+    static: true
+    type: bool
+    parameters:
+      - name: start_time
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+      - name: strobes_per_second
+        type: float
+        default_argument: 10.0f
+    body: |
+      // TODO: Update this method to actually be smooth (it's a copy of "strobe")
+      float strobe_frequency = 1.0 / strobes_per_second;
+      float age = (time_now - start_time);
+      return (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
+    body_dependency_symbols:
+      - fmod
+
+
   - name: age
     static: true
     type: float

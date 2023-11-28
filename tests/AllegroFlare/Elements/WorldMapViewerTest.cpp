@@ -330,7 +330,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
    //software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
 
    // run the interactive test
+   al_start_timer(primary_timer); // Does this work?
+   al_wait_for_event(event_queue, &event);
+   al_stop_timer(primary_timer);
    al_start_timer(primary_timer);
+
    while(!abort)
    {
       al_wait_for_event(event_queue, &event);
@@ -390,6 +394,10 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 
                case ALLEGRO_KEY_SPACE:
                   //software_keyboard.press_key_by_name("SPACE");
+               break;
+
+               case ALLEGRO_KEY_P:
+                  crime_summary.move_cursor_to_origin_or_primary_point_of_interest();
                break;
 
                case ALLEGRO_KEY_PAD_PLUS:

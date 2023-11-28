@@ -265,7 +265,7 @@ methods:
       fit_and_position_map();
       reset_document_camera();
       fit_camera_range_to_map_dimensions();
-      go_to_origin_or_primary_point_of_interest();
+      move_cursor_to_origin_or_primary_point_of_interest();
       return;
 
 
@@ -432,20 +432,20 @@ methods:
       return;
 
 
-  - name: go_to_origin_or_primary_point_of_interest
+  - name: move_cursor_to_origin_or_primary_point_of_interest
     body: |
       if (map)
       {
          // TODO: Test this case
          // TODO: Consider that map may need to be moved slowly to this position
-         std::tie(document_camera.position.x, document_camera.position.y) =
-            map->infer_primary_point_of_interest_coordinates();
+         std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
       }
       else
       {
          // TODO: Test this case
          // TODO: Consider that map may need to be moved slowly to this position
-         document_camera.position = { place.size.x * 0.5f, place.size.y * 0.5f };
+         cursor.x = place.size.x * 0.5f;
+         cursor.y = place.size.y * 0.5f;
       }
       return;
 
