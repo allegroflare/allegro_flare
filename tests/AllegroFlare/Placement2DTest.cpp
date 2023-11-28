@@ -195,6 +195,7 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    // TODO: Make this TIMED_INTERACTIVE
+   //INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
    DISABLED__INTERACTIVE__collides__will_return_true_if_the_placement_collides_with_another_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);

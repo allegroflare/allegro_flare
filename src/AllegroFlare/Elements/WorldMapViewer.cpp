@@ -25,7 +25,7 @@ namespace Elements
 WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
-   , place()
+   , map_view_place()
    , map(nullptr)
    , map_placement()
    , current_page_index_num(0)
@@ -55,9 +55,9 @@ WorldMapViewer::~WorldMapViewer()
 }
 
 
-void WorldMapViewer::set_place(AllegroFlare::Placement2D place)
+void WorldMapViewer::set_map_view_place(AllegroFlare::Placement2D map_view_place)
 {
-   this->place = place;
+   this->map_view_place = map_view_place;
 }
 
 
@@ -145,9 +145,9 @@ AllegroFlare::FontBin* WorldMapViewer::get_font_bin() const
 }
 
 
-AllegroFlare::Placement2D WorldMapViewer::get_place() const
+AllegroFlare::Placement2D WorldMapViewer::get_map_view_place() const
 {
-   return place;
+   return map_view_place;
 }
 
 
@@ -317,10 +317,11 @@ void WorldMapViewer::initialize()
 
    int margin_x = 100;
    int margin_y = 142;
-   place = AllegroFlare::Placement2D(1920/2, 1080/2, 1920-margin_x*2, 1080-margin_y*2);
+   map_view_place = AllegroFlare::Placement2D(1920/2, 1080/2, 1920-margin_x*2, 1080-margin_y*2);
 
-   fit_and_position_map();
-   reset_document_camera();
+   //fit_and_position_map();
+   //reset_document_camera();
+   reset();
 
    initialized = true;
    return;
@@ -345,8 +346,8 @@ void WorldMapViewer::fit_and_position_map()
       map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
    }
 
-   map_placement.position.x = place.size.x * 0.5;
-   map_placement.position.y = place.size.y * 0.5;
+   map_placement.position.x = map_view_place.size.x * 0.5;
+   map_placement.position.y = map_view_place.size.y * 0.5;
    map_placement.align.x = 0.5;
    map_placement.align.y = 0.5;
    //map_placement.rotation = 0;
@@ -356,26 +357,22 @@ void WorldMapViewer::fit_and_position_map()
 
 void WorldMapViewer::fit_camera_range_to_map_dimensions()
 {
-   if (!(initialized))
+   if (!map)
    {
-      std::stringstream error_message;
-      error_message << "[WorldMapViewer::fit_camera_range_to_map_dimensions]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::fit_camera_range_to_map_dimensions: error: guard \"initialized\" not met");
+      reset_document_camera_range_to_defaults();
    }
-   ///* TODO
-   if (map == nullptr) reset_document_camera_range_to_defaults();
+   else
+   {
+      //CatDetective::Chronicle::Panes::CrimeSummaryPage &first_page = pages[0];
+      AllegroFlare::Placement2D &first_page_placement = map_placement; //first_page.get_place_ref();
 
-   //CatDetective::Chronicle::Panes::CrimeSummaryPage &first_page = pages[0];
-   AllegroFlare::Placement2D &first_page_placement = map_placement; //first_page.get_place_ref();
-
-   float h_width = first_page_placement.size.x * 0.5;
-   float h_height = first_page_placement.size.y * 0.5;
-   camera_range_x1 = -h_width;
-   camera_range_y1 = -h_height;
-   camera_range_x2 = h_width;
-   camera_range_y2 = h_height;
-   //*/
+      float h_width = first_page_placement.size.x * 0.5;
+      float h_height = first_page_placement.size.y * 0.5;
+      camera_range_x1 = -h_width;
+      camera_range_y1 = -h_height;
+      camera_range_x2 = h_width;
+      camera_range_y2 = h_height;
+   }
 
    return;
 }
@@ -398,8 +395,8 @@ void WorldMapViewer::reset_document_camera()
    camera_velocity_magnitude_axis_x = 0;
    camera_velocity_magnitude_axis_y = 0;
 
-   document_camera.size = { place.size.x, place.size.y };
-   document_camera.position = { place.size.x * 0.5f, place.size.y * 0.5f };
+   document_camera.size = { map_view_place.size.x, map_view_place.size.y };
+   document_camera.position = { map_view_place.size.x * 0.5f, map_view_place.size.y * 0.5f };
    document_camera_target_zoom = document_camera_zoom_levels[document_camera_zoom_level_cursor];
    document_camera.set_zoom({document_camera_target_zoom, document_camera_target_zoom});
    return;
@@ -407,10 +404,10 @@ void WorldMapViewer::reset_document_camera()
 
 void WorldMapViewer::reset_document_camera_range_to_defaults()
 {
-   camera_range_x1 = -200;
-   camera_range_y1 = -100;
-   camera_range_x2 = 200;
-   camera_range_y2 = 100;
+   camera_range_x1 = DEFAULT_CAMERA_RANGE_X1;
+   camera_range_y1 = DEFAULT_CAMERA_RANGE_Y1;
+   camera_range_x2 = DEFAULT_CAMERA_RANGE_X2;
+   camera_range_y2 = DEFAULT_CAMERA_RANGE_Y2;
    return;
 }
 
@@ -560,8 +557,8 @@ void WorldMapViewer::move_cursor_to_origin_or_primary_point_of_interest()
    {
       // TODO: Test this case
       // TODO: Consider that map may need to be moved slowly to this position
-      cursor.x = place.size.x * 0.5f;
-      cursor.y = place.size.y * 0.5f;
+      cursor.x = map_view_place.size.x * 0.5f;
+      cursor.y = map_view_place.size.y * 0.5f;
    }
    return;
 }
@@ -598,10 +595,10 @@ void WorldMapViewer::render_map()
 
    // TODO: add extra scroll offset so clipping travels along with external camera movement
    int clip_x, clip_y, clip_w, clip_h;
-   clip_x = (place.position.x - place.size.x * place.align.x);
-   clip_y = (place.position.y - place.size.y * place.align.y);
-   clip_w = place.size.x;
-   clip_h = place.size.y;
+   clip_x = (map_view_place.position.x - map_view_place.size.x * map_view_place.align.x);
+   clip_y = (map_view_place.position.y - map_view_place.size.y * map_view_place.align.y);
+   clip_w = map_view_place.size.x;
+   clip_h = map_view_place.size.y;
 
    // Scale the clipping points to match the actual resolution of the display, rather than the 
    // surface virtual resolution which is 1920x1080.
@@ -693,16 +690,17 @@ void WorldMapViewer::update()
    cursor.x += cursor_velocity_magnitude_axis_x;
    cursor.y += cursor_velocity_magnitude_axis_y;
 
-   // ensure the cursor does not extand beyond the constraints
+   // ensure the cursor does not extend beyond the constraints
    // TODO: Avoid using the "camera_range_x1"/"camera_range_x2" and find a better way to manage cursor ranges instead
-   cursor.x -= place.size.x * 0.5;
+   cursor.x -= map_view_place.size.x * 0.5;
    cursor.x =
       AllegroFlare::clamp<float>(camera_range_x1, camera_range_x2, cursor.x)
-      + place.size.x * 0.5;
-   cursor.y -= place.size.y * 0.5;
+      + map_view_place.size.x * 0.5;
+
+   cursor.y -= map_view_place.size.y * 0.5;
    cursor.y =
       AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, cursor.y)
-      + place.size.y * 0.5;
+      + map_view_place.size.y * 0.5;
 
    // update camera position by the velocity
    document_camera.position.x += camera_velocity_magnitude_axis_x;
@@ -717,14 +715,14 @@ void WorldMapViewer::update()
    else
    {
       // ensure the camera does not extand beyond the constraints
-      document_camera.position.x -= place.size.x * 0.5;
+      document_camera.position.x -= map_view_place.size.x * 0.5;
       document_camera.position.x =
          AllegroFlare::clamp<float>(camera_range_x1, camera_range_x2, document_camera.position.x)
-         + place.size.x * 0.5;
-      document_camera.position.y -= place.size.y * 0.5;
+         + map_view_place.size.x * 0.5;
+      document_camera.position.y -= map_view_place.size.y * 0.5;
       document_camera.position.y =
          AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, document_camera.position.y)
-         + place.size.y * 0.5;
+         + map_view_place.size.y * 0.5;
    }
 
    // update camera zoom
@@ -750,16 +748,16 @@ void WorldMapViewer::render()
    }
    else
    {
-      place.start_transform();
+      map_view_place.start_transform();
 
       // draw an arbitrary frame
-      al_draw_rectangle(0, 0, place.size.x, place.size.y, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 2.0f);
+      al_draw_rectangle(0, 0, map_view_place.size.x, map_view_place.size.y, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 2.0f);
       // render the elements
       render_map();
       render_page_numbers();
       render_zoom_scale();
 
-      place.restore_transform();
+      map_view_place.restore_transform();
    }
 
    return;
@@ -831,8 +829,8 @@ void WorldMapViewer::render_page_numbers()
      //default_argument: '"- no location -"'
 
 
-   float x = place.size.x * 0.5;
-   float y = place.size.y;
+   float x = map_view_place.size.x * 0.5;
+   float y = map_view_place.size.y;
 
    ALLEGRO_FONT *font = obtain_font();
    float text_width = al_get_text_width(font, focused_location_label.c_str());
@@ -869,8 +867,8 @@ void WorldMapViewer::render_page_numbers()
 void WorldMapViewer::render_zoom_scale()
 {
    float height = 380;
-   float x_pos = place.size.x;
-   float y_pos = place.size.y * 0.5 - height / 2;
+   float x_pos = map_view_place.size.x;
+   float y_pos = map_view_place.size.y * 0.5 - height / 2;
    float zoom_cursor_pos = 1.0 - calc_zoom_position_relative_min_max();
    float padding_x = 32;
    float padding_y = 48;

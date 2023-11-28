@@ -29,7 +29,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
-         AllegroFlare::Placement2D place;
+         AllegroFlare::Placement2D map_view_place;
          AllegroFlare::WorldMaps::Maps::Basic* map;
          AllegroFlare::Placement2D map_placement;
          int current_page_index_num;
@@ -62,7 +62,7 @@ namespace AllegroFlare
          WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr);
          ~WorldMapViewer();
 
-         void set_place(AllegroFlare::Placement2D place);
+         void set_map_view_place(AllegroFlare::Placement2D map_view_place);
          void set_cursor(AllegroFlare::Vec2D cursor);
          void set_cursor_velocity_magnitude_axis_x(float cursor_velocity_magnitude_axis_x);
          void set_cursor_velocity_magnitude_axis_y(float cursor_velocity_magnitude_axis_y);
@@ -77,7 +77,7 @@ namespace AllegroFlare
          void set_camera_max_velocity(float camera_max_velocity);
          AllegroFlare::BitmapBin* get_bitmap_bin() const;
          AllegroFlare::FontBin* get_font_bin() const;
-         AllegroFlare::Placement2D get_place() const;
+         AllegroFlare::Placement2D get_map_view_place() const;
          AllegroFlare::WorldMaps::Maps::Basic* get_map() const;
          AllegroFlare::Placement2D get_map_placement() const;
          AllegroFlare::Vec2D get_cursor() const;
