@@ -37,6 +37,19 @@ properties:
     setter: true
     getter: true
 
+  - name: primary_point_of_interest_identifier
+    type: std::string
+    init_with: DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER
+    constructor_arg: true
+    setter: true
+    getter: true
+
+  - name: DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER
+    type: char*
+    init_with: '"[unset-primary_point_of_interest_identifier]"'
+    static: true
+    constexpr: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/WorldMaps/Maps/Basic"'
@@ -45,6 +58,47 @@ properties:
 
 
 methods:
+
+
+  - name: infer_primary_point_of_interest_coordinates
+    type: std::pair<float, float>
+    virtual: true
+    override: true
+    body: |
+      if (primary_point_of_interest_is_set() && primary_point_of_interest_is_on_map())
+      {
+         AllegroFlare::WorldMaps::Locations::Base* location = locations[primary_point_of_interest_identifier];
+         if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
+         {
+            AllegroFlare::WorldMaps::Locations::Basic *as =
+               static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
+            return { as->get_x(), as->get_y() };
+         }
+         else
+         {
+            // TODO: Warn once that this type is not supported
+            AllegroFlare::Logger::warn_from_once(
+               "AllegroFlare::WorldMaps::Maps::Basic",
+               "Na bro"
+            );
+         }
+      }
+      return { 0.0f, 0.0f };
+    body_dependency_symbols:
+      - AllegroFlare::WorldMaps::Locations::Basic
+      - AllegroFlare::Logger
+
+
+  - name: primary_point_of_interest_is_set
+    type: bool
+    body: |
+      return (primary_point_of_interest_identifier == DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER);
+
+
+  - name: primary_point_of_interest_is_on_map
+    type: bool
+    body: |
+      return (locations.find(primary_point_of_interest_identifier) != locations.end());
 
 
   - name: location_id_at
@@ -70,5 +124,11 @@ dependencies:
     headers: [ AllegroFlare/WorldMaps/Maps/Base.hpp ]
   - symbol: AllegroFlare::WorldMaps::Locations::Base
     headers: [ AllegroFlare/WorldMaps/Locations/Base.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Basic
+    headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Maps::Basic
+    headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

@@ -17,7 +17,7 @@ properties:
 methods:
 
 
-  - name: infer_primary_point_of_interest
+  - name: infer_primary_point_of_interest_coordinates
     type: std::pair<float, float>
     virtual: true
     body: |

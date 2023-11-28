@@ -30,7 +30,7 @@ std::string Base::get_type() const
 }
 
 
-std::pair<float, float> Base::infer_primary_point_of_interest()
+std::pair<float, float> Base::infer_primary_point_of_interest_coordinates()
 {
    AllegroFlare::Logger::throw_unimplemented_for_base_class_error(
       "AllegroFlare::WorldMaps::Maps::Base::infer_primary_point_of_interest"

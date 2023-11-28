@@ -2,7 +2,8 @@
 
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 
-
+#include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
 
 
 namespace AllegroFlare
@@ -13,12 +14,13 @@ namespace Maps
 {
 
 
-Basic::Basic(std::string background_image_identifier, std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> locations, float width, float height)
+Basic::Basic(std::string background_image_identifier, std::map<std::string, AllegroFlare::WorldMaps::Locations::Base*> locations, float width, float height, std::string primary_point_of_interest_identifier)
    : AllegroFlare::WorldMaps::Maps::Base(AllegroFlare::WorldMaps::Maps::Basic::TYPE)
    , background_image_identifier(background_image_identifier)
    , locations(locations)
    , width(width)
    , height(height)
+   , primary_point_of_interest_identifier(primary_point_of_interest_identifier)
 {
 }
 
@@ -52,6 +54,12 @@ void Basic::set_height(float height)
 }
 
 
+void Basic::set_primary_point_of_interest_identifier(std::string primary_point_of_interest_identifier)
+{
+   this->primary_point_of_interest_identifier = primary_point_of_interest_identifier;
+}
+
+
 std::string Basic::get_background_image_identifier() const
 {
    return background_image_identifier;
@@ -75,6 +83,45 @@ float Basic::get_height() const
    return height;
 }
 
+
+std::string Basic::get_primary_point_of_interest_identifier() const
+{
+   return primary_point_of_interest_identifier;
+}
+
+
+std::pair<float, float> Basic::infer_primary_point_of_interest_coordinates()
+{
+   if (primary_point_of_interest_is_set() && primary_point_of_interest_is_on_map())
+   {
+      AllegroFlare::WorldMaps::Locations::Base* location = locations[primary_point_of_interest_identifier];
+      if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
+      {
+         AllegroFlare::WorldMaps::Locations::Basic *as =
+            static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
+         return { as->get_x(), as->get_y() };
+      }
+      else
+      {
+         // TODO: Warn once that this type is not supported
+         AllegroFlare::Logger::warn_from_once(
+            "AllegroFlare::WorldMaps::Maps::Basic",
+            "Na bro"
+         );
+      }
+   }
+   return { 0.0f, 0.0f };
+}
+
+bool Basic::primary_point_of_interest_is_set()
+{
+   return (primary_point_of_interest_identifier == DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER);
+}
+
+bool Basic::primary_point_of_interest_is_on_map()
+{
+   return (locations.find(primary_point_of_interest_identifier) != locations.end());
+}
 
 std::string Basic::location_id_at(float x, float y)
 {
