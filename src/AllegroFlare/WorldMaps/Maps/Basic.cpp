@@ -115,7 +115,7 @@ std::pair<float, float> Basic::infer_primary_point_of_interest_coordinates()
 
 bool Basic::primary_point_of_interest_is_set()
 {
-   return (primary_point_of_interest_identifier == DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER);
+   return (primary_point_of_interest_identifier != DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER);
 }
 
 bool Basic::primary_point_of_interest_is_on_map()

@@ -92,7 +92,7 @@ methods:
   - name: primary_point_of_interest_is_set
     type: bool
     body: |
-      return (primary_point_of_interest_identifier == DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER);
+      return (primary_point_of_interest_identifier != DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER);
 
 
   - name: primary_point_of_interest_is_on_map

@@ -106,9 +106,33 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest, location_id_at__will_return_the_id
 
 
 TEST_F(AllegroFlare_WorldMaps_Maps_BasicTestWithMapFixture,
+   primary_point_of_interest_is_set__if_the_primary_point_of_interest_is_the_default__returns_false)
+{
+   EXPECT_EQ(false, map.primary_point_of_interest_is_set());
+}
+
+
+TEST_F(AllegroFlare_WorldMaps_Maps_BasicTestWithMapFixture,
    primary_point_of_interest_is_set__if_the_primary_point_of_interest_is_not_the_default__returns_true)
 {
-   // TODO: Add test here
+   map.set_primary_point_of_interest_identifier("home");
+   EXPECT_EQ(true, map.primary_point_of_interest_is_set());
+}
+
+
+TEST_F(AllegroFlare_WorldMaps_Maps_BasicTestWithMapFixture,
+   primary_point_of_interest_is_on_map__when_the_primary_point_of_interest_does_not_exist_in_the_locations__returns_false)
+{
+   map.set_primary_point_of_interest_identifier("a-location-that-does-not-exist");
+   EXPECT_EQ(false, map.primary_point_of_interest_is_on_map());
+}
+
+
+TEST_F(AllegroFlare_WorldMaps_Maps_BasicTestWithMapFixture,
+   primary_point_of_interest_is_on_map__when_the_primary_point_of_interest_exists_in_the_locations__returns_true)
+{
+   map.set_primary_point_of_interest_identifier("home");
+   EXPECT_EQ(true, map.primary_point_of_interest_is_on_map());
 }
 
 
