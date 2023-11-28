@@ -315,6 +315,9 @@ void WorldMapViewer::initialize()
    // set the "name" property (as expected by the Panes::Base class)
    // HERE: Base::set_name("Crime Summary");
 
+   //int margin_x = 0;
+   //int margin_y = 0;
+
    int margin_x = 100;
    int margin_y = 142;
    map_view_place = AllegroFlare::Placement2D(1920/2, 1080/2, 1920-margin_x*2, 1080-margin_y*2);
@@ -346,8 +349,8 @@ void WorldMapViewer::fit_and_position_map()
       map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
    }
 
-   map_placement.position.x = map_view_place.size.x * 0.5;
-   map_placement.position.y = map_view_place.size.y * 0.5;
+   map_placement.position.x = 0; //map_view_place.size.x * 0.5;
+   map_placement.position.y = 0; //map_view_place.size.y * 0.5;
    map_placement.align.x = 0.5;
    map_placement.align.y = 0.5;
    //map_placement.rotation = 0;
@@ -756,6 +759,7 @@ void WorldMapViewer::render()
       render_map();
       render_page_numbers();
       render_zoom_scale();
+      render_coordinates();
 
       map_view_place.restore_transform();
    }
@@ -860,6 +864,61 @@ void WorldMapViewer::render_page_numbers()
       y-h_text_height,
       ALLEGRO_ALIGN_CENTER,
       focused_location_label.c_str()
+   );
+   return;
+}
+
+void WorldMapViewer::render_coordinates()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::render_coordinates]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::render_coordinates: error: guard \"initialized\" not met");
+   }
+   //bool currently_over_location;
+   std::stringstream coordinates;
+   coordinates << cursor.x << ", " << cursor.y;
+   std::string text_to_render = coordinates.str();
+   //std::tie(currently_over_location, focused_location_label) = infer_focused_location_label();
+
+   //if (!currently_over_location) focused_location_label = " - no location - ";
+     //default_argument: '"- no location -"'
+
+
+   float x = map_view_place.size.x - 100;
+   float y = map_view_place.size.y - 60;
+
+   ALLEGRO_FONT *font = obtain_small_ui_font();
+   float text_width = al_get_text_width(font, text_to_render.c_str());
+   float text_height = al_get_font_line_height(font);
+   float h_text_width = text_width/2;
+   float h_text_height = text_height/2;
+   AllegroFlare::Vec2D padding = {30, 20};
+   float o = 0.8;
+   //ALLEGRO_COLOR text_color = currently_over_location
+                            //? ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}
+                            //: ALLEGRO_COLOR{0.28f*o, 0.32f*o, 0.41f*o, 1.0f*o}
+                            //;
+   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+
+   //al_draw_filled_rounded_rectangle(
+      //x-h_text_width - padding.x,
+      //y-h_text_height - padding.y,
+      //x+h_text_width + padding.x,
+      //y+h_text_height + padding.y,
+      //8.0f,
+      //8.0f,
+      //ALLEGRO_COLOR{0, 0, 0, 0.5}
+   //);
+   al_draw_text(
+      font,
+      text_color,
+      x,
+      y-h_text_height,
+      ALLEGRO_ALIGN_RIGHT,
+      text_to_render.c_str()
    );
    return;
 }
@@ -974,6 +1033,34 @@ ALLEGRO_FONT* WorldMapViewer::obtain_font()
       throw std::runtime_error("WorldMapViewer::obtain_font: error: guard \"font_bin\" not met");
    }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
+   ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
+   return result_font;
+}
+
+ALLEGRO_FONT* WorldMapViewer::obtain_small_ui_font()
+{
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::obtain_small_ui_font: error: guard \"al_is_font_addon_initialized()\" not met");
+   }
+   if (!(al_is_ttf_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::obtain_small_ui_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
+   }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::obtain_small_ui_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::obtain_small_ui_font: error: guard \"font_bin\" not met");
+   }
+   static const std::string FONT_IDENTIFIER = "Inter-Regular.ttf -28";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
    return result_font;
 }

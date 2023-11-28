@@ -53,7 +53,9 @@ namespace AllegroFlare
          void fit_and_position_map();
          void render_map();
          void render_page_numbers();
+         void render_coordinates();
          ALLEGRO_FONT* obtain_font();
+         ALLEGRO_FONT* obtain_small_ui_font();
 
       protected:
 
