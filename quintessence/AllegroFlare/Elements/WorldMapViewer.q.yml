@@ -47,6 +47,18 @@ properties:
     getter: true
     setter: true
 
+  - name: cursor_size
+    type: float
+    init_with: 40.0f
+    getter: true
+    setter: true
+
+  - name: cursor_edge_padding
+    type: float
+    init_with: 10.0f
+    getter: true
+    setter: true
+
   - name: cursor_velocity_magnitude_axis_x
     type: float
     init_with: 0
@@ -545,8 +557,8 @@ methods:
         type: float
         default_argument: 0.0f
     body: |
-      float size = 40;
-      float hsize = size * 0.5f;
+      //float size = cursor_size;
+      float hsize = cursor_size * 0.5f;
       float thickness = 6.0;
       // Draw shadow
       al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4}, 6.0 + 6.0);
@@ -571,15 +583,18 @@ methods:
 
       // ensure the cursor does not extend beyond the constraints
       // TODO: Avoid using the "camera_range_x1"/"camera_range_x2" and find a better way to manage cursor ranges instead
-      cursor.x -= map_view_place.size.x * 0.5;
-      cursor.x =
-         AllegroFlare::clamp<float>(camera_range_x1, camera_range_x2, cursor.x)
-         + map_view_place.size.x * 0.5;
+      //cursor.x -= map_view_place.size.x * 0.5;
+      //cursor.x =
+         //AllegroFlare::clamp<float>(camera_range_x1, camera_range_x2, cursor.x)
+         //+ map_view_place.size.x * 0.5;
 
-      cursor.y -= map_view_place.size.y * 0.5;
-      cursor.y =
-         AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, cursor.y)
-         + map_view_place.size.y * 0.5;
+      //cursor.y -= map_view_place.size.y * 0.5;
+      //cursor.y =
+         //AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, cursor.y)
+         //+ map_view_place.size.y * 0.5;
+      float padding = cursor_size * 0.5 + cursor_edge_padding; // 30;
+      cursor.x = AllegroFlare::clamp<float>(0 + padding, 1920 - padding, cursor.x);
+      cursor.y = AllegroFlare::clamp<float>(0 + padding, 1080 - padding, cursor.y);
 
       // Update camera position by the velocity
       document_camera.position.x += camera_velocity_magnitude_axis_x;

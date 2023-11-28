@@ -31,6 +31,8 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , current_page_index_num(0)
    , document_camera()
    , cursor({})
+   , cursor_size(40.0f)
+   , cursor_edge_padding(10.0f)
    , cursor_velocity_magnitude_axis_x(0)
    , cursor_velocity_magnitude_axis_y(0)
    , cursor_max_velocity(6.5)
@@ -64,6 +66,18 @@ void WorldMapViewer::set_map_view_place(AllegroFlare::Placement2D map_view_place
 void WorldMapViewer::set_cursor(AllegroFlare::Vec2D cursor)
 {
    this->cursor = cursor;
+}
+
+
+void WorldMapViewer::set_cursor_size(float cursor_size)
+{
+   this->cursor_size = cursor_size;
+}
+
+
+void WorldMapViewer::set_cursor_edge_padding(float cursor_edge_padding)
+{
+   this->cursor_edge_padding = cursor_edge_padding;
 }
 
 
@@ -166,6 +180,18 @@ AllegroFlare::Placement2D WorldMapViewer::get_map_placement() const
 AllegroFlare::Vec2D WorldMapViewer::get_cursor() const
 {
    return cursor;
+}
+
+
+float WorldMapViewer::get_cursor_size() const
+{
+   return cursor_size;
+}
+
+
+float WorldMapViewer::get_cursor_edge_padding() const
+{
+   return cursor_edge_padding;
 }
 
 
@@ -664,8 +690,8 @@ void WorldMapViewer::render_map()
 
 void WorldMapViewer::draw_cursor(float x, float y)
 {
-   float size = 40;
-   float hsize = size * 0.5f;
+   //float size = cursor_size;
+   float hsize = cursor_size * 0.5f;
    float thickness = 6.0;
    // Draw shadow
    al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4}, 6.0 + 6.0);
@@ -695,15 +721,18 @@ void WorldMapViewer::update()
 
    // ensure the cursor does not extend beyond the constraints
    // TODO: Avoid using the "camera_range_x1"/"camera_range_x2" and find a better way to manage cursor ranges instead
-   cursor.x -= map_view_place.size.x * 0.5;
-   cursor.x =
-      AllegroFlare::clamp<float>(camera_range_x1, camera_range_x2, cursor.x)
-      + map_view_place.size.x * 0.5;
+   //cursor.x -= map_view_place.size.x * 0.5;
+   //cursor.x =
+      //AllegroFlare::clamp<float>(camera_range_x1, camera_range_x2, cursor.x)
+      //+ map_view_place.size.x * 0.5;
 
-   cursor.y -= map_view_place.size.y * 0.5;
-   cursor.y =
-      AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, cursor.y)
-      + map_view_place.size.y * 0.5;
+   //cursor.y -= map_view_place.size.y * 0.5;
+   //cursor.y =
+      //AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, cursor.y)
+      //+ map_view_place.size.y * 0.5;
+   float padding = cursor_size * 0.5 + cursor_edge_padding; // 30;
+   cursor.x = AllegroFlare::clamp<float>(0 + padding, 1920 - padding, cursor.x);
+   cursor.y = AllegroFlare::clamp<float>(0 + padding, 1080 - padding, cursor.y);
 
    // Update camera position by the velocity
    document_camera.position.x += camera_velocity_magnitude_axis_x;
