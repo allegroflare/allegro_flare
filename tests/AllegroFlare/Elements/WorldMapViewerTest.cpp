@@ -289,11 +289,12 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 }
 
 
-TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
    CAPTURE__VISUAL__step_zoom_out__will_zoom_out_the_camera_by_one_step__and_loop_back_when_at_the_edge)
 {
-   get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
+   //get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   crime_summary.set_map(&map);
    //crime_summary.set_pages({
       //{ "crime-summary-pages-p1-02.png" },
       //{ "crime-summary-pages-p2-02.png" },
@@ -315,7 +316,8 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
+//TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__if_the_display_dimensions_are_different_from_virtual_dimensions_of_1920x1080__will_clip_properly)
 {
    // TODO
@@ -327,6 +329,7 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 {
    //get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   crime_summary.set_map(&map);
    //crime_summary.set_pages({
       //{ "crime-summary-pages-p1-02.png" },
       //{ "crime-summary-pages-p2-02.png" },
