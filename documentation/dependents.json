@@ -131,6 +131,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
@@ -191,6 +192,7 @@
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -334,6 +336,7 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -449,6 +452,7 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
@@ -506,6 +510,7 @@
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -524,6 +529,7 @@
   ],
   "al_is_font_addon_initialized": [
     "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -578,6 +584,7 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
@@ -1564,6 +1571,7 @@
   "al_is_ttf_addon_initialized": [
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/DialogButton",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -1612,6 +1620,7 @@
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
@@ -2062,6 +2071,36 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "CatDetective/Chronicle/Panes/Base": [
+    "AllegroFlare/Elements/WorldMapViewer"
+  ],
+  "CatDetective/Chronicle/Panes/CrimeSummaryPage": [
+    "AllegroFlare/Elements/WorldMapViewer"
+  ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
+  ],
+  "AllegroFlare/Random": [
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Generators/PersonNameGenerator",
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
+    "AllegroFlare/TileMaps/Basic2D",
+    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
+  ],
+  "std/minmax_element": [
+    "AllegroFlare/Elements/WorldMapViewer"
+  ],
+  "AllegroFlare/clamp": [
+    "AllegroFlare/Elements/WorldMapViewer"
+  ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
   ],
@@ -2253,17 +2292,6 @@
     "AllegroFlare/Integrations/Network",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2"
-  ],
-  "AllegroFlare/Random": [
-    "AllegroFlare/Generators/PersonNameGenerator",
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
-    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
-    "AllegroFlare/TileMaps/Basic2D",
-    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
@@ -2842,11 +2870,6 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Camera2D": [
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "ALLEGRO_EVENT_QUEUE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync",
