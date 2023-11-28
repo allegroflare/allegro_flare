@@ -328,7 +328,7 @@ void WorldMapViewer::fit_camera_range_to_first_page_dimensions()
 void WorldMapViewer::reset()
 {
    reset_document_camera();
-   go_to_first_page();
+   go_to_origin_or_primary_point_of_interest();
    return;
 }
 
@@ -428,49 +428,10 @@ void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
    return;
 }
 
-void WorldMapViewer::go_to_first_page()
+void WorldMapViewer::go_to_origin_or_primary_point_of_interest()
 {
-   int attempts_remaining = 999;
-   while (current_page_index_num != 0)
-   {
-      page_next(false);
-
-      attempts_remaining--;
-      if (attempts_remaining <= 0)
-      {
-         std::stringstream error_message;
-         error_message << "CatDetective::Chronicle::Panes::CrimeSummary::go_to_first_page error: "
-                       << "Stuck in while loop; Ran out of attempts, aborting.";
-         throw std::runtime_error(error_message.str());
-         break;
-      }
-   }
-   return;
-}
-
-void WorldMapViewer::page_next(bool play_and_show_effects)
-{
-   /* // HERE
-   if (pages.empty()) return;
-   current_page_index_num += 1;
-   current_page_index_num = current_page_index_num % pages.size();
-   std::rotate(pages.begin(), pages.begin()+1, pages.end());
-   */
-   // TODO: play "page flip" sound effect, account for "play_and_show_effects" parameter
-   return;
-}
-
-void WorldMapViewer::page_previous(bool play_and_show_effects)
-{
-   /* // HERE
-   if (pages.empty()) return;
-   // TODO: add tests to ensure this will work
-   current_page_index_num -= 1;
-   current_page_index_num += pages.size();
-   current_page_index_num = current_page_index_num % pages.size();
-   std::rotate(pages.begin(), pages.begin()+(pages.size()-1), pages.end());
-   */
-   // TODO: play "page flip" sound effect, account for "play_and_show_effects" parameter
+   // TODO: Set this to point of interest coordinates
+   document_camera.position = { place.size.x * 0.5f, place.size.y * 0.5f };
    return;
 }
 

@@ -220,7 +220,7 @@ functions:
   - name: reset
     body: |
       reset_document_camera();
-      go_to_first_page();
+      go_to_origin_or_primary_point_of_interest();
       return;
 
 
@@ -326,57 +326,10 @@ functions:
       return;
 
 
-  - name: go_to_first_page
+  - name: go_to_origin_or_primary_point_of_interest
     body: |
-      int attempts_remaining = 999;
-      while (current_page_index_num != 0)
-      {
-         page_next(false);
-
-         attempts_remaining--;
-         if (attempts_remaining <= 0)
-         {
-            std::stringstream error_message;
-            error_message << "CatDetective::Chronicle::Panes::CrimeSummary::go_to_first_page error: "
-                          << "Stuck in while loop; Ran out of attempts, aborting.";
-            throw std::runtime_error(error_message.str());
-            break;
-         }
-      }
-      return;
-
-
-  - name: page_next
-    parameters:
-      - name: play_and_show_effects
-        type: bool
-        default_argument: true
-    body: |
-      /* // HERE
-      if (pages.empty()) return;
-      current_page_index_num += 1;
-      current_page_index_num = current_page_index_num % pages.size();
-      std::rotate(pages.begin(), pages.begin()+1, pages.end());
-      */
-      // TODO: play "page flip" sound effect, account for "play_and_show_effects" parameter
-      return;
-
-
-  - name: page_previous
-    parameters:
-      - name: play_and_show_effects
-        type: bool
-        default_argument: true
-    body: |
-      /* // HERE
-      if (pages.empty()) return;
-      // TODO: add tests to ensure this will work
-      current_page_index_num -= 1;
-      current_page_index_num += pages.size();
-      current_page_index_num = current_page_index_num % pages.size();
-      std::rotate(pages.begin(), pages.begin()+(pages.size()-1), pages.end());
-      */
-      // TODO: play "page flip" sound effect, account for "play_and_show_effects" parameter
+      // TODO: Set this to point of interest coordinates
+      document_camera.position = { place.size.x * 0.5f, place.size.y * 0.5f };
       return;
 
 
