@@ -392,8 +392,8 @@ void WorldMapViewer::reset()
 
 void WorldMapViewer::reset_document_camera()
 {
-   document_camera_zoom_levels = { 0.5, 0.75, 1.0, 1.25, 1.5, 1.75 };
-   document_camera_zoom_level_cursor = 0;
+   document_camera_zoom_levels = { 1.0, 1.25, 1.5, 1.85, 2.25 };
+   document_camera_zoom_level_cursor = 2; // TODO: Prevent this from being a value outside zoom levels
    camera_velocity_magnitude_axis_x = 0;
    camera_velocity_magnitude_axis_y = 0;
 
