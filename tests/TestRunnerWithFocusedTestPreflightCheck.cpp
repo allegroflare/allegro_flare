@@ -58,12 +58,12 @@ std::stringstream cout_buffer;
 std::streambuf* prevcoutbuf = nullptr;
 std::string captured_cout = ""; 
 
-int start_capture()
+void start_capture()
 {
    std::streambuf* prevcoutbuf = std::cout.rdbuf(cout_buffer.rdbuf());
 }
 
-int restore_capture()
+void restore_capture()
 {
    std::string captured_cout = cout_buffer.str();
    std::cout.rdbuf(prevcoutbuf);

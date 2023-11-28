@@ -274,7 +274,7 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 //TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
    // TODO: modify this to a TIMED_INTERACTIVE test
    //DISABLED__INTERACTIVE__will_work_as_expected)
-   INTERACTIVE__will_work_as_expected)
+   FOCUS__INTERACTIVE__will_work_as_expected)
 {
    // setup system
    al_install_keyboard();
@@ -318,16 +318,19 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-               case ALLEGRO_KEY_DOWN:
+               case ALLEGRO_KEY_DOWN: {
                   crime_summary.unset_cursor_moving_vertical();
-               break;
+               } break;
 
                case ALLEGRO_KEY_LEFT:
-               case ALLEGRO_KEY_RIGHT:
+               case ALLEGRO_KEY_RIGHT: {
                   crime_summary.unset_cursor_moving_horizontal();
-               break;
+               } break;
+
+               default: {
+               } break;
             }
-         }
+         } break;
 
          case ALLEGRO_EVENT_KEY_DOWN:
          {
@@ -363,6 +366,14 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 
                case ALLEGRO_KEY_SPACE:
                   //software_keyboard.press_key_by_name("SPACE");
+               break;
+
+               case ALLEGRO_KEY_PAD_PLUS:
+                  crime_summary.step_zoom_in();
+               break;
+
+               case ALLEGRO_KEY_PAD_MINUS:
+                  crime_summary.step_zoom_out();
                break;
 
                default:

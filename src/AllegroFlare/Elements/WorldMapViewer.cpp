@@ -380,7 +380,9 @@ void WorldMapViewer::fit_camera_range_to_first_page_dimensions()
 void WorldMapViewer::reset()
 {
    reset_document_camera();
+   //fit_camera_range_to_first_page_dimensions():
    go_to_origin_or_primary_point_of_interest();
+   fit_camera_range_to_first_page_dimensions();
    return;
 }
 
