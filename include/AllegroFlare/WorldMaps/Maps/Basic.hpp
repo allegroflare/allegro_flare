@@ -47,6 +47,8 @@ namespace AllegroFlare
             virtual std::pair<float, float> infer_primary_point_of_interest_coordinates() override;
             bool primary_point_of_interest_is_set();
             bool primary_point_of_interest_is_on_map();
+            bool location_exists(std::string location_id="[unset-location_id]");
+            AllegroFlare::WorldMaps::Locations::Base* find_location_by_id(std::string location_id="[unset-location_id]");
             virtual std::string location_id_at(float x=0, float y=0) override;
          };
       }

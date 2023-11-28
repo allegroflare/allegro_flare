@@ -770,8 +770,14 @@ std::string WorldMapViewer::infer_focused_location_label(std::string fallback)
    }
    std::string id = map->location_id_at(cursor.x, cursor.y);
    if (id.empty()) return fallback;
+   //AllegroFlare::WorldMaps::Locations::Base *found_location = location
+
+   //for (auto &location : map->get_locations())
+   //{
+      //Celestial Crossing North
+      // HERE
+   //}
    return id;
-   //return map->location_identifer_at(cursor.x, cursor.y);
 }
 
 void WorldMapViewer::render_page_numbers()

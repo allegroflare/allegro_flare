@@ -101,6 +101,29 @@ methods:
       return (locations.find(primary_point_of_interest_identifier) != locations.end());
 
 
+  - name: location_exists
+    type: bool
+    parameters:
+      - name: location_id
+        type: std::string
+        default_argument: '"[unset-location_id]"'
+    body: |
+      // TODO: Test these
+      return (locations.count(location_id) != 0);
+
+
+  - name: find_location_by_id
+    type: AllegroFlare::WorldMaps::Locations::Base*
+    parameters:
+      - name: location_id
+        type: std::string
+        default_argument: '"[unset-location_id]"'
+    body: |
+      // TODO: Test these
+      if (locations.count(location_id) == 0) return nullptr;
+      return locations[location_id];
+
+
   - name: location_id_at
     type: std::string
     virtual: true

@@ -123,6 +123,19 @@ bool Basic::primary_point_of_interest_is_on_map()
    return (locations.find(primary_point_of_interest_identifier) != locations.end());
 }
 
+bool Basic::location_exists(std::string location_id)
+{
+   // TODO: Test these
+   return (locations.count(location_id) != 0);
+}
+
+AllegroFlare::WorldMaps::Locations::Base* Basic::find_location_by_id(std::string location_id)
+{
+   // TODO: Test these
+   if (locations.count(location_id) == 0) return nullptr;
+   return locations[location_id];
+}
+
 std::string Basic::location_id_at(float x, float y)
 {
    for (auto &location : locations) if (location.second->collides(x, y)) return location.first;

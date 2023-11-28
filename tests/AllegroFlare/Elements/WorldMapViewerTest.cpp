@@ -28,16 +28,32 @@ public:
       map.set_locations({
          // TODO: Come up with some better location names
          { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 221, 423) },
-         { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1351, 551) },
          { "office2", new AllegroFlare::WorldMaps::Locations::Basic("Office", 611, 268) },
          { "office3", new AllegroFlare::WorldMaps::Locations::Basic("Office", 528, 414) },
          { "office4", new AllegroFlare::WorldMaps::Locations::Basic("Office", 807, 428) },
          { "office5", new AllegroFlare::WorldMaps::Locations::Basic("Office", 584, 713) },
          { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
          { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Town 4", 1132, 772) },
-         { "office8", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1315, 473) },
-         { "office9", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1662, 250) },
-         { "office10", new AllegroFlare::WorldMaps::Locations::Basic("Office", 961, 678) },
+         {
+            "celestial_crossing_north",
+            new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing North", 1315, 473)
+         },
+         {
+            "celestial_crossing_south",
+            new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing South", 1351, 551)
+         },
+         {
+            "luminara",
+            new AllegroFlare::WorldMaps::Locations::Basic("Luminara", 1662, 250)
+         },
+         //{
+            //"celestial_crossing_north",
+            //new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing North", 1662, 250)
+         //},
+         {
+            "crestwood_forest",
+            new AllegroFlare::WorldMaps::Locations::Basic("Crestwood Forest", 961, 678)
+         },
       });
    }
    virtual void TearDown()
