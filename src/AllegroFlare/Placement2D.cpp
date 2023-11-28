@@ -413,6 +413,13 @@ bool Placement2D::collide(float x, float y, float padding_top, float padding_rig
 
 
 
+float Placement2D::get_leftmost_coordinate()
+{
+   return 0;
+}
+
+
+
 bool Placement2D::collide(AllegroFlare::Placement2D &other)
 {
    std::vector<AllegroFlare::Vec2D> self_coordinates = {

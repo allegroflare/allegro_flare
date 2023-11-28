@@ -52,6 +52,11 @@ namespace AllegroFlare
       bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left);
       bool collide(AllegroFlare::Placement2D &other); // should revise to a const &other
 
+      float get_leftmost_coordinate();
+      //float get_rightmost_real_coordinate();
+      //float get_topmost_real_coordinate();
+      //float get_bottommost_real_coordinate();
+
       std::string get_string();
 
       Placement2D& operator+=(Placement2D &other);

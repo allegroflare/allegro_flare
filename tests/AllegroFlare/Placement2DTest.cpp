@@ -284,3 +284,98 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
 }
 
 
+TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
+   // TODO: Make this TIMED_INTERACTIVE
+   INTERACTIVE__get_real_coordinates__will_return_the_coordinates_of_the_placement)
+{
+   AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
+   placement_a.rotation = 0.1f;
+   placement_a.scale = { 2.0f, 2.0f };
+
+   //AllegroFlare::Placement2D placement_b(700, 400, 150, 140);
+   //placement_b.rotation = 0.02f;
+
+   al_install_keyboard();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+   AllegroFlare::Placement2D *targeted_placement = &placement_a;
+
+   al_start_timer(primary_timer);
+   bool abort = false;
+   while(!abort)
+   {
+      ALLEGRO_EVENT current_event;
+      al_wait_for_event(event_queue, &current_event);
+      switch(current_event.type)
+      {
+         case ALLEGRO_EVENT_TIMER:
+         {
+            al_clear_to_color(AllegroFlare::Color::Nothing);
+            //bool collides = placement_a.collide(placement_b);
+            ALLEGRO_COLOR collides_color = AllegroFlare::Color::Red;
+            placement_a.draw_box(AllegroFlare::color::mintcream, false);
+
+            float leftmost_coordinate = placement_a.get_leftmost_coordinate();
+            al_draw_line(leftmost_coordinate, 0, leftmost_coordinate, 1080, ALLEGRO_COLOR{1, 0.4, 0.4, 1.0}, 2.0);
+
+            //placement_b.draw_box(collides ? collides_color : AllegroFlare::color::lightcyan, false);
+            al_flip_display();
+         }
+         break;
+
+         case ALLEGRO_EVENT_KEY_CHAR:
+         {
+            switch(current_event.keyboard.keycode)
+            {
+               //case ALLEGRO_KEY_TAB: // toggle between the two placements
+                  //if (targeted_placement == &placement_a) targeted_placement = &placement_b;
+                  //else targeted_placement = &placement_a;
+               //break;
+
+               case ALLEGRO_KEY_R: // rotate the current targeted placement
+                  targeted_placement->rotation += 0.1f;
+               break;
+
+               case ALLEGRO_KEY_RIGHT: // move the current targeted placement to the right
+                  targeted_placement->position.x += 10.0f;
+               break;
+
+               case ALLEGRO_KEY_LEFT: // move the current targeted placement to the left
+                  targeted_placement->position.x -= 10.0f;
+               break;
+
+               case ALLEGRO_KEY_UP: // move the current targeted placement up
+                  targeted_placement->position.y -= 10.0f;
+               break;
+
+               case ALLEGRO_KEY_DOWN: // move the current targeted placement down
+                  targeted_placement->position.y += 10.0f;
+               break;
+
+               case ALLEGRO_KEY_PAD_PLUS: // increase the targeted placement scale
+                  targeted_placement->scale.x += 0.1f;
+                  targeted_placement->scale.y += 0.1f;
+               break;
+
+               case ALLEGRO_KEY_PAD_MINUS: // decrease the targeted placement scale
+                  targeted_placement->scale.x -= 0.1f;
+                  targeted_placement->scale.y -= 0.1f;
+               break;
+
+               case ALLEGRO_KEY_ESCAPE:
+                  abort = true;
+               break;
+            }
+         }
+         break;
+      }
+   }
+
+   al_destroy_timer(primary_timer);
+   //al_destroy_r(timer);
+}
+
+
