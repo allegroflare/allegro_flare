@@ -12545,6 +12545,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMapRenderers::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMapRenderers/Basic.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Basic.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -35550,6 +35553,11 @@ table td
   "AllegroFlare/WorldMapRenderers/Basic": [
     "AllegroFlare/Elements/WorldMapViewer"
   ],
+  "AllegroFlare/WorldMaps/Locations/Basic": [
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/WorldMapRenderers/Basic",
+    "AllegroFlare/WorldMaps/Maps/Basic"
+  ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
   ],
@@ -36910,10 +36918,6 @@ table td
   "AllegroFlare/WorldMaps/Locations/Base": [
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Locations/Basic",
-    "AllegroFlare/WorldMaps/Maps/Basic"
-  ],
-  "AllegroFlare/WorldMaps/Locations/Basic": [
-    "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [

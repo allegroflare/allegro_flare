@@ -760,7 +760,7 @@ void WorldMapViewer::render()
    return;
 }
 
-std::string WorldMapViewer::infer_focused_location_label(std::string fallback)
+std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label(std::string fallback)
 {
    if (!(map))
    {
@@ -770,7 +770,7 @@ std::string WorldMapViewer::infer_focused_location_label(std::string fallback)
       throw std::runtime_error("WorldMapViewer::infer_focused_location_label: error: guard \"map\" not met");
    }
    std::string location_id = map->location_id_at(cursor.x, cursor.y);
-   if (location_id.empty()) return fallback;
+   if (location_id.empty()) return { false, fallback };
 
    AllegroFlare::WorldMaps::Locations::Base *found_location = map->find_location_by_id(location_id);
 
@@ -800,7 +800,7 @@ std::string WorldMapViewer::infer_focused_location_label(std::string fallback)
          result = location_id;
       }
    }
-   return result;
+   return { true, result };
 }
 
 void WorldMapViewer::render_page_numbers()
@@ -812,13 +812,9 @@ void WorldMapViewer::render_page_numbers()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::render_page_numbers: error: guard \"initialized\" not met");
    }
-   std::string focused_location_label = infer_focused_location_label(); //"-"; //[unset-]";
-   /*
-      = "page "
-      + (std::to_string(pages.empty() ? 0 : current_page_index_num + 1))
-      + " of "
-      + std::to_string(pages.size());
-   */
+   bool currently_over_location;
+   std::string focused_location_label;
+   std::tie(currently_over_location, focused_location_label) = infer_focused_location_label();
 
    float x = place.size.x * 0.5;
    float y = place.size.y;
@@ -829,6 +825,11 @@ void WorldMapViewer::render_page_numbers()
    float h_text_width = text_width/2;
    float h_text_height = text_height/2;
    AllegroFlare::Vec2D padding = {30, 20};
+   float o = 0.8;
+   ALLEGRO_COLOR text_color = currently_over_location
+                            ? ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}
+                            : ALLEGRO_COLOR{0.28f*o, 0.32f*o, 0.41f*o, 1.0f*o}
+                            ;
 
    al_draw_filled_rounded_rectangle(
       x-h_text_width - padding.x,
@@ -839,7 +840,14 @@ void WorldMapViewer::render_page_numbers()
       8.0f,
       ALLEGRO_COLOR{0, 0, 0, 0.5}
    );
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, focused_location_label.c_str());
+   al_draw_text(
+      font,
+      text_color,
+      x,
+      y-h_text_height,
+      ALLEGRO_ALIGN_CENTER,
+      focused_location_label.c_str()
+   );
    return;
 }
 
