@@ -229,6 +229,7 @@
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
@@ -389,6 +390,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
@@ -523,6 +525,7 @@
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/UnicodeFontViewer",
@@ -766,6 +769,7 @@
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
@@ -947,6 +951,7 @@
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -1110,6 +1115,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/StoryboardFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
@@ -1432,6 +1438,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "WickedDemos/TileDemo"
   ],
@@ -1682,6 +1689,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
@@ -1705,6 +1713,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
@@ -1727,6 +1736,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
+    "AllegroFlare/Screens/WorldMapScreen",
     "WickedDemos/TileDemo"
   ],
   "AllegroFlare/Elements/ChapterSelect/Screen": [
@@ -2106,6 +2116,7 @@
   ],
   "AllegroFlare/WorldMaps/Maps/Basic": [
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
@@ -3286,6 +3297,12 @@
   ],
   "BuildInfo": [
     "AllegroFlare/Screens/Version"
+  ],
+  "AllegroFlare/Screens/WorldMapScreen": [
+    "AllegroFlare/Screens/WorldMapScreen"
+  ],
+  "AllegroFlare/Elements/WorldMapViewer": [
+    "AllegroFlare/Screens/WorldMapScreen"
   ],
   "std/filesystem/file_time_type": [
     "AllegroFlare/ShaderSourcePoller"

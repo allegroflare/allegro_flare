@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/WorldMapScreen.hpp>
 
+#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -18,6 +19,9 @@ WorldMapScreen::WorldMapScreen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::WorldMapScreen::TYPE)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , map_viewer({})
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , initialized(false)
 {
 }
@@ -25,6 +29,30 @@ WorldMapScreen::WorldMapScreen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
 
 WorldMapScreen::~WorldMapScreen()
 {
+}
+
+
+void WorldMapScreen::set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> on_exit_callback_func)
+{
+   this->on_exit_callback_func = on_exit_callback_func;
+}
+
+
+void WorldMapScreen::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
+{
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> WorldMapScreen::get_on_exit_callback_func() const
+{
+   return on_exit_callback_func;
+}
+
+
+void* WorldMapScreen::get_on_exit_callback_func_user_data() const
+{
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -99,6 +127,18 @@ void WorldMapScreen::initialize()
       throw std::runtime_error("WorldMapScreen::initialize: error: guard \"font_bin\" not met");
    }
    initialized = true;
+
+   map_viewer.set_bitmap_bin(bitmap_bin);
+   map_viewer.set_font_bin(font_bin);
+   map_viewer.initialize();
+   //crime_summary.set_map(&map);
+
+   return;
+}
+
+void WorldMapScreen::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
+{
+   map_viewer.set_map(map);
    return;
 }
 
@@ -129,16 +169,6 @@ void WorldMapScreen::on_deactivate()
    return;
 }
 
-void WorldMapScreen::update()
-{
-   return;
-}
-
-void WorldMapScreen::render()
-{
-   return;
-}
-
 void WorldMapScreen::primary_timer_func()
 {
    if (!(initialized))
@@ -148,8 +178,8 @@ void WorldMapScreen::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapScreen::primary_timer_func: error: guard \"initialized\" not met");
    }
-   update();
-   render();
+   map_viewer.update();
+   map_viewer.render();
    return;
 }
 
@@ -175,7 +205,37 @@ void WorldMapScreen::virtual_control_button_down_func(AllegroFlare::Player* play
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapScreen::virtual_control_button_down_func: error: guard \"initialized\" not met");
    }
-   // TODO: this function
+   //if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
+
+   // TODO: validate VirtualControllers::GenericController type
+
+   switch(virtual_controller_button_num)
+   {
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
+         //software_keyboard.move_cursor_up();
+      break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
+         //software_keyboard.move_cursor_down();
+      break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
+         //software_keyboard.decrement_cursor_pos();
+      break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
+         //software_keyboard.increment_cursor_pos();
+      break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_A:
+         //software_keyboard.press_key_under_cursor();
+      break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_X:
+         // Thing here
+      break;
+   }
+
    return;
 }
 

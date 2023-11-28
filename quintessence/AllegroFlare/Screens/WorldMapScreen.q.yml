@@ -19,6 +19,22 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: map_viewer
+    type: AllegroFlare::Elements::WorldMapViewer
+    init_with: '{}'
+
+  - name: on_exit_callback_func
+    type: std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_exit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -65,9 +81,25 @@ methods:
       - font_bin
     body: |
       initialized = true;
+
+      map_viewer.set_bitmap_bin(bitmap_bin);
+      map_viewer.set_font_bin(font_bin);
+      map_viewer.initialize();
+      //crime_summary.set_map(&map);
+
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+
+
+  - name: set_map
+    parameters:
+      - name: map
+        type: AllegroFlare::WorldMaps::Maps::Basic*
+        default_argument: nullptr
+    body: |
+      map_viewer.set_map(map);
+      return;
 
 
   - name: on_activate
@@ -89,23 +121,13 @@ methods:
       return;
 
 
-  - name: update
-    body: |
-      return;
-
-
-  - name: render
-    body: |
-      return;
-
-
   - name: primary_timer_func
     virtual: true
     override: true
     guards: [ initialized ]
     body: |
-      update();
-      render();
+      map_viewer.update();
+      map_viewer.render();
       return;
 
 
@@ -149,8 +171,40 @@ methods:
         default_argument: false
     guards: [ initialized ]
     body: |
-      // TODO: this function
+      //if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
+
+      // TODO: validate VirtualControllers::GenericController type
+
+      switch(virtual_controller_button_num)
+      {
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
+            //software_keyboard.move_cursor_up();
+         break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
+            //software_keyboard.move_cursor_down();
+         break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
+            //software_keyboard.decrement_cursor_pos();
+         break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
+            //software_keyboard.increment_cursor_pos();
+         break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_A:
+            //software_keyboard.press_key_under_cursor();
+         break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_X:
+            // Thing here
+         break;
+      }
+
       return;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControllers::GenericController
 
 
   - name: virtual_control_axis_change_func
@@ -188,5 +242,13 @@ dependencies:
     headers: [ AllegroFlare/Player.hpp ]
   - symbol: AllegroFlare::VirtualControllers::Base
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::Screens::WorldMapScreen
+    headers: [ AllegroFlare/Screens/WorldMapScreen.hpp ]
+  - symbol: AllegroFlare::Elements::WorldMapViewer
+    headers: [ AllegroFlare/Elements/WorldMapViewer.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Maps::Basic
+    headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
 
 
