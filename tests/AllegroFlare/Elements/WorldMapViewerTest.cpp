@@ -47,10 +47,6 @@ public:
             "luminara",
             new AllegroFlare::WorldMaps::Locations::Basic("Luminara", 1662, 250)
          },
-         //{
-            //"celestial_crossing_north",
-            //new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing North", 1662, 250)
-         //},
          {
             "crestwood_forest",
             new AllegroFlare::WorldMaps::Locations::Basic("Crestwood Forest", 961, 678)

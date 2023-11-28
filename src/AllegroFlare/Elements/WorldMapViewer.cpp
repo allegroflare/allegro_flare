@@ -715,9 +715,16 @@ void WorldMapViewer::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::update: error: guard \"initialized\" not met");
    }
+   // NOTE: Order of transformations is important, for example, velocity is relative to zoom
+
+   // Update camera zoom
+   float f_zoom = document_camera.get_zoom().x;
+   float next_zoom = (document_camera_target_zoom - f_zoom) * 0.175 + f_zoom;
+   document_camera.set_zoom({next_zoom, next_zoom});
+
    // update cursor position by the velocity
-   cursor.x += cursor_velocity_magnitude_axis_x;
-   cursor.y += cursor_velocity_magnitude_axis_y;
+   cursor.x += (cursor_velocity_magnitude_axis_x / next_zoom); // * 0.2;
+   cursor.y += (cursor_velocity_magnitude_axis_y / next_zoom); // * 0.2;
 
    // ensure the cursor does not extend beyond the constraints
    // TODO: Avoid using the "camera_range_x1"/"camera_range_x2" and find a better way to manage cursor ranges instead
@@ -737,11 +744,6 @@ void WorldMapViewer::update()
    // Update camera position by the velocity
    document_camera.position.x += camera_velocity_magnitude_axis_x;
    document_camera.position.y += camera_velocity_magnitude_axis_y;
-
-   // Update camera zoom
-   float f_zoom = document_camera.get_zoom().x;
-   float next_zoom = (document_camera_target_zoom - f_zoom) * 0.175 + f_zoom;
-   document_camera.set_zoom({next_zoom, next_zoom});
 
    // Have the camera follow the cursor, and/or block its range
    bool camera_follows_cursor = true;
