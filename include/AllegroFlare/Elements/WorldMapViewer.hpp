@@ -36,6 +36,7 @@ namespace AllegroFlare
          float document_camera_target_zoom;
          std::vector<float> document_camera_zoom_levels;
          int document_camera_zoom_level_cursor;
+         bool wrap_zoom;
          float camera_velocity_magnitude_axis_x;
          float camera_velocity_magnitude_axis_y;
          float camera_range_x1;
@@ -61,6 +62,7 @@ namespace AllegroFlare
          void set_cursor_velocity_magnitude_axis_x(float cursor_velocity_magnitude_axis_x);
          void set_cursor_velocity_magnitude_axis_y(float cursor_velocity_magnitude_axis_y);
          void set_cursor_max_velocity(float cursor_max_velocity);
+         void set_wrap_zoom(bool wrap_zoom);
          void set_camera_velocity_magnitude_axis_x(float camera_velocity_magnitude_axis_x);
          void set_camera_velocity_magnitude_axis_y(float camera_velocity_magnitude_axis_y);
          void set_camera_range_x1(float camera_range_x1);
@@ -77,6 +79,7 @@ namespace AllegroFlare
          float get_cursor_velocity_magnitude_axis_x() const;
          float get_cursor_velocity_magnitude_axis_y() const;
          float get_cursor_max_velocity() const;
+         bool get_wrap_zoom() const;
          float get_camera_velocity_magnitude_axis_x() const;
          float get_camera_velocity_magnitude_axis_y() const;
          float get_camera_range_x1() const;

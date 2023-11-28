@@ -35,6 +35,7 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , document_camera_target_zoom(0)
    , document_camera_zoom_levels({ 0.5f })
    , document_camera_zoom_level_cursor(0)
+   , wrap_zoom(false)
    , camera_velocity_magnitude_axis_x(0)
    , camera_velocity_magnitude_axis_y(0)
    , camera_range_x1(-100)
@@ -79,6 +80,12 @@ void WorldMapViewer::set_cursor_velocity_magnitude_axis_y(float cursor_velocity_
 void WorldMapViewer::set_cursor_max_velocity(float cursor_max_velocity)
 {
    this->cursor_max_velocity = cursor_max_velocity;
+}
+
+
+void WorldMapViewer::set_wrap_zoom(bool wrap_zoom)
+{
+   this->wrap_zoom = wrap_zoom;
 }
 
 
@@ -175,6 +182,12 @@ float WorldMapViewer::get_cursor_velocity_magnitude_axis_y() const
 float WorldMapViewer::get_cursor_max_velocity() const
 {
    return cursor_max_velocity;
+}
+
+
+bool WorldMapViewer::get_wrap_zoom() const
+{
+   return wrap_zoom;
 }
 
 
@@ -418,17 +431,34 @@ void WorldMapViewer::on_switch_out()
 
 void WorldMapViewer::step_zoom_in()
 {
+   if (document_camera_zoom_levels.empty()) return;
    document_camera_zoom_level_cursor++;
-   document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+   if (wrap_zoom)
+   {
+      document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+   }
+   else
+   {
+      if (document_camera_zoom_level_cursor >= document_camera_zoom_levels.size())
+         document_camera_zoom_level_cursor = document_camera_zoom_levels.size()-1;
+   }
    document_camera_target_zoom = document_camera_zoom_levels[document_camera_zoom_level_cursor];
    return;
 }
 
 void WorldMapViewer::step_zoom_out()
 {
+   if (document_camera_zoom_levels.empty()) return;
    document_camera_zoom_level_cursor--;
-   document_camera_zoom_level_cursor += document_camera_zoom_levels.size();
-   document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+   if (wrap_zoom)
+   {
+      document_camera_zoom_level_cursor += document_camera_zoom_levels.size();
+      document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+   }
+   else
+   {
+      if (document_camera_zoom_level_cursor < 0) document_camera_zoom_level_cursor = 0;
+   }
    document_camera_target_zoom = document_camera_zoom_levels[document_camera_zoom_level_cursor];
    return;
 }
@@ -643,10 +673,11 @@ void WorldMapViewer::draw_cursor(float x, float y)
 {
    float size = 40;
    float hsize = size * 0.5f;
+   float thickness = 6.0;
    // Draw shadow
-   al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4}, 8.0 + 6.0);
+   al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4}, 6.0 + 6.0);
    // Draw shape
-   al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.95, 0.74, 0.5, 1.0}, 8.0);
+   al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.95, 0.74, 0.5, 1.0}, 6.0);
    return;
 }
 

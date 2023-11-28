@@ -77,6 +77,12 @@ properties:
     type: int
     init_with: 0
 
+  - name: wrap_zoom
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: camera_velocity_magnitude_axis_x
     type: float
     init_with: 0
@@ -284,17 +290,34 @@ methods:
 
   - name: step_zoom_in
     body: |
+      if (document_camera_zoom_levels.empty()) return;
       document_camera_zoom_level_cursor++;
-      document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+      if (wrap_zoom)
+      {
+         document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+      }
+      else
+      {
+         if (document_camera_zoom_level_cursor >= document_camera_zoom_levels.size())
+            document_camera_zoom_level_cursor = document_camera_zoom_levels.size()-1;
+      }
       document_camera_target_zoom = document_camera_zoom_levels[document_camera_zoom_level_cursor];
       return;
 
 
   - name: step_zoom_out
     body: |
+      if (document_camera_zoom_levels.empty()) return;
       document_camera_zoom_level_cursor--;
-      document_camera_zoom_level_cursor += document_camera_zoom_levels.size();
-      document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+      if (wrap_zoom)
+      {
+         document_camera_zoom_level_cursor += document_camera_zoom_levels.size();
+         document_camera_zoom_level_cursor = document_camera_zoom_level_cursor % document_camera_zoom_levels.size();
+      }
+      else
+      {
+         if (document_camera_zoom_level_cursor < 0) document_camera_zoom_level_cursor = 0;
+      }
       document_camera_target_zoom = document_camera_zoom_levels[document_camera_zoom_level_cursor];
       return;
 
@@ -503,10 +526,11 @@ methods:
     body: |
       float size = 40;
       float hsize = size * 0.5f;
+      float thickness = 6.0;
       // Draw shadow
-      al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4}, 8.0 + 6.0);
+      al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4}, 6.0 + 6.0);
       // Draw shape
-      al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.95, 0.74, 0.5, 1.0}, 8.0);
+      al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.95, 0.74, 0.5, 1.0}, 6.0);
       return;
 
 
