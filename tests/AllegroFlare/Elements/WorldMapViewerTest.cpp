@@ -313,24 +313,40 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 
       switch(event.type)
       {
-         case ALLEGRO_EVENT_KEY_CHAR:
+         case ALLEGRO_EVENT_KEY_UP:
          {
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-                  //software_keyboard.move_cursor_up();
-               break;
-
                case ALLEGRO_KEY_DOWN:
-                  //software_keyboard.move_cursor_down();
-               break;
-
-               case ALLEGRO_KEY_RIGHT:
-                  //software_keyboard.increment_cursor_pos();
+                  crime_summary.unset_cursor_moving_vertical();
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  //software_keyboard.decrement_cursor_pos();
+               case ALLEGRO_KEY_RIGHT:
+                  crime_summary.unset_cursor_moving_horizontal();
+               break;
+            }
+         }
+
+         case ALLEGRO_EVENT_KEY_DOWN:
+         {
+            switch(event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+                  crime_summary.set_cursor_moving_up();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  crime_summary.set_cursor_moving_down();
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                  crime_summary.set_cursor_moving_right();
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  crime_summary.set_cursor_moving_left();
                break;
 
                case ALLEGRO_KEY_ENTER:
