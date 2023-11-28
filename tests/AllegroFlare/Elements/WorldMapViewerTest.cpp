@@ -163,21 +163,21 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
-   set_pages__will_set_the_pages)
+   set_map__will_set_the_map)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
-   set_pages__will_reset_the_document_camera_to_the_initial_zoom_and_position)
+   set_map__will_reset_the_document_camera_to_the_initial_zoom_and_position)
 {
    // TODO
 }
 
 
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
-   set_pages__will_fit_and_position_pages)
+   set_map__will_fit_and_position_pages)
 {
    // TODO
 }

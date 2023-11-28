@@ -315,33 +315,13 @@ functions:
       unset_camera_moving_horizontal();
 
 
-  - name: set_pages
-    parameters:
-      - name: pages
-        xtype: std::vector<CatDetective::Chronicle::Panes::CrimeSummaryPage>
-        type: std::vector<std::string>
-        default_argument: '{}'
-    body: |
-      /* // HERE
-      current_page_index_num = 0;
-      this->pages = pages;
-      */
-      fit_and_position_map();
-      reset_document_camera();
-      return;
-
-
   - name: set_map
     parameters:
       - name: map
         type: AllegroFlare::WorldMaps::Maps::Basic*
         default_argument: nullptr
     body: |
-      /* // HERE
-      current_page_index_num = 0;
-      this->pages = pages;
-      */
-      this->map = map; // NEW
+      this->map = map;
       fit_and_position_map();
       reset_document_camera();
       return;

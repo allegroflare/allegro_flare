@@ -419,24 +419,9 @@ void WorldMapViewer::unset_camera_moving()
    unset_camera_moving_horizontal();
 }
 
-void WorldMapViewer::set_pages(std::vector<std::string> pages)
-{
-   /* // HERE
-   current_page_index_num = 0;
-   this->pages = pages;
-   */
-   fit_and_position_map();
-   reset_document_camera();
-   return;
-}
-
 void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
 {
-   /* // HERE
-   current_page_index_num = 0;
-   this->pages = pages;
-   */
-   this->map = map; // NEW
+   this->map = map;
    fit_and_position_map();
    reset_document_camera();
    return;
