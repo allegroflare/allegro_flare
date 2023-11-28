@@ -28,7 +28,10 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , map_placement()
    , current_page_index_num(0)
    , document_camera()
-   , document_cursor({})
+   , cursor({})
+   , cursor_velocity_magnitude_axis_x(0)
+   , cursor_velocity_magnitude_axis_y(0)
+   , cursor_max_velocity(6.5)
    , document_camera_target_zoom(0)
    , document_camera_zoom_levels({ 0.5f })
    , document_camera_zoom_level_cursor(0)
@@ -52,6 +55,24 @@ WorldMapViewer::~WorldMapViewer()
 void WorldMapViewer::set_place(AllegroFlare::Placement2D place)
 {
    this->place = place;
+}
+
+
+void WorldMapViewer::set_cursor_velocity_magnitude_axis_x(float cursor_velocity_magnitude_axis_x)
+{
+   this->cursor_velocity_magnitude_axis_x = cursor_velocity_magnitude_axis_x;
+}
+
+
+void WorldMapViewer::set_cursor_velocity_magnitude_axis_y(float cursor_velocity_magnitude_axis_y)
+{
+   this->cursor_velocity_magnitude_axis_y = cursor_velocity_magnitude_axis_y;
+}
+
+
+void WorldMapViewer::set_cursor_max_velocity(float cursor_max_velocity)
+{
+   this->cursor_max_velocity = cursor_max_velocity;
 }
 
 
@@ -124,6 +145,24 @@ AllegroFlare::WorldMaps::Maps::Basic* WorldMapViewer::get_map() const
 AllegroFlare::Placement2D WorldMapViewer::get_map_placement() const
 {
    return map_placement;
+}
+
+
+float WorldMapViewer::get_cursor_velocity_magnitude_axis_x() const
+{
+   return cursor_velocity_magnitude_axis_x;
+}
+
+
+float WorldMapViewer::get_cursor_velocity_magnitude_axis_y() const
+{
+   return cursor_velocity_magnitude_axis_y;
+}
+
+
+float WorldMapViewer::get_cursor_max_velocity() const
+{
+   return cursor_max_velocity;
 }
 
 
@@ -359,6 +398,7 @@ void WorldMapViewer::reset_document_camera_range()
 void WorldMapViewer::on_switch_out()
 {
    unset_camera_moving();
+   unset_cursor_moving();
    return;
 }
 
@@ -419,6 +459,48 @@ void WorldMapViewer::unset_camera_moving()
 {
    unset_camera_moving_vertical();
    unset_camera_moving_horizontal();
+}
+
+void WorldMapViewer::set_cursor_moving_up()
+{
+   cursor_velocity_magnitude_axis_y = -cursor_max_velocity;
+   return;
+}
+
+void WorldMapViewer::set_cursor_moving_down()
+{
+   cursor_velocity_magnitude_axis_y = cursor_max_velocity;
+   return;
+}
+
+void WorldMapViewer::unset_cursor_moving_vertical()
+{
+   cursor_velocity_magnitude_axis_y = 0.0f;
+   return;
+}
+
+void WorldMapViewer::set_cursor_moving_left()
+{
+   cursor_velocity_magnitude_axis_x = -cursor_max_velocity;
+   return;
+}
+
+void WorldMapViewer::set_cursor_moving_right()
+{
+   cursor_velocity_magnitude_axis_x = cursor_max_velocity;
+   return;
+}
+
+void WorldMapViewer::unset_cursor_moving_horizontal()
+{
+   cursor_velocity_magnitude_axis_x = 0.0f;
+   return;
+}
+
+void WorldMapViewer::unset_cursor_moving()
+{
+   unset_cursor_moving_vertical();
+   unset_cursor_moving_horizontal();
 }
 
 void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
@@ -549,6 +631,21 @@ void WorldMapViewer::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::update: error: guard \"initialized\" not met");
    }
+   // update cursor position by the velocity
+   cursor.x += cursor_velocity_magnitude_axis_x;
+   cursor.y += cursor_velocity_magnitude_axis_y;
+
+   // ensure the cursor does not extand beyond the constraints
+   // TODO: Avoid using the "camera_range_x1"/"camera_range_x2" and find a better way to manage cursor ranges instead
+   cursor.x -= place.size.x * 0.5;
+   cursor.x =
+      AllegroFlare::clamp<float>(camera_range_x1, camera_range_x2, cursor.x)
+      + place.size.x * 0.5;
+   cursor.y -= place.size.y * 0.5;
+   cursor.y =
+      AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, cursor.y)
+      + place.size.y * 0.5;
+
    // update camera position by the velocity
    document_camera.position.x += camera_velocity_magnitude_axis_x;
    document_camera.position.y += camera_velocity_magnitude_axis_y;

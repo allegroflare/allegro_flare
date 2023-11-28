@@ -29,7 +29,10 @@ namespace AllegroFlare
          AllegroFlare::Placement2D map_placement;
          int current_page_index_num;
          AllegroFlare::Camera2D document_camera;
-         AllegroFlare::Vec2D document_cursor;
+         AllegroFlare::Vec2D cursor;
+         float cursor_velocity_magnitude_axis_x;
+         float cursor_velocity_magnitude_axis_y;
+         float cursor_max_velocity;
          float document_camera_target_zoom;
          std::vector<float> document_camera_zoom_levels;
          int document_camera_zoom_level_cursor;
@@ -54,6 +57,9 @@ namespace AllegroFlare
          ~WorldMapViewer();
 
          void set_place(AllegroFlare::Placement2D place);
+         void set_cursor_velocity_magnitude_axis_x(float cursor_velocity_magnitude_axis_x);
+         void set_cursor_velocity_magnitude_axis_y(float cursor_velocity_magnitude_axis_y);
+         void set_cursor_max_velocity(float cursor_max_velocity);
          void set_camera_velocity_magnitude_axis_x(float camera_velocity_magnitude_axis_x);
          void set_camera_velocity_magnitude_axis_y(float camera_velocity_magnitude_axis_y);
          void set_camera_range_x1(float camera_range_x1);
@@ -66,6 +72,9 @@ namespace AllegroFlare
          AllegroFlare::Placement2D get_place() const;
          AllegroFlare::WorldMaps::Maps::Basic* get_map() const;
          AllegroFlare::Placement2D get_map_placement() const;
+         float get_cursor_velocity_magnitude_axis_x() const;
+         float get_cursor_velocity_magnitude_axis_y() const;
+         float get_cursor_max_velocity() const;
          float get_camera_velocity_magnitude_axis_x() const;
          float get_camera_velocity_magnitude_axis_y() const;
          float get_camera_range_x1() const;
@@ -90,6 +99,13 @@ namespace AllegroFlare
          void set_camera_moving_right();
          void unset_camera_moving_horizontal();
          void unset_camera_moving();
+         void set_cursor_moving_up();
+         void set_cursor_moving_down();
+         void unset_cursor_moving_vertical();
+         void set_cursor_moving_left();
+         void set_cursor_moving_right();
+         void unset_cursor_moving_horizontal();
+         void unset_cursor_moving();
          void set_map(AllegroFlare::WorldMaps::Maps::Basic* map=nullptr);
          void go_to_origin_or_primary_point_of_interest();
          bool infer_no_pages_are_present();
