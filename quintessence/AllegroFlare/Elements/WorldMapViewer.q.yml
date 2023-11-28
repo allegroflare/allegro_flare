@@ -110,7 +110,7 @@ properties:
     constexpr: true
 
 
-functions:
+methods:
 
 
   - name: set_bitmap_bin
@@ -426,8 +426,6 @@ functions:
 
 
   - name: update
-    xvirtual: true
-    xoverride: true
     guards: [ initialized ]
     body: |
       // update camera position by the velocity
@@ -454,8 +452,6 @@ functions:
 
 
   - name: render
-    xvirtual: true
-    xoverride: true
     guards: [ initialized ]
     body: |
       if (infer_no_pages_are_present())
