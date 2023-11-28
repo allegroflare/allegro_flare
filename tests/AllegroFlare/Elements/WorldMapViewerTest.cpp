@@ -286,6 +286,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
    bool abort = false;
    ALLEGRO_EVENT event;
 
+
+   AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   crime_summary.set_map(&map);
+   crime_summary.initialize();
+
    // setup environment
    //AllegroFlare::EventEmitter event_emitter;
    //event_emitter.initialize();
@@ -372,6 +377,8 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 
          case ALLEGRO_EVENT_TIMER:
             clear();
+            crime_summary.update();
+            crime_summary.render();
             //software_keyboard.render();
             al_flip_display();
          break;
