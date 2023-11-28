@@ -17,7 +17,6 @@ class AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 class AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture
-//class AllegroFlare_Elements_WorldMapRenderers_BasicTestWithMapAndWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
 public:
@@ -27,22 +26,19 @@ public:
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
       map.set_background_image_identifier("overworld-map-02.png");
       map.set_locations({
+         // TODO: Come up with some better location names
          { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 221, 423) },
          { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1351, 551) },
          { "office2", new AllegroFlare::WorldMaps::Locations::Basic("Office", 611, 268) },
          { "office3", new AllegroFlare::WorldMaps::Locations::Basic("Office", 528, 414) },
          { "office4", new AllegroFlare::WorldMaps::Locations::Basic("Office", 807, 428) },
          { "office5", new AllegroFlare::WorldMaps::Locations::Basic("Office", 584, 713) },
-
          { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
          { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1132, 772) },
          { "office8", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1315, 473) },
          { "office9", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1662, 250) },
-         { "office10", new AllegroFlare::WorldMaps::Locations::Basic("Office", 961, 678) }, // Forrest
-
-         //{ "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
+         { "office10", new AllegroFlare::WorldMaps::Locations::Basic("Office", 961, 678) },
       });
-      //map.set_background_image_identifier("overworld-map-02.png");
    }
    virtual void TearDown()
    {
@@ -187,16 +183,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
 }
 
 
-TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
+   CAPTURE__render__will_not_blow_up)
 {
-   get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   // HERE:
-   //crime_summary.set_pages({
-      //{ "crime-summary-pages-p1-01.png" },
-      //{ "crime-summary-pages-p2-01.png" },
-      //{ "crime-summary-pages-p3-01.png" },
-   //});
+   crime_summary.set_map(&map);
    crime_summary.initialize();
    clear();
    crime_summary.render();
@@ -204,75 +195,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture, CAPT
 }
 
 
-/*
-TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
-   CAPTURE__VISUAL__page_next__will_move_to_the_next_page)
-{
-   get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
-   AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   // HERE:
-   //crime_summary.set_pages({
-      //{ "crime-summary-pages-p1-02.png" },
-      //{ "crime-summary-pages-p2-02.png" },
-      //{ "crime-summary-pages-p3-02.png" },
-   //});
-   crime_summary.initialize();
-
-   int page_flips = 4;
-   for (int i=0; i<page_flips; i++)
-   {
-      clear();
-      crime_summary.render();
-      al_flip_display();
-      sleep_for(0.01);
-
-      crime_summary.page_next();
-   }
-}
-*/
-
-
-/*
-TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
-   CAPTURE__VISUAL__page_previous__will_move_to_the_previous_page)
-{
-   get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
-   AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   // HERE:
-   //crime_summary.set_pages({
-      //{ "crime-summary-pages-p1-02.png" },
-      //{ "crime-summary-pages-p2-02.png" },
-      //{ "crime-summary-pages-p3-02.png" },
-   //});
-   crime_summary.initialize();
-
-   int page_flips = 4;
-   for (int i=0; i<page_flips; i++)
-   {
-      clear();
-      crime_summary.render();
-      al_flip_display();
-      sleep_for(0.01);
-
-      crime_summary.page_previous();
-   }
-}
-*/
-
-
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
-//AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__step_zoom_in__will_zoom_in_the_camera_by_one_step__and_loop_back_when_at_the_edge)
 {
-   //get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
    crime_summary.set_map(&map);
-   // HERE:
-   //crime_summary.set_pages({
-      //{ "crime-summary-pages-p1-02.png" },
-      //{ "crime-summary-pages-p2-02.png" },
-      //{ "crime-summary-pages-p3-02.png" },
-   //});
    crime_summary.initialize();
 
    int zooms = 5;
@@ -292,14 +219,8 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
    CAPTURE__VISUAL__step_zoom_out__will_zoom_out_the_camera_by_one_step__and_loop_back_when_at_the_edge)
 {
-   //get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
    crime_summary.set_map(&map);
-   //crime_summary.set_pages({
-      //{ "crime-summary-pages-p1-02.png" },
-      //{ "crime-summary-pages-p2-02.png" },
-      //{ "crime-summary-pages-p3-02.png" },
-   //});
    crime_summary.initialize();
 
    int zooms = 6;
@@ -317,7 +238,6 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 
 
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
-//TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__if_the_display_dimensions_are_different_from_virtual_dimensions_of_1920x1080__will_clip_properly)
 {
    // TODO
@@ -327,14 +247,8 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
    CAPTURE__VISUAL__with_a_map_present__will_render_as_expected)
 {
-   //get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
    crime_summary.set_map(&map);
-   //crime_summary.set_pages({
-      //{ "crime-summary-pages-p1-02.png" },
-      //{ "crime-summary-pages-p2-02.png" },
-      //{ "crime-summary-pages-p3-02.png" },
-   //});
    crime_summary.initialize();
 
    int zooms = 5;
