@@ -122,7 +122,7 @@ namespace AllegroFlare
          bool infer_no_pages_are_present();
          void update();
          void render();
-         std::pair<bool, std::string> infer_focused_location_label(std::string fallback="- no location -");
+         std::pair<bool, std::string> infer_focused_location_label();
          void render_zoom_scale();
          void draw_empty_state(AllegroFlare::FontBin* font_bin=nullptr, std::string placeholder_text="Empty");
          float calc_zoom_position_relative_min_max();

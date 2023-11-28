@@ -6,6 +6,7 @@
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/WorldMapRenderers/Basic.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Player.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -760,7 +761,7 @@ void WorldMapViewer::render()
    return;
 }
 
-std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label(std::string fallback)
+std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label()
 {
    if (!(map))
    {
@@ -770,7 +771,7 @@ std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label(std::s
       throw std::runtime_error("WorldMapViewer::infer_focused_location_label: error: guard \"map\" not met");
    }
    std::string location_id = map->location_id_at(cursor.x, cursor.y);
-   if (location_id.empty()) return { false, fallback };
+   if (location_id.empty()) return { false, "" };
 
    AllegroFlare::WorldMaps::Locations::Base *found_location = map->find_location_by_id(location_id);
 
@@ -790,6 +791,13 @@ std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label(std::s
          AllegroFlare::WorldMaps::Locations::Basic *as =
             static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
          result = as->get_label();
+      }
+      if (found_location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+      {
+         return { false, "" };
+         //AllegroFlare::WorldMaps::Locations::Basic *as =
+            //static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
+         //result = as->get_label();
       }
       else
       {
@@ -815,6 +823,10 @@ void WorldMapViewer::render_page_numbers()
    bool currently_over_location;
    std::string focused_location_label;
    std::tie(currently_over_location, focused_location_label) = infer_focused_location_label();
+
+   if (currently_over_location == false) focused_location_label = '" --- "';
+     //default_argument: '"- no location -"'
+
 
    float x = place.size.x * 0.5;
    float y = place.size.y;

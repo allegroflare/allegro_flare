@@ -631,14 +631,10 @@ methods:
 
   - name: infer_focused_location_label
     type: std::pair<bool, std::string>
-    parameters:
-      - name: fallback
-        type: std::string
-        default_argument: '"- no location -"'
     guards: [ map ]
     body: |
       std::string location_id = map->location_id_at(cursor.x, cursor.y);
-      if (location_id.empty()) return { false, fallback };
+      if (location_id.empty()) return { false, "" };
 
       AllegroFlare::WorldMaps::Locations::Base *found_location = map->find_location_by_id(location_id);
 
@@ -659,6 +655,13 @@ methods:
                static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
             result = as->get_label();
          }
+         if (found_location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+         {
+            return { false, "" };
+            //AllegroFlare::WorldMaps::Locations::Basic *as =
+               //static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
+            //result = as->get_label();
+         }
          else
          {
             AllegroFlare::Logger::warn_from_once(
@@ -671,6 +674,7 @@ methods:
       return { true, result };
     body_dependency_symbols:
       - AllegroFlare::WorldMaps::Locations::Basic
+      - AllegroFlare::WorldMaps::Locations::Player
 
 
   - name: render_page_numbers
@@ -681,6 +685,10 @@ methods:
       bool currently_over_location;
       std::string focused_location_label;
       std::tie(currently_over_location, focused_location_label) = infer_focused_location_label();
+
+      if (currently_over_location == false) focused_location_label = '" --- "';
+        //default_argument: '"- no location -"'
+
 
       float x = place.size.x * 0.5;
       float y = place.size.y;
@@ -851,5 +859,7 @@ dependencies:
     headers: [ AllegroFlare/WorldMapRenderers/Basic.hpp ]
   - symbol: AllegroFlare::WorldMaps::Locations::Basic
     headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Player
+    headers: [ AllegroFlare/WorldMaps/Locations/Player.hpp ]
 
 

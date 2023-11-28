@@ -9,6 +9,7 @@
 
 #include <AllegroFlare/Elements/WorldMapViewer.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Player.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
 
@@ -53,6 +54,10 @@ public:
          {
             "crestwood_forest",
             new AllegroFlare::WorldMaps::Locations::Basic("Crestwood Forest", 961, 678)
+         },
+         {
+            "player",
+            new AllegroFlare::WorldMaps::Locations::Player(1262, 350)
          },
       });
    }
