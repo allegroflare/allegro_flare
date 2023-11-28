@@ -2105,6 +2105,9 @@
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
+  "AllegroFlare/WorldMapRenderers/Basic": [
+    "AllegroFlare/Elements/WorldMapViewer"
+  ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
   ],

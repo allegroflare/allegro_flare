@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/Useful.hpp>
+#include <AllegroFlare/WorldMapRenderers/Basic.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -484,6 +485,20 @@ void WorldMapViewer::render_pages()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::render_pages: error: guard \"al_get_current_display()\" not met");
    }
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::render_pages]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::render_pages: error: guard \"bitmap_bin\" not met");
+   }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::render_pages]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::render_pages: error: guard \"font_bin\" not met");
+   }
    if (infer_no_pages_are_present())
    {
       // draw some placeholder text when there are no pages
@@ -535,6 +550,11 @@ void WorldMapViewer::render_pages()
          HERE: pages[i].render(bitmap_bin);
       }
       */
+
+      // NEW:
+      AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
+      renderer.render();
+
       document_camera.restore_transform();
 
       al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead

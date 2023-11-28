@@ -387,7 +387,7 @@ functions:
 
   - name: render_pages
     private: true
-    guards: [ al_get_current_display() ]
+    guards: [ al_get_current_display(), bitmap_bin, font_bin ]
     body: |
       if (infer_no_pages_are_present())
       {
@@ -440,12 +440,19 @@ functions:
             HERE: pages[i].render(bitmap_bin);
          }
          */
+
+         // NEW:
+         AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
+         renderer.render();
+
          document_camera.restore_transform();
 
          al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
       }
 
       return;
+    body_dependency_symbols:
+      - AllegroFlare::WorldMapRenderers::Basic
 
 
   - name: infer_no_pages_are_present
@@ -508,6 +515,8 @@ functions:
       }
       
       return;
+    body_dependency_symbols:
+      - AllegroFlare::WorldMapRenderers::Basic
 
 
   - name: render_page_numbers
@@ -674,5 +683,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::WorldMaps::Maps::Basic
     headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
+  - symbol: AllegroFlare::WorldMapRenderers::Basic
+    headers: [ AllegroFlare/WorldMapRenderers/Basic.hpp ]
 
 
