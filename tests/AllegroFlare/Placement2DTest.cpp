@@ -328,6 +328,17 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
             al_draw_line(0, topmost_coordinate, 1920, topmost_coordinate, ALLEGRO_COLOR{0.4, 1.0, 0.4, 1.0}, 2.0);
             al_draw_line(0, bottommost_coordinate, 1920, bottommost_coordinate, ALLEGRO_COLOR{1.0, 1.0, 0.4, 1.0}, 2.0);
 
+            std::tuple<float, float, float, float> edges = placement_a.get_outermost_coordinates_trbl();
+
+            al_draw_rectangle(
+               std::get<3>(edges), // left
+               std::get<0>(edges), // top
+               std::get<1>(edges), // right
+               std::get<2>(edges), // bottom
+               ALLEGRO_COLOR{0.5, 0.9, 1.0, 1.0},
+               4.0
+            );
+
             //placement_b.draw_box(collides ? collides_color : AllegroFlare::color::lightcyan, false);
             al_flip_display();
          }

@@ -469,6 +469,24 @@ float Placement2D::get_bottommost_coordinate()
 }
 
 
+std::tuple<float, float, float, float> Placement2D::get_outermost_coordinates_trbl()
+{
+   std::vector<AllegroFlare::Vec2D> self_coordinates = {
+      { 0,      0      }, // top left corner
+      { size.x, 0      }, // top right corner
+      { size.x, size.y }, // bottom right corner
+      { 0,      size.y }, // bottom left corner
+   };
+
+   place_coordinates(&self_coordinates);
+   float min_x = std::min({self_coordinates[0].x, self_coordinates[1].x, self_coordinates[2].x, self_coordinates[3].x});
+   float max_x = std::max({self_coordinates[0].x, self_coordinates[1].x, self_coordinates[2].x, self_coordinates[3].x});
+   float min_y = std::min({self_coordinates[0].y, self_coordinates[1].y, self_coordinates[2].y, self_coordinates[3].y});
+   float max_y = std::max({self_coordinates[0].y, self_coordinates[1].y, self_coordinates[2].y, self_coordinates[3].y});
+
+   return std::tuple<float, float, float, float>{min_y, max_x, max_y, min_x};
+}
+
 
 bool Placement2D::collide(AllegroFlare::Placement2D &other)
 {

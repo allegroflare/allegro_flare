@@ -57,6 +57,8 @@ namespace AllegroFlare
       float get_topmost_coordinate();
       float get_bottommost_coordinate();
 
+      std::tuple<float, float, float, float> get_outermost_coordinates_trbl();
+
       std::string get_string();
 
       Placement2D& operator+=(Placement2D &other);
