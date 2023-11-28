@@ -7,35 +7,61 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <AllegroFlare/Elements/WorldMapViewer.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
+#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+
 
 class AllegroFlare_Elements_WorldMapViewerTest : public ::testing::Test {};
 class AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
+class AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture
+//class AllegroFlare_Elements_WorldMapRenderers_BasicTestWithMapAndWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+public:
+   AllegroFlare::WorldMaps::Maps::Basic map;
+   virtual void SetUp()
+   {
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+      map.set_background_image_identifier("overworld-map-02.png");
+      map.set_locations({
+         { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 221, 423) },
+         { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1351, 551) },
+         { "office2", new AllegroFlare::WorldMaps::Locations::Basic("Office", 611, 268) },
+         { "office3", new AllegroFlare::WorldMaps::Locations::Basic("Office", 528, 414) },
+         { "office4", new AllegroFlare::WorldMaps::Locations::Basic("Office", 807, 428) },
+         { "office5", new AllegroFlare::WorldMaps::Locations::Basic("Office", 584, 713) },
 
+         { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
+         { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1132, 772) },
+         { "office8", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1315, 473) },
+         { "office9", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1662, 250) },
+         { "office10", new AllegroFlare::WorldMaps::Locations::Basic("Office", 961, 678) }, // Forrest
 
-#include <AllegroFlare/Elements/WorldMapViewer.hpp>
-#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
+         //{ "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
+      });
+      //map.set_background_image_identifier("overworld-map-02.png");
+   }
+   virtual void TearDown()
+   {
+      // Cleanup
+      for (auto &location : map.get_locations())
+      {
+         delete location.second;
+         location.second = nullptr;
+      }
+      AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+   }
+};
+
 
 
 TEST_F(AllegroFlare_Elements_WorldMapViewerTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::WorldMapViewer crime_summary;
 }
-
-
-//TEST_F(AllegroFlare_Elements_WorldMapViewerTest, TYPE__has_the_expected_value)
-//{
-   //AllegroFlare::Elements::WorldMapViewer crime_summary;
-   //EXPECT_EQ("WorldMapViewer", crime_summary.get_type());
-//}
-
-
-//TEST_F(AllegroFlare_Elements_WorldMapViewerTest, type__has_the_expected_value_matching_TYPE)
-//{
-   //AllegroFlare::Elements::WorldMapViewer crime_summary;
-   //EXPECT_EQ(AllegroFlare::Elements::WorldMapViewer::TYPE, crime_summary.get_type());
-//}
 
 
 TEST_F(AllegroFlare_Elements_WorldMapViewerTest, initialize__without_allegro_initialized__raises_an_error)
@@ -283,6 +309,32 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__if_the_display_dimensions_are_different_from_virtual_dimensions_of_1920x1080__will_clip_properly)
 {
    // TODO
+}
+
+
+TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
+   CAPTURE__VISUAL__with_a_map_present__will_render_as_expected)
+{
+   //get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
+   AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
+   //crime_summary.set_pages({
+      //{ "crime-summary-pages-p1-02.png" },
+      //{ "crime-summary-pages-p2-02.png" },
+      //{ "crime-summary-pages-p3-02.png" },
+   //});
+   crime_summary.initialize();
+
+   int zooms = 5;
+   for (int i=0; i<zooms; i++)
+   {
+      crime_summary.step_zoom_in();
+      crime_summary.update();
+
+      clear();
+      crime_summary.render();
+      al_flip_display();
+      sleep_for(0.01);
+   }
 }
 
 
