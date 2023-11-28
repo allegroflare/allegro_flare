@@ -705,15 +705,30 @@ void WorldMapViewer::update()
       AllegroFlare::clamp<float>(camera_range_y1, camera_range_y2, cursor.y)
       + map_view_place.size.y * 0.5;
 
-   // update camera position by the velocity
+   // Update camera position by the velocity
    document_camera.position.x += camera_velocity_magnitude_axis_x;
    document_camera.position.y += camera_velocity_magnitude_axis_y;
 
+   // Update camera zoom
+   float f_zoom = document_camera.get_zoom().x;
+   float next_zoom = (document_camera_target_zoom - f_zoom) * 0.175 + f_zoom;
+   document_camera.set_zoom({next_zoom, next_zoom});
+
+   // Have the camera follow the cursor, and/or block its range
    bool camera_follows_cursor = true;
    if (camera_follows_cursor)
    {
       document_camera.position.x = cursor.x;
       document_camera.position.y = cursor.y;
+
+      float top, right, bottom, left;
+      std::tie(top, right, bottom, left) = document_camera.get_outermost_coordinates_trbl();
+
+      if (left < 0) { float dist = -left; document_camera.position.x += dist; }
+      if (top < 0) { float dist = -top; document_camera.position.y += dist; }
+      if (bottom > 1080) { float dist = bottom - 1080; document_camera.position.y -= dist; }
+      if (right > 1920) { float dist = right - 1920; document_camera.position.x -= dist; }
+      //if (outermost_coor
    }
    else
    {
@@ -728,10 +743,6 @@ void WorldMapViewer::update()
          + map_view_place.size.y * 0.5;
    }
 
-   // update camera zoom
-   float f_zoom = document_camera.get_zoom().x;
-   float next_zoom = (document_camera_target_zoom - f_zoom) * 0.175 + f_zoom;
-   document_camera.set_zoom({next_zoom, next_zoom});
    return;
 }
 
