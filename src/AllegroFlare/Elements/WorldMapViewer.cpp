@@ -28,6 +28,7 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , map_placement()
    , current_page_index_num(0)
    , document_camera()
+   , document_cursor({})
    , document_camera_target_zoom(0)
    , document_camera_zoom_levels({ 0.5f })
    , document_camera_zoom_level_cursor(0)
@@ -446,89 +447,89 @@ void WorldMapViewer::go_to_origin_or_primary_point_of_interest()
    return;
 }
 
-void WorldMapViewer::render_pages()
+void WorldMapViewer::render_map()
 {
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_pages]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[WorldMapViewer::render_map]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_pages: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("WorldMapViewer::render_map: error: guard \"al_get_current_display()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_pages]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[WorldMapViewer::render_map]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_pages: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("WorldMapViewer::render_map: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_pages]: error: guard \"font_bin\" not met.";
+      error_message << "[WorldMapViewer::render_map]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_pages: error: guard \"font_bin\" not met");
+      throw std::runtime_error("WorldMapViewer::render_map: error: guard \"font_bin\" not met");
    }
    if (infer_no_pages_are_present())
    {
       // draw some placeholder text when there are no pages
       draw_empty_state(font_bin, "No Crime Summary Report");
+      return;
+   }
+
+   // TODO: add extra scroll offset so clipping travels along with external camera movement
+   int clip_x, clip_y, clip_w, clip_h;
+   clip_x = (place.position.x - place.size.x * place.align.x);
+   clip_y = (place.position.y - place.size.y * place.align.y);
+   clip_w = place.size.x;
+   clip_h = place.size.y;
+
+   // Scale the clipping points to match the actual resolution of the display, rather than the 
+   // surface virtual resolution which is 1920x1080.
+   // NOTE: The technique for retrieving physical surface dimentions here feels a bit sloppy because it's
+   // requesting hardware state/data (which is not the purview of this component) from deep within this
+   // omponent which feels out of scope, but, it's probably fine tbh because I think this information is
+   // already actively stored in the allegro state.
+
+   ALLEGRO_DISPLAY *current_display = al_get_current_display();
+   int physical_surface_width = al_get_display_width(current_display);
+   int physical_surface_height = al_get_display_height(current_display);
+   int virtual_surface_width = 1920;
+   int virtual_surface_height = 1080;
+
+   if (virtual_surface_width == physical_surface_width && virtual_surface_height == physical_surface_height)
+   {
+      // do no scaling, the physical and virtual dimensions are identical
    }
    else
    {
-      // TODO: add extra scroll offset so clipping travels along with external camera movement
-      int clip_x, clip_y, clip_w, clip_h;
-      clip_x = (place.position.x - place.size.x * place.align.x);
-      clip_y = (place.position.y - place.size.y * place.align.y);
-      clip_w = place.size.x;
-      clip_h = place.size.y;
-
-      // Scale the clipping points to match the actual resolution of the display, rather than the 
-      // surface virtual resolution which is 1920x1080.
-      // NOTE: The technique for retrieving physical surface dimentions here feels a bit sloppy because it's
-      // requesting hardware state/data (which is not the purview of this component) from deep within this
-      // omponent which feels out of scope, but, it's probably fine tbh because I think this information is
-      // already actively stored in the allegro state.
-
-      ALLEGRO_DISPLAY *current_display = al_get_current_display();
-      int physical_surface_width = al_get_display_width(current_display);
-      int physical_surface_height = al_get_display_height(current_display);
-      int virtual_surface_width = 1920;
-      int virtual_surface_height = 1080;
-
-      if (virtual_surface_width == physical_surface_width && virtual_surface_height == physical_surface_height)
-      {
-         // do no scaling, the physical and virtual dimensions are identical
-      }
-      else
-      {
-         float x_scale_change = physical_surface_width / (float)virtual_surface_width;
-         float y_scale_change = physical_surface_height / (float)virtual_surface_height;
-         clip_x *= x_scale_change;
-         clip_y *= y_scale_change;
-         clip_w *= x_scale_change;
-         clip_h *= y_scale_change;
-      }
-
-      al_set_clipping_rectangle(clip_x, clip_y, clip_w, clip_h);
-      document_camera.start_reverse_transform();
-
-      // render pages in reverse order from back to front
-      /* // HERE
-      for (int i=(pages.size()-1); i>=0; i--)
-      {
-         HERE: pages[i].render(bitmap_bin);
-      }
-      */
-
-      // NEW:
-      AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
-      renderer.render();
-
-      document_camera.restore_transform();
-
-      al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
+      float x_scale_change = physical_surface_width / (float)virtual_surface_width;
+      float y_scale_change = physical_surface_height / (float)virtual_surface_height;
+      clip_x *= x_scale_change;
+      clip_y *= y_scale_change;
+      clip_w *= x_scale_change;
+      clip_h *= y_scale_change;
    }
+
+   al_set_clipping_rectangle(clip_x, clip_y, clip_w, clip_h);
+   document_camera.start_reverse_transform();
+
+   // render pages in reverse order from back to front
+   /* // HERE
+   for (int i=(pages.size()-1); i>=0; i--)
+   {
+      HERE: pages[i].render(bitmap_bin);
+   }
+   */
+
+   // NEW:
+   AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
+   renderer.render();
+
+   document_camera.restore_transform();
+
+   al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
+
 
    return;
 }
@@ -590,7 +591,7 @@ void WorldMapViewer::render()
       // draw an arbitrary frame
       al_draw_rectangle(0, 0, place.size.x, place.size.y, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 2.0f);
       // render the elements
-      render_pages();
+      render_map();
       render_page_numbers();
       render_zoom_scale();
 

@@ -41,6 +41,10 @@ properties:
     type: AllegroFlare::Camera2D
     init_with: ''
 
+  - name: document_cursor
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
   - name: document_camera_target_zoom
     type: float
     init_with: 0
@@ -344,7 +348,7 @@ functions:
       return;
 
 
-  - name: render_pages
+  - name: render_map
     private: true
     guards: [ al_get_current_display(), bitmap_bin, font_bin ]
     body: |
@@ -352,62 +356,62 @@ functions:
       {
          // draw some placeholder text when there are no pages
          draw_empty_state(font_bin, "No Crime Summary Report");
+         return;
+      }
+
+      // TODO: add extra scroll offset so clipping travels along with external camera movement
+      int clip_x, clip_y, clip_w, clip_h;
+      clip_x = (place.position.x - place.size.x * place.align.x);
+      clip_y = (place.position.y - place.size.y * place.align.y);
+      clip_w = place.size.x;
+      clip_h = place.size.y;
+
+      // Scale the clipping points to match the actual resolution of the display, rather than the 
+      // surface virtual resolution which is 1920x1080.
+      // NOTE: The technique for retrieving physical surface dimentions here feels a bit sloppy because it's
+      // requesting hardware state/data (which is not the purview of this component) from deep within this
+      // omponent which feels out of scope, but, it's probably fine tbh because I think this information is
+      // already actively stored in the allegro state.
+
+      ALLEGRO_DISPLAY *current_display = al_get_current_display();
+      int physical_surface_width = al_get_display_width(current_display);
+      int physical_surface_height = al_get_display_height(current_display);
+      int virtual_surface_width = 1920;
+      int virtual_surface_height = 1080;
+
+      if (virtual_surface_width == physical_surface_width && virtual_surface_height == physical_surface_height)
+      {
+         // do no scaling, the physical and virtual dimensions are identical
       }
       else
       {
-         // TODO: add extra scroll offset so clipping travels along with external camera movement
-         int clip_x, clip_y, clip_w, clip_h;
-         clip_x = (place.position.x - place.size.x * place.align.x);
-         clip_y = (place.position.y - place.size.y * place.align.y);
-         clip_w = place.size.x;
-         clip_h = place.size.y;
-
-         // Scale the clipping points to match the actual resolution of the display, rather than the 
-         // surface virtual resolution which is 1920x1080.
-         // NOTE: The technique for retrieving physical surface dimentions here feels a bit sloppy because it's
-         // requesting hardware state/data (which is not the purview of this component) from deep within this
-         // omponent which feels out of scope, but, it's probably fine tbh because I think this information is
-         // already actively stored in the allegro state.
-
-         ALLEGRO_DISPLAY *current_display = al_get_current_display();
-         int physical_surface_width = al_get_display_width(current_display);
-         int physical_surface_height = al_get_display_height(current_display);
-         int virtual_surface_width = 1920;
-         int virtual_surface_height = 1080;
-
-         if (virtual_surface_width == physical_surface_width && virtual_surface_height == physical_surface_height)
-         {
-            // do no scaling, the physical and virtual dimensions are identical
-         }
-         else
-         {
-            float x_scale_change = physical_surface_width / (float)virtual_surface_width;
-            float y_scale_change = physical_surface_height / (float)virtual_surface_height;
-            clip_x *= x_scale_change;
-            clip_y *= y_scale_change;
-            clip_w *= x_scale_change;
-            clip_h *= y_scale_change;
-         }
-
-         al_set_clipping_rectangle(clip_x, clip_y, clip_w, clip_h);
-         document_camera.start_reverse_transform();
-
-         // render pages in reverse order from back to front
-         /* // HERE
-         for (int i=(pages.size()-1); i>=0; i--)
-         {
-            HERE: pages[i].render(bitmap_bin);
-         }
-         */
-
-         // NEW:
-         AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
-         renderer.render();
-
-         document_camera.restore_transform();
-
-         al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
+         float x_scale_change = physical_surface_width / (float)virtual_surface_width;
+         float y_scale_change = physical_surface_height / (float)virtual_surface_height;
+         clip_x *= x_scale_change;
+         clip_y *= y_scale_change;
+         clip_w *= x_scale_change;
+         clip_h *= y_scale_change;
       }
+
+      al_set_clipping_rectangle(clip_x, clip_y, clip_w, clip_h);
+      document_camera.start_reverse_transform();
+
+      // render pages in reverse order from back to front
+      /* // HERE
+      for (int i=(pages.size()-1); i>=0; i--)
+      {
+         HERE: pages[i].render(bitmap_bin);
+      }
+      */
+
+      // NEW:
+      AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
+      renderer.render();
+
+      document_camera.restore_transform();
+
+      al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
+
 
       return;
     body_dependency_symbols:
@@ -466,7 +470,7 @@ functions:
          // draw an arbitrary frame
          al_draw_rectangle(0, 0, place.size.x, place.size.y, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 2.0f);
          // render the elements
-         render_pages();
+         render_map();
          render_page_numbers();
          render_zoom_scale();
  
@@ -628,6 +632,8 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Placement2D
     headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: CatDetective::Chronicle::Panes::CrimeSummaryPage
     headers: [ CatDetective/Chronicle/Panes/CrimeSummaryPage.hpp ]
   - symbol: AllegroFlare::Camera2D

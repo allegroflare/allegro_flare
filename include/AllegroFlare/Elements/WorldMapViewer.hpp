@@ -5,6 +5,7 @@
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 #include <allegro5/allegro_font.h>
 #include <string>
@@ -28,6 +29,7 @@ namespace AllegroFlare
          AllegroFlare::Placement2D map_placement;
          int current_page_index_num;
          AllegroFlare::Camera2D document_camera;
+         AllegroFlare::Vec2D document_cursor;
          float document_camera_target_zoom;
          std::vector<float> document_camera_zoom_levels;
          int document_camera_zoom_level_cursor;
@@ -40,7 +42,7 @@ namespace AllegroFlare
          float camera_max_velocity;
          bool initialized;
          void fit_and_position_map();
-         void render_pages();
+         void render_map();
          void render_page_numbers();
          ALLEGRO_FONT* obtain_font();
 

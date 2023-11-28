@@ -675,6 +675,7 @@
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
+    "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
