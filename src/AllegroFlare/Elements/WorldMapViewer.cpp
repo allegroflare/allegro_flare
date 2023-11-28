@@ -430,8 +430,19 @@ void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
 
 void WorldMapViewer::go_to_origin_or_primary_point_of_interest()
 {
-   // TODO: Set this to point of interest coordinates
-   document_camera.position = { place.size.x * 0.5f, place.size.y * 0.5f };
+   if (map)
+   {
+      // TODO: Test this case
+      // TODO: Consider that map may need to be moved slowly to this position
+      std::tie(document_camera.position.x, document_camera.position.y) =
+         map->infer_primary_point_of_interest_coordinates();
+   }
+   else
+   {
+      // TODO: Test this case
+      // TODO: Consider that map may need to be moved slowly to this position
+      document_camera.position = { place.size.x * 0.5f, place.size.y * 0.5f };
+   }
    return;
 }
 

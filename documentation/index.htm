@@ -30733,7 +30733,7 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">infer_primary_point_of_interest()</td>
+  <td class="method">infer_primary_point_of_interest_coordinates()</td>
 </tr>
 <tr>
   <td class="method">location_id_at(float x=0, float y=0)</td>
@@ -30785,7 +30785,7 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">infer_primary_point_of_interest()</td>
+  <td class="method">infer_primary_point_of_interest_coordinates()</td>
 </tr>
 <tr>
   <td class="method">primary_point_of_interest_is_set()</td>
@@ -30804,6 +30804,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Maps::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Maps/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -33413,6 +33422,7 @@ table td
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
+    "AllegroFlare/WorldMaps/Maps/Basic",
     "AllegroFlare/YAMLValidator"
   ],
   "AllegroFlare/TerminalColors": [
@@ -35461,7 +35471,8 @@ table td
   ],
   "AllegroFlare/WorldMaps/Maps/Basic": [
     "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/WorldMapRenderers/Basic"
+    "AllegroFlare/WorldMapRenderers/Basic",
+    "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMapRenderers/Basic": [
     "AllegroFlare/Elements/WorldMapViewer"
@@ -36829,7 +36840,8 @@ table td
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Locations/Basic": [
-    "AllegroFlare/WorldMapRenderers/Basic"
+    "AllegroFlare/WorldMapRenderers/Basic",
+    "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "AllegroFlare/WorldMaps/Maps/Base": [
     "AllegroFlare/WorldMaps/Maps/Basic"
