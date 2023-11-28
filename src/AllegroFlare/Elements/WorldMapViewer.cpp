@@ -38,10 +38,10 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , wrap_zoom(false)
    , camera_velocity_magnitude_axis_x(0)
    , camera_velocity_magnitude_axis_y(0)
-   , camera_range_x1(-100)
-   , camera_range_y1(-200)
-   , camera_range_x2(100)
-   , camera_range_y2(200)
+   , camera_range_x1(DEFAULT_CAMERA_RANGE_X1)
+   , camera_range_y1(DEFAULT_CAMERA_RANGE_Y1)
+   , camera_range_x2(DEFAULT_CAMERA_RANGE_X2)
+   , camera_range_y2(DEFAULT_CAMERA_RANGE_Y2)
    , camera_max_velocity(6.5)
    , initialized(false)
 {
@@ -334,47 +334,35 @@ void WorldMapViewer::fit_and_position_map()
       throw std::runtime_error("WorldMapViewer::fit_and_position_map: error: guard \"bitmap_bin\" not met");
    }
    if (!map) return;
-   ///* // TODO
-   //static AllegroFlare::Random random;
-   //random.set_seed(4321);
-   // TODO: create aesthetic random positioning of pages
-   //int num_pages = pages.size();
-   //float page_distance = 40.0f;
-   //float rotation_range = 0.3;
-   //for (auto &page : pages)
-   //{
-   //map_placement.fir
-      //page.fit_placement_size_to_bitmap(bitmap_bin);
-      ALLEGRO_BITMAP *map_image = bitmap_bin->auto_get(map->get_background_image_identifier());
-      map_placement.size = { 0.0f, 0.0f };
 
-      if (map_image)
-      {
-         map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
-      }
+   ALLEGRO_BITMAP *map_image = bitmap_bin->auto_get(map->get_background_image_identifier());
+   map_placement.size = { 0.0f, 0.0f };
 
-      map_placement.position.x = place.size.x * 0.5;
-      map_placement.position.y = place.size.y * 0.5;
-      map_placement.align.x = 0.5;
-      map_placement.align.y = 0.5;
-      map_placement.rotation = 0; //random.get_random_float(-0.1, 0.1);
-   //}
-   //*/
+   if (map_image)
+   {
+      map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
+   }
+
+   map_placement.position.x = place.size.x * 0.5;
+   map_placement.position.y = place.size.y * 0.5;
+   map_placement.align.x = 0.5;
+   map_placement.align.y = 0.5;
+   //map_placement.rotation = 0;
 
    return;
 }
 
-void WorldMapViewer::fit_camera_range_to_first_page_dimensions()
+void WorldMapViewer::fit_camera_range_to_map_dimensions()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::fit_camera_range_to_first_page_dimensions]: error: guard \"initialized\" not met.";
+      error_message << "[WorldMapViewer::fit_camera_range_to_map_dimensions]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::fit_camera_range_to_first_page_dimensions: error: guard \"initialized\" not met");
+      throw std::runtime_error("WorldMapViewer::fit_camera_range_to_map_dimensions: error: guard \"initialized\" not met");
    }
    ///* TODO
-   if (map == nullptr) reset_document_camera_range();
+   if (map == nullptr) reset_document_camera_range_to_defaults();
 
    //CatDetective::Chronicle::Panes::CrimeSummaryPage &first_page = pages[0];
    AllegroFlare::Placement2D &first_page_placement = map_placement; //first_page.get_place_ref();
@@ -393,9 +381,8 @@ void WorldMapViewer::fit_camera_range_to_first_page_dimensions()
 void WorldMapViewer::reset()
 {
    reset_document_camera();
-   //fit_camera_range_to_first_page_dimensions():
+   fit_camera_range_to_map_dimensions();
    go_to_origin_or_primary_point_of_interest();
-   fit_camera_range_to_first_page_dimensions();
    return;
 }
 
@@ -413,12 +400,12 @@ void WorldMapViewer::reset_document_camera()
    return;
 }
 
-void WorldMapViewer::reset_document_camera_range()
+void WorldMapViewer::reset_document_camera_range_to_defaults()
 {
-   camera_range_x1 = -100;
-   camera_range_y1 = -200;
-   camera_range_x2 = 100;
-   camera_range_y2 = 200;
+   camera_range_x1 = -200;
+   camera_range_y1 = -100;
+   camera_range_x2 = 200;
+   camera_range_y2 = 100;
    return;
 }
 

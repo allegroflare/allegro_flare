@@ -19,6 +19,10 @@ namespace AllegroFlare
       class WorldMapViewer
       {
       public:
+         static constexpr float DEFAULT_CAMERA_RANGE_X1 = -1920/2;
+         static constexpr float DEFAULT_CAMERA_RANGE_X2 = 1920/2;
+         static constexpr float DEFAULT_CAMERA_RANGE_Y1 = -1080/2;
+         static constexpr float DEFAULT_CAMERA_RANGE_Y2 = 1080/2;
          static constexpr char* TYPE = "Panes/CrimeSummary";
 
       private:
@@ -90,10 +94,10 @@ namespace AllegroFlare
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void initialize();
-         void fit_camera_range_to_first_page_dimensions();
+         void fit_camera_range_to_map_dimensions();
          void reset();
          void reset_document_camera();
-         void reset_document_camera_range();
+         void reset_document_camera_range_to_defaults();
          void on_switch_out();
          void step_zoom_in();
          void step_zoom_out();

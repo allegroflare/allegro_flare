@@ -31,17 +31,17 @@ TEST(AllegroFlare_WorldMaps_Locations_BasicTest, collides__has_correct_collision
    AllegroFlare::WorldMaps::Locations::Basic location;
 
    EXPECT_EQ(true, location.collides(0, 0));
-   EXPECT_EQ(true, location.collides(-4.9, 0));
-   EXPECT_EQ(true, location.collides(4.9, 0));
-   EXPECT_EQ(true, location.collides(0, -4.9));
-   EXPECT_EQ(true, location.collides(0, 4.9));
+   EXPECT_EQ(true, location.collides(-14.9, 0));
+   EXPECT_EQ(true, location.collides(14.9, 0));
+   EXPECT_EQ(true, location.collides(0, -14.9));
+   EXPECT_EQ(true, location.collides(0, 14.9));
 
    // Negative collisions
    EXPECT_EQ(false, location.collides(999, 999));
-   EXPECT_EQ(false, location.collides(-5.1, 0));
-   EXPECT_EQ(false, location.collides(5.1, 0));
-   EXPECT_EQ(false, location.collides(0, 5.1));
-   EXPECT_EQ(false, location.collides(0, 5.1));
+   EXPECT_EQ(false, location.collides(-15.1, 0));
+   EXPECT_EQ(false, location.collides(15.1, 0));
+   EXPECT_EQ(false, location.collides(0, 15.1));
+   EXPECT_EQ(false, location.collides(0, 15.1));
 };
 
 

@@ -32,14 +32,14 @@ properties:
 
   - name: width
     type: float
-    init_with: 10.0f
+    init_with: 30.0f
     constructor_arg: true
     getter: true
     setter: true
 
   - name: height
     type: float
-    init_with: 10.0f
+    init_with: 30.0f
     constructor_arg: true
     getter: true
     setter: true

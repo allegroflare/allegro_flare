@@ -97,25 +97,25 @@ properties:
 
   - name: camera_range_x1
     type: float
-    init_with: -100
+    init_with: DEFAULT_CAMERA_RANGE_X1
     getter: true
     setter: true
 
   - name: camera_range_y1
     type: float
-    init_with: -200
+    init_with: DEFAULT_CAMERA_RANGE_Y1
     getter: true
     setter: true
 
   - name: camera_range_x2
     type: float
-    init_with: 100
+    init_with: DEFAULT_CAMERA_RANGE_X2
     getter: true
     setter: true
 
   - name: camera_range_y2
     type: float
-    init_with: 200
+    init_with: DEFAULT_CAMERA_RANGE_Y2
     getter: true
     setter: true
 
@@ -128,6 +128,30 @@ properties:
   - name: initialized
     type: bool
     init_with: false
+
+  - name: DEFAULT_CAMERA_RANGE_X1
+    type: float
+    init_with: -1920/2
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_CAMERA_RANGE_X2
+    type: float
+    init_with: 1920/2
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_CAMERA_RANGE_Y1
+    type: float
+    init_with: -1080/2
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_CAMERA_RANGE_Y2
+    type: float
+    init_with: 1080/2
+    static: true
+    constexpr: true
 
   - name: TYPE
     type: char*
@@ -195,43 +219,31 @@ methods:
     guards: [ bitmap_bin ]
     body: |
       if (!map) return;
-      ///* // TODO
-      //static AllegroFlare::Random random;
-      //random.set_seed(4321);
-      // TODO: create aesthetic random positioning of pages
-      //int num_pages = pages.size();
-      //float page_distance = 40.0f;
-      //float rotation_range = 0.3;
-      //for (auto &page : pages)
-      //{
-      //map_placement.fir
-         //page.fit_placement_size_to_bitmap(bitmap_bin);
-         ALLEGRO_BITMAP *map_image = bitmap_bin->auto_get(map->get_background_image_identifier());
-         map_placement.size = { 0.0f, 0.0f };
- 
-         if (map_image)
-         {
-            map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
-         }
 
-         map_placement.position.x = place.size.x * 0.5;
-         map_placement.position.y = place.size.y * 0.5;
-         map_placement.align.x = 0.5;
-         map_placement.align.y = 0.5;
-         map_placement.rotation = 0; //random.get_random_float(-0.1, 0.1);
-      //}
-      //*/
+      ALLEGRO_BITMAP *map_image = bitmap_bin->auto_get(map->get_background_image_identifier());
+      map_placement.size = { 0.0f, 0.0f };
+ 
+      if (map_image)
+      {
+         map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
+      }
+
+      map_placement.position.x = place.size.x * 0.5;
+      map_placement.position.y = place.size.y * 0.5;
+      map_placement.align.x = 0.5;
+      map_placement.align.y = 0.5;
+      //map_placement.rotation = 0;
 
       return;
     body_dependency_symbols:
       - AllegroFlare::Random
 
 
-  - name: fit_camera_range_to_first_page_dimensions
+  - name: fit_camera_range_to_map_dimensions
     guards: [ initialized ]
     body: |
       ///* TODO
-      if (map == nullptr) reset_document_camera_range();
+      if (map == nullptr) reset_document_camera_range_to_defaults();
 
       //CatDetective::Chronicle::Panes::CrimeSummaryPage &first_page = pages[0];
       AllegroFlare::Placement2D &first_page_placement = map_placement; //first_page.get_place_ref();
@@ -250,9 +262,8 @@ methods:
   - name: reset
     body: |
       reset_document_camera();
-      //fit_camera_range_to_first_page_dimensions():
+      fit_camera_range_to_map_dimensions();
       go_to_origin_or_primary_point_of_interest();
-      fit_camera_range_to_first_page_dimensions();
       return;
 
 
@@ -270,12 +281,12 @@ methods:
       return;
 
 
-  - name: reset_document_camera_range
+  - name: reset_document_camera_range_to_defaults
     body: |
-      camera_range_x1 = -100;
-      camera_range_y1 = -200;
-      camera_range_x2 = 100;
-      camera_range_y2 = 200;
+      camera_range_x1 = -200;
+      camera_range_y1 = -100;
+      camera_range_x2 = 200;
+      camera_range_y2 = 100;
       return;
 
 
