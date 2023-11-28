@@ -53,9 +53,9 @@ namespace AllegroFlare
       bool collide(AllegroFlare::Placement2D &other); // should revise to a const &other
 
       float get_leftmost_coordinate();
-      //float get_rightmost_real_coordinate();
-      //float get_topmost_real_coordinate();
-      //float get_bottommost_real_coordinate();
+      float get_rightmost_coordinate();
+      float get_topmost_coordinate();
+      float get_bottommost_coordinate();
 
       std::string get_string();
 

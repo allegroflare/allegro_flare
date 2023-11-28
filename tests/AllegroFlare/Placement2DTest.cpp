@@ -319,7 +319,14 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
             placement_a.draw_box(AllegroFlare::color::mintcream, false);
 
             float leftmost_coordinate = placement_a.get_leftmost_coordinate();
+            float rightmost_coordinate = placement_a.get_rightmost_coordinate();
+            float topmost_coordinate = placement_a.get_topmost_coordinate();
+            float bottommost_coordinate = placement_a.get_bottommost_coordinate();
+
             al_draw_line(leftmost_coordinate, 0, leftmost_coordinate, 1080, ALLEGRO_COLOR{1, 0.4, 0.4, 1.0}, 2.0);
+            al_draw_line(rightmost_coordinate, 0, rightmost_coordinate, 1080, ALLEGRO_COLOR{0.4, 0.4, 1.0, 1.0}, 2.0);
+            al_draw_line(0, topmost_coordinate, 1920, topmost_coordinate, ALLEGRO_COLOR{0.4, 1.0, 0.4, 1.0}, 2.0);
+            al_draw_line(0, bottommost_coordinate, 1920, bottommost_coordinate, ALLEGRO_COLOR{1.0, 1.0, 0.4, 1.0}, 2.0);
 
             //placement_b.draw_box(collides ? collides_color : AllegroFlare::color::lightcyan, false);
             al_flip_display();

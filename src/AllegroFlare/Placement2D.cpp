@@ -421,12 +421,51 @@ float Placement2D::get_leftmost_coordinate()
       { size.x, size.y }, // bottom right corner
       { 0,      size.y }, // bottom left corner
    };
-   
    place_coordinates(&self_coordinates);
-
    float min_x = std::min({self_coordinates[0].x, self_coordinates[1].x, self_coordinates[2].x, self_coordinates[3].x});
-
    return min_x;
+}
+
+
+float Placement2D::get_rightmost_coordinate()
+{
+   std::vector<AllegroFlare::Vec2D> self_coordinates = {
+      { 0,      0      }, // top left corner
+      { size.x, 0      }, // top right corner
+      { size.x, size.y }, // bottom right corner
+      { 0,      size.y }, // bottom left corner
+   };
+   place_coordinates(&self_coordinates);
+   float max_x = std::max({self_coordinates[0].x, self_coordinates[1].x, self_coordinates[2].x, self_coordinates[3].x});
+   return max_x;
+}
+
+
+float Placement2D::get_topmost_coordinate()
+{
+   std::vector<AllegroFlare::Vec2D> self_coordinates = {
+      { 0,      0      }, // top left corner
+      { size.x, 0      }, // top right corner
+      { size.x, size.y }, // bottom right corner
+      { 0,      size.y }, // bottom left corner
+   };
+   place_coordinates(&self_coordinates);
+   float min_y = std::min({self_coordinates[0].y, self_coordinates[1].y, self_coordinates[2].y, self_coordinates[3].y});
+   return min_y;
+}
+
+
+float Placement2D::get_bottommost_coordinate()
+{
+   std::vector<AllegroFlare::Vec2D> self_coordinates = {
+      { 0,      0      }, // top left corner
+      { size.x, 0      }, // top right corner
+      { size.x, size.y }, // bottom right corner
+      { 0,      size.y }, // bottom left corner
+   };
+   place_coordinates(&self_coordinates);
+   float max_y = std::max({self_coordinates[0].y, self_coordinates[1].y, self_coordinates[2].y, self_coordinates[3].y});
+   return max_y;
 }
 
 
