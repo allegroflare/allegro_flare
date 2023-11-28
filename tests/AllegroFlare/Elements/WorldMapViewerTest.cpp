@@ -60,6 +60,7 @@ public:
             new AllegroFlare::WorldMaps::Locations::Player(1262, 350)
          },
       });
+      map.set_primary_point_of_interest_identifier("player");
    }
    virtual void TearDown()
    {
@@ -309,8 +310,10 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 
 
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   crime_summary.set_map(&map);
+   //crime_summary.set_map(&map);
    crime_summary.initialize();
+   crime_summary.set_map(&map);
+   //crime_summary.reset();
 
    // setup environment
    //AllegroFlare::EventEmitter event_emitter;

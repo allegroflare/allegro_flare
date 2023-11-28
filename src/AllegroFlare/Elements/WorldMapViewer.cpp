@@ -382,6 +382,8 @@ void WorldMapViewer::fit_camera_range_to_map_dimensions()
 
 void WorldMapViewer::reset()
 {
+   // TODO: Confirm these are in the correct order
+   fit_and_position_map();
    reset_document_camera();
    fit_camera_range_to_map_dimensions();
    go_to_origin_or_primary_point_of_interest();
@@ -539,8 +541,9 @@ void WorldMapViewer::unset_cursor_moving()
 void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
 {
    this->map = map;
-   fit_and_position_map();
-   reset_document_camera();
+   reset();
+   //fit_and_position_map();
+   //reset_document_camera();
    return;
 }
 
@@ -782,7 +785,8 @@ std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label()
          "AllegroFlare::Elements::WorldMapViewer",
          "Could not find a location for the location_id \"" + location_id + "\""
       );
-      result = location_id;
+      //result = location_id;
+      return { false, location_id };
    }
    else
    {
@@ -792,12 +796,9 @@ std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label()
             static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
          result = as->get_label();
       }
-      if (found_location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+      else if (found_location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
       {
-         return { false, "" };
-         //AllegroFlare::WorldMaps::Locations::Basic *as =
-            //static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
-         //result = as->get_label();
+         return { true, "current location" };
       }
       else
       {
@@ -805,7 +806,8 @@ std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label()
             "AllegroFlare::Elements::WorldMapViewer",
             "Could not infer a label for the location of type \"" + found_location->get_type() + "\""
          );
-         result = location_id;
+         //result = location_id;
+         return { false, location_id };
       }
    }
    return { true, result };
@@ -824,7 +826,7 @@ void WorldMapViewer::render_page_numbers()
    std::string focused_location_label;
    std::tie(currently_over_location, focused_location_label) = infer_focused_location_label();
 
-   if (currently_over_location == false) focused_location_label = '" --- "';
+   if (!currently_over_location) focused_location_label = " - no location - ";
      //default_argument: '"- no location -"'
 
 
