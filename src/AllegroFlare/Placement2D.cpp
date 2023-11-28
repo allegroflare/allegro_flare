@@ -415,7 +415,18 @@ bool Placement2D::collide(float x, float y, float padding_top, float padding_rig
 
 float Placement2D::get_leftmost_coordinate()
 {
-   return 0;
+   std::vector<AllegroFlare::Vec2D> self_coordinates = {
+      { 0,      0      }, // top left corner
+      { size.x, 0      }, // top right corner
+      { size.x, size.y }, // bottom right corner
+      { 0,      size.y }, // bottom left corner
+   };
+   
+   place_coordinates(&self_coordinates);
+
+   float min_x = std::min({self_coordinates[0].x, self_coordinates[1].x, self_coordinates[2].x, self_coordinates[3].x});
+
+   return min_x;
 }
 
 
