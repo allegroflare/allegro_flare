@@ -58,6 +58,12 @@ void WorldMapViewer::set_place(AllegroFlare::Placement2D place)
 }
 
 
+void WorldMapViewer::set_cursor(AllegroFlare::Vec2D cursor)
+{
+   this->cursor = cursor;
+}
+
+
 void WorldMapViewer::set_cursor_velocity_magnitude_axis_x(float cursor_velocity_magnitude_axis_x)
 {
    this->cursor_velocity_magnitude_axis_x = cursor_velocity_magnitude_axis_x;
@@ -145,6 +151,12 @@ AllegroFlare::WorldMaps::Maps::Basic* WorldMapViewer::get_map() const
 AllegroFlare::Placement2D WorldMapViewer::get_map_placement() const
 {
    return map_placement;
+}
+
+
+AllegroFlare::Vec2D WorldMapViewer::get_cursor() const
+{
+   return cursor;
 }
 
 
@@ -610,9 +622,14 @@ void WorldMapViewer::render_map()
 
    // Draw the cursor
    // TODO: Project this into the map
-   draw_cursor(cursor.x, cursor.y);
+   al_draw_circle(cursor.x, cursor.y, 13, ALLEGRO_COLOR{0, 0, 1, 1}, 2.0f); // debuggin
 
    document_camera.restore_transform();
+
+   AllegroFlare::Vec2D transformed_cursor = cursor;
+   document_camera.transform_coordinates(&transformed_cursor.x, &transformed_cursor.y);
+   draw_cursor(transformed_cursor.x, transformed_cursor.y);
+
 
    al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
 
@@ -624,6 +641,9 @@ void WorldMapViewer::draw_cursor(float x, float y)
 {
    float size = 40;
    float hsize = size * 0.5f;
+   // Draw shadow
+   al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4}, 8.0 + 6.0);
+   // Draw shape
    al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.95, 0.74, 0.5, 1.0}, 8.0);
    return;
 }

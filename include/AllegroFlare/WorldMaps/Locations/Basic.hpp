@@ -27,7 +27,7 @@ namespace AllegroFlare
 
 
          public:
-            Basic(std::string label="[unset-label]", float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f);
+            Basic(std::string label="[unset-label]", float x=0.0f, float y=0.0f, float width=10.0f, float height=10.0f);
             virtual ~Basic();
 
             void set_label(std::string label);

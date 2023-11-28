@@ -26,3 +26,22 @@ TEST(AllegroFlare_WorldMaps_Locations_BasicTest, type__has_the_expected_value_ma
 }
 
 
+TEST(AllegroFlare_WorldMaps_Locations_BasicTest, collides__has_correct_collision_bounds)
+{
+   AllegroFlare::WorldMaps::Locations::Basic location;
+
+   EXPECT_EQ(true, location.collides(0, 0));
+   EXPECT_EQ(true, location.collides(-4.9, 0));
+   EXPECT_EQ(true, location.collides(4.9, 0));
+   EXPECT_EQ(true, location.collides(0, -4.9));
+   EXPECT_EQ(true, location.collides(0, 4.9));
+
+   // Negative collisions
+   EXPECT_EQ(false, location.collides(999, 999));
+   EXPECT_EQ(false, location.collides(-5.1, 0));
+   EXPECT_EQ(false, location.collides(5.1, 0));
+   EXPECT_EQ(false, location.collides(0, 5.1));
+   EXPECT_EQ(false, location.collides(0, 5.1));
+};
+
+

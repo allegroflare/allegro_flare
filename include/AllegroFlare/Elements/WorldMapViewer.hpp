@@ -57,6 +57,7 @@ namespace AllegroFlare
          ~WorldMapViewer();
 
          void set_place(AllegroFlare::Placement2D place);
+         void set_cursor(AllegroFlare::Vec2D cursor);
          void set_cursor_velocity_magnitude_axis_x(float cursor_velocity_magnitude_axis_x);
          void set_cursor_velocity_magnitude_axis_y(float cursor_velocity_magnitude_axis_y);
          void set_cursor_max_velocity(float cursor_max_velocity);
@@ -72,6 +73,7 @@ namespace AllegroFlare
          AllegroFlare::Placement2D get_place() const;
          AllegroFlare::WorldMaps::Maps::Basic* get_map() const;
          AllegroFlare::Placement2D get_map_placement() const;
+         AllegroFlare::Vec2D get_cursor() const;
          float get_cursor_velocity_magnitude_axis_x() const;
          float get_cursor_velocity_magnitude_axis_y() const;
          float get_cursor_max_velocity() const;

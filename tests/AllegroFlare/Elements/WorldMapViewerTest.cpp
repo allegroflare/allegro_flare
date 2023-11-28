@@ -34,7 +34,7 @@ public:
          { "office4", new AllegroFlare::WorldMaps::Locations::Basic("Office", 807, 428) },
          { "office5", new AllegroFlare::WorldMaps::Locations::Basic("Office", 584, 713) },
          { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
-         { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1132, 772) },
+         { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Town 4", 1132, 772) },
          { "office8", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1315, 473) },
          { "office9", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1662, 250) },
          { "office10", new AllegroFlare::WorldMaps::Locations::Basic("Office", 961, 678) },
@@ -245,16 +245,21 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 
 
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
-   CAPTURE__VISUAL__with_a_map_present__will_render_as_expected)
+   CAPTURE__VISUAL__with_the_cursor_over_a_location__will_render_as_expected)
 {
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
    crime_summary.set_map(&map);
    crime_summary.initialize();
 
+   //{ "office7", new AllegroFlare::WorldMaps::Locations::Basic("Town 4", 1132, 772) },
+   crime_summary.set_cursor(AllegroFlare::Vec2D(1132, 772));
+
+   //cursor_pos
+
    int zooms = 5;
    for (int i=0; i<zooms; i++)
    {
-      crime_summary.step_zoom_in();
+      //crime_summary.step_zoom_in();
       crime_summary.update();
 
       clear();
