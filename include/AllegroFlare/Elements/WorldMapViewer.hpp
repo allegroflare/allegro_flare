@@ -89,6 +89,7 @@ namespace AllegroFlare
          void unset_camera_moving_horizontal();
          void unset_camera_moving();
          void set_pages(std::vector<std::string> pages={});
+         void set_map(AllegroFlare::WorldMaps::Maps::Basic* map=nullptr);
          void go_to_first_page();
          void page_next(bool play_and_show_effects=true);
          void page_previous(bool play_and_show_effects=true);

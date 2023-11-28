@@ -191,11 +191,12 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture, CAPT
 {
    get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   crime_summary.set_pages({
-      { "crime-summary-pages-p1-01.png" },
-      { "crime-summary-pages-p2-01.png" },
-      { "crime-summary-pages-p3-01.png" },
-   });
+   // HERE:
+   //crime_summary.set_pages({
+      //{ "crime-summary-pages-p1-01.png" },
+      //{ "crime-summary-pages-p2-01.png" },
+      //{ "crime-summary-pages-p3-01.png" },
+   //});
    crime_summary.initialize();
    clear();
    crime_summary.render();
@@ -203,16 +204,18 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture, CAPT
 }
 
 
+/*
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__page_next__will_move_to_the_next_page)
 {
    get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   crime_summary.set_pages({
-      { "crime-summary-pages-p1-02.png" },
-      { "crime-summary-pages-p2-02.png" },
-      { "crime-summary-pages-p3-02.png" },
-   });
+   // HERE:
+   //crime_summary.set_pages({
+      //{ "crime-summary-pages-p1-02.png" },
+      //{ "crime-summary-pages-p2-02.png" },
+      //{ "crime-summary-pages-p3-02.png" },
+   //});
    crime_summary.initialize();
 
    int page_flips = 4;
@@ -226,18 +229,21 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
       crime_summary.page_next();
    }
 }
+*/
 
 
+/*
 TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__page_previous__will_move_to_the_previous_page)
 {
    get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   crime_summary.set_pages({
-      { "crime-summary-pages-p1-02.png" },
-      { "crime-summary-pages-p2-02.png" },
-      { "crime-summary-pages-p3-02.png" },
-   });
+   // HERE:
+   //crime_summary.set_pages({
+      //{ "crime-summary-pages-p1-02.png" },
+      //{ "crime-summary-pages-p2-02.png" },
+      //{ "crime-summary-pages-p3-02.png" },
+   //});
    crime_summary.initialize();
 
    int page_flips = 4;
@@ -251,18 +257,22 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
       crime_summary.page_previous();
    }
 }
+*/
 
 
-TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
+//AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    CAPTURE__VISUAL__step_zoom_in__will_zoom_in_the_camera_by_one_step__and_loop_back_when_at_the_edge)
 {
-   get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
+   //get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   crime_summary.set_pages({
-      { "crime-summary-pages-p1-02.png" },
-      { "crime-summary-pages-p2-02.png" },
-      { "crime-summary-pages-p3-02.png" },
-   });
+   crime_summary.set_map(&map);
+   // HERE:
+   //crime_summary.set_pages({
+      //{ "crime-summary-pages-p1-02.png" },
+      //{ "crime-summary-pages-p2-02.png" },
+      //{ "crime-summary-pages-p3-02.png" },
+   //});
    crime_summary.initialize();
 
    int zooms = 5;
@@ -284,11 +294,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
 {
    get_bitmap_bin_ref().set_full_path("/Users/markoates/Repos/AllegroFlare/bin/data/bitmaps");
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   crime_summary.set_pages({
-      { "crime-summary-pages-p1-02.png" },
-      { "crime-summary-pages-p2-02.png" },
-      { "crime-summary-pages-p3-02.png" },
-   });
+   //crime_summary.set_pages({
+      //{ "crime-summary-pages-p1-02.png" },
+      //{ "crime-summary-pages-p2-02.png" },
+      //{ "crime-summary-pages-p3-02.png" },
+   //});
    crime_summary.initialize();
 
    int zooms = 6;

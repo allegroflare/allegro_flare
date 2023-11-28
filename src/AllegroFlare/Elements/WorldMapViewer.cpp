@@ -430,6 +430,18 @@ void WorldMapViewer::set_pages(std::vector<std::string> pages)
    return;
 }
 
+void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
+{
+   /* // HERE
+   current_page_index_num = 0;
+   this->pages = pages;
+   */
+   this->map = map; // NEW
+   fit_and_position_map();
+   reset_document_camera();
+   return;
+}
+
 void WorldMapViewer::go_to_first_page()
 {
    int attempts_remaining = 999;
