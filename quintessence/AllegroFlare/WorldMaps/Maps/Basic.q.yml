@@ -74,18 +74,25 @@ methods:
                static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
             return { as->get_x(), as->get_y() };
          }
+         else if (location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+         {
+            AllegroFlare::WorldMaps::Locations::Player *as =
+               static_cast<AllegroFlare::WorldMaps::Locations::Player*>(location);
+            return { as->get_x(), as->get_y() };
+         }
          else
          {
-            // TODO: Warn once that this type is not supported
-            AllegroFlare::Logger::warn_from_once(
-               "AllegroFlare::WorldMaps::Maps::Basic",
-               "Na bro"
+            // TODO: Test this thrown error
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::WorldMaps::Maps::Basic::infer_primary_point_of_interest_coordinates",
+               "Could not infer coordinates on type \"" + location->get_type() + "\"."
             );
          }
       }
       return { 0.0f, 0.0f };
     body_dependency_symbols:
       - AllegroFlare::WorldMaps::Locations::Basic
+      - AllegroFlare::WorldMaps::Locations::Player
       - AllegroFlare::Logger
 
 
@@ -149,6 +156,8 @@ dependencies:
     headers: [ AllegroFlare/WorldMaps/Locations/Base.hpp ]
   - symbol: AllegroFlare::WorldMaps::Locations::Basic
     headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Player
+    headers: [ AllegroFlare/WorldMaps/Locations/Player.hpp ]
   - symbol: AllegroFlare::WorldMaps::Maps::Basic
     headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
   - symbol: AllegroFlare::Logger

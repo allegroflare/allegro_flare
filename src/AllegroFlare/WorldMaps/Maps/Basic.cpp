@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Player.hpp>
 
 
 namespace AllegroFlare
@@ -101,12 +102,18 @@ std::pair<float, float> Basic::infer_primary_point_of_interest_coordinates()
             static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
          return { as->get_x(), as->get_y() };
       }
+      else if (location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+      {
+         AllegroFlare::WorldMaps::Locations::Player *as =
+            static_cast<AllegroFlare::WorldMaps::Locations::Player*>(location);
+         return { as->get_x(), as->get_y() };
+      }
       else
       {
-         // TODO: Warn once that this type is not supported
-         AllegroFlare::Logger::warn_from_once(
-            "AllegroFlare::WorldMaps::Maps::Basic",
-            "Na bro"
+         // TODO: Test this thrown error
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::WorldMaps::Maps::Basic::infer_primary_point_of_interest_coordinates",
+            "Could not infer coordinates on type \"" + location->get_type() + "\"."
          );
       }
    }

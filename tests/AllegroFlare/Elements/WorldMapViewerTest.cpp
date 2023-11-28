@@ -396,7 +396,7 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
                   //software_keyboard.press_key_by_name("SPACE");
                break;
 
-               case ALLEGRO_KEY_P:
+               case ALLEGRO_KEY_C:
                   crime_summary.move_cursor_to_origin_or_primary_point_of_interest();
                break;
 

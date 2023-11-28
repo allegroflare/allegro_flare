@@ -2119,7 +2119,8 @@
   ],
   "AllegroFlare/WorldMaps/Locations/Player": [
     "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/WorldMapRenderers/Basic"
+    "AllegroFlare/WorldMapRenderers/Basic",
+    "AllegroFlare/WorldMaps/Maps/Basic"
   ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
