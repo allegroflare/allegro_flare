@@ -270,3 +270,123 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
 }
 
 
+TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFixture,
+//TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTestWithAllegroRenderingFixture,
+   // TODO: modify this to a TIMED_INTERACTIVE test
+   //DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
+{
+   // setup system
+   al_install_keyboard();
+   al_install_joystick();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   bool abort = false;
+   ALLEGRO_EVENT event;
+
+   // setup environment
+   //AllegroFlare::EventEmitter event_emitter;
+   //event_emitter.initialize();
+   //al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+
+   // initialize test subject
+   //AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard(&event_emitter, &get_font_bin_ref());
+   //software_keyboard.initialize();
+   //software_keyboard.set_keys(AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::build_boilerplate_keyboard_keys());
+   //AllegroFlare::Vec2D keyboard_dimensions =
+      //AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::calculate_boilerplate_keyboard_dimensions();
+   //software_keyboard.set_keyboard_dimensions(keyboard_dimensions.x, keyboard_dimensions.y);
+   //software_keyboard.set_keyboard_position(1920/2, 1080/12*7 + 20);
+
+   // run the interactive test
+   al_start_timer(primary_timer);
+   while(!abort)
+   {
+      al_wait_for_event(event_queue, &event);
+
+      switch(event.type)
+      {
+         case ALLEGRO_EVENT_KEY_CHAR:
+         {
+            switch(event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+                  //software_keyboard.move_cursor_up();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  //software_keyboard.move_cursor_down();
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                  //software_keyboard.increment_cursor_pos();
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  //software_keyboard.decrement_cursor_pos();
+               break;
+
+               case ALLEGRO_KEY_ENTER:
+                  //{
+                     //bool shift = (event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT);
+                     //if (shift) { software_keyboard.press_key_by_name("SUBMIT"); }
+                     //else { software_keyboard.press_key_under_cursor(); }
+                  //}
+               break;
+
+               case ALLEGRO_KEY_BACKSPACE:
+                  //software_keyboard.press_key_by_name("BACKSPACE");
+               break;
+
+               case ALLEGRO_KEY_SPACE:
+                  //software_keyboard.press_key_by_name("SPACE");
+               break;
+
+               default:
+                  //std::string s(1, event.keyboard.unichar);
+                  //software_keyboard.press_key_by_name(s);
+               break;
+            }
+         }
+         break;
+
+         //case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+            //{
+               //std::string *emitted_event_data = (std::string *)event.user.data1;
+               //if (!emitted_event_data) throw std::runtime_error("Unexpected nullptr sound effect data error");
+               //std::cout << "INFO: emitted sound effect event for sound \"" << *emitted_event_data << "\"" << std::endl;
+            //}
+         //break;
+
+         //case ALLEGRO_FLARE_EVENT_GAME_EVENT:
+            //{
+               //AllegroFlare::GameEvent *data = static_cast<AllegroFlare::GameEvent *>((void *)event.user.data1);
+               //if (!data) throw std::runtime_error("Unexpected GameEvent error");
+               //if (data->is_type(
+                  //AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::DEFAULT_EVENT_TO_EMIT_ON_PRESSING_SUBMIT_KEY
+               //)) abort = true;
+            //}
+         //break;
+
+         case ALLEGRO_EVENT_TIMER:
+            clear();
+            //software_keyboard.render();
+            al_flip_display();
+         break;
+      }
+
+      if (event.type == ALLEGRO_EVENT_KEY_CHAR && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) abort = true;
+   }
+   
+   // teardown
+   // TODO: Audit if this teardown is complete. It may require other calls to destroy resources.
+   al_destroy_event_queue(event_queue);
+   al_destroy_timer(primary_timer);
+   al_uninstall_keyboard();
+}
+
+
+
+
