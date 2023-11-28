@@ -107,6 +107,7 @@ namespace AllegroFlare
          void reset();
          void reset_document_camera();
          void reset_document_camera_range_to_defaults();
+         void on_switch_in();
          void on_switch_out();
          void step_zoom_in();
          void step_zoom_out();

@@ -57,6 +57,7 @@ methods:
         default_argument: nullptr
     body: |
       this->bitmap_bin = bitmap_bin;
+      map_viewer.set_bitmap_bin(bitmap_bin);
       return;
 
 
@@ -68,6 +69,7 @@ methods:
         default_argument: nullptr
     body: |
       this->font_bin = font_bin;
+      map_viewer.set_font_bin(font_bin);
       return;
 
 
@@ -97,6 +99,7 @@ methods:
       - name: map
         type: AllegroFlare::WorldMaps::Maps::Basic*
         default_argument: nullptr
+    guards: [ bitmap_bin ]
     body: |
       map_viewer.set_map(map);
       return;
@@ -107,6 +110,7 @@ methods:
     override: true
     guards: [ initialized ]
     body: |
+      map_viewer.on_switch_in();
       //emit_event_to_update_input_hints_bar();
       //emit_show_and_size_input_hints_bar_event();
       return;
@@ -117,6 +121,7 @@ methods:
     override: true
     guards: [ initialized ]
     body: |
+      map_viewer.on_switch_out();
       //emit_hide_and_restore_size_input_hints_bar_event();
       return;
 

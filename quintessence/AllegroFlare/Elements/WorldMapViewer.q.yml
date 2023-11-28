@@ -311,9 +311,14 @@ methods:
       return;
 
 
+  - name: on_switch_in
+    body: |
+      reset(); // TODO: Consider if this is a good approach, if it should hold the last position, last zoom, always
+               // return to primary point of interest, etc.
+      return;
+
+
   - name: on_switch_out
-    xvirtual: true
-    xoverride: true
     body: |
       unset_camera_moving();
       unset_cursor_moving();

@@ -440,6 +440,13 @@ void WorldMapViewer::reset_document_camera_range_to_defaults()
    return;
 }
 
+void WorldMapViewer::on_switch_in()
+{
+   reset(); // TODO: Consider if this is a good approach, if it should hold the last position, last zoom, always
+            // return to primary point of interest, etc.
+   return;
+}
+
 void WorldMapViewer::on_switch_out()
 {
    unset_camera_moving();

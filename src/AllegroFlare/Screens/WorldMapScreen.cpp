@@ -66,6 +66,7 @@ void WorldMapScreen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
       throw std::runtime_error("WorldMapScreen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
+   map_viewer.set_bitmap_bin(bitmap_bin);
    return;
 }
 
@@ -79,6 +80,7 @@ void WorldMapScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
       throw std::runtime_error("WorldMapScreen::set_font_bin: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
+   map_viewer.set_font_bin(font_bin);
    return;
 }
 
@@ -138,6 +140,13 @@ void WorldMapScreen::initialize()
 
 void WorldMapScreen::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
 {
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapScreen::set_map]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapScreen::set_map: error: guard \"bitmap_bin\" not met");
+   }
    map_viewer.set_map(map);
    return;
 }
@@ -151,6 +160,7 @@ void WorldMapScreen::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapScreen::on_activate: error: guard \"initialized\" not met");
    }
+   map_viewer.on_switch_in();
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
    return;
@@ -165,6 +175,7 @@ void WorldMapScreen::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapScreen::on_deactivate: error: guard \"initialized\" not met");
    }
+   map_viewer.on_switch_out();
    //emit_hide_and_restore_size_input_hints_bar_event();
    return;
 }
