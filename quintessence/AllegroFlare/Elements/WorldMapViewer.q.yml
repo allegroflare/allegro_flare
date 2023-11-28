@@ -637,16 +637,40 @@ methods:
         default_argument: '"- no location -"'
     guards: [ map ]
     body: |
-      std::string id = map->location_id_at(cursor.x, cursor.y);
-      if (id.empty()) return fallback;
-      //AllegroFlare::WorldMaps::Locations::Base *found_location = location
-      
-      //for (auto &location : map->get_locations())
-      //{
-         //Celestial Crossing North
-         // HERE
-      //}
-      return id;
+      std::string location_id = map->location_id_at(cursor.x, cursor.y);
+      if (location_id.empty()) return fallback;
+
+      AllegroFlare::WorldMaps::Locations::Base *found_location = map->find_location_by_id(location_id);
+
+      std::string result;
+      if (!found_location)
+      {
+         AllegroFlare::Logger::warn_from_once(
+            "AllegroFlare::Elements::WorldMapViewer",
+            "Could not find a location for the location_id \"" + location_id + "\""
+         );
+         result = location_id;
+      }
+      else
+      {
+         if (found_location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
+         {
+            AllegroFlare::WorldMaps::Locations::Basic *as =
+               static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
+            result = as->get_label();
+         }
+         else
+         {
+            AllegroFlare::Logger::warn_from_once(
+               "AllegroFlare::Elements::WorldMapViewer",
+               "Could not infer a label for the location of type \"" + found_location->get_type() + "\""
+            );
+            result = location_id;
+         }
+      }
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::WorldMaps::Locations::Basic
 
 
   - name: render_page_numbers
@@ -817,5 +841,7 @@ dependencies:
     headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
   - symbol: AllegroFlare::WorldMapRenderers::Basic
     headers: [ AllegroFlare/WorldMapRenderers/Basic.hpp ]
+  - symbol: AllegroFlare::WorldMaps::Locations::Basic
+    headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
 
 

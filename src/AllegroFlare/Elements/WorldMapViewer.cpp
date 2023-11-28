@@ -5,6 +5,7 @@
 #include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/WorldMapRenderers/Basic.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
@@ -768,16 +769,38 @@ std::string WorldMapViewer::infer_focused_location_label(std::string fallback)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::infer_focused_location_label: error: guard \"map\" not met");
    }
-   std::string id = map->location_id_at(cursor.x, cursor.y);
-   if (id.empty()) return fallback;
-   //AllegroFlare::WorldMaps::Locations::Base *found_location = location
+   std::string location_id = map->location_id_at(cursor.x, cursor.y);
+   if (location_id.empty()) return fallback;
 
-   //for (auto &location : map->get_locations())
-   //{
-      //Celestial Crossing North
-      // HERE
-   //}
-   return id;
+   AllegroFlare::WorldMaps::Locations::Base *found_location = map->find_location_by_id(location_id);
+
+   std::string result;
+   if (!found_location)
+   {
+      AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::Elements::WorldMapViewer",
+         "Could not find a location for the location_id \"" + location_id + "\""
+      );
+      result = location_id;
+   }
+   else
+   {
+      if (found_location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
+      {
+         AllegroFlare::WorldMaps::Locations::Basic *as =
+            static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(found_location);
+         result = as->get_label();
+      }
+      else
+      {
+         AllegroFlare::Logger::warn_from_once(
+            "AllegroFlare::Elements::WorldMapViewer",
+            "Could not infer a label for the location of type \"" + found_location->get_type() + "\""
+         );
+         result = location_id;
+      }
+   }
+   return result;
 }
 
 void WorldMapViewer::render_page_numbers()
