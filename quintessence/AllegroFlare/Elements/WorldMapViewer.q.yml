@@ -469,6 +469,10 @@ methods:
       AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
       renderer.render();
 
+      // Draw the cursor
+      // TODO: Project this into the map
+      draw_cursor(cursor.x, cursor.y);
+
       document_camera.restore_transform();
 
       al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
@@ -477,6 +481,21 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::WorldMapRenderers::Basic
+
+
+  - name: draw_cursor
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      float size = 40;
+      float hsize = size * 0.5f;
+      al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.95, 0.74, 0.5, 1.0}, 8.0);
+      return;
 
 
   - name: infer_no_pages_are_present
@@ -554,12 +573,26 @@ methods:
       - AllegroFlare::WorldMapRenderers::Basic
 
 
+  - name: infer_focused_location_label
+    type: std::string
+    parameters:
+      - name: fallback
+        type: std::string
+        default_argument: '"- no location -"'
+    guards: [ map ]
+    body: |
+      std::string id = map->location_id_at(cursor.x, cursor.y);
+      if (id.empty()) return fallback;
+      return id;
+      //return map->location_identifer_at(cursor.x, cursor.y);
+
+
   - name: render_page_numbers
     type: void
     private: true
     guards: [ initialized ]
     body: |
-      std::string page_numbers_text = "[unset-page_numbers_text]";
+      std::string focused_location_label = infer_focused_location_label(); //"-"; //[unset-]";
       /*
          = "page "
          + (std::to_string(pages.empty() ? 0 : current_page_index_num + 1))
@@ -571,7 +604,7 @@ methods:
       float y = place.size.y;
 
       ALLEGRO_FONT *font = obtain_font();
-      float text_width = al_get_text_width(font, page_numbers_text.c_str());
+      float text_width = al_get_text_width(font, focused_location_label.c_str());
       float text_height = al_get_font_line_height(font);
       float h_text_width = text_width/2;
       float h_text_height = text_height/2;
@@ -586,7 +619,7 @@ methods:
          8.0f,
          ALLEGRO_COLOR{0, 0, 0, 0.5}
       );
-      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, page_numbers_text.c_str());
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, focused_location_label.c_str());
       return;
 
 

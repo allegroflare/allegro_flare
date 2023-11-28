@@ -108,9 +108,11 @@ namespace AllegroFlare
          void unset_cursor_moving();
          void set_map(AllegroFlare::WorldMaps::Maps::Basic* map=nullptr);
          void go_to_origin_or_primary_point_of_interest();
+         void draw_cursor(float x=0.0f, float y=0.0f);
          bool infer_no_pages_are_present();
          void update();
          void render();
+         std::string infer_focused_location_label(std::string fallback="- no location -");
          void render_zoom_scale();
          void draw_empty_state(AllegroFlare::FontBin* font_bin=nullptr, std::string placeholder_text="Empty");
          float calc_zoom_position_relative_min_max();

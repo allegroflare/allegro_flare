@@ -608,11 +608,23 @@ void WorldMapViewer::render_map()
    AllegroFlare::WorldMapRenderers::Basic renderer(bitmap_bin, font_bin, map);
    renderer.render();
 
+   // Draw the cursor
+   // TODO: Project this into the map
+   draw_cursor(cursor.x, cursor.y);
+
    document_camera.restore_transform();
 
    al_reset_clipping_rectangle(); // TODO: revert to previous clipping instead
 
 
+   return;
+}
+
+void WorldMapViewer::draw_cursor(float x, float y)
+{
+   float size = 40;
+   float hsize = size * 0.5f;
+   al_draw_rectangle(x-hsize, y-hsize, x+hsize, y+hsize, ALLEGRO_COLOR{0.95, 0.74, 0.5, 1.0}, 8.0);
    return;
 }
 
@@ -698,6 +710,21 @@ void WorldMapViewer::render()
    return;
 }
 
+std::string WorldMapViewer::infer_focused_location_label(std::string fallback)
+{
+   if (!(map))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::infer_focused_location_label]: error: guard \"map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::infer_focused_location_label: error: guard \"map\" not met");
+   }
+   std::string id = map->location_id_at(cursor.x, cursor.y);
+   if (id.empty()) return fallback;
+   return id;
+   //return map->location_identifer_at(cursor.x, cursor.y);
+}
+
 void WorldMapViewer::render_page_numbers()
 {
    if (!(initialized))
@@ -707,7 +734,7 @@ void WorldMapViewer::render_page_numbers()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::render_page_numbers: error: guard \"initialized\" not met");
    }
-   std::string page_numbers_text = "[unset-page_numbers_text]";
+   std::string focused_location_label = infer_focused_location_label(); //"-"; //[unset-]";
    /*
       = "page "
       + (std::to_string(pages.empty() ? 0 : current_page_index_num + 1))
@@ -719,7 +746,7 @@ void WorldMapViewer::render_page_numbers()
    float y = place.size.y;
 
    ALLEGRO_FONT *font = obtain_font();
-   float text_width = al_get_text_width(font, page_numbers_text.c_str());
+   float text_width = al_get_text_width(font, focused_location_label.c_str());
    float text_height = al_get_font_line_height(font);
    float h_text_width = text_width/2;
    float h_text_height = text_height/2;
@@ -734,7 +761,7 @@ void WorldMapViewer::render_page_numbers()
       8.0f,
       ALLEGRO_COLOR{0, 0, 0, 0.5}
    );
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, page_numbers_text.c_str());
+   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, focused_location_label.c_str());
    return;
 }
 
