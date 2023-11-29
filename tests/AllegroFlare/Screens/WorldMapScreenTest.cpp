@@ -28,13 +28,34 @@ public:
       map.set_background_image_identifier("overworld-map-02.png");
       map.set_locations({
          // TODO: Come up with some better location names
-         { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 221, 423) },
-         { "office2", new AllegroFlare::WorldMaps::Locations::Basic("Office", 611, 268) },
-         { "office3", new AllegroFlare::WorldMaps::Locations::Basic("Office", 528, 414) },
-         { "office4", new AllegroFlare::WorldMaps::Locations::Basic("Office", 807, 428) },
-         { "office5", new AllegroFlare::WorldMaps::Locations::Basic("Office", 584, 713) },
-         { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
-         { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Town 4", 1132, 772) },
+         {
+            "magnus_castle",
+            new AllegroFlare::WorldMaps::Locations::Basic("Magnus Castle", 221, 423)
+         },
+         {
+            "office2",
+            new AllegroFlare::WorldMaps::Locations::Basic("Office2", 611, 268)
+         },
+         {
+            "office3",
+            new AllegroFlare::WorldMaps::Locations::Basic("Office3", 528, 414)
+         },
+         {
+            "central_village",
+            new AllegroFlare::WorldMaps::Locations::Basic("Central Village", 807, 428)
+         },
+         {
+            "thorian_grove",
+            new AllegroFlare::WorldMaps::Locations::Basic("Thorian Grove", 584, 713)
+         },
+         {
+            "office6",
+            new AllegroFlare::WorldMaps::Locations::Basic("Office6", 1054, 335)
+         },
+         {
+            "merryvale_village",
+            new AllegroFlare::WorldMaps::Locations::Basic("Merryvale Village", 1132, 772)
+         },
          {
             "north_celestial_crossing",
             new AllegroFlare::WorldMaps::Locations::Basic("North Celestial Crossing", 1315, 473)
