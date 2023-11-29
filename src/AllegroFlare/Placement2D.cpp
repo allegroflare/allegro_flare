@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <AllegroFlare/Color.hpp>
+#include <algorithm> // for std::min
 
 
 
