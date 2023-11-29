@@ -418,6 +418,7 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    AllegroFlare::Placement2D *targeted_placement = &placement_a;
    float my_x_cursor = 1920/3;
    float my_y_cursor = 1080/3;
+   float my_cursor_speed = 17.1;
 
    al_start_timer(primary_timer);
    bool abort = false;
@@ -515,13 +516,23 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
                break;
 
                case ALLEGRO_KEY_PAD_6: // increase the targeted placement scale
-                  my_x_cursor += 1.1;
+                  my_x_cursor += my_cursor_speed;
                   if (my_x_cursor > 1920 - 10) my_x_cursor = 1920 - 10;
                break;
 
                case ALLEGRO_KEY_PAD_4: // increase the targeted placement scale
-                  my_x_cursor -= 1.1;
+                  my_x_cursor -= my_cursor_speed;
                   if (my_x_cursor < 10) my_x_cursor = 10;
+               break;
+
+               case ALLEGRO_KEY_PAD_8: // increase the targeted placement scale
+                  my_y_cursor -= my_cursor_speed;
+                  if (my_y_cursor < 10) my_y_cursor = 10;
+               break;
+
+               case ALLEGRO_KEY_PAD_2: // increase the targeted placement scale
+                  my_y_cursor += my_cursor_speed;
+                  if (my_y_cursor > 1080 - 10) my_y_cursor = 1080 - 10;
                break;
 
                case ALLEGRO_KEY_ESCAPE:
