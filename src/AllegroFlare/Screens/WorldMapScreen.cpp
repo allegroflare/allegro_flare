@@ -22,6 +22,8 @@ WorldMapScreen::WorldMapScreen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , map_viewer({})
    , on_exit_callback_func()
    , on_exit_callback_func_user_data(nullptr)
+   , on_activate_callback_func()
+   , on_activate_callback_func_user_data(nullptr)
    , initialized(false)
 {
 }
@@ -44,6 +46,18 @@ void WorldMapScreen::set_on_exit_callback_func_user_data(void* on_exit_callback_
 }
 
 
+void WorldMapScreen::set_on_activate_callback_func(std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> on_activate_callback_func)
+{
+   this->on_activate_callback_func = on_activate_callback_func;
+}
+
+
+void WorldMapScreen::set_on_activate_callback_func_user_data(void* on_activate_callback_func_user_data)
+{
+   this->on_activate_callback_func_user_data = on_activate_callback_func_user_data;
+}
+
+
 std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> WorldMapScreen::get_on_exit_callback_func() const
 {
    return on_exit_callback_func;
@@ -53,6 +67,18 @@ std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> WorldMapScree
 void* WorldMapScreen::get_on_exit_callback_func_user_data() const
 {
    return on_exit_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> WorldMapScreen::get_on_activate_callback_func() const
+{
+   return on_activate_callback_func;
+}
+
+
+void* WorldMapScreen::get_on_activate_callback_func_user_data() const
+{
+   return on_activate_callback_func_user_data;
 }
 
 
@@ -161,7 +187,7 @@ void WorldMapScreen::on_activate()
       throw std::runtime_error("WorldMapScreen::on_activate: error: guard \"initialized\" not met");
    }
    map_viewer.on_switch_in();
-   //emit_event_to_update_input_hints_bar();
+   //emit_event_to_update_input_hints_bar(); // Requires event_emitter
    //emit_show_and_size_input_hints_bar_event();
    return;
 }
@@ -194,6 +220,18 @@ void WorldMapScreen::primary_timer_func()
    return;
 }
 
+void WorldMapScreen::activate_at_cursor()
+{
+   if (on_activate_callback_func) on_activate_callback_func(this, on_activate_callback_func_user_data);
+   return;
+}
+
+void WorldMapScreen::activate_exit_screen()
+{
+   if (on_exit_callback_func) on_exit_callback_func(this, on_exit_callback_func_user_data);
+   return;
+}
+
 void WorldMapScreen::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
@@ -203,7 +241,18 @@ void WorldMapScreen::virtual_control_button_up_func(AllegroFlare::Player* player
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapScreen::virtual_control_button_up_func: error: guard \"initialized\" not met");
    }
-   // TODO: this function
+   switch(virtual_controller_button_num)
+   {
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
+         map_viewer.unset_cursor_moving_vertical();
+      break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
+         map_viewer.unset_cursor_moving_horizontal();
+      break;
+   }
    return;
 }
 
@@ -223,27 +272,39 @@ void WorldMapScreen::virtual_control_button_down_func(AllegroFlare::Player* play
    switch(virtual_controller_button_num)
    {
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
-         //software_keyboard.move_cursor_up();
+         map_viewer.set_cursor_moving_up();
       break;
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
-         //software_keyboard.move_cursor_down();
+         map_viewer.set_cursor_moving_down();
       break;
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
-         //software_keyboard.decrement_cursor_pos();
+         map_viewer.set_cursor_moving_left();
       break;
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
-         //software_keyboard.increment_cursor_pos();
+         map_viewer.set_cursor_moving_right();
       break;
 
-      case AllegroFlare::VirtualControllers::GenericController::BUTTON_A:
-         //software_keyboard.press_key_under_cursor();
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER:
+         map_viewer.step_zoom_in();
       break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT_BUMPER:
+         map_viewer.step_zoom_out();
+      break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_A: {
+         activate_at_cursor();
+      } break;
+
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_B: {
+         map_viewer.move_cursor_to_origin_or_primary_point_of_interest();
+      } break;
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_X:
-         // Thing here
+         activate_exit_screen();
       break;
    }
 

@@ -35,6 +35,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_activate_callback_func
+    type: std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_activate_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -111,7 +123,7 @@ methods:
     guards: [ initialized ]
     body: |
       map_viewer.on_switch_in();
-      //emit_event_to_update_input_hints_bar();
+      //emit_event_to_update_input_hints_bar(); // Requires event_emitter
       //emit_show_and_size_input_hints_bar_event();
       return;
 
@@ -136,6 +148,18 @@ methods:
       return;
 
 
+  - name: activate_at_cursor
+    body: |
+      if (on_activate_callback_func) on_activate_callback_func(this, on_activate_callback_func_user_data);
+      return;
+
+
+  - name: activate_exit_screen
+    body: |
+      if (on_exit_callback_func) on_exit_callback_func(this, on_exit_callback_func_user_data);
+      return;
+
+
   - name: virtual_control_button_up_func
     virtual: true
     override: true
@@ -154,8 +178,21 @@ methods:
         default_argument: false
     guards: [ initialized ]
     body: |
-      // TODO: this function
+      switch(virtual_controller_button_num)
+      {
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
+            map_viewer.unset_cursor_moving_vertical();
+         break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
+            map_viewer.unset_cursor_moving_horizontal();
+         break;
+      }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControllers::GenericController
 
 
   - name: virtual_control_button_down_func
@@ -183,27 +220,39 @@ methods:
       switch(virtual_controller_button_num)
       {
          case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP:
-            //software_keyboard.move_cursor_up();
+            map_viewer.set_cursor_moving_up();
          break;
 
          case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN:
-            //software_keyboard.move_cursor_down();
+            map_viewer.set_cursor_moving_down();
          break;
 
          case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT:
-            //software_keyboard.decrement_cursor_pos();
+            map_viewer.set_cursor_moving_left();
          break;
 
          case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT:
-            //software_keyboard.increment_cursor_pos();
+            map_viewer.set_cursor_moving_right();
          break;
 
-         case AllegroFlare::VirtualControllers::GenericController::BUTTON_A:
-            //software_keyboard.press_key_under_cursor();
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER:
+            map_viewer.step_zoom_in();
          break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT_BUMPER:
+            map_viewer.step_zoom_out();
+         break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_A: {
+            activate_at_cursor();
+         } break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_B: {
+            map_viewer.move_cursor_to_origin_or_primary_point_of_interest();
+         } break;
 
          case AllegroFlare::VirtualControllers::GenericController::BUTTON_X:
-            // Thing here
+            activate_exit_screen();
          break;
       }
 

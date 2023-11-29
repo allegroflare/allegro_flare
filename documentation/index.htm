@@ -26900,6 +26900,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_activate_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::WorldMapScreen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_activate_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -26930,6 +26938,12 @@ table td
 </tr>
 <tr>
   <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="method">activate_at_cursor()</td>
+</tr>
+<tr>
+  <td class="method">activate_exit_screen()</td>
 </tr>
 <tr>
   <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>

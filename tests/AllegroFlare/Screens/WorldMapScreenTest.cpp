@@ -36,12 +36,12 @@ public:
          { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
          { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Town 4", 1132, 772) },
          {
-            "celestial_crossing_north",
-            new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing North", 1315, 473)
+            "north_celestial_crossing",
+            new AllegroFlare::WorldMaps::Locations::Basic("North Celestial Crossing", 1315, 473)
          },
          {
-            "celestial_crossing_south",
-            new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing South", 1351, 551)
+            "south_celestial_crossing",
+            new AllegroFlare::WorldMaps::Locations::Basic("South Celestial Crossing", 1351, 551)
          },
          {
             "luminara",
@@ -103,7 +103,7 @@ TEST_F(AllegroFlare_Screens_WorldMapScreenTestWithAllegroFrameworksFullFixture,
 
    framework_register_and_activate_screen("world_map_screen", &world_map_screen);
 
-   framework_run_loop(3);
+   framework_run_loop(1);
 }
 
 
@@ -118,7 +118,7 @@ TEST_F(AllegroFlare_Screens_WorldMapScreenTestWithMapAndWithAllegroFrameworksFul
 
    framework_register_and_activate_screen("world_map_screen", &world_map_screen);
 
-   framework_run_loop(3);
+   framework_run_loop(-1);
 }
 
 

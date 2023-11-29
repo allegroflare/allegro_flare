@@ -28,6 +28,8 @@ namespace AllegroFlare
          AllegroFlare::Elements::WorldMapViewer map_viewer;
          std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> on_exit_callback_func;
          void* on_exit_callback_func_user_data;
+         std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> on_activate_callback_func;
+         void* on_activate_callback_func_user_data;
          bool initialized;
 
       protected:
@@ -39,8 +41,12 @@ namespace AllegroFlare
 
          void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> on_exit_callback_func);
          void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
+         void set_on_activate_callback_func(std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> on_activate_callback_func);
+         void set_on_activate_callback_func_user_data(void* on_activate_callback_func_user_data);
          std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
+         std::function<void(AllegroFlare::Screens::WorldMapScreen*, void*)> get_on_activate_callback_func() const;
+         void* get_on_activate_callback_func_user_data() const;
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void initialize();
@@ -48,6 +54,8 @@ namespace AllegroFlare
          virtual void on_activate() override;
          virtual void on_deactivate() override;
          virtual void primary_timer_func() override;
+         void activate_at_cursor();
+         void activate_exit_screen();
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr) override;
