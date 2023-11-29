@@ -95,6 +95,8 @@ methods:
          throw std::runtime_error("BeamPositionCalculator::get_min_staff_position: error: notehead_staff_positions []");
       }
       return min_value;
+    body_dependency_symbols:
+      - std::min_element
 
 
   - name: get_max_staff_position
@@ -116,6 +118,8 @@ methods:
          throw std::runtime_error("BeamPositionCalculator::get_max_staff_position: error: notehead_staff_positions []");
       }
       return min_value;
+    body_dependency_symbols:
+      - std::min_element
 
 
   - name: get_min_interior_staff_position
@@ -138,6 +142,8 @@ methods:
          throw std::runtime_error("BeamPositionCalculator::get_min_staff_position: error: notehead_staff_positions []");
       }
       return min_value;
+    body_dependency_symbols:
+      - std::min_element
 
 
   - name: get_max_interior_staff_position
@@ -160,6 +166,8 @@ methods:
          throw std::runtime_error("BeamPositionCalculator::get_min_staff_position: error: notehead_staff_positions []");
       }
       return min_value;
+    body_dependency_symbols:
+      - std::min_element
 
 
 dependencies:
@@ -167,5 +175,7 @@ dependencies:
 
   - symbol: BeamPositionCalculator::StemDirection
     headers: [ ]
+  - symbol: std::min_element
+    headers: [ algorithm ]
 
 

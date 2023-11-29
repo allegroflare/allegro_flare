@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/MusicNotation/BeamPositionCalculator.hpp>
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

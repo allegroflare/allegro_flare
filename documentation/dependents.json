@@ -2624,6 +2624,9 @@
   "BeamPositionCalculator/StemDirection": [
     "AllegroFlare/MusicNotation/BeamPositionCalculator"
   ],
+  "std/min_element": [
+    "AllegroFlare/MusicNotation/BeamPositionCalculator"
+  ],
   "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver/PositionType": [
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
