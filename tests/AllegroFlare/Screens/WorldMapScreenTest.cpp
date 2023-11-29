@@ -29,16 +29,16 @@ public:
       map.set_locations({
          // TODO: Come up with some better location names
          {
-            "magnus_castle",
-            new AllegroFlare::WorldMaps::Locations::Basic("Magnus Castle", 221, 423)
+            "great_magnus_castle",
+            new AllegroFlare::WorldMaps::Locations::Basic("Great Magnus Castle", 221, 423)
          },
          {
-            "office2",
-            new AllegroFlare::WorldMaps::Locations::Basic("Office2", 611, 268)
+            "village_of_garrick",
+            new AllegroFlare::WorldMaps::Locations::Basic("Village of Garrick", 611, 268)
          },
          {
-            "office3",
-            new AllegroFlare::WorldMaps::Locations::Basic("Office3", 528, 414)
+            "dragons_ruins",
+            new AllegroFlare::WorldMaps::Locations::Basic("Dragon's Ruins", 528, 414)
          },
          {
             "central_village",
@@ -49,8 +49,8 @@ public:
             new AllegroFlare::WorldMaps::Locations::Basic("Thorian Grove", 584, 713)
          },
          {
-            "office6",
-            new AllegroFlare::WorldMaps::Locations::Basic("Office6", 1054, 335)
+            "whispering_mountains",
+            new AllegroFlare::WorldMaps::Locations::Basic("Whispering Mountains", 1054, 335)
          },
          {
             "merryvale_village",
@@ -65,8 +65,8 @@ public:
             new AllegroFlare::WorldMaps::Locations::Basic("South Celestial Crossing", 1351, 551)
          },
          {
-            "luminara",
-            new AllegroFlare::WorldMaps::Locations::Basic("Luminara", 1662, 250)
+            "luminara_citadel",
+            new AllegroFlare::WorldMaps::Locations::Basic("Luminara Citadel", 1662, 250)
          },
          {
             "crestwood_forest",
