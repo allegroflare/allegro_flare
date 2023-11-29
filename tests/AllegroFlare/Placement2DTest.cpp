@@ -399,8 +399,8 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    // TODO: Make this TIMED_INTERACTIVE
-   //DISABLED__INTERACTIVE__set_nthmost_coordinates__will_move_the_placement_so_the_nthmost_coordinate_is_palced_there)
-   INTERACTIVE__set_nthmost_coordinates__will_move_the_placement_so_the_nthmost_coordinate_is_palced_there)
+   DISABLED__INTERACTIVE__set_nthmost_coordinates__will_move_the_placement_so_the_nthmost_coordinate_is_palced_there)
+   //INTERACTIVE__set_nthmost_coordinates__will_move_the_placement_so_the_nthmost_coordinate_is_palced_there)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
    placement_a.rotation = 0.1f;
