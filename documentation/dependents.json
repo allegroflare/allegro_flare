@@ -2634,6 +2634,9 @@
   "RomanNumeralAnalysisSymbol/ChordQuality": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
   ],
+  "std/rotate": [
+    "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
+  ],
   "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbolRenderer"
   ],

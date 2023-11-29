@@ -96,6 +96,8 @@ methods:
       std::rotate(result.begin(), result.begin() + modded_inversion, result.end());
 
       return result;
+    body_dependency_symbols:
+      - std::rotate
 
 
   - name: infer_roman_numeral_string
@@ -183,5 +185,7 @@ dependencies:
     headers: []
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: std::rotate
+    headers: [ algorithm ]
 
 

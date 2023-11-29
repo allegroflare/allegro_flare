@@ -3,6 +3,7 @@
 #include <AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <algorithm>
 #include <map>
 
 
