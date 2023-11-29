@@ -139,7 +139,7 @@ TEST_F(AllegroFlare_Screens_WorldMapScreenTestWithMapAndWithAllegroFrameworksFul
 
    framework_register_and_activate_screen("world_map_screen", &world_map_screen);
 
-   framework_run_loop(-1);
+   framework_run_loop(5);
 }
 
 
