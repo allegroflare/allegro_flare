@@ -2611,7 +2611,8 @@
     "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
   ],
   "std/reverse": [
-    "AllegroFlare/MusicNotation/AccidentalStacker"
+    "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
   ],
   "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
     "AllegroFlare/MusicNotation/AccidentalStacker",

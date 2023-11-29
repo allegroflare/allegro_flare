@@ -45,6 +45,7 @@ methods:
       return result;
     body_dependency_symbols:
       - std::set
+      - std::reverse
 
 
   - name: custom_comparison_for_pitch_tokens
@@ -68,5 +69,7 @@ dependencies:
 
   - symbol: AllegroFlare::MusicNotation::Parser::PitchToken
     headers: [ AllegroFlare/MusicNotation/Parser/PitchToken.hpp ]
+  - symbol: std::reverse
+    headers: [ algorithm ]
 
 

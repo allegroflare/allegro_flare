@@ -254,13 +254,13 @@ void Beam::render_beam(float top_x1, float top_y1, float top_x2, float top_y2, A
    float bottom_y4 = top_y1 + staff_line_h_distance;
 
    ALLEGRO_VERTEX v[6] = {
-      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = _color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = top_x2, .y = top_y2, .z = 0, .color = _color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = _color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .u = 0, .v = 0, .color = color},
+      ALLEGRO_VERTEX{.x = top_x2, .y = top_y2, .z = 0, .u = 0, .v = 0, .color = color},
+      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .u = 0, .v = 0, .color = color},
 
-      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .color = _color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = bottom_x4, .y = bottom_y4, .z = 0, .color = _color, .u = 0, .v = 0},
-      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .color = _color, .u = 0, .v = 0},
+      ALLEGRO_VERTEX{.x = bottom_x3, .y = bottom_y3, .z = 0, .u = 0, .v = 0, .color = color},
+      ALLEGRO_VERTEX{.x = bottom_x4, .y = bottom_y4, .z = 0, .u = 0, .v = 0, .color = color},
+      ALLEGRO_VERTEX{.x = top_x1, .y = top_y1, .z = 0, .u = 0, .v = 0, .color = color},
    };
 
    al_draw_prim(v, nullptr, nullptr, 0, 6, ALLEGRO_PRIM_TRIANGLE_LIST);

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp>
 
+#include <algorithm>
 #include <set>
 
 
