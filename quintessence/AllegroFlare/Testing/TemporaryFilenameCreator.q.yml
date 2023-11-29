@@ -13,7 +13,7 @@ methods:
     type: std::string
     body: |
       AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator;
-      std::string unique_directory = temporary_directory_creator.create();
+      std::string unique_directory = temporary_directory_creator.create().string();
       std::string unique_filename = std::filesystem::path(std::tmpnam(nullptr)).filename().string();
       return unique_directory + "/" + unique_filename;
     body_dependency_symbols:

@@ -30,7 +30,7 @@ std::string TemporaryFilenameCreator::create_filename()
 std::string TemporaryFilenameCreator::create_filename_within_guaranteed_unique_directory()
 {
    AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator;
-   std::string unique_directory = temporary_directory_creator.create();
+   std::string unique_directory = temporary_directory_creator.create().string();
    std::string unique_filename = std::filesystem::path(std::tmpnam(nullptr)).filename().string();
    return unique_directory + "/" + unique_filename;
 }
