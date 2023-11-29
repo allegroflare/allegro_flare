@@ -44,7 +44,7 @@ TEST(AllegroFlare_Testing_TemporaryFilenameCreatorTest,
 {
    AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
    std::string created_filename = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
-   std::string directory = std::filesystem::path(created_filename).parent_path();
+   std::string directory = std::filesystem::path(created_filename).parent_path().string();
    EXPECT_EQ(true, std::filesystem::exists(directory));
 }
 
@@ -54,7 +54,7 @@ TEST(AllegroFlare_Testing_TemporaryFilenameCreatorTest,
 {
    AllegroFlare::Testing::TemporaryFilenameCreator temporary_filename_creator;
    std::string created_filename = temporary_filename_creator.create_filename_within_guaranteed_unique_directory();
-   std::string directory = std::filesystem::path(created_filename).parent_path();
+   std::string directory = std::filesystem::path(created_filename).parent_path().string();
    EXPECT_EQ(true, std::filesystem::is_empty(directory));
 }
 
