@@ -28,7 +28,10 @@ TEST(AllegroFlare_Runners_CompleteTest, type__has_the_expected_value_matching_TY
 }
 
 
-TEST(AllegroFlare_Runners_CompleteTest, INTERACTIVE__run__will_work_as_expected)
+TEST(AllegroFlare_Runners_CompleteTest,
+   //INTERACTIVE__run__will_work_as_expected)
+   // TODO: This need to be a timed interactive test
+   DISABLED__INTERACTIVE__run__will_work_as_expected)
 {
    AllegroFlare::GameConfigurations::Complete *configuration =
       new AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration();

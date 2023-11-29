@@ -488,6 +488,15 @@ std::tuple<float, float, float, float> Placement2D::get_outermost_coordinates_tr
 }
 
 
+//void Placement2D::set_leftmost_coordinate(float x)
+//{
+   // TODO: Calculate the get_leftmost_coordinate, find the difference, then move the position.x over by that amount
+   //float leftmost_x = get_leftmost_coordinate();
+   //position.x += x - leftmost_x;
+   //return;
+//}
+
+
 bool Placement2D::collide(AllegroFlare::Placement2D &other)
 {
    std::vector<AllegroFlare::Vec2D> self_coordinates = {

@@ -286,7 +286,7 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    // TODO: Make this TIMED_INTERACTIVE
-   INTERACTIVE__get_real_coordinates__will_return_the_coordinates_of_the_placement)
+   DISABLED__INTERACTIVE__get_real_coordinates__will_return_the_coordinates_of_the_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
    placement_a.rotation = 0.1f;

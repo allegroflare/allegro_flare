@@ -52,10 +52,14 @@ namespace AllegroFlare
       bool collide(float x, float y, float padding_top, float padding_right, float padding_bottom, float padding_left);
       bool collide(AllegroFlare::Placement2D &other); // should revise to a const &other
 
-      float get_leftmost_coordinate();
+      float get_leftmost_coordinate(); // TODO: Consider renaming these, they don't return a coordinate in the 2D sense?
       float get_rightmost_coordinate();
       float get_topmost_coordinate();
       float get_bottommost_coordinate();
+      //void set_leftmost_coordinate(float x);
+      //void set_rightmost_coordinate(float x);
+      //void set_topmost_coordinate(float y);
+      //void set_bottommost_coordinate(float y);
 
       std::tuple<float, float, float, float> get_outermost_coordinates_trbl();
 
