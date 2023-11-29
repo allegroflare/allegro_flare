@@ -52,17 +52,6 @@ static ALLEGRO_COLOR infer_color_name_or_hex(const std::string &name_or_hex)
 
 
 
-static struct NoteToken
-{
-public:
-   int staff_position;
-   int accidental;
-   bool accidental_natural;
-   int octave;
-};
-
-
-
 using AllegroFlare::MusicNotation::Parser::PitchToken;
 
 
