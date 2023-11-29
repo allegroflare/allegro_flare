@@ -105,9 +105,14 @@ methods:
         type: float
         default_argument: 0.0f
     body: |
-      throw std::runtime_error("---- no longer implemented, remove from derived classes ----");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::DialogSystem::CharacterStagingLayouts::Base",
+         "---- no longer implemented, remove from derived classes ----"
+      );
       // TODO: This test is used in some derived classes. For now, moving it here as part of refactor
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: update
@@ -170,5 +175,7 @@ dependencies:
 
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

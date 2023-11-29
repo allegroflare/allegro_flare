@@ -20,6 +20,7 @@
     "AllegroFlare/AudioController",
     "AllegroFlare/CSVParser",
     "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/Characters/Base",
     "AllegroFlare/DialogSystem/DialogSystem",

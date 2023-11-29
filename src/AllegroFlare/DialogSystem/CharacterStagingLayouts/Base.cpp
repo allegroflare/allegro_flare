@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Base.hpp>
 
-
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -73,7 +73,10 @@ void Base::exit_character(std::string staged_character_identifier)
 
 void Base::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
 {
-   throw std::runtime_error("---- no longer implemented, remove from derived classes ----");
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::DialogSystem::CharacterStagingLayouts::Base",
+      "---- no longer implemented, remove from derived classes ----"
+   );
    // TODO: This test is used in some derived classes. For now, moving it here as part of refactor
    return;
 }
