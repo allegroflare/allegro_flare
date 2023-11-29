@@ -256,7 +256,9 @@ float MusicNotation::draw(float x, float y, std::string content, std::string out
 
 
 
-static struct PitchTokenComparator
+namespace {
+
+struct PitchTokenComparator
 {
    bool operator()(const PitchToken& token1, const PitchToken& token2) const
    {
@@ -270,6 +272,8 @@ static struct PitchTokenComparator
       return token1_accidental_weight < token2_accidental_weight;
    }
 };
+
+}
 
 
 
