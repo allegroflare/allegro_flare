@@ -498,24 +498,24 @@ void Placement2D::set_leftmost_coordinate(float x)
 
 void Placement2D::set_rightmost_coordinate(float x)
 {
-   //float leftmost_x = get_leftmost_coordinate();
-   //position.x += x - leftmost_x;
+   float rightmost_x = get_rightmost_coordinate();
+   position.x -= (rightmost_x - x);
    return;
 }
 
 
 void Placement2D::set_topmost_coordinate(float y)
 {
-   //float leftmost_x = get_leftmost_coordinate();
-   //position.x += x - leftmost_x;
+   float topmost_y = get_topmost_coordinate();
+   position.y += y - topmost_y;
    return;
 }
 
 
 void Placement2D::set_bottommost_coordinate(float y)
 {
-   //float leftmost_x = get_leftmost_coordinate();
-   //position.x += x - leftmost_x;
+   float bottommost_y = get_bottommost_coordinate();
+   position.y -= (bottommost_y - y);
    return;
 }
 
