@@ -471,9 +471,21 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
                   //else targeted_placement = &placement_a;
                //break;
 
-               //case ALLEGRO_KEY_P: // rotate the current targeted placement
-                  //targeted_placement->
-               //break;
+               case ALLEGRO_KEY_1: // Place the placement's top-most coordinate to the current cursor placement
+                  targeted_placement->set_topmost_coordinate(my_y_cursor);
+               break;
+
+               case ALLEGRO_KEY_2: // Place the placement's right-most coordinate to the current cursor placement
+                  targeted_placement->set_rightmost_coordinate(my_x_cursor);
+               break;
+
+               case ALLEGRO_KEY_3: // Place the placement's bottom-most coordinate to the current cursor placement
+                  targeted_placement->set_bottommost_coordinate(my_y_cursor);
+               break;
+
+               case ALLEGRO_KEY_4: // Place the placement's left-most coordinate to the current cursor placement
+                  targeted_placement->set_leftmost_coordinate(my_x_cursor);
+               break;
 
                case ALLEGRO_KEY_TAB: // rotate the current targeted placement
                   targeted_placement->rotation += 0.1f;
@@ -486,16 +498,6 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
                case ALLEGRO_KEY_LEFT: // move the current targeted placement to the left
                   targeted_placement->position.x -= 10.0f;
                break;
-
-               //case ALLEGRO_KEY_RIGHT: // move the current targeted placement to the left
-                  //my_x_cursor += 1.1;
-                  //if (my_x_cursor 1920 - 10) my_x_cursor = 1920 - 10;
-               //break;
-
-               //case ALLEGRO_KEY_LEFT: // move the current targeted placement to the left
-                  //my_x_cursor -= 1.1;
-                  //if (my_x_cursor < 10) my_x_cursor = 10;
-               //break;
 
                case ALLEGRO_KEY_UP: // move the current targeted placement up
                   targeted_placement->position.y -= 10.0f;
