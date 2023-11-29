@@ -56,10 +56,10 @@ namespace AllegroFlare
       float get_rightmost_coordinate();
       float get_topmost_coordinate();
       float get_bottommost_coordinate();
-      //void set_leftmost_coordinate(float x);
-      //void set_rightmost_coordinate(float x);
-      //void set_topmost_coordinate(float y);
-      //void set_bottommost_coordinate(float y);
+      void set_leftmost_coordinate(float x);
+      void set_rightmost_coordinate(float x);
+      void set_topmost_coordinate(float y);
+      void set_bottommost_coordinate(float y);
 
       std::tuple<float, float, float, float> get_outermost_coordinates_trbl();
 

@@ -286,7 +286,7 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    // TODO: Make this TIMED_INTERACTIVE
-   DISABLED__INTERACTIVE__get_real_coordinates__will_return_the_coordinates_of_the_placement)
+   DISABLED__INTERACTIVE__get_nthmost_coordinates__will_return_the_coordinates_of_the_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
    placement_a.rotation = 0.1f;
@@ -381,6 +381,147 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
                case ALLEGRO_KEY_PAD_MINUS: // decrease the targeted placement scale
                   targeted_placement->scale.x -= 0.1f;
                   targeted_placement->scale.y -= 0.1f;
+               break;
+
+               case ALLEGRO_KEY_ESCAPE:
+                  abort = true;
+               break;
+            }
+         }
+         break;
+      }
+   }
+
+   al_destroy_timer(primary_timer);
+   //al_destroy_r(timer);
+}
+
+
+TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
+   // TODO: Make this TIMED_INTERACTIVE
+   //DISABLED__INTERACTIVE__set_nthmost_coordinates__will_move_the_placement_so_the_nthmost_coordinate_is_palced_there)
+   INTERACTIVE__set_nthmost_coordinates__will_move_the_placement_so_the_nthmost_coordinate_is_palced_there)
+{
+   AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
+   placement_a.rotation = 0.1f;
+   placement_a.scale = { 2.0f, 2.0f };
+
+   //AllegroFlare::Placement2D placement_b(700, 400, 150, 140);
+   //placement_b.rotation = 0.02f;
+
+   al_install_keyboard();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+   AllegroFlare::Placement2D *targeted_placement = &placement_a;
+   float my_x_cursor = 1920/3;
+   float my_y_cursor = 1080/3;
+
+   al_start_timer(primary_timer);
+   bool abort = false;
+   while(!abort)
+   {
+      ALLEGRO_EVENT current_event;
+      al_wait_for_event(event_queue, &current_event);
+      switch(current_event.type)
+      {
+         case ALLEGRO_EVENT_TIMER:
+         {
+            al_clear_to_color(AllegroFlare::Color::Nothing);
+            //bool collides = placement_a.collide(placement_b);
+            ALLEGRO_COLOR collides_color = AllegroFlare::Color::Red;
+            placement_a.draw_box(AllegroFlare::color::mintcream, false);
+
+            //float leftmost_coordinate = placement_a.get_leftmost_coordinate();
+            //float rightmost_coordinate = placement_a.get_rightmost_coordinate();
+            //float topmost_coordinate = placement_a.get_topmost_coordinate();
+            //float bottommost_coordinate = placement_a.get_bottommost_coordinate();
+
+            al_draw_line(my_x_cursor, 0, my_x_cursor, 1080, ALLEGRO_COLOR{1, 0.4, 0.4, 1.0}, 2.0);
+            al_draw_line(0, my_y_cursor, 1920, my_y_cursor, ALLEGRO_COLOR{0.4, 0.4, 1.0, 1.0}, 2.0);
+            //al_draw_line(rightmost_coordinate, 0, rightmost_coordinate, 1080, ALLEGRO_COLOR{0.4, 0.4, 1.0, 1.0}, 2.0);
+            //al_draw_line(0, topmost_coordinate, 1920, topmost_coordinate, ALLEGRO_COLOR{0.4, 1.0, 0.4, 1.0}, 2.0);
+            //al_draw_line(0, bottommost_coordinate, 1920, bottommost_coordinate, ALLEGRO_COLOR{1.0, 1.0, 0.4, 1.0}, 2.0);
+
+            //std::tuple<float, float, float, float> edges = placement_a.get_outermost_coordinates_trbl();
+
+            //al_draw_rectangle(
+               //std::get<3>(edges), // left
+               //std::get<0>(edges), // top
+               //std::get<1>(edges), // right
+               //std::get<2>(edges), // bottom
+               //ALLEGRO_COLOR{0.5, 0.9, 1.0, 1.0},
+               //4.0
+            //);
+
+            //placement_b.draw_box(collides ? collides_color : AllegroFlare::color::lightcyan, false);
+            al_flip_display();
+         }
+         break;
+
+         case ALLEGRO_EVENT_KEY_CHAR:
+         {
+            switch(current_event.keyboard.keycode)
+            {
+               //case ALLEGRO_KEY_TAB: // toggle between the two placements
+                  //if (targeted_placement == &placement_a) targeted_placement = &placement_b;
+                  //else targeted_placement = &placement_a;
+               //break;
+
+               //case ALLEGRO_KEY_P: // rotate the current targeted placement
+                  //targeted_placement->
+               //break;
+
+               case ALLEGRO_KEY_TAB: // rotate the current targeted placement
+                  targeted_placement->rotation += 0.1f;
+               break;
+
+               case ALLEGRO_KEY_RIGHT: // move the current targeted placement to the right
+                  targeted_placement->position.x += 10.0f;
+               break;
+
+               case ALLEGRO_KEY_LEFT: // move the current targeted placement to the left
+                  targeted_placement->position.x -= 10.0f;
+               break;
+
+               //case ALLEGRO_KEY_RIGHT: // move the current targeted placement to the left
+                  //my_x_cursor += 1.1;
+                  //if (my_x_cursor 1920 - 10) my_x_cursor = 1920 - 10;
+               //break;
+
+               //case ALLEGRO_KEY_LEFT: // move the current targeted placement to the left
+                  //my_x_cursor -= 1.1;
+                  //if (my_x_cursor < 10) my_x_cursor = 10;
+               //break;
+
+               case ALLEGRO_KEY_UP: // move the current targeted placement up
+                  targeted_placement->position.y -= 10.0f;
+               break;
+
+               case ALLEGRO_KEY_DOWN: // move the current targeted placement down
+                  targeted_placement->position.y += 10.0f;
+               break;
+
+               case ALLEGRO_KEY_PAD_PLUS: // increase the targeted placement scale
+                  targeted_placement->scale.x += 0.1f;
+                  targeted_placement->scale.y += 0.1f;
+               break;
+
+               case ALLEGRO_KEY_PAD_MINUS: // decrease the targeted placement scale
+                  targeted_placement->scale.x -= 0.1f;
+                  targeted_placement->scale.y -= 0.1f;
+               break;
+
+               case ALLEGRO_KEY_PAD_6: // increase the targeted placement scale
+                  my_x_cursor += 1.1;
+                  if (my_x_cursor > 1920 - 10) my_x_cursor = 1920 - 10;
+               break;
+
+               case ALLEGRO_KEY_PAD_4: // increase the targeted placement scale
+                  my_x_cursor -= 1.1;
+                  if (my_x_cursor < 10) my_x_cursor = 10;
                break;
 
                case ALLEGRO_KEY_ESCAPE:
