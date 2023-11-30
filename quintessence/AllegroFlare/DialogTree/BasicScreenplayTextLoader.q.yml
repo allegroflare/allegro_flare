@@ -85,6 +85,7 @@ methods:
          }
          else if (sub_chunks.size() == 1)
          {
+            // TODO: only output this error if the "one-line chunk" is non-blank
             std::cout << "Skipping parsing on one-line chunk: \"" << sub_chunks[0] << "\"" << std::endl;
          }
          else if (sub_chunks.size() >= 2)
