@@ -5,6 +5,7 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
 TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, can_be_created_without_blowing_up)
@@ -15,9 +16,10 @@ TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, can_be_created_witho
 
 TEST(AllegroFlare_DialogTree_BasicScreenplayTextLoaderTest, load__will_build_the_expected_node_bank_for_the_script)
 {
-   std::string script_text = AllegroFlare::php::file_get_contents(
-      "/Users/markoates/Repos/allegro_flare/tests/fixtures/dialogs/basic_screenplay_text.screenplay.txt"
-   );
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string fixture_path = deployment_environment.get_data_folder_path();
+   std::string FIXTURE_FILE = fixture_path + "dialogs/basic_screenplay_text.screenplay.txt";
+   std::string script_text = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
 
    AllegroFlare::DialogTree::BasicScreenplayTextLoader basic_screenplay_text_loader;
    basic_screenplay_text_loader.set_text(script_text);
