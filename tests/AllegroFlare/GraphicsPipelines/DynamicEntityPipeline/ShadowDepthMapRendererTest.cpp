@@ -41,7 +41,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
 
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
-   render__with_objects_in_the_scene__will_render_a_shadow_depth_map_as_expected)
+   CAPTURE__render__with_objects_in_the_scene__will_render_a_shadow_depth_map_as_expected)
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
