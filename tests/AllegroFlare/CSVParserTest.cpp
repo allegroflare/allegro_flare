@@ -3,21 +3,21 @@
 
 #include <AllegroFlare/CSVParser.hpp>
 #include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a test-local fixture file
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
 class AllegroFlare_CSVParserTest: public ::testing::Test {};
 
 class AllegroFlare_CSVParserTestWithLoadedFixture : public ::testing::Test
 {
-private:
-   // TODO: Replace this path with a test-local fixture file
-   std::string FIXTURE_FILE = "/Users/markoates/Repos/allegro_flare/tests/fixtures/csv/game_content_csv.csv";
-
 public:
    AllegroFlare::CSVParser csv_parser;
 
    virtual void SetUp() override
    {
+      AllegroFlare::DeploymentEnvironment deployment_environment("test");
+      std::string fixture_path = deployment_environment.get_data_folder_path();
+      std::string FIXTURE_FILE = fixture_path + "csv/game_content_csv.csv";
       // TODO: Validate existence of test fixture file
       std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
       EXPECT_EQ(false, content.empty());
@@ -125,8 +125,10 @@ TEST_F(AllegroFlare_CSVParserTest, parse__will_parse_the_content)
 
 TEST_F(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
 {
-   // TODO: Replace this path with a test-local fixture file
-   std::string FIXTURE_FILE = "/Users/markoates/Repos/allegro_flare/tests/fixtures/csv/game_content_csv.csv";
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string fixture_path = deployment_environment.get_data_folder_path();
+   std::string FIXTURE_FILE = fixture_path + "csv/game_content_csv.csv";
+
    // TODO: Validate existence of test fixture file
    std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
    EXPECT_EQ(false, content.empty());
