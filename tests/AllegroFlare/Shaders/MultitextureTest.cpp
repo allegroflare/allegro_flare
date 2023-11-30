@@ -6,14 +6,6 @@
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/MultitextureModel3D.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-// TODO: improve this:
-#if defined(_WIN32) || defined(_WIN64)
-      static std::string TEST_FIXTURE_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/bin/data/";
-      static std::string PROPER_TEST_FIXTURE_FOLDER = "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/";
-#else
-      static std::string TEST_FIXTURE_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/data/";
-      static std::string PROPER_TEST_FIXTURE_FOLDER = "/Users/markoates/Repos/allegro_flare/tests/fixtures/";
-#endif
 
 
 class AllegroFlare_Shaders_MultitextureTest : public ::testing::Test {};
