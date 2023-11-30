@@ -1177,7 +1177,10 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                && next_event.type == ALLEGRO_EVENT_TIMER
                && next_event.timer.source == this_event.timer.source)
             {
+               // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
+               // problems as experienced on some machines.
                al_drop_next_event(event_queue);
+               // HERE: Track when and how often events are dropped and see if there is a correlation 
             }
          }
       break;
