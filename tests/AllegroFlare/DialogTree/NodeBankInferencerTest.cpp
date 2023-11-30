@@ -5,6 +5,7 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/BasicScreenplayTextLoader.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
 class AllegroFlare_DialogTree_NodeBankInferencerTest : public ::testing::Test
@@ -12,9 +13,10 @@ class AllegroFlare_DialogTree_NodeBankInferencerTest : public ::testing::Test
 public:
    AllegroFlare::DialogTree::NodeBank build_node_bank()
    {
-      std::string script_text = AllegroFlare::php::file_get_contents(
-         "/Users/markoates/Repos/allegro_flare/tests/fixtures/dialogs/basic_screenplay_text.screenplay.txt"
-      );
+      AllegroFlare::DeploymentEnvironment deployment_environment("test");
+      std::string fixture_path = deployment_environment.get_data_folder_path();
+      std::string FIXTURE_FILE = fixture_path + "dialogs/basic_screenplay_text.screenplay.txt";
+      std::string script_text = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
       AllegroFlare::DialogTree::BasicScreenplayTextLoader basic_screenplay_text_loader;
       basic_screenplay_text_loader.set_text(script_text);
       basic_screenplay_text_loader.load();
