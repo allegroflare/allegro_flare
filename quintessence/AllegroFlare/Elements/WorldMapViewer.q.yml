@@ -172,6 +172,17 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - This component is useful for things like: 
+     - Overworld Map e.g. Mario World
+     - World Map a-la Zelda tears of kingdom
+     - World Map a-la LA Noir
+     - Level Map a-la Super Metroid
+     - Possibly the World Map in MegaMan
+
+
 methods:
 
 
