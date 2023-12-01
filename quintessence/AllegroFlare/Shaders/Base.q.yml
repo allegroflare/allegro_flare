@@ -56,29 +56,39 @@ functions:
 
   - name: display_is_opengl
     type: bool
+    static: true
+    parameters:
+      - name: display
+        type: ALLEGRO_DISPLAY*
+        default_argument: nullptr
+    guards: [ display ]
     body: |
       // TODO: Test this
-      ALLEGRO_DISPLAY *current_display = al_get_current_display();
-      return (ALLEGRO_OPENGL == (al_get_display_flags(current_display) & ALLEGRO_OPENGL));
+      return (ALLEGRO_OPENGL == (al_get_display_flags(display) & ALLEGRO_OPENGL));
 
 
   - name: display_is_programmable_pipeline
     type: bool
+    static: true
+    parameters:
+      - name: display
+        type: ALLEGRO_DISPLAY*
+        default_argument: nullptr
+    guards: [ display ]
     body: |
       // TODO: Test this
-      ALLEGRO_DISPLAY *current_display = al_get_current_display();
-      return (ALLEGRO_PROGRAMMABLE_PIPELINE == (al_get_display_flags(current_display) & ALLEGRO_PROGRAMMABLE_PIPELINE));
+      return (ALLEGRO_PROGRAMMABLE_PIPELINE == (al_get_display_flags(display) & ALLEGRO_PROGRAMMABLE_PIPELINE));
 
 
   - name: initialize
     type: bool
-    guards: [ (!initialized), al_is_system_installed(), al_get_current_display() ]
+    guards:
+      - (!initialized)
+      - al_is_system_installed()
+      - al_get_current_display()
+      - display_is_opengl(al_get_current_display())
+      - display_is_programmable_pipeline(al_get_current_display())
     body: |
-      //bool current_display_is_opengl =
-         //(ALLEGRO_OPENGL == al_get_new_display_flags() & ALLEGRO_OPENGL);
-      //bool allegro_pipeline_is_programmable =
-         //(ALLEGRO_PROGRAMMABLE_PIPELINE == al_get_new_display_flags() & ALLEGRO_PROGRAMMABLE_PIPELINE);
-
       shader = al_create_shader(ALLEGRO_SHADER_GLSL);
       if (!shader) throw std::runtime_error("Could not create Shader");
       attach_source_code();
@@ -402,5 +412,7 @@ dependencies:
     headers: [ AllegroFlare/CubemapTextureBinder.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: ALLEGRO_DISPLAY
+    headers: [ allegro5/allegro.h ]
 
 

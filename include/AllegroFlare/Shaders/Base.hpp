@@ -36,8 +36,8 @@ namespace AllegroFlare
          bool get_initialized() const;
          bool is_type(std::string possible_type="");
          ALLEGRO_SHADER* get_al_shader();
-         bool display_is_opengl();
-         bool display_is_programmable_pipeline();
+         static bool display_is_opengl(ALLEGRO_DISPLAY* display=nullptr);
+         static bool display_is_programmable_pipeline(ALLEGRO_DISPLAY* display=nullptr);
          bool initialize();
          bool attach_source_code(bool throw_on_error=true);
          void destroy();

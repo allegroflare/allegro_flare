@@ -59,18 +59,30 @@ ALLEGRO_SHADER* Base::get_al_shader()
    return shader;
 }
 
-bool Base::display_is_opengl()
+bool Base::display_is_opengl(ALLEGRO_DISPLAY* display)
 {
+   if (!(display))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::display_is_opengl]: error: guard \"display\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::display_is_opengl: error: guard \"display\" not met");
+   }
    // TODO: Test this
-   ALLEGRO_DISPLAY *current_display = al_get_current_display();
-   return (ALLEGRO_OPENGL == (al_get_display_flags(current_display) & ALLEGRO_OPENGL));
+   return (ALLEGRO_OPENGL == (al_get_display_flags(display) & ALLEGRO_OPENGL));
 }
 
-bool Base::display_is_programmable_pipeline()
+bool Base::display_is_programmable_pipeline(ALLEGRO_DISPLAY* display)
 {
+   if (!(display))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::display_is_programmable_pipeline]: error: guard \"display\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::display_is_programmable_pipeline: error: guard \"display\" not met");
+   }
    // TODO: Test this
-   ALLEGRO_DISPLAY *current_display = al_get_current_display();
-   return (ALLEGRO_PROGRAMMABLE_PIPELINE == (al_get_display_flags(current_display) & ALLEGRO_PROGRAMMABLE_PIPELINE));
+   return (ALLEGRO_PROGRAMMABLE_PIPELINE == (al_get_display_flags(display) & ALLEGRO_PROGRAMMABLE_PIPELINE));
 }
 
 bool Base::initialize()
@@ -96,11 +108,20 @@ bool Base::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::initialize: error: guard \"al_get_current_display()\" not met");
    }
-   //bool current_display_is_opengl =
-      //(ALLEGRO_OPENGL == al_get_new_display_flags() & ALLEGRO_OPENGL);
-   //bool allegro_pipeline_is_programmable =
-      //(ALLEGRO_PROGRAMMABLE_PIPELINE == al_get_new_display_flags() & ALLEGRO_PROGRAMMABLE_PIPELINE);
-
+   if (!(display_is_opengl(al_get_current_display())))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::initialize]: error: guard \"display_is_opengl(al_get_current_display())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::initialize: error: guard \"display_is_opengl(al_get_current_display())\" not met");
+   }
+   if (!(display_is_programmable_pipeline(al_get_current_display())))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::initialize]: error: guard \"display_is_programmable_pipeline(al_get_current_display())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::initialize: error: guard \"display_is_programmable_pipeline(al_get_current_display())\" not met");
+   }
    shader = al_create_shader(ALLEGRO_SHADER_GLSL);
    if (!shader) throw std::runtime_error("Could not create Shader");
    attach_source_code();
