@@ -59,6 +59,20 @@ ALLEGRO_SHADER* Base::get_al_shader()
    return shader;
 }
 
+bool Base::display_is_opengl()
+{
+   // TODO: Test this
+   ALLEGRO_DISPLAY *current_display = al_get_current_display();
+   return (ALLEGRO_OPENGL == (al_get_display_flags(current_display) & ALLEGRO_OPENGL));
+}
+
+bool Base::display_is_programmable_pipeline()
+{
+   // TODO: Test this
+   ALLEGRO_DISPLAY *current_display = al_get_current_display();
+   return (ALLEGRO_PROGRAMMABLE_PIPELINE == (al_get_display_flags(current_display) & ALLEGRO_PROGRAMMABLE_PIPELINE));
+}
+
 bool Base::initialize()
 {
    if (!((!initialized)))
@@ -82,6 +96,11 @@ bool Base::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::initialize: error: guard \"al_get_current_display()\" not met");
    }
+   //bool current_display_is_opengl =
+      //(ALLEGRO_OPENGL == al_get_new_display_flags() & ALLEGRO_OPENGL);
+   //bool allegro_pipeline_is_programmable =
+      //(ALLEGRO_PROGRAMMABLE_PIPELINE == al_get_new_display_flags() & ALLEGRO_PROGRAMMABLE_PIPELINE);
+
    shader = al_create_shader(ALLEGRO_SHADER_GLSL);
    if (!shader) throw std::runtime_error("Could not create Shader");
    attach_source_code();
