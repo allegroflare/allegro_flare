@@ -68,6 +68,20 @@ bool Base::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::initialize: error: guard \"(!initialized)\" not met");
    }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::initialize: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_get_current_display()))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::initialize]: error: guard \"al_get_current_display()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::initialize: error: guard \"al_get_current_display()\" not met");
+   }
    shader = al_create_shader(ALLEGRO_SHADER_GLSL);
    if (!shader) throw std::runtime_error("Could not create Shader");
    attach_source_code();

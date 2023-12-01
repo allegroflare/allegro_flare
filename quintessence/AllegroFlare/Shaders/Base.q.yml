@@ -56,7 +56,7 @@ functions:
 
   - name: initialize
     type: bool
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), al_is_system_installed(), al_get_current_display() ]
     body: |
       shader = al_create_shader(ALLEGRO_SHADER_GLSL);
       if (!shader) throw std::runtime_error("Could not create Shader");
