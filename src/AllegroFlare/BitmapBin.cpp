@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -21,7 +22,7 @@ namespace AllegroFlare
       if (!al_is_image_addon_initialized())
       {
          std::cout << CONSOLE_COLOR_RED
-                   << "[BitmapBin::validate] not properly initialized (requires al_init_image_addon()). "
+                   << "[AllegroFlare::BitmapBin::validate] not properly initialized (requires al_init_image_addon()). "
                    << " Will crash probably crash."
                    << CONSOLE_COLOR_DEFAULT
                    << std::endl;
@@ -40,6 +41,16 @@ namespace AllegroFlare
 
    void BitmapBin::destroy_data(ALLEGRO_BITMAP *bmp)
    {
+      if (!al_is_system_installed()) // TODO: Check if al_is_image_addon_initialized() is required for destruction
+      {
+         // TODO: Test this
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::BitmapBin::destroy_data",
+            "Cannot call al_destroy_bitmap when system is not installed, this will likely result in a crash. Usually "
+               "this occurs when the system has already been shutdown, but BitmapBin::~BitmapBin() is called after."
+         );
+      }
+
       al_destroy_bitmap(bmp);
    }
 }
