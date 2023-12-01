@@ -27179,10 +27179,10 @@ table td
   <td class="method">get_al_shader()</td>
 </tr>
 <tr>
-  <td class="method">display_is_opengl()</td>
+  <td class="method">display_is_opengl(ALLEGRO_DISPLAY* display=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">display_is_programmable_pipeline()</td>
+  <td class="method">display_is_programmable_pipeline(ALLEGRO_DISPLAY* display=nullptr)</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -27261,6 +27261,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36059,6 +36062,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
