@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 
+#include <AllegroFlare/AllegroContributorsList.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp>
 #include <AllegroFlare/LegalClauseGenerator.hpp>
 #include <iostream>
@@ -100,6 +102,15 @@ AllegroFlare::Elements::RollingCredits::Sections::Spacer* SectionFactory::create
 {
    AllegroFlare::Elements::RollingCredits::Sections::Spacer* section =
      new AllegroFlare::Elements::RollingCredits::Sections::Spacer(section_spacer_width);
+   return section;
+}
+
+AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* SectionFactory::create_allegro5_contributors()
+{
+   AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* section =
+     new AllegroFlare::Elements::RollingCredits::Sections::Multicolumn();
+   std::vector<std::string> list = AllegroFlare::AllegroContributorsList::build_allegro_5_contributors_list();
+   section->set_elements({ list });
    return section;
 }
 

@@ -110,6 +110,19 @@ methods:
       - AllegroFlare::Elements::RollingCredits::Sections::Spacer
 
 
+  - name: create_allegro5_contributors
+    type: AllegroFlare::Elements::RollingCredits::Sections::Multicolumn*
+    body: |
+      AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* section =
+        new AllegroFlare::Elements::RollingCredits::Sections::Multicolumn();
+      std::vector<std::string> list = AllegroFlare::AllegroContributorsList::build_allegro_5_contributors_list();
+      section->set_elements({ list });
+      return section;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::RollingCredits::Sections::Multicolumn
+      - AllegroFlare::AllegroContributorsList
+
+
   - name: create_standard_disclaimers_text
     type: std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*>
     parameters:
@@ -156,6 +169,10 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Spacer
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Multicolumn
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.hpp ]
+  - symbol: AllegroFlare::AllegroContributorsList
+    headers: [ AllegroFlare/AllegroContributorsList.hpp ]
   - symbol: AllegroFlare::LegalClauseGenerator
     headers: [ AllegroFlare/LegalClauseGenerator.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base

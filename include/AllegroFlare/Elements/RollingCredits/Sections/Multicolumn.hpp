@@ -29,7 +29,9 @@ namespace AllegroFlare
                Multicolumn(std::vector<std::vector<std::string>> elements={});
                ~Multicolumn();
 
+               void set_elements(std::vector<std::vector<std::string>> elements);
                std::vector<std::vector<std::string>> get_elements() const;
+               static std::vector<std::vector<std::string>> split_into_columns(std::vector<std::string> names={}, int num_columns=3);
             };
          }
       }

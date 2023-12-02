@@ -10508,6 +10508,9 @@ table td
   <td class="method">create_section_spacer()</td>
 </tr>
 <tr>
+  <td class="method">create_allegro5_contributors()</td>
+</tr>
+<tr>
   <td class="method">create_standard_disclaimers_text(std::string company_name=&quot;this company&quot;, std::vector&lt;std::string&gt; non_endorced_software_and_software_company_names={})</td>
 </tr>
     </table>
@@ -10527,6 +10530,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Spacer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Multicolumn&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AllegroContributorsList&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AllegroContributorsList.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LegalClauseGenerator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LegalClauseGenerator.hpp&quot;]}</td>
@@ -11116,6 +11125,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">split_into_columns(std::vector&lt;std::string&gt; names={}, int num_columns=3)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -35870,6 +35882,12 @@ table td
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Spacer": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Multicolumn": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/AllegroContributorsList": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
   "AllegroFlare/LegalClauseGenerator": [

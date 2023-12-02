@@ -2058,6 +2058,12 @@
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Multicolumn": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
+  "AllegroFlare/AllegroContributorsList": [
+    "AllegroFlare/Elements/RollingCredits/SectionFactory"
+  ],
   "AllegroFlare/LegalClauseGenerator": [
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
