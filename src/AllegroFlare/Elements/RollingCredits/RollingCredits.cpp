@@ -266,6 +266,7 @@ float RollingCredits::render_or_calculate_height(bool only_calculate_height_dont
                font_bin,
                as->get_elements()
             );
+         renderer.set_element_alignment("centered");
          renderer.set_x(surface_center);
          renderer.set_y(cursor_y);
          this_section_height = renderer.render(only_calculate_height_dont_render);
