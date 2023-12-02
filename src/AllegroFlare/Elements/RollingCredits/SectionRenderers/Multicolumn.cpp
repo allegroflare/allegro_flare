@@ -190,14 +190,22 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
          }
          cursor_y += y_spacing;
       }
-      cursor_x += column_width;
 
       // Store the column heights
       float column_height = cursor_y;
       column_heights.push_back(column_height);
 
-      // Render debug line
-      al_draw_line(xx + cursor_x, y, xx + cursor_x, y+column_height, ALLEGRO_COLOR{0.65, 0.69, 0.9, 1.0}, 2.0f);
+      // Render debug rectangle container for this column
+      al_draw_rectangle(
+         xx + cursor_x,
+         y,
+         xx + cursor_x + column_width,
+         y+column_height,
+         ALLEGRO_COLOR{0.65, 0.69, 0.9, 1.0},
+         2.0f
+      );
+
+      cursor_x += column_width;
    }
 
    if (column_heights.empty()) return 0; // TODO: Test this
