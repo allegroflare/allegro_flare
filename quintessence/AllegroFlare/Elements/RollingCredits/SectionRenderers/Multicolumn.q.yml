@@ -106,7 +106,8 @@ methods:
     body: |
       std::set<std::string> valid_element_alignments = {
          "left",
-         "centered"
+         "centered",
+         "right"
       };
       return (valid_element_alignments.count(element_alignment) != 0);
     body_dependency_symbols:
@@ -125,9 +126,30 @@ methods:
       std::map<std::string, int> al_element_alignments = {
          { "left",     ALLEGRO_ALIGN_LEFT },
          { "centered", ALLEGRO_ALIGN_CENTER },
+         { "right",    ALLEGRO_ALIGN_RIGHT },
       };
       if (al_element_alignments.count(element_alignment) == 0) throw std::runtime_error("asdfasfasdf");
       return al_element_alignments[element_alignment];
+    body_dependency_symbols:
+      - std::map
+
+
+  - name: infer_text_alignment_x_offset
+    static: true
+    type: float
+    parameters:
+      - name: element_alignment
+        type: std::string
+        default_argument: '"[unset-element_alignment]"'
+    guards: [ valid_element_alignment(element_alignment) ]
+    body: |
+      std::map<std::string, float> element_alignment_offsets = {
+         { "left",     0.0f },
+         { "centered", 0.5f },
+         { "right",    1.0f },
+      };
+      if (element_alignment_offsets.count(element_alignment) == 0) throw std::runtime_error("asxxxdfasfasdf");
+      return element_alignment_offsets[element_alignment];
     body_dependency_symbols:
       - std::map
 
@@ -154,13 +176,21 @@ methods:
       float xx = (x - width / 2);
       std::vector<float> column_heights;
       int alignment = infer_al_text_alignment(element_alignment);
+      float text_alignment_x_offset = infer_text_alignment_x_offset(element_alignment);
       for (auto &column : elements)
       {
          for (auto &column_element : column)
          {
             if (is_rendering)
             {
-               al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, alignment, column_element.c_str());
+               al_draw_text(
+                  font,
+                  text_color,
+                  xx + cursor_x + (column_width * text_alignment_x_offset),
+                  y + cursor_y,
+                  alignment,
+                  column_element.c_str()
+               );
             }
             cursor_y += y_spacing;
          }

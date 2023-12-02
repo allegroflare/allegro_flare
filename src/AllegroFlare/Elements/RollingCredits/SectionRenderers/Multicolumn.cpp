@@ -174,7 +174,8 @@ bool Multicolumn::valid_element_alignment(std::string element_alignment)
 {
    std::set<std::string> valid_element_alignments = {
       "left",
-      "centered"
+      "centered",
+      "right"
    };
    return (valid_element_alignments.count(element_alignment) != 0);
 }
@@ -191,9 +192,28 @@ int Multicolumn::infer_al_text_alignment(std::string element_alignment)
    std::map<std::string, int> al_element_alignments = {
       { "left",     ALLEGRO_ALIGN_LEFT },
       { "centered", ALLEGRO_ALIGN_CENTER },
+      { "right",    ALLEGRO_ALIGN_RIGHT },
    };
    if (al_element_alignments.count(element_alignment) == 0) throw std::runtime_error("asdfasfasdf");
    return al_element_alignments[element_alignment];
+}
+
+float Multicolumn::infer_text_alignment_x_offset(std::string element_alignment)
+{
+   if (!(valid_element_alignment(element_alignment)))
+   {
+      std::stringstream error_message;
+      error_message << "[Multicolumn::infer_text_alignment_x_offset]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Multicolumn::infer_text_alignment_x_offset: error: guard \"valid_element_alignment(element_alignment)\" not met");
+   }
+   std::map<std::string, float> element_alignment_offsets = {
+      { "left",     0.0f },
+      { "centered", 0.5f },
+      { "right",    1.0f },
+   };
+   if (element_alignment_offsets.count(element_alignment) == 0) throw std::runtime_error("asxxxdfasfasdf");
+   return element_alignment_offsets[element_alignment];
 }
 
 float Multicolumn::render(bool only_calculate_height_dont_render)
@@ -231,13 +251,21 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
    float xx = (x - width / 2);
    std::vector<float> column_heights;
    int alignment = infer_al_text_alignment(element_alignment);
+   float text_alignment_x_offset = infer_text_alignment_x_offset(element_alignment);
    for (auto &column : elements)
    {
       for (auto &column_element : column)
       {
          if (is_rendering)
          {
-            al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, alignment, column_element.c_str());
+            al_draw_text(
+               font,
+               text_color,
+               xx + cursor_x + (column_width * text_alignment_x_offset),
+               y + cursor_y,
+               alignment,
+               column_element.c_str()
+            );
          }
          cursor_y += y_spacing;
       }

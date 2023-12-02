@@ -100,15 +100,16 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
          { "Tayyibah Samuels" },
          { "Ryker Odling" },
          { "Yuki Nakamura" },
-         { "Aiza Rivera" },
       },
       {
          { "Annaliese Bauer" },
          { "Anya Schofield" },
          { "Ellenor Cote" },
          { "Emily Davis" },
+         { "Aiza Rivera" },
       },
       {
+         { "Kaito Tanaka" },
          { "Marcus Bennett" },
          { "Natalie Hayes" },
          { "Jordan Parker" },

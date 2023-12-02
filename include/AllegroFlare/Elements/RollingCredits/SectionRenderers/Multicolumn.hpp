@@ -64,6 +64,7 @@ namespace AllegroFlare
                void set_element_alignment(std::string element_alignment="[unset-element_alignment]");
                static bool valid_element_alignment(std::string element_alignment="[unset-element_alignment]");
                static int infer_al_text_alignment(std::string element_alignment="[unset-element_alignment]");
+               static float infer_text_alignment_x_offset(std::string element_alignment="[unset-element_alignment]");
                virtual float render(bool only_calculate_height_dont_render=false) override;
             };
          }
