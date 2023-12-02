@@ -1,43 +1,9 @@
 
 #include <gtest/gtest.h>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
-
-/*
-#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.hpp>
-
-
-TEST(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest, can_be_created_without_blowing_up)
-{
-   AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn multicolumn;
-}
-
-
-TEST(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest, TYPE__has_the_expected_value)
-{
-   EXPECT_STREQ(
-     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
-     AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::TYPE
-   );
-}
-
-
-TEST(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest, type__has_the_expected_value_matching_TYPE)
-{
-   AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn multicolumn;
-   EXPECT_EQ(AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::TYPE, multicolumn.get_type());
-}
-*/
-
-
-
-#include <gtest/gtest.h>
-
-//#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   //try { code; FAIL() << "Expected " # raised_exception_type; } \
-   //catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   //catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+
+#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.hpp>
 
 
 class AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest : public ::testing::Test
@@ -46,15 +12,6 @@ class AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest : pu
 class AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
-
-
-#include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.hpp>
-
-
-//TEST(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest, can_be_created_without_blowing_up)
-//{
-   //AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn multicolumn;
-//}
 
 
 TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest, can_be_created_without_blowing_up)
