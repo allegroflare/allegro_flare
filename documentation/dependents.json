@@ -2058,7 +2058,11 @@
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
   "AllegroFlare/Elements/RollingCredits/Sections/Multicolumn": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
   "AllegroFlare/AllegroContributorsList": [

@@ -10458,6 +10458,12 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Spacer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Multicolumn&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -10846,6 +10852,10 @@ table td
 <tr>
   <td class="property">gutter_width</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">draw_debugging_guides</td>
+  <td class="property">bool</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -35884,7 +35894,11 @@ table td
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
+  "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits"
+  ],
   "AllegroFlare/Elements/RollingCredits/Sections/Multicolumn": [
+    "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionFactory"
   ],
   "AllegroFlare/AllegroContributorsList": [

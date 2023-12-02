@@ -33,6 +33,7 @@ namespace AllegroFlare
                int font_size;
                ALLEGRO_COLOR text_color;
                float gutter_width;
+               bool draw_debugging_guides;
                ALLEGRO_FONT* obtain_font();
 
             protected:
@@ -51,6 +52,7 @@ namespace AllegroFlare
                void set_font_size(int font_size);
                void set_text_color(ALLEGRO_COLOR text_color);
                void set_gutter_width(float gutter_width);
+               void set_draw_debugging_guides(bool draw_debugging_guides);
                AllegroFlare::FontBin* get_font_bin() const;
                std::vector<std::vector<std::string>> get_elements() const;
                float get_x() const;
@@ -61,6 +63,7 @@ namespace AllegroFlare
                int get_font_size() const;
                ALLEGRO_COLOR get_text_color() const;
                float get_gutter_width() const;
+               bool get_draw_debugging_guides() const;
                void set_element_alignment(std::string element_alignment="[unset-element_alignment]");
                static bool valid_element_alignment(std::string element_alignment="[unset-element_alignment]");
                static int infer_al_text_alignment(std::string element_alignment="[unset-element_alignment]");

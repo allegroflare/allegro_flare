@@ -75,6 +75,12 @@ properties:
     setter: true
     constructor_arg: true
 
+  - name: draw_debugging_guides
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"'
@@ -165,7 +171,6 @@ methods:
     guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_primitives_addon_initialized() ]
     body: |
       bool is_rendering = (!only_calculate_height_dont_render);
-      bool draw_debugging_guides = true;
       ALLEGRO_FONT *font = obtain_font();
       float cursor_x = 0;
       float cursor_y = 0;

@@ -34,6 +34,7 @@ Multicolumn::Multicolumn(AllegroFlare::FontBin* font_bin, std::vector<std::vecto
    , font_size(-32)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , gutter_width(gutter_width)
+   , draw_debugging_guides(false)
 {
 }
 
@@ -97,6 +98,12 @@ void Multicolumn::set_gutter_width(float gutter_width)
 }
 
 
+void Multicolumn::set_draw_debugging_guides(bool draw_debugging_guides)
+{
+   this->draw_debugging_guides = draw_debugging_guides;
+}
+
+
 AllegroFlare::FontBin* Multicolumn::get_font_bin() const
 {
    return font_bin;
@@ -154,6 +161,12 @@ ALLEGRO_COLOR Multicolumn::get_text_color() const
 float Multicolumn::get_gutter_width() const
 {
    return gutter_width;
+}
+
+
+bool Multicolumn::get_draw_debugging_guides() const
+{
+   return draw_debugging_guides;
 }
 
 
@@ -240,7 +253,6 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
       throw std::runtime_error("Multicolumn::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    bool is_rendering = (!only_calculate_height_dont_render);
-   bool draw_debugging_guides = true;
    ALLEGRO_FONT *font = obtain_font();
    float cursor_x = 0;
    float cursor_y = 0;

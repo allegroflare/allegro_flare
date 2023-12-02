@@ -109,8 +109,10 @@ AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* SectionFactory::c
 {
    AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* section =
      new AllegroFlare::Elements::RollingCredits::Sections::Multicolumn();
-   std::vector<std::string> list = AllegroFlare::AllegroContributorsList::build_allegro_5_contributors_list();
-   section->set_elements({ list });
+   std::vector<std::string> names = AllegroFlare::AllegroContributorsList::build_allegro_5_contributors_list();
+   section->set_elements(
+      AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns(names, 3)
+   );
    return section;
 }
 

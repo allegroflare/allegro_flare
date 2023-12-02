@@ -180,6 +180,19 @@ functions:
             renderer.set_y(cursor_y);
             this_section_height = renderer.render(only_calculate_height_dont_render);
          }
+         else if (section->is_type(AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::TYPE))
+         {
+            AllegroFlare::Elements::RollingCredits::Sections::Multicolumn *as =
+               static_cast<AllegroFlare::Elements::RollingCredits::Sections::Multicolumn*>(section);
+
+            AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn renderer(
+                  font_bin,
+                  as->get_elements()
+               );
+            renderer.set_x(surface_center);
+            renderer.set_y(cursor_y);
+            this_section_height = renderer.render(only_calculate_height_dont_render);
+         }
          else if (section->is_type(AllegroFlare::Elements::RollingCredits::Sections::Spacer::TYPE))
          {
             AllegroFlare::Elements::RollingCredits::Sections::Spacer *as =
@@ -213,6 +226,8 @@ functions:
       - AllegroFlare::Elements::RollingCredits::Sections::LegalText
       - AllegroFlare::Elements::RollingCredits::SectionRenderers::LegalText
       - AllegroFlare::Elements::RollingCredits::Sections::Spacer
+      - AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn
+      - AllegroFlare::Elements::RollingCredits::Sections::Multicolumn
 
 
   - name: obtain_font
@@ -250,5 +265,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/LegalText.hpp ]
   - symbol: AllegroFlare::Elements::RollingCredits::Sections::Spacer
     headers: [ AllegroFlare/Elements/RollingCredits/Sections/Spacer.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.hpp ]
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Multicolumn
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.hpp ]
 
 
