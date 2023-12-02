@@ -1,0 +1,138 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    scope: public
+    init_with: AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::TYPE
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: elements
+    type: std::vector<std::tuple<std::string, std::string>>
+    init_with: '{}'
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Regular.ttf"'
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -32
+    getter: true
+    setter: true
+
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: gutter_width
+    type: float
+    init_with: 40.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"'
+    static: true
+    constexpr: true
+
+
+functions:
+
+
+  - name: render
+    type: float
+    virtual: true
+    override: true
+    parameters:
+      - name: only_calculate_height_dont_render
+        type: bool
+        default_argument: false
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    body: |
+      ALLEGRO_FONT *font = obtain_font();
+      float cursor_y = 0;
+      float h_gutter_width = gutter_width * 0.5;
+      float y_spacing = al_get_font_line_height(font) + 4;
+      // float line_height = al_get_font_line_height(font); // for multiline-text
+      for (auto &element : elements)
+      {
+         if (!only_calculate_height_dont_render)
+         {
+            std::string label = std::get<0>(element);
+            std::string value = std::get<1>(element);
+
+            // draw the label
+            al_draw_text(font, text_color, x - h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_RIGHT, label.c_str());
+
+            // draw the value
+            al_draw_text(font, text_color, x + h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_LEFT, value.c_str());
+         }
+
+         cursor_y += y_spacing;
+      }
+      return cursor_y;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier;
+      font_identifier << font_name << " " << font_size;
+      return font_bin->auto_get(font_identifier.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: std::vector<std::tuple<std::string, std::string>>
+    headers: [ vector, tuple, string ]
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+
+

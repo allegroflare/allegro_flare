@@ -186,11 +186,13 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Header.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Header.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Header.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/LegalText.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/LegalText.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Spacer.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Spacer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/Sections/Text.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Score.q.yml">quintessence/AllegroFlare/Elements/Score.q.yml</a></li>
@@ -10792,6 +10794,84 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">elements</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">font_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">gutter_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render(bool only_calculate_height_dont_render=false)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionRenderers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Text.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -10979,6 +11059,32 @@ table td
 <tr>
   <td class="property">ALIGN_CENTER</td>
   <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">elements</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -34011,6 +34117,8 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -34129,6 +34237,8 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -34503,6 +34613,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -35697,6 +35808,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/Sections/Header",
     "AllegroFlare/Elements/RollingCredits/Sections/LegalText",
+    "AllegroFlare/Elements/RollingCredits/Sections/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/Sections/Spacer",
     "AllegroFlare/Elements/RollingCredits/Sections/Text",
     "AllegroFlare/GameConfigurations/Complete",
@@ -35744,10 +35856,12 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text"
   ],
   "std/vector<std/tuple<std/string, std/string>>": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
   ],
   "std/setfill": [
