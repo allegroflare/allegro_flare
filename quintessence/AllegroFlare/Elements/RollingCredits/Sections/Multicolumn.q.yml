@@ -1,0 +1,31 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::RollingCredits::Sections::Base
+    scope: public
+    init_with: AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::TYPE
+
+
+properties:
+
+
+  - name: elements
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/RollingCredits/Sections/Multicolumn"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::RollingCredits::Sections::Base
+    headers: [ AllegroFlare/Elements/RollingCredits/Sections/Base.hpp ]
+
+
