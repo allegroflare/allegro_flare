@@ -212,12 +212,19 @@ float RollingCredits::render_or_calculate_height(bool only_calculate_height_dont
       if (section->is_type("Header"))
       {
          Sections::Header *typed_section = static_cast<Sections::Header*>(section);
+
+         // upcase_titles
+         std::string title_text = typed_section->get_text();
+         std::transform(title_text.begin(), title_text.end(), title_text.begin(), ::toupper);
+
          SectionRenderers::Header renderer(
                font_bin,
-               typed_section->get_text()
+               title_text
             );
          renderer.set_x(surface_center);
          renderer.set_y(cursor_y);
+         renderer.set_font_name("PathwayGothicOne-Regular.ttf");
+         renderer.set_font_size(-58);
          this_section_height = renderer.render(only_calculate_height_dont_render);
       }
       else if (section->is_type("ColumnWithLabels"))

@@ -154,7 +154,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
    rolling_credits.set_sections({
       new AllegroFlare::Elements::RollingCredits::Sections::Header("People who have contributed code to Allegro 5"),
-      section_factory.create_allegro5_contributors_list(4)
+      section_factory.create_allegro5_contributors_list(3)
    });
 
    rolling_credits.render();
@@ -208,7 +208,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    float calculated_height = rolling_credits.calculate_height();
    float surface_center = rolling_credits.get_surface_width() / 2;
 
-   EXPECT_EQ(245, calculated_height);
+   EXPECT_EQ(273, calculated_height);
 
    // TODO: destroy sections
 }
