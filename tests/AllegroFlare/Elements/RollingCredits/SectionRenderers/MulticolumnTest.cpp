@@ -70,7 +70,6 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
          { "Tayyibah Samuels" },
          { "Ryker Odling" },
       },
-
       {
          { "Aiza Rivera" },
          { "Annaliese Bauer" },
@@ -92,7 +91,34 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
 TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWithAllegroRenderingFixture,
    render__will_return_the_height_of_the_section)
 {
-   // TODO
+   AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn column_with_labels_section_renderer(
+      &get_font_bin_ref(), {}, 1920/2, 1080/2, 1920-600
+   );
+   column_with_labels_section_renderer.set_elements({
+      {
+         { "Robyn Kendall" },
+         { "Tayyibah Samuels" },
+         { "Ryker Odling" },
+      },
+      {
+         { "Aiza Rivera" },
+         { "Annaliese Bauer" },
+         { "Anya Schofield" },
+         { "Ellenor Cote" },
+      },
+      {
+         { "Katy Swanson" },
+         { "Melina Kelly" },
+         { "Abby Burton" },
+      },
+   });
+
+   float expected_height = 144;
+   float actual_height = column_with_labels_section_renderer.render(true);
+   EXPECT_FLOAT_EQ(expected_height, actual_height);
 }
+
+
+// TODO: Add test that nothing is rendered when render(true) is called
 
 
