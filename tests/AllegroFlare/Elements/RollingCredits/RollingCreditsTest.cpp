@@ -144,6 +144,27 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
 }
 
 
+#include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_allegro_contributors_nicely)
+{
+   //TODO: Move this test somewhere else, in another class or something
+   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new AllegroFlare::Elements::RollingCredits::Sections::Header("People who have contributed code to Allegro 5"),
+      section_factory.create_allegro5_contributors_list(4)
+   });
+
+   rolling_credits.render();
+   al_flip_display();
+   sleep_for(1);
+
+   // TODO: destroy sections
+}
+
+
 TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
    CAPTURE__render__will_render_multiple_sections_with_a_divider)
 {

@@ -44,7 +44,7 @@ namespace AllegroFlare
             AllegroFlare::Elements::RollingCredits::Sections::Text* create_text(std::string text={}, std::string alignment=AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_LEFT);
             AllegroFlare::Elements::RollingCredits::Sections::Spacer* create_spacer();
             AllegroFlare::Elements::RollingCredits::Sections::Spacer* create_section_spacer();
-            AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* create_allegro5_contributors();
+            AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* create_allegro5_contributors_list(int num_columns=3);
             std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> create_standard_disclaimers_text(std::string company_name="this company", std::vector<std::string> non_endorced_software_and_software_company_names={});
          };
       }

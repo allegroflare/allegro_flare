@@ -110,14 +110,19 @@ methods:
       - AllegroFlare::Elements::RollingCredits::Sections::Spacer
 
 
-  - name: create_allegro5_contributors
+  - name: create_allegro5_contributors_list
     type: AllegroFlare::Elements::RollingCredits::Sections::Multicolumn*
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 3
+    guards: [ (num_columns > 0) ]
     body: |
       AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* section =
         new AllegroFlare::Elements::RollingCredits::Sections::Multicolumn();
       std::vector<std::string> names = AllegroFlare::AllegroContributorsList::build_allegro_5_contributors_list();
       section->set_elements(
-         AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns(names, 3)
+         AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns(names, num_columns)
       );
       return section;
     body_dependency_symbols:

@@ -105,13 +105,20 @@ AllegroFlare::Elements::RollingCredits::Sections::Spacer* SectionFactory::create
    return section;
 }
 
-AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* SectionFactory::create_allegro5_contributors()
+AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* SectionFactory::create_allegro5_contributors_list(int num_columns)
 {
+   if (!((num_columns > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[SectionFactory::create_allegro5_contributors_list]: error: guard \"(num_columns > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SectionFactory::create_allegro5_contributors_list: error: guard \"(num_columns > 0)\" not met");
+   }
    AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* section =
      new AllegroFlare::Elements::RollingCredits::Sections::Multicolumn();
    std::vector<std::string> names = AllegroFlare::AllegroContributorsList::build_allegro_5_contributors_list();
    section->set_elements(
-      AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns(names, 3)
+      AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns(names, num_columns)
    );
    return section;
 }
