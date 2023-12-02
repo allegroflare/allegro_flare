@@ -50,30 +50,34 @@ std::vector<std::vector<std::string>> Multicolumn::split_into_columns(std::vecto
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Multicolumn::split_into_columns: error: guard \"(num_columns >= 1)\" not met");
    }
-   std::vector<std::vector<std::string>> result; //(num_rows, std::vector<std::string>(num_columns, ""));
+   std::vector<std::vector<std::string>> result;
 
-   int items_per_column = static_cast<int>(std::ceil(static_cast<double>(names.size()) / num_columns));
+   std::string default_fill = "";
+   int min_items_per_column = (int)names.size() / num_columns;
+   int remaining_items_to_distribute = (int)names.size() % num_columns;
 
-   //std::cout << 
+   std::cout << "min: " << min_items_per_column << " - remain: " << remaining_items_to_distribute << std::endl;
 
-   int item_count_in_this_column = 0;
-   std::vector<std::string> column;
-   int i=0;
-   for (i=0; i<(int)names.size(); ++i)
+   // Distribute the known minimum number of elements among the containers
+   for (int i=0; i<num_columns; i++) result.push_back(std::vector<std::string>(min_items_per_column, default_fill));
+
+   // Distribute the remainders starting from the left (In the future consider filling center columns first)
+   for (int i=0; i<remaining_items_to_distribute; i++) result[i].push_back(default_fill);
+
+   // Fill the containers with the items
+   int row_num = 0;
+   int column_num = 0;
+   for (int i=0; i<names.size(); i++)
    {
-      column.push_back(names[i]);
-      item_count_in_this_column++;
+      result[column_num][row_num] = names[i];
 
-      if (item_count_in_this_column >= items_per_column)
+      row_num++;
+      if (row_num >= result[column_num].size())
       {
-         item_count_in_this_column = 0;
-         result.push_back(column);
-         column.clear();
+         column_num++;
+         row_num = 0;
       }
    }
-
-   // Append the last column if it is incomplete
-   if (!column.empty()) result.push_back(column);
 
    return result;
 }

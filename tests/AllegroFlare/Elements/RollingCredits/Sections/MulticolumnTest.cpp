@@ -27,18 +27,18 @@ TEST(AllegroFlare_Elements_RollingCredits_Sections_MulticolumnTest, type__has_th
 
 
 TEST(AllegroFlare_Elements_RollingCredits_Sections_MulticolumnTest,
-   DISABLED__split_into_columns__will_return_the_original_elements_distributed_into_columns)
+   split_into_columns__will_return_the_original_elements_distributed_into_columns)
 {
    int num_columns = 3;
-   std::vector<std::string> elements = { "foo", "bar", "biz", "baz", "booz", "biz", "borz" };
+   std::vector<std::string> elements = { "foo", "bar", "biz", "baz", "booz", "bohz", "biz", "borz" };
    std::vector<std::vector<std::string>> expected = {
-      { "foo",  "bar" },
-      { "biz",  "baz" },
-      { "booz", "biz" },
+      { "foo", "bar",  "biz" },
+      { "baz", "booz", "bohz" },
+      { "biz", "borz" },
    };
    std::vector<std::vector<std::string>> actual =
       AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns(elements, num_columns);
-   EXPECT_EQ(3, actual.size());
+   EXPECT_EQ(num_columns, actual.size());
    EXPECT_EQ(expected, actual);
 }
 
