@@ -739,6 +739,7 @@
   ],
   "AllegroFlare/Useful": [
     "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"

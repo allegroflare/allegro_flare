@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.hpp>
 
+#include <AllegroFlare/Useful.hpp>
 #include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -170,18 +171,18 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Multicolumn::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   bool draw_debugging_guides = true;
    ALLEGRO_FONT *font = obtain_font();
    float cursor_x = 0;
    float cursor_y = 0;
    float h_gutter_width = gutter_width * 0.5;
    float y_spacing = al_get_font_line_height(font) + 4;
    // float line_height = al_get_font_line_height(font); // for multiline-text
-   float column_width = (width - (gutter_width * elements.size())) / (float)elements.size();
+   float column_width = (width - (gutter_width * (elements.size() - 1))) / (float)elements.size();
    float xx = (x - width / 2);
    std::vector<float> column_heights;
    for (auto &column : elements)
    {
-      cursor_y = 0;
       for (auto &column_element : column)
       {
          if (!only_calculate_height_dont_render)
@@ -196,16 +197,27 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
       column_heights.push_back(column_height);
 
       // Render debug rectangle container for this column
-      al_draw_rectangle(
-         xx + cursor_x,
-         y,
-         xx + cursor_x + column_width,
-         y+column_height,
-         ALLEGRO_COLOR{0.65, 0.69, 0.9, 1.0},
-         2.0f
-      );
+      if (draw_debugging_guides)
+      {
+         al_draw_rectangle(
+            xx + cursor_x,
+            y,
+            xx + cursor_x + column_width,
+            y+column_height,
+            ALLEGRO_COLOR{0.65, 0.69, 0.9, 1.0},
+            2.0f
+         );
+      }
 
-      cursor_x += column_width;
+      // Advance to the next column
+      cursor_y = 0;
+      cursor_x += (column_width + gutter_width);
+   }
+
+   // Render more debugging
+   if (draw_debugging_guides)
+   {
+      AllegroFlare::draw_crosshair(x, y, ALLEGRO_COLOR{0.9, 0.3, 0.25, 1.0}, 50);
    }
 
    if (column_heights.empty()) return 0; // TODO: Test this
