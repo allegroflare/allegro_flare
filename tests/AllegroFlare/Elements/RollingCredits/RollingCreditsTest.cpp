@@ -12,6 +12,7 @@
 #include <AllegroFlare/Elements/RollingCredits/Sections/Header.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Multicolumn.hpp>
 
 
 class AllegroFlare_Elements_RollingCredits_RollingCreditsTest : public ::testing::Test
@@ -93,6 +94,51 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    rolling_credits.render();
    al_flip_display();
    //sleep_for(1);
+
+   // TODO: destroy sections
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_a_Multicolumn_section)
+{
+   //using namespace AllegroFlare::Elements::RollingCredits::Sections;
+
+   AllegroFlare::Elements::RollingCredits::RollingCredits rolling_credits(&get_font_bin_ref());
+   rolling_credits.set_sections({
+      new AllegroFlare::Elements::RollingCredits::Sections::Multicolumn({
+         {
+            { "Robyn Kendall" },
+            { "Tayyibah Samuels" },
+            { "Ryker Odling" },
+            { "Yuki Nakamura" },
+         },
+         {
+            { "Annaliese Bauer" },
+            { "Anya Schofield" },
+            { "Ellenor Cote" },
+            { "Emily Davis" },
+            { "Aiza Rivera" },
+         },
+         {
+            { "Kaito Tanaka" },
+            { "Marcus Bennett" },
+            { "Natalie Hayes" },
+            { "Jordan Parker" },
+            { "Morgan Reynolds" },
+         },
+         {
+            { "Katy Swanson" },
+            { "Melina Kelly" },
+            { "Ryu Kim" },
+            { "Abby Burton" },
+         },
+      }),
+   });
+
+   rolling_credits.render();
+   al_flip_display();
+   sleep_for(1);
 
    // TODO: destroy sections
 }

@@ -39,7 +39,7 @@ properties:
 
   - name: width
     type: float
-    init_with: 1920.0f
+    init_with: (1920.0f / 4 * 3)
     getter: true
     setter: true
     constructor_arg: true

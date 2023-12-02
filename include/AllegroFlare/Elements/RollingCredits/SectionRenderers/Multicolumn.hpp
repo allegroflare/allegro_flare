@@ -40,7 +40,7 @@ namespace AllegroFlare
 
 
             public:
-               Multicolumn(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::vector<std::string>> elements={}, float x=0.0f, float y=0.0f, float width=1920.0f, float gutter_width=40.0f);
+               Multicolumn(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::vector<std::string>> elements={}, float x=0.0f, float y=0.0f, float width=(1920.0f / 4 * 3), float gutter_width=40.0f);
                virtual ~Multicolumn();
 
                void set_font_bin(AllegroFlare::FontBin* font_bin);
