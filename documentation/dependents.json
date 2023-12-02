@@ -327,7 +327,6 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -447,7 +446,6 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -517,6 +515,7 @@
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -2070,8 +2069,13 @@
   ],
   "std/vector<std/tuple<std/string, std/string>>": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
+  ],
+  "al_draw_line": [
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
+  ],
+  "std/max_element": [
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
   ],
   "std/setfill": [
     "AllegroFlare/Elements/Score",

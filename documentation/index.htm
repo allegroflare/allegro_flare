@@ -10815,6 +10815,10 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">font_name</td>
   <td class="property">std::string</td>
 </tr>
@@ -10850,22 +10854,22 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionRenderers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;tuple&quot;, &quot;string&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_line&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max_element&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -34118,7 +34122,6 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -34238,7 +34241,6 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Text",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
@@ -34308,6 +34310,7 @@ table td
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -35861,8 +35864,13 @@ table td
   ],
   "std/vector<std/tuple<std/string, std/string>>": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
+  ],
+  "al_draw_line": [
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
+  ],
+  "std/max_element": [
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
   ],
   "std/setfill": [
     "AllegroFlare/Elements/Score",

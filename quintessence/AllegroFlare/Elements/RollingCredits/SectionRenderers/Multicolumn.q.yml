@@ -37,6 +37,13 @@ properties:
     setter: true
     constructor_arg: true
 
+  - name: width
+    type: float
+    init_with: 1920.0f
+    getter: true
+    setter: true
+    constructor_arg: true
+
   - name: font_name
     type: std::string
     init_with: '"Inter-Regular.ttf"'
@@ -80,7 +87,7 @@ methods:
       - name: only_calculate_height_dont_render
         type: bool
         default_argument: false
-    guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
+    guards: [ al_is_system_installed(), al_is_font_addon_initialized(), al_is_primitives_addon_initialized() ]
     body: |
       ALLEGRO_FONT *font = obtain_font();
       float cursor_x = 0;
@@ -88,22 +95,35 @@ methods:
       float h_gutter_width = gutter_width * 0.5;
       float y_spacing = al_get_font_line_height(font) + 4;
       // float line_height = al_get_font_line_height(font); // for multiline-text
-      float column_width = (1920 - 300 - (gutter_width * elements.size())) / (float)elements.size();
+      float column_width = (width - (gutter_width * elements.size())) / (float)elements.size();
+      float xx = (x - width / 2);
+      std::vector<float> column_heights;
       for (auto &column : elements)
       {
          cursor_y = 0;
          for (auto &column_element : column)
          {
-            cursor_y += y_spacing;
-            // draw the label
             if (!only_calculate_height_dont_render)
             {
-               al_draw_text(font, text_color, x + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
+               al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
             }
+            cursor_y += y_spacing;
          }
          cursor_x += column_width;
+
+         // Store the column heights
+         float column_height = cursor_y;
+         column_heights.push_back(column_height);
+
+         // Render debug line
+         al_draw_line(xx + cursor_x, y, xx + cursor_x, y+column_height, ALLEGRO_COLOR{0.65, 0.69, 0.9, 1.0}, 2.0f);
       }
-      return cursor_y;
+
+      if (column_heights.empty()) return 0; // TODO: Test this
+      return *std::max_element(column_heights.begin(), column_heights.end()); // TODO: Test this
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+      - std::max_element
 
 
   - name: obtain_font
@@ -121,18 +141,17 @@ dependencies:
 
   - symbol: AllegroFlare::Elements::RollingCredits::SectionRenderers::Base
     headers: [ AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.hpp ]
-  - symbol: AllegroFlare::FontBin*
-    headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT*
+  - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
-  - symbol: std::vector<std::tuple<std::string, std::string>>
-    headers: [ vector, tuple, string ]
-
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
-  - symbol: ALLEGRO_FONT
-    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_draw_line
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: std::max_element
+    headers: [ algorithm ]
 
 

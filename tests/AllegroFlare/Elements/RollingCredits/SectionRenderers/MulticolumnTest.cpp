@@ -62,7 +62,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
    CAPTURE__render__will_render_as_expected)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn column_with_labels_section_renderer(
-      &get_font_bin_ref(), {}, 1920/2, 1080/2
+      &get_font_bin_ref(), {}, 1920/2, 1080/2, 1920-600
    );
    column_with_labels_section_renderer.set_elements({
       {
@@ -70,13 +70,14 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
          { "Tayyibah Samuels" },
          { "Ryker Odling" },
       },
+
       {
          { "Aiza Rivera" },
          { "Annaliese Bauer" },
          { "Anya Schofield" },
          { "Ellenor Cote" },
-      {
       },
+      {
          { "Katy Swanson" },
          { "Melina Kelly" },
          { "Abby Burton" },

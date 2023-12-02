@@ -27,6 +27,7 @@ namespace AllegroFlare
                std::vector<std::vector<std::string>> elements;
                float x;
                float y;
+               float width;
                std::string font_name;
                int font_size;
                ALLEGRO_COLOR text_color;
@@ -37,13 +38,14 @@ namespace AllegroFlare
 
 
             public:
-               Multicolumn(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::vector<std::string>> elements={}, float x=0.0f, float y=0.0f, float gutter_width=40.0f);
+               Multicolumn(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::vector<std::string>> elements={}, float x=0.0f, float y=0.0f, float width=1920.0f, float gutter_width=40.0f);
                virtual ~Multicolumn();
 
                void set_font_bin(AllegroFlare::FontBin* font_bin);
                void set_elements(std::vector<std::vector<std::string>> elements);
                void set_x(float x);
                void set_y(float y);
+               void set_width(float width);
                void set_font_name(std::string font_name);
                void set_font_size(int font_size);
                void set_text_color(ALLEGRO_COLOR text_color);
@@ -52,6 +54,7 @@ namespace AllegroFlare
                std::vector<std::vector<std::string>> get_elements() const;
                float get_x() const;
                float get_y() const;
+               float get_width() const;
                std::string get_font_name() const;
                int get_font_size() const;
                ALLEGRO_COLOR get_text_color() const;

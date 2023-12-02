@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn.hpp>
 
+#include <algorithm>
+#include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -17,12 +19,13 @@ namespace SectionRenderers
 {
 
 
-Multicolumn::Multicolumn(AllegroFlare::FontBin* font_bin, std::vector<std::vector<std::string>> elements, float x, float y, float gutter_width)
+Multicolumn::Multicolumn(AllegroFlare::FontBin* font_bin, std::vector<std::vector<std::string>> elements, float x, float y, float width, float gutter_width)
    : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base(AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::TYPE)
    , font_bin(font_bin)
    , elements(elements)
    , x(x)
    , y(y)
+   , width(width)
    , font_name("Inter-Regular.ttf")
    , font_size(-32)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
@@ -57,6 +60,12 @@ void Multicolumn::set_x(float x)
 void Multicolumn::set_y(float y)
 {
    this->y = y;
+}
+
+
+void Multicolumn::set_width(float width)
+{
+   this->width = width;
 }
 
 
@@ -108,6 +117,12 @@ float Multicolumn::get_y() const
 }
 
 
+float Multicolumn::get_width() const
+{
+   return width;
+}
+
+
 std::string Multicolumn::get_font_name() const
 {
    return font_name;
@@ -148,28 +163,45 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Multicolumn::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[Multicolumn::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Multicolumn::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
    ALLEGRO_FONT *font = obtain_font();
    float cursor_x = 0;
    float cursor_y = 0;
    float h_gutter_width = gutter_width * 0.5;
    float y_spacing = al_get_font_line_height(font) + 4;
    // float line_height = al_get_font_line_height(font); // for multiline-text
-   float column_width = (1920 - 300 - (gutter_width * elements.size())) / (float)elements.size();
+   float column_width = (width - (gutter_width * elements.size())) / (float)elements.size();
+   float xx = (x - width / 2);
+   std::vector<float> column_heights;
    for (auto &column : elements)
    {
       cursor_y = 0;
       for (auto &column_element : column)
       {
-         cursor_y += y_spacing;
-         // draw the label
          if (!only_calculate_height_dont_render)
          {
-            al_draw_text(font, text_color, x + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
+            al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
          }
+         cursor_y += y_spacing;
       }
       cursor_x += column_width;
+
+      // Store the column heights
+      float column_height = cursor_y;
+      column_heights.push_back(column_height);
+
+      // Render debug line
+      al_draw_line(xx + cursor_x, y, xx + cursor_x, y+column_height, ALLEGRO_COLOR{0.65, 0.69, 0.9, 1.0}, 2.0f);
    }
-   return cursor_y;
+
+   if (column_heights.empty()) return 0; // TODO: Test this
+   return *std::max_element(column_heights.begin(), column_heights.end()); // TODO: Test this
 }
 
 ALLEGRO_FONT* Multicolumn::obtain_font()
