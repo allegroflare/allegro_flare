@@ -171,6 +171,7 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Multicolumn::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   bool is_rendering = (!only_calculate_height_dont_render);
    bool draw_debugging_guides = true;
    ALLEGRO_FONT *font = obtain_font();
    float cursor_x = 0;
@@ -185,7 +186,7 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
    {
       for (auto &column_element : column)
       {
-         if (!only_calculate_height_dont_render)
+         if (is_rendering)
          {
             al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
          }
@@ -197,7 +198,7 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
       column_heights.push_back(column_height);
 
       // Render debug rectangle container for this column
-      if (draw_debugging_guides)
+      if (is_rendering && draw_debugging_guides)
       {
          al_draw_rectangle(
             xx + cursor_x,
@@ -215,7 +216,7 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
    }
 
    // Render more debugging
-   if (draw_debugging_guides)
+   if (is_rendering && draw_debugging_guides)
    {
       AllegroFlare::draw_crosshair(x, y, ALLEGRO_COLOR{0.9, 0.3, 0.25, 1.0}, 50);
    }
