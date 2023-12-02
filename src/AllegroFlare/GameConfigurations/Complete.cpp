@@ -319,6 +319,11 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::b
       }),
 
       section_factory.create_section_spacer(),
+
+      section_factory.create_header("People who have contributed code to Allegro 5"),
+      section_factory.create_allegro5_contributors_list(3),
+
+      section_factory.create_section_spacer(),
    //});
    //std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
    };
