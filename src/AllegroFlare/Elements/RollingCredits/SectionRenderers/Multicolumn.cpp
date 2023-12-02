@@ -17,7 +17,7 @@ namespace SectionRenderers
 {
 
 
-Multicolumn::Multicolumn(AllegroFlare::FontBin* font_bin, std::vector<std::tuple<std::string, std::string>> elements, float x, float y, float gutter_width)
+Multicolumn::Multicolumn(AllegroFlare::FontBin* font_bin, std::vector<std::vector<std::string>> elements, float x, float y, float gutter_width)
    : AllegroFlare::Elements::RollingCredits::SectionRenderers::Base(AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::TYPE)
    , font_bin(font_bin)
    , elements(elements)
@@ -42,7 +42,7 @@ void Multicolumn::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void Multicolumn::set_elements(std::vector<std::tuple<std::string, std::string>> elements)
+void Multicolumn::set_elements(std::vector<std::vector<std::string>> elements)
 {
    this->elements = elements;
 }
@@ -90,7 +90,7 @@ AllegroFlare::FontBin* Multicolumn::get_font_bin() const
 }
 
 
-std::vector<std::tuple<std::string, std::string>> Multicolumn::get_elements() const
+std::vector<std::vector<std::string>> Multicolumn::get_elements() const
 {
    return elements;
 }
@@ -149,25 +149,25 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
       throw std::runtime_error("Multicolumn::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    ALLEGRO_FONT *font = obtain_font();
+   float cursor_x = 0;
    float cursor_y = 0;
    float h_gutter_width = gutter_width * 0.5;
    float y_spacing = al_get_font_line_height(font) + 4;
    // float line_height = al_get_font_line_height(font); // for multiline-text
-   for (auto &element : elements)
+   float column_width = (1920 - 300 - (gutter_width * elements.size())) / (float)elements.size();
+   for (auto &column : elements)
    {
-      if (!only_calculate_height_dont_render)
+      cursor_y = 0;
+      for (auto &column_element : column)
       {
-         std::string label = std::get<0>(element);
-         std::string value = std::get<1>(element);
-
+         cursor_y += y_spacing;
          // draw the label
-         al_draw_text(font, text_color, x - h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_RIGHT, label.c_str());
-
-         // draw the value
-         al_draw_text(font, text_color, x + h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_LEFT, value.c_str());
+         if (!only_calculate_height_dont_render)
+         {
+            al_draw_text(font, text_color, x + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
+         }
       }
-
-      cursor_y += y_spacing;
+      cursor_x += column_width;
    }
    return cursor_y;
 }

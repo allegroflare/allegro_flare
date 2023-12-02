@@ -17,7 +17,7 @@ properties:
     setter: true
 
   - name: elements
-    type: std::vector<std::tuple<std::string, std::string>>
+    type: std::vector<std::vector<std::string>>
     init_with: '{}'
     getter: true
     setter: true
@@ -69,7 +69,7 @@ properties:
     constexpr: true
 
 
-functions:
+methods:
 
 
   - name: render
@@ -83,25 +83,25 @@ functions:
     guards: [ al_is_system_installed(), al_is_font_addon_initialized() ]
     body: |
       ALLEGRO_FONT *font = obtain_font();
+      float cursor_x = 0;
       float cursor_y = 0;
       float h_gutter_width = gutter_width * 0.5;
       float y_spacing = al_get_font_line_height(font) + 4;
       // float line_height = al_get_font_line_height(font); // for multiline-text
-      for (auto &element : elements)
+      float column_width = (1920 - 300 - (gutter_width * elements.size())) / (float)elements.size();
+      for (auto &column : elements)
       {
-         if (!only_calculate_height_dont_render)
+         cursor_y = 0;
+         for (auto &column_element : column)
          {
-            std::string label = std::get<0>(element);
-            std::string value = std::get<1>(element);
-
+            cursor_y += y_spacing;
             // draw the label
-            al_draw_text(font, text_color, x - h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_RIGHT, label.c_str());
-
-            // draw the value
-            al_draw_text(font, text_color, x + h_gutter_width, y + cursor_y, ALLEGRO_ALIGN_LEFT, value.c_str());
+            if (!only_calculate_height_dont_render)
+            {
+               al_draw_text(font, text_color, x + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
+            }
          }
-
-         cursor_y += y_spacing;
+         cursor_x += column_width;
       }
       return cursor_y;
 

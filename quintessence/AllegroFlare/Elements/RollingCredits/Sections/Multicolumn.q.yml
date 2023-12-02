@@ -10,7 +10,7 @@ properties:
 
 
   - name: elements
-    type: std::vector<std::string>
+    type: std::vector<std::vector<std::string>>
     init_with: '{}'
     constructor_arg: true
     getter: true

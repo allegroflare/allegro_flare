@@ -6,7 +6,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <string>
-#include <tuple>
 #include <vector>
 
 
@@ -25,7 +24,7 @@ namespace AllegroFlare
 
             private:
                AllegroFlare::FontBin* font_bin;
-               std::vector<std::tuple<std::string, std::string>> elements;
+               std::vector<std::vector<std::string>> elements;
                float x;
                float y;
                std::string font_name;
@@ -38,11 +37,11 @@ namespace AllegroFlare
 
 
             public:
-               Multicolumn(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::tuple<std::string, std::string>> elements={}, float x=0.0f, float y=0.0f, float gutter_width=40.0f);
+               Multicolumn(AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::vector<std::string>> elements={}, float x=0.0f, float y=0.0f, float gutter_width=40.0f);
                virtual ~Multicolumn();
 
                void set_font_bin(AllegroFlare::FontBin* font_bin);
-               void set_elements(std::vector<std::tuple<std::string, std::string>> elements);
+               void set_elements(std::vector<std::vector<std::string>> elements);
                void set_x(float x);
                void set_y(float y);
                void set_font_name(std::string font_name);
@@ -50,7 +49,7 @@ namespace AllegroFlare
                void set_text_color(ALLEGRO_COLOR text_color);
                void set_gutter_width(float gutter_width);
                AllegroFlare::FontBin* get_font_bin() const;
-               std::vector<std::tuple<std::string, std::string>> get_elements() const;
+               std::vector<std::vector<std::string>> get_elements() const;
                float get_x() const;
                float get_y() const;
                std::string get_font_name() const;

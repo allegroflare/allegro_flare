@@ -20,16 +20,16 @@ namespace AllegroFlare
                static constexpr char* TYPE = (char*)"AllegroFlare/Elements/RollingCredits/Sections/Multicolumn";
 
             private:
-               std::vector<std::string> elements;
+               std::vector<std::vector<std::string>> elements;
 
             protected:
 
 
             public:
-               Multicolumn(std::vector<std::string> elements={});
+               Multicolumn(std::vector<std::vector<std::string>> elements={});
                ~Multicolumn();
 
-               std::vector<std::string> get_elements() const;
+               std::vector<std::vector<std::string>> get_elements() const;
             };
          }
       }

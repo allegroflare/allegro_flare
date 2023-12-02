@@ -65,16 +65,22 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
       &get_font_bin_ref(), {}, 1920/2, 1080/2
    );
    column_with_labels_section_renderer.set_elements({
-      { "Producer", "Robyn Kendall" },
-      { "Production Design", "Tayyibah Samuels" },
-      { "Music", "Ryker Odling" },
-      { "Sound Design", "Aiza Rivera" },
-      { "Lead Programming", "Annaliese Bauer" },
-      { "Programming", "Anya Schofield" },
-      { "Motion Design", "Ellenor Cote" },
-      { "Element Design", "Katy Swanson" },
-      { "Marketing Manager", "Melina Kelly" },
-      { "Set Design", "Abby Burton" },
+      {
+         { "Robyn Kendall" },
+         { "Tayyibah Samuels" },
+         { "Ryker Odling" },
+      },
+      {
+         { "Aiza Rivera" },
+         { "Annaliese Bauer" },
+         { "Anya Schofield" },
+         { "Ellenor Cote" },
+      {
+      },
+         { "Katy Swanson" },
+         { "Melina Kelly" },
+         { "Abby Burton" },
+      },
    });
 
    column_with_labels_section_renderer.render();
