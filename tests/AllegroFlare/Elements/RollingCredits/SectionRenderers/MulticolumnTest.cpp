@@ -89,6 +89,46 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
 
 
 TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWithAllegroRenderingFixture,
+   CAPTURE__render__with_more_columns_in_the_elements_and_centered_elements__will_render_as_expected)
+{
+   AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn column_with_labels_section_renderer(
+      &get_font_bin_ref(), {}, 1920/2, 1080/2, 1920-600
+   );
+   column_with_labels_section_renderer.set_elements({
+      {
+         { "Robyn Kendall" },
+         { "Tayyibah Samuels" },
+         { "Ryker Odling" },
+         { "Yuki Nakamura" },
+         { "Aiza Rivera" },
+      },
+      {
+         { "Annaliese Bauer" },
+         { "Anya Schofield" },
+         { "Ellenor Cote" },
+         { "Emily Davis" },
+      },
+      {
+         { "Marcus Bennett" },
+         { "Natalie Hayes" },
+         { "Jordan Parker" },
+         { "Morgan Reynolds" },
+      },
+      {
+         { "Katy Swanson" },
+         { "Melina Kelly" },
+         { "Ryu Kim" },
+         { "Abby Burton" },
+      },
+   });
+   column_with_labels_section_renderer.set_element_alignment("centered");
+
+   column_with_labels_section_renderer.render();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWithAllegroRenderingFixture,
    render__will_return_the_height_of_the_section)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn column_with_labels_section_renderer(

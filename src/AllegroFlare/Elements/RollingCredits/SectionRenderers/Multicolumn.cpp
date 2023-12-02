@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <map>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -27,6 +29,7 @@ Multicolumn::Multicolumn(AllegroFlare::FontBin* font_bin, std::vector<std::vecto
    , x(x)
    , y(y)
    , width(width)
+   , element_alignment("left")
    , font_name("Inter-Regular.ttf")
    , font_size(-32)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
@@ -124,6 +127,12 @@ float Multicolumn::get_width() const
 }
 
 
+std::string Multicolumn::get_element_alignment() const
+{
+   return element_alignment;
+}
+
+
 std::string Multicolumn::get_font_name() const
 {
    return font_name;
@@ -147,6 +156,45 @@ float Multicolumn::get_gutter_width() const
    return gutter_width;
 }
 
+
+void Multicolumn::set_element_alignment(std::string element_alignment)
+{
+   if (!(valid_element_alignment(element_alignment)))
+   {
+      std::stringstream error_message;
+      error_message << "[Multicolumn::set_element_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Multicolumn::set_element_alignment: error: guard \"valid_element_alignment(element_alignment)\" not met");
+   }
+   this->element_alignment = element_alignment;
+   return;
+}
+
+bool Multicolumn::valid_element_alignment(std::string element_alignment)
+{
+   std::set<std::string> valid_element_alignments = {
+      "left",
+      "centered"
+   };
+   return (valid_element_alignments.count(element_alignment) != 0);
+}
+
+int Multicolumn::infer_al_text_alignment(std::string element_alignment)
+{
+   if (!(valid_element_alignment(element_alignment)))
+   {
+      std::stringstream error_message;
+      error_message << "[Multicolumn::infer_al_text_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Multicolumn::infer_al_text_alignment: error: guard \"valid_element_alignment(element_alignment)\" not met");
+   }
+   std::map<std::string, int> al_element_alignments = {
+      { "left",     ALLEGRO_ALIGN_LEFT },
+      { "centered", ALLEGRO_ALIGN_CENTER },
+   };
+   if (al_element_alignments.count(element_alignment) == 0) throw std::runtime_error("asdfasfasdf");
+   return al_element_alignments[element_alignment];
+}
 
 float Multicolumn::render(bool only_calculate_height_dont_render)
 {
@@ -182,13 +230,14 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
    float column_width = (width - (gutter_width * (elements.size() - 1))) / (float)elements.size();
    float xx = (x - width / 2);
    std::vector<float> column_heights;
+   int alignment = infer_al_text_alignment(element_alignment);
    for (auto &column : elements)
    {
       for (auto &column_element : column)
       {
          if (is_rendering)
          {
-            al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
+            al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, alignment, column_element.c_str());
          }
          cursor_y += y_spacing;
       }

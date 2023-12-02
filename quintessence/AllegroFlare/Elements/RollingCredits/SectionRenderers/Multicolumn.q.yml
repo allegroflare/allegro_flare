@@ -44,6 +44,12 @@ properties:
     setter: true
     constructor_arg: true
 
+  - name: element_alignment
+    type: std::string
+    init_with: '"left"'
+    getter: true
+    setter: explicit
+
   - name: font_name
     type: std::string
     init_with: '"Inter-Regular.ttf"'
@@ -79,6 +85,53 @@ properties:
 methods:
 
 
+  - name: set_element_alignment
+    parameters:
+      - name: element_alignment
+        type: std::string
+        default_argument: '"[unset-element_alignment]"'
+    guards: [ valid_element_alignment(element_alignment) ]
+    body: |
+      this->element_alignment = element_alignment;
+      return;
+
+
+  - name: valid_element_alignment
+    static: true
+    type: bool
+    parameters:
+      - name: element_alignment
+        type: std::string
+        default_argument: '"[unset-element_alignment]"'
+    body: |
+      std::set<std::string> valid_element_alignments = {
+         "left",
+         "centered"
+      };
+      return (valid_element_alignments.count(element_alignment) != 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: infer_al_text_alignment
+    static: true
+    type: int
+    parameters:
+      - name: element_alignment
+        type: std::string
+        default_argument: '"[unset-element_alignment]"'
+    guards: [ valid_element_alignment(element_alignment) ]
+    body: |
+      std::map<std::string, int> al_element_alignments = {
+         { "left",     ALLEGRO_ALIGN_LEFT },
+         { "centered", ALLEGRO_ALIGN_CENTER },
+      };
+      if (al_element_alignments.count(element_alignment) == 0) throw std::runtime_error("asdfasfasdf");
+      return al_element_alignments[element_alignment];
+    body_dependency_symbols:
+      - std::map
+
+
   - name: render
     type: float
     virtual: true
@@ -100,13 +153,14 @@ methods:
       float column_width = (width - (gutter_width * (elements.size() - 1))) / (float)elements.size();
       float xx = (x - width / 2);
       std::vector<float> column_heights;
+      int alignment = infer_al_text_alignment(element_alignment);
       for (auto &column : elements)
       {
          for (auto &column_element : column)
          {
             if (is_rendering)
             {
-               al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, ALLEGRO_ALIGN_LEFT, column_element.c_str());
+               al_draw_text(font, text_color, xx + cursor_x, y + cursor_y, alignment, column_element.c_str());
             }
             cursor_y += y_spacing;
          }

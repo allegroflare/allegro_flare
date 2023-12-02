@@ -28,6 +28,7 @@ namespace AllegroFlare
                float x;
                float y;
                float width;
+               std::string element_alignment;
                std::string font_name;
                int font_size;
                ALLEGRO_COLOR text_color;
@@ -55,10 +56,14 @@ namespace AllegroFlare
                float get_x() const;
                float get_y() const;
                float get_width() const;
+               std::string get_element_alignment() const;
                std::string get_font_name() const;
                int get_font_size() const;
                ALLEGRO_COLOR get_text_color() const;
                float get_gutter_width() const;
+               void set_element_alignment(std::string element_alignment="[unset-element_alignment]");
+               static bool valid_element_alignment(std::string element_alignment="[unset-element_alignment]");
+               static int infer_al_text_alignment(std::string element_alignment="[unset-element_alignment]");
                virtual float render(bool only_calculate_height_dont_render=false) override;
             };
          }
