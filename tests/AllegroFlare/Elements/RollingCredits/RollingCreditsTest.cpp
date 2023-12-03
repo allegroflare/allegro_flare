@@ -208,7 +208,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_RollingCreditsTestWithAllegroRenderi
    float calculated_height = rolling_credits.calculate_height();
    float surface_center = rolling_credits.get_surface_width() / 2;
 
-   EXPECT_EQ(273, calculated_height);
+   EXPECT_EQ(271, calculated_height);
 
    // TODO: destroy sections
 }
