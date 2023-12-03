@@ -12,8 +12,8 @@ namespace AllegroFlare
 {
 
 
-Time::Time(double started_at)
-   : started_at(started_at)
+Time::Time()
+   : absolute_now(0.0)
    , playhead(0.0)
    , rate(1.0)
    , last_rate_changed_at(0.0)
@@ -26,15 +26,15 @@ Time::~Time()
 }
 
 
-void Time::set_started_at(double started_at)
+double Time::get_absolute_now() const
 {
-   this->started_at = started_at;
+   return absolute_now;
 }
 
 
-double Time::get_started_at() const
+double Time::get_playhead() const
 {
-   return started_at;
+   return playhead;
 }
 
 
@@ -56,9 +56,24 @@ double Time::universal_absolute_now()
    return al_get_time();
 }
 
-double Time::now(double time_now)
+void Time::set_absolute_now(double absolute_now)
 {
-   double rate_window_age = time_now - last_rate_changed_at;
+   if (!((absolute_now >= this->absolute_now)))
+   {
+      std::stringstream error_message;
+      error_message << "[Time::set_absolute_now]: error: guard \"(absolute_now >= this->absolute_now)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Time::set_absolute_now: error: guard \"(absolute_now >= this->absolute_now)\" not met");
+   }
+   // NOTE: Time can not flow in reverse in this model. An absolute_now can only be assigned if it is equal or past
+   // the current absolute now.
+   this->absolute_now = absolute_now;
+   return;
+}
+
+double Time::now()
+{
+   double rate_window_age = absolute_now - last_rate_changed_at;
    std::cout << "rate_window_age: " << rate_window_age << std::endl;
    playhead += (rate_window_age * rate);
    return playhead;
@@ -77,7 +92,7 @@ void Time::jump_ahead_sec(double distance)
    playhead += distance;
 }
 
-void Time::set_rate(double rate, double time_now)
+void Time::set_rate(double rate)
 {
    if (!(rate >= 0.0001))
    {
@@ -86,7 +101,7 @@ void Time::set_rate(double rate, double time_now)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Time::set_rate: error: guard \"rate >= 0.0001\" not met");
    }
-   last_rate_changed_at = time_now;
+   last_rate_changed_at = absolute_now;
    this->rate = rate;
    return;
 }

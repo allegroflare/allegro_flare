@@ -1,16 +1,16 @@
 properties:
 
 
-  - name: started_at
+  - name: absolute_now
     type: double
     init_with: 0.0
-    constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
 
   - name: playhead
     type: double
     init_with: 0.0
+    getter: true
 
   - name: rate
     type: double
@@ -35,14 +35,25 @@ methods:
       - al_is_system_installed
 
 
-  - name: now
-    type: double
+  - name: set_absolute_now
     parameters:
-      - name: time_now
+      - name: absolute_now
         type: double
         default_argument: 'AllegroFlare::Time::universal_absolute_now()'
+    guards: [ (absolute_now >= this->absolute_now) ]
     body: |
-      double rate_window_age = time_now - last_rate_changed_at;
+      // NOTE: Time can not flow in reverse in this model. An absolute_now can only be assigned if it is equal or past
+      // the current absolute now.
+      this->absolute_now = absolute_now;
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
+  - name: now
+    type: double
+    body: |
+      double rate_window_age = absolute_now - last_rate_changed_at;
       std::cout << "rate_window_age: " << rate_window_age << std::endl;
       playhead += (rate_window_age * rate);
       return playhead;
@@ -66,12 +77,9 @@ methods:
       - name: rate
         type: double
         default_argument: 1.0f
-      - name: time_now
-        type: double
-        default_argument: 'AllegroFlare::Time::universal_absolute_now()'
     guards: [ rate >= 0.0001 ]
     body: |
-      last_rate_changed_at = time_now;
+      last_rate_changed_at = absolute_now;
       this->rate = rate;
       return;
 

@@ -30214,7 +30214,7 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">started_at</td>
+  <td class="property">absolute_now</td>
   <td class="property">double</td>
 </tr>
 <tr>
@@ -30236,13 +30236,16 @@ table td
   <td class="method">universal_absolute_now()</td>
 </tr>
 <tr>
-  <td class="method">now(double time_now=AllegroFlare::Time::universal_absolute_now())</td>
+  <td class="method">set_absolute_now(double absolute_now=AllegroFlare::Time::universal_absolute_now())</td>
+</tr>
+<tr>
+  <td class="method">now()</td>
 </tr>
 <tr>
   <td class="method">jump_ahead_sec(double distance=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_rate(double rate=1.0f, double time_now=AllegroFlare::Time::universal_absolute_now())</td>
+  <td class="method">set_rate(double rate=1.0f)</td>
 </tr>
 <tr>
   <td class="method">calculate_age(double time_now=0.0f, double time_begin=0.0f)</td>
