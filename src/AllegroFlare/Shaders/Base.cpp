@@ -19,7 +19,7 @@ Base::Base(std::string type, std::string vertex_source_code, std::string fragmen
    : type(type)
    , vertex_source_code(vertex_source_code)
    , fragment_source_code(fragment_source_code)
-   , shader(nullptr)
+   , al_shader(nullptr)
    , initialized(false)
 {
 }
@@ -36,9 +36,9 @@ std::string Base::get_type() const
 }
 
 
-ALLEGRO_SHADER* Base::get_shader() const
+ALLEGRO_SHADER* Base::get_al_shader() const
 {
-   return shader;
+   return al_shader;
 }
 
 
@@ -61,12 +61,6 @@ bool Base::is_active()
    );
    //return (get_al_shader() == al_get_current_shader()); // TODO: Requires upgrade to allegro 5.2.9
    return false;
-}
-
-ALLEGRO_SHADER* Base::get_al_shader()
-{
-   // TODO: remove dependent calls to this function and remove this function, rename "shader" to "al_shader"
-   return shader;
 }
 
 bool Base::display_is_opengl(ALLEGRO_DISPLAY* display)
@@ -132,8 +126,8 @@ bool Base::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::initialize: error: guard \"display_is_programmable_pipeline(al_get_current_display())\" not met");
    }
-   shader = al_create_shader(ALLEGRO_SHADER_GLSL);
-   if (!shader) throw std::runtime_error("Could not create Shader");
+   al_shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+   if (!al_shader) throw std::runtime_error("Could not create Shader");
    attach_source_code();
    build();
    initialized = true;
@@ -156,12 +150,12 @@ bool Base::attach_source_code(bool throw_on_error)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::attach_source_code: error: guard \"(!fragment_source_code.empty())\" not met");
    }
-   if (!al_attach_shader_source(shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
+   if (!al_attach_shader_source(al_shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
    {
       // TODO: Replace these messages with AllegroFlare::Logger::throw_from
       std::stringstream error_message;
       error_message << "There was an error attaching the VERTEX shader source code:"
-         << std::endl << al_get_shader_log(shader);
+         << std::endl << al_get_shader_log(al_shader);
       if (throw_on_error)
       {
          throw std::runtime_error(error_message.str());
@@ -173,12 +167,12 @@ bool Base::attach_source_code(bool throw_on_error)
       }
    }
 
-   if (!al_attach_shader_source(shader, ALLEGRO_PIXEL_SHADER, fragment_source_code.c_str()))
+   if (!al_attach_shader_source(al_shader, ALLEGRO_PIXEL_SHADER, fragment_source_code.c_str()))
    {
       // TODO: Replace these messages with AllegroFlare::Logger::throw_from
       std::stringstream error_message;
       error_message << "There was an error attaching the FRAGMENT shader source code:"
-         << std::endl << al_get_shader_log(shader);
+         << std::endl << al_get_shader_log(al_shader);
       if (throw_on_error)
       {
          throw std::runtime_error(error_message.str());
@@ -195,11 +189,11 @@ bool Base::attach_source_code(bool throw_on_error)
 
 void Base::build()
 {
-   if (!al_build_shader(shader))
+   if (!al_build_shader(al_shader))
    {
       std::stringstream error_message;
       error_message << "There were errors when building the shader. The shader log contained the following message: "
-                    << al_get_shader_log(shader);
+                    << al_get_shader_log(al_shader);
       AllegroFlare::Logger::throw_error("AllegroFlare::Shaders::Base::build", error_message.str());
    }
 }
@@ -216,7 +210,7 @@ void Base::destroy()
    // TODO: find a safer usage of this function.  Some examples
    //   - prevent function calls after destruction
    //   - find callers and besure destroy is called
-   if (shader) al_destroy_shader(shader);
+   if (al_shader) al_destroy_shader(al_shader);
 }
 
 void Base::activate()
@@ -228,7 +222,7 @@ void Base::activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::activate: error: guard \"initialized\" not met");
    }
-   al_use_shader(shader);
+   al_use_shader(al_shader);
    //set_values_to_activated_shader(); // TODO: <-- introduce this function here
 }
 
@@ -312,13 +306,13 @@ void Base::hotload(std::string vertex_source_code, std::string fragment_source_c
 
    // Destroy our current shader
    // TODO: determine if the shader can actually be re-used
-   if (shader)
+   if (al_shader)
    {
-      al_destroy_shader(shader);
-      shader = nullptr;
+      al_destroy_shader(al_shader);
+      al_shader = nullptr;
    }
-   shader = al_create_shader(ALLEGRO_SHADER_GLSL);
-   if (!shader) throw std::runtime_error("Could not create Shader");
+   al_shader = al_create_shader(ALLEGRO_SHADER_GLSL);
+   if (!al_shader) throw std::runtime_error("Could not create Shader");
 
    // set our local copy of the code
    this->vertex_source_code = vertex_source_code;

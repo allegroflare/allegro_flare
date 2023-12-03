@@ -20,7 +20,7 @@ namespace AllegroFlare
          std::string type;
          std::string vertex_source_code;
          std::string fragment_source_code;
-         ALLEGRO_SHADER* shader;
+         ALLEGRO_SHADER* al_shader;
          bool initialized;
          void build();
 
@@ -32,11 +32,10 @@ namespace AllegroFlare
          virtual ~Base();
 
          std::string get_type() const;
-         ALLEGRO_SHADER* get_shader() const;
+         ALLEGRO_SHADER* get_al_shader() const;
          bool get_initialized() const;
          bool is_type(std::string possible_type="");
          bool is_active();
-         ALLEGRO_SHADER* get_al_shader();
          static bool display_is_opengl(ALLEGRO_DISPLAY* display=nullptr);
          static bool display_is_programmable_pipeline(ALLEGRO_DISPLAY* display=nullptr);
          bool initialize();
