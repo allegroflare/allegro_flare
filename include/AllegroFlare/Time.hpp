@@ -11,6 +11,7 @@ namespace AllegroFlare
       double absolute_now;
       double playhead;
       double rate;
+      bool paused;
       double last_rate_changed_at;
 
    protected:
@@ -23,8 +24,11 @@ namespace AllegroFlare
       double get_absolute_now() const;
       double get_playhead() const;
       double get_rate() const;
+      bool get_paused() const;
       static double universal_absolute_now();
       void set_absolute_now(double absolute_now=AllegroFlare::Time::universal_absolute_now());
+      void pause();
+      void unpause();
       double now();
       void jump_ahead_sec(double distance=0.0f);
       void set_rate(double rate=1.0f);

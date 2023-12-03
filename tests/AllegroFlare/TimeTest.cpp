@@ -70,3 +70,27 @@ TEST(AllegroFlare_TimeTest, set_rate__modifies_the_passing_of_now)
 }
 
 
+TEST(AllegroFlare_TimeTest, pause__will_suspend_the_passage_of_now)
+{
+   double my_universal_absolute_now = 0.0f;
+
+   AllegroFlare::Time time;
+   time.set_absolute_now(my_universal_absolute_now);
+   EXPECT_EQ(0.0, time.now());
+
+   time.pause();
+
+   my_universal_absolute_now += 1.0; // Simulate resting 1 second
+   time.set_absolute_now(my_universal_absolute_now);
+
+   EXPECT_EQ(0.0, time.now());
+
+   time.unpause();
+
+   my_universal_absolute_now += 1.0; // Simulate resting 1 second
+   time.set_absolute_now(my_universal_absolute_now);
+
+   EXPECT_EQ(1.0, time.now());
+}
+
+

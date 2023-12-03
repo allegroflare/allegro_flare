@@ -17,6 +17,12 @@ properties:
     init_with: 1.0
     getter: true
 
+  - name: paused
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
   - name: last_rate_changed_at
     type: double
     init_with: 0.0
@@ -44,18 +50,38 @@ methods:
     body: |
       // NOTE: Time can not flow in reverse in this model. An absolute_now can only be assigned if it is equal or past
       // the current absolute now.
+      double previous_absolute_now = this->absolute_now;
       this->absolute_now = absolute_now;
+
+      if (!paused)
+      {
+         double rate_window_age = absolute_now - previous_absolute_now;
+         playhead += rate_window_age * rate;
+      }
+
       return;
     body_dependency_symbols:
       - al_is_system_installed
 
 
+  - name: pause
+    body: |
+      if (paused) return;
+      paused = true;
+      return;
+
+
+  - name: unpause
+    body: |
+      if (!paused) return;
+      paused = false;
+      return;
+
+
   - name: now
     type: double
     body: |
-      double rate_window_age = absolute_now - last_rate_changed_at;
-      std::cout << "rate_window_age: " << rate_window_age << std::endl;
-      playhead += (rate_window_age * rate);
+      //update_now();
       return playhead;
     body_dependency_symbols:
       - al_is_system_installed
@@ -79,7 +105,7 @@ methods:
         default_argument: 1.0f
     guards: [ rate >= 0.0001 ]
     body: |
-      last_rate_changed_at = absolute_now;
+      //last_rate_changed_at = absolute_now;
       this->rate = rate;
       return;
 
