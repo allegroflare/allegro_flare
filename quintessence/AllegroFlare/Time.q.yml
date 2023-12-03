@@ -2,31 +2,32 @@ properties:
 
 
   - name: started_at
-    type: float
-    init_with: 0.0f
+    type: double
+    init_with: 0.0
     constructor_arg: true
     getter: true
     setter: true
 
   - name: playhead
-    type: float
-    init_with: 0.0f
+    type: double
+    init_with: 0.0
 
   - name: rate
-    type: float
-    init_with: 1.0f
+    type: double
+    init_with: 1.0
+    getter: true
 
   - name: last_rate_changed_at
-    type: float
-    init_with: 0.0f
+    type: double
+    init_with: 0.0
 
 
 methods:
 
 
-  - name: absolute_now
+  - name: universal_absolute_now
     static: true
-    type: float
+    type: double
     guards: [ al_is_system_installed() ]
     body: |
       return al_get_time();
@@ -35,11 +36,14 @@ methods:
 
 
   - name: now
-    type: float
-    guards: [ al_is_system_installed() ]
+    type: double
+    parameters:
+      - name: time_now
+        type: double
+        default_argument: 'AllegroFlare::Time::universal_absolute_now()'
     body: |
-      float time_now = al_get_time();
-      float rate_window_age = time_now - last_rate_changed_at;
+      double rate_window_age = time_now - last_rate_changed_at;
+      std::cout << "rate_window_age: " << rate_window_age << std::endl;
       playhead += (rate_window_age * rate);
       return playhead;
     body_dependency_symbols:
@@ -49,7 +53,7 @@ methods:
   - name: jump_ahead_sec
     parameters:
       - name: distance
-        type: float
+        type: double
         default_argument: 0.0f
     guards: [ distance >= 0.0 ]
     body: |
@@ -60,24 +64,27 @@ methods:
   - name: set_rate
     parameters:
       - name: rate
-        type: float
+        type: double
         default_argument: 1.0f
+      - name: time_now
+        type: double
+        default_argument: 'AllegroFlare::Time::universal_absolute_now()'
     guards: [ rate >= 0.0001 ]
     body: |
-      last_rate_changed_at = absolute_now();
+      last_rate_changed_at = time_now;
       this->rate = rate;
       return;
 
 
   - name: calculate_age
     static: true
-    type: float
+    type: double
     parameters:
       - name: time_now
-        type: float
+        type: double
         default_argument: 0.0f
       - name: time_begin
-        type: float
+        type: double
         default_argument: 0.0f
     body: |
       return time_now - time_begin;

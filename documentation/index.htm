@@ -30215,37 +30215,37 @@ table td
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">started_at</td>
-  <td class="property">float</td>
+  <td class="property">double</td>
 </tr>
 <tr>
   <td class="property">playhead</td>
-  <td class="property">float</td>
+  <td class="property">double</td>
 </tr>
 <tr>
   <td class="property">rate</td>
-  <td class="property">float</td>
+  <td class="property">double</td>
 </tr>
 <tr>
   <td class="property">last_rate_changed_at</td>
-  <td class="property">float</td>
+  <td class="property">double</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">absolute_now()</td>
+  <td class="method">universal_absolute_now()</td>
 </tr>
 <tr>
-  <td class="method">now()</td>
+  <td class="method">now(double time_now=AllegroFlare::Time::universal_absolute_now())</td>
 </tr>
 <tr>
-  <td class="method">jump_ahead_sec(float distance=0.0f)</td>
+  <td class="method">jump_ahead_sec(double distance=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">set_rate(float rate=1.0f)</td>
+  <td class="method">set_rate(double rate=1.0f, double time_now=AllegroFlare::Time::universal_absolute_now())</td>
 </tr>
 <tr>
-  <td class="method">calculate_age(float time_now=0.0f, float time_begin=0.0f)</td>
+  <td class="method">calculate_age(double time_now=0.0f, double time_begin=0.0f)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
