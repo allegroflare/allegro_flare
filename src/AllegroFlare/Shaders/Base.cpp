@@ -55,12 +55,7 @@ bool Base::is_type(std::string possible_type)
 
 bool Base::is_active()
 {
-   AllegroFlare::Logger::warn_from_once(
-      "AllegroFlare::Shaders::Base::is_active",
-      "This feature is currently not implemented and requires an upgrade to allegro 5.2.9 to support it"
-   );
-   //return (get_al_shader() == al_get_current_shader()); // TODO: Requires upgrade to allegro 5.2.9
-   return false;
+   return (get_al_shader() == al_get_current_shader());
 }
 
 bool Base::display_is_opengl(ALLEGRO_DISPLAY* display)
