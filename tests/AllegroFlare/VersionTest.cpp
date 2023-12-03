@@ -15,7 +15,7 @@ TEST(AllegroFlare_VersionTest, can_be_created_without_blowing_up)
 TEST(AllegroFlare_VersionTest, get_allegro_version_string__returns_the_expected_result)
 {
    AllegroFlare::Version version;
-   EXPECT_EQ("5.2.9 - release 0", version.get_allegro_version_string());
+   EXPECT_EQ("5.2.10-prerelease", version.get_allegro_version_string());
 }
 
 

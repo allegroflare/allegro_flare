@@ -123,7 +123,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTestWith
       },
    });
    column_with_labels_section_renderer.set_element_alignment("centered");
-   column_with_labels_section_renderer.draw_debugging_guides(true);
+   column_with_labels_section_renderer.set_draw_debugging_guides(true);
 
    column_with_labels_section_renderer.render();
    al_flip_display();

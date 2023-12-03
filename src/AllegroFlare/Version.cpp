@@ -19,8 +19,18 @@ std::string Version::get_allegro_version_string()
    int revision = (version >> 8) & 255;
    int release = version & 255;
 
+   // TODO: If release is 0, consider appending a "pre-release" and possibly a hash(?)
+
    std::stringstream str;
-   str << major << '.' << minor << '.' << revision << " - release " << release;
+   str << major << '.' << minor << '.' << revision;
+   if (release == 0)
+   {
+      str << "-prerelease";
+   }
+   else
+   {
+      str << "-rel" << release;
+   }
    return str.str();
 }
 
