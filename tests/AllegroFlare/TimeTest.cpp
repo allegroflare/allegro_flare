@@ -39,7 +39,7 @@ TEST(AllegroFlare_TimeTest, DISABLED__now__returns_the_current_time)
 }
 
 
-TEST(AllegroFlare_TimeTest, set_rate__modifies_the_passing_of_time)
+TEST(AllegroFlare_TimeTest, set_rate__modifies_the_passing_of_now)
 {
    double my_universal_absolute_now = 0.0f;
 
