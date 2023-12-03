@@ -325,7 +325,8 @@ TEST_F(AllegroFlare_Shaders_BaseTest, DISABLED__initialize__with_invalid_vertex_
    )DELIM";
 
    AllegroFlare::Shaders::Base shader("TestShader", invalid_vertex_source_code, FRAGMENT_SHADER_SOURCE);
-   std::string expected_error_message = "There was an error attaching the VERTEX shader source code:\nERROR: 0:8: Use of undeclared identifier 'al_projview_matrix'\n";
+   std::string expected_error_message = "There was an error attaching the VERTEX shader source code:\nERROR: "
+      "0:8: Use of undeclared identifier 'al_projview_matrix'\n";
    ASSERT_THROW_WITH_MESSAGE(shader.initialize(), std::runtime_error, expected_error_message);
 }
 
@@ -344,7 +345,8 @@ TEST_F(AllegroFlare_Shaders_BaseTest, DISABLED__initialize__with_invalid_fragmen
    )DELIM";
 
    AllegroFlare::Shaders::Base shader("TestShader", VERTEX_SHADER_SOURCE, invalid_fragment_source_code);
-   std::string expected_error_message = "There was an error attaching the FRAGMENT shader source code:\nERROR: 0:7: Use of undeclared identifier 'gl_FURAHgColor'\n";
+   std::string expected_error_message = "There was an error attaching the FRAGMENT shader source code:\nERROR: "
+      "0:7: Use of undeclared identifier 'gl_FURAHgColor'\n";
    ASSERT_THROW_WITH_MESSAGE(shader.initialize(), std::runtime_error, expected_error_message);
 }
 
