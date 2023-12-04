@@ -165,12 +165,6 @@ properties:
     static: true
     constexpr: true
 
-  - name: TYPE
-    type: char*
-    init_with: '"Panes/CrimeSummary"'
-    static: true
-    constexpr: true
-
 
 documentation:
 

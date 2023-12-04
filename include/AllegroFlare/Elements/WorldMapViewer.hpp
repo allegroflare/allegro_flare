@@ -24,7 +24,6 @@ namespace AllegroFlare
          static constexpr float DEFAULT_CAMERA_RANGE_X2 = 1920/2;
          static constexpr float DEFAULT_CAMERA_RANGE_Y1 = -1080/2;
          static constexpr float DEFAULT_CAMERA_RANGE_Y2 = 1080/2;
-         static constexpr char* TYPE = "Panes/CrimeSummary";
 
       private:
          AllegroFlare::BitmapBin* bitmap_bin;
