@@ -400,37 +400,43 @@ methods:
 
   - name: set_camera_moving_up
     body: |
-      if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = -camera_max_velocity;
+      if (!cursor_control_is_user()) return;
+      camera_velocity_magnitude_axis_y = -camera_max_velocity;
       return;
 
 
   - name: set_camera_moving_down
     body: |
-      if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = camera_max_velocity;
+      if (!cursor_control_is_user()) return;
+      camera_velocity_magnitude_axis_y = camera_max_velocity;
       return;
 
 
   - name: unset_camera_moving_vertical
     body: |
-      if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = 0.0f;
+      if (!cursor_control_is_user()) return;
+      camera_velocity_magnitude_axis_y = 0.0f;
       return;
 
 
   - name: set_camera_moving_left
     body: |
-      if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = -camera_max_velocity;
+      if (!cursor_control_is_user()) return;
+      camera_velocity_magnitude_axis_x = -camera_max_velocity;
       return;
 
 
   - name: set_camera_moving_right
     body: |
-      if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = camera_max_velocity;
+      if (!cursor_control_is_user()) return;
+      camera_velocity_magnitude_axis_x = camera_max_velocity;
       return;
 
 
   - name: unset_camera_moving_horizontal
     body: |
-      if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = 0.0f;
+      if (!cursor_control_is_user()) return;
+      camera_velocity_magnitude_axis_x = 0.0f;
       return;
 
 
@@ -443,37 +449,43 @@ methods:
 
   - name: set_cursor_moving_up
     body: |
-      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = -cursor_max_velocity;
+      if (!cursor_control_is_user()) return;
+      cursor_velocity_magnitude_axis_y = -cursor_max_velocity;
       return;
 
 
   - name: set_cursor_moving_down
     body: |
-      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = cursor_max_velocity;
+      if (!cursor_control_is_user()) return;
+      cursor_velocity_magnitude_axis_y = cursor_max_velocity;
       return;
 
 
   - name: unset_cursor_moving_vertical
     body: |
-      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = 0.0f;
+      if (!cursor_control_is_user()) return;
+      cursor_velocity_magnitude_axis_y = 0.0f;
       return;
 
 
   - name: set_cursor_moving_left
     body: |
-      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = -cursor_max_velocity;
+      if (!cursor_control_is_user()) return;
+      cursor_velocity_magnitude_axis_x = -cursor_max_velocity;
       return;
 
 
   - name: set_cursor_moving_right
     body: |
-      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = cursor_max_velocity;
+      if (!cursor_control_is_user()) return;
+      cursor_velocity_magnitude_axis_x = cursor_max_velocity;
       return;
 
 
   - name: unset_cursor_moving_horizontal
     body: |
-      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = 0.0f;
+      if (!cursor_control_is_user()) return;
+      cursor_velocity_magnitude_axis_x = 0.0f;
       return;
 
 
