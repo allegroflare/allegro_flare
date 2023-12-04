@@ -138,6 +138,7 @@ namespace AllegroFlare
          void unset_cursor_moving_horizontal();
          void set_map(AllegroFlare::WorldMaps::Maps::Basic* map=nullptr);
          void snap_cursor_to_origin_or_primary_point_of_interest();
+         void move_cursor_to_point_of_interest(std::string point_of_interest_identifier="[unset-point_of_interest_identifier]");
          void draw_cursor(float x=0.0f, float y=0.0f);
          bool infer_no_pages_are_present();
          void update();

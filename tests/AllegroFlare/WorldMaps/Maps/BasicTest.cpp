@@ -3,13 +3,19 @@
 
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Base.hpp>
+#include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
 
 
 class MyTestLocation : public AllegroFlare::WorldMaps::Locations::Base
 {
 public:
    float x, y, size;
-   MyTestLocation(float x, float y) : x(x), y(y), size(10) {}
+   MyTestLocation(float x, float y)
+      : AllegroFlare::WorldMaps::Locations::Base("MyTestLocation")
+      , x(x)
+      , y(y)
+      , size(10)
+   {}
    virtual bool collides(float xx, float yy) override {
       xx+=size/2;
       yy+=size/2;
@@ -133,6 +139,36 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTestWithMapFixture,
 {
    map.set_primary_point_of_interest_identifier("home");
    EXPECT_EQ(true, map.primary_point_of_interest_is_on_map());
+}
+
+
+TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
+   infer_location_coordinates__will_return_true_with_the_coordinates_of_a_location)
+{
+   AllegroFlare::WorldMaps::Maps::Basic basic;
+   basic.set_locations({
+      { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
+      { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 80, 120) },
+      { "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
+   });
+
+   std::pair<bool, std::pair<float, float>> expected_coordinate_result = { true, { 80.0f, 120.0f } };
+   EXPECT_EQ(expected_coordinate_result, basic.infer_location_coordinates("office"));
+}
+
+
+TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
+   infer_location_coordinates__on_a_location_that_does_not_exist__will_return_false_with_placeholder_coordinates)
+{
+   AllegroFlare::WorldMaps::Maps::Basic basic;
+   basic.set_locations({
+      { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
+      { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 80, 120) },
+      { "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
+   });
+
+   std::pair<bool, std::pair<float, float>> expected_coordinate_result = { false, { 0.0f, 0.0f } };
+   EXPECT_EQ(expected_coordinate_result, basic.infer_location_coordinates("a-place-that-does-not-exist"));
 }
 
 

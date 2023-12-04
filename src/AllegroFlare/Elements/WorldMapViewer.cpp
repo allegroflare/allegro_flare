@@ -617,15 +617,28 @@ void WorldMapViewer::snap_cursor_to_origin_or_primary_point_of_interest()
    if (map)
    {
       // TODO: Test this case
-      // TODO: Consider that map may need to be moved slowly to this position
       std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
    }
    else
    {
       // TODO: Test this case
-      // TODO: Consider that map may need to be moved slowly to this position
       cursor.x = map_view_place.size.x * 0.5f;
       cursor.y = map_view_place.size.y * 0.5f;
+   }
+   return;
+}
+
+void WorldMapViewer::move_cursor_to_point_of_interest(std::string point_of_interest_identifier)
+{
+   if (map)
+   {
+      // TODO: Test this case
+      std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
+   }
+   else
+   {
+      // TODO: Test this case
+      // TODO: Output warning
    }
    return;
 }

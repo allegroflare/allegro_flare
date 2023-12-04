@@ -45,6 +45,7 @@ namespace AllegroFlare
             float get_height() const;
             std::string get_primary_point_of_interest_identifier() const;
             virtual std::pair<float, float> infer_primary_point_of_interest_coordinates() override;
+            std::pair<bool, std::pair<float, float>> infer_location_coordinates(std::string location_id="[unset-location_id]");
             bool primary_point_of_interest_is_set();
             bool primary_point_of_interest_is_on_map();
             bool location_exists(std::string location_id="[unset-location_id]");

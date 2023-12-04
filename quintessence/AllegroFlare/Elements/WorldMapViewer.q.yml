@@ -199,6 +199,11 @@ documentation:
      - World Map a-la LA Noir
      - Level Map a-la Super Metroid
      - Possibly the World Map in MegaMan
+  - The component does come with a correlated Screen, but can also be inserted into other screens such as a quest
+    log or similar. Any screen that has a map view could theoretically use this component.
+  - todos:
+     - Consider mid-state changes like pausing/unpausing while the cursor is repositioning, should it snap to the
+       destination? etc?
 
 
 methods:
@@ -514,15 +519,32 @@ methods:
       if (map)
       {
          // TODO: Test this case
-         // TODO: Consider that map may need to be moved slowly to this position
          std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
       }
       else
       {
          // TODO: Test this case
-         // TODO: Consider that map may need to be moved slowly to this position
          cursor.x = map_view_place.size.x * 0.5f;
          cursor.y = map_view_place.size.y * 0.5f;
+      }
+      return;
+
+
+  - name: move_cursor_to_point_of_interest
+    parameters:
+      - name: point_of_interest_identifier
+        type: std::string
+        default_argument: '"[unset-point_of_interest_identifier]"'
+    body: |
+      if (map)
+      {
+         // TODO: Test this case
+         std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
+      }
+      else
+      {
+         // TODO: Test this case
+         // TODO: Output warning
       }
       return;
 

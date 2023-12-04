@@ -5,6 +5,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Player.hpp>
+#include <iostream>
 
 
 namespace AllegroFlare
@@ -118,6 +119,35 @@ std::pair<float, float> Basic::infer_primary_point_of_interest_coordinates()
       }
    }
    return { 0.0f, 0.0f };
+}
+
+std::pair<bool, std::pair<float, float>> Basic::infer_location_coordinates(std::string location_id)
+{
+   if (location_exists(location_id))
+   {
+      AllegroFlare::WorldMaps::Locations::Base* location = locations[location_id];
+      if (location->is_type(AllegroFlare::WorldMaps::Locations::Basic::TYPE))
+      {
+         AllegroFlare::WorldMaps::Locations::Basic *as =
+            static_cast<AllegroFlare::WorldMaps::Locations::Basic*>(location);
+         return { true, { as->get_x(), as->get_y() }};
+      }
+      else if (location->is_type(AllegroFlare::WorldMaps::Locations::Player::TYPE))
+      {
+         AllegroFlare::WorldMaps::Locations::Player *as =
+            static_cast<AllegroFlare::WorldMaps::Locations::Player*>(location);
+         return { true, { as->get_x(), as->get_y() }};
+      }
+      else
+      {
+         // TODO: Test this thrown error
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::WorldMaps::Maps::Basic::infer_location_coordinates",
+            "Could not infer coordinates on type \"" + location->get_type() + "\"."
+         );
+      }
+   }
+   return { false, { 0.0f, 0.0f }}; // Loction was not found
 }
 
 bool Basic::primary_point_of_interest_is_set()
