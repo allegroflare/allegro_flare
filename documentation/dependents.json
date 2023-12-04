@@ -2157,6 +2157,9 @@
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
   ],
+  "std/abs": [
+    "AllegroFlare/Elements/WorldMapViewer"
+  ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"
   ],

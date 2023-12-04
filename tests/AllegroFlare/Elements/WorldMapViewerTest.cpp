@@ -396,8 +396,12 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
                   crime_summary.snap_cursor_to_origin_or_primary_point_of_interest();
                break;
 
+               case ALLEGRO_KEY_M:
+                  crime_summary.move_cursor_to_location("player");
+               break;
+
                case ALLEGRO_KEY_R:
-                  crime_summary.move_cursor_to_point_of_interest("luminara");
+                  crime_summary.move_cursor_to_location("luminara");
                break;
 
                case ALLEGRO_KEY_PAD_PLUS:

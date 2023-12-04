@@ -47,6 +47,12 @@ properties:
     getter: true
     setter: true
 
+  - name: target_cursor
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: cursor_size
     type: float
     init_with: 40.0f
@@ -530,16 +536,42 @@ methods:
       return;
 
 
-  - name: move_cursor_to_point_of_interest
+  - name: move_cursor_to_location
     parameters:
-      - name: point_of_interest_identifier
+      - name: location_id
         type: std::string
-        default_argument: '"[unset-point_of_interest_identifier]"'
+        default_argument: '"[unset-location_id]"'
     body: |
       if (map)
       {
          // TODO: Test this case
-         std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
+         if (!map->location_exists(location_id))
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::WorldMapViewer::move_cursor_to_location",
+               "Could not find the location with identifier \"" + location_id + "\""
+            );
+         }
+         else
+         {
+            bool found;
+            std::pair<float, float> coordinates;
+            std::tie(found, coordinates) = map->infer_location_coordinates(location_id);
+
+            if (!found)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::WorldMapViewer::move_cursor_to_location",
+                  "Location with identifier \"" + location_id + "\" exists, but coordinates could not be retrieved."
+               );
+            }
+            else
+            {
+               target_cursor.x = coordinates.first;
+               target_cursor.y = coordinates.second;
+               set_state(STATE_REPOSITIONING_CURSOR);
+            }
+         }
       }
       else
       {
@@ -657,6 +689,7 @@ methods:
   - name: update
     guards: [ initialized ]
     body: |
+      update_state();
       // NOTE: Order of transformations is important, for example, velocity is relative to zoom
 
       // Update camera zoom
@@ -1030,8 +1063,23 @@ methods:
          case STATE_PLAYER_CONTROLLING:
          break;
 
-         case STATE_REPOSITIONING_CURSOR:
-         break;
+         case STATE_REPOSITIONING_CURSOR: {
+            float reposition_speed = 0.07f;
+            float min_dist_to_end = 1.0f;
+
+            cursor.x = (target_cursor.x - cursor.x) * reposition_speed + cursor.x;
+            cursor.y = (target_cursor.y - cursor.y) * reposition_speed + cursor.y;
+
+            float x_dist = std::abs(target_cursor.x - cursor.x); // Maybe to a magnitude/velocity calculation instead?
+            float y_dist = std::abs(target_cursor.y - cursor.y);
+            if (x_dist <= min_dist_to_end && y_dist <= min_dist_to_end)
+            {
+               cursor.x = target_cursor.x;
+               cursor.y = target_cursor.y;
+               set_state(STATE_PLAYER_CONTROLLING);
+            }
+
+         } break;
 
          default:
             throw std::runtime_error("weird error");
@@ -1039,6 +1087,8 @@ methods:
       }
 
       return;
+    body_dependency_symbols:
+      - std::abs
 
 
   - name: is_valid_state
@@ -1142,5 +1192,7 @@ dependencies:
     headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
   - symbol: AllegroFlare::WorldMaps::Locations::Player
     headers: [ AllegroFlare/WorldMaps/Locations/Player.hpp ]
+  - symbol: std::abs
+    headers: [ cmath ]
 
 

@@ -41,6 +41,7 @@ namespace AllegroFlare
          int current_page_index_num;
          AllegroFlare::Camera2D document_camera;
          AllegroFlare::Vec2D cursor;
+         AllegroFlare::Vec2D target_cursor;
          float cursor_size;
          float cursor_edge_padding;
          float cursor_velocity_magnitude_axis_x;
@@ -79,6 +80,7 @@ namespace AllegroFlare
 
          void set_map_view_place(AllegroFlare::Placement2D map_view_place);
          void set_cursor(AllegroFlare::Vec2D cursor);
+         void set_target_cursor(AllegroFlare::Vec2D target_cursor);
          void set_cursor_size(float cursor_size);
          void set_cursor_edge_padding(float cursor_edge_padding);
          void set_cursor_velocity_magnitude_axis_x(float cursor_velocity_magnitude_axis_x);
@@ -98,6 +100,7 @@ namespace AllegroFlare
          AllegroFlare::WorldMaps::Maps::Basic* get_map() const;
          AllegroFlare::Placement2D get_map_placement() const;
          AllegroFlare::Vec2D get_cursor() const;
+         AllegroFlare::Vec2D get_target_cursor() const;
          float get_cursor_size() const;
          float get_cursor_edge_padding() const;
          float get_cursor_velocity_magnitude_axis_x() const;
@@ -138,7 +141,7 @@ namespace AllegroFlare
          void unset_cursor_moving_horizontal();
          void set_map(AllegroFlare::WorldMaps::Maps::Basic* map=nullptr);
          void snap_cursor_to_origin_or_primary_point_of_interest();
-         void move_cursor_to_point_of_interest(std::string point_of_interest_identifier="[unset-point_of_interest_identifier]");
+         void move_cursor_to_location(std::string location_id="[unset-location_id]");
          void draw_cursor(float x=0.0f, float y=0.0f);
          bool infer_no_pages_are_present();
          void update();

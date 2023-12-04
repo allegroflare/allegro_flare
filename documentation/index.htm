@@ -12463,6 +12463,10 @@ table td
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
+  <td class="property">target_cursor</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
   <td class="property">cursor_size</td>
   <td class="property">float</td>
 </tr>
@@ -12649,7 +12653,7 @@ table td
   <td class="method">snap_cursor_to_origin_or_primary_point_of_interest()</td>
 </tr>
 <tr>
-  <td class="method">move_cursor_to_point_of_interest(std::string point_of_interest_identifier=&quot;[unset-point_of_interest_identifier]&quot;)</td>
+  <td class="method">move_cursor_to_location(std::string location_id=&quot;[unset-location_id]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">render_map()</td>
@@ -12767,6 +12771,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::WorldMaps::Locations::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/WorldMaps/Locations/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::abs&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36034,6 +36041,9 @@ table td
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Basic"
+  ],
+  "std/abs": [
+    "AllegroFlare/Elements/WorldMapViewer"
   ],
   "ALLEGRO_USER_EVENT": [
     "AllegroFlare/EventEmitter"

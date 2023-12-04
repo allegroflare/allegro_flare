@@ -11,6 +11,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
+#include <cmath>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -32,6 +33,7 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , current_page_index_num(0)
    , document_camera()
    , cursor({})
+   , target_cursor({})
    , cursor_size(40.0f)
    , cursor_edge_padding(10.0f)
    , cursor_velocity_magnitude_axis_x(0)
@@ -70,6 +72,12 @@ void WorldMapViewer::set_map_view_place(AllegroFlare::Placement2D map_view_place
 void WorldMapViewer::set_cursor(AllegroFlare::Vec2D cursor)
 {
    this->cursor = cursor;
+}
+
+
+void WorldMapViewer::set_target_cursor(AllegroFlare::Vec2D target_cursor)
+{
+   this->target_cursor = target_cursor;
 }
 
 
@@ -184,6 +192,12 @@ AllegroFlare::Placement2D WorldMapViewer::get_map_placement() const
 AllegroFlare::Vec2D WorldMapViewer::get_cursor() const
 {
    return cursor;
+}
+
+
+AllegroFlare::Vec2D WorldMapViewer::get_target_cursor() const
+{
+   return target_cursor;
 }
 
 
@@ -628,12 +642,38 @@ void WorldMapViewer::snap_cursor_to_origin_or_primary_point_of_interest()
    return;
 }
 
-void WorldMapViewer::move_cursor_to_point_of_interest(std::string point_of_interest_identifier)
+void WorldMapViewer::move_cursor_to_location(std::string location_id)
 {
    if (map)
    {
       // TODO: Test this case
-      std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
+      if (!map->location_exists(location_id))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::WorldMapViewer::move_cursor_to_location",
+            "Could not find the location with identifier \"" + location_id + "\""
+         );
+      }
+      else
+      {
+         bool found;
+         std::pair<float, float> coordinates;
+         std::tie(found, coordinates) = map->infer_location_coordinates(location_id);
+
+         if (!found)
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::WorldMapViewer::move_cursor_to_location",
+               "Location with identifier \"" + location_id + "\" exists, but coordinates could not be retrieved."
+            );
+         }
+         else
+         {
+            target_cursor.x = coordinates.first;
+            target_cursor.y = coordinates.second;
+            set_state(STATE_REPOSITIONING_CURSOR);
+         }
+      }
    }
    else
    {
@@ -766,6 +806,7 @@ void WorldMapViewer::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WorldMapViewer::update: error: guard \"initialized\" not met");
    }
+   update_state();
    // NOTE: Order of transformations is important, for example, velocity is relative to zoom
 
    // Update camera zoom
@@ -1155,8 +1196,23 @@ void WorldMapViewer::update_state(float time_now)
       case STATE_PLAYER_CONTROLLING:
       break;
 
-      case STATE_REPOSITIONING_CURSOR:
-      break;
+      case STATE_REPOSITIONING_CURSOR: {
+         float reposition_speed = 0.07f;
+         float min_dist_to_end = 1.0f;
+
+         cursor.x = (target_cursor.x - cursor.x) * reposition_speed + cursor.x;
+         cursor.y = (target_cursor.y - cursor.y) * reposition_speed + cursor.y;
+
+         float x_dist = std::abs(target_cursor.x - cursor.x); // Maybe to a magnitude/velocity calculation instead?
+         float y_dist = std::abs(target_cursor.y - cursor.y);
+         if (x_dist <= min_dist_to_end && y_dist <= min_dist_to_end)
+         {
+            cursor.x = target_cursor.x;
+            cursor.y = target_cursor.y;
+            set_state(STATE_PLAYER_CONTROLLING);
+         }
+
+      } break;
 
       default:
          throw std::runtime_error("weird error");
