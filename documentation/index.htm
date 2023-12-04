@@ -12527,6 +12527,18 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -12545,10 +12557,6 @@ table td
 <tr>
   <td class="property">DEFAULT_CAMERA_RANGE_Y2</td>
   <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -12669,6 +12677,21 @@ table td
 </tr>
 <tr>
   <td class="method">calc_zoom_position_relative_min_max()</td>
+</tr>
+<tr>
+  <td class="method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">update_state(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">is_state(uint32_t possible_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="private_method">obtain_font()</td>

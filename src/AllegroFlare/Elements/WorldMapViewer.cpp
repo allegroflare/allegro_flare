@@ -12,6 +12,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -47,6 +48,9 @@ WorldMapViewer::WorldMapViewer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , camera_range_x2(DEFAULT_CAMERA_RANGE_X2)
    , camera_range_y2(DEFAULT_CAMERA_RANGE_Y2)
    , camera_max_velocity(6.5)
+   , state(STATE_UNDEF)
+   , state_is_busy(false)
+   , state_changed_at(0.0f)
    , initialized(false)
 {
 }
@@ -261,6 +265,12 @@ float WorldMapViewer::get_camera_max_velocity() const
 }
 
 
+uint32_t WorldMapViewer::get_state() const
+{
+   return state;
+}
+
+
 void WorldMapViewer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))
@@ -413,6 +423,7 @@ void WorldMapViewer::reset()
    reset_document_camera();
    fit_camera_range_to_map_dimensions();
    move_cursor_to_origin_or_primary_point_of_interest();
+   set_state(STATE_PLAYER_CONTROLLING);
    return;
 }
 
@@ -1061,6 +1072,85 @@ float WorldMapViewer::calc_zoom_position_relative_min_max()
    auto [min, max] = std::minmax_element(begin(document_camera_zoom_levels), end(document_camera_zoom_levels));
    float range = *max - *min;
    return (document_camera.get_zoom().x - *min) / (range);
+}
+
+void WorldMapViewer::set_state(uint32_t state, bool override_if_busy)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::set_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   if (this->state == state) return;
+   if (!override_if_busy && state_is_busy) return;
+   uint32_t previous_state = this->state;
+
+   switch (state)
+   {
+      case STATE_PLAYER_CONTROLLING:
+      break;
+
+      case STATE_REPOSITIONING_CURSOR:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   this->state = state;
+   state_changed_at = al_get_time();
+
+   return;
+}
+
+void WorldMapViewer::update_state(float time_now)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[WorldMapViewer::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WorldMapViewer::update_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   float age = infer_current_state_age(time_now);
+
+   switch (state)
+   {
+      case STATE_PLAYER_CONTROLLING:
+      break;
+
+      case STATE_REPOSITIONING_CURSOR:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   return;
+}
+
+bool WorldMapViewer::is_valid_state(uint32_t state)
+{
+   std::set<uint32_t> valid_states =
+   {
+      STATE_PLAYER_CONTROLLING,
+      STATE_REPOSITIONING_CURSOR,
+   };
+   return (valid_states.count(state) > 0);
+}
+
+bool WorldMapViewer::is_state(uint32_t possible_state)
+{
+   return (state == possible_state);
+}
+
+float WorldMapViewer::infer_current_state_age(float time_now)
+{
+   return (time_now - state_changed_at);
 }
 
 ALLEGRO_FONT* WorldMapViewer::obtain_font()

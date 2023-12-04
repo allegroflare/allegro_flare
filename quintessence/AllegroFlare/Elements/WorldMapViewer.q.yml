@@ -137,6 +137,20 @@ properties:
     getter: true
     setter: true
 
+  - name: state
+    type: uint32_t
+    init_with: STATE_UNDEF
+    getter: true
+    setter: explicit
+
+  - name: state_is_busy
+    type: bool
+    init_with: false
+
+  - name: state_changed_at
+    type: float
+    init_with: 0.0f
+
   - name: initialized
     type: bool
     init_with: false
@@ -164,6 +178,16 @@ properties:
     init_with: 1080/2
     static: true
     constexpr: true
+
+
+enums:
+
+
+  - name: State
+    enumerators:
+      - STATE_UNDEF
+      - STATE_PLAYER_CONTROLLING
+      - STATE_REPOSITIONING_CURSOR
 
 
 documentation:
@@ -289,6 +313,7 @@ methods:
       reset_document_camera();
       fit_camera_range_to_map_dimensions();
       move_cursor_to_origin_or_primary_point_of_interest();
+      set_state(STATE_PLAYER_CONTROLLING);
       return;
 
 
@@ -911,6 +936,102 @@ methods:
       auto [min, max] = std::minmax_element(begin(document_camera_zoom_levels), end(document_camera_zoom_levels));
       float range = *max - *min;
       return (document_camera.get_zoom().x - *min) / (range);
+
+
+  - name: set_state
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+      - name: override_if_busy
+        type: bool
+        default_argument: false
+    guards: [ is_valid_state(state) ]
+    body: |
+      if (this->state == state) return;
+      if (!override_if_busy && state_is_busy) return;
+      uint32_t previous_state = this->state;
+
+      switch (state)
+      {
+         case STATE_PLAYER_CONTROLLING:
+         break;
+
+         case STATE_REPOSITIONING_CURSOR:
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      this->state = state;
+      state_changed_at = al_get_time();
+
+      return;
+
+
+  - name: update_state
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    guards: [ is_valid_state(state) ]
+    body: |
+      float age = infer_current_state_age(time_now);
+
+      switch (state)
+      {
+         case STATE_PLAYER_CONTROLLING:
+         break;
+
+         case STATE_REPOSITIONING_CURSOR:
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      return;
+
+
+  - name: is_valid_state
+    type: bool
+    static: true
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+      std::set<uint32_t> valid_states =
+      {
+         STATE_PLAYER_CONTROLLING,
+         STATE_REPOSITIONING_CURSOR,
+      };
+      return (valid_states.count(state) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_state
+    type: bool
+    parameters:
+      - name: possible_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+     return (state == possible_state);
+
+
+  - name: infer_current_state_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return (time_now - state_changed_at);
 
 
   - name: obtain_font
