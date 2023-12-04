@@ -4,6 +4,7 @@
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Base.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class MyTestLocation : public AllegroFlare::WorldMaps::Locations::Base
@@ -145,6 +146,8 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTestWithMapFixture,
 TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
    infer_location_coordinates__will_return_true_with_the_coordinates_of_a_location)
 {
+   // TODO: Remove usage of AllegroFlare::WorldMaps::Locations::Basic and use MyTestLocation
+   // after moving (x, y) to Locations/Base
    AllegroFlare::WorldMaps::Maps::Basic basic;
    basic.set_locations({
       { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
@@ -160,6 +163,8 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
 TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
    infer_location_coordinates__on_a_location_that_does_not_exist__will_return_false_with_placeholder_coordinates)
 {
+   // TODO: Remove usage of AllegroFlare::WorldMaps::Locations::Basic and use MyTestLocation
+   // after moving (x, y) to Locations/Base
    AllegroFlare::WorldMaps::Maps::Basic basic;
    basic.set_locations({
       { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
@@ -169,6 +174,24 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
 
    std::pair<bool, std::pair<float, float>> expected_coordinate_result = { false, { 0.0f, 0.0f } };
    EXPECT_EQ(expected_coordinate_result, basic.infer_location_coordinates("a-place-that-does-not-exist"));
+}
+
+
+TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
+   infer_location_coordinates__on_a_location_type_that_is_not_handled__throws_an_error)
+{
+   // TODO: Remove this test after moving (x, y) to Locations/Base
+   AllegroFlare::WorldMaps::Maps::Basic basic;
+   basic.set_locations({
+      { "location_of_unhandled_type", new MyTestLocation(20, 20) },
+   });
+
+   EXPECT_THROW_WITH_MESSAGE(
+      basic.infer_location_coordinates("location_of_unhandled_type"),
+      std::runtime_error,
+      "[AllegroFlare::WorldMaps::Maps::Basic::infer_location_coordinates]: error: Could not infer coordinates on "
+         "type \"MyTestLocation\"."
+   );
 }
 
 
