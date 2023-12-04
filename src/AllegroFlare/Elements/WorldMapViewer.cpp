@@ -421,8 +421,9 @@ void WorldMapViewer::reset()
    // TODO: Confirm these are in the correct order
    fit_and_position_map();
    reset_document_camera();
+   unset_cursor_moving(); // TODO: Check if this is redundant
    fit_camera_range_to_map_dimensions();
-   move_cursor_to_origin_or_primary_point_of_interest();
+   snap_cursor_to_origin_or_primary_point_of_interest();
    set_state(STATE_PLAYER_CONTROLLING);
    return;
 }
@@ -465,8 +466,14 @@ void WorldMapViewer::on_switch_out()
    return;
 }
 
+bool WorldMapViewer::cursor_control_is_user()
+{
+   return is_state(STATE_PLAYER_CONTROLLING);
+}
+
 void WorldMapViewer::step_zoom_in()
 {
+   if (!cursor_control_is_user()) return;
    if (document_camera_zoom_levels.empty()) return;
    document_camera_zoom_level_cursor++;
    if (wrap_zoom)
@@ -484,6 +491,7 @@ void WorldMapViewer::step_zoom_in()
 
 void WorldMapViewer::step_zoom_out()
 {
+   if (!cursor_control_is_user()) return;
    if (document_camera_zoom_levels.empty()) return;
    document_camera_zoom_level_cursor--;
    if (wrap_zoom)
@@ -501,37 +509,37 @@ void WorldMapViewer::step_zoom_out()
 
 void WorldMapViewer::set_camera_moving_up()
 {
-   camera_velocity_magnitude_axis_y = -camera_max_velocity;
+   if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = -camera_max_velocity;
    return;
 }
 
 void WorldMapViewer::set_camera_moving_down()
 {
-   camera_velocity_magnitude_axis_y = camera_max_velocity;
+   if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = camera_max_velocity;
    return;
 }
 
 void WorldMapViewer::unset_camera_moving_vertical()
 {
-   camera_velocity_magnitude_axis_y = 0.0f;
+   if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = 0.0f;
    return;
 }
 
 void WorldMapViewer::set_camera_moving_left()
 {
-   camera_velocity_magnitude_axis_x = -camera_max_velocity;
+   if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = -camera_max_velocity;
    return;
 }
 
 void WorldMapViewer::set_camera_moving_right()
 {
-   camera_velocity_magnitude_axis_x = camera_max_velocity;
+   if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = camera_max_velocity;
    return;
 }
 
 void WorldMapViewer::unset_camera_moving_horizontal()
 {
-   camera_velocity_magnitude_axis_x = 0.0f;
+   if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = 0.0f;
    return;
 }
 
@@ -543,37 +551,37 @@ void WorldMapViewer::unset_camera_moving()
 
 void WorldMapViewer::set_cursor_moving_up()
 {
-   cursor_velocity_magnitude_axis_y = -cursor_max_velocity;
+   if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = -cursor_max_velocity;
    return;
 }
 
 void WorldMapViewer::set_cursor_moving_down()
 {
-   cursor_velocity_magnitude_axis_y = cursor_max_velocity;
+   if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = cursor_max_velocity;
    return;
 }
 
 void WorldMapViewer::unset_cursor_moving_vertical()
 {
-   cursor_velocity_magnitude_axis_y = 0.0f;
+   if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = 0.0f;
    return;
 }
 
 void WorldMapViewer::set_cursor_moving_left()
 {
-   cursor_velocity_magnitude_axis_x = -cursor_max_velocity;
+   if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = -cursor_max_velocity;
    return;
 }
 
 void WorldMapViewer::set_cursor_moving_right()
 {
-   cursor_velocity_magnitude_axis_x = cursor_max_velocity;
+   if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = cursor_max_velocity;
    return;
 }
 
 void WorldMapViewer::unset_cursor_moving_horizontal()
 {
-   cursor_velocity_magnitude_axis_x = 0.0f;
+   if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = 0.0f;
    return;
 }
 
@@ -592,7 +600,7 @@ void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
    return;
 }
 
-void WorldMapViewer::move_cursor_to_origin_or_primary_point_of_interest()
+void WorldMapViewer::snap_cursor_to_origin_or_primary_point_of_interest()
 {
    if (map)
    {

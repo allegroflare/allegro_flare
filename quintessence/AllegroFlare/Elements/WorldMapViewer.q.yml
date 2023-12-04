@@ -311,8 +311,9 @@ methods:
       // TODO: Confirm these are in the correct order
       fit_and_position_map();
       reset_document_camera();
+      unset_cursor_moving(); // TODO: Check if this is redundant
       fit_camera_range_to_map_dimensions();
-      move_cursor_to_origin_or_primary_point_of_interest();
+      snap_cursor_to_origin_or_primary_point_of_interest();
       set_state(STATE_PLAYER_CONTROLLING);
       return;
 
@@ -355,8 +356,15 @@ methods:
       return;
 
 
+  - name: cursor_control_is_user
+    type: bool
+    body: |
+      return is_state(STATE_PLAYER_CONTROLLING);
+
+
   - name: step_zoom_in
     body: |
+      if (!cursor_control_is_user()) return;
       if (document_camera_zoom_levels.empty()) return;
       document_camera_zoom_level_cursor++;
       if (wrap_zoom)
@@ -374,6 +382,7 @@ methods:
 
   - name: step_zoom_out
     body: |
+      if (!cursor_control_is_user()) return;
       if (document_camera_zoom_levels.empty()) return;
       document_camera_zoom_level_cursor--;
       if (wrap_zoom)
@@ -391,41 +400,42 @@ methods:
 
   - name: set_camera_moving_up
     body: |
-      camera_velocity_magnitude_axis_y = -camera_max_velocity;
+      if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = -camera_max_velocity;
       return;
 
 
   - name: set_camera_moving_down
     body: |
-      camera_velocity_magnitude_axis_y = camera_max_velocity;
+      if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = camera_max_velocity;
       return;
 
 
   - name: unset_camera_moving_vertical
     body: |
-      camera_velocity_magnitude_axis_y = 0.0f;
+      if (cursor_control_is_user()) camera_velocity_magnitude_axis_y = 0.0f;
       return;
 
 
   - name: set_camera_moving_left
     body: |
-      camera_velocity_magnitude_axis_x = -camera_max_velocity;
+      if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = -camera_max_velocity;
       return;
 
 
   - name: set_camera_moving_right
     body: |
-      camera_velocity_magnitude_axis_x = camera_max_velocity;
+      if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = camera_max_velocity;
       return;
 
 
   - name: unset_camera_moving_horizontal
     body: |
-      camera_velocity_magnitude_axis_x = 0.0f;
+      if (cursor_control_is_user()) camera_velocity_magnitude_axis_x = 0.0f;
       return;
 
 
   - name: unset_camera_moving
+    private: true
     body: |
       unset_camera_moving_vertical();
       unset_camera_moving_horizontal();
@@ -433,41 +443,42 @@ methods:
 
   - name: set_cursor_moving_up
     body: |
-      cursor_velocity_magnitude_axis_y = -cursor_max_velocity;
+      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = -cursor_max_velocity;
       return;
 
 
   - name: set_cursor_moving_down
     body: |
-      cursor_velocity_magnitude_axis_y = cursor_max_velocity;
+      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = cursor_max_velocity;
       return;
 
 
   - name: unset_cursor_moving_vertical
     body: |
-      cursor_velocity_magnitude_axis_y = 0.0f;
+      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_y = 0.0f;
       return;
 
 
   - name: set_cursor_moving_left
     body: |
-      cursor_velocity_magnitude_axis_x = -cursor_max_velocity;
+      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = -cursor_max_velocity;
       return;
 
 
   - name: set_cursor_moving_right
     body: |
-      cursor_velocity_magnitude_axis_x = cursor_max_velocity;
+      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = cursor_max_velocity;
       return;
 
 
   - name: unset_cursor_moving_horizontal
     body: |
-      cursor_velocity_magnitude_axis_x = 0.0f;
+      if (cursor_control_is_user()) cursor_velocity_magnitude_axis_x = 0.0f;
       return;
 
 
   - name: unset_cursor_moving
+    private: true
     body: |
       unset_cursor_moving_vertical();
       unset_cursor_moving_horizontal();
@@ -486,7 +497,7 @@ methods:
       return;
 
 
-  - name: move_cursor_to_origin_or_primary_point_of_interest
+  - name: snap_cursor_to_origin_or_primary_point_of_interest
     body: |
       if (map)
       {

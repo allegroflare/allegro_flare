@@ -300,7 +300,7 @@ void WorldMapScreen::virtual_control_button_down_func(AllegroFlare::Player* play
       } break;
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_B: {
-         map_viewer.move_cursor_to_origin_or_primary_point_of_interest();
+         map_viewer.snap_cursor_to_origin_or_primary_point_of_interest();
       } break;
 
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_X:

@@ -62,6 +62,8 @@ namespace AllegroFlare
          float state_changed_at;
          bool initialized;
          void fit_and_position_map();
+         void unset_camera_moving();
+         void unset_cursor_moving();
          void render_map();
          void render_page_numbers();
          void render_coordinates();
@@ -119,6 +121,7 @@ namespace AllegroFlare
          void reset_document_camera_range_to_defaults();
          void on_switch_in();
          void on_switch_out();
+         bool cursor_control_is_user();
          void step_zoom_in();
          void step_zoom_out();
          void set_camera_moving_up();
@@ -127,16 +130,14 @@ namespace AllegroFlare
          void set_camera_moving_left();
          void set_camera_moving_right();
          void unset_camera_moving_horizontal();
-         void unset_camera_moving();
          void set_cursor_moving_up();
          void set_cursor_moving_down();
          void unset_cursor_moving_vertical();
          void set_cursor_moving_left();
          void set_cursor_moving_right();
          void unset_cursor_moving_horizontal();
-         void unset_cursor_moving();
          void set_map(AllegroFlare::WorldMaps::Maps::Basic* map=nullptr);
-         void move_cursor_to_origin_or_primary_point_of_interest();
+         void snap_cursor_to_origin_or_primary_point_of_interest();
          void draw_cursor(float x=0.0f, float y=0.0f);
          bool infer_no_pages_are_present();
          void update();
