@@ -27,25 +27,45 @@ public:
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
       map.set_background_image_identifier("overworld-map-02.png");
       map.set_locations({
-         // TODO: Come up with some better location names
-         { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 221, 423) },
-         { "office2", new AllegroFlare::WorldMaps::Locations::Basic("Office", 611, 268) },
-         { "office3", new AllegroFlare::WorldMaps::Locations::Basic("Office", 528, 414) },
-         { "office4", new AllegroFlare::WorldMaps::Locations::Basic("Office", 807, 428) },
-         { "office5", new AllegroFlare::WorldMaps::Locations::Basic("Office", 584, 713) },
-         { "office6", new AllegroFlare::WorldMaps::Locations::Basic("Office", 1054, 335) },
-         { "office7", new AllegroFlare::WorldMaps::Locations::Basic("Town 4", 1132, 772) },
          {
-            "celestial_crossing_north",
-            new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing North", 1315, 473)
+            "great_magnus_castle",
+            new AllegroFlare::WorldMaps::Locations::Basic("Great Magnus Castle", 221, 423)
          },
          {
-            "celestial_crossing_south",
-            new AllegroFlare::WorldMaps::Locations::Basic("Celestial Crossing South", 1351, 551)
+            "village_of_garrick",
+            new AllegroFlare::WorldMaps::Locations::Basic("Village of Garrick", 611, 268)
          },
          {
-            "luminara",
-            new AllegroFlare::WorldMaps::Locations::Basic("Luminara", 1662, 250)
+            "dragons_ruins",
+            new AllegroFlare::WorldMaps::Locations::Basic("Dragon's Ruins", 528, 414)
+         },
+         {
+            "central_village",
+            new AllegroFlare::WorldMaps::Locations::Basic("Central Village", 807, 428)
+         },
+         {
+            "thorian_grove",
+            new AllegroFlare::WorldMaps::Locations::Basic("Thorian Grove", 584, 713)
+         },
+         {
+            "whispering_mountains",
+            new AllegroFlare::WorldMaps::Locations::Basic("Whispering Mountains", 1054, 335)
+         },
+         {
+            "merryvale_village",
+            new AllegroFlare::WorldMaps::Locations::Basic("Merryvale Village", 1132, 772)
+         },
+         {
+            "north_celestial_crossing",
+            new AllegroFlare::WorldMaps::Locations::Basic("North Celestial Crossing", 1315, 473)
+         },
+         {
+            "south_celestial_crossing",
+            new AllegroFlare::WorldMaps::Locations::Basic("South Celestial Crossing", 1351, 551)
+         },
+         {
+            "luminara_citadel",
+            new AllegroFlare::WorldMaps::Locations::Basic("Luminara Citadel", 1662, 250)
          },
          {
             "crestwood_forest",
@@ -401,7 +421,7 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithMapAndWithAllegroRenderingFix
                break;
 
                case ALLEGRO_KEY_R:
-                  crime_summary.move_cursor_to_location("luminara");
+                  crime_summary.move_cursor_to_location("luminara_citadel");
                break;
 
                case ALLEGRO_KEY_PAD_PLUS:
