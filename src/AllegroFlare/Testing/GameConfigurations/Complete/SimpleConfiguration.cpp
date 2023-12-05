@@ -96,7 +96,7 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> SimpleConfiguration
    return {};
 }
 
-std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> SimpleConfiguration::build_save_slots_for_load_screen()
+std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> SimpleConfiguration::build_save_slots_for_load_a_saved_game_screen()
 {
    return {};
 }
