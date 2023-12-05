@@ -245,7 +245,7 @@ methods:
       load_a_saved_game_screen.initialize();
       load_a_saved_game_screen.set_background(shared_background);
       load_a_saved_game_screen.set_foreground(shared_foreground);
-      load_a_saved_game_screen.set_save_slots(game_configuration->build_save_slots_for_load_screen());
+      load_a_saved_game_screen.set_save_slots(game_configuration->build_save_slots_for_load_a_saved_game_screen());
 
       // TODO: Setup level select screen
       level_select_screen.set_event_emitter(event_emitter);
@@ -331,6 +331,7 @@ methods:
         default_argument: nullptr
     guards: [ router, user_data ]
     body: |
+      // TODO: Consider removing this method and having all Routers/Standard events be internal
       AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
 
       bool handled = false;

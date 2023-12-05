@@ -174,7 +174,7 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_in
    return {};
 }
 
-std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Complete::build_save_slots_for_load_screen()
+std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Complete::build_save_slots_for_load_a_saved_game_screen()
 {
    /*
    std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> result = {

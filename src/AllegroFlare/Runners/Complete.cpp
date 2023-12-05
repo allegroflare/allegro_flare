@@ -206,7 +206,7 @@ void Complete::initialize()
    load_a_saved_game_screen.initialize();
    load_a_saved_game_screen.set_background(shared_background);
    load_a_saved_game_screen.set_foreground(shared_foreground);
-   load_a_saved_game_screen.set_save_slots(game_configuration->build_save_slots_for_load_screen());
+   load_a_saved_game_screen.set_save_slots(game_configuration->build_save_slots_for_load_a_saved_game_screen());
 
    // TODO: Setup level select screen
    level_select_screen.set_event_emitter(event_emitter);
@@ -288,6 +288,7 @@ bool Complete::on_route_event_unhandled_func(uint32_t unhandled_event, AllegroFl
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Complete::on_route_event_unhandled_func: error: guard \"user_data\" not met");
    }
+   // TODO: Consider removing this method and having all Routers/Standard events be internal
    AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
 
    bool handled = false;
