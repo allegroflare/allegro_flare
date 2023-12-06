@@ -10,20 +10,21 @@
 class MyTestLocation : public AllegroFlare::WorldMaps::Locations::Base
 {
 public:
-   float x, y, size;
+   float size;
    MyTestLocation(float x, float y)
       : AllegroFlare::WorldMaps::Locations::Base("MyTestLocation")
-      , x(x)
-      , y(y)
       , size(10)
-   {}
+   {
+      set_x(x);
+      set_y(y);
+   }
    virtual bool collides(float xx, float yy) override {
       xx+=size/2;
       yy+=size/2;
-      if (xx < x) return false;
-      if (xx > x+size) return false;
-      if (yy < y) return false;
-      if (yy > y+size) return false;
+      if (xx < get_x()) return false;
+      if (xx > get_x()+size) return false;
+      if (yy < get_y()) return false;
+      if (yy > get_y()+size) return false;
       return true;
    };
 };
@@ -53,6 +54,15 @@ public:
       ::testing::Test::TearDown();
    }
 };
+
+
+AllegroFlare::WorldMaps::Locations::Basic* create_basic_location(std::string name, float x, float y)
+{
+   AllegroFlare::WorldMaps::Locations::Basic *result = new AllegroFlare::WorldMaps::Locations::Basic(name);
+   result->set_x(x);
+   result->set_y(y);
+   return result;
+}
 
 
 TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest, MyTestLocation_collides__has_correct_collision_bounds)
@@ -150,9 +160,9 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
    // after moving (x, y) to Locations/Base
    AllegroFlare::WorldMaps::Maps::Basic basic;
    basic.set_locations({
-      { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
-      { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 80, 120) },
-      { "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
+      { "home",   create_basic_location("Home", 20, 20) },
+      { "office", create_basic_location("Office", 80, 120) },
+      { "store",  create_basic_location("Store", -100, -30) },
    });
 
    std::pair<bool, std::pair<float, float>> expected_coordinate_result = { true, { 80.0f, 120.0f } };
@@ -167,31 +177,13 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
    // after moving (x, y) to Locations/Base
    AllegroFlare::WorldMaps::Maps::Basic basic;
    basic.set_locations({
-      { "home",   new AllegroFlare::WorldMaps::Locations::Basic("Home", 20, 20) },
-      { "office", new AllegroFlare::WorldMaps::Locations::Basic("Office", 80, 120) },
-      { "store",  new AllegroFlare::WorldMaps::Locations::Basic("Store", -100, -30) },
+      { "home",   create_basic_location("Home", 20, 20) },
+      { "office", create_basic_location("Office", 80, 120) },
+      { "store",  create_basic_location("Store", -100, -30) },
    });
 
    std::pair<bool, std::pair<float, float>> expected_coordinate_result = { false, { 0.0f, 0.0f } };
    EXPECT_EQ(expected_coordinate_result, basic.infer_location_coordinates("a-place-that-does-not-exist"));
-}
-
-
-TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
-   infer_location_coordinates__on_a_location_type_that_is_not_handled__throws_an_error)
-{
-   // TODO: Remove this test after moving (x, y) to Locations/Base
-   AllegroFlare::WorldMaps::Maps::Basic basic;
-   basic.set_locations({
-      { "location_of_unhandled_type", new MyTestLocation(20, 20) },
-   });
-
-   EXPECT_THROW_WITH_MESSAGE(
-      basic.infer_location_coordinates("location_of_unhandled_type"),
-      std::runtime_error,
-      "[AllegroFlare::WorldMaps::Maps::Basic::infer_location_coordinates]: error: Could not infer coordinates on "
-         "type \"MyTestLocation\"."
-   );
 }
 
 
