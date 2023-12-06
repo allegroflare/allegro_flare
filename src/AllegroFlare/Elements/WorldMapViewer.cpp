@@ -628,22 +628,41 @@ void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
 
 void WorldMapViewer::snap_cursor_to_origin_or_primary_point_of_interest()
 {
-   //set_state(STATE_REPOSITIONING_CURSOR);
+   float destination_x = 0;
+   float destination_y = 0;
+
    if (map)
    {
       // TODO: Test this case
-      unset_cursor_moving();
-      std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
-      set_state(STATE_PLAYER_CONTROLLING);
+      std::tie(destination_x, destination_y) = map->infer_primary_point_of_interest_coordinates();
    }
    else
    {
       // TODO: Test this case
-      unset_cursor_moving();
-      cursor.x = map_view_place.size.x * 0.5f;
-      cursor.y = map_view_place.size.y * 0.5f;
-      set_state(STATE_PLAYER_CONTROLLING);
+      destination_x = map_view_place.size.x * 0.5f;
+      destination_y = map_view_place.size.y * 0.5f;
    }
+
+   snap_cursor_to_coordinate(destination_x, destination_y);
+
+   return;
+}
+
+void WorldMapViewer::snap_cursor_to_coordinate(float x, float y)
+{
+   unset_cursor_moving();
+   cursor.x = x;
+   cursor.y = y;
+   set_state(STATE_PLAYER_CONTROLLING);
+   return;
+}
+
+void WorldMapViewer::move_cursor_to_coordinate(float x, float y)
+{
+   unset_cursor_moving();
+   target_cursor.x = x;
+   target_cursor.y = y;
+   set_state(STATE_REPOSITIONING_CURSOR);
    return;
 }
 
@@ -674,10 +693,7 @@ void WorldMapViewer::move_cursor_to_location(std::string location_id)
          }
          else
          {
-            unset_cursor_moving();
-            target_cursor.x = coordinates.first;
-            target_cursor.y = coordinates.second;
-            set_state(STATE_REPOSITIONING_CURSOR);
+            move_cursor_to_coordinate(coordinates.first, coordinates.second);
          }
       }
    }
