@@ -628,16 +628,21 @@ void WorldMapViewer::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
 
 void WorldMapViewer::snap_cursor_to_origin_or_primary_point_of_interest()
 {
+   //set_state(STATE_REPOSITIONING_CURSOR);
    if (map)
    {
       // TODO: Test this case
+      unset_cursor_moving();
       std::tie(cursor.x, cursor.y) = map->infer_primary_point_of_interest_coordinates();
+      set_state(STATE_PLAYER_CONTROLLING);
    }
    else
    {
       // TODO: Test this case
+      unset_cursor_moving();
       cursor.x = map_view_place.size.x * 0.5f;
       cursor.y = map_view_place.size.y * 0.5f;
+      set_state(STATE_PLAYER_CONTROLLING);
    }
    return;
 }
@@ -669,6 +674,7 @@ void WorldMapViewer::move_cursor_to_location(std::string location_id)
          }
          else
          {
+            unset_cursor_moving();
             target_cursor.x = coordinates.first;
             target_cursor.y = coordinates.second;
             set_state(STATE_REPOSITIONING_CURSOR);
@@ -1193,8 +1199,8 @@ void WorldMapViewer::update_state(float time_now)
 
    switch (state)
    {
-      case STATE_PLAYER_CONTROLLING:
-      break;
+      case STATE_PLAYER_CONTROLLING: {
+      } break;
 
       case STATE_REPOSITIONING_CURSOR: {
          float reposition_speed = 0.07f;
@@ -1214,9 +1220,9 @@ void WorldMapViewer::update_state(float time_now)
 
       } break;
 
-      default:
+      default: {
          throw std::runtime_error("weird error");
-      break;
+      } break;
    }
 
    return;
