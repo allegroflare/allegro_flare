@@ -22,60 +22,37 @@ class AllegroFlare_Screens_WorldMapScreenTestWithMapAndWithAllegroFrameworksFull
 {
 public:
    AllegroFlare::WorldMaps::Maps::Basic map;
+   AllegroFlare::WorldMaps::Locations::Basic* create_basic_location(std::string name, float x, float y)
+   {
+      AllegroFlare::WorldMaps::Locations::Basic *result = new AllegroFlare::WorldMaps::Locations::Basic(name);
+      result->set_x(x);
+      result->set_y(y);
+      return result;
+   }
+   AllegroFlare::WorldMaps::Locations::Player* create_player_location(float x, float y)
+   {
+      AllegroFlare::WorldMaps::Locations::Player *result = new AllegroFlare::WorldMaps::Locations::Player();
+      result->set_x(x);
+      result->set_y(y);
+      return result;
+   }
    virtual void SetUp()
    {
       AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::SetUp();
       map.set_background_image_identifier("overworld-map-02.png");
       map.set_locations({
-         // TODO: Come up with some better location names
-         {
-            "great_magnus_castle",
-            new AllegroFlare::WorldMaps::Locations::Basic("Great Magnus Castle", 221, 423)
-         },
-         {
-            "village_of_garrick",
-            new AllegroFlare::WorldMaps::Locations::Basic("Village of Garrick", 611, 268)
-         },
-         {
-            "dragons_ruins",
-            new AllegroFlare::WorldMaps::Locations::Basic("Dragon's Ruins", 528, 414)
-         },
-         {
-            "central_village",
-            new AllegroFlare::WorldMaps::Locations::Basic("Central Village", 807, 428)
-         },
-         {
-            "thorian_grove",
-            new AllegroFlare::WorldMaps::Locations::Basic("Thorian Grove", 584, 713)
-         },
-         {
-            "whispering_mountains",
-            new AllegroFlare::WorldMaps::Locations::Basic("Whispering Mountains", 1054, 335)
-         },
-         {
-            "merryvale_village",
-            new AllegroFlare::WorldMaps::Locations::Basic("Merryvale Village", 1132, 772)
-         },
-         {
-            "north_celestial_crossing",
-            new AllegroFlare::WorldMaps::Locations::Basic("North Celestial Crossing", 1315, 473)
-         },
-         {
-            "south_celestial_crossing",
-            new AllegroFlare::WorldMaps::Locations::Basic("South Celestial Crossing", 1351, 551)
-         },
-         {
-            "luminara_citadel",
-            new AllegroFlare::WorldMaps::Locations::Basic("Luminara Citadel", 1662, 250)
-         },
-         {
-            "crestwood_forest",
-            new AllegroFlare::WorldMaps::Locations::Basic("Crestwood Forest", 961, 678)
-         },
-         {
-            "player",
-            new AllegroFlare::WorldMaps::Locations::Player(1262, 350)
-         },
+         { "great_magnus_castle", create_basic_location("Great Magnus Castle", 221, 423) },
+         { "village_of_garrick", create_basic_location("Village of Garrick", 611, 268) },
+         { "dragons_ruins", create_basic_location("Dragon's Ruins", 528, 414) },
+         { "central_village", create_basic_location("Central Village", 807, 428) },
+         { "thorian_grove", create_basic_location("Thorian Grove", 584, 713) },
+         { "whispering_mountains", create_basic_location("Whispering Mountains", 1054, 335) },
+         { "merryvale_village", create_basic_location("Merryvale Village", 1132, 772) },
+         { "north_celestial_crossing", create_basic_location("North Celestial Crossing", 1315, 473) },
+         { "south_celestial_crossing", create_basic_location("South Celestial Crossing", 1351, 551) },
+         { "luminara_citadel", create_basic_location("Luminara Citadel", 1662, 250) },
+         { "crestwood_forest", create_basic_location("Crestwood Forest", 961, 678) },
+         { "player", create_player_location(1262, 350) },
       });
       map.set_primary_point_of_interest_identifier("player");
    }
