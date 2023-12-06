@@ -13,10 +13,8 @@ namespace Locations
 {
 
 
-Player::Player(float x, float y, float width, float height)
+Player::Player(float width, float height)
    : AllegroFlare::WorldMaps::Locations::Base(AllegroFlare::WorldMaps::Locations::Player::TYPE)
-   , x(x)
-   , y(y)
    , width(width)
    , height(height)
 {
@@ -25,18 +23,6 @@ Player::Player(float x, float y, float width, float height)
 
 Player::~Player()
 {
-}
-
-
-void Player::set_x(float x)
-{
-   this->x = x;
-}
-
-
-void Player::set_y(float y)
-{
-   this->y = y;
 }
 
 
@@ -49,18 +35,6 @@ void Player::set_width(float width)
 void Player::set_height(float height)
 {
    this->height = height;
-}
-
-
-float Player::get_x() const
-{
-   return x;
-}
-
-
-float Player::get_y() const
-{
-   return y;
 }
 
 
@@ -85,10 +59,10 @@ bool Player::collides(float point_x, float point_y)
    point_y += height*0.5;
 
    // Calculate the collision
-   if (point_x < x) return false;
-   if (point_y < y) return false;
-   if (point_x > x+width) return false;
-   if (point_y > y+height) return false;
+   if (point_x < get_x()) return false;
+   if (point_y < get_y()) return false;
+   if (point_x > get_x()+width) return false;
+   if (point_y > get_y()+height) return false;
    return true;
 }
 

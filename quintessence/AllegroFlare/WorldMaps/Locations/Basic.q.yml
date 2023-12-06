@@ -16,20 +16,6 @@ properties:
     getter: true
     setter: true
 
-  - name: x
-    type: float
-    init_with: 0.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: y
-    type: float
-    init_with: 0.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: width
     type: float
     init_with: 30.0f
@@ -73,10 +59,10 @@ methods:
       point_y += height*0.5;
 
       // Calculate the collision
-      if (point_x < x) return false;
-      if (point_y < y) return false;
-      if (point_x > x+width) return false;
-      if (point_y > y+height) return false;
+      if (point_x < get_x()) return false;
+      if (point_y < get_y()) return false;
+      if (point_x > get_x()+width) return false;
+      if (point_y > get_y()+height) return false;
       return true;
 
 
