@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Base.hpp>
-#include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
@@ -54,15 +53,6 @@ public:
       ::testing::Test::TearDown();
    }
 };
-
-
-AllegroFlare::WorldMaps::Locations::Basic* create_basic_location(std::string name, float x, float y)
-{
-   AllegroFlare::WorldMaps::Locations::Basic *result = new AllegroFlare::WorldMaps::Locations::Basic(name);
-   result->set_x(x);
-   result->set_y(y);
-   return result;
-}
 
 
 TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest, MyTestLocation_collides__has_correct_collision_bounds)
@@ -156,13 +146,11 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTestWithMapFixture,
 TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
    infer_location_coordinates__will_return_true_with_the_coordinates_of_a_location)
 {
-   // TODO: Remove usage of AllegroFlare::WorldMaps::Locations::Basic and use MyTestLocation
-   // after moving (x, y) to Locations/Base
    AllegroFlare::WorldMaps::Maps::Basic basic;
    basic.set_locations({
-      { "home",   create_basic_location("Home", 20, 20) },
-      { "office", create_basic_location("Office", 80, 120) },
-      { "store",  create_basic_location("Store", -100, -30) },
+      { "home",   new MyTestLocation(20, 20) },
+      { "office", new MyTestLocation(80, 120) },
+      { "store",  new MyTestLocation(-100, -30) },
    });
 
    std::pair<bool, std::pair<float, float>> expected_coordinate_result = { true, { 80.0f, 120.0f } };
@@ -173,13 +161,11 @@ TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
 TEST_F(AllegroFlare_WorldMaps_Maps_BasicTest,
    infer_location_coordinates__on_a_location_that_does_not_exist__will_return_false_with_placeholder_coordinates)
 {
-   // TODO: Remove usage of AllegroFlare::WorldMaps::Locations::Basic and use MyTestLocation
-   // after moving (x, y) to Locations/Base
    AllegroFlare::WorldMaps::Maps::Basic basic;
    basic.set_locations({
-      { "home",   create_basic_location("Home", 20, 20) },
-      { "office", create_basic_location("Office", 80, 120) },
-      { "store",  create_basic_location("Store", -100, -30) },
+      { "home",   new MyTestLocation(20, 20) },
+      { "office", new MyTestLocation(80, 120) },
+      { "store",  new MyTestLocation(-100, -30) },
    });
 
    std::pair<bool, std::pair<float, float>> expected_coordinate_result = { false, { 0.0f, 0.0f } };
