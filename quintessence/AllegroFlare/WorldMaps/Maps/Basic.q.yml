@@ -72,8 +72,6 @@ methods:
       }
       return { 0.0f, 0.0f };
     body_dependency_symbols:
-      - AllegroFlare::WorldMaps::Locations::Basic
-      - AllegroFlare::WorldMaps::Locations::Player
       - AllegroFlare::Logger
 
 
@@ -91,8 +89,6 @@ methods:
       }
       return { false, { 0.0f, 0.0f }}; // Loction was not found
     body_dependency_symbols:
-      - AllegroFlare::WorldMaps::Locations::Basic
-      - AllegroFlare::WorldMaps::Locations::Player
       - AllegroFlare::Logger
       - std::cout
 
@@ -155,10 +151,6 @@ dependencies:
     headers: [ AllegroFlare/WorldMaps/Maps/Base.hpp ]
   - symbol: AllegroFlare::WorldMaps::Locations::Base
     headers: [ AllegroFlare/WorldMaps/Locations/Base.hpp ]
-  - symbol: AllegroFlare::WorldMaps::Locations::Basic
-    headers: [ AllegroFlare/WorldMaps/Locations/Basic.hpp ]
-  - symbol: AllegroFlare::WorldMaps::Locations::Player
-    headers: [ AllegroFlare/WorldMaps/Locations/Player.hpp ]
   - symbol: AllegroFlare::WorldMaps::Maps::Basic
     headers: [ AllegroFlare/WorldMaps/Maps/Basic.hpp ]
   - symbol: AllegroFlare::Logger

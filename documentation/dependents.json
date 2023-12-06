@@ -2149,13 +2149,11 @@
   ],
   "AllegroFlare/WorldMaps/Locations/Basic": [
     "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/WorldMapRenderers/Basic",
-    "AllegroFlare/WorldMaps/Maps/Basic"
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/WorldMaps/Locations/Player": [
     "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/WorldMapRenderers/Basic",
-    "AllegroFlare/WorldMaps/Maps/Basic"
+    "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "std/abs": [
     "AllegroFlare/Elements/WorldMapViewer"

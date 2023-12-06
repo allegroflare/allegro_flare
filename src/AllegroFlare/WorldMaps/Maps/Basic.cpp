@@ -3,8 +3,6 @@
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 
 #include <AllegroFlare/Logger.hpp>
-#include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
-#include <AllegroFlare/WorldMaps/Locations/Player.hpp>
 #include <iostream>
 
 
