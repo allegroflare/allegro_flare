@@ -17,7 +17,7 @@ public:
    {
       AllegroFlare::DeploymentEnvironment deployment_environment("test");
       std::string fixture_path = deployment_environment.get_data_folder_path();
-      std::string FIXTURE_FILE = fixture_path + fixture_filename; //"csv/game_content_csv.csv";
+      std::string FIXTURE_FILE = fixture_path + fixture_filename;
       // TODO: Validate existence of test fixture file
       std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
       EXPECT_EQ(false, content.empty());
@@ -159,44 +159,6 @@ TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_columns__will_return_the
    load_fixture_file("csv/game_content_csv.csv");
    EXPECT_EQ(33, csv_parser.num_columns());
 }
-
-
-
-//#include <gtest/gtest.h>
-
-//#include <SurviveTheCity/CSVParser.hpp>
-#include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a better loading strategy
-
-
-//class AllegroFlare_CSVParserTest: public ::testing::Test {};
-
-class AllegroFlare_CSVParserTestWithLoadedFixture2 : public ::testing::Test
-{
-private:
-   // TODO: Replace this path with a test-local fixture file
-   std::string FIXTURE_FILE = "/Users/markoates/Repos/SurviveTheCity/tests/fixtures/csv/game_content_csv2.csv";
-
-public:
-   AllegroFlare::CSVParser csv_parser;
-
-   virtual void SetUp() override
-   {
-      // TODO: Validate existence of test fixture file
-      std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
-      EXPECT_EQ(false, content.empty());
-      csv_parser.set_raw_csv_content(content);
-      csv_parser.parse();
-   }
-   virtual void TearDown() override
-   {
-   }
-};
-
-
-//TEST_F(AllegroFlare_CSVParserTest, can_be_created_without_blowing_up)
-//{
-   //AllegroFlare::CSVParser csvparser;
-//}
 
 
 TEST_F(AllegroFlare_CSVParserTest, parse__will_load_the_expected_content)
