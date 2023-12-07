@@ -161,31 +161,11 @@ TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_columns__will_return_the
 }
 
 
-TEST_F(AllegroFlare_CSVParserTest, parse__will_load_the_expected_content)
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture,
+   num_records__when_there_are_no_column_headers_present__will_return_the_expected_number_of_records)
 {
-   // TODO: Replace this path with a test-local fixture file
-   std::string FIXTURE_FILE = "/Users/markoates/Repos/SurviveTheCity/tests/fixtures/csv/game_content_csv.csv";
-   // TODO: Validate existence of test fixture file
-   std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
-   EXPECT_EQ(false, content.empty());
-
-   AllegroFlare::CSVParser csv_parser(content);
-   csv_parser.parse();
-
+   load_fixture_file("csv/game_content_csv.csv");
    EXPECT_EQ(209, csv_parser.num_records());
-    
-   //csv_parser.parse();
-
-   //std::vector<std::vector<std::string>> parsed_content = csv_parser.get_parsed_content();
-
-   //ASSERT_EQ(209, parsed_content.size());
-
-   // Check some spot data
-   //EXPECT_EQ("Card, Location, Event", parsed_content[0][0]);
-   //EXPECT_EQ("happiness", parsed_content[1][6]);
-   //EXPECT_EQ("range+10", parsed_content[17][8]);
-   //EXPECT_EQ("bravery+3, persuasion+2", parsed_content[23][13]);
-   //EXPECT_EQ("achievement", parsed_content[208][2]);
 }
 
 
@@ -193,6 +173,15 @@ TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, assemble_column_headers__wil
 {
    load_fixture_file("csv/game_content_csv2.csv");
    csv_parser.assemble_column_headers(2);
+}
+
+
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture,
+   num_records__when_column_headers_are_assembled__will_return_the_expected_number_of_records)
+{
+   load_fixture_file("csv/game_content_csv.csv");
+   csv_parser.assemble_column_headers(2);
+   EXPECT_EQ(207, csv_parser.num_records());
 }
 
 
