@@ -12,6 +12,25 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: num_header_rows
+    type: int
+    init_with: 0
+    getter: explicit
+
+  - name: column_headers
+    type: std::map<std::string, int>
+    init_with: ''
+    getter: true
+
+  - name: loaded
+    type: bool
+    init_with: false
+
+  - name: column_headers_assembled
+    type: bool
+    init_with: false
+    getter: true
+
   - name: parsed
     type: bool
     init_with: false
@@ -91,6 +110,8 @@ methods:
          line_num++;
       }
       parsed = true;
+      loaded = true;
+      column_headers_assembled = false;
       return;
     body_dependency_symbols:
       - std::cout
@@ -144,6 +165,265 @@ methods:
       - std::stringstream
       - std::vector
       - AllegroFlare::UsefulPHP
+
+
+  - name: get_num_header_rows
+    type: int
+    guards: [ loaded, column_headers_assembled ]
+    body: |
+      return num_header_rows;
+
+
+  - name: get_column_header_column_num_or_throw
+    type: int
+    parameters:
+      - name: column_header_name
+        type: std::string
+        default_argument: '"[unset-column_header_name]"'
+    guards: [ column_header_exists(column_header_name) ]
+    body: |
+      //for (auto &column_header : column_headers)
+      //{
+         //std::cout << "     + header: " << column_header.first << std::endl;
+         //std::cout << "       index: " << column_header.second<< std::endl;
+      //}
+
+      return column_headers[column_header_name];
+
+
+  - name: column_header_exists
+    type: bool
+    parameters:
+      - name: column_header_name
+        type: std::string
+        default_argument: '"[unset-column_header_name]"'
+    guards: [ loaded, column_headers_assembled ]
+    body: |
+      return (column_headers.count(column_header_name) > 0);
+
+
+  - name: extract_all_rows
+    type: std::vector<std::map<std::string, std::string>>
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: value
+        type: std::string
+        default_argument: '"[unset-value]"'
+    guards: [ loaded, column_headers_assembled ]
+    body: |
+      AllegroFlare::CSVParser &parser = *this;
+      
+      std::vector<std::map<std::string, std::string>> result;
+      std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
+
+      for (int row_num=num_header_rows; row_num<parsed_content.size(); row_num++)
+      {
+         std::map<std::string, std::string> this_row_mapped;
+         for (int column_num=0; column_num<parser.num_columns(); column_num++)
+         {
+            for (auto &column_header : column_headers)
+            {
+               // TODO: Confirm not clobbering key
+               this_row_mapped[column_header.first] = parsed_content[row_num][column_header.second];
+            }
+         }
+         result.push_back(this_row_mapped);
+      }
+      return result;
+
+
+  - name: extract_rows_by_key
+    type: std::vector<std::map<std::string, std::string>>
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: value
+        type: std::string
+        default_argument: '"[unset-value]"'
+    guards: [ loaded, column_headers_assembled ]
+    body: |
+      AllegroFlare::CSVParser &parser = *this;
+
+      std::vector<std::map<std::string, std::string>> result;
+      int key_column_num = get_column_header_column_num_or_throw(key);
+      std::cout << " Looking for column num " << key_column_num << std::endl;
+      std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
+      //int num_rows = 
+
+      for (int row_num=num_header_rows; row_num<parsed_content.size(); row_num++)
+      {
+         std::string column_value = parsed_content[row_num][key_column_num];
+         //std::cout << " ? looking: \"" << parsed_content[row_num][0] << "\"" << std::endl;
+         //std::cout << " ? looking: \"" << parsed_content[row_num][1] << "\"" << std::endl;
+         //std::cout << " ? looking: \"" << parsed_content[row_num][2] << "\"" << std::endl;
+         //std::cout << " ? checking: \"" << column_value << "\" against \"" << value << "\"" << std::endl;
+          //== value);
+         bool row_is_a_match = (parsed_content[row_num][key_column_num] == value);
+
+         if (!row_is_a_match)
+         {
+            continue;
+         }
+         else // Row is a match
+         {
+            //std::cout << " - matched row :" << std::endl;
+            std::map<std::string, std::string> this_row_mapped;
+            for (int column_num=0; column_num<parser.num_columns(); column_num++)
+            {
+               //std::cout << "    - " << parsed_content[row_num][column_num] << std::endl;
+               //std::map<std::string, std::string> this_row_mapped;
+               for (auto &column_header : column_headers)
+               {
+                  // TODO: Confimrm
+                  this_row_mapped[column_header.first] = parsed_content[row_num][column_header.second];
+               }
+               //result.push_back(this_row_mapped);
+            }
+            result.push_back(this_row_mapped);
+         }
+      }
+
+      return result;
+
+
+  - name: extract_rows_by_keys
+    type: std::vector<std::map<std::string, std::string>>
+    parameters:
+      - name: key1
+        type: std::string
+        default_argument: '"[unset-key1]"'
+      - name: value1
+        type: std::string
+        default_argument: '"[unset-value1]"'
+      - name: key2
+        type: std::string
+        default_argument: '"[unset-key2]"'
+      - name: value2
+        type: std::string
+        default_argument: '"[unset-value2]"'
+    guards: [ loaded, column_headers_assembled ]
+    body: |
+      AllegroFlare::CSVParser &parser = *this;
+
+      std::vector<std::map<std::string, std::string>> result;
+      int key1_column_num = get_column_header_column_num_or_throw(key1);
+      int key2_column_num = get_column_header_column_num_or_throw(key2);
+      std::cout << " Looking for column num " << key1_column_num << std::endl;
+      std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
+      //int num_rows = 
+
+      for (int row_num=num_header_rows; row_num<parsed_content.size(); row_num++)
+      {
+         //std::string column_value = parsed_content[row_num][key1_column_num];
+         //std::cout << " ? looking: \"" << parsed_content[row_num][0] << "\"" << std::endl;
+         //std::cout << " ? looking: \"" << parsed_content[row_num][1] << "\"" << std::endl;
+         //std::cout << " ? looking: \"" << parsed_content[row_num][2] << "\"" << std::endl;
+         //std::cout << " ? checking: \"" << column_value << "\" against \"" << value << "\"" << std::endl;
+          //== value);
+         bool row_is_a_match = (parsed_content[row_num][key1_column_num] == value1)
+                             || (parsed_content[row_num][key2_column_num] == value2)
+                             ;
+
+         if (!row_is_a_match)
+         {
+            continue;
+         }
+         else // Row is a match
+         {
+            //std::cout << " - matched row :" << std::endl;
+            std::map<std::string, std::string> this_row_mapped;
+            for (int column_num=0; column_num<parser.num_columns(); column_num++)
+            {
+               //std::cout << "    - " << parsed_content[row_num][column_num] << std::endl;
+               //std::map<std::string, std::string> this_row_mapped;
+               for (auto &column_header : column_headers)
+               {
+                  // TODO: Confimrm
+                  this_row_mapped[column_header.first] = parsed_content[row_num][column_header.second];
+               }
+               //result.push_back(this_row_mapped);
+            }
+            result.push_back(this_row_mapped);
+         }
+      }
+
+      return result;
+
+
+  - name: assemble_column_headers
+    parameters:
+      - name: num_rows_of_column_headers
+        type: int
+        default_argument: 2
+    guards: [ loaded, (num_rows_of_column_headers <= num_rows()), (num_rows_of_column_headers <= 2) ]
+    xguards: [ loaded, (num_rows_of_column_headers <= parser.num_rows()), (num_rows_of_column_headers <= 2) ]
+    body: |
+      AllegroFlare::CSVParser &parser = *this;
+      //(num_rows_of_column_headers <= parser.num_rows()), (num_rows_of_column_headers <= 2) ]
+
+      // TODO: Test guard
+      num_header_rows = num_rows_of_column_headers;
+      column_headers.clear();
+
+      // TODO: Allow greater than 2 rows for column headers
+
+      // TODO: Only get the min required rows
+      std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
+      std::vector<std::string> collapsed_column_names;
+      collapsed_column_names.resize(parser.num_columns());
+
+      // TODO: Assemble on multiple rows
+      bool on_first_row = true;
+      std::string last_parsed_column = "";
+      for (int row_num=0; row_num<num_header_rows; row_num++)
+      {
+         //std::cout << "--- parsing row " << row_num << std::endl;
+         for (int column_num=0; column_num<parser.num_columns(); column_num++)
+         {
+            // TODO: Confirm column header is unique
+            std::string this_cell_content = AllegroFlare::php::trim(parsed_content[row_num][column_num]);
+            //std::cout << "   -> this cell \"" << this_cell_content << "\"" << std::endl;
+
+            if (on_first_row)
+            {
+               if (!this_cell_content.empty()) last_parsed_column = this_cell_content;
+               collapsed_column_names[column_num] = last_parsed_column;
+               //std::cout << "   -# last_parsed_column \"" << last_parsed_column << "\"" << std::endl;
+            }
+            else
+            {
+               std::string existing_cell_content = collapsed_column_names[column_num];
+               if (!this_cell_content.empty())
+               {
+                  collapsed_column_names[column_num] += ("__" + this_cell_content);
+               }
+            }
+         }
+         on_first_row = false;
+      }
+
+      // Reverse the collapsed_column_names into the column_headers
+      for (std::size_t column_num=0; column_num<collapsed_column_names.size(); column_num++)
+      {
+         // TODO: Validate unique column names
+         column_headers[collapsed_column_names[column_num]] = column_num;
+      }
+
+      column_headers_assembled = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::UsefulPHP
+
+
+  - name: num_records
+    type: int
+    guards: [ loaded ]
+    body: |
+      AllegroFlare::CSVParser &parser = *this;
+      return parser.num_rows() - num_header_rows;
 
 
 dependencies:

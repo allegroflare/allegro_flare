@@ -1257,6 +1257,22 @@ table td
   <td class="property">std::vector&lt;std::vector&lt;std::string&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">num_header_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">column_headers</td>
+  <td class="property">std::map&lt;std::string, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">column_headers_assembled</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">parsed</td>
   <td class="property">bool</td>
 </tr>
@@ -1280,6 +1296,30 @@ table td
 </tr>
 <tr>
   <td class="method">parse_row(std::string line=&quot;[unset-line]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">get_num_header_rows()</td>
+</tr>
+<tr>
+  <td class="method">get_column_header_column_num_or_throw(std::string column_header_name=&quot;[unset-column_header_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">column_header_exists(std::string column_header_name=&quot;[unset-column_header_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">extract_all_rows(std::string key=&quot;[unset-key]&quot;, std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">extract_rows_by_key(std::string key=&quot;[unset-key]&quot;, std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">extract_rows_by_keys(std::string key1=&quot;[unset-key1]&quot;, std::string value1=&quot;[unset-value1]&quot;, std::string key2=&quot;[unset-key2]&quot;, std::string value2=&quot;[unset-value2]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">assemble_column_headers(int num_rows_of_column_headers=2)</td>
+</tr>
+<tr>
+  <td class="method">num_records()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
