@@ -13,7 +13,7 @@ class AllegroFlare_CSVParserTestWithLoadedFixture : public ::testing::Test
 public:
    AllegroFlare::CSVParser csv_parser;
 
-   virtual void SetUp() override
+   void load_fixture_file(std::string fixture_filename="csv/game_content_csv.csv")
    {
       AllegroFlare::DeploymentEnvironment deployment_environment("test");
       std::string fixture_path = deployment_environment.get_data_folder_path();
@@ -23,9 +23,6 @@ public:
       EXPECT_EQ(false, content.empty());
       csv_parser.set_raw_csv_content(content);
       csv_parser.parse();
-   }
-   virtual void TearDown() override
-   {
    }
 };
 
@@ -151,6 +148,7 @@ TEST_F(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
 
 TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_rows__will_return_the_expected_number_of_rows)
 {
+   load_fixture_file();
    EXPECT_EQ(209, csv_parser.num_rows());
 
 }
@@ -158,6 +156,7 @@ TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_rows__will_return_the_ex
 
 TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_columns__will_return_the_expected_number_of_columns)
 {
+   load_fixture_file();
    EXPECT_EQ(33, csv_parser.num_columns());
 }
 
