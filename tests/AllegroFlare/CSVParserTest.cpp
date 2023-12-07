@@ -162,3 +162,209 @@ TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_columns__will_return_the
 }
 
 
+
+//#include <gtest/gtest.h>
+
+//#include <SurviveTheCity/CSVParser.hpp>
+#include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a better loading strategy
+
+
+//class AllegroFlare_CSVParserTest: public ::testing::Test {};
+
+class AllegroFlare_CSVParserTestWithLoadedFixture2 : public ::testing::Test
+{
+private:
+   // TODO: Replace this path with a test-local fixture file
+   std::string FIXTURE_FILE = "/Users/markoates/Repos/SurviveTheCity/tests/fixtures/csv/game_content_csv2.csv";
+
+public:
+   AllegroFlare::CSVParser csv_parser;
+
+   virtual void SetUp() override
+   {
+      // TODO: Validate existence of test fixture file
+      std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
+      EXPECT_EQ(false, content.empty());
+      csv_parser.set_raw_csv_content(content);
+      csv_parser.parse();
+   }
+   virtual void TearDown() override
+   {
+   }
+};
+
+
+//TEST_F(AllegroFlare_CSVParserTest, can_be_created_without_blowing_up)
+//{
+   //AllegroFlare::CSVParser csvparser;
+//}
+
+
+TEST_F(AllegroFlare_CSVParserTest, parse__will_load_the_expected_content)
+{
+   // TODO: Replace this path with a test-local fixture file
+   std::string FIXTURE_FILE = "/Users/markoates/Repos/SurviveTheCity/tests/fixtures/csv/game_content_csv.csv";
+   // TODO: Validate existence of test fixture file
+   std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
+   EXPECT_EQ(false, content.empty());
+
+   AllegroFlare::CSVParser csv_parser(content);
+   csv_parser.parse();
+
+   EXPECT_EQ(209, csv_parser.num_records());
+    
+   //csv_parser.parse();
+
+   //std::vector<std::vector<std::string>> parsed_content = csv_parser.get_parsed_content();
+
+   //ASSERT_EQ(209, parsed_content.size());
+
+   // Check some spot data
+   //EXPECT_EQ("Card, Location, Event", parsed_content[0][0]);
+   //EXPECT_EQ("happiness", parsed_content[1][6]);
+   //EXPECT_EQ("range+10", parsed_content[17][8]);
+   //EXPECT_EQ("bravery+3, persuasion+2", parsed_content[23][13]);
+   //EXPECT_EQ("achievement", parsed_content[208][2]);
+}
+
+
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture2, assemble_column_headers__will_not_blow_up)
+{
+   csv_parser.assemble_column_headers(2);
+}
+
+
+TEST_F(AllegroFlare_CSVParserTest, assemble_column_headers__will_assemble_headers_associated_with_column_numbers)
+{
+   std::string raw_csv_content =
+      "Name,LastName,Address,\"City, State\",Age\n"
+      "John,Doe,\"123, Main St\",\"This is a string\",42\n"
+      "Jane,Dall,\"321, Happyberry Ave\",\"This is another string here\",64\n"
+      ;
+   AllegroFlare::CSVParser csv_parser(raw_csv_content);
+   csv_parser.parse();
+
+   csv_parser.assemble_column_headers(1);
+   std::map<std::string, int> expected_column_headers = {
+      { "Name", 0 },
+      { "LastName", 1 },
+      { "Address", 2 },
+      { "City, State", 3 },
+      { "Age", 4 },
+   };
+   std::map<std::string, int> actual_column_headers = csv_parser.get_column_headers();
+
+   EXPECT_EQ(expected_column_headers, actual_column_headers);
+}
+
+
+TEST_F(AllegroFlare_CSVParserTest,
+   assemble_column_headers__will_assemble_headers_spaning_multiple_lines)
+{
+   std::string raw_csv_content =
+      "Name,,Address,\"City, State\",Age\n"
+      "First,Last,,,\n"
+      "John,Doe,\"123, Main St\",\"This is a string\",42\n"
+      "Jane,Dall,\"321, Happyberry Ave\",\"This is another string here\",64\n"
+      ;
+   AllegroFlare::CSVParser csv_parser(raw_csv_content);
+   csv_parser.parse();
+
+   csv_parser.assemble_column_headers(2);
+   std::map<std::string, int> expected_column_headers = {
+      { "Name__First", 0 },
+      { "Name__Last", 1 },
+      { "Address", 2 },
+      { "City, State", 3 },
+      { "Age", 4 },
+   };
+   std::map<std::string, int> actual_column_headers = csv_parser.get_column_headers();
+
+   EXPECT_EQ(expected_column_headers, actual_column_headers);
+}
+
+
+TEST_F(AllegroFlare_CSVParserTest, assemble_column_headers__will_work_with_large_test_fixture)
+{
+   // TODO: Replace this path with a test-local fixture file
+   std::string FIXTURE_FILE = "/Users/markoates/Repos/SurviveTheCity/tests/fixtures/csv/game_content_csv2.csv";
+   // TODO: Validate existence of test fixture file
+   std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
+   EXPECT_EQ(false, content.empty());
+
+   AllegroFlare::CSVParser csv_parser(content);
+   csv_parser.parse();
+
+   csv_parser.assemble_column_headers(2);
+   std::map<std::string, int> expected_column_headers = {
+      { "Card, Location, Event", 0 }, 
+      { "description", 1 }, 
+      { "type", 2 }, 
+      { "creation__stress", 3 }, 
+      { "creation__health", 4 }, 
+      { "creation__happiness", 5 }, 
+      { "creation__wealth", 6 }, 
+      { "creation__custom", 7 }, 
+      { "upkeep__stress", 8 }, 
+      { "upkeep__health", 9 }, 
+      { "upkeep__happiness", 10 }, 
+      { "upkeep__wealth", 11 },
+      { "upkeep__custom", 12 }, 
+      { "destruction__stress", 13 }, 
+      { "destruction__health", 14 }, 
+      { "destruction__happiness", 15 }, 
+      { "destruction__wealth", 16 }, 
+      { "destruction__custom", 17 }, 
+      { "upkeep__rate", 18 }, 
+      { "upkeep__fail_if", 19 }, 
+      { "upkeep__completes_if", 20 }, 
+      { "upkeep__expires_after", 21 }, 
+      { "probability", 22 }, 
+      { "limits__count", 23 }, 
+      { "limits__frequency_in_turns", 24 }, 
+      { "limits__only_if_states", 25 }, 
+      { "limits__not_if_states", 26 }, 
+      { "limits__only_if_foundation", 27 }, 
+      { "limits__not_if_foundation", 28 }, 
+      { "description_text", 29 }, 
+      { "description_subtext", 30 }, 
+      { "notes", 31 },
+   };
+   std::map<std::string, int> actual_column_headers = csv_parser.get_column_headers();
+
+   EXPECT_EQ(expected_column_headers, actual_column_headers);
+}
+
+
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture2, extract_rows_by_key__will_return_rows_that_match_the_key_value)
+{
+   csv_parser.assemble_column_headers(2);
+
+   std::vector<std::map<std::string, std::string>> extracted_rows =
+      csv_parser.extract_rows_by_key("type", "requirement");
+
+   EXPECT_EQ(2, extracted_rows.size());
+
+   // Confirm the extracted rows have the type as requested
+   for (auto &col : extracted_rows[0])
+   {
+      EXPECT_EQ("requirement", extracted_rows[0]["type"]);
+   }
+}
+
+
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture2, extract_rows_by_keys__will_return_rows_that_match_the_key_value)
+{
+   csv_parser.assemble_column_headers(2);
+
+   std::vector<std::map<std::string, std::string>> extracted_rows =
+      csv_parser.extract_rows_by_keys("type", "location", "type", "action");
+
+   EXPECT_EQ(113, extracted_rows.size());
+
+   // Confirm the extracted rows are the expected ones
+   EXPECT_EQ("Travel Agency", extracted_rows[0]["Card, Location, Event"]);
+   EXPECT_EQ("Become a Member", extracted_rows[112]["Card, Location, Event"]);
+}
+
+
