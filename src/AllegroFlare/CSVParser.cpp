@@ -57,6 +57,18 @@ void CSVParser::set_raw_csv_content(std::string raw_csv_content)
    return;
 }
 
+int CSVParser::num_raw_rows()
+{
+   if (!(parsed))
+   {
+      std::stringstream error_message;
+      error_message << "[CSVParser::num_raw_rows]: error: guard \"parsed\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CSVParser::num_raw_rows: error: guard \"parsed\" not met");
+   }
+   return parsed_content.size();
+}
+
 int CSVParser::num_rows()
 {
    if (!(parsed))
@@ -66,7 +78,19 @@ int CSVParser::num_rows()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CSVParser::num_rows: error: guard \"parsed\" not met");
    }
-   return parsed_content.size();
+   return num_records();
+}
+
+int CSVParser::num_records()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[CSVParser::num_records]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CSVParser::num_records: error: guard \"loaded\" not met");
+   }
+   return num_raw_rows() - num_header_rows;
 }
 
 int CSVParser::num_columns()
@@ -80,19 +104,6 @@ int CSVParser::num_columns()
    }
    if (parsed_content.empty()) return 0;
    return parsed_content[0].size();
-}
-
-int CSVParser::num_records()
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[CSVParser::num_records]: error: guard \"loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::num_records: error: guard \"loaded\" not met");
-   }
-   AllegroFlare::CSVParser &parser = *this;
-   return parser.num_rows() - num_header_rows;
 }
 
 std::vector<std::vector<std::string>> CSVParser::get_parsed_content()
@@ -410,12 +421,12 @@ void CSVParser::assemble_column_headers(int num_rows_of_column_headers)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"loaded\" not met");
    }
-   if (!((num_rows_of_column_headers <= num_rows())))
+   if (!((num_rows_of_column_headers <= num_raw_rows())))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers <= num_rows())\" not met.";
+      error_message << "[CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers <= num_rows())\" not met");
+      throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met");
    }
    if (!((num_rows_of_column_headers <= 2)))
    {

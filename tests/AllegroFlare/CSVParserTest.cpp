@@ -146,10 +146,10 @@ TEST_F(AllegroFlare_CSVParserTest, parse__will_parse_large_content)
 }
 
 
-TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_rows__will_return_the_expected_number_of_rows)
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, num_raw_rows__will_return_the_expected_number_of_rows)
 {
    load_fixture_file("csv/game_content_csv.csv");
-   EXPECT_EQ(209, csv_parser.num_rows());
+   EXPECT_EQ(209, csv_parser.num_raw_rows());
 
 }
 

@@ -35,9 +35,10 @@ namespace AllegroFlare
       bool get_column_headers_assembled() const;
       bool get_parsed() const;
       void set_raw_csv_content(std::string raw_csv_content="[unset-raw_csv_content]");
+      int num_raw_rows();
       int num_rows();
-      int num_columns();
       int num_records();
+      int num_columns();
       std::vector<std::vector<std::string>> get_parsed_content();
       void parse();
       std::vector<std::string> parse_row(std::string line="[unset-line]");
