@@ -17,7 +17,7 @@ public:
    {
       AllegroFlare::DeploymentEnvironment deployment_environment("test");
       std::string fixture_path = deployment_environment.get_data_folder_path();
-      std::string FIXTURE_FILE = fixture_path + "csv/game_content_csv.csv";
+      std::string FIXTURE_FILE = fixture_path + fixture_filename; //"csv/game_content_csv.csv";
       // TODO: Validate existence of test fixture file
       std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
       EXPECT_EQ(false, content.empty());
@@ -336,8 +336,9 @@ TEST_F(AllegroFlare_CSVParserTest, assemble_column_headers__will_work_with_large
 }
 
 
-TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture2, extract_rows_by_key__will_return_rows_that_match_the_key_value)
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, extract_rows_by_key__will_return_rows_that_match_the_key_value)
 {
+   load_fixture_file("csv/game_content_csv2.csv");
    csv_parser.assemble_column_headers(2);
 
    std::vector<std::map<std::string, std::string>> extracted_rows =
@@ -353,8 +354,9 @@ TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture2, extract_rows_by_key__will_r
 }
 
 
-TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture2, extract_rows_by_keys__will_return_rows_that_match_the_key_value)
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, extract_rows_by_keys__will_return_rows_that_match_the_key_value)
 {
+   load_fixture_file("csv/game_content_csv2.csv");
    csv_parser.assemble_column_headers(2);
 
    std::vector<std::map<std::string, std::string>> extracted_rows =
