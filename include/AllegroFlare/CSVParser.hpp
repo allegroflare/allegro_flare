@@ -34,9 +34,10 @@ namespace AllegroFlare
       std::map<std::string, int> get_column_headers() const;
       bool get_column_headers_assembled() const;
       bool get_parsed() const;
+      void set_raw_csv_content(std::string raw_csv_content="[unset-raw_csv_content]");
       int num_rows();
       int num_columns();
-      void set_raw_csv_content(std::string raw_csv_content="[unset-raw_csv_content]");
+      int num_records();
       std::vector<std::vector<std::string>> get_parsed_content();
       void parse();
       std::vector<std::string> parse_row(std::string line="[unset-line]");
@@ -47,7 +48,6 @@ namespace AllegroFlare
       std::vector<std::map<std::string, std::string>> extract_rows_by_key(std::string key="[unset-key]", std::string value="[unset-value]");
       std::vector<std::map<std::string, std::string>> extract_rows_by_keys(std::string key1="[unset-key1]", std::string value1="[unset-value1]", std::string key2="[unset-key2]", std::string value2="[unset-value2]");
       void assemble_column_headers(int num_rows_of_column_headers=2);
-      int num_records();
    };
 }
 

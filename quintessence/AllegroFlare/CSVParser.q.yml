@@ -58,6 +58,18 @@ documentation:
 methods:
 
 
+  - name: set_raw_csv_content
+    parameters:
+      - name: raw_csv_content
+        type: std::string
+        default_argument: '"[unset-raw_csv_content]"'
+    body: |
+      this->raw_csv_content = raw_csv_content;
+      parsed = false;
+      parsed_content.clear();
+      return;
+
+
   - name: num_rows
     type: int
     guards: [ parsed ]
@@ -73,16 +85,12 @@ methods:
       return parsed_content[0].size();
 
 
-  - name: set_raw_csv_content
-    parameters:
-      - name: raw_csv_content
-        type: std::string
-        default_argument: '"[unset-raw_csv_content]"'
+  - name: num_records
+    type: int
+    guards: [ loaded ]
     body: |
-      this->raw_csv_content = raw_csv_content;
-      parsed = false;
-      parsed_content.clear();
-      return;
+      AllegroFlare::CSVParser &parser = *this;
+      return parser.num_rows() - num_header_rows;
 
 
   - name: get_parsed_content
@@ -425,14 +433,6 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::UsefulPHP
-
-
-  - name: num_records
-    type: int
-    guards: [ loaded ]
-    body: |
-      AllegroFlare::CSVParser &parser = *this;
-      return parser.num_rows() - num_header_rows;
 
 
 dependencies:
