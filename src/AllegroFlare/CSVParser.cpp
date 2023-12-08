@@ -224,12 +224,6 @@ int CSVParser::get_column_header_column_num_or_throw(std::string column_header_n
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CSVParser::get_column_header_column_num_or_throw: error: guard \"column_header_exists(column_header_name)\" not met");
    }
-   //for (auto &column_header : column_headers)
-   //{
-      //std::cout << "     + header: " << column_header.first << std::endl;
-      //std::cout << "       index: " << column_header.second<< std::endl;
-   //}
-
    return column_headers[column_header_name];
 }
 
@@ -311,7 +305,6 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_key(s
    int key_column_num = get_column_header_column_num_or_throw(key);
    std::cout << " Looking for column num " << key_column_num << std::endl;
    std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
-   //int num_rows = 
 
    for (int row_num=num_header_rows; row_num<parsed_content.size(); row_num++)
    {
