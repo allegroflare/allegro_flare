@@ -309,11 +309,6 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_key(s
    for (int row_num=num_header_rows; row_num<parsed_content.size(); row_num++)
    {
       std::string column_value = parsed_content[row_num][key_column_num];
-      //std::cout << " ? looking: \"" << parsed_content[row_num][0] << "\"" << std::endl;
-      //std::cout << " ? looking: \"" << parsed_content[row_num][1] << "\"" << std::endl;
-      //std::cout << " ? looking: \"" << parsed_content[row_num][2] << "\"" << std::endl;
-      //std::cout << " ? checking: \"" << column_value << "\" against \"" << value << "\"" << std::endl;
-       //== value);
       bool row_is_a_match = (parsed_content[row_num][key_column_num] == value);
 
       if (!row_is_a_match)
@@ -322,18 +317,14 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_key(s
       }
       else // Row is a match
       {
-         //std::cout << " - matched row :" << std::endl;
          std::map<std::string, std::string> this_row_mapped;
          for (int column_num=0; column_num<parser.num_columns(); column_num++)
          {
-            //std::cout << "    - " << parsed_content[row_num][column_num] << std::endl;
-            //std::map<std::string, std::string> this_row_mapped;
             for (auto &column_header : column_headers)
             {
                // TODO: Confimrm
                this_row_mapped[column_header.first] = parsed_content[row_num][column_header.second];
             }
-            //result.push_back(this_row_mapped);
          }
          result.push_back(this_row_mapped);
       }
@@ -365,16 +356,9 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_keys(
    int key2_column_num = get_column_header_column_num_or_throw(key2);
    std::cout << " Looking for column num " << key1_column_num << std::endl;
    std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
-   //int num_rows = 
 
    for (int row_num=num_header_rows; row_num<parsed_content.size(); row_num++)
    {
-      //std::string column_value = parsed_content[row_num][key1_column_num];
-      //std::cout << " ? looking: \"" << parsed_content[row_num][0] << "\"" << std::endl;
-      //std::cout << " ? looking: \"" << parsed_content[row_num][1] << "\"" << std::endl;
-      //std::cout << " ? looking: \"" << parsed_content[row_num][2] << "\"" << std::endl;
-      //std::cout << " ? checking: \"" << column_value << "\" against \"" << value << "\"" << std::endl;
-       //== value);
       bool row_is_a_match = (parsed_content[row_num][key1_column_num] == value1)
                           || (parsed_content[row_num][key2_column_num] == value2)
                           ;
@@ -385,18 +369,14 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_keys(
       }
       else // Row is a match
       {
-         //std::cout << " - matched row :" << std::endl;
          std::map<std::string, std::string> this_row_mapped;
          for (int column_num=0; column_num<parser.num_columns(); column_num++)
          {
-            //std::cout << "    - " << parsed_content[row_num][column_num] << std::endl;
-            //std::map<std::string, std::string> this_row_mapped;
             for (auto &column_header : column_headers)
             {
-               // TODO: Confimrm
+               // TODO: Confirm
                this_row_mapped[column_header.first] = parsed_content[row_num][column_header.second];
             }
-            //result.push_back(this_row_mapped);
          }
          result.push_back(this_row_mapped);
       }
