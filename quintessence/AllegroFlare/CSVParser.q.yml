@@ -53,6 +53,10 @@ documentation:
       - there is some design ambiguity between extract_rows_by_key, extract_rows_by_keys, and extract_all_rows. I'd like
         to remove extract_rows_by_keys at least becasue I don't want this class to become a query object. Consider
         alternatives and the possibility that extraction methods might not be moved somewhere else.
+      - nice features might be:
+        - In addition to "assemble_column_headers", could assign one column to be the key, which could be used to pull
+          discreete records.  This might not be preferible, though, because it begins adding query features to this
+          class.
 
 
 methods:
