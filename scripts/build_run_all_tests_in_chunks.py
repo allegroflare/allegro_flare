@@ -47,7 +47,7 @@ for i, batch in enumerate(batches):
 
 ## run the composite build commands
 
-skip_obj_build = True;
+skip_obj_build = False;
 
 for i, command in enumerate(individual_batch_commands):
     ## run the command
