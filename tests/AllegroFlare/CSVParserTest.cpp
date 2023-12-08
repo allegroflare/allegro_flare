@@ -37,17 +37,11 @@ TEST_F(AllegroFlare_CSVParserTest, parse_row__returns_the_row_parsed_into_tokens
 {
    AllegroFlare::CSVParser csv_parser;
    std::string line = "Name,Age,Address,\"City, State\",Country";
+
+   std::vector<std::string> expected_columns = { "Name", "Age", "Address", "City, State", "Country" };
    std::vector<std::string> columns = csv_parser.parse_row(line);
 
-   EXPECT_EQ(5, columns.size());
-
-   //TODO: Assert parsed_tokens
-
-   // Debug: Print the parsed columns
-   for (const auto& col : columns)
-   {
-       std::cout << col << std::endl;
-   }
+   EXPECT_EQ(expected_columns, columns);
 }
 
 
