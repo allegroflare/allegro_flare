@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/CSVParser.hpp>
-#include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a test-local fixture file
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <filesystem>
 
@@ -65,11 +65,6 @@ TEST_F(AllegroFlare_CSVParserTest,
    };
 
    EXPECT_EQ(columns, expected_parsed_tokens);
-   // Debug: Print the parsed columns
-   for (const auto& col : columns)
-   {
-       std::cout << col << std::endl;
-   }
 }
 
 
@@ -230,16 +225,9 @@ TEST_F(AllegroFlare_CSVParserTest,
 }
 
 
-TEST_F(AllegroFlare_CSVParserTest, assemble_column_headers__will_work_with_large_test_fixture)
+TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, assemble_column_headers__will_work_with_large_test_fixture)
 {
-   // TODO: Replace this path with a test-local fixture file
-   std::string FIXTURE_FILE = "/Users/markoates/Repos/SurviveTheCity/tests/fixtures/csv/game_content_csv2.csv";
-   // TODO: Validate existence of test fixture file
-   std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
-   EXPECT_EQ(false, content.empty());
-
-   AllegroFlare::CSVParser csv_parser(content);
-   csv_parser.parse();
+   load_fixture_file("csv/game_content_csv2.csv");
 
    csv_parser.assemble_column_headers(2);
    std::map<std::string, int> expected_column_headers = {
