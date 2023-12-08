@@ -4,6 +4,7 @@
 #include <AllegroFlare/CSVParser.hpp>
 #include <AllegroFlare/UsefulPHP.hpp> // TODO: Replace this with a test-local fixture file
 #include <AllegroFlare/DeploymentEnvironment.hpp>
+#include <filesystem>
 
 
 class AllegroFlare_CSVParserTest: public ::testing::Test {};
@@ -18,7 +19,7 @@ public:
       AllegroFlare::DeploymentEnvironment deployment_environment("test");
       std::string fixture_path = deployment_environment.get_data_folder_path();
       std::string FIXTURE_FILE = fixture_path + fixture_filename;
-      // TODO: Validate existence of test fixture file
+      ASSERT_EQ(true, std::filesystem::exists(FIXTURE_FILE));
       std::string content = AllegroFlare::php::file_get_contents(FIXTURE_FILE);
       EXPECT_EQ(false, content.empty());
       csv_parser.set_raw_csv_content(content);
