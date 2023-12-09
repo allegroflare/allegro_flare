@@ -42,6 +42,21 @@ std::string Complete::get_type() const
 }
 
 
+std::string Complete::app_icon_1024_filename()
+{
+   return "icons/allegro-flare-generic-icon-1024.png";
+}
+
+std::string Complete::app_title()
+{
+   return "Return of the Wanderer";
+}
+
+std::string Complete::primary_display_icon_filename()
+{
+   return "icons/allegro-flare-generic-icon-1024.png";
+}
+
 void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
 {
    // TODO: Handle top-level game events here

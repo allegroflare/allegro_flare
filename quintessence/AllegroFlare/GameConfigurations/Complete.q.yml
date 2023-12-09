@@ -26,6 +26,27 @@ documentation:
 methods:
 
 
+  - name: app_icon_1024_filename
+    type: std::string
+    virtual: true
+    body: |
+      return "icons/allegro-flare-generic-icon-1024.png";
+
+
+  - name: app_title
+    type: std::string
+    virtual: true
+    body: |
+      return "Return of the Wanderer";
+
+
+  - name: primary_display_icon_filename
+    type: std::string
+    virtual: true
+    body: |
+      return "icons/allegro-flare-generic-icon-1024.png";
+
+
   - name: handle_game_event
     virtual: true
     parameters:

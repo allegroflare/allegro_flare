@@ -37,6 +37,9 @@ namespace AllegroFlare
          virtual ~Complete();
 
          std::string get_type() const;
+         virtual std::string app_icon_1024_filename();
+         virtual std::string app_title();
+         virtual std::string primary_display_icon_filename();
          virtual void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          virtual AllegroFlare::Levels::Base* load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          virtual std::vector<std::pair<std::string, std::string>> build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]");
