@@ -67,6 +67,7 @@ namespace AllegroFlare
          int render_surface_depth_size;
          int render_surface_adapter;
          Display *primary_display;
+         std::string primary_display_icon_image_identifier;
          //ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          ALLEGRO_TIMER *primary_timer;
          Camera2D camera_2d;
@@ -104,6 +105,7 @@ namespace AllegroFlare
          AllegroFlare::Shaders::Base *shader_target_for_hotloading;
 
          void draw_overlay();
+         void refresh_display_icon();
         
          // User callbacks
          std::map<uint32_t, std::pair<std::function<void(ALLEGRO_EVENT*, void*)>, void*>> event_callbacks;
@@ -147,6 +149,7 @@ namespace AllegroFlare
          AllegroFlare::Routers::Base *get_router();
          void set_router(AllegroFlare::Routers::Base* router);
          Display *get_primary_display();
+         void set_primary_display_icon_image_identifier(std::string image_identifier);
 
          void set_render_surface_multisamples(int render_surface_multisamples=4);
          RenderSurfaces::Base *get_primary_render_surface();

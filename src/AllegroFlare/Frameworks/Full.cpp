@@ -67,6 +67,7 @@ Full::Full()
    , render_surface_depth_size(32)
    , render_surface_adapter(-1)
    , primary_display(nullptr)
+   , primary_display_icon_image_identifier("icons/allegro-flare-generic-icon-1024.png")
    //, primary_display_sub_bitmap_for_overlay(nullptr)
    , primary_timer(nullptr)
    , camera_2d()
@@ -243,6 +244,24 @@ Display *Full::get_primary_display()
    return primary_display;
 }
 
+
+void Full::set_primary_display_icon_image_identifier(std::string image_identifier)
+{
+   primary_display_icon_image_identifier = image_identifier;
+   refresh_display_icon();
+}
+
+
+void Full::refresh_display_icon()
+{
+   if (primary_display)
+   {
+      ALLEGRO_BITMAP *icon = bitmaps[primary_display_icon_image_identifier];
+      // TODO: Consider using al_set_display_icons (plural)
+      // TODO: Look into if this fulfills icon for window frame, taskbar, alt-tab popup, etc
+      al_set_display_icon(primary_display->al_display, icon);
+   }
+}
 
 
 bool Full::initialize_core_system()
@@ -449,6 +468,7 @@ bool Full::initialize_display_and_render_pipeline()
       render_surface_adapter,
       display_fullscreen
    );
+
 
    if (!primary_display)
    {
