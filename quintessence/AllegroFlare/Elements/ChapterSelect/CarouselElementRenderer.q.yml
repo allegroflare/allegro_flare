@@ -135,6 +135,7 @@ methods:
 
       return result_dimensions;
     body_dependency_symbols:
+      - std::function
       - std::map
       - AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabel
       - AllegroFlare::Elements::ChapterSelect::CarouselElements::ThumbnailWithLabelUnlockable

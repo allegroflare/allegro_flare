@@ -5,6 +5,7 @@
 #include <allegro5/allegro_color.h>
 #include <AllegroFlare/Logger.hpp>
 //#include <AllegroFlare/Framework.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 //#include <allegro_flare/allegro_flare.h>
 
@@ -62,8 +63,10 @@ namespace AllegroFlare
    {
       if (initialized && !destroyed)
       {
-         throw std::runtime_error("[AllegroFlare::Display::~Display()]: error: You must call destroy() before the "
-                                  "destructor is called. This will most certainly result in a crash. Continuing.");
+         AllegroFlare::Logger::warn_from("AllegroFlare::Display::Display()", "creating display.");
+         //AllegroFlare::Errors::warn_from(
+         //throw std::runtime_error("[AllegroFlare::Display::~Display()]: error: You must call destroy() before the "
+                                  //"destructor is called. This will most certainly result in a crash. Continuing.");
       }
    }
 

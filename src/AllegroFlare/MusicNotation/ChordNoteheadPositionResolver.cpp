@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp>
 #include <iostream>
+#include <limits>
 #include <sstream>
 #include <stdexcept>
 

@@ -7,6 +7,7 @@
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabel.hpp>
 #include <AllegroFlare/Elements/ChapterSelect/CarouselElements/ThumbnailWithLabelUnlockable.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <sstream>

@@ -2656,6 +2656,9 @@
   "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver/PositionType": [
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
+  "std/numeric_limits": [
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+  ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol"
   ],

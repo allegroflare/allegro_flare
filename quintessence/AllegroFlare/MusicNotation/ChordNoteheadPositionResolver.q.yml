@@ -91,6 +91,8 @@ methods:
 
       if (left_position_exists) return min_pitch;
       return 0;
+    body_dependency_symbols:
+      - std::numeric_limits
 
 
   - name: highest_staff_position_on_position_type
@@ -116,6 +118,8 @@ methods:
 
       if (left_position_exists) return max_pitch;
       return 0;
+    body_dependency_symbols:
+      - std::numeric_limits
 
 
   - name: lowest_staff_position_on_right_column
@@ -304,5 +308,7 @@ dependencies:
     headers: [ ]
   - symbol: AllegroFlare::MusicNotation::Parser::PitchTokenSorter
     headers: [ AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp ]
+  - symbol: std::numeric_limits
+    headers: [ limits ]
 
 

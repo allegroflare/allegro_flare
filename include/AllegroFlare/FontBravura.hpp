@@ -2,6 +2,7 @@
 
 
 #include <string>
+#include <cstdint> // Needed for int32_t
 
 
 namespace AllegroFlare
