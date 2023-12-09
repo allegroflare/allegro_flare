@@ -2644,6 +2644,10 @@
     "AllegroFlare/MusicNotation/ChordDotPositionCalculator",
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
+  "std/numeric_limits": [
+    "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+  ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"
   ],
@@ -2654,9 +2658,6 @@
     "AllegroFlare/MusicNotation/BeamPositionCalculator"
   ],
   "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver/PositionType": [
-    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
-  ],
-  "std/numeric_limits": [
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
   ],
   "RomanNumeralAnalysisSymbol/ChordQuality": [

@@ -77,6 +77,8 @@ methods:
       }
 
       return std::abs(smallest_column_value);
+    body_dependency_symbols:
+      - std::numeric_limits
 
 
   - name: solve_one_from_top
@@ -374,5 +376,7 @@ dependencies:
     headers: [ algorithm ]
   - symbol: AllegroFlare::MusicNotation::Parser::PitchTokenSorter
     headers: [ AllegroFlare/MusicNotation/Parser/PitchTokenSorter.hpp ]
+  - symbol: std::numeric_limits
+    headers: [ limits ]
 
 
