@@ -51,6 +51,7 @@ Full::Full()
    , fonts()
    , samples()
    , bitmaps()
+   , icon_bin()
    , models()
    , video_bin()
    , motions(200)
@@ -67,7 +68,7 @@ Full::Full()
    , render_surface_depth_size(32)
    , render_surface_adapter(-1)
    , primary_display(nullptr)
-   , primary_display_icon_image_identifier("icons/allegro-flare-generic-icon-1024.png")
+   , primary_display_icon_image_identifier("allegro-flare-generic-icon-1024.png")
    //, primary_display_sub_bitmap_for_overlay(nullptr)
    , primary_timer(nullptr)
    , camera_2d()
@@ -254,9 +255,10 @@ void Full::set_primary_display_icon_image_identifier(std::string image_identifie
 
 void Full::refresh_display_icon()
 {
+   // TODO: Sort out this issue where bitmaps[] is looking in bin/data/bitmaps, needs bin/data/icons
    if (primary_display)
    {
-      ALLEGRO_BITMAP *icon = bitmaps[primary_display_icon_image_identifier];
+      ALLEGRO_BITMAP *icon = icon_bin[primary_display_icon_image_identifier];
       // TODO: Consider using al_set_display_icons (plural)
       // TODO: Look into if this fulfills icon for window frame, taskbar, alt-tab popup, etc
       al_set_display_icon(primary_display->al_display, icon);
@@ -367,6 +369,7 @@ bool Full::initialize_core_system()
    fonts.set_path(data_folder_path + "fonts");
    samples.set_path(data_folder_path + "samples");
    bitmaps.set_path(data_folder_path + "bitmaps");
+   icon_bin.set_path(data_folder_path + "icons");
    models.set_path(data_folder_path + "models");
    video_bin.set_path(data_folder_path + "videos");
 
@@ -477,6 +480,8 @@ bool Full::initialize_display_and_render_pipeline()
    }
 
    primary_display->initialize();
+   refresh_display_icon();
+
 
    if (!primary_display->al_display)
    {
@@ -751,6 +756,7 @@ bool Full::shutdown()
    // TODO audit this function
    samples.clear();
    bitmaps.clear();
+   icon_bin.clear();
    fonts.clear();
    models.clear();
    video_bin.clear();

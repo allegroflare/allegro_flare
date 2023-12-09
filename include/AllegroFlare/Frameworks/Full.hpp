@@ -51,6 +51,7 @@ namespace AllegroFlare
          FontBin fonts; // TODO: fix this to "font_bin"
          SampleBin samples;
          BitmapBin bitmaps;
+         BitmapBin icon_bin;
          ModelBin models;
          VideoBin video_bin;
          Motion motions;
