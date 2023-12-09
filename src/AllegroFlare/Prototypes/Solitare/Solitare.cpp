@@ -3,6 +3,7 @@
 #include <AllegroFlare/Prototypes/Solitare/Solitare.hpp>
 
 #include <AllegroFlare/Elements/PlayingCards/DeckFactory.hpp>
+#include <stdexcept>
 
 
 namespace AllegroFlare

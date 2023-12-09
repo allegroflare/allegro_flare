@@ -85,6 +85,8 @@ methods:
       std::get<0>(topmost_card) = true;
 
       return;
+    body_dependency_symbols:
+      - std::runtime_error
 
 
   - name: place_top_stock_card_on_waste
