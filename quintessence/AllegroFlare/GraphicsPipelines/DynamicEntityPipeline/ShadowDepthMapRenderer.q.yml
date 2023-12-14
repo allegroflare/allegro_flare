@@ -206,7 +206,7 @@ functions:
   - name: setup_projection_on_render_surface
     guards: [ backbuffer_is_setup, depth_map_shader ]
     body: |
-      float shadow_scale_divisor = 1.0; // Not sure what affect this has. Please see FunzDemo for more detailed comment
+      float shadow_scale_divisor = 1.0; // See comment further down for more detail
 
       // setup the render settings
       al_set_render_state(ALLEGRO_DEPTH_TEST, 1);

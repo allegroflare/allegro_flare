@@ -280,7 +280,7 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_on_render_surface: error: guard \"depth_map_shader\" not met");
    }
-   float shadow_scale_divisor = 1.0; // Not sure what affect this has. Please see FunzDemo for more detailed comment
+   float shadow_scale_divisor = 1.0; // See comment further down for more detail
 
    // setup the render settings
    al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
