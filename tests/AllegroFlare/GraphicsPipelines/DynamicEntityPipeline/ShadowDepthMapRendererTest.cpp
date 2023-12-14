@@ -134,8 +134,9 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
       shadow_depth_map_renderer.render();
 
       // Render the depth map pass to the screen for us to see
-      al_set_target_bitmap(al_get_backbuffer(get_display()));
       al_clear_depth_buffer(1);
+      //al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+      //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGBA);
       al_draw_bitmap(shadow_depth_map_renderer.get_result_surface_bitmap(), 0, 0, 0);
       
       al_flip_display();

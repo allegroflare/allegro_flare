@@ -146,16 +146,28 @@ void ShadowDepthMapRenderer::render()
    // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
    // ^^ documentation of how this might be approached
 
-   glEnable(GL_CULL_FACE); // requiring direct OpenGL calls eventually be fazed out
-   glCullFace(GL_FRONT); 
+   // TODO: Consider culling
+   //glEnable(GL_CULL_FACE); // requiring direct OpenGL calls eventually be fazed out
+   //glCullFace(GL_FRONT); 
+   ALLEGRO_STATE prev_render_state;
+   al_store_state(&prev_render_state, ALLEGRO_STATE_TARGET_BITMAP);
 
    // TODO: Test this line (backbuffer_sub_bitmap is set as target)
    al_set_target_bitmap(render_surface.obtain_surface());
    //al_set_target_bitmap(backbuffer_sub_bitmap);
 
-   //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
-   al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
    setup_projection_on_render_surface();
+   //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
+   //al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
+   //setup_projection_on_render_surface();
+
+   al_clear_depth_buffer(1);
+   al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
+   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // TODO: Consider using only a
+                                                                                    // single color component
+   //al_clear_depth_buffer(1);
+   //al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
 
    // setup the shader
    depth_map_shader->activate();
@@ -187,10 +199,10 @@ void ShadowDepthMapRenderer::render()
 
    ////glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
    depth_map_shader->deactivate();
-   glCullFace(GL_BACK); 
-   ////glCullFace(GL_FRONT);
-   glDisable(GL_CULL_FACE);
-   //depth_map_shader->deactivate();
+   al_restore_state(&prev_render_state);
+   // TODO: Consider culling
+   //glCullFace(GL_BACK); 
+   //glDisable(GL_CULL_FACE);
 
    return;
 }
@@ -200,9 +212,9 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
    float shadow_scale_divisor = 1.0; // See comment further down for more detail
 
    // setup the render settings
-   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-   al_clear_depth_buffer(1);
+   //al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+   //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+   //al_clear_depth_buffer(1);
 
    ALLEGRO_TRANSFORM casting_light_projection_transform;
 
