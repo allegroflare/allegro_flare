@@ -24,6 +24,7 @@ SceneRenderer::SceneRenderer(AllegroFlare::Shaders::Cubemap* cubemap_shader, All
    : cubemap_shader(cubemap_shader)
    , multitexture_shader(multitexture_shader)
    , entity_pool(entity_pool)
+   , shadow_depth_map_renderer(nullptr)
 {
 }
 
@@ -51,6 +52,12 @@ void SceneRenderer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEnti
 }
 
 
+void SceneRenderer::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* shadow_depth_map_renderer)
+{
+   this->shadow_depth_map_renderer = shadow_depth_map_renderer;
+}
+
+
 AllegroFlare::Shaders::Cubemap* SceneRenderer::get_cubemap_shader() const
 {
    return cubemap_shader;
@@ -66,6 +73,12 @@ AllegroFlare::Shaders::Multitexture* SceneRenderer::get_multitexture_shader() co
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* SceneRenderer::get_entity_pool() const
 {
    return entity_pool;
+}
+
+
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* SceneRenderer::get_shadow_depth_map_renderer() const
+{
+   return shadow_depth_map_renderer;
 }
 
 
@@ -92,6 +105,14 @@ void SceneRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer::render: error: guard \"multitexture_shader\" not met");
    }
+   // Draw the shadow_depth_map_render
+   //shadow_depth_map_renderer.set_entity_pool(entity_pool);
+   //shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
+   //shadow_depth_map_renderer.init_camera_defaults();
+   //shadow_depth_map_renderer.init_shader();
+   if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
+
+
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
    //headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.hpp ]
 

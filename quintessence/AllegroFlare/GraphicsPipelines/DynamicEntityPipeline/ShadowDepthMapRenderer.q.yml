@@ -158,6 +158,18 @@ functions:
             AllegroFlare::Model3D *model = as_static_model_3d->get_model_3d();
             if (model) model->draw();
          }
+         else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
+         {
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* as_dyn_model_3d =
+               static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*>(entity);
+
+            ALLEGRO_TRANSFORM transform;
+            as_dyn_model_3d->get_placement_ref().build_transform(&transform);
+            AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
+
+            AllegroFlare::Model3D *model = as_dyn_model_3d->get_model_3d();
+            if (model) model->draw();
+         }
       }
 
       //al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
@@ -176,6 +188,7 @@ functions:
     body_dependency_symbols:
       - glEnable
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
+      - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
 
 
   - name: setup_projection_on_render_surface
@@ -251,6 +264,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: AllegroFlare::AllegroUnstable
     headers: [ AllegroFlare/AllegroUnstable.hpp ]
   - symbol: AllegroFlare::RenderSurfaces::Bitmap

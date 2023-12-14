@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
@@ -188,6 +189,18 @@ void ShadowDepthMapRenderer::render()
          AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
 
          AllegroFlare::Model3D *model = as_static_model_3d->get_model_3d();
+         if (model) model->draw();
+      }
+      else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE))
+      {
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* as_dyn_model_3d =
+            static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*>(entity);
+
+         ALLEGRO_TRANSFORM transform;
+         as_dyn_model_3d->get_placement_ref().build_transform(&transform);
+         AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
+
+         AllegroFlare::Model3D *model = as_dyn_model_3d->get_model_3d();
          if (model) model->draw();
       }
    }

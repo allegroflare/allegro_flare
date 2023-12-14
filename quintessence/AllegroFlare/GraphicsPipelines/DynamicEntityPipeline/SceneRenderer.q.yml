@@ -22,6 +22,12 @@ properties:
     getter: true
     setter: true
 
+  - name: shadow_depth_map_renderer
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer*
+    init_with: nullptr
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -29,6 +35,14 @@ functions:
   - name: render
     guards: [ entity_pool, cubemap_shader, multitexture_shader ]
     body: |
+      // Draw the shadow_depth_map_render
+      //shadow_depth_map_renderer.set_entity_pool(entity_pool);
+      //shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
+      //shadow_depth_map_renderer.init_camera_defaults();
+      //shadow_depth_map_renderer.init_shader();
+      if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
+
+
       using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
       //headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.hpp ]
 
@@ -331,5 +345,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp ]
 
 
