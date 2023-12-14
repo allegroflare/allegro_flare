@@ -30,6 +30,11 @@ namespace AllegroFlare
          Bitmap(int surface_width=0, int surface_height=0, int multisamples=0, int depth=0);
          ~Bitmap();
 
+         void set_surface_width(int surface_width);
+         void set_surface_height(int surface_height);
+         void set_multisamples(int multisamples);
+         void set_depth(int depth);
+
          void initialize();
          void setup_surface(int surface_width, int surface_height, int multisamples=0, int depth=0);
          void setup_surface_with_settings_that_match_display(

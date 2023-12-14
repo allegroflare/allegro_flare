@@ -26,7 +26,7 @@ ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::
    , casting_light({})
    , casting_light_projection_transform({})
    , backbuffer_sub_bitmap(nullptr)
-   , result_surface_bitmap(nullptr)
+   , xresult_surface_bitmap(nullptr)
    , render_surface()
    , backbuffer_is_setup(false)
    , backbuffer_is_managed_by_this_class(false)
@@ -89,49 +89,25 @@ AllegroFlare::Camera3D &ShadowDepthMapRenderer::get_casting_light_ref()
 
 ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_result_surface_bitmap()
 {
-   if (!(result_surface_bitmap))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::get_result_surface_bitmap]: error: guard \"result_surface_bitmap\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::get_result_surface_bitmap: error: guard \"result_surface_bitmap\" not met");
-   }
-   return result_surface_bitmap;
+   return render_surface.obtain_surface();
+   //return result_surface_bitmap;
 }
 
 void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* display)
 {
-   if (!((!backbuffer_is_setup)))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_backbuffer_from_display]: error: guard \"(!backbuffer_is_setup)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_backbuffer_from_display: error: guard \"(!backbuffer_is_setup)\" not met");
-   }
-   if (!(display))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_backbuffer_from_display]: error: guard \"display\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_backbuffer_from_display: error: guard \"display\" not met");
-   }
-   // TODO: Test this backbuffer is properly created (dimensions, depth values, etc)
-   // TODO: Use ALLEGRO_NO_PRESERVE_TEXTURE when building bitmap
-   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display);
-   int width = al_get_display_width(display);
-   int height = al_get_display_height(display);
-   backbuffer_sub_bitmap = al_create_sub_bitmap(backbuffer, 0, 0, width, height);
-   if (!backbuffer_sub_bitmap)
-   {
-      AllegroFlare::Errors::throw_error(
-         "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-         "Could not create backbuffer_sub_bitmap from display in order to create a render surface."
-      );
-   }
-   backbuffer_is_setup = true;
-   backbuffer_is_managed_by_this_class = true;
+   return;
+}
 
+void ShadowDepthMapRenderer::setup_result_surface_bitmap(int width, int height)
+{
+   //int width = al_get_bitmap_width(backbuffer_sub_bitmap);
+   //int height = al_get_bitmap_height(backbuffer_sub_bitmap);
 
+   render_surface.set_surface_width(width);
+   render_surface.set_surface_height(height);
+   render_surface.set_multisamples(0);
+   render_surface.set_depth(32);
+   render_surface.initialize();
 
    //render_surface.setup_surface(
       //width, //int surface_width,
@@ -139,46 +115,13 @@ void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* disp
       //0, //int multisamples=0,
       //32 //int depth=0
    //);
-   //al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-   //al_set_new_bitmap_depth(32);
-   //surface_to_render_to = al_create_bitmap(width, height);
 
-
-   return;
-}
-
-void ShadowDepthMapRenderer::setup_result_surface_bitmap()
-{
-   if (!(backbuffer_is_setup))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_result_surface_bitmap]: error: guard \"backbuffer_is_setup\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_result_surface_bitmap: error: guard \"backbuffer_is_setup\" not met");
-   }
-   if (!((!result_surface_bitmap)))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_result_surface_bitmap]: error: guard \"(!result_surface_bitmap)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_result_surface_bitmap: error: guard \"(!result_surface_bitmap)\" not met");
-   }
-   int width = al_get_bitmap_width(backbuffer_sub_bitmap);
-   int height = al_get_bitmap_height(backbuffer_sub_bitmap);
-
-   render_surface.setup_surface(
-      width, //int surface_width,
-      height, //int surface_height,
-      0, //int multisamples=0,
-      32 //int depth=0
-   );
-
-   result_surface_bitmap = al_create_bitmap(
-      width,
-      height
+   //result_surface_bitmap = al_create_bitmap(
+      //width,
+      //height
       //al_get_bitmap_width(backbuffer_sub_bitmap),
       //al_get_bitmap_height(backbuffer_sub_bitmap)
-   );
+   //);
    return;
 }
 
@@ -227,7 +170,8 @@ void ShadowDepthMapRenderer::destroy()
    if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; } // NOTE: Does this destroy the
                                                                                   // shader? Does Shaders::Base have
                                                                                   // a destructor here?
-   if (result_surface_bitmap) { al_destroy_bitmap(result_surface_bitmap); result_surface_bitmap = nullptr; }
+   //if (result_surface_bitmap) { al_destroy_bitmap(result_surface_bitmap); result_surface_bitmap = nullptr; }
+   // TODO: Destroy render surface
    return;
 }
 
@@ -248,7 +192,8 @@ void ShadowDepthMapRenderer::render()
    glCullFace(GL_FRONT); 
 
    // TODO: Test this line (backbuffer_sub_bitmap is set as target)
-   al_set_target_bitmap(backbuffer_sub_bitmap);
+   al_set_target_bitmap(render_surface.obtain_surface());
+   //al_set_target_bitmap(backbuffer_sub_bitmap);
 
    //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
    al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
@@ -277,35 +222,22 @@ void ShadowDepthMapRenderer::render()
       }
    }
 
-   al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
+   //al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
                                                 // on a bitmap this may be able to be updated so that the
                                                 // backbuffer does not need be used to render this
-   al_draw_bitmap(backbuffer_sub_bitmap, 0, 0, 0);
+   //al_draw_bitmap(backbuffer_sub_bitmap, 0, 0, 0);
 
-   //glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
+   ////glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
    glCullFace(GL_BACK); 
-   //glCullFace(GL_FRONT);
+   ////glCullFace(GL_FRONT);
    glDisable(GL_CULL_FACE);
+   depth_map_shader->deactivate();
 
    return;
 }
 
 void ShadowDepthMapRenderer::setup_projection_on_render_surface()
 {
-   if (!(backbuffer_is_setup))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_projection_on_render_surface]: error: guard \"backbuffer_is_setup\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_on_render_surface: error: guard \"backbuffer_is_setup\" not met");
-   }
-   if (!(depth_map_shader))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::setup_projection_on_render_surface]: error: guard \"depth_map_shader\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::setup_projection_on_render_surface: error: guard \"depth_map_shader\" not met");
-   }
    float shadow_scale_divisor = 1.0; // See comment further down for more detail
 
    // setup the render settings
@@ -318,7 +250,7 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
    casting_light.reverse_position_transform(&casting_light_projection_transform);
 
 
-   ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
+   ALLEGRO_BITMAP *bitmap = render_surface.obtain_surface(); //backbuffer_sub_bitmap;
    float divisor = shadow_scale_divisor;
    al_scale_transform_3d(&casting_light_projection_transform, 150/divisor, 150/divisor, 1); // note, increasing
       // this divisor will

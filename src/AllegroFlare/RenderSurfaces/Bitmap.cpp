@@ -32,6 +32,35 @@ Bitmap::~Bitmap()
 }
 
 
+
+void Bitmap::set_surface_width(int surface_width)
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_surface_width: error: already setup");
+   this->surface_width = surface_width;
+}
+
+
+void Bitmap::set_surface_height(int surface_height)
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_surface_height: error: already setup");
+   this->surface_height = surface_height;
+}
+
+
+void Bitmap::set_multisamples(int multisamples)
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_multisamples: error: already setup");
+   this->multisamples = multisamples;
+}
+
+
+void Bitmap::set_depth(int depth)
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_depth: error: already setup");
+   this->depth= depth;
+}
+
+
 static bool ignore_dep_error_NOTE_please_faze_out = false;
 
 void Bitmap::initialize()

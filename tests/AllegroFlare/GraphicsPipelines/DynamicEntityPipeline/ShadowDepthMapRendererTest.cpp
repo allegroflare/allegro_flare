@@ -30,7 +30,8 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
    shadow_depth_map_renderer.setup_backbuffer_from_display(al_get_current_display()); // TODO: switch this to primary
                                                                                       // display from framework
-   shadow_depth_map_renderer.setup_result_surface_bitmap();
+   shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
+   //shadow_depth_map_renderer.setup_result_surface_bitmap();
    shadow_depth_map_renderer.init_camera_defaults();
    shadow_depth_map_renderer.init_shader();
 
@@ -52,7 +53,8 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
    shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
-   shadow_depth_map_renderer.setup_result_surface_bitmap();
+   shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
+   //shadow_depth_map_renderer.setup_result_surface_bitmap();
    shadow_depth_map_renderer.init_camera_defaults();
    shadow_depth_map_renderer.init_shader();
 
@@ -86,7 +88,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
 
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__with_moving_light_will_translate_as_expected)
+   VISUAL__render__with_moving_light_will_translate_as_expected)
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
@@ -97,7 +99,8 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
    shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
-   shadow_depth_map_renderer.setup_result_surface_bitmap();
+   shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
+   //shadow_depth_map_renderer.setup_result_surface_bitmap();
    shadow_depth_map_renderer.init_camera_defaults();
    shadow_depth_map_renderer.init_shader();
 
@@ -126,10 +129,21 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
       // Do some movements of the light
       light.spin += 0.005f;
 
-      // Render the scene (in this case, the render happens to be on the backbuffer already)
+      // Render the scene
+      // Render the depth map pass to our buffer
       shadow_depth_map_renderer.render();
+
+      // Render the depth map pass to the screen for us to see
+      al_set_target_bitmap(al_get_backbuffer(get_display()));
+      al_clear_depth_buffer(1);
+      al_draw_bitmap(shadow_depth_map_renderer.get_result_surface_bitmap(), 0, 0, 0);
+      
       al_flip_display();
    }
+
+   std::string snapshot_filename = AllegroFlare::Testing::TestNameInference::build_test_snapshot_full_filename();
+   ALLEGRO_BITMAP *rendered_shadow_depth_map_result = shadow_depth_map_renderer.get_result_surface_bitmap();
+   al_save_bitmap(snapshot_filename.c_str(), rendered_shadow_depth_map_result);
 
    // Shutdown our system
    shadow_depth_map_renderer.destroy();
