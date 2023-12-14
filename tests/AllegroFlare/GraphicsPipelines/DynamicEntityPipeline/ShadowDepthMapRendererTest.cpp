@@ -117,12 +117,14 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
       entity_factory.create_static_model_3d("coin_ring-01.obj",         "none", { 5, -5, -5 }),
       entity_factory.create_static_model_3d("coin_ring-01.obj",         "none", { -5, -5, 0 }),
       entity_factory.create_static_model_3d("coin_ring-01.obj",         "none", { -5, 0, -5 }),
+      entity_factory.create_static_model_3d("flat_stage-01.obj",        "none", { 0, 0, 0 }),
+      entity_factory.create_static_model_3d("simple_scene-01.obj",      "none", { 0, 0, 0 }),
    });
 
-   for (int i=0; i<200; i++)
+   for (int i=0; i<500; i++)
    {
       // Do some movements of the light
-      light.spin += 0.01f;
+      light.spin += 0.005f;
 
       // Render the scene (in this case, the render happens to be on the backbuffer already)
       shadow_depth_map_renderer.render();
