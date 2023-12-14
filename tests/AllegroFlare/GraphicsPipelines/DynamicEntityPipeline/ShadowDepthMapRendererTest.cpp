@@ -86,7 +86,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
 
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
-   FOCUS__render__wil_appear_as_expected)
+   FOCUS__CAPTURE__render__with_moving_light_will_translate_as_expected)
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
@@ -116,21 +116,12 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
       entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { -5, 0, 5 }),
    });
 
-   // Render the scene
-   shadow_depth_map_renderer.render();
-
-   // Grab the result and save to test snapshots
-   // NOTE: Scene is facing a far cube, orthographic projection, tilted slightly up.  Appears as a grey rounded object
-   std::string snapshot_filename = AllegroFlare::Testing::TestNameInference::build_test_snapshot_full_filename();
-   ALLEGRO_BITMAP *rendered_shadow_depth_map_result = shadow_depth_map_renderer.get_result_surface_bitmap();
-   al_save_bitmap(snapshot_filename.c_str(), rendered_shadow_depth_map_result);
-
    for (int i=0; i<200; i++)
    {
       // Do some movements of the light
       light.spin += 0.01f;
 
-      // Render the scene
+      // Render the scene (in this case, the render happens to be on the backbuffer already)
       shadow_depth_map_renderer.render();
       al_flip_display();
    }
