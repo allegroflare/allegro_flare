@@ -25,6 +25,7 @@ SceneRenderer::SceneRenderer(AllegroFlare::Shaders::Cubemap* cubemap_shader, All
    , multitexture_shader(multitexture_shader)
    , entity_pool(entity_pool)
    , shadow_depth_map_renderer(nullptr)
+   , depth_pass(nullptr)
 {
 }
 
@@ -58,6 +59,12 @@ void SceneRenderer::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipeline
 }
 
 
+void SceneRenderer::set_depth_pass(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* depth_pass)
+{
+   this->depth_pass = depth_pass;
+}
+
+
 AllegroFlare::Shaders::Cubemap* SceneRenderer::get_cubemap_shader() const
 {
    return cubemap_shader;
@@ -79,6 +86,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* SceneRendere
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* SceneRenderer::get_shadow_depth_map_renderer() const
 {
    return shadow_depth_map_renderer;
+}
+
+
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* SceneRenderer::get_depth_pass() const
+{
+   return depth_pass;
 }
 
 
@@ -106,10 +119,7 @@ void SceneRenderer::render()
       throw std::runtime_error("SceneRenderer::render: error: guard \"multitexture_shader\" not met");
    }
    // Draw the shadow_depth_map_render
-   //shadow_depth_map_renderer.set_entity_pool(entity_pool);
-   //shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
-   //shadow_depth_map_renderer.init_camera_defaults();
-   //shadow_depth_map_renderer.init_shader();
+   if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
    if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
 
 

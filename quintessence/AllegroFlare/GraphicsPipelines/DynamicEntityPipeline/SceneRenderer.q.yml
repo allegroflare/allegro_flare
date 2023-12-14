@@ -28,6 +28,12 @@ properties:
     getter: true
     setter: true
 
+  - name: depth_pass
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer*
+    init_with: nullptr
+    getter: true
+    setter: true
+
 
 functions:
 
@@ -36,10 +42,7 @@ functions:
     guards: [ entity_pool, cubemap_shader, multitexture_shader ]
     body: |
       // Draw the shadow_depth_map_render
-      //shadow_depth_map_renderer.set_entity_pool(entity_pool);
-      //shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
-      //shadow_depth_map_renderer.init_camera_defaults();
-      //shadow_depth_map_renderer.init_shader();
+      if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
       if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
 
 

@@ -24,6 +24,18 @@ properties:
     init_with: '{}'
     getter_ref: true
 
+  - name: display_width
+    type: int
+    init_with: 1920
+    getter: true
+    setter: false
+
+  - name: display_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: false
+
   - name: display_samples
     type: int
     init_with: 4
@@ -61,6 +73,28 @@ methods:
       return;
 
 
+  - name: set_display_width
+    parameters:
+      - name: display_width
+        type: int
+        default_argument: 1920
+    guards: [ (!is_setup), (display_width >= 100), (display_width <= (1920*2)) ]
+    body: |
+      this->display_width = display_width;
+      return;
+
+
+  - name: set_display_height
+    parameters:
+      - name: display_height
+        type: int
+        default_argument: 1080
+    guards: [ (!is_setup), (display_height >= 100), (display_height <= (1080*2)) ]
+    body: |
+      this->display_height = display_height;
+      return;
+
+
   - name: SetUp
     type: void
     virtual: true
@@ -84,7 +118,7 @@ methods:
       al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
       if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLES, display_samples, ALLEGRO_SUGGEST);
       al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
-      display = al_create_display(1920, 1080);
+      display = al_create_display(display_width, display_height); // TODO: Add test that dimensions are correct
 
       ASSERT_NE(nullptr, display);
 
@@ -230,8 +264,8 @@ methods:
   - name: draw_rulers
     guards: [ al_get_target_bitmap() ]
     body: |
-      al_draw_line(1920/2, 0, 1920/2, 1080, al_color_name("gray"), 1.0); // rulers down the center
-      al_draw_line(0, 1080/2, 1920, 1080/2, al_color_name("gray"), 1.0); // rulers across the middle
+      al_draw_line(display_width/2, 0, display_width/2, display_height, al_color_name("gray"), 1.0); // rulers down the center
+      al_draw_line(0, display_height/2, display_width, display_height/2, al_color_name("gray"), 1.0); // rulers across the middle
     body_dependency_symbols:
       - al_color_name
 

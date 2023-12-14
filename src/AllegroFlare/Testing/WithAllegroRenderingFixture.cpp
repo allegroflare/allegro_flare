@@ -28,6 +28,8 @@ WithAllegroRenderingFixture::WithAllegroRenderingFixture()
    , display(nullptr)
    , font_bin({})
    , bitmap_bin({})
+   , display_width(1920)
+   , display_height(1080)
    , display_samples(4)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST)
    , test_snapshots_folder("[unset-test_snapshots_folder]")
@@ -45,6 +47,18 @@ WithAllegroRenderingFixture::~WithAllegroRenderingFixture()
 ALLEGRO_DISPLAY* WithAllegroRenderingFixture::get_display() const
 {
    return display;
+}
+
+
+int WithAllegroRenderingFixture::get_display_width() const
+{
+   return display_width;
+}
+
+
+int WithAllegroRenderingFixture::get_display_height() const
+{
+   return display_height;
 }
 
 
@@ -93,6 +107,60 @@ void WithAllegroRenderingFixture::set_display_samples(int display_samples)
    return;
 }
 
+void WithAllegroRenderingFixture::set_display_width(int display_width)
+{
+   if (!((!is_setup)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_width]: error: guard \"(!is_setup)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_width: error: guard \"(!is_setup)\" not met");
+   }
+   if (!((display_width >= 100)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_width]: error: guard \"(display_width >= 100)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_width: error: guard \"(display_width >= 100)\" not met");
+   }
+   if (!((display_width <= (1920*2))))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_width]: error: guard \"(display_width <= (1920*2))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_width: error: guard \"(display_width <= (1920*2))\" not met");
+   }
+   this->display_width = display_width;
+   return;
+}
+
+void WithAllegroRenderingFixture::set_display_height(int display_height)
+{
+   if (!((!is_setup)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_height]: error: guard \"(!is_setup)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_height: error: guard \"(!is_setup)\" not met");
+   }
+   if (!((display_height >= 100)))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_height]: error: guard \"(display_height >= 100)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_height: error: guard \"(display_height >= 100)\" not met");
+   }
+   if (!((display_height <= (1080*2))))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::set_display_height]: error: guard \"(display_height <= (1080*2))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::set_display_height: error: guard \"(display_height <= (1080*2))\" not met");
+   }
+   this->display_height = display_height;
+   return;
+}
+
 void WithAllegroRenderingFixture::SetUp()
 {
    ASSERT_EQ(false, al_is_system_installed());
@@ -113,7 +181,7 @@ void WithAllegroRenderingFixture::SetUp()
    al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
    if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLES, display_samples, ALLEGRO_SUGGEST);
    al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
-   display = al_create_display(1920, 1080);
+   display = al_create_display(display_width, display_height); // TODO: Add test that dimensions are correct
 
    ASSERT_NE(nullptr, display);
 
@@ -241,8 +309,8 @@ void WithAllegroRenderingFixture::draw_rulers()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WithAllegroRenderingFixture::draw_rulers: error: guard \"al_get_target_bitmap()\" not met");
    }
-   al_draw_line(1920/2, 0, 1920/2, 1080, al_color_name("gray"), 1.0); // rulers down the center
-   al_draw_line(0, 1080/2, 1920, 1080/2, al_color_name("gray"), 1.0); // rulers across the middle
+   al_draw_line(display_width/2, 0, display_width/2, display_height, al_color_name("gray"), 1.0); // rulers down the center
+   al_draw_line(0, display_height/2, display_width, display_height/2, al_color_name("gray"), 1.0); // rulers across the middle
 }
 
 void WithAllegroRenderingFixture::draw_crosshair(float x, float y, ALLEGRO_COLOR color, float size)
