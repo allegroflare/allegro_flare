@@ -38,6 +38,12 @@ properties:
     getter: false
     setter: false
 
+  - name: render_surface
+    type: AllegroFlare::RenderSurfaces::Bitmap
+    init_with: ''
+    getter: false
+    setter: false
+
   - name: backbuffer_is_setup
     type: bool
     init_with: false
@@ -87,6 +93,19 @@ functions:
       backbuffer_is_setup = true;
       backbuffer_is_managed_by_this_class = true;
 
+
+
+      //render_surface.setup_surface(
+         //width, //int surface_width,
+         //height, //int surface_height,
+         //0, //int multisamples=0,
+         //32 //int depth=0
+      //);
+      //al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+      //al_set_new_bitmap_depth(32);
+      //surface_to_render_to = al_create_bitmap(width, height);
+
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Errors
@@ -95,9 +114,21 @@ functions:
   - name: setup_result_surface_bitmap
     guards: [ backbuffer_is_setup, (!result_surface_bitmap) ]
     body: |
+      int width = al_get_bitmap_width(backbuffer_sub_bitmap);
+      int height = al_get_bitmap_height(backbuffer_sub_bitmap);
+
+      render_surface.setup_surface(
+         width, //int surface_width,
+         height, //int surface_height,
+         0, //int multisamples=0,
+         32 //int depth=0
+      );
+
       result_surface_bitmap = al_create_bitmap(
-         al_get_bitmap_width(backbuffer_sub_bitmap),
-         al_get_bitmap_height(backbuffer_sub_bitmap)
+         width,
+         height
+         //al_get_bitmap_width(backbuffer_sub_bitmap),
+         //al_get_bitmap_height(backbuffer_sub_bitmap)
       );
       return;
 
@@ -278,5 +309,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp ]
   - symbol: AllegroFlare::AllegroUnstable
     headers: [ AllegroFlare/AllegroUnstable.hpp ]
+  - symbol: AllegroFlare::RenderSurfaces::Bitmap
+    headers: [ AllegroFlare/RenderSurfaces/Bitmap.hpp ]
 
 

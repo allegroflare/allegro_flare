@@ -27,6 +27,7 @@ ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::
    , casting_light_projection_transform({})
    , backbuffer_sub_bitmap(nullptr)
    , result_surface_bitmap(nullptr)
+   , render_surface()
    , backbuffer_is_setup(false)
    , backbuffer_is_managed_by_this_class(false)
 {
@@ -130,6 +131,19 @@ void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* disp
    backbuffer_is_setup = true;
    backbuffer_is_managed_by_this_class = true;
 
+
+
+   //render_surface.setup_surface(
+      //width, //int surface_width,
+      //height, //int surface_height,
+      //0, //int multisamples=0,
+      //32 //int depth=0
+   //);
+   //al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
+   //al_set_new_bitmap_depth(32);
+   //surface_to_render_to = al_create_bitmap(width, height);
+
+
    return;
 }
 
@@ -149,9 +163,21 @@ void ShadowDepthMapRenderer::setup_result_surface_bitmap()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::setup_result_surface_bitmap: error: guard \"(!result_surface_bitmap)\" not met");
    }
+   int width = al_get_bitmap_width(backbuffer_sub_bitmap);
+   int height = al_get_bitmap_height(backbuffer_sub_bitmap);
+
+   render_surface.setup_surface(
+      width, //int surface_width,
+      height, //int surface_height,
+      0, //int multisamples=0,
+      32 //int depth=0
+   );
+
    result_surface_bitmap = al_create_bitmap(
-      al_get_bitmap_width(backbuffer_sub_bitmap),
-      al_get_bitmap_height(backbuffer_sub_bitmap)
+      width,
+      height
+      //al_get_bitmap_width(backbuffer_sub_bitmap),
+      //al_get_bitmap_height(backbuffer_sub_bitmap)
    );
    return;
 }

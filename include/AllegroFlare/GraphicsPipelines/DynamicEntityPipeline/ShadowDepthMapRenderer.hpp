@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
+#include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 #include <allegro5/allegro.h>
 
@@ -22,6 +23,7 @@ namespace AllegroFlare
             ALLEGRO_TRANSFORM casting_light_projection_transform;
             ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             ALLEGRO_BITMAP* result_surface_bitmap;
+            AllegroFlare::RenderSurfaces::Bitmap render_surface;
             bool backbuffer_is_setup;
             bool backbuffer_is_managed_by_this_class;
 
