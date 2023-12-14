@@ -207,7 +207,16 @@ void ShadowDepthMapRenderer::render()
       }
       else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D::TYPE))
       {
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D *as =
+            static_cast<
+               AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D*
+            >(entity);
+
          //throw std::runtime_error("foo ");
+         ALLEGRO_TRANSFORM transform;
+         as->get_placement_ref().build_transform(&transform);
+         AllegroFlare::Shaders::Base::set_mat4("position_transform", &transform);
+
          AllegroFlare::MultitextureModel3D* mtm = get_multitexture_model_3d(entity);
          if (mtm) render_multitexture_model_3d(mtm);
       }

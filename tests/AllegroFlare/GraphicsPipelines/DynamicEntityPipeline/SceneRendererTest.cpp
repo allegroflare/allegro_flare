@@ -207,7 +207,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    for (int i=0; i<frames; i++)
    {
       // Spin our shadow casted light
-      light.spin += 0.001f;
+      light.spin += 0.005f;
 
       // Rotate objects in the scene
       item->get_placement_ref().rotation.x += 0.005;
