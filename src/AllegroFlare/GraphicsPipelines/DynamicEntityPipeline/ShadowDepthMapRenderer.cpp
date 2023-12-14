@@ -80,6 +80,12 @@ ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_backbuffer_sub_bitmap() const
 }
 
 
+AllegroFlare::Camera3D &ShadowDepthMapRenderer::get_casting_light_ref()
+{
+   return casting_light;
+}
+
+
 ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_result_surface_bitmap()
 {
    if (!(result_surface_bitmap))
@@ -178,6 +184,17 @@ void ShadowDepthMapRenderer::init_shader()
    return;
 }
 
+void ShadowDepthMapRenderer::init_camera_defaults()
+{
+   casting_light.stepout = vec3d(0, 0, 15); // NOTE: This uses 15 meters as a z stepout
+   float light_time_of_day = 0.15f;
+   casting_light.tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
+                                                         //                     0.5; // high noon
+                                                         //                     0.95; // sunset
+   casting_light.spin = 0.0f;
+   return;
+}
+
 void ShadowDepthMapRenderer::destroy()
 {
    if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
@@ -197,13 +214,6 @@ void ShadowDepthMapRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer::render: error: guard \"entity_pool\" not met");
    }
-   casting_light.stepout = vec3d(0, 0, 15); // NOTE: This uses 15 meters as a z stepout
-   float light_time_of_day = 0.15f;
-   casting_light.tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
-                                                         //                     0.5; // high noon
-                                                         //                     0.95; // sunset
-   casting_light.spin = 0.0f;
-
    // TODO: store and restore states on glEnable/glCullFace, etc
    // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
    // ^^ documentation of how this might be approached
@@ -281,6 +291,7 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
 
    casting_light.reverse_position_transform(&casting_light_projection_transform);
 
+
    ALLEGRO_BITMAP *bitmap = backbuffer_sub_bitmap;
    float divisor = shadow_scale_divisor;
    al_scale_transform_3d(&casting_light_projection_transform, 150/divisor, 150/divisor, 1); // note, increasing
@@ -288,6 +299,11 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
       // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
       // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but
       // reduce the resolution of the shadow. Original engine had a default of 1.0f;
+
+   // Adding some rotation
+   //static float rotation = 0.0f;
+   //rotation += 0.01f;
+   //al_rotate_transform_3d(&casting_light_projection_transform, 0, 1, 0, rotation);
 
 
    al_orthographic_transform(

@@ -39,10 +39,12 @@ namespace AllegroFlare
             AllegroFlare::Camera3D get_casting_light() const;
             ALLEGRO_TRANSFORM get_casting_light_projection_transform() const;
             ALLEGRO_BITMAP* get_backbuffer_sub_bitmap() const;
+            AllegroFlare::Camera3D &get_casting_light_ref();
             ALLEGRO_BITMAP* get_result_surface_bitmap();
             void setup_backbuffer_from_display(ALLEGRO_DISPLAY* display=nullptr);
             void setup_result_surface_bitmap();
             void init_shader();
+            void init_camera_defaults();
             void destroy();
             void render();
             void setup_projection_on_render_surface();
