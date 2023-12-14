@@ -114,6 +114,9 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
       entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { 5, 0, 0 }),
       entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { 0, 5, 0 }),
       entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { -5, 0, 5 }),
+      entity_factory.create_static_model_3d("coin_ring-01.obj",         "none", { 5, -5, -5 }),
+      entity_factory.create_static_model_3d("coin_ring-01.obj",         "none", { -5, -5, 0 }),
+      entity_factory.create_static_model_3d("coin_ring-01.obj",         "none", { -5, 0, -5 }),
    });
 
    for (int i=0; i<200; i++)
