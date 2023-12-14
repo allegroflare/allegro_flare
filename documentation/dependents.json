@@ -2431,6 +2431,9 @@
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Shaders/Cubemap"
   ],
+  "AllegroFlare/AllegroUnstable": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",

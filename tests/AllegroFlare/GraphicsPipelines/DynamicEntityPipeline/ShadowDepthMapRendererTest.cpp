@@ -41,7 +41,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
 
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
-   CAPTURE__render__with_objects_in_the_scene__will_render_a_shadow_depth_map_as_expected)
+   FOCUS__render__with_objects_in_the_scene__will_render_a_shadow_depth_map_as_expected)
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
@@ -54,13 +54,20 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    shadow_depth_map_renderer.setup_result_surface_bitmap();
    shadow_depth_map_renderer.init_shader();
 
-   // Add some entities to our scene (Keep in mind for now only StaticModel3D entities are rendered)
+   // Setup our EntityFactory
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
    entity_factory.set_model_bin(&model_bin);
    entity_factory.set_bitmap_bin(&get_bitmap_bin_ref()); // TODO: Only make this dependency required if it is used
-   auto entity = entity_factory.create_static_model_3d("rounded_unit_cube-01.obj");
-   entity_pool.add(entity);
 
+   // Add some entities to our scene (Keep in mind for now only StaticModel3D entities are rendered)
+   auto entity = entity_factory.create_static_model_3d("rounded_unit_cube-01.obj");
+   //entity_pool.add(entity);
+   entity_pool.add({
+      entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { 0, 0, 0 }),
+      entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { 5, 0, 0 }),
+      entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { 0, 5, 0 }),
+      entity_factory.create_static_model_3d("rounded_unit_cube-01.obj", "none", { -5, 0, 5 }),
+   });
 
    // Render the scene
    shadow_depth_map_renderer.render();

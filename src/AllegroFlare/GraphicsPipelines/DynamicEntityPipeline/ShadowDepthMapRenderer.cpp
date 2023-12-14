@@ -215,6 +215,7 @@ void ShadowDepthMapRenderer::render()
    al_set_target_bitmap(backbuffer_sub_bitmap);
 
    //al_clear_to_color(color::white); // TODO: Consider clearing the bitmap
+   al_clear_to_color(ALLEGRO_COLOR{1, 1, 1, 1});
    setup_projection_on_render_surface();
 
    // setup the shader
