@@ -4,6 +4,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/SceneGraph/EntityPool.hpp>
 #include <AllegroFlare/CubemapBuilder.hpp>
@@ -147,6 +148,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    shadow_depth_map_renderer.init_shader();
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
    shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
+   AllegroFlare::Camera3D &light = shadow_depth_map_renderer.get_casting_light_ref();
    //shadow_depth_map_renderer.initialize();
 
 
@@ -204,14 +206,34 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    int frames = 90;
    for (int i=0; i<frames; i++)
    {
+      // Spin our shadow casted light
+      light.spin += 0.001f;
+
+      // Rotate objects in the scene
       item->get_placement_ref().rotation.x += 0.005;
       item->get_placement_ref().rotation.z += 0.003547;
 
+      // Pan the camera
       camera.stepout.z += 0.02;
       camera.spin += 0.005;
       camera.tilt += 0.005;
 
+      // Render the scene
       scene_renderer.render();
+
+      // Show the depth pass
+      AllegroFlare::Camera2D camera2d;
+      camera2d.setup_dimensional_projection(al_get_backbuffer(al_get_current_display()));
+      //ALLEGRO_BITMAP *render_surface = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
+      //al_identity_transform(&render_surface);
+      al_draw_tinted_bitmap(
+         shadow_depth_map_renderer.get_result_surface_bitmap(),
+         ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+         0,
+         0,
+         0
+      );
+
       al_flip_display();
       al_rest(1.0/60.0f);
    }
