@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 
-#include <AllegroFlare/Errors.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
@@ -24,12 +23,8 @@ ShadowDepthMapRenderer::ShadowDepthMapRenderer(AllegroFlare::GraphicsPipelines::
    : entity_pool(entity_pool)
    , depth_map_shader(nullptr)
    , casting_light({})
-   , casting_light_projection_transform({})
-   , backbuffer_sub_bitmap(nullptr)
-   , xresult_surface_bitmap(nullptr)
    , render_surface()
-   , backbuffer_is_setup(false)
-   , backbuffer_is_managed_by_this_class(false)
+   , render_surface_is_setup(false)
 {
 }
 
@@ -51,12 +46,6 @@ void ShadowDepthMapRenderer::set_casting_light(AllegroFlare::Camera3D casting_li
 }
 
 
-void ShadowDepthMapRenderer::set_casting_light_projection_transform(ALLEGRO_TRANSFORM casting_light_projection_transform)
-{
-   this->casting_light_projection_transform = casting_light_projection_transform;
-}
-
-
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthMapRenderer::get_entity_pool() const
 {
    return entity_pool;
@@ -66,18 +55,6 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthM
 AllegroFlare::Camera3D ShadowDepthMapRenderer::get_casting_light() const
 {
    return casting_light;
-}
-
-
-ALLEGRO_TRANSFORM ShadowDepthMapRenderer::get_casting_light_projection_transform() const
-{
-   return casting_light_projection_transform;
-}
-
-
-ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_backbuffer_sub_bitmap() const
-{
-   return backbuffer_sub_bitmap;
 }
 
 
@@ -93,35 +70,16 @@ ALLEGRO_BITMAP* ShadowDepthMapRenderer::get_result_surface_bitmap()
    //return result_surface_bitmap;
 }
 
-void ShadowDepthMapRenderer::setup_backbuffer_from_display(ALLEGRO_DISPLAY* display)
-{
-   return;
-}
-
 void ShadowDepthMapRenderer::setup_result_surface_bitmap(int width, int height)
 {
-   //int width = al_get_bitmap_width(backbuffer_sub_bitmap);
-   //int height = al_get_bitmap_height(backbuffer_sub_bitmap);
-
    render_surface.set_surface_width(width);
    render_surface.set_surface_height(height);
    render_surface.set_multisamples(0);
    render_surface.set_depth(32);
    render_surface.initialize();
 
-   //render_surface.setup_surface(
-      //width, //int surface_width,
-      //height, //int surface_height,
-      //0, //int multisamples=0,
-      //32 //int depth=0
-   //);
+   render_surface_is_setup = true;
 
-   //result_surface_bitmap = al_create_bitmap(
-      //width,
-      //height
-      //al_get_bitmap_width(backbuffer_sub_bitmap),
-      //al_get_bitmap_height(backbuffer_sub_bitmap)
-   //);
    return;
 }
 
@@ -166,7 +124,7 @@ void ShadowDepthMapRenderer::init_camera_defaults()
 
 void ShadowDepthMapRenderer::destroy()
 {
-   if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
+   //if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
    if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; } // NOTE: Does this destroy the
                                                                                   // shader? Does Shaders::Base have
                                                                                   // a destructor here?
@@ -228,10 +186,11 @@ void ShadowDepthMapRenderer::render()
    //al_draw_bitmap(backbuffer_sub_bitmap, 0, 0, 0);
 
    ////glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
+   depth_map_shader->deactivate();
    glCullFace(GL_BACK); 
    ////glCullFace(GL_FRONT);
    glDisable(GL_CULL_FACE);
-   depth_map_shader->deactivate();
+   //depth_map_shader->deactivate();
 
    return;
 }

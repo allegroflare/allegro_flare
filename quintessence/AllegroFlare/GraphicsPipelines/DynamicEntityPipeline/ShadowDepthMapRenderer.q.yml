@@ -19,45 +19,15 @@ properties:
     getter_ref: true
     setter: true
 
-  - name: casting_light_projection_transform
-    type: ALLEGRO_TRANSFORM
-    init_with: '{}'
-    getter: true
-    setter: true
-
-  - name: backbuffer_sub_bitmap
-    type: ALLEGRO_BITMAP*
-    constructor_arg: false
-    init_with: nullptr
-    getter: true
-    setter: false
-
-  - name: xresult_surface_bitmap
-    type: ALLEGRO_BITMAP*
-    init_with: nullptr
-    getter: false
-    setter: false
-
   - name: render_surface
     type: AllegroFlare::RenderSurfaces::Bitmap
     init_with: ''
     getter: false
     setter: false
 
-  - name: backbuffer_is_setup
+  - name: render_surface_is_setup
     type: bool
     init_with: false
-
-  - name: backbuffer_is_managed_by_this_class
-    type: bool
-    init_with: false
-
-
-documentation:
-
-
-  - todos:
-      - Rename "backbuffer_sub_bitmap" to something more appropriate.
 
 
 functions:
@@ -71,49 +41,6 @@ functions:
       //return result_surface_bitmap;
 
 
-  - name: setup_backbuffer_from_display
-    parameters:
-      - name: display
-        type: ALLEGRO_DISPLAY*
-        default_argument: nullptr
-    xguards: [ '(!backbuffer_is_setup)', display ]
-    body: |
-      return;
-    xbody: |
-      // TODO: Test this backbuffer is properly created (dimensions, depth values, etc)
-      // TODO: Use ALLEGRO_NO_PRESERVE_TEXTURE when building bitmap
-      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(display);
-      int width = al_get_display_width(display);
-      int height = al_get_display_height(display);
-      backbuffer_sub_bitmap = al_create_sub_bitmap(backbuffer, 0, 0, width, height);
-      if (!backbuffer_sub_bitmap)
-      {
-         AllegroFlare::Errors::throw_error(
-            "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-            "Could not create backbuffer_sub_bitmap from display in order to create a render surface."
-         );
-      }
-      backbuffer_is_setup = true;
-      backbuffer_is_managed_by_this_class = true;
-
-
-
-      //render_surface.setup_surface(
-         //width, //int surface_width,
-         //height, //int surface_height,
-         //0, //int multisamples=0,
-         //32 //int depth=0
-      //);
-      //al_set_new_bitmap_flags(ALLEGRO_NO_PRESERVE_TEXTURE);
-      //al_set_new_bitmap_depth(32);
-      //surface_to_render_to = al_create_bitmap(width, height);
-
-
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Errors
-
-
   - name: setup_result_surface_bitmap
     parameters:
       - name: width
@@ -122,30 +49,15 @@ functions:
       - name: height
         type: int
         default_argument: 1080
-    xguards: [ backbuffer_is_setup, (!result_surface_bitmap) ]
     body: |
-      //int width = al_get_bitmap_width(backbuffer_sub_bitmap);
-      //int height = al_get_bitmap_height(backbuffer_sub_bitmap);
-
       render_surface.set_surface_width(width);
       render_surface.set_surface_height(height);
       render_surface.set_multisamples(0);
       render_surface.set_depth(32);
       render_surface.initialize();
 
-      //render_surface.setup_surface(
-         //width, //int surface_width,
-         //height, //int surface_height,
-         //0, //int multisamples=0,
-         //32 //int depth=0
-      //);
+      render_surface_is_setup = true;
 
-      //result_surface_bitmap = al_create_bitmap(
-         //width,
-         //height
-         //al_get_bitmap_width(backbuffer_sub_bitmap),
-         //al_get_bitmap_height(backbuffer_sub_bitmap)
-      //);
       return;
 
 
@@ -186,7 +98,7 @@ functions:
 
   - name: destroy
     body: |
-      if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
+      //if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
       if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; } // NOTE: Does this destroy the
                                                                                      // shader? Does Shaders::Base have
                                                                                      // a destructor here?
@@ -242,10 +154,11 @@ functions:
       //al_draw_bitmap(backbuffer_sub_bitmap, 0, 0, 0);
 
       ////glEnable(GL_CULL_FACE); // requiring opengl should eventually be fazed out
+      depth_map_shader->deactivate();
       glCullFace(GL_BACK); 
       ////glCullFace(GL_FRONT);
       glDisable(GL_CULL_FACE);
-      depth_map_shader->deactivate();
+      //depth_map_shader->deactivate();
 
       return;
     body_dependency_symbols:
@@ -254,7 +167,7 @@ functions:
 
 
   - name: setup_projection_on_render_surface
-    xguards: [ backbuffer_is_setup, depth_map_shader ]
+    xguards: [ render_surface_is_setup, depth_map_shader ]
     body: |
       float shadow_scale_divisor = 1.0; // See comment further down for more detail
 

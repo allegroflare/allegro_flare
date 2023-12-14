@@ -28,7 +28,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
-   shadow_depth_map_renderer.setup_backbuffer_from_display(al_get_current_display()); // TODO: switch this to primary
+   //shadow_depth_map_renderer.setup_backbuffer_from_display(al_get_current_display()); // TODO: switch this to primary
                                                                                       // display from framework
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
    //shadow_depth_map_renderer.setup_result_surface_bitmap();
@@ -52,7 +52,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
-   shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
+   //shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
    //shadow_depth_map_renderer.setup_result_surface_bitmap();
    shadow_depth_map_renderer.init_camera_defaults();
@@ -98,7 +98,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
-   shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
+   //shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
    //shadow_depth_map_renderer.setup_result_surface_bitmap();
    shadow_depth_map_renderer.init_camera_defaults();
