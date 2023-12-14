@@ -17,7 +17,14 @@
 class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest : public ::testing::Test {};
 class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWithAllegroRenderingFixtureTest :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
-{};
+{
+public:
+   virtual void SetUp() override
+   {
+      set_display_samples(0);
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+   }
+};
 
 
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest, can_be_created_without_blowing_up)
