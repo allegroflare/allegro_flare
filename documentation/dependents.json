@@ -2372,6 +2372,7 @@
   "AllegroFlare/MultitextureModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
@@ -2402,7 +2403,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/Shaders/Cubemap": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
@@ -2439,6 +2441,9 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/RenderSurfaces/Bitmap": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "ALLEGRO_JOYSTICK": [

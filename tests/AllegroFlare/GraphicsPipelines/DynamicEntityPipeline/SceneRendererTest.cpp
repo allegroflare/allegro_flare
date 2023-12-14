@@ -144,9 +144,9 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
 
    // Shadow depth map renderer
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
-   shadow_depth_map_renderer.init_camera_defaults();
    shadow_depth_map_renderer.init_shader();
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
+   shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
    //shadow_depth_map_renderer.initialize();
 
 

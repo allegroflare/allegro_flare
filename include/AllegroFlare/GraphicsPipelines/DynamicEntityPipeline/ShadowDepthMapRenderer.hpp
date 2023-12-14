@@ -2,7 +2,9 @@
 
 
 #include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
+#include <AllegroFlare/MultitextureModel3D.hpp>
 #include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
 #include <allegro5/allegro.h>
@@ -42,6 +44,8 @@ namespace AllegroFlare
             void destroy();
             void render();
             void setup_projection_on_render_surface();
+            AllegroFlare::MultitextureModel3D* get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
+            void render_multitexture_model_3d(AllegroFlare::MultitextureModel3D* multitexture_model_3d=nullptr);
          };
       }
    }

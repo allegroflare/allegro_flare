@@ -2,8 +2,10 @@
 
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp>
 
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
@@ -203,6 +205,12 @@ void ShadowDepthMapRenderer::render()
          AllegroFlare::Model3D *model = as_dyn_model_3d->get_model_3d();
          if (model) model->draw();
       }
+      else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D::TYPE))
+      {
+         //throw std::runtime_error("foo ");
+         AllegroFlare::MultitextureModel3D* mtm = get_multitexture_model_3d(entity);
+         if (mtm) render_multitexture_model_3d(mtm);
+      }
    }
 
    //al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
@@ -262,6 +270,51 @@ void ShadowDepthMapRenderer::setup_projection_on_render_surface()
    //al_copy_transform(&casting_light_projection_transform, &shadow_map_projection);
 
    al_use_projection_transform(&casting_light_projection_transform);
+   return;
+}
+
+AllegroFlare::MultitextureModel3D* ShadowDepthMapRenderer::get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity)
+{
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer::get_multitexture_model_3d: error: guard \"entity\" not met");
+   }
+   using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
+
+   // TODO: Optimize this lookup
+   // TODO: Consider throw on unhandled type
+   if (entity->is_type(Entities::StaticMultitextureModel3D::TYPE))
+   {
+      Entities::StaticMultitextureModel3D *as_casted = static_cast<Entities::StaticMultitextureModel3D*>(entity);
+      return as_casted->get_multitexture_model_3d();
+   }
+   return nullptr;
+}
+
+void ShadowDepthMapRenderer::render_multitexture_model_3d(AllegroFlare::MultitextureModel3D* multitexture_model_3d)
+{
+   // Render our subject
+   // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
+   // setting  textures on the shader manually
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices =
+      multitexture_model_3d->vertexes;
+
+   ALLEGRO_BITMAP* texture_a = nullptr; // NOTE: No texture is needed for shadow
+
+   al_draw_prim(
+      &vertices[0],
+      multitexture_model_3d->vertex_declaration,
+      texture_a, // TODO: In this sloppy case, this texture is used to determine the
+                 // dimensionality of the textures(s) of the shader. Note that at the time of this writing, the
+                 // textures and dimensions are all inter-dependent on each other in this way. This kink
+                 // should eventually be worked out and cleaned up.
+      0,
+      vertices.size(),
+      ALLEGRO_PRIM_TRIANGLE_LIST
+   );
    return;
 }
 

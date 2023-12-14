@@ -14564,6 +14564,12 @@ table td
 <tr>
   <td class="method">setup_projection_on_render_surface()</td>
 </tr>
+<tr>
+  <td class="method">get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">render_multitexture_model_3d(AllegroFlare::MultitextureModel3D* multitexture_model_3d=nullptr)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -14608,6 +14614,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Bitmap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Bitmap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultitextureModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultitextureModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36311,6 +36326,7 @@ table td
   "AllegroFlare/MultitextureModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/MultitextureModel3DObjLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
@@ -36341,7 +36357,8 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/Shaders/Cubemap": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer"
@@ -36378,6 +36395,9 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/RenderSurfaces/Bitmap": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "ALLEGRO_JOYSTICK": [

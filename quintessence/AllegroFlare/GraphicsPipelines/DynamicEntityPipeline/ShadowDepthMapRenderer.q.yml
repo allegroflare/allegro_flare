@@ -170,6 +170,12 @@ functions:
             AllegroFlare::Model3D *model = as_dyn_model_3d->get_model_3d();
             if (model) model->draw();
          }
+         else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D::TYPE))
+         {
+            //throw std::runtime_error("foo ");
+            AllegroFlare::MultitextureModel3D* mtm = get_multitexture_model_3d(entity);
+            if (mtm) render_multitexture_model_3d(mtm);
+         }
       }
 
       //al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
@@ -189,6 +195,7 @@ functions:
       - glEnable
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
+      - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D
 
 
   - name: setup_projection_on_render_surface
@@ -239,6 +246,58 @@ functions:
      - ALLEGRO_TRANSFORM
 
 
+  - name: get_multitexture_model_3d
+    type: AllegroFlare::MultitextureModel3D*
+    parameters:
+      - name: entity
+        type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+        default_argument: nullptr
+    guards: [ entity ]
+    body: |
+      using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
+
+      // TODO: Optimize this lookup
+      // TODO: Consider throw on unhandled type
+      if (entity->is_type(Entities::StaticMultitextureModel3D::TYPE))
+      {
+         Entities::StaticMultitextureModel3D *as_casted = static_cast<Entities::StaticMultitextureModel3D*>(entity);
+         return as_casted->get_multitexture_model_3d();
+      }
+      return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D
+
+
+  - name: render_multitexture_model_3d
+    parameters:
+      - name: multitexture_model_3d
+        type: AllegroFlare::MultitextureModel3D*
+        default_argument: nullptr
+    body: |
+      // Render our subject
+      // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
+      // setting  textures on the shader manually
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices =
+         multitexture_model_3d->vertexes;
+
+      ALLEGRO_BITMAP* texture_a = nullptr; // NOTE: No texture is needed for shadow
+
+      al_draw_prim(
+         &vertices[0],
+         multitexture_model_3d->vertex_declaration,
+         texture_a, // TODO: In this sloppy case, this texture is used to determine the
+                    // dimensionality of the textures(s) of the shader. Note that at the time of this writing, the
+                    // textures and dimensions are all inter-dependent on each other in this way. This kink
+                    // should eventually be worked out and cleaned up.
+         0,
+         vertices.size(),
+         ALLEGRO_PRIM_TRIANGLE_LIST
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL
+
+
 dependencies:
 
 
@@ -270,5 +329,11 @@ dependencies:
     headers: [ AllegroFlare/AllegroUnstable.hpp ]
   - symbol: AllegroFlare::RenderSurfaces::Bitmap
     headers: [ AllegroFlare/RenderSurfaces/Bitmap.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp ]
+  - symbol: AllegroFlare::MultitextureModel3D
+    headers: [ AllegroFlare/MultitextureModel3D.hpp ]
+  - symbol: AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL
+    headers: [ AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp ]
 
 
