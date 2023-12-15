@@ -5,12 +5,13 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+//#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
+   //try { code; FAIL() << "Expected " # raised_exception_type; } \
+   //catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
+   //catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
 class AllegroFlare_Shaders_BaseTest : public ::testing::Test {};
@@ -53,6 +54,35 @@ TEST_F(AllegroFlare_Shaders_BaseTest, derived_classes_will_have_the_expected_typ
 {
    ShadersBaseTestClass test_class;
    EXPECT_EQ("ShadersBaseTestClass", test_class.get_type());
+}
+
+
+TEST_F(AllegroFlare_Shaders_BaseTest, attach_source_code__when_vertex_source_code_is_default__throws_an_error)
+{
+   AllegroFlare::Shaders::Base shader;
+   EXPECT_THROW_WITH_MESSAGE(
+      shader.attach_source_code(),
+      std::runtime_error,
+      "Base::attach_source_code: error: guard \"(!vertex_source_code_is_default())\" not met"
+   );
+}
+
+
+TEST_F(AllegroFlare_Shaders_BaseTest, attach_source_code__when_fragment_source_code_is_default__throws_an_error)
+{
+   AllegroFlare::Shaders::Base shader;
+   std::string vertex_source_code =
+      "attribute vec4 vPosition;  \n"
+      "void main()                \n"
+      "{                          \n"
+      "  gl_Position = vPosition; \n"
+      "}                          \n";
+   shader.set_vertex_source_code(vertex_source_code);
+   EXPECT_THROW_WITH_MESSAGE(
+      shader.attach_source_code(),
+      std::runtime_error,
+      "Base::attach_source_code: error: guard \"(!fragment_source_code_is_default())\" not met"
+   );
 }
 
 
@@ -211,10 +241,10 @@ TEST_F(AllegroFlare_Shaders_BaseWithAllegroRenderingFixtureTest,
 /// Tests originally from AllegroFlare::Shader
 
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+//#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
+   //try { code; FAIL() << "Expected " # raised_exception_type; } \
+   //catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
+   //catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 
 #define ALLEGRO_UNSTABLE

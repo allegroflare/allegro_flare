@@ -171,19 +171,19 @@ bool Base::initialize()
 
 bool Base::attach_source_code(bool throw_on_error)
 {
-   if (!((!vertex_source_code.empty())))
+   if (!((!vertex_source_code_is_default())))
    {
       std::stringstream error_message;
-      error_message << "[Base::attach_source_code]: error: guard \"(!vertex_source_code.empty())\" not met.";
+      error_message << "[Base::attach_source_code]: error: guard \"(!vertex_source_code_is_default())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::attach_source_code: error: guard \"(!vertex_source_code.empty())\" not met");
+      throw std::runtime_error("Base::attach_source_code: error: guard \"(!vertex_source_code_is_default())\" not met");
    }
-   if (!((!fragment_source_code.empty())))
+   if (!((!fragment_source_code_is_default())))
    {
       std::stringstream error_message;
-      error_message << "[Base::attach_source_code]: error: guard \"(!fragment_source_code.empty())\" not met.";
+      error_message << "[Base::attach_source_code]: error: guard \"(!fragment_source_code_is_default())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::attach_source_code: error: guard \"(!fragment_source_code.empty())\" not met");
+      throw std::runtime_error("Base::attach_source_code: error: guard \"(!fragment_source_code_is_default())\" not met");
    }
    if (!al_attach_shader_source(al_shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
    {
@@ -362,6 +362,18 @@ void Base::hotload(std::string vertex_source_code, std::string fragment_source_c
    build();
 
    return;
+}
+
+bool Base::vertex_source_code_is_default()
+{
+   // TODO: Test this method
+   return vertex_source_code == DEFAULT_VERTEX_SOURCE_CODE;
+}
+
+bool Base::fragment_source_code_is_default()
+{
+   // TODO: Test this method
+   return fragment_source_code == DEFAULT_FRAGMENT_SOURCE_CODE;
 }
 
 

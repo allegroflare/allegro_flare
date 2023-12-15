@@ -14,6 +14,8 @@ namespace AllegroFlare
       class Base
       {
       public:
+         static constexpr char* DEFAULT_VERTEX_SOURCE_CODE = (char*)"[unset-default_vertex_source_code]";
+         static constexpr char* DEFAULT_FRAGMENT_SOURCE_CODE = (char*)"[unset-default_fragment_source_code]";
          static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/Base";
 
       private:
@@ -28,7 +30,7 @@ namespace AllegroFlare
 
 
       public:
-         Base(std::string type=AllegroFlare::Shaders::Base::TYPE, std::string vertex_source_code="", std::string fragment_source_code="");
+         Base(std::string type=AllegroFlare::Shaders::Base::TYPE, std::string vertex_source_code=DEFAULT_VERTEX_SOURCE_CODE, std::string fragment_source_code=DEFAULT_FRAGMENT_SOURCE_CODE);
          virtual ~Base();
 
          std::string get_type() const;
@@ -36,8 +38,8 @@ namespace AllegroFlare
          std::string get_fragment_source_code() const;
          ALLEGRO_SHADER* get_al_shader() const;
          bool get_initialized() const;
-         void set_vertex_source_code(std::string vertex_source_code="");
-         void set_fragment_source_code(std::string fragment_source_code="");
+         void set_vertex_source_code(std::string vertex_source_code=DEFAULT_VERTEX_SOURCE_CODE);
+         void set_fragment_source_code(std::string fragment_source_code=DEFAULT_FRAGMENT_SOURCE_CODE);
          bool is_type(std::string possible_type="");
          bool is_active();
          static bool display_is_opengl(ALLEGRO_DISPLAY* display=nullptr);
@@ -59,6 +61,8 @@ namespace AllegroFlare
          static bool set_vec4(std::string name="[unset-name]", float x=0.0f, float y=0.0f, float z=0.0f, float a=0.0f);
          static bool set_sampler_cube(std::string name="[unset-name]", AllegroFlare::Cubemap* cubemap=nullptr, int unit=0);
          void hotload(std::string vertex_source_code="", std::string fragment_source_code="");
+         bool vertex_source_code_is_default();
+         bool fragment_source_code_is_default();
       };
    }
 }

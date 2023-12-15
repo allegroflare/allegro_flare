@@ -9,14 +9,14 @@ properties:
 
   - name: vertex_source_code
     type: std::string
-    init_with: '""'
+    init_with: DEFAULT_VERTEX_SOURCE_CODE
     constructor_arg: true
     getter: true
     setter: explicit
 
   - name: fragment_source_code
     type: std::string
-    init_with: '""'
+    init_with: DEFAULT_FRAGMENT_SOURCE_CODE
     constructor_arg: true
     getter: true
     setter: explicit
@@ -31,6 +31,18 @@ properties:
     init_with: false
     getter: true
 
+  - name: DEFAULT_VERTEX_SOURCE_CODE
+    type: char*
+    init_with: '(char*)"[unset-default_vertex_source_code]"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_FRAGMENT_SOURCE_CODE
+    type: char*
+    init_with: '(char*)"[unset-default_fragment_source_code]"'
+    static: true
+    constexpr: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Shaders/Base"'
@@ -43,7 +55,6 @@ documentation:
 
   - todo:
       - Consider removing "vertex_source_code" and "fragment_source_code" as constructor args
-      - Use default values for "vertex_source_code" and "fragment_source_code"; Check if defaults before compiling
 
 
 functions:
@@ -53,7 +64,7 @@ functions:
     parameters:
       - name: vertex_source_code
         type: std::string
-        default_argument: '""'
+        default_argument: DEFAULT_VERTEX_SOURCE_CODE
     guards: [ (!initialized) ]
     body: |
       // TODO: Test this
@@ -65,7 +76,7 @@ functions:
     parameters:
       - name: fragment_source_code
         type: std::string
-        default_argument: '""'
+        default_argument: DEFAULT_FRAGMENT_SOURCE_CODE
     guards: [ (!initialized) ]
     body: |
       // TODO: Test this
@@ -140,7 +151,7 @@ functions:
       - name: throw_on_error
         type: bool
         default_argument: true
-    guards: [ (!vertex_source_code.empty()), (!fragment_source_code.empty()) ]
+    guards: [ (!vertex_source_code_is_default()), (!fragment_source_code_is_default()) ]
     body: |
       if (!al_attach_shader_source(al_shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
       {
@@ -430,6 +441,20 @@ functions:
       build();
 
       return;
+
+
+  - name: vertex_source_code_is_default
+    type: bool
+    body: |
+      // TODO: Test this method
+      return vertex_source_code == DEFAULT_VERTEX_SOURCE_CODE;
+
+
+  - name: fragment_source_code_is_default
+    type: bool
+    body: |
+      // TODO: Test this method
+      return fragment_source_code == DEFAULT_FRAGMENT_SOURCE_CODE;
 
 
 dependencies:

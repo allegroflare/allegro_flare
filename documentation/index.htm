@@ -27455,6 +27455,14 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">DEFAULT_VERTEX_SOURCE_CODE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_FRAGMENT_SOURCE_CODE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -27462,10 +27470,10 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">set_vertex_source_code(std::string vertex_source_code=&quot;&quot;)</td>
+  <td class="method">set_vertex_source_code(std::string vertex_source_code=DEFAULT_VERTEX_SOURCE_CODE)</td>
 </tr>
 <tr>
-  <td class="method">set_fragment_source_code(std::string fragment_source_code=&quot;&quot;)</td>
+  <td class="method">set_fragment_source_code(std::string fragment_source_code=DEFAULT_FRAGMENT_SOURCE_CODE)</td>
 </tr>
 <tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
@@ -27532,6 +27540,12 @@ table td
 </tr>
 <tr>
   <td class="method">hotload(std::string vertex_source_code=&quot;&quot;, std::string fragment_source_code=&quot;&quot;)</td>
+</tr>
+<tr>
+  <td class="method">vertex_source_code_is_default()</td>
+</tr>
+<tr>
+  <td class="method">fragment_source_code_is_default()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
