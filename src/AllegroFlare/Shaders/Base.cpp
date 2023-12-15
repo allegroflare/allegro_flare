@@ -298,6 +298,13 @@ bool Base::set_bool(std::string name, bool value)
    return al_set_shader_bool(name.c_str(), value);
 }
 
+bool Base::set_int2(std::string name, int x, int y)
+{
+   // TODO: Test that this works
+   int vec2[2] = {x, y};
+   return al_set_shader_int_vector(name.c_str(), 2, &vec2[0], 1);
+}
+
 bool Base::set_vec2(std::string name, float x, float y)
 {
    float vec2[2] = {x, y};

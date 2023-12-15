@@ -55,6 +55,7 @@ namespace AllegroFlare
          static bool set_int(std::string name="[unset-name]", int value=0);
          static bool set_float(std::string name="[unset-name]", float value=0.0f);
          static bool set_bool(std::string name="[unset-name]", bool value=false);
+         static bool set_int2(std::string name="[unset-name]", int x=0, int y=0);
          static bool set_vec2(std::string name="[unset-name]", float x=0.0f, float y=0.0f);
          static bool set_vec3(std::string name="[unset-name]", float x=0.0f, float y=0.0f, float z=0.0f);
          static bool set_vec3(std::string name="[unset-name]", AllegroFlare::Vec3D vec={});
