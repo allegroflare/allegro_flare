@@ -36,6 +36,18 @@ std::string Base::get_type() const
 }
 
 
+std::string Base::get_vertex_source_code() const
+{
+   return vertex_source_code;
+}
+
+
+std::string Base::get_fragment_source_code() const
+{
+   return fragment_source_code;
+}
+
+
 ALLEGRO_SHADER* Base::get_al_shader() const
 {
    return al_shader;
@@ -47,6 +59,34 @@ bool Base::get_initialized() const
    return initialized;
 }
 
+
+void Base::set_vertex_source_code(std::string vertex_source_code)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::set_vertex_source_code]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::set_vertex_source_code: error: guard \"(!initialized)\" not met");
+   }
+   // TODO: Test this
+   this->vertex_source_code = vertex_source_code;
+   return;
+}
+
+void Base::set_fragment_source_code(std::string fragment_source_code)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::set_fragment_source_code]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::set_fragment_source_code: error: guard \"(!initialized)\" not met");
+   }
+   // TODO: Test this
+   this->fragment_source_code = fragment_source_code;
+   return;
+}
 
 bool Base::is_type(std::string possible_type)
 {

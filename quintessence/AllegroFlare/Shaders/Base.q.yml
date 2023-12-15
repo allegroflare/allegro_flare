@@ -11,11 +11,15 @@ properties:
     type: std::string
     init_with: '""'
     constructor_arg: true
+    getter: true
+    setter: explicit
 
   - name: fragment_source_code
     type: std::string
     init_with: '""'
     constructor_arg: true
+    getter: true
+    setter: explicit
 
   - name: al_shader
     type: ALLEGRO_SHADER*
@@ -34,7 +38,39 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - todo:
+      - Consider removing "vertex_source_code" and "fragment_source_code" as constructor args
+      - Use default values for "vertex_source_code" and "fragment_source_code"; Check if defaults before compiling
+
+
 functions:
+
+
+  - name: set_vertex_source_code
+    parameters:
+      - name: vertex_source_code
+        type: std::string
+        default_argument: '""'
+    guards: [ (!initialized) ]
+    body: |
+      // TODO: Test this
+      this->vertex_source_code = vertex_source_code;
+      return;
+
+
+  - name: set_fragment_source_code
+    parameters:
+      - name: fragment_source_code
+        type: std::string
+        default_argument: '""'
+    guards: [ (!initialized) ]
+    body: |
+      // TODO: Test this
+      this->fragment_source_code = fragment_source_code;
+      return;
 
 
   - name: is_type

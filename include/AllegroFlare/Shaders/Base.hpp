@@ -32,8 +32,12 @@ namespace AllegroFlare
          virtual ~Base();
 
          std::string get_type() const;
+         std::string get_vertex_source_code() const;
+         std::string get_fragment_source_code() const;
          ALLEGRO_SHADER* get_al_shader() const;
          bool get_initialized() const;
+         void set_vertex_source_code(std::string vertex_source_code="");
+         void set_fragment_source_code(std::string fragment_source_code="");
          bool is_type(std::string possible_type="");
          bool is_active();
          static bool display_is_opengl(ALLEGRO_DISPLAY* display=nullptr);
