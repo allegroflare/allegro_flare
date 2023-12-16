@@ -327,6 +327,28 @@ functions:
       return al_set_shader_int_vector(name.c_str(), 2, &vec2[0], 1);
 
 
+  - name: set_int3
+    static: true
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: z
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: Test that this works
+      int vec3[3] = {x, y, z};
+      return al_set_shader_int_vector(name.c_str(), 3, &vec3[0], 1);
+
+
   - name: set_vec2
     static: true
     type: bool
