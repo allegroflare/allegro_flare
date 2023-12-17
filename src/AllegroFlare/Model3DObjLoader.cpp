@@ -84,7 +84,20 @@ namespace AllegroFlare
             sscanf(buff, "vn %f %f %f", &vt_normal.x, &vt_normal.y, &vt_normal.z);
             vt_normals.push_back(vt_normal);
          }
-         else if (strncmp(buff, "o ", 2) == 0)
+         else if (strncmp(buff, "g ", 2) == 0) // NOTE: This "g " is identical to "o " in this implementation
+         {
+            // grab the name of the object
+            char namebuff[128];
+            sscanf(buff, "g %127s", namebuff); 
+
+            // create a new named object
+            Model3D::named_object new_named_object;
+            new_named_object.identifier = namebuff;
+            new_named_object.texture = NULL;
+            model->named_objects.push_back(new_named_object);
+            current_named_object = &model->named_objects.back();
+         }
+         else if (strncmp(buff, "o ", 2) == 0) // NOTE: This "o " is identical to "g " in this implementation
          {
             // grab the name of the object
             char namebuff[128];
