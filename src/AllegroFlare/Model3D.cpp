@@ -319,7 +319,6 @@ namespace AllegroFlare
 
 
 
-
    bool Model3D::draw_object(std::string name)
    {
       validate_initialized_or_output_to_cerr("draw_object");
@@ -452,6 +451,52 @@ namespace AllegroFlare
    {
       return AllegroFlare::Physics::AABB3D(get_min_vertex_coordinate(), get_max_vertex_coordinate());
    }
+
+
+
+   void Model3D::remove_named_object(std::string object_name)
+   {
+      // TODO: Test this feature
+      validate_initialized_or_output_to_cerr("remove_named_object");
+      validate_not_vertex_buffer("remove_named_object");
+
+      named_object *found_named_object = nullptr;
+      int named_object_found_at_index = -1;
+
+      bool object_exists = false;
+      for (unsigned i=0; i<named_objects.size(); i++)
+      {
+         if (named_objects[i].identifier == object_name)
+         {
+            found_named_object = &named_objects[i];
+            named_object_found_at_index = i;
+            break;
+         }
+      }
+
+      if (!found_named_object)
+      {
+         std::stringstream error_message;
+         error_message << "[AllegroFlare::Model3D::remove_named_object] error: "
+                       << "Looking for named_object named \"" << object_name << "\" but it does not exist.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      // TODO: Handle the case of this implementation as described in this error message
+      // TODO: Modify this warning to use AllegroFlare::Logger
+      std::stringstream warning_message;
+      warning_message << "[AllegroFlare::Model3D::remove_named_object] warning: "
+                      << "Removing named object within Model3D. Note that (for the time being) all vertices associated "
+                      << "with the named object will remain in the list of vertices. This could have unintended "
+                      << "side-effects. In the future, update this operation to remove the named objects vertices "
+                      << "from the list of vertices, ensuring that there are no other named objects that rely on those "
+                      << "vertices. Also, indices of all remaining named objects will need to be shifted to the new "
+                      << "vertices positions.";
+      std::cout << warning_message.str() << std::endl;
+
+      named_objects.erase(named_objects.begin() + named_object_found_at_index);
+   }
+
 
 
    std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_object_vertices(std::string object_name)

@@ -76,6 +76,7 @@ namespace AllegroFlare
       bool set_named_object_texture(std::string object_name, ALLEGRO_BITMAP *tx);
       bool set_named_object_color(int index, ALLEGRO_COLOR col);
       bool set_named_object_color(std::string object_name, ALLEGRO_COLOR col);
+      void remove_named_object(std::string object_name); // TODO: Handle the edge cases of this implementation
       void scale(float scale);
       void displace(AllegroFlare::Vec3D displacement);
 
