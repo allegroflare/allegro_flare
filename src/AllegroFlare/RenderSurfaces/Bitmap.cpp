@@ -106,6 +106,8 @@ void Bitmap::setup_surface(int surface_width, int surface_height, int multisampl
       al_destroy_bitmap(surface);
       al_set_new_bitmap_samples(multisamples);
       al_set_new_bitmap_depth(depth);
+      // TODO:
+      //al_set_new_bitmap_flags(depth);
 
       surface = al_create_bitmap(surface_width, surface_height);
       int surface_bitmap_flags = al_get_bitmap_flags(surface);
