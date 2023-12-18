@@ -108,6 +108,31 @@ TEST_F(AllegroFlare_Screens_LevelSelectScreenTestWithAllegroFrameworksFullFixtur
 
 
 TEST_F(AllegroFlare_Screens_LevelSelectScreenTestWithAllegroFrameworksFullFixture,
+   on_activate__when_no_levels_are_present__when_submit_on_activate_if_empty_is_true__\
+will_call_on_menu_choice_callback_func)
+{
+   AllegroFlare::Screens::LevelSelectScreen level_select_screen;
+   level_select_screen.set_event_emitter(get_framework_event_emitter());
+   level_select_screen.set_bitmap_bin(get_framework_bitmap_bin());
+   level_select_screen.set_font_bin(get_framework_font_bin());
+   level_select_screen.initialize();
+
+   int my_callback_user_data_representing_num_callback_calls = 0;
+   level_select_screen.set_on_menu_choice_callback_func([this](AllegroFlare::Screens::LevelSelectScreen*, void* data) {
+      // Increment my_callback_user_data_representing_num_callback_calls
+      (*(int*)data)++;
+   });
+   level_select_screen.set_on_menu_choice_callback_func_user_data(
+      &my_callback_user_data_representing_num_callback_calls
+   );
+
+   framework_register_and_activate_screen("level_select_screen", &level_select_screen);
+
+   EXPECT_EQ(1, my_callback_user_data_representing_num_callback_calls);
+}
+
+
+TEST_F(AllegroFlare_Screens_LevelSelectScreenTestWithAllegroFrameworksFullFixture,
    on_activate__when_no_levels_are_present__when_submit_on_activate_if_empty_is_true__when_on_menu_choice_callback_func_\
 is_not_present__will_throw_an_error)
 {
