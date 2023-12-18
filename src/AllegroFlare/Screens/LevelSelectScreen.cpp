@@ -186,7 +186,7 @@ void LevelSelectScreen::on_activate()
 
    // TODO: Test the calling and error message response here in this "submit_on_activate_if_empty" block
    bool submit_on_activate_if_empty = true;
-   if (submit_on_activate_if_empty)
+   if (submit_on_activate_if_empty && level_select_element.list_is_empty())
    {
       if (!on_menu_choice_callback_func)
       {

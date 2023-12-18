@@ -276,7 +276,6 @@ functions:
 
   - name: list_is_empty
     type: bool
-    private: true
     body: |
       return levels_list.empty();
 

@@ -41,7 +41,6 @@ namespace AllegroFlare
          void draw_level_select_title_text();
          void draw_level_select_boxes_and_cursor();
          bool has_valid_size();
-         bool list_is_empty();
          void draw_selection_cursor(float x=0.0f, float y=0.0f);
          void draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label="[unlabeled]");
          ALLEGRO_FONT* obtain_title_font();
@@ -80,6 +79,7 @@ namespace AllegroFlare
          void move_cursor_down();
          void move_cursor_left();
          void move_cursor_right();
+         bool list_is_empty();
          void activate_selected_menu_option();
          std::string infer_current_menu_option_value();
          int infer_cursor_position();
