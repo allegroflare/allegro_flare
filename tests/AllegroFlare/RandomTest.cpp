@@ -6,6 +6,7 @@
 #include <AllegroFlare/Random.hpp>
 
 #include <algorithm>
+#include <iomanip>
 #include <AllegroFlare/Testing/CustomComparison.hpp>
 
 
