@@ -8,6 +8,7 @@
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/GameEventDatas/AchievementUnlocked.hpp>
 #include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -59,13 +60,29 @@ std::string Complete::primary_display_icon_filename()
 
 void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
 {
-   // TODO: Handle top-level game events here
-   if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
-   {
-      AllegroFlare::GameEventDatas::ScreenActivated* as =
-        static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
+   //// TODO: Handle top-level game events here
+   //if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
+   //{
+      //AllegroFlare::GameEventDatas::ScreenActivated* as =
+        //static_cast<AllegroFlare::GameEventDatas::ScreenActivated*>(game_event->get_data());
 
-      // TODO: Handle game-specific logic for a after a screen switch
+      //// TODO: Handle game-specific logic for a after a screen switch
+   //}
+   if (game_event->get_type() == AllegroFlare::GameEventDatas::AchievementUnlocked::NAME)
+   {
+      if (game_event->get_data()->is_type(AllegroFlare::GameEventDatas::AchievementUnlocked::TYPE))
+      {
+         AllegroFlare::GameEventDatas::AchievementUnlocked *as =
+            static_cast<AllegroFlare::GameEventDatas::AchievementUnlocked *>(game_event->get_data());
+         // TODO: Handle saving progress of achievements. Something like below.
+         // See this guide:
+         // https://docs.google.com/document/d/1QdDVa6giZOmGbF61dgom1ZJ_Ev5OFvZEM2Bc453RjGw/edit
+         //mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
+      }
+      else
+      {
+         throw std::runtime_error("Gameplay/Runner/game_event_func: unexpected AchievementUnlocked event data type");
+      }
    }
    return;
 }

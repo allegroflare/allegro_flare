@@ -2239,7 +2239,8 @@
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameEventDatas/AchievementUnlocked": [
-    "AllegroFlare/EventEmitter"
+    "AllegroFlare/EventEmitter",
+    "AllegroFlare/GameConfigurations/Complete"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/FrameAnimation/Animation",
