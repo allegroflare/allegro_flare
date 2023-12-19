@@ -1,0 +1,31 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameEventDatas::Base
+    scope: public
+    init_with: AllegroFlare::GameEventDatas::String::TYPE
+
+
+properties:
+
+
+  - name: string
+    type: std::string
+    init_with: '"[unset-string]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/GameEventDatas/String"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameEventDatas::Base
+    headers: [ AllegroFlare/GameEventDatas/Base.hpp ]
+
+
