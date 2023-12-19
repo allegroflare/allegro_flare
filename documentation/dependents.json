@@ -918,6 +918,7 @@
     "AllegroFlare/GameEvent",
     "AllegroFlare/GameEventDatas/AchievementUnlocked",
     "AllegroFlare/GameEventDatas/ScreenActivated",
+    "AllegroFlare/GameEventDatas/String",
     "AllegroFlare/GameEventDatas/VirtualControllerAxisChangeEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData",
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",

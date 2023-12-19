@@ -6,6 +6,7 @@
 #include <AllegroFlare/ConsoleColor.hpp>
 #include <AllegroFlare/Model3D.hpp>
 #include <allegro5/allegro_color.h>
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 
 
@@ -24,6 +25,12 @@ namespace AllegroFlare
    {
       if (!model) throw std::runtime_error("Unable to load nullptr model");
 
+      if (!al_filename_exists(filename))
+      {
+         // TODO: Use AllegroFlare::Logger::throw_warning
+         std::cout << CONSOLE_COLOR_RED << "Could not load \"" << filename << "\" when creating Model3D" << CONSOLE_COLOR_DEFAULT << std::endl;
+      }
+
       model->clear();
 
       char buff[256];
@@ -38,9 +45,6 @@ namespace AllegroFlare
       bool vertex_textures_found = false;
       bool vertex_normals_found = false;
       Model3D::named_object *current_named_object = NULL;
-
-      if (!al_filename_exists(filename))
-         std::cout << CONSOLE_COLOR_RED << "Could not load \"" << filename << "\" when creating Model3D" << CONSOLE_COLOR_DEFAULT << std::endl;
 
       while (al_fgets(file, buff, 256))
       {
