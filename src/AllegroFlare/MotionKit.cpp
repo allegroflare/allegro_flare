@@ -21,6 +21,7 @@ MotionKit::~MotionKit()
 
 float MotionKit::normalize_age(float start_time, float end_time, float time_now)
 {
+   // TODO: Consider that capping to 1.0 if past may not be preferred
    float length = (end_time - start_time);
    float time_now_in_range = time_now - start_time;
    if (length == 0.0f) return 0.0f;
