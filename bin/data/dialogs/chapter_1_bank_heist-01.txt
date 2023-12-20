@@ -1,0 +1,418 @@
+FADE IN:
+
+Title slate: Chapter 1: The Bank Heist
+
+FADE TO BLACK:
+
+We hear the sound of police sirens
+
+POLICE COMMISSIONER (COMMISSIONER)
+Where’s that damn detective!
+
+FADE IN:
+
+EXT. BANK - OUTSIDE THE FRONT - EVENING
+
+Outside at a bank, there are many cop cars everywhere and excited bystanders who are blocked off trying to see what is going on.
+
+COMMISSIONER
+That detective was supposed to be here 30 minutes ago. We can’t go into the crime scene until he arrives.
+
+CUT TO:
+
+CAT DETECTIVE driving to the scene, cool music playing. His face is concealed from viewer.
+
+CAT DETECTIVE shows up to the scene, with a very cool style coming out of his car.
+
+POLICE COMMISSIONER (COMMISSIONER)
+It’s about time you got here. We got a major bank heist and everybody seems to have lost their mittens and I can’t get any straight answers.
+
+CAT DETECTIVE (DETECTIVE)
+Driving all the way out here took a bit longer than expected. I don’t normally come this far for crimes.
+
+COMMISSIONER
+Well we’re glad you could be here. We decided to make the call to bring in the big guns for this one. We’ve got your hotel booked at the Meowantian Lodge for the next 2 weeks at least. This is a pretty serious bank heist.
+
+DETECTIVE
+Meowantian Lodge? I appreciate that. Let’s get to work...
+
+DETECTIVE
+Was anybody injured?
+
+POLICE COMMISSIONER
+Not a whisker.  It happened when nobody was looking. Our thief was as sneaky as a fox.  It seems that somebody somehow managed to sneak into the bank, break into the vault, and get away with a big pile of cash.
+
+DETECTIVE
+How do you know it was only one person?
+
+POLICE COMMISSIONER
+Weh.. I mean... I supposed it could have been more than one person.
+
+DETECTIVE
+You shouldn’t jump to conclusions too soon.  You might trick yourself into making assumptions that simply aren’t true.  And you are...?
+
+POLICE COMMISSIONER
+I’m the police commissioner.
+
+POLICE COMMISSIONER Introduction slate (Add to character roster)
+
+DETECTIVE
+Well it was nice to meet you, Commissioner. I’ll let you know if I have any other questions.
+
+COMMISSIONER
+N..nice to meet you? Now listen here! I’ve been working on heists in this area for over a month now and I know a thing or two about what’s going on!
+
+DETECTIVE
+Over a month? So long. So this is not an isolated event? What have you learned about the other events so far?
+
+COMMISSIONER
+Ww.. well... nothing.
+
+DETECTIVE
+You know “a thing or two” indeed. / I didn’t realize that babysitting would be a part of this gig. Very well. Whatever makes it more interesting.
+
+COMMISSIONER
+Let’s make this straight...
+
+DETECTIVE
+Has my assistant arrived yet?
+
+COMMISSIONER
+I, uh, I heard she’s on her way.
+
+DETECTIVE
+Good. We should take a look at the crime scene as quickly as possible. I have a feeling this will be much simpler than expected.
+
+COMMISSIONER
+Heh! Don’t be naive. My best cats have been putting their brains on it and come up with nothing.
+
+DETECTIVE
+Somehow that doesn’t surprise me.
+
+EXT. BANK - INSIDE - EVENING
+
+Music changes. Now is slow and mysterious (https://youtu.be/b0bRw1faiws?si=523hi4ImlcpelYr_&t=1758)
+
+BLACK:
+
+BANKER
+How could this have happened?  It must have been a setup by the rival bank.  Or the SCRATCHERS, they’re a bunch of no-good...
+
+DETECTIVE
+Good evening, sir. Am I correct in assuming you’re the meownager of this bank?
+
+BANKER
+That’s correct. And I intend to bring all charges against the criminal possible! This has been such a disturbance to our reputation!  I hope you’ll find those degenerates who stole from me. I’ve been running this bank for over 25 years and I’ve never seen anything like this.
+
+DETECTIVE
+... / Indeed.
+
+FADE IN to CRIME SCENE:
+
+INVESTIGATION MODE START:
+
+SYSTEM
+You are now going into INVESTIGATION MODE.  Move the cursor around the crime scene, and click on items to investigate them.  When investigating, you can scan the room with [KEY] to see what items remain uninvestigated.  Once you have uncovered the necessary evidence, you can continue.
+
+The following targets are investigatable within the scene, and are collected as evidence:
+Scratches on the vault
+Prints on the floor
+Assistant Manager’s Testimony (Alabi)
+Was doing yoga
+Security camera repair has been delayed due to delays in internal reports
+Banker cat’s testimonial
+Insistence that it was the SCRATCHERS (scratches on the vault)
+Insistence that it was the assistant manager (prints on the floor w/thumb)
+Some bank statement signed by several people, including the assistant manager with a thumbed paw print
+Assistant Manager has a thumb
+Bank teller testimony
+Paycheque has not yet arrived this month
+Paw prints on the floor have thumbs
+Lack of security camera footage
+Customer there at the time of the crime, was in the bathroom, noticed The switch to cheaper, non-clumping cat litter in the bathrooms
+
+INVESTIGATE MODE END:
+
+DETECTIVE
+Well this is very strange. A lot of these things don’t add up. And something about it just feels very sloppy.
+
+BANKER
+Surely you will catch these vultures. You had better get them. They’ve probably gotten a hundred miles away by now.
+
+COMMISSIONER
+Don’t worry about that. They could be 200 miles away from here but I’ve got every department on the ready an my patrol cars on the ready all over the city ready to drive away and snag...
+
+DETECTIVE
+Oh commissioner, again with the assumptions.  You are so easily lead.
+
+COMMISSIONER
+Wah! What are you...
+
+DETECTIVE
+Banker, I can see that you are very passionate about finding our purrpetrator.
+
+BANKER
+What can I say, I’m a successful businesscat. I’ve made my living being assertive and closing deals and I want this case closed soon! I need to get back to business! I have important things to do.
+
+ASSISTANT MANAGER
+We have important client appointments and video calls that we hope to get to.
+
+COMMISSIONER
+It’s true! He helped me get into that loan to buy my house!  Surely...
+
+Suddenly, ASSISTANT CAT Shows up, somewhat in a jumble.
+
+ASSISTANT CAT (ASSISTANT)
+HEY! Sorry I’m late. OK what did I miss?
+
+CUT AWAY:
+
+ASSISTANT CAT Introduction slate. Cool music, fun. (Add to character roster).
+
+DETECTIVE
+You being late is not a problem. What did you miss? Nothing but a trivial petty crime by a desperate cat. You came just in time indeed.
+
+ASSISTANT
+Ooh, you’re going to reveal who did it? I really did show up at the right time.  This is gonna be great!!
+
+DETECTIVE
+I do indeed. ... / Just uh... / Why are you wearing a toque and sweater?  It’s the middle of the summer.
+
+ASSISTANT
+Ugh, yea, That’s a long story.  I just tried to get here as soon as possible.
+
+DETECTIVE
+Quite. Hope you’re not dressed too warm, because it’s about to get hot.
+
+TRIAL MODE START:
+
+SYSTEM
+You are now going into TRIAL MODE.  During this mode, you comb through the evidence and ultimately reveal the perpetrator of the crime. If you successfully unveil the criminal or criminals, they will confess and reveal their guilt.
+
+---
+Music picks up. The scene changes a bit into a type of trial mode where the different characters are present.
+
+DETECTIVE
+Alright! Let's put the pieces of this puzzle together.
+
+ASSISTANT
+Let’s do it!
+
+DETECTIVE
+First, let’s talk about motives. What would drive someone to commit such a crime? BANKER, you mentioned being in the banking business for over 25 years?
+
+BANKER
+That’s correct! [TODO: statement about the solvency and strength of the institution]. Our wealth has been the envy of all banks across the globe. And, I’m certain every thief from here to the sandbox has schemed one way or another how to break in.
+
+SYSTEM
+What was the nature of the crime?
+Jealous Rival Business
+Criminal enterprise
+Inside Job
+
+DETECTIVE
+It's clear that the crime wasn't committed by an outsider; it had to be an inside job.
+
+BANKER
+An inside job? What? That is a tremendous surprise. Our institution is built on trust. But I won’t doubt your surely impressive deductive skills!  After all, I won’t say who it could have been but, it seems like the thumb paw prints are a dead giveaway!
+
+ASSISTANT MANAGER
+You’re saying it was me?!
+
+BANKER
+Well, you did a sloppy job on that audit last month didn’t you? I wouldn’t be surprised if you were scheming the bank the whole time. / And just like the investigator said, this crime was a sloppy job, just like your work. It has your paw prints all over it, literally. I should have let you go months ago.
+
+ASSISTANT MANAGER
+I did my best! I checked and double checked all the numbers for that report. I’m sorry it didn’t meet your standards. I could have sworn it was correct.
+
+BANKER
+Our standards at this bank are the highest.
+
+COMMISSIONER
+Now wait. If it was an inside job, how could they have gotten into the bank and done all of this without being seen or detected in the process? Wouldn’t a top-level bank have top level security?
+
+DETECTIVE
+That’s a fantastic question. How could someone sneak into the bank, break into the vault, and get away with a big pile of cash and not be seen?
+
+SYSTEM
+How could someone have gotten into the bank undetected?
+- The cameras were not operating (correct)
+- They had an invisibility cloak
+- They used a teleportation device
+- They bribed the security guard
+- They disguised themselves as a janitor
+- They had a secret underground tunnel
+- They flew in on a hang glider
+
+DETECTIVE
+The cameras were not operating. There was a delay in the security camera repair.
+
+ASSISTANT
+Indeed. And only someone who knew the security cameras were disabled and could have taken advantage of the situation? Someone wanted to make sure there were no witnesses to the crime. Thus it makes it very likely that it was an inside job.
+
+COMMISSIONER
+So if it was an inside job, how could BANKER have done it? He's always been loyal to this bank!
+
+BANKER
+(defensive)
+I had nothing to do with that! It was just a coincidence!
+
+[...]
+
+DETECTIVE
+I would have to disagree. It seems to me that your institution is not as financially sound as you are leading us to believe.
+
+BANKER
+Why would you be turning this on me?  I’m the victim here! There’s meowntains of evidence pointing elsewhere! We should be focusing on solving this crime that is affecting my reputation.
+
+DETECTIVE
+It’s precisely all this different evidence at the crime scene, so clumsily and aimlessly pointing everywhere else, that caught my attention.  It’s very messy, so it the real clues must be elsewhere.
+
+SYSTEM
+What clues indicate BANKER had a motive to commit this crime?
+Financial troubles
+He is part of an underground cult
+Revenge on an employee
+
+
+DETECTIVE
+Financial troubles. The bank was going under and it needed a diversion.
+
+COMMISSIONER
+You can’t be serious!  This bank has been a part of our community for almost 25 years and is CATVEST certified.
+
+BANKER
+Financial troubles!?  Laughable! HAHA! We’re solvent for the next 100 years! Our investments are sound.
+
+SYSTEM
+What three pieces of evidence would indicate the banker was experiencing financial trouble?
+Security camera repair has been delayed due to waiting for cash flow (correct answer)
+Bank teller testimony that paycheque has not yet arrived this month (correct answer)
+The switch to cheaper, non-clumping cat litter in the bathrooms (correct answer)
+All their money was just stolen
+
+ASSISTANT
+Aha! So, financial troubles could have been a motive. Disabling the paychecks for the bank tellers, switching to cheaper cat litter - these are signs that someone was desperate to save money.
+
+BANKER
+(looking uncomfortable)
+Well, the bank has been doing well, but we did have some recent investments that didn't pan out as expected.
+
+ASSISTANT
+I see. A missing pay cheque is not a small oversight. Those kinds of things are automated and, a system like that must have been disabled manually. Only a higher up position could have done that.
+
+DETECTIVE
+Precisely. Only administrative roles, and he is the only one with that authority. / And who has the authority to make such decisions? To disable the paychecks and switch to cheaper supplies?
+
+BANKER
+(looking defeated)
+I do. But I didn't think it would come to this. I was just trying to keep the bank afloat.
+
+DETECTIVE
+(despite the evidence, empathetic)
+Times can be tough, BANKER, but turning to crime was not the solution. Your actions have consequences, and you'll have to face them now.
+
+SYSTEM
+Who committed the crime?
+
+Pick
+Banker (correct answer)
+Commissioner
+Bank Assistant Manager
+Bank Teller
+Assistant
+The SCRATCHERS
+
+CUT TO ADMITTING GUILT:
+
+[TODO: Admitting guilt]
+
+CUT TO WIND DOWN:
+
+[TODO: Wind down dialog] Include:
+COMMISSIONER being grateful, mentioning detective has a whole week to stick around.
+
+DETECTIVE
+I think it’s quite obvious. Anybody with half a brain cell could see who it was.
+
+DETECTIVE
+Throughout this investigation, BANKER cat tried multiple times to plant ideas about who the perpetrator might be.  To me this seemed a bit suspicious.
+
+ASSISTANT
+Indeed. But a good investigator never jumps to conclusions, instead, only draws conclusions after hearing and examining all the evidence.
+
+DETECTIVE
+Correct. It did seem a bit too easy, though. And, even though we have this case wrapped, I think there’s more going on here. / ASSISTANT, did you manage to get the keys to our hotel?
+
+ASSISTANT
+I did. You’re in room 408 in The Meowantain Lodge. Here’s the keys:
+
+SYSTEM
+You got an item: Hotel room keys
+
+ASSISTANT
+I’ll be in room 316 around the side of the building.
+
+DETECTIVE
+If you don’t mind me asking. How did you get here?
+
+ASSISTANT
+I had to take a cab. Again, it’s a long story.
+
+DETECTIVE
+Well if you don’t mind, would you take my car back to the Meowantain Lodge?  I’d rather fancy a walk back.
+
+ASSISTANT
+I wouldn’t mind one bit. The streets are pretty safe here in this town.
+
+DETECTIVE
+Good work. I’ll see you back at the lodge.
+
+FADE TO:
+
+Mysterious music. Storyboard showing our detective walking through a street at night, passing by an alleyway.  A voice from the dark
+
+MYSTERIOUS CAT (MYSTERIOUS)
+(off screen)
+Detective.
+
+-
+DETECTIVE turns around quickly.
+
+DETECTIVE
+Who’s there!?
+
+MYSTERIOUS
+I need to tell you something. Something very important.
+
+DETECTIVE
+Who are you?
+
+MYSTERIOUS
+That’s not important.  What is important is This crime goes way deeper than a simple bank heist. They just used that as a way to get you here, to keep an eye on you, and they needed an excuse.
+
+DETECTIVE
+Wait, you’re saying the bank robbery was a setup?  Clearly it was the banker who was at fault.
+
+MYSTERIOUS
+It was most certainly the banker who stole from his own bank. But he was just the first peg to break, and they knew it was going to happen. It’s all part of a bigger, much more sinister plot.
+
+DETECTIVE
+They? Who’s they?
+
+MYSTERIOUS
+That’s enough for now.
+
+DETECTIVE
+I need you to tell me who you...
+
+MYSTERIOUS
+Just watch your back.
+
+MYSTERIOUS flees and DETECTIVE is unable to catch up.
+
+DETECTIVE
+What was that all about?
+
+FADE TO BLACK:
+
