@@ -536,7 +536,30 @@ std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_obj
 }
 
 
+std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>>
+   Model3D::extract_named_objects_vertices(std::string object_name)
+{
+   // TODO: Test this method
+   std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> result;
+
+   for (unsigned i=0; i<named_objects.size(); i++)
+   {
+      if (named_objects[i].identifier == object_name)
+      {
+         std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> local_result;
+         for (auto &vertex_index_num : named_objects[i].index_list)
+         {
+            local_result.push_back(vertices[vertex_index_num]);
+         }
+         result.push_back(local_result);
+      }
+   }
+
+   return result;
 }
+
+
+}// Namespace AllegroFlare
 
 
 
