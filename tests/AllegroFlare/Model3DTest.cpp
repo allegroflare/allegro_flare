@@ -201,6 +201,17 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   extract_named_objects_vertices__will_return_a_vector_containing_vertices_for_each_of_the_named_objects_with_the_name)
+{
+   load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "level_with_multiple_named_objects_with_the_same_name.obj");
+   std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> extracted_vertices =
+      subject.extract_named_objects_vertices("mushroom");
+   ASSERT_EQ(3, extracted_vertices.size());
+   // TODO: Test vertices for each extracted object
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    count_num_named_objects_with_name__will_return_the_number_of_named_objects_that_match_the_name)
 {
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "level_with_multiple_named_objects_with_the_same_name.obj");
