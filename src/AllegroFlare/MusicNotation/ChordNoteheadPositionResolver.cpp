@@ -84,7 +84,7 @@ int ChordNoteheadPositionResolver::lowest_staff_position_on_position_type(Allegr
    }
    // TODO: Test this method
    bool left_position_exists = false;
-   int min_pitch = std::numeric_limits<float>::max();
+   int min_pitch = std::numeric_limits<int>::max();
 
    for (auto &position : positions)
    {
@@ -110,7 +110,8 @@ int ChordNoteheadPositionResolver::highest_staff_position_on_position_type(Alleg
    }
    // TODO: Test this method
    bool left_position_exists = false;
-   int max_pitch = std::numeric_limits<float>::min();
+   int max_pitch = std::numeric_limits<int>::min();
+
 
    for (auto &position : positions)
    {
