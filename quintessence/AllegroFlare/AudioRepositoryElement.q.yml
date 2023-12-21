@@ -16,8 +16,9 @@ properties:
   - name: overplay_strategy
     type: std::string
     constructor_arg: true
-    init_with: '"ignore"'
+    init_with: OVERPLAY_STRATEGY_IGNORE
     getter: true
+    setter: explicit
 
   - name: volume
     type: float
@@ -25,20 +26,70 @@ properties:
     init_with: 1.0
     getter: true
 
+  - name: OVERPLAY_STRATEGY_IGNORE
+    type: char*
+    init_with: '(char*)"ignore"'
+    static: true
+    constexpr: true
 
-functions:
+  - name: OVERPLAY_STRATEGY_RESTART
+    type: char*
+    init_with: '(char*)"restart"'
+    static: true
+    constexpr: true
+
+
+documentation:
+
+
+  - notes:
+     - WARNING, the "overplay_strategy" is not validated when it is passed in via a constructor argument. This could
+       lead to some unexpected consequences.
+
+
+methods:
+
+
+  - name: set_overplay_strategy
+    parameters:
+      - name: overplay_strategy
+        type: std::string
+        default_argument: '"[unset-overplay_strategy]"'
+    guards: [ is_valid_overplay_strategy(overplay_strategy) ]
+    body: |
+      this->overplay_strategy = overplay_strategy;
+      return;
+
+
+  - name: is_valid_overplay_strategy
+    type: bool
+    static: true
+    parameters:
+      - name: possibly_valid_overplay_strategy
+        type: std::string
+        default_argument: '"[unset-possibly_valid_overplay_strategy]"'
+    body: |
+      // TODO: Test this
+      std::set<std::string> valid_overplay_strategies = {
+         OVERPLAY_STRATEGY_IGNORE,
+         OVERPLAY_STRATEGY_RESTART,
+      };
+
+      return valid_overplay_strategies.find(possibly_valid_overplay_strategy) != valid_overplay_strategies.end();
+    body_dependency_symbols:
+      - std::set
 
 
   - name: overplay_strategy_is_ignore
     type: bool
     body: |
-      return overplay_strategy == "ignore";
+      return overplay_strategy == OVERPLAY_STRATEGY_IGNORE;
  
 
   - name: overplay_strategy_is_restart
     type: bool
     body: |
-      return overplay_strategy == "restart";
+      return overplay_strategy == OVERPLAY_STRATEGY_RESTART;
  
 
 
