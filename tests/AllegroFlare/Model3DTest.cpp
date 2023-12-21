@@ -210,6 +210,16 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
+   remove_named_objects__will_remove_all_instances_of_named_objects_that_have_the_name)
+{
+   load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "level_with_multiple_named_objects_with_the_same_name.obj");
+   ASSERT_EQ(3, subject.count_num_named_objects_with_name("mushroom"));
+   subject.remove_named_objects("mushroom");
+   EXPECT_EQ(0, subject.count_num_named_objects_with_name("mushroom"));
+}
+
+
+TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    extract_named_object_vertices__will_return_vertices_of_the_named_object)
 {
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "named_objects-02.obj");

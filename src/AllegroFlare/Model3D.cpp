@@ -518,6 +518,29 @@ void Model3D::remove_named_object(std::string object_name)
 
 
 
+void Model3D::remove_named_objects(std::string object_name)
+{
+   // TODO: This algorithm could be better. Counting all of them in one pass, then removing one each time. For now
+   // I'm leaving it as is because this is not a performance critical part of the code
+
+   int attempts_left = 300; // Should be a valid number
+   bool keep_removing = true;
+   while (attempts_left > 0)
+   {
+      if (count_num_named_objects_with_name(object_name) == 0) break;
+      remove_named_object(object_name);
+      attempts_left--;
+   }
+
+   if (attempts_left == 0)
+   {
+      // TODO: Improve this error message
+      throw std::runtime_error("AllegroFlare::Model3D: error: boom attempts_left was zero");
+   }
+}
+
+
+
 std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> Model3D::extract_named_object_vertices(std::string object_name)
 {
    // TODO: Consider that there could be multiple named objects with the same name; Throw in this case.
