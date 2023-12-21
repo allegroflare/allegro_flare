@@ -36,6 +36,7 @@ namespace AllegroFlare
             int remove(std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> entities={});
             bool exists(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* find_with_attribute(std::string attribute="[unset-attribute]");
+            std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> find_all_with_attribute(std::string attribute="[unset-attribute]");
             std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> select_A(std::string attribute="[unset-attribute]");
             std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> select_B(std::vector<std::string> attributes={});
             std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> select_C(std::string attribute="[unset-attribute]", std::string parameter="[unset-parameter]");

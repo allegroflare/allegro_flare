@@ -90,14 +90,22 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* EntityPo
    return nullptr;
 }
 
-std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> EntityPool::select_A(std::string attribute)
+std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> EntityPool::find_all_with_attribute(std::string attribute)
 {
+   // TODO: Test this
    std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
    for (auto &entity : entity_pool)
    {
       if (entity->exists(attribute)) result.push_back(entity);
    }
    return result;
+}
+
+std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> EntityPool::select_A(std::string attribute)
+{
+   // TODO: Replace collers of "select_A" to use "find_all_with_attributes" and remove this method
+   // TODO: Test this
+   return find_all_with_attribute(attribute);
 }
 
 std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> EntityPool::select_B(std::vector<std::string> attributes)

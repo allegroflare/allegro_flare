@@ -91,6 +91,22 @@ functions:
       return nullptr;
 
 
+  - name: find_all_with_attribute
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+    body: |
+      // TODO: Test this
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
+      for (auto &entity : entity_pool)
+      {
+         if (entity->exists(attribute)) result.push_back(entity);
+      }
+      return result;
+
+
   - name: select_A
     type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*>
     parameters:
@@ -98,12 +114,9 @@ functions:
         type: std::string
         default_argument: '"[unset-attribute]"'
     body: |
-      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> result;
-      for (auto &entity : entity_pool)
-      {
-         if (entity->exists(attribute)) result.push_back(entity);
-      }
-      return result;
+      // TODO: Replace collers of "select_A" to use "find_all_with_attributes" and remove this method
+      // TODO: Test this
+      return find_all_with_attribute(attribute);
 
 
   - name: select_B
