@@ -46,7 +46,7 @@ properties:
 
   - name: DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER
     type: char*
-    init_with: '"[unset-primary_point_of_interest_identifier]"'
+    init_with: '(char*)"[unset-primary_point_of_interest_identifier]"'
     static: true
     constexpr: true
 

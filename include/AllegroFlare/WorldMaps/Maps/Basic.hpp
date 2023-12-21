@@ -17,7 +17,7 @@ namespace AllegroFlare
          class Basic : public AllegroFlare::WorldMaps::Maps::Base
          {
          public:
-            static constexpr char* DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER = "[unset-primary_point_of_interest_identifier]";
+            static constexpr char* DEFAULT_PRIMARY_POINT_OF_INTEREST_IDENTIFIER = (char*)"[unset-primary_point_of_interest_identifier]";
             static constexpr char* TYPE = (char*)"AllegroFlare/WorldMaps/Maps/Basic";
 
          private:
