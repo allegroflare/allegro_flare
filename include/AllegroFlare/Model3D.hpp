@@ -58,7 +58,8 @@ namespace AllegroFlare
       void append(AllegroFlare::Model3D &other);
       bool flatten_single_named_object();
       int get_num_vertices();
-      int get_num_named_objects();
+      int get_num_named_objects(); // this should be renamed to "count_..."
+      int count_num_named_objects_with_name(std::string object_name);
       void promote_to_vertex_buffer();
 
       vec3d get_min_vertex_coordinate(); // should be renamed "calc_min_vertex..."

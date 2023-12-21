@@ -250,6 +250,22 @@ int Model3D::get_num_named_objects()
 
 
 
+int Model3D::count_num_named_objects_with_name(std::string object_name)
+{
+   // TODO: Test this
+   int count = 0;
+   for (unsigned i=0; i<named_objects.size(); i++)
+   {
+      if (named_objects[i].identifier == object_name)
+      {
+         count++;
+      }
+   }
+   return count;
+}
+
+
+
 void Model3D::promote_to_vertex_buffer()
 {
    validate_initialized_or_output_to_cerr("promote_to_vertex_buffer");
