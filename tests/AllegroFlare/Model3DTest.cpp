@@ -206,23 +206,6 @@ TEST_F(AllegroFlare_Model3DWithAllegroRenderingFixtureTest,
    load_subject(PROPER_TEST_FIXTURE_MODEL_FOLDER + "level_with_multiple_named_objects_with_the_same_name.obj");
    int actual_count = subject.count_num_named_objects_with_name("mushroom");
    EXPECT_EQ(3, actual_count);
-   //load_subject();
-   //AllegroFlare::Model3D model_to_append;
-   //model_to_append.initialize();
-   //std::string model_filename_to_merge = TEST_FIXTURE_MODEL_FOLDER + "archway-01.obj";
-   //model_to_append.load_obj_file(model_filename_to_merge.c_str());
-
-   //subject.flatten_single_named_object();
-   //model_to_append.flatten_single_named_object();
-
-   //testing::internal::CaptureStdout();
-   //subject.append(model_to_append);
-   //std::string actual_cout = testing::internal::GetCapturedStdout();
-   //std::string expected_cout = ""; // Expecting no output warnings
-
-   //EXPECT_EQ(expected_cout, actual_cout);
-
-   //examine_subject(1);
 }
 
 
