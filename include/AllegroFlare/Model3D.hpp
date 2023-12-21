@@ -66,6 +66,8 @@ namespace AllegroFlare
       AllegroFlare::Physics::AABB3D build_bounding_box();
 
       std::vector<ALLEGRO_VERTEX_WITH_NORMAL> extract_named_object_vertices(std::string object_name);
+      // TODO:
+      //std::vector<std::vector<ALLEGRO_VERTEX_WITH_NORMAL>> extract_named_objects_vertices(std::string object_name);
 
       void draw();
       bool draw_object(int index);
@@ -77,6 +79,8 @@ namespace AllegroFlare
       bool set_named_object_color(int index, ALLEGRO_COLOR col);
       bool set_named_object_color(std::string object_name, ALLEGRO_COLOR col);
       void remove_named_object(std::string object_name); // TODO: Handle the edge cases of this implementation
+      // TODO:
+      //void remove_named_objects(std::string object_name);
       void scale(float scale);
       void displace(AllegroFlare::Vec3D displacement);
 
