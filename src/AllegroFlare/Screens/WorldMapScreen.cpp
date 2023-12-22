@@ -295,6 +295,7 @@ void WorldMapScreen::virtual_control_button_down_func(AllegroFlare::Player* play
          map_viewer.step_zoom_out();
       break;
 
+      case AllegroFlare::VirtualControllers::GenericController::BUTTON_MENU:
       case AllegroFlare::VirtualControllers::GenericController::BUTTON_A: {
          activate_at_cursor();
       } break;

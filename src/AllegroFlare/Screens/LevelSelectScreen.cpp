@@ -327,6 +327,7 @@ void LevelSelectScreen::virtual_control_button_down_func(AllegroFlare::Player* p
          level_select_element.move_cursor_right();
       } break;
 
+      case VirtualControllers::GenericController::BUTTON_MENU:
       case VirtualControllers::GenericController::BUTTON_A: {
          activate_selected_menu_option();
       } break;
