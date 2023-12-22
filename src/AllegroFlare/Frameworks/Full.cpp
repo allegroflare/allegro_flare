@@ -1229,8 +1229,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
          if (
             Full::key_shift > 0
-            && Full::key_command > 0
-            && Full::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT)
+            //&& Full::key_command > 0
+            //&& Full::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT)
+            && Full::current_event->keyboard.keycode == ALLEGRO_KEY_FULLSTOP)
          {
             int MICROSECONDS_PER_FRAME = 16670;
             offset_primary_timer(MICROSECONDS_PER_FRAME / 10);
