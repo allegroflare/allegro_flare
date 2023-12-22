@@ -1047,6 +1047,8 @@ bool Full::offset_primary_timer(int microseconds)
    if (!al_get_timer_started(primary_timer)) return false;
 
    // TODO, profile this delay offset and output the actual offset to cout
+   // TODO: Improve this cout
+   std::cout << "Offsetting timer by " << microseconds << " microseconds." << std::endl;
    al_stop_timer(primary_timer);
    std::this_thread::sleep_for(std::chrono::microseconds(microseconds));
    al_start_timer(primary_timer);
