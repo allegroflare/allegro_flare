@@ -1392,6 +1392,18 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          }
          else
          {
+            bool use_joystick_button_right_bumper_to_offset_timer = true;
+            if (use_joystick_button_right_bumper_to_offset_timer)
+            {
+               bool button_pressed = (this_event.joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
+               if (button_pressed)
+               {
+                  int MICROSECONDS_PER_FRAME = 16670;
+                  int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+                  event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+               }
+            }
+
             screens.joy_button_down_funcs(&this_event);
             virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
          }
