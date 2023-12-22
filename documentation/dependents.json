@@ -2210,6 +2210,9 @@
   "ALLEGRO_FLARE_EVENT_SWITCH_SCREEN": [
     "AllegroFlare/EventEmitter"
   ],
+  "ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER": [
+    "AllegroFlare/EventEmitter"
+  ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",

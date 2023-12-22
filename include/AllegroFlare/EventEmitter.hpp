@@ -57,6 +57,7 @@ namespace AllegroFlare
       void emit_play_music_track_event(std::string music_track_identifier="[unset-music-track-identifier]");
       void emit_stop_all_music_tracks_event();
       void emit_game_event(AllegroFlare::GameEvent game_event={});
+      void emit_offset_primary_timer_event(int microseconds=(16670 / 10));
       void TODO();
    };
 }

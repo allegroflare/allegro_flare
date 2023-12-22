@@ -1234,7 +1234,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             && Full::current_event->keyboard.keycode == ALLEGRO_KEY_FULLSTOP)
          {
             int MICROSECONDS_PER_FRAME = 16670;
-            offset_primary_timer(MICROSECONDS_PER_FRAME / 10);
+            int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+            event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
          }
 
          if (dialog_system.get_switched_in())
@@ -1385,6 +1386,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             // TODO: Handle input case with dialog when it is "switched in"
             // TODO: Add this branching for each input event case
             // TODO: Add tests for these cases, with and without dialog swtiched in
+
+            // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
+            // dialog_system.dialog_advance();
          }
          else
          {
@@ -1483,6 +1487,11 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
                switch(this_event.type)
                {
+                  case ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER: {
+                     int microseconds = this_event.user.data1;
+                     offset_primary_timer(microseconds);
+                  } break;
+
                   case ALLEGRO_FLARE_EVENT_ROUTER: {
                      if (!router)
                      {

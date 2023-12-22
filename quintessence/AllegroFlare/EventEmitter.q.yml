@@ -435,6 +435,20 @@ functions:
       return;
 
 
+  - name: emit_offset_primary_timer_event
+    parameters:
+      - name: microseconds
+        type: int
+        default_argument: '(16670 / 10)'
+    guards: [ initialized ]
+    body: |
+      // NOTE: MICROSECONDS_PER_FRAME = 16670;
+      // TODO: Test this
+      emit_event(ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER, microseconds);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER
+
+
   - name: TODO
     body: |
       // note this class is based on DragonWrath/UserEventEmitter
@@ -477,6 +491,8 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_EXIT_GAME 
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SWITCH_SCREEN
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::EventNames
     headers: [ AllegroFlare/EventNames.hpp ]

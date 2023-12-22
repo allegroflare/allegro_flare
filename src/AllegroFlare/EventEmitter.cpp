@@ -433,6 +433,20 @@ void EventEmitter::emit_game_event(AllegroFlare::GameEvent game_event)
    return;
 }
 
+void EventEmitter::emit_offset_primary_timer_event(int microseconds)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_offset_primary_timer_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_offset_primary_timer_event: error: guard \"initialized\" not met");
+   }
+   // NOTE: MICROSECONDS_PER_FRAME = 16670;
+   // TODO: Test this
+   emit_event(ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER, microseconds);
+}
+
 void EventEmitter::TODO()
 {
    // note this class is based on DragonWrath/UserEventEmitter
