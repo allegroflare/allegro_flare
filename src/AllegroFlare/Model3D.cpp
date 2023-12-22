@@ -7,6 +7,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <AllegroFlare/Model3DObjLoader.hpp>
 #include <AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <cstdio>
 #include <iostream>
 #include <sstream>
@@ -504,14 +505,15 @@ void Model3D::remove_named_object(std::string object_name)
    // TODO: Handle the case of this implementation as described in this error message
    // TODO: Modify this warning to use AllegroFlare::Logger
    std::stringstream warning_message;
-   warning_message << "[AllegroFlare::Model3D::remove_named_object] warning: "
+   warning_message //<< "[AllegroFlare::Model3D::remove_named_object] warning: "
                    << "Removing named object within Model3D. Note that (for the time being) all vertices associated "
                    << "with the named object will remain in the list of vertices. This could have unintended "
                    << "side-effects. In the future, update this operation to remove the named objects vertices "
                    << "from the list of vertices, ensuring that there are no other named objects that rely on those "
                    << "vertices. Also, indices of all remaining named objects will need to be shifted to the new "
                    << "vertices positions.";
-   std::cout << warning_message.str() << std::endl;
+   //std::cout << warning_message.str() << std::endl;
+   AllegroFlare::Logger::warn_from_once("AllegroFlare::Model3D::remove_named_object", warning_message.str());
 
    named_objects.erase(named_objects.begin() + named_object_found_at_index);
 }
