@@ -214,9 +214,13 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
    }
-   // TODO: Remove this throw
    // TODO: Implement this function
-   throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: not implemented");
+   AllegroFlare::Logger::warn_from(
+      "VirtualControlsProcessor::handle_raw_joystick_button_down_event",
+      "not implemented"
+   );
+   // TODO: Remove this throw
+   //throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: not implemented");
    return;
 }
 
@@ -243,9 +247,13 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"event\" not met");
    }
-   // TODO: Remove this throw
    // TODO: Implement this function
-   throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
+   AllegroFlare::Logger::warn_from(
+      "VirtualControlsProcessor::handle_raw_joystick_button_up_event",
+      "not implemented"
+   );
+   // TODO: Remove this throw
+   //throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
    return;
 }
 
@@ -272,9 +280,13 @@ void VirtualControlsProcessor::handle_raw_joystick_axis_change_event(ALLEGRO_EVE
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"event\" not met");
    }
-   // TODO: Remove this throw
    // TODO: Implement this function
-   throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
+   AllegroFlare::Logger::warn_from(
+      "VirtualControlsProcessor::handle_raw_joystick_axis_change_event",
+      "not implemented"
+   );
+   // TODO: Remove this throw
+   //throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: not implemented");
    return;
 }
 
@@ -301,17 +313,25 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"event\" not met");
    }
-   // TODO: Remove this throw
    // TODO: Implement this function
-   throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: not implemented");
+   AllegroFlare::Logger::warn_from(
+      "VirtualControlsProcessor::handle_joystick_device_configuration_event",
+      "not implemented"
+   );
+   // TODO: Remove this throw
+   //throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: not implemented");
    return;
 }
 
 int VirtualControlsProcessor::get_joystick_mapped_virtual_button(int native_button_num)
 {
-   // TODO: Remove this throw
    // TODO: Implement this function
-   throw std::runtime_error("VirtualControlsProcessor::get_joystick_mapped_virtual_button: not implemented");
+   AllegroFlare::Logger::warn_from(
+      "VirtualControlsProcessor::get_joystick_mapped_virtual_button",
+      "not implemented"
+   );
+   // TODO: Remove this throw
+   //throw std::runtime_error("VirtualControlsProcessor::get_joystick_mapped_virtual_button: not implemented");
    return 0;
 }
 
