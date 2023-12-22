@@ -1388,7 +1388,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             // TODO: Add tests for these cases, with and without dialog swtiched in
 
             // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
-            // dialog_system.dialog_advance();
+            dialog_system.dialog_advance();
          }
          else
          {
