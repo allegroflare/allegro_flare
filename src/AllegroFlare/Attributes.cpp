@@ -536,7 +536,7 @@ namespace AllegroFlare
       if (std::find(denied_types.begin(), denied_types.end(), identifier) != denied_types.end()) return false;
 
       DatatypeDefinition *definition = DatatypeDefinition::find_definition(identifier);
-      if (definition) return false;
+      if (definition) return false; // TODO: Change this to a throw
 
       DatatypeDefinition::definitions.push_back(DatatypeDefinition(identifier, to_val_func, to_str_func));
       return true;
