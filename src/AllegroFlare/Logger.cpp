@@ -134,10 +134,12 @@ std::string Logger::build_guard_error_message(std::string from, std::string guar
    return result.str();
 }
 
-std::string Logger::build_warning_message(std::string from, std::string message)
+std::string Logger::build_warning_message(std::string from, std::string message, bool is_warn_once)
 {
    std::stringstream result;
-   result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning: " << message << CONSOLE_COLOR_DEFAULT;
+   result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning";
+   if (is_warn_once) result << " (once)";
+   result << ": " << message << CONSOLE_COLOR_DEFAULT;
    return result.str();
 }
 
@@ -213,7 +215,7 @@ void Logger::warn_from(std::string from, std::string message)
 
 void Logger::warn_from_once(std::string from, std::string message)
 {
-   std::string composite_message = build_warning_message(from, message);
+   std::string composite_message = build_warning_message(from, message, true);
    bool message_already_emitted = once_emitted_warnings.find(composite_message) != once_emitted_warnings.end();
    if (!message_already_emitted)
    {

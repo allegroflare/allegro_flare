@@ -40,7 +40,7 @@ namespace AllegroFlare
       void close_log_file();
       static std::string build_error_message(std::string from="[unset-from]", std::string message="[unset-message]");
       static std::string build_guard_error_message(std::string from="[unset-from]", std::string guard_statement="[unset-guard_statement]");
-      static std::string build_warning_message(std::string from="[unset-from]", std::string message="[unset-message]");
+      static std::string build_warning_message(std::string from="[unset-from]", std::string message="[unset-message]", bool is_warn_once=false);
       static std::string build_not_included_message(std::string element_not_present="[unset-missing_element]", std::vector<std::string> valid_elements={});
       static std::string build_unimplemented_for_base_class_message(std::string from="[unset-from]");
       static std::string build_info_message(std::string from="[unset-from]", std::string message="[unset-message]");

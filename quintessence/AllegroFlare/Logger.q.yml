@@ -187,10 +187,15 @@ methods:
       - name: message
         type: std::string
         default_argument: '"[unset-message]"'
+      - name: is_warn_once
+        type: bool
+        default_argument: false
     type: std::string
     body: |
       std::stringstream result;
-      result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning: " << message << CONSOLE_COLOR_DEFAULT;
+      result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning";
+      if (is_warn_once) result << " (once)";
+      result << ": " << message << CONSOLE_COLOR_DEFAULT;
       return result.str();
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
@@ -361,7 +366,7 @@ methods:
         type: std::string
         default_argument: '"[unset-message]"'
     body: |
-      std::string composite_message = build_warning_message(from, message);
+      std::string composite_message = build_warning_message(from, message, true);
       bool message_already_emitted = once_emitted_warnings.find(composite_message) != once_emitted_warnings.end();
       if (!message_already_emitted)
       {
