@@ -119,7 +119,7 @@ functions:
     guards: [ initialized, event_emitter, event ]
     body: |
       // TODO: Implement this function
-      AllegroFlare::Logger::warn_from(
+      AllegroFlare::Logger::warn_from_once(
          "VirtualControlsProcessor::handle_raw_joystick_button_down_event",
          "not implemented"
       );
@@ -138,7 +138,7 @@ functions:
     guards: [ initialized, event_emitter, event ]
     body: |
       // TODO: Implement this function
-      AllegroFlare::Logger::warn_from(
+      AllegroFlare::Logger::warn_from_once(
          "VirtualControlsProcessor::handle_raw_joystick_button_up_event",
          "not implemented"
       );
@@ -157,7 +157,7 @@ functions:
     guards: [ initialized, event_emitter, event ]
     body: |
       // TODO: Implement this function
-      AllegroFlare::Logger::warn_from(
+      AllegroFlare::Logger::warn_from_once(
          "VirtualControlsProcessor::handle_raw_joystick_axis_change_event",
          "not implemented"
       );
@@ -176,7 +176,7 @@ functions:
     guards: [ initialized, event_emitter, event ]
     body: |
       // TODO: Implement this function
-      AllegroFlare::Logger::warn_from(
+      AllegroFlare::Logger::warn_from_once(
          "VirtualControlsProcessor::handle_joystick_device_configuration_event",
          "not implemented"
       );
@@ -197,7 +197,7 @@ functions:
         default_argument: -1
     body: |
       // TODO: Implement this function
-      AllegroFlare::Logger::warn_from(
+      AllegroFlare::Logger::warn_from_once(
          "VirtualControlsProcessor::get_joystick_mapped_virtual_button",
          "not implemented"
       );

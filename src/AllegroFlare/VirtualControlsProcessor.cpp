@@ -215,7 +215,7 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
    }
    // TODO: Implement this function
-   AllegroFlare::Logger::warn_from(
+   AllegroFlare::Logger::warn_from_once(
       "VirtualControlsProcessor::handle_raw_joystick_button_down_event",
       "not implemented"
    );
@@ -248,7 +248,7 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"event\" not met");
    }
    // TODO: Implement this function
-   AllegroFlare::Logger::warn_from(
+   AllegroFlare::Logger::warn_from_once(
       "VirtualControlsProcessor::handle_raw_joystick_button_up_event",
       "not implemented"
    );
@@ -281,7 +281,7 @@ void VirtualControlsProcessor::handle_raw_joystick_axis_change_event(ALLEGRO_EVE
       throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"event\" not met");
    }
    // TODO: Implement this function
-   AllegroFlare::Logger::warn_from(
+   AllegroFlare::Logger::warn_from_once(
       "VirtualControlsProcessor::handle_raw_joystick_axis_change_event",
       "not implemented"
    );
@@ -314,7 +314,7 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
       throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"event\" not met");
    }
    // TODO: Implement this function
-   AllegroFlare::Logger::warn_from(
+   AllegroFlare::Logger::warn_from_once(
       "VirtualControlsProcessor::handle_joystick_device_configuration_event",
       "not implemented"
    );
@@ -326,7 +326,7 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
 int VirtualControlsProcessor::get_joystick_mapped_virtual_button(int native_button_num)
 {
    // TODO: Implement this function
-   AllegroFlare::Logger::warn_from(
+   AllegroFlare::Logger::warn_from_once(
       "VirtualControlsProcessor::get_joystick_mapped_virtual_button",
       "not implemented"
    );
