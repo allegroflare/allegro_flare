@@ -358,7 +358,7 @@ methods:
       - name: num_rows_of_column_headers
         type: int
         default_argument: 2
-    guards: [ loaded, (num_rows_of_column_headers <= num_raw_rows()), (num_rows_of_column_headers <= 2) ]
+    guards: [ loaded, (num_rows_of_column_headers <= num_raw_rows()) ]
     body: |
       AllegroFlare::CSVParser &parser = *this;
       //(num_rows_of_column_headers <= parser.num_rows()), (num_rows_of_column_headers <= 2) ]
@@ -367,7 +367,7 @@ methods:
       num_header_rows = num_rows_of_column_headers;
       column_headers.clear();
 
-      // TODO: Allow greater than 2 rows for column headers
+      // TODO: Add a test test with greater than 2 rows for column headers
 
       // TODO: Only get the min required rows
       std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();

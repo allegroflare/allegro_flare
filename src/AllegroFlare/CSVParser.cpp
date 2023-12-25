@@ -401,13 +401,6 @@ void CSVParser::assemble_column_headers(int num_rows_of_column_headers)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met");
    }
-   if (!((num_rows_of_column_headers <= 2)))
-   {
-      std::stringstream error_message;
-      error_message << "[CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers <= 2)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers <= 2)\" not met");
-   }
    AllegroFlare::CSVParser &parser = *this;
    //(num_rows_of_column_headers <= parser.num_rows()), (num_rows_of_column_headers <= 2) ]
 
@@ -415,7 +408,7 @@ void CSVParser::assemble_column_headers(int num_rows_of_column_headers)
    num_header_rows = num_rows_of_column_headers;
    column_headers.clear();
 
-   // TODO: Allow greater than 2 rows for column headers
+   // TODO: Add a test test with greater than 2 rows for column headers
 
    // TODO: Only get the min required rows
    std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
