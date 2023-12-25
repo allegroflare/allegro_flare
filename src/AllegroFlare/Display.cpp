@@ -136,6 +136,8 @@ namespace AllegroFlare
                       << al_get_display_option(al_display, ALLEGRO_DEPTH_SIZE) << std::endl;
       display_message << "            samples: "
                       << al_get_display_option(al_display, ALLEGRO_SAMPLES) << std::endl;
+      display_message << "    max_bitmap_size: "
+                      << al_get_display_option(al_display, ALLEGRO_MAX_BITMAP_SIZE) << std::endl;
       display_message << "              vsync: "
                       << as_yes_no(al_get_display_option(al_display, ALLEGRO_VSYNC)) << std::endl;
       display_message << "             OpenGL: "
