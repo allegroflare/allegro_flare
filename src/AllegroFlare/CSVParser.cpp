@@ -409,6 +409,14 @@ void CSVParser::assemble_column_headers(int num_rows_of_column_headers)
    column_headers.clear();
 
    // TODO: Add a test test with greater than 2 rows for column headers
+   // TODO: Remove this warning
+   AllegroFlare::Logger::warn_from(
+      "AllegroFlare::CSVParser",
+      "CSVParser does not properly collapse identifiers when there are more than 2 header rows. Middle colums "
+         "are not properly collapsed. You can eiter add the feature here OR you can add the extra column headers "
+         "in each \"intermediate\" header row in your sheet (the ones not the first or last)."
+   );
+
 
    // TODO: Only get the min required rows
    std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
