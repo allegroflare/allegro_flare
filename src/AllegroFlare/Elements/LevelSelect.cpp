@@ -75,6 +75,30 @@ void LevelSelect::set_on_menu_choice_callback_func_user_data(void* on_menu_choic
 }
 
 
+void LevelSelect::set_selection_box_width(int selection_box_width)
+{
+   this->selection_box_width = selection_box_width;
+}
+
+
+void LevelSelect::set_selection_box_height(int selection_box_height)
+{
+   this->selection_box_height = selection_box_height;
+}
+
+
+void LevelSelect::set_selection_box_spacing_x(int selection_box_spacing_x)
+{
+   this->selection_box_spacing_x = selection_box_spacing_x;
+}
+
+
+void LevelSelect::set_selection_box_spacing_y(int selection_box_spacing_y)
+{
+   this->selection_box_spacing_y = selection_box_spacing_y;
+}
+
+
 void LevelSelect::set_num_columns(int num_columns)
 {
    this->num_columns = num_columns;

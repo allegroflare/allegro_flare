@@ -51,21 +51,25 @@ properties:
     type: int
     init_with: 120
     getter: true
+    setter: true
 
   - name: selection_box_height
     type: int
     init_with: 120
     getter: true
+    setter: true
 
   - name: selection_box_spacing_x
     type: int
     init_with: 30
     getter: true
+    setter: true
 
   - name: selection_box_spacing_y
     type: int
     init_with: 30
     getter: true
+    setter: true
 
   - name: num_columns
     type: int
@@ -84,6 +88,16 @@ properties:
     init_with: false
     getter: true
     setter: true
+
+
+documentation:
+
+
+  - todos:
+     - make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require
+       diminensions > 0
+     - make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0
+     - make "ignore_on_invalid_selection" true by default
 
 
 functions:

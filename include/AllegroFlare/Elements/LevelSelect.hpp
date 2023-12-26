@@ -58,6 +58,10 @@ namespace AllegroFlare
          void set_levels_list(std::vector<std::pair<std::string, std::string>> levels_list);
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
+         void set_selection_box_width(int selection_box_width);
+         void set_selection_box_height(int selection_box_height);
+         void set_selection_box_spacing_x(int selection_box_spacing_x);
+         void set_selection_box_spacing_y(int selection_box_spacing_y);
          void set_num_columns(int num_columns);
          void set_num_rows(int num_rows);
          void set_ignore_on_invalid_selection(bool ignore_on_invalid_selection);
