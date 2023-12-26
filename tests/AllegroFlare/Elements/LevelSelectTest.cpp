@@ -62,7 +62,36 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
    level_select.render();
    al_flip_display();
 
-   al_rest(1);
+   //al_rest(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
+   CAPTURE__render__when_non_default_selection_box_dimensions_are_set__will_render_as_expected)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   std::vector<std::pair<std::string, std::string>> levels_list = {
+      { "Enchanted Forest", "1" },
+      { "Crystal Caverns", "2" },
+      { "Lost Lagoon", "3" },
+      { "Mystery Tower", "4" },
+      { "Galactic Gateway", "5" },
+      { "Volcano Vista", "6" },
+      { "Neon Nexus", "7" },
+      { "Dreamy Dunes", "8" },
+      { "Celestial Citadel", "9" },
+   };
+
+   AllegroFlare::Elements::LevelSelect level_select(&event_emitter, &get_font_bin_ref(), levels_list);
+   level_select.set_selection_box_width(300);
+   level_select.set_selection_box_height(100);
+   level_select.set_num_columns(3);
+
+   clear();
+   level_select.render();
+   al_flip_display();
+
+   al_rest(3);
 }
 
 

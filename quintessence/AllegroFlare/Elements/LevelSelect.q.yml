@@ -94,10 +94,10 @@ documentation:
 
 
   - todos:
-     - make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require
+     - Make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require
        diminensions > 0
-     - make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0
-     - make "ignore_on_invalid_selection" true by default
+     - Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0
+     - Output a warning when the number of levels is greater than the number of selection boxes
 
 
 functions:
