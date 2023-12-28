@@ -93,6 +93,28 @@ bool AABB3D::collides(AllegroFlare::Physics::AABB3D* other, AllegroFlare::Vec3D 
    );
 }
 
+bool AABB3D::collides_with_point(AllegroFlare::Vec3D point, AllegroFlare::Vec3D self_offset, AllegroFlare::Vec3D other_offset)
+{
+   // TODO: Test this!!
+   // TODO: consider less assignment, add values directly into the conditional
+
+   AllegroFlare::Vec3D a_min = min + self_offset;
+   AllegroFlare::Vec3D a_max = max + self_offset;
+   point += other_offset;
+   //AllegroFlare::Vec3D b_min = point + other_offset;
+   //AllegroFlare::Vec3D b_max = point + other_offset;
+
+   // TODO: Could simplify this calculation to not 
+   return (
+      a_min.x <= point.x &&
+      a_max.x >= point.x &&
+      a_min.y <= point.y &&
+      a_max.y >= point.y &&
+      a_min.z <= point.z &&
+      a_max.z >= point.z
+   );
+}
+
 void AABB3D::draw(ALLEGRO_COLOR color, AllegroFlare::Vec3D offset)
 {
    // TODO: this function
