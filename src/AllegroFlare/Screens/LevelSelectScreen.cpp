@@ -311,20 +311,14 @@ void LevelSelectScreen::joy_axis_func(ALLEGRO_EVENT* ev)
                level_select_element.move_cursor_right();
            if (axis_x > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
                level_select_element.move_cursor_left();
-           //if (std::fabs(pos) < min_stick_threshold) player_control_velocity.x = 0;
-           //else player_control_velocity.x = pos;
            axis_x = pos;
         }
         else if (axis == 1) // vertical axis
         {
            if (axis_y < min_stick_break_threshold && pos >= min_stick_break_threshold) 
-               level_select_element.move_cursor_up();
-           if (axis_y > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
                level_select_element.move_cursor_down();
-           //if (
-           //level_select_element.move_cursor_down();
-           //if (std::fabs(pos) < min_stick_threshold) player_control_velocity.y = 0;
-           //else player_control_velocity.y = pos;
+           if (axis_y > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
+               level_select_element.move_cursor_up();
            axis_y = pos;
         }
       } break;
@@ -335,9 +329,6 @@ void LevelSelectScreen::joy_axis_func(ALLEGRO_EVENT* ev)
       case 2: { // The hat, on the left
       } break;
    }
-
-   //axis_x = ev->joystick.axis;
-   //axis_y = 0;
 
    return;
 }
