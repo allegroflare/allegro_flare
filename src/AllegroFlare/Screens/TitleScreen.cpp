@@ -1078,6 +1078,59 @@ ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
    return bitmap_bin->auto_get(title_bitmap_name);
 }
 
+void TitleScreen::joy_button_down_func(ALLEGRO_EVENT* ev)
+{
+   // NOTE: These joystick controls are intended to be temporary, and eventually replaced with virtual controls
+   // TODO: Replace these with virtual controls
+   select_menu_option();
+   return;
+}
+
+void TitleScreen::joy_axis_func(ALLEGRO_EVENT* ev)
+{
+   // NOTE: These joystick controls are intended to be temporary, and eventually replaced with virtual controls
+   // TODO: Replace these with virtual controls
+
+   static float axis_x = 0;
+   static float axis_y = 0;
+
+   int stick = ev->joystick.stick;
+   int axis = ev->joystick.axis;
+   float pos = ev->joystick.pos;
+
+   float min_stick_break_threshold = 0.4;
+
+   switch (stick)
+   {
+      case 0: { // The primary joystick, on the left
+        if (axis == 0) // horizontal axis
+        {
+           //if (axis_x < min_stick_break_threshold && pos >= min_stick_break_threshold) 
+               //level_select_element.move_cursor_right();
+           //if (axis_x > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
+               //level_select_element.move_cursor_left();
+           axis_x = pos;
+        }
+        else if (axis == 1) // vertical axis
+        {
+           if (axis_y < min_stick_break_threshold && pos >= min_stick_break_threshold) move_cursor_down();
+               //level_select_element.move_cursor_down();
+           if (axis_y > -min_stick_break_threshold && pos <= -min_stick_break_threshold) move_cursor_up();
+               //level_select_element.move_cursor_up();
+           axis_y = pos;
+        }
+      } break;
+
+      case 1: { // The secondary joystick, on the right
+      } break;
+
+      case 2: { // The hat, on the left
+      } break;
+   }
+
+   return;
+}
+
 void TitleScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!processing_user_input()) return;

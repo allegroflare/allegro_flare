@@ -947,6 +947,71 @@ functions:
       return bitmap_bin->auto_get(title_bitmap_name);
 
 
+  - name: joy_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // NOTE: These joystick controls are intended to be temporary, and eventually replaced with virtual controls
+      // TODO: Replace these with virtual controls
+      select_menu_option();
+      return;
+
+
+  - name: joy_axis_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // NOTE: These joystick controls are intended to be temporary, and eventually replaced with virtual controls
+      // TODO: Replace these with virtual controls
+
+      static float axis_x = 0;
+      static float axis_y = 0;
+
+      int stick = ev->joystick.stick;
+      int axis = ev->joystick.axis;
+      float pos = ev->joystick.pos;
+
+      float min_stick_break_threshold = 0.4;
+
+      switch (stick)
+      {
+         case 0: { // The primary joystick, on the left
+           if (axis == 0) // horizontal axis
+           {
+              //if (axis_x < min_stick_break_threshold && pos >= min_stick_break_threshold) 
+                  //level_select_element.move_cursor_right();
+              //if (axis_x > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
+                  //level_select_element.move_cursor_left();
+              axis_x = pos;
+           }
+           else if (axis == 1) // vertical axis
+           {
+              if (axis_y < min_stick_break_threshold && pos >= min_stick_break_threshold) move_cursor_down();
+                  //level_select_element.move_cursor_down();
+              if (axis_y > -min_stick_break_threshold && pos <= -min_stick_break_threshold) move_cursor_up();
+                  //level_select_element.move_cursor_up();
+              axis_y = pos;
+           }
+         } break;
+
+         case 1: { // The secondary joystick, on the right
+         } break;
+
+         case 2: { // The hat, on the left
+         } break;
+      }
+
+      return;
+
+
   - name: virtual_control_button_down_func
     virtual: true
     override: true
@@ -1056,5 +1121,7 @@ dependencies:
     headers: [ AllegroFlare/ColorKit.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Base
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
 
 
