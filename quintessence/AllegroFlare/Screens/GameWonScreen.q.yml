@@ -188,6 +188,20 @@ functions:
       return font_bin->auto_get(instruction_font_identifier.str());
 
 
+  - name: joy_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // NOTE: These joystick controls are intended to be temporary, and eventually replaced with virtual controls
+      // TODO: Replace these with virtual controls
+      if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
+      return;
+
+
   - name: virtual_control_button_down_func
     virtual: true
     override: true
@@ -234,5 +248,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
   - symbol: AllegroFlare::Screens::GameWonScreen
     headers: [ AllegroFlare/Screens/GameWonScreen.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
 
 

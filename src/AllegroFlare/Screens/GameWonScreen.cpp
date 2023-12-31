@@ -241,6 +241,14 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
    return font_bin->auto_get(instruction_font_identifier.str());
 }
 
+void GameWonScreen::joy_button_down_func(ALLEGRO_EVENT* ev)
+{
+   // NOTE: These joystick controls are intended to be temporary, and eventually replaced with virtual controls
+   // TODO: Replace these with virtual controls
+   if (on_submit_callback_func) on_submit_callback_func(this, on_submit_callback_func_user_data);
+   return;
+}
+
 void GameWonScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    // TODO: Test this callback
