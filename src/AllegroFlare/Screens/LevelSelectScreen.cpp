@@ -285,6 +285,63 @@ void LevelSelectScreen::primary_timer_func()
    return;
 }
 
+void LevelSelectScreen::joy_button_down_func(ALLEGRO_EVENT* ev)
+{
+   activate_selected_menu_option();
+   return;
+}
+
+void LevelSelectScreen::joy_axis_func(ALLEGRO_EVENT* ev)
+{
+   static float axis_x = 0;
+   static float axis_y = 0;
+
+   int stick = ev->joystick.stick;
+   int axis = ev->joystick.axis;
+   float pos = ev->joystick.pos;
+
+   float min_stick_break_threshold = 0.4;
+
+   switch (stick)
+   {
+      case 0: { // The primary joystick, on the left
+        if (axis == 0) // horizontal axis
+        {
+           if (axis_x < min_stick_break_threshold && pos >= min_stick_break_threshold) 
+               level_select_element.move_cursor_right();
+           if (axis_x > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
+               level_select_element.move_cursor_left();
+           //if (std::fabs(pos) < min_stick_threshold) player_control_velocity.x = 0;
+           //else player_control_velocity.x = pos;
+           axis_x = pos;
+        }
+        else if (axis == 1) // vertical axis
+        {
+           if (axis_y < min_stick_break_threshold && pos >= min_stick_break_threshold) 
+               level_select_element.move_cursor_up();
+           if (axis_y > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
+               level_select_element.move_cursor_down();
+           //if (
+           //level_select_element.move_cursor_down();
+           //if (std::fabs(pos) < min_stick_threshold) player_control_velocity.y = 0;
+           //else player_control_velocity.y = pos;
+           axis_y = pos;
+        }
+      } break;
+
+      case 1: { // The secondary joystick, on the right
+      } break;
+
+      case 2: { // The hat, on the left
+      } break;
+   }
+
+   //axis_x = ev->joystick.axis;
+   //axis_y = 0;
+
+   return;
+}
+
 void LevelSelectScreen::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))
