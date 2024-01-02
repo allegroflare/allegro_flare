@@ -130,19 +130,19 @@ namespace AllegroFlare
 
       std::stringstream display_message;
       display_message << "Display (" << al_display << ") created with the following configuration:" << std::endl;
-      display_message << "   - sample_buffers: "
+      display_message <<   "     - sample_buffers: "
                       << as_yes_no(al_get_display_option(al_display, ALLEGRO_SAMPLE_BUFFERS)) << std::endl;
-      display_message << "         depth_size: "
+      display_message << "             depth_size: "
                       << al_get_display_option(al_display, ALLEGRO_DEPTH_SIZE) << std::endl;
-      display_message << "            samples: "
+      display_message << "                samples: "
                       << al_get_display_option(al_display, ALLEGRO_SAMPLES) << std::endl;
-      display_message << "    max_bitmap_size: "
+      display_message << "        max_bitmap_size: "
                       << al_get_display_option(al_display, ALLEGRO_MAX_BITMAP_SIZE) << std::endl;
-      display_message << "              vsync: "
+      display_message << "                  vsync: "
                       << as_yes_no(al_get_display_option(al_display, ALLEGRO_VSYNC)) << std::endl;
-      display_message << "             OpenGL: "
+      display_message << "                 OpenGL: "
                       << as_yes_no(al_get_display_flags(al_display) & ALLEGRO_OPENGL) << std::endl;
-      display_message << "             As fullscreen window: "
+      display_message << "   as fullscreen window: "
                       << as_yes_no(result_fullscreen) << std::endl;
 
       AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", display_message.str().c_str());
