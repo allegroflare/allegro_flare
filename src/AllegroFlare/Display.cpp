@@ -63,7 +63,11 @@ namespace AllegroFlare
    {
       if (initialized && !destroyed)
       {
-         AllegroFlare::Logger::warn_from("AllegroFlare::Display::Display()", "creating display.");
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Display::~Display()",
+            "You must call destroy() before the destructor is called. This will most certainly result in a crash. "
+               "Continuing."
+         );
          //AllegroFlare::Errors::warn_from(
          //throw std::runtime_error("[AllegroFlare::Display::~Display()]: error: You must call destroy() before the "
                                   //"destructor is called. This will most certainly result in a crash. Continuing.");
@@ -79,21 +83,35 @@ namespace AllegroFlare
 
    void Display::initialize()
    {
-      if (initialized) throw std::runtime_error("[AllegroFlare::Display::initialize()]: error: already initialized.");
+      if (initialized)
+      {
+         throw std::runtime_error("[AllegroFlare::Display::initialize()]: error: already initialized.");
+      }
+      //throw std::runtime_error("[AllegroFlare::Display::initialize()]: error: already initialized.");
 
 
       if (width < 120 || height < 120)
       {
          // TODO: improve this error message
-         throw std::runtime_error("AllegroFlare/Display: Cannot create display: width and height are not valid.");
+         //throw std::runtime_error("AllegroFlare/Display: Cannot create display: width and height are not valid.");
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Display::Display::initialize",
+            "Cannot create display: width and height are not valid, must be at least 120 each."
+         );
       }
       if (depth_size < 0) // TODO: improve this error condition to compare against "valid_depth_sizes"
       {
-         throw std::runtime_error("AllegroFlare/Display: Cannot create display: depth size cannot be less than zero.");
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Display::Display::initialize",
+            "Cannot create display: depth size cannot be less than zero."
+         );
       }
       if (samples < 0) // TODO: improve this error condition to compare against "valid_depth_sizes"
       {
-         throw std::runtime_error("AllegroFlare/Display: Cannot create display: samples cannot be less than zero.");
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Display::Display::initialize",
+            "Cannot create display: samples cannot be less than zero."
+         );
       }
       // set a few options and flags
       if (samples != 0)
@@ -113,12 +131,15 @@ namespace AllegroFlare
       if (adapter!=-1) al_set_new_display_adapter(adapter);
 
       // create the actual display
-      AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", "creating display.");
+      AllegroFlare::Logger::info_from("AllegroFlare::Display::Display::initialize", "creating display.");
       al_display = al_create_display(width, height);
 
       if (!al_display)
       {
-         AllegroFlare::Logger::throw_error("AllegroFlare::Display::Display()", "Display could not be created.");
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Display::Display::initialize",
+            "Display could not be created."
+         );
       }
 
       samples = al_get_display_option(al_display, ALLEGRO_SAMPLES);
