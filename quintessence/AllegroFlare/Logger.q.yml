@@ -203,8 +203,15 @@ methods:
       - name: metric
         type: AllegroFlare::Instrumentation::PrimaryProcessEventMetric*
         default_argument: nullptr
-    guards: [ metric ]
+    guards: [ instance, instance->instrumentation_log_file_initialized, metric ]
     body: |
+      //if (instance && instance->instrumentation_log_file_initialized)
+      instance->log_file << metric->event_type << ", "
+                         << metric->event_time << ", "
+                         << metric->processing_start_time << ", "
+                         << metric->processing_end_time << ", "
+                         << metric->primary_timer_events_dropped
+                         << std::endl;
       //std::
       //std::stringstream result;
       //result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;

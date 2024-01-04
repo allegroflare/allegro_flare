@@ -179,6 +179,20 @@ void Logger::close_instrumentation_log_file()
 
 void Logger::outstream_instrumentation_metric(AllegroFlare::Instrumentation::PrimaryProcessEventMetric* metric)
 {
+   if (!(instance))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::outstream_instrumentation_metric]: error: guard \"instance\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"instance\" not met");
+   }
+   if (!(instance->instrumentation_log_file_initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::outstream_instrumentation_metric]: error: guard \"instance->instrumentation_log_file_initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"instance->instrumentation_log_file_initialized\" not met");
+   }
    if (!(metric))
    {
       std::stringstream error_message;
@@ -186,6 +200,13 @@ void Logger::outstream_instrumentation_metric(AllegroFlare::Instrumentation::Pri
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"metric\" not met");
    }
+   //if (instance && instance->instrumentation_log_file_initialized)
+   instance->log_file << metric->event_type << ", "
+                      << metric->event_time << ", "
+                      << metric->processing_start_time << ", "
+                      << metric->processing_end_time << ", "
+                      << metric->primary_timer_events_dropped
+                      << std::endl;
    //std::
    //std::stringstream result;
    //result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;
