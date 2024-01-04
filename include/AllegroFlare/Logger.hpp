@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <fstream>
 #include <set>
@@ -13,6 +14,7 @@ namespace AllegroFlare
    class Logger
    {
    public:
+      static constexpr char* DEFAULT_INSTRUMENTATION_LOG_FILENAME = (char*)"instrumentation.log";
       static constexpr char* DEFAULT_LOG_FILENAME = (char*)"allegro_flare.log";
 
    private:
@@ -20,6 +22,9 @@ namespace AllegroFlare
       static std::string log_filename;
       static std::ofstream log_file;
       static bool log_file_initialized;
+      static std::string instrumentation_log_filename;
+      static std::ofstream instrumentation_log_file;
+      static bool instrumentation_log_file_initialized;
       static AllegroFlare::Logger* instance;
       static std::string join(std::vector<std::string> tokens={}, std::string delimiter=", ");
       static std::string quote_and_escape_inner_quotes(std::string subject="[unset-subject]");
@@ -38,6 +43,10 @@ namespace AllegroFlare
       void set_log_filename(std::string log_filename=DEFAULT_LOG_FILENAME);
       void initialize_log_file();
       void close_log_file();
+      void set_instrumentation_log_filename(std::string instrumentation_log_filename=DEFAULT_INSTRUMENTATION_LOG_FILENAME);
+      void initialize_instrumentation_log_file();
+      void close_instrumentation_log_file();
+      static void outstream_instrumentation_metric(AllegroFlare::Instrumentation::PrimaryProcessEventMetric* metric=nullptr);
       static std::string build_error_message(std::string from="[unset-from]", std::string message="[unset-message]");
       static std::string build_guard_error_message(std::string from="[unset-from]", std::string guard_statement="[unset-guard_statement]");
       static std::string build_warning_message(std::string from="[unset-from]", std::string message="[unset-message]", bool is_warn_once=false);

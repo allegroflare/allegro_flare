@@ -25,6 +25,15 @@ std::ofstream Logger::log_file = {};
 bool Logger::log_file_initialized = false;
 
 
+std::string Logger::instrumentation_log_filename = DEFAULT_INSTRUMENTATION_LOG_FILENAME;
+
+
+std::ofstream Logger::instrumentation_log_file = {};
+
+
+bool Logger::instrumentation_log_file_initialized = false;
+
+
 AllegroFlare::Logger* Logger::instance = nullptr;
 
 
@@ -113,6 +122,74 @@ void Logger::close_log_file()
    }
    log_file_initialized = false;
    return;
+}
+
+void Logger::set_instrumentation_log_filename(std::string instrumentation_log_filename)
+{
+   if (!((!instrumentation_log_file_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::set_instrumentation_log_filename]: error: guard \"(!instrumentation_log_file_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::set_instrumentation_log_filename: error: guard \"(!instrumentation_log_file_initialized)\" not met");
+   }
+   this->instrumentation_log_filename = instrumentation_log_filename;
+   return;
+}
+
+void Logger::initialize_instrumentation_log_file()
+{
+   if (!((!instrumentation_log_file_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::initialize_instrumentation_log_file]: error: guard \"(!instrumentation_log_file_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::initialize_instrumentation_log_file: error: guard \"(!instrumentation_log_file_initialized)\" not met");
+   }
+   instrumentation_log_file.open(instrumentation_log_filename);
+   if (!instrumentation_log_file.is_open()) {
+      std::string error_message = build_error_message(
+            "AllegroFlare::Logger::initialize_instrumentation_log_file",
+            "Could not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
+         );
+   }
+   instrumentation_log_file_initialized = true;
+   return;
+}
+
+void Logger::close_instrumentation_log_file()
+{
+   if (!((instrumentation_log_file_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::close_instrumentation_log_file]: error: guard \"(instrumentation_log_file_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::close_instrumentation_log_file: error: guard \"(instrumentation_log_file_initialized)\" not met");
+   }
+   instrumentation_log_file.close();
+   if (instrumentation_log_file.is_open()) {
+      std::string error_message = build_error_message(
+            "AllegroFlare::Logger::close_instrumentation_log_file",
+            "Attempted not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
+         );
+   }
+   instrumentation_log_file_initialized = false;
+   return;
+}
+
+void Logger::outstream_instrumentation_metric(AllegroFlare::Instrumentation::PrimaryProcessEventMetric* metric)
+{
+   if (!(metric))
+   {
+      std::stringstream error_message;
+      error_message << "[Logger::outstream_instrumentation_metric]: error: guard \"metric\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"metric\" not met");
+   }
+   //std::
+   //std::stringstream result;
+   //result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;
+   //return result.str();
 }
 
 std::string Logger::build_error_message(std::string from, std::string message)

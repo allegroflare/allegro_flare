@@ -52,12 +52,35 @@ properties:
     type: bool
     init_with: false
 
+  - name: instrumentation_log_filename
+    static: true
+    type: std::string
+    init_with: DEFAULT_INSTRUMENTATION_LOG_FILENAME
+    setter: explicit
+
+  - name: instrumentation_log_file
+    static: true
+    type: std::ofstream
+    init_with: '{}'
+
+  - name: instrumentation_log_file_initialized
+    static: true
+    type: bool
+    init_with: false
+
   - name: instance
     static: true
     type: AllegroFlare::Logger*
     init_with: nullptr
     setter: explicit
     getter: false
+
+  - name: DEFAULT_INSTRUMENTATION_LOG_FILENAME
+    type: char*
+    constexpr: true
+    const: true
+    static: true
+    init_with: '(char*)"instrumentation.log"'
 
   - name: DEFAULT_LOG_FILENAME
     type: char*
@@ -133,6 +156,62 @@ methods:
       }
       log_file_initialized = false;
       return;
+
+
+  - name: set_instrumentation_log_filename
+    guards: [ (!instrumentation_log_file_initialized) ]
+    parameters:
+      - name: instrumentation_log_filename
+        type: std::string
+        default_argument: DEFAULT_INSTRUMENTATION_LOG_FILENAME
+    body: |
+      this->instrumentation_log_filename = instrumentation_log_filename;
+      return;
+
+
+  - name: initialize_instrumentation_log_file
+    guards: [ (!instrumentation_log_file_initialized) ]
+    body: |
+      instrumentation_log_file.open(instrumentation_log_filename);
+      if (!instrumentation_log_file.is_open()) {
+         std::string error_message = build_error_message(
+               "AllegroFlare::Logger::initialize_instrumentation_log_file",
+               "Could not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
+            );
+      }
+      instrumentation_log_file_initialized = true;
+      return;
+
+
+  - name: close_instrumentation_log_file
+    guards: [ (instrumentation_log_file_initialized) ]
+    body: |
+      instrumentation_log_file.close();
+      if (instrumentation_log_file.is_open()) {
+         std::string error_message = build_error_message(
+               "AllegroFlare::Logger::close_instrumentation_log_file",
+               "Attempted not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
+            );
+      }
+      instrumentation_log_file_initialized = false;
+      return;
+
+
+  - name: outstream_instrumentation_metric
+    static: true
+    parameters:
+      - name: metric
+        type: AllegroFlare::Instrumentation::PrimaryProcessEventMetric*
+        default_argument: nullptr
+    guards: [ metric ]
+    body: |
+      //std::
+      //std::stringstream result;
+      //result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;
+      //return result.str();
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
 
 
   - name: build_error_message
@@ -525,5 +604,7 @@ dependencies:
     headers: [ AllegroFlare/ConsoleColors.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Instrumentation::PrimaryProcessEventMetric
+    headers: [ AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp ]
 
 

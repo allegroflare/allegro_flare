@@ -29,6 +29,7 @@
 #include <AllegroFlare/Routers/Base.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
+#include <AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp>
 
 
 
@@ -1168,6 +1169,14 @@ void Full::primary_render()
 
 void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events)
 {
+   AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
+   metric.processing_start_time = al_get_time();
+   metric.event_time = ev->any.timestamp;
+   metric.event_type = ev->type;
+   //metric
+
+
+
       ALLEGRO_EVENT &this_event = *ev;
       ALLEGRO_EVENT next_event;
 
@@ -1208,6 +1217,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
                // problems as experienced on some machines.
                al_drop_next_event(event_queue);
+               metric.primary_timer_events_dropped++;
                // HERE: Track when and how often events are dropped and see if there is a correlation 
             }
          }
@@ -1899,6 +1909,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          }
          break;
       }
+
+   metric.processing_end_time = al_get_time();
 }
 
 
@@ -1906,10 +1918,20 @@ int Full::process_events_in_queue()
 {
    int count = 0;
    ALLEGRO_EVENT this_event;
+   int dropped_primary_timer_events = 0;
    while (al_get_next_event(event_queue, &this_event))
    {
       count++;
+      //float time_of_event;
+      //float time_of_event_processing_start;
+      //float time_of_event_processing_end;
+      //int dropped_primary_timer_events;
+
       primary_process_event(&this_event);
+      //if (dropped_primary_timer_events != 0)
+      //{
+         //std::cout << "
+      //}
    }
    return count;
 }

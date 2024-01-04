@@ -2561,6 +2561,9 @@
   "AllegroFlare/ConsoleColors": [
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/Instrumentation/PrimaryProcessEventMetric": [
+    "AllegroFlare/Logger"
+  ],
   "AllegroFlare/MotionComposer/Messages/Clear": [
     "AllegroFlare/MotionComposer/MessageFactory"
   ],
