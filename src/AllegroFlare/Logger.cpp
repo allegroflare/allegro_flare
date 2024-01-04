@@ -99,6 +99,7 @@ void Logger::initialize_log_file()
             "AllegroFlare::Logger::initialize_log_file",
             "Could not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
          );
+      // TODO: throw std::runtime_error(error_message.str());
    }
    log_file_initialized = true;
    return;
@@ -119,6 +120,7 @@ void Logger::close_log_file()
             "AllegroFlare::Logger::close_log_file",
             "Attempted not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
          );
+      // TODO: throw std::runtime_error(error_message.str());
    }
    log_file_initialized = false;
    return;
@@ -146,12 +148,13 @@ void Logger::initialize_instrumentation_log_file()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logger::initialize_instrumentation_log_file: error: guard \"(!instrumentation_log_file_initialized)\" not met");
    }
-   instrumentation_log_file.open(instrumentation_log_filename);
+   instrumentation_log_file.open(instrumentation_log_filename, std::ofstream::out | std::ofstream::app);
    if (!instrumentation_log_file.is_open()) {
       std::string error_message = build_error_message(
             "AllegroFlare::Logger::initialize_instrumentation_log_file",
             "Could not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
          );
+       throw std::runtime_error(error_message);
    }
    instrumentation_log_file_initialized = true;
    return;
@@ -172,6 +175,7 @@ void Logger::close_instrumentation_log_file()
             "AllegroFlare::Logger::close_instrumentation_log_file",
             "Attempted not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
          );
+      throw std::runtime_error(error_message);
    }
    instrumentation_log_file_initialized = false;
    return;
@@ -200,13 +204,16 @@ void Logger::outstream_instrumentation_metric(AllegroFlare::Instrumentation::Pri
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"metric\" not met");
    }
+   static const std::string div = "\t";
    //if (instance && instance->instrumentation_log_file_initialized)
-   instance->log_file << metric->event_type << ", "
-                      << metric->event_time << ", "
-                      << metric->processing_start_time << ", "
-                      << metric->processing_end_time << ", "
-                      << metric->primary_timer_events_dropped
-                      << std::endl;
+   instance->instrumentation_log_file << metric->event_type
+                               << div << metric->event_time
+                               << div << metric->processing_start_time
+                               << div << metric->processing_end_time
+                               << div << metric->primary_timer_events_dropped
+                               << div << metric->al_flip_display_start_time
+                               << div << metric->al_flip_display_end_time
+                                      << std::endl;
    //std::
    //std::stringstream result;
    //result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;

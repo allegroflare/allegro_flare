@@ -80,6 +80,7 @@ namespace AllegroFlare
          AllegroFlare::Shaders::Base *post_processing_shader;
 
          //Camera3D camera_3d; // next
+         bool using_instrumentation;
          bool drawing_inputs_bar_overlay;
          bool drawing_notifications;
          bool drawing_dialogs;
@@ -225,6 +226,7 @@ namespace AllegroFlare
 
          void primary_update();
          void primary_render();
+         void primary_flip();
          void primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events=true);
          int process_events_in_queue();
          void run_loop(float auto_shutdown_after_seconds=-1);

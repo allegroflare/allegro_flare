@@ -139,6 +139,7 @@ methods:
                "AllegroFlare::Logger::initialize_log_file",
                "Could not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
             );
+         // TODO: throw std::runtime_error(error_message.str());
       }
       log_file_initialized = true;
       return;
@@ -153,6 +154,7 @@ methods:
                "AllegroFlare::Logger::close_log_file",
                "Attempted not open log file for writing. Expecting to open() on filename \"" + log_filename + "\"."
             );
+         // TODO: throw std::runtime_error(error_message.str());
       }
       log_file_initialized = false;
       return;
@@ -172,12 +174,13 @@ methods:
   - name: initialize_instrumentation_log_file
     guards: [ (!instrumentation_log_file_initialized) ]
     body: |
-      instrumentation_log_file.open(instrumentation_log_filename);
+      instrumentation_log_file.open(instrumentation_log_filename, std::ofstream::out | std::ofstream::app);
       if (!instrumentation_log_file.is_open()) {
          std::string error_message = build_error_message(
                "AllegroFlare::Logger::initialize_instrumentation_log_file",
                "Could not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
             );
+          throw std::runtime_error(error_message);
       }
       instrumentation_log_file_initialized = true;
       return;
@@ -192,6 +195,7 @@ methods:
                "AllegroFlare::Logger::close_instrumentation_log_file",
                "Attempted not open instrumentation_log file for writing. Expecting to open() on filename \"" + instrumentation_log_filename + "\"."
             );
+         throw std::runtime_error(error_message);
       }
       instrumentation_log_file_initialized = false;
       return;
@@ -205,13 +209,16 @@ methods:
         default_argument: nullptr
     guards: [ instance, instance->instrumentation_log_file_initialized, metric ]
     body: |
+      static const std::string div = "\t";
       //if (instance && instance->instrumentation_log_file_initialized)
-      instance->log_file << metric->event_type << ", "
-                         << metric->event_time << ", "
-                         << metric->processing_start_time << ", "
-                         << metric->processing_end_time << ", "
-                         << metric->primary_timer_events_dropped
-                         << std::endl;
+      instance->instrumentation_log_file << metric->event_type
+                                  << div << metric->event_time
+                                  << div << metric->processing_start_time
+                                  << div << metric->processing_end_time
+                                  << div << metric->primary_timer_events_dropped
+                                  << div << metric->al_flip_display_start_time
+                                  << div << metric->al_flip_display_end_time
+                                         << std::endl;
       //std::
       //std::stringstream result;
       //result << CONSOLE_COLOR_RED << "[" << from << "]: error: " << message << CONSOLE_COLOR_DEFAULT;

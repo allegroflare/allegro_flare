@@ -15,15 +15,17 @@ namespace AllegroFlare
 
 
       public:
-         float event_time;
          int event_type;
-         float processing_start_time;
-         float processing_end_time;
+         double event_time;
+         double processing_start_time;
+         double processing_end_time;
          int primary_timer_events_dropped;
+         double al_flip_display_start_time;
+         double al_flip_display_end_time;
          PrimaryProcessEventMetric();
          ~PrimaryProcessEventMetric();
 
-         float get_duration();
+         double get_duration();
       };
    }
 }

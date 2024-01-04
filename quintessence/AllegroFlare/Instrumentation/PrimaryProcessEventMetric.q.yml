@@ -1,23 +1,23 @@
 properties:
 
 
-  - name: event_time
-    type: float
-    init_with: 0
-    exposed: true
-
   - name: event_type
     type: int
     init_with: 0
     exposed: true
 
+  - name: event_time
+    type: double
+    init_with: 0.0
+    exposed: true
+
   - name: processing_start_time
-    type: float
+    type: double
     init_with: 0
     exposed: true
 
   - name: processing_end_time
-    type: float
+    type: double
     init_with: 0
     exposed: true
 
@@ -26,12 +26,22 @@ properties:
     init_with: 0
     exposed: true
 
+  - name: al_flip_display_start_time
+    type: double
+    init_with: 0
+    exposed: true
+
+  - name: al_flip_display_end_time
+    type: double
+    init_with: 0
+    exposed: true
+
 
 methods:
 
 
   - name: get_duration
-    type: float
+    type: double
     body: |
       return processing_end_time - processing_start_time;
 

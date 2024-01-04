@@ -78,6 +78,7 @@ Full::Full()
    , display_backbuffer_sub_bitmap()
    , primary_render_surface(nullptr)
    , post_processing_shader(nullptr)
+   , using_instrumentation(false)
    , drawing_inputs_bar_overlay(false)
    , drawing_notifications(true)
    , drawing_dialogs(true)
@@ -280,15 +281,28 @@ bool Full::initialize_core_system()
 
    //AllegroFlare::Logger logger;
 
+   //AllegroFlare::Logger::set_instance(&logger_instance);
+   AllegroFlare::Logger::set_instance(&logger_instance);
+
    if (!log_file_is_disabled)
    {
       logger_instance.set_log_filename(LOG_FILENAME);
       logger_instance.initialize_log_file();
-      AllegroFlare::Logger::set_instance(&logger_instance);
+      //AllegroFlare::Logger::set_instance(&logger_instance);
       AllegroFlare::Logger::info_from(
             "AllegroFlare::Frameworks::Full::",
             "Initialized AllegroFlare::Logger to \"" + LOG_FILENAME + "\""
          );
+   }
+
+
+
+   //bool using_instrumentation = true;
+   if (using_instrumentation)
+   {
+      logger_instance.initialize_instrumentation_log_file();
+      //AllegroFlare::Logger::initialize_instrumentation_log_file();
+      //AllegroFlare::Logger::initialize_instrumentation_log_file(&logger_instance);
    }
 
 
@@ -814,6 +828,14 @@ bool Full::shutdown()
 
    initialized = false;
 
+
+   if (using_instrumentation)
+   {
+      logger_instance.close_instrumentation_log_file();
+      //AllegroFlare::Logger::initialize_instrumentation_log_file(&logger_instance);
+   }
+
+
    AllegroFlare::Logger::clear_instance();
 
    if (!log_file_is_disabled)
@@ -1160,7 +1182,11 @@ void Full::primary_render()
    profiler.start(".draw_overlay()");
    draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
    profiler.stop(".draw_overlay()");
+}
 
+
+void Full::primary_flip()
+{
    profiler.start("al_flip_display()");
    al_flip_display();
    profiler.stop("al_flip_display()");
@@ -1170,9 +1196,12 @@ void Full::primary_render()
 void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events)
 {
    AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
-   metric.processing_start_time = al_get_time();
-   metric.event_time = ev->any.timestamp;
-   metric.event_type = ev->type;
+   if (using_instrumentation)
+   {
+      metric.processing_start_time = al_get_time();
+      metric.event_time = ev->any.timestamp;
+      metric.event_type = ev->type;
+   }
    //metric
 
 
@@ -1197,6 +1226,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          {
             primary_update();
             primary_render();
+            metric.al_flip_display_start_time = al_get_time();
+            primary_flip();
+            metric.al_flip_display_end_time = al_get_time();
          }
          //else if (this_event.timer.source == shader_source_poller.get_polling_timer())
          //{
@@ -1910,7 +1942,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          break;
       }
 
-   metric.processing_end_time = al_get_time();
+
+   if (using_instrumentation)
+   {
+      metric.processing_end_time = al_get_time();
+      logger_instance.outstream_instrumentation_metric(&metric);
+   }
 }
 
 

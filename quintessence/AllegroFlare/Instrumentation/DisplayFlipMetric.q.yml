@@ -1,0 +1,23 @@
+properties:
+
+
+  - name: start_time
+    type: double
+    init_with: 0
+    exposed: true
+
+  - name: end_time
+    type: double
+    init_with: 0
+    exposed: true
+
+
+methods:
+
+
+  - name: get_duration
+    type: double
+    body: |
+      return end_time - start_time;
+
+
