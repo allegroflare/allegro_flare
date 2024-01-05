@@ -2126,17 +2126,19 @@ void Full::draw_overlay()
          std::vector<ALLEGRO_VERTEX> v;
          v.resize(samples.size());
 
+         int x = 100;
+         int y = 1080/2;
          int i=0;
          for (auto &sample : samples)
          {
-            v[i] = {.x = i*2.0f, .y = 1080/2 + (float)sample*1000.0f, .z = 0, .color = white, .u = 0, .v = 0};
+            v[i] = {.x = x+i*3.0f, .y = y+ (float)sample*1000.0f, .z = 0, .color = white, .u = 0, .v = 0};
             i++;
          }
          
             //{.x = 128, .y = 0, .z = 0, .color = white, .u = 128, .v = 0},
             //{.x = 0, .y = 256, .z = 0, .color = white, .u = 0, .v = 256},
             //{.x = 256, .y = 256, .z = 0, .color = white, .u = 256, .v = 256}};
-         al_draw_prim(&v[0], NULL, NULL, 0, samples.size(), ALLEGRO_PRIM_LINE_LIST);
+         al_draw_prim(&v[0], NULL, NULL, 0, samples.size(), ALLEGRO_PRIM_LINE_STRIP);
       }
       //ALLEGRO_
       //al_draw_prim
