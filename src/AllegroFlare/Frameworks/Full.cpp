@@ -1075,12 +1075,22 @@ bool Full::offset_primary_timer(int microseconds)
    // TODO, profile this delay offset and output the actual offset to cout
    // TODO: Improve this cout
    std::cout << "Offsetting timer by " << microseconds << " microseconds." << std::endl;
+
    double offset_start_time = al_get_time();
    al_stop_timer(primary_timer);
-   std::this_thread::sleep_for(std::chrono::microseconds(microseconds));
+   al_rest(microseconds * 0.000001);
    al_start_timer(primary_timer);
    double offset_stop_time = al_get_time();
-   std::cout << "Offset processed over " << (int)((offset_stop_time - offset_start_time) * 1000000) << " microseconds." << std::endl;
+
+
+   float actual_offset = offset_stop_time - offset_start_time;
+   int actual_offset_int = (int)((actual_offset) * 1000000);
+   int expected_offset = microseconds;
+   int offset_difference = actual_offset_int - expected_offset;
+
+   std::cout << "  Offset processed over " << actual_offset_int << " microseconds ("
+             << offset_difference
+             << ")." << std::endl;
 
    return true;
 }
@@ -1210,7 +1220,7 @@ void Full::nudge_primary_timer_forward()
 void Full::nudge_primary_timer_backward()
 {
    int MICROSECONDS_PER_FRAME = 16670; // TODO: Make this relative to the actual FPS
-   int microseconds_to_offset = MICROSECONDS_PER_FRAME - (MICROSECONDS_PER_FRAME / 10);
+   int microseconds_to_offset = MICROSECONDS_PER_FRAME - ((MICROSECONDS_PER_FRAME / 10) * 3);
    event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
 }
 
