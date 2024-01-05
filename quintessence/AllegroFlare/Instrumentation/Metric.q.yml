@@ -4,6 +4,7 @@ properties:
   - name: metrics
     type: std::vector<double>
     init_with: false
+    getter_ref: true
 
   - name: size
     type: int
@@ -14,6 +15,7 @@ properties:
   - name: head
     type: int
     init_with: 0
+    getter: true
 
   - name: initialized
     type: bool
@@ -35,15 +37,13 @@ methods:
 
 
   - name: initialize
-    guards: [ (!initialized), al_is_system_installed() ]
+    guards: [ (!initialized) ]
     body: |
       metrics.reserve(size);
       metrics.resize(size);
       initialized = true;
       head = 0;
       return;
-    body_dependency_symbols:
-      - al_is_system_installed
 
 
   - name: capture
@@ -53,10 +53,11 @@ methods:
         type: double
         default_argument: 0.0
     body: |
-      //double time_now = al_get_time();
-      metrics[head] = metric;
+      std::cout << "head(start): " << head << std::endl;
       head++;
       if (head >= metrics.size()) head = 0;
+      metrics[head] = metric;
+      std::cout << "head(end): " << head << std::endl;
       return;
 
 
@@ -72,6 +73,23 @@ methods:
       while (pos < 0) pos += metrics.size();
       if (pos >= metrics.size()) pos = pos % metrics.size();
       return pos;
+
+
+  - name: average_of_last_n_metrics
+    type: double
+    parameters:
+      - name: count
+        type: int
+        default_argument: 64
+    guards: [ initialized ]
+    body: |
+      double sum = 0.0;
+      for (int i=0; i<count; i++)
+      {
+         int index = head_delta(-i);
+         sum += metrics[index];
+      };
+      return sum / count;
 
 
   - name: get_last_n_metrics
@@ -93,8 +111,3 @@ methods:
       return result;
 
 
-dependencies:
-
-
-  - symbol: al_is_system_installed
-    headers: [ allegro5/allegro.h ]
