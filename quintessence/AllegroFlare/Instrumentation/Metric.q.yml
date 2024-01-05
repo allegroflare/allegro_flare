@@ -53,11 +53,9 @@ methods:
         type: double
         default_argument: 0.0
     body: |
-      std::cout << "head(start): " << head << std::endl;
       head++;
       if (head >= metrics.size()) head = 0;
       metrics[head] = metric;
-      std::cout << "head(end): " << head << std::endl;
       return;
 
 

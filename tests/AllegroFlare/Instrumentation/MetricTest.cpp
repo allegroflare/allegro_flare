@@ -48,3 +48,17 @@ TEST(AllegroFlare_Instrumentation_MetricTest, capture__will_store_the_metric_at_
 }
 
 
+TEST(AllegroFlare_Instrumentation_MetricTest, average_of_last_n_metrics__will_return_the_average)
+{
+   AllegroFlare::Instrumentation::Metric metric;
+   metric.initialize();
+
+   metric.capture(0.2);
+   metric.capture(0.4);
+   metric.capture(0.6);
+   metric.capture(0.8);
+   metric.capture(1.0);
+   EXPECT_FLOAT_EQ(0.6, metric.average_of_last_n_metrics(5));
+}
+
+
