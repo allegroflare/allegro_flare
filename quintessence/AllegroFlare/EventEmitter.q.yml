@@ -439,7 +439,7 @@ functions:
     parameters:
       - name: microseconds
         type: int
-        default_argument: '(16670 / 10)'
+        default_argument: '(16667 / 10)'
     guards: [ initialized ]
     body: |
       // NOTE: MICROSECONDS_PER_FRAME = 16670;

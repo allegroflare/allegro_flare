@@ -1075,9 +1075,12 @@ bool Full::offset_primary_timer(int microseconds)
    // TODO, profile this delay offset and output the actual offset to cout
    // TODO: Improve this cout
    std::cout << "Offsetting timer by " << microseconds << " microseconds." << std::endl;
+   double offset_start_time = al_get_time();
    al_stop_timer(primary_timer);
    std::this_thread::sleep_for(std::chrono::microseconds(microseconds));
    al_start_timer(primary_timer);
+   double offset_stop_time = al_get_time();
+   std::cout << "Offset processed over " << (int)((offset_stop_time - offset_start_time) * 1000000) << " microseconds." << std::endl;
 
    return true;
 }
@@ -1296,9 +1299,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
 
-         if (
-            Full::key_shift > 0
-            && Full::current_event->keyboard.keycode == ALLEGRO_KEY_FULLSTOP)
+         // Handle offsetting the primary timer
+         if (Full::key_shift > 0)
          {
             switch (Full::current_event->keyboard.keycode)
             {
@@ -2025,6 +2027,8 @@ void Full::run_loop(float auto_shutdown_after_seconds)
 
    offset_primary_timer(4000); // Maybe this is the magic number
                                // TODO: See if this offset has any reasonable effect
+                               // Doing so will attempt to set the primary timer to *start* at the beginning
+                               // of the "vblank" (when the frame has finished flipping)
 
    while(!shutdown_program || Display::displays.empty())
    {
