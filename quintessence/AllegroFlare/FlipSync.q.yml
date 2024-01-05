@@ -9,6 +9,12 @@ properties:
     type: std::vector<std::pair<double, double>>
     init_with: false
 
+  - name: size
+    type: int
+    init_with: 64*4
+    setter: explicit
+    getter: true
+
   - name: head
     type: int
     init_with: 0
@@ -21,10 +27,21 @@ properties:
 methods:
 
 
+  - name: set_size
+    parameters:
+      - name: size
+        type: int
+        default_argument: 64*4
+    guards: [ (!initialized), (size >= 32) ]
+    body: |
+      this->size = size;
+      return;
+
+
   - name: initialize
     guards: [ (!initialized), al_is_system_installed() ]
     body: |
-      std::size_t size = 64*4; // At 60fps, 64*4 is roughly 4 seconds of frame time metrics, and a good size
+      //std::size_t size = 64*4; // At 60fps, 64*4 is roughly 4 seconds of frame time metrics, and a good size
       flip_metrics.reserve(size);
       flip_metrics.resize(size);
       initialized = true;
@@ -70,11 +87,15 @@ methods:
 
   - name: get_last_n_capture_durations
     type: std::vector<double>
+    parameters:
+      - name: count
+        type: int
+        default_argument: 64
     guards: [ initialized ]
     body: |
       // TODO: Test this
       std::vector<double> result;
-      result.resize(30);
+      result.resize(count);
       for (int i=0; i<result.size(); i++)
       {
          int index = head_delta(-i);

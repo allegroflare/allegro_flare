@@ -15,6 +15,7 @@ namespace AllegroFlare
 FlipSync::FlipSync()
    : currently_capturing_flip_sync(false)
    , flip_metrics(false)
+   , size(64*4)
    , head(0)
    , initialized(false)
 {
@@ -25,6 +26,32 @@ FlipSync::~FlipSync()
 {
 }
 
+
+int FlipSync::get_size() const
+{
+   return size;
+}
+
+
+void FlipSync::set_size(int size)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[FlipSync::set_size]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FlipSync::set_size: error: guard \"(!initialized)\" not met");
+   }
+   if (!((size >= 32)))
+   {
+      std::stringstream error_message;
+      error_message << "[FlipSync::set_size]: error: guard \"(size >= 32)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("FlipSync::set_size: error: guard \"(size >= 32)\" not met");
+   }
+   this->size = size;
+   return;
+}
 
 void FlipSync::initialize()
 {
@@ -42,7 +69,7 @@ void FlipSync::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("FlipSync::initialize: error: guard \"al_is_system_installed()\" not met");
    }
-   std::size_t size = 64*4; // At 60fps, 64*4 is roughly 4 seconds of frame time metrics, and a good size
+   //std::size_t size = 64*4; // At 60fps, 64*4 is roughly 4 seconds of frame time metrics, and a good size
    flip_metrics.reserve(size);
    flip_metrics.resize(size);
    initialized = true;
@@ -111,7 +138,7 @@ int FlipSync::head_delta(int delta)
    return pos;
 }
 
-std::vector<double> FlipSync::get_last_n_capture_durations()
+std::vector<double> FlipSync::get_last_n_capture_durations(int count)
 {
    if (!(initialized))
    {
@@ -122,7 +149,7 @@ std::vector<double> FlipSync::get_last_n_capture_durations()
    }
    // TODO: Test this
    std::vector<double> result;
-   result.resize(30);
+   result.resize(count);
    for (int i=0; i<result.size(); i++)
    {
       int index = head_delta(-i);
