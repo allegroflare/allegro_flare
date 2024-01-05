@@ -1196,6 +1196,22 @@ void Full::primary_flip()
 }
 
 
+void Full::nudge_primary_timer_forward()
+{
+   int MICROSECONDS_PER_FRAME = 16670; // TODO: Make this relative to the actual FPS
+   int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+   event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+}
+
+
+void Full::nudge_primary_timer_backward()
+{
+   int MICROSECONDS_PER_FRAME = 16670; // TODO: Make this relative to the actual FPS
+   int microseconds_to_offset = MICROSECONDS_PER_FRAME - (MICROSECONDS_PER_FRAME / 10);
+   event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+}
+
+
 void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events)
 {
 
@@ -1282,13 +1298,21 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
          if (
             Full::key_shift > 0
-            //&& Full::key_command > 0
-            //&& Full::current_event->keyboard.keycode == ALLEGRO_KEY_RIGHT)
             && Full::current_event->keyboard.keycode == ALLEGRO_KEY_FULLSTOP)
          {
-            int MICROSECONDS_PER_FRAME = 16670;
-            int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-            event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+            switch (Full::current_event->keyboard.keycode)
+            {
+               case ALLEGRO_KEY_FULLSTOP: {
+                  nudge_primary_timer_forward();
+               } break;
+               case ALLEGRO_KEY_COMMA: {
+                  nudge_primary_timer_backward();
+               } break;
+            }
+            
+            //int MICROSECONDS_PER_FRAME = 16670;
+            //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+            //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
          }
 
          if (dialog_system.get_switched_in())
@@ -1451,11 +1475,18 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                bool button_pressed = (this_event.joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
                if (button_pressed)
                {
-                  int MICROSECONDS_PER_FRAME = 16670;
-                  int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-                  event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+                  nudge_primary_timer_forward();
+                  //int MICROSECONDS_PER_FRAME = 16670;
+                  //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+                  //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
                }
             }
+               //case ALLEGRO_KEY_FULLSTOP: {
+                  //nudge_primary_timer_forward();
+               //} break;
+               //case ALLEGRO_KEY_COMMA: {
+                  //nudge_primary_timer_backward();
+               //} break;
 
             screens.joy_button_down_funcs(&this_event);
             virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
@@ -1992,7 +2023,7 @@ void Full::run_loop(float auto_shutdown_after_seconds)
    if (router) event_emitter.emit_router_event(1); //AllegroFlare::GameEvent("initialize"));
    float loop_started_at = al_get_time();
 
-   offset_primary_timer(3000); // Maybe this is the magic number
+   offset_primary_timer(4000); // Maybe this is the magic number
                                // TODO: See if this offset has any reasonable effect
 
    while(!shutdown_program || Display::displays.empty())
@@ -2128,10 +2159,14 @@ void Full::draw_overlay()
 
          int x = 100;
          int y = 1080/2;
+
+         int w = samples.size() * 3;
+         //int h = 200;
+
          int i=0;
          for (auto &sample : samples)
          {
-            v[i] = {.x = x+i*3.0f, .y = y+ (float)sample*1000.0f, .z = 0, .color = white, .u = 0, .v = 0};
+            v[i] = {.x = x+i*3.0f, .y = y - (float)sample*1000.0f, .z = 0, .color = white, .u = 0, .v = 0};
             i++;
          }
          

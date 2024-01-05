@@ -106,6 +106,8 @@ void Base::on_activate() {}
 
 void Base::on_deactivate() {}
 void Base::on_event(ALLEGRO_EVENT *ev) {}
+//void Base::primary_update_func(double delta_time) {}
+//void Base::primary_render_func() {}
 void Base::primary_timer_func() {}
 void Base::timer_func() {}
 void Base::mouse_axes_func(ALLEGRO_EVENT *ev) {}

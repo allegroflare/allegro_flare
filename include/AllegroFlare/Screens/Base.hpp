@@ -42,6 +42,8 @@ namespace AllegroFlare
          virtual void on_activate(); // When controlled/managed through a ScreenManagers/*
          virtual void on_deactivate(); // When controlled/managed through a ScreenManagers/*
          virtual void on_event(ALLEGRO_EVENT *ev);
+         //virtual void primary_update_func(double delta_time); // TODO: Please incorporate this as a replacement to primary_timer_func
+         //virtual void primary_render_func(); // TODO: Please incorporate this as replacement for primary_timer_func
          virtual void primary_timer_func();
          virtual void timer_func();
          virtual void display_switch_in_func();

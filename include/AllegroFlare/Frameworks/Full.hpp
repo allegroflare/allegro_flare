@@ -232,6 +232,8 @@ namespace AllegroFlare
          void primary_update();
          void primary_render();
          void primary_flip();
+         void nudge_primary_timer_forward();
+         void nudge_primary_timer_backward();
          void primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events=true);
          int process_events_in_queue();
          void run_loop(float auto_shutdown_after_seconds=-1);
