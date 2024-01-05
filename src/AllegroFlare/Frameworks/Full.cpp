@@ -78,6 +78,7 @@ Full::Full()
    , display_backbuffer_sub_bitmap()
    , primary_render_surface(nullptr)
    , post_processing_shader(nullptr)
+   , flip_sync()
    , using_instrumentation(false)
    , drawing_inputs_bar_overlay(false)
    , drawing_notifications(true)
@@ -107,6 +108,7 @@ Full::Full()
    , shutdown_program(false)
    , current_screen(nullptr)
    , current_event(nullptr)
+   //, primary_time()
    , time_now(0)
    , key_alt(0)
    , key_shift(0)
@@ -442,6 +444,7 @@ bool Full::initialize_core_system()
       //}
    //return driver;
 //}
+   flip_sync.initialize();
 
 
    // Create a Router
@@ -1195,6 +1198,10 @@ void Full::primary_flip()
 
 void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events)
 {
+
+   //AllegroFlare::Time time;
+   //time.set_absolute_now(ev->any.timestamp);
+
    AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
    if (using_instrumentation)
    {
@@ -1226,9 +1233,11 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          {
             primary_update();
             primary_render();
-            metric.al_flip_display_start_time = al_get_time();
+            flip_sync.start_flip_capture();
+            //metric.al_flip_display_start_time = al_get_time();
             primary_flip();
-            metric.al_flip_display_end_time = al_get_time();
+            //metric.al_flip_display_end_time = al_get_time();
+            flip_sync.end_flip_capture();
          }
          //else if (this_event.timer.source == shader_source_poller.get_polling_timer())
          //{

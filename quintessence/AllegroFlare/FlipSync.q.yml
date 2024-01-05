@@ -1,0 +1,85 @@
+properties:
+
+
+  - name: currently_capturing_flip_sync
+    type: bool
+    init_with: false
+
+  - name: flip_metrics
+    type: std::vector<std::pair<double, double>>
+    init_with: false
+
+  - name: head
+    type: int
+    init_with: 0
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+methods:
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed() ]
+    body: |
+      std::size_t size = 64*4; // At 60fps, 64*4 is roughly 4 seconds of frame time metrics, and a good size
+      flip_metrics.reserve(size);
+      flip_metrics.resize(size);
+      initialized = true;
+      head = 0;
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
+  - name: start_flip_capture
+    guards: [ initialized, (!currently_capturing_flip_sync) ]
+    body: |
+      double time_now = al_get_time();
+      flip_metrics[head].first = time_now;
+      currently_capturing_flip_sync = true;
+      return;
+
+
+  - name: end_flip_capture
+    guards: [ initialized, currently_capturing_flip_sync ]
+    body: |
+      double time_now = al_get_time();
+      flip_metrics[head].second = time_now;
+      head++;
+      if (head >= flip_metrics.size()) head = 0;
+      currently_capturing_flip_sync = false;
+      return;
+
+
+  - name: head_delta
+    type: int
+    parameters:
+      - name: delta
+        type: int
+        default_argument: 0
+    guards: [ initialized ]
+    body: |
+      int pos = head + delta;
+      while (pos < 0) pos += flip_metrics.size();
+      if (pos >= flip_metrics.size()) pos = pos % flip_metrics.size();
+      return pos;
+
+
+  - name: get_last_capture_duration
+    type: double
+    guards: [ initialized ]
+    body: |
+      int index = head_delta(-1);
+      return flip_metrics[index].second - flip_metrics[index].first;
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+
+

@@ -211,6 +211,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/WorldMapViewer.q.yml">quintessence/AllegroFlare/Elements/WorldMapViewer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml">quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/FlipSync.q.yml">quintessence/AllegroFlare/FlipSync.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Animation.q.yml">quintessence/AllegroFlare/FrameAnimation/Animation.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml">quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Book.q.yml">quintessence/AllegroFlare/FrameAnimation/Book.q.yml</a></li>
@@ -13071,6 +13072,55 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/AchievementUnlocked.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/FlipSync.q.yml">quintessence/AllegroFlare/FlipSync.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">currently_capturing_flip_sync</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">flip_metrics</td>
+  <td class="property">std::vector&lt;std::pair&lt;double, double&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">head</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">start_flip_capture()</td>
+</tr>
+<tr>
+  <td class="method">end_flip_capture()</td>
+</tr>
+<tr>
+  <td class="method">head_delta(int delta=0)</td>
+</tr>
+<tr>
+  <td class="method">get_last_capture_duration()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -34310,6 +34360,7 @@ table td
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/FlipSync",
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
