@@ -111,17 +111,24 @@ int FlipSync::head_delta(int delta)
    return pos;
 }
 
-double FlipSync::get_last_capture_duration()
+std::vector<double> FlipSync::get_last_n_capture_durations()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[FlipSync::get_last_capture_duration]: error: guard \"initialized\" not met.";
+      error_message << "[FlipSync::get_last_n_capture_durations]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FlipSync::get_last_capture_duration: error: guard \"initialized\" not met");
+      throw std::runtime_error("FlipSync::get_last_n_capture_durations: error: guard \"initialized\" not met");
    }
-   int index = head_delta(-1);
-   return flip_metrics[index].second - flip_metrics[index].first;
+   // TODO: Test this
+   std::vector<double> result;
+   result.resize(30);
+   for (int i=0; i<result.size(); i++)
+   {
+      int index = head_delta(-i);
+      result[i] = flip_metrics[index].second - flip_metrics[index].first;
+   };
+   return result;
 }
 
 

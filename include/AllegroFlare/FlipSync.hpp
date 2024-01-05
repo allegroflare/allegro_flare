@@ -26,7 +26,7 @@ namespace AllegroFlare
       void start_flip_capture();
       void end_flip_capture();
       int head_delta(int delta=0);
-      double get_last_capture_duration();
+      std::vector<double> get_last_n_capture_durations();
    };
 }
 
