@@ -1,0 +1,100 @@
+properties:
+
+
+  - name: metrics
+    type: std::vector<double>
+    init_with: false
+
+  - name: size
+    type: int
+    init_with: 64*4
+    setter: explicit
+    getter: true
+
+  - name: head
+    type: int
+    init_with: 0
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+methods:
+
+
+  - name: set_size
+    parameters:
+      - name: size
+        type: int
+        default_argument: 64*4
+    guards: [ (!initialized), (size >= 32) ]
+    body: |
+      this->size = size;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized), al_is_system_installed() ]
+    body: |
+      metrics.reserve(size);
+      metrics.resize(size);
+      initialized = true;
+      head = 0;
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
+  - name: capture
+    guards: [ initialized ]
+    parameters:
+      - name: metric
+        type: double
+        default_argument: 0.0
+    body: |
+      //double time_now = al_get_time();
+      metrics[head] = metric;
+      head++;
+      if (head >= metrics.size()) head = 0;
+      return;
+
+
+  - name: head_delta
+    type: int
+    parameters:
+      - name: delta
+        type: int
+        default_argument: 0
+    guards: [ initialized ]
+    body: |
+      int pos = head + delta;
+      while (pos < 0) pos += metrics.size();
+      if (pos >= metrics.size()) pos = pos % metrics.size();
+      return pos;
+
+
+  - name: get_last_n_metrics
+    type: std::vector<double>
+    parameters:
+      - name: count
+        type: int
+        default_argument: 64
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      std::vector<double> result;
+      result.resize(count);
+      for (int i=0; i<result.size(); i++)
+      {
+         int index = head_delta(-i);
+         result[i] = metrics[index];
+      };
+      return result;
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
