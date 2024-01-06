@@ -122,6 +122,7 @@ void DurationMeasurer::end_capture()
    head++;
    if (head >= metrics.size()) head = 0;
    metrics[head] = metric;
+   is_measuring = false;
    return;
 }
 
