@@ -1,0 +1,119 @@
+properties:
+
+
+  - name: metrics
+    type: std::vector<double>
+    init_with: false
+    getter_ref: true
+
+  - name: size
+    type: int
+    init_with: 64*4
+    setter: explicit
+    getter: true
+
+  - name: head
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: initial_time_measurement
+    type: std::chrono::steady_clock::time_point
+    init_with: std::chrono::steady_clock::time_point()
+
+  - name: is_measuring
+    type: bool
+    init_with: false
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+methods:
+
+
+  - name: set_size
+    parameters:
+      - name: size
+        type: int
+        default_argument: 64*4
+    guards: [ (!initialized), (size >= 32) ]
+    body: |
+      this->size = size;
+      return;
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      metrics.reserve(size);
+      metrics.resize(size);
+      initialized = true;
+      head = 0;
+      return;
+
+
+  - name: start_capture
+    guards: [ (!is_measuring) ]
+    body: |
+      initial_time_measurement = std::chrono::steady_clock::now();
+      is_measuring = true;
+      return;
+
+
+  - name: end_capture
+    guards: [ initialized, is_measuring ]
+    body: |
+      std::chrono::steady_clock::time_point time_point_end = std::chrono::steady_clock::now();
+      //initial_time_measurement = std::chrono::steady_clock::now();
+      double metric = std::chrono::duration_cast<std::chrono::microseconds>(
+                     time_point_end - initial_time_measurement
+                  ).count()
+             / 1'000'000.0; // Convert to seconds
+      head++;
+      if (head >= metrics.size()) head = 0;
+      metrics[head] = metric;
+      return;
+
+
+  - name: head_delta
+    type: int
+    parameters:
+      - name: delta
+        type: int
+        default_argument: 0
+    guards: [ initialized ]
+    body: |
+      int pos = head + delta;
+      while (pos < 0) pos += metrics.size();
+      if (pos >= metrics.size()) pos = pos % metrics.size();
+      return pos;
+
+
+  - name: get_last_n_metrics
+    type: std::vector<double>
+    parameters:
+      - name: count
+        type: int
+        default_argument: 64
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      std::vector<double> result;
+      result.resize(count);
+      for (int i=0; i<result.size(); i++)
+      {
+         int index = head_delta(-i);
+         result[i] = metrics[index];
+      };
+      return result;
+
+
+dependencies:
+
+
+  - symbol: std::chrono::steady_clock::time_point
+    headers: [ chrono ]
+
+

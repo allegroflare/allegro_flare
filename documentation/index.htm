@@ -249,6 +249,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Instrumentation/DisplayFlipMetric.q.yml">quintessence/AllegroFlare/Instrumentation/DisplayFlipMetric.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Instrumentation/Metric.q.yml">quintessence/AllegroFlare/Instrumentation/Metric.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Instrumentation/Metrics/Bool.q.yml">quintessence/AllegroFlare/Instrumentation/Metrics/Bool.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Instrumentation/Metrics/Double.q.yml">quintessence/AllegroFlare/Instrumentation/Metrics/Double.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Instrumentation/PrimaryProcessEventMetric.q.yml">quintessence/AllegroFlare/Instrumentation/PrimaryProcessEventMetric.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml">quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
@@ -15251,6 +15252,53 @@ table td
 </tr>
 <tr>
   <td class="method">head_delta(int delta=0)</td>
+</tr>
+<tr>
+  <td class="method">get_last_n_metrics(int count=64)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Instrumentation/Metrics/Double.q.yml">quintessence/AllegroFlare/Instrumentation/Metrics/Double.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">metrics</td>
+  <td class="property">std::vector&lt;double&gt;</td>
+</tr>
+<tr>
+  <td class="property">size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">head</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_size(int size=64*4)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">capture(double metric=0.0)</td>
+</tr>
+<tr>
+  <td class="method">head_delta(int delta=0)</td>
+</tr>
+<tr>
+  <td class="method">average_of_last_n_metrics(int count=64)</td>
 </tr>
 <tr>
   <td class="method">get_last_n_metrics(int count=64)</td>

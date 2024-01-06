@@ -30,8 +30,9 @@ TEST(AllegroFlare_TimerTest, get_ellapsed_time_milliseconds__will_be_zero_before
 }
 
 
-TEST(AllegroFlare_TimerTest, DISABLED_FOR_WIN__get_ellapsed_time_milliseconds__will_return_the_elapsed_time)
+TEST(AllegroFlare_TimerTest, get_ellapsed_time_milliseconds__will_return_the_elapsed_time)
 {
+   // NOTE: This test was previously disabled on Windows. There was no note as to why.
    Timer timer;
    timer.start();
    SLEEP_FOR(1000);
