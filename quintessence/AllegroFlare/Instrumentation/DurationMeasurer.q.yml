@@ -92,6 +92,23 @@ methods:
       return pos;
 
 
+  - name: average_of_last_n_metrics
+    type: double
+    parameters:
+      - name: count
+        type: int
+        default_argument: 64
+    guards: [ initialized ]
+    body: |
+      double sum = 0.0;
+      for (int i=0; i<count; i++)
+      {
+         int index = head_delta(-i);
+         sum += metrics[index];
+      };
+      return sum / count;
+
+
   - name: get_last_n_metrics
     type: std::vector<double>
     parameters:

@@ -34,6 +34,7 @@ namespace AllegroFlare
          void start_capture();
          void end_capture();
          int head_delta(int delta=0);
+         double average_of_last_n_metrics(int count=64);
          std::vector<double> get_last_n_metrics(int count=64);
       };
    }

@@ -141,6 +141,24 @@ int DurationMeasurer::head_delta(int delta)
    return pos;
 }
 
+double DurationMeasurer::average_of_last_n_metrics(int count)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DurationMeasurer::average_of_last_n_metrics]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DurationMeasurer::average_of_last_n_metrics: error: guard \"initialized\" not met");
+   }
+   double sum = 0.0;
+   for (int i=0; i<count; i++)
+   {
+      int index = head_delta(-i);
+      sum += metrics[index];
+   };
+   return sum / count;
+}
+
 std::vector<double> DurationMeasurer::get_last_n_metrics(int count)
 {
    if (!(initialized))

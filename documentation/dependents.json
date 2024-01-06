@@ -2469,6 +2469,10 @@
   "AllegroFlare/InputDiagrams/KeyboardKeyCombo": [
     "AllegroFlare/InputHints"
   ],
+  "std/chrono/steady_clock/time_point": [
+    "AllegroFlare/Instrumentation/DurationMeasurer",
+    "AllegroFlare/Instrumentation/Metrics/TimePoint"
+  ],
   "AllegroFlare/Frameworks/Full": [
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
