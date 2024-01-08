@@ -34,7 +34,7 @@
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
-#include <AllegroFlare/FlipSync.hpp>
+#include <AllegroFlare/SyncOracle.hpp>
 //#include <AllegroFlare/Time.hpp>
 
 
@@ -75,7 +75,6 @@ namespace AllegroFlare
          ALLEGRO_TIMER *primary_timer;
          Camera2D camera_2d;
          bool showing_dialog_switched_in_debug_text; // TODO: Add methods to enable/disable this option
-         //AllegroFlare::FlipSync flip_sync;
 
          AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
          AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap display_backbuffer_sub_bitmap;
@@ -83,7 +82,7 @@ namespace AllegroFlare
          AllegroFlare::Shaders::Base *post_processing_shader;
 
          //Camera3D camera_3d; // next
-         AllegroFlare::FlipSync flip_sync;
+         AllegroFlare::SyncOracle sync_oracle;
          bool using_instrumentation;
          bool drawing_inputs_bar_overlay;
          bool drawing_notifications;

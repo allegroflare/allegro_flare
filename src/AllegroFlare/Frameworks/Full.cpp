@@ -78,7 +78,8 @@ Full::Full()
    , display_backbuffer_sub_bitmap()
    , primary_render_surface(nullptr)
    , post_processing_shader(nullptr)
-   , flip_sync()
+   //, flip_sync()
+   , sync_oracle()
    , using_instrumentation(false)
    , drawing_inputs_bar_overlay(false)
    , drawing_notifications(true)
@@ -444,7 +445,7 @@ bool Full::initialize_core_system()
       //}
    //return driver;
 //}
-   flip_sync.initialize();
+   //flip_sync.initialize();
 
 
    // Create a Router
@@ -1262,11 +1263,11 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          {
             primary_update();
             primary_render();
-            flip_sync.start_flip_capture();
+            //flip_sync.start_flip_capture();
             //metric.al_flip_display_start_time = al_get_time();
             primary_flip();
             //metric.al_flip_display_end_time = al_get_time();
-            flip_sync.end_flip_capture();
+            //flip_sync.end_flip_capture();
          }
          //else if (this_event.timer.source == shader_source_poller.get_polling_timer())
          //{
@@ -2165,6 +2166,7 @@ void Full::draw_overlay()
       profiler_renderer.set_timers(&profiler.get_timers_ref());
       profiler_renderer.render();
 
+      /*
       {
          std::vector<double> samples = flip_sync.get_last_n_capture_durations();
          ALLEGRO_COLOR white = al_map_rgb_f(1, 1, 1);
@@ -2189,6 +2191,7 @@ void Full::draw_overlay()
             //{.x = 256, .y = 256, .z = 0, .color = white, .u = 256, .v = 256}};
          al_draw_prim(&v[0], NULL, NULL, 0, samples.size(), ALLEGRO_PRIM_LINE_STRIP);
       }
+      */
       //ALLEGRO_
       //al_draw_prim
 
