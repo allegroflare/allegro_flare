@@ -128,6 +128,14 @@ methods:
       return result;
 
 
+  - name: get_last_metric
+    type: double
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      return metrics[head];
+
+
 dependencies:
 
 

@@ -179,6 +179,19 @@ std::vector<double> DurationMeasurer::get_last_n_metrics(int count)
    return result;
 }
 
+double DurationMeasurer::get_last_metric()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DurationMeasurer::get_last_metric]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DurationMeasurer::get_last_metric: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   return metrics[head];
+}
+
 
 } // namespace Instrumentation
 } // namespace AllegroFlare
