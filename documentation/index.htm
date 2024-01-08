@@ -436,6 +436,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StringFormatValidator.q.yml">quintessence/AllegroFlare/StringFormatValidator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SyncOracle.q.yml">quintessence/AllegroFlare/SyncOracle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TemplatedText.q.yml">quintessence/AllegroFlare/TemplatedText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml">quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml</a></li>
@@ -29215,6 +29216,221 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SyncOracle.q.yml">quintessence/AllegroFlare/SyncOracle.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">display</td>
+  <td class="property">ALLEGRO_DISPLAY*</td>
+</tr>
+<tr>
+  <td class="property">primary_event_queue</td>
+  <td class="property">ALLEGRO_EVENT_QUEUE*</td>
+</tr>
+<tr>
+  <td class="property">primary_timer</td>
+  <td class="property">ALLEGRO_TIMER*</td>
+</tr>
+<tr>
+  <td class="property">hyper_primary_timer</td>
+  <td class="property">ALLEGRO_TIMER*</td>
+</tr>
+<tr>
+  <td class="property">target_fps</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">display_refresh_rate</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_nudge_notches</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_hyper_primary_timer_units</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">hyper_primary_timer_is_active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">auto_nudge_is_active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">num_measurer_samples</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">primary_timer_measurer</td>
+  <td class="property">AllegroFlare::Instrumentation::Metrics::Double</td>
+</tr>
+<tr>
+  <td class="property">update_measurer</td>
+  <td class="property">AllegroFlare::Instrumentation::DurationMeasurer</td>
+</tr>
+<tr>
+  <td class="property">draw_measurer</td>
+  <td class="property">AllegroFlare::Instrumentation::DurationMeasurer</td>
+</tr>
+<tr>
+  <td class="property">flip_display_measurer</td>
+  <td class="property">AllegroFlare::Instrumentation::DurationMeasurer</td>
+</tr>
+<tr>
+  <td class="property">font</td>
+  <td class="property">ALLEGRO_FONT*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_display(ALLEGRO_DISPLAY* display=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">get_display_refresh_rate()</td>
+</tr>
+<tr>
+  <td class="method">set_primary_event_queue(ALLEGRO_EVENT_QUEUE* primary_event_queue=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_target_fps(int target_fps=60)</td>
+</tr>
+<tr>
+  <td class="method">set_num_nudge_notches(int num_nudge_notches=16)</td>
+</tr>
+<tr>
+  <td class="method">set_num_hyper_primary_timer_units(int num_hyper_primary_timer_units=32)</td>
+</tr>
+<tr>
+  <td class="method">set_num_measurer_samples(int num_measurer_samples=64*4)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">shutdown()</td>
+</tr>
+<tr>
+  <td class="method">activate_hyper_timer()</td>
+</tr>
+<tr>
+  <td class="method">deactivate_hyper_timer()</td>
+</tr>
+<tr>
+  <td class="method">toggle_hyper_timer()</td>
+</tr>
+<tr>
+  <td class="method">activate_auto_nudge()</td>
+</tr>
+<tr>
+  <td class="method">deactivate_auto_nudge()</td>
+</tr>
+<tr>
+  <td class="method">toggle_auto_nudge()</td>
+</tr>
+<tr>
+  <td class="method">is_primary_timer_event(ALLEGRO_EVENT* al_event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">capture_primary_timer_event_time(double timer_event_time=0.0)</td>
+</tr>
+<tr>
+  <td class="method">start_flip_measure()</td>
+</tr>
+<tr>
+  <td class="method">end_flip_measure()</td>
+</tr>
+<tr>
+  <td class="method">start_update_measure()</td>
+</tr>
+<tr>
+  <td class="method">end_update_measure()</td>
+</tr>
+<tr>
+  <td class="method">start_draw_measure()</td>
+</tr>
+<tr>
+  <td class="method">end_draw_measure()</td>
+</tr>
+<tr>
+  <td class="method">calculate_frame_duration_sec()</td>
+</tr>
+<tr>
+  <td class="method">calculate_practical_fps()</td>
+</tr>
+<tr>
+  <td class="method">calculate_nudge_duration(int num_nudge_notches_delta=1)</td>
+</tr>
+<tr>
+  <td class="method">nudge_primary_timer(int num_nudge_notches_to_move=1)</td>
+</tr>
+<tr>
+  <td class="method">nudge_primary_timer_forward()</td>
+</tr>
+<tr>
+  <td class="method">nudge_primary_timer_backward()</td>
+</tr>
+<tr>
+  <td class="method">draw_graph()</td>
+</tr>
+<tr>
+  <td class="method">draw_metric(std::vector&lt;double&gt;* samples=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float x=0.0f, float y=0.0f, float h=0.0f, float chart_min=0.0f, float chart_max=0.0f, int num_samples=64*4, int scale=4)</td>
+</tr>
+<tr>
+  <td class="method">draw_triangle(float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f})</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_QUEUE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TIMER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_current_display&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Instrumentation::DurationMeasurer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Instrumentation/DurationMeasurer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Instrumentation::Metrics::Double&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Instrumentation/Metrics/Double.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -34633,6 +34849,7 @@ table td
     "AllegroFlare/NotificationsFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/Time",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
@@ -34981,6 +35198,7 @@ table td
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
@@ -35023,6 +35241,7 @@ table td
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/UnicodeFontViewer",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
@@ -35354,6 +35573,7 @@ table td
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
@@ -35453,6 +35673,7 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -36263,7 +36484,8 @@ table td
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/SyncOracle"
   ],
   "al_color_html": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -36925,6 +37147,7 @@ table td
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Shaders/Base",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -37251,6 +37474,7 @@ table td
   ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/SyncOracle",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "std/vector<AllegroFlare/Physics/Int2D>": [
@@ -37463,7 +37687,8 @@ table td
   ],
   "ALLEGRO_EVENT_QUEUE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync",
-    "AllegroFlare/ShaderSourcePoller"
+    "AllegroFlare/ShaderSourcePoller",
+    "AllegroFlare/SyncOracle"
   ],
   "ALLEGRO_AUDIO_STREAM": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
@@ -37869,7 +38094,8 @@ table td
     "AllegroFlare/ShaderSourcePoller"
   ],
   "ALLEGRO_TIMER": [
-    "AllegroFlare/ShaderSourcePoller"
+    "AllegroFlare/ShaderSourcePoller",
+    "AllegroFlare/SyncOracle"
   ],
   "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
@@ -37923,6 +38149,12 @@ table td
   ],
   "AllegroFlare/Elements/StoryboardPages/ClubCattLogo": [
     "AllegroFlare/StoryboardPageFactory"
+  ],
+  "AllegroFlare/Instrumentation/DurationMeasurer": [
+    "AllegroFlare/SyncOracle"
+  ],
+  "AllegroFlare/Instrumentation/Metrics/Double": [
+    "AllegroFlare/SyncOracle"
   ],
   "AllegroFlare/Version": [
     "AllegroFlare/SystemInfo"

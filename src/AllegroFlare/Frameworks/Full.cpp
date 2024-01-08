@@ -448,6 +448,14 @@ bool Full::initialize_core_system()
    //flip_sync.initialize();
 
 
+   //sync_oracle.set_display(display);
+   //sync_oracle.set_target_fps(60);
+   //sync_oracle.set_primary_event_queue(primary_event_queue);
+   //sync_oracle.activate_hyper_timer();
+   //sync_oracle.activate_auto_nudge();
+   //sync_oracle.initialize();
+
+
    // Create a Router
    //router = new AllegroFlare::Routers::Standard;
    //router->set_event_emitter(&event_emitter);
@@ -614,12 +622,26 @@ AllegroFlare::Shaders::Base *Full::get_shader_target_for_hotloading()
 
 
 
+void Full::initialize_sync_oracle()
+{
+   sync_oracle.set_display(primary_display->al_display);
+   sync_oracle.set_target_fps(60);
+   sync_oracle.set_primary_event_queue(event_queue);
+   sync_oracle.activate_hyper_timer();
+   sync_oracle.activate_auto_nudge();
+   sync_oracle.initialize();
+
+}
+
+
+
 bool Full::initialize()
 {
    if (initialized) return false;
 
    initialize_core_system();
    initialize_display_and_render_pipeline();
+   initialize_sync_oracle();
 
    return true;
 }
@@ -770,6 +792,7 @@ bool Full::shutdown()
          //throw std::runtime_error("in test: Could not destroy _driver");
       //}
    //}
+   sync_oracle.shutdown();
 
 
    // TODO audit this function
@@ -1104,6 +1127,7 @@ void Full::primary_update()
    motions.update(time_now);
    achievements.check_all();
    dialog_system.update(time_now);
+   // TODO: Add screens.primary_update(time_now, deltatime);
 }
 
 
@@ -1192,21 +1216,24 @@ void Full::render_screens_to_primary_render_surface()
 
 void Full::primary_render()
 {
-   profiler.start(".render_screens_to_primary_render_surface()");
+   //profiler.start(".render_screens_to_primary_render_surface()");
    render_screens_to_primary_render_surface();
-   profiler.stop(".render_screens_to_primary_render_surface()");
+   //profiler.stop(".render_screens_to_primary_render_surface()");
 
-   profiler.start(".draw_overlay()");
+   //profiler.start(".draw_overlay()");
    draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
-   profiler.stop(".draw_overlay()");
+   //profiler.stop(".draw_overlay()");
+   //sync_oracle.end_draw_measure()
 }
 
 
 void Full::primary_flip()
 {
-   profiler.start("al_flip_display()");
+   //profiler.start("al_flip_display()");
+   //sync_oracle.start_flip_measure(); // ---
    al_flip_display();
-   profiler.stop("al_flip_display()");
+   //sync_oracle.end_flip_measure(); // ---
+   //profiler.stop("al_flip_display()");
 }
 
 
@@ -1261,11 +1288,18 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       case ALLEGRO_EVENT_TIMER:
          if (this_event.timer.source == primary_timer)
          {
+            sync_oracle.start_update_measure();
             primary_update();
+            sync_oracle.end_update_measure();
+
+            sync_oracle.start_draw_measure();
             primary_render();
+            sync_oracle.end_draw_measure();
             //flip_sync.start_flip_capture();
             //metric.al_flip_display_start_time = al_get_time();
+            sync_oracle.start_flip_measure(); // ---
             primary_flip();
+            sync_oracle.end_flip_measure(); // ---
             //metric.al_flip_display_end_time = al_get_time();
             //flip_sync.end_flip_capture();
          }
@@ -2080,7 +2114,7 @@ std::string Full::get_allegro_flare_version_string()
 
 void Full::draw_overlay()
 {
-   profiler.start(".draw_overlay()");
+   //profiler.start(".draw_overlay()");
 
    // TODO: do a full audit of render flags that should be restored in addition to setting the 
    // display_backbuffer_sub_bitmap
@@ -2139,7 +2173,7 @@ void Full::draw_overlay()
       notifications_renderer.render();
    }
 
-   profiler.stop(".draw_overlay()");
+   //profiler.stop(".draw_overlay()");
 
    if (drawing_profiler_graph)
    {
@@ -2161,10 +2195,11 @@ void Full::draw_overlay()
       //profiler_rendering_timer.stop();
 
 
+      sync_oracle.draw_graph();
 
-      AllegroFlare::ProfilerRenderer profiler_renderer(&fonts);
-      profiler_renderer.set_timers(&profiler.get_timers_ref());
-      profiler_renderer.render();
+      //AllegroFlare::ProfilerRenderer profiler_renderer(&fonts);
+      //profiler_renderer.set_timers(&profiler.get_timers_ref());
+      //profiler_renderer.render();
 
       /*
       {

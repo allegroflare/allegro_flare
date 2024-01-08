@@ -89,6 +89,7 @@ namespace AllegroFlare
          bool drawing_dialogs;
          std::vector<std::string> input_hints_tokens;
          bool initialize_core_system(); // only use initialize() publically from now on
+         void initialize_sync_oracle();
          bool initialize_display_and_render_pipeline();
          bool display_close_will_shutdown;
          bool escape_key_will_shutdown;

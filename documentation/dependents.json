@@ -142,6 +142,7 @@
     "AllegroFlare/NotificationsFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/Time",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
@@ -490,6 +491,7 @@
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
@@ -532,6 +534,7 @@
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/UnicodeFontViewer",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
@@ -863,6 +866,7 @@
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
@@ -962,6 +966,7 @@
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -1772,7 +1777,8 @@
     "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/SyncOracle"
   ],
   "al_color_html": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -2434,6 +2440,7 @@
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Shaders/Base",
+    "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -2760,6 +2767,7 @@
   ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/SyncOracle",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "std/vector<AllegroFlare/Physics/Int2D>": [
@@ -2972,7 +2980,8 @@
   ],
   "ALLEGRO_EVENT_QUEUE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync",
-    "AllegroFlare/ShaderSourcePoller"
+    "AllegroFlare/ShaderSourcePoller",
+    "AllegroFlare/SyncOracle"
   ],
   "ALLEGRO_AUDIO_STREAM": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
@@ -3378,7 +3387,8 @@
     "AllegroFlare/ShaderSourcePoller"
   ],
   "ALLEGRO_TIMER": [
-    "AllegroFlare/ShaderSourcePoller"
+    "AllegroFlare/ShaderSourcePoller",
+    "AllegroFlare/SyncOracle"
   ],
   "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
@@ -3432,6 +3442,12 @@
   ],
   "AllegroFlare/Elements/StoryboardPages/ClubCattLogo": [
     "AllegroFlare/StoryboardPageFactory"
+  ],
+  "AllegroFlare/Instrumentation/DurationMeasurer": [
+    "AllegroFlare/SyncOracle"
+  ],
+  "AllegroFlare/Instrumentation/Metrics/Double": [
+    "AllegroFlare/SyncOracle"
   ],
   "AllegroFlare/Version": [
     "AllegroFlare/SystemInfo"
