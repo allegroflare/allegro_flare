@@ -627,8 +627,8 @@ void Full::initialize_sync_oracle()
    sync_oracle.set_display(primary_display->al_display);
    sync_oracle.set_target_fps(60);
    sync_oracle.set_primary_event_queue(event_queue);
-   sync_oracle.activate_hyper_timer();
-   sync_oracle.activate_auto_nudge();
+   //sync_oracle.activate_hyper_timer();
+   //sync_oracle.activate_auto_nudge();
    sync_oracle.initialize();
 
 }
@@ -2115,11 +2115,16 @@ int Full::process_events_in_queue()
 
 void Full::run_loop(float auto_shutdown_after_seconds)
 {
-   //al_wait_for_vsync();
-   //std::this_thread::sleep_for(std::chrono::microseconds(8000));
-   //al_start_timer(primary_timer);
+   // Emit our iniitial events
    event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
    if (router) event_emitter.emit_router_event(1); //AllegroFlare::GameEvent("initialize"));
+
+   // Start our timers
+   sync_oracle.activate_primary_timer();
+   sync_oracle.activate_hyper_timer();
+   sync_oracle.activate_auto_nudge();
+
+
    float loop_started_at = al_get_time();
 
    //offset_primary_timer(4000); // Maybe this is the magic number
