@@ -79,9 +79,10 @@ TEST(AllegroFlare_SyncOracleTest, INTERACTIVE__will_work_as_expected)
    sync_oracle.set_display(display);
    sync_oracle.set_target_fps(60);
    sync_oracle.set_primary_event_queue(primary_event_queue);
+   sync_oracle.initialize();
+   sync_oracle.activate_primary_timer();
    sync_oracle.activate_hyper_timer();
    sync_oracle.activate_auto_nudge();
-   sync_oracle.initialize();
 
    // Do our stuff here
    bool quit = false;

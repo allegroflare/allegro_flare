@@ -17,6 +17,11 @@ properties:
     type: ALLEGRO_TIMER*
     init_with: nullptr
 
+  - name: primary_timer_is_active
+    type: bool
+    init_with: nullptr
+    getter: true
+
   - name: hyper_primary_timer
     type: ALLEGRO_TIMER*
     init_with: nullptr
@@ -211,13 +216,35 @@ methods:
       - al_is_system_installed
 
 
+  - name: activate_primary_timer
+    guards: [ initialized ]
+    body: |
+      if (primary_timer_is_active) return;
+      al_start_timer(primary_timer);
+      primary_timer_is_active = true;
+      return;
+
+
+  - name: deactivate_primary_timer
+    guards: [ initialized ]
+    body: |
+      if (!primary_timer_is_active) return;
+      al_stop_timer(primary_timer);
+      primary_timer_is_active = false;
+      return;
+
+
   - name: shutdown
     guards: [ initialized ]
     body: |
       if (primary_timer)
       {
+         if (primary_timer_is_active)
+         {
+            al_stop_timer(primary_timer);
+            primary_timer_is_active = false;
+         }
          al_unregister_event_source(primary_event_queue, al_get_timer_event_source(primary_timer));
-         al_stop_timer(primary_timer);
          al_destroy_timer(primary_timer);
          primary_timer = nullptr;
       }

@@ -18,6 +18,7 @@ SyncOracle::SyncOracle()
    : display(nullptr)
    , primary_event_queue(nullptr)
    , primary_timer(nullptr)
+   , primary_timer_is_active(nullptr)
    , hyper_primary_timer(nullptr)
    , target_fps(60)
    , display_refresh_rate(0)
@@ -50,6 +51,12 @@ ALLEGRO_DISPLAY* SyncOracle::get_display() const
 ALLEGRO_EVENT_QUEUE* SyncOracle::get_primary_event_queue() const
 {
    return primary_event_queue;
+}
+
+
+bool SyncOracle::get_primary_timer_is_active() const
+{
+   return primary_timer_is_active;
 }
 
 
@@ -291,6 +298,36 @@ void SyncOracle::initialize()
    return;
 }
 
+void SyncOracle::activate_primary_timer()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[SyncOracle::activate_primary_timer]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SyncOracle::activate_primary_timer: error: guard \"initialized\" not met");
+   }
+   if (primary_timer_is_active) return;
+   al_start_timer(primary_timer);
+   primary_timer_is_active = true;
+   return;
+}
+
+void SyncOracle::deactivate_primary_timer()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[SyncOracle::deactivate_primary_timer]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SyncOracle::deactivate_primary_timer: error: guard \"initialized\" not met");
+   }
+   if (!primary_timer_is_active) return;
+   al_stop_timer(primary_timer);
+   primary_timer_is_active = false;
+   return;
+}
+
 void SyncOracle::shutdown()
 {
    if (!(initialized))
@@ -302,8 +339,12 @@ void SyncOracle::shutdown()
    }
    if (primary_timer)
    {
+      if (primary_timer_is_active)
+      {
+         al_stop_timer(primary_timer);
+         primary_timer_is_active = false;
+      }
       al_unregister_event_source(primary_event_queue, al_get_timer_event_source(primary_timer));
-      al_stop_timer(primary_timer);
       al_destroy_timer(primary_timer);
       primary_timer = nullptr;
    }

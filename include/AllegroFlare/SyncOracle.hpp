@@ -16,6 +16,7 @@ namespace AllegroFlare
       ALLEGRO_DISPLAY* display;
       ALLEGRO_EVENT_QUEUE* primary_event_queue;
       ALLEGRO_TIMER* primary_timer;
+      bool primary_timer_is_active;
       ALLEGRO_TIMER* hyper_primary_timer;
       int target_fps;
       int display_refresh_rate;
@@ -40,6 +41,7 @@ namespace AllegroFlare
 
       ALLEGRO_DISPLAY* get_display() const;
       ALLEGRO_EVENT_QUEUE* get_primary_event_queue() const;
+      bool get_primary_timer_is_active() const;
       int get_target_fps() const;
       int get_num_nudge_notches() const;
       int get_num_hyper_primary_timer_units() const;
@@ -54,6 +56,8 @@ namespace AllegroFlare
       void set_num_hyper_primary_timer_units(int num_hyper_primary_timer_units=32);
       void set_num_measurer_samples(int num_measurer_samples=64*4);
       void initialize();
+      void activate_primary_timer();
+      void deactivate_primary_timer();
       void shutdown();
       void activate_hyper_timer();
       void deactivate_hyper_timer();
