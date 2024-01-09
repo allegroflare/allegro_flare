@@ -183,6 +183,10 @@ namespace AllegroFlare
          bool is_deployment_environment_test();
          std::string get_data_folder_path();
 
+         void set_display_to_fullscreen();
+         void set_display_to_windowed();
+         void toggle_display_fullscreen();
+
          // Settings
          void enable_display_close_will_shutdown();
          void disable_display_close_will_shutdown();

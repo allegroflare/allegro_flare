@@ -806,6 +806,42 @@ std::string Full::get_data_folder_path()
 }
 
 
+void Full::set_display_to_fullscreen()
+{
+   // TODO: Double check the guards on this
+   if (!initialized) throw std::runtime_error("set_display_to_fullscreen: must_be_initialized");
+   if (fullscreen) return;
+
+   // TODO: Verify through al_get_display_flags() that the value was toggled
+   al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, true);
+   fullscreen = false;
+}
+
+
+
+void Full::set_display_to_windowed()
+{
+   // TODO: Double check the guards on this
+   if (!initialized) throw std::runtime_error("set_display_to_windowed: must_be_initialized");
+   if (!fullscreen) return;
+
+   al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, false);
+   // TODO: Verify through al_get_display_flags() that the value was toggled
+   fullscreen = true;
+}
+
+
+
+void Full::toggle_display_fullscreen()
+{
+   // TODO: Double check the guards on this
+   if (!initialized) throw std::runtime_error("toggle_display_fullscreen: must_be_initialized");
+
+   if (fullscreen) set_display_to_windowed();
+   else set_display_to_fullscreen();
+}
+
+
 
 bool Full::shutdown()
 {

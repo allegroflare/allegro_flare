@@ -541,3 +541,14 @@ dimensions)
 }
 
 
+TEST(AllegroFlare_Frameworks_FullTest, FOCUS__set_disply_to_fullscreen__will_toggle_the_display_to_be_fullscreen)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
+   framework.initialize();
+
+   framework.set_display_to_fullscreen();
+}
+
+
