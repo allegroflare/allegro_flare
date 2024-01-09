@@ -806,6 +806,18 @@ std::string Full::get_data_folder_path()
 }
 
 
+
+void Full::set_window_size(int width, int height)
+{
+   bool resize_result = al_resize_display(primary_display->al_display, width, height);
+   if (!resize_result)
+   {
+      throw std::runtime_error("Set Window Size couldn't work fam!");
+   }
+}
+
+
+
 void Full::set_display_to_fullscreen()
 {
    // TODO: Double check the guards on this
@@ -1534,6 +1546,15 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             {
                case ALLEGRO_KEY_F: {
                   toggle_display_fullscreen();
+               } break;
+               case ALLEGRO_KEY_1: {
+                  set_window_size(1920, 1080);
+               } break;
+               case ALLEGRO_KEY_2: {
+                  set_window_size(1080, 1920);
+               } break;
+               case ALLEGRO_KEY_3: {
+                  set_window_size(2520, 1080);
                } break;
                case ALLEGRO_KEY_FULLSTOP: {
                   nudge_primary_timer_forward();

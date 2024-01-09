@@ -100,7 +100,13 @@ public:
       std::vector<std::string> tokens = {
          "ESC", "%SPACER", "LABEL>>", "Exit test",
          "%SEPARATOR",
-         "N", "%SPACER", "LABEL>>", "Post a notification"
+         "N", "%SPACER", "LABEL>>", "Post a notification",
+         "%SEPARATOR",
+         "1", "%SPACER", "LABEL>>", "[-] 1920x1080",
+         "%SEPARATOR",
+         "2", "%SPACER", "LABEL>>", "[] 1080x1920",
+         "%SEPARATOR",
+         "3", "%SPACER", "LABEL>>", "[--] 2520x1080",
          "%SEPARATOR",
          "F", "%SPACER", "LABEL>>", "Toggle fullscreen"
       };
@@ -114,6 +120,10 @@ public:
       {
          std::string achievement_name_to_emit = randomly_select_an_achievement_name();
          event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
+      }
+      else if (ev->keyboard.keycode == ALLEGRO_KEY_1)
+      {
+         //event_emitter->emit_event_to_toggle_fullscreen();
       }
       else if (ev->keyboard.keycode == ALLEGRO_KEY_F)
       {
