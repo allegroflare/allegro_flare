@@ -276,7 +276,6 @@ void SyncOracle::initialize()
    // Setup the timer
    primary_timer = al_create_timer(calculate_frame_duration_sec());
    al_register_event_source(primary_event_queue, al_get_timer_event_source(primary_timer));
-   al_start_timer(primary_timer);
 
    // Setup our instrumentation
    primary_timer_measurer.set_size(num_measurer_samples);
