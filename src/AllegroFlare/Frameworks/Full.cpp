@@ -814,7 +814,7 @@ void Full::set_display_to_fullscreen()
 
    // TODO: Verify through al_get_display_flags() that the value was toggled
    al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, true);
-   fullscreen = false;
+   fullscreen = true;
 }
 
 
@@ -827,7 +827,7 @@ void Full::set_display_to_windowed()
 
    al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, false);
    // TODO: Verify through al_get_display_flags() that the value was toggled
-   fullscreen = true;
+   fullscreen = false;
 }
 
 
@@ -1532,6 +1532,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          {
             switch (Full::current_event->keyboard.keycode)
             {
+               case ALLEGRO_KEY_F: {
+                  toggle_display_fullscreen();
+               } break;
                case ALLEGRO_KEY_FULLSTOP: {
                   nudge_primary_timer_forward();
                } break;

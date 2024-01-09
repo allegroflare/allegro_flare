@@ -26,6 +26,8 @@ public:
          "ESC", "%SPACER", "LABEL>>", "Exit test",
          "%SEPARATOR",
          "N", "%SPACER", "LABEL>>", "Post a notification"
+         //"%SEPARATOR",
+         //"F", "%SPACER", "LABEL>>", "Toggle fullscreen"
       };
       event_emitter->emit_set_input_hints_bar_event(tokens);
       event_emitter->emit_show_input_hints_bar_event();
@@ -38,6 +40,10 @@ public:
          std::string achievement_name_to_emit = randomly_select_an_achievement_name();
          event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
       }
+      //else if (ev->keyboard.keycode == ALLEGRO_KEY_F)
+      //{
+         //event_emitter->emit_event_to_toggle_fullscreen();
+      //}
    }
    std::string randomly_select_an_achievement_name()
    {
@@ -79,6 +85,47 @@ public:
    virtual void key_down_func(ALLEGRO_EVENT *ev) override {}
 };
 
+
+class ScreenTestClass3 : public AllegroFlare::Screens::Base
+{
+private:
+   AllegroFlare::EventEmitter *event_emitter;
+public:
+   ScreenTestClass3(AllegroFlare::EventEmitter *event_emitter)
+      : AllegroFlare::Screens::Base("ScreenTestClass3")
+      , event_emitter(event_emitter)
+   {}
+   virtual void on_activate() override
+   {
+      std::vector<std::string> tokens = {
+         "ESC", "%SPACER", "LABEL>>", "Exit test",
+         "%SEPARATOR",
+         "F", "%SPACER", "LABEL>>", "Toggle fullscreen"
+      };
+      event_emitter->emit_set_input_hints_bar_event(tokens);
+      event_emitter->emit_show_input_hints_bar_event();
+   }
+   virtual void primary_timer_func() override {}
+   virtual void key_down_func(ALLEGRO_EVENT *ev) override
+   {
+      //if (ev->keyboard.keycode == ALLEGRO_KEY_N)
+      //{
+         //std::string achievement_name_to_emit = randomly_select_an_achievement_name();
+         //event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
+      //}
+      //else if (ev->keyboard.keycode == ALLEGRO_KEY_F)
+      //{
+         //event_emitter->emit_event_to_toggle_fullscreen(); // HERE
+      //}
+   }
+   std::string randomly_select_an_achievement_name()
+   {
+      static int i=0; i++;
+      std::vector<std::string> achievement_names = {
+         "Win the game", "Finish the feature", "Save the day", "Take home the trophy", };
+      return achievement_names[i % achievement_names.size()];
+   }
+};
 
 
 TEST(AllegroFlare_Frameworks_FullTest, can_be_created_without_blowing_up)
@@ -541,14 +588,44 @@ dimensions)
 }
 
 
-TEST(AllegroFlare_Frameworks_FullTest, FOCUS__set_disply_to_fullscreen__will_toggle_the_display_to_be_fullscreen)
+TEST(AllegroFlare_Frameworks_FullTest, set_disply_to_fullscreen__will_toggle_the_display_to_be_fullscreen)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
    framework.disable_fullscreen();
    framework.initialize();
 
-   framework.set_display_to_fullscreen();
+   framework.set_display_to_fullscreen(); // TODO: Do not call this directly, emit an event instead
+
+   // TODO: Confirm fullscreen with assertion
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest, set_disply_to_windowed__will_toggle_the_display_to_windowed)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.initialize();
+
+   framework.set_display_to_windowed(); // TODO: Do not call this directly, emit an event instead
+
+   // TODO: Confirm windowed with assertion
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
+   FOCUS__INTERACTIVE__will_toggle_the_display_between_windowed_and_fullscreen)
+{
+   AllegroFlare::Frameworks::Full framework;
+   //framework.disable_fullscreen();
+   framework.set_deployment_environment("test");
+   framework.initialize();
+
+   ScreenTestClass3 screen_test_class(&framework.get_event_emitter_ref());
+
+   framework.register_and_activate_screen("screen_test_class", &screen_test_class);
+
+   framework.run_loop(6);
 }
 
 
