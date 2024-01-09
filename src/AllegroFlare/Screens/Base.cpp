@@ -18,6 +18,7 @@ Base::Base(std::string type)
    : type(type)
    , background(nullptr)
    , foreground(nullptr)
+   , update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::LEGACY_SINGLE_PRIMARY_TIMER_FUNC)
 {
 }
 
@@ -42,6 +43,18 @@ std::string Base::get_type()
 bool Base::is_type(std::string possible_type)
 {
    return type == possible_type;
+}
+
+
+void Base::set_update_strategy(UpdateStrategy update_strategy)
+{
+   this->update_strategy = update_strategy;
+}
+
+
+bool Base::is_using_update_strategy(UpdateStrategy possible_update_strategy)
+{
+   return (this->update_strategy == possible_update_strategy);
 }
 
 
@@ -71,6 +84,14 @@ AllegroFlare::Elements::Backgrounds::Base *Base::get_foreground()
 
 void Base::managed_primary_update_func(double time_now, double delta_time)
 {
+   if (!is_using_update_strategy(UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS))
+   {
+      // TODO: Improve this error message
+      throw std::runtime_error(
+         "Cannot call this function unless using SEPARATE_UPDATE_AND_RENDER_FUNCS update strategy"
+      );
+   }
+
    if (background) background->update(); // TODO: Pass in delta_time
    primary_update_func(time_now, delta_time);
    if (foreground) foreground->update(); // TODO: Pass in delta_time
@@ -79,6 +100,14 @@ void Base::managed_primary_update_func(double time_now, double delta_time)
 
 void Base::managed_primary_render_func()
 {
+   if (!is_using_update_strategy(UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS))
+   {
+      // TODO: Improve this error message
+      throw std::runtime_error(
+         "Cannot call this function unless using SEPARATE_UPDATE_AND_RENDER_FUNCS update strategy"
+      );
+   }
+
    if (background) background->render();
    primary_render_func();
    if (foreground) foreground->render();
@@ -87,6 +116,14 @@ void Base::managed_primary_render_func()
 
 void Base::managed_primary_timer_func()
 {
+   if (!is_using_update_strategy(UpdateStrategy::LEGACY_SINGLE_PRIMARY_TIMER_FUNC))
+   {
+      // TODO: Improve this error message
+      throw std::runtime_error(
+         "Cannot call this function unless using LEGACY_SINGLE_PRIMARY_TIMER_FUNC update strategy"
+      );
+   }
+
    if (background)
    {
       background->update();

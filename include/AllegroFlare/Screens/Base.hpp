@@ -17,10 +17,19 @@ namespace AllegroFlare
    {
       class Base
       {
+      public:
+         enum class UpdateStrategy
+         {
+            NONE,
+            SEPARATE_UPDATE_AND_RENDER_FUNCS,
+            LEGACY_SINGLE_PRIMARY_TIMER_FUNC,
+         };
+
       private:
          std::string type;
          AllegroFlare::Elements::Backgrounds::Base *background;
          AllegroFlare::Elements::Backgrounds::Base *foreground;
+         UpdateStrategy update_strategy;
 
       public:
          Base(std::string type="Base");
@@ -29,6 +38,8 @@ namespace AllegroFlare
          //void set_type(std::string type);
          std::string get_type();
          bool is_type(std::string possible_type);
+         void set_update_strategy(UpdateStrategy update_strategy);
+         bool is_using_update_strategy(UpdateStrategy possible_update_strategy);
 
          void set_background(AllegroFlare::Elements::Backgrounds::Base *background=nullptr);
          void set_foreground(AllegroFlare::Elements::Backgrounds::Base *foreground=nullptr);

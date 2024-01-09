@@ -354,7 +354,13 @@ void Dictionary::primary_update_funcs(double time_now, double delta_time)
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
+      {
+         if (!screen.second.screen->is_using_update_strategy(
+            AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS)
+         ) continue;
+
          screen.second.screen->managed_primary_update_func(time_now, delta_time);
+      }
 }
 
 
@@ -362,7 +368,13 @@ void Dictionary::primary_render_funcs()
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
+      {
+         if (!screen.second.screen->is_using_update_strategy(
+            AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS)
+         ) continue;
+
          screen.second.screen->managed_primary_render_func();
+      }
 }
 
 
@@ -370,7 +382,13 @@ void Dictionary::primary_timer_funcs()
 {
    for (auto &screen : screens)
       if (disabled_screens_receive_events || screen.second.active)
+      {
+         if (!screen.second.screen->is_using_update_strategy(
+            AllegroFlare::Screens::Base::UpdateStrategy::LEGACY_SINGLE_PRIMARY_TIMER_FUNC)
+         ) continue;
+
          screen.second.screen->managed_primary_timer_func();
+      }
 }
 
 
