@@ -1207,6 +1207,17 @@ void Full::render_screens_to_primary_render_surface()
    }
 
 
+
+
+   //camera_2d.setup_dimensional_projection();//display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
+   primary_render_surface->set_as_target();
+   camera_2d.setup_dimensional_projection(al_get_target_bitmap());//display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
+   // Consider resetting/restoring the projection on this surface
+
+   al_use_shader(NULL); // TODO: consider side-effects of this
+   draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
+
+
    // If the primary_render_surface is *not* a display, fully draw it to the backbuffer.
    // TODO: Consider if the backbuffer surface projection is valid for this rendering, e.g. the "display backbuffer"
    // render surface should be unmodified through the course of the user's code (any code in screens).
@@ -1222,6 +1233,11 @@ void Full::render_screens_to_primary_render_surface()
       // render the primary_render_surface to the backbuffer
       display_backbuffer.set_as_target();
       al_use_shader(NULL); // TODO: consider side-effects of this
+
+
+      //draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
+
+
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
 
       ///* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
@@ -1316,7 +1332,7 @@ void Full::primary_render()
    //profiler.stop(".render_screens_to_primary_render_surface()");
 
    //profiler.start(".draw_overlay()");
-   draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
+   //draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
    //profiler.stop(".draw_overlay()");
    //sync_oracle.end_draw_measure()
 }
@@ -2268,8 +2284,8 @@ void Full::draw_overlay()
 
    // TODO: do a full audit of render flags that should be restored in addition to setting the 
    // display_backbuffer_sub_bitmap
-   display_backbuffer_sub_bitmap.set_as_target(); // TODO: Consider performance implications of this
-   al_use_shader(NULL); // TODO: consider side-effects of this
+   //display_backbuffer_sub_bitmap.set_as_target(); // TODO: Consider performance implications of this
+   //al_use_shader(NULL); // TODO: consider side-effects of this
 
    if (drawing_dialogs)
    {
