@@ -1134,9 +1134,9 @@ void Full::primary_update(double _time_now, double delta_time)
    screens.primary_update_funcs(time_now, delta_time);
                                      // Game will typically use *either* _timer_funcs on its own OR use the
                                      // _update and _render funcs.
-   motions.update(_time_now);
+   motions.update(_time_now); // TODO: Update this to use delta time
    achievements.check_all();
-   dialog_system.update(_time_now);
+   dialog_system.update(_time_now); // TODO: Considr how to update this to use delta_time
 
    //double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
    //screens.primary_update_funcs(delta_time); // Game will typically use *either* _timer_funcs on its own OR use the
@@ -2082,7 +2082,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             if (draw)
             {
                sync_oracle.start_update_measure();
-               double delta_time = 1.0; // TODO: Figure out what this should be
+               // TODO: Figure out what this delta_time variable should be
+               double delta_time = sync_oracle.calculate_duration_of_previous_frame_for_delta_time();
                primary_update(time_now, delta_time);
                sync_oracle.end_update_measure();
 

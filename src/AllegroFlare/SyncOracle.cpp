@@ -478,6 +478,11 @@ double SyncOracle::calculate_frame_duration_sec()
    return 1.0 / target_fps;
 }
 
+double SyncOracle::calculate_duration_of_previous_frame_for_delta_time()
+{
+   return calculate_frame_duration_sec(); // TODO: Find out best way to calcualte this frame duration
+}
+
 int SyncOracle::calculate_practical_fps()
 {
    // Practical FPS is the FPS that your game's operations (updating game state, drawing game state) are running at.

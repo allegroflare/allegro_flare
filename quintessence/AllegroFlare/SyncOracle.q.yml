@@ -384,6 +384,12 @@ methods:
       return 1.0 / target_fps;
 
 
+  - name: calculate_duration_of_previous_frame_for_delta_time
+    type: double
+    body: |
+      return calculate_frame_duration_sec(); // TODO: Find out best way to calcualte this frame duration
+
+
   - name: calculate_practical_fps
     type: int
     body: |

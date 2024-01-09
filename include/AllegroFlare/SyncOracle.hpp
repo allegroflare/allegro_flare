@@ -74,6 +74,7 @@ namespace AllegroFlare
       void start_draw_measure();
       void end_draw_measure();
       double calculate_frame_duration_sec();
+      double calculate_duration_of_previous_frame_for_delta_time();
       int calculate_practical_fps();
       double calculate_nudge_duration(int num_nudge_notches_delta=1);
       void nudge_primary_timer(int num_nudge_notches_to_move=1);
