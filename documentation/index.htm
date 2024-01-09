@@ -1660,10 +1660,6 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">render_surface</td>
-  <td class="property">AllegroFlare::RenderSurfaces::Base*</td>
-</tr>
-<tr>
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
@@ -1751,9 +1747,6 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">set_render_surface(AllegroFlare::RenderSurfaces::Base* render_surface=nullptr)</td>
-</tr>
-<tr>
   <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
@@ -1778,7 +1771,7 @@ table td
   <td class="method">draw(float time_now=al_get_time())</td>
 </tr>
 <tr>
-  <td class="method">obtain_render_surface()</td>
+  <td class="method">get_display_backbuffer()</td>
 </tr>
 <tr>
   <td class="method">calc_local_time_now(float time_now=al_get_time())</td>
@@ -1809,9 +1802,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ClubCatt::Logo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ClubCatt/Logo.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -11937,10 +11927,6 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">render_surface</td>
-  <td class="property">AllegroFlare::RenderSurfaces::Base*</td>
-</tr>
-<tr>
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
@@ -11963,9 +11949,6 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">set_render_surface(AllegroFlare::RenderSurfaces::Base* render_surface=nullptr)</td>
-</tr>
 <tr>
   <td class="method">initialize()</td>
 </tr>
@@ -11998,9 +11981,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -35540,13 +35520,6 @@ table td
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo"
   ],
-  "AllegroFlare/RenderSurfaces/Base": [
-    "AllegroFlare/ClubCatt/Logo",
-    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
-  ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/ColorKit",
     "AllegroFlare/Elements/AchievementsList",
@@ -37996,6 +37969,11 @@ table td
   ],
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/RenderSurfaces/Base": [
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"

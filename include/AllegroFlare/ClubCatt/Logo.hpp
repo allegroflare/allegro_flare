@@ -5,7 +5,6 @@
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/ClubCatt/Logo.hpp>
 #include <AllegroFlare/ModelBin.hpp>
-#include <AllegroFlare/RenderSurfaces/Base.hpp>
 #include <AllegroFlare/Timeline/Track.hpp>
 #include <allegro5/allegro.h>
 #include <functional>
@@ -19,7 +18,6 @@ namespace AllegroFlare
       class Logo
       {
       private:
-         AllegroFlare::RenderSurfaces::Base* render_surface;
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::ModelBin* model_bin;
          std::string model_identifier;
@@ -46,13 +44,12 @@ namespace AllegroFlare
 
 
       public:
-         Logo(AllegroFlare::RenderSurfaces::Base* render_surface=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
+         Logo(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr);
          ~Logo();
 
          void set_clear_background_to_color(bool clear_background_to_color);
          void set_on_finished_callback(std::function<void(AllegroFlare::ClubCatt::Logo*, void*)> on_finished_callback);
          void set_on_finished_callback_user_data(void* on_finished_callback_user_data);
-         AllegroFlare::RenderSurfaces::Base* get_render_surface() const;
          AllegroFlare::BitmapBin* get_bitmap_bin() const;
          AllegroFlare::ModelBin* get_model_bin() const;
          bool get_playing() const;
@@ -62,7 +59,6 @@ namespace AllegroFlare
          void* get_on_finished_callback_user_data() const;
          bool get_initialized() const;
          bool get_destroyed() const;
-         void set_render_surface(AllegroFlare::RenderSurfaces::Base* render_surface=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr);
          void initialize();
@@ -71,7 +67,7 @@ namespace AllegroFlare
          void play(float time_now=al_get_time());
          void update(float time_now=al_get_time());
          void draw(float time_now=al_get_time());
-         ALLEGRO_BITMAP* obtain_render_surface();
+         ALLEGRO_BITMAP* get_display_backbuffer();
          float calc_local_time_now(float time_now=al_get_time());
       };
    }

@@ -14,9 +14,8 @@ namespace ClubCatt
 {
 
 
-Logo::Logo(AllegroFlare::RenderSurfaces::Base* render_surface, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bin)
-   : render_surface(render_surface)
-   , bitmap_bin(bitmap_bin)
+Logo::Logo(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bin)
+   : bitmap_bin(bitmap_bin)
    , model_bin(model_bin)
    , model_identifier("centered_unit_cube-02.obj")
    , cube_texture1_identifier("clubcatt_cube_texture-01.png")
@@ -61,12 +60,6 @@ void Logo::set_on_finished_callback(std::function<void(AllegroFlare::ClubCatt::L
 void Logo::set_on_finished_callback_user_data(void* on_finished_callback_user_data)
 {
    this->on_finished_callback_user_data = on_finished_callback_user_data;
-}
-
-
-AllegroFlare::RenderSurfaces::Base* Logo::get_render_surface() const
-{
-   return render_surface;
 }
 
 
@@ -124,19 +117,6 @@ bool Logo::get_destroyed() const
 }
 
 
-void Logo::set_render_surface(AllegroFlare::RenderSurfaces::Base* render_surface)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Logo::set_render_surface]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::set_render_surface: error: guard \"(!initialized)\" not met");
-   }
-   this->render_surface = render_surface;
-   return;
-}
-
 void Logo::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))
@@ -186,12 +166,12 @@ void Logo::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Logo::initialize: error: guard \"model_bin\" not met");
    }
-   if (!(render_surface))
+   if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Logo::initialize]: error: guard \"render_surface\" not met.";
+      error_message << "[Logo::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::initialize: error: guard \"render_surface\" not met");
+      throw std::runtime_error("Logo::initialize: error: guard \"al_get_current_display()\" not met");
    }
    // Setup the camera
    camera.stepout = {0, 0, 80}; // Step back from the origin, note 100 will clip past the far plane
@@ -373,7 +353,7 @@ void Logo::draw(float time_now)
    ALLEGRO_TRANSFORM previous_transform;
    if (transform_before_render) al_copy_transform(&previous_transform, transform_before_render);
 
-   camera.setup_projection_on(obtain_render_surface());
+   camera.setup_projection_on(get_display_backbuffer());
    al_clear_depth_buffer(1);
    if (clear_background_to_color) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
 
@@ -387,18 +367,10 @@ void Logo::draw(float time_now)
    return;
 }
 
-ALLEGRO_BITMAP* Logo::obtain_render_surface()
+ALLEGRO_BITMAP* Logo::get_display_backbuffer()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Logo::obtain_render_surface]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::obtain_render_surface: error: guard \"initialized\" not met");
-   }
    // TODO: Validate backbuffer has depth
-   // TODO: Validate is target
-   return render_surface->obtain_surface();//al_get_backbuffer(al_get_current_display());
+   return al_get_backbuffer(al_get_current_display());
 }
 
 float Logo::calc_local_time_now(float time_now)
