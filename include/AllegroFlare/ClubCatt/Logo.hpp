@@ -67,7 +67,7 @@ namespace AllegroFlare
          void play(float time_now=al_get_time());
          void update(float time_now=al_get_time());
          void draw(float time_now=al_get_time());
-         ALLEGRO_BITMAP* get_display_backbuffer();
+         ALLEGRO_BITMAP* get_render_surface();
          float calc_local_time_now(float time_now=al_get_time());
       };
    }

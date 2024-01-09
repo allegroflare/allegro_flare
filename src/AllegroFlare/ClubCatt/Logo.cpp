@@ -353,7 +353,7 @@ void Logo::draw(float time_now)
    ALLEGRO_TRANSFORM previous_transform;
    if (transform_before_render) al_copy_transform(&previous_transform, transform_before_render);
 
-   camera.setup_projection_on(get_display_backbuffer());
+   camera.setup_projection_on(get_render_surface());
    al_clear_depth_buffer(1);
    if (clear_background_to_color) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
 
@@ -367,10 +367,11 @@ void Logo::draw(float time_now)
    return;
 }
 
-ALLEGRO_BITMAP* Logo::get_display_backbuffer()
+ALLEGRO_BITMAP* Logo::get_render_surface()
 {
    // TODO: Validate backbuffer has depth
-   return al_get_backbuffer(al_get_current_display());
+   //return al_get_backbuffer(al_get_current_display());
+   return al_get_target_bitmap(); // Assume the target bitmap is the preferred render surface
 }
 
 float Logo::calc_local_time_now(float time_now)
