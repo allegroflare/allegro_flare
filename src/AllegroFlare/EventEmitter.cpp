@@ -133,6 +133,19 @@ void EventEmitter::emit_event_to_disable_fullscreen()
    return;
 }
 
+void EventEmitter::emit_event_to_set_display_size(int width, int height)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_event_to_set_display_size]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_event_to_set_display_size: error: guard \"initialized\" not met");
+   }
+   emit_event(ALLEGRO_FLARE_EVENT_SET_DISPLAY_SIZE, width, height);
+   return;
+}
+
 void EventEmitter::emit_dialog_open_event(std::string dialog_node_name_to_open)
 {
    if (!(initialized))

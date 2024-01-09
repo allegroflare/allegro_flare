@@ -102,11 +102,11 @@ public:
          "%SEPARATOR",
          "N", "%SPACER", "LABEL>>", "Post a notification",
          "%SEPARATOR",
-         "1", "%SPACER", "LABEL>>", "[-] 1920x1080",
+         "1", "%SPACER", "LABEL>>", "1920x1080",
          "%SEPARATOR",
-         "2", "%SPACER", "LABEL>>", "[] 1080x1920",
+         "2", "%SPACER", "LABEL>>", "1080x1920",
          "%SEPARATOR",
-         "3", "%SPACER", "LABEL>>", "[--] 2520x1080",
+         "3", "%SPACER", "LABEL>>", "2520x1080",
          "%SEPARATOR",
          "F", "%SPACER", "LABEL>>", "Toggle fullscreen"
       };
@@ -123,7 +123,15 @@ public:
       }
       else if (ev->keyboard.keycode == ALLEGRO_KEY_1)
       {
-         //event_emitter->emit_event_to_toggle_fullscreen();
+         event_emitter->emit_event_to_set_display_size(1920, 1080);
+      }
+      else if (ev->keyboard.keycode == ALLEGRO_KEY_2)
+      {
+         event_emitter->emit_event_to_set_display_size(1080, 1920);
+      }
+      else if (ev->keyboard.keycode == ALLEGRO_KEY_3)
+      {
+         event_emitter->emit_event_to_set_display_size(2520, 1080);
       }
       else if (ev->keyboard.keycode == ALLEGRO_KEY_F)
       {

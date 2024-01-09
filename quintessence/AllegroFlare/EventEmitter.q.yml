@@ -99,6 +99,22 @@ functions:
       - ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN
 
 
+  - name: emit_event_to_set_display_size
+    parameters:
+      - name: width
+        type: int
+        default_argument: 1920
+      - name: height
+        type: int
+        default_argument: 1080
+    guards: [ initialized ]
+    body: |
+      emit_event(ALLEGRO_FLARE_EVENT_SET_DISPLAY_SIZE, width, height);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN
+
+
   - name: emit_dialog_open_event
     parameters:
       - name: dialog_node_name_to_open

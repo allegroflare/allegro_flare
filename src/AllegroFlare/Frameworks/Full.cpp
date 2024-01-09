@@ -1547,15 +1547,15 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                case ALLEGRO_KEY_F: {
                   toggle_display_fullscreen();
                } break;
-               case ALLEGRO_KEY_1: {
-                  set_window_size(1920, 1080);
-               } break;
-               case ALLEGRO_KEY_2: {
-                  set_window_size(1080, 1920);
-               } break;
-               case ALLEGRO_KEY_3: {
-                  set_window_size(2520, 1080);
-               } break;
+               //case ALLEGRO_KEY_1: {
+                  //set_window_size(1920, 1080);
+               //} break;
+               //case ALLEGRO_KEY_2: {
+                  //set_window_size(1080, 1920);
+               //} break;
+               //case ALLEGRO_KEY_3: {
+                  //set_window_size(2520, 1080);
+               //} break;
                case ALLEGRO_KEY_FULLSTOP: {
                   nudge_primary_timer_forward();
                } break;
@@ -1837,6 +1837,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
                switch(this_event.type)
                {
+                  case ALLEGRO_FLARE_EVENT_SET_DISPLAY_SIZE: {
+                     int width = this_event.user.data1;
+                     int height = this_event.user.data1;
+                     set_window_size(width, height);
+                  } break;
+
                   case ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER: {
                      int microseconds = this_event.user.data1;
                      offset_primary_timer(microseconds);
