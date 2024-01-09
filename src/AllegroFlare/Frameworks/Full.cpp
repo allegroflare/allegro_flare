@@ -1128,9 +1128,16 @@ void Full::primary_update()
 {
    // update
    // TODO: Consider the ordering of this, if events may be emitted or state modified
+   double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
+   screens.primary_update_funcs(delta_time); // Game will typically use *either* _timer_funcs on its own OR use the
+                                     // _update and _render funcs.
    motions.update(time_now);
    achievements.check_all();
    dialog_system.update(time_now);
+
+   //double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
+   //screens.primary_update_funcs(delta_time); // Game will typically use *either* _timer_funcs on its own OR use the
+                                     // _update and _render funcs.
    // TODO: Add screens.primary_update(time_now, deltatime);
 }
 
@@ -1158,7 +1165,9 @@ void Full::render_screens_to_primary_render_surface()
    }
    else
    {
-      screens.primary_timer_funcs();
+      screens.primary_timer_funcs(); // Game will typically use *either* _timer_funcs on its own OR use the
+                                     // _update and _render funcs.
+      screens.primary_render_funcs();
    }
 
 

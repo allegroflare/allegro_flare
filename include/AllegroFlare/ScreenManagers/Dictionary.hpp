@@ -72,6 +72,8 @@ namespace AllegroFlare
 
          // for processing
          void on_events(ALLEGRO_EVENT *ev);
+         void primary_update_funcs(double delta_time);
+         void primary_render_funcs();
          void primary_timer_funcs();
          void timer_funcs();
          void display_switch_in_funcs();

@@ -350,6 +350,22 @@ void Dictionary::on_events(ALLEGRO_EVENT *ev)
 }
 
 
+void Dictionary::primary_update_funcs(double delta_time)
+{
+   for (auto &screen : screens)
+      if (disabled_screens_receive_events || screen.second.active)
+         screen.second.screen->managed_primary_update_func(delta_time);
+}
+
+
+void Dictionary::primary_render_funcs()
+{
+   for (auto &screen : screens)
+      if (disabled_screens_receive_events || screen.second.active)
+         screen.second.screen->managed_primary_render_func();
+}
+
+
 void Dictionary::primary_timer_funcs()
 {
    for (auto &screen : screens)
