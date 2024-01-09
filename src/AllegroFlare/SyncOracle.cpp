@@ -446,8 +446,7 @@ void SyncOracle::end_flip_measure()
       if (most_recent_flip_duration > calculate_frame_duration_sec())
       {
          // TODO: Track this autonudge
-         nudge_primary_timer_backward();
-         nudge_primary_timer_backward();
+         nudge_primary_timer(-2);
       }
    }
 }
