@@ -91,7 +91,8 @@ Full::Full()
    , output_auto_created_config_warning(true)
    , set_primary_render_surface_as_target_before_calling_primary_timer_funcs(true)
    , clear_render_surface_before_calling_primary_timer_funcs(true)
-   , using_display_backbuffer_as_primary_render_surface(true)
+   //, using_display_backbuffer_as_primary_render_surface(true)
+   , using_display_backbuffer_as_primary_render_surface(false)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , input_hints_text_opacity(0.4)
    , input_hints_backfill_color(ALLEGRO_COLOR{0, 0, 0, 0})
@@ -533,6 +534,7 @@ bool Full::initialize_display_and_render_pipeline()
                                                               // needs of the game, but is setup here as a reasonable
                                                               // default
 
+   //using_display_backbuffer_as_primary_render_surface = false;
    if (using_display_backbuffer_as_primary_render_surface)
    {
       // use the display_backbuffer as our render surface
@@ -540,10 +542,12 @@ bool Full::initialize_display_and_render_pipeline()
    }
    else
    {
+      std::cout << "Setting up a bitmap buffer as a primary render surface" << std::endl;
       // TODO: Implement this new reality please!
       AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
       bitmap_render_surface->setup_surface_with_settings_that_match_display(primary_display->al_display, 1920, 1080);
       primary_render_surface = bitmap_render_surface;
+      std::cout << "Now using RenderSurfaces::Bitmap as a primary render surface" << std::endl;
    }
 
 
@@ -1220,9 +1224,9 @@ void Full::render_screens_to_primary_render_surface()
       al_use_shader(NULL); // TODO: consider side-effects of this
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
 
-      /* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
+      ///* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
          // fit the display
-         //ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+         ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
          ALLEGRO_TRANSFORM transform;
          al_identity_transform(&transform);
          al_orthographic_transform(
@@ -1231,15 +1235,15 @@ void Full::render_screens_to_primary_render_surface()
             0,
             -1.0,
             // OPTION A:
-               //al_get_bitmap_width(backbuffer),
-               //al_get_bitmap_height(backbuffer),
+               al_get_bitmap_width(backbuffer),
+               al_get_bitmap_height(backbuffer),
             // OPTION B:
-               al_get_bitmap_width(primary_render_surface->obtain_surface()),
-               al_get_bitmap_height(primary_render_surface->obtain_surface()),
+               //al_get_bitmap_width(primary_render_surface->obtain_surface()),
+               //al_get_bitmap_height(primary_render_surface->obtain_surface()),
             1.0
          );
          al_use_projection_transform(&transform);
-      */
+      //*/
 
 
 
@@ -1250,7 +1254,22 @@ void Full::render_screens_to_primary_render_surface()
       //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // may want this?
       //al_set_render_state(ALLEGRO_DEPTH_TEST, 0); // may want this?
       //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGB); // may want this?
-      al_draw_bitmap(bitmap, 0, 0, 0);
+      // previously: al_draw_bitmap(bitmap, 0, 0, 0);
+      //int hheight = 
+      
+      al_draw_scaled_bitmap(
+         bitmap, //ALLEGRO_BITMAP *bitmap,
+         0, // sx
+         0, // sy
+         al_get_bitmap_width(bitmap),
+         al_get_bitmap_height(bitmap),
+         0,
+         0,
+         al_get_bitmap_width(backbuffer), //1920, // The final display height, taking into account the projection
+         al_get_bitmap_height(backbuffer), //1080, // The final display width, taking into account the projection
+         0
+         //float dx, float dy, float dw, float dh, int flags
+      );
       if (post_processing_shader) post_processing_shader->deactivate();
 
       //al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
