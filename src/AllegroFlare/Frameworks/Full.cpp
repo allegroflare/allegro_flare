@@ -627,8 +627,6 @@ void Full::initialize_sync_oracle()
    sync_oracle.set_display(primary_display->al_display);
    sync_oracle.set_target_fps(60);
    sync_oracle.set_primary_event_queue(event_queue);
-   //sync_oracle.activate_hyper_timer();
-   //sync_oracle.activate_auto_nudge();
    sync_oracle.initialize();
 
 }
