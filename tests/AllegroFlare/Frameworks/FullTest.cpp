@@ -100,6 +100,8 @@ public:
       std::vector<std::string> tokens = {
          "ESC", "%SPACER", "LABEL>>", "Exit test",
          "%SEPARATOR",
+         "N", "%SPACER", "LABEL>>", "Post a notification"
+         "%SEPARATOR",
          "F", "%SPACER", "LABEL>>", "Toggle fullscreen"
       };
       event_emitter->emit_set_input_hints_bar_event(tokens);
@@ -108,15 +110,15 @@ public:
    virtual void primary_timer_func() override {}
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
-      //if (ev->keyboard.keycode == ALLEGRO_KEY_N)
-      //{
-         //std::string achievement_name_to_emit = randomly_select_an_achievement_name();
-         //event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
-      //}
-      //else if (ev->keyboard.keycode == ALLEGRO_KEY_F)
-      //{
-         //event_emitter->emit_event_to_toggle_fullscreen(); // HERE
-      //}
+      if (ev->keyboard.keycode == ALLEGRO_KEY_N)
+      {
+         std::string achievement_name_to_emit = randomly_select_an_achievement_name();
+         event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
+      }
+      else if (ev->keyboard.keycode == ALLEGRO_KEY_F)
+      {
+         event_emitter->emit_event_to_toggle_fullscreen();
+      }
    }
    std::string randomly_select_an_achievement_name()
    {

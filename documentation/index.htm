@@ -12909,6 +12909,15 @@ table td
   <td class="method">emit_router_event(uint32_t router_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f)</td>
 </tr>
 <tr>
+  <td class="method">emit_event_to_toggle_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">emit_event_to_enable_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">emit_event_to_disable_fullscreen()</td>
+</tr>
+<tr>
   <td class="method">emit_dialog_open_event(std::string dialog_node_name_to_open=&quot;[unset-dialog_node_name_to_open]&quot;)</td>
 </tr>
 <tr>
@@ -13003,6 +13012,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_ROUTER&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
@@ -36892,6 +36910,15 @@ table td
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_ROUTER": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [

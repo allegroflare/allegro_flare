@@ -72,6 +72,33 @@ functions:
       - ALLEGRO_FLARE_EVENT_ROUTER
 
 
+  - name: emit_event_to_toggle_fullscreen
+    guards: [ initialized ]
+    body: |
+      emit_event(ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN
+
+
+  - name: emit_event_to_enable_fullscreen
+    guards: [ initialized ]
+    body: |
+      emit_event(ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN
+
+
+  - name: emit_event_to_disable_fullscreen
+    guards: [ initialized ]
+    body: |
+      emit_event(ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN
+
+
   - name: emit_dialog_open_event
     parameters:
       - name: dialog_node_name_to_open
@@ -461,6 +488,12 @@ dependencies:
   - symbol: ALLEGRO_USER_EVENT
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_FLARE_EVENT_ROUTER
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE
     headers: [ AllegroFlare/EventNames.hpp ]

@@ -94,6 +94,45 @@ void EventEmitter::emit_router_event(uint32_t router_event, AllegroFlare::RouteE
    return;
 }
 
+void EventEmitter::emit_event_to_toggle_fullscreen()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_event_to_toggle_fullscreen]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_event_to_toggle_fullscreen: error: guard \"initialized\" not met");
+   }
+   emit_event(ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN);
+   return;
+}
+
+void EventEmitter::emit_event_to_enable_fullscreen()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_event_to_enable_fullscreen]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_event_to_enable_fullscreen: error: guard \"initialized\" not met");
+   }
+   emit_event(ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN);
+   return;
+}
+
+void EventEmitter::emit_event_to_disable_fullscreen()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[EventEmitter::emit_event_to_disable_fullscreen]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EventEmitter::emit_event_to_disable_fullscreen: error: guard \"initialized\" not met");
+   }
+   emit_event(ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN);
+   return;
+}
+
 void EventEmitter::emit_dialog_open_event(std::string dialog_node_name_to_open)
 {
    if (!(initialized))

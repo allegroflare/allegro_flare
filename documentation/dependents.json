@@ -2174,6 +2174,15 @@
   "ALLEGRO_FLARE_EVENT_ROUTER": [
     "AllegroFlare/EventEmitter"
   ],
+  "ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE": [
     "AllegroFlare/EventEmitter"
   ],
