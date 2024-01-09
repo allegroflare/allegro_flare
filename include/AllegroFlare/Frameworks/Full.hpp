@@ -66,6 +66,7 @@ namespace AllegroFlare
          VirtualControlsProcessor virtual_controls_processor;
          AllegroFlare::Routers::Base* router;
          ALLEGRO_TEXTLOG *textlog;
+         int initial_target_fps;
          int render_surface_multisamples;
          int render_surface_depth_size;
          int render_surface_adapter;
@@ -158,6 +159,8 @@ namespace AllegroFlare
          Display *get_primary_display();
          void set_primary_display_icon_image_identifier(std::string image_identifier);
 
+         void set_initial_target_fps(int initial_target_fps=60);
+         int get_initial_target_fps();
          void set_render_surface_multisamples(int render_surface_multisamples=4);
          RenderSurfaces::Base *get_primary_render_surface();
          AllegroFlare::Shaders::Base *get_post_processing_shader();

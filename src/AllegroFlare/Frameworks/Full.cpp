@@ -65,6 +65,7 @@ Full::Full()
    , virtual_controls_processor()
    , router(nullptr)
    , textlog(nullptr)
+   , initial_target_fps(60)
    , render_surface_multisamples(4)
    , render_surface_depth_size(32)
    , render_surface_adapter(-1)
@@ -563,6 +564,36 @@ bool Full::initialize_display_and_render_pipeline()
 
 
 
+void Full::set_initial_target_fps(int initial_target_fps)
+{
+   if (initial_target_fps <= 0 || initial_target_fps > 240)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::set_initial_target_fps",
+         "initial_target_fps cannot be <= 0 or > 240" // 240 is only for sanity, it could work in theory.
+      );
+   }
+
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::set_initial_target_fps",
+         "Could not set because the framework has already been initialized. You must call this function before init."
+      );
+   }
+
+   this->initial_target_fps = initial_target_fps;
+}
+
+
+
+int Full::get_initial_target_fps()
+{
+   return initial_target_fps;
+}
+
+
+
 void Full::set_render_surface_multisamples(int render_surface_multisamples)
 {
    if (initialized)
@@ -625,7 +656,7 @@ AllegroFlare::Shaders::Base *Full::get_shader_target_for_hotloading()
 void Full::initialize_sync_oracle()
 {
    sync_oracle.set_display(primary_display->al_display);
-   sync_oracle.set_target_fps(60);
+   sync_oracle.set_target_fps(initial_target_fps);
    sync_oracle.set_primary_event_queue(event_queue);
    sync_oracle.initialize();
 
