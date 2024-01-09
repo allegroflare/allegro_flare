@@ -71,7 +71,7 @@ Full::Full()
    , primary_display(nullptr)
    , primary_display_icon_image_identifier("allegro-flare-generic-icon-1024.png")
    //, primary_display_sub_bitmap_for_overlay(nullptr)
-   , primary_timer(nullptr)
+   //, primary_timer(nullptr)
    , camera_2d()
    , showing_dialog_switched_in_debug_text(false)
    , display_backbuffer()
@@ -301,12 +301,12 @@ bool Full::initialize_core_system()
 
 
    //bool using_instrumentation = true;
-   if (using_instrumentation)
-   {
-      logger_instance.initialize_instrumentation_log_file();
+   //if (using_instrumentation)
+   //{
+      //logger_instance.initialize_instrumentation_log_file();
       //AllegroFlare::Logger::initialize_instrumentation_log_file();
       //AllegroFlare::Logger::initialize_instrumentation_log_file(&logger_instance);
-   }
+   //}
 
 
    if (!al_init()) std::cerr << "al_init() failed" << std::endl;
@@ -352,7 +352,7 @@ bool Full::initialize_core_system()
 
    srand(time(NULL));
 
-   primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   //primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
 
    if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
@@ -360,7 +360,7 @@ bool Full::initialize_core_system()
    al_register_event_source(event_queue, al_get_keyboard_event_source());
    al_register_event_source(event_queue, al_get_mouse_event_source());
    al_register_event_source(event_queue, al_get_joystick_event_source());
-   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    al_register_event_source(event_queue, al_get_default_menu_event_source());
 
 
@@ -856,11 +856,11 @@ bool Full::shutdown()
    initialized = false;
 
 
-   if (using_instrumentation)
-   {
-      logger_instance.close_instrumentation_log_file();
+   //if (using_instrumentation)
+   //{
+      //logger_instance.close_instrumentation_log_file();
       //AllegroFlare::Logger::initialize_instrumentation_log_file(&logger_instance);
-   }
+   //}
 
 
    AllegroFlare::Logger::clear_instance();
@@ -1090,6 +1090,9 @@ bool Full::get_drawing_inputs_bar_overlay()
 
 bool Full::offset_primary_timer(int microseconds)
 {
+   sync_oracle.nudge_primary_timer_forward();
+   //throw std::runtime
+   /*
    if (!primary_timer)
    {
       throw std::runtime_error("Frameworks::Full: offset_primary_timer: primary_timer cannot be nullptr");
@@ -1115,6 +1118,7 @@ bool Full::offset_primary_timer(int microseconds)
    std::cout << "  Offset processed over " << actual_offset_int << " microseconds ("
              << offset_difference
              << ")." << std::endl;
+   */
 
    return true;
 }
@@ -1239,33 +1243,34 @@ void Full::primary_flip()
 
 void Full::nudge_primary_timer_forward()
 {
-   int MICROSECONDS_PER_FRAME = 16670; // TODO: Make this relative to the actual FPS
-   int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-   event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+   //int MICROSECONDS_PER_FRAME = 16670; // TODO: Make this relative to the actual FPS
+   //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+   //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
 }
 
 
 void Full::nudge_primary_timer_backward()
 {
-   int MICROSECONDS_PER_FRAME = 16670; // TODO: Make this relative to the actual FPS
-   int microseconds_to_offset = MICROSECONDS_PER_FRAME - ((MICROSECONDS_PER_FRAME / 10) * 3);
-   event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+   //int MICROSECONDS_PER_FRAME = 16670; // TODO: Make this relative to the actual FPS
+   //int microseconds_to_offset = MICROSECONDS_PER_FRAME - ((MICROSECONDS_PER_FRAME / 10) * 3);
+   //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
 }
 
 
 void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events)
 {
+   bool draw = false;
 
    //AllegroFlare::Time time;
    //time.set_absolute_now(ev->any.timestamp);
 
-   AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
-   if (using_instrumentation)
-   {
-      metric.processing_start_time = al_get_time();
-      metric.event_time = ev->any.timestamp;
-      metric.event_type = ev->type;
-   }
+   //AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
+   //if (using_instrumentation)
+   //{
+      //metric.processing_start_time = al_get_time();
+      //metric.event_time = ev->any.timestamp;
+      //metric.event_type = ev->type;
+   //}
    //metric
 
 
@@ -1286,20 +1291,52 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       switch(this_event.type)
       {
       case ALLEGRO_EVENT_TIMER:
-         if (this_event.timer.source == primary_timer)
+         if (sync_oracle.is_primary_timer_event(&this_event))
          {
-            sync_oracle.start_update_measure();
-            primary_update();
-            sync_oracle.end_update_measure();
+            sync_oracle.capture_primary_timer_event_time(this_event.any.timestamp);
+            draw = true;
+         //}
+         //if (this_event.timer.source == primary_timer)
+         //{
+            //sync_oracle.start_update_measure();
+            //primary_update();
+            //sync_oracle.end_update_measure();
 
-            sync_oracle.start_draw_measure();
-            primary_render();
-            sync_oracle.end_draw_measure();
-            //flip_sync.start_flip_capture();
-            //metric.al_flip_display_start_time = al_get_time();
-            sync_oracle.start_flip_measure(); // ---
-            primary_flip();
-            sync_oracle.end_flip_measure(); // ---
+         if (drain_sequential_timer_events)
+         {
+            ALLEGRO_EVENT next_event;
+            while (
+               al_peek_next_event(event_queue, &next_event)
+               && sync_oracle.is_primary_timer_event(&next_event)
+               //&& next_event.type == ALLEGRO_EVENT_TIMER
+               //&& next_event.timer.source == this_event.timer.source)
+               )
+            {
+               // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
+               // problems as experienced on some machines.
+               al_drop_next_event(event_queue);
+               //metric.primary_timer_events_dropped++;
+               // HERE: Track when and how often events are dropped and see if there is a correlation 
+            }
+         }
+
+            /*
+            if (draw)
+            {
+               sync_oracle.start_update_measure();
+               primary_update();
+               sync_oracle.end_update_measure();
+
+               sync_oracle.start_draw_measure();
+               primary_render();
+               sync_oracle.end_draw_measure();
+               //flip_sync.start_flip_capture();
+               //metric.al_flip_display_start_time = al_get_time();
+               sync_oracle.start_flip_measure(); // ---
+               primary_flip();
+               sync_oracle.end_flip_measure(); // ---
+            }
+            */
             //metric.al_flip_display_end_time = al_get_time();
             //flip_sync.end_flip_capture();
          }
@@ -1312,20 +1349,20 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             screens.timer_funcs();
          }
 
-         if (drain_sequential_timer_events)
-         {
-            ALLEGRO_EVENT next_event;
-            while (al_peek_next_event(event_queue, &next_event)
-               && next_event.type == ALLEGRO_EVENT_TIMER
-               && next_event.timer.source == this_event.timer.source)
-            {
+         //if (drain_sequential_timer_events)
+         //{
+            //ALLEGRO_EVENT next_event;
+            //while (al_peek_next_event(event_queue, &next_event)
+               //&& next_event.type == ALLEGRO_EVENT_TIMER
+               //&& next_event.timer.source == this_event.timer.source)
+            //{
                // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
                // problems as experienced on some machines.
-               al_drop_next_event(event_queue);
-               metric.primary_timer_events_dropped++;
+               //al_drop_next_event(event_queue);
+               //metric.primary_timer_events_dropped++;
                // HERE: Track when and how often events are dropped and see if there is a correlation 
-            }
-         }
+            //}
+         //}
       break;
 
       case ALLEGRO_EVENT_KEY_DOWN: {
@@ -2030,11 +2067,26 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       }
 
 
-   if (using_instrumentation)
-   {
-      metric.processing_end_time = al_get_time();
-      logger_instance.outstream_instrumentation_metric(&metric);
-   }
+            if (draw)
+            {
+               sync_oracle.start_update_measure();
+               primary_update();
+               sync_oracle.end_update_measure();
+
+               sync_oracle.start_draw_measure();
+               primary_render();
+               sync_oracle.end_draw_measure();
+               //flip_sync.start_flip_capture();
+               //metric.al_flip_display_start_time = al_get_time();
+               sync_oracle.start_flip_measure(); // ---
+               primary_flip();
+               sync_oracle.end_flip_measure(); // ---
+            }
+   //if (using_instrumentation)
+   //{
+      //metric.processing_end_time = al_get_time();
+      //logger_instance.outstream_instrumentation_metric(&metric);
+   //}
 }
 
 
@@ -2063,14 +2115,14 @@ int Full::process_events_in_queue()
 
 void Full::run_loop(float auto_shutdown_after_seconds)
 {
-   al_wait_for_vsync();
+   //al_wait_for_vsync();
    //std::this_thread::sleep_for(std::chrono::microseconds(8000));
-   al_start_timer(primary_timer);
+   //al_start_timer(primary_timer);
    event_emitter.emit_game_event(AllegroFlare::GameEvent("initialize"));
    if (router) event_emitter.emit_router_event(1); //AllegroFlare::GameEvent("initialize"));
    float loop_started_at = al_get_time();
 
-   offset_primary_timer(4000); // Maybe this is the magic number
+   //offset_primary_timer(4000); // Maybe this is the magic number
                                // TODO: See if this offset has any reasonable effect
                                // Doing so will attempt to set the primary timer to *start* at the beginning
                                // of the "vblank" (when the frame has finished flipping)
@@ -2093,7 +2145,7 @@ void Full::run_loop(float auto_shutdown_after_seconds)
       }
    }
 
-   al_stop_timer(primary_timer);
+   //al_stop_timer(primary_timer);
 }
 
 
