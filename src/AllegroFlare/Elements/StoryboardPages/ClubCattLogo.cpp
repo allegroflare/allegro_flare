@@ -15,8 +15,9 @@ namespace StoryboardPages
 {
 
 
-ClubCattLogo::ClubCattLogo(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bin)
+ClubCattLogo::ClubCattLogo(AllegroFlare::RenderSurfaces::Base* render_surface, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::ModelBin* model_bin)
    : AllegroFlare::Elements::StoryboardPages::Base(AllegroFlare::Elements::StoryboardPages::ClubCattLogo::TYPE)
+   , render_surface(render_surface)
    , bitmap_bin(bitmap_bin)
    , model_bin(model_bin)
    , clubcatt_logo()
@@ -42,6 +43,12 @@ void ClubCattLogo::set_model_bin(AllegroFlare::ModelBin* model_bin)
 }
 
 
+AllegroFlare::RenderSurfaces::Base* ClubCattLogo::get_render_surface() const
+{
+   return render_surface;
+}
+
+
 AllegroFlare::BitmapBin* ClubCattLogo::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -53,6 +60,19 @@ AllegroFlare::ModelBin* ClubCattLogo::get_model_bin() const
    return model_bin;
 }
 
+
+void ClubCattLogo::set_render_surface(AllegroFlare::RenderSurfaces::Base* render_surface)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ClubCattLogo::set_render_surface]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ClubCattLogo::set_render_surface: error: guard \"(!initialized)\" not met");
+   }
+   this->render_surface = render_surface;
+   return;
+}
 
 void ClubCattLogo::initialize()
 {
@@ -77,7 +97,15 @@ void ClubCattLogo::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ClubCattLogo::initialize: error: guard \"model_bin\" not met");
    }
+   if (!(render_surface))
+   {
+      std::stringstream error_message;
+      error_message << "[ClubCattLogo::initialize]: error: guard \"render_surface\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ClubCattLogo::initialize: error: guard \"render_surface\" not met");
+   }
    set_finished(false);
+   clubcatt_logo.set_render_surface(render_surface);
    clubcatt_logo.set_bitmap_bin(bitmap_bin);
    clubcatt_logo.set_model_bin(model_bin);
    clubcatt_logo.initialize();

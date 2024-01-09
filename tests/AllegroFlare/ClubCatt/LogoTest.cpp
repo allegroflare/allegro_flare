@@ -8,6 +8,7 @@
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/CubemapBuilder.hpp>
 #include <AllegroFlare/Placement3D.hpp>
+#include <AllegroFlare/RenderSurfaces/DisplayBackbuffer.hpp>
 
 
 class AllegroFlare_ClubCatt_LogoTest: public ::testing::Test {};
@@ -17,10 +18,14 @@ class AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest : public Allegro
 
 TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_appear_as_expected)
 {
+   AllegroFlare::RenderSurfaces::DisplayBackbuffer render_surface;
+   render_surface.set_display(get_display()); // TODO: Not sure how this should be destroyed
+   render_surface.initialize();
    AllegroFlare::ModelBin model_bin;
    model_bin.set_path(get_fixtures_path() + "models");
 
    AllegroFlare::ClubCatt::Logo logo;
+   logo.set_render_surface(&render_surface);
    logo.set_bitmap_bin(&get_bitmap_bin_ref());
    logo.set_model_bin(&model_bin);
    logo.initialize();
@@ -45,11 +50,15 @@ TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest, VISUAL__will_a
 TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest,
    initialize__will_allocate_some_resources_through_the_bins)
 {
+   AllegroFlare::RenderSurfaces::DisplayBackbuffer render_surface;
+   render_surface.set_display(get_display()); // TODO: Not sure how this should be destroyed
+   render_surface.initialize();
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    AllegroFlare::ModelBin model_bin;
    model_bin.set_path(get_fixtures_path() + "models");
 
    AllegroFlare::ClubCatt::Logo logo;
+   logo.set_render_surface(&render_surface);
    logo.set_bitmap_bin(&bitmap_bin);
    logo.set_model_bin(&model_bin);
    logo.initialize();
@@ -62,11 +71,15 @@ TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest,
 TEST_F(AllegroFlare_ClubCatt_LogoWithAllegroRenderingFixtureTest,
    destroy__will_deallocate_the_aquired_resources_in_the_bins)
 {
+   AllegroFlare::RenderSurfaces::DisplayBackbuffer render_surface;
+   render_surface.set_display(get_display()); // TODO: Not sure how this should be destroyed
+   render_surface.initialize();
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    AllegroFlare::ModelBin model_bin;
    model_bin.set_path(get_fixtures_path() + "models");
 
    AllegroFlare::ClubCatt::Logo logo;
+   logo.set_render_surface(&render_surface);
    logo.set_bitmap_bin(&bitmap_bin);
    logo.set_model_bin(&model_bin);
    logo.initialize();

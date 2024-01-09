@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: render_surface
+    type: AllegroFlare::RenderSurfaces::Base*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: explicit
+
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
@@ -41,10 +48,22 @@ properties:
 functions:
 
 
+  - name: set_render_surface
+    parameters:
+      - name: render_surface
+        type: AllegroFlare::RenderSurfaces::Base*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->render_surface = render_surface;
+      return;
+
+
   - name: initialize
-    guards: [ (!initialized), bitmap_bin, model_bin ]
+    guards: [ (!initialized), bitmap_bin, model_bin, render_surface ]
     body: |
       set_finished(false);
+      clubcatt_logo.set_render_surface(render_surface);
       clubcatt_logo.set_bitmap_bin(bitmap_bin);
       clubcatt_logo.set_model_bin(model_bin);
       clubcatt_logo.initialize();
@@ -111,5 +130,7 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::ModelBin
     headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: AllegroFlare::RenderSurfaces::Base
+    headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
 
 

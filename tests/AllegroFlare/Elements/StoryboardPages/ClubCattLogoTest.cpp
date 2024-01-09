@@ -4,6 +4,7 @@
 #include <AllegroFlare/Elements/StoryboardPages/ClubCattLogo.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/RenderSurfaces/DisplayBackbuffer.hpp>
 
 
 class AllegroFlare_Elements_StoryboardPages_ClubCattLogoTest : public ::testing::Test
@@ -39,10 +40,15 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_ClubCattLogoTest, type__has_the_exp
 TEST_F(AllegroFlare_Elements_StoryboardPages_ClubCattLogoTestWithAllegroRenderingFixture,
    VISUAL__will_appear_as_expected)
 {
+   AllegroFlare::RenderSurfaces::DisplayBackbuffer render_surface;
+   render_surface.set_display(get_display()); // TODO: Not sure how this should be destroyed
+   render_surface.initialize();
+
    AllegroFlare::ModelBin model_bin;
    model_bin.set_path(get_fixtures_path() + "models");
 
    AllegroFlare::Elements::StoryboardPages::ClubCattLogo clubcatt_logo_element;
+   clubcatt_logo_element.set_render_surface(&render_surface);
    clubcatt_logo_element.set_bitmap_bin(&get_bitmap_bin_ref());
    clubcatt_logo_element.set_model_bin(&model_bin);
    clubcatt_logo_element.initialize();

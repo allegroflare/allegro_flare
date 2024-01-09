@@ -1,19 +1,26 @@
 properties:
 
 
+  - name: render_surface
+    type: AllegroFlare::RenderSurfaces::Base*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: explicit
+
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
     getter: true
-    setter: false
+    setter: explicit
 
   - name: model_bin
     type: AllegroFlare::ModelBin*
     init_with: nullptr
     constructor_arg: true
     getter: true
-    setter: false
+    setter: explicit
 
   - name: model_identifier
     type: std::string
@@ -105,6 +112,17 @@ properties:
 functions:
 
 
+  - name: set_render_surface
+    parameters:
+      - name: render_surface
+        type: AllegroFlare::RenderSurfaces::Base*
+        default_argument: nullptr
+    guards: [ (!initialized) ]
+    body: |
+      this->render_surface = render_surface;
+      return;
+
+
   - name: set_bitmap_bin
     parameters:
       - name: bitmap_bin
@@ -128,7 +146,7 @@ functions:
 
 
   - name: initialize
-    guards: [ (!initialized), bitmap_bin, model_bin, al_get_current_display() ]
+    guards: [ (!initialized), bitmap_bin, model_bin, render_surface ]
     body: |
       // Setup the camera
       camera.stepout = {0, 0, 80}; // Step back from the origin, note 100 will clip past the far plane
@@ -295,7 +313,7 @@ functions:
       ALLEGRO_TRANSFORM previous_transform;
       if (transform_before_render) al_copy_transform(&previous_transform, transform_before_render);
 
-      camera.setup_projection_on(get_display_backbuffer());
+      camera.setup_projection_on(obtain_render_surface());
       al_clear_depth_buffer(1);
       if (clear_background_to_color) al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1.0});
 
@@ -311,11 +329,13 @@ functions:
       - AllegroFlare::Placement3D
 
 
-  - name: get_display_backbuffer
+  - name: obtain_render_surface
     type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
     body: |
       // TODO: Validate backbuffer has depth
-      return al_get_backbuffer(al_get_current_display());
+      // TODO: Validate is target
+      return render_surface->obtain_surface();//al_get_backbuffer(al_get_current_display());
 
 
   - name: calc_local_time_now
@@ -351,5 +371,7 @@ dependencies:
     headers: [ AllegroFlare/Placement3D.hpp ]
   - symbol: AllegroFlare::ClubCatt::Logo
     headers: [ AllegroFlare/ClubCatt/Logo.hpp ]
+  - symbol: AllegroFlare::RenderSurfaces::Base
+    headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
 
 

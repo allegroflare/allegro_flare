@@ -800,6 +800,13 @@
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo"
   ],
+  "AllegroFlare/RenderSurfaces/Base": [
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+  ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/ColorKit",
     "AllegroFlare/Elements/AchievementsList",
@@ -3249,11 +3256,6 @@
   ],
   "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/RenderSurfaces/Base": [
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"
