@@ -1227,6 +1227,9 @@ void Full::render_screens_to_primary_render_surface()
       ///* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
          // fit the display
          ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
+         int display_natural_width = al_get_bitmap_width(backbuffer);
+         int display_natural_height = al_get_bitmap_height(backbuffer);
+
          ALLEGRO_TRANSFORM transform;
          al_identity_transform(&transform);
          al_orthographic_transform(
@@ -1235,8 +1238,8 @@ void Full::render_screens_to_primary_render_surface()
             0,
             -1.0,
             // OPTION A:
-               al_get_bitmap_width(backbuffer),
-               al_get_bitmap_height(backbuffer),
+               display_natural_width, //al_get_bitmap_width(backbuffer),
+               display_natural_height, //al_get_bitmap_height(backbuffer),
             // OPTION B:
                //al_get_bitmap_width(primary_render_surface->obtain_surface()),
                //al_get_bitmap_height(primary_render_surface->obtain_surface()),
@@ -1249,7 +1252,7 @@ void Full::render_screens_to_primary_render_surface()
 
       // TODO: setup the post-process shader
       // TODO: consider if disabling a depth buffer (or other flags) are needed here
-      if (post_processing_shader) post_processing_shader->activate();
+      //if (post_processing_shader) post_processing_shader->activate();
 
       //al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // may want this?
       //al_set_render_state(ALLEGRO_DEPTH_TEST, 0); // may want this?
@@ -1257,20 +1260,48 @@ void Full::render_screens_to_primary_render_surface()
       // previously: al_draw_bitmap(bitmap, 0, 0, 0);
       //int hheight = 
       
+      int surface_width = al_get_bitmap_width(bitmap);
+      int surface_height = al_get_bitmap_height(bitmap);
+
+      float surface_ar = surface_width / surface_height;
+      float x = 140;
+      float y = 80;
+      //int display_natural_width = al_get_bitmap_width(backbuffer);
+      //int display_natural_height = al_get_bitmap_height(backbuffer);
+
+      if (post_processing_shader) post_processing_shader->activate();
+
+      AllegroFlare::Placement2D render_surface_placement_on_display;
+      render_surface_placement_on_display.position =
+            // TODO: Ensure this is a pixel-friendly coord:
+            { (float)display_natural_width / 2, (float)display_natural_height / 2 }
+         ;
+      render_surface_placement_on_display.size = { (float)surface_width, (float)surface_height };
+      render_surface_placement_on_display.scale_to_fit_width_or_height(display_natural_width, display_natural_height);
+      
+      render_surface_placement_on_display.start_transform();
+      //if (post_processing_shader) post_processing_shader->activate();
+
+      /*
       al_draw_scaled_bitmap(
          bitmap, //ALLEGRO_BITMAP *bitmap,
          0, // sx
          0, // sy
          al_get_bitmap_width(bitmap),
          al_get_bitmap_height(bitmap),
-         0,
-         0,
-         al_get_bitmap_width(backbuffer), //1920, // The final display height, taking into account the projection
-         al_get_bitmap_height(backbuffer), //1080, // The final display width, taking into account the projection
+         x,
+         y,
+         display_natural_width,
+         display_natural_height,
+         //al_get_bitmap_width(backbuffer), //1920, // The final display height, taking into account the projection
+         //al_get_bitmap_height(backbuffer), //1080, // The final display width, taking into account the projection
          0
          //float dx, float dy, float dw, float dh, int flags
       );
+      */
+      al_draw_bitmap(bitmap, 0, 0, 0);
       if (post_processing_shader) post_processing_shader->deactivate();
+      render_surface_placement_on_display.restore_transform();
 
       //al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
       //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // may want this?
