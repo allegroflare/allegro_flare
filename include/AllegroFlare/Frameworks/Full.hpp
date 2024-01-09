@@ -229,7 +229,7 @@ namespace AllegroFlare
 
          void render_screens_to_primary_render_surface();
 
-         void primary_update();
+         void primary_update(double time_now, double delta_time);
          void primary_render();
          void primary_flip();
          void nudge_primary_timer_forward();

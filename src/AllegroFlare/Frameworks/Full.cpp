@@ -1124,16 +1124,19 @@ bool Full::offset_primary_timer(int microseconds)
 }
 
 
-void Full::primary_update()
+void Full::primary_update(double _time_now, double delta_time)
+//void Full::primary_update()
 {
+   // WARNING: "time_now" is a member, so _time_now is used in this scope
    // update
    // TODO: Consider the ordering of this, if events may be emitted or state modified
-   double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
-   screens.primary_update_funcs(delta_time); // Game will typically use *either* _timer_funcs on its own OR use the
+   //double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
+   screens.primary_update_funcs(time_now, delta_time);
+                                     // Game will typically use *either* _timer_funcs on its own OR use the
                                      // _update and _render funcs.
-   motions.update(time_now);
+   motions.update(_time_now);
    achievements.check_all();
-   dialog_system.update(time_now);
+   dialog_system.update(_time_now);
 
    //double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
    //screens.primary_update_funcs(delta_time); // Game will typically use *either* _timer_funcs on its own OR use the
@@ -2079,7 +2082,8 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             if (draw)
             {
                sync_oracle.start_update_measure();
-               primary_update();
+               double delta_time = 1.0; // TODO: Figure out what this should be
+               primary_update(time_now, delta_time);
                sync_oracle.end_update_measure();
 
                sync_oracle.start_draw_measure();

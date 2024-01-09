@@ -69,10 +69,10 @@ AllegroFlare::Elements::Backgrounds::Base *Base::get_foreground()
 }
 
 
-void Base::managed_primary_update_func(double delta_time)
+void Base::managed_primary_update_func(double time_now, double delta_time)
 {
    if (background) background->update(); // TODO: Pass in delta_time
-   primary_update_func(delta_time);
+   primary_update_func(time_now, delta_time);
    if (foreground) foreground->update(); // TODO: Pass in delta_time
 }
 
@@ -122,7 +122,7 @@ void Base::on_activate() {}
 
 void Base::on_deactivate() {}
 void Base::on_event(ALLEGRO_EVENT *ev) {}
-void Base::primary_update_func(double delta_time) {}
+void Base::primary_update_func(double time_now, double delta_time) {}
 void Base::primary_render_func() {}
 void Base::primary_timer_func() {}
 void Base::timer_func() {}
