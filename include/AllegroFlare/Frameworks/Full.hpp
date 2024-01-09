@@ -175,7 +175,7 @@ namespace AllegroFlare
          void enable_log_file();
          void disable_log_file();
          void disable_mipmapping();
-         void disable_fullscreen();
+         void disable_fullscreen(); // TODO: rename this to *_at_startup or something similar
          void disable_unset_deployment_environment_warning_on_initialization();
          void set_deployment_environment(std::string);
          bool is_deployment_environment_production();

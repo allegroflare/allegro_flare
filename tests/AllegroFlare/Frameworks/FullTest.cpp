@@ -116,26 +116,31 @@ public:
    virtual void primary_timer_func() override {}
    virtual void key_down_func(ALLEGRO_EVENT *ev) override
    {
-      if (ev->keyboard.keycode == ALLEGRO_KEY_N)
+      switch(ev->keyboard.keycode)
       {
-         std::string achievement_name_to_emit = randomly_select_an_achievement_name();
-         event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
-      }
-      else if (ev->keyboard.keycode == ALLEGRO_KEY_1)
-      {
-         event_emitter->emit_event_to_set_display_size(1920, 1080);
-      }
-      else if (ev->keyboard.keycode == ALLEGRO_KEY_2)
-      {
-         event_emitter->emit_event_to_set_display_size(1080, 1920);
-      }
-      else if (ev->keyboard.keycode == ALLEGRO_KEY_3)
-      {
-         event_emitter->emit_event_to_set_display_size(2520, 1080);
-      }
-      else if (ev->keyboard.keycode == ALLEGRO_KEY_F)
-      {
-         event_emitter->emit_event_to_toggle_fullscreen();
+         case ALLEGRO_KEY_N: {
+            std::string achievement_name_to_emit = randomly_select_an_achievement_name();
+            event_emitter->emit_post_unlocked_achievement_notification_event(achievement_name_to_emit);
+         } break;
+
+         case ALLEGRO_KEY_1: {
+            event_emitter->emit_event_to_set_display_size(1920, 1080);
+         } break;
+
+         case ALLEGRO_KEY_2: {
+            event_emitter->emit_event_to_set_display_size(1080, 1920);
+         } break;
+
+         case ALLEGRO_KEY_3: {
+            event_emitter->emit_event_to_set_display_size(2520, 1080);
+         } break;
+
+         case ALLEGRO_KEY_F: {
+            event_emitter->emit_event_to_toggle_fullscreen();
+         } break;
+
+         default: {
+         } break;
       }
    }
    std::string randomly_select_an_achievement_name()
@@ -634,10 +639,10 @@ TEST(AllegroFlare_Frameworks_FullTest, set_disply_to_windowed__will_toggle_the_d
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
-   FOCUS__INTERACTIVE__will_toggle_the_display_between_windowed_and_fullscreen)
+   INTERACTIVE__will_toggle_the_display_between_windowed_and_fullscreen)
 {
    AllegroFlare::Frameworks::Full framework;
-   //framework.disable_fullscreen();
+   framework.disable_fullscreen();
    framework.set_deployment_environment("test");
    framework.initialize();
 
@@ -645,7 +650,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
    framework.register_and_activate_screen("screen_test_class", &screen_test_class);
 
-   framework.run_loop(6);
+   framework.run_loop(7);
 }
 
 

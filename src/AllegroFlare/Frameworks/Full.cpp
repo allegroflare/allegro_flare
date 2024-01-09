@@ -809,10 +809,23 @@ std::string Full::get_data_folder_path()
 
 void Full::set_window_size(int width, int height)
 {
-   bool resize_result = al_resize_display(primary_display->al_display, width, height);
-   if (!resize_result)
+   if (fullscreen)
    {
-      throw std::runtime_error("Set Window Size couldn't work fam!");
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Frameworks::Full::set_window_size",
+         "Cannot set the display size while in FULLSCREEN_WINDOW"
+      );
+   }
+   else
+   {
+      bool resize_was_successful = al_resize_display(primary_display->al_display, width, height);
+      if (!resize_was_successful)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Frameworks::Full::set_window_size",
+            "Allegro returned false while trying to resize the display."
+         );
+      }
    }
 }
 
@@ -1544,9 +1557,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          {
             switch (Full::current_event->keyboard.keycode)
             {
-               case ALLEGRO_KEY_F: {
-                  toggle_display_fullscreen();
-               } break;
+               //case ALLEGRO_KEY_F: {
+                  //toggle_display_fullscreen();
+               //} break;
                //case ALLEGRO_KEY_1: {
                   //set_window_size(1920, 1080);
                //} break;
@@ -1841,6 +1854,20 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      int width = this_event.user.data1;
                      int height = this_event.user.data1;
                      set_window_size(width, height);
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN: {
+                     toggle_display_fullscreen();
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN: {
+                     // TODO: Test this
+                     set_display_to_fullscreen();
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN: {
+                     // TODO: Test this
+                     set_display_to_windowed();
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER: {
