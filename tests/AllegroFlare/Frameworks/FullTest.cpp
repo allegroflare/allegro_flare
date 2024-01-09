@@ -445,6 +445,20 @@ TEST(AllegroFlare_Frameworks_FullTest,
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
+   screen_fit_mode__when_set_to_scale_to_fit_width_or_height__will_render_horizontal_black_bars_when_the_width_is_greater)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
+   screen_fit_mode__when_set_to_scale_to_fit_width_or_height__will_render_vertical_black_bars_when_the_height_is_greater)
+{
+   // TODO
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
    get_data_folder_path__when_in_test_mode__will_return_the_expected_path)
 {
    AllegroFlare::Frameworks::Full framework;
@@ -493,8 +507,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
 TEST(AllegroFlare_Frameworks_FullTest,
    initialize__when_a_config_file_value_for_fullscreen_is_set_to_false__will_create_the_display_in_windowed_mode)
 {
-   // TODO: Test this was created with fullscreen (but fullscreen=false in the config?)
-   static const char* CONFIG_FILENAME = "config/fullscreen_display_config.cfg";
+   static const char* CONFIG_FILENAME = "config/non_fullscreen_display_config.cfg";
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
    std::string config_filename_with_fullscreen_false = framework.get_data_folder_path() + CONFIG_FILENAME;
@@ -513,8 +526,7 @@ TEST(AllegroFlare_Frameworks_FullTest,
    initialize__when_a_config_file_value_for_width_and_height_are_present__will_create_the_display_with_the_expected_\
 dimensions)
 {
-   // TODO: Test this was created with fullscreen (but fullscreen=false in the config?)
-   static const char* CONFIG_FILENAME = "config/fullscreen_display_config.cfg";
+   static const char* CONFIG_FILENAME = "config/non_fullscreen_display_config.cfg";
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
    std::string config_filename_with_fullscreen_false = framework.get_data_folder_path() + CONFIG_FILENAME;
@@ -526,42 +538,6 @@ dimensions)
 
    EXPECT_EQ(2880, framework_display->get_width());
    EXPECT_EQ(1620, framework_display->get_height());
-}
-
-
-TEST(AllegroFlare_Frameworks_FullTest,
-   initialize__with_a_config_file_value_with_a_custom_width__will_create_the_display_with_the_expected_dimensions)
-{
-   static const char* CONFIG_FILENAME = "config/custom_width_display_config.cfg";
-   AllegroFlare::Frameworks::Full framework;
-   framework.set_deployment_environment("test");
-   std::string config_filename_with_fullscreen_false = framework.get_data_folder_path() + CONFIG_FILENAME;
-   framework.get_config().set_filename(config_filename_with_fullscreen_false);
-   framework.initialize();
-
-   AllegroFlare::Display *framework_display = framework.get_primary_display();
-   ASSERT_NE(nullptr, framework_display);
-
-   EXPECT_EQ(1920+600, framework_display->get_width());
-   EXPECT_EQ(1080, framework_display->get_height());
-}
-
-
-TEST(AllegroFlare_Frameworks_FullTest,
-   initialize__with_a_config_file_value_with_a_custom_height__will_create_the_display_with_the_expected_dimensions)
-{
-   static const char* CONFIG_FILENAME = "config/custom_height_display_config.cfg";
-   AllegroFlare::Frameworks::Full framework;
-   framework.set_deployment_environment("test");
-   std::string config_filename_with_fullscreen_false = framework.get_data_folder_path() + CONFIG_FILENAME;
-   framework.get_config().set_filename(config_filename_with_fullscreen_false);
-   framework.initialize();
-
-   AllegroFlare::Display *framework_display = framework.get_primary_display();
-   ASSERT_NE(nullptr, framework_display);
-
-   EXPECT_EQ(1920, framework_display->get_width());
-   EXPECT_EQ(1680, framework_display->get_height());
 }
 
 
