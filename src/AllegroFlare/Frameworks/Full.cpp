@@ -1211,7 +1211,10 @@ void Full::render_screens_to_primary_render_surface()
 
    //camera_2d.setup_dimensional_projection();//display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
    primary_render_surface->set_as_target();
-   camera_2d.setup_dimensional_projection(al_get_target_bitmap());//display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
+   camera_2d.setup_dimensional_projection(al_get_target_bitmap()); // TODO: Look inot if this cleares the
+                                                                   // z-buffer or not
+
+         //display_backbuffer_sub_bitmap.get_display_backbuffer_sub_bitmap());
    // Consider resetting/restoring the projection on this surface
 
    al_use_shader(NULL); // TODO: consider side-effects of this
