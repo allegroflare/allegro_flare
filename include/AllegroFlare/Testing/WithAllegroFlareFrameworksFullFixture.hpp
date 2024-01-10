@@ -61,6 +61,7 @@ namespace AllegroFlare
          std::string get_test_name();
          std::string get_test_suite_name();
          std::string build_full_test_name_str();
+         void capture_screenshot(std::string base_filename="WithAllegroFlareFrameworksFullFixture-screenshot.png");
       };
    }
 }

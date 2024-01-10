@@ -232,6 +232,38 @@ std::string WithAllegroFlareFrameworksFullFixture::build_full_test_name_str()
    return get_test_suite_name() + " - " + get_test_name();
 }
 
+void WithAllegroFlareFrameworksFullFixture::capture_screenshot(std::string base_filename)
+{
+   // TODO: use AllegroFlare::Testing::TestNameInference for this logic
+   std::string full_file_save_location = test_snapshots_folder + base_filename;
+
+   al_flip_display(); // this capture_screenshot technique assumes the pixels to capture are currently being
+                      // shown on the display.  This al_flip_display is added here in order to flip the
+                      // front-buffer *back* to the backbuffer so it can be used to capture the screenshot
+
+   // TODO: Consider using the primary rendering surface instead of the display
+   ALLEGRO_BITMAP *bitmap_to_save = al_get_backbuffer(framework.get_primary_display()->al_display);
+
+   bool screenshot_successful = al_save_bitmap(full_file_save_location.c_str(), bitmap_to_save);
+   if (screenshot_successful)
+   {
+      // TODO: Use Logger
+      std::cout //<< AllegroFlare::TerminalColors::CYAN
+                << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: info: screenshot saved to "
+                << "\"" << full_file_save_location << "\""
+                //<< AllegroFlare::TerminalColors::DEFAULT
+                << std::endl;
+   }
+   else
+   {
+      std::cout //<< AllegroFlare::TerminalColors::RED
+                << "[AllegroFlare::Testing::WithAllegroRenderingFixture::screenshot]: error: screenshot "
+                << "CAPTURE was not successful when trying to saving to \"" << full_file_save_location << "\""
+                //<< AllegroFlare::TerminalColors::DEFAULT
+                << std::endl;
+   }
+}
+
 
 } // namespace Testing
 } // namespace AllegroFlare
