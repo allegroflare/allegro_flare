@@ -29846,6 +29846,10 @@ table td
   <td class="property">AllegroFlare::RenderSurfaces::Base*</td>
 </tr>
 <tr>
+  <td class="property">test_prefix_tokens</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
   <td class="property">test_snapshots_folder</td>
   <td class="property">std::string</td>
 </tr>
@@ -29882,6 +29886,18 @@ table td
 </tr>
 <tr>
   <td class="method">build_full_test_name_str()</td>
+</tr>
+<tr>
+  <td class="method">extract_test_prefix_tokens()</td>
+</tr>
+<tr>
+  <td class="method">test_name_indicates_it_wants_a_screenshot()</td>
+</tr>
+<tr>
+  <td class="method">test_name_has_prefix_token(std::string possible_prefix_token=&quot;[unset-possible_prefix_token]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">capture_screenshot(std::string base_filename=&quot;WithAllegroFlareFrameworksFullFixture-screenshot.png&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -29924,6 +29940,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DeploymentEnvironment&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DeploymentEnvironment.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Testing::TestNameInference&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Testing/TestNameInference.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38239,6 +38258,10 @@ table td
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "AllegroFlare/Testing/TestNameInference": [
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -38258,9 +38281,6 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/Testing/TestNameInference": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [

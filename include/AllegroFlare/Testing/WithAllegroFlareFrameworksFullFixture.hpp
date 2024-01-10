@@ -13,6 +13,7 @@
 #include <AllegroFlare/VideoBin.hpp>
 #include <gtest/gtest.h>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -32,6 +33,7 @@ namespace AllegroFlare
          AllegroFlare::Profiler* framework_profiler;
          std::string framework_data_folder_path;
          AllegroFlare::RenderSurfaces::Base* framework_primary_render_surface;
+         std::vector<std::string> test_prefix_tokens;
          std::string test_snapshots_folder;
          bool initialized;
 
@@ -61,6 +63,9 @@ namespace AllegroFlare
          std::string get_test_name();
          std::string get_test_suite_name();
          std::string build_full_test_name_str();
+         std::vector<std::string> extract_test_prefix_tokens();
+         bool test_name_indicates_it_wants_a_screenshot();
+         bool test_name_has_prefix_token(std::string possible_prefix_token="[unset-possible_prefix_token]");
          void capture_screenshot(std::string base_filename="WithAllegroFlareFrameworksFullFixture-screenshot.png");
       };
    }

@@ -3498,6 +3498,10 @@
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "AllegroFlare/Testing/TestNameInference": [
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/Testing/CustomComparison": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
@@ -3517,9 +3521,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "AllegroFlare/Testing/TestNameInference": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [

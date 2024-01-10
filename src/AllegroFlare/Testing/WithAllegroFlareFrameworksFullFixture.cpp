@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 
+#include <AllegroFlare/Testing/TestNameInference.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -25,6 +26,7 @@ WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    , framework_profiler(nullptr)
    , framework_data_folder_path("[unset-framework_data_folder_path]")
    , framework_primary_render_surface(nullptr)
+   , test_prefix_tokens({})
    , test_snapshots_folder("[unset-test_snapshots_folder]")
    , initialized(false)
 {
@@ -105,6 +107,8 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::SetUp: error: guard \"(!initialized)\" not met");
    }
+   test_prefix_tokens = extract_test_prefix_tokens();
+
    framework.set_deployment_environment("test");
    framework.disable_auto_created_config_warning();
    framework.disable_fullscreen();
@@ -143,6 +147,12 @@ void WithAllegroFlareFrameworksFullFixture::TearDown()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::TearDown: error: guard \"initialized\" not met");
    }
+   // TODO: Test this screenshot inference and action logic
+   if (test_name_indicates_it_wants_a_screenshot())
+   {
+      capture_screenshot(build_full_test_name_str() + ".png");
+   }
+
    framework.shutdown();
    this->framework_event_emitter = nullptr;
    this->framework_bitmap_bin = nullptr;
@@ -230,6 +240,22 @@ std::string WithAllegroFlareFrameworksFullFixture::build_full_test_name_str()
 {
    // TODO: use AllegroFlare::Testing::TestNameInference for this logic
    return get_test_suite_name() + " - " + get_test_name();
+}
+
+std::vector<std::string> WithAllegroFlareFrameworksFullFixture::extract_test_prefix_tokens()
+{
+   return AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(get_test_name());
+}
+
+bool WithAllegroFlareFrameworksFullFixture::test_name_indicates_it_wants_a_screenshot()
+{
+   return test_name_has_prefix_token("CAPTURE");
+}
+
+bool WithAllegroFlareFrameworksFullFixture::test_name_has_prefix_token(std::string possible_prefix_token)
+{
+   // TODO: convert this to an std::set
+   return (std::find(test_prefix_tokens.begin(), test_prefix_tokens.end(), possible_prefix_token) != test_prefix_tokens.end());
 }
 
 void WithAllegroFlareFrameworksFullFixture::capture_screenshot(std::string base_filename)

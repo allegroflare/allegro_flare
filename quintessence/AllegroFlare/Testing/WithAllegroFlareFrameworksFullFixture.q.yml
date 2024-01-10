@@ -59,6 +59,10 @@ properties:
     init_with: nullptr
     getter: true
 
+  - name: test_prefix_tokens
+    type: std::vector<std::string>
+    init_with: '{}'
+
   - name: test_snapshots_folder
     type: std::string
     init_with: '"[unset-test_snapshots_folder]"'
@@ -77,6 +81,8 @@ functions:
     override: true
     guards: [ (!initialized) ]
     body: |
+      test_prefix_tokens = extract_test_prefix_tokens();
+
       framework.set_deployment_environment("test");
       framework.disable_auto_created_config_warning();
       framework.disable_fullscreen();
@@ -112,6 +118,12 @@ functions:
     override: true
     guards: [ initialized ]
     body: |
+      // TODO: Test this screenshot inference and action logic
+      if (test_name_indicates_it_wants_a_screenshot())
+      {
+         capture_screenshot(build_full_test_name_str() + ".png");
+      }
+
       framework.shutdown();
       this->framework_event_emitter = nullptr;
       this->framework_bitmap_bin = nullptr;
@@ -209,6 +221,31 @@ functions:
       return get_test_suite_name() + " - " + get_test_name();
 
 
+  - name: extract_test_prefix_tokens
+    type: std::vector<std::string>
+    body: |
+      return AllegroFlare::Testing::TestNameInference::extract_prefix_tokens(get_test_name());
+    body_dependency_symbols:
+      - AllegroFlare::Testing::TestNameInference
+
+
+  - name: test_name_indicates_it_wants_a_screenshot
+    type: bool
+    body: |
+      return test_name_has_prefix_token("CAPTURE");
+
+
+  - name: test_name_has_prefix_token
+    type: bool
+    parameters:
+      - name: possible_prefix_token
+        type: std::string
+        default_argument: '"[unset-possible_prefix_token]"'
+    body: |
+      // TODO: convert this to an std::set
+      return (std::find(test_prefix_tokens.begin(), test_prefix_tokens.end(), possible_prefix_token) != test_prefix_tokens.end());
+
+
   - name: capture_screenshot
     parameters:
       - name: base_filename
@@ -274,5 +311,7 @@ dependencies:
     headers: [ AllegroFlare/RenderSurfaces/Base.hpp ]
   - symbol: AllegroFlare::DeploymentEnvironment
     headers: [ AllegroFlare/DeploymentEnvironment.hpp ]
+  - symbol: AllegroFlare::Testing::TestNameInference
+    headers: [ AllegroFlare/Testing/TestNameInference.hpp ]
 
 
