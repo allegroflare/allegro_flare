@@ -33,10 +33,12 @@ namespace AllegroFlare
       int depth_size;
       int adapter;
       bool fullscreen;
+      bool resizable;
       bool initialized;
       bool destroyed;
 
       bool result_fullscreen;
+      bool result_resizable;
 
    public:
       Display(
@@ -46,7 +48,8 @@ namespace AllegroFlare
          int samples=4,
          int depth_size=32,
          int adapter=-1,
-         bool fullscreen=false
+         bool fullscreen=false,
+         bool resizable=true
       );
       virtual ~Display();
 

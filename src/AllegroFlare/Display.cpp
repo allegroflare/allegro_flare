@@ -43,7 +43,16 @@ namespace AllegroFlare
 
 
    //Display(int width, int height, int display_flags, int samples=4, int depth_size=32, int adapter=-1);
-   Display::Display(int width, int height, int display_flags__depreciated, int samples, int depth_size, int adapter, bool fullscreen)
+   Display::Display(
+         int width,
+         int height,
+         int display_flags__depreciated,
+         int samples,
+         int depth_size,
+         int adapter,
+         bool fullscreen,
+         bool resizable
+   )
       : width(width)
       , height(height)
       , display_flags__depreciated(display_flags__depreciated)
@@ -52,6 +61,7 @@ namespace AllegroFlare
       , depth_size(depth_size)
       , adapter(adapter)
       , fullscreen(fullscreen)
+      , resizable(resizable)
       , initialized(false)
       , destroyed(false)
       , result_fullscreen(false)
@@ -125,6 +135,7 @@ namespace AllegroFlare
 
       int display_flags = ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE;
       if (fullscreen) display_flags |= ALLEGRO_FULLSCREEN_WINDOW;
+      if (resizable) display_flags |= ALLEGRO_RESIZABLE;
 
       al_set_new_display_flags(display_flags);
 
@@ -146,12 +157,13 @@ namespace AllegroFlare
 
 
       result_fullscreen = al_get_display_flags(al_display) & ALLEGRO_FULLSCREEN_WINDOW;
+      result_resizable = al_get_display_flags(al_display) & ALLEGRO_RESIZABLE;
 
 
 
       std::stringstream display_message;
       display_message << "Display (" << al_display << ") created with the following configuration:" << std::endl;
-      display_message <<   "     - sample_buffers: "
+      display_message << "       - sample_buffers: "
                       << as_yes_no(al_get_display_option(al_display, ALLEGRO_SAMPLE_BUFFERS)) << std::endl;
       display_message << "             depth_size: "
                       << al_get_display_option(al_display, ALLEGRO_DEPTH_SIZE) << std::endl;
@@ -165,6 +177,8 @@ namespace AllegroFlare
                       << as_yes_no(al_get_display_flags(al_display) & ALLEGRO_OPENGL) << std::endl;
       display_message << "   as fullscreen window: "
                       << as_yes_no(result_fullscreen) << std::endl;
+      display_message << "    as resizable window: "
+                      << as_yes_no(result_resizable) << std::endl;
 
       AllegroFlare::Logger::info_from("AllegroFlare::Display::Display()", display_message.str().c_str());
  
