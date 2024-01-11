@@ -488,7 +488,7 @@ bool Full::initialize_display_and_render_pipeline()
 
    int display_width = config.get_or_default_int("display", "width", DEFAULT_DISPLAY_WIDTH);
    int display_height = config.get_or_default_int("display", "height", DEFAULT_DISPLAY_HEIGHT);
-   bool display_fullscreen = config.get_or_default_bool("display", "fullscreen", fullscreen);
+   fullscreen = config.get_or_default_bool("display", "fullscreen", fullscreen);
    bool resizable = true;
 
 
@@ -499,7 +499,7 @@ bool Full::initialize_display_and_render_pipeline()
       render_surface_multisamples,
       render_surface_depth_size,
       render_surface_adapter,
-      display_fullscreen,
+      fullscreen,
       resizable
    );
 
@@ -529,7 +529,7 @@ bool Full::initialize_display_and_render_pipeline()
    // NOTE: Fullscreen may have failed, this "fulscreen" flag is only the option being set, not the actual
    // fullscreen being active.
    // TODO: Double check the fullscreen status before setting the mouse cursor.
-   if (display_fullscreen)
+   if (fullscreen)
    {
       al_hide_mouse_cursor(primary_display->al_display);
    }
