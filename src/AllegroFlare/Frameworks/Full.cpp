@@ -511,7 +511,7 @@ bool Full::initialize_display_and_render_pipeline()
    }
 
    primary_display->initialize();
-   refresh_display_icon();
+   //refresh_display_icon();
 
 
    if (!primary_display->al_display)
@@ -520,6 +520,21 @@ bool Full::initialize_display_and_render_pipeline()
                                "the primary_display, was unable to create an al_display.");
    }
 
+
+   // Refrsh the display icon
+   refresh_display_icon();
+
+
+   // Hide the mouse cursor by default (when in fullscreen)
+   // NOTE: Fullscreen may have failed, this "fulscreen" flag is only the option being set, not the actual
+   // fullscreen being active.
+   // TODO: Double check the fullscreen status before setting the mouse cursor.
+   if (display_fullscreen)
+   {
+      al_hide_mouse_cursor(primary_display->al_display);
+   }
+
+  
 
    // Register our display with the event_queue
 
@@ -561,8 +576,6 @@ bool Full::initialize_display_and_render_pipeline()
                                                                // this should remain the same throughout
                                                                // the whole program and never be modified
 
-   // Hide the mouse cursor by default
-   al_hide_mouse_cursor(primary_display->al_display);
 
 
    return true;
@@ -691,7 +704,10 @@ void Full::disable_fullscreen()
                 << "For now, you must disable the fullscreen before initializing the framework for it to take effect."
                 << std::endl;
    }
-   if (!initialized) fullscreen = false;
+   if (!initialized)
+   {
+      fullscreen = false;
+   }
 }
 
 
@@ -839,8 +855,24 @@ void Full::set_display_to_fullscreen()
    if (!initialized) throw std::runtime_error("set_display_to_fullscreen: must_be_initialized");
    if (fullscreen) return;
 
-   // TODO: Verify through al_get_display_flags() that the value was toggled
-   al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, true);
+   bool successful = al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, true);
+   if (!successful)
+   {
+      throw std::runtime_error("(error 62e1c2): setting ALLEGRO_FULLSCREEN_WINDOW unsuccessful (not supported).");
+   }
+
+   bool is_actually_fullscreen = al_get_display_flags(primary_display->al_display) & ALLEGRO_FULLSCREEN_WINDOW;
+   if (!is_actually_fullscreen)
+   {
+      throw std::runtime_error("(error 782fa8): ALLEGRO_FULLSCREEN_WINDOW was not actually set.");
+   }
+
+   bool mouse_hidden = al_hide_mouse_cursor(primary_display->al_display);
+   if (!mouse_hidden)
+   {
+      throw std::runtime_error("(error xcb6bx): al_hide_mouse_cursor returned false.");
+   }
+
    fullscreen = true;
 }
 
@@ -852,8 +884,23 @@ void Full::set_display_to_windowed()
    if (!initialized) throw std::runtime_error("set_display_to_windowed: must_be_initialized");
    if (!fullscreen) return;
 
-   al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, false);
-   // TODO: Verify through al_get_display_flags() that the value was toggled
+   bool successful = al_set_display_flag(primary_display->al_display, ALLEGRO_FULLSCREEN_WINDOW, false);
+   if (!successful)
+   {
+      throw std::runtime_error("(error 62x1x2): setting ALLEGRO_FULLSCREEN_WINDOW unsuccessful (not supported).");
+   }
+
+   bool is_actually_fullscreen = al_get_display_flags(primary_display->al_display) & ALLEGRO_FULLSCREEN_WINDOW;
+   if (is_actually_fullscreen)
+   {
+      throw std::runtime_error("(error 7x2fax): ALLEGRO_FULLSCREEN_WINDOW was not actually set to fullscreen.");
+   }
+
+   bool mouse_shown = al_show_mouse_cursor(primary_display->al_display);
+   if (!mouse_shown)
+   {
+      throw std::runtime_error("(error ecb6b8): al_show_mouse_cursor returned false.");
+   }
    fullscreen = false;
 }
 
@@ -864,8 +911,14 @@ void Full::toggle_display_fullscreen()
    // TODO: Double check the guards on this
    if (!initialized) throw std::runtime_error("toggle_display_fullscreen: must_be_initialized");
 
-   if (fullscreen) set_display_to_windowed();
-   else set_display_to_fullscreen();
+   if (fullscreen)
+   {
+      set_display_to_windowed();
+   }
+   else
+   {
+      set_display_to_fullscreen();
+   }
 }
 
 
@@ -1539,7 +1592,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       break;
 
       case ALLEGRO_EVENT_DISPLAY_RESIZE: {
-         std::cout << "Acknoledging resize on display " << this_event.display.source << ": ("
+         std::cout << "A cknoledg ing resize on display " << this_event.display.source << ": ("
                    << "x: " << this_event.display.x
                    << ", y: " << this_event.display.y
                    << ", w: " << this_event.display.width
