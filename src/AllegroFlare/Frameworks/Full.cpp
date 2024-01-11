@@ -1592,7 +1592,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       break;
 
       case ALLEGRO_EVENT_DISPLAY_RESIZE: {
-         std::cout << "A cknoledg ing resize on display " << this_event.display.source << ": ("
+         std::cout << "Acknowledging resize on display " << this_event.display.source << ": ("
                    << "x: " << this_event.display.x
                    << ", y: " << this_event.display.y
                    << ", w: " << this_event.display.width
