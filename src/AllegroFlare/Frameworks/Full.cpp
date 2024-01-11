@@ -489,6 +489,7 @@ bool Full::initialize_display_and_render_pipeline()
    int display_width = config.get_or_default_int("display", "width", DEFAULT_DISPLAY_WIDTH);
    int display_height = config.get_or_default_int("display", "height", DEFAULT_DISPLAY_HEIGHT);
    bool display_fullscreen = config.get_or_default_bool("display", "fullscreen", fullscreen);
+   bool resizable = true;
 
 
    primary_display = new Display(
@@ -498,7 +499,8 @@ bool Full::initialize_display_and_render_pipeline()
       render_surface_multisamples,
       render_surface_depth_size,
       render_surface_adapter,
-      display_fullscreen
+      display_fullscreen,
+      resizable
    );
 
 
@@ -1535,6 +1537,18 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             //}
          //}
       break;
+
+      case ALLEGRO_EVENT_DISPLAY_RESIZE: {
+         std::cout << "Acknoledging resize on display " << this_event.display.source << ": ("
+                   << "x: " << this_event.display.x
+                   << ", y: " << this_event.display.y
+                   << ", w: " << this_event.display.width
+                   << ", h: " << this_event.display.height
+                   << ")";
+         //<< std::endl;
+         al_acknowledge_resize(this_event.display.source);
+         std::cout << "... done." << std::endl;
+      } break;
 
       case ALLEGRO_EVENT_KEY_DOWN: {
          if (this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
