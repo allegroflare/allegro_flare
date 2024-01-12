@@ -34,7 +34,6 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , bitmap_bin(bitmap_bin)
    , display(display)
    , event_emitter(event_emitter)
-   , initialized(false)
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
    , entity_pool({})
@@ -50,6 +49,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , show_visual_hint_on_suspended_gameplay(false)
    , player_controls()
    , camera_control_strategy(nullptr)
+   , initialized(false)
 {
 }
 

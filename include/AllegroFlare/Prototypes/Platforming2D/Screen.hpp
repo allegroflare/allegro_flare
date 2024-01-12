@@ -34,7 +34,6 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::Display* display;
             AllegroFlare::EventEmitter* event_emitter;
-            bool initialized;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool;
@@ -50,6 +49,7 @@ namespace AllegroFlare
             bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::VirtualController player_controls;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
+            bool initialized;
             void initialize_camera();
             void cleanup_entities_flagged_for_deletion();
             void check_player_collisions_with_doors();

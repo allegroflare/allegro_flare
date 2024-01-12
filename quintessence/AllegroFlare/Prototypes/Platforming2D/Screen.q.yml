@@ -28,10 +28,6 @@ properties:
     constructor_arg: true
     setter: false
 
-  - name: initialized
-    type: bool 
-    init_with: false
-
   - name: currently_active_map
     type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     init_with: nullptr
@@ -105,6 +101,10 @@ properties:
   - name: camera_control_strategy
     type: AllegroFlare::CameraControlStrategies2D::Base*
     init_with: nullptr
+
+  - name: initialized
+    type: bool 
+    init_with: false
 
 
 documentation:
