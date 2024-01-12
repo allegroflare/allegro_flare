@@ -34,8 +34,6 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , bitmap_bin(bitmap_bin)
    , display(display)
    , event_emitter(event_emitter)
-   , native_display_resolution_width(1920)
-   , native_display_resolution_height(1080)
    , initialized(false)
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
@@ -888,8 +886,8 @@ void Screen::draw()
    // Indicate a hint on suspended gameplay
    if (gameplay_suspended && show_visual_hint_on_suspended_gameplay)
    {
-      float surface_width = native_display_resolution_width;
-      float surface_height = native_display_resolution_height;
+      float surface_width = al_get_bitmap_width(target_bitmap);
+      float surface_height = al_get_bitmap_height(target_bitmap); //native_display_resolution_height;
       al_draw_filled_rectangle(100, 100, surface_width-100, surface_height-100, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.2});
    }
 

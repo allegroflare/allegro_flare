@@ -28,14 +28,6 @@ properties:
     constructor_arg: true
     setter: false
 
-  - name: native_display_resolution_width
-    type: int
-    init_with: 1920
-
-  - name: native_display_resolution_height
-    type: int
-    init_with: 1080
-
   - name: initialized
     type: bool 
     init_with: false
@@ -807,8 +799,8 @@ methods:
       // Indicate a hint on suspended gameplay
       if (gameplay_suspended && show_visual_hint_on_suspended_gameplay)
       {
-         float surface_width = native_display_resolution_width;
-         float surface_height = native_display_resolution_height;
+         float surface_width = al_get_bitmap_width(target_bitmap);
+         float surface_height = al_get_bitmap_height(target_bitmap); //native_display_resolution_height;
          al_draw_filled_rectangle(100, 100, surface_width-100, surface_height-100, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.2});
       }
 

@@ -34,8 +34,6 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::Display* display;
             AllegroFlare::EventEmitter* event_emitter;
-            int native_display_resolution_width;
-            int native_display_resolution_height;
             bool initialized;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
