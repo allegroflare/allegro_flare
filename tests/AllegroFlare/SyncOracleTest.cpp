@@ -60,8 +60,12 @@ TEST(AllegroFlare_SyncOracleTest, draw_metric__will_draw_the_samples)
 }
 
 
-TEST(AllegroFlare_SyncOracleTest, INTERACTIVE__will_work_as_expected)
+TEST(AllegroFlare_SyncOracleTest,
+      DISABLED__INTERACTIVE__will_work_as_expected
+      //INTERACTIVE__will_work_as_expected
+   )
 {
+   // TODO: Make this TIMED_INTERACTIVE
    // Init allegro
    al_init();
    al_install_keyboard();
