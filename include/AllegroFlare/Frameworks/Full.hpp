@@ -263,6 +263,7 @@ namespace AllegroFlare
          static constexpr char* DEFAULT_CONFIG_FILENAME = (char*)"data/config/config.cfg";
          static constexpr int DEFAULT_DISPLAY_WIDTH = 1920;
          static constexpr int DEFAULT_DISPLAY_HEIGHT = 1080;
+         static constexpr bool DEFAULT_DISPLAY_RESIZABLE_WITH_MOUSE = false;
       };
    } // namespace Frameworks
 } // namespace AllegroFlare

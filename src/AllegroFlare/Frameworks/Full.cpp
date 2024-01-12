@@ -489,7 +489,12 @@ bool Full::initialize_display_and_render_pipeline()
    int display_width = config.get_or_default_int("display", "width", DEFAULT_DISPLAY_WIDTH);
    int display_height = config.get_or_default_int("display", "height", DEFAULT_DISPLAY_HEIGHT);
    fullscreen = config.get_or_default_bool("display", "fullscreen", fullscreen);
-   bool resizable = true;
+   bool resizable_with_mouse = config.get_or_default_bool(
+         "display",
+         "resizable_with_mouse", 
+         DEFAULT_DISPLAY_RESIZABLE_WITH_MOUSE 
+      );
+   //bool resizable = true;
 
 
    primary_display = new Display(
@@ -500,7 +505,7 @@ bool Full::initialize_display_and_render_pipeline()
       render_surface_depth_size,
       render_surface_adapter,
       fullscreen,
-      resizable
+      resizable_with_mouse
    );
 
 
