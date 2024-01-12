@@ -104,7 +104,8 @@ namespace AllegroFlare
             void draw();
             void toggle_show_collision_tile_mesh();
             void toggle_show_tile_mesh();
-            virtual void primary_timer_func() override;
+            virtual void primary_update_func(double time_now=0.0, double delta_time=0.0) override;
+            virtual void primary_render_func() override;
             virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
             virtual void key_up_func(ALLEGRO_EVENT* event=nullptr) override;
             virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;

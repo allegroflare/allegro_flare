@@ -357,6 +357,7 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"al_get_current_display()\" not met");
    }
+   set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialize_camera_control();
    initialize_player_controls();
    initialize_camera();
@@ -896,9 +897,14 @@ void Screen::toggle_show_tile_mesh()
    return;
 }
 
-void Screen::primary_timer_func()
+void Screen::primary_update_func(double time_now, double delta_time)
 {
    update();
+   return;
+}
+
+void Screen::primary_render_func()
+{
    draw();
    return;
 }

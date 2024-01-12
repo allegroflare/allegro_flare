@@ -345,6 +345,7 @@ methods:
       - bitmap_bin
       - al_get_current_display()
     body: |
+      set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
       initialize_camera_control();
       initialize_player_controls();
       initialize_camera();
@@ -824,11 +825,25 @@ methods:
       return;
 
 
-  - name: primary_timer_func
+  - name: primary_update_func
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: double
+        default_argument: 0.0
+      - name: delta_time
+        type: double
+        default_argument: 0.0
+    body: |
+      update();
+      return;
+
+
+  - name: primary_render_func
     virtual: true
     override: true
     body: |
-      update();
       draw();
       return;
 
