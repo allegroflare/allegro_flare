@@ -30,6 +30,7 @@
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp>
+#include <AllegroFlare/DisplaySettingsInterfaces/Live.hpp>
 
 
 
@@ -105,6 +106,7 @@ Full::Full()
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
    , shader_source_poller()
    , shader_target_for_hotloading(nullptr)
+   , display_settings_interface(nullptr)
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
@@ -519,6 +521,11 @@ bool Full::initialize_display_and_render_pipeline()
    //refresh_display_icon();
 
 
+   //AllegroFlare::DisplaySettingsInterfaces::Base
+   //display_settings_interface = new AllegroFlare::DisplaySettingsInterfaces::Live;
+   //display_settings_interface.set_display(display);
+
+
    if (!primary_display->al_display)
    {
       throw std::runtime_error("[Frameworks::Full::initialize_display_and_render_pipeline]: FAILURE: When initializing "
@@ -530,13 +537,18 @@ bool Full::initialize_display_and_render_pipeline()
    refresh_display_icon();
 
 
+   // Setup the display settings interface
+   display_settings_interface = new AllegroFlare::DisplaySettingsInterfaces::Live(primary_display->al_display);
+   //display_settings_interface->set_display(primary_display);
+
+
    // Hide the mouse cursor by default (when in fullscreen)
    // NOTE: Fullscreen may have failed, this "fulscreen" flag is only the option being set, not the actual
    // fullscreen being active.
    // TODO: Double check the fullscreen status before setting the mouse cursor.
    if (fullscreen)
    {
-      al_hide_mouse_cursor(primary_display->al_display);
+      //al_hide_mouse_cursor(primary_display->al_display);
    }
 
   
@@ -856,6 +868,8 @@ void Full::set_window_size(int width, int height)
 
 void Full::set_display_to_fullscreen()
 {
+   display_settings_interface->activate_fullscreen();
+   return;
    // TODO: Double check the guards on this
    if (!initialized) throw std::runtime_error("set_display_to_fullscreen: must_be_initialized");
    if (fullscreen) return;
@@ -885,6 +899,8 @@ void Full::set_display_to_fullscreen()
 
 void Full::set_display_to_windowed()
 {
+   display_settings_interface->deactivate_fullscreen();
+   return;
    // TODO: Double check the guards on this
    if (!initialized) throw std::runtime_error("set_display_to_windowed: must_be_initialized");
    if (!fullscreen) return;
@@ -913,6 +929,8 @@ void Full::set_display_to_windowed()
 
 void Full::toggle_display_fullscreen()
 {
+   display_settings_interface->toggle_fullscreen();
+   return;
    // TODO: Double check the guards on this
    if (!initialized) throw std::runtime_error("toggle_display_fullscreen: must_be_initialized");
 
@@ -947,6 +965,8 @@ bool Full::shutdown()
       //}
    //}
    sync_oracle.shutdown();
+   delete display_settings_interface;
+
 
 
    // TODO audit this function

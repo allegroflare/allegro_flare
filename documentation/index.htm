@@ -111,6 +111,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/RawScriptLine.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/RawScriptLine.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Wait.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Wait.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml">quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DisplaySettingsInterfaces/Base.q.yml">quintessence/AllegroFlare/DisplaySettingsInterfaces/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DisplaySettingsInterfaces/Live.q.yml">quintessence/AllegroFlare/DisplaySettingsInterfaces/Live.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AchievementsList.q.yml">quintessence/AllegroFlare/Elements/AchievementsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingTextRenderer.q.yml">quintessence/AllegroFlare/Elements/AdvancingTextRenderer.q.yml</a></li>
@@ -208,6 +210,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml">quintessence/AllegroFlare/Elements/StoryboardPages/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Text.q.yml">quintessence/AllegroFlare/Elements/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/TextMessageBubble.q.yml">quintessence/AllegroFlare/Elements/TextMessageBubble.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/UI/IntSpinner.q.yml">quintessence/AllegroFlare/Elements/UI/IntSpinner.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/UI/SliderToggle.q.yml">quintessence/AllegroFlare/Elements/UI/SliderToggle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/WorldMapViewer.q.yml">quintessence/AllegroFlare/Elements/WorldMapViewer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml">quintessence/AllegroFlare/EncoderDecoders/Base62.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/EventEmitter.q.yml">quintessence/AllegroFlare/EventEmitter.q.yml</a></li>
@@ -404,6 +408,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/ScreenCapture.q.yml">quintessence/AllegroFlare/ScreenCapture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Achievements.q.yml">quintessence/AllegroFlare/Screens/Achievements.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml">quintessence/AllegroFlare/Screens/CharacterNameInput.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/DisplaySettings.q.yml">quintessence/AllegroFlare/Screens/DisplaySettings.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/GameWonScreen.q.yml">quintessence/AllegroFlare/Screens/GameWonScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Gameplay.q.yml">quintessence/AllegroFlare/Screens/Gameplay.q.yml</a></li>
@@ -439,6 +444,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/SyncOracle.q.yml">quintessence/AllegroFlare/SyncOracle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TemplatedText.q.yml">quintessence/AllegroFlare/TemplatedText.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock.q.yml">quintessence/AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml">quintessence/AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/Rulers.q.yml">quintessence/AllegroFlare/Testing/Rulers.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml">quintessence/AllegroFlare/Testing/TemporaryDirectoryCreator.q.yml</a></li>
@@ -4230,6 +4236,174 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitFlags&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitFlags.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DisplaySettingsInterfaces/Base.q.yml">quintessence/AllegroFlare/DisplaySettingsInterfaces/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">activate_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">deactivate_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">toggle_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">is_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">set_window_size(int width=1920, int height=1080)</td>
+</tr>
+<tr>
+  <td class="method">get_window_size()</td>
+</tr>
+<tr>
+  <td class="method">get_display_size()</td>
+</tr>
+<tr>
+  <td class="method">manually_mark_screensaver_as_inhibited()</td>
+</tr>
+<tr>
+  <td class="method">enable_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">disable_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">toggle_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">is_screensaver_inhibited()</td>
+</tr>
+<tr>
+  <td class="method">hide_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">show_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">toggle_hide_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">is_mouse_cursor_hidden()</td>
+</tr>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DisplaySettingsInterfaces/Live.q.yml">quintessence/AllegroFlare/DisplaySettingsInterfaces/Live.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">display</td>
+  <td class="property">ALLEGRO_DISPLAY*</td>
+</tr>
+<tr>
+  <td class="property">windowed_mode_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">windowed_mode_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">screensaver_inhibited</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">mouse_cursor_hidden</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">hide_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">show_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">toggle_hide_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">is_mouse_cursor_hidden()</td>
+</tr>
+<tr>
+  <td class="method">activate_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">deactivate_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">toggle_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">is_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">set_window_size(int width=1920, int height=1080)</td>
+</tr>
+<tr>
+  <td class="method">get_window_size()</td>
+</tr>
+<tr>
+  <td class="method">get_display_size()</td>
+</tr>
+<tr>
+  <td class="method">manually_mark_screensaver_as_inhibited()</td>
+</tr>
+<tr>
+  <td class="method">enable_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">disable_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">toggle_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">is_screensaver_inhibited()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DisplaySettingsInterfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DisplaySettingsInterfaces/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -12487,6 +12661,190 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/UI/IntSpinner.q.yml">quintessence/AllegroFlare/Elements/UI/IntSpinner.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">number</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">draw_centered_text(std::string text=&quot;[unset-text]&quot;, float x=1920/2, float y=1080/3, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0}, float _font_size=-34)</td>
+</tr>
+<tr>
+  <td class="method">draw_triangle_right(float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f})</td>
+</tr>
+<tr>
+  <td class="method">draw_triangle_up(float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f})</td>
+</tr>
+<tr>
+  <td class="method">draw_triangle_down(float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f})</td>
+</tr>
+<tr>
+  <td class="method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">update_state(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">is_state(uint32_t possible_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font(float _font_size=-34)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/UI/SliderToggle.q.yml">quintessence/AllegroFlare/Elements/UI/SliderToggle.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">onoff</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">on_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">off_text</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">draw_pill(std::string text=&quot;[unset-text]&quot;, float x=1920/2, float y=1080/3, float w=140, float h=60, ALLEGRO_COLOR box_color=ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0}, float _font_size=-34)</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_font(float _font_size=-34)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -25756,6 +26114,264 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/DisplaySettings.q.yml">quintessence/AllegroFlare/Screens/DisplaySettings.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">display_settings_interface</td>
+  <td class="property">AllegroFlare::DisplaySettingsInterfaces::Base*</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::DisplaySettings*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">base_font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cursor_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cursor_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">up_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">up_pressed_at</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">down_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">down_pressed_at</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_display_settings_interface(AllegroFlare::DisplaySettingsInterfaces::Base* display_settings_interface=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">exit_screen()</td>
+</tr>
+<tr>
+  <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
+</tr>
+<tr>
+  <td class="method">deactivate_up_down_keypress_repeat_tracking()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_up()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_down()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_left()</td>
+</tr>
+<tr>
+  <td class="method">move_cursor_right()</td>
+</tr>
+<tr>
+  <td class="method">infer_num_elements()</td>
+</tr>
+<tr>
+  <td class="method">infer_current_element_depth()</td>
+</tr>
+<tr>
+  <td class="method">is_cursor_at(int x=0, int y=0)</td>
+</tr>
+<tr>
+  <td class="method">activate_current_option()</td>
+</tr>
+<tr>
+  <td class="method">increment_current_option()</td>
+</tr>
+<tr>
+  <td class="method">decrement_current_option()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">do_manual_key_repat_logic()</td>
+</tr>
+<tr>
+  <td class="method">primary_update_func(double time_now=0.0, double delta_time=0.0)</td>
+</tr>
+<tr>
+  <td class="method">primary_render_func()</td>
+</tr>
+<tr>
+  <td class="method">draw_cursor_pointer(float x=0.0f, float y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f})</td>
+</tr>
+<tr>
+  <td class="method">draw_label(std::string label=&quot;[unset-label]&quot;, float x=0.0f, float y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">draw_helper_text(std::string text=&quot;[unset-text]&quot;, float x=0.0f, float y=0.0f, float width=712.0f)</td>
+</tr>
+<tr>
+  <td class="method">draw_slider_toggle_box(bool onoff=true, float x=0.0f, float y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">draw_int_spinner(int number=1920, bool selected=false, float x=0.0f, float y=0.0f, bool disabled=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">obtain_fullscreen_status()</td>
+</tr>
+<tr>
+  <td class="method">obtain_screensaver_inhibited()</td>
+</tr>
+<tr>
+  <td class="method">obtain_mouse_cursor_hidden()</td>
+</tr>
+<tr>
+  <td class="method">obtain_window_dimensions()</td>
+</tr>
+<tr>
+  <td class="method">obtain_display_dimensions()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_heading_font()</td>
+</tr>
+<tr>
+  <td class="private_method">obtain_label_font()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::DisplaySettings&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/DisplaySettings.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::UI::SliderToggle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/UI/SliderToggle.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DisplaySettingsInterfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DisplaySettingsInterfaces/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::UI::IntSpinner&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/UI/IntSpinner.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/GameOverScreen.q.yml">quintessence/AllegroFlare/Screens/GameOverScreen.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -29548,6 +30164,96 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock.q.yml">quintessence/AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">fullscreen_status</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">display_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">display_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">screensaver_inhibited</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">mouse_cursor_hidden</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">activate_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">deactivate_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">toggle_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">is_fullscreen()</td>
+</tr>
+<tr>
+  <td class="method">set_window_size(int width=1920, int height=1080)</td>
+</tr>
+<tr>
+  <td class="method">get_window_size()</td>
+</tr>
+<tr>
+  <td class="method">get_display_size()</td>
+</tr>
+<tr>
+  <td class="method">manually_mark_screensaver_as_inhibited()</td>
+</tr>
+<tr>
+  <td class="method">enable_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">disable_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">toggle_inhibit_screensaver()</td>
+</tr>
+<tr>
+  <td class="method">is_screensaver_inhibited()</td>
+</tr>
+<tr>
+  <td class="method">hide_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">show_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">toggle_hide_mouse_cursor()</td>
+</tr>
+<tr>
+  <td class="method">is_mouse_cursor_hidden()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:AllegroFlare::DisplaySettingsInterfaces::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DisplaySettingsInterfaces/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -34792,6 +35498,7 @@ table td
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/DisplaySettingsInterfaces/Live",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/Screen",
@@ -34812,6 +35519,7 @@ table td
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -34989,6 +35697,7 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -35106,6 +35815,8 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -35147,6 +35858,7 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -35224,6 +35936,8 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -35248,6 +35962,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -35290,6 +36005,7 @@ table td
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -35450,6 +36166,8 @@ table td
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
@@ -35538,6 +36256,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
@@ -35603,6 +36322,8 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -35621,6 +36342,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -35723,6 +36445,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -35882,6 +36605,7 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -36074,6 +36798,20 @@ table td
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/ShaderSourcePoller"
   ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/DisplaySettingsInterfaces/Live",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/DisplaySettingsInterfaces/Base": [
+    "AllegroFlare/DisplaySettingsInterfaces/Live",
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
@@ -36098,6 +36836,8 @@ table td
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
@@ -36205,6 +36945,7 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Gameplay",
@@ -36245,6 +36986,8 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
@@ -36458,6 +37201,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -36482,6 +37226,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -36506,6 +37251,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -37207,15 +37953,6 @@ table td
   ],
   "glEnable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "ALLEGRO_DISPLAY": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/SyncOracle",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/php": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
@@ -38105,6 +38842,15 @@ table td
   "AllegroFlare/Screens/CharacterNameInput": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
+  "AllegroFlare/Screens/DisplaySettings": [
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
+  "AllegroFlare/Elements/UI/SliderToggle": [
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
+  "AllegroFlare/Elements/UI/IntSpinner": [
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
@@ -38230,6 +38976,9 @@ table td
   ],
   "AllegroFlare/SystemInfoFetcher": [
     "AllegroFlare/SystemInfo"
+  ],
+  ":AllegroFlare/DisplaySettingsInterfaces/Base": [
+    "AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"
   ],
   "ALLEGRO_STATE": [
     "AllegroFlare/Testing/Rulers"

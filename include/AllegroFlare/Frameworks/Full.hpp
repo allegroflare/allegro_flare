@@ -35,6 +35,7 @@
 #include <AllegroFlare/Routers/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/SyncOracle.hpp>
+#include <AllegroFlare/DisplaySettingsInterfaces/Base.hpp>
 //#include <AllegroFlare/Time.hpp>
 
 
@@ -110,6 +111,7 @@ namespace AllegroFlare
          bool unset_deployment_environment_warning_on_initialization_is_disabled;
          AllegroFlare::ShaderSourcePoller shader_source_poller;
          AllegroFlare::Shaders::Base *shader_target_for_hotloading;
+         AllegroFlare::DisplaySettingsInterfaces::Base *display_settings_interface;
 
          void draw_overlay();
          void refresh_display_icon();
@@ -121,6 +123,7 @@ namespace AllegroFlare
          friend class AllegroFlare_Frameworks_FullTest;
          ALLEGRO_FONT *obtain_profiler_graph_font();
          ALLEGRO_FONT *obtain_system_text_font_medium();
+         //AllegroFlare::DisplaySettingsInterfaces::Base *display_settings_interface;
 
       public:
          Full();

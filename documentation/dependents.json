@@ -28,6 +28,7 @@
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader",
+    "AllegroFlare/DisplaySettingsInterfaces/Live",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/Screen",
@@ -48,6 +49,7 @@
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -225,6 +227,7 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -342,6 +345,8 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -383,6 +388,7 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -460,6 +466,8 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKey",
@@ -484,6 +492,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -526,6 +535,7 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -686,6 +696,8 @@
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
@@ -774,6 +786,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
@@ -839,6 +852,8 @@
     "AllegroFlare/Elements/StoryboardPages/Text",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
@@ -857,6 +872,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
@@ -959,6 +975,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -1118,6 +1135,7 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -1310,6 +1328,20 @@
     "AllegroFlare/DialogTree/YAMLLoader",
     "AllegroFlare/ShaderSourcePoller"
   ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/DisplaySettingsInterfaces/Live",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/DisplaySettingsInterfaces/Base": [
+    "AllegroFlare/DisplaySettingsInterfaces/Live",
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
   "al_draw_filled_rectangle": [
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
@@ -1334,6 +1366,8 @@
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/Text",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
@@ -1441,6 +1475,7 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/Gameplay",
@@ -1481,6 +1516,8 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/Elements/UI/IntSpinner",
+    "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
@@ -1694,6 +1731,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -1718,6 +1756,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -1742,6 +1781,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
+    "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -2443,15 +2483,6 @@
   ],
   "glEnable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "ALLEGRO_DISPLAY": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/SyncOracle",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/php": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
@@ -3341,6 +3372,15 @@
   "AllegroFlare/Screens/CharacterNameInput": [
     "AllegroFlare/Screens/CharacterNameInput"
   ],
+  "AllegroFlare/Screens/DisplaySettings": [
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
+  "AllegroFlare/Elements/UI/SliderToggle": [
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
+  "AllegroFlare/Elements/UI/IntSpinner": [
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
@@ -3466,6 +3506,9 @@
   ],
   "AllegroFlare/SystemInfoFetcher": [
     "AllegroFlare/SystemInfo"
+  ],
+  ":AllegroFlare/DisplaySettingsInterfaces/Base": [
+    "AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"
   ],
   "ALLEGRO_STATE": [
     "AllegroFlare/Testing/Rulers"
