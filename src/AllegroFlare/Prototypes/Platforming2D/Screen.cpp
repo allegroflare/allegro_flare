@@ -30,7 +30,7 @@ namespace Platforming2D
 
 
 Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
-   : AllegroFlare::Screens::Base("Prototypes::Platforming2D::Screen")
+   : AllegroFlare::Screens::Base(AllegroFlare::Prototypes::Platforming2D::Screen::TYPE)
    , bitmap_bin(bitmap_bin)
    , display(display)
    , event_emitter(event_emitter)

@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::Screens::Base
     scope: public
-    init_with: '"Prototypes::Platforming2D::Screen"'
+    init_with: AllegroFlare::Prototypes::Platforming2D::Screen::TYPE
 
 
 properties:
@@ -105,6 +105,12 @@ properties:
   - name: initialized
     type: bool 
     init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/Screen"'
+    static: true
+    constexpr: true
 
 
 documentation:

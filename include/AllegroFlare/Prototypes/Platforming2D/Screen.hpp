@@ -30,6 +30,9 @@ namespace AllegroFlare
       {
          class Screen : public AllegroFlare::Screens::Base
          {
+         public:
+            static constexpr char* TYPE = (char*)"AllegroFlare/Prototypes/Platforming2D/Screen";
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::Display* display;
