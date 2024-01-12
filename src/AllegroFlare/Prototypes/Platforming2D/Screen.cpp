@@ -281,15 +281,22 @@ void Screen::initialize_maps()
 
 void Screen::initialize_camera_control()
 {
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize_camera_control]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize_camera_control: error: guard \"player_controlled_entity\" not met");
+   }
    float assumed_tile_width = 16.0f;
    float assumed_tile_height = 16.0f;
    float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
    float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-   //AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
-      //new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
-   AllegroFlare::CameraControlStrategies2D::HorizontalRail *camera_control =
-      new AllegroFlare::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
+   AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
+      new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
+   //AllegroFlare::CameraControlStrategies2D::HorizontalRail *camera_control =
+      //new AllegroFlare::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
    camera_control->set_camera(&camera);
    camera_control->set_entity_to_follow(player_controlled_entity);
    camera_control->initialize();
