@@ -49,7 +49,7 @@ namespace AllegroFlare
          int depth_size=32,
          int adapter=-1,
          bool fullscreen=false,
-         bool resizable=true
+         bool resizable=false
       );
       virtual ~Display();
 
