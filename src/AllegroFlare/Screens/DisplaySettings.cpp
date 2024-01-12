@@ -268,8 +268,18 @@ void DisplaySettings::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DisplaySettings::on_activate: error: guard \"initialized\" not met");
    }
-   //emit_event_to_update_input_hints_bar();
-   //emit_show_and_size_input_hints_bar_event();
+   cursor_x = 0;
+   cursor_y = 0;
+   // Show input hints:
+   {
+      std::vector<std::string> tokens = {
+         "A", "%SPACER", "LABEL>>", "Toggle / choose option",
+         "%SEPARATOR",
+         "UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move cursor",
+      };
+      event_emitter->emit_set_input_hints_bar_event(tokens);
+      event_emitter->emit_show_input_hints_bar_event();
+   }
    deactivate_up_down_keypress_repeat_tracking();
    return;
 }
@@ -283,7 +293,10 @@ void DisplaySettings::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DisplaySettings::on_deactivate: error: guard \"initialized\" not met");
    }
-   //emit_hide_and_restore_size_input_hints_bar_event();
+   // Hide input hints:
+   {
+      event_emitter->emit_hide_input_hints_bar_event();
+   }
    deactivate_up_down_keypress_repeat_tracking();
    return;
 }
