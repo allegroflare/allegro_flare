@@ -15,8 +15,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest, can_be_created_without_bl
 
 TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    // TODO: Make this a TIMED_INTERACTIVE
-   //INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
-   DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
+   //DISABLED__INTERACTIVE__in_an_AllegroFlare_Frameworks_Full_context__will_run_as_expected)
 {
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");

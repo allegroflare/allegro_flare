@@ -108,10 +108,6 @@ properties:
     type: AllegroFlare::CameraControlStrategies2D::Base*
     init_with: nullptr
 
-  - name: backbuffer_sub_bitmap
-    type: ALLEGRO_BITMAP*
-    init_with: nullptr
-
 
 documentation:
 
@@ -343,27 +339,6 @@ methods:
       return;
 
 
-  - name: initialize_backbuffer_sub_bitmap
-    body: |
-      ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
-      backbuffer_sub_bitmap = al_create_sub_bitmap(
-         backbuffer,
-         0,
-         0,
-         al_get_bitmap_width(backbuffer),
-         al_get_bitmap_height(backbuffer)
-      );
-
-      if (!backbuffer_sub_bitmap)
-      {
-         std::stringstream error_message;
-         error_message << "AllegroFlare::Prototypes::Platforming2D::Screen::initialize() error: "
-                       << "could not create backbuffer_sub_bitmap";
-         throw std::runtime_error(error_message.str());
-      }
-      return;
-
-
   - name: initialize
     type: void
     guards:
@@ -372,7 +347,6 @@ methods:
     body: |
       initialize_camera_control();
       initialize_player_controls();
-      initialize_backbuffer_sub_bitmap();
       initialize_camera();
       initialized = true;
       return;
@@ -799,11 +773,14 @@ methods:
   - name: draw
     guards: [ initialized, currently_active_map, get_tile_mesh() ]
     body: |
-      camera.setup_dimensional_projection(backbuffer_sub_bitmap);
+      //ALLEGRO_STATE previous_target_bitmap;
 
-      ALLEGRO_STATE previous_target_bitmap;
-      al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
-      al_set_target_bitmap(backbuffer_sub_bitmap);
+      ALLEGRO_BITMAP *target_bitmap = al_get_target_bitmap();
+      camera.setup_dimensional_projection(target_bitmap);
+
+      //ALLEGRO_STATE previous_target_bitmap;
+      //al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
+      //al_set_target_bitmap(target_bitmap);
       camera.start_reverse_transform();
       //camera.start_transform();
 
@@ -828,7 +805,7 @@ methods:
          al_draw_filled_rectangle(100, 100, surface_width-100, surface_height-100, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.2});
       }
 
-      al_restore_state(&previous_target_bitmap);
+      //al_restore_state(&previous_target_bitmap);
       
       return;
     body_dependency_symbols:

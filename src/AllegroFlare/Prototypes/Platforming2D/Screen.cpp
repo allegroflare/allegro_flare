@@ -51,7 +51,6 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , gameplay_suspended(false)
    , player_controls()
    , camera_control_strategy(nullptr)
-   , backbuffer_sub_bitmap(nullptr)
 {
 }
 
@@ -342,27 +341,6 @@ void Screen::initialize_player_controls()
    return;
 }
 
-void Screen::initialize_backbuffer_sub_bitmap()
-{
-   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
-   backbuffer_sub_bitmap = al_create_sub_bitmap(
-      backbuffer,
-      0,
-      0,
-      al_get_bitmap_width(backbuffer),
-      al_get_bitmap_height(backbuffer)
-   );
-
-   if (!backbuffer_sub_bitmap)
-   {
-      std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::Platforming2D::Screen::initialize() error: "
-                    << "could not create backbuffer_sub_bitmap";
-      throw std::runtime_error(error_message.str());
-   }
-   return;
-}
-
 void Screen::initialize()
 {
    if (!(bitmap_bin))
@@ -381,7 +359,6 @@ void Screen::initialize()
    }
    initialize_camera_control();
    initialize_player_controls();
-   initialize_backbuffer_sub_bitmap();
    initialize_camera();
    initialized = true;
    return;
@@ -870,11 +847,14 @@ void Screen::draw()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::draw: error: guard \"get_tile_mesh()\" not met");
    }
-   camera.setup_dimensional_projection(backbuffer_sub_bitmap);
+   //ALLEGRO_STATE previous_target_bitmap;
 
-   ALLEGRO_STATE previous_target_bitmap;
-   al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
-   al_set_target_bitmap(backbuffer_sub_bitmap);
+   ALLEGRO_BITMAP *target_bitmap = al_get_target_bitmap();
+   camera.setup_dimensional_projection(target_bitmap);
+
+   //ALLEGRO_STATE previous_target_bitmap;
+   //al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
+   //al_set_target_bitmap(target_bitmap);
    camera.start_reverse_transform();
    //camera.start_transform();
 
@@ -899,7 +879,7 @@ void Screen::draw()
       al_draw_filled_rectangle(100, 100, surface_width-100, surface_height-100, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.2});
    }
 
-   al_restore_state(&previous_target_bitmap);
+   //al_restore_state(&previous_target_bitmap);
 
    return;
 }

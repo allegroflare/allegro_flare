@@ -51,7 +51,6 @@ namespace AllegroFlare
             bool gameplay_suspended;
             AllegroFlare::VirtualController player_controls;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
-            ALLEGRO_BITMAP* backbuffer_sub_bitmap;
             void initialize_camera();
             void cleanup_entities_flagged_for_deletion();
             void check_player_collisions_with_doors();
@@ -89,7 +88,6 @@ namespace AllegroFlare
             void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             void initialize_camera_control();
             void initialize_player_controls();
-            void initialize_backbuffer_sub_bitmap();
             void initialize();
             void unset_player_controlled_entity_vertical_velocity();
             void unset_player_controlled_entity_horizontal_velocity();
