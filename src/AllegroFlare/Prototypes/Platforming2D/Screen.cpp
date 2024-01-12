@@ -50,6 +50,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , player_controls()
    , camera_control_strategy(nullptr)
    , initialized(false)
+   , maps_initialized(false)
 {
 }
 
@@ -248,6 +249,13 @@ void Screen::on_deactivate()
 
 void Screen::initialize_maps()
 {
+   if (!((!maps_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize_maps]: error: guard \"(!maps_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize_maps: error: guard \"(!maps_initialized)\" not met");
+   }
    if (!((!map_dictionary.empty())))
    {
       std::stringstream error_message;
@@ -265,6 +273,8 @@ void Screen::initialize_maps()
          factory.create_tile_map(map_filename, map_name);
       entity_pool.push_back(created_map);
    }
+
+   maps_initialized = true;
 
    return;
 }

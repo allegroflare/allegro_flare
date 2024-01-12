@@ -53,6 +53,7 @@ namespace AllegroFlare
             AllegroFlare::VirtualController player_controls;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             bool initialized;
+            bool maps_initialized;
             void initialize_camera();
             void cleanup_entities_flagged_for_deletion();
             void check_player_collisions_with_doors();

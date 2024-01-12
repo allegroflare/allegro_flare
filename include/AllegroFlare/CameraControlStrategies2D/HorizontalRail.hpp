@@ -16,6 +16,8 @@ namespace AllegroFlare
 
       private:
          AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity_to_follow;
+         float tracking_target_position_x;
+         float tracking_target_position_y;
 
       protected:
 

@@ -38,6 +38,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    });
    platforming_2d.initialize_maps();
    platforming_2d.set_currently_active_map("map_a");
+   //platforming_2d.initialize();
 
    // create some entities
 

@@ -69,6 +69,8 @@ AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_mesh() const
 
 void Basic2D::destroy()
 {
+   // TODO: There could potentially be dangling members left from these objects after they are deleted. Please
+   // evaluate them individually to make sure they are not leaving anything dangling.
    if (tile_atlas)
    {
       delete tile_atlas;

@@ -106,6 +106,10 @@ properties:
     type: bool 
     init_with: false
 
+  - name: maps_initialized
+    type: bool 
+    init_with: false
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/Screen"'
@@ -227,7 +231,7 @@ methods:
 
 
   - name: initialize_maps
-    guards: [ (!map_dictionary.empty()) ]
+    guards: [ (!maps_initialized), (!map_dictionary.empty()) ]
     body: |
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
 
@@ -239,6 +243,8 @@ methods:
             factory.create_tile_map(map_filename, map_name);
          entity_pool.push_back(created_map);
       }
+
+      maps_initialized = true;
 
       return;
 

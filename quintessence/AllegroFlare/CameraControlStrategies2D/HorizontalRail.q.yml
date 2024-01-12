@@ -15,6 +15,14 @@ properties:
     getter: true
     setter: true
 
+  - name: tracking_target_position_x
+    type: float
+    init_with: 0.0
+
+  - name: tracking_target_position_y
+    type: float
+    init_with: 0.0
+
   - name: TYPE
     type: char*
     init_with: '(char*)"CameraControlStrategies2D/HorizontalRail"'
@@ -45,9 +53,14 @@ functions:
   - name: update
     virtual: true
     override: true
-    guards: [ get_camera(), entity_to_follow ]
+    guards: [ get_camera() ]
     body: |
       //camera->position = {width/2, height/2};
+      if (entity_to_follow)
+      {
+         tracking_target_position_x = entity_to_follow->get_place_ref().position.x;
+         tracking_target_position_y = entity_to_follow->get_place_ref().position.y;
+      }
 
       float assumed_tile_width = 16.0f;
       float assumed_tile_height = 16.0f;
@@ -63,12 +76,12 @@ functions:
          // see https://www.yachtclubgames.com/blog/breaking-the-nes
 
       //camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-      int room_x = (entity_to_follow->get_place_ref().position.x / room_width);
-      int room_y = (entity_to_follow->get_place_ref().position.y / room_height);
+      int room_x = (tracking_target_position_x / room_width);
+      int room_y = (tracking_target_position_y / room_height);
       get_camera_ref()->position = {room_width/2, room_height/2};
       get_camera_ref()->position += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
 
-      get_camera_ref()->position.x = entity_to_follow->get_place_ref().position.x;
+      get_camera_ref()->position.x = tracking_target_position_x;
 
       return;
 

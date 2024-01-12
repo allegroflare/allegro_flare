@@ -16,6 +16,8 @@ namespace CameraControlStrategies2D
 HorizontalRail::HorizontalRail()
    : AllegroFlare::CameraControlStrategies2D::Base(AllegroFlare::CameraControlStrategies2D::HorizontalRail::TYPE)
    , entity_to_follow(nullptr)
+   , tracking_target_position_x(0.0)
+   , tracking_target_position_y(0.0)
 {
 }
 
@@ -74,14 +76,12 @@ void HorizontalRail::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("HorizontalRail::update: error: guard \"get_camera()\" not met");
    }
-   if (!(entity_to_follow))
-   {
-      std::stringstream error_message;
-      error_message << "[HorizontalRail::update]: error: guard \"entity_to_follow\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("HorizontalRail::update: error: guard \"entity_to_follow\" not met");
-   }
    //camera->position = {width/2, height/2};
+   if (entity_to_follow)
+   {
+      tracking_target_position_x = entity_to_follow->get_place_ref().position.x;
+      tracking_target_position_y = entity_to_follow->get_place_ref().position.y;
+   }
 
    float assumed_tile_width = 16.0f;
    float assumed_tile_height = 16.0f;
@@ -97,12 +97,12 @@ void HorizontalRail::update()
       // see https://www.yachtclubgames.com/blog/breaking-the-nes
 
    //camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-   int room_x = (entity_to_follow->get_place_ref().position.x / room_width);
-   int room_y = (entity_to_follow->get_place_ref().position.y / room_height);
+   int room_x = (tracking_target_position_x / room_width);
+   int room_y = (tracking_target_position_y / room_height);
    get_camera_ref()->position = {room_width/2, room_height/2};
    get_camera_ref()->position += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
 
-   get_camera_ref()->position.x = entity_to_follow->get_place_ref().position.x;
+   get_camera_ref()->position.x = tracking_target_position_x;
 
    return;
 }

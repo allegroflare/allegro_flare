@@ -33,6 +33,8 @@ methods:
 
   - name: destroy
     body: |
+      // TODO: There could potentially be dangling members left from these objects after they are deleted. Please
+      // evaluate them individually to make sure they are not leaving anything dangling.
       if (tile_atlas)
       {
          delete tile_atlas;
