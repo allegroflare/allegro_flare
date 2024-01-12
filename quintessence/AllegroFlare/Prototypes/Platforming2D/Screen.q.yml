@@ -235,19 +235,16 @@ methods:
       {
          std::string map_name = std::get<0>(map_dictionary_entry);
          std::string map_filename = std::get<1>(map_dictionary_entry);
-         AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map_entity =
+         AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =
             factory.create_tile_map(map_filename, map_name);
 
-         if (!created_map_entity)
+         if (!created_map)
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::Prototypes::Platforming2D::Screen::initialize_maps",
                "Could not create map \"" + map_filename + "\""
             );
          }
-
-         AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* created_map =
-            static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(created_map_entity);
 
          if (!created_map->get_tile_mesh())
          {
