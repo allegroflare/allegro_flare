@@ -1,0 +1,188 @@
+parent_classes:
+
+
+  - class: ::AllegroFlare::DisplaySettingsInterfaces::Base
+    scope: public
+    init_with: ::AllegroFlare::Testing::AllegroFlare::DisplaySettingsInterfaces::DisplayMock::TYPE
+
+
+properties:
+
+
+  - name: fullscreen_status
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: display_width
+    type: int
+    init_with: 1920
+    getter: true
+    setter: false
+
+  - name: display_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: false
+
+  - name: screensaver_inhibited
+    type: bool
+    init_with: false
+
+  - name: mouse_cursor_hidden
+    type: bool
+    init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: activate_fullscreen
+    virtual: true
+    override: true
+    body: |
+      fullscreen_status = true;
+      return;
+
+
+  - name: deactivate_fullscreen
+    virtual: true
+    override: true
+    body: |
+      fullscreen_status = false;
+      return;
+
+
+  - name: toggle_fullscreen
+    virtual: true
+    override: true
+    body: |
+      fullscreen_status = !fullscreen_status;
+      return;
+
+
+  - name: is_fullscreen
+    virtual: true
+    override: true
+    type: bool
+    body: |
+      return fullscreen_status;
+
+
+  - name: set_window_size
+    virtual: true
+    override: true
+    parameters:
+      - name: width
+        type: int
+        default_argument: 1920
+      - name: height
+        type: int
+        default_argument: 1080
+    body: |
+      display_width = width;
+      display_height = height;
+      return;
+
+
+  - name: get_window_size
+    virtual: true
+    override: true
+    type: std::pair<int, int>
+    body: |
+      return std::pair<int, int>(display_width, display_height);
+
+
+  - name: get_display_size
+    virtual: true
+    override: true
+    type: std::pair<int, int>
+    body: |
+      return std::pair<int, int>(display_width+160*4, display_height+90*4);
+
+
+  - name: manually_mark_screensaver_as_inhibited
+    virtual: true
+    override: true
+    body: |
+      screensaver_inhibited = true;
+      return;
+
+
+  - name: enable_inhibit_screensaver
+    virtual: true
+    override: true
+    body: |
+      screensaver_inhibited = true;
+      return;
+
+
+  - name: disable_inhibit_screensaver
+    virtual: true
+    override: true
+    body: |
+      screensaver_inhibited = false;
+      return;
+
+
+  - name: toggle_inhibit_screensaver
+    virtual: true
+    override: true
+    body: |
+      screensaver_inhibited = !screensaver_inhibited;
+      return;
+
+
+  - name: is_screensaver_inhibited
+    type: bool
+    virtual: true
+    override: true
+    body: |
+      return screensaver_inhibited;
+
+
+  - name: hide_mouse_cursor
+    virtual: true
+    override: true
+    body: |
+      mouse_cursor_hidden = true;
+
+
+  - name: show_mouse_cursor
+    virtual: true
+    override: true
+    body: |
+      mouse_cursor_hidden = false;
+
+
+  - name: toggle_hide_mouse_cursor
+    virtual: true
+    override: true
+    body: |
+      if (mouse_cursor_hidden) show_mouse_cursor();
+      else hide_mouse_cursor();
+
+
+  - name: is_mouse_cursor_hidden
+    virtual: true
+    type: bool
+    override: true
+    body: |
+      return mouse_cursor_hidden;
+
+
+dependencies:
+
+
+  - symbol: ::AllegroFlare::DisplaySettingsInterfaces::Base
+    headers: [ AllegroFlare/DisplaySettingsInterfaces/Base.hpp ]
+
+

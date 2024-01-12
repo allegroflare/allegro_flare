@@ -1,0 +1,137 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::DisplaySettingsInterfaces::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DisplaySettingsInterfaces/Base"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: activate_fullscreen
+    virtual: true
+    body: |
+      return;
+
+
+  - name: deactivate_fullscreen
+    virtual: true
+    body: |
+      return;
+
+
+  - name: toggle_fullscreen
+    virtual: true
+    body: |
+      return;
+
+
+  - name: is_fullscreen
+    virtual: true
+    type: bool
+    body: |
+      return false;
+
+
+  - name: set_window_size
+    virtual: true
+    parameters:
+      - name: width
+        type: int
+        default_argument: 1920
+      - name: height
+        type: int
+        default_argument: 1080
+    body: |
+      return;
+
+
+  - name: get_window_size
+    virtual: true
+    type: std::pair<int, int>
+    body: |
+      return std::pair<int, int>(0, 0);
+
+
+  - name: get_display_size
+    virtual: true
+    type: std::pair<int, int>
+    body: |
+      return std::pair<int, int>(0, 0);
+
+
+  - name: manually_mark_screensaver_as_inhibited
+    virtual: true
+    body: |
+      return;
+
+
+  - name: enable_inhibit_screensaver
+    virtual: true
+    body: |
+      return;
+
+
+  - name: disable_inhibit_screensaver
+    virtual: true
+    body: |
+      return;
+
+
+  - name: toggle_inhibit_screensaver
+    virtual: true
+    body: |
+      return;
+
+
+  - name: is_screensaver_inhibited
+    type: bool
+    virtual: true
+    body: |
+      return false;
+
+
+  - name: hide_mouse_cursor
+    virtual: true
+    body: |
+      return;
+
+
+  - name: show_mouse_cursor
+    virtual: true
+    body: |
+      return;
+
+
+  - name: toggle_hide_mouse_cursor
+    virtual: true
+    body: |
+      return;
+
+
+  - name: is_mouse_cursor_hidden
+    virtual: true
+    type: bool
+    body: |
+      return false;
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+

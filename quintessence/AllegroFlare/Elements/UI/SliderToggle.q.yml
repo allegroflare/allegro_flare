@@ -1,0 +1,197 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 220.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: 60.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: onoff
+    type: bool
+    init_with: true
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -34
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: on_text
+    type: std::string
+    init_with: '"ON"'
+    getter: true
+    setter: true
+
+  - name: off_text
+    type: std::string
+    init_with: '"OFF"'
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+    body: |
+      float padding = 6;
+      float pill_width = 112;
+      float pill_height = 46;
+      float pill_y = y + height/2 - pill_height/2;
+
+      float on_x = x + padding; //width / 4 - pill_width / 2;
+      float off_x = x + width - padding - pill_width; /// 4 * 3 - pill_width / 2;
+
+      if (onoff) // when "on"
+      {
+         ALLEGRO_COLOR on_box_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+         ALLEGRO_COLOR on_text_color = ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0};
+         ALLEGRO_COLOR off_box_color = ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.0};
+         ALLEGRO_COLOR off_text_color = ALLEGRO_COLOR{0.53, 0.53, 0.53, 0.53};
+
+         draw_pill("ON", on_x, pill_y, pill_width, pill_height, on_box_color, on_text_color, font_size);
+         draw_pill("OFF", off_x, pill_y, pill_width, pill_height, off_box_color, off_text_color, font_size);
+      }
+      else // when "off"
+      {
+         //3c3d3d
+         ALLEGRO_COLOR on_box_color = ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.0};
+         ALLEGRO_COLOR on_text_color = ALLEGRO_COLOR{0.24, 0.24, 0.24, 0.24};
+         ALLEGRO_COLOR off_box_color = ALLEGRO_COLOR{0.24, 0.24, 0.24, 0.24};
+         ALLEGRO_COLOR off_text_color = ALLEGRO_COLOR{0.53, 0.53, 0.53, 0.53};
+
+         draw_pill("ON", on_x, pill_y, pill_width, pill_height, on_box_color, on_text_color, font_size);
+         draw_pill("OFF", off_x, pill_y, pill_width, pill_height, off_box_color, off_text_color, font_size);
+      }
+
+      // outter box
+      ALLEGRO_COLOR outer_box_color = ALLEGRO_COLOR{0.40, 0.40, 0.40, 0.40};
+      float outer_box_roundness = 10.0f;
+      float outer_box_thickness = 3.0f;
+      al_draw_rounded_rectangle(
+         x,
+         y,
+         x+width,
+         y+height,
+         outer_box_roundness,
+         outer_box_roundness,
+         outer_box_color,
+         outer_box_thickness
+      );
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: draw_pill
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+      - name: x
+        type: float
+        default_argument: 1920/2
+      - name: y
+        type: float
+        default_argument: 1080/3
+      - name: w
+        type: float
+        default_argument: 140
+      - name: h
+        type: float
+        default_argument: 60
+      - name: box_color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}'
+      - name: text_color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0}'
+      - name: _font_size
+        type: float
+        default_argument: -34
+    body: |
+      ALLEGRO_FONT *font = obtain_font(_font_size);
+      float text_height = al_get_font_line_height(font);
+      float center_x = int(x + w / 2);
+      float center_y = int(y - text_height/2 + h/2);
+      float inner_box_roundness = 10.0f;
+
+      al_draw_filled_rounded_rectangle(
+         x, y, x+w, y+h,
+         inner_box_roundness,
+         inner_box_roundness,
+         box_color
+      );
+      al_draw_text(font, text_color, center_x, center_y, ALLEGRO_ALIGN_CENTER, text.c_str());
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: _font_size
+        type: float
+        default_argument: -34
+    guards: [ font_bin ]
+    body: |
+      std::stringstream ss;
+      ss << "Inter-Medium.ttf " << _font_size;
+      return font_bin->auto_get(ss.str().c_str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+

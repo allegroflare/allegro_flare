@@ -1,0 +1,367 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 130.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: 60.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: -34
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: number
+    type: int
+    init_with: 1920
+    getter: true
+    setter: true
+
+  - name: state
+    type: uint32_t
+    init_with: STATE_UNDEF
+    getter: true
+    setter: explicit
+
+  - name: state_is_busy
+    type: bool
+    init_with: false
+
+  - name: state_changed_at
+    type: float
+    init_with: 0.0f
+
+
+enums:
+
+
+  - name: State
+    scope: public
+    enumerators:
+      - STATE_UNDEF
+      - STATE_ENABLED
+      - STATE_DISABLED
+      - STATE_ACTIVE_FOCUS
+
+
+methods:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized(), font_bin ]
+    body: |
+      // Draw the number
+      std::stringstream ss;
+      ss << number;
+
+      ALLEGRO_COLOR number_text_color = is_state(STATE_DISABLED)
+                                      ? ALLEGRO_COLOR{0.29, 0.29, 0.29, 0.29}
+                                      : ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+      draw_centered_text(ss.str(), x + width / 2, y + height / 2, number_text_color, font_size);
+
+      // Outter box
+      ALLEGRO_COLOR outer_box_color = is_state(STATE_ACTIVE_FOCUS)
+                                    ? ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}
+                                    : ALLEGRO_COLOR{0.40, 0.40, 0.40, 0.40};
+      float outer_box_roundness = 10.0f;
+      float outer_box_thickness = 3.0f;
+      al_draw_rounded_rectangle(
+         x,
+         y,
+         x+width,
+         y+height,
+         outer_box_roundness,
+         outer_box_roundness,
+         outer_box_color,
+         outer_box_thickness
+      );
+
+      if (is_state(STATE_ACTIVE_FOCUS))
+      {
+         // Draw triangles
+         float triangle_padding = 12;
+         float triangle_width = 40;
+         float triangle_height = 20;
+         float c_x = x+width*0.5 - triangle_width * 0.5;
+
+         // Draw triangle up
+         float ty = y - triangle_height - triangle_padding;
+         draw_triangle_up(c_x, ty, triangle_width, triangle_height, ALLEGRO_COLOR{1, 1, 1, 1});
+
+         // Draw triangle down
+         float tdy = y + height + triangle_padding;
+         draw_triangle_down(c_x, tdy, triangle_width, triangle_height, ALLEGRO_COLOR{1, 1, 1, 1});
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: draw_centered_text
+    parameters:
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+      - name: x
+        type: float
+        default_argument: 1920/2
+      - name: y
+        type: float
+        default_argument: 1080/3
+      - name: text_color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0}'
+      - name: _font_size
+        type: float
+        default_argument: -34
+    body: |
+      ALLEGRO_FONT *font = obtain_font(_font_size);
+      float text_height = al_get_font_line_height(font);
+      float center_x = int(x);
+      float center_y = int(y - text_height/2);
+      float inner_box_roundness = 10.0f;
+
+      al_draw_text(font, text_color, center_x, center_y, ALLEGRO_ALIGN_CENTER, text.c_str());
+
+
+  - name: draw_triangle_right
+    static: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 0.0f
+      - name: height
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f}
+    body: |
+      x -= width;
+      y -= height * 0.5;
+      al_draw_filled_triangle(x, y, x+width, y+height*0.5, x, y+height, color);
+      return;
+
+
+  - name: draw_triangle_up
+    static: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 0.0f
+      - name: height
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f}
+    body: |
+      al_draw_filled_triangle(x, y+height, x+width*0.5, y, x+width, y+height, color);
+      return;
+
+
+  - name: draw_triangle_down
+    static: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 0.0f
+      - name: height
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f}
+    body: |
+      al_draw_filled_triangle(x, y, x+width, y, x+width*0.5, y+height, color);
+      return;
+
+
+  - name: set_state
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+      - name: override_if_busy
+        type: bool
+        default_argument: false
+    guards: [ is_valid_state(state) ]
+    body: |
+      if (this->state == state) return;
+      if (!override_if_busy && state_is_busy) return;
+      uint32_t previous_state = this->state;
+
+      switch (state)
+      {
+         case STATE_ENABLED:
+         break;
+
+         case STATE_DISABLED:
+         break;
+
+         case STATE_ACTIVE_FOCUS:
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      this->state = state;
+      state_changed_at = al_get_time();
+
+      return;
+
+
+  - name: update_state
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    guards: [ is_valid_state(state) ]
+    body: |
+      float age = infer_current_state_age(time_now);
+
+      switch (state)
+      {
+         case STATE_ENABLED:
+         break;
+
+         case STATE_DISABLED:
+         break;
+
+         case STATE_ACTIVE_FOCUS:
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      return;
+
+
+  - name: is_valid_state
+    type: bool
+    static: true
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+      std::set<uint32_t> valid_states =
+      {
+         STATE_ENABLED,
+         STATE_DISABLED,
+         STATE_ACTIVE_FOCUS,
+      };
+      return (valid_states.count(state) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_state
+    type: bool
+    parameters:
+      - name: possible_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+     return (state == possible_state);
+
+
+  - name: infer_current_state_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return (time_now - state_changed_at);
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: _font_size
+        type: float
+        default_argument: -34
+    guards: [ font_bin ]
+    body: |
+      std::stringstream ss;
+      ss << "Inter-Medium.ttf " << _font_size;
+      return font_bin->auto_get(ss.str().c_str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+
