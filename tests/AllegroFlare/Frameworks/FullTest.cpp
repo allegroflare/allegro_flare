@@ -220,6 +220,7 @@ primary_render_surface)
    AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
 
    EXPECT_EQ(true, primary_render_surface->is_type(AllegroFlare::RenderSurfaces::Bitmap::TYPE));
+   framework.shutdown();
 }
 
 

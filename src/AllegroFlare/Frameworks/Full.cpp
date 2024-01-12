@@ -1033,6 +1033,10 @@ bool Full::shutdown()
    //Attributes::destroy_all_custom_types()
 
 
+   //AllegroFlare::Logger::set_instance(nullptr);
+   //delete logger_instance;
+
+
    al_uninstall_system(); // Note that there is risk of a crash at shutdown if assets have been created outside the
                           // lifecycle of the Framework
 
