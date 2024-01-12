@@ -49,6 +49,7 @@ namespace AllegroFlare
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
             bool gameplay_suspended;
+            bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::VirtualController player_controls;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             void initialize_camera();
@@ -69,6 +70,7 @@ namespace AllegroFlare
             void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
+            void set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on_suspended_gameplay);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::map<std::string, std::string> get_map_dictionary() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
@@ -76,6 +78,7 @@ namespace AllegroFlare
             bool get_show_tile_mesh() const;
             bool get_show_collision_tile_mesh() const;
             bool get_gameplay_suspended() const;
+            bool get_show_visual_hint_on_suspended_gameplay() const;
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
             void set_display(AllegroFlare::Display* display=nullptr);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);

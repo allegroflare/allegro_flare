@@ -100,6 +100,12 @@ properties:
     init_with: false
     getter: true
 
+  - name: show_visual_hint_on_suspended_gameplay
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: player_controls
     type: AllegroFlare::VirtualController
     init_with: ''
@@ -799,7 +805,7 @@ methods:
       camera.restore_transform();
 
       // Indicate a hint on suspended gameplay
-      if (gameplay_suspended)
+      if (gameplay_suspended && show_visual_hint_on_suspended_gameplay)
       {
          float surface_width = native_display_resolution_width;
          float surface_height = native_display_resolution_height;

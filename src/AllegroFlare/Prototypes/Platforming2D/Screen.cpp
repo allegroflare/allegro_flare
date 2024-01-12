@@ -49,6 +49,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* displ
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , gameplay_suspended(false)
+   , show_visual_hint_on_suspended_gameplay(false)
    , player_controls()
    , camera_control_strategy(nullptr)
 {
@@ -87,6 +88,12 @@ void Screen::set_show_tile_mesh(bool show_tile_mesh)
 void Screen::set_show_collision_tile_mesh(bool show_collision_tile_mesh)
 {
    this->show_collision_tile_mesh = show_collision_tile_mesh;
+}
+
+
+void Screen::set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on_suspended_gameplay)
+{
+   this->show_visual_hint_on_suspended_gameplay = show_visual_hint_on_suspended_gameplay;
 }
 
 
@@ -129,6 +136,12 @@ bool Screen::get_show_collision_tile_mesh() const
 bool Screen::get_gameplay_suspended() const
 {
    return gameplay_suspended;
+}
+
+
+bool Screen::get_show_visual_hint_on_suspended_gameplay() const
+{
+   return show_visual_hint_on_suspended_gameplay;
 }
 
 
@@ -341,30 +354,6 @@ void Screen::initialize_player_controls()
    return;
 }
 
-void Screen::initialize()
-{
-   if (!(bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
-   }
-   if (!(al_get_current_display()))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_get_current_display()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_get_current_display()\" not met");
-   }
-   set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
-   initialize_camera_control();
-   initialize_player_controls();
-   initialize_camera();
-   initialized = true;
-   return;
-}
-
 void Screen::initialize_camera()
 {
    if (!(currently_active_map))
@@ -410,6 +399,30 @@ void Screen::initialize_camera()
    //AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
    camera.position = {room_width/2, room_height/2};
 
+   return;
+}
+
+void Screen::initialize()
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
+   }
+   if (!(al_get_current_display()))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize]: error: guard \"al_get_current_display()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize: error: guard \"al_get_current_display()\" not met");
+   }
+   set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+   initialize_camera_control();
+   initialize_player_controls();
+   initialize_camera();
+   initialized = true;
    return;
 }
 
@@ -873,7 +886,7 @@ void Screen::draw()
    camera.restore_transform();
 
    // Indicate a hint on suspended gameplay
-   if (gameplay_suspended)
+   if (gameplay_suspended && show_visual_hint_on_suspended_gameplay)
    {
       float surface_width = native_display_resolution_width;
       float surface_height = native_display_resolution_height;
