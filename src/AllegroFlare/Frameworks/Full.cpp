@@ -948,6 +948,12 @@ void Full::toggle_display_fullscreen()
 }
 
 
+AllegroFlare::DisplaySettingsInterfaces::Base *Full::get_display_settings_interface()
+{
+   return display_settings_interface;
+}
+
+
 
 bool Full::shutdown()
 {

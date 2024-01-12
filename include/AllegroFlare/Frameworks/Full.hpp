@@ -190,6 +190,7 @@ namespace AllegroFlare
          void set_display_to_fullscreen();
          void set_display_to_windowed();
          void toggle_display_fullscreen();
+         AllegroFlare::DisplaySettingsInterfaces::Base *get_display_settings_interface();
 
          // Settings
          void enable_display_close_will_shutdown();
