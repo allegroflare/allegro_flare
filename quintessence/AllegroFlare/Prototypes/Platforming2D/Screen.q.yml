@@ -237,60 +237,8 @@ methods:
          std::string map_filename = std::get<1>(map_dictionary_entry);
          AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =
             factory.create_tile_map(map_filename, map_name);
-
-         if (!created_map)
-         {
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::Prototypes::Platforming2D::Screen::initialize_maps",
-               "Could not create map \"" + map_filename + "\""
-            );
-         }
-
-         if (!created_map->get_tile_mesh())
-         {
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::Prototypes::Platforming2D::Screen::initialize_maps",
-               "Could not create tile mesh on \"" + map_filename + "\""
-            );
-         }
-
-
-         if (!created_map->get_tile_mesh()->get_initialized())
-         {
-            std::cout << "ERROR: prim mesh not initialized on \"" << map_filename << "\"" << std::endl;
-         }
-         else
-         {
-            std::cout << "NOTE: prim mesh initialized on \"" << map_filename << "\" loaded successfully." << std::endl;
-         }
-
-
-         if (!created_map->get_collision_tile_mesh())
-         {
-            std::cout << "ERROR: collision tile map not loaded on \"" << map_filename << "\"" << std::endl;
-         }
-         else
-         {
-            std::cout << "NOTE: collision tile map loaded on \"" << map_filename << "\" loaded successfully." << std::endl;
-         }
-
-
-         if (!created_map->get_collision_tile_mesh())
-         {
-            std::cout << "ERROR: collision tile map not loaded on \"" << map_filename << "\"" << std::endl;
-         }
-         else
-         {
-            std::cout << "NOTE: collision tile map loaded on \"" << map_filename << "\" loaded successfully." << std::endl;
-         }
-
-
          entity_pool.push_back(created_map);
       }
-
-      // NOTE: This code to acitvely set ht emap was previously here, but shouldn't be.  It's left here 
-      // for a while as part of depreciation. Hopefully disabling it doesn't cause an issue:
-      //set_currently_active_map("map_a");
 
       return;
 

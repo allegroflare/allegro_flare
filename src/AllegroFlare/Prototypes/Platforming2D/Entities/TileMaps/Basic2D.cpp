@@ -67,6 +67,25 @@ AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_mesh() const
 }
 
 
+void Basic2D::destroy()
+{
+   if (tile_atlas)
+   {
+      delete tile_atlas;
+      tile_atlas = nullptr;
+   }
+   if (tile_mesh)
+   {
+      delete tile_mesh;
+      tile_atlas = nullptr;
+   }
+   if (collision_tile_mesh)
+   {
+      delete collision_tile_mesh;
+      tile_atlas = nullptr;
+   }
+   return;
+}
 
 
 } // namespace TileMaps

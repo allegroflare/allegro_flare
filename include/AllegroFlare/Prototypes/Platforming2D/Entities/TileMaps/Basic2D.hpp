@@ -37,6 +37,7 @@ namespace AllegroFlare
                   AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas() const;
                   AllegroFlare::TileMaps::PrimMesh* get_tile_mesh() const;
                   AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh() const;
+                  void destroy();
                };
             }
          }

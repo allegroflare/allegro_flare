@@ -558,39 +558,43 @@ functions:
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-      //throw std::runtime_error("create_tile_map not implemented!!");
-      //AllegroFlare::TileMaps::Basic2D *created_map = nullptr;
       AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;
-      AllegroFlare::TileMaps::PrimMeshAtlas *tile_atlas = nullptr; //  = tmj_mesh_loader.get_tile_atlas();
-      AllegroFlare::TileMaps::PrimMesh *tile_mesh = nullptr; // = tmj_mesh_loader.get_mesh();
-      AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr; //tmj_mesh_loader.get_collision_tile_map();
-
-
-      //created_map = new AllegroFlare::TileMaps::Basic2D;
+      AllegroFlare::TileMaps::PrimMeshAtlas *tile_atlas = nullptr;
+      AllegroFlare::TileMaps::PrimMesh *tile_mesh = nullptr;
+      AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr;
       created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
       
       AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
-
       tmj_mesh_loader.load();
 
       tile_atlas = tmj_mesh_loader.get_tile_atlas();
       tile_mesh = tmj_mesh_loader.get_mesh();
       collision_tile_mesh = tmj_mesh_loader.get_collision_tile_map();
 
-
+      if (!tile_atlas)
+      {
+         // TODO: Test this failure
+         throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create tile_atlas");
+      }
       if (!tile_mesh)
       {
+         // TODO: Test this failure
          throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create tile_mesh");
+      }
+      if (!collision_tile_mesh)
+      {
+         // TODO: Test this failure
+         throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create collision_tile_mesh");
       }
 
       created_map->set_tile_atlas(tile_atlas);
       created_map->set_tile_mesh(tile_mesh);
       created_map->set_collision_tile_mesh(collision_tile_mesh);
-      created_map->set(MAP_NAME, map_name); //"map_a"); //set_collision_tile_mesh(collision_tile_mesh);
+      created_map->set(MAP_NAME, map_name);
 
       if (init_entities_drawing_debug) created_map->set_draw_debug(true);
+
       return created_map;
-      //entities.push_back(created_map); // TODO: prevent maps from having the same name
     body_dependency_symbols:
       - AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames

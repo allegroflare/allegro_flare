@@ -28,6 +28,29 @@ properties:
     setter: true
 
 
+methods:
+
+
+  - name: destroy
+    body: |
+      if (tile_atlas)
+      {
+         delete tile_atlas;
+         tile_atlas = nullptr;
+      }
+      if (tile_mesh)
+      {
+         delete tile_mesh;
+         tile_atlas = nullptr;
+      }
+      if (collision_tile_mesh)
+      {
+         delete collision_tile_mesh;
+         tile_atlas = nullptr;
+      }
+      return;
+
+
 dependencies:
 
 
