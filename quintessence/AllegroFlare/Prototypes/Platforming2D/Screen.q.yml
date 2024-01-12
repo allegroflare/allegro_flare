@@ -316,10 +316,10 @@ methods:
       float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
       float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-      AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
-         new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
-      //Wicked::CameraControlStrategies2D::HorizontalRail *camera_control =
-         //new Wicked::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
+      //AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
+         //new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
+      AllegroFlare::CameraControlStrategies2D::HorizontalRail *camera_control =
+         new AllegroFlare::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
       camera_control->set_camera(&camera);
       camera_control->set_entity_to_follow(player_controlled_entity);
       camera_control->initialize();
@@ -336,20 +336,6 @@ methods:
   - name: initialize_player_controls
     body: |
       player_controls.clear();
-      return;
-
-
-  - name: initialize
-    type: void
-    guards:
-      - bitmap_bin
-      - al_get_current_display()
-    body: |
-      set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
-      initialize_camera_control();
-      initialize_player_controls();
-      initialize_camera();
-      initialized = true;
       return;
 
 
@@ -379,6 +365,20 @@ methods:
       //AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
       camera.position = {room_width/2, room_height/2};
 
+      return;
+
+
+  - name: initialize
+    type: void
+    guards:
+      - bitmap_bin
+      - al_get_current_display()
+    body: |
+      set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+      initialize_camera_control();
+      initialize_player_controls();
+      initialize_camera();
+      initialized = true;
       return;
 
 
