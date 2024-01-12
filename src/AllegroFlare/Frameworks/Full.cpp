@@ -844,6 +844,9 @@ std::string Full::get_data_folder_path()
 
 void Full::set_window_size(int width, int height)
 {
+   display_settings_interface->set_window_size(width, height);
+   return;
+
    if (fullscreen)
    {
       AllegroFlare::Logger::warn_from(
