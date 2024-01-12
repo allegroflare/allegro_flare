@@ -303,17 +303,6 @@ methods:
       return;
 
 
-  - name: add_entity_to_pool
-    type: void
-    parameters:
-      - name: entity
-        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
-        default_argument: nullptr
-    body: |
-      entity_pool.push_back(entity);
-      return;
-
-
   - name: initialize_camera_control
     type: void
     body: |
@@ -385,6 +374,17 @@ methods:
       initialize_player_controls();
       initialize_camera();
       initialized = true;
+      return;
+
+
+  - name: add_entity_to_pool
+    type: void
+    parameters:
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    body: |
+      entity_pool.push_back(entity);
       return;
 
 

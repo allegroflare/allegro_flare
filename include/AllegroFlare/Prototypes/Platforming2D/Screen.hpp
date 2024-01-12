@@ -88,10 +88,10 @@ namespace AllegroFlare
             virtual void on_activate() override;
             virtual void on_deactivate() override;
             void initialize_maps();
-            void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             void initialize_camera_control();
             void initialize_player_controls();
             void initialize();
+            void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             void unset_player_controlled_entity_vertical_velocity();
             void unset_player_controlled_entity_horizontal_velocity();
             void set_player_controlled_entity_jump();

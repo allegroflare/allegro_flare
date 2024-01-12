@@ -323,12 +323,6 @@ void Screen::initialize_maps()
    return;
 }
 
-void Screen::add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
-{
-   entity_pool.push_back(entity);
-   return;
-}
-
 void Screen::initialize_camera_control()
 {
    float assumed_tile_width = 16.0f;
@@ -423,6 +417,12 @@ void Screen::initialize()
    initialize_player_controls();
    initialize_camera();
    initialized = true;
+   return;
+}
+
+void Screen::add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   entity_pool.push_back(entity);
    return;
 }
 
