@@ -87,10 +87,10 @@ TEST_F(AllegroFlare_Screens_DisplaySettingsTestWithAllegroFrameworksFullFixture,
    // Custom local class option:
    //MyTestDisplaySettingsInterface display_settings_interface;
    // This is a "live" option:
-   AllegroFlare::DisplaySettingsInterfaces::Live display_settings_interface;
-   display_settings_interface.set_display(get_framework_ref().get_primary_display()->al_display);
+   //AllegroFlare::DisplaySettingsInterfaces::Live display_settings_interface;
+   //display_settings_interface.set_display(get_framework_ref().get_primary_display()->al_display);
    // Pure mock option:
-   //AllegroFlare::Testing::AllegroFlare::DisplaySettingsInterfaces::DisplayMock display_settings_interface;
+   AllegroFlare::Testing::AllegroFlare::DisplaySettingsInterfaces::DisplayMock display_settings_interface;
 
    bool inhibited = al_inhibit_screensaver(true);
    if (inhibited) display_settings_interface.manually_mark_screensaver_as_inhibited();
@@ -106,7 +106,7 @@ TEST_F(AllegroFlare_Screens_DisplaySettingsTestWithAllegroFrameworksFullFixture,
 
    framework_register_and_activate_screen("display_settings_screen", &display_settings_screen);
 
-   framework_run_loop(30);
+   framework_run_loop(3);
 }
 
 
