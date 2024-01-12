@@ -248,36 +248,43 @@ void Screen::on_deactivate()
 
 void Screen::initialize_maps()
 {
+   if (!((!map_dictionary.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize_maps]: error: guard \"(!map_dictionary.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize_maps: error: guard \"(!map_dictionary.empty())\" not met");
+   }
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map = nullptr;
 
-   // TODO: clean this up
    for (auto &map_dictionary_entry : map_dictionary)
    {
       std::string map_name = std::get<0>(map_dictionary_entry);
       std::string map_filename = std::get<1>(map_dictionary_entry);
-
-      created_map = factory.create_tile_map(map_filename, map_name);
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map =
+         factory.create_tile_map(map_filename, map_name);
 
       if (!created_map)
       {
-         std::cout << "ERROR: Could not create map \"" << map_filename << "\"" << std::endl;
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::Screen::initialize_maps",
+            "Could not create map \"" + map_filename + "\""
+         );
       }
-      else
-      {
-         std::cout << "NOTE: TMJ Tile map file \"" << map_filename << "\" loaded successfully." << std::endl;
-      }
+      //else
+      //{
+         //std::cout << "NOTE: TMJ Tile map file \"" << map_filename << "\" loaded successfully." << std::endl;
+      //}
 
       AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* __created_map =
          static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(created_map);
 
       if (!__created_map->get_tile_mesh())
       {
-         std::cout << "ERROR: could not create tile mesh on \"" << map_filename << "\"" << std::endl;
-      }
-      else
-      {
-         std::cout << "NOTE: TMJ Tile loaded tile mesh \"" << map_filename << "\" loaded successfully." << std::endl;
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::Screen::initialize_maps",
+            "Could not create tile mesh on \"" + map_filename + "\""
+         );
       }
 
 

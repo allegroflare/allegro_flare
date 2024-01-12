@@ -21,6 +21,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment("test");
    framework.disable_auto_created_config_warning();
+   //framework.disable_clear_render_surface_before_calling_primary_timer_funcs();
    framework.disable_fullscreen();
    framework.initialize();
 
