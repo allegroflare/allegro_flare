@@ -53,7 +53,8 @@ functions:
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
       ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result =
+         new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
       result->set_bitmap(bitmap);
       result->fit_to_bitmap();
       result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
