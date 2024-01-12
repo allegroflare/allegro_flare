@@ -261,25 +261,21 @@ void Screen::initialize_maps()
    {
       std::string map_name = std::get<0>(map_dictionary_entry);
       std::string map_filename = std::get<1>(map_dictionary_entry);
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map =
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_map_entity =
          factory.create_tile_map(map_filename, map_name);
 
-      if (!created_map)
+      if (!created_map_entity)
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::Screen::initialize_maps",
             "Could not create map \"" + map_filename + "\""
          );
       }
-      //else
-      //{
-         //std::cout << "NOTE: TMJ Tile map file \"" << map_filename << "\" loaded successfully." << std::endl;
-      //}
 
-      AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* __created_map =
-         static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(created_map);
+      AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* created_map =
+         static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*>(created_map_entity);
 
-      if (!__created_map->get_tile_mesh())
+      if (!created_map->get_tile_mesh())
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::Screen::initialize_maps",
@@ -288,7 +284,7 @@ void Screen::initialize_maps()
       }
 
 
-      if (!__created_map->get_tile_mesh()->get_initialized())
+      if (!created_map->get_tile_mesh()->get_initialized())
       {
          std::cout << "ERROR: prim mesh not initialized on \"" << map_filename << "\"" << std::endl;
       }
@@ -298,7 +294,7 @@ void Screen::initialize_maps()
       }
 
 
-      if (!__created_map->get_collision_tile_mesh())
+      if (!created_map->get_collision_tile_mesh())
       {
          std::cout << "ERROR: collision tile map not loaded on \"" << map_filename << "\"" << std::endl;
       }
@@ -308,7 +304,7 @@ void Screen::initialize_maps()
       }
 
 
-      if (!__created_map->get_collision_tile_mesh())
+      if (!created_map->get_collision_tile_mesh())
       {
          std::cout << "ERROR: collision tile map not loaded on \"" << map_filename << "\"" << std::endl;
       }

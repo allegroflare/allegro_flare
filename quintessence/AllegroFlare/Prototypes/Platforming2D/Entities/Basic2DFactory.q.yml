@@ -544,7 +544,7 @@ functions:
 
 
   - name: create_tile_map
-    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     const: true
     parameters:
       - name: map_json_filename

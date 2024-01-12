@@ -375,7 +375,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_filename, std::string map_name) const
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_filename, std::string map_name) const
 {
    if (!(bitmap_bin))
    {
