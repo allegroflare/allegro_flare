@@ -66,7 +66,7 @@ Full::Full()
    , router(nullptr)
    , textlog(nullptr)
    , initial_target_fps(60)
-   , render_surface_multisamples(4)
+   , render_surface_multisamples(0) // Used to be 4
    , render_surface_depth_size(32)
    , render_surface_adapter(-1)
    , primary_display(nullptr)
