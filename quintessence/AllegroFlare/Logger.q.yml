@@ -2,7 +2,7 @@ documentation:
 
 
   todos:
-    - consider removing "static" attribute from "once_emitter_warnings".
+    - consider removing "static" attribute from "once_emitter_warnings", and all other remaining ones as well
   internal: |
     Below is a code example showing variadic arguments in C++ using std::format (will be available in C++20.
     See: https://codereview.stackexchange.com/questions/269425/implementing-stdformat
