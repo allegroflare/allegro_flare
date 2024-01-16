@@ -268,7 +268,7 @@ void Bitmap::clear_surface()
    {
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::clear_surface: error: config has changed");
       //throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: config has changed");
-      return false;
+      //return false;
    }
    //if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
 
