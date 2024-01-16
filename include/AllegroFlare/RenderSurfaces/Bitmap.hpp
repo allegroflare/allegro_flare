@@ -42,7 +42,7 @@ namespace AllegroFlare
          void set_no_preserve_texture(bool no_preserve_texture);
 
          void initialize();
-         void generate_surface();
+         //void recreate_surface();
          void setup_surface(); //int surface_width, int surface_height, int multisamples=0, int depth=0);
          void setup_surface_with_settings_that_match_display(
             ALLEGRO_DISPLAY* display,

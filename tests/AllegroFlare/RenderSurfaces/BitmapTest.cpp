@@ -56,7 +56,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, type__has_the_expected_value_matc
 }
 
 
-TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surface_depth)
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, initialize__will_set_the_surface_depth)
 {
    al_init();
    // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
@@ -66,7 +66,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surfa
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
 
    render_surface.set_depth(4); //400, 240, 8, 4);
-   render_surface.setup_surface(); //400, 240, 8, 4);
+   render_surface.initialize(); //400, 240, 8, 4);
    
    ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
    EXPECT_EQ(4, al_get_bitmap_depth(surface));
@@ -75,7 +75,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surfa
 }
 
 
-TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surface_multisamples)
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, initialize__will_set_the_surface_multisamples)
 {
    al_init();
    // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
@@ -85,7 +85,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surfa
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
 
    render_surface.set_multisamples(8);
-   render_surface.setup_surface(); //400, 240, 8, 4);
+   render_surface.initialize(); //400, 240, 8, 4);
    
    ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
    EXPECT_EQ(8, al_get_bitmap_samples(surface));
@@ -94,7 +94,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surfa
 }
 
 
-TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surface_dimensions)
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, initialize__will_set_the_surface_dimensions)
 {
    al_init();
    // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
@@ -105,7 +105,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surfa
 
    render_surface.set_surface_width(400);
    render_surface.set_surface_height(240);
-   render_surface.setup_surface(); //400, 240, 8, 4);
+   render_surface.initialize(); //400, 240, 8, 4);
    
    ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
    EXPECT_EQ(400, al_get_bitmap_width(surface));
@@ -121,7 +121,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
 
    render_surface.set_min_linear(true);
-   render_surface.setup_surface(); //400, 240, 8, 4);
+   render_surface.initialize(); //400, 240, 8, 4);
    
    ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
    bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_MIN_LINEAR;
@@ -135,7 +135,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
 
    render_surface.set_mag_linear(true);
-   render_surface.setup_surface(); //400, 240, 8, 4);
+   render_surface.initialize(); //400, 240, 8, 4);
    
    ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
    bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_MAG_LINEAR;
@@ -149,7 +149,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
 
    render_surface.set_no_preserve_texture(true);
-   render_surface.setup_surface(); //400, 240, 8, 4);
+   render_surface.initialize(); //400, 240, 8, 4);
    
    ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
    bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_NO_PRESERVE_TEXTURE;
@@ -160,7 +160,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay, set_as_target__will_set_the_surface_as_the_target_bitmap)
 {
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
-   render_surface.setup_surface(); //400, 240, 8, 4);
+   render_surface.initialize(); //400, 240, 8, 4);
 
    render_surface.set_as_target();
 
