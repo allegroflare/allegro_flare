@@ -10,6 +10,27 @@
 
 
 class AllegroFlare_RenderSurfaces_BitmapTest : public ::testing::Test {};
+class AllegroFlare_RenderSurfaces_BitmapTestWithDisplay : public ::testing::Test
+{
+private:
+   ALLEGRO_DISPLAY *display;
+
+public:
+   void SetUp()
+   {
+      al_init();
+      // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
+      // can be used along with ALLEGRO_OPENGL.
+      al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+      display = al_create_display(400*3, 240*3);
+   }
+
+   void TearDown()
+   {
+      al_destroy_display(display);
+      al_uninstall_system();
+   }
+};
 class AllegroFlare_RenderSurfaces_BitmapTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
@@ -90,13 +111,50 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, setup_surface__will_set_the_surfa
 }
 
 
-TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, set_as_target__will_set_the_surface_as_the_target_bitmap)
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
+   set_min_linear__will_set_the_surface_for_linear_filtering_with_scaled_down_versions)
 {
-   al_init();
-   // NOTE: Currently, a display is needed (to setup an OPENGL context) so that the ALLEGRO_UNSTABLE features
-   // can be used along with ALLEGRO_OPENGL.
-   al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
-   ALLEGRO_DISPLAY *display = al_create_display(400*3, 240*3);
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.set_min_linear(true);
+
+   render_surface.setup_surface(400, 240, 8, 4);
+   
+   ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
+   bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_MIN_LINEAR;
+   EXPECT_EQ(true, flag_is_present);
+}
+
+
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
+   set_mag_linear__will_set_the_surface_for_linear_filtering_with_scaled_up_versions)
+{
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.set_mag_linear(true);
+
+   render_surface.setup_surface(400, 240, 8, 4);
+   
+   ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
+   bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_MAG_LINEAR;
+   EXPECT_EQ(true, flag_is_present);
+}
+
+
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
+   set_no_preserve_texture__will_tell_allegro_not_to_preserve_this_texture)
+{
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.set_no_preserve_texture(true);
+
+   render_surface.setup_surface(400, 240, 8, 4);
+   
+   ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
+   bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_NO_PRESERVE_TEXTURE;
+   EXPECT_EQ(true, flag_is_present);
+}
+
+
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay, set_as_target__will_set_the_surface_as_the_target_bitmap)
+{
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
    render_surface.setup_surface(400, 240, 8, 4);
 
@@ -104,8 +162,6 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest, set_as_target__will_set_the_surfa
    ALLEGRO_BITMAP *expected_target_bitmap = render_surface.obtain_surface();
    ALLEGRO_BITMAP *actual_target_bitmap = al_get_target_bitmap();
    EXPECT_EQ(expected_target_bitmap, actual_target_bitmap);
-
-   al_uninstall_system();
 }
 
 

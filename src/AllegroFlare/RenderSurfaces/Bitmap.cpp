@@ -22,6 +22,9 @@ Bitmap::Bitmap(int surface_width, int surface_height, int multisamples, int dept
    , surface_height(surface_height)
    , multisamples(multisamples)
    , depth(depth)
+   , min_linear(false)
+   , mag_linear(false)
+   , no_preserve_texture(false)
    , initialized(false)
 {
 }
@@ -58,6 +61,27 @@ void Bitmap::set_depth(int depth)
 {
    if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_depth: error: already setup");
    this->depth= depth;
+}
+
+
+void Bitmap::set_min_linear(bool min_linear)
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_min_linear: error: already setup");
+   this->min_linear = min_linear;
+}
+
+
+void Bitmap::set_mag_linear(bool mag_linear)
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_mag_linear: error: already setup");
+   this->mag_linear = mag_linear;
+}
+
+
+void Bitmap::set_no_preserve_texture(bool no_preserve_texture)
+{
+   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_no_preserve_texture: error: already setup");
+   this->no_preserve_texture = no_preserve_texture;
 }
 
 
@@ -108,7 +132,19 @@ void Bitmap::setup_surface(int surface_width, int surface_height, int multisampl
       al_set_new_bitmap_samples(multisamples);
       al_set_new_bitmap_depth(depth);
       // TODO:
-      //al_set_new_bitmap_flags(depth);
+
+
+      // Set the flags
+      int flags = al_get_new_bitmap_flags();
+
+      if (min_linear) flags |= ALLEGRO_MIN_LINEAR;
+      if (mag_linear) flags |= ALLEGRO_MAG_LINEAR;
+      if (no_preserve_texture) flags |= ALLEGRO_NO_PRESERVE_TEXTURE;
+
+      al_set_new_bitmap_flags(flags);
+
+
+      // Create the bitmap
 
       surface = al_create_bitmap(surface_width, surface_height);
       int surface_bitmap_flags = al_get_bitmap_flags(surface);

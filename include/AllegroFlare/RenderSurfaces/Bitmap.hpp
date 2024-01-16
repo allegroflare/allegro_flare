@@ -24,6 +24,9 @@ namespace AllegroFlare
          int surface_height;
          int multisamples;
          int depth;
+         bool min_linear;
+         bool mag_linear;
+         bool no_preserve_texture;
          bool initialized;
 
       public:
@@ -34,6 +37,9 @@ namespace AllegroFlare
          void set_surface_height(int surface_height);
          void set_multisamples(int multisamples);
          void set_depth(int depth);
+         void set_min_linear(bool min_linear);
+         void set_mag_linear(bool mag_linear);
+         void set_no_preserve_texture(bool no_preserve_texture);
 
          void initialize();
          void setup_surface(int surface_width, int surface_height, int multisamples=0, int depth=0);
