@@ -199,6 +199,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
    render_surface.setup_surface_with_settings_that_match_display(display, 400, 240);
+   render_surface.initialize();
 
    EXPECT_EQ(num_samples, al_get_bitmap_samples(render_surface.obtain_surface()));
    EXPECT_EQ(actual_display_depth, al_get_bitmap_depth(render_surface.obtain_surface()));
@@ -235,6 +236,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
    render_surface.setup_surface_with_settings_that_match_display(display, 1920/3, 1080/3);
+   render_surface.initialize();
 
    int loops = 120;
    for (int i=0; i<loops; i++)

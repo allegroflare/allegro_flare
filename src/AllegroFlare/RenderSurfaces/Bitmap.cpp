@@ -198,8 +198,8 @@ void Bitmap::setup_surface_with_settings_that_match_display(
 
    // TODO: include min linear, mag linear, and no preserve texture
 
-   setup_surface(); //surface_width, surface_height, display_num_samples, display_depth_size);
-   initialized = true;
+   //setup_surface(); //surface_width, surface_height, display_num_samples, display_depth_size);
+   //initialized = true;
 }
 
 
