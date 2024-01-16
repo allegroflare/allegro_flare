@@ -28,6 +28,7 @@ namespace AllegroFlare
          bool mag_linear;
          bool no_preserve_texture;
          bool initialized;
+         bool config_has_changed;
          void setup_surface();
 
       public:

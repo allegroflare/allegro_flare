@@ -25,7 +25,9 @@ Bitmap::Bitmap() //int surface_width, int surface_height, int multisamples, int 
    , min_linear(false)
    , mag_linear(false)
    , no_preserve_texture(false)
+   //, config_has_changed(false)
    , initialized(false)
+   , config_has_changed(false)
 {
 }
 
@@ -45,8 +47,9 @@ void Bitmap::set_surface_width(int surface_width)
          "Surface cannot have neither width or height less than 1."
       );
    }
-   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_surface_width: error: already setup");
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_surface_width: error: already setup");
    this->surface_width = surface_width;
+   config_has_changed = true;
 }
 
 
@@ -59,43 +62,49 @@ void Bitmap::set_surface_height(int surface_height)
          "Surface cannot have neither width or height less than 1."
       );
    }
-   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_surface_height: error: already setup");
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_surface_height: error: already setup");
    this->surface_height = surface_height;
+   config_has_changed = true;
 }
 
 
 void Bitmap::set_multisamples(int multisamples)
 {
-   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_multisamples: error: already setup");
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_multisamples: error: already setup");
    this->multisamples = multisamples;
+   config_has_changed = true;
 }
 
 
 void Bitmap::set_depth(int depth)
 {
-   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_depth: error: already setup");
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_depth: error: already setup");
    this->depth= depth;
+   config_has_changed = true;
 }
 
 
 void Bitmap::set_min_linear(bool min_linear)
 {
-   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_min_linear: error: already setup");
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_min_linear: error: already setup");
    this->min_linear = min_linear;
+   config_has_changed = true;
 }
 
 
 void Bitmap::set_mag_linear(bool mag_linear)
 {
-   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_mag_linear: error: already setup");
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_mag_linear: error: already setup");
    this->mag_linear = mag_linear;
+   config_has_changed = true;
 }
 
 
 void Bitmap::set_no_preserve_texture(bool no_preserve_texture)
 {
-   if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_no_preserve_texture: error: already setup");
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_no_preserve_texture: error: already setup");
    this->no_preserve_texture = no_preserve_texture;
+   config_has_changed = true;
 }
 
 
@@ -110,6 +119,7 @@ void Bitmap::initialize()
    setup_surface(); //surface_width, surface_height, multisamples, depth);
    //ignore_dep_error_NOTE_please_faze_out = false;
    initialized = true;
+   config_has_changed = false;
 }
 
 
@@ -161,6 +171,8 @@ void Bitmap::setup_surface()
    al_set_target_bitmap(surface);
    al_clear_to_color(color::transparent);
    al_restore_state(&previous_state);
+
+   config_has_changed = false;
 }
 
 
@@ -200,6 +212,7 @@ void Bitmap::setup_surface_with_settings_that_match_display(
 
    //setup_surface(); //surface_width, surface_height, display_num_samples, display_depth_size);
    //initialized = true;
+   config_has_changed = false;
 }
 
 
@@ -208,6 +221,11 @@ bool Bitmap::set_as_target()
    if (!initialized)
    {
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: not initialized");
+      return false;
+   }
+   if (config_has_changed)
+   {
+      throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: config has changed");
       return false;
    }
 
@@ -232,13 +250,27 @@ ALLEGRO_COLOR Bitmap::get_clear_color()
 ALLEGRO_BITMAP *Bitmap::obtain_surface()
 {
    if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
+   if (config_has_changed)
+   {
+      throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: config has changed");
+      //throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: config has changed");
+      return false;
+   }
+   //if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
    return surface;
 }
 
 
 void Bitmap::clear_surface()
 {
-   if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
+   if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::clear_surface: error: not setup");
+   if (config_has_changed)
+   {
+      throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::clear_surface: error: config has changed");
+      //throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: config has changed");
+      return false;
+   }
+   //if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
 
    al_clear_to_color(clear_color);
    al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
@@ -249,6 +281,10 @@ void Bitmap::clear_surface()
 int Bitmap::get_width()
 {
    if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_width: error: not setup");
+   if (config_has_changed)
+   {
+      throw std::runtime_error("asdfasdfasdfa");
+   }
    return al_get_bitmap_width(surface);
 }
 
@@ -256,6 +292,10 @@ int Bitmap::get_width()
 int Bitmap::get_height()
 {
    if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_height: error: not setup");
+   if (config_has_changed)
+   {
+      throw std::runtime_error("qjsajsdiofahpgd");
+   }
    return al_get_bitmap_height(surface);
 }
 
