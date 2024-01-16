@@ -113,75 +113,50 @@ void Bitmap::initialize()
 }
 
 
+void Bitmap::recreate_surface()
+{
+   setup_surface();
+}
+
+
 void Bitmap::setup_surface()
 {
-   // NOTE: For context, this technique sets up an FBO. In Allegro, this is done here:
-   // https://github.com/liballeg/allegro5/blob/master/src/opengl/ogl_fbo.c#L474
-   // TODO: add guard for duplicate initialization
-   //if (!ignore_dep_error_NOTE_please_faze_out)
-   //{
-      //AllegroFlare::Logger::warn_from("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "Using \"setup_surface\" "
-                                      //"is depreciated. Please assign the required values and call initialize().");
-   //}
-
-   int previous_samples = al_get_new_bitmap_samples();
-   int previous_depth = al_get_new_bitmap_depth();
-
+   // Store the current bitmap flags state
    al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
-   // create a new render surface if the proper surface does not exist
-   //if (!surface
-       //|| al_get_bitmap_width(surface) != surface_width
-       //|| al_get_bitmap_height(surface) != surface_height
-       //|| al_get_bitmap_samples(surface) != multisamples
-       //|| al_get_bitmap_depth(surface) != depth
-      //)
-   //{
-      if (surface) al_destroy_bitmap(surface);
 
-      al_set_new_bitmap_samples(multisamples);
-      al_set_new_bitmap_depth(depth);
-      // TODO:
+   // Set the samples and depth
+   al_set_new_bitmap_samples(multisamples);
+   al_set_new_bitmap_depth(depth);
 
 
-      // Set the flags
-      int flags = al_get_new_bitmap_flags();
-
-      if (min_linear) flags |= ALLEGRO_MIN_LINEAR;
-      if (mag_linear) flags |= ALLEGRO_MAG_LINEAR;
-      if (no_preserve_texture) flags |= ALLEGRO_NO_PRESERVE_TEXTURE;
-
-      al_set_new_bitmap_flags(flags);
+   // Set the flags
+   int flags = al_get_new_bitmap_flags();
+   if (min_linear) flags |= ALLEGRO_MIN_LINEAR;
+   if (mag_linear) flags |= ALLEGRO_MAG_LINEAR;
+   if (no_preserve_texture) flags |= ALLEGRO_NO_PRESERVE_TEXTURE;
+   al_set_new_bitmap_flags(flags);
 
 
-      // Create the bitmap
-
-      surface = al_create_bitmap(surface_width, surface_height);
-      int surface_bitmap_flags = al_get_bitmap_flags(surface);
-
-      //bool memory_bitmap = surface_bitmap_flags & ALLEGRO_MEMORY_BITMAP;
-      bool video_bitmap = surface_bitmap_flags & ALLEGRO_VIDEO_BITMAP;
-
-      if (!video_bitmap)
-      {
-         AllegroFlare::Logger::warn_from("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "The surface "
-                                         "was not created as a video_bitmap. It's expected that the surface will be "
-                                         "a video bitmap for optimized rendering for post-processing contexts. It's "
-                                         "possible in the future that this RenderSurface could be permitted to be "
-                                         "a non-video bitmap, but for now it is not.");
-      }
-
-      //this->surface_width = surface_width;
-      //this->surface_height = surface_height;
-      //this->multisamples = multisamples;
-      //this->depth = depth;
-   //}
+   // Destroy previous surface if it's present
+   if (surface) al_destroy_bitmap(surface);
 
 
-   // TODO: validate the bitmap was created with the expected settings
-   //al_get_bitmap_depth(surface);
-   //al_get_bitmap_samples(surface);
+   // Create the surface texture
+   surface = al_create_bitmap(surface_width, surface_height);
+   int surface_bitmap_flags = al_get_bitmap_flags(surface);
 
+   //bool memory_bitmap = surface_bitmap_flags & ALLEGRO_MEMORY_BITMAP;
+   bool video_bitmap = surface_bitmap_flags & ALLEGRO_VIDEO_BITMAP;
+
+   if (!video_bitmap)
+   {
+      AllegroFlare::Logger::warn_from("AllegroFlare::RenderSurfaces::Bitmap::setup_surface", "The surface "
+                                      "was not created as a video_bitmap. It's expected that the surface will be "
+                                      "a video bitmap for optimized rendering for post-processing contexts. It's "
+                                      "possible in the future that this RenderSurface could be permitted to be "
+                                      "a non-video bitmap, but for now it is not.");
+   }
 
    al_set_target_bitmap(surface);
    al_clear_to_color(color::transparent);

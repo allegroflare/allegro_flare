@@ -28,6 +28,7 @@ namespace AllegroFlare
          bool mag_linear;
          bool no_preserve_texture;
          bool initialized;
+         void setup_surface();
 
       public:
          Bitmap(); //int surface_width=0, int surface_height=0, int multisamples=0, int depth=0);
@@ -42,9 +43,8 @@ namespace AllegroFlare
          void set_no_preserve_texture(bool no_preserve_texture);
 
          void initialize();
-         //void recreate_surface();
-         void setup_surface(); //int surface_width, int surface_height, int multisamples=0, int depth=0);
-         void setup_surface_with_settings_that_match_display(
+         void recreate_surface();
+         void setup_surface_with_settings_that_match_display( // TODO: Consider how to faze this out
             ALLEGRO_DISPLAY* display,
             int surface_width,
             int surface_height
