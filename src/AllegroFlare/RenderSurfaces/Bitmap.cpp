@@ -254,7 +254,7 @@ ALLEGRO_BITMAP *Bitmap::obtain_surface()
    {
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: config has changed");
       //throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: config has changed");
-      return false;
+      return nullptr;
    }
    //if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
    return surface;
