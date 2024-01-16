@@ -30,7 +30,7 @@ namespace AllegroFlare
          bool initialized;
 
       public:
-         Bitmap(int surface_width=0, int surface_height=0, int multisamples=0, int depth=0);
+         Bitmap(); //int surface_width=0, int surface_height=0, int multisamples=0, int depth=0);
          ~Bitmap();
 
          void set_surface_width(int surface_width);
@@ -42,13 +42,14 @@ namespace AllegroFlare
          void set_no_preserve_texture(bool no_preserve_texture);
 
          void initialize();
-         void setup_surface(int surface_width, int surface_height, int multisamples=0, int depth=0);
+         void generate_surface();
+         void setup_surface(); //int surface_width, int surface_height, int multisamples=0, int depth=0);
          void setup_surface_with_settings_that_match_display(
             ALLEGRO_DISPLAY* display,
             int surface_width,
             int surface_height
          );
-         virtual bool set_as_target() override;
+         virtual bool set_as_target() override; // Consider removing this
          void restore_previous_target();
 
          void set_clear_color(ALLEGRO_COLOR clear_color);
