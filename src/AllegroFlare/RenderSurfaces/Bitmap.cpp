@@ -304,10 +304,12 @@ void Bitmap::setup_surface_with_settings_that_match_display(
    //int display_num_samples = al_get_display_option(display, ALLEGRO_SAMPLES);
    //int display_depth_size = al_get_display_option(display, ALLEGRO_DEPTH_SIZE);
 
-   set_multisamples(al_get_display_option(display, ALLEGRO_SAMPLES));
-   set_depth(al_get_display_option(display, ALLEGRO_DEPTH_SIZE));
    set_surface_width(surface_width);
    set_surface_height(surface_height);
+   set_multisamples(al_get_display_option(display, ALLEGRO_SAMPLES));
+   set_depth(al_get_display_option(display, ALLEGRO_DEPTH_SIZE));
+   //set_surface_width(surface_width);
+   //set_surface_height(surface_height);
 
    // TODO: include min linear, mag linear, and no preserve texture
 

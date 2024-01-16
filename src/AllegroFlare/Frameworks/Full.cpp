@@ -578,7 +578,7 @@ bool Full::initialize_display_and_render_pipeline()
    {
       std::cout << "Setting up a bitmap buffer as a primary render surface" << std::endl;
       // TODO: Implement this new reality please!
-      AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap;
+      AllegroFlare::RenderSurfaces::Bitmap *bitmap_render_surface = new AllegroFlare::RenderSurfaces::Bitmap();
       bitmap_render_surface->setup_surface_with_settings_that_match_display(primary_display->al_display, 1920, 1080);
       primary_render_surface = bitmap_render_surface;
       std::cout << "Now using RenderSurfaces::Bitmap as a primary render surface" << std::endl;
