@@ -96,14 +96,15 @@ void Bitmap::setup_surface(int surface_width, int surface_height, int multisampl
    al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
    // create a new render surface if the proper surface does not exist
-   if (!surface
-       || al_get_bitmap_width(surface) != surface_width
-       || al_get_bitmap_height(surface) != surface_height
-       || al_get_bitmap_samples(surface) != multisamples
-       || al_get_bitmap_depth(surface) != depth
-      )
-   {
-      al_destroy_bitmap(surface);
+   //if (!surface
+       //|| al_get_bitmap_width(surface) != surface_width
+       //|| al_get_bitmap_height(surface) != surface_height
+       //|| al_get_bitmap_samples(surface) != multisamples
+       //|| al_get_bitmap_depth(surface) != depth
+      //)
+   //{
+      if (surface) al_destroy_bitmap(surface);
+
       al_set_new_bitmap_samples(multisamples);
       al_set_new_bitmap_depth(depth);
       // TODO:
@@ -128,7 +129,7 @@ void Bitmap::setup_surface(int surface_width, int surface_height, int multisampl
       this->surface_height = surface_height;
       this->multisamples = multisamples;
       this->depth = depth;
-   }
+   //}
 
 
    // TODO: validate the bitmap was created with the expected settings
