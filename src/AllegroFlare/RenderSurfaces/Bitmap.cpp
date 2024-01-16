@@ -22,9 +22,9 @@ Bitmap::Bitmap(int surface_width, int surface_height, int multisamples, int dept
    , surface_height(surface_height)
    , multisamples(multisamples)
    , depth(depth)
-   , min_linear(false)
-   , mag_linear(false)
-   , no_preserve_texture(false)
+   , min_linear(true)
+   , mag_linear(true)
+   , no_preserve_texture(true)
    , initialized(false)
 {
 }
