@@ -165,19 +165,15 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
 
    render_surface.set_mag_linear(true);
-   render_surface.initialize(); //400, 240, 8, 4);
+   render_surface.initialize();
    
-   //ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
-   //bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_MAG_LINEAR;
-   //EXPECT_EQ(true, flag_is_present);
-
    int after_operation_new_bitmap_flags = al_get_new_bitmap_flags();
    int changed_flags = after_operation_new_bitmap_flags ^ before_operation_new_bitmap_flags;
 
-   EXPECT_EQ(0, changed_flags);
-      //before_operation_new_bitmap_flags,
-      //after_operation_new_bitmap_flags
-   //);
+   EXPECT_EQ(
+      before_operation_new_bitmap_flags,
+      after_operation_new_bitmap_flags
+   ) << "The following flags were changed: " << changed_flags;
 }
 
 
