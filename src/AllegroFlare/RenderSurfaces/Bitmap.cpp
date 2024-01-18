@@ -111,6 +111,19 @@ void Bitmap::set_no_preserve_texture(bool no_preserve_texture)
 //static bool ignore_dep_error_NOTE_please_faze_out = false;
 
 
+static void add_or_remove_flag(bool is_true, int flag, int *flags)
+{
+   if (is_true)
+   {
+      *flags |= flag;
+   }
+   else
+   {
+      *flags &= ~flag;
+   }
+}
+
+
 void Bitmap::initialize()
 {
    // TODO: add guard for duplicate initialization
@@ -132,6 +145,7 @@ void Bitmap::recreate_surface()
 void Bitmap::setup_surface()
 {
    // Store the current bitmap flags state
+   int previous_flags = al_get_new_bitmap_flags();
    al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
 
 
@@ -142,7 +156,15 @@ void Bitmap::setup_surface()
 
    // Set the flags
    int flags = al_get_new_bitmap_flags();
-   if (min_linear) flags |= ALLEGRO_MIN_LINEAR;
+   add_or_remove_flag(min_linear, ALLEGRO_MIN_LINEAR, &flags);
+   //if (min_linear)
+   //{
+      //flags |= ALLEGRO_MIN_LINEAR;
+   //}
+   //else
+   //{
+      //flags &= ~ALLEGRO_MIN_LINEAR;
+   //}
    if (mag_linear) flags |= ALLEGRO_MAG_LINEAR;
    if (no_preserve_texture) flags |= ALLEGRO_NO_PRESERVE_TEXTURE;
    al_set_new_bitmap_flags(flags);
@@ -171,6 +193,7 @@ void Bitmap::setup_surface()
    al_set_target_bitmap(surface);
    al_clear_to_color(color::transparent);
    al_restore_state(&previous_state);
+   al_set_new_bitmap_flags(previous_flags);
 
    config_has_changed = false;
 }

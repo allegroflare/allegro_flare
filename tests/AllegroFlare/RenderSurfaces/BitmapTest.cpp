@@ -157,6 +157,30 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
 }
 
 
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
+   set_mag_linear__will_not_leak_new_bitmap_flags_into_the_global_state)
+{
+   int before_operation_new_bitmap_flags = al_get_new_bitmap_flags();
+
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+
+   render_surface.set_mag_linear(true);
+   render_surface.initialize(); //400, 240, 8, 4);
+   
+   //ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
+   //bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_MAG_LINEAR;
+   //EXPECT_EQ(true, flag_is_present);
+
+   int after_operation_new_bitmap_flags = al_get_new_bitmap_flags();
+   int changed_flags = after_operation_new_bitmap_flags ^ before_operation_new_bitmap_flags;
+
+   EXPECT_EQ(0, changed_flags);
+      //before_operation_new_bitmap_flags,
+      //after_operation_new_bitmap_flags
+   //);
+}
+
+
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay, set_as_target__will_set_the_surface_as_the_target_bitmap)
 {
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
