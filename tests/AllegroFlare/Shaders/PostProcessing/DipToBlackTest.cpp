@@ -50,12 +50,9 @@ TEST(AllegroFlare_Shaders_PostProcessing_DipToBlackTest, VISUAL__will_appear_as_
    AllegroFlare::Shaders::PostProcessing::DipToBlack *shader = new AllegroFlare::Shaders::PostProcessing::DipToBlack;
    shader->initialize(); // for now, we'll have to use a pointer due to the way it's structured (should fix eventually)
 
-   AllegroFlare::RenderSurfaces::Bitmap render_surface(
-         al_get_display_width(display),
-         al_get_display_height(display),
-         0,
-         0
-      );
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.set_surface_width(al_get_display_width(display));
+   render_surface.set_surface_height(al_get_display_height(display));
    render_surface.initialize();
 
    int passes = 120;

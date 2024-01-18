@@ -50,12 +50,9 @@ TEST(AllegroFlare_Shaders_PostProcessing_BlindsTest, VISUAL__will_appear_as_expe
    AllegroFlare::Shaders::PostProcessing::Blinds *shader = new AllegroFlare::Shaders::PostProcessing::Blinds;
    shader->initialize(); // for now, we'll have to use a pointer due to the way it's structured (should fix eventually)
 
-   AllegroFlare::RenderSurfaces::Bitmap render_surface(
-         al_get_display_width(display),
-         al_get_display_height(display),
-         0,
-         0
-      );
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+   render_surface.set_surface_width(al_get_display_width(display));
+   render_surface.set_surface_height(al_get_display_height(display));
    render_surface.initialize();
 
    //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
