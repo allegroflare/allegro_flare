@@ -690,9 +690,9 @@ void SyncOracle::draw_metric(std::vector<double>* samples, ALLEGRO_COLOR color, 
                .x = x+i*scale,
                .y = y + chart_y,
                .z = 0,
-               .color = color,
                .u = 0,
                .v = 0,
+               .color = color,
             };
       i++;
    }

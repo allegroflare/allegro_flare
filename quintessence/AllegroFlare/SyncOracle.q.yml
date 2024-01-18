@@ -610,9 +610,9 @@ methods:
                   .x = x+i*scale,
                   .y = y + chart_y,
                   .z = 0,
-                  .color = color,
                   .u = 0,
                   .v = 0,
+                  .color = color,
                };
          i++;
       }
