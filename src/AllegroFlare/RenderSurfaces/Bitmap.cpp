@@ -157,16 +157,8 @@ void Bitmap::setup_surface()
    // Set the flags
    int flags = al_get_new_bitmap_flags();
    add_or_remove_flag(min_linear, ALLEGRO_MIN_LINEAR, &flags);
-   //if (min_linear)
-   //{
-      //flags |= ALLEGRO_MIN_LINEAR;
-   //}
-   //else
-   //{
-      //flags &= ~ALLEGRO_MIN_LINEAR;
-   //}
-   if (mag_linear) flags |= ALLEGRO_MAG_LINEAR;
-   if (no_preserve_texture) flags |= ALLEGRO_NO_PRESERVE_TEXTURE;
+   add_or_remove_flag(mag_linear, ALLEGRO_MAG_LINEAR, &flags);
+   add_or_remove_flag(no_preserve_texture, ALLEGRO_NO_PRESERVE_TEXTURE, &flags);
    al_set_new_bitmap_flags(flags);
 
 
