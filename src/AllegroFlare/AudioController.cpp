@@ -105,7 +105,7 @@ void AudioController::initialize()
    destruct_all_music_tracks();
    load_music_tracks();
 
-   std::cout << "[AllegroFlare::AudioController::load()] finished." << std::endl;
+   if (output_loading_debug_to_cout) std::cout << "[AllegroFlare::AudioController::load()] finished." << std::endl;
 
    initialized = true;
    return;
