@@ -56,8 +56,6 @@ std::vector<std::vector<std::string>> Multicolumn::split_into_columns(std::vecto
    int min_items_per_column = (int)names.size() / num_columns;
    int remaining_items_to_distribute = (int)names.size() % num_columns;
 
-   std::cout << "min: " << min_items_per_column << " - remain: " << remaining_items_to_distribute << std::endl;
-
    // Distribute the known minimum number of elements among the containers
    for (int i=0; i<num_columns; i++) result.push_back(std::vector<std::string>(min_items_per_column, default_fill));
 
