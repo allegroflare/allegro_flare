@@ -2100,14 +2100,30 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                        if (!data)
                        {
                           // TODO: add an error message
-                          std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: ERROR: music track data is nullptr."
-                                    << std::endl;
+                          //std::stringstream info_message;
+                          //info_message << "Playing music track identifer" << " \"" << (*data) << "\"";
+                          AllegroFlare::Logger::throw_error(
+                             "AllegroFlare::Frameworks::Full::run_loop",
+                             //info_message.str()
+                             "When handling an AlLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK event, data1 nullptr."
+                                //"be present but one or ther other is a nullptr."
+                          );
+                          //std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: ERROR: music track data is nullptr."
+                                    //<< std::endl;
                        }
                        else
                        {
-                          std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: INFO: playing music track identifer"
-                                    << " \"" << (*data) << "\""
-                                    << std::endl;
+                          std::stringstream info_message;
+                          info_message << "Playing music track identifer" << " \"" << (*data) << "\"";
+                          AllegroFlare::Logger::info_from(
+                             "AllegroFlare::Frameworks::Full::run_loop",
+                             info_message.str()
+                             //"When handling a ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, expecting data1 and data2 to "
+                                //"be present but one or ther other is a nullptr."
+                          );
+                          //std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: INFO: playing music track identifer"
+                                    //<< " \"" << (*data) << "\""
+                                    //<< std::endl;
                           audio_controller.play_music_track(*data);
                           delete data;
                        }
