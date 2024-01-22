@@ -176,6 +176,21 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_ne
    return {};
 }
 
+AllegroFlare::Screens::Gameplay* Complete::create_primary_gameplay_screen()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Complete::create_primary_gameplay_screen",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   //primary_gameplay_screen.set_event_emitter(event_emitter);
+   //primary_gameplay_screen.set_bitmap_bin(bitmap_bin);
+   //primary_gameplay_screen.set_font_bin(font_bin);
+   //primary_gameplay_screen.set_model_bin(model_bin);
+   //primary_gameplay_screen.set_game_configuration(game_configuration); // TODO: Consider how to remove this dependency
+   //primary_gameplay_screen.initialize();
+   return nullptr;
+}
+
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_storyboard_pages()
 {
    AllegroFlare::Logger::throw_error(

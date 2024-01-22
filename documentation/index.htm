@@ -13938,6 +13938,9 @@ table td
   <td class="method">create_new_game_intro_storyboard_pages()</td>
 </tr>
 <tr>
+  <td class="method">create_primary_gameplay_screen()</td>
+</tr>
+<tr>
   <td class="method">create_intro_storyboard_pages()</td>
 </tr>
 <tr>
@@ -14029,6 +14032,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/AchievementUnlocked.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -25530,7 +25539,7 @@ table td
 </tr>
 <tr>
   <td class="property">primary_gameplay_screen</td>
-  <td class="property">AllegroFlare::Screens::Gameplay</td>
+  <td class="property">AllegroFlare::Screens::Gameplay*</td>
 </tr>
 <tr>
   <td class="property">shared_background</td>
@@ -26726,6 +26735,15 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">set_on_finished_callback_func(std::function&lt;void(AllegroFlare::Screens::Gameplay*, void*)&gt; on_finished_callback_func={})</td>
+</tr>
+<tr>
+  <td class="method">set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">load_level_by_identifier(std::string possible_type=&quot;&quot;)</td>
+</tr>
+<tr>
   <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
@@ -26733,6 +26751,12 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -35531,6 +35555,7 @@ table td
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/DisplaySettings",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -36944,6 +36969,7 @@ table td
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
@@ -37880,6 +37906,11 @@ table td
   "AllegroFlare/UnicodeCharacters": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/Screens/Gameplay": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Gameplay"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -38839,9 +38870,6 @@ table td
   "AllegroFlare/GameConfigurations/Complete": [
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
-  ],
-  "AllegroFlare/Screens/Gameplay": [
-    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"

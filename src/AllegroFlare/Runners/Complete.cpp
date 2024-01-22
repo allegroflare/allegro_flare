@@ -43,7 +43,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , game_won_outro_storyboard_screen()
    , settings_screen()
    , rolling_credits_screen()
-   , primary_gameplay_screen()
+   , primary_gameplay_screen(nullptr)
    , shared_background(nullptr)
    , shared_foreground(nullptr)
    , release_info({})
@@ -128,6 +128,9 @@ void Complete::initialize()
    // Create the shared background
    shared_background = game_configuration->create_shared_background();
    shared_foreground = game_configuration->create_shared_foreground();
+
+   // Create the primary_gameplay_screen
+   primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
 
    // Setup our router
    setup_router();
@@ -257,6 +260,7 @@ void Complete::initialize()
    rolling_credits_screen.initialize();
 
    // TODO: Setup our main gameplay screen
+   //primary_gameplay_screen-
    /* TODO: Setup a gameplay screen
    primary_gameplay_screen.set_event_emitter(event_emitter);
    primary_gameplay_screen.set_bitmap_bin(bitmap_bin);
@@ -268,6 +272,8 @@ void Complete::initialize()
 
    // TODO: Load up our sound effects and music tracks
    game_configuration->load_audio_controller();
+
+   //primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
 
    return;
 }
@@ -306,6 +312,13 @@ bool Complete::on_route_event_unhandled_func(uint32_t unhandled_event, AllegroFl
 
 void Complete::setup_router()
 {
+   if (!(primary_gameplay_screen))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::setup_router]: error: guard \"primary_gameplay_screen\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::setup_router: error: guard \"primary_gameplay_screen\" not met");
+   }
    router.set_screen_manager(&framework->get_screen_manager_ref());
    router.set_event_emitter(event_emitter);
 
@@ -325,6 +338,16 @@ void Complete::setup_router()
       std::string level_identifier_to_load = as_start_level->get_level_identifier();
 
       // TODO: Modify this design to emit a level loading event, instead of loading here explicitly.
+      if (!primary_gameplay_screen)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Runners::Complete::setup_router",
+            "primary_gameplay_screen is nullptr"
+         );
+      }
+
+      primary_gameplay_screen->load_level_by_identifier(level_identifier_to_load);
+
       /* // TODO: Consider uncommenting this
       primary_gameplay_screen.load_level_by_identifier(level_identifier_to_load);
       */
@@ -409,7 +432,7 @@ void Complete::setup_router()
    );
    router.register_screen(
       AllegroFlare::Routers::Standard::PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER,
-      &primary_gameplay_screen
+      primary_gameplay_screen
    );
 
    // Set the callbacks
@@ -483,9 +506,10 @@ void Complete::setup_router()
          );
       }
    );
-   /* // TODO: Consider uncommented this
-   primary_gameplay_screen.set_on_finished_callback_func(
-      [this]([[COMPONENT_NAME_FIRST_FRAGMENT]]::Gameplay::Screen* screen, void* data) {
+   ///* // TODO: Consider uncommented this
+   primary_gameplay_screen->set_on_finished_callback_func(
+      [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
+      //[this]([[COMPONENT_NAME_FIRST_FRAGMENT]]::Gameplay::Screen* screen, void* data) {
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
             nullptr,
@@ -493,7 +517,7 @@ void Complete::setup_router()
          );
       }
    );
-   */
+   //*/
    settings_screen.set_on_exit_callback_func(
       [this](AllegroFlare::Screens::SettingsScreen* screen, void* data) {
          this->router.emit_route_event(

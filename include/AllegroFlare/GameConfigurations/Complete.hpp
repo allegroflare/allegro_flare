@@ -10,6 +10,7 @@
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
+#include <AllegroFlare/Screens/Gameplay.hpp>
 #include <ReleaseInfo.hpp>
 #include <string>
 #include <tuple>
@@ -49,6 +50,7 @@ namespace AllegroFlare
          virtual AllegroFlare::Elements::Backgrounds::Base* create_shared_background();
          virtual AllegroFlare::Elements::Backgrounds::Base* create_shared_foreground();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_new_game_intro_storyboard_pages();
+         virtual AllegroFlare::Screens::Gameplay* create_primary_gameplay_screen();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages();
          virtual std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> build_save_slots_for_load_a_saved_game_screen();
          virtual void continue_from_last_save();

@@ -25,6 +25,55 @@ properties:
 methods:
 
 
+  - name: set_on_finished_callback_func
+    virtual: true
+    parameters:
+      - name: on_finished_callback_func
+        type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
+        default_argument: '{}'
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Gameplay::set_on_finished_callback_func",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: set_on_finished_callback_func_user_data
+    virtual: true
+    parameters:
+      - name: on_finished_callback_func_user_data
+        type: void*
+        default_argument: nullptr
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Gameplay::set_on_finished_callback_func",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: load_level_by_identifier
+    virtual: true
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Gameplay::set_on_finished_callback_func",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      //return (possible_type == get_property());
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
   - name: property_is
     type: bool
     parameters:
@@ -40,5 +89,9 @@ dependencies:
 
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::Screens::Gameplay
+    headers: [ AllegroFlare/Screens/Gameplay.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

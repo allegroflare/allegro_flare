@@ -59,7 +59,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::Storyboard game_won_outro_storyboard_screen;
          AllegroFlare::Screens::SettingsScreen settings_screen;
          AllegroFlare::Screens::RollingCredits rolling_credits_screen;
-         AllegroFlare::Screens::Gameplay primary_gameplay_screen;
+         AllegroFlare::Screens::Gameplay* primary_gameplay_screen;
          AllegroFlare::Elements::Backgrounds::Base* shared_background;
          AllegroFlare::Elements::Backgrounds::Base* shared_foreground;
          ReleaseInfo release_info;

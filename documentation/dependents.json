@@ -50,6 +50,7 @@
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/DisplaySettings",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -1463,6 +1464,7 @@
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
+    "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
@@ -2399,6 +2401,11 @@
   "AllegroFlare/UnicodeCharacters": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/Screens/Gameplay": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Gameplay"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -3358,9 +3365,6 @@
   "AllegroFlare/GameConfigurations/Complete": [
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
-  ],
-  "AllegroFlare/Screens/Gameplay": [
-    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
