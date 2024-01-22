@@ -2407,6 +2407,13 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Gameplay"
   ],
+  "AllegroFlare/Runners/Complete": [
+    "AllegroFlare/GameConfigurations/Complete"
+  ],
+  "AllegroFlare/Predeclare": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],

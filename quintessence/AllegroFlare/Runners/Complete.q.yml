@@ -13,26 +13,31 @@ properties:
     type: AllegroFlare::Frameworks::Full*
     init_with: nullptr
     constructor_arg: true
+    getter: true
 
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    getter: true
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
 
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
 
   - name: model_bin
     type: AllegroFlare::ModelBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
 
   - name: game_configuration
     type: AllegroFlare::GameConfigurations::Complete*
@@ -144,6 +149,7 @@ methods:
       - name: game_event
         type: AllegroFlare::GameEvent*
         default_argument: nullptr
+        default_argument_dependency_symbols: [ 'AllegroFlare::Predeclare' ]
     guards: [ game_event ]
     body: |
       game_configuration->handle_game_event(game_event);
@@ -169,7 +175,7 @@ methods:
       shared_foreground = game_configuration->create_shared_foreground();
 
       // Create the primary_gameplay_screen
-      primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
+      primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
 
       // Setup our router
       setup_router();
@@ -846,5 +852,7 @@ dependencies:
     headers: [ AllegroFlare/Achievement.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
+  - symbol: AllegroFlare::Predeclare
+    headers: [ AllegroFlare/Predeclare.hpp ]
 
 

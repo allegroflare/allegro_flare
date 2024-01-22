@@ -217,7 +217,13 @@ methods:
   - name: create_primary_gameplay_screen
     virtual: true
     type: AllegroFlare::Screens::Gameplay*
+    parameters:
+      - name: runner
+        type: AllegroFlare::Runners::Complete*
+        default_argument: nullptr
+        default_argument_dependency_symbols: [ 'AllegroFlare::Predeclare' ]
     body: |
+      // TODO: Consider alternatives to get "runner" dependency out of this class
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::GameConfigurations::Complete::create_primary_gameplay_screen",
          "Not implemented in the base class. This method must be implemented in the derived class"
@@ -497,5 +503,9 @@ dependencies:
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Screens::Gameplay
     headers: [ AllegroFlare/Screens/Gameplay.hpp ]
+  - symbol: AllegroFlare::Runners::Complete
+    headers: [ AllegroFlare/Runners/Complete.hpp ]
+  - symbol: AllegroFlare::Predeclare
+    headers: [ AllegroFlare/Predeclare.hpp ]
 
 

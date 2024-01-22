@@ -13938,7 +13938,7 @@ table td
   <td class="method">create_new_game_intro_storyboard_pages()</td>
 </tr>
 <tr>
-  <td class="method">create_primary_gameplay_screen()</td>
+  <td class="method">create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
 <tr>
   <td class="method">create_intro_storyboard_pages()</td>
@@ -14038,6 +14038,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Runners::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Runners/Complete.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Predeclare&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Predeclare.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -25694,6 +25700,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Predeclare&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Predeclare.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -37911,6 +37920,13 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Gameplay"
+  ],
+  "AllegroFlare/Runners/Complete": [
+    "AllegroFlare/GameConfigurations/Complete"
+  ],
+  "AllegroFlare/Predeclare": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

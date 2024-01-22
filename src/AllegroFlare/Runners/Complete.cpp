@@ -57,6 +57,36 @@ Complete::~Complete()
 }
 
 
+AllegroFlare::Frameworks::Full* Complete::get_framework() const
+{
+   return framework;
+}
+
+
+AllegroFlare::EventEmitter* Complete::get_event_emitter() const
+{
+   return event_emitter;
+}
+
+
+AllegroFlare::BitmapBin* Complete::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+AllegroFlare::FontBin* Complete::get_font_bin() const
+{
+   return font_bin;
+}
+
+
+AllegroFlare::ModelBin* Complete::get_model_bin() const
+{
+   return model_bin;
+}
+
+
 void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
 {
    if (!(game_event))
@@ -130,7 +160,7 @@ void Complete::initialize()
    shared_foreground = game_configuration->create_shared_foreground();
 
    // Create the primary_gameplay_screen
-   primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
+   primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
 
    // Setup our router
    setup_router();

@@ -10,6 +10,7 @@
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/LoadASavedGame/Screen.hpp>
 #include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/Predeclare.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/Screens/Achievements.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
@@ -72,6 +73,11 @@ namespace AllegroFlare
          Complete(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::GameConfigurations::Complete* game_configuration=nullptr);
          virtual ~Complete();
 
+         AllegroFlare::Frameworks::Full* get_framework() const;
+         AllegroFlare::EventEmitter* get_event_emitter() const;
+         AllegroFlare::BitmapBin* get_bitmap_bin() const;
+         AllegroFlare::FontBin* get_font_bin() const;
+         AllegroFlare::ModelBin* get_model_bin() const;
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);

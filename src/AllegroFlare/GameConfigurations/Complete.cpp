@@ -176,8 +176,9 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_ne
    return {};
 }
 
-AllegroFlare::Screens::Gameplay* Complete::create_primary_gameplay_screen()
+AllegroFlare::Screens::Gameplay* Complete::create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner)
 {
+   // TODO: Consider alternatives to get "runner" dependency out of this class
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::GameConfigurations::Complete::create_primary_gameplay_screen",
       "Not implemented in the base class. This method must be implemented in the derived class"
