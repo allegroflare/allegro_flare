@@ -328,7 +328,7 @@ std::string Complete::build_copyright_text(ReleaseInfo* release_info)
       throw std::runtime_error("Complete::build_copyright_text: error: guard \"release_info\" not met");
    }
    AllegroFlare::TemplatedText templated_text(
-      "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",
+      "[[COPYRIGHT_SYMBOL]] 2024 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",
       {
          { "[[COPYRIGHT_SYMBOL]]", AllegroFlare::UnicodeCharacters::COPYRIGHT_SYMBOL },
          { "[[VERSION_NUMBER]]",   release_info->get_version() },
@@ -348,11 +348,11 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::b
          "A game by Mark Oates"
       ),
 
-      section_factory.create_spacer(),
+      //section_factory.create_spacer(),
 
-      section_factory.create_text(
-         "KrampusHack 2023\nhttps://tins.amarillion.org/krampu23"
-      ),
+      //section_factory.create_text(
+         //"KrampusHack 2024\nhttps://tins.amarillion.org/krampu23"
+      //),
 
       section_factory.create_section_spacer(),
 
