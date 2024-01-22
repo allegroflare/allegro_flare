@@ -15,6 +15,7 @@
 #include <AllegroFlare/MusicNotation/AccidentalStacker.hpp>
 #include <AllegroFlare/MusicNotation/ChordNoteheadPositionResolver.hpp>
 #include <AllegroFlare/MusicNotation/ChordDotPositionCalculator.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 
@@ -595,6 +596,14 @@ float MusicNotation::draw_note_fragment(
 
                case StemDirection::DOWN:
                   symbol += 1;
+               break;
+
+               case StemDirection::UNDEFINED:
+               case StemDirection::EVEN:
+                  AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::MusicNotation::MusicNotation",
+                     "Unexpectedly reached stem_direction evaluation to either UNDEFINED or EVEN"
+                  );
                break;
             }
          }
