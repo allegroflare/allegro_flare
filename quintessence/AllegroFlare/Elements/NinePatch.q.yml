@@ -9,27 +9,27 @@ properties:
 
   - name: left_column_width
     type: float
-    init_with: 16.0f
+    init_with: 128.0f
 
   - name: center_column_width
     type: float
-    init_with: 16.0f
+    init_with: 128.0f
 
   - name: right_column_width
     type: float
-    init_with: 16.0f
+    init_with: 128.0f
 
   - name: top_row_height
     type: float
-    init_with: 16.0f
+    init_with: 128.0f
 
   - name: middle_row_height
     type: float
-    init_with: 16.0f
+    init_with: 128.0f
 
   - name: bottom_row_height
     type: float
-    init_with: 16.0f
+    init_with: 128.0f
 
   - name: mesh
     type: std::vector<ALLEGRO_VERTEX>
@@ -44,6 +44,7 @@ methods:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), source_texture ]
     body: |
       al_draw_prim(&mesh[0], NULL, source_texture, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
       //al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
       return;
     body_dependency_symbols:
@@ -61,11 +62,11 @@ methods:
             0,
             0,
             left_column_width,
-            right_column_width,
+            top_row_height,
             0,
             0,
-            16,
-            16
+            32,
+            32
          );
       mesh.insert(mesh.end(), top_left_patch.begin(), top_left_patch.end());
       // TODO: Continue to add remaining patches
@@ -121,8 +122,8 @@ methods:
       {
          vertex.x = vertex.x * w + x;
          vertex.y = vertex.y * h + y;
-         vertex.u = vertex.u * u + uw;
-         vertex.v = vertex.v * v + vh;
+         vertex.u = vertex.u * uw + u;
+         vertex.v = vertex.v * vh + v;
       }
       return vertices;
 

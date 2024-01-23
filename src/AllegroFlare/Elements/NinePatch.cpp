@@ -17,12 +17,12 @@ namespace Elements
 
 NinePatch::NinePatch()
    : source_texture(nullptr)
-   , left_column_width(16.0f)
-   , center_column_width(16.0f)
-   , right_column_width(16.0f)
-   , top_row_height(16.0f)
-   , middle_row_height(16.0f)
-   , bottom_row_height(16.0f)
+   , left_column_width(128.0f)
+   , center_column_width(128.0f)
+   , right_column_width(128.0f)
+   , top_row_height(128.0f)
+   , middle_row_height(128.0f)
+   , bottom_row_height(128.0f)
    , mesh()
 {
 }
@@ -69,6 +69,7 @@ void NinePatch::render()
       throw std::runtime_error("NinePatch::render: error: guard \"source_texture\" not met");
    }
    al_draw_prim(&mesh[0], NULL, source_texture, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
    //al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
    return;
 }
@@ -82,11 +83,11 @@ void NinePatch::build_mesh()
          0,
          0,
          left_column_width,
-         right_column_width,
+         top_row_height,
          0,
          0,
-         16,
-         16
+         32,
+         32
       );
    mesh.insert(mesh.end(), top_left_patch.begin(), top_left_patch.end());
    // TODO: Continue to add remaining patches
@@ -112,8 +113,8 @@ std::vector<ALLEGRO_VERTEX> NinePatch::adjust_rect(std::vector<ALLEGRO_VERTEX> v
    {
       vertex.x = vertex.x * w + x;
       vertex.y = vertex.y * h + y;
-      vertex.u = vertex.u * u + uw;
-      vertex.v = vertex.v * v + vh;
+      vertex.u = vertex.u * uw + u;
+      vertex.v = vertex.v * vh + v;
    }
    return vertices;
 }
