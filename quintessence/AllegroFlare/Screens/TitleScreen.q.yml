@@ -50,7 +50,7 @@ properties:
 
   - name: copyright_text
     type: std::string
-    init_with: '"© Copyright 2022"'
+    init_with: '"© Copyright 2024"'
     constructor_arg: true
     getter: true
     setter: true
@@ -283,43 +283,20 @@ properties:
     type: bool
     init_with: false
 
-  - name: STATE_UNDEF
-    type: uint32_t
-    init_with: 0
-    const: true
-    static: true
-    constexpr: true
 
-  - name: STATE_REVEALING
-    type: uint32_t
-    init_with: 1
-    const: true
-    static: true
-    constexpr: true
-
-  - name: STATE_AWAITING_USER_INPUT
-    type: uint32_t
-    init_with: 2
-    const: true
-    static: true
-    constexpr: true
-
-  - name: STATE_MENU_OPTION_IS_CHOSEN
-    type: uint32_t
-    init_with: 3
-    const: true
-    static: true
-    constexpr: true
-
-  - name: STATE_FINISHED
-    type: uint32_t
-    init_with: 4
-    const: true
-    static: true
-    constexpr: true
+enums:
 
 
-functions:
+  - name: State
+    enumerators:
+      - STATE_UNDEF
+      - STATE_REVEALING
+      - STATE_AWAITING_USER_INPUT
+      - STATE_MENU_OPTION_IS_CHOSEN
+      - STATE_FINISHED
+
+
+methods:
 
 
   - name: TODO

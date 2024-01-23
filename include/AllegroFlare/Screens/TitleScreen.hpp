@@ -24,14 +24,15 @@ namespace AllegroFlare
    {
       class TitleScreen : public AllegroFlare::Screens::Base
       {
-      public:
-         static constexpr uint32_t STATE_UNDEF = 0;
-         static constexpr uint32_t STATE_REVEALING = 1;
-         static constexpr uint32_t STATE_AWAITING_USER_INPUT = 2;
-         static constexpr uint32_t STATE_MENU_OPTION_IS_CHOSEN = 3;
-         static constexpr uint32_t STATE_FINISHED = 4;
-
       private:
+         enum State
+         {
+            STATE_UNDEF = 0,
+            STATE_REVEALING,
+            STATE_AWAITING_USER_INPUT,
+            STATE_MENU_OPTION_IS_CHOSEN,
+            STATE_FINISHED,
+         };
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::BitmapBin* bitmap_bin;
@@ -92,7 +93,7 @@ namespace AllegroFlare
 
 
       public:
-         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::size_t surface_width=1920, std::size_t surface_height=1080, std::string title_text="Untitled Game", std::string copyright_text="© Copyright 2022", std::string title_bitmap_name="", std::string title_font_name="Inter-Regular.ttf", std::string menu_font_name="Inter-Regular.ttf", std::string copyright_font_name="Inter-Regular.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_outline_color=ALLEGRO_COLOR{0, 0, 0, 0}, ALLEGRO_COLOR menu_selected_text_color=ALLEGRO_COLOR{0, 0, 0, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{0.4f, 0.42f, 0.48f, 0.6f}, float menu_selector_outline_stroke_thickness=2.0f, int title_font_size=-80, int menu_font_size=-38, int copyright_font_size=-28);
+         TitleScreen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::size_t surface_width=1920, std::size_t surface_height=1080, std::string title_text="Untitled Game", std::string copyright_text="© Copyright 2024", std::string title_bitmap_name="", std::string title_font_name="Inter-Regular.ttf", std::string menu_font_name="Inter-Regular.ttf", std::string copyright_font_name="Inter-Regular.ttf", ALLEGRO_COLOR title_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_text_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR menu_selector_outline_color=ALLEGRO_COLOR{0, 0, 0, 0}, ALLEGRO_COLOR menu_selected_text_color=ALLEGRO_COLOR{0, 0, 0, 1}, ALLEGRO_COLOR copyright_text_color=ALLEGRO_COLOR{0.4f, 0.42f, 0.48f, 0.6f}, float menu_selector_outline_stroke_thickness=2.0f, int title_font_size=-80, int menu_font_size=-38, int copyright_font_size=-28);
          virtual ~TitleScreen();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
