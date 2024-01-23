@@ -69,15 +69,12 @@ void NinePatch::render()
       throw std::runtime_error("NinePatch::render: error: guard \"source_texture\" not met");
    }
    al_draw_prim(&mesh[0], NULL, source_texture, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-
-   //al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
    return;
 }
 
 void NinePatch::build_mesh()
 {
    mesh.clear();
-   //vector1.insert(vector1.end(), vector2.begin(), vector2.end());
    std::vector<ALLEGRO_VERTEX> top_left_patch = adjust_rect(
          build_vertices_for_rect(),
          0,

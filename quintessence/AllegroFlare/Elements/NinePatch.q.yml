@@ -44,8 +44,6 @@ methods:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), source_texture ]
     body: |
       al_draw_prim(&mesh[0], NULL, source_texture, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-
-      //al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
       return;
     body_dependency_symbols:
       - al_is_system_installed
@@ -56,7 +54,6 @@ methods:
     type: void
     body: |
       mesh.clear();
-      //vector1.insert(vector1.end(), vector2.begin(), vector2.end());
       std::vector<ALLEGRO_VERTEX> top_left_patch = adjust_rect(
             build_vertices_for_rect(),
             0,
