@@ -2,7 +2,11 @@
 
 #include <AllegroFlare/Elements/NinePatch.hpp>
 
-
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -29,11 +33,41 @@ NinePatch::~NinePatch()
 }
 
 
+void NinePatch::render()
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[NinePatch::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NinePatch::render: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[NinePatch::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NinePatch::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   //al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
+   return;
+}
+
 void NinePatch::build_mesh()
 {
    mesh.clear();
    //vector1.insert(vector1.end(), vector2.begin(), vector2.end());
-   std::vector<ALLEGRO_VERTEX> top_left = build_vertices_for_rect();
+   std::vector<ALLEGRO_VERTEX> top_left = adjust_rect(
+         build_vertices_for_rect(),
+         0,
+         0,
+         left_column_width,
+         right_column_width,
+         0,
+         0,
+         16,
+         16
+      );
    return;
 }
 

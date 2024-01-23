@@ -37,12 +37,33 @@ properties:
 methods:
 
 
+  - name: render
+    type: void
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      //al_draw_prim(v, NULL, NULL, 0, 4, ALLEGRO_PRIM_TRIANGLE_FAN);
+      return;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_primitives_addon_initialized
+
+
   - name: build_mesh
     type: void
     body: |
       mesh.clear();
       //vector1.insert(vector1.end(), vector2.begin(), vector2.end());
-      std::vector<ALLEGRO_VERTEX> top_left = build_vertices_for_rect();
+      std::vector<ALLEGRO_VERTEX> top_left = adjust_rect(
+            build_vertices_for_rect(),
+            0,
+            0,
+            left_column_width,
+            right_column_width,
+            0,
+            0,
+            16,
+            16
+         );
       return;
 
 
@@ -107,6 +128,10 @@ dependencies:
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_VERTEX
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
 
 

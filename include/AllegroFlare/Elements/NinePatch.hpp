@@ -29,6 +29,7 @@ namespace AllegroFlare
          NinePatch();
          ~NinePatch();
 
+         void render();
          void build_mesh();
          std::vector<ALLEGRO_VERTEX> build_vertices_for_rect();
          std::vector<ALLEGRO_VERTEX> adjust_rect(std::vector<ALLEGRO_VERTEX> vertices={}, float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, float u=0.0f, float v=0.0f, float uw=0.0f, float vh=0.0f);

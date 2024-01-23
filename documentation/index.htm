@@ -174,6 +174,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ListBox.q.yml">quintessence/AllegroFlare/Elements/ListBox.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ListBoxRenderer.q.yml">quintessence/AllegroFlare/Elements/ListBoxRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/NinePatch.q.yml">quintessence/AllegroFlare/Elements/NinePatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml</a></li>
@@ -10226,6 +10227,68 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/NinePatch.q.yml">quintessence/AllegroFlare/Elements/NinePatch.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">source_texture</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">left_column_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">center_column_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">right_column_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">top_row_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">middle_row_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">bottom_row_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">mesh</td>
+  <td class="property">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">build_mesh()</td>
+</tr>
+<tr>
+  <td class="method">build_vertices_for_rect()</td>
+</tr>
+<tr>
+  <td class="method">adjust_rect(std::vector&lt;ALLEGRO_VERTEX&gt; vertices={}, float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, float u=0.0f, float v=0.0f, float uw=0.0f, float vh=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36152,6 +36215,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
+    "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
@@ -37524,6 +37588,9 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
+  ],
+  "ALLEGRO_VERTEX": [
+    "AllegroFlare/Elements/NinePatch"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",

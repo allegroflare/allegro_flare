@@ -647,6 +647,7 @@
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
+    "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/FrameAnimation/Animation",
@@ -2019,6 +2020,9 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
+  ],
+  "ALLEGRO_VERTEX": [
+    "AllegroFlare/Elements/NinePatch"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
