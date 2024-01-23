@@ -1,0 +1,112 @@
+properties:
+
+
+  - name: source_texture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+
+  - name: left_column_width
+    type: float
+    init_with: 16.0f
+
+  - name: center_column_width
+    type: float
+    init_with: 16.0f
+
+  - name: right_column_width
+    type: float
+    init_with: 16.0f
+
+  - name: top_row_height
+    type: float
+    init_with: 16.0f
+
+  - name: middle_row_height
+    type: float
+    init_with: 16.0f
+
+  - name: bottom_row_height
+    type: float
+    init_with: 16.0f
+
+  - name: mesh
+    type: std::vector<ALLEGRO_VERTEX>
+    init_with: ''
+
+
+methods:
+
+
+  - name: build_mesh
+    type: void
+    body: |
+      mesh.clear();
+      //vector1.insert(vector1.end(), vector2.begin(), vector2.end());
+      std::vector<ALLEGRO_VERTEX> top_left = build_vertices_for_rect();
+      return;
+
+
+  - name: build_vertices_for_rect
+    type: std::vector<ALLEGRO_VERTEX>
+    body: |
+      std::vector<ALLEGRO_VERTEX> result = {
+         ALLEGRO_VERTEX{0, 0, 0, 0, 0, ALLEGRO_COLOR{1, 1, 1, 1}},
+         ALLEGRO_VERTEX{1, 0, 0, 1, 0, ALLEGRO_COLOR{1, 1, 1, 1}},
+         ALLEGRO_VERTEX{0, 1, 0, 0, 1, ALLEGRO_COLOR{1, 1, 1, 1}},
+         ALLEGRO_VERTEX{1, 0, 0, 1, 0, ALLEGRO_COLOR{1, 1, 1, 1}},
+         ALLEGRO_VERTEX{0, 1, 0, 0, 1, ALLEGRO_COLOR{1, 1, 1, 1}},
+         ALLEGRO_VERTEX{1, 1, 0, 1, 1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      };
+      return result;
+
+
+  - name: adjust_rect
+    type: std::vector<ALLEGRO_VERTEX>
+    parameters:
+      - name: vertices
+        type: std::vector<ALLEGRO_VERTEX>
+        default_argument: '{}'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: w
+        type: float
+        default_argument: 0.0f
+      - name: h
+        type: float
+        default_argument: 0.0f
+      - name: u
+        type: float
+        default_argument: 0.0f
+      - name: v
+        type: float
+        default_argument: 0.0f
+      - name: uw
+        type: float
+        default_argument: 0.0f
+      - name: vh
+        type: float
+        default_argument: 0.0f
+    body: |
+      for (auto &vertex : vertices)
+      {
+         vertex.x = vertex.x * w + x;
+         vertex.y = vertex.y * h + y;
+         vertex.u = vertex.u * u + uw;
+         vertex.v = vertex.v * v + vh;
+      }
+      return vertices;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_VERTEX
+    headers: [ allegro5/allegro_primitives.h ]
+
+
