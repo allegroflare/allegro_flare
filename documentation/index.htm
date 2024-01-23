@@ -26733,8 +26733,12 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
+  <td class="property">on_finished_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Gameplay*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback_func_user_data</td>
+  <td class="property">void*</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -26744,16 +26748,10 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">set_on_finished_callback_func(std::function&lt;void(AllegroFlare::Screens::Gameplay*, void*)&gt; on_finished_callback_func={})</td>
-</tr>
-<tr>
-  <td class="method">set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data=nullptr)</td>
+  <td class="method">call_on_finished_callback_func()</td>
 </tr>
 <tr>
   <td class="method">load_level_by_identifier(std::string possible_type=&quot;&quot;)</td>
-</tr>
-<tr>
-  <td class="method">property_is(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -27889,6 +27887,10 @@ table td
   <td class="property">menu_option_activated</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">showing_confirmation_dialog</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -27941,7 +27943,10 @@ table td
   <td class="private_method">select_menu_option()</td>
 </tr>
 <tr>
-  <td class="method">processing_user_input()</td>
+  <td class="method">current_menu_option_must_be_confirmed()</td>
+</tr>
+<tr>
+  <td class="method">processing_user_input_on_main_menu()</td>
 </tr>
 <tr>
   <td class="method">is_state(uint32_t possible_state=STATE_UNDEF)</td>
@@ -27963,6 +27968,9 @@ table td
 </tr>
 <tr>
   <td class="method">draw_menu()</td>
+</tr>
+<tr>
+  <td class="method">draw_confirmation_dialog()</td>
 </tr>
 <tr>
   <td class="method">infer_current_menu_option_value()</td>
@@ -28005,6 +28013,9 @@ table td
 </tr>
 <tr>
   <td class="method">build_default_menu_options()</td>
+</tr>
+<tr>
+  <td class="method">build_confirmation_dialog_menu_options()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

@@ -9,11 +9,17 @@ parent_classes:
 properties:
 
 
-  - name: property
-    type: std::string
-    init_with: '"[unset-property]"'
-    constructor_arg: true
+  - name: on_finished_callback_func
+    type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
+    init_with: ''
     getter: true
+    setter: true
+
+  - name: on_finished_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
 
   - name: TYPE
     type: char*
@@ -22,36 +28,20 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - Note that TYPE is not used from this class. Ideally, quintessence would have a "passthrough" and type would be
+    passed along to the base class
+
+
 methods:
 
 
-  - name: set_on_finished_callback_func
-    virtual: true
-    parameters:
-      - name: on_finished_callback_func
-        type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
-        default_argument: '{}'
+  - name: call_on_finished_callback_func
     body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Screens::Gameplay::set_on_finished_callback_func",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Logger
-
-
-  - name: set_on_finished_callback_func_user_data
-    virtual: true
-    parameters:
-      - name: on_finished_callback_func_user_data
-        type: void*
-        default_argument: nullptr
-    body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Screens::Gameplay::set_on_finished_callback_func",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
+      // TODO: Test this callback call
+      if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
@@ -68,20 +58,9 @@ methods:
          "AllegroFlare::Screens::Gameplay::set_on_finished_callback_func",
          "Not implemented in the base class. This method must be implemented in the derived class"
       );
-      //return (possible_type == get_property());
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
-
-
-  - name: property_is
-    type: bool
-    parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
-    body: |
-      return (possible_type == get_property());
 
 
 dependencies:

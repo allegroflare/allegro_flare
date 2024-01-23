@@ -283,16 +283,21 @@ properties:
     type: bool
     init_with: false
 
+  - name: showing_confirmation_dialog
+    type: bool
+    init_with: false
+
 
 enums:
 
 
-  - name: State
+  - scope: public
     enumerators:
       - STATE_UNDEF
       - STATE_REVEALING
       - STATE_AWAITING_USER_INPUT
       - STATE_MENU_OPTION_IS_CHOSEN
+      - STATE_AWAITING_USER_CONFIRMATION
       - STATE_FINISHED
 
 
@@ -358,6 +363,10 @@ methods:
             menu_option_chosen_at = al_get_time();
          break;
 
+         case STATE_AWAITING_USER_CONFIRMATION:
+            showing_confirmation_dialog = true;
+         break;
+
          case STATE_FINISHED:
          break;
 
@@ -405,6 +414,10 @@ methods:
             }
          break;
 
+         case STATE_AWAITING_USER_CONFIRMATION:
+            // TODO
+         break;
+
          case STATE_FINISHED:
          break;
 
@@ -429,6 +442,7 @@ methods:
          STATE_REVEALING,
          STATE_AWAITING_USER_INPUT,
          STATE_MENU_OPTION_IS_CHOSEN,
+         STATE_AWAITING_USER_CONFIRMATION,
          STATE_FINISHED,
       };
       return (valid_states.count(state) > 0);
@@ -512,7 +526,7 @@ methods:
   - name: move_cursor_up
     private: true
     body: |
-      if (!processing_user_input()) return;
+      if (!processing_user_input_on_main_menu()) return;
 
       if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -525,7 +539,7 @@ methods:
   - name: move_cursor_down
     private: true
     body: |
-      if (!processing_user_input()) return;
+      if (!processing_user_input_on_main_menu()) return;
 
       if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -540,6 +554,7 @@ methods:
     guards: [ event_emitter ]
     body: |
       // TODO: Consider case where there is an emtpy list
+      // TODO: Remove the emit_game_event as a technique here, rely on callback only
       std::string current_menu_option_value = infer_current_menu_option_value();
       event_emitter->emit_game_event(current_menu_option_value);
       // TODO: Test this callback
@@ -550,7 +565,7 @@ methods:
   - name: select_menu_option
     private: true
     body: |
-      if (!processing_user_input()) return;
+      if (!processing_user_input_on_main_menu()) return;
 
       if (menu_is_empty())
       {
@@ -561,7 +576,8 @@ methods:
          return;
       }
 
-      set_state(STATE_MENU_OPTION_IS_CHOSEN);
+      if (current_menu_option_must_be_confirmed()) set_state(STATE_AWAITING_USER_CONFIRMATION);
+      else set_state(STATE_MENU_OPTION_IS_CHOSEN);
 
       if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
@@ -570,7 +586,15 @@ methods:
       - ALLEGRO_FLARE_EVENT_START_NEW_GAME
 
 
-  - name: processing_user_input
+  - name: current_menu_option_must_be_confirmed
+    type: bool
+    body: |
+      std::set<std::string> choices_requiring_confirmation = { "exit_game*" };
+      std::string current_menu_value = infer_current_menu_option_value();
+      return choices_requiring_confirmation.find(current_menu_value) != choices_requiring_confirmation.end();
+
+
+  - name: processing_user_input_on_main_menu
     type: bool
     body: |
       return is_state(STATE_AWAITING_USER_INPUT); 
@@ -601,6 +625,7 @@ methods:
       draw_title();
       if (showing_copyright) draw_copyright_text();
       if (showing_menu) draw_menu();
+      if (showing_confirmation_dialog) draw_confirmation_dialog();
       return;
 
 
@@ -846,6 +871,80 @@ methods:
       - al_is_primitives_addon_initialized
 
 
+  - name: draw_confirmation_dialog
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      // TODO: review guards on this function
+      ALLEGRO_FONT *menu_font = obtain_menu_font();
+      //int surface_width = 1920;
+      //int surface_height = 1080;
+      float h_font_line_height = (int)(al_get_font_line_height(menu_font) * 0.5f);
+      float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.4f);
+      int menu_item_num = 0;
+
+      // get longest menu option text length
+      int longest_menu_option_text_width = 0;
+      auto confirmation_dialog_menu_options = build_confirmation_dialog_menu_options();
+      for (auto &menu_option : confirmation_dialog_menu_options)
+      {
+         std::string menu_item_text = std::get<0>(menu_option);
+         int this_menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
+         if (this_menu_item_text_width > longest_menu_option_text_width)
+            longest_menu_option_text_width = this_menu_item_text_width;
+      }
+
+      // render each menu item
+      
+      for (auto &menu_option : confirmation_dialog_menu_options)
+      {
+         bool showing_cursor_on_this_option = false;
+         if (menu_item_num == cursor_position) showing_cursor_on_this_option = true;
+         std::string menu_item_text = std::get<0>(menu_option);
+
+         ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
+            ? (menu_option_chosen ? menu_text_color : menu_selected_text_color) : menu_text_color;
+
+         float x = menu_position_x + 200;
+         float y = menu_position_y + menu_item_vertical_spacing * menu_item_num;
+
+         if (showing_cursor_on_this_option)
+         {
+            float box_width = longest_menu_option_text_width + 148;
+            float box_height = al_get_font_line_height(menu_font) + 6;
+
+            draw_cursor_box(
+               x,
+               y,
+               box_width,
+               box_height,
+               menu_selector_color,
+               menu_selector_outline_color,
+               menu_selector_outline_stroke_thickness,
+               menu_option_chosen,
+               menu_option_chosen_at,
+               menu_option_selection_to_activation_delay,
+               al_get_time()
+            );
+         }
+
+         al_draw_text(
+            menu_font,
+            this_menu_text_color,
+            (int)x,
+            (int)(y-h_font_line_height),
+            ALLEGRO_ALIGN_CENTER,
+            menu_item_text.c_str()
+         );
+
+         menu_item_num++;
+      }
+      return;
+    body_dependency_symbols:
+      - al_draw_rectangle
+      - al_draw_filled_rectangle
+      - al_is_primitives_addon_initialized
+
+
   - name: infer_current_menu_option_value
     type: std::string
     body: |
@@ -1006,7 +1105,7 @@ methods:
         type: bool
         default_argument: false
     body: |
-      if (!processing_user_input()) return;
+      if (!processing_user_input_on_main_menu()) return;
 
       if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
       if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
@@ -1039,7 +1138,23 @@ methods:
     static: true
     body: |
       std::vector<std::pair<std::string, std::string>> result;
-      result = { { "Start new game", "start_new_game" }, { "Credits", "show_credits" }, { "Exit", "exit_game" } };
+      result = {
+         { "Start new game", "start_new_game" },
+         { "Credits", "show_credits" },
+         { "Exit", "exit_game*" }
+      };
+      return result;
+
+
+  - name: build_confirmation_dialog_menu_options
+    type: std::vector<std::pair<std::string, std::string>>
+    static: true
+    body: |
+      std::vector<std::pair<std::string, std::string>> result;
+      result = {
+         { "yes", "exit_game" },
+         { "no", "close_confirmation_dialog" },
+      };
       return result;
 
 

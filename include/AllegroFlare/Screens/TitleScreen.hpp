@@ -24,15 +24,18 @@ namespace AllegroFlare
    {
       class TitleScreen : public AllegroFlare::Screens::Base
       {
-      private:
-         enum State
+      public:
+
+         enum
          {
             STATE_UNDEF = 0,
             STATE_REVEALING,
             STATE_AWAITING_USER_INPUT,
             STATE_MENU_OPTION_IS_CHOSEN,
+            STATE_AWAITING_USER_CONFIRMATION,
             STATE_FINISHED,
          };
+      private:
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::BitmapBin* bitmap_bin;
@@ -79,6 +82,7 @@ namespace AllegroFlare
          bool menu_option_chosen;
          float menu_option_chosen_at;
          bool menu_option_activated;
+         bool showing_confirmation_dialog;
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
@@ -178,7 +182,8 @@ namespace AllegroFlare
          void skip_to_title();
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_current_selected_menu_option();
-         bool processing_user_input();
+         bool current_menu_option_must_be_confirmed();
+         bool processing_user_input_on_main_menu();
          bool is_state(uint32_t possible_state=STATE_UNDEF);
          virtual void primary_timer_func() override;
          void render();
@@ -186,6 +191,7 @@ namespace AllegroFlare
          void draw_copyright_text();
          static void draw_cursor_box(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR outline_color=ALLEGRO_COLOR{1, 1, 1, 1}, float outline_stroke_thickness=1.0f, bool menu_option_chosen=false, float menu_option_chosen_at=0.0f, float menu_option_selection_to_activation_delay=1.0f, float time_now=al_get_time());
          void draw_menu();
+         void draw_confirmation_dialog();
          std::string infer_current_menu_option_value();
          std::string infer_current_menu_option_label();
          void play_menu_move_sound_effect();
@@ -194,6 +200,7 @@ namespace AllegroFlare
          virtual void joy_axis_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          static std::vector<std::pair<std::string, std::string>> build_default_menu_options();
+         static std::vector<std::pair<std::string, std::string>> build_confirmation_dialog_menu_options();
       };
    }
 }

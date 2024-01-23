@@ -70,6 +70,7 @@ TitleScreen::TitleScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , menu_option_chosen(false)
    , menu_option_chosen_at(0.0f)
    , menu_option_activated(false)
+   , showing_confirmation_dialog(false)
 {
 }
 
@@ -547,6 +548,10 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
          menu_option_chosen_at = al_get_time();
       break;
 
+      case STATE_AWAITING_USER_CONFIRMATION:
+         showing_confirmation_dialog = true;
+      break;
+
       case STATE_FINISHED:
       break;
 
@@ -596,6 +601,10 @@ void TitleScreen::update(float time_now)
          }
       break;
 
+      case STATE_AWAITING_USER_CONFIRMATION:
+         // TODO
+      break;
+
       case STATE_FINISHED:
       break;
 
@@ -614,6 +623,7 @@ bool TitleScreen::is_valid_state(uint32_t state)
       STATE_REVEALING,
       STATE_AWAITING_USER_INPUT,
       STATE_MENU_OPTION_IS_CHOSEN,
+      STATE_AWAITING_USER_CONFIRMATION,
       STATE_FINISHED,
    };
    return (valid_states.count(state) > 0);
@@ -669,7 +679,7 @@ void TitleScreen::set_menu_options(std::vector<std::pair<std::string, std::strin
 
 void TitleScreen::move_cursor_up()
 {
-   if (!processing_user_input()) return;
+   if (!processing_user_input_on_main_menu()) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -681,7 +691,7 @@ void TitleScreen::move_cursor_up()
 
 void TitleScreen::move_cursor_down()
 {
-   if (!processing_user_input()) return;
+   if (!processing_user_input_on_main_menu()) return;
 
    if (menu_move_sound_effect_enabled) play_menu_move_sound_effect();
 
@@ -701,6 +711,7 @@ void TitleScreen::activate_current_selected_menu_option()
       throw std::runtime_error("TitleScreen::activate_current_selected_menu_option: error: guard \"event_emitter\" not met");
    }
    // TODO: Consider case where there is an emtpy list
+   // TODO: Remove the emit_game_event as a technique here, rely on callback only
    std::string current_menu_option_value = infer_current_menu_option_value();
    event_emitter->emit_game_event(current_menu_option_value);
    // TODO: Test this callback
@@ -710,7 +721,7 @@ void TitleScreen::activate_current_selected_menu_option()
 
 void TitleScreen::select_menu_option()
 {
-   if (!processing_user_input()) return;
+   if (!processing_user_input_on_main_menu()) return;
 
    if (menu_is_empty())
    {
@@ -721,14 +732,22 @@ void TitleScreen::select_menu_option()
       return;
    }
 
-   set_state(STATE_MENU_OPTION_IS_CHOSEN);
+   if (current_menu_option_must_be_confirmed()) set_state(STATE_AWAITING_USER_CONFIRMATION);
+   else set_state(STATE_MENU_OPTION_IS_CHOSEN);
 
    if (menu_select_option_sound_effect_enabled) play_menu_select_option_sound_effect();
 
    return;
 }
 
-bool TitleScreen::processing_user_input()
+bool TitleScreen::current_menu_option_must_be_confirmed()
+{
+   std::set<std::string> choices_requiring_confirmation = { "exit_game*" };
+   std::string current_menu_value = infer_current_menu_option_value();
+   return choices_requiring_confirmation.find(current_menu_value) != choices_requiring_confirmation.end();
+}
+
+bool TitleScreen::processing_user_input_on_main_menu()
 {
    return is_state(STATE_AWAITING_USER_INPUT); 
 }
@@ -771,6 +790,7 @@ void TitleScreen::render()
    draw_title();
    if (showing_copyright) draw_copyright_text();
    if (showing_menu) draw_menu();
+   if (showing_confirmation_dialog) draw_confirmation_dialog();
    return;
 }
 
@@ -974,6 +994,82 @@ void TitleScreen::draw_menu()
    return;
 }
 
+void TitleScreen::draw_confirmation_dialog()
+{
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[TitleScreen::draw_confirmation_dialog]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TitleScreen::draw_confirmation_dialog: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   // TODO: review guards on this function
+   ALLEGRO_FONT *menu_font = obtain_menu_font();
+   //int surface_width = 1920;
+   //int surface_height = 1080;
+   float h_font_line_height = (int)(al_get_font_line_height(menu_font) * 0.5f);
+   float menu_item_vertical_spacing = (int)(al_get_font_line_height(menu_font) * 1.4f);
+   int menu_item_num = 0;
+
+   // get longest menu option text length
+   int longest_menu_option_text_width = 0;
+   auto confirmation_dialog_menu_options = build_confirmation_dialog_menu_options();
+   for (auto &menu_option : confirmation_dialog_menu_options)
+   {
+      std::string menu_item_text = std::get<0>(menu_option);
+      int this_menu_item_text_width = al_get_text_width(menu_font, menu_item_text.c_str());
+      if (this_menu_item_text_width > longest_menu_option_text_width)
+         longest_menu_option_text_width = this_menu_item_text_width;
+   }
+
+   // render each menu item
+
+   for (auto &menu_option : confirmation_dialog_menu_options)
+   {
+      bool showing_cursor_on_this_option = false;
+      if (menu_item_num == cursor_position) showing_cursor_on_this_option = true;
+      std::string menu_item_text = std::get<0>(menu_option);
+
+      ALLEGRO_COLOR this_menu_text_color = showing_cursor_on_this_option
+         ? (menu_option_chosen ? menu_text_color : menu_selected_text_color) : menu_text_color;
+
+      float x = menu_position_x + 200;
+      float y = menu_position_y + menu_item_vertical_spacing * menu_item_num;
+
+      if (showing_cursor_on_this_option)
+      {
+         float box_width = longest_menu_option_text_width + 148;
+         float box_height = al_get_font_line_height(menu_font) + 6;
+
+         draw_cursor_box(
+            x,
+            y,
+            box_width,
+            box_height,
+            menu_selector_color,
+            menu_selector_outline_color,
+            menu_selector_outline_stroke_thickness,
+            menu_option_chosen,
+            menu_option_chosen_at,
+            menu_option_selection_to_activation_delay,
+            al_get_time()
+         );
+      }
+
+      al_draw_text(
+         menu_font,
+         this_menu_text_color,
+         (int)x,
+         (int)(y-h_font_line_height),
+         ALLEGRO_ALIGN_CENTER,
+         menu_item_text.c_str()
+      );
+
+      menu_item_num++;
+   }
+   return;
+}
+
 std::string TitleScreen::infer_current_menu_option_value()
 {
    if (menu_options.empty()) return "";
@@ -1133,7 +1229,7 @@ void TitleScreen::joy_axis_func(ALLEGRO_EVENT* ev)
 
 void TitleScreen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
-   if (!processing_user_input()) return;
+   if (!processing_user_input_on_main_menu()) return;
 
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_UP) move_cursor_up();
    if (virtual_controller_button_num == VirtualControllers::GenericController::BUTTON_DOWN) move_cursor_down();
@@ -1158,7 +1254,21 @@ bool TitleScreen::menu_has_items()
 std::vector<std::pair<std::string, std::string>> TitleScreen::build_default_menu_options()
 {
    std::vector<std::pair<std::string, std::string>> result;
-   result = { { "Start new game", "start_new_game" }, { "Credits", "show_credits" }, { "Exit", "exit_game" } };
+   result = {
+      { "Start new game", "start_new_game" },
+      { "Credits", "show_credits" },
+      { "Exit", "exit_game*" }
+   };
+   return result;
+}
+
+std::vector<std::pair<std::string, std::string>> TitleScreen::build_confirmation_dialog_menu_options()
+{
+   std::vector<std::pair<std::string, std::string>> result;
+   result = {
+      { "yes", "exit_game" },
+      { "no", "close_confirmation_dialog" },
+   };
    return result;
 }
 

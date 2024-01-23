@@ -17,20 +17,22 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/Screens/Gameplay";
 
       private:
-         std::string property;
+         std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func;
+         void* on_finished_callback_func_user_data;
 
       protected:
 
 
       public:
-         Gameplay(std::string property="[unset-property]");
+         Gameplay();
          virtual ~Gameplay();
 
-         std::string get_property() const;
-         virtual void set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func={});
-         virtual void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data=nullptr);
+         void set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func);
+         void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
+         std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_finished_callback_func() const;
+         void* get_on_finished_callback_func_user_data() const;
+         void call_on_finished_callback_func();
          virtual void load_level_by_identifier(std::string possible_type="");
-         bool property_is(std::string possible_type="");
       };
    }
 }
