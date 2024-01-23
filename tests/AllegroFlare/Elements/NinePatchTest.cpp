@@ -41,8 +41,14 @@ TEST_F(AllegroFlare_Elements_NinePatchTest, render__without_primitives_addon_ini
 
 TEST_F(AllegroFlare_Elements_NinePatchTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
+   ALLEGRO_BITMAP *source_texture = get_bitmap_bin_ref().auto_get("9SliceSprites-0.png");
+   ASSERT_NE(nullptr, source_texture);
+
    AllegroFlare::Elements::NinePatch nine_patch;
+   nine_patch.build_mesh();
+   nine_patch.set_source_texture(source_texture);
    nine_patch.render();
+
    al_flip_display();
    sleep_for(1);
 }

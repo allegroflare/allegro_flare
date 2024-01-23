@@ -29,6 +29,8 @@ namespace AllegroFlare
          NinePatch();
          ~NinePatch();
 
+         void set_source_texture(ALLEGRO_BITMAP* source_texture);
+         ALLEGRO_BITMAP* get_source_texture() const;
          void render();
          void build_mesh();
          std::vector<ALLEGRO_VERTEX> build_vertices_for_rect();
