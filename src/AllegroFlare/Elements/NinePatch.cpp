@@ -88,6 +88,11 @@ void NinePatch::build_mesh()
    std::tuple<float, float, float, float> e_uv = { 32, 32, 268, 64 };
    std::tuple<float, float, float, float> f_uv = { 268, 32, 300, 64 };
 
+   // BOTTOM ROW uvs
+
+   std::tuple<float, float, float, float> g_uv = { 0, 268, 32, 300 };
+   std::tuple<float, float, float, float> h_uv = { 32, 268, 268, 300 };
+   std::tuple<float, float, float, float> i_uv = { 268, 268, 300, 300 };
 
 
    // Build the TOP ROW
@@ -124,7 +129,6 @@ void NinePatch::build_mesh()
          build_vertices_for_rect2(
          0, top_row_height, left_column_width, middle_row_height,
          d_uv
-         //0, 32, 32, 64
       );
    mesh.insert(mesh.end(), middle_left_patch.begin(), middle_left_patch.end());
 
@@ -133,7 +137,6 @@ void NinePatch::build_mesh()
          build_vertices_for_rect2(
          left_column_width, top_row_height, center_column_width, middle_row_height,
          e_uv
-         //32, 32, 268, 64
       );
    mesh.insert(mesh.end(), middle_center_patch.begin(), middle_center_patch.end());
 
@@ -142,7 +145,6 @@ void NinePatch::build_mesh()
          build_vertices_for_rect2(
          left_column_width + center_column_width, top_row_height, right_column_width, middle_row_height,
          f_uv
-         //268, 32, 300, 64
       );
    mesh.insert(mesh.end(), middle_right_patch.begin(), middle_right_patch.end());
 
@@ -151,25 +153,25 @@ void NinePatch::build_mesh()
 
    // Top left
    std::vector<ALLEGRO_VERTEX> bottom_left_patch =
-         build_vertices_for_rect(
+         build_vertices_for_rect2(
          0, top_row_height+middle_row_height, left_column_width, bottom_row_height,
-         0, 268, 32, 300
+         g_uv
       );
    mesh.insert(mesh.end(), bottom_left_patch.begin(), bottom_left_patch.end());
 
    // Top center
    std::vector<ALLEGRO_VERTEX> bottom_center_patch =
-         build_vertices_for_rect(
+         build_vertices_for_rect2(
          left_column_width, top_row_height+middle_row_height, center_column_width, bottom_row_height,
-         32, 268, 268, 300
+         h_uv
       );
    mesh.insert(mesh.end(), bottom_center_patch.begin(), bottom_center_patch.end());
 
    // Top right
    std::vector<ALLEGRO_VERTEX> bottom_right_patch =
-         build_vertices_for_rect(
+         build_vertices_for_rect2(
          left_column_width + center_column_width, top_row_height+middle_row_height, right_column_width, bottom_row_height,
-         268, 268, 300, 300
+         i_uv
       );
    mesh.insert(mesh.end(), bottom_right_patch.begin(), bottom_right_patch.end());
 
