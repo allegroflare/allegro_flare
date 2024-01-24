@@ -279,7 +279,7 @@ void Complete::load_last_played_session_or_start_new(AllegroFlare::GameSession* 
    return;
 }
 
-void Complete::load_audio_controller()
+void Complete::load_audio_controller(AllegroFlare::AudioController* audio_controller)
 {
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::GameConfigurations::Base::load_audio_controller",

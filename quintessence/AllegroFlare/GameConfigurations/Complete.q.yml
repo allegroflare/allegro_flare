@@ -333,6 +333,10 @@ methods:
 
   - name: load_audio_controller
     virtual: true
+    parameters:
+      - name: audio_controller
+        type: AllegroFlare::AudioController*
+        default_argument: nullptr
     body: |
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::GameConfigurations::Base::load_audio_controller",
@@ -507,5 +511,7 @@ dependencies:
     headers: [ AllegroFlare/Runners/Complete.hpp ]
   - symbol: AllegroFlare::Predeclare
     headers: [ AllegroFlare/Predeclare.hpp ]
+  - symbol: AllegroFlare::AudioController
+    headers: [ AllegroFlare/AudioController.hpp ]
 
 

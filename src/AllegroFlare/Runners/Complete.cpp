@@ -301,7 +301,7 @@ void Complete::initialize()
    */
 
    // TODO: Load up our sound effects and music tracks
-   game_configuration->load_audio_controller();
+   game_configuration->load_audio_controller(&framework->get_audio_controller_ref());
 
    //primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
 
