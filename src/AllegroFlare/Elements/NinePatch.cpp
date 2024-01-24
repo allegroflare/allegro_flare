@@ -23,7 +23,9 @@ NinePatch::NinePatch()
    , top_row_height(128.0f)
    , middle_row_height(256.0f)
    , bottom_row_height(128.0f)
+   , a_uv({ 0, 0, 32, 32 })
    , mesh()
+   , initialized(false)
 {
 }
 
@@ -45,28 +47,49 @@ ALLEGRO_BITMAP* NinePatch::get_source_texture() const
 }
 
 
-void NinePatch::render()
+void NinePatch::initialize()
 {
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[NinePatch::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("NinePatch::initialize: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[NinePatch::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("NinePatch::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(source_texture))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::render]: error: guard \"source_texture\" not met.";
+      error_message << "[NinePatch::initialize]: error: guard \"source_texture\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::render: error: guard \"source_texture\" not met");
+      throw std::runtime_error("NinePatch::initialize: error: guard \"source_texture\" not met");
+   }
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[NinePatch::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NinePatch::initialize: error: guard \"(!initialized)\" not met");
+   }
+   build_mesh();
+   initialized = true;
+   return;
+}
+
+void NinePatch::render()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[NinePatch::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NinePatch::render: error: guard \"initialized\" not met");
    }
    al_draw_prim(&mesh[0], NULL, source_texture, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
@@ -78,7 +101,7 @@ void NinePatch::build_mesh()
 
    // TOP ROW uvs
 
-   std::tuple<float, float, float, float> a_uv = { 0, 0, 32, 32 };
+   //std::tuple<float, float, float, float> a_uv = { 0, 0, 32, 32 };
    std::tuple<float, float, float, float> b_uv = { 32, 0, 268, 32 };
    std::tuple<float, float, float, float> c_uv = { 268, 0, 300, 32 };
 

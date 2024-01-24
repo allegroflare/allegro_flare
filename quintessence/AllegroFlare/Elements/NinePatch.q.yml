@@ -31,17 +31,33 @@ properties:
     type: float
     init_with: 128.0f
 
+  - name: a_uv
+    type: std::tuple<float, float, float, float>
+    init_with: '{ 0, 0, 32, 32 }'
+
   - name: mesh
     type: std::vector<ALLEGRO_VERTEX>
     init_with: ''
+
+  - name: initialized
+    type: bool
+    init_with: false
 
 
 methods:
 
 
+  - name: initialize
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), source_texture, (!initialized) ]
+    body: |
+      build_mesh();
+      initialized = true;
+      return;
+
+
   - name: render
     type: void
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), source_texture ]
+    guards: [ initialized ]
     body: |
       al_draw_prim(&mesh[0], NULL, source_texture, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
       return;
@@ -51,13 +67,13 @@ methods:
 
 
   - name: build_mesh
-    type: void
+    private: true
     body: |
       mesh.clear();
 
       // TOP ROW uvs
 
-      std::tuple<float, float, float, float> a_uv = { 0, 0, 32, 32 };
+      //std::tuple<float, float, float, float> a_uv = { 0, 0, 32, 32 };
       std::tuple<float, float, float, float> b_uv = { 32, 0, 268, 32 };
       std::tuple<float, float, float, float> c_uv = { 268, 0, 300, 32 };
 
@@ -160,6 +176,7 @@ methods:
 
   - name: build_vertices_for_rect
     type: std::vector<ALLEGRO_VERTEX>
+    private: true
     parameters:
       - name: x
         type: float
@@ -199,6 +216,7 @@ methods:
 
   - name: build_vertices_for_rect2
     type: std::vector<ALLEGRO_VERTEX>
+    private: true
     parameters:
       - name: x
         type: float
