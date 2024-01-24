@@ -21,6 +21,11 @@ properties:
     getter: true
     setter: true
 
+  - name: gameplay_suspended
+    type: bool
+    init_with: false
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Screens/Gameplay"'
@@ -36,6 +41,50 @@ documentation:
 
 
 methods:
+
+
+  - name: gameplay_suspend_func
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+
+
+  - name: gameplay_resume_func
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+
+
+  - name: suspend_gameplay
+    body: |
+      if (gameplay_suspended) return;
+      gameplay_suspended = true;
+      gameplay_suspend_func();
+      return;
+
+
+  - name: resume_suspended_gameplay
+    body: |
+      if (!gameplay_suspended) return;
+      gameplay_suspended = false;
+      gameplay_resume_func();
+      return;
+
+
+  - name: toggle_suspend_gameplay
+    body: |
+      gameplay_suspended = !gameplay_suspended;
+      if (gameplay_suspended) gameplay_suspend_func();
+      else gameplay_resume_func();
+      return;
 
 
   - name: call_on_finished_callback_func

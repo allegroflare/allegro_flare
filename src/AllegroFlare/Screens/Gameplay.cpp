@@ -15,6 +15,7 @@ Gameplay::Gameplay()
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::Gameplay::TYPE)
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
+   , gameplay_suspended(false)
 {
 }
 
@@ -47,6 +48,54 @@ void* Gameplay::get_on_finished_callback_func_user_data() const
    return on_finished_callback_func_user_data;
 }
 
+
+bool Gameplay::get_gameplay_suspended() const
+{
+   return gameplay_suspended;
+}
+
+
+void Gameplay::gameplay_suspend_func()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return;
+}
+
+void Gameplay::gameplay_resume_func()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return;
+}
+
+void Gameplay::suspend_gameplay()
+{
+   if (gameplay_suspended) return;
+   gameplay_suspended = true;
+   gameplay_suspend_func();
+   return;
+}
+
+void Gameplay::resume_suspended_gameplay()
+{
+   if (!gameplay_suspended) return;
+   gameplay_suspended = false;
+   gameplay_resume_func();
+   return;
+}
+
+void Gameplay::toggle_suspend_gameplay()
+{
+   gameplay_suspended = !gameplay_suspended;
+   if (gameplay_suspended) gameplay_suspend_func();
+   else gameplay_resume_func();
+   return;
+}
 
 void Gameplay::call_on_finished_callback_func()
 {
