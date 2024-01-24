@@ -129,6 +129,33 @@ void NinePatch::build_mesh()
       );
    mesh.insert(mesh.end(), middle_right_patch.begin(), middle_right_patch.end());
 
+
+   // BOTTOM ROW
+
+   // Top left
+   std::vector<ALLEGRO_VERTEX> bottom_left_patch =
+         build_vertices_for_rect(
+         0, top_row_height+middle_row_height, left_column_width, bottom_row_height,
+         0, 268, 32, 300
+      );
+   mesh.insert(mesh.end(), bottom_left_patch.begin(), bottom_left_patch.end());
+
+   // Top center
+   std::vector<ALLEGRO_VERTEX> bottom_center_patch =
+         build_vertices_for_rect(
+         left_column_width, top_row_height+middle_row_height, center_column_width, bottom_row_height,
+         32, 268, 268, 300
+      );
+   mesh.insert(mesh.end(), bottom_center_patch.begin(), bottom_center_patch.end());
+
+   // Top right
+   std::vector<ALLEGRO_VERTEX> bottom_right_patch =
+         build_vertices_for_rect(
+         left_column_width + center_column_width, top_row_height+middle_row_height, right_column_width, bottom_row_height,
+         268, 268, 300, 300
+      );
+   mesh.insert(mesh.end(), bottom_right_patch.begin(), bottom_right_patch.end());
+
    // TODO: Continue to add remaining patches
    return;
 }
