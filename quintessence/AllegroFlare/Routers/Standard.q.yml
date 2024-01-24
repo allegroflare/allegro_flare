@@ -227,6 +227,8 @@ enums:
 
       - EVENT_START_NEW_GAME
       - EVENT_CONTINUE_FROM_LAST_SAVE
+      - EVENT_PAUSE_GAME
+      - EVENT_UNPAUSE_GAME
       - EVENT_WIN_GAME
       - EVENT_LOSE_GAME
       - EVENT_START_LEVEL
@@ -295,6 +297,8 @@ methods:
          {EVENT_EXIT_GAME, "EVENT_EXIT_GAME"},
          {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
          {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
+         {EVENT_PAUSE_GAME, "EVENT_PAUSE_GAME"},
+         {EVENT_UNPAUSE_GAME, "EVENT_UNPAUSE_GAME"},
          {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
          {EVENT_LOSE_GAME, "EVENT_LOSE_GAME"},
          {EVENT_START_LEVEL, "EVENT_START_LEVEL"},
@@ -510,22 +514,22 @@ methods:
                }
             }
          }},
-         //{ EVENT_PAUSE_GAME, [this](){
+         { EVENT_PAUSE_GAME, [this](){
             // TODO: Finish the actions in this event
             // guard: not already pause screen
             // pause session?
             //screen_identifier_before_pause = get_framework()->get_currently_active_screen_name();
             // capture "pre-pause screen"
             // activate pause_screen
-         //}},
-         //{ EVENT_UNPAUSE_GAME, [this](){
+         }},
+         { EVENT_UNPAUSE_GAME, [this](){
             // TODO: Finish the actions in this event
             // guard: is paused
             // unpause session?
 
             // activate "pre-pause screen"
             //activate_screen(screen_identifier_before_pause);
-         //}},
+         }},
          { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
             // Validate an active session
             if (!game_session.is_active())
