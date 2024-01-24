@@ -18,7 +18,7 @@ namespace Elements
 NinePatch::NinePatch()
    : source_texture(nullptr)
    , left_column_width(128.0f)
-   , center_column_width(128.0f)
+   , center_column_width(256.0f)
    , right_column_width(128.0f)
    , top_row_height(128.0f)
    , middle_row_height(128.0f)
@@ -75,45 +75,46 @@ void NinePatch::render()
 void NinePatch::build_mesh()
 {
    mesh.clear();
-   std::vector<ALLEGRO_VERTEX> top_left_patch = adjust_rect(
-         build_vertices_for_rect(),
-         0,
-         0,
-         left_column_width,
-         top_row_height,
-         0,
-         0,
-         32,
-         32
+
+   // Top left
+   std::vector<ALLEGRO_VERTEX> top_left_patch =
+         build_vertices_for_rect(
+         0, 0, left_column_width, top_row_height,
+         0, 0, 32, 32
       );
    mesh.insert(mesh.end(), top_left_patch.begin(), top_left_patch.end());
+
+   // Top center
+   std::vector<ALLEGRO_VERTEX> top_center_patch =
+         build_vertices_for_rect(
+         left_column_width, 0, center_column_width, top_row_height,
+         32, 0, 268, 32
+      );
+   mesh.insert(mesh.end(), top_center_patch.begin(), top_center_patch.end());
+
+   // Top right
+   std::vector<ALLEGRO_VERTEX> top_right_patch =
+         build_vertices_for_rect(
+         left_column_width + center_column_width, 0, right_column_width, top_row_height,
+         268, 0, 300, 32
+      );
+   mesh.insert(mesh.end(), top_right_patch.begin(), top_right_patch.end());
+
    // TODO: Continue to add remaining patches
    return;
 }
 
-std::vector<ALLEGRO_VERTEX> NinePatch::build_vertices_for_rect()
+std::vector<ALLEGRO_VERTEX> NinePatch::build_vertices_for_rect(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
 {
    std::vector<ALLEGRO_VERTEX> result = {
-      ALLEGRO_VERTEX{0, 0, 0, 0, 0, ALLEGRO_COLOR{1, 1, 1, 1}},
-      ALLEGRO_VERTEX{1, 0, 0, 1, 0, ALLEGRO_COLOR{1, 1, 1, 1}},
-      ALLEGRO_VERTEX{0, 1, 0, 0, 1, ALLEGRO_COLOR{1, 1, 1, 1}},
-      ALLEGRO_VERTEX{1, 0, 0, 1, 0, ALLEGRO_COLOR{1, 1, 1, 1}},
-      ALLEGRO_VERTEX{0, 1, 0, 0, 1, ALLEGRO_COLOR{1, 1, 1, 1}},
-      ALLEGRO_VERTEX{1, 1, 0, 1, 1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+w, y+h, 0, u2, v2, ALLEGRO_COLOR{1, 1, 1, 1}},
    };
    return result;
-}
-
-std::vector<ALLEGRO_VERTEX> NinePatch::adjust_rect(std::vector<ALLEGRO_VERTEX> vertices, float x, float y, float w, float h, float u, float v, float uw, float vh)
-{
-   for (auto &vertex : vertices)
-   {
-      vertex.x = vertex.x * w + x;
-      vertex.y = vertex.y * h + y;
-      vertex.u = vertex.u * uw + u;
-      vertex.v = vertex.v * vh + v;
-   }
-   return vertices;
 }
 
 
