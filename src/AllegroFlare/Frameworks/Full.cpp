@@ -1644,11 +1644,6 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       } break;
 
       case ALLEGRO_EVENT_KEY_DOWN: {
-         if (this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-         {
-            if (escape_key_will_shutdown) shutdown_program = true;
-         }
-
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
@@ -1658,6 +1653,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command++;
          if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
+
+
+         if ((this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) && (Full::key_shift > 0))
+         {
+            if (escape_key_will_shutdown) shutdown_program = true;
+         }
 
          // Handle offsetting the primary timer
          if (Full::key_shift > 0)

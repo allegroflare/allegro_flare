@@ -94,7 +94,7 @@ namespace AllegroFlare
          void initialize_sync_oracle();
          bool initialize_display_and_render_pipeline();
          bool display_close_will_shutdown;
-         bool escape_key_will_shutdown;
+         bool escape_key_will_shutdown; // NOTE: This has been modified to Shift+ESC
          bool output_auto_created_config_warning;
          bool set_primary_render_surface_as_target_before_calling_primary_timer_funcs;
          bool clear_render_surface_before_calling_primary_timer_funcs;
