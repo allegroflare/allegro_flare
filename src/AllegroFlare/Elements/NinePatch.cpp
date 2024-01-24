@@ -55,6 +55,18 @@ ALLEGRO_BITMAP* NinePatch::get_source_texture() const
 }
 
 
+std::vector<ALLEGRO_VERTEX> NinePatch::get_mesh()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[NinePatch::get_mesh]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("NinePatch::get_mesh: error: guard \"initialized\" not met");
+   }
+   return mesh;
+}
+
 void NinePatch::initialize()
 {
    if (!(al_is_system_installed()))

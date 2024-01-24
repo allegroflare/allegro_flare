@@ -45,6 +45,7 @@ namespace AllegroFlare
 
          void set_source_texture(ALLEGRO_BITMAP* source_texture);
          ALLEGRO_BITMAP* get_source_texture() const;
+         std::vector<ALLEGRO_VERTEX> get_mesh();
          void initialize();
          void render();
       };

@@ -70,6 +70,7 @@ properties:
   - name: mesh
     type: std::vector<ALLEGRO_VERTEX>
     init_with: ''
+    getter: explicit
 
   - name: initialized
     type: bool
@@ -77,6 +78,13 @@ properties:
 
 
 methods:
+
+
+  - name: get_mesh
+    type: std::vector<ALLEGRO_VERTEX>
+    guards: [ initialized ]
+    body: |
+      return mesh;
 
 
   - name: initialize
