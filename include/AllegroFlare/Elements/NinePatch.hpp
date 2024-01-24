@@ -3,6 +3,7 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <tuple>
 #include <vector>
 
 
@@ -34,6 +35,7 @@ namespace AllegroFlare
          void render();
          void build_mesh();
          std::vector<ALLEGRO_VERTEX> build_vertices_for_rect(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, float u1=0.0f, float v1=0.0f, float u2=1.0f, float v2=1.0f);
+         std::vector<ALLEGRO_VERTEX> build_vertices_for_rect2(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, std::tuple<float, float, float, float> uv={ 0, 0, 0, 0 });
       };
    }
 }

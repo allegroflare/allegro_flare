@@ -76,34 +76,42 @@ void NinePatch::build_mesh()
 {
    mesh.clear();
 
-   // TOP ROW
+   // TOP ROW uvs
+
+   std::tuple<float, float, float, float> a_uv = { 0, 0, 32, 32 };
+   std::tuple<float, float, float, float> b_uv = { 32, 0, 268, 32 };
+   std::tuple<float, float, float, float> c_uv = { 268, 0, 300, 32 };
+
+
+
+   // Build the TOP ROW
 
    // Top left
    std::vector<ALLEGRO_VERTEX> top_left_patch =
-         build_vertices_for_rect(
+         build_vertices_for_rect2(
          0, 0, left_column_width, top_row_height,
-         0, 0, 32, 32
+         a_uv
       );
    mesh.insert(mesh.end(), top_left_patch.begin(), top_left_patch.end());
 
    // Top center
    std::vector<ALLEGRO_VERTEX> top_center_patch =
-         build_vertices_for_rect(
+         build_vertices_for_rect2(
          left_column_width, 0, center_column_width, top_row_height,
-         32, 0, 268, 32
+         b_uv
       );
    mesh.insert(mesh.end(), top_center_patch.begin(), top_center_patch.end());
 
    // Top right
    std::vector<ALLEGRO_VERTEX> top_right_patch =
-         build_vertices_for_rect(
+         build_vertices_for_rect2(
          left_column_width + center_column_width, 0, right_column_width, top_row_height,
-         268, 0, 300, 32
+         c_uv
       );
    mesh.insert(mesh.end(), top_right_patch.begin(), top_right_patch.end());
 
 
-   // MIDDLE ROW
+   // Build the MIDDLE ROW
 
    // Top left
    std::vector<ALLEGRO_VERTEX> middle_left_patch =
@@ -130,7 +138,7 @@ void NinePatch::build_mesh()
    mesh.insert(mesh.end(), middle_right_patch.begin(), middle_right_patch.end());
 
 
-   // BOTTOM ROW
+   // Build the BOTTOM ROW
 
    // Top left
    std::vector<ALLEGRO_VERTEX> bottom_left_patch =
@@ -162,6 +170,23 @@ void NinePatch::build_mesh()
 
 std::vector<ALLEGRO_VERTEX> NinePatch::build_vertices_for_rect(float x, float y, float w, float h, float u1, float v1, float u2, float v2)
 {
+   std::vector<ALLEGRO_VERTEX> result = {
+      ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+0, y+h, 0, u1, v2, ALLEGRO_COLOR{1, 1, 1, 1}},
+      ALLEGRO_VERTEX{x+w, y+h, 0, u2, v2, ALLEGRO_COLOR{1, 1, 1, 1}},
+   };
+   return result;
+}
+
+std::vector<ALLEGRO_VERTEX> NinePatch::build_vertices_for_rect2(float x, float y, float w, float h, std::tuple<float, float, float, float> uv)
+{
+   auto &u1 = std::get<0>(uv);
+   auto &v1 = std::get<1>(uv);
+   auto &u2 = std::get<2>(uv);
+   auto &v2 = std::get<3>(uv);
    std::vector<ALLEGRO_VERTEX> result = {
       ALLEGRO_VERTEX{x+0, y+0, 0, u1, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
       ALLEGRO_VERTEX{x+w, y+0, 0, u2, v1, ALLEGRO_COLOR{1, 1, 1, 1}},
