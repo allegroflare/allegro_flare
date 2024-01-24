@@ -22,6 +22,14 @@ namespace AllegroFlare
          float middle_row_height;
          float bottom_row_height;
          std::tuple<float, float, float, float> a_uv;
+         std::tuple<float, float, float, float> b_uv;
+         std::tuple<float, float, float, float> c_uv;
+         std::tuple<float, float, float, float> d_uv;
+         std::tuple<float, float, float, float> e_uv;
+         std::tuple<float, float, float, float> f_uv;
+         std::tuple<float, float, float, float> g_uv;
+         std::tuple<float, float, float, float> h_uv;
+         std::tuple<float, float, float, float> i_uv;
          std::vector<ALLEGRO_VERTEX> mesh;
          bool initialized;
          void build_mesh();

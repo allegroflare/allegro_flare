@@ -24,6 +24,14 @@ NinePatch::NinePatch()
    , middle_row_height(256.0f)
    , bottom_row_height(128.0f)
    , a_uv({ 0, 0, 32, 32 })
+   , b_uv({ 32, 0, 268, 32 })
+   , c_uv({ 268, 0, 300, 32 })
+   , d_uv({ 0, 32, 32, 64 })
+   , e_uv({ 32, 32, 268, 64 })
+   , f_uv({ 268, 32, 300, 64 })
+   , g_uv({ 0, 268, 32, 300 })
+   , h_uv({ 32, 268, 268, 300 })
+   , i_uv({ 268, 268, 300, 300 })
    , mesh()
    , initialized(false)
 {
@@ -98,24 +106,6 @@ void NinePatch::render()
 void NinePatch::build_mesh()
 {
    mesh.clear();
-
-   // TOP ROW uvs
-
-   //std::tuple<float, float, float, float> a_uv = { 0, 0, 32, 32 };
-   std::tuple<float, float, float, float> b_uv = { 32, 0, 268, 32 };
-   std::tuple<float, float, float, float> c_uv = { 268, 0, 300, 32 };
-
-   // MIDDLE ROW uvs
-
-   std::tuple<float, float, float, float> d_uv = { 0, 32, 32, 64 };
-   std::tuple<float, float, float, float> e_uv = { 32, 32, 268, 64 };
-   std::tuple<float, float, float, float> f_uv = { 268, 32, 300, 64 };
-
-   // BOTTOM ROW uvs
-
-   std::tuple<float, float, float, float> g_uv = { 0, 268, 32, 300 };
-   std::tuple<float, float, float, float> h_uv = { 32, 268, 268, 300 };
-   std::tuple<float, float, float, float> i_uv = { 268, 268, 300, 300 };
 
 
    // Build the TOP ROW
