@@ -2003,6 +2003,14 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      }
                   } break;
 
+                  case ALLEGRO_FLARE_EVENT_PAUSE_GAMEPLAY: {
+                     // TODO: Figure out what do do here
+                  } break;
+
+                  case ALLEGRO_FLARE_EVENT_UNPAUSE_GAMEPLAY: {
+                     // TODO: Figure out what do do here
+                  } break;
+
                   case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
                      disable_drawing_inputs_bar_overlay();
                   break;
