@@ -2410,6 +2410,7 @@
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Gameplay"
   ],

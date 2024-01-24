@@ -6,6 +6,7 @@
 #include <AllegroFlare/RouteEventDatas/Base.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
+#include <AllegroFlare/Screens/Gameplay.hpp>
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -81,6 +82,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          std::function<bool(AllegroFlare::RouteEventDatas::Base*)> load_level_handler;
          AllegroFlare::GameSession game_session;
+         AllegroFlare::Screens::Gameplay* pause_managed_gameplay_screen;
          std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> on_route_event_unhandled_func;
          void* on_route_event_unhandled_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_last_played_session_or_start_new_func;
@@ -99,6 +101,7 @@ namespace AllegroFlare
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_load_level_handler(std::function<bool(AllegroFlare::RouteEventDatas::Base*)> load_level_handler);
+         void set_pause_managed_gameplay_screen(AllegroFlare::Screens::Gameplay* pause_managed_gameplay_screen);
          void set_on_route_event_unhandled_func(std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> on_route_event_unhandled_func);
          void set_on_route_event_unhandled_func_user_data(void* on_route_event_unhandled_func_user_data);
          void set_on_load_last_played_session_or_start_new_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_last_played_session_or_start_new_func);
@@ -109,6 +112,7 @@ namespace AllegroFlare
          void set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          std::function<bool(AllegroFlare::RouteEventDatas::Base*)> get_load_level_handler() const;
+         AllegroFlare::Screens::Gameplay* get_pause_managed_gameplay_screen() const;
          std::function<bool(uint32_t, AllegroFlare::Routers::Standard*, void*)> get_on_route_event_unhandled_func() const;
          void* get_on_route_event_unhandled_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_load_last_played_session_or_start_new_func() const;

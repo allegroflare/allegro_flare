@@ -25407,6 +25407,10 @@ table td
   <td class="property">AllegroFlare::GameSession</td>
 </tr>
 <tr>
+  <td class="property">pause_managed_gameplay_screen</td>
+  <td class="property">AllegroFlare::Screens::Gameplay*</td>
+</tr>
+<tr>
   <td class="property">on_route_event_unhandled_func</td>
   <td class="property">std::function&lt;bool(uint32_t, AllegroFlare::Routers::Standard*, void*)&gt;</td>
 </tr>
@@ -25547,6 +25551,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38052,6 +38059,7 @@ table td
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Gameplay"
   ],

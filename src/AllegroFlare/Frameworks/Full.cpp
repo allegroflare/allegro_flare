@@ -107,7 +107,7 @@ Full::Full()
    , shader_source_poller()
    , shader_target_for_hotloading(nullptr)
    , display_settings_interface(nullptr)
-   , gameplay_screen(nullptr)
+   //, gameplay_screen(nullptr)
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
@@ -1211,16 +1211,16 @@ void Full::load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRe
 }
 
 
-void Full::register_gameplay_screen(std::string name, AllegroFlare::Screens::Gameplay *gameplay_screen)
-{
-   screens.add(name, gameplay_screen);
-}
+//void Full::register_gameplay_screen(std::string name, AllegroFlare::Screens::Gameplay *gameplay_screen)
+//{
+   //screens.add(name, gameplay_screen);
+//}
 
 
-void Full::unregister_gameplay_screen(AllegroFlare::Screens::Gameplay *gameplay_screen)
-{
-   screens.remove(gameplay_screen);
-}
+//void Full::unregister_gameplay_screen(AllegroFlare::Screens::Gameplay *gameplay_screen)
+//{
+   //screens.remove(gameplay_screen);
+//}
 
 
 void Full::register_screen(std::string name, AllegroFlare::Screens::Base *screen)
@@ -2017,39 +2017,9 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_PAUSE_GAMEPLAY: {
-                     if (!gameplay_screen)
-                     {
-                        AllegroFlare::Logger::warn_from_once(
-                           "AllegroFlare::Frameworks::Full::primary_process_event",
-                           "Handling an ALLEGRO_FLARE_EVENT_PAUSE_GAMEPLAY, but no screen has been registered as a "
-                              "gameplay_screen. To get the benefit of pause/unpause handling, you should register a "
-                              "gameplay_screen through Frameworks/Full with \"register_gameplay_screen\"."
-                        );
-                     }
-                     else
-                     {
-                        // TODO: Call the appropriate gameplay_screen's paused
-                        // HERE:
-                        //gameplay_screen->
-                     }
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_UNPAUSE_GAMEPLAY: {
-                     if (!gameplay_screen)
-                     {
-                        AllegroFlare::Logger::warn_from_once(
-                           "AllegroFlare::Frameworks::Full::primary_process_event",
-                           "Handling an ALLEGRO_FLARE_EVENT_UNPAUSE_GAMEPLAY, but no screen has been registered as a "
-                              "gameplay_screen. To get the benefit of pause/unpause handling, you should register a "
-                              "gameplay_screen through Frameworks/Full with \"register_gameplay_screen\"."
-                        );
-                     }
-                     else
-                     {
-                        // TODO: Call the appropriate gameplay_screen's unpause behavior
-                        // HERE:
-                        //gameplay_screen->
-                     }
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
