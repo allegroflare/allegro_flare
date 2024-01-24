@@ -459,7 +459,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             //    - activate the gameplay_screen that (had been deactivated for a special subscreen)?
 
             // Resume the suspended gameplay
-            pause_managed_gameplay_screen->suspend_gameplay();
+            pause_managed_gameplay_screen->resume_suspended_gameplay();
          }
       }},
       { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
