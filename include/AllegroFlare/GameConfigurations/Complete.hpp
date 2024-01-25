@@ -7,11 +7,12 @@
 #include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
+#include <AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp>
+#include <AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
-#include <AllegroFlare/Predeclare.hpp>
 #include <AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <ReleaseInfo.hpp>

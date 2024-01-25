@@ -149,7 +149,9 @@ methods:
       - name: game_event
         type: AllegroFlare::GameEvent*
         default_argument: nullptr
-        default_argument_dependency_symbols: [ 'AllegroFlare::Predeclare' ]
+        default_argument_dependency_symbols:
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
     guards: [ game_event ]
     body: |
       game_configuration->handle_game_event(game_event);
@@ -853,7 +855,9 @@ dependencies:
     headers: [ AllegroFlare/Achievement.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
-  - symbol: AllegroFlare::Predeclare
-    headers: [ AllegroFlare/Predeclare.hpp ]
+  - symbol: AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+    headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp ]
+  - symbol: AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
+    headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp ]
 
 

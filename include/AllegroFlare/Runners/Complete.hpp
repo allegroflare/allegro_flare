@@ -5,12 +5,13 @@
 #include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp>
+#include <AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/LoadASavedGame/Screen.hpp>
 #include <AllegroFlare/ModelBin.hpp>
-#include <AllegroFlare/Predeclare.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/Screens/Achievements.hpp>
 #include <AllegroFlare/Screens/Base.hpp>

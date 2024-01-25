@@ -221,7 +221,9 @@ methods:
       - name: runner
         type: AllegroFlare::Runners::Complete*
         default_argument: nullptr
-        default_argument_dependency_symbols: [ 'AllegroFlare::Predeclare' ]
+        default_argument_dependency_symbols:
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
     body: |
       // TODO: Consider alternatives to get "runner" dependency out of this class
       AllegroFlare::Logger::throw_error(
@@ -509,9 +511,11 @@ dependencies:
     headers: [ AllegroFlare/Screens/Gameplay.hpp ]
   - symbol: AllegroFlare::Runners::Complete
     headers: [ AllegroFlare/Runners/Complete.hpp ]
-  - symbol: AllegroFlare::Predeclare
-    headers: [ AllegroFlare/Predeclare.hpp ]
   - symbol: AllegroFlare::AudioController
     headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+    headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp ]
+  - symbol: AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
+    headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp ]
 
 
