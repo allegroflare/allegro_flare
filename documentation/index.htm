@@ -14074,7 +14074,7 @@ table td
   <td class="method">load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">load_audio_controller()</td>
+  <td class="method">load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr)</td>
 </tr>
 <tr>
   <td class="method">build_title_screen_menu_options()</td>
@@ -14162,6 +14162,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Predeclare&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Predeclare.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -25407,6 +25410,10 @@ table td
   <td class="property">AllegroFlare::GameSession</td>
 </tr>
 <tr>
+  <td class="property">pause_managed_gameplay_screen</td>
+  <td class="property">AllegroFlare::Screens::Gameplay*</td>
+</tr>
+<tr>
   <td class="property">on_route_event_unhandled_func</td>
   <td class="property">std::function&lt;bool(uint32_t, AllegroFlare::Routers::Standard*, void*)&gt;</td>
 </tr>
@@ -25547,6 +25554,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30483,7 +30493,7 @@ table td
   <td class="method">load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">load_audio_controller()</td>
+  <td class="method">load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr)</td>
 </tr>
 <tr>
   <td class="method">build_copyright_text(ReleaseInfo* release_info=nullptr)</td>
@@ -30553,6 +30563,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UnicodeCharacters&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UnicodeCharacters.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38052,6 +38065,7 @@ table td
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Gameplay"
   ],
@@ -38061,6 +38075,13 @@ table td
   "AllegroFlare/Predeclare": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/AudioController": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -38634,11 +38655,6 @@ table td
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/AudioController": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"

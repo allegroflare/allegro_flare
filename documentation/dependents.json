@@ -2410,6 +2410,7 @@
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Gameplay"
   ],
@@ -2419,6 +2420,13 @@
   "AllegroFlare/Predeclare": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/AudioController": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
@@ -2992,11 +3000,6 @@
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
-  ],
-  "AllegroFlare/AudioController": [
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Prototypes/FixedRoom2D/Screen"
   ],
   "AllegroFlare/Prototypes/FixedRoom2D/EventNames/": [
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"

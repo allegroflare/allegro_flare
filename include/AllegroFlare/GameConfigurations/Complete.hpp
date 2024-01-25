@@ -2,15 +2,17 @@
 
 
 #include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
+#include <AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp>
+#include <AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
-#include <AllegroFlare/Predeclare.hpp>
 #include <AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <ReleaseInfo.hpp>
@@ -58,7 +60,7 @@ namespace AllegroFlare
          virtual void continue_from_last_save();
          virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
-         virtual void load_audio_controller();
+         virtual void load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr);
          virtual std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
          virtual std::string build_copyright_text(ReleaseInfo* release_info=nullptr);
          virtual std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> build_rolling_credits_sections();

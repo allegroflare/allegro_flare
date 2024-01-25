@@ -190,6 +190,10 @@ methods:
   - name: load_audio_controller
     virtual: true
     override: true
+    parameters:
+      - name: audio_controller
+        type: AllegroFlare::AudioController*
+        default_argument: nullptr
     body: |
       // Nothing to do
       return;
@@ -278,5 +282,7 @@ dependencies:
     headers: [ AllegroFlare/TemplatedText.hpp ]
   - symbol: AllegroFlare::UnicodeCharacters
     headers: [ AllegroFlare/UnicodeCharacters.hpp ]
+  - symbol: AllegroFlare::AudioController
+    headers: [ AllegroFlare/AudioController.hpp ]
 
 

@@ -149,7 +149,9 @@ methods:
       - name: game_event
         type: AllegroFlare::GameEvent*
         default_argument: nullptr
-        default_argument_dependency_symbols: [ 'AllegroFlare::Predeclare' ]
+        default_argument_dependency_symbols:
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
     guards: [ game_event ]
     body: |
       game_configuration->handle_game_event(game_event);
@@ -316,7 +318,7 @@ methods:
       */
 
       // TODO: Load up our sound effects and music tracks
-      game_configuration->load_audio_controller();
+      game_configuration->load_audio_controller(&framework->get_audio_controller_ref());
 
       //primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
 
@@ -364,6 +366,7 @@ methods:
     body: |
       router.set_screen_manager(&framework->get_screen_manager_ref());
       router.set_event_emitter(event_emitter);
+      router.set_pause_managed_gameplay_screen(primary_gameplay_screen); // TODO: Test this
 
       // Set handlers for route events
       router.set_on_route_event_unhandled_func(on_route_event_unhandled_func);
@@ -852,7 +855,9 @@ dependencies:
     headers: [ AllegroFlare/Achievement.hpp ]
   - symbol: AllegroFlare::Elements::StoryboardPages::Base
     headers: [ AllegroFlare/Elements/StoryboardPages/Base.hpp ]
-  - symbol: AllegroFlare::Predeclare
-    headers: [ AllegroFlare/Predeclare.hpp ]
+  - symbol: AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+    headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp ]
+  - symbol: AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
+    headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp ]
 
 

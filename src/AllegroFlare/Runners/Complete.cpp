@@ -301,7 +301,7 @@ void Complete::initialize()
    */
 
    // TODO: Load up our sound effects and music tracks
-   game_configuration->load_audio_controller();
+   game_configuration->load_audio_controller(&framework->get_audio_controller_ref());
 
    //primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
 
@@ -351,6 +351,7 @@ void Complete::setup_router()
    }
    router.set_screen_manager(&framework->get_screen_manager_ref());
    router.set_event_emitter(event_emitter);
+   router.set_pause_managed_gameplay_screen(primary_gameplay_screen); // TODO: Test this
 
    // Set handlers for route events
    router.set_on_route_event_unhandled_func(on_route_event_unhandled_func);

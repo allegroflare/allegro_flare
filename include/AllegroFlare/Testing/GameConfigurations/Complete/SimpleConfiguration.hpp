@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Achievement.hpp>
+#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
@@ -54,7 +55,7 @@ namespace AllegroFlare
                virtual void continue_from_last_save() override;
                virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr) override;
                virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr) override;
-               virtual void load_audio_controller() override;
+               virtual void load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr) override;
                virtual std::string build_copyright_text(ReleaseInfo* release_info=nullptr) override;
                virtual std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> build_rolling_credits_sections() override;
                bool is_type(std::string possible_type="");

@@ -113,7 +113,7 @@ namespace AllegroFlare
          AllegroFlare::ShaderSourcePoller shader_source_poller;
          AllegroFlare::Shaders::Base *shader_target_for_hotloading;
          AllegroFlare::DisplaySettingsInterfaces::Base *display_settings_interface;
-         AllegroFlare::Screens::Gameplay *gameplay_screen;
+         //AllegroFlare::Screens::Gameplay *gameplay_screen;
 
          void draw_overlay();
          void refresh_display_icon();
@@ -220,8 +220,8 @@ namespace AllegroFlare
          void load_jukebox_sound_effects(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
          void load_jukebox_music_tracks(std::map<std::string, AllegroFlare::AudioRepositoryElement> elements={});
 
-         void register_gameplay_screen(std::string name, AllegroFlare::Screens::Gameplay *gameplay_screen);
-         void unregister_gameplay_screen(AllegroFlare::Screens::Gameplay *gameplay_screen);
+         //void register_gameplay_screen(std::string name, AllegroFlare::Screens::Gameplay *gameplay_screen);
+         //void unregister_gameplay_screen(AllegroFlare::Screens::Gameplay *gameplay_screen);
          void register_screen(std::string name, AllegroFlare::Screens::Base *screen);
          void unregister_screen(AllegroFlare::Screens::Base *screen);
          void activate_screen(std::string name);

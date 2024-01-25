@@ -21,6 +21,7 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , event_emitter(event_emitter)
    , load_level_handler(load_level_handler)
    , game_session()
+   , pause_managed_gameplay_screen(nullptr)
    , on_route_event_unhandled_func({})
    , on_route_event_unhandled_func_user_data(nullptr)
    , on_load_last_played_session_or_start_new_func({})
@@ -47,6 +48,12 @@ void Standard::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 void Standard::set_load_level_handler(std::function<bool(AllegroFlare::RouteEventDatas::Base*)> load_level_handler)
 {
    this->load_level_handler = load_level_handler;
+}
+
+
+void Standard::set_pause_managed_gameplay_screen(AllegroFlare::Screens::Gameplay* pause_managed_gameplay_screen)
+{
+   this->pause_managed_gameplay_screen = pause_managed_gameplay_screen;
 }
 
 
@@ -107,6 +114,12 @@ AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 std::function<bool(AllegroFlare::RouteEventDatas::Base*)> Standard::get_load_level_handler() const
 {
    return load_level_handler;
+}
+
+
+AllegroFlare::Screens::Gameplay* Standard::get_pause_managed_gameplay_screen() const
+{
+   return pause_managed_gameplay_screen;
 }
 
 
@@ -185,6 +198,8 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_EXIT_GAME, "EVENT_EXIT_GAME"},
       {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
       {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
+      {EVENT_PAUSE_GAME, "EVENT_PAUSE_GAME"},
+      {EVENT_UNPAUSE_GAME, "EVENT_UNPAUSE_GAME"},
       {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
       {EVENT_LOSE_GAME, "EVENT_LOSE_GAME"},
       {EVENT_START_LEVEL, "EVENT_START_LEVEL"},
@@ -399,22 +414,54 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             }
          }
       }},
-      //{ EVENT_PAUSE_GAME, [this](){
-         // TODO: Finish the actions in this event
-         // guard: not already pause screen
-         // pause session?
-         //screen_identifier_before_pause = get_framework()->get_currently_active_screen_name();
-         // capture "pre-pause screen"
-         // activate pause_screen
-      //}},
-      //{ EVENT_UNPAUSE_GAME, [this](){
-         // TODO: Finish the actions in this event
-         // guard: is paused
-         // unpause session?
+      { EVENT_PAUSE_GAME, [this](){
+         // TODO: guard: not already pause screen
+         if (!pause_managed_gameplay_screen)
+         {
+            AllegroFlare::Logger::warn_from_once(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "Handling a EVENT_PAUSE_GAME, but no screen has been registered as a "
+                  "pause_managed_gameplay_screen. To get the benefit of pause/unpause handling, you should "
+                  "register a gameplay_screen through the router with "
+                  "\"set_pause_managed_gameplay_screen()\"."
+            );
+         }
+         else
+         {
+            // Suspend the gameplay
+            pause_managed_gameplay_screen->suspend_gameplay();
 
-         // activate "pre-pause screen"
-         //activate_screen(screen_identifier_before_pause);
-      //}},
+            // Move the system into a paused game state
+            // TODO: Here, take the appropriate action based on the games design. Possible options:
+            //    - activate the pause screen?
+            //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
+            //    - activate a special subscreen (e.g. Zelda, Cat Detective, Metroid, etc)?
+         }
+      }},
+      { EVENT_UNPAUSE_GAME, [this](){
+         // TODO: guard: not already unpaused screen
+         if (!pause_managed_gameplay_screen)
+         {
+            AllegroFlare::Logger::warn_from_once(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "Handling a EVENT_UNPAUSE_GAME, but no screen has been registered as a "
+                  "pause_managed_gameplay_screen. To get the benefit of pause/unpause handling, you should "
+                  "register a gameplay_screen through the router with "
+                  "\"set_pause_managed_gameplay_screen()\"."
+            );
+         }
+         else
+         {
+            // Move the system out of the paused game state
+            // TODO: Here, take the appropriate action based on the games design. Possible options:
+            //    - activate the gameplay_screen that (had been deactivated for a pause_screen)
+            //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
+            //    - activate the gameplay_screen that (had been deactivated for a special subscreen)?
+
+            // Resume the suspended gameplay
+            pause_managed_gameplay_screen->resume_suspended_gameplay();
+         }
+      }},
       { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
          // Validate an active session
          if (!game_session.is_active())

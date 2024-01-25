@@ -133,7 +133,7 @@ void SimpleConfiguration::load_last_played_session_or_start_new(AllegroFlare::Ga
    return;
 }
 
-void SimpleConfiguration::load_audio_controller()
+void SimpleConfiguration::load_audio_controller(AllegroFlare::AudioController* audio_controller)
 {
    // Nothing to do
    return;
