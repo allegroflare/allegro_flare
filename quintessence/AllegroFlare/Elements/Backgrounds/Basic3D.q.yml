@@ -1,0 +1,78 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Backgrounds::Base
+    scope: public
+    init_with: AllegroFlare::Elements::Backgrounds::Basic3D::TYPE
+
+
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: scene
+    type: AllegroFlare::GraphicsPipelines::Basic3D::Scene
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/Backgrounds/Basic3D"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - model_bin
+      - bitmap_bin
+    body: |
+      scene.initialize();
+      initialized = true;
+      return;
+
+
+  - name: render
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::Basic3D::Scene
+    headers: [ AllegroFlare/GraphicsPipelines/Basic3D/Scene.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+
+
