@@ -201,6 +201,7 @@
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -260,6 +261,7 @@
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/StagedCharacter/Dynamic",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Entity",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
@@ -655,6 +657,7 @@
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/GameSession",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Entity",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
@@ -784,6 +787,7 @@
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
@@ -807,6 +811,7 @@
   ],
   "AllegroFlare/Camera3D": [
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -2445,6 +2450,16 @@
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MotionFX/Sparkles2"
   ],
+  "AllegroFlare/Model3D": [
+    "AllegroFlare/GraphicsPipelines/Basic3D/Entity",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/Prototypes/CubeShooter/Entity"
+  ],
+  "AllegroFlare/GraphicsPipelines/Basic3D/Entity": [
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene"
+  ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
@@ -2457,12 +2472,6 @@
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/SceneGraph/EntityPool"
-  ],
-  "AllegroFlare/Model3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
-    "AllegroFlare/Prototypes/CubeShooter/Entity"
   ],
   "AllegroFlare/MultitextureModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",

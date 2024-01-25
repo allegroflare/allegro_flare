@@ -1,0 +1,40 @@
+properties:
+
+
+  - name: model
+    type: AllegroFlare::Model3D*
+    init_with: nullptr
+    exposed: true
+
+  - name: texture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    exposed: true
+
+  - name: placement
+    type: AllegroFlare::Placement3D
+    init_with: ''
+    exposed: true
+
+  - name: model_obj_filename
+    type: std::string
+    init_with: '"[unset-model_obj_filename]"'
+    exposed: true
+
+  - name: model_texture_filename
+    type: std::string
+    init_with: '"[unset-model_texture_filename]"'
+    exposed: true
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Model3D
+    headers: [ AllegroFlare/Model3D.hpp ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+
+
