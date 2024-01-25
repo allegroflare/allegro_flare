@@ -2417,16 +2417,20 @@
   "AllegroFlare/Runners/Complete": [
     "AllegroFlare/GameConfigurations/Complete"
   ],
-  "AllegroFlare/Predeclare": [
-    "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
-  ],
   "AllegroFlare/AudioController": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

@@ -2,12 +2,14 @@ import bpy
 
 # Discussion from ChatGPT
 # https://chat.openai.com/c/011ce426-1a70-4846-bb34-07a7dc1ca5a6
-# Run like
+
+# HOW TO USE
+# With blender running, run like:
 # /Applications/Blender.app/Contents/MacOS/blender -b -P /Users/markoates/Repos/allegro_flare/scripts/blender/generate_3d_text.py
 
-text = "EPIC ODYSSEY"
-#font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOne-Regular.ttf"
-font_path = "/Users/markoates/Stuff/September 4 2021/EurostileBQ-BoldExtended.otf"
+text = "CAT TREAT CATCH"
+font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOne-Regular.ttf"
+#font_path = "/Users/markoates/Stuff/September 4 2021/EurostileBQ-BoldExtended.otf"
 extrude_depth = 0.1
 output_path = "/Users/markoates/Desktop/text_3d_model.obj"  # Specify the desired output path
 

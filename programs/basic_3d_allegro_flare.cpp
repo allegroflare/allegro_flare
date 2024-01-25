@@ -62,10 +62,12 @@ public:
    {
       if (!initialized) throw std::runtime_error("must be initialized");
 
+      ALLEGRO_BITMAP *render_surface = al_get_target_bitmap();
+
       // setup the projection
       camera.stepout = AllegroFlare::Vec3D(0, 0, 5); // camera's target is positioned at (0,0,0) but the camera will be 5 meters back
       camera.tilt = 0.4; // tilt the camera, looking down slightly at the target
-      camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
+      camera.setup_projection_on(render_surface);
 
       // position and render model
       model_placement.rotation.y += 0.00025;

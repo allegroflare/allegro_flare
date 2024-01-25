@@ -14161,10 +14161,13 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Runners::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Runners/Complete.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Predeclare&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Predeclare.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -25830,7 +25833,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::StoryboardPages::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/StoryboardPages/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Predeclare&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Predeclare.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38072,16 +38078,20 @@ table td
   "AllegroFlare/Runners/Complete": [
     "AllegroFlare/GameConfigurations/Complete"
   ],
-  "AllegroFlare/Predeclare": [
-    "AllegroFlare/GameConfigurations/Complete",
-    "AllegroFlare/Runners/Complete"
-  ],
   "AllegroFlare/AudioController": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete"
+  ],
+  "AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
