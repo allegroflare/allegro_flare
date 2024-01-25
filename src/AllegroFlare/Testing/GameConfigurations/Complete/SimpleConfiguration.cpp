@@ -149,7 +149,7 @@ std::string SimpleConfiguration::build_copyright_text(ReleaseInfo* release_info)
       throw std::runtime_error("SimpleConfiguration::build_copyright_text: error: guard \"release_info\" not met");
    }
    AllegroFlare::TemplatedText templated_text(
-      "[[COPYRIGHT_SYMBOL]] 2023 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",
+      "[[COPYRIGHT_SYMBOL]] 2024 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",
       {
          { "[[COPYRIGHT_SYMBOL]]", AllegroFlare::UnicodeCharacters::COPYRIGHT_SYMBOL },
          { "[[VERSION_NUMBER]]",   release_info->get_version() },
