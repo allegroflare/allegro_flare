@@ -4,8 +4,11 @@ import bpy
 # https://chat.openai.com/c/011ce426-1a70-4846-bb34-07a7dc1ca5a6
 
 # HOW TO USE
-# With blender running, run like:
-# /Applications/Blender.app/Contents/MacOS/blender -b -P /Users/markoates/Repos/allegro_flare/scripts/blender/generate_3d_text.py
+# 1) With blender running, run like:
+#    /Applications/Blender.app/Contents/MacOS/blender -b -P /Users/markoates/Repos/allegro_flare/scripts/blender/generate_3d_text.py
+# 2) To view the output
+#    /Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_allegro_flare ~/Desktop/text_3d_model.obj /Users/markoates/Repos/allegro_flare/bin/data/bitmaps/test_texture.png
+
 
 text = "CAT TREAT CATCH"
 font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOne-Regular.ttf"
