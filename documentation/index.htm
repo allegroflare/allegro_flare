@@ -117,6 +117,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingText.q.yml">quintessence/AllegroFlare/Elements/AdvancingText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/AdvancingTextRenderer.q.yml">quintessence/AllegroFlare/Elements/AdvancingTextRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Basic3D.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Basic3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ClearToColor.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ClearToColor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/IconPattern.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Image.q.yml</a></li>
@@ -4791,6 +4792,65 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/Basic3D.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Basic3D.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">scene</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::Basic3D::Scene</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::Basic3D::Scene&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/Basic3D/Scene.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -35943,6 +36003,7 @@ table td
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/Elements/Backgrounds/Basic3D",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
@@ -36351,6 +36412,7 @@ table td
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
+    "AllegroFlare/Elements/Backgrounds/Basic3D",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
@@ -36412,6 +36474,7 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystem/StagedCharacter/Dynamic",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/Elements/Backgrounds/Basic3D",
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
@@ -36554,6 +36617,7 @@ table td
   ],
   "AllegroFlare/ModelBin": [
     "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/Elements/Backgrounds/Basic3D",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
@@ -37346,6 +37410,7 @@ table td
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
+    "AllegroFlare/Elements/Backgrounds/Basic3D",
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
     "AllegroFlare/Elements/Backgrounds/Image",
@@ -37369,6 +37434,9 @@ table td
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/GraphicsPipelines/Basic3D/Scene": [
+    "AllegroFlare/Elements/Backgrounds/Basic3D"
   ],
   "sin": [
     "AllegroFlare/Elements/Backgrounds/IconPattern",

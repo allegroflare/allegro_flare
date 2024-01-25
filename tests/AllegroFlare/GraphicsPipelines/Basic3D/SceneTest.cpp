@@ -13,6 +13,7 @@ class AllegroFlare_GraphicsPipelines_Basic3D_SceneTestWithAllegroRenderingFixtur
 
 
 
+// TODO: These commented tests:
 /*
 TEST_F(AllegroFlare_GraphicsPipelines_Basic3D_SceneTest, can_be_created_without_blowing_up)
 {
