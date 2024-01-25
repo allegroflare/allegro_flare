@@ -35,6 +35,7 @@ namespace AllegroFlare
             void set_model_bin(AllegroFlare::ModelBin* model_bin);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::ModelBin* get_model_bin() const;
+            AllegroFlare::GraphicsPipelines::Basic3D::Scene& get_scene_ref();
             void initialize();
             void render() override;
          };

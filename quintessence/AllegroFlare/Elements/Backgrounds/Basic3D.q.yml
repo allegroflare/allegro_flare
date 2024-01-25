@@ -24,6 +24,7 @@ properties:
   - name: scene
     type: AllegroFlare::GraphicsPipelines::Basic3D::Scene
     init_with: '{}'
+    getter_ref: false
 
   - name: initialized
     type: bool
@@ -39,12 +40,22 @@ properties:
 methods:
 
 
+  - name: get_scene_ref
+    type: AllegroFlare::GraphicsPipelines::Basic3D::Scene&
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this guard
+      return scene;
+
+
   - name: initialize
     guards:
       - (!initialized)
       - model_bin
       - bitmap_bin
     body: |
+      scene.set_bitmap_bin(bitmap_bin);
+      scene.set_model_bin(model_bin);
       scene.initialize();
       initialized = true;
       return;
