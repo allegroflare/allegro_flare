@@ -14802,7 +14802,7 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
-  <td class="method">add_entity()</td>
+  <td class="method">add_entity(std::string obj_identifier=&quot;[unset-obj_identifier]&quot;, std::string texture_bitmap_identifier=&quot;[unset-texture_bitmap_identifier]&quot;, AllegroFlare::Vec3D position=AllegroFlare::Vec3D({ 0, 0, 0 }), AllegroFlare::Vec3D rotation=AllegroFlare::Vec3D({ 0, 0, 0 }))</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -14824,6 +14824,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38226,6 +38229,19 @@ table td
   "AllegroFlare/GraphicsPipelines/Basic3D/Entity": [
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene"
   ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
+    "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
+  ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
@@ -38596,18 +38612,6 @@ table td
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
-  ],
-  "AllegroFlare/Vec3D": [
-    "AllegroFlare/Physics/AABB3D",
-    "AllegroFlare/Prototypes/CubeShooter/Entity",
-    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/Physics/AABB3D": [
     "AllegroFlare/Physics/AABB3D"

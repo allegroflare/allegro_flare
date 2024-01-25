@@ -100,20 +100,14 @@ void Scene::initialize()
    return;
 }
 
-void Scene::add_entity()
+void Scene::add_entity(std::string obj_identifier, std::string texture_bitmap_identifier, AllegroFlare::Vec3D position, AllegroFlare::Vec3D rotation)
 {
    AllegroFlare::GraphicsPipelines::Basic3D::Entity result_entity;
-   result_entity.model = model_bin->auto_get("heart_item-01.obj");
-   result_entity.texture = bitmap_bin->auto_get("heart_item-02.png");
-
+   result_entity.model = model_bin->auto_get(obj_identifier);
+   result_entity.texture = bitmap_bin->auto_get(texture_bitmap_identifier);
+   result_entity.placement.position = position;
+   result_entity.placement.rotation = rotation;
    entities.emplace_back(result_entity);
-
-   //model.initialize();
-   //AllegroFlare::Model3DObjLoader loader(&model, model_obj_filename.c_str(), 1.0);
-   //loader.load();
-   //texture = al_load_bitmap(model_texture_filename.c_str());
-   //if (!texture) throw std::runtime_error("Texture not found");
-   //model.set_texture(texture);
    return;
 }
 
@@ -129,6 +123,8 @@ void Scene::update()
    for (auto &entity : entities)
    {
       entity.placement.rotation.y += 0.00025;
+
+      // TODO: Consider additional physics changes for these objects
    }
    return;
 }
@@ -155,7 +151,7 @@ void Scene::render()
    // Draw all of the entities
    for (auto &entity : entities)
    {
-      // Position and render model
+      // Position, texture, and render model
       entity.placement.start_transform();
       entity.model->set_texture(entity.texture);
       entity.model->draw();

@@ -79,11 +79,28 @@ TEST_F(AllegroFlare_GraphicsPipelines_Basic3D_SceneTestWithAllegroRenderingFixtu
    scene.set_model_bin(&model_bin);
    scene.initialize();
 
-   scene.add_entity();
+   // Add 3 hearts to our scene
+   scene.add_entity("heart_item-01.obj", "heart_item-02.png", { 0, 0, 0 });
+   scene.add_entity("heart_item-01.obj", "heart_item-02.png", { -3, 0, 0 });
+   scene.add_entity("heart_item-01.obj", "heart_item-02.png", { 3, 0, 0 });
 
-   scene.render();
-   al_flip_display();
-   sleep_for(1);
+   // Grab a reference to the camera so we can spin it
+   AllegroFlare::Camera3D &camera = scene.get_camera_ref();
+
+   // Use a different "camera lens"
+   camera.zoom = 3.0;
+   camera.stepout = { 0.0, 0.0, 20.0 };
+
+   for (int i=0; i<300; i++)
+   {
+      // Update the scene
+      camera.spin += 0.01;
+
+      // Draw the scene
+      al_clear_to_color(ALLEGRO_COLOR{0.001, 0.004, 0.01, 1.0});
+      scene.render();
+      al_flip_display();
+   }
 }
 
 
