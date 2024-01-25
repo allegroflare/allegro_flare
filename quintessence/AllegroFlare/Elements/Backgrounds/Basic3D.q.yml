@@ -65,6 +65,7 @@ methods:
     override: true
     guards: [ initialized ]
     body: |
+      scene.render();
       return;
     body_dependency_symbols:
       - AllegroFlare::Placement2D

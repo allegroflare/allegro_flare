@@ -69,7 +69,7 @@ TEST_F(AllegroFlare_Elements_Backgrounds_Basic3DWithAllegroRenderingFixtureTest,
 
       // Draw the scene
       al_clear_to_color(ALLEGRO_COLOR{0.001, 0.004, 0.01, 1.0});
-      scene.render();
+      background.render();
       al_flip_display();
    }
 }
