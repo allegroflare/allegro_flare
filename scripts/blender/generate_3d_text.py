@@ -5,7 +5,7 @@ import math
 # https://chat.openai.com/c/011ce426-1a70-4846-bb34-07a7dc1ca5a6
 
 # HOW TO USE
-# 1) With blender running, run like:
+# 1) Run like:
 #    /Applications/Blender.app/Contents/MacOS/blender -b -P /Users/markoates/Repos/allegro_flare/scripts/blender/generate_3d_text.py
 # 2) To view the output
 #    /Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_allegro_flare ~/Desktop/text_3d_model.obj /Users/markoates/Repos/allegro_flare/bin/data/bitmaps/test_texture.png
@@ -117,7 +117,7 @@ print("convert \"" + output_path_uv_map + ".svg\" \"" + output_path_uv_map + ".p
 
 print("");
 print("To view:");
-print("/Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_allegro_flare \"" + output_path_uv_projected + "\" /Users/markoates/Repos/allegro_flare/bin/data/bitmaps/test_texture.png");
+print("/Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_scene \"" + output_path_uv_projected + "\" /Users/markoates/Repos/allegro_flare/bin/data/bitmaps/test_texture.png");
 print("Or, with the generated UV texture:");
-print("/Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_allegro_flare \"" + output_path_uv_projected + "\" \"" + output_path_uv_map + ".png\"");
+print("/Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_scene \"" + output_path_uv_projected + "\" \"" + output_path_uv_map + ".png\"");
 
