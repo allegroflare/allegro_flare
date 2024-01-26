@@ -13,7 +13,7 @@ import math
 #    convert "the_uv_texture.svg" "the_uv_texture.png"
 
 
-text = "This is the text"
+text = "NOW IS THE TIME"
 font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOne-Regular.ttf"
 #font_path = "/Users/markoates/Stuff/September 4 2021/EurostileBQ-BoldExtended.otf"
 extrude_depth = 0.1
