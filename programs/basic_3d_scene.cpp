@@ -6,6 +6,7 @@
 class Basic3DScene : public AllegroFlare::Screens::Base
 {
 public:
+   AllegroFlare::EventEmitter *event_emitter;
    AllegroFlare::BitmapBin *bitmap_bin;
    AllegroFlare::ModelBin *model_bin;
    AllegroFlare::GraphicsPipelines::Basic3D::Scene scene;
@@ -17,6 +18,7 @@ private:
 public:
    Basic3DScene()
       : AllegroFlare::Screens::Base("Basic3DScene")
+      , event_emitter(nullptr)
       , bitmap_bin(nullptr)
       , model_bin(nullptr)
       , scene()
@@ -40,6 +42,30 @@ public:
       scene.add_entity(obj, tex);
    }
 
+   virtual void display_switch_in_func() override
+   {
+      // Reload the textures in the entities
+      for (auto &entity : scene.get_entities_ref())
+      {
+         // Warning! Texture hot-loading is known to crash. It's unsure what the cause is
+         bitmap_bin->destroy(entity.model_texture_filename);
+         entity.texture = bitmap_bin->auto_get(entity.model_texture_filename);
+      }
+   }
+
+   virtual void key_down_func(ALLEGRO_EVENT *ev) override
+   {
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_F:
+            event_emitter->emit_event_to_toggle_fullscreen(); //ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN;
+         break;
+
+         default:
+         break;
+      };
+   }
+
    virtual void primary_timer_func() override
    {
       // Update
@@ -58,6 +84,7 @@ int main(int argc, char **argv)
 
    // init AllegroFlare
    AllegroFlare::Frameworks::Full framework;
+   framework.disable_fullscreen();
    framework.initialize();
    framework.get_bitmap_bin_ref().set_full_path("/");
    framework.get_model_bin_ref().set_full_path("/");
@@ -70,6 +97,7 @@ int main(int argc, char **argv)
       obj = args[0];
       tex = args[1];
    }
+   basic_3d.event_emitter = &framework.get_event_emitter_ref();
    basic_3d.bitmap_bin = &framework.get_bitmap_bin_ref();
    basic_3d.model_bin = &framework.get_model_bin_ref();
    basic_3d.initialize();

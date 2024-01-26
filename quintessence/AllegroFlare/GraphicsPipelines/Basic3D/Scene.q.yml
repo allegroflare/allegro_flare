@@ -31,6 +31,14 @@ properties:
 methods:
 
 
+  - name: get_entities_ref
+    type: std::vector<AllegroFlare::GraphicsPipelines::Basic3D::Entity>
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this guard
+      return entities;
+
+
   - name: initialize
     guards:
       - (!initialized)
@@ -64,8 +72,11 @@ methods:
         default_argument: 'AllegroFlare::Vec3D({ 0, 0, 0 })'
     body: |
       AllegroFlare::GraphicsPipelines::Basic3D::Entity result_entity;
-      result_entity.model = model_bin->auto_get(obj_identifier);
-      result_entity.texture = bitmap_bin->auto_get(texture_bitmap_identifier);
+      result_entity.model_obj_filename = obj_identifier;
+      result_entity.model_texture_filename = texture_bitmap_identifier;
+
+      result_entity.model = model_bin->auto_get(result_entity.model_obj_filename);
+      result_entity.texture = bitmap_bin->auto_get(result_entity.model_texture_filename);
       result_entity.placement.position = position;
       result_entity.placement.rotation = rotation;
       entities.emplace_back(result_entity);

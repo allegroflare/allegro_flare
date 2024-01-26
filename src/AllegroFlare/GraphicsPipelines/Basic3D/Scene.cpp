@@ -66,6 +66,19 @@ AllegroFlare::Camera3D &Scene::get_camera_ref()
 }
 
 
+std::vector<AllegroFlare::GraphicsPipelines::Basic3D::Entity> Scene::get_entities_ref()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Scene::get_entities_ref]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Scene::get_entities_ref: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this guard
+   return entities;
+}
+
 void Scene::initialize()
 {
    if (!((!initialized)))
@@ -103,8 +116,11 @@ void Scene::initialize()
 void Scene::add_entity(std::string obj_identifier, std::string texture_bitmap_identifier, AllegroFlare::Vec3D position, AllegroFlare::Vec3D rotation)
 {
    AllegroFlare::GraphicsPipelines::Basic3D::Entity result_entity;
-   result_entity.model = model_bin->auto_get(obj_identifier);
-   result_entity.texture = bitmap_bin->auto_get(texture_bitmap_identifier);
+   result_entity.model_obj_filename = obj_identifier;
+   result_entity.model_texture_filename = texture_bitmap_identifier;
+
+   result_entity.model = model_bin->auto_get(result_entity.model_obj_filename);
+   result_entity.texture = bitmap_bin->auto_get(result_entity.model_texture_filename);
    result_entity.placement.position = position;
    result_entity.placement.rotation = rotation;
    entities.emplace_back(result_entity);

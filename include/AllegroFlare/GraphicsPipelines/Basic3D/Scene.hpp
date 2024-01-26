@@ -38,6 +38,7 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::ModelBin* get_model_bin() const;
             AllegroFlare::Camera3D &get_camera_ref();
+            std::vector<AllegroFlare::GraphicsPipelines::Basic3D::Entity> get_entities_ref();
             void initialize();
             void add_entity(std::string obj_identifier="[unset-obj_identifier]", std::string texture_bitmap_identifier="[unset-texture_bitmap_identifier]", AllegroFlare::Vec3D position=AllegroFlare::Vec3D({ 0, 0, 0 }), AllegroFlare::Vec3D rotation=AllegroFlare::Vec3D({ 0, 0, 0 }));
             void update();
