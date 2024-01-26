@@ -80,13 +80,34 @@ TEST_F(AllegroFlare_Elements_NinePatchTestWithAllegroRenderingFixture,
    nine_patch.set_top_row_height(48);
    nine_patch.set_bottom_row_height(48);
 
+   // Set the inner size of this patch
+   nine_patch.set_center_column_width(256);
+   nine_patch.set_middle_row_height(128);
+
+   // Set an initial texture
    nine_patch.set_source_texture(source_texture);
+
+   // Initialize the patch
    nine_patch.initialize();
 
-   nine_patch.render();
+   // Build a placement for our patch
+   AllegroFlare::Placement2D place;
+   place.size.x = 256 + 48*2;
+   place.size.y = 128 + 48*2;
+   place.position.x = 1920 / 2;
+   place.position.y = 1080 / 2;
 
-   al_flip_display();
-   sleep_for(1);
+   { // Render
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+
+      // Rende our patch
+      place.start_transform();
+      nine_patch.render();
+      place.restore_transform();
+
+      al_flip_display();
+      sleep_for(1);
+   }
 }
 
 
