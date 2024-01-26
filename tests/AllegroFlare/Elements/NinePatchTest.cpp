@@ -51,6 +51,41 @@ TEST_F(AllegroFlare_Elements_NinePatchTestWithAllegroRenderingFixture, CAPTURE__
    nine_patch.render();
 
    al_flip_display();
+   //sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_NinePatchTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_as_expected)
+{
+   ALLEGRO_BITMAP *source_texture = get_bitmap_bin_ref().auto_get("panel-transparent-center-010.png");
+   ASSERT_NE(nullptr, source_texture);
+
+   AllegroFlare::Elements::NinePatch nine_patch;
+
+   // Build the UVs
+   nine_patch.set_a_uv({ 0, 0, 32, 32 });
+   nine_patch.set_b_uv({ 32, 0, 64, 32 });
+   nine_patch.set_c_uv({ 64, 0, 96, 32 });
+   nine_patch.set_d_uv({ 0, 32, 32, 64 });
+   nine_patch.set_e_uv({ 32, 32, 64, 64 });
+   nine_patch.set_f_uv({ 64, 32, 96, 64 });
+   nine_patch.set_g_uv({ 0, 64, 32, 96 });
+   nine_patch.set_h_uv({ 32, 64, 64, 96 });
+   nine_patch.set_i_uv({ 64, 64, 96, 96 });
+
+   // Set the dimensions
+   nine_patch.set_left_column_width(48);
+   nine_patch.set_right_column_width(48);
+   nine_patch.set_top_row_height(48);
+   nine_patch.set_bottom_row_height(48);
+
+   nine_patch.set_source_texture(source_texture);
+   nine_patch.initialize();
+
+   nine_patch.render();
+
+   al_flip_display();
    sleep_for(1);
 }
 

@@ -10,62 +10,92 @@ properties:
   - name: left_column_width
     type: float
     init_with: 128.0f
+    getter: true
+    setter: true
 
   - name: center_column_width
     type: float
     init_with: 256.0f
+    getter: true
+    setter: true
 
   - name: right_column_width
     type: float
     init_with: 128.0f
+    getter: true
+    setter: true
 
   - name: top_row_height
     type: float
     init_with: 128.0f
+    getter: true
+    setter: true
 
   - name: middle_row_height
     type: float
     init_with: 256.0f
+    getter: true
+    setter: true
 
   - name: bottom_row_height
     type: float
     init_with: 128.0f
+    getter: true
+    setter: true
 
   - name: a_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 0, 0, 32, 32 }'
+    getter: true
+    setter: true
 
   - name: b_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 32, 0, 268, 32 }'
+    getter: true
+    setter: true
 
   - name: c_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 268, 0, 300, 32 }'
+    getter: true
+    setter: true
 
   - name: d_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 0, 32, 32, 64 }'
+    getter: true
+    setter: true
 
   - name: e_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 32, 32, 268, 64 }'
+    getter: true
+    setter: true
 
   - name: f_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 268, 32, 300, 64 }'
+    getter: true
+    setter: true
 
   - name: g_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 0, 268, 32, 300 }'
+    getter: true
+    setter: true
 
   - name: h_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 32, 268, 268, 300 }'
+    getter: true
+    setter: true
 
   - name: i_uv
     type: std::tuple<float, float, float, float>
     init_with: '{ 268, 268, 300, 300 }'
+    getter: true
+    setter: true
 
   - name: mesh
     type: std::vector<ALLEGRO_VERTEX>
