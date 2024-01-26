@@ -118,4 +118,6 @@ print("convert \"" + output_path_uv_map + ".svg\" \"" + output_path_uv_map + ".p
 print("");
 print("To view:");
 print("/Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_allegro_flare \"" + output_path_uv_projected + "\" /Users/markoates/Repos/allegro_flare/bin/data/bitmaps/test_texture.png");
+print("Or, with the generated UV texture:");
+print("/Users/markoates/Repos/allegro_flare/bin/programs/basic_3d_allegro_flare \"" + output_path_uv_projected + "\" \"" + output_path_uv_map + ".png\"");
 
