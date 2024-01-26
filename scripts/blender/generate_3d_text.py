@@ -14,7 +14,7 @@ text = "CAT TREAT CATCH"
 font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOne-Regular.ttf"
 #font_path = "/Users/markoates/Stuff/September 4 2021/EurostileBQ-BoldExtended.otf"
 extrude_depth = 0.1
-output_path = "/Users/markoates/Desktop/text_3d_model.obj"  # Specify the desired output path
+output_path = "/Users/markoates/Desktop/" + text.lower() + "-text_3d_model.obj"  # Specify the desired output path
 
 # Clear existing mesh objects
 bpy.ops.object.select_all(action='DESELECT')
