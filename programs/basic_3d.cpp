@@ -24,6 +24,7 @@ int main(int argc, char **argv)
    loader.load();
    ALLEGRO_BITMAP *texture = al_load_bitmap("/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/heart_item-02.png");
    model.set_texture(texture);
+   model.initialize();
 
    // create some placement properties
    AllegroFlare::Placement3D model_placement;
