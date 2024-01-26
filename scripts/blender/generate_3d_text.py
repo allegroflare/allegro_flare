@@ -15,6 +15,8 @@ font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOn
 #font_path = "/Users/markoates/Stuff/September 4 2021/EurostileBQ-BoldExtended.otf"
 extrude_depth = 0.1
 output_path = "/Users/markoates/Desktop/" + text.lower() + "-text_3d_model.obj"  # Specify the desired output path
+output_path_uv_projected = "/Users/markoates/Desktop/" + text.lower() + "-text_3d_model-uv.obj"  # Specify the desired output path
+output_path_uv_map = "/Users/markoates/Desktop/" + text.lower() + "-text_uv_layout.png"  # Specify the desired output path
 
 # Clear existing mesh objects
 bpy.ops.object.select_all(action='DESELECT')
@@ -63,4 +65,21 @@ bpy.ops.export_scene.obj(filepath=output_path, use_selection=True, use_materials
 
 # Print a message to the console
 print("Text object created at the origin with custom font.")
+
+
+
+### Improve the UV mapping and generate a UV texture
+
+# bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.editmode_toggle()
+
+# # Do the projection
+# TODO: This needs to be changed to smart project with the correct settings
+# bpy.ops.uv.smart_project()
+
+# # Save the UV layout to a file on the desktop
+# bpy.ops.uv.export_layout(filepath=output_path_uv_map, size=(1024, 1024))
+
+# # Save the UV layout to a file on the desktop
+# bpy.ops.export_scene.obj(filepath=output_path_uv_projected, use_selection=True, use_materials=False)
 
