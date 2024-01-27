@@ -112,7 +112,7 @@ documentation:
 
 
   - todos:
-     - Recently addedd "gameplay_suspended" for managing pause state in the game (This could be used during a game
+     - Attention needs to be brought to "gameplay_suspended" managing (This could be used during a game
        pause, some active dialog, an opened inventory screen, a transition, etc.).  The consequences of a paused state
        remains unevaluated. Some concerns include...
          - some entities may rely on real-world clocks to update their states
