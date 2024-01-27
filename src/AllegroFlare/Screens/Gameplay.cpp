@@ -57,6 +57,7 @@ bool Gameplay::get_gameplay_suspended() const
 
 void Gameplay::gameplay_suspend_func()
 {
+   // Function that is called immediately after the gameplay is suspended.
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
       "Not implemented in the base class. This method must be implemented in the derived class"
@@ -66,6 +67,7 @@ void Gameplay::gameplay_suspend_func()
 
 void Gameplay::gameplay_resume_func()
 {
+   // Function that is called immediately after the gameplay is resumed.
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
       "Not implemented in the base class. This method must be implemented in the derived class"
