@@ -2423,6 +2423,7 @@
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Gameplay"

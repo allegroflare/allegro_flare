@@ -30,7 +30,7 @@ namespace Platforming2D
 
 
 Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* event_emitter)
-   : AllegroFlare::Screens::Base(AllegroFlare::Prototypes::Platforming2D::Screen::TYPE)
+   : AllegroFlare::Screens::Gameplay()
    , bitmap_bin(bitmap_bin)
    , event_emitter(event_emitter)
    , currently_active_map(nullptr)
@@ -44,7 +44,6 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* 
    , player_controlled_entity(nullptr)
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
-   , gameplay_suspended(false)
    , show_visual_hint_on_suspended_gameplay(false)
    , player_controls()
    , camera_control_strategy(nullptr)
@@ -128,12 +127,6 @@ bool Screen::get_show_tile_mesh() const
 bool Screen::get_show_collision_tile_mesh() const
 {
    return show_collision_tile_mesh;
-}
-
-
-bool Screen::get_gameplay_suspended() const
-{
-   return gameplay_suspended;
 }
 
 
@@ -743,26 +736,6 @@ void Screen::update_player_controls_on_player_controlled_entity()
    return;
 }
 
-void Screen::suspend_gameplay()
-{
-   if (gameplay_suspended) return;
-   gameplay_suspended = true;
-   return;
-}
-
-void Screen::resume_suspended_gameplay()
-{
-   if (!gameplay_suspended) return;
-   gameplay_suspended = false;
-   return;
-}
-
-void Screen::toggle_suspend_gameplay()
-{
-   gameplay_suspended = !gameplay_suspended;
-   return;
-}
-
 void Screen::update()
 {
    if (!(initialized))
@@ -772,7 +745,7 @@ void Screen::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update: error: guard \"initialized\" not met");
    }
-   if (!gameplay_suspended)
+   if (!get_gameplay_suspended())
    {
       if (player_controlled_entity) update_player_controls_on_player_controlled_entity();
       update_entities();
@@ -828,7 +801,7 @@ void Screen::draw()
    camera.restore_transform();
 
    // Indicate a hint on suspended gameplay
-   if (gameplay_suspended && show_visual_hint_on_suspended_gameplay)
+   if (get_gameplay_suspended() && show_visual_hint_on_suspended_gameplay)
    {
       float surface_width = al_get_bitmap_width(target_bitmap);
       float surface_height = al_get_bitmap_height(target_bitmap); //native_display_resolution_height;
@@ -945,7 +918,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
    }
-   if (!gameplay_suspended)
+   if (!get_gameplay_suspended())
    {
       switch (event->keyboard.keycode)
       {
@@ -990,7 +963,7 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
 
    // TODO: validate virtual controller type
 
-   if (!gameplay_suspended)
+   if (!get_gameplay_suspended())
    {
       // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
       // continuing moving forward if paused mid-jump, etc)
@@ -1042,7 +1015,7 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
 
    // TODO: validate virtual controller type
 
-   if (!gameplay_suspended)
+   if (!get_gameplay_suspended())
    {
       // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
       // continuing moving forward if paused mid-jump, etc)

@@ -8,7 +8,7 @@
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
-#include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
@@ -27,7 +27,7 @@ namespace AllegroFlare
    {
       namespace Platforming2D
       {
-         class Screen : public AllegroFlare::Screens::Base
+         class Screen : public AllegroFlare::Screens::Gameplay
          {
          public:
             static constexpr char* TYPE = (char*)"AllegroFlare/Prototypes/Platforming2D/Screen";
@@ -46,7 +46,6 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity;
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
-            bool gameplay_suspended;
             bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::VirtualController player_controls;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
@@ -77,7 +76,6 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_player_controlled_entity() const;
             bool get_show_tile_mesh() const;
             bool get_show_collision_tile_mesh() const;
-            bool get_gameplay_suspended() const;
             bool get_show_visual_hint_on_suspended_gameplay() const;
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
@@ -99,9 +97,6 @@ namespace AllegroFlare
             void update_entities();
             void draw_entities();
             void update_player_controls_on_player_controlled_entity();
-            void suspend_gameplay();
-            void resume_suspended_gameplay();
-            void toggle_suspend_gameplay();
             void update();
             void draw();
             void toggle_show_collision_tile_mesh();
