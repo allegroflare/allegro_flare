@@ -29,10 +29,9 @@ namespace Platforming2D
 {
 
 
-Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Display* display, AllegroFlare::EventEmitter* event_emitter)
+Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* event_emitter)
    : AllegroFlare::Screens::Base(AllegroFlare::Prototypes::Platforming2D::Screen::TYPE)
    , bitmap_bin(bitmap_bin)
-   , display(display)
    , event_emitter(event_emitter)
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
@@ -155,19 +154,6 @@ void Screen::set_map_dictionary(std::map<std::string, std::string> map_dictionar
    }
    this->map_dictionary = map_dictionary;
    // TODO: allow this to be set after initialization
-   return;
-}
-
-void Screen::set_display(AllegroFlare::Display* display)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::set_display]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_display: error: guard \"(!initialized)\" not met");
-   }
-   this->display = display;
    return;
 }
 
@@ -367,13 +353,6 @@ void Screen::initialize()
       error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
-   }
-   if (!(al_get_current_display()))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_get_current_display()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_get_current_display()\" not met");
    }
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialize_camera_control();

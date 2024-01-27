@@ -48,7 +48,6 @@ void CameraProjectionChanges::callback(ALLEGRO_EVENT* event, void* user_data)
    if (event->type != ALLEGRO_EVENT_KEY_DOWN) return;
    AllegroFlare::Frameworks::Full &framework = *static_cast<AllegroFlare::Frameworks::Full*>(user_data);
 
-
    switch (event->keyboard.keycode)
    {
       case ALLEGRO_KEY_1:
@@ -133,7 +132,7 @@ void CameraProjectionChanges::initialize_tile_drive()
 void CameraProjectionChanges::initialize_platforming_2d()
 {
    platforming_2d_screen.set_bitmap_bin(&framework.get_bitmap_bin_ref());
-   platforming_2d_screen.set_display(framework.get_primary_display());
+   //platforming_2d_screen.set_display(framework.get_primary_display());
    platforming_2d_screen.set_event_emitter(&framework.get_event_emitter_ref());
    // TODO: Improve the usage of a previously defined TEST_FIXTURES_PATH here:
    platforming_2d_screen.set_map_dictionary({

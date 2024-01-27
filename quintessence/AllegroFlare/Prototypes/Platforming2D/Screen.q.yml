@@ -16,12 +16,6 @@ properties:
     getter: true
     setter: false
 
-  - name: display
-    type: AllegroFlare::Display*
-    init_with: nullptr
-    constructor_arg: true
-    setter: false
-
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
@@ -143,17 +137,6 @@ methods:
     body: |
       this->map_dictionary = map_dictionary;
       // TODO: allow this to be set after initialization
-      return;
-
-
-  - name: set_display
-    parameters:
-      - name: display
-        type: AllegroFlare::Display*
-        default_argument: nullptr
-    guards: [ (!initialized) ]
-    body: |
-      this->display = display;
       return;
 
 
@@ -314,7 +297,6 @@ methods:
     type: void
     guards:
       - bitmap_bin
-      - al_get_current_display()
     body: |
       set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
       initialize_camera_control();

@@ -4,7 +4,6 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Base.hpp>
-#include <AllegroFlare/Display.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
@@ -35,7 +34,6 @@ namespace AllegroFlare
 
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
-            AllegroFlare::Display* display;
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
@@ -64,7 +62,7 @@ namespace AllegroFlare
 
 
          public:
-            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::Display* display=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
             void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
@@ -82,7 +80,6 @@ namespace AllegroFlare
             bool get_gameplay_suspended() const;
             bool get_show_visual_hint_on_suspended_gameplay() const;
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
-            void set_display(AllegroFlare::Display* display=nullptr);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
