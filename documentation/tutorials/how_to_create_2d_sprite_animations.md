@@ -51,6 +51,8 @@ The easiest way to get started is to create an animation book (`AllegroFlare::Fr
    AllegroFlare::FrameAnimation::Book animation_book;
    animation_book.set_png_source_filename(get_fixtures_path() + "bitmaps/my_sprite_sheet.png");
    animation_book.set_json_source_filename(get_fixtures_path() + "bitmaps/my_sprite_sheet.json");
+   animation_book.set_sprite_sheet_cell_width(32);
+   animation_book.set_sprite_sheet_cell_height(32);
    animation_book.initialize();
 ```
 
