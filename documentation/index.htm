@@ -13843,12 +13843,16 @@ table td
   <td class="property">AllegroFlare::FrameAnimation::SpriteSheet*</td>
 </tr>
 <tr>
-  <td class="property">load_tag_names_ending_in_at_char_with_looping_playmode</td>
+  <td class="property">load_tag_names_ending_in_bang_char_with_looping_playmode</td>
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">discard_last_at_char_in_tag_names</td>
+  <td class="property">discard_last_bang_char_in_tag_names</td>
   <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">PLAY_ONCE_BANG_CHAR</td>
+  <td class="property">char</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -13860,10 +13864,10 @@ table td
   <td class="method">_build_animation_frames_for(uint32_t start_frame=0, uint32_t end_frame=0, std::map&lt;int, int&gt; frame_data={})</td>
 </tr>
 <tr>
-  <td class="method">ends_in_at_char(std::string str=&quot;[unset-str]&quot;)</td>
+  <td class="method">ends_in_bang_char(std::string str=&quot;[unset-str]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">strip_appended_at_char(std::string str=&quot;[unset-str]&quot;)</td>
+  <td class="method">strip_appended_bang_char(std::string str=&quot;[unset-str]&quot;)</td>
 </tr>
 <tr>
   <td class="method">_get_playmode_from_direction(std::string direction=&quot;[unset-direction]&quot;, bool playmode_is_looped=true)</td>

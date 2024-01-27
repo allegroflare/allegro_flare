@@ -11,17 +11,23 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: load_tag_names_ending_in_at_char_with_looping_playmode
+  - name: load_tag_names_ending_in_bang_char_with_looping_playmode
     type: bool
     init_with: true
     getter: true
     setter: true
 
-  - name: discard_last_at_char_in_tag_names
+  - name: discard_last_bang_char_in_tag_names
     type: bool
     init_with: true
     getter: true
     setter: true
+
+  - name: PLAY_ONCE_BANG_CHAR
+    type: char
+    init_with: "'.'"
+    static: true
+    constexpr: true
 
 
 documentation:
@@ -39,6 +45,7 @@ functions:
     body: |
       using AllegroFlare::Errors;
       //std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
+
       if (!AllegroFlare::php::file_exists(filename))
       {
          AllegroFlare::Errors::throw_missing_file_error(
@@ -111,9 +118,9 @@ functions:
          tag.at("to").get_to(end_frame);
          tag.at("direction").get_to(mode);
 
-         bool tag_name_ends_in_at_char = ends_in_at_char(unsanitized_tag_name);
-         tag_name = discard_last_at_char_in_tag_names
-                  ? strip_appended_at_char(unsanitized_tag_name)
+         bool tag_name_ends_in_bang_char = ends_in_bang_char(unsanitized_tag_name);
+         tag_name = discard_last_bang_char_in_tag_names
+                  ? strip_appended_bang_char(unsanitized_tag_name)
                   : unsanitized_tag_name;
 
          if (result.count(tag_name) > 0)
@@ -125,9 +132,11 @@ functions:
          }
 
 
-         bool playmode_is_looped = load_tag_names_ending_in_at_char_with_looping_playmode
-                                 ? tag_name_ends_in_at_char
-                                 : true;
+         bool playmode_is_looped = true;
+         if (load_tag_names_ending_in_bang_char_with_looping_playmode && tag_name_ends_in_bang_char)
+         {
+            playmode_is_looped = false;
+         }
 
          result[tag_name] = AllegroFlare::FrameAnimation::Animation(
             sprite_sheet,
@@ -175,7 +184,7 @@ functions:
       return result;
 
 
-  - name: ends_in_at_char
+  - name: ends_in_bang_char
     type: bool
     parameters:
       - name: str
@@ -183,17 +192,17 @@ functions:
         default_argument: '"[unset-str]"'
     body: |
       if (str.size() <= 1) return false;
-      return str[str.size()-1] == '@';
+      return str[str.size()-1] == PLAY_ONCE_BANG_CHAR;
 
 
-  - name: strip_appended_at_char
+  - name: strip_appended_bang_char
     type: std::string
     parameters:
       - name: str
         type: std::string
         default_argument: '"[unset-str]"'
     body: |
-      if (!ends_in_at_char(str)) return str;
+      if (!ends_in_bang_char(str)) return str;
       str.pop_back();
       return str;
 
@@ -218,6 +227,13 @@ functions:
          if (direction == "forward")
          {
             return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_LOOP;
+         }
+      }
+      else // (!playmode_is_looped)
+      {
+         if (direction == "forward")
+         {
+            return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE;
          }
       }
 

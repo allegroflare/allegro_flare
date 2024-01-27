@@ -21,8 +21,8 @@ namespace FrameAnimation
 AsepriteSpriteSheetJSONLoader::AsepriteSpriteSheetJSONLoader(std::string filename, AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet)
    : filename(filename)
    , sprite_sheet(sprite_sheet)
-   , load_tag_names_ending_in_at_char_with_looping_playmode(true)
-   , discard_last_at_char_in_tag_names(true)
+   , load_tag_names_ending_in_bang_char_with_looping_playmode(true)
+   , discard_last_bang_char_in_tag_names(true)
 {
 }
 
@@ -32,27 +32,27 @@ AsepriteSpriteSheetJSONLoader::~AsepriteSpriteSheetJSONLoader()
 }
 
 
-void AsepriteSpriteSheetJSONLoader::set_load_tag_names_ending_in_at_char_with_looping_playmode(bool load_tag_names_ending_in_at_char_with_looping_playmode)
+void AsepriteSpriteSheetJSONLoader::set_load_tag_names_ending_in_bang_char_with_looping_playmode(bool load_tag_names_ending_in_bang_char_with_looping_playmode)
 {
-   this->load_tag_names_ending_in_at_char_with_looping_playmode = load_tag_names_ending_in_at_char_with_looping_playmode;
+   this->load_tag_names_ending_in_bang_char_with_looping_playmode = load_tag_names_ending_in_bang_char_with_looping_playmode;
 }
 
 
-void AsepriteSpriteSheetJSONLoader::set_discard_last_at_char_in_tag_names(bool discard_last_at_char_in_tag_names)
+void AsepriteSpriteSheetJSONLoader::set_discard_last_bang_char_in_tag_names(bool discard_last_bang_char_in_tag_names)
 {
-   this->discard_last_at_char_in_tag_names = discard_last_at_char_in_tag_names;
+   this->discard_last_bang_char_in_tag_names = discard_last_bang_char_in_tag_names;
 }
 
 
-bool AsepriteSpriteSheetJSONLoader::get_load_tag_names_ending_in_at_char_with_looping_playmode() const
+bool AsepriteSpriteSheetJSONLoader::get_load_tag_names_ending_in_bang_char_with_looping_playmode() const
 {
-   return load_tag_names_ending_in_at_char_with_looping_playmode;
+   return load_tag_names_ending_in_bang_char_with_looping_playmode;
 }
 
 
-bool AsepriteSpriteSheetJSONLoader::get_discard_last_at_char_in_tag_names() const
+bool AsepriteSpriteSheetJSONLoader::get_discard_last_bang_char_in_tag_names() const
 {
-   return discard_last_at_char_in_tag_names;
+   return discard_last_bang_char_in_tag_names;
 }
 
 
@@ -60,6 +60,7 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
 {
    using AllegroFlare::Errors;
    //std::string filename = "./bin/data/bitmaps/sprites_grid-x.json";
+
    if (!AllegroFlare::php::file_exists(filename))
    {
       AllegroFlare::Errors::throw_missing_file_error(
@@ -132,9 +133,9 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
       tag.at("to").get_to(end_frame);
       tag.at("direction").get_to(mode);
 
-      bool tag_name_ends_in_at_char = ends_in_at_char(unsanitized_tag_name);
-      tag_name = discard_last_at_char_in_tag_names
-               ? strip_appended_at_char(unsanitized_tag_name)
+      bool tag_name_ends_in_bang_char = ends_in_bang_char(unsanitized_tag_name);
+      tag_name = discard_last_bang_char_in_tag_names
+               ? strip_appended_bang_char(unsanitized_tag_name)
                : unsanitized_tag_name;
 
       if (result.count(tag_name) > 0)
@@ -146,9 +147,11 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
       }
 
 
-      bool playmode_is_looped = load_tag_names_ending_in_at_char_with_looping_playmode
-                              ? tag_name_ends_in_at_char
-                              : true;
+      bool playmode_is_looped = true;
+      if (load_tag_names_ending_in_bang_char_with_looping_playmode && tag_name_ends_in_bang_char)
+      {
+         playmode_is_looped = false;
+      }
 
       result[tag_name] = AllegroFlare::FrameAnimation::Animation(
          sprite_sheet,
@@ -185,15 +188,15 @@ std::vector<AllegroFlare::FrameAnimation::Frame> AsepriteSpriteSheetJSONLoader::
    return result;
 }
 
-bool AsepriteSpriteSheetJSONLoader::ends_in_at_char(std::string str)
+bool AsepriteSpriteSheetJSONLoader::ends_in_bang_char(std::string str)
 {
    if (str.size() <= 1) return false;
-   return str[str.size()-1] == '@';
+   return str[str.size()-1] == PLAY_ONCE_BANG_CHAR;
 }
 
-std::string AsepriteSpriteSheetJSONLoader::strip_appended_at_char(std::string str)
+std::string AsepriteSpriteSheetJSONLoader::strip_appended_bang_char(std::string str)
 {
-   if (!ends_in_at_char(str)) return str;
+   if (!ends_in_bang_char(str)) return str;
    str.pop_back();
    return str;
 }
@@ -210,6 +213,13 @@ uint32_t AsepriteSpriteSheetJSONLoader::_get_playmode_from_direction(std::string
       if (direction == "forward")
       {
          return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_LOOP;
+      }
+   }
+   else // (!playmode_is_looped)
+   {
+      if (direction == "forward")
+      {
+         return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE;
       }
    }
 
