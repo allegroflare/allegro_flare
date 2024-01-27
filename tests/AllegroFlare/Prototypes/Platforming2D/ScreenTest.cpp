@@ -44,13 +44,13 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
 
-   // create an animation book (to create an frame_animated type from the factory)
-   // TODO: introduce this concept to the test
-   AllegroFlare::FrameAnimation::Book animation_book(
-      data_folder_path + "bitmaps/sprites_grid-x.png",
-      data_folder_path + "bitmaps/sprites_grid-x.json",
-      1
-   );
+   // Create an animation book (to create an frame_animated type from the factory)
+   AllegroFlare::FrameAnimation::Book animation_book;
+   animation_book.set_png_source_filename(data_folder_path + "bitmaps/sprites_grid-x.png");
+   animation_book.set_json_source_filename(data_folder_path + "bitmaps/sprites_grid-x.json");
+   animation_book.set_sprite_sheet_scale(1);
+   animation_book.set_sprite_sheet_cell_width(48);
+   animation_book.set_sprite_sheet_cell_height(48);
    animation_book.initialize();
 
 
