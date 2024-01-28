@@ -943,6 +943,10 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
          case ALLEGRO_KEY_SPACE:
             //set_player_controlled_entity_jump();
          break;
+
+         case ALLEGRO_KEY_X:
+            reverse_gravity();
+         break;
       }
    }
 
@@ -979,7 +983,7 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
       {
-         reverse_gravity();
+         //reverse_gravity();
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
       {

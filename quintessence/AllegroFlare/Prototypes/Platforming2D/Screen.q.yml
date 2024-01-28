@@ -866,6 +866,10 @@ methods:
             case ALLEGRO_KEY_SPACE:
                //set_player_controlled_entity_jump();
             break;
+
+            case ALLEGRO_KEY_X:
+               reverse_gravity();
+            break;
          }
       }
 
@@ -911,7 +915,7 @@ methods:
          }
          else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
          {
-            reverse_gravity();
+            //reverse_gravity();
          }
          else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
          {
