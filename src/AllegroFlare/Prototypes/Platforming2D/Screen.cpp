@@ -46,8 +46,6 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* 
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , show_visual_hint_on_suspended_gameplay(false)
-   , player_control_velocity(AllegroFlare::Vec2D())
-   , player_controls()
    , entity_control_connector(nullptr)
    , camera_control_strategy(nullptr)
    , initialized(false)
@@ -329,12 +327,6 @@ void Screen::initialize_camera_control()
    return;
 }
 
-void Screen::initialize_player_controls()
-{
-   player_controls.clear();
-   return;
-}
-
 void Screen::initialize_camera()
 {
    if (!(currently_active_map))
@@ -394,7 +386,6 @@ void Screen::initialize()
    }
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialize_camera_control();
-   initialize_player_controls();
    initialize_camera();
    initialized = true;
    return;

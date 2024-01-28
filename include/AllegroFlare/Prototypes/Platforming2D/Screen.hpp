@@ -14,7 +14,6 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
-#include <AllegroFlare/VirtualController.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <map>
@@ -48,8 +47,6 @@ namespace AllegroFlare
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
             bool show_visual_hint_on_suspended_gameplay;
-            AllegroFlare::Vec2D player_control_velocity;
-            AllegroFlare::VirtualController player_controls;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             bool initialized;
@@ -91,7 +88,6 @@ namespace AllegroFlare
             virtual void on_deactivate() override;
             void initialize_maps();
             void initialize_camera_control();
-            void initialize_player_controls();
             void initialize();
             void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             void set_player_controlled_entity_jump();

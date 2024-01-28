@@ -85,14 +85,6 @@ properties:
     getter: true
     setter: true
 
-  - name: player_control_velocity
-    type: AllegroFlare::Vec2D
-    init_with: AllegroFlare::Vec2D()
-
-  - name: player_controls
-    type: AllegroFlare::VirtualController
-    init_with: ''
-
   - name: entity_control_connector
     type: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base*
     init_with: nullptr
@@ -313,12 +305,6 @@ methods:
       - AllegroFlare::CameraControlStrategies2D::HorizontalRail
 
 
-  - name: initialize_player_controls
-    body: |
-      player_controls.clear();
-      return;
-
-
   - name: initialize_camera
     private: true
     guards: [ currently_active_map, currently_active_map->get_tile_atlas(), currently_active_map->get_tile_mesh() ]
@@ -355,7 +341,6 @@ methods:
     body: |
       set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
       initialize_camera_control();
-      initialize_player_controls();
       initialize_camera();
       initialized = true;
       return;
