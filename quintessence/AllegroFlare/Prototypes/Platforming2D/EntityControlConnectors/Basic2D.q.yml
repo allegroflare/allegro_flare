@@ -132,6 +132,7 @@ methods:
          break;
 
          case ALLEGRO_KEY_SPACE:
+            attempt_jump();
             //set_player_controlled_entity_jump();
          break;
       }
@@ -152,7 +153,7 @@ methods:
       {
          case ALLEGRO_KEY_LEFT:
             left_pressed--;
-            basic_2d_entity->get_velocity_ref().position.x = 0.0;
+            //basic_2d_entity->get_velocity_ref().position.x = 0.0;
          break;
 
          case ALLEGRO_KEY_RIGHT:
@@ -176,6 +177,31 @@ methods:
       }
 
       return;
+
+
+  - name: attempt_jump
+    guards: [ basic_2d_entity ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      // Jump if on the floor
+      if (basic_2d_entity->exists(ADJACENT_TO_FLOOR))
+      {
+         basic_2d_entity->get_velocity_ref().position.y -= 4.25;
+      }
+      else if (basic_2d_entity->exists(ADJACENT_TO_LEFT_WALL)) // Wall jump
+      {
+         basic_2d_entity->get_velocity_ref().position.y = -3.5;
+         basic_2d_entity->get_velocity_ref().position.x = 3.0;
+      }
+      else if (basic_2d_entity->exists(ADJACENT_TO_RIGHT_WALL))
+      {
+         basic_2d_entity->get_velocity_ref().position.y = -3.5;
+         basic_2d_entity->get_velocity_ref().position.x = -3.0;
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
 dependencies:

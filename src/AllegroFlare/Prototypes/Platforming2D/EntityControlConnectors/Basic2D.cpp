@@ -143,6 +143,7 @@ void Basic2D::key_down_func(ALLEGRO_EVENT* event)
       break;
 
       case ALLEGRO_KEY_SPACE:
+         attempt_jump();
          //set_player_controlled_entity_jump();
       break;
    }
@@ -163,7 +164,7 @@ void Basic2D::key_up_func(ALLEGRO_EVENT* event)
    {
       case ALLEGRO_KEY_LEFT:
          left_pressed--;
-         basic_2d_entity->get_velocity_ref().position.x = 0.0;
+         //basic_2d_entity->get_velocity_ref().position.x = 0.0;
       break;
 
       case ALLEGRO_KEY_RIGHT:
@@ -186,6 +187,35 @@ void Basic2D::key_up_func(ALLEGRO_EVENT* event)
       break;
    }
 
+   return;
+}
+
+void Basic2D::attempt_jump()
+{
+   if (!(basic_2d_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::attempt_jump]: error: guard \"basic_2d_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::attempt_jump: error: guard \"basic_2d_entity\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   // Jump if on the floor
+   if (basic_2d_entity->exists(ADJACENT_TO_FLOOR))
+   {
+      basic_2d_entity->get_velocity_ref().position.y -= 4.25;
+   }
+   else if (basic_2d_entity->exists(ADJACENT_TO_LEFT_WALL)) // Wall jump
+   {
+      basic_2d_entity->get_velocity_ref().position.y = -3.5;
+      basic_2d_entity->get_velocity_ref().position.x = 3.0;
+   }
+   else if (basic_2d_entity->exists(ADJACENT_TO_RIGHT_WALL))
+   {
+      basic_2d_entity->get_velocity_ref().position.y = -3.5;
+      basic_2d_entity->get_velocity_ref().position.x = -3.0;
+   }
    return;
 }
 

@@ -941,7 +941,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
          break;
 
          case ALLEGRO_KEY_SPACE:
-            set_player_controlled_entity_jump();
+            //set_player_controlled_entity_jump();
          break;
       }
    }
@@ -975,7 +975,7 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
       {
          player_controls.set_a_button_pressed(true);
-         set_player_controlled_entity_jump();
+         //set_player_controlled_entity_jump();
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
       {

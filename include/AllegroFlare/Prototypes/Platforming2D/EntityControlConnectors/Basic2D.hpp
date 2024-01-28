@@ -36,6 +36,7 @@ namespace AllegroFlare
                virtual void update_player_controls_on_player_controlled_entity() override;
                virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
                virtual void key_up_func(ALLEGRO_EVENT* event=nullptr) override;
+               void attempt_jump();
             };
          }
       }
