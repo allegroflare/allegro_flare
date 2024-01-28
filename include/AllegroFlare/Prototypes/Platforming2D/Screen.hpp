@@ -47,6 +47,7 @@ namespace AllegroFlare
             bool show_tile_mesh;
             bool show_collision_tile_mesh;
             bool show_visual_hint_on_suspended_gameplay;
+            AllegroFlare::Vec2D player_control_velocity;
             AllegroFlare::VirtualController player_controls;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             bool initialized;

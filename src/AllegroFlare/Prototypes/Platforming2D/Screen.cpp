@@ -45,6 +45,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* 
    , show_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , show_visual_hint_on_suspended_gameplay(false)
+   , player_control_velocity(AllegroFlare::Vec2D())
    , player_controls()
    , camera_control_strategy(nullptr)
    , initialized(false)
@@ -721,18 +722,29 @@ void Screen::update_player_controls_on_player_controlled_entity()
       // if this block is active, the player cannot control themselves while in the air, only when on the ground:
       if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
       {
-         player_controlled_entity->get_velocity_ref().position.x = 0.0;
+         player_control_velocity.x = 0.0;
+         //player_controlled_entity->get_velocity_ref().position.x = 0.0;
       }
 
          if (player_controls.get_right_button_pressed())
          {
-            player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
+            //player_control_velocity.x = 1.0;
+            player_control_velocity.x = 1.0;
+            //player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
          }
          if (player_controls.get_left_button_pressed())
          {
-            player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
+            //player_control_velocity.x = -1.0;
+            player_control_velocity.x = -1.0;
+            //player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
          }
    }
+
+
+   float player_speed = 1.5;
+   player_controlled_entity->get_velocity_ref().position.x = player_control_velocity.x * player_speed;
+
+
    return;
 }
 
@@ -892,10 +904,12 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
    switch (event->keyboard.keycode)
    {
       case ALLEGRO_KEY_LEFT:
+         //player_control_velocity.y = 0.0;
          player_controls.set_left_button_pressed(false);
       break;
 
       case ALLEGRO_KEY_RIGHT:
+         //player_control_velocity.y = 0.0;
          player_controls.set_right_button_pressed(false);
       break;
    }
@@ -923,16 +937,23 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       switch (event->keyboard.keycode)
       {
          case ALLEGRO_KEY_LEFT:
+            //player_control_velocity.x = 0.0;
             player_controls.set_left_button_pressed(true);
          break;
 
          case ALLEGRO_KEY_RIGHT:
+            //player_control_velocity.x = 1.0;
             player_controls.set_right_button_pressed(true);
          break;
 
          case ALLEGRO_KEY_UP:
+            //player_control_velocity.y = -1.0;
             player_controls.set_up_button_pressed(true);
             check_player_collisions_with_doors();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            //player_control_velocity.y = 1.0;
          break;
 
          case ALLEGRO_KEY_SPACE:
