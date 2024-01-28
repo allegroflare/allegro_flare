@@ -9,11 +9,12 @@ parent_classes:
 properties:
 
 
-  - name: property
-    type: std::string
-    init_with: '"[unset-property]"'
+  - name: basic_2d_entity
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    init_with: nullptr
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: TYPE
     type: char*
@@ -25,14 +26,43 @@ properties:
 methods:
 
 
-  - name: property_is
-    type: bool
+  - name: key_down_func
+    virtual: true
+    override: true
     parameters:
-      - name: possible_type
-        type: std::string
-        default_argument: '""'
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ basic_2d_entity ]
     body: |
-      return (possible_type == get_property());
+      switch (event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_LEFT:
+            //player_control_velocity.x = 0.0;
+            //player_controls.set_left_button_pressed(true);
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            //player_control_velocity.x = 1.0;
+            //player_controls.set_right_button_pressed(true);
+         break;
+
+         case ALLEGRO_KEY_UP:
+            //player_control_velocity.y = -1.0;
+            //player_controls.set_up_button_pressed(true);
+            //check_player_collisions_with_doors();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            //player_control_velocity.y = 1.0;
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+            //set_player_controlled_entity_jump();
+         break;
+      }
+
+      return;
 
 
 dependencies:
@@ -40,5 +70,9 @@ dependencies:
 
   - symbol: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
 
 

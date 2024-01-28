@@ -17,6 +17,43 @@ properties:
 methods:
 
 
+  - name: key_down_func
+    virtual: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // TODO: Throw on not implemented
+
+      // Typically something like:
+
+      //switch (event->keyboard.keycode)
+      //{
+         //case ALLEGRO_KEY_LEFT:
+            // ...
+         //break;
+
+         //case ALLEGRO_KEY_RIGHT:
+            // ...
+         //break;
+
+         //case ALLEGRO_KEY_UP:
+            // ...
+         //break;
+
+         //case ALLEGRO_KEY_DOWN:
+            // ...
+         //break;
+
+         //case ALLEGRO_KEY_SPACE:
+            // ...
+         //break;
+      //}
+
+      return;
+
+
   - name: is_type
     type: bool
     parameters:
@@ -25,5 +62,12 @@ methods:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
 
 

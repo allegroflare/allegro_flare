@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <allegro5/allegro.h>
 #include <string>
 
 
@@ -25,9 +26,10 @@ namespace AllegroFlare
 
             public:
                Base(std::string type=AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base::TYPE);
-               ~Base();
+               virtual ~Base();
 
                std::string get_type() const;
+               virtual void key_down_func(ALLEGRO_EVENT* event=nullptr);
                bool is_type(std::string possible_type="");
             };
          }

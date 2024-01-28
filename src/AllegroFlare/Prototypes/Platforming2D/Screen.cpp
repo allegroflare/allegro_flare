@@ -12,6 +12,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <algorithm>
@@ -181,7 +182,7 @@ void Screen::set_currently_active_map(std::string name)
    return;
 }
 
-void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, bool also_set_as_camera_tracked_object)
+void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, bool also_set_as_camera_tracked_object, bool also_setup_a_basic2d_entity_control_connector)
 {
    if (!((also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)))
    {
@@ -209,6 +210,16 @@ void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2
             "Cannot set_entity_to_follow on unhandled camera type \"" + camera_control_strategy->get_type() + "\""
          );
       }
+   }
+
+   // Setup a control connector (for now, using a Basic2D connector)
+   if (also_setup_a_basic2d_entity_control_connector)
+   {
+      if (entity_control_connector) delete entity_control_connector;
+      auto control_connector = new AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D();
+      control_connector->set_basic_2d_entity(entity);
+
+      entity_control_connector = control_connector;
    }
    return;
 }

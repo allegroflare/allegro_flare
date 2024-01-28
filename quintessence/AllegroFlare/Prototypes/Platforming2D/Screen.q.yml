@@ -188,6 +188,9 @@ methods:
       - name: also_set_as_camera_tracked_object
         type: bool
         default_argument: true
+      - name: also_setup_a_basic2d_entity_control_connector
+        type: bool
+        default_argument: true
     guards: [ '(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)' ]
     body: |
       // Set the player controlled entity
@@ -210,7 +213,19 @@ methods:
             );
          }
       }
+
+      // Setup a control connector (for now, using a Basic2D connector)
+      if (also_setup_a_basic2d_entity_control_connector)
+      {
+         if (entity_control_connector) delete entity_control_connector;
+         auto control_connector = new AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D();
+         control_connector->set_basic_2d_entity(entity);
+
+         entity_control_connector = control_connector;
+      }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D
 
 
   - name: find_map_by_name
@@ -1230,5 +1245,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Gameplay.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp ]
 
 

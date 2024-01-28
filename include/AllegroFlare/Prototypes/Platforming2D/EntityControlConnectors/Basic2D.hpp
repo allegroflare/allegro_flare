@@ -1,8 +1,9 @@
 #pragma once
 
 
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp>
-#include <string>
+#include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
@@ -19,17 +20,18 @@ namespace AllegroFlare
                static constexpr char* TYPE = (char*)"AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D";
 
             private:
-               std::string property;
+               AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* basic_2d_entity;
 
             protected:
 
 
             public:
-               Basic2D(std::string property="[unset-property]");
-               ~Basic2D();
+               Basic2D(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* basic_2d_entity=nullptr);
+               virtual ~Basic2D();
 
-               std::string get_property() const;
-               bool property_is(std::string possible_type="");
+               void set_basic_2d_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* basic_2d_entity);
+               AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_basic_2d_entity() const;
+               virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
             };
          }
       }

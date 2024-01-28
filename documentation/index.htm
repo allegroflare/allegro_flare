@@ -385,6 +385,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml</a></li>
@@ -23784,6 +23786,59 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">basic_2d_entity</td>
+  <td class="property">AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -23851,6 +23906,10 @@ table td
 <tr>
   <td class="property">player_controls</td>
   <td class="property">AllegroFlare::VirtualController</td>
+</tr>
+<tr>
+  <td class="property">entity_control_connector</td>
+  <td class="property">AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base*</td>
 </tr>
 <tr>
   <td class="property">camera_control_strategy</td>
@@ -24119,6 +24178,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36581,6 +36643,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "fabs": [
@@ -39077,6 +39140,10 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",

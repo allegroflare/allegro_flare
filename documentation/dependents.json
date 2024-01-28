@@ -758,6 +758,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "fabs": [
@@ -3254,6 +3255,10 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
