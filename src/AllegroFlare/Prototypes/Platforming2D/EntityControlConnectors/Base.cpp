@@ -64,6 +64,13 @@ void Base::key_down_func(ALLEGRO_EVENT* event)
    return;
 }
 
+void Base::key_up_func(ALLEGRO_EVENT* event)
+{
+   // TODO: Throw on not implemented
+   // NOTE: See "key_down_func" for a typical example usage
+   return;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());

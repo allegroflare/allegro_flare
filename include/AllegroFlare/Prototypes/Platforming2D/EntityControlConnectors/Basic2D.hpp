@@ -32,6 +32,7 @@ namespace AllegroFlare
                void set_basic_2d_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* basic_2d_entity);
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_basic_2d_entity() const;
                virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
+               virtual void key_up_func(ALLEGRO_EVENT* event=nullptr) override;
             };
          }
       }

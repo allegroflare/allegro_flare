@@ -23802,11 +23802,22 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">key_up_func(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
   <td class="method">is_type(std::string possible_type=&quot;&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -23825,6 +23836,12 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">key_down_func(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">key_up_func(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -23833,6 +23850,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -23943,7 +23963,7 @@ table td
   <td class="method">set_currently_active_map(std::string name=&quot;[unset-current-map-name-to-use]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, bool also_set_as_camera_tracked_object=true)</td>
+  <td class="method">set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, bool also_set_as_camera_tracked_object=true, bool also_setup_a_basic2d_entity_control_connector=true)</td>
 </tr>
 <tr>
   <td class="method">find_map_by_name(std::string name=&quot;[unset-map-name]&quot;)</td>
@@ -24181,6 +24201,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36871,6 +36894,8 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base",
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -39185,6 +39210,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",

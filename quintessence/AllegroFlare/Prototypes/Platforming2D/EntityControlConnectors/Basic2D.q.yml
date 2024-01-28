@@ -38,6 +38,47 @@ methods:
       switch (event->keyboard.keycode)
       {
          case ALLEGRO_KEY_LEFT:
+            //basic_2d_entity->get_velocity_ref().x = 1.0;
+            //player_control_velocity.x = 0.0;
+            //player_controls.set_left_button_pressed(true);
+         break;
+
+         case ALLEGRO_KEY_RIGHT:
+            //player_control_velocity.x = 1.0;
+            //player_controls.set_right_button_pressed(true);
+         break;
+
+         case ALLEGRO_KEY_UP:
+            //player_control_velocity.y = -1.0;
+            //player_controls.set_up_button_pressed(true);
+            //check_player_collisions_with_doors();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            //player_control_velocity.y = 1.0;
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+            //set_player_controlled_entity_jump();
+         break;
+      }
+
+      return;
+
+
+  - name: key_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ basic_2d_entity ]
+    body: |
+      switch (event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_LEFT:
+            //basic_2d_entity->get_velocity_ref().x = 1.0;
             //player_control_velocity.x = 0.0;
             //player_controls.set_left_button_pressed(true);
          break;

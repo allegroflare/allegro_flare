@@ -54,6 +54,18 @@ methods:
       return;
 
 
+  - name: key_up_func
+    virtual: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // TODO: Throw on not implemented
+      // NOTE: See "key_down_func" for a typical example usage
+      return;
+
+
   - name: is_type
     type: bool
     parameters:

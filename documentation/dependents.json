@@ -986,6 +986,8 @@
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base",
+    "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -3300,6 +3302,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",

@@ -30,6 +30,7 @@ namespace AllegroFlare
 
                std::string get_type() const;
                virtual void key_down_func(ALLEGRO_EVENT* event=nullptr);
+               virtual void key_up_func(ALLEGRO_EVENT* event=nullptr);
                bool is_type(std::string possible_type="");
             };
          }

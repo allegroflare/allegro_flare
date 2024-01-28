@@ -53,6 +53,47 @@ void Basic2D::key_down_func(ALLEGRO_EVENT* event)
    switch (event->keyboard.keycode)
    {
       case ALLEGRO_KEY_LEFT:
+         //basic_2d_entity->get_velocity_ref().x = 1.0;
+         //player_control_velocity.x = 0.0;
+         //player_controls.set_left_button_pressed(true);
+      break;
+
+      case ALLEGRO_KEY_RIGHT:
+         //player_control_velocity.x = 1.0;
+         //player_controls.set_right_button_pressed(true);
+      break;
+
+      case ALLEGRO_KEY_UP:
+         //player_control_velocity.y = -1.0;
+         //player_controls.set_up_button_pressed(true);
+         //check_player_collisions_with_doors();
+      break;
+
+      case ALLEGRO_KEY_DOWN:
+         //player_control_velocity.y = 1.0;
+      break;
+
+      case ALLEGRO_KEY_SPACE:
+         //set_player_controlled_entity_jump();
+      break;
+   }
+
+   return;
+}
+
+void Basic2D::key_up_func(ALLEGRO_EVENT* event)
+{
+   if (!(basic_2d_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::key_up_func]: error: guard \"basic_2d_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::key_up_func: error: guard \"basic_2d_entity\" not met");
+   }
+   switch (event->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_LEFT:
+         //basic_2d_entity->get_velocity_ref().x = 1.0;
          //player_control_velocity.x = 0.0;
          //player_controls.set_left_button_pressed(true);
       break;
