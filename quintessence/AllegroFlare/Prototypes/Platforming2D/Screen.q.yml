@@ -350,20 +350,6 @@ methods:
       return;
 
 
-  - name: unset_player_controlled_entity_vertical_velocity
-    body: |
-      if (!player_controlled_entity) return;
-      player_controlled_entity->get_velocity_ref().position.y = 0;
-      return;
-
-
-  - name: unset_player_controlled_entity_horizontal_velocity
-    body: |
-      if (!player_controlled_entity) return;
-      player_controlled_entity->get_velocity_ref().position.x = 0;
-      return;
-
-
   - name: set_player_controlled_entity_jump
     guards: [ player_controlled_entity ]
     body: |

@@ -90,8 +90,6 @@ namespace AllegroFlare
             void initialize_player_controls();
             void initialize();
             void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
-            void unset_player_controlled_entity_vertical_velocity();
-            void unset_player_controlled_entity_horizontal_velocity();
             void set_player_controlled_entity_jump();
             void player_emit_projectile(float magnitude=3.0f);
             void reverse_gravity();

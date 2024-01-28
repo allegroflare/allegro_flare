@@ -381,20 +381,6 @@ void Screen::add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entitie
    return;
 }
 
-void Screen::unset_player_controlled_entity_vertical_velocity()
-{
-   if (!player_controlled_entity) return;
-   player_controlled_entity->get_velocity_ref().position.y = 0;
-   return;
-}
-
-void Screen::unset_player_controlled_entity_horizontal_velocity()
-{
-   if (!player_controlled_entity) return;
-   player_controlled_entity->get_velocity_ref().position.x = 0;
-   return;
-}
-
 void Screen::set_player_controlled_entity_jump()
 {
    if (!(player_controlled_entity))
