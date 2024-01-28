@@ -437,7 +437,8 @@ void Screen::player_emit_projectile(float magnitude)
    AllegroFlare::vec2d player_pos = player_controlled_entity->get_place_ref().position;
    //AllegroFlare::vec2d player_center_pos = player_pos;
    //AllegroFlare::vec2d aim_dir = player_controls.get_primary_stick_position(); //.normalized();
-   AllegroFlare::vec2d aim_pos = player_controls.get_primary_stick_position(); //.normalized();
+   AllegroFlare::vec2d aim_pos = { 1.0, 0.0 }; //player_controls.get_primary_stick_position(); //.normalized();
+   //AllegroFlare::vec2d aim_pos = { 1.0, 0.0 }; //player_controls.get_primary_stick_position(); //.normalized();
 
    if ((aim_pos.x < 0.00001) && (aim_pos.x > -0.00001))
    if ((aim_pos.y < 0.00001) && (aim_pos.y > -0.00001))
@@ -927,12 +928,12 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
 
          //case ALLEGRO_KEY_RIGHT:
             ////player_control_velocity.x = 1.0;
-            //player_controls.set_right_button_pressed(true);
+           //player_controls.set_right_button_pressed(true);
          //break;
 
          case ALLEGRO_KEY_UP:
             //player_control_velocity.y = -1.0;
-            player_controls.set_up_button_pressed(true);
+            //player_controls.set_up_button_pressed(true);
             check_player_collisions_with_doors();
          break;
 
@@ -946,6 +947,11 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
 
          case ALLEGRO_KEY_X:
             reverse_gravity();
+         break;
+
+         case ALLEGRO_KEY_Y:
+            player_emit_projectile();
+            //reverse_gravity();
          break;
       }
    }
@@ -978,7 +984,7 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       // continuing moving forward if paused mid-jump, etc)
       if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
       {
-         player_controls.set_a_button_pressed(true);
+         //player_controls.set_a_button_pressed(true);
          //set_player_controlled_entity_jump();
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
@@ -987,7 +993,7 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
       {
-         player_emit_projectile();
+         //player_emit_projectile();
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
       {
@@ -999,13 +1005,13 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_UP)
       {
-         player_controls.set_up_button_pressed(true);
-         check_player_collisions_with_doors();
+         //player_controls.set_up_button_pressed(true);
+         //check_player_collisions_with_doors();
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
       {
          // TODO: block if gameplay is suspended
-         player_controls.set_right_bumper_pressed(true);
+         //player_controls.set_right_bumper_pressed(true);
       }
    }
    return;
@@ -1030,7 +1036,7 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
       // continuing moving forward if paused mid-jump, etc)
       if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
       {
-         player_controls.set_a_button_pressed(false);
+         //player_controls.set_a_button_pressed(false);
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
       {
@@ -1042,7 +1048,7 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
       {
-         player_controls.set_right_bumper_pressed(false);
+         //player_controls.set_right_bumper_pressed(false);
       }
    }
    return;
@@ -1050,35 +1056,33 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
 
 void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
 {
-   ///*
-   int stick = event->user.data1;
-   int axis = event->user.data2;
-   float position = event->user.data3 / 255.0f;
+   //int stick = event->user.data1;
+   //int axis = event->user.data2;
+   //float position = event->user.data3 / 255.0f;
 
-   if (stick == AllegroFlare::VirtualControllers::GenericController::PRIMARY_STICK)
-   {
-      if (axis == 0)
-      {
-         AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
-         vec.x = position;
-         player_controls.set_primary_stick_position(vec);
-      }
-      if (axis == 1)
-      {
-         AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
-         vec.y = position;
-         player_controls.set_primary_stick_position(vec);
-      }
-   }
+   //if (stick == AllegroFlare::VirtualControllers::GenericController::PRIMARY_STICK)
+   //{
+      //if (axis == 0)
+      //{
+         //AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
+         //vec.x = position;
+         //player_controls.set_primary_stick_position(vec);
+      //}
+      //if (axis == 1)
+      //{
+         //AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
+         //vec.y = position;
+         //player_controls.set_primary_stick_position(vec);
+      //}
+   //}
 
-   if (axis == 0 && position > 0.5) player_controls.set_right_button_pressed(true);
-   if (axis == 0 && position < 0.5 && position > -0.5)
-   {
-      player_controls.set_right_button_pressed(false);
-      player_controls.set_left_button_pressed(false);
-   }
-   if (axis == 0 && position < -0.5) player_controls.set_left_button_pressed(true);
-   //*/
+   //if (axis == 0 && position > 0.5) player_controls.set_right_button_pressed(true);
+   //if (axis == 0 && position < 0.5 && position > -0.5)
+   //{
+      //player_controls.set_right_button_pressed(false);
+      //player_controls.set_left_button_pressed(false);
+   //}
+   //if (axis == 0 && position < -0.5) player_controls.set_left_button_pressed(true);
 
    return;
 }

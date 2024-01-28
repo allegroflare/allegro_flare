@@ -119,7 +119,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    framework.register_screen("platforming_2d", &platforming_2d);
    framework.activate_screen("platforming_2d");
 
-   framework.run_loop(8);
+   framework.run_loop(16);
    //framework.run_loop(3);
    framework.shutdown();
 }
