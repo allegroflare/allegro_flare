@@ -730,12 +730,14 @@ void Screen::update_player_controls_on_player_controlled_entity()
          {
             //player_control_velocity.x = 1.0;
             player_control_velocity.x = 1.0;
+            player_controlled_entity->set_bitmap_flip_h(false);
             //player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
          }
          if (player_controls.get_left_button_pressed())
          {
             //player_control_velocity.x = -1.0;
             player_control_velocity.x = -1.0;
+            player_controlled_entity->set_bitmap_flip_h(true);
             //player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
          }
    }
