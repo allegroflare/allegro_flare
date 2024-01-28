@@ -97,7 +97,6 @@ namespace AllegroFlare
             void reverse_gravity();
             void update_entities();
             void draw_entities();
-            void update_player_controls_on_player_controlled_entity();
             void update();
             void draw();
             void toggle_show_collision_tile_mesh();

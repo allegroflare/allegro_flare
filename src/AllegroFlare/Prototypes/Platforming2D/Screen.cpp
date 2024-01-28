@@ -721,60 +721,6 @@ void Screen::draw_entities()
    return;
 }
 
-void Screen::update_player_controls_on_player_controlled_entity()
-{
-   if (!(player_controlled_entity))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::update_player_controls_on_player_controlled_entity]: error: guard \"player_controlled_entity\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_player_controls_on_player_controlled_entity: error: guard \"player_controlled_entity\" not met");
-   }
-   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
-
-   // if this block is active, the player cannot control themselves while in the air, only when on the ground:
-   //if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
-   //{
-      //player_controlled_entity->get_velocity_ref().position.x = 0.0;
-   //}
-
-   if (player_controls.get_right_bumper_pressed())
-   {
-      player_controlled_entity->get_velocity_ref().position.x = 0.0;
-   }
-   else
-   {
-      // if this block is active, the player cannot control themselves while in the air, only when on the ground:
-      if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
-      {
-         player_control_velocity.x = 0.0;
-         //player_controlled_entity->get_velocity_ref().position.x = 0.0;
-      }
-
-         //if (player_controls.get_right_button_pressed())
-         //{
-            ////player_control_velocity.x = 1.0;
-            //player_control_velocity.x = 1.0;
-            //player_controlled_entity->set_bitmap_flip_h(false);
-            ////player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
-         //}
-         //if (player_controls.get_left_button_pressed())
-         //{
-            ////player_control_velocity.x = -1.0;
-            //player_control_velocity.x = -1.0;
-            //player_controlled_entity->set_bitmap_flip_h(true);
-            ////player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
-         //}
-   }
-
-
-   //float player_speed = 1.5;
-   //player_controlled_entity->get_velocity_ref().position.x = player_control_velocity.x * player_speed;
-
-
-   return;
-}
-
 void Screen::update()
 {
    if (!(initialized))
@@ -1041,11 +987,11 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
       {
-         player_controls.set_right_button_pressed(true);
+         //player_controls.set_right_button_pressed(true);
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
       {
-         player_controls.set_left_button_pressed(true);
+         //player_controls.set_left_button_pressed(true);
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_UP)
       {
@@ -1084,11 +1030,11 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
       {
-         player_controls.set_right_button_pressed(false);
+         //player_controls.set_right_button_pressed(false);
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
       {
-         player_controls.set_left_button_pressed(false);
+         //player_controls.set_left_button_pressed(false);
       }
       else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
       {
@@ -1100,6 +1046,7 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
 
 void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
 {
+   ///*
    int stick = event->user.data1;
    int axis = event->user.data2;
    float position = event->user.data3 / 255.0f;
@@ -1127,6 +1074,7 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
       player_controls.set_left_button_pressed(false);
    }
    if (axis == 0 && position < -0.5) player_controls.set_left_button_pressed(true);
+   //*/
 
    return;
 }
