@@ -21,6 +21,8 @@ namespace AllegroFlare
 
             private:
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* basic_2d_entity;
+               int right_pressed;
+               int left_pressed;
 
             protected:
 
@@ -31,6 +33,7 @@ namespace AllegroFlare
 
                void set_basic_2d_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* basic_2d_entity);
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_basic_2d_entity() const;
+               virtual void update_player_controls_on_player_controlled_entity() override;
                virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
                virtual void key_up_func(ALLEGRO_EVENT* event=nullptr) override;
             };

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp>
 
+#include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -20,6 +21,8 @@ namespace EntityControlConnectors
 Basic2D::Basic2D(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* basic_2d_entity)
    : AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::TYPE)
    , basic_2d_entity(basic_2d_entity)
+   , right_pressed(0)
+   , left_pressed(0)
 {
 }
 
@@ -41,6 +44,71 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2D::get_basic_2
 }
 
 
+void Basic2D::update_player_controls_on_player_controlled_entity()
+{
+   if (!(basic_2d_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::update_player_controls_on_player_controlled_entity]: error: guard \"basic_2d_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::update_player_controls_on_player_controlled_entity: error: guard \"basic_2d_entity\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   // if this block is active, the player cannot control themselves while in the air, only when on the ground:
+   //if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
+   //{
+      //player_controlled_entity->get_velocity_ref().position.x = 0.0;
+   //}
+
+   //if (player_controls.get_right_bumper_pressed())
+   //{
+      //player_controlled_entity->get_velocity_ref().position.x = 0.0;
+   //}
+   //else
+   //{
+   AllegroFlare::Vec2D player_control_velocity;
+
+      // if this block is active, the player cannot control themselves while in the air, only when on the ground:
+      if (basic_2d_entity->exists(ADJACENT_TO_FLOOR))
+      {
+         //player_control_velocity.x = 0.0;
+         //player_controlled_entity->get_velocity_ref().position.x = 0.0;
+         basic_2d_entity->get_velocity_ref().position.x = 0.0;
+      }
+
+         //if (player_controls.get_right_button_pressed())
+         //{
+         if (right_pressed > 0)
+         {
+            ////player_control_velocity.x = 1.0;
+            //player_control_velocity.x = 1.0;
+            //player_controlled_entity->set_bitmap_flip_h(false);
+            ////player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
+            //basic_2d_entity->get_velocity_ref().position.x = 0.0;
+            player_control_velocity.x = 1.0;
+         }
+         //if (player_controls.get_left_button_pressed())
+         //{
+         if (left_pressed > 0)
+         {
+            player_control_velocity.x = -1.0;
+            ////player_control_velocity.x = -1.0;
+            //player_control_velocity.x = -1.0;
+            //player_controlled_entity->set_bitmap_flip_h(true);
+            ////player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
+         }
+         //}
+   //}
+
+
+   float player_speed = 1.5;
+   basic_2d_entity->get_velocity_ref().position.x = player_control_velocity.x * player_speed;
+
+
+   return;
+}
+
 void Basic2D::key_down_func(ALLEGRO_EVENT* event)
 {
    if (!(basic_2d_entity))
@@ -53,14 +121,15 @@ void Basic2D::key_down_func(ALLEGRO_EVENT* event)
    switch (event->keyboard.keycode)
    {
       case ALLEGRO_KEY_LEFT:
-         //basic_2d_entity->get_velocity_ref().x = 1.0;
-         //player_control_velocity.x = 0.0;
-         //player_controls.set_left_button_pressed(true);
+         left_pressed++;
+         //basic_2d_entity->get_velocity_ref().position.x = -1.5;
+         basic_2d_entity->set_bitmap_flip_h(true);
       break;
 
       case ALLEGRO_KEY_RIGHT:
-         //player_control_velocity.x = 1.0;
-         //player_controls.set_right_button_pressed(true);
+         right_pressed++;
+         //basic_2d_entity->get_velocity_ref().position.x = 1.5;
+         basic_2d_entity->set_bitmap_flip_h(false);
       break;
 
       case ALLEGRO_KEY_UP:
@@ -93,14 +162,13 @@ void Basic2D::key_up_func(ALLEGRO_EVENT* event)
    switch (event->keyboard.keycode)
    {
       case ALLEGRO_KEY_LEFT:
-         //basic_2d_entity->get_velocity_ref().x = 1.0;
-         //player_control_velocity.x = 0.0;
-         //player_controls.set_left_button_pressed(true);
+         left_pressed--;
+         basic_2d_entity->get_velocity_ref().position.x = 0.0;
       break;
 
       case ALLEGRO_KEY_RIGHT:
-         //player_control_velocity.x = 1.0;
-         //player_controls.set_right_button_pressed(true);
+         right_pressed--;
+         //basic_2d_entity->get_velocity_ref().position.x = 0.0;
       break;
 
       case ALLEGRO_KEY_UP:

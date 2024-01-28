@@ -29,6 +29,7 @@ namespace AllegroFlare
                virtual ~Base();
 
                std::string get_type() const;
+               virtual void update_player_controls_on_player_controlled_entity();
                virtual void key_down_func(ALLEGRO_EVENT* event=nullptr);
                virtual void key_up_func(ALLEGRO_EVENT* event=nullptr);
                bool is_type(std::string possible_type="");

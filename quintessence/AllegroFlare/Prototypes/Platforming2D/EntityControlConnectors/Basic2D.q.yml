@@ -16,6 +16,14 @@ properties:
     getter: true
     setter: true
 
+  - name: right_pressed
+    type: int
+    init_with: 0
+
+  - name: left_pressed
+    type: int
+    init_with: 0
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D"'
@@ -24,6 +32,70 @@ properties:
 
 
 methods:
+
+
+  - name: update_player_controls_on_player_controlled_entity
+    virtual: true
+    override: true
+    guards: [ basic_2d_entity ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      // if this block is active, the player cannot control themselves while in the air, only when on the ground:
+      //if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
+      //{
+         //player_controlled_entity->get_velocity_ref().position.x = 0.0;
+      //}
+
+      //if (player_controls.get_right_bumper_pressed())
+      //{
+         //player_controlled_entity->get_velocity_ref().position.x = 0.0;
+      //}
+      //else
+      //{
+      AllegroFlare::Vec2D player_control_velocity;
+
+         // if this block is active, the player cannot control themselves while in the air, only when on the ground:
+         if (basic_2d_entity->exists(ADJACENT_TO_FLOOR))
+         {
+            //player_control_velocity.x = 0.0;
+            //player_controlled_entity->get_velocity_ref().position.x = 0.0;
+            basic_2d_entity->get_velocity_ref().position.x = 0.0;
+         }
+
+            //if (player_controls.get_right_button_pressed())
+            //{
+            if (right_pressed > 0)
+            {
+               ////player_control_velocity.x = 1.0;
+               //player_control_velocity.x = 1.0;
+               //player_controlled_entity->set_bitmap_flip_h(false);
+               ////player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
+               //basic_2d_entity->get_velocity_ref().position.x = 0.0;
+               player_control_velocity.x = 1.0;
+            }
+            //if (player_controls.get_left_button_pressed())
+            //{
+            if (left_pressed > 0)
+            {
+               player_control_velocity.x = -1.0;
+               ////player_control_velocity.x = -1.0;
+               //player_control_velocity.x = -1.0;
+               //player_controlled_entity->set_bitmap_flip_h(true);
+               ////player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
+            }
+            //}
+      //}
+
+
+      float player_speed = 1.5;
+      basic_2d_entity->get_velocity_ref().position.x = player_control_velocity.x * player_speed;
+
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
 
 
   - name: key_down_func
@@ -38,14 +110,15 @@ methods:
       switch (event->keyboard.keycode)
       {
          case ALLEGRO_KEY_LEFT:
-            //basic_2d_entity->get_velocity_ref().x = 1.0;
-            //player_control_velocity.x = 0.0;
-            //player_controls.set_left_button_pressed(true);
+            left_pressed++;
+            //basic_2d_entity->get_velocity_ref().position.x = -1.5;
+            basic_2d_entity->set_bitmap_flip_h(true);
          break;
 
          case ALLEGRO_KEY_RIGHT:
-            //player_control_velocity.x = 1.0;
-            //player_controls.set_right_button_pressed(true);
+            right_pressed++;
+            //basic_2d_entity->get_velocity_ref().position.x = 1.5;
+            basic_2d_entity->set_bitmap_flip_h(false);
          break;
 
          case ALLEGRO_KEY_UP:
@@ -78,14 +151,13 @@ methods:
       switch (event->keyboard.keycode)
       {
          case ALLEGRO_KEY_LEFT:
-            //basic_2d_entity->get_velocity_ref().x = 1.0;
-            //player_control_velocity.x = 0.0;
-            //player_controls.set_left_button_pressed(true);
+            left_pressed--;
+            basic_2d_entity->get_velocity_ref().position.x = 0.0;
          break;
 
          case ALLEGRO_KEY_RIGHT:
-            //player_control_velocity.x = 1.0;
-            //player_controls.set_right_button_pressed(true);
+            right_pressed--;
+            //basic_2d_entity->get_velocity_ref().position.x = 0.0;
          break;
 
          case ALLEGRO_KEY_UP:
@@ -115,5 +187,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
   - symbol: ALLEGRO_EVENT
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
 
 

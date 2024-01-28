@@ -32,6 +32,13 @@ std::string Base::get_type() const
 }
 
 
+void Base::update_player_controls_on_player_controlled_entity()
+{
+   // TODO: Throw on not implemented
+   // TODO: Add "time_now" and "delta_time" parameter
+   return;
+}
+
 void Base::key_down_func(ALLEGRO_EVENT* event)
 {
    // TODO: Throw on not implemented

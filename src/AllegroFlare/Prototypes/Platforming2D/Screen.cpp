@@ -751,25 +751,25 @@ void Screen::update_player_controls_on_player_controlled_entity()
          //player_controlled_entity->get_velocity_ref().position.x = 0.0;
       }
 
-         if (player_controls.get_right_button_pressed())
-         {
+         //if (player_controls.get_right_button_pressed())
+         //{
+            ////player_control_velocity.x = 1.0;
             //player_control_velocity.x = 1.0;
-            player_control_velocity.x = 1.0;
-            player_controlled_entity->set_bitmap_flip_h(false);
-            //player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
-         }
-         if (player_controls.get_left_button_pressed())
-         {
+            //player_controlled_entity->set_bitmap_flip_h(false);
+            ////player_controlled_entity->get_velocity_ref().position.x = 1.5; //2.0;
+         //}
+         //if (player_controls.get_left_button_pressed())
+         //{
+            ////player_control_velocity.x = -1.0;
             //player_control_velocity.x = -1.0;
-            player_control_velocity.x = -1.0;
-            player_controlled_entity->set_bitmap_flip_h(true);
-            //player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
-         }
+            //player_controlled_entity->set_bitmap_flip_h(true);
+            ////player_controlled_entity->get_velocity_ref().position.x = -1.5; //-2.0;
+         //}
    }
 
 
-   float player_speed = 1.5;
-   player_controlled_entity->get_velocity_ref().position.x = player_control_velocity.x * player_speed;
+   //float player_speed = 1.5;
+   //player_controlled_entity->get_velocity_ref().position.x = player_control_velocity.x * player_speed;
 
 
    return;
@@ -786,7 +786,14 @@ void Screen::update()
    }
    if (!get_gameplay_suspended())
    {
-      if (player_controlled_entity) update_player_controls_on_player_controlled_entity();
+      //if (player_controlled_entity)
+      //{
+         //update_player_controls_on_player_controlled_entity();
+      //}
+      if (player_controlled_entity && entity_control_connector)
+      {
+         entity_control_connector->update_player_controls_on_player_controlled_entity();
+      }
       update_entities();
    }
    return;
@@ -928,17 +935,19 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_up_func: error: guard \"event\" not met");
    }
+   if (entity_control_connector) entity_control_connector->key_up_func(event);
+
    switch (event->keyboard.keycode)
    {
-      case ALLEGRO_KEY_LEFT:
-         //player_control_velocity.y = 0.0;
-         player_controls.set_left_button_pressed(false);
-      break;
+      //case ALLEGRO_KEY_LEFT:
+         ////player_control_velocity.y = 0.0;
+         //player_controls.set_left_button_pressed(false);
+      //break;
 
-      case ALLEGRO_KEY_RIGHT:
-         //player_control_velocity.y = 0.0;
-         player_controls.set_right_button_pressed(false);
-      break;
+      //case ALLEGRO_KEY_RIGHT:
+         ////player_control_velocity.y = 0.0;
+         //player_controls.set_right_button_pressed(false);
+      //break;
    }
    return;
 }
@@ -961,17 +970,19 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
    }
    if (!get_gameplay_suspended())
    {
+      if (entity_control_connector) entity_control_connector->key_down_func(event);
+
       switch (event->keyboard.keycode)
       {
-         case ALLEGRO_KEY_LEFT:
-            //player_control_velocity.x = 0.0;
-            player_controls.set_left_button_pressed(true);
-         break;
+         //case ALLEGRO_KEY_LEFT:
+            ////player_control_velocity.x = 0.0;
+            //player_controls.set_left_button_pressed(true);
+         //break;
 
-         case ALLEGRO_KEY_RIGHT:
-            //player_control_velocity.x = 1.0;
-            player_controls.set_right_button_pressed(true);
-         break;
+         //case ALLEGRO_KEY_RIGHT:
+            ////player_control_velocity.x = 1.0;
+            //player_controls.set_right_button_pressed(true);
+         //break;
 
          case ALLEGRO_KEY_UP:
             //player_control_velocity.y = -1.0;
