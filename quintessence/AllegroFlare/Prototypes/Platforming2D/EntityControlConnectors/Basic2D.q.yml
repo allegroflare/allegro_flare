@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base
+    scope: public
+    init_with: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::TYPE
+
+
+properties:
+
+
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: property_is
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_property());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp ]
+
+

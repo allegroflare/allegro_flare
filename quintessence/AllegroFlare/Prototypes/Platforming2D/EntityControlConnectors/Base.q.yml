@@ -1,0 +1,29 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+

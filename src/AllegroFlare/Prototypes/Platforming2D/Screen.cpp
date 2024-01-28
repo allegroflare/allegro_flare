@@ -47,6 +47,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* 
    , show_visual_hint_on_suspended_gameplay(false)
    , player_control_velocity(AllegroFlare::Vec2D())
    , player_controls()
+   , entity_control_connector(nullptr)
    , camera_control_strategy(nullptr)
    , initialized(false)
    , maps_initialized(false)
@@ -140,6 +141,7 @@ void Screen::set_map_dictionary(std::map<std::string, std::string> map_dictionar
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::set_map_dictionary: error: guard \"(!initialized)\" not met");
    }
+
    this->map_dictionary = map_dictionary;
    // TODO: allow this to be set after initialization
    return;

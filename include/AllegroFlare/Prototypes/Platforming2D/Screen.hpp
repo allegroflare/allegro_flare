@@ -8,6 +8,7 @@
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
@@ -49,6 +50,7 @@ namespace AllegroFlare
             bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::Vec2D player_control_velocity;
             AllegroFlare::VirtualController player_controls;
+            AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             bool initialized;
             bool maps_initialized;
