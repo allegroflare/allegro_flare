@@ -91,6 +91,12 @@ void Screen::set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on
 }
 
 
+void Screen::set_entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector)
+{
+   this->entity_control_connector = entity_control_connector;
+}
+
+
 AllegroFlare::BitmapBin* Screen::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -130,6 +136,12 @@ bool Screen::get_show_collision_tile_mesh() const
 bool Screen::get_show_visual_hint_on_suspended_gameplay() const
 {
    return show_visual_hint_on_suspended_gameplay;
+}
+
+
+AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* Screen::get_entity_control_connector() const
+{
+   return entity_control_connector;
 }
 
 

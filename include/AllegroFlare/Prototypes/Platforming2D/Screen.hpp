@@ -72,6 +72,7 @@ namespace AllegroFlare
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
             void set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on_suspended_gameplay);
+            void set_entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::map<std::string, std::string> get_map_dictionary() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
@@ -79,6 +80,7 @@ namespace AllegroFlare
             bool get_show_tile_mesh() const;
             bool get_show_collision_tile_mesh() const;
             bool get_show_visual_hint_on_suspended_gameplay() const;
+            AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);

@@ -96,6 +96,8 @@ properties:
   - name: entity_control_connector
     type: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base*
     init_with: nullptr
+    getter: true
+    setter: true
 
   - name: camera_control_strategy
     type: AllegroFlare::CameraControlStrategies2D::Base*
