@@ -67,7 +67,6 @@ namespace AllegroFlare
 
             void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
             void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
-            void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
             void set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on_suspended_gameplay);
@@ -82,6 +81,7 @@ namespace AllegroFlare
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
+            void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, bool also_set_as_camera_tracked_object=true);
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
             virtual void on_activate() override;
             virtual void on_deactivate() override;

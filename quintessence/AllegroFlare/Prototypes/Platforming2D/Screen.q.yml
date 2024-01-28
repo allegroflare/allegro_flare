@@ -65,7 +65,7 @@ properties:
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
     init_with: nullptr
     getter: true
-    setter: true
+    setter: explicit
 
   - name: show_tile_mesh
     type: bool
@@ -175,6 +175,39 @@ methods:
       return;
 
 
+  - name: set_player_controlled_entity
+    parameters:
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: also_set_as_camera_tracked_object
+        type: bool
+        default_argument: true
+    guards: [ '(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)' ]
+    body: |
+      // Set the player controlled entity
+      this->player_controlled_entity = entity;
+
+      // Set this entity as the entity for the camera to track
+      if (also_set_as_camera_tracked_object && camera_control_strategy)
+      {
+         if (camera_control_strategy->is_type(AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::TYPE))
+         {
+            auto camera_control_strategy_as = static_cast<
+               AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect*>(camera_control_strategy);
+            camera_control_strategy_as->set_entity_to_follow(player_controlled_entity);
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Prototypes::Platforming2D::Screen::set_player_controlled_entity",
+               "Cannot set_entity_to_follow on unhandled camera type \"" + camera_control_strategy->get_type() + "\""
+            );
+         }
+      }
+      return;
+
+
   - name: find_map_by_name
     type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     parameters:
@@ -234,7 +267,6 @@ methods:
 
 
   - name: initialize_camera_control
-    guards: [ player_controlled_entity ]
     type: void
     body: |
       float assumed_tile_width = 16.0f;
@@ -247,7 +279,7 @@ methods:
       //AllegroFlare::CameraControlStrategies2D::HorizontalRail *camera_control =
          //new AllegroFlare::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
       camera_control->set_camera(&camera);
-      camera_control->set_entity_to_follow(player_controlled_entity);
+      //camera_control->set_entity_to_follow(player_controlled_entity);
       camera_control->initialize();
 
       camera_control_strategy = camera_control;
@@ -362,6 +394,7 @@ methods:
       - name: magnitude
         type: float
         default_argument: 3.0f
+    guards: [ player_controlled_entity ]
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 

@@ -71,12 +71,6 @@ void Screen::set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom)
 }
 
 
-void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity)
-{
-   this->player_controlled_entity = player_controlled_entity;
-}
-
-
 void Screen::set_show_tile_mesh(bool show_tile_mesh)
 {
    this->show_tile_mesh = show_tile_mesh;
@@ -185,6 +179,38 @@ void Screen::set_currently_active_map(std::string name)
    return;
 }
 
+void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, bool also_set_as_camera_tracked_object)
+{
+   if (!((also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_player_controlled_entity]: error: guard \"(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_player_controlled_entity: error: guard \"(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)\" not met");
+   }
+   // Set the player controlled entity
+   this->player_controlled_entity = entity;
+
+   // Set this entity as the entity for the camera to track
+   if (also_set_as_camera_tracked_object && camera_control_strategy)
+   {
+      if (camera_control_strategy->is_type(AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::TYPE))
+      {
+         auto camera_control_strategy_as = static_cast<
+            AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect*>(camera_control_strategy);
+         camera_control_strategy_as->set_entity_to_follow(player_controlled_entity);
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::Screen::set_player_controlled_entity",
+            "Cannot set_entity_to_follow on unhandled camera type \"" + camera_control_strategy->get_type() + "\""
+         );
+      }
+   }
+   return;
+}
+
 AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
 {
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
@@ -261,13 +287,6 @@ void Screen::initialize_maps()
 
 void Screen::initialize_camera_control()
 {
-   if (!(player_controlled_entity))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::initialize_camera_control]: error: guard \"player_controlled_entity\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize_camera_control: error: guard \"player_controlled_entity\" not met");
-   }
    float assumed_tile_width = 16.0f;
    float assumed_tile_height = 16.0f;
    float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
@@ -278,7 +297,7 @@ void Screen::initialize_camera_control()
    //AllegroFlare::CameraControlStrategies2D::HorizontalRail *camera_control =
       //new AllegroFlare::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
    camera_control->set_camera(&camera);
-   camera_control->set_entity_to_follow(player_controlled_entity);
+   //camera_control->set_entity_to_follow(player_controlled_entity);
    camera_control->initialize();
 
    camera_control_strategy = camera_control;
@@ -407,6 +426,13 @@ void Screen::set_player_controlled_entity_jump()
 
 void Screen::player_emit_projectile(float magnitude)
 {
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::player_emit_projectile]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::player_emit_projectile: error: guard \"player_controlled_entity\" not met");
+   }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    AllegroFlare::vec2d player_pos = player_controlled_entity->get_place_ref().position;
