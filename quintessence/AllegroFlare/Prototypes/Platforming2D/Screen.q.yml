@@ -357,31 +357,6 @@ methods:
       return;
 
 
-  - name: set_player_controlled_entity_jump
-    guards: [ player_controlled_entity ]
-    body: |
-      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
-
-      if (!player_controlled_entity) return;
-      if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
-      {
-         player_controlled_entity->get_velocity_ref().position.y -= 4.25;
-      }
-      else if (player_controlled_entity->exists(ADJACENT_TO_LEFT_WALL))
-      {
-         player_controlled_entity->get_velocity_ref().position.y = -3.5;
-         player_controlled_entity->get_velocity_ref().position.x = 3.0;
-      }
-      else if (player_controlled_entity->exists(ADJACENT_TO_RIGHT_WALL))
-      {
-         player_controlled_entity->get_velocity_ref().position.y = -3.5;
-         player_controlled_entity->get_velocity_ref().position.x = -3.0;
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
-
-
   - name: player_emit_projectile
     parameters:
       - name: magnitude

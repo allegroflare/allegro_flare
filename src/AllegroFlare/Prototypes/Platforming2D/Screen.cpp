@@ -397,35 +397,6 @@ void Screen::add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entitie
    return;
 }
 
-void Screen::set_player_controlled_entity_jump()
-{
-   if (!(player_controlled_entity))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::set_player_controlled_entity_jump]: error: guard \"player_controlled_entity\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_player_controlled_entity_jump: error: guard \"player_controlled_entity\" not met");
-   }
-   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
-
-   if (!player_controlled_entity) return;
-   if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
-   {
-      player_controlled_entity->get_velocity_ref().position.y -= 4.25;
-   }
-   else if (player_controlled_entity->exists(ADJACENT_TO_LEFT_WALL))
-   {
-      player_controlled_entity->get_velocity_ref().position.y = -3.5;
-      player_controlled_entity->get_velocity_ref().position.x = 3.0;
-   }
-   else if (player_controlled_entity->exists(ADJACENT_TO_RIGHT_WALL))
-   {
-      player_controlled_entity->get_velocity_ref().position.y = -3.5;
-      player_controlled_entity->get_velocity_ref().position.x = -3.0;
-   }
-   return;
-}
-
 void Screen::player_emit_projectile(float magnitude)
 {
    if (!(player_controlled_entity))
