@@ -16,7 +16,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest, load__on_a_file_
    std::string filename = "some-file-that-does-not-exist.tmj";
    AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(filename);
 
-   std::string expected_error_message = "[KrampusReturns::TMJObjectLoader::load()]: error: The file \""
+   std::string expected_error_message = "[AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader::load]: error: The file \""
                                         + filename + "\" does not exist.";
 
    ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);

@@ -68,10 +68,14 @@ void TMJObjectLoader::load()
    }
    if (!file_exists(filename))
    {
-      std::stringstream error_message;
-      error_message << "[KrampusReturns::TMJObjectLoader::load()]: error: The file "
-                    << "\"" << filename << "\" does not exist.";
-      throw std::runtime_error(error_message.str());
+      //std::stringstream error_message;
+      //error_message << "[KrampusReturns::TMJObjectLoader::load()]: error: The file "
+                    //<< "\"" << filename << "\" does not exist.";
+      //throw std::runtime_error(error_message.str());
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader::load",
+         "The file \"" + filename + "\" does not exist."
+      );
    }
 
    // load and validate the json data to variables
