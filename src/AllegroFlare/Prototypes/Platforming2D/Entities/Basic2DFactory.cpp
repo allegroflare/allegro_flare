@@ -427,10 +427,41 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    return created_map;
 }
 
+void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std::string object_class, float x, float y, float width, float height, void* data)
+{
+   if (!(data))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func]: error: guard \"data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func: error: guard \"data\" not met");
+   }
+   auto entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
+   // TODO: Remove this manually created basic2dfactory; Pass in *this
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
+   // if (object_class == "hopper")
+   // {
+      entity_pool->push_back(basic2dfactory.create_enemy_move_left("unset-map-name", x, y));
+   // }
+   return;
+}
+
 std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name)
 {
-   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
-   return result;
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;
+
+   AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
+   loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
+   loader.set_object_parsed_callback_user_data((void*)(&result_entity_pool));
+
+   // TODO: Set them all to be on this map
+   for (auto &result_entity : result_entity_pool)
+   {
+      result_entity->set(ON_MAP_NAME, map_name);
+   }
+
+   return result_entity_pool;
 }
 
 

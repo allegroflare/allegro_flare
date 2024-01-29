@@ -70,3 +70,26 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
 };
 
 
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest,
+   create_entities_from_map__will_create_entities_with_the_expected_properties)
+{
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   std::string data_folder_path = TEST_FIXTURES_PATH;
+
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2d_factory(&get_bitmap_bin_ref());
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entities =
+      basic2d_factory.create_entities_from_map(TEST_FIXTURES_PATH "maps/map_with_objects-x.tmj", "map_a");
+
+   // TODO: Test the created entities
+   //ASSERT_NE(nullptr, created_tile_map);
+   //ASSERT_NE(nullptr, created_tile_map->get_tile_atlas());
+   //ASSERT_NE(nullptr, created_tile_map->get_tile_mesh());
+   //ASSERT_NE(nullptr, created_tile_map->get_collision_tile_mesh());
+
+   //EXPECT_EQ(true, created_tile_map->exists(MAP_NAME, "map_a"));
+
+   for (auto &entity : entities) delete entity;
+   entities.clear();
+};
+
+

@@ -604,6 +604,39 @@ functions:
       - AllegroFlare::TileMaps::TileMap
 
 
+  - name: create_entities_from_map__tmj_obj_loader_callback_func
+    static: true
+    parameters:
+      - name: object_class
+        type: std::string
+        default_argument: '"[unset-object_class]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 0.0f
+      - name: height
+        type: float
+        default_argument: 0.0f
+      - name: data
+        type: void*
+        default_argument: nullptr
+    guards: [ data ]
+    body: |
+      auto entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
+      // TODO: Remove this manually created basic2dfactory; Pass in *this
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
+      // if (object_class == "hopper")
+      // {
+         entity_pool->push_back(basic2dfactory.create_enemy_move_left("unset-map-name", x, y));
+      // }
+      return;
+
+
   - name: create_entities_from_map
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     parameters:
@@ -614,8 +647,20 @@ functions:
         type: std::string
         default_argument: '"[unset-map_name]"'
     body: |
-      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
-      return result;
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;
+
+      AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
+      loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
+      loader.set_object_parsed_callback_user_data((void*)(&result_entity_pool));
+
+      // TODO: Set them all to be on this map
+      for (auto &result_entity : result_entity_pool)
+      {
+         result_entity->set(ON_MAP_NAME, map_name);
+      }
+
+      return result_entity_pool;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader
 
