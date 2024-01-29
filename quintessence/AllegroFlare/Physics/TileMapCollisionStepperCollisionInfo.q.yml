@@ -73,6 +73,24 @@ properties:
     type: int
     init_with: 5
 
+  - name: collided_against_block_edge
+    type: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge
+    init_with: CollidingBlockEdge::EDGE_UNDEFINED
+    getter: true
+    setter: true
+
+
+enums:
+
+
+  - name: CollidingBlockEdge
+    enumerators:
+      - EDGE_UNDEFINED
+      - EDGE_TOP
+      - EDGE_RIGHT
+      - EDGE_BOTTOM
+      - EDGE_LEFT
+
 
 functions:
 
@@ -135,5 +153,7 @@ dependencies:
 
   - symbol: AllegroFlare::Physics::Int2D
     headers: [ AllegroFlare/Physics/Int2D.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
 
 

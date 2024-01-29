@@ -18,6 +18,7 @@ TileMapCollisionStepperCollisionInfo::TileMapCollisionStepperCollisionInfo(Alleg
    , collision_velocity_y(collision_velocity_y)
    , stopped_by_this_collision(stopped_by_this_collision)
    , event(event)
+   , collided_against_block_edge(CollidingBlockEdge::EDGE_UNDEFINED)
 {
 }
 
@@ -63,6 +64,12 @@ void TileMapCollisionStepperCollisionInfo::set_event(int event)
 }
 
 
+void TileMapCollisionStepperCollisionInfo::set_collided_against_block_edge(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge collided_against_block_edge)
+{
+   this->collided_against_block_edge = collided_against_block_edge;
+}
+
+
 AllegroFlare::Physics::Int2D TileMapCollisionStepperCollisionInfo::get_collided_tile_coordinate() const
 {
    return collided_tile_coordinate;
@@ -96,6 +103,12 @@ bool TileMapCollisionStepperCollisionInfo::get_stopped_by_this_collision() const
 int TileMapCollisionStepperCollisionInfo::get_event() const
 {
    return event;
+}
+
+
+AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge TileMapCollisionStepperCollisionInfo::get_collided_against_block_edge() const
+{
+   return collided_against_block_edge;
 }
 
 

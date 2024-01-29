@@ -19174,10 +19174,6 @@ table td
   <td class="property">tile_height</td>
   <td class="property">float</td>
 </tr>
-<tr>
-  <td class="property">dummy_int2d</td>
-  <td class="property">AllegroFlare::Physics::Int2D</td>
-</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -19218,7 +19214,7 @@ table td
   <td class="method">tiles_within(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f)</td>
 </tr>
 <tr>
-  <td class="method">tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D&amp; a=get_dummy_int2d_ref(), AllegroFlare::Physics::Int2D&amp; b=get_dummy_int2d_ref())</td>
+  <td class="private_method">tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D a={0, 0}, AllegroFlare::Physics::Int2D b={0, 0})</td>
 </tr>
 <tr>
   <td class="method">world_coords_to_tile_coords(float world_pos=0.0f, float tile_length=1.0f)</td>
@@ -19318,6 +19314,10 @@ table td
   <td class="property">EVENT_STAYED_ON</td>
   <td class="property">int</td>
 </tr>
+<tr>
+  <td class="property">collided_against_block_edge</td>
+  <td class="property">AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -19335,6 +19335,9 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/Int2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38823,6 +38826,9 @@ table td
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+  ],
+  "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo/CollidingBlockEdge": [
+    "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
