@@ -21,9 +21,9 @@ namespace Platforming2D
 
 TMJObjectLoader::TMJObjectLoader(std::string filename)
    : filename(filename)
-   , loaded(false)
    , object_parsed_callback({})
    , object_parsed_callback_user_data(nullptr)
+   , loaded(false)
 {
 }
 
@@ -85,11 +85,12 @@ void TMJObjectLoader::load()
    {
       i.close();
       std::stringstream error_message;
-      error_message << "The file "
-                    << "\"" << filename << "\" appears to have"
-                    << " malformed JSON. The following error was thrown by nlohmann::json: \""
-                    << e.what() << "\"";
-      AllegroFlare::Logger::throw_error("KrampusReturns::TMJObjectLoader", error_message.str());
+      error_message << "The file \"" << filename << "\" appears to have malformed JSON. The following error was "
+                    << "thrown by nlohmann::json: \"" << e.what() << "\"";
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader",
+         error_message.str()
+      );
    }
    i.close();
 
@@ -121,7 +122,10 @@ void TMJObjectLoader::load()
    {
       std::stringstream error_message;
       error_message << "Expecting [\"objects\"] to exist in the \"objectgoup\"-type layer, but it does not.";
-      AllegroFlare::Logger::throw_error("KrampusReturns::TMJObjectLoader", error_message.str());
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader",
+         error_message.str()
+      );
    }
    for (auto &object_json : object_layer_json["objects"].items())
    {

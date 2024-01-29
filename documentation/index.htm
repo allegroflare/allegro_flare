@@ -390,6 +390,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml">quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml</a></li>
@@ -24427,6 +24428,58 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">object_parsed_callback</td>
+  <td class="property">std::function&lt;void(std::string, float, float, float, float, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">object_parsed_callback_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">load()</td>
+</tr>
+<tr>
+  <td class="private_method">file_exists(std::string filename=&quot;[unset-filename]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ifstream&quot;, &quot;headers&quot;=&gt;[&quot;fstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml">quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -35984,6 +36037,7 @@ table td
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
@@ -37248,6 +37302,7 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
@@ -37957,6 +38012,7 @@ table td
   "std/function": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -38283,6 +38339,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
@@ -39099,6 +39156,7 @@ table td
   "std/ifstream": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],

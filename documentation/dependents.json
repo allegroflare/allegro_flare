@@ -46,6 +46,7 @@
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
@@ -1310,6 +1311,7 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
@@ -2019,6 +2021,7 @@
   "std/function": [
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -2345,6 +2348,7 @@
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
@@ -3161,6 +3165,7 @@
   "std/ifstream": [
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader"
   ],

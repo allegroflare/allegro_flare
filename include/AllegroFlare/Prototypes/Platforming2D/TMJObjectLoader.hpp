@@ -15,16 +15,16 @@ namespace AllegroFlare
          {
          private:
             std::string filename;
-            bool loaded;
             std::function<void(std::string, float, float, float, float, void*)> object_parsed_callback;
             void* object_parsed_callback_user_data;
+            bool loaded;
             static bool file_exists(std::string filename="[unset-filename]");
 
          protected:
 
 
          public:
-            TMJObjectLoader(std::string filename="filename-not-set.tmj");
+            TMJObjectLoader(std::string filename="[unset-filename]");
             ~TMJObjectLoader();
 
             void set_object_parsed_callback(std::function<void(std::string, float, float, float, float, void*)> object_parsed_callback);
