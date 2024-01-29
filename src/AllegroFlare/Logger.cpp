@@ -344,6 +344,21 @@ void Logger::throw_error(std::string from, std::string message)
    throw std::runtime_error(error_message.str());
 }
 
+void Logger::error_from(std::string from, std::string message)
+{
+   // NOTE: "error_from" is the same as "throw_from" but does not throw.
+   std::stringstream error_message;
+   error_message << "[" << from << "]: error: " << message;
+
+   std::stringstream error_message_for_cout;
+   error_message_for_cout << CONSOLE_COLOR_RED
+                          << "[" << from << "] error: " << message
+                          << CONSOLE_COLOR_DEFAULT << std::endl;
+
+   std::cout << error_message_for_cout.str();
+   return;
+}
+
 void Logger::throw_unhandled_case(std::string from, std::string unhandled_case)
 {
    std::stringstream error_message;

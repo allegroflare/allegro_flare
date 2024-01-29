@@ -115,6 +115,18 @@
                  "width":32,
                  "x":720,
                  "y":408
+                }, 
+                {
+                 "class":"hopper",
+                 "height":0,
+                 "id":19,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":344,
+                 "y":104
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -123,7 +135,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":19,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

@@ -60,6 +60,7 @@ namespace AllegroFlare
       static void warn_from(std::string from="[unset-from]", std::string message="[unset-message]");
       static void warn_from_once(std::string from="[unset-from]", std::string message="[unset-message]");
       static void throw_error(std::string from="[unset-from]", std::string message="[unset-message]");
+      static void error_from(std::string from="[unset-from]", std::string message="[unset-message]");
       static void throw_unhandled_case(std::string from="[unset-from]", std::string unhandled_case="[unset-unhandled_case]");
    };
 }

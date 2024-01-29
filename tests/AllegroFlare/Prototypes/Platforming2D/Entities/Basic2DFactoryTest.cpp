@@ -81,7 +81,10 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
       basic2d_factory.create_entities_from_map(TEST_FIXTURES_PATH "maps/map_with_objects-x.tmj", "map_a");
 
    // TODO: Test the created entities
-   //ASSERT_NE(nullptr, created_tile_map);
+   ASSERT_EQ(2, entities.size());
+
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity2 = *entities[1];
+   ASSERT_EQ(true, entity2.exists("enemy_class_name", "hopper"));
    //ASSERT_NE(nullptr, created_tile_map->get_tile_atlas());
    //ASSERT_NE(nullptr, created_tile_map->get_tile_mesh());
    //ASSERT_NE(nullptr, created_tile_map->get_collision_tile_mesh());

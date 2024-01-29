@@ -229,6 +229,7 @@ functions:
       // give it a "enemy" debug box color
       created_entity->set_debug_box_color(enemy_debug_box_color);
 
+      created_entity->set("enemy_class_name", "hopper");
       created_entity->set(ON_MAP_NAME, map_name);
 
       // return the entity
@@ -630,10 +631,31 @@ functions:
       auto entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
       // TODO: Remove this manually created basic2dfactory; Pass in *this
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
-      // if (object_class == "hopper")
-      // {
+
+      if (object_class == "hopper")
+      {
          entity_pool->push_back(basic2dfactory.create_enemy_move_left("unset-map-name", x, y));
-      // }
+      }
+      else if (object_class == "door")
+      {
+         // TODO: Parse these values from custom params
+         std::string target_map_name = "yet-to-be-parsed-target-map_name";
+         float target_spawn_x = 123.0f;
+         float target_spawn_y = 456.0f;
+         entity_pool->push_back(
+            basic2dfactory.create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
+         );
+      }
+      else // An unrecognized object type
+      {
+         // TODO: Add option to "throw_error" instead of "error_from" here
+         AllegroFlare::Logger::error_from(
+            "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::"
+               "create_entities_from_map__tmj_obj_loader_callback_func",
+            "Unable to handle object_class \"" + object_class + "\"."
+         );
+      }
+      
       return;
 
 
@@ -653,6 +675,7 @@ functions:
       AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
       loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
       loader.set_object_parsed_callback_user_data((void*)(&result_entity_pool));
+      loader.load();
 
       // TODO: Set them all to be on this map
       for (auto &result_entity : result_entity_pool)
