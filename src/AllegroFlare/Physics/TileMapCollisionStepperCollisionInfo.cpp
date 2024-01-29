@@ -122,6 +122,11 @@ bool TileMapCollisionStepperCollisionInfo::is_event(int event)
    return this->event == event;
 }
 
+bool TileMapCollisionStepperCollisionInfo::infer_is_a_ground_land()
+{
+   return (stopped_by_this_collision && event == EVENT_COLLIDED_AGAINST && collided_against_block_edge == EDGE_TOP);
+}
+
 std::string TileMapCollisionStepperCollisionInfo::build_event_name(int event)
 {
    switch(event)

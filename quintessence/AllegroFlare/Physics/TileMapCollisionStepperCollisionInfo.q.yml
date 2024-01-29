@@ -125,6 +125,12 @@ functions:
       return this->event == event;
 
 
+  - name: infer_is_a_ground_land
+    type: bool
+    body: |
+      return (stopped_by_this_collision && event == EVENT_COLLIDED_AGAINST && collided_against_block_edge == EDGE_TOP);
+
+
   - name: build_event_name
     static: true
     type: std::string

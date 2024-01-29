@@ -61,6 +61,7 @@ namespace AllegroFlare
          AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge get_collided_against_block_edge() const;
          bool is_tile_value(int tile_value=-999);
          bool is_event(int event=EVENT_UNDEFINED);
+         bool infer_is_a_ground_land();
          static std::string build_event_name(int event=0);
          static std::string build_collided_block_edge_name(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge event=CollidingBlockEdge::EDGE_UNDEFINED);
       };
