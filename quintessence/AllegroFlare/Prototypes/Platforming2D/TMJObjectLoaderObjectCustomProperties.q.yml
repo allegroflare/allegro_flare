@@ -1,0 +1,83 @@
+properties:
+
+
+  - name: string_properties
+    type: std::map<std::string, std::string>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: bool_properties
+    type: std::map<std::string, bool>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: int_properties
+    type: std::map<std::string, int>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: float_properties
+    type: std::map<std::string, float>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: add_string
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: value
+        type: std::string
+        default_argument: '"[unset-value]"'
+    body: |
+      // TODO: Check for duplicate or overwrite
+      string_properties[name] = value;
+
+
+  - name: add_bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: value
+        type: bool
+        default_argument: false
+    body: |
+      // TODO: Check for duplicate or overwrite
+      bool_properties[name] = value;
+
+
+  - name: add_float
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: value
+        type: float
+        default_argument: 0.0f
+    body: |
+      // TODO: Check for duplicate or overwrite
+      float_properties[name] = value;
+
+
+  - name: add_int
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: value
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: Check for duplicate or overwrite
+      int_properties[name] = value;
+
+

@@ -623,6 +623,9 @@ functions:
       - name: height
         type: float
         default_argument: 0.0f
+      - name: custom_properties
+        type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
+        default_argument: '{}'
       - name: data
         type: void*
         default_argument: nullptr
@@ -635,6 +638,7 @@ functions:
       if (object_class == "hopper")
       {
          entity_pool->push_back(basic2dfactory.create_enemy_move_left("unset-map-name", x, y));
+         entity_pool->back()->set("tmj_object_class", "hopper");
       }
       else if (object_class == "door")
       {
@@ -645,9 +649,11 @@ functions:
          entity_pool->push_back(
             basic2dfactory.create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
          );
+         entity_pool->back()->set("tmj_object_class", "door");
       }
       else // An unrecognized object type
       {
+         // TODO: Test this error emission
          // TODO: Add option to "throw_error" instead of "error_from" here
          AllegroFlare::Logger::error_from(
             "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::"
@@ -743,5 +749,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader
     headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
+    headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp ]
 
 

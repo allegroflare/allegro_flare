@@ -7,6 +7,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <string>
@@ -55,7 +56,7 @@ namespace AllegroFlare
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_game_event_door(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, std::string game_event_name_to_emit="[unset-game_event_name_to_emit]") const;
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_goalpost(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f) const;
                AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* create_tile_map(std::string map_json_filename="[a-map-tmj-filename-that-is-not-set]", std::string map_name="[map-name-not-set]") const;
-               static void create_entities_from_map__tmj_obj_loader_callback_func(std::string object_class="[unset-object_class]", float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, void* data=nullptr);
+               static void create_entities_from_map__tmj_obj_loader_callback_func(std::string object_class="[unset-object_class]", float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties={}, void* data=nullptr);
                std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> create_entities_from_map(std::string map_tmj_filename="[unset-map_tmj_filename]", std::string map_name="[unset-map_name]");
             };
          }

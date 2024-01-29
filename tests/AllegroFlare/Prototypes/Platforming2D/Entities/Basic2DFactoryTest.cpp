@@ -83,13 +83,13 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    // TODO: Test the created entities
    ASSERT_EQ(2, entities.size());
 
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity2 = *entities[1];
-   ASSERT_EQ(true, entity2.exists("enemy_class_name", "hopper"));
-   //ASSERT_NE(nullptr, created_tile_map->get_tile_atlas());
-   //ASSERT_NE(nullptr, created_tile_map->get_tile_mesh());
-   //ASSERT_NE(nullptr, created_tile_map->get_collision_tile_mesh());
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity1 = *entities[0];
+   EXPECT_EQ(true, entity1.exists("tmj_object_class", "door"));
+   EXPECT_EQ(true, entity1.exists(ON_MAP_NAME, "map_a"));
 
-   //EXPECT_EQ(true, created_tile_map->exists(MAP_NAME, "map_a"));
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity2 = *entities[1];
+   EXPECT_EQ(true, entity2.exists("tmj_object_class", "hopper"));
+   EXPECT_EQ(true, entity2.exists(ON_MAP_NAME, "map_a"));
 
    for (auto &entity : entities) delete entity;
    entities.clear();

@@ -428,7 +428,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    return created_map;
 }
 
-void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std::string object_class, float x, float y, float width, float height, void* data)
+void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std::string object_class, float x, float y, float width, float height, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
 {
    if (!(data))
    {
@@ -444,6 +444,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    if (object_class == "hopper")
    {
       entity_pool->push_back(basic2dfactory.create_enemy_move_left("unset-map-name", x, y));
+      entity_pool->back()->set("tmj_object_class", "hopper");
    }
    else if (object_class == "door")
    {
@@ -454,9 +455,11 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       entity_pool->push_back(
          basic2dfactory.create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
       );
+      entity_pool->back()->set("tmj_object_class", "door");
    }
    else // An unrecognized object type
    {
+      // TODO: Test this error emission
       // TODO: Add option to "throw_error" instead of "error_from" here
       AllegroFlare::Logger::error_from(
          "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::"
