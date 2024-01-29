@@ -425,6 +425,7 @@ void Screen::player_emit_projectile(float magnitude)
 
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
+   factory.set_init_entities_drawing_debug(true);
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* projectile = factory.create_player_projectile(
       on_map_name,
       player_pos.x,
