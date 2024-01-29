@@ -99,9 +99,11 @@ methods:
          float height_property = object_json.value()["height"].get<float>();
          AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties;
 
-         if (object_json.value()["properties"])
-         //if (values.contains("properties"))
+         if (object_json.value().contains("properties"))
          {
+            // TODO: Improve this error message
+            if (!object_json.value()["properties"].is_array()) throw std::runtime_error("3j4io5jio3j5o2: is not array");
+
             for (auto &custom_property_item : object_json.value()["properties"].items())
             //for (auto &custom_property_item : values["properties"].items())
             {
