@@ -539,6 +539,7 @@ void Screen::update_entities()
          tile_height
       );
       collision_stepper.step();
+      //std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result = collision_stepper.step();
 
       // supplant our entity's position and velocity values with the "simulated aabb2d"'s values
       place.position.x = aabb2d.get_x() + place.size.x * place.align.x;
