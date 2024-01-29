@@ -116,7 +116,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
 
          if (tile_value == 1) // tile is solid
          {
-            if (obj.get_velocity_x() > 0)
+            if (obj.get_velocity_x() > 0) // Moving to the right
             {
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
@@ -125,14 +125,15 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true,
-                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST,
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_LEFT
                   )
                );
 
                obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - 0.0001);
                obj.set_velocity_x(0.0);
             }
-            else if (obj.get_velocity_x() < 0)
+            else if (obj.get_velocity_x() < 0) // Moving to the left
             {
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
@@ -141,7 +142,8 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true,
-                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST,
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_RIGHT
                   )
                );
 
@@ -171,7 +173,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
 
          if (tile_value == 1) // tile is solid
          {
-            if (obj.get_velocity_y() > 0)
+            if (obj.get_velocity_y() > 0) // Moving down
             {
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
@@ -180,14 +182,15 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true,
-                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST,
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_TOP
                   )
                );
 
                obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - 0.0001);
                obj.set_velocity_y(0.0);
             }
-            else if (obj.get_velocity_y() < 0)
+            else if (obj.get_velocity_y() < 0) // Moving up
             {
                result_infos.push_back(
                   AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
@@ -196,7 +199,8 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                      obj.get_velocity_x(),
                      obj.get_velocity_y(),
                      true,
-                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST,
+                     AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_BOTTOM
                   )
                );
 

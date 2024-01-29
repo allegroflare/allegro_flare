@@ -43,6 +43,8 @@ void PrintTo(const TileMapCollisionStepperCollisionInfo& object, ::std::ostream*
        << (object.get_stopped_by_this_collision() ? "true" : "false")
        << ", "
        << object.build_event_name(object.get_event())
+       << ", "
+       << object.build_collided_block_edge_name(object.get_collided_against_block_edge())
        << ")";
 }
 

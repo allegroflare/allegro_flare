@@ -19,7 +19,8 @@ namespace AllegroFlare
          static constexpr int EVENT_COLLIDED_AGAINST = 4;
          static constexpr int EVENT_STAYED_ON = 5;
 
-      private:
+      public:
+
          enum CollidingBlockEdge
          {
             EDGE_UNDEFINED = 0,
@@ -28,6 +29,7 @@ namespace AllegroFlare
             EDGE_BOTTOM,
             EDGE_LEFT,
          };
+      private:
          AllegroFlare::Physics::Int2D collided_tile_coordinate;
          int tile_value;
          float collision_velocity_x;
@@ -40,7 +42,7 @@ namespace AllegroFlare
 
 
       public:
-         TileMapCollisionStepperCollisionInfo(AllegroFlare::Physics::Int2D collided_tile_coordinate={ -1, -1 }, int tile_value=0, float collision_velocity_x=0, float collision_velocity_y=0, bool stopped_by_this_collision=false, int event=EVENT_UNDEFINED);
+         TileMapCollisionStepperCollisionInfo(AllegroFlare::Physics::Int2D collided_tile_coordinate={ -1, -1 }, int tile_value=0, float collision_velocity_x=0, float collision_velocity_y=0, bool stopped_by_this_collision=false, int event=EVENT_UNDEFINED, AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge collided_against_block_edge=CollidingBlockEdge::EDGE_UNDEFINED);
          ~TileMapCollisionStepperCollisionInfo();
 
          void set_collided_tile_coordinate(AllegroFlare::Physics::Int2D collided_tile_coordinate);

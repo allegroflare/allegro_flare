@@ -19295,6 +19295,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">collided_against_block_edge</td>
+  <td class="property">AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge</td>
+</tr>
+<tr>
   <td class="property">EVENT_UNDEFINED</td>
   <td class="property">int</td>
 </tr>
@@ -19314,10 +19318,6 @@ table td
   <td class="property">EVENT_STAYED_ON</td>
   <td class="property">int</td>
 </tr>
-<tr>
-  <td class="property">collided_against_block_edge</td>
-  <td class="property">AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge</td>
-</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -19331,7 +19331,7 @@ table td
   <td class="method">build_event_name(int event=0)</td>
 </tr>
 <tr>
-  <td class="method">build_collided_block_edge_name(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge event=0)</td>
+  <td class="method">build_collided_block_edge_name(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge event=CollidingBlockEdge::EDGE_UNDEFINED)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

@@ -43,6 +43,13 @@ properties:
     getter: true
     setter: true
 
+  - name: collided_against_block_edge
+    type: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge
+    init_with: CollidingBlockEdge::EDGE_UNDEFINED
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: EVENT_UNDEFINED
     constexpr: true
     static: true
@@ -73,17 +80,12 @@ properties:
     type: int
     init_with: 5
 
-  - name: collided_against_block_edge
-    type: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge
-    init_with: CollidingBlockEdge::EDGE_UNDEFINED
-    getter: true
-    setter: true
-
 
 enums:
 
 
   - name: CollidingBlockEdge
+    scope: public
     enumerators:
       - EDGE_UNDEFINED
       - EDGE_TOP

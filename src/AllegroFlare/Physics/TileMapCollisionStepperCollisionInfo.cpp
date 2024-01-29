@@ -11,14 +11,14 @@ namespace Physics
 {
 
 
-TileMapCollisionStepperCollisionInfo::TileMapCollisionStepperCollisionInfo(AllegroFlare::Physics::Int2D collided_tile_coordinate, int tile_value, float collision_velocity_x, float collision_velocity_y, bool stopped_by_this_collision, int event)
+TileMapCollisionStepperCollisionInfo::TileMapCollisionStepperCollisionInfo(AllegroFlare::Physics::Int2D collided_tile_coordinate, int tile_value, float collision_velocity_x, float collision_velocity_y, bool stopped_by_this_collision, int event, AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge collided_against_block_edge)
    : collided_tile_coordinate(collided_tile_coordinate)
    , tile_value(tile_value)
    , collision_velocity_x(collision_velocity_x)
    , collision_velocity_y(collision_velocity_y)
    , stopped_by_this_collision(stopped_by_this_collision)
    , event(event)
-   , collided_against_block_edge(CollidingBlockEdge::EDGE_UNDEFINED)
+   , collided_against_block_edge(collided_against_block_edge)
 {
 }
 

@@ -14,12 +14,13 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_Physics_TileMapCollisionSteppe
       0.9f,
       -0.2f,
       false,
-      AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED
+      AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED,
+      AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_RIGHT
    );
 
    PrintTo(vec, &ss);
 
-   std::string expected_output = "TileMapCollisionStepperCollisionInfo({3, 4}, 123, 0.9, -0.2, false, entered)";
+   std::string expected_output = "TileMapCollisionStepperCollisionInfo({3, 4}, 123, 0.9, -0.2, false, right_edge)";
    std::string actual_output = ss.str();
    EXPECT_EQ(expected_output, actual_output);
 }
