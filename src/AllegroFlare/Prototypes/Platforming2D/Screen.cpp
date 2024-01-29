@@ -473,19 +473,26 @@ void Screen::update_entities()
       velocity.position.y += (gravity_reversed ? -gravity : gravity);
    }
 
-   // update the entities (typically includes movement strategies)
+   // Update the entities (typically includes movement strategies, velocity updates based on state, etc)
    for (auto &entity : get_current_map_entities())
    {
       entity->update();
    }
 
-   // step each entity
+   // Update the entities against the collision tile mesh by doing collision stepping one-by-one on each entity
+   AllegroFlare::Vec2D new_place_position;
+   AllegroFlare::Vec2D new_velocity_position;
    for (auto &entity : get_current_map_entities())
    {
+      //
+      // Calculate the consequential collision values in this step
+      //
+
       AllegroFlare::Placement2D &place = entity->get_place_ref();
       AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
 
-      // handle case where entity does not interact with world tile mesh
+      // Handle the case where entity does not interact with world tile mesh
+      // TODO: Consider scenario where does not collide, but entity still receives info about block collisions
       if (entity->exists(DOES_NOT_COLLIDE_WITH_WORLD))
       {
          place.position.x += velocity.position.x;
@@ -493,7 +500,7 @@ void Screen::update_entities()
          continue;
       }
 
-      // create a "simulated aabb2d" of the entity and run it through the collision stepper
+      // Create a "simulated aabb2d" of the entity and run it through the collision stepper
       AllegroFlare::Physics::AABB2D aabb2d(
          place.position.x - place.size.x * place.align.x,
          place.position.y - place.size.y * place.align.y,
@@ -510,16 +517,27 @@ void Screen::update_entities()
          tile_width,
          tile_height
       );
-      collision_stepper.step();
-      //std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result = collision_stepper.step();
 
-      // supplant our entity's position and velocity values with the "simulated aabb2d"'s values
-      place.position.x = aabb2d.get_x() + place.size.x * place.align.x;
-      place.position.y = aabb2d.get_y() + place.size.y * place.align.y;
-      velocity.position.x = aabb2d.get_velocity_x();
-      velocity.position.y = aabb2d.get_velocity_y();
+      // Perform the collision step and return the collision info
+      std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result = collision_stepper.step();
 
-      // add positioning flags
+      // Build the result positioning info related to this collision
+      new_place_position.x = aabb2d.get_x() + place.size.x * place.align.x;
+      new_place_position.y = aabb2d.get_y() + place.size.y * place.align.y;
+      new_velocity_position.x = aabb2d.get_velocity_x();
+      new_velocity_position.y = aabb2d.get_velocity_y();
+
+
+      //
+      // Assign the result calculations to the entity
+      // TODO: Consider having collision results and outcomes handled at the entity class's level
+      //
+
+      // Supplant our entity's position and velocity values with the "simulated aabb2d"'s values
+      place.position = new_place_position;
+      velocity.position = new_velocity_position;
+
+      // Update flags and perform callbacks on entity (TODO: Consider moving this into the entity's class)
       bool was_adjacent_to_floor_prior = entity->exists(ADJACENT_TO_FLOOR);
       bool is_currently_adjacent_to_floor = collision_stepper.adjacent_to_bottom_edge(tile_width, tile_height);
       if (was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) {} // on stay
@@ -554,21 +572,21 @@ void Screen::update_entities()
       else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }
 
-   // update the collectables
+   // Evaluate player collisions on collectables
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_collectables();
 
-   // update the player colliding on the goalposts
+   // Evaluate player collisions on the goalposts
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_goalposts();
 
    // update the player colliding on the doors
    //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
-   // delete entities flagged to be deleted
+   // Delete entities flagged to be deleted
    cleanup_entities_flagged_for_deletion();
 
-   // update camera
+   // Update the camera
    if (camera_control_strategy) camera_control_strategy->update();
 
    return;
