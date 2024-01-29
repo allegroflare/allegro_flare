@@ -8,6 +8,7 @@
 
 
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/HoppingLeft.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
@@ -53,6 +54,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_Hopping
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_on_the_ground__will_set_the_vertical_velocity_to_the_jump_force)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    float jump_force = 7.3f;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy(
@@ -61,7 +64,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_Hopping
    );
 
    basic2d_entity.get_velocity_ref().position = AllegroFlare::vec2d(26, -35);
-   basic2d_entity.set("on_ground");
+   basic2d_entity.set(ADJACENT_TO_FLOOR);
 
    strategy.update();
 
@@ -70,8 +73,10 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_Hopping
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
-   update__if_the_entity_is_on_the_ground__will_remove_the_on_ground_flag)
+   update__if_the_entity_is_on_the_ground__will_remove_the_ADJACENT_TO_FLOOR_flag)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    float jump_force = 7.3f;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy(
@@ -80,23 +85,25 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_Hopping
    );
 
    basic2d_entity.get_velocity_ref().position = AllegroFlare::vec2d(26, -35);
-   basic2d_entity.set("on_ground");
+   basic2d_entity.set(ADJACENT_TO_FLOOR);
 
    strategy.update();
 
-   EXPECT_EQ(false, basic2d_entity.exists("on_ground"));
+   EXPECT_EQ(false, basic2d_entity.exists(ADJACENT_TO_FLOOR));
 }
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_on_the_ground__set_the_horizontal_velocity_to_zero)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    float jump_force = 7.3f;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy(&basic2d_entity, jump_force);
 
    basic2d_entity.get_velocity_ref().position = AllegroFlare::vec2d(26, -35);
-   basic2d_entity.set("on_ground");
+   basic2d_entity.set(ADJACENT_TO_FLOOR);
 
    strategy.update();
 
@@ -107,13 +114,15 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_Hopping
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_not_on_the_ground__will_set_the_left_velocity_to_the_speed)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    float jump_force = 7.3f;
    float speed = 2.6f;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy(&basic2d_entity, jump_force, speed);
 
    basic2d_entity.get_velocity_ref().position = AllegroFlare::vec2d(26, -35);
-   ASSERT_EQ(false, basic2d_entity.exists("on_ground"));
+   ASSERT_EQ(false, basic2d_entity.exists(ADJACENT_TO_FLOOR));
 
    strategy.update();
 
@@ -124,6 +133,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_Hopping
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_HoppingLeftTest,
    update__if_the_entity_is_not_on_the_ground__will_leave_vertical_velocity_unchanged)
 {
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    float jump_force = 7.3f;
    float speed = 2.6f;
@@ -131,7 +141,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_Hopping
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft strategy(&basic2d_entity, jump_force, speed);
 
    basic2d_entity.get_velocity_ref().position = AllegroFlare::vec2d(26, -35);
-   ASSERT_EQ(false, basic2d_entity.exists("on_ground"));
+   ASSERT_EQ(false, basic2d_entity.exists(ADJACENT_TO_FLOOR));
 
    strategy.update();
 

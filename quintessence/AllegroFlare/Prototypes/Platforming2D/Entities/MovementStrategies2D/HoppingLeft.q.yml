@@ -39,14 +39,17 @@ properties:
     type: float
     init_with: 0.0f
 
-functions:
+
+methods:
 
 
   - name: update
     override: true
     guards: [ entity ]
     body: |
-      if (entity->exists("on_ground"))
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      if (entity->exists(ADJACENT_TO_FLOOR))
       {
          entity->get_velocity_ref().position.x = 0;
 
@@ -56,13 +59,15 @@ functions:
             timer += landing_delay;
             entity->get_velocity_ref().position.x = 0;
             entity->get_velocity_ref().position.y = -jump_force;
-            entity->remove("on_ground");
+            entity->remove(ADJACENT_TO_FLOOR);
          }
       }
-      else if (!entity->exists("on_ground"))
+      else if (!entity->exists(ADJACENT_TO_FLOOR))
       {
          entity->get_velocity_ref().position.x = -speed;
       }
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
 dependencies:
@@ -72,5 +77,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+    headers: [ AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp ]
 
 

@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/HoppingLeft.hpp>
 
+#include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -80,7 +81,9 @@ void HoppingLeft::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("HoppingLeft::update: error: guard \"entity\" not met");
    }
-   if (entity->exists("on_ground"))
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   if (entity->exists(ADJACENT_TO_FLOOR))
    {
       entity->get_velocity_ref().position.x = 0;
 
@@ -90,10 +93,10 @@ void HoppingLeft::update()
          timer += landing_delay;
          entity->get_velocity_ref().position.x = 0;
          entity->get_velocity_ref().position.y = -jump_force;
-         entity->remove("on_ground");
+         entity->remove(ADJACENT_TO_FLOOR);
       }
    }
-   else if (!entity->exists("on_ground"))
+   else if (!entity->exists(ADJACENT_TO_FLOOR))
    {
       entity->get_velocity_ref().position.x = -speed;
    }
