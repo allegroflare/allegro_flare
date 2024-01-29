@@ -83,6 +83,29 @@ functions:
       return;
 
 
+  - name: on_collision_update
+    virtual: true
+    parameters:
+      - name: previous_place_position
+        type: AllegroFlare::Vec2D
+        default_argument: '{}'
+      - name: previous_velocity_position
+        type: AllegroFlare::Vec2D
+        default_argument: '{}'
+      - name: new_place_position
+        type: AllegroFlare::Vec2D
+        default_argument: '{}'
+      - name: new_velocity_position
+        type: AllegroFlare::Vec2D
+        default_argument: '{}'
+      - name: collision_step_result
+        type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>*
+        default_argument: '{}'
+    guards: [ collision_step_result ]
+    body: |
+      return;
+
+
   - name: draw
     virtual: true
     override: true
@@ -289,5 +312,9 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_BITMAP
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
 
 

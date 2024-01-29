@@ -1,10 +1,13 @@
 #pragma once
 
 
+#include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -58,6 +61,7 @@ namespace AllegroFlare
                AllegroFlare::Placement2D &get_velocity_ref();
                AllegroFlare::Placement2D &get_bitmap_placement_ref();
                virtual void update() override;
+               virtual void on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result={});
                virtual void draw() override;
                void fit_to_bitmap();
                void disable_bitmap_alignment_strategy();

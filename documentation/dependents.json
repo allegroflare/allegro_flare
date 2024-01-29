@@ -721,6 +721,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -2894,7 +2895,8 @@
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/Physics/TileMapCollisionStepperStepResult"
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",

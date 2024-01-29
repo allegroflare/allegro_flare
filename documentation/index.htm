@@ -22864,6 +22864,9 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
+  <td class="method">on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;* collision_step_result={})</td>
+</tr>
+<tr>
   <td class="method">draw()</td>
 </tr>
 <tr>
@@ -22895,6 +22898,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36638,6 +36647,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -38811,7 +38821,8 @@ table td
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/Physics/TileMapCollisionStepperStepResult"
+    "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",

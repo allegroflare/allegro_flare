@@ -163,6 +163,18 @@ void Basic2D::update()
    return;
 }
 
+void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_place_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result)
+{
+   if (!(collision_step_result))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::on_collision_update]: error: guard \"collision_step_result\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::on_collision_update: error: guard \"collision_step_result\" not met");
+   }
+   return;
+}
+
 void Basic2D::draw()
 {
    if (!(al_is_primitives_addon_initialized()))

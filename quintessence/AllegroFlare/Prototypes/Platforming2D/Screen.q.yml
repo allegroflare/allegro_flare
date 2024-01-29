@@ -427,8 +427,10 @@ methods:
       }
 
       // Update the entities against the collision tile mesh by doing collision stepping one-by-one on each entity
-      AllegroFlare::Vec2D new_place_position;
-      AllegroFlare::Vec2D new_velocity_position;
+      AllegroFlare::Vec2D previous_place_position;
+      AllegroFlare::Vec2D previous_velocity_position;
+      AllegroFlare::Vec2D now_place_position;
+      AllegroFlare::Vec2D now_velocity_position;
       for (auto &entity : get_current_map_entities())
       {
          //
@@ -466,13 +468,14 @@ methods:
          );
 
          // Perform the collision step and return the collision info
-         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result = collision_stepper.step();
+         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_step_result =
+            collision_stepper.step();
 
          // Build the result positioning info related to this collision
-         new_place_position.x = aabb2d.get_x() + place.size.x * place.align.x;
-         new_place_position.y = aabb2d.get_y() + place.size.y * place.align.y;
-         new_velocity_position.x = aabb2d.get_velocity_x();
-         new_velocity_position.y = aabb2d.get_velocity_y();
+         now_place_position.x = aabb2d.get_x() + place.size.x * place.align.x;
+         now_place_position.y = aabb2d.get_y() + place.size.y * place.align.y;
+         now_velocity_position.x = aabb2d.get_velocity_x();
+         now_velocity_position.y = aabb2d.get_velocity_y();
 
 
          //
@@ -481,8 +484,19 @@ methods:
          //
 
          // Supplant our entity's position and velocity values with the "simulated aabb2d"'s values
-         place.position = new_place_position;
-         velocity.position = new_velocity_position;
+         previous_place_position = place.position;
+         previous_velocity_position = velocity.position;
+         place.position = now_place_position;
+         velocity.position = now_velocity_position;
+
+         // Call the collision update function on the entity
+         entity->on_collision_update(
+            previous_place_position,
+            previous_velocity_position,
+            now_place_position,
+            now_velocity_position,
+            &collision_step_result
+         );
 
          // Update flags and perform callbacks on entity (TODO: Consider moving this into the entity's class)
          bool was_adjacent_to_floor_prior = entity->exists(ADJACENT_TO_FLOOR);
