@@ -311,7 +311,7 @@ void Screen::initialize_maps()
          factory.create_entities_from_map(map_filename, map_name);
 
       // Add the map-loaded entities to the entity_pool
-      entity_pool.insert(entity_pool.begin(), map_loaded_entity_pool.begin(), map_loaded_entity_pool.end());
+      entity_pool.insert(entity_pool.end(), map_loaded_entity_pool.begin(), map_loaded_entity_pool.end());
    }
 
    maps_initialized = true;

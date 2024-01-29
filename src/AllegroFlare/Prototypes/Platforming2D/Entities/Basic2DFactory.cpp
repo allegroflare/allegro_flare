@@ -440,6 +440,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    auto entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
    // TODO: Remove this manually created basic2dfactory; Pass in *this
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
+   basic2dfactory.set_init_entities_drawing_debug(true);
 
    if (object_class == "hopper")
    {

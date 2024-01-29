@@ -32,7 +32,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    platforming_2d.set_bitmap_bin(&framework.get_bitmap_bin_ref());
    platforming_2d.set_event_emitter(&framework.get_event_emitter_ref());
    platforming_2d.set_map_dictionary({
-      { "map_a", data_folder_path + "maps/map1-0x.tmj" },
+      { "map_a", data_folder_path + "maps/map_with_objects-x.tmj" },
+      //{ "map_a", data_folder_path + "maps/map1-0x.tmj" },
       { "map_b", data_folder_path + "maps/map1b-0x.tmj" },
    });
    platforming_2d.initialize_maps();
@@ -68,8 +69,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
    // Create a hopping enemy
-   auto ent = factory.create_enemy_move_left("map_a", 300, 240/2, 16, 16);
-   platforming_2d.add_entity_to_pool(ent);
+   //auto ent = factory.create_enemy_move_left("map_a", 300, 240/2, 16, 16);
+   //platforming_2d.add_entity_to_pool(ent);
 
 
 
