@@ -17,9 +17,6 @@ namespace Physics
 {
 
 
-AllegroFlare::Physics::Int2D TileMapCollisionStepper::dummy_int2d = {};
-
-
 TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map, AllegroFlare::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
    : collision_tile_map(collision_tile_map)
    , aabb2d(aabb2d)
@@ -79,12 +76,6 @@ float TileMapCollisionStepper::get_tile_width() const
 float TileMapCollisionStepper::get_tile_height() const
 {
    return tile_height;
-}
-
-
-AllegroFlare::Physics::Int2D &TileMapCollisionStepper::get_dummy_int2d_ref()
-{
-   return dummy_int2d;
 }
 
 
@@ -577,7 +568,7 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::tiles_within(
    return result_tiles;
 }
 
-bool TileMapCollisionStepper::tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D& a, AllegroFlare::Physics::Int2D& b)
+bool TileMapCollisionStepper::tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D a, AllegroFlare::Physics::Int2D b)
 {
    return (a.get_x() == b.get_x() && a.get_y() == b.get_y());
 }

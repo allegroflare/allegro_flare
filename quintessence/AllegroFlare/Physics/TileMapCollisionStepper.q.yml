@@ -29,12 +29,6 @@ properties:
     getter: true
     setter: true
 
-  - name: dummy_int2d
-    type: AllegroFlare::Physics::Int2D
-    init_with: '{}'
-    getter_ref: true
-    static: true
-
 
 functions:
 
@@ -592,14 +586,15 @@ functions:
 
 
   - name: tiles_have_equal_coordinates
+    private: true
     type: bool
     parameters:
       - name: a
-        type: AllegroFlare::Physics::Int2D&
-        default_argument: get_dummy_int2d_ref()
+        type: AllegroFlare::Physics::Int2D
+        default_argument: '{0, 0}'
       - name: b
-        type: AllegroFlare::Physics::Int2D&
-        default_argument: get_dummy_int2d_ref()
+        type: AllegroFlare::Physics::Int2D
+        default_argument: '{0, 0}'
     body: |
       return (a.get_x() == b.get_x() && a.get_y() == b.get_y());
 
