@@ -266,13 +266,24 @@ methods:
     body: |
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
 
+      // TODO: Consider clearing the entity pool
+
       for (auto &map_dictionary_entry : map_dictionary)
       {
          std::string map_name = std::get<0>(map_dictionary_entry);
          std::string map_filename = std::get<1>(map_dictionary_entry);
+
+         // Create the tile map
          AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =
             factory.create_tile_map(map_filename, map_name);
          entity_pool.push_back(created_map);
+
+         // Parse the map and load entities
+         std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> map_loaded_entity_pool =
+            factory.create_entities_from_map(map_filename, map_name);
+
+         // Add the map-loaded entities to the entity_pool
+         entity_pool.insert(entity_pool.begin(), map_loaded_entity_pool.begin(), map_loaded_entity_pool.end());
       }
 
       maps_initialized = true;

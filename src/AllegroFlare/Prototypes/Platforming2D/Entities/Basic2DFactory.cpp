@@ -14,6 +14,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
@@ -424,6 +425,12 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    if (init_entities_drawing_debug) created_map->set_draw_debug(true);
 
    return created_map;
+}
+
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name)
+{
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+   return result;
 }
 
 

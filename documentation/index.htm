@@ -22987,6 +22987,9 @@ table td
 <tr>
   <td class="method">create_tile_map(std::string map_json_filename=&quot;[a-map-tmj-filename-that-is-not-set]&quot;, std::string map_name=&quot;[map-name-not-set]&quot;)</td>
 </tr>
+<tr>
+  <td class="method">create_entities_from_map(std::string map_tmj_filename=&quot;[unset-map_tmj_filename]&quot;, std::string map_name=&quot;[unset-map_name]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -23064,6 +23067,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -39244,6 +39250,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base": [

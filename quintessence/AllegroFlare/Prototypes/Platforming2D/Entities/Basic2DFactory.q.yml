@@ -604,6 +604,22 @@ functions:
       - AllegroFlare::TileMaps::TileMap
 
 
+  - name: create_entities_from_map
+    type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
+    parameters:
+      - name: map_tmj_filename
+        type: std::string
+        default_argument: '"[unset-map_tmj_filename]"'
+      - name: map_name
+        type: std::string
+        default_argument: '"[unset-map_name]"'
+    body: |
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader
+
+
 dependencies:
 
 
@@ -657,5 +673,7 @@ dependencies:
     headers: [ AllegroFlare/FrameAnimation/Book.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader
+    headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.hpp ]
 
 
