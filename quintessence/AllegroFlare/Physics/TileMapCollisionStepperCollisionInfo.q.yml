@@ -92,6 +92,14 @@ enums:
       - EDGE_LEFT
 
 
+documentation:
+
+
+  - todos:
+      - Sort member variables into a better order. Note that the constructor argument order may be a thing in
+        the callers.
+
+
 functions:
 
 
@@ -146,6 +154,39 @@ functions:
          break;
       }
       return "[build_event_name-error_value]";
+
+
+  - name: build_collided_block_edge_name
+    static: true
+    type: std::string
+    parameters:
+      - name: event
+        type: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge
+        default_argument: CollidingBlockEdge::EDGE_UNDEFINED
+    body: |
+      switch(event)
+      {
+         case EDGE_UNDEFINED:
+            return "undefined_edge";
+         break;
+
+         case EDGE_TOP:
+            return "top_edge";
+         break;
+
+         case EDGE_RIGHT:
+            return "right_edge";
+         break;
+
+         case EDGE_BOTTOM:
+            return "bottom_edge";
+         break;
+
+         case EDGE_LEFT:
+            return "left_edge";
+         break;
+      }
+      return "[build_collided_block_edge_name_name-error_value]";
 
 
 dependencies:

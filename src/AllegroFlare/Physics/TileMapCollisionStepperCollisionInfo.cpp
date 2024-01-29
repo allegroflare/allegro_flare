@@ -149,6 +149,33 @@ std::string TileMapCollisionStepperCollisionInfo::build_event_name(int event)
    return "[build_event_name-error_value]";
 }
 
+std::string TileMapCollisionStepperCollisionInfo::build_collided_block_edge_name(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge event)
+{
+   switch(event)
+   {
+      case EDGE_UNDEFINED:
+         return "undefined_edge";
+      break;
+
+      case EDGE_TOP:
+         return "top_edge";
+      break;
+
+      case EDGE_RIGHT:
+         return "right_edge";
+      break;
+
+      case EDGE_BOTTOM:
+         return "bottom_edge";
+      break;
+
+      case EDGE_LEFT:
+         return "left_edge";
+      break;
+   }
+   return "[build_collided_block_edge_name_name-error_value]";
+}
+
 
 } // namespace Physics
 } // namespace AllegroFlare

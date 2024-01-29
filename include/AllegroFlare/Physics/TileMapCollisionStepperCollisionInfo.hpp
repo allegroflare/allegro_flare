@@ -60,6 +60,7 @@ namespace AllegroFlare
          bool is_tile_value(int tile_value=-999);
          bool is_event(int event=EVENT_UNDEFINED);
          static std::string build_event_name(int event=0);
+         static std::string build_collided_block_edge_name(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge event=CollidingBlockEdge::EDGE_UNDEFINED);
       };
    }
 }
