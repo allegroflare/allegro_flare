@@ -520,15 +520,36 @@ void Screen::update_entities()
       velocity.position.y = aabb2d.get_velocity_y();
 
       // add positioning flags
-      if (collision_stepper.adjacent_to_bottom_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_FLOOR);
-      else entity->remove(ADJACENT_TO_FLOOR);
+      bool was_adjacent_to_floor_prior = entity->exists(ADJACENT_TO_FLOOR);
+      bool is_currently_adjacent_to_floor = collision_stepper.adjacent_to_bottom_edge(tile_width, tile_height);
+      if (was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) {} // on stay
+      else if (!was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) // on enter
+      {
+         entity->set(ADJACENT_TO_FLOOR);
+         entity->on_attribute_added(ADJACENT_TO_FLOOR);
+      }
+      else if (was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) // on exit
+      {
+         entity->remove(ADJACENT_TO_FLOOR);
+         entity->on_attribute_removed(ADJACENT_TO_FLOOR);
+      }
+      else if (!was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) {} // while off
 
+      //if (collision_stepper.adjacent_to_bottom_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_FLOOR);
+      //else entity->remove(ADJACENT_TO_FLOOR);
+
+      bool was_adjacent_to_ceiling_prior = entity->exists(ADJACENT_TO_CEILING);
+      bool is_currently_adjacent_to_ceiling = collision_stepper.adjacent_to_top_edge(tile_width, tile_height);
       if (collision_stepper.adjacent_to_top_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_CEILING);
       else entity->remove(ADJACENT_TO_CEILING);
 
+      bool was_adjacent_to_left_wall_prior = entity->exists(ADJACENT_TO_LEFT_WALL);
+      bool is_currently_adjacent_to_left_wall = collision_stepper.adjacent_to_left_edge(tile_width, tile_height);
       if (collision_stepper.adjacent_to_left_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_LEFT_WALL);
       else entity->remove(ADJACENT_TO_LEFT_WALL);
 
+      bool was_adjacent_to_right_wall_prior = entity->exists(ADJACENT_TO_RIGHT_WALL);
+      bool is_currently_adjacent_to_right_wall = collision_stepper.adjacent_to_right_edge(tile_width, tile_height);
       if (collision_stepper.adjacent_to_right_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_RIGHT_WALL);
       else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }

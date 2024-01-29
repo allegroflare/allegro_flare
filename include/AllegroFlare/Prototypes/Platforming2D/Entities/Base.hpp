@@ -33,6 +33,8 @@ namespace AllegroFlare
                AllegroFlare::ElementID* get_parent() const;
                virtual void update();
                virtual void draw();
+               virtual void on_attribute_added(std::string attribute="[unset-attribute]");
+               virtual void on_attribute_removed(std::string attribute="[unset-attribute]");
                bool is_type(std::string possible_type="");
             };
          }

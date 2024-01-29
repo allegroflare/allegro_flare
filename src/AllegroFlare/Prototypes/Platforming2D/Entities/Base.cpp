@@ -50,6 +50,16 @@ void Base::draw()
    return;
 }
 
+void Base::on_attribute_added(std::string attribute)
+{
+   return;
+}
+
+void Base::on_attribute_removed(std::string attribute)
+{
+   return;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());
