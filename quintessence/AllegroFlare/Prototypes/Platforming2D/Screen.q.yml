@@ -468,7 +468,7 @@ methods:
          );
 
          // Perform the collision step and return the collision info
-         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_step_result =
+         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_step_results =
             collision_stepper.step();
 
          // Build the result positioning info related to this collision
@@ -495,8 +495,15 @@ methods:
             previous_velocity_position,
             now_place_position,
             now_velocity_position,
-            &collision_step_result
+            &collision_step_results
          );
+
+         // Possibly up to the Entity:
+         //bool ground_land_occurred = false;
+         //for (auto &collision_step_result : collision_step_results)
+         //{
+            //if (collision_step_result.infer_is_a_ground_land()) ground_land_occurred = true;
+         //}
 
          // Update flags and perform callbacks on entity (TODO: Consider moving this into the entity's class)
          bool was_adjacent_to_floor_prior = entity->exists(ADJACENT_TO_FLOOR);
