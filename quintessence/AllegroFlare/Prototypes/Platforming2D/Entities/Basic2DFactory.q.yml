@@ -230,7 +230,6 @@ functions:
       // give it a "enemy" debug box color
       created_entity->set_debug_box_color(enemy_debug_box_color);
 
-      created_entity->set("enemy_class_name", "hopper");
       created_entity->set(ON_MAP_NAME, map_name);
 
       // return the entity
@@ -609,9 +608,9 @@ functions:
   - name: create_entities_from_map__tmj_obj_loader_callback_func
     static: true
     parameters:
-      - name: object_class
+      - name: object_type
         type: std::string
-        default_argument: '"[unset-object_class]"'
+        default_argument: '"[unset-object_type]"'
       - name: x
         type: float
         default_argument: 0.0f
@@ -643,19 +642,19 @@ functions:
             std::tuple<
                std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
-               // TODO: Add a "unhandled_tmj_object_class_callback" (or something to that effect)
+               // TODO: Add a "unhandled_tmj_object_type_callback" (or something to that effect)
             >*
          >(data);
 
       entity_pool = std::get<0>(*data_to_pass);
       basic2dfactory = std::get<1>(*data_to_pass);
 
-      if (object_class == "hopper")
+      if (object_type == "hopper")
       {
          entity_pool->push_back(basic2dfactory->create_enemy_move_left("unset-map-name", x, y));
-         entity_pool->back()->set(TMJ_OBJECT_CLASS, "hopper");
+         entity_pool->back()->set(TMJ_OBJECT_TYPE, "hopper");
       }
-      else if (object_class == "door")
+      else if (object_type == "door")
       {
          // TODO: Parse these values from custom params
          std::string target_map_name = "yet-to-be-parsed-target-map_name";
@@ -664,7 +663,7 @@ functions:
          entity_pool->push_back(
             basic2dfactory->create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
          );
-         entity_pool->back()->set(TMJ_OBJECT_CLASS, "door");
+         entity_pool->back()->set(TMJ_OBJECT_TYPE, "door");
       }
       else // An unrecognized object type
       {
@@ -674,7 +673,7 @@ functions:
          AllegroFlare::Logger::error_from(
             "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::"
                "create_entities_from_map__tmj_obj_loader_callback_func",
-            "Unable to handle object_class \"" + object_class + "\"."
+            "Unable to handle object_type \"" + object_type + "\"."
          );
       }
       
@@ -697,7 +696,7 @@ functions:
       auto data_to_pass = std::tuple<
          std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
          AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
-         // TODO: Add a "unhandled_tmj_object_class_callback" (or something to that effect)
+         // TODO: Add a "unhandled_tmj_object_type_callback" (or something to that effect)
       >(&result_entity_pool, this);
 
       AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);

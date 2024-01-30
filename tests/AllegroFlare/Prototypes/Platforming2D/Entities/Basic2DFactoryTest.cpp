@@ -84,12 +84,12 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    ASSERT_EQ(2, entities.size());
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity1 = *entities[0];
-   EXPECT_EQ(true, entity1.exists(TMJ_OBJECT_CLASS, "door"));
+   EXPECT_EQ(true, entity1.exists(TMJ_OBJECT_TYPE, "door"));
    EXPECT_EQ(true, entity1.exists(ON_MAP_NAME, "map_a"));
    EXPECT_EQ(false, entity1.get_draw_debug());
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity2 = *entities[1];
-   EXPECT_EQ(true, entity2.exists(TMJ_OBJECT_CLASS, "hopper"));
+   EXPECT_EQ(true, entity2.exists(TMJ_OBJECT_TYPE, "hopper"));
    EXPECT_EQ(true, entity2.exists(ON_MAP_NAME, "map_a"));
    EXPECT_EQ(false, entity2.get_draw_debug());
 

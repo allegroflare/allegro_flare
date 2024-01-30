@@ -131,10 +131,11 @@ void TMJObjectLoader::load()
    {
       // Note that for compatibility reasons with Tiled, both "class" and "type" are used as possible keys.
       // Depending on the version of Tiled that exported the format, one or the other could have been used.
-      // Here in AllegroFlare, it us currently referred to it as "class"
+      // Here in AllegroFlare, it us currently referred to it as "type", which is the correct Tiled name for the
+      // property.  Note that for a temporary period it was changed to "class" in Tiled.
       // See this issue for more info: https://github.com/mapeditor/tiled/issues/3492
 
-      // TODO: Add test for either-or for "class" or "type"
+      // TODO: Throw error if "class" is present, advise to rename/update to "type"
       if (!object_json.value().contains("class") && !object_json.value().contains("type"))
       {
          AllegroFlare::Logger::throw_error(
@@ -144,10 +145,10 @@ void TMJObjectLoader::load()
          );
       }
 
-      std::string class_property;
+      std::string type_property;
 
-      if (object_json.value().contains("class")) class_property = object_json.value()["class"].get<std::string>();
-      else if (object_json.value().contains("type")) class_property = object_json.value()["type"].get<std::string>();
+      if (object_json.value().contains("class")) type_property = object_json.value()["class"].get<std::string>();
+      else if (object_json.value().contains("type")) type_property = object_json.value()["type"].get<std::string>();
 
       float x_property = object_json.value()["x"].get<float>();
       float y_property = object_json.value()["y"].get<float>();
@@ -213,7 +214,7 @@ void TMJObjectLoader::load()
       if (object_parsed_callback)
       {
          object_parsed_callback(
-            class_property,
+            type_property,
             x_property,
             y_property,
             width_property,
