@@ -443,12 +443,16 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool = nullptr;
    //AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory = nullptr;
 
-   std::tuple<
-      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
-   > *data_to_pass;
+   auto data_to_pass =
+      static_cast<
+         std::tuple<
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
+         >*
+      >(data);
 
-   entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
+   entity_pool = std::get<0>(*data_to_pass);
+   //basic2dfactory = std::get<1>(data_to_pass);
 
    // TODO: Remove this manually created basic2dfactory; Pass in *this
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
@@ -497,7 +501,8 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2D
 
    AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
    loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
-   loader.set_object_parsed_callback_user_data((void*)(&result_entity_pool));
+   loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
+   //loader.set_object_parsed_callback_user_data((void*)(&result_entity_pool));
    loader.load();
 
    // TODO: Set them all to be on this map
