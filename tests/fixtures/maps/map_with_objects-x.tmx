@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="20">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="21">
  <editorsettings>
   <export target="map_with_objects-x.tmj" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="tiles_dungeon_v1.1-02.tsx"/>
- <layer id="1" name="Tile Layer 1" width="50" height="30" visible="0">
+ <layer id="1" name="Tile Layer 1" width="50" height="30" locked="1">
   <data encoding="csv">
 81,102,123,123,103,82,104,114,83,82,83,122,123,103,82,104,121,82,103,83,123,121,123,104,122,128,149,129,106,104,148,106,104,149,104,148,122,104,230,206,106,114,131,131,131,131,131,131,113,102,
 82,103,103,82,83,82,124,132,0,0,82,124,101,82,102,0,0,0,0,0,0,83,104,122,102,102,128,106,128,102,102,104,102,129,122,128,121,83,82,102,122,112,421,0,0,0,0,0,110,149,
@@ -38,7 +38,7 @@
 407,426,446,428,193,174,195,174,195,193,193,193,175,196,176,195,176,195,195,176,176,176,176,176,176,248,308,248,308,269,269,308,308,289,268,269,249,248,268,268,308,308,308,248,269,308,289,248,269,269
 </data>
  </layer>
- <layer id="5" name="collision" width="50" height="30" opacity="0.62">
+ <layer id="5" name="collision" width="50" height="30" locked="1" opacity="0.62">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,
@@ -75,6 +75,7 @@
  <objectgroup id="2" name="Object Layer 1">
   <object id="18" class="door" x="720" y="408" width="32" height="40">
    <properties>
+    <property name="foobar" value="asdfasf"/>
     <property name="target_map_name" value="map_b"/>
     <property name="target_spawn_x" type="float" value="0"/>
     <property name="target_spawn_y" type="float" value="0"/>

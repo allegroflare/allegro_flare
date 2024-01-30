@@ -35,10 +35,6 @@ namespace AllegroFlare
             std::map<std::string, int> get_int_properties() const;
             std::map<std::string, float> get_float_properties() const;
             void clear();
-            void add(std::string name="[unset-name]", std::string value="[unset-value]");
-            void add(std::string name="[unset-name]", float value=0.0f);
-            void add(std::string name="[unset-name]", int value=0);
-            void add(std::string name="[unset-name]", bool value=false);
             void add_string(std::string name="[unset-name]", std::string value="[unset-value]");
             void add_bool(std::string name="[unset-name]", bool value=false);
             void add_float(std::string name="[unset-name]", float value=0.0f);

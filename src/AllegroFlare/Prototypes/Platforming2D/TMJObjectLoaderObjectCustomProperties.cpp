@@ -84,30 +84,6 @@ void TMJObjectLoaderObjectCustomProperties::clear()
    float_properties.clear();
 }
 
-void TMJObjectLoaderObjectCustomProperties::add(std::string name, std::string value)
-{
-   // TODO: Check for duplicate or overwrite
-   string_properties[name] = value;
-}
-
-void TMJObjectLoaderObjectCustomProperties::add(std::string name, float value)
-{
-   // TODO: Check for duplicate or overwrite
-   float_properties[name] = value;
-}
-
-void TMJObjectLoaderObjectCustomProperties::add(std::string name, int value)
-{
-   // TODO: Check for duplicate or overwrite
-   float_properties[name] = value;
-}
-
-void TMJObjectLoaderObjectCustomProperties::add(std::string name, bool value)
-{
-   // TODO: Check for duplicate or overwrite
-   bool_properties[name] = value;
-}
-
 void TMJObjectLoaderObjectCustomProperties::add_string(std::string name, std::string value)
 {
    // TODO: Check for duplicate or overwrite
