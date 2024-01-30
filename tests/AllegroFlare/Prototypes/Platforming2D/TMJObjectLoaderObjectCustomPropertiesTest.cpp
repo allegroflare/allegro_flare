@@ -22,6 +22,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderObjectCustomProperties
    EXPECT_EQ("foo", custom_properties.get_string("my_property"));
 }
 
+
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderObjectCustomPropertiesTest,
    will_store_objects_of_a_int_type)
 {
@@ -40,11 +41,24 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderObjectCustomProperties
 {
    AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties;
 
-   custom_properties.add_float("my_property", 4.125);
+   custom_properties.add_float("my_property", 4.125f);
    EXPECT_EQ(true, custom_properties.exists("my_property"));
    EXPECT_EQ("float", custom_properties.get_type("my_property"));
    EXPECT_EQ(true, custom_properties.is_float("my_property"));
    EXPECT_EQ(4.125, custom_properties.get_float("my_property"));
+}
+
+
+TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderObjectCustomPropertiesTest,
+   will_store_objects_of_a_bool_type)
+{
+   AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties;
+
+   custom_properties.add_bool("my_property", true);
+   EXPECT_EQ(true, custom_properties.exists("my_property"));
+   EXPECT_EQ("bool", custom_properties.get_type("my_property"));
+   EXPECT_EQ(true, custom_properties.is_bool("my_property"));
+   EXPECT_EQ(true, custom_properties.get_bool("my_property"));
 }
 
 
