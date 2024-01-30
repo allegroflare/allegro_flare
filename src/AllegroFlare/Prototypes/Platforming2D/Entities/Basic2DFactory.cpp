@@ -533,7 +533,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_prov
 
    if (!user_callback) {} // TODO: Do something here
 
-   // Call the user callback, passing along the formatted data
+   // Call the user callback, passing along the more friendly formatted parameters
    user_callback(
       object_type,
       x,

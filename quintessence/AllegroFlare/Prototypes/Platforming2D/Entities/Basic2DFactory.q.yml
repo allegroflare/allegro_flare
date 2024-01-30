@@ -745,7 +745,7 @@ functions:
       
       if (!user_callback) {} // TODO: Do something here
 
-      // Call the user callback, passing along the formatted data
+      // Call the user callback, passing along the more friendly formatted parameters
       user_callback(
          object_type,
          x,
