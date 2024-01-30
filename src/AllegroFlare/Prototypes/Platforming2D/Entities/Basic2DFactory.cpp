@@ -438,7 +438,18 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       throw std::runtime_error("Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func: error: guard \"data\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
-   auto entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
+
+   // Cast our data param to its constituent parts
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool = nullptr;
+   //AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory = nullptr;
+
+   std::tuple<
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
+   > *data_to_pass;
+
+   entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
+
    // TODO: Remove this manually created basic2dfactory; Pass in *this
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
    basic2dfactory.set_init_entities_drawing_debug(true);
@@ -478,6 +489,11 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2D
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;
+
+   auto data_to_pass = std::tuple<
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
+   >(&result_entity_pool, this);
 
    AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
    loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
