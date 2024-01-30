@@ -129,7 +129,26 @@ void TMJObjectLoader::load()
    }
    for (auto &object_json : object_layer_json["objects"].items())
    {
-      std::string class_property = object_json.value()["class"].get<std::string>();
+      // Note that for compatibility reasons with Tiled, both "class" and "type" are used as possible keys.
+      // Depending on the version of Tiled that exported the format, one or the other could have been used.
+      // Here in AllegroFlare, it us currently referred to it as "class"
+      // See this issue for more info: https://github.com/mapeditor/tiled/issues/3492
+
+      // TODO: Add test for either-or for "class" or "type"
+      if (!object_json.value().contains("class") && !object_json.value().contains("type"))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader::load",
+            "When parsing properties on an object, expecting to find \"class\" or \"type\" but neither was present. "
+               "This error occurred while loading \"" + filename + "\"."
+         );
+      }
+
+      std::string class_property;
+
+      if (object_json.value().contains("class")) class_property = object_json.value()["class"].get<std::string>();
+      else if (object_json.value().contains("type")) class_property = object_json.value()["type"].get<std::string>();
+
       float x_property = object_json.value()["x"].get<float>();
       float y_property = object_json.value()["y"].get<float>();
       float width_property = object_json.value()["width"].get<float>();
@@ -146,6 +165,16 @@ void TMJObjectLoader::load()
          {
             nlohmann::json custom_property = custom_property_item.value();
             std::string custom_property_name = custom_property["name"];
+
+            if (!custom_property.contains("type"))
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader::load",
+                  "When parsing custom properties on an object, expecting to find \"type\" but it was not present. "
+                     "This error occurred while loading \"" + filename + "\"."
+               );
+            }
+
             std::string custom_property_type = custom_property["type"];
 
             // TODO: Test the parsing of these custom values

@@ -83,12 +83,19 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
    platforming_2d.add_entity_to_pool(created_entity);
 
+
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =
       factory.create_frame_animated("map_a", 400/2, 240/2, 12, 8, "blob", "bottom_centered_edge");
    created_animated_entity->get_place_ref().scale = { 1.0f, 1.0f };
 
-
    platforming_2d.add_entity_to_pool(created_animated_entity);
+
+
+   //AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity2 =
+      //factory.create_frame_animated("map_a", 420/2, 240/2, 16, 16, "generic_enemy", "bottom_centered_edge");
+   //created_animated_entity2->get_place_ref().scale = { 1.0f, 1.0f };
+
+   //platforming_2d.add_entity_to_pool(created_animated_entity2);
 
 
    platforming_2d.set_player_controlled_entity(created_entity);
