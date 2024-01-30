@@ -485,7 +485,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    return;
 }
 
-std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name)
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name, std::function<void(std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> callback, void* callback_data)
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;

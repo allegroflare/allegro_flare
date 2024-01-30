@@ -689,6 +689,12 @@ functions:
       - name: map_name
         type: std::string
         default_argument: '"[unset-map_name]"'
+      - name: callback
+        type: std::function<void(std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)>
+        default_argument: '{}'
+      - name: callback_data
+        type: void*
+        default_argument: nullptr
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;
