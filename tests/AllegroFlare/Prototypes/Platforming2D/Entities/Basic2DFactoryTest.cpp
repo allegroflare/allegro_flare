@@ -80,16 +80,41 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entities =
       basic2d_factory.create_entities_from_map(TEST_FIXTURES_PATH "maps/map_with_objects-x.tmj", "map_a");
 
-   // TODO: Test the created entities
+   // TODO: Add check on the created entities for custom properties
    ASSERT_EQ(2, entities.size());
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity1 = *entities[0];
    EXPECT_EQ(true, entity1.exists(TMJ_OBJECT_CLASS, "door"));
    EXPECT_EQ(true, entity1.exists(ON_MAP_NAME, "map_a"));
+   EXPECT_EQ(false, entity1.get_draw_debug());
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity2 = *entities[1];
    EXPECT_EQ(true, entity2.exists(TMJ_OBJECT_CLASS, "hopper"));
    EXPECT_EQ(true, entity2.exists(ON_MAP_NAME, "map_a"));
+   EXPECT_EQ(false, entity2.get_draw_debug());
+
+   for (auto &entity : entities) delete entity;
+   entities.clear();
+};
+
+
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest,
+   create_entities_from_map__will_create_entities_while_retaining_the_options_set_on_the_factory)
+{
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   std::string data_folder_path = TEST_FIXTURES_PATH;
+
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2d_factory(&get_bitmap_bin_ref());
+   basic2d_factory.set_init_entities_drawing_debug(true);
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entities =
+      basic2d_factory.create_entities_from_map(TEST_FIXTURES_PATH "maps/map_with_objects-x.tmj", "map_a");
+
+   ASSERT_EQ(2, entities.size());
+
+   for (auto &entity : entities)
+   {
+      EXPECT_EQ(true, entity->get_draw_debug());
+   }
 
    for (auto &entity : entities) delete entity;
    entities.clear();

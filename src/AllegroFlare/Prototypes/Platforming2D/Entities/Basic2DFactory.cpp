@@ -441,7 +441,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
 
    // Cast our data param to its constituent parts
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool = nullptr;
-   //AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory = nullptr;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory = nullptr;
 
    auto data_to_pass =
       static_cast<
@@ -452,15 +452,15 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       >(data);
 
    entity_pool = std::get<0>(*data_to_pass);
-   //basic2dfactory = std::get<1>(data_to_pass);
+   basic2dfactory = std::get<1>(*data_to_pass);
 
    // TODO: Remove this manually created basic2dfactory; Pass in *this
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
-   basic2dfactory.set_init_entities_drawing_debug(true);
+   //AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
+   //basic2dfactory.set_init_entities_drawing_debug(true);
 
    if (object_class == "hopper")
    {
-      entity_pool->push_back(basic2dfactory.create_enemy_move_left("unset-map-name", x, y));
+      entity_pool->push_back(basic2dfactory->create_enemy_move_left("unset-map-name", x, y));
       entity_pool->back()->set(TMJ_OBJECT_CLASS, "hopper");
    }
    else if (object_class == "door")
@@ -470,7 +470,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       float target_spawn_x = 123.0f;
       float target_spawn_y = 456.0f;
       entity_pool->push_back(
-         basic2dfactory.create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
+         basic2dfactory->create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
       );
       entity_pool->back()->set(TMJ_OBJECT_CLASS, "door");
    }
