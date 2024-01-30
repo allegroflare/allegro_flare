@@ -437,6 +437,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func: error: guard \"data\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    auto entity_pool = static_cast<std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*>(data);
    // TODO: Remove this manually created basic2dfactory; Pass in *this
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
@@ -445,7 +446,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    if (object_class == "hopper")
    {
       entity_pool->push_back(basic2dfactory.create_enemy_move_left("unset-map-name", x, y));
-      entity_pool->back()->set("tmj_object_class", "hopper");
+      entity_pool->back()->set(TMJ_OBJECT_CLASS, "hopper");
    }
    else if (object_class == "door")
    {
@@ -456,12 +457,13 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       entity_pool->push_back(
          basic2dfactory.create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
       );
-      entity_pool->back()->set("tmj_object_class", "door");
+      entity_pool->back()->set(TMJ_OBJECT_CLASS, "door");
    }
    else // An unrecognized object type
    {
       // TODO: Test this error emission
       // TODO: Add option to "throw_error" instead of "error_from" here
+      // TODO: Add a custom callback option
       AllegroFlare::Logger::error_from(
          "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::"
             "create_entities_from_map__tmj_obj_loader_callback_func",

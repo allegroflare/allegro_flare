@@ -23,6 +23,7 @@ namespace AllegroFlare
             std::string const COLLECTABLE_BY_PLAYER = "collectable_by_player";
             std::string const INVISIBLE = "invisible";
 
+            std::string const TMJ_OBJECT_CLASS = "tmj_object_class";
             std::string const TYPE = "type";
             std::string const GOALPOST = "goalpost";
             std::string const DOOR = "door";
