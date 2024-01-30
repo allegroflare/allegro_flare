@@ -32,6 +32,7 @@ properties:
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{0.06, 0.93, 0.184, 1.0}
 
+
 functions:
 
 
