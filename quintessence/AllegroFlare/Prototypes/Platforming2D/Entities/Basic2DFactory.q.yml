@@ -680,6 +680,87 @@ functions:
       return;
 
 
+  - name: create_entities_from_map__tmj_obj_loader_with_callback_provided_func
+    static: true
+    parameters:
+      - name: object_type
+        type: std::string
+        default_argument: '"[unset-object_type]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 0.0f
+      - name: height
+        type: float
+        default_argument: 0.0f
+      - name: custom_properties
+        type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
+        default_argument: '{}'
+      - name: data
+        type: void*
+        default_argument: nullptr
+    guards: [ data ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      // Create variables for the constituent parts of *data
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool = nullptr;
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory = nullptr;
+      std::function<void(
+         std::string,
+         float,
+         float,
+         float,
+         float,
+         AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
+         std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+         AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
+         void*)
+      > user_callback;
+      void* user_callback_data = nullptr;
+
+      // Cast *data to the expected type
+      auto data_to_pass =
+         static_cast<
+            std::tuple<
+               std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+               AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
+               decltype(user_callback),
+               void*
+               // TODO: Add a "unhandled_tmj_object_type_callback" (or something to that effect)
+            >*
+         >(data);
+
+      // Assign the casted *data to the constituent parts
+      entity_pool = std::get<0>(*data_to_pass);
+      basic2dfactory = std::get<1>(*data_to_pass);
+      user_callback = std::get<2>(*data_to_pass);
+      user_callback_data = std::get<3>(*data_to_pass);
+
+      
+      if (!user_callback) {} // TODO: Do something here
+
+      // Call the user callback, passing along the formatted data
+      user_callback(
+         object_type,
+         x,
+         y,
+         width,
+         height,
+         custom_properties,
+         entity_pool,
+         basic2dfactory,
+         user_callback_data
+      );
+
+      return;
+
+
   - name: create_entities_from_map
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     parameters:
@@ -690,7 +771,17 @@ functions:
         type: std::string
         default_argument: '"[unset-map_name]"'
       - name: callback
-        type: std::function<void(std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)>
+        type: std::function<void(
+               std::string,
+               float,
+               float,
+               float,
+               float,
+               AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
+               std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+               AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
+               void*)
+            >
         default_argument: '{}'
       - name: callback_data
         type: void*
@@ -699,15 +790,32 @@ functions:
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;
 
-      auto data_to_pass = std::tuple<
-         std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
-         AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
-         // TODO: Add a "unhandled_tmj_object_type_callback" (or something to that effect)
-      >(&result_entity_pool, this);
-
       AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
-      loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
-      loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
+
+      if (callback) // A callback is provided by the user, build data to pass into the factory's callback which includes
+                    // the user's callback.
+      {
+         auto data_to_pass = std::tuple<
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
+            decltype(callback),
+            void*
+         >(&result_entity_pool, this, callback, callback_data);
+
+         loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_with_callback_provided_func);
+         loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
+      }
+      else // If no callback is provided, use the default callback here in the factory
+      {
+         auto data_to_pass = std::tuple<
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
+         >(&result_entity_pool, this);
+
+         loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
+         loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
+      }
+
       loader.load();
 
       // Flag all the created entities as being on this map
@@ -778,5 +886,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
     headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp ]
 
 

@@ -18,6 +18,51 @@ class AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRe
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 
 
+static void my_tmj_loader_callback(
+   std::string object_type,
+   float x,
+   float y,
+   float width,
+   float height,
+   AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, 
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool,
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory,
+   void* data
+)
+{
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   if (object_type == "hopper")
+   {
+      entity_pool->push_back(basic2dfactory->create_enemy_move_left("unset-map-name", x, y));
+      entity_pool->back()->set(TMJ_OBJECT_TYPE, "hopper");
+   }
+   else if (object_type == "door")
+   {
+      // TODO: Parse these values from custom params
+      std::string target_map_name = "yet-to-be-parsed-target-map_name";
+      float target_spawn_x = 123.0f;
+      float target_spawn_y = 456.0f;
+      entity_pool->push_back(
+         basic2dfactory->create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
+      );
+      entity_pool->back()->set(TMJ_OBJECT_TYPE, "door");
+   }
+   else // An unrecognized object type
+   {
+      // TODO: Test this error emission
+      // TODO: Add option to "throw_error" instead of "error_from" here
+      // TODO: Add a custom callback option
+      AllegroFlare::Logger::error_from(
+         "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::"
+            "create_entities_from_map__tmj_obj_loader_callback_func",
+         "Unable to handle object_type \"" + object_type + "\"."
+      );
+   }
+
+   return;
+}
+
 
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryTest, can_be_created_without_blowing_up)
 {
@@ -108,6 +153,35 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    basic2d_factory.set_init_entities_drawing_debug(true);
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entities =
       basic2d_factory.create_entities_from_map(TEST_FIXTURES_PATH "maps/map_with_objects-x.tmj", "map_a");
+
+   ASSERT_EQ(2, entities.size());
+
+   for (auto &entity : entities)
+   {
+      EXPECT_EQ(true, entity->get_draw_debug());
+   }
+
+   for (auto &entity : entities) delete entity;
+   entities.clear();
+};
+
+
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest,
+   create_entities_from_map__when_a_user_callback_is_present__will_not_blow_up)
+{
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   std::string data_folder_path = TEST_FIXTURES_PATH;
+
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2d_factory(&get_bitmap_bin_ref());
+   basic2d_factory.set_init_entities_drawing_debug(true);
+
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entities =
+      basic2d_factory.create_entities_from_map(
+         TEST_FIXTURES_PATH "maps/map_with_objects-x.tmj",
+         "map_a",
+         my_tmj_loader_callback,
+         nullptr
+      );
 
    ASSERT_EQ(2, entities.size());
 

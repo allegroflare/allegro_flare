@@ -2609,6 +2609,7 @@
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory": [
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "void": [

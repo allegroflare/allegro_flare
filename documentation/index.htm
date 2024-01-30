@@ -22995,7 +22995,10 @@ table td
   <td class="method">create_entities_from_map__tmj_obj_loader_callback_func(std::string object_type=&quot;[unset-object_type]&quot;, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties={}, void* data=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">create_entities_from_map(std::string map_tmj_filename=&quot;[unset-map_tmj_filename]&quot;, std::string map_name=&quot;[unset-map_name]&quot;)</td>
+  <td class="method">create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type=&quot;[unset-object_type]&quot;, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties={}, void* data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">create_entities_from_map(std::string map_tmj_filename=&quot;[unset-map_tmj_filename]&quot;, std::string map_name=&quot;[unset-map_name]&quot;, std::function&lt;void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector&lt;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*&gt;*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) &gt; callback={}, void* callback_data=nullptr)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -23080,6 +23083,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38693,6 +38699,7 @@ table td
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory": [
     "AllegroFlare/Integrations/CameraProjectionChanges",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "void": [

@@ -485,20 +485,101 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    return;
 }
 
-std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name, std::function<void(std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> callback, void* callback_data)
+void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type, float x, float y, float width, float height, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
+{
+   if (!(data))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func]: error: guard \"data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func: error: guard \"data\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   // Create variables for the constituent parts of *data
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool = nullptr;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory = nullptr;
+   std::function<void(
+      std::string,
+      float,
+      float,
+      float,
+      float,
+      AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
+      void*)
+   > user_callback;
+   void* user_callback_data = nullptr;
+
+   // Cast *data to the expected type
+   auto data_to_pass =
+      static_cast<
+         std::tuple<
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
+            decltype(user_callback),
+            void*
+            // TODO: Add a "unhandled_tmj_object_type_callback" (or something to that effect)
+         >*
+      >(data);
+
+   // Assign the casted *data to the constituent parts
+   entity_pool = std::get<0>(*data_to_pass);
+   basic2dfactory = std::get<1>(*data_to_pass);
+   user_callback = std::get<2>(*data_to_pass);
+   user_callback_data = std::get<3>(*data_to_pass);
+
+
+   if (!user_callback) {} // TODO: Do something here
+
+   // Call the user callback, passing along the formatted data
+   user_callback(
+      object_type,
+      x,
+      y,
+      width,
+      height,
+      custom_properties,
+      entity_pool,
+      basic2dfactory,
+      user_callback_data
+   );
+
+   return;
+}
+
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name, std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > callback, void* callback_data)
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;
 
-   auto data_to_pass = std::tuple<
-      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
-      // TODO: Add a "unhandled_tmj_object_type_callback" (or something to that effect)
-   >(&result_entity_pool, this);
-
    AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
-   loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
-   loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
+
+   if (callback) // A callback is provided by the user, build data to pass into the factory's callback which includes
+                 // the user's callback.
+   {
+      auto data_to_pass = std::tuple<
+         std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+         AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
+         decltype(callback),
+         void*
+      >(&result_entity_pool, this, callback, callback_data);
+
+      loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_with_callback_provided_func);
+      loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
+   }
+   else // If no callback is provided, use the default callback here in the factory
+   {
+      auto data_to_pass = std::tuple<
+         std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+         AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
+      >(&result_entity_pool, this);
+
+      loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
+      loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
+   }
+
    loader.load();
 
    // Flag all the created entities as being on this map
