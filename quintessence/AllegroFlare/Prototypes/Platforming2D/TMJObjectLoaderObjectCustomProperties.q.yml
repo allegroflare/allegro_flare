@@ -29,6 +29,15 @@ properties:
 methods:
 
 
+  - name: clear
+    body: |
+      // TODO: Check for duplicate or overwrite
+      string_properties.clear();
+      bool_properties.clear();
+      int_properties.clear();
+      float_properties.clear();
+
+
   - name: add
     parameters:
       - name: name

@@ -75,6 +75,15 @@ std::map<std::string, float> TMJObjectLoaderObjectCustomProperties::get_float_pr
 }
 
 
+void TMJObjectLoaderObjectCustomProperties::clear()
+{
+   // TODO: Check for duplicate or overwrite
+   string_properties.clear();
+   bool_properties.clear();
+   int_properties.clear();
+   float_properties.clear();
+}
+
 void TMJObjectLoaderObjectCustomProperties::add(std::string name, std::string value)
 {
    // TODO: Check for duplicate or overwrite
