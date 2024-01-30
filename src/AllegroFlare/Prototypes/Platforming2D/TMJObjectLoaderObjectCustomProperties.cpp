@@ -75,6 +75,30 @@ std::map<std::string, float> TMJObjectLoaderObjectCustomProperties::get_float_pr
 }
 
 
+void TMJObjectLoaderObjectCustomProperties::add(std::string name, std::string value)
+{
+   // TODO: Check for duplicate or overwrite
+   string_properties[name] = value;
+}
+
+void TMJObjectLoaderObjectCustomProperties::add(std::string name, float value)
+{
+   // TODO: Check for duplicate or overwrite
+   float_properties[name] = value;
+}
+
+void TMJObjectLoaderObjectCustomProperties::add(std::string name, int value)
+{
+   // TODO: Check for duplicate or overwrite
+   float_properties[name] = value;
+}
+
+void TMJObjectLoaderObjectCustomProperties::add(std::string name, bool value)
+{
+   // TODO: Check for duplicate or overwrite
+   bool_properties[name] = value;
+}
+
 void TMJObjectLoaderObjectCustomProperties::add_string(std::string name, std::string value)
 {
    // TODO: Check for duplicate or overwrite
@@ -97,6 +121,50 @@ void TMJObjectLoaderObjectCustomProperties::add_int(std::string name, int value)
 {
    // TODO: Check for duplicate or overwrite
    int_properties[name] = value;
+}
+
+std::string TMJObjectLoaderObjectCustomProperties::get_string(std::string name)
+{
+   // TODO: Check for existence
+   return string_properties[name];
+}
+
+bool TMJObjectLoaderObjectCustomProperties::get_bool(std::string name)
+{
+   // TODO: Check for existence
+   return bool_properties[name];
+}
+
+float TMJObjectLoaderObjectCustomProperties::get_float(std::string name)
+{
+   // TODO: Check for existence
+   return float_properties[name];
+}
+
+int TMJObjectLoaderObjectCustomProperties::get_int(std::string name)
+{
+   // TODO: Check for existence
+   return int_properties[name];
+}
+
+std::string TMJObjectLoaderObjectCustomProperties::get_type(std::string name)
+{
+   // TODO: Check for duplicate or overwrite
+   if (float_properties.find(name) != float_properties.end()) return "float";
+   if (int_properties.find(name) != int_properties.end()) return "int";
+   if (bool_properties.find(name) != bool_properties.end()) return "bool";
+   if (string_properties.find(name) != string_properties.end()) return "string";
+   return "[ERROR-does_not_exist]";
+}
+
+bool TMJObjectLoaderObjectCustomProperties::exists(std::string name)
+{
+   // TODO: Check for duplicate or overwrite
+   if (float_properties.find(name) != float_properties.end()) return true;
+   if (int_properties.find(name) != int_properties.end()) return true;
+   if (bool_properties.find(name) != bool_properties.end()) return true;
+   if (string_properties.find(name) != string_properties.end()) return true;
+   return false;
 }
 
 
