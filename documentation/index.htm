@@ -23998,6 +23998,14 @@ table td
   <td class="property">AllegroFlare::CameraControlStrategies2D::Base*</td>
 </tr>
 <tr>
+  <td class="property">create_entities_from_map_callback</td>
+  <td class="property">std::function&lt;void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector&lt;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*&gt;*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) &gt;</td>
+</tr>
+<tr>
+  <td class="property">create_entities_from_map_callback_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -24257,6 +24265,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -39351,6 +39362,7 @@ table td
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base": [

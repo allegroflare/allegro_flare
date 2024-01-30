@@ -95,6 +95,27 @@ properties:
     type: AllegroFlare::CameraControlStrategies2D::Base*
     init_with: nullptr
 
+  - name: create_entities_from_map_callback
+    type: std::function<void(
+           std::string,
+           float,
+           float,
+           float,
+           float,
+           AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
+           std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
+           AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*)
+        >
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: create_entities_from_map_callback_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool 
     init_with: false
@@ -114,6 +135,8 @@ documentation:
 
 
   - todos:
+     - Test the usage of "create_entities_from_map_callback" and "create_entities_from_map_callback_user_data" when
+       loading a TMJ file.
      - Attention needs to be brought to "gameplay_suspended" managing (This could be used during a game
        pause, some active dialog, an opened inventory screen, a transition, etc.).  The consequences of a paused state
        remains unevaluated. Some concerns include...
@@ -280,7 +303,12 @@ methods:
 
          // Parse the map and load entities
          std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> map_loaded_entity_pool =
-            factory.create_entities_from_map(map_filename, map_name);
+            factory.create_entities_from_map(
+               map_filename,
+               map_name,
+               create_entities_from_map_callback,
+               create_entities_from_map_callback_user_data
+            );
 
          // Add the map-loaded entities to the entity_pool
          entity_pool.insert(entity_pool.end(), map_loaded_entity_pool.begin(), map_loaded_entity_pool.end());
@@ -1253,5 +1281,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
+    headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp ]
 
 

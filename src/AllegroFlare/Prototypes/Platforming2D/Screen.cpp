@@ -48,6 +48,8 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* 
    , show_visual_hint_on_suspended_gameplay(false)
    , entity_control_connector(nullptr)
    , camera_control_strategy(nullptr)
+   , create_entities_from_map_callback({})
+   , create_entities_from_map_callback_user_data(nullptr)
    , initialized(false)
    , maps_initialized(false)
 {
@@ -92,6 +94,18 @@ void Screen::set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on
 void Screen::set_entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector)
 {
    this->entity_control_connector = entity_control_connector;
+}
+
+
+void Screen::set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback)
+{
+   this->create_entities_from_map_callback = create_entities_from_map_callback;
+}
+
+
+void Screen::set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data)
+{
+   this->create_entities_from_map_callback_user_data = create_entities_from_map_callback_user_data;
 }
 
 
@@ -140,6 +154,18 @@ bool Screen::get_show_visual_hint_on_suspended_gameplay() const
 AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* Screen::get_entity_control_connector() const
 {
    return entity_control_connector;
+}
+
+
+std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > Screen::get_create_entities_from_map_callback() const
+{
+   return create_entities_from_map_callback;
+}
+
+
+void* Screen::get_create_entities_from_map_callback_user_data() const
+{
+   return create_entities_from_map_callback_user_data;
 }
 
 
@@ -308,7 +334,12 @@ void Screen::initialize_maps()
 
       // Parse the map and load entities
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> map_loaded_entity_pool =
-         factory.create_entities_from_map(map_filename, map_name);
+         factory.create_entities_from_map(
+            map_filename,
+            map_name,
+            create_entities_from_map_callback,
+            create_entities_from_map_callback_user_data
+         );
 
       // Add the map-loaded entities to the entity_pool
       entity_pool.insert(entity_pool.end(), map_loaded_entity_pool.begin(), map_loaded_entity_pool.end());

@@ -7,8 +7,10 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
@@ -16,6 +18,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
+#include <functional>
 #include <map>
 #include <string>
 #include <vector>
@@ -49,6 +52,8 @@ namespace AllegroFlare
             bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
+            std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback;
+            void* create_entities_from_map_callback_user_data;
             bool initialized;
             bool maps_initialized;
             void initialize_camera();
@@ -70,6 +75,8 @@ namespace AllegroFlare
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
             void set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on_suspended_gameplay);
             void set_entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector);
+            void set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback);
+            void set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::map<std::string, std::string> get_map_dictionary() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
@@ -78,6 +85,8 @@ namespace AllegroFlare
             bool get_show_collision_tile_mesh() const;
             bool get_show_visual_hint_on_suspended_gameplay() const;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
+            std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > get_create_entities_from_map_callback() const;
+            void* get_create_entities_from_map_callback_user_data() const;
             void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
