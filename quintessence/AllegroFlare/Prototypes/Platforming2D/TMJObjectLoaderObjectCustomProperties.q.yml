@@ -207,3 +207,51 @@ methods:
       return false;
 
 
+  - name: is_float
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      // TODO: Conaider checking for existence first
+      if (float_properties.find(name) != float_properties.end()) return true;
+      return false;
+
+
+  - name: is_bool
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      // TODO: Conaider checking for existence first
+      if (bool_properties.find(name) != bool_properties.end()) return true;
+      return false;
+
+
+  - name: is_int
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      // TODO: Conaider checking for existence first
+      if (int_properties.find(name) != int_properties.end()) return true;
+      return false;
+
+
+  - name: is_string
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      // TODO: Conaider checking for existence first
+      if (string_properties.find(name) != string_properties.end()) return true;
+      return false;
+
+

@@ -48,6 +48,10 @@ namespace AllegroFlare
             int get_int(std::string name="[unset-name]");
             std::string get_type(std::string name="[unset-name]");
             bool exists(std::string name="[unset-name]");
+            bool is_float(std::string name="[unset-name]");
+            bool is_bool(std::string name="[unset-name]");
+            bool is_int(std::string name="[unset-name]");
+            bool is_string(std::string name="[unset-name]");
          };
       }
    }

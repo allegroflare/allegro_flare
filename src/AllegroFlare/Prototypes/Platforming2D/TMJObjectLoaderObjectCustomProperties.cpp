@@ -167,6 +167,34 @@ bool TMJObjectLoaderObjectCustomProperties::exists(std::string name)
    return false;
 }
 
+bool TMJObjectLoaderObjectCustomProperties::is_float(std::string name)
+{
+   // TODO: Conaider checking for existence first
+   if (float_properties.find(name) != float_properties.end()) return true;
+   return false;
+}
+
+bool TMJObjectLoaderObjectCustomProperties::is_bool(std::string name)
+{
+   // TODO: Conaider checking for existence first
+   if (bool_properties.find(name) != bool_properties.end()) return true;
+   return false;
+}
+
+bool TMJObjectLoaderObjectCustomProperties::is_int(std::string name)
+{
+   // TODO: Conaider checking for existence first
+   if (int_properties.find(name) != int_properties.end()) return true;
+   return false;
+}
+
+bool TMJObjectLoaderObjectCustomProperties::is_string(std::string name)
+{
+   // TODO: Conaider checking for existence first
+   if (string_properties.find(name) != string_properties.end()) return true;
+   return false;
+}
+
 
 } // namespace Platforming2D
 } // namespace Prototypes
