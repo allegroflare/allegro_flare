@@ -643,15 +643,12 @@ functions:
             std::tuple<
                std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
+               // TODO: Add a "unhandled_tmj_object_class_callback" (or something to that effect)
             >*
          >(data);
 
       entity_pool = std::get<0>(*data_to_pass);
       basic2dfactory = std::get<1>(*data_to_pass);
-
-      // TODO: Remove this manually created basic2dfactory; Pass in *this
-      //AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2dfactory;
-      //basic2dfactory.set_init_entities_drawing_debug(true);
 
       if (object_class == "hopper")
       {
@@ -700,15 +697,15 @@ functions:
       auto data_to_pass = std::tuple<
          std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
          AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*
+         // TODO: Add a "unhandled_tmj_object_class_callback" (or something to that effect)
       >(&result_entity_pool, this);
 
       AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader loader(map_tmj_filename);
       loader.set_object_parsed_callback(create_entities_from_map__tmj_obj_loader_callback_func);
       loader.set_object_parsed_callback_user_data((void*)(&data_to_pass));
-      //loader.set_object_parsed_callback_user_data((void*)(&result_entity_pool));
       loader.load();
 
-      // TODO: Set them all to be on this map
+      // Flag all the created entities as being on this map
       for (auto &result_entity : result_entity_pool)
       {
          result_entity->set(ON_MAP_NAME, map_name);
