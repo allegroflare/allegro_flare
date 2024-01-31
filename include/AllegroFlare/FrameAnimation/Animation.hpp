@@ -45,6 +45,7 @@ namespace AllegroFlare
          float get_playspeed_multiplier() const;
          float get_playhead() const;
          bool get_finished() const;
+         bool get_initialized() const;
          void initialize();
          void start();
          void set_playspeed_multiplier(float playspeed_multiplier=1.0);

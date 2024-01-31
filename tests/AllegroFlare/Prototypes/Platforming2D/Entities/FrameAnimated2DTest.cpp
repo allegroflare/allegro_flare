@@ -76,7 +76,8 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    draw__can_be_called_without_blowing_up)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
+   frame_animated2d_entity.set_animation_book(&animation_book);
    frame_animated2d_entity.draw();
    SUCCEED();
 }
@@ -85,7 +86,8 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    CAPTURE__draw__with_a_bitmap__will_display_the_image)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity; //(&animation_book);
+   frame_animated2d_entity.set_animation_book(&animation_book);
    frame_animated2d_entity.set_animation("blob");
 
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
@@ -105,7 +107,8 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    CAPTURE__draw__with_a_modified_place__will_display_the_image)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity; //(&animation_book);
+   frame_animated2d_entity.set_animation_book(&animation_book);
 
    frame_animated2d_entity.set_animation("blob");
    frame_animated2d_entity.disable_bitmap_alignment_strategy();
@@ -127,7 +130,9 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegroRenderingFixtureTest,
    CAPTURE__draw__will_render_the_different_alignment_strategies_as_expected)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;//(&animation_book);
+   frame_animated2d_entity.set_animation_book(&animation_book);
+
    frame_animated2d_entity.set_animation("blob");
    frame_animated2d_entity.set_draw_debug(true);
    frame_animated2d_entity.get_place_ref().scale = {1.0, 1.0};
@@ -175,7 +180,9 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_FrameAnimated2DWithAllegro
    // TODO: update this test to accomodate the concerns for animation
    fit_to_bitmap__will_set_the_size_of_the_entity_to_match_the_dimensions_of_the_bitmap)
 {
-   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity(&animation_book);
+   AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D frame_animated2d_entity;
+   frame_animated2d_entity.set_animation_book(&animation_book);
+//(&animation_book);
    frame_animated2d_entity.set_animation("blob");
    frame_animated2d_entity.fit_to_bitmap();
 

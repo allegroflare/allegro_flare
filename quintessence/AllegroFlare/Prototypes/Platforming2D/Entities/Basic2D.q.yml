@@ -42,17 +42,29 @@ properties:
     getter: true
     setter: explicit
 
+  - name: bitmap_flip_h
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: movement_strategy
     type: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base*
     init_with: nullptr
     getter: true
     setter: true
 
-  - name: bitmap_flip_h
-    type: bool
-    init_with: false
+  - name: animation_book
+    type: AllegroFlare::FrameAnimation::Book*
+    init_with: nullptr
+    constructor_arg: true
     getter: true
     setter: true
+
+  - name: animation
+    type: AllegroFlare::FrameAnimation::Animation
+    init_with: '{}'
+    setter: false
 
   - name: draw_debug
     type: bool
@@ -118,12 +130,29 @@ functions:
          //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
          movement_strategy->update();
       }
+
+      if (animation.get_initialized())
+      {
+         animation.update();
+         refresh_bitmap_to_current_animation_frame();
+      }
+      //refresh_bitmap();
+
       //place.position += velocity.position; // <-- this is now managed in the stepper
       //place.rotation += velocity.rotation;
 
       //place.scale += velocity.scale; // TODO: figure out what/how to apply scale velocity
       // TODO: align, size, anchor, flip
 
+      return;
+
+
+  - name: refresh_bitmap_to_current_animation_frame
+    body: |
+      if (animation.get_initialized())
+      {
+         set_bitmap(animation.get_frame_now());
+      }
       return;
 
 
@@ -348,6 +377,42 @@ functions:
       return;
 
 
+  - name: set_animation_playback_rate
+    parameters:
+      - name: multiplier
+        type: float
+        default_argument: 1.0f
+    body: |
+      animation.set_playspeed_multiplier(multiplier);
+      return;
+
+
+  - name: get_animation_finished
+    type: bool
+    body: |
+      return animation.get_finished();
+
+
+  - name: get_current_animation_frame_num
+    type: int
+    body: |
+      return animation.get_frame_num_now();
+
+
+  - name: set_animation
+    parameters:
+      - name: animation_name
+        type: std::string
+        default_argument: '"[unset-animation_name]"'
+    guards: [ animation_book, animation_book->animation_exists(animation_name) ]
+    body: |
+      animation = animation_book->find_animation_by_name(animation_name);
+      animation.initialize();
+      animation.start(); // NOTE: consider if automatic "start" is needed here
+      refresh_bitmap_to_current_animation_frame();
+      return;
+
+
 dependencies:
 
 
@@ -371,5 +436,9 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::Animation
+    headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::Book
+    headers: [ AllegroFlare/FrameAnimation/Book.hpp ]
 
 

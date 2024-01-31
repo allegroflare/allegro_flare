@@ -62,6 +62,12 @@ bool Animation::get_finished() const
 }
 
 
+bool Animation::get_initialized() const
+{
+   return initialized;
+}
+
+
 void Animation::initialize()
 {
    if (!((!initialized)))

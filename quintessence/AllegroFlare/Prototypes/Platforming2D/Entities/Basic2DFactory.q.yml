@@ -124,7 +124,8 @@ functions:
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
       using namespace AllegroFlare::Prototypes::Platforming2D;
 
-      Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D(animation_book);
+      Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D;
+      result->set_animation_book(animation_book);
       result->get_place_ref().position.x = x;
       result->get_place_ref().position.y = y;
       result->get_place_ref().size.x = w;

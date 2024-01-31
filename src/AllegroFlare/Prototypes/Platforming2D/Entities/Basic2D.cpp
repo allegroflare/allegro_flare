@@ -21,15 +21,17 @@ namespace Entities
 {
 
 
-Basic2D::Basic2D()
+Basic2D::Basic2D(AllegroFlare::FrameAnimation::Book* animation_book)
    : AllegroFlare::Prototypes::Platforming2D::Entities::Base(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::TYPE)
    , place({})
    , velocity({})
    , bitmap(nullptr)
    , bitmap_placement({})
    , bitmap_alignment_strategy("top_left")
-   , movement_strategy(nullptr)
    , bitmap_flip_h(false)
+   , movement_strategy(nullptr)
+   , animation_book(animation_book)
+   , animation({})
    , draw_debug(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
 {
@@ -65,15 +67,21 @@ void Basic2D::set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement)
 }
 
 
+void Basic2D::set_bitmap_flip_h(bool bitmap_flip_h)
+{
+   this->bitmap_flip_h = bitmap_flip_h;
+}
+
+
 void Basic2D::set_movement_strategy(AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy)
 {
    this->movement_strategy = movement_strategy;
 }
 
 
-void Basic2D::set_bitmap_flip_h(bool bitmap_flip_h)
+void Basic2D::set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book)
 {
-   this->bitmap_flip_h = bitmap_flip_h;
+   this->animation_book = animation_book;
 }
 
 
@@ -119,15 +127,21 @@ std::string Basic2D::get_bitmap_alignment_strategy() const
 }
 
 
+bool Basic2D::get_bitmap_flip_h() const
+{
+   return bitmap_flip_h;
+}
+
+
 AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* Basic2D::get_movement_strategy() const
 {
    return movement_strategy;
 }
 
 
-bool Basic2D::get_bitmap_flip_h() const
+AllegroFlare::FrameAnimation::Book* Basic2D::get_animation_book() const
 {
-   return bitmap_flip_h;
+   return animation_book;
 }
 
 
@@ -194,12 +208,29 @@ void Basic2D::update()
       //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
       movement_strategy->update();
    }
+
+   if (animation.get_initialized())
+   {
+      animation.update();
+      refresh_bitmap_to_current_animation_frame();
+   }
+   //refresh_bitmap();
+
    //place.position += velocity.position; // <-- this is now managed in the stepper
    //place.rotation += velocity.rotation;
 
    //place.scale += velocity.scale; // TODO: figure out what/how to apply scale velocity
    // TODO: align, size, anchor, flip
 
+   return;
+}
+
+void Basic2D::refresh_bitmap_to_current_animation_frame()
+{
+   if (animation.get_initialized())
+   {
+      set_bitmap(animation.get_frame_now());
+   }
    return;
 }
 
@@ -434,6 +465,45 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
       throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D] error: "
                                "Unrecognized bitmap_alignment_strategy");
    }
+   return;
+}
+
+void Basic2D::set_animation_playback_rate(float multiplier)
+{
+   animation.set_playspeed_multiplier(multiplier);
+   return;
+}
+
+bool Basic2D::get_animation_finished()
+{
+   return animation.get_finished();
+}
+
+int Basic2D::get_current_animation_frame_num()
+{
+   return animation.get_frame_num_now();
+}
+
+void Basic2D::set_animation(std::string animation_name)
+{
+   if (!(animation_book))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::set_animation]: error: guard \"animation_book\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::set_animation: error: guard \"animation_book\" not met");
+   }
+   if (!(animation_book->animation_exists(animation_name)))
+   {
+      std::stringstream error_message;
+      error_message << "[Basic2D::set_animation]: error: guard \"animation_book->animation_exists(animation_name)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Basic2D::set_animation: error: guard \"animation_book->animation_exists(animation_name)\" not met");
+   }
+   animation = animation_book->find_animation_by_name(animation_name);
+   animation.initialize();
+   animation.start(); // NOTE: consider if automatic "start" is needed here
+   refresh_bitmap_to_current_animation_frame();
    return;
 }
 
