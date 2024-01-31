@@ -35,6 +35,8 @@ functions:
     virtual: true
     override: true
     body: |
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::update(); // just updates the movement strategy
+      //Basic2D
       animation.update();
       refresh_bitmap();
 

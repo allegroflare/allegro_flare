@@ -518,6 +518,7 @@ void Screen::update_entities()
    // Update the entities (typically includes movement strategies, velocity updates based on state, etc)
    for (auto &entity : get_current_map_entities())
    {
+      //std::cout << "updating ... " << std::endl;
       entity->update();
    }
 

@@ -188,8 +188,10 @@ void Basic2D::set_bitmap_alignment_strategy(std::string bitmap_alignment_strateg
 
 void Basic2D::update()
 {
+   //std::cout << "  Basic2D::update.." << std::endl;
    if (movement_strategy)
    {
+      //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
       movement_strategy->update();
    }
    //place.position += velocity.position; // <-- this is now managed in the stepper

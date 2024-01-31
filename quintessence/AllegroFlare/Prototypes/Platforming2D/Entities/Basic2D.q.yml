@@ -112,8 +112,10 @@ functions:
     virtual: true
     override: true
     body: |
+      //std::cout << "  Basic2D::update.." << std::endl;
       if (movement_strategy)
       {
+         //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
          movement_strategy->update();
       }
       //place.position += velocity.position; // <-- this is now managed in the stepper

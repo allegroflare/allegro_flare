@@ -44,6 +44,8 @@ AllegroFlare::FrameAnimation::Book* FrameAnimated2D::get_animation_book() const
 
 void FrameAnimated2D::update()
 {
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::update(); // just updates the movement strategy
+   //Basic2D
    animation.update();
    refresh_bitmap();
 
