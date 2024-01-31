@@ -40,7 +40,7 @@ properties:
     type: std::string
     init_with: '"top_left"'
     getter: true
-    setter: true
+    setter: explicit
 
   - name: bitmap_flip_h
     type: bool
@@ -68,6 +68,38 @@ properties:
 
 
 functions:
+
+
+  - name: set_bitmap_alignment_strategy
+    parameters:
+      - name: bitmap_alignment_strategy
+        type: std::string
+        default_argument: '"[unset-bitmap_alignment_strategy]"'
+    body: |
+      static std::set<std::string> valid_bitmap_alignment_strategies = {
+         "top_left",
+         "top_centered",
+         "centered",
+         "bottom_centered",
+         "bottom_centered_edge",
+         "disabled"
+      };
+
+      if (valid_bitmap_alignment_strategies.find(bitmap_alignment_strategy) == valid_bitmap_alignment_strategies.end())
+      {
+         // Not included in list
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_bitmap_alignment_strategy",
+            "Cannot set alignment of an unrecognized alignment named \"" + bitmap_alignment_strategy + "\""
+         );
+      }
+
+      this->bitmap_alignment_strategy = bitmap_alignment_strategy;
+
+      return;
+    body_dependency_symbols:
+      - std::set
+      - AllegroFlare::Logger
 
 
   - name: update
@@ -323,5 +355,7 @@ dependencies:
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

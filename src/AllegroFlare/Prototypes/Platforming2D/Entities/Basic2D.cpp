@@ -2,9 +2,11 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -59,12 +61,6 @@ void Basic2D::set_bitmap(ALLEGRO_BITMAP* bitmap)
 void Basic2D::set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement)
 {
    this->bitmap_placement = bitmap_placement;
-}
-
-
-void Basic2D::set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy)
-{
-   this->bitmap_alignment_strategy = bitmap_alignment_strategy;
 }
 
 
@@ -151,6 +147,31 @@ AllegroFlare::Placement2D &Basic2D::get_bitmap_placement_ref()
    return bitmap_placement;
 }
 
+
+void Basic2D::set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy)
+{
+   static std::set<std::string> valid_bitmap_alignment_strategies = {
+      "top_left",
+      "top_centered",
+      "centered",
+      "bottom_centered",
+      "bottom_centered_edge",
+      "disabled"
+   };
+
+   if (valid_bitmap_alignment_strategies.find(bitmap_alignment_strategy) == valid_bitmap_alignment_strategies.end())
+   {
+      // Not included in list
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_bitmap_alignment_strategy",
+         "Cannot set alignment of an unrecognized alignment named \"" + bitmap_alignment_strategy + "\""
+      );
+   }
+
+   this->bitmap_alignment_strategy = bitmap_alignment_strategy;
+
+   return;
+}
 
 void Basic2D::update()
 {

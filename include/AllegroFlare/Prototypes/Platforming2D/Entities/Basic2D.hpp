@@ -45,7 +45,6 @@ namespace AllegroFlare
                void set_velocity(AllegroFlare::Placement2D velocity);
                void set_bitmap(ALLEGRO_BITMAP* bitmap);
                void set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement);
-               void set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy);
                void set_bitmap_flip_h(bool bitmap_flip_h);
                void set_draw_debug(bool draw_debug);
                void set_debug_box_color(ALLEGRO_COLOR debug_box_color);
@@ -60,6 +59,7 @@ namespace AllegroFlare
                AllegroFlare::Placement2D &get_place_ref();
                AllegroFlare::Placement2D &get_velocity_ref();
                AllegroFlare::Placement2D &get_bitmap_placement_ref();
+               void set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy="[unset-bitmap_alignment_strategy]");
                virtual void update() override;
                virtual void on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result={});
                virtual void draw() override;
