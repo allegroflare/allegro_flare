@@ -168,12 +168,45 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
+AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_enemy(std::string map_name, float x, float y, float width, float height) const
+{
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   // create the enemy
+   AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
+   created_entity->get_place_ref().size.x = width;
+   created_entity->get_place_ref().size.y = height;
+   created_entity->get_place_ref().position.x = x;
+   created_entity->get_place_ref().position.y = y;
+
+   // create the movement strategy
+   //AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft* movement_strategy =
+   //new AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft(created_entity);
+
+   // assign the movement strategy to the entity
+   //created_entity->set_movement_strategy(movement_strategy);
+
+   // set as "damages_player"
+   // created_entity->set("damages_player"); // <-- soon
+
+   // give it a "enemy" debug box color
+   created_entity->set_debug_box_color(enemy_debug_box_color);
+
+   created_entity->set(ON_MAP_NAME, map_name);
+
+   // return the entity
+   if (init_entities_drawing_debug) created_entity->set_draw_debug(true);
+   return created_entity;
+}
+
 AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_enemy_move_left(std::string map_name, float x, float y, float width, float height) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    // create the enemy
-   AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
+      new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
    created_entity->get_place_ref().size.x = width;
    created_entity->get_place_ref().size.y = height;
    created_entity->get_place_ref().position.x = x;
