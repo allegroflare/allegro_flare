@@ -175,7 +175,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
-   CAPTURE__draw__will_render_the_different_alignment_strategies_as_expected)
+   FOCUS__CAPTURE__draw__will_render_the_different_alignment_strategies_as_expected)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    basic2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
@@ -185,27 +185,31 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
    basic2d_entity.get_place_ref().size.y *= 0.75;
    basic2d_entity.get_place_ref().scale = {2.0, 2.0};
 
-   basic2d_entity.get_place_ref().position = {1920/8*1, 1080/2};
+   basic2d_entity.get_place_ref().position = {1920/10*1, 1080/2};
    basic2d_entity.set_bitmap_alignment_strategy("top_left");
    basic2d_entity.draw();
 
-   basic2d_entity.get_place_ref().position = {1920/8*3, 1080/2};
+   basic2d_entity.get_place_ref().position = {1920/10*3, 1080/2};
    basic2d_entity.set_bitmap_alignment_strategy("centered");
    basic2d_entity.draw();
 
-   basic2d_entity.get_place_ref().position = {1920/8*5, 1080/2};
+   basic2d_entity.get_place_ref().position = {1920/10*5, 1080/2};
    basic2d_entity.set_bitmap_alignment_strategy("bottom_centered");
    basic2d_entity.draw();
 
-   basic2d_entity.get_place_ref().position = {1920/8*7, 1080/2};
+   basic2d_entity.get_place_ref().position = {1920/10*7, 1080/2};
    basic2d_entity.set_bitmap_alignment_strategy("bottom_centered_edge");
+   basic2d_entity.draw();
+
+   basic2d_entity.get_place_ref().position = {1920/10*9, 1080/2};
+   basic2d_entity.set_bitmap_alignment_strategy("top_centered");
    basic2d_entity.draw();
 
    al_draw_line(0, 1080/2, 1920, 1080/2, ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, 1.0f);
    //al_draw_line(0, 1080/2, 1920, 1080/2, ALLEGRO_COLOR{1, 1, 0, 1});
 
    al_flip_display();
-   //sleep(4);
+   sleep(4);
 
    SUCCEED(); // TODO: pick pixel
 }
@@ -223,6 +227,8 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
    basic2d_entity.get_place_ref().size.x *= 0.75;
    basic2d_entity.get_place_ref().size.y *= 0.75;
    basic2d_entity.get_place_ref().scale = {2.0, 2.0};
+
+   //int num_examples = 8;
 
    basic2d_entity.get_bitmap_placement_ref().scale = { 1.5, 1.5 };
    basic2d_entity.get_bitmap_placement_ref().rotation = 0.2;
