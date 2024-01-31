@@ -28,6 +28,7 @@ Basic2D::Basic2D()
    , bitmap(nullptr)
    , bitmap_placement({})
    , bitmap_alignment_strategy("top_left")
+   , movement_strategy(nullptr)
    , bitmap_flip_h(false)
    , draw_debug(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
@@ -61,6 +62,12 @@ void Basic2D::set_bitmap(ALLEGRO_BITMAP* bitmap)
 void Basic2D::set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement)
 {
    this->bitmap_placement = bitmap_placement;
+}
+
+
+void Basic2D::set_movement_strategy(AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy)
+{
+   this->movement_strategy = movement_strategy;
 }
 
 
@@ -109,6 +116,12 @@ AllegroFlare::Placement2D Basic2D::get_bitmap_placement() const
 std::string Basic2D::get_bitmap_alignment_strategy() const
 {
    return bitmap_alignment_strategy;
+}
+
+
+AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* Basic2D::get_movement_strategy() const
+{
+   return movement_strategy;
 }
 
 
@@ -175,6 +188,10 @@ void Basic2D::set_bitmap_alignment_strategy(std::string bitmap_alignment_strateg
 
 void Basic2D::update()
 {
+   if (movement_strategy)
+   {
+      movement_strategy->update();
+   }
    //place.position += velocity.position; // <-- this is now managed in the stepper
    //place.rotation += velocity.rotation;
 

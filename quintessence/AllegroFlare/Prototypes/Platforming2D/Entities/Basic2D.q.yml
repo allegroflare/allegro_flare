@@ -42,6 +42,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: movement_strategy
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: bitmap_flip_h
     type: bool
     init_with: false
@@ -106,6 +112,10 @@ functions:
     virtual: true
     override: true
     body: |
+      if (movement_strategy)
+      {
+         movement_strategy->update();
+      }
       //place.position += velocity.position; // <-- this is now managed in the stepper
       //place.rotation += velocity.rotation;
 
@@ -357,5 +367,7 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp ]
 
 

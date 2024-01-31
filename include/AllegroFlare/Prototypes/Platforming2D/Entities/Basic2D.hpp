@@ -4,6 +4,7 @@
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <string>
@@ -29,6 +30,7 @@ namespace AllegroFlare
                ALLEGRO_BITMAP* bitmap;
                AllegroFlare::Placement2D bitmap_placement;
                std::string bitmap_alignment_strategy;
+               AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy;
                bool bitmap_flip_h;
                bool draw_debug;
                ALLEGRO_COLOR debug_box_color;
@@ -45,6 +47,7 @@ namespace AllegroFlare
                void set_velocity(AllegroFlare::Placement2D velocity);
                void set_bitmap(ALLEGRO_BITMAP* bitmap);
                void set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement);
+               void set_movement_strategy(AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy);
                void set_bitmap_flip_h(bool bitmap_flip_h);
                void set_draw_debug(bool draw_debug);
                void set_debug_box_color(ALLEGRO_COLOR debug_box_color);
@@ -53,6 +56,7 @@ namespace AllegroFlare
                ALLEGRO_BITMAP* get_bitmap() const;
                AllegroFlare::Placement2D get_bitmap_placement() const;
                std::string get_bitmap_alignment_strategy() const;
+               AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* get_movement_strategy() const;
                bool get_bitmap_flip_h() const;
                bool get_draw_debug() const;
                ALLEGRO_COLOR get_debug_box_color() const;

@@ -3185,6 +3185,22 @@
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Flapping",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/HoppingLeft",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveInDirection",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveLeft",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveRight",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
+  ],
   "AllegroFlare/vec2d": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
@@ -3264,21 +3280,6 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
-  ],
-  "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Flapping",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/HoppingLeft",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveInDirection",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveLeft",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveRight",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
