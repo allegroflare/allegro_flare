@@ -115,6 +115,12 @@ AllegroFlare::BitmapBin* Screen::get_bitmap_bin() const
 }
 
 
+AllegroFlare::EventEmitter* Screen::get_event_emitter() const
+{
+   return event_emitter;
+}
+
+
 std::map<std::string, std::string> Screen::get_map_dictionary() const
 {
    return map_dictionary;

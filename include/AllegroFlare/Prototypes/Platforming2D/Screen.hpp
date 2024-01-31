@@ -78,6 +78,7 @@ namespace AllegroFlare
             void set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback);
             void set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
+            AllegroFlare::EventEmitter* get_event_emitter() const;
             std::map<std::string, std::string> get_map_dictionary() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_player_controlled_entity() const;

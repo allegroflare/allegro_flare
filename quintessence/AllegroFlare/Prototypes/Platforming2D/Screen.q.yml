@@ -22,6 +22,7 @@ properties:
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     constructor_arg: true
+    getter: true
     setter: false
 
   - name: currently_active_map
