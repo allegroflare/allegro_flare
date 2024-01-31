@@ -176,6 +176,17 @@ functions:
         default_argument: '{}'
     guards: [ collision_step_result ]
     body: |
+      if (movement_strategy)
+      {
+         //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
+         movement_strategy->on_collision_update(
+            previous_place_position,
+            previous_velocity_position,
+            new_place_position,
+            new_velocity_position,
+            collision_step_result
+         );
+      }
       return;
 
 

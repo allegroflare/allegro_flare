@@ -2,7 +2,9 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp>
 
-
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -34,6 +36,18 @@ void Base::initialize()
 
 void Base::update()
 {
+   return;
+}
+
+void Base::on_collision_update(AllegroFlare::Vec2D previous_place_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_place_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result)
+{
+   if (!(collision_step_result))
+   {
+      std::stringstream error_message;
+      error_message << "[Base::on_collision_update]: error: guard \"collision_step_result\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Base::on_collision_update: error: guard \"collision_step_result\" not met");
+   }
    return;
 }
 

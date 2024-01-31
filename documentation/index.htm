@@ -368,7 +368,6 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.q.yml</a></li>
@@ -22855,12 +22854,20 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">bitmap_flip_h</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">movement_strategy</td>
   <td class="property">AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base*</td>
 </tr>
 <tr>
-  <td class="property">bitmap_flip_h</td>
-  <td class="property">bool</td>
+  <td class="property">animation_book</td>
+  <td class="property">AllegroFlare::FrameAnimation::Book*</td>
+</tr>
+<tr>
+  <td class="property">animation</td>
+  <td class="property">AllegroFlare::FrameAnimation::Animation</td>
 </tr>
 <tr>
   <td class="property">draw_debug</td>
@@ -22884,6 +22891,9 @@ table td
   <td class="method">update()</td>
 </tr>
 <tr>
+  <td class="method">refresh_bitmap_to_current_animation_frame()</td>
+</tr>
+<tr>
   <td class="method">on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;* collision_step_result={})</td>
 </tr>
 <tr>
@@ -22897,6 +22907,18 @@ table td
 </tr>
 <tr>
   <td class="private_method">assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement=nullptr, ALLEGRO_BITMAP* bitmap=nullptr, float* bitmap_x=nullptr, float* bitmap_y=nullptr, float* bitmap_align_x=nullptr, float* bitmap_align_y=nullptr, std::string bitmap_alignment_strategy=&quot;centered&quot;)</td>
+</tr>
+<tr>
+  <td class="method">set_animation_playback_rate(float multiplier=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">get_animation_finished()</td>
+</tr>
+<tr>
+  <td class="method">get_current_animation_frame_num()</td>
+</tr>
+<tr>
+  <td class="method">set_animation(std::string animation_name=&quot;[unset-animation_name]&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -22930,6 +22952,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Book&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Book.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -23141,75 +23169,6 @@ table td
 </ul>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.q.yml</h3>
-    <h4>Overview<h4>
-    <h3>Properties</h3>
-<div class="property-box properties">     <table>
-<tr>
-  <td class="property">animation_book</td>
-  <td class="property">AllegroFlare::FrameAnimation::Book*</td>
-</tr>
-<tr>
-  <td class="property">animation</td>
-  <td class="property">AllegroFlare::FrameAnimation::Animation</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-</div>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-<tr>
-  <td class="method">update()</td>
-</tr>
-<tr>
-  <td class="method">refresh_bitmap()</td>
-</tr>
-<tr>
-  <td class="method">set_animation_playback_rate(float multiplier=1.0f)</td>
-</tr>
-<tr>
-  <td class="method">get_animation_finished()</td>
-</tr>
-<tr>
-  <td class="method">get_current_animation_frame_num()</td>
-</tr>
-<tr>
-  <td class="method">set_animation(std::string animation_name=&quot;[unset-animation_name]&quot;)</td>
-</tr>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::EntityFlagNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Book&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Book.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<ul>
-  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -23300,9 +23259,20 @@ table td
 <tr>
   <td class="method">update()</td>
 </tr>
+<tr>
+  <td class="method">on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;* collision_step_result={})</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -36706,7 +36676,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
@@ -36761,7 +36730,6 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
@@ -36809,6 +36777,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -36830,7 +36799,6 @@ table td
     "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange",
@@ -36971,7 +36939,6 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/PauseScreen",
@@ -37794,7 +37761,6 @@ table td
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Entities/Basic2D"
@@ -38447,7 +38413,7 @@ table td
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/FrameAnimation/Errors": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
@@ -38986,7 +38952,8 @@ table td
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo/CollidingBlockEdge": [
     "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
@@ -39261,7 +39228,6 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/EntityFlagNames": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/HoppingLeft",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
@@ -39283,6 +39249,10 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
+  ],
+  "AllegroFlare/FrameAnimation/Book": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
   "AllegroFlare/vec2d": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
@@ -39348,10 +39318,6 @@ table td
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
-  ],
-  "AllegroFlare/FrameAnimation/Book": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"

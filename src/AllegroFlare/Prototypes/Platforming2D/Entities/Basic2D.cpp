@@ -243,6 +243,17 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, A
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2D::on_collision_update: error: guard \"collision_step_result\" not met");
    }
+   if (movement_strategy)
+   {
+      //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
+      movement_strategy->on_collision_update(
+         previous_place_position,
+         previous_velocity_position,
+         new_place_position,
+         new_velocity_position,
+         collision_step_result
+      );
+   }
    return;
 }
 
