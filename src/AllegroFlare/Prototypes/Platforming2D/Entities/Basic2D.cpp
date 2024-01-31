@@ -357,6 +357,13 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
       *bitmap_align_x = 0;
       *bitmap_align_y = 0;
    }
+   else if (bitmap_alignment_strategy == "top_centered") // as in a hanging on the ceiling
+   {
+      *bitmap_x = parent_placement->size.x * 0.5;
+      *bitmap_y = 0;
+      *bitmap_align_x = 0.5;
+      *bitmap_align_y = 0;
+   }
    else if (bitmap_alignment_strategy == "centered") // as in a schmup
    {
       *bitmap_x = parent_placement->size.x * 0.5;
