@@ -27,6 +27,7 @@ namespace AllegroFlare
             std::string const TYPE = "type";
             std::string const GOALPOST = "goalpost";
             std::string const DOOR = "door";
+            std::string const TRACKS_PLAYER_CHARACTER_XY = "tracks_player_character_xy";
 
             std::string const ON_MAP_NAME = "on_map_name";
             std::string const MAP_NAME = "map_name";

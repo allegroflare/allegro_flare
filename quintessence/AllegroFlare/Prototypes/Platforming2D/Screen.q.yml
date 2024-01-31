@@ -463,6 +463,25 @@ methods:
       for (auto &entity : get_current_map_entities())
       {
          //std::cout << "updating ... " << std::endl;
+         // Could this be a bad type conversion?
+         if (entity->exists(TRACKS_PLAYER_CHARACTER_XY))
+         {
+            if (!player_controlled_entity)
+            {
+               entity->remove("player_character_x");
+               entity->remove("player_character_y");
+               AllegroFlare::Logger::warn_from_once(
+                  "AllegroFlare::Prototypes::Platforming2D::Screen::update_entities",
+                  "Entity is tagged with TRACKS_PLAYER_CHARACTER_XY tag, but on refreshing the value, there is no "
+                     "player_controlled_entity"
+               );
+            }
+            else
+            {
+               entity->set("player_character_x", player_controlled_entity->get_place_ref().position.x);
+               entity->set("player_character_y", player_controlled_entity->get_place_ref().position.y);
+            }
+         }
          entity->update();
       }
 
