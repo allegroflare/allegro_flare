@@ -10,11 +10,3 @@ TEST(AllegroFlare_Prototypes_Platforming2D_MapDictionaryListingTest, can_be_crea
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_MapDictionaryListingTest, run__returns_the_expected_response)
-{
-   AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing map_dictionary_listing;
-   std::string expected_string = "Hello World!";
-   EXPECT_EQ(expected_string, map_dictionary_listing.run());
-}
-
-

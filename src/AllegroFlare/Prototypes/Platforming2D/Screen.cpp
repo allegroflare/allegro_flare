@@ -337,7 +337,7 @@ void Screen::initialize_maps()
          std::get<1>(map_dictionary_entry);
 
       std::string map_filename = map_dictionary_listing.get_tmj_filename();
-      std::string map_tile_atlas_bitmap_identifier = "tiles_dungeon_v1.1.png";
+      std::string map_tile_atlas_bitmap_identifier = map_dictionary_listing.get_tile_atlas_bitmap_identifier();
       //std::string map_tile_atlas_bitmap_identifier = std::get<1>(map_dictionary_entry);
 
       // Create the tile map

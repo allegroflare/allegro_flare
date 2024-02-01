@@ -8,4 +8,11 @@ properties:
     getter: true
     setter: true
 
+  - name: tile_atlas_bitmap_identifier
+    type: std::string
+    init_with: '"[unset-tile_atlas_bitmap_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
