@@ -18,10 +18,12 @@ namespace Platforming2D
 {
 
 
-TMJMeshLoader::TMJMeshLoader(AllegroFlare::BitmapBin* bitmap_bin, std::string tmj_filename, std::string bitmap_atlas_filename)
+TMJMeshLoader::TMJMeshLoader(AllegroFlare::BitmapBin* bitmap_bin, std::string tmj_filename, std::string tile_atlas_bitmap_identifier, int tile_atlas_tile_width, int tile_atlas_tile_height)
    : bitmap_bin(bitmap_bin)
    , tmj_filename(tmj_filename)
-   , bitmap_atlas_filename(bitmap_atlas_filename)
+   , tile_atlas_bitmap_identifier(tile_atlas_bitmap_identifier)
+   , tile_atlas_tile_width(tile_atlas_tile_width)
+   , tile_atlas_tile_height(tile_atlas_tile_height)
    , tile_atlas(nullptr)
    , mesh(nullptr)
    , collision_tile_map(nullptr)
@@ -197,12 +199,13 @@ bool TMJMeshLoader::load()
 
    // ##
    // create the atlas
-   int tile_width = 16;
-   int tile_height = 16;
+   // TODO: These will need to be passed in eventually:
+   //int tile_width = 16;
+   //int tile_height = 16;
 
    AllegroFlare::TileMaps::PrimMeshAtlas *created_tile_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
-   ALLEGRO_BITMAP *tile_map_bitmap = bitmap_bin->operator[](bitmap_atlas_filename);
-   created_tile_atlas->set_bitmap_filename(bitmap_atlas_filename);
+   ALLEGRO_BITMAP *tile_map_bitmap = bitmap_bin->operator[](tile_atlas_bitmap_identifier);
+   created_tile_atlas->set_bitmap_filename(tile_atlas_bitmap_identifier);
 
    bool scaled_and_extruded = true;
    if (scaled_and_extruded)
@@ -212,12 +215,12 @@ bool TMJMeshLoader::load()
       ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
          AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
       created_tile_atlas->duplicate_bitmap_and_load(
-         scaled_extruded_tile_map_bitmap, tile_width*scale, tile_height*scale, 1
+         scaled_extruded_tile_map_bitmap, tile_atlas_tile_width*scale, tile_atlas_tile_height*scale, 1
       );
    }
    else
    {
-      created_tile_atlas->duplicate_bitmap_and_load(tile_map_bitmap, tile_width, tile_height);
+      created_tile_atlas->duplicate_bitmap_and_load(tile_map_bitmap, tile_atlas_tile_width, tile_atlas_tile_height);
    }
 
 
@@ -225,7 +228,15 @@ bool TMJMeshLoader::load()
    // create the mesh
    int num_columns = tmx_width;
    int num_rows = tmx_height;
-   AllegroFlare::TileMaps::PrimMesh* created_mesh = new AllegroFlare::TileMaps::PrimMesh(created_tile_atlas, num_columns, num_rows, tile_width, tile_height);
+   AllegroFlare::TileMaps::PrimMesh* created_mesh = new AllegroFlare::TileMaps::PrimMesh(
+         created_tile_atlas,
+         num_columns,
+         num_rows,
+         tile_atlas_tile_width, // TODO: Verify if this value is correlated only to the tile atlas, or the mesh's
+                                // tile width, both? or what the relationship is between them.
+         tile_atlas_tile_height // TODO: Verify if this value is correlated only to the tile atlas, or the mesh's
+                                // tile height, both? or what the relationship is between them.
+      );
    created_mesh->initialize();
 
 

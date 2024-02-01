@@ -601,18 +601,18 @@ functions:
     type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     const: true
     parameters:
-      - name: map_json_filename
-        type: std::string
-        default_argument: '"[a-map-tmj-filename-that-is-not-set]"'
       - name: map_name
         type: std::string
         default_argument: '"[map-name-not-set]"'
+      - name: map_json_filename
+        type: std::string
+        default_argument: '"[a-map-tmj-filename-that-is-not-set]"'
       - name: tile_atlas_bitmap_identifier
         type: std::string
-        default_argument: '"[map-name-not-set]"'
+        default_argument: '"[unset-tile_atlas_bitmap_identifier]"'
     guards: [ bitmap_bin ]
     body: |
-      // TODO: Fix the argument order of this function
+      // TODO: Note that "tile_atlas_bitmap_identifier" will need to be paired with more data, such as tile size
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
       AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;

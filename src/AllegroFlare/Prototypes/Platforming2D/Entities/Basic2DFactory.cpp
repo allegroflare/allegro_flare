@@ -411,7 +411,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_filename, std::string map_name, std::string tile_atlas_bitmap_identifier) const
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_name, std::string map_json_filename, std::string tile_atlas_bitmap_identifier) const
 {
    if (!(bitmap_bin))
    {
@@ -420,7 +420,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2DFactory::create_tile_map: error: guard \"bitmap_bin\" not met");
    }
-   // TODO: Fix the argument order of this function
+   // TODO: Note that "tile_atlas_bitmap_identifier" will need to be paired with more data, such as tile size
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;

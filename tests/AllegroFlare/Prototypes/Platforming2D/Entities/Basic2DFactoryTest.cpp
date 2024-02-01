@@ -102,7 +102,11 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    std::string data_folder_path = TEST_FIXTURES_PATH;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2d_factory(&get_bitmap_bin_ref());
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_tile_map =
-      basic2d_factory.create_tile_map(TEST_FIXTURES_PATH "maps/map1-0x.tmj", "map_a");
+      basic2d_factory.create_tile_map(
+         "map_a",
+         TEST_FIXTURES_PATH "maps/map1-0x.tmj",
+         "tiles_dungeon_v1.1.png"
+      );
 
    ASSERT_NE(nullptr, created_tile_map);
    ASSERT_NE(nullptr, created_tile_map->get_tile_atlas());
