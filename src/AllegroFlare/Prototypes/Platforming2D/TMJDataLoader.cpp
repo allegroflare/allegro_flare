@@ -205,6 +205,35 @@ bool TMJDataLoader::load()
    tile_height = j["tileheight"]; // get height
 
 
+   // Obtain the list of "tilesets" (note that multiple tilesets might be used. In the tile data, the value used
+   // on each tile is relative to the "firstgid" for that tileset.
+   std::vector<std::pair<std::string, int>> tilesets_info; // *source*, *firstgid*
+   std::set<int> tilesets_gids;
+   if (!j.contains("tilesets"))
+   {
+      // TODO: Test this throw
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader",
+         "Expecting tmj file to contain a root-level \"tilesets\" property when loading \""
+            + filename + "\", but it does not exist."
+      );
+   }
+   else
+   {
+      // TODO: Validate "tilesets" is an array
+      for (auto &tileset : j["tilesets"].items())
+      {
+         int firstgid = tileset.value()["firstgid"];
+
+         tilesets_info.push_back({
+            tileset.value()["source"],
+            firstgid
+         });
+         tilesets_gids.insert(firstgid);
+      }
+   }
+
+
    // Get first layer that is of type "tilelayer" (and not named "collision")
 
    bool tilelayer_type_found = false;
