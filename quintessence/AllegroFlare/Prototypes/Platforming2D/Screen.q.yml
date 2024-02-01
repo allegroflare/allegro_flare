@@ -39,7 +39,7 @@ properties:
     setter: true
 
   - name: map_dictionary
-    type: std::map<std::string, std::string>
+    type: std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing>
     init_with: '{}'
     getter: true
     setter: false
@@ -154,7 +154,7 @@ methods:
   - name: set_map_dictionary
     parameters:
       - name: map_dictionary
-        type: std::map<std::string, std::string>
+        type: std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing>
         default_argument: '{}'
     guards: [ (!initialized) ]
     body: |
@@ -295,7 +295,12 @@ methods:
       for (auto &map_dictionary_entry : map_dictionary)
       {
          std::string map_name = std::get<0>(map_dictionary_entry);
-         std::string map_filename = std::get<1>(map_dictionary_entry);
+         //std::string map_filename = std::get<1>(map_dictionary_entry);
+         AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing map_dictionary_listing = 
+         //std::string map_filename =
+            std::get<1>(map_dictionary_entry);
+
+         std::string map_filename = map_dictionary_listing.get_tmj_filename();
          std::string map_tile_atlas_bitmap_identifier = "tiles_dungeon_v1.1.png";
          //std::string map_tile_atlas_bitmap_identifier = std::get<1>(map_dictionary_entry);
 
@@ -1310,5 +1315,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
     headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing
+    headers: [ AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.hpp ]
 
 

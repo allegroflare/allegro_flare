@@ -10,6 +10,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
@@ -41,7 +42,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool;
-            std::map<std::string, std::string> map_dictionary;
+            std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary;
             float gravity;
             bool gravity_reversed;
             AllegroFlare::Camera2D camera;
@@ -79,7 +80,7 @@ namespace AllegroFlare
             void set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::EventEmitter* get_event_emitter() const;
-            std::map<std::string, std::string> get_map_dictionary() const;
+            std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> get_map_dictionary() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_player_controlled_entity() const;
             bool get_show_tile_mesh() const;
@@ -88,7 +89,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
             std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > get_create_entities_from_map_callback() const;
             void* get_create_entities_from_map_callback_user_data() const;
-            void set_map_dictionary(std::map<std::string, std::string> map_dictionary={});
+            void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary={});
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");

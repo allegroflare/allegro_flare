@@ -1,0 +1,11 @@
+properties:
+
+
+  - name: tmj_filename
+    type: std::string
+    init_with: '"[unset-tmj_filename]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+

@@ -121,7 +121,7 @@ AllegroFlare::EventEmitter* Screen::get_event_emitter() const
 }
 
 
-std::map<std::string, std::string> Screen::get_map_dictionary() const
+std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> Screen::get_map_dictionary() const
 {
    return map_dictionary;
 }
@@ -175,7 +175,7 @@ void* Screen::get_create_entities_from_map_callback_user_data() const
 }
 
 
-void Screen::set_map_dictionary(std::map<std::string, std::string> map_dictionary)
+void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary)
 {
    if (!((!initialized)))
    {
@@ -331,7 +331,12 @@ void Screen::initialize_maps()
    for (auto &map_dictionary_entry : map_dictionary)
    {
       std::string map_name = std::get<0>(map_dictionary_entry);
-      std::string map_filename = std::get<1>(map_dictionary_entry);
+      //std::string map_filename = std::get<1>(map_dictionary_entry);
+      AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing map_dictionary_listing = 
+      //std::string map_filename =
+         std::get<1>(map_dictionary_entry);
+
+      std::string map_filename = map_dictionary_listing.get_tmj_filename();
       std::string map_tile_atlas_bitmap_identifier = "tiles_dungeon_v1.1.png";
       //std::string map_tile_atlas_bitmap_identifier = std::get<1>(map_dictionary_entry);
 

@@ -3324,6 +3324,9 @@
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"
