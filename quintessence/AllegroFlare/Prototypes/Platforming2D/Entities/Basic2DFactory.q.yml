@@ -607,8 +607,12 @@ functions:
       - name: map_name
         type: std::string
         default_argument: '"[map-name-not-set]"'
+      - name: tile_atlas_bitmap_identifier
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
     guards: [ bitmap_bin ]
     body: |
+      // TODO: Fix the argument order of this function
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
       AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;
@@ -617,7 +621,11 @@ functions:
       AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr;
       created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
       
-      AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
+      AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(
+         bitmap_bin,
+         map_json_filename,
+         tile_atlas_bitmap_identifier
+      );
       tmj_mesh_loader.load();
 
       tile_atlas = tmj_mesh_loader.get_tile_atlas();

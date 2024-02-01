@@ -18,12 +18,10 @@ namespace Platforming2D
 {
 
 
-std::string TMJMeshLoader::BITMAP_ATLAS_FILENAME = "tiles_dungeon_v1.1.png";
-
-
-TMJMeshLoader::TMJMeshLoader(AllegroFlare::BitmapBin* bitmap_bin, std::string tmj_filename)
+TMJMeshLoader::TMJMeshLoader(AllegroFlare::BitmapBin* bitmap_bin, std::string tmj_filename, std::string bitmap_atlas_filename)
    : bitmap_bin(bitmap_bin)
    , tmj_filename(tmj_filename)
+   , bitmap_atlas_filename(bitmap_atlas_filename)
    , tile_atlas(nullptr)
    , mesh(nullptr)
    , collision_tile_map(nullptr)
@@ -203,8 +201,8 @@ bool TMJMeshLoader::load()
    int tile_height = 16;
 
    AllegroFlare::TileMaps::PrimMeshAtlas *created_tile_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
-   ALLEGRO_BITMAP *tile_map_bitmap = bitmap_bin->operator[](BITMAP_ATLAS_FILENAME);
-   created_tile_atlas->set_bitmap_filename(BITMAP_ATLAS_FILENAME);
+   ALLEGRO_BITMAP *tile_map_bitmap = bitmap_bin->operator[](bitmap_atlas_filename);
+   created_tile_atlas->set_bitmap_filename(bitmap_atlas_filename);
 
    bool scaled_and_extruded = true;
    if (scaled_and_extruded)

@@ -411,7 +411,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_filename, std::string map_name) const
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_json_filename, std::string map_name, std::string tile_atlas_bitmap_identifier) const
 {
    if (!(bitmap_bin))
    {
@@ -420,6 +420,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2DFactory::create_tile_map: error: guard \"bitmap_bin\" not met");
    }
+   // TODO: Fix the argument order of this function
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;
@@ -428,7 +429,11 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr;
    created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
 
-   AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(bitmap_bin, map_json_filename);
+   AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(
+      bitmap_bin,
+      map_json_filename,
+      tile_atlas_bitmap_identifier
+   );
    tmj_mesh_loader.load();
 
    tile_atlas = tmj_mesh_loader.get_tile_atlas();

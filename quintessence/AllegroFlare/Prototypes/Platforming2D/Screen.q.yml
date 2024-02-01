@@ -296,10 +296,16 @@ methods:
       {
          std::string map_name = std::get<0>(map_dictionary_entry);
          std::string map_filename = std::get<1>(map_dictionary_entry);
+         std::string map_tile_atlas_bitmap_identifier = "tiles_dungeon_v1.1.png";
+         //std::string map_tile_atlas_bitmap_identifier = std::get<1>(map_dictionary_entry);
 
          // Create the tile map
          AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =
-            factory.create_tile_map(map_filename, map_name);
+            factory.create_tile_map(
+               map_filename,
+               map_name,
+               map_tile_atlas_bitmap_identifier
+            );
          entity_pool.push_back(created_map);
 
          // Parse the map and load entities
