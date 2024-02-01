@@ -56,6 +56,10 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: normalize_tile_data_from_tilesets
+    type: bool
+    init_with: true
+
   - name: loaded
     type: bool
     init_with: false
@@ -177,6 +181,7 @@ functions:
          for (auto &tileset : j["tilesets"].items())
          {
             int firstgid = tileset.value()["firstgid"];
+            //firstgid -= 1; // NOTE: note the -1 here
 
             tilesets_info.push_back({
                tileset.value()["source"],
@@ -205,6 +210,13 @@ functions:
       layer_num_columns = tilelayer["width"];
       layer_num_rows = tilelayer["height"];
       layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+      if (normalize_tile_data_from_tilesets)
+      {
+         layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+               layer_tile_data,
+               tilesets_gids
+            );
+      }
 
 
 
@@ -242,6 +254,14 @@ functions:
       collision_layer_num_rows = collision_tilelayer["height"];
       collision_layer_tile_data = collision_tilelayer["data"].get<std::vector<int>>();
 
+      if (normalize_tile_data_from_tilesets)
+      {
+         collision_layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+               collision_layer_tile_data,
+               tilesets_gids
+            );
+      }
+
 
       loaded = true;
 
@@ -254,6 +274,31 @@ functions:
       - nlohmann::json
       - std::ifstream
       - AllegroFlare::Logger
+
+
+  - name: normalize_tile_data_to_tilesets_firstgids
+    type: std::vector<int>
+    parameters:
+      - name: data
+        type: std::vector<int>
+        default_argument: '{}'
+      - name: tilesets_firstgids
+        type: std::set<int>
+        default_argument: '{}'
+    body: |
+      for (auto &datum : data)
+      {
+         for (auto rit = tilesets_firstgids.rbegin(); rit != tilesets_firstgids.rend(); ++rit)
+         {
+            if (datum >= *rit)
+            {
+               datum = datum - *rit + 1;
+               goto out;
+            }
+         }
+         out:
+      }
+      return data;
 
 
   - name: file_exists

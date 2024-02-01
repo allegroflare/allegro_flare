@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -25,6 +26,7 @@ namespace AllegroFlare
             int collision_layer_num_columns;
             int collision_layer_num_rows;
             std::vector<int> collision_layer_tile_data;
+            bool normalize_tile_data_from_tilesets;
             bool loaded;
             static bool file_exists(std::string filename="[unset-filename]");
 
@@ -47,6 +49,7 @@ namespace AllegroFlare
             int get_collision_layer_num_rows();
             std::vector<int> get_collision_layer_tile_data();
             bool load();
+            std::vector<int> normalize_tile_data_to_tilesets_firstgids(std::vector<int> data={}, std::set<int> tilesets_firstgids={});
          };
       }
    }

@@ -31,6 +31,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , collision_layer_num_columns(0)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
+   , normalize_tile_data_from_tilesets(true)
    , loaded(false)
 {
 }
@@ -224,6 +225,7 @@ bool TMJDataLoader::load()
       for (auto &tileset : j["tilesets"].items())
       {
          int firstgid = tileset.value()["firstgid"];
+         //firstgid -= 1; // NOTE: note the -1 here
 
          tilesets_info.push_back({
             tileset.value()["source"],
@@ -252,6 +254,13 @@ bool TMJDataLoader::load()
    layer_num_columns = tilelayer["width"];
    layer_num_rows = tilelayer["height"];
    layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+   if (normalize_tile_data_from_tilesets)
+   {
+      layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+            layer_tile_data,
+            tilesets_gids
+         );
+   }
 
 
 
@@ -289,12 +298,37 @@ bool TMJDataLoader::load()
    collision_layer_num_rows = collision_tilelayer["height"];
    collision_layer_tile_data = collision_tilelayer["data"].get<std::vector<int>>();
 
+   if (normalize_tile_data_from_tilesets)
+   {
+      collision_layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+            collision_layer_tile_data,
+            tilesets_gids
+         );
+   }
+
 
    loaded = true;
 
    i.close();
 
    return true;
+}
+
+std::vector<int> TMJDataLoader::normalize_tile_data_to_tilesets_firstgids(std::vector<int> data, std::set<int> tilesets_firstgids)
+{
+   for (auto &datum : data)
+   {
+      for (auto rit = tilesets_firstgids.rbegin(); rit != tilesets_firstgids.rend(); ++rit)
+      {
+         if (datum >= *rit)
+         {
+            datum = datum - *rit + 1;
+            goto out;
+         }
+      }
+      out:
+   }
+   return data;
 }
 
 bool TMJDataLoader::file_exists(std::string filename)
