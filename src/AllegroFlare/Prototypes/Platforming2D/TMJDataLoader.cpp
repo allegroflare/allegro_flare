@@ -322,7 +322,7 @@ std::vector<int> TMJDataLoader::normalize_tile_data_to_tilesets_firstgids(std::v
       {
          if (datum >= *rit)
          {
-            datum = datum - *rit + 1;
+            datum = datum - *rit + 1; // TODO: Test this calculation is correct
             goto out;
          }
       }

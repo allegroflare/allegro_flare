@@ -66,6 +66,15 @@ properties:
     getter: true
 
 
+documentation:
+
+
+  - todos:
+      - Move the "normalize_tile_data_from_tilesets" functionality out of this class and make it the responsibility
+        of the user to do this. The TMJDataLoader class should only load data from the TMJ file and make it available
+        as data accessible from the class.
+
+
 functions:
 
 
@@ -292,7 +301,7 @@ functions:
          {
             if (datum >= *rit)
             {
-               datum = datum - *rit + 1;
+               datum = datum - *rit + 1; // TODO: Test this calculation is correct
                goto out;
             }
          }
