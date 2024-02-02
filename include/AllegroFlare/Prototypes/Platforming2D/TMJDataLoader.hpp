@@ -27,6 +27,7 @@ namespace AllegroFlare
             int collision_layer_num_rows;
             std::vector<int> collision_layer_tile_data;
             bool normalize_tile_data_from_tilesets;
+            bool reduce_any_non_zero_collision_layer_data_to_1;
             bool loaded;
             static bool file_exists(std::string filename="[unset-filename]");
 

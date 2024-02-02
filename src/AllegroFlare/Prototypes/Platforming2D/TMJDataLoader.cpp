@@ -32,6 +32,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
    , normalize_tile_data_from_tilesets(true)
+   , reduce_any_non_zero_collision_layer_data_to_1(true)
    , loaded(false)
 {
 }
@@ -256,6 +257,7 @@ bool TMJDataLoader::load()
    layer_tile_data = tilelayer["data"].get<std::vector<int>>();
    if (normalize_tile_data_from_tilesets)
    {
+      // TODO: Test this normalization is correct with multiple tilesets
       layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
             layer_tile_data,
             tilesets_gids
@@ -300,12 +302,45 @@ bool TMJDataLoader::load()
 
    if (normalize_tile_data_from_tilesets)
    {
+      // TODO: Test this normalization is correct with multiple tilesets
       collision_layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
             collision_layer_tile_data,
             tilesets_gids
          );
    }
 
+   if (reduce_any_non_zero_collision_layer_data_to_1)
+   {
+      std::set<int> modified_values;
+      for (auto &collision_layer_tile_datum : collision_layer_tile_data)
+      {
+         if (collision_layer_tile_datum > 1)
+         {
+            modified_values.insert(collision_layer_tile_datum);
+            collision_layer_tile_datum = 1;
+         }
+      }
+
+      if (!modified_values.empty())
+      {
+         // Convert the list to string
+         std::ostringstream oss;
+         for (auto it = modified_values.begin(); it != modified_values.end(); ++it)
+         {
+            oss << *it;
+            if (std::next(it) != modified_values.end()) {
+               oss << ", ";
+            }
+         }
+         std::string list_of_modified_values = oss.str();
+
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Note that reduce_any_non_zero_collision_layer_data_to_1 is set to \"true\", and during processing "
+               "the following values were found and truncated to 1: [ " + list_of_modified_values + " ]."
+         );
+      }
+   }
 
    loaded = true;
 
