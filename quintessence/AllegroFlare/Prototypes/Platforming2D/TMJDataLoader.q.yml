@@ -205,20 +205,33 @@ functions:
       }
 
 
-      // Get first layer that is of type "tilelayer" (and not named "collision")
+      // Get first layer that is of type "tilelayer" (and not named "collision", and not postfixed with "_buffer")
 
       bool tilelayer_type_found = false;
       nlohmann::json tilelayer;
       for (auto &layer : j["layers"].items())
       {
-         if (layer.value()["type"] == "tilelayer" && layer.value()["name"] != "collision")
+         if (layer.value()["type"] != "tilelayer") continue;
+         if (layer.value()["name"] == "collision") continue;
+         //if (layer.value()["name"] == "collision") continue;
+
+         // If the layer name is postfixed with "_buffer", skip
+         std::string str = layer.value()["name"];
+         if (str.size() >= 7 && str.compare(str.size() - 7, 7, "_buffer") == 0)
          {
-            tilelayer = layer.value();
-            tilelayer_type_found = true;
-            break;
+            continue;
          }
+
+         tilelayer = layer.value();
+         tilelayer_type_found = true;
+         break;
       }
-      if (!tilelayer_type_found) throw std::runtime_error("TMJMeshLoader: error: tilelayer type not found.");
+
+      // Throw if an appropriate tilelayer was never found
+      if (!tilelayer_type_found)
+      {
+         throw std::runtime_error("TMJMeshLoader: error: tilelayer type not found.");
+      }
 
       layer_num_columns = tilelayer["width"];
       layer_num_rows = tilelayer["height"];
