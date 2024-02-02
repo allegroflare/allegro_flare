@@ -251,11 +251,19 @@ bool TMJDataLoader::load()
       std::string str = layer.value()["name"];
       if (str.size() >= 7 && str.compare(str.size() - 7, 7, "_buffer") == 0)
       {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Skipping over layer named \"" + str + "\" as possible candidate for visual tile layer loading."
+         );
          continue;
       }
 
       tilelayer = layer.value();
       tilelayer_type_found = true;
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Found layer \"" + str + "\" to use as visual tile layer."
+      );
       break;
    }
 
