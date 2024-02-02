@@ -3,6 +3,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/StringFormatValidator.hpp>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -249,7 +250,20 @@ bool TMJDataLoader::load()
 
       // If the layer name is postfixed with "_buffer", skip
       std::string str = layer.value()["name"];
-      if (str.size() >= 7 && str.compare(str.size() - 7, 7, "_buffer") == 0)
+      //std::string postfix = "_buffer";
+      //int postfix_size = postfix.size();
+      //AllegroFlare::StringFormatValidator::ends_with("_postfix");
+      AllegroFlare::StringFormatValidator validator(str);
+       
+      if (validator.ends_with("_postfix"))
+      {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Skipping over layer named \"" + str + "\" as possible candidate for visual tile layer loading."
+         );
+         continue;
+      }
+      else if (validator.ends_with("_prototype"))
       {
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
