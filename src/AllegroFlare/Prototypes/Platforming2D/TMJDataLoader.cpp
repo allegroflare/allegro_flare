@@ -249,25 +249,14 @@ bool TMJDataLoader::load()
       //if (layer.value()["name"] == "collision") continue;
 
       // If the layer name is postfixed with "_buffer", skip
-      std::string str = layer.value()["name"];
-      //std::string postfix = "_buffer";
-      //int postfix_size = postfix.size();
-      //AllegroFlare::StringFormatValidator::ends_with("_postfix");
-      AllegroFlare::StringFormatValidator validator(str);
+      std::string layer_name = layer.value()["name"];
+      AllegroFlare::StringFormatValidator validator(layer_name);
        
-      if (validator.ends_with("_postfix"))
+      if (validator.ends_with("_postfix") || validator.ends_with("_prototype"))
       {
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
-            "Skipping over layer named \"" + str + "\" as possible candidate for visual tile layer loading."
-         );
-         continue;
-      }
-      else if (validator.ends_with("_prototype"))
-      {
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
-            "Skipping over layer named \"" + str + "\" as possible candidate for visual tile layer loading."
+            "Skipping over layer named \"" + layer_name+ "\" as possible candidate for visual tile layer loading."
          );
          continue;
       }
@@ -276,7 +265,7 @@ bool TMJDataLoader::load()
       tilelayer_type_found = true;
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
-         "Found layer \"" + str + "\" to use as visual tile layer."
+         "Found layer \"" + layer_name + "\" to use as visual tile layer."
       );
       break;
    }
