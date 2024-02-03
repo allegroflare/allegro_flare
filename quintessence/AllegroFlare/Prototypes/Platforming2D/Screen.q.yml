@@ -948,6 +948,12 @@ methods:
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_y: %f", 
             player_controlled_entity->get_place_ref().position.y
          );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_x: %f", 
+            player_controlled_entity->get_velocity_ref().position.x
+         );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_y: %f", 
+            player_controlled_entity->get_velocity_ref().position.y
+         );
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  flags:");
       for (auto &attribute : player_controlled_entity->Attributes::get_copy())
       {
