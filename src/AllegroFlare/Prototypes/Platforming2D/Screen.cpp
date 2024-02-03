@@ -245,6 +245,14 @@ void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2
             AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect*>(camera_control_strategy);
          camera_control_strategy_as->set_entity_to_follow(player_controlled_entity);
       }
+      else if (
+            camera_control_strategy->is_type(AllegroFlare::CameraControlStrategies2D::HorizontalRail::TYPE)
+         )
+      {
+         auto camera_control_strategy_as = static_cast<
+            AllegroFlare::CameraControlStrategies2D::HorizontalRail*>(camera_control_strategy);
+         camera_control_strategy_as->set_entity_to_follow(player_controlled_entity);
+      }
       else
       {
          AllegroFlare::Logger::throw_error(
@@ -374,10 +382,10 @@ void Screen::initialize_camera_control()
    float room_width = assumed_tile_width * 25; // tile_mesh->get_real_width();
    float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
-   AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
-      new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
-   //AllegroFlare::CameraControlStrategies2D::HorizontalRail *camera_control =
-      //new AllegroFlare::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
+   //AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect *camera_control =
+      //new AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect(room_width, room_height);
+   AllegroFlare::CameraControlStrategies2D::HorizontalRail *camera_control =
+      new AllegroFlare::CameraControlStrategies2D::HorizontalRail; //(room_width, room_height);
    camera_control->set_camera(&camera);
    //camera_control->set_entity_to_follow(player_controlled_entity);
    camera_control->initialize();
