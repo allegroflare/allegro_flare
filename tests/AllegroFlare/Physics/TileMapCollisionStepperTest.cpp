@@ -588,8 +588,11 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    // - moving right
    // - distance-to-edge
 
+   int tile_map_num_columns = 300;
+   int tile_map_num_rows = 100;
+
    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   AllegroFlare::TileMaps::TileMap<int> collision_tile_map(150, 100);
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map(tile_map_num_columns, tile_map_num_rows);
    collision_tile_map.initialize();
 
    float tile_width = 16.0f;
@@ -601,8 +604,8 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    // TODO: Perform the step (larger than tile, same as tile, smaller than tile
    float player_h = (tile_height*2) - 1;
 
-   int num_steps_x = 150; // TODO: Expand this to more than 100 tiles
-   int num_steps_y = 100;
+   int num_steps_x = tile_map_num_columns; // TODO: Expand this to more than 100 tiles
+   int num_steps_y = tile_map_num_rows;
 
 
    for (int i=0; i<num_steps_x; i++)
