@@ -607,10 +607,19 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
    int num_steps_x = tile_map_num_columns; // TODO: Expand this to more than 100 tiles
    int num_steps_y = tile_map_num_rows;
 
+   float depth_out_from_edge;
+   float velocity_x;
 
+   //{ // Simple depth
+      //depth_out_from_edge = 1.0f;
+      //velocity_x = (tile_width * 0.5);
+   //}
+   { // Narrow depth
+      depth_out_from_edge = 0.001f;
+      velocity_x = 0.0011f;
+   }
+   
    for (int i=0; i<num_steps_x; i++)
-   //int i= 149; // passing
-   //int i= 150; // failing
    {
       for (int j=0; j<num_steps_y; j++)
       {
@@ -623,12 +632,13 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
          collision_tile_map.set_tile(solid_tile_x, solid_tile_y, 1); // "1" is a default solid tile
 
          // TODO: Update to acomodate multiple steps-sizes (very narrow, normal, passing-through)
-         float player_x = (solid_tile_x*tile_width) - player_w - 1;
+         float player_x = (solid_tile_x*tile_width) - player_w - depth_out_from_edge;
          float player_y = (solid_tile_y*tile_height) // set the anchor point where y is tested
                         - (player_h * test_position_align_y) // align the player box vertically
                         + ((test_position_align_y*2 - 1.0)) // offset by one pixel into the collision target
                         ;
-         float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
+         float player_vx = velocity_x; // moving to the right at a velocity of 1/2 a tile per step
+         //float player_vx = (tile_width * 0.5); // moving to the right at a velocity of 1/2 a tile per step
          float player_vy = 0;
          AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
 
