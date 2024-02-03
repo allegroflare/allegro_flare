@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <allegro5/allegro_color.h>
 #include <iostream>
+#include <limits>
 #include <sstream>
 #include <stdexcept>
 
@@ -505,7 +506,6 @@ void Screen::player_emit_projectile(float magnitude)
    entity_pool.push_back(projectile);
 
 
-   // HERE
    return;
 }
 
@@ -617,7 +617,6 @@ void Screen::update_entities()
       now_velocity_position.x = aabb2d.get_velocity_x();
       now_velocity_position.y = aabb2d.get_velocity_y();
 
-
       //
       // Assign the result calculations to the entity
       // TODO: Consider having collision results and outcomes handled at the entity class's level
@@ -628,6 +627,30 @@ void Screen::update_entities()
       previous_velocity_position = velocity.position;
       place.position = now_place_position;
       velocity.position = now_velocity_position;
+
+      // debugging:
+      for (auto &collision_step_result : collision_step_results)
+      {
+         if (
+               collision_step_result.get_stopped_by_this_collision()
+               && collision_step_result.collided_block_edge_is_left_edge()
+            )
+         {
+            std::cout.precision(std::numeric_limits<float>::max_digits10);
+            std::cout << "collided against: ["
+                      << collision_step_result.get_collided_tile_coordinate().get_x() << ", "
+                      << collision_step_result.get_collided_tile_coordinate().get_y() << "]" << std::endl
+                      << "  - result (position_before): [" << previous_place_position.x << ", "
+                                                           << previous_place_position.y << "]" << std::endl
+                      << "            (position_after): [" << now_place_position.x << ", "
+                                                           << now_place_position.y << "]" << std::endl
+                      << "           (velocity_before): [" << previous_velocity_position.x << ", "
+                                                           << previous_velocity_position.y << "]" << std::endl
+                      << "            (velocity_after): [" << now_velocity_position.x << ", "
+                                                           << now_velocity_position.y << "]" << std::endl
+                      << std::endl << std::flush;
+         }
+      }
 
       // Call the collision update function on the entity
       entity->on_collision_update(

@@ -2793,7 +2793,8 @@
   ],
   "std/numeric_limits": [
     "AllegroFlare/MusicNotation/AccidentalStacker",
-    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"

@@ -19338,6 +19338,18 @@ table td
   <td class="method">build_event_name(int event=0)</td>
 </tr>
 <tr>
+  <td class="method">collided_block_edge_is_left_edge()</td>
+</tr>
+<tr>
+  <td class="method">collided_block_edge_is_right_edge()</td>
+</tr>
+<tr>
+  <td class="method">collided_block_edge_is_top_edge()</td>
+</tr>
+<tr>
+  <td class="method">collided_block_edge_is_bottom_edge()</td>
+</tr>
+<tr>
   <td class="method">build_collided_block_edge_name(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge event=CollidingBlockEdge::EDGE_UNDEFINED)</td>
 </tr>
     </table>
@@ -24247,6 +24259,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::numeric_limits&quot;, &quot;headers&quot;=&gt;[&quot;limits&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38898,7 +38913,8 @@ table td
   ],
   "std/numeric_limits": [
     "AllegroFlare/MusicNotation/AccidentalStacker",
-    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver"
+    "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "Beam/Alignment": [
     "AllegroFlare/MusicNotation/Beam"

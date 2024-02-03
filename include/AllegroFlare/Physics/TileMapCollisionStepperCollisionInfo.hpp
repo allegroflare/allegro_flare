@@ -63,6 +63,10 @@ namespace AllegroFlare
          bool is_event(int event=EVENT_UNDEFINED);
          bool infer_is_a_ground_land();
          static std::string build_event_name(int event=0);
+         bool collided_block_edge_is_left_edge();
+         bool collided_block_edge_is_right_edge();
+         bool collided_block_edge_is_top_edge();
+         bool collided_block_edge_is_bottom_edge();
          static std::string build_collided_block_edge_name(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge event=CollidingBlockEdge::EDGE_UNDEFINED);
       };
    }
