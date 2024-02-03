@@ -4,6 +4,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <vector>
 #include <stdexcept>
+#include <sstream>
 
 
 namespace AllegroFlare::TileMaps
@@ -146,13 +147,33 @@ bool TileMap<T>::set_tile(int tile_x, int tile_y, T value)
    if (!initialized)
    {
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::TileMaps::TileMap<T>::set_tile()",
+         "AllegroFlare::TileMaps::TileMap<T>::set_tile",
          "tile map must be initialized first."
       );
    }
 
-   if (tile_x < 0 || (tile_x >= num_columns)) return false;
-   if (tile_y < 0 || (tile_y >= num_rows)) return false;
+   if (tile_x < 0 || (tile_x >= num_columns))
+   {
+      std::stringstream error_message;
+      error_message << "Cannot set tile to out-of-bounds positon [" << tile_x << ", " << tile_y
+         << "], must be within map size of [" << num_columns << ", " << num_rows << "]";
+
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::set_tile",
+         error_message.str()
+      );
+   }
+   if (tile_y < 0 || (tile_y >= num_rows))
+   {
+      std::stringstream error_message;
+      error_message << "Cannot set tile to out-of-bounds positon [" << tile_x << ", " << tile_y
+         << "], must be within map size of [" << num_columns << ", " << num_rows << "]";
+
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::set_tile",
+         error_message.str()
+      );
+   }
 
    tiles[tile_x + tile_y * num_columns] = value;
 

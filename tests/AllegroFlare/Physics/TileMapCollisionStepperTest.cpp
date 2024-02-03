@@ -603,7 +603,11 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
    int num_steps_x = 150; // TODO: Expand this to more than 100 tiles
    int num_steps_y = 100;
+
+
    for (int i=0; i<num_steps_x; i++)
+   //int i= 149; // passing
+   //int i= 150; // failing
    {
       for (int j=0; j<num_steps_y; j++)
       {
