@@ -29,6 +29,28 @@ properties:
     getter: true
     setter: true
 
+  - name: reposition_offset
+    type: float
+    init_with: DEFAULT_REPOSITION_OFFSET
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_REPOSITION_OFFSET
+    type: float
+    init_with: 0.0001f
+    static: true
+    constexpr: true
+
+
+documentation:
+
+
+  - Note that the "reposition_offset" at small values can have floating-point calculation issues when paired with
+    larger aabb2d x or y values.  As an example, if a player collides against an x edge at 2064.0f, and the
+    "reposition_offset" is 0.0001f, then the result repositiond x value will *still* be 2064.0f due to floating
+    point errors. For now, the "reposition_offset" is set to 0.01f.
+
 
 functions:
 
@@ -72,7 +94,7 @@ functions:
                      )
                   );
 
-                  obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - 0.0001);
+                  obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - reposition_offset); //0.0001);
                   obj.set_velocity_x(0.0);
                }
                else if (obj.get_velocity_x() < 0) // Moving to the left
@@ -89,7 +111,7 @@ functions:
                      )
                   );
 
-                  obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + 0.0001);
+                  obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + reposition_offset); //0.0001);
                   obj.set_velocity_x(0.0);
                }
             }
@@ -129,7 +151,7 @@ functions:
                      )
                   );
 
-                  obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - 0.0001);
+                  obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - reposition_offset); //0.0001);
                   obj.set_velocity_y(0.0);
                }
                else if (obj.get_velocity_y() < 0) // Moving up
@@ -146,7 +168,7 @@ functions:
                      )
                   );
 
-                  obj.set_top_edge(get_tile_bottom_edge(t.get_y(), tile_height) + 0.0001);
+                  obj.set_top_edge(get_tile_bottom_edge(t.get_y(), tile_height) + reposition_offset); //0.0001);
                   obj.set_velocity_y(0.0);
                }
             }
@@ -287,7 +309,7 @@ functions:
     body: |
       std::pair<int, int> result{
          world_x_coords_to_tile_coords_x(x),
-         world_y_coords_to_tile_coords_y(y+height+0.0001f)
+         world_y_coords_to_tile_coords_y(y + height + reposition_offset*2) // 0.0001f)
       };
       return result;
 
@@ -309,8 +331,8 @@ functions:
         default_argument: 1.0f
     body: |
       std::pair<int, int> result{
-         world_x_coords_to_tile_coords_x(x+width),
-         world_y_coords_to_tile_coords_y(y+height+0.0001f)
+         world_x_coords_to_tile_coords_x(x + width),
+         world_y_coords_to_tile_coords_y(y + height + reposition_offset*2) // 0.0001f)
       };
       return result;
 

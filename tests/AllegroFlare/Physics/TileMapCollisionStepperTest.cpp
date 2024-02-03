@@ -600,23 +600,27 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
    int solid_tile_x = 0;
    int solid_tile_y = 0;
-   float player_w = tile_width - 1;
+   float player_w = tile_width - 4;
    // TODO: Perform the step (larger than tile, same as tile, smaller than tile
-   float player_h = (tile_height*2) - 1;
+   float player_h = (tile_height*2) - 8;
 
    int num_steps_x = tile_map_num_columns; // TODO: Expand this to more than 100 tiles
    int num_steps_y = tile_map_num_rows;
 
    float depth_out_from_edge;
    float velocity_x;
+   float reposition_offset;
 
    //{ // Simple depth
       //depth_out_from_edge = 1.0f;
       //velocity_x = (tile_width * 0.5);
+      //float reposition_offset = AllegroFlare::Physics::TileMapCollisionStepper::DEFAULT_REPOSITION_OFFSET;
    //}
    { // Narrow depth
       depth_out_from_edge = 0.001f;
       velocity_x = 0.0011f;
+      //reposition_offset = AllegroFlare::Physics::TileMapCollisionStepper::DEFAULT_REPOSITION_OFFSET;
+      reposition_offset = 0.0001f;
    }
    
    for (int i=0; i<num_steps_x; i++)
@@ -642,17 +646,24 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
          float player_vy = 0;
          AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
 
+         float position_x_before = player_x;
+         float position_y_before = player_y;
+
          // TODO: Perform the step bottom of box, center of box, top of box
          // Perform the step
          AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(
             &collision_tile_map,
             &aabb2d,
             tile_width,
-            tile_height
+            tile_height,
+            reposition_offset
          );
          tile_map_collision_stepper.step();
 
-         float expected_result_bb_x = (solid_tile_x*tile_width) - player_w - 0.0001;
+         float position_x_after = aabb2d.get_x();
+         float position_y_after = aabb2d.get_y();
+
+         float expected_result_bb_x = (solid_tile_x*tile_width) - player_w - reposition_offset;
          AllegroFlare::Physics::AABB2D expected_result_aabb2d(expected_result_bb_x, 0, 16-1, 16*2-1, 0, 0);
 
          // TODO: Work in this image capture on error

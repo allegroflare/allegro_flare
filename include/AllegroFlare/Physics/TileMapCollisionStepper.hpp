@@ -15,11 +15,15 @@ namespace AllegroFlare
    {
       class TileMapCollisionStepper
       {
+      public:
+         static constexpr float DEFAULT_REPOSITION_OFFSET = 0.0001f;
+
       private:
          AllegroFlare::TileMaps::TileMap<int>* collision_tile_map;
          AllegroFlare::Physics::AABB2D* aabb2d;
          float tile_width;
          float tile_height;
+         float reposition_offset;
          std::vector<AllegroFlare::Physics::Int2D> get_next_collided_tile_coords_1d(float x=0.0f, float y=0.0f, float velocity=0.0f, float depth_of_body=1.0f, float length_of_edge=1.0f, float tile_length_n=1.0f, float tile_length_m=1.0f);
          bool tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D a={0, 0}, AllegroFlare::Physics::Int2D b={0, 0});
 
@@ -27,17 +31,19 @@ namespace AllegroFlare
 
 
       public:
-         TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map=nullptr, AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f);
+         TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map=nullptr, AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f, float reposition_offset=DEFAULT_REPOSITION_OFFSET);
          ~TileMapCollisionStepper();
 
          void set_collision_tile_map(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map);
          void set_aabb2d(AllegroFlare::Physics::AABB2D* aabb2d);
          void set_tile_width(float tile_width);
          void set_tile_height(float tile_height);
+         void set_reposition_offset(float reposition_offset);
          AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map() const;
          AllegroFlare::Physics::AABB2D* get_aabb2d() const;
          float get_tile_width() const;
          float get_tile_height() const;
+         float get_reposition_offset() const;
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step();
          bool adjacent_to_bottom_edge(float tile_width=16.0f, float tile_height=16.0f);
          bool adjacent_to_right_edge(float tile_width=16.0f, float tile_height=16.0f);

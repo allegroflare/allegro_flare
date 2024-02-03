@@ -3282,6 +3282,9 @@
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "std/fixed": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
   "std/map<int, int>": [
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"

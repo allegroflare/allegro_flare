@@ -19178,6 +19178,14 @@ table td
   <td class="property">tile_height</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">reposition_offset</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_REPOSITION_OFFSET</td>
+  <td class="property">float</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -24133,6 +24141,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::fixed&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::map&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;map&quot;]}</td>
@@ -39400,6 +39411,9 @@ table td
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
+  "std/fixed": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "std/map<int, int>": [

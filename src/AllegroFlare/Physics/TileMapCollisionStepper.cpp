@@ -17,11 +17,12 @@ namespace Physics
 {
 
 
-TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map, AllegroFlare::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
+TileMapCollisionStepper::TileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map, AllegroFlare::Physics::AABB2D* aabb2d, float tile_width, float tile_height, float reposition_offset)
    : collision_tile_map(collision_tile_map)
    , aabb2d(aabb2d)
    , tile_width(tile_width)
    , tile_height(tile_height)
+   , reposition_offset(reposition_offset)
 {
 }
 
@@ -55,6 +56,12 @@ void TileMapCollisionStepper::set_tile_height(float tile_height)
 }
 
 
+void TileMapCollisionStepper::set_reposition_offset(float reposition_offset)
+{
+   this->reposition_offset = reposition_offset;
+}
+
+
 AllegroFlare::TileMaps::TileMap<int>* TileMapCollisionStepper::get_collision_tile_map() const
 {
    return collision_tile_map;
@@ -76,6 +83,12 @@ float TileMapCollisionStepper::get_tile_width() const
 float TileMapCollisionStepper::get_tile_height() const
 {
    return tile_height;
+}
+
+
+float TileMapCollisionStepper::get_reposition_offset() const
+{
+   return reposition_offset;
 }
 
 
@@ -130,7 +143,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   )
                );
 
-               obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - 0.0001);
+               obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - reposition_offset); //0.0001);
                obj.set_velocity_x(0.0);
             }
             else if (obj.get_velocity_x() < 0) // Moving to the left
@@ -147,7 +160,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   )
                );
 
-               obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + 0.0001);
+               obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + reposition_offset); //0.0001);
                obj.set_velocity_x(0.0);
             }
          }
@@ -187,7 +200,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   )
                );
 
-               obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - 0.0001);
+               obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - reposition_offset); //0.0001);
                obj.set_velocity_y(0.0);
             }
             else if (obj.get_velocity_y() < 0) // Moving up
@@ -204,7 +217,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
                   )
                );
 
-               obj.set_top_edge(get_tile_bottom_edge(t.get_y(), tile_height) + 0.0001);
+               obj.set_top_edge(get_tile_bottom_edge(t.get_y(), tile_height) + reposition_offset); //0.0001);
                obj.set_velocity_y(0.0);
             }
          }
@@ -346,7 +359,7 @@ std::pair<int, int> TileMapCollisionStepper::get_tile_coords_below_left_foot(flo
 {
    std::pair<int, int> result{
       world_x_coords_to_tile_coords_x(x),
-      world_y_coords_to_tile_coords_y(y+height+0.0001f)
+      world_y_coords_to_tile_coords_y(y + height + reposition_offset*2) // 0.0001f)
    };
    return result;
 }
@@ -354,8 +367,8 @@ std::pair<int, int> TileMapCollisionStepper::get_tile_coords_below_left_foot(flo
 std::pair<int, int> TileMapCollisionStepper::get_tile_coords_below_right_foot(float x, float y, float width, float height)
 {
    std::pair<int, int> result{
-      world_x_coords_to_tile_coords_x(x+width),
-      world_y_coords_to_tile_coords_y(y+height+0.0001f)
+      world_x_coords_to_tile_coords_x(x + width),
+      world_y_coords_to_tile_coords_y(y + height + reposition_offset*2) // 0.0001f)
    };
    return result;
 }

@@ -17,6 +17,7 @@
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <algorithm>
 #include <allegro5/allegro_color.h>
+#include <iomanip>
 #include <iostream>
 #include <limits>
 #include <sstream>
@@ -31,9 +32,10 @@ namespace Platforming2D
 {
 
 
-Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* event_emitter)
+Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : AllegroFlare::Screens::Gameplay()
    , bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
    , event_emitter(event_emitter)
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
@@ -48,6 +50,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::EventEmitter* 
    , show_collision_tile_mesh(false)
    , show_visual_hint_on_suspended_gameplay(false)
    , entity_control_connector(nullptr)
+   , collision_stepper({})
    , camera_control_strategy(nullptr)
    , create_entities_from_map_callback({})
    , create_entities_from_map_callback_user_data(nullptr)
@@ -116,6 +119,12 @@ AllegroFlare::BitmapBin* Screen::get_bitmap_bin() const
 }
 
 
+AllegroFlare::FontBin* Screen::get_font_bin() const
+{
+   return font_bin;
+}
+
+
 AllegroFlare::EventEmitter* Screen::get_event_emitter() const
 {
    return event_emitter;
@@ -176,6 +185,12 @@ void* Screen::get_create_entities_from_map_callback_user_data() const
 }
 
 
+AllegroFlare::Physics::TileMapCollisionStepper &Screen::get_collision_stepper_ref()
+{
+   return collision_stepper;
+}
+
+
 void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary)
 {
    if (!((!initialized)))
@@ -214,6 +229,19 @@ void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
       throw std::runtime_error("Screen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
+   return;
+}
+
+void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_font_bin: error: guard \"(!initialized)\" not met");
+   }
+   this->font_bin = font_bin;
    return;
 }
 
@@ -455,6 +483,26 @@ void Screen::initialize()
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialize_camera_control();
    initialize_camera();
+
+   // Initialize the collision stepper
+   collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
+   collision_stepper.set_tile_width(16.0f);
+   collision_stepper.set_tile_height(16.0f);
+   collision_stepper.set_reposition_offset(
+         0.0001
+         //AllegroFlare::Physics::TileMapCollisionStepper::DEFAULT_REPOSITION_OFFSET
+      );
+
+
+         //collision_stepper
+
+         //&aabb2d,
+         //tile_width,
+         //tile_height,
+         //0.0001f
+      //);
+
+
    initialized = true;
    return;
 }
@@ -589,7 +637,14 @@ void Screen::update_entities()
          continue;
       }
 
+      // Store the before-collision info
+      previous_place_position = place.position;
+      previous_velocity_position = velocity.position;
+
       // Create a "simulated aabb2d" of the entity and run it through the collision stepper
+      float tile_width = 16.0f;
+      float tile_height = 16.0f;
+
       AllegroFlare::Physics::AABB2D aabb2d(
          place.position.x - place.size.x * place.align.x,
          place.position.y - place.size.y * place.align.y,
@@ -598,14 +653,16 @@ void Screen::update_entities()
          velocity.position.x,
          velocity.position.y
       );
-      float tile_width = 16.0f;
-      float tile_height = 16.0f;
-      AllegroFlare::Physics::TileMapCollisionStepper collision_stepper(
-         currently_active_map->get_collision_tile_mesh(),
-         &aabb2d,
-         tile_width,
-         tile_height
-      );
+
+      //AllegroFlare::Physics::TileMapCollisionStepper collision_stepper(
+         //currently_active_map->get_collision_tile_mesh(),
+         //&aabb2d,
+         //tile_width,
+         //tile_height,
+         //0.0001f
+      //);
+
+      collision_stepper.set_aabb2d(&aabb2d);
 
       // Perform the collision step and return the collision info
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_step_results =
@@ -622,9 +679,10 @@ void Screen::update_entities()
       // TODO: Consider having collision results and outcomes handled at the entity class's level
       //
 
+      //previous_place_position = place.position;
+      //previous_velocity_position = velocity.position;
+
       // Supplant our entity's position and velocity values with the "simulated aabb2d"'s values
-      previous_place_position = place.position;
-      previous_velocity_position = velocity.position;
       place.position = now_place_position;
       velocity.position = now_velocity_position;
 
@@ -636,14 +694,26 @@ void Screen::update_entities()
                && collision_step_result.collided_block_edge_is_left_edge()
             )
          {
+            std::string ORG = "\033[1;33m";
+            std::string NEU = "\033[0m";
+
+            if (now_place_position.x == previous_place_position.x)
+            {
+               ORG = "";
+               NEU = "";
+            }
+
             std::cout.precision(std::numeric_limits<float>::max_digits10);
+            //std::cout.std::showpoint
+
             std::cout << "collided against: ["
+                      << std::fixed << std::showpoint
                       << collision_step_result.get_collided_tile_coordinate().get_x() << ", "
                       << collision_step_result.get_collided_tile_coordinate().get_y() << "]" << std::endl
-                      << "  - result (position_before): [" << previous_place_position.x << ", "
-                                                           << previous_place_position.y << "]" << std::endl
-                      << "            (position_after): [" << now_place_position.x << ", "
-                                                           << now_place_position.y << "]" << std::endl
+                      << "  - result (position_before): " << ORG << "[" << previous_place_position.x << ", "
+                                                           << previous_place_position.y << "]" << NEU << std::endl
+                      << "            (position_after): " << ORG << "[" << now_place_position.x << ", "
+                                                           << now_place_position.y << "]" << NEU << std::endl
                       << "           (velocity_before): [" << previous_velocity_position.x << ", "
                                                            << previous_velocity_position.y << "]" << std::endl
                       << "            (velocity_after): [" << now_velocity_position.x << ", "
@@ -952,6 +1022,34 @@ void Screen::draw()
    return;
 }
 
+void Screen::draw_hud()
+{
+   ALLEGRO_FONT *font = obtain_debug_font();
+
+   float lh = 40; // "lh" is line height
+   float l=0;
+   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "physics");
+   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  reposition_offset: %f", 
+         collision_stepper.get_reposition_offset()
+      );
+   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "player_character");
+   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_x: %f", 
+         player_controlled_entity->get_place_ref().position.x
+      );
+   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_y: %f", 
+         player_controlled_entity->get_place_ref().position.y
+      );
+   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  flags:");
+   for (auto &attribute : player_controlled_entity->Attributes::get_copy())
+   {
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "    - %s", 
+            attribute.first.c_str()
+         );
+   }
+
+   return;
+}
+
 void Screen::toggle_show_collision_tile_mesh()
 {
    show_collision_tile_mesh = !show_collision_tile_mesh;
@@ -973,6 +1071,7 @@ void Screen::primary_update_func(double time_now, double delta_time)
 void Screen::primary_render_func()
 {
    draw();
+   draw_hud();
    return;
 }
 
@@ -1334,6 +1433,18 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Screen:
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
    std::string on_map_name = currently_active_map_name;
    return collection_helper.select_on_map(on_map_name);
+}
+
+ALLEGRO_FONT* Screen::obtain_debug_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_debug_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_debug_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-Medium.ttf -32");
 }
 
 

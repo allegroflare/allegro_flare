@@ -5,6 +5,8 @@
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Base.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
+#include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
@@ -19,6 +21,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
 #include <functional>
 #include <map>
 #include <string>
@@ -38,6 +41,7 @@ namespace AllegroFlare
 
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
+            AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
@@ -52,6 +56,7 @@ namespace AllegroFlare
             bool show_collision_tile_mesh;
             bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector;
+            AllegroFlare::Physics::TileMapCollisionStepper collision_stepper;
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback;
             void* create_entities_from_map_callback_user_data;
@@ -67,7 +72,7 @@ namespace AllegroFlare
 
 
          public:
-            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
+            Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
             void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
@@ -79,6 +84,7 @@ namespace AllegroFlare
             void set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback);
             void set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
+            AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::EventEmitter* get_event_emitter() const;
             std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> get_map_dictionary() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
@@ -89,9 +95,11 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
             std::function<void( std::string, float, float, float, float, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > get_create_entities_from_map_callback() const;
             void* get_create_entities_from_map_callback_user_data() const;
+            AllegroFlare::Physics::TileMapCollisionStepper &get_collision_stepper_ref();
             void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary={});
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
+            void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
             void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, bool also_set_as_camera_tracked_object=true, bool also_setup_a_basic2d_entity_control_connector=true);
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
@@ -107,6 +115,7 @@ namespace AllegroFlare
             void draw_entities();
             void update();
             void draw();
+            void draw_hud();
             void toggle_show_collision_tile_mesh();
             void toggle_show_tile_mesh();
             virtual void primary_update_func(double time_now=0.0, double delta_time=0.0) override;
@@ -123,6 +132,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::PrimMesh* get_tile_mesh();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> get_current_map_entities();
+            ALLEGRO_FONT* obtain_debug_font();
          };
       }
    }
