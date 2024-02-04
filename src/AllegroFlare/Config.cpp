@@ -132,15 +132,19 @@ namespace AllegroFlare
 
    bool Config::has_section(std::string section)
    {
+      // NOTE: Look over dangling pointer concern with the way iterator is handled by allegro
+      ALLEGRO_CONFIG_SECTION* iterator = nullptr;
+
       ensure_initialized_allegro();
-      AllegroFlare::Errors::throw_error(
-         "AllegroFlare::Config::has_section",
-         "Not implemented"
-      );
+      const char *val = al_get_first_config_section(config_file, &iterator);
+      if (!val) return false;
+
+      do {
+         std::string val_as_string(val);
+         if (val_as_string == section) return true;
+      } while ((val = al_get_next_config_section(&iterator)));
+
       return false;
-      //const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
-      //if (!val) return false;
-      //return true;
    }
 
 
@@ -149,6 +153,7 @@ namespace AllegroFlare
    {
       std::vector<std::string> result;
 
+      // NOTE: Look over dangling pointer concern with the way iterator is handled by allegro
       ALLEGRO_CONFIG_ENTRY* iterator = nullptr;
 
       ensure_initialized_allegro();

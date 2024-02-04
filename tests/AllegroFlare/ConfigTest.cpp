@@ -48,9 +48,11 @@ protected:
 
 #ifdef _WIN32
 #define TEST_CONFIG "/Users/markoates/Repos/allegro_flare/tests/fixtures/config/test_config1.cfg"
+#define TEST_CONFIG2 "/Users/markoates/Repos/allegro_flare/tests/fixtures/config/test_config2.cfg"
 #define TEST_FILENAME "/msys64/home/Mark/Repos/allegro_flare/bin/data/config/test_config.cfg"
 #else
 #define TEST_CONFIG "/Users/markoates/Repos/allegro_flare/tests/fixtures/config/test_config1.cfg"
+#define TEST_CONFIG2 "/Users/markoates/Repos/allegro_flare/tests/fixtures/config/test_config2.cfg"
 #define TEST_FILENAME "/Users/markoates/Repos/allegro_flare/bin/data/config/test_config.cfg"
 #endif
 
@@ -224,6 +226,28 @@ TEST_F(AllegroFlare_ConfigTest, get_section_keys__returns_a_list_of_keys_from_th
    std::vector<std::string> keys = config.get_section_keys("player");
 
    EXPECT_EQ(expected_keys, keys);
+}
+
+
+
+TEST_F(AllegroFlare_ConfigTest, has_section__returns_true_if_the_section_exists)
+{
+   Config config = Config(TEST_CONFIG);
+   config.load();
+
+   EXPECT_EQ(true, config.has_section("player"));
+   EXPECT_EQ(true, config.has_section("")); // This config has a global section
+}
+
+
+
+TEST_F(AllegroFlare_ConfigTest, has_section__returns_false_if_the_section_exists)
+{
+   Config config = Config(TEST_CONFIG2);
+   config.load();
+
+   EXPECT_EQ(false, config.has_section("")); // This config does not have a global section
+   EXPECT_EQ(false, config.has_section("a-section-that-does-not-exist"));
 }
 
 
