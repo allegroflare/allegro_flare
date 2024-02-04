@@ -137,6 +137,7 @@ namespace AllegroFlare
          "AllegroFlare::Config::has_section",
          "Not implemented"
       );
+      return false;
       //const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
       //if (!val) return false;
       //return true;
