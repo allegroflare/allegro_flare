@@ -47,8 +47,10 @@ protected:
 
 
 #ifdef _WIN32
+#define TEST_CONFIG "/Users/markoates/Repos/allegro_flare/tests/fixtures/config/test_config1.cfg"
 #define TEST_FILENAME "/msys64/home/Mark/Repos/allegro_flare/bin/data/config/test_config.cfg"
 #else
+#define TEST_CONFIG "/Users/markoates/Repos/allegro_flare/tests/fixtures/config/test_config1.cfg"
 #define TEST_FILENAME "/Users/markoates/Repos/allegro_flare/bin/data/config/test_config.cfg"
 #endif
 
@@ -59,6 +61,8 @@ TEST_F(AllegroFlare_ConfigTest, necessairy_test_file_exists)
 {
    std::ifstream ifile(TEST_FILENAME);
    ASSERT_EQ(true, (bool)ifile);
+   std::ifstream ifile2(TEST_CONFIG);
+   ASSERT_EQ(true, (bool)ifile2);
 }
 
 
@@ -194,6 +198,32 @@ TEST_F(AllegroFlare_ConfigTest, get_value_bool__returns_a_default_value_if_a_sec
    ASSERT_EQ(false, config.get_or_default_bool("", "invisibility", false));
    ASSERT_EQ(true, config.get_or_default_bool("", "blitz_mode", true));
    ASSERT_NEAR(6.28, config.get_or_default_float("", "tau", 6.28), 0.00001);
+}
+
+
+
+TEST_F(AllegroFlare_ConfigTest, get_section_keys__returns_a_list_of_keys_from_the_global_section)
+{
+   Config config = Config(TEST_FILENAME);
+   config.load();
+
+   std::vector<std::string> expected_keys = { "name", "width", "height", "pi", "squatting" };
+   std::vector<std::string> keys = config.get_section_keys("");
+
+   EXPECT_EQ(expected_keys, keys);
+}
+
+
+
+TEST_F(AllegroFlare_ConfigTest, get_section_keys__returns_a_list_of_keys_from_the_named_section)
+{
+   Config config = Config(TEST_CONFIG);
+   config.load();
+
+   std::vector<std::string> expected_keys = { "name", "height", "running" };
+   std::vector<std::string> keys = config.get_section_keys("player");
+
+   EXPECT_EQ(expected_keys, keys);
 }
 
 
