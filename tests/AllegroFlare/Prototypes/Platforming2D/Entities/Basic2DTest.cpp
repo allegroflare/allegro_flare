@@ -185,27 +185,57 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
    basic2d_entity.get_place_ref().size.y *= 0.75;
    basic2d_entity.get_place_ref().scale = {2.0, 2.0};
 
-   basic2d_entity.get_place_ref().position = {1920/10*1, 1080/2};
-   basic2d_entity.set_bitmap_alignment_strategy("top_left");
-   basic2d_entity.draw();
+   basic2d_entity.get_bitmap_placement_ref().scale = { 1.25, 1.25 };
 
-   basic2d_entity.get_place_ref().position = {1920/10*3, 1080/2};
-   basic2d_entity.set_bitmap_alignment_strategy("centered");
-   basic2d_entity.draw();
+   float y = 1080/7*2;
+   al_draw_line(0, y, 1920, y, ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, 1.0f);
+   {
+      basic2d_entity.get_place_ref().position = {1920/10*1, y};
+      basic2d_entity.set_bitmap_alignment_strategy("top_left");
+      basic2d_entity.draw();
 
-   basic2d_entity.get_place_ref().position = {1920/10*5, 1080/2};
-   basic2d_entity.set_bitmap_alignment_strategy("bottom_centered");
-   basic2d_entity.draw();
+      basic2d_entity.get_place_ref().position = {1920/10*3, y};
+      basic2d_entity.set_bitmap_alignment_strategy("centered");
+      basic2d_entity.draw();
 
-   basic2d_entity.get_place_ref().position = {1920/10*7, 1080/2};
-   basic2d_entity.set_bitmap_alignment_strategy("bottom_centered_edge");
-   basic2d_entity.draw();
+      basic2d_entity.get_place_ref().position = {1920/10*5, y};
+      basic2d_entity.set_bitmap_alignment_strategy("bottom_centered");
+      basic2d_entity.draw();
 
-   basic2d_entity.get_place_ref().position = {1920/10*9, 1080/2};
-   basic2d_entity.set_bitmap_alignment_strategy("top_centered");
-   basic2d_entity.draw();
+      basic2d_entity.get_place_ref().position = {1920/10*7, y};
+      basic2d_entity.set_bitmap_alignment_strategy("bottom_centered_edge");
+      basic2d_entity.draw();
 
-   al_draw_line(0, 1080/2, 1920, 1080/2, ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, 1.0f);
+      basic2d_entity.get_place_ref().position = {1920/10*9, y};
+      basic2d_entity.set_bitmap_alignment_strategy("top_centered");
+      basic2d_entity.draw();
+   }
+   y = 1080/7*5;
+   basic2d_entity.get_place_ref().align = { 0.5f, 1.0f };
+   al_draw_line(0, y, 1920, y, ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, 1.0f);
+   {
+      basic2d_entity.get_place_ref().position = {1920/10*1, y};
+      basic2d_entity.set_bitmap_alignment_strategy("top_left");
+      basic2d_entity.draw();
+
+      basic2d_entity.get_place_ref().position = {1920/10*3, y};
+      basic2d_entity.set_bitmap_alignment_strategy("centered");
+      basic2d_entity.draw();
+
+      basic2d_entity.get_place_ref().position = {1920/10*5, y};
+      basic2d_entity.set_bitmap_alignment_strategy("bottom_centered");
+      basic2d_entity.draw();
+
+      basic2d_entity.get_place_ref().position = {1920/10*7, y};
+      basic2d_entity.set_bitmap_alignment_strategy("bottom_centered_edge");
+      basic2d_entity.draw();
+
+      basic2d_entity.get_place_ref().position = {1920/10*9, y};
+      basic2d_entity.set_bitmap_alignment_strategy("top_centered");
+      basic2d_entity.draw();
+   }
+
+   //al_draw_line(0, 1080/2, 1920, 1080/2, ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, 1.0f);
    //al_draw_line(0, 1080/2, 1920, 1080/2, ALLEGRO_COLOR{1, 1, 0, 1});
 
    al_flip_display();
