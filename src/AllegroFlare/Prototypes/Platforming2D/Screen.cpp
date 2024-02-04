@@ -489,8 +489,8 @@ void Screen::initialize()
    collision_stepper.set_tile_width(16.0f);
    collision_stepper.set_tile_height(16.0f);
    collision_stepper.set_reposition_offset(
-         0.0001
-         //AllegroFlare::Physics::TileMapCollisionStepper::DEFAULT_REPOSITION_OFFSET
+         //0.0002
+         AllegroFlare::Physics::TileMapCollisionStepper::DEFAULT_REPOSITION_OFFSET
       );
 
 
@@ -687,38 +687,42 @@ void Screen::update_entities()
       velocity.position = now_velocity_position;
 
       // debugging:
-      for (auto &collision_step_result : collision_step_results)
+      bool cout_collision_debugging = false;
+      if (cout_collision_debugging)
       {
-         if (
-               collision_step_result.get_stopped_by_this_collision()
-               && collision_step_result.collided_block_edge_is_left_edge()
-            )
+         for (auto &collision_step_result : collision_step_results)
          {
-            std::string ORG = "\033[1;33m";
-            std::string NEU = "\033[0m";
-
-            if (now_place_position.x == previous_place_position.x)
+            if (
+                  collision_step_result.get_stopped_by_this_collision()
+                  && collision_step_result.collided_block_edge_is_left_edge()
+               )
             {
-               ORG = "";
-               NEU = "";
+               std::string ORG = "\033[1;33m";
+               std::string NEU = "\033[0m";
+
+               if (now_place_position.x == previous_place_position.x)
+               {
+                  ORG = "";
+                  NEU = "";
+               }
+
+               std::cout.precision(std::numeric_limits<float>::max_digits10);
+               //std::cout.std::showpoint
+
+               std::cout << "collided against: ["
+                         << std::fixed << std::showpoint
+                         << collision_step_result.get_collided_tile_coordinate().get_x() << ", "
+                         << collision_step_result.get_collided_tile_coordinate().get_y() << "]" << std::endl
+                         << "  - result (position_before): " << ORG << "[" << previous_place_position.x << ", "
+                                                              << previous_place_position.y << "]" << NEU << std::endl
+                         << "            (position_after): " << ORG << "[" << now_place_position.x << ", "
+                                                              << now_place_position.y << "]" << NEU << std::endl
+                         << "           (velocity_before): [" << previous_velocity_position.x << ", "
+                                                              << previous_velocity_position.y << "]" << std::endl
+                         << "            (velocity_after): [" << now_velocity_position.x << ", "
+                                                              << now_velocity_position.y << "]" << std::endl
+                         << std::endl << std::flush;
             }
-
-            std::cout.precision(std::numeric_limits<float>::max_digits10);
-            //std::cout.std::showpoint
-
-            std::cout << "collided against: ["
-                      << std::fixed << std::showpoint
-                      << collision_step_result.get_collided_tile_coordinate().get_x() << ", "
-                      << collision_step_result.get_collided_tile_coordinate().get_y() << "]" << std::endl
-                      << "  - result (position_before): " << ORG << "[" << previous_place_position.x << ", "
-                                                           << previous_place_position.y << "]" << NEU << std::endl
-                      << "            (position_after): " << ORG << "[" << now_place_position.x << ", "
-                                                           << now_place_position.y << "]" << NEU << std::endl
-                      << "           (velocity_before): [" << previous_velocity_position.x << ", "
-                                                           << previous_velocity_position.y << "]" << std::endl
-                      << "            (velocity_after): [" << now_velocity_position.x << ", "
-                                                           << now_velocity_position.y << "]" << std::endl
-                      << std::endl << std::flush;
          }
       }
 

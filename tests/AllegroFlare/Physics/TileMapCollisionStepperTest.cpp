@@ -646,8 +646,11 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
          float player_vy = 0;
          AllegroFlare::Physics::AABB2D aabb2d(player_x, player_y, player_w, player_h, player_vx, player_vy);
 
-         float position_x_before = player_x;
-         float position_y_before = player_y;
+         // TODO: Add test that the reposition offset, when applied to the player position, will result in a
+         // distance from the edge
+
+         //float position_x_before = player_x;
+         //float position_y_before = player_y;
 
          // TODO: Perform the step bottom of box, center of box, top of box
          // Perform the step
@@ -660,8 +663,8 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
          );
          tile_map_collision_stepper.step();
 
-         float position_x_after = aabb2d.get_x();
-         float position_y_after = aabb2d.get_y();
+         //float position_x_after = aabb2d.get_x();
+         //float position_y_after = aabb2d.get_y();
 
          float expected_result_bb_x = (solid_tile_x*tile_width) - player_w - reposition_offset;
          AllegroFlare::Physics::AABB2D expected_result_aabb2d(expected_result_bb_x, 0, 16-1, 16*2-1, 0, 0);

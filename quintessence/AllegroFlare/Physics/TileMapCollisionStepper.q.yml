@@ -38,7 +38,7 @@ properties:
 
   - name: DEFAULT_REPOSITION_OFFSET
     type: float
-    init_with: 0.0001f
+    init_with: 0.01f
     static: true
     constexpr: true
 
@@ -50,6 +50,8 @@ documentation:
     larger aabb2d x or y values.  As an example, if a player collides against an x edge at 2064.0f, and the
     "reposition_offset" is 0.0001f, then the result repositiond x value will *still* be 2064.0f due to floating
     point errors. For now, the "reposition_offset" is set to 0.01f.
+  - Note that the "reposition_offset" is used in the step calculation, the "adjacent_to_*" methods, and the 
+    "get_tile_coords_below_*_foot" methods
 
 
 functions:
@@ -214,7 +216,7 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_y(),
          obj.get_x(),
-         0.0004,
+         reposition_offset*2, //0.0004,
          obj.get_h(),
          obj.get_w(),
          tile_height,
@@ -246,7 +248,7 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_x(),
          obj.get_y(),
-         0.0004,
+         reposition_offset * 2, //0.0004,
          obj.get_w(),
          obj.get_h(),
          tile_width,
@@ -278,7 +280,7 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_y(),
          obj.get_x(),
-         -0.0004,
+         -reposition_offset * 2, //-0.0004,
          obj.get_h(),
          obj.get_w(),
          tile_height,
@@ -353,7 +355,7 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_x(),
          obj.get_y(),
-         -0.0004,
+         -reposition_offset*2, //-0.0004,
          obj.get_w(),
          obj.get_h(),
          tile_height,

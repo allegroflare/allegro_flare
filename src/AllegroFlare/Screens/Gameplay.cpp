@@ -109,7 +109,7 @@ void Gameplay::call_on_finished_callback_func()
 void Gameplay::load_level_by_identifier(std::string possible_type)
 {
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::Screens::Gameplay::set_on_finished_callback_func",
+      "AllegroFlare::Screens::Gameplay::load_level_by_identifier",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return;

@@ -265,7 +265,7 @@ bool TileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float ti
    std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_y(),
       obj.get_x(),
-      0.0004,
+      reposition_offset*2, //0.0004,
       obj.get_h(),
       obj.get_w(),
       tile_height,
@@ -302,7 +302,7 @@ bool TileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float til
    std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_x(),
       obj.get_y(),
-      0.0004,
+      reposition_offset * 2, //0.0004,
       obj.get_w(),
       obj.get_h(),
       tile_width,
@@ -339,7 +339,7 @@ bool TileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float tile_
    std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_y(),
       obj.get_x(),
-      -0.0004,
+      -reposition_offset * 2, //-0.0004,
       obj.get_h(),
       obj.get_w(),
       tile_height,
@@ -394,7 +394,7 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
    std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
       obj.get_x(),
       obj.get_y(),
-      -0.0004,
+      -reposition_offset*2, //-0.0004,
       obj.get_w(),
       obj.get_h(),
       tile_height,
