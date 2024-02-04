@@ -28,6 +28,7 @@ namespace AllegroFlare
       std::string get_filename();
 
       bool has_value(std::string section, std::string key);
+      std::vector<std::string> get_section_keys(std::string section);
       std::string get_value_str(std::string section, std::string key);
       int get_value_int(std::string section, std::string key);
       float get_value_float(std::string section, std::string key);

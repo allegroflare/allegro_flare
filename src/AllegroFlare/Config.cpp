@@ -129,6 +129,27 @@ namespace AllegroFlare
 
 
 
+   std::vector<std::string> Config::get_section_keys(std::string section)
+   {
+      std::vector<std::string> result;
+
+      ALLEGRO_CONFIG_ENTRY* iterator = nullptr;
+
+      ensure_initialized_allegro();
+      const char *val = al_get_first_config_entry(config_file, section.c_str(), &iterator);
+      if (!val) return result;
+      result.push_back(std::string(val));
+
+      while ((val = al_get_next_config_entry(&iterator)))
+      {
+         result.push_back(std::string(val));
+      }
+
+      return result;
+   }
+
+
+
 
    std::string Config::get_value_str(std::string section, std::string key)
    {
