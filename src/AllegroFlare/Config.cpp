@@ -175,6 +175,18 @@ namespace AllegroFlare
 
    std::string Config::get_value_str(std::string section, std::string key)
    {
+      AllegroFlare::Errors::warn_from_once(
+         "AllegroFlare::Config::get_value_str",
+         "\"get_value_str\" is depreciated, please use \"get_value_string\"."
+      );
+
+      return get_value_string(section, key);
+   }
+
+
+
+   std::string Config::get_value_string(std::string section, std::string key)
+   {
       ensure_initialized_allegro();
       const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
       if (!val) return "";
