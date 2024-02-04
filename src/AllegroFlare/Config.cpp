@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <AllegroFlare/Errors.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -129,6 +130,20 @@ namespace AllegroFlare
 
 
 
+   bool Config::has_section(std::string section)
+   {
+      ensure_initialized_allegro();
+      AllegroFlare::Errors::throw_error(
+         "AllegroFlare::Config::has_section",
+         "Not implemented"
+      );
+      //const char *val = al_get_config_value(config_file, section.c_str(), key.c_str());
+      //if (!val) return false;
+      //return true;
+   }
+
+
+
    std::vector<std::string> Config::get_section_keys(std::string section)
    {
       std::vector<std::string> result;
@@ -137,7 +152,13 @@ namespace AllegroFlare
 
       ensure_initialized_allegro();
       const char *val = al_get_first_config_entry(config_file, section.c_str(), &iterator);
-      if (!val) return result;
+      if (!val)
+      {
+         AllegroFlare::Errors::throw_error(
+            "AllegroFlare::Config::get_section_keys",
+            "The section \"" + section + "\" does not exist."
+         );
+      }
       result.push_back(std::string(val));
 
       while ((val = al_get_next_config_entry(&iterator)))
