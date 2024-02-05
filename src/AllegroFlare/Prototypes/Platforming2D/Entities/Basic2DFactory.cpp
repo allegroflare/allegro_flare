@@ -140,6 +140,11 @@ AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFacto
    result->set_animation(initial_animation_name);
    //result->fit_to_bitmap(); // <-- TODO: don't think this is necessary, done automatically with "set_animation"
    result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
+   result->get_bitmap_placement_ref().scale =
+      {
+         1.0f / animation_book->get_sprite_sheet_scale(),
+         1.0f / animation_book->get_sprite_sheet_scale(),
+      };
 
    result->set(ON_MAP_NAME, map_name);
 

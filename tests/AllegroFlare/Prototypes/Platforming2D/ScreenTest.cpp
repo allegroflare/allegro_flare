@@ -48,10 +48,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
    // Create an animation book (to create an frame_animated type from the factory)
+   int sprite_sheet_scale = 5;
    AllegroFlare::FrameAnimation::Book animation_book;
    animation_book.set_png_source_filename(data_folder_path + "bitmaps/sprites_grid-x.png");
    animation_book.set_json_source_filename(data_folder_path + "bitmaps/sprites_grid-x.json");
-   animation_book.set_sprite_sheet_scale(1);
+   animation_book.set_sprite_sheet_scale(sprite_sheet_scale);
    animation_book.set_sprite_sheet_cell_width(48);
    animation_book.set_sprite_sheet_cell_height(48);
    animation_book.initialize();
@@ -88,6 +89,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =
       factory.create_frame_animated("map_a", 400/2, 240/2, 12, 8, "blob", "bottom_centered_edge");
    created_animated_entity->get_place_ref().scale = { 1.0f, 1.0f };
+   created_animated_entity->get_bitmap_placement_ref().scale =
+      {
+         1.0f / sprite_sheet_scale,
+         1.0f / sprite_sheet_scale,
+      };
 
    platforming_2d.add_entity_to_pool(created_animated_entity);
 
