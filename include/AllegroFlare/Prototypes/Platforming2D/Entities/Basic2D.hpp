@@ -44,6 +44,12 @@ namespace AllegroFlare
 
 
             public:
+               float& x;
+               float& y;
+               float& width;
+               float& height;
+               float& vx;
+               float& vy;
                Basic2D(AllegroFlare::FrameAnimation::Book* animation_book=nullptr);
                virtual ~Basic2D();
 

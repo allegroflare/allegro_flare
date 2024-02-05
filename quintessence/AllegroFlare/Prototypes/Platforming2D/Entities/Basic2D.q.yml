@@ -78,6 +78,36 @@ properties:
     getter: true
     setter: true
 
+  - name: x
+    type: float&
+    init_with: place.position.x
+    exposed: true
+
+  - name: y
+    type: float&
+    init_with: place.position.y
+    exposed: true
+
+  - name: width
+    type: float&
+    init_with: place.size.x
+    exposed: true
+
+  - name: height
+    type: float&
+    init_with: place.size.y
+    exposed: true
+
+  - name: vx
+    type: float&
+    init_with: velocity.position.x
+    exposed: true
+
+  - name: vy
+    type: float&
+    init_with: velocity.position.y
+    exposed: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Entities/Basic2D"'

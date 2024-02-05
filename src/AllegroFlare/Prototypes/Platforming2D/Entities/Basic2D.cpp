@@ -34,6 +34,12 @@ Basic2D::Basic2D(AllegroFlare::FrameAnimation::Book* animation_book)
    , animation({})
    , draw_debug(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
+   , x(place.position.x)
+   , y(place.position.y)
+   , width(place.size.x)
+   , height(place.size.y)
+   , vx(velocity.position.x)
+   , vy(velocity.position.y)
 {
 }
 
