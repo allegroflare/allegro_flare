@@ -1026,35 +1026,39 @@ void Screen::draw()
    return;
 }
 
-void Screen::draw_hud()
+void Screen::draw_debugging()
 {
-   ALLEGRO_FONT *font = obtain_debug_font();
-
-   float lh = 40; // "lh" is line height
-   float l=0;
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "physics");
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  reposition_offset: %f", 
-         collision_stepper.get_reposition_offset()
-      );
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "player_character");
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_x: %f", 
-         player_controlled_entity->get_place_ref().position.x
-      );
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_y: %f", 
-         player_controlled_entity->get_place_ref().position.y
-      );
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_x: %f", 
-         player_controlled_entity->get_velocity_ref().position.x
-      );
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_y: %f", 
-         player_controlled_entity->get_velocity_ref().position.y
-      );
-   al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  flags:");
-   for (auto &attribute : player_controlled_entity->Attributes::get_copy())
+   bool draw_debugging_info = false;
+   if (draw_debugging_info)
    {
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "    - %s", 
-            attribute.first.c_str()
+      ALLEGRO_FONT *font = obtain_debug_font();
+
+      float lh = 40; // "lh" is line height
+      float l=0;
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "physics");
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  reposition_offset: %f", 
+            collision_stepper.get_reposition_offset()
          );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "player_character");
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_x: %f", 
+            player_controlled_entity->get_place_ref().position.x
+         );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_y: %f", 
+            player_controlled_entity->get_place_ref().position.y
+         );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_x: %f", 
+            player_controlled_entity->get_velocity_ref().position.x
+         );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_y: %f", 
+         player_controlled_entity->get_velocity_ref().position.y
+         );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  flags:");
+      for (auto &attribute : player_controlled_entity->Attributes::get_copy())
+      {
+         al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "    - %s", 
+               attribute.first.c_str()
+            );
+      }
    }
 
    return;
@@ -1081,7 +1085,7 @@ void Screen::primary_update_func(double time_now, double delta_time)
 void Screen::primary_render_func()
 {
    draw();
-   draw_hud();
+   draw_debugging();
    return;
 }
 
