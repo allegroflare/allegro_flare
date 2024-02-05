@@ -129,7 +129,12 @@ void PrimMeshAtlas::clear()
 }
 
 
-void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP *source_bitmap, int tile_width, int tile_height, int tile_spacing)
+void PrimMeshAtlas::duplicate_bitmap_and_load(
+      ALLEGRO_BITMAP *source_bitmap,
+      int tile_width,
+      int tile_height,
+      int tile_spacing
+   )
 {
    this->tile_width = tile_width;
    this->tile_height = tile_height;
@@ -348,8 +353,18 @@ ALLEGRO_BITMAP *PrimMeshAtlas::TileAtlasBuilder::build_extruded()
 
 //#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 
-ALLEGRO_BITMAP *PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(ALLEGRO_BITMAP *original_bitmap, int scale)
+ALLEGRO_BITMAP *PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(
+      ALLEGRO_BITMAP *original_bitmap,
+      int scale,
+      int tile_width,
+      int tile_height
+   )
 {
+   // TODO: Confirm the lifecycle of this sprite sheet:
+   //    - the original bitmap
+   //    - the duplicated bitmap
+   //    - the created sub-bitmaps
+
    //ALLEGRO_BITMAP *original_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
    // TODO: require al_init
    // TODO: require al_init_image_addon
@@ -367,10 +382,12 @@ ALLEGRO_BITMAP *PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(ALLEG
    ALLEGRO_BITMAP *scaled = PrimMeshAtlas::TileAtlasBuilder::create_pixel_perfect_scaled_render(original_bitmap, scale);
 
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-      atlas.duplicate_bitmap_and_load(scaled, 16*scale, 16*scale, 0);
+      //atlas.duplicate_bitmap_and_load(scaled, 16*scale, 16*scale, 0);
+      atlas.duplicate_bitmap_and_load(scaled, tile_width*scale, tile_height*scale, 0);
       al_destroy_bitmap(scaled);
       std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
-      PrimMeshAtlas::TileAtlasBuilder tile_atlas_builder(16*scale, 16*scale, tile_index);
+      //PrimMeshAtlas::TileAtlasBuilder tile_atlas_builder(16*scale, 16*scale, tile_index);
+      PrimMeshAtlas::TileAtlasBuilder tile_atlas_builder(tile_width*scale, tile_height*scale, tile_index);
       //atlas.clear();
 
 

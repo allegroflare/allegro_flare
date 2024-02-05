@@ -8,6 +8,9 @@
 #include <vector>
 
 
+// TODO: Split this class's sub-class into a separate class file
+// TODO: Fix argument order in "TileAtlasBuilder::build_scaled_and_extruded"
+
 namespace AllegroFlare::TileMaps
 {
    class PrimMeshAtlas
@@ -65,14 +68,19 @@ private:
 
 public:
    TileAtlasBuilder(
-      int tile_w=0,
-      int tile_h=0,
+      int tile_w=16,
+      int tile_h=16,
       std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index={}
    );
    ~TileAtlasBuilder();
 
    ALLEGRO_BITMAP *build_extruded();
-   static ALLEGRO_BITMAP *build_scaled_and_extruded(ALLEGRO_BITMAP *bitmap=nullptr, int scale=3);
+   static ALLEGRO_BITMAP *build_scaled_and_extruded( // TODO: Fix the argument order of this function
+         ALLEGRO_BITMAP *bitmap=nullptr,
+         int scale=3,
+         int tile_width=16,
+         int tile_height=16
+      );
    static ALLEGRO_BITMAP *create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bitmap=nullptr, int scale=4);
 };
 

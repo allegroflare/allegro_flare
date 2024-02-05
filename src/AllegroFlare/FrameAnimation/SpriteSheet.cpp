@@ -25,6 +25,8 @@ SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_he
    , scale(scale)
    , initialized(false)
    , destroyed(false)
+   , new_atlas()
+   , new_tile_index()
 {
    AllegroFlare::Errors::warn_from("AllegroFlare::FrameAnimation::SpriteSheet::SpriteSheet()", 
                                    "SpriteSheet is auto-initializing on construction. This should be fixed");
@@ -37,8 +39,34 @@ SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_he
 
 void SpriteSheet::init()
 {
-   _create_atlas_copy();
-   _create_sub_sprites();
+   //new_atlas.duplicate_bitmap_and_load(atlas, sprite_width, sprite_height, 0);
+   //new_tile_index = new_atlas.get_tile_index();
+
+
+
+   ///*
+         //int scale = 3;
+         // TODO: factor out this step
+         ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
+            //AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
+            AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(
+                  atlas,
+                  scale,
+                  sprite_width,
+                  sprite_height
+               );
+         //created_tile_atlas->duplicate_bitmap_and_load(
+            //scaled_extruded_tile_map_bitmap, tile_atlas_tile_width*scale, tile_atlas_tile_height*scale, 1
+         //);
+         new_atlas.duplicate_bitmap_and_load(
+            scaled_extruded_tile_map_bitmap, sprite_width*scale, sprite_height*scale, 1
+         );
+         new_tile_index = new_atlas.get_tile_index();
+   //*/
+
+
+   //_create_atlas_copy();
+   //_create_sub_sprites();
    initialized = true;
 }
 
@@ -47,6 +75,8 @@ void SpriteSheet::init()
 
 void SpriteSheet::destroy()
 {
+   // TODO: Destroy the new_atlas and/or new_tile_index
+
    if (destroyed)
    {
       // TODO: output warning
@@ -54,11 +84,12 @@ void SpriteSheet::destroy()
    }
    if (!al_is_system_installed())
    {
+      // TODO: Do not throw in the destructor here
       throw std::runtime_error("dungeon/models/sprite_sheet::SpriteSheet dtor error: "
                                "allegro has already been shutdown");
    }
    for (auto &sprite : sprites) al_destroy_bitmap(sprite);
-   al_destroy_bitmap(atlas);
+   if (atlas) al_destroy_bitmap(atlas);
    destroyed = true;
 }
 
@@ -110,8 +141,10 @@ ALLEGRO_BITMAP *SpriteSheet::get_sprite(int index)
 
 ALLEGRO_BITMAP *SpriteSheet::get_cell(int index)
 {
-   if (index < 0 || index >= sprites.size()) return nullptr;
-   return sprites[index];
+   //if (index < 0 || index >= sprites.size()) return nullptr;
+   //return sprites[index];
+   if (index < 0 || index >= new_tile_index.size()) return nullptr;
+   return new_tile_index[index].get_sub_bitmap();
 }
 
 
@@ -119,7 +152,8 @@ ALLEGRO_BITMAP *SpriteSheet::get_cell(int index)
 
 int SpriteSheet::get_num_sprites()
 {
-   return sprites.size();
+   return new_tile_index.size();
+   //return sprites.size();
 }
 
 
