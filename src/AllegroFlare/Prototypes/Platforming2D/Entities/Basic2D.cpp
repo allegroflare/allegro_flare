@@ -240,6 +240,13 @@ void Basic2D::refresh_bitmap_to_current_animation_frame()
    return;
 }
 
+void Basic2D::on_collides_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity)
+{
+   // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+   // collision that occurs during the physics step
+   return;
+}
+
 void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_place_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result)
 {
    if (!(collision_step_result))

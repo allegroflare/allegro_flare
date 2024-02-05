@@ -28,6 +28,7 @@ namespace AllegroFlare
             void set_entities(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entities);
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* get_entities() const;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_collectable_by_player();
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_collides_with_player();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_goalposts();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_doors();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_on_map(std::string on_map_name="[on-map-name-not-set]");

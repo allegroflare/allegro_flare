@@ -65,6 +65,7 @@ namespace AllegroFlare
             void initialize_camera();
             void cleanup_entities_flagged_for_deletion();
             void check_player_collisions_with_doors();
+            void update_player_collisions_with_COLLIDES_WITH_PLAYER();
             void update_player_collisions_with_collectables();
             void update_player_collisions_with_goalposts();
 

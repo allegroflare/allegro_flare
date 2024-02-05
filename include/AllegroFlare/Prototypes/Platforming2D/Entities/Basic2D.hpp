@@ -6,6 +6,7 @@
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Base.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
@@ -78,6 +79,7 @@ namespace AllegroFlare
                void set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy="[unset-bitmap_alignment_strategy]");
                virtual void update() override;
                void refresh_bitmap_to_current_animation_frame();
+               virtual void on_collides_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr);
                virtual void on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result={});
                virtual void draw() override;
                void fit_to_bitmap();

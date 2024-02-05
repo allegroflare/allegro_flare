@@ -785,6 +785,10 @@ void Screen::update_entities()
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_goalposts();
 
+
+   if (player_controlled_entity) update_player_collisions_with_COLLIDES_WITH_PLAYER();
+
+
    // update the player colliding on the doors
    //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
@@ -871,6 +875,36 @@ void Screen::check_player_collisions_with_doors()
          }
          
          return;
+      }
+   }
+   return;
+}
+
+void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER: error: guard \"player_controlled_entity\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+
+   float player_x = player_controlled_entity->x;
+   float player_y = player_controlled_entity->y;
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+
+   for (auto &entity : collection_helper.select_collides_with_player())
+   {
+      // TODO: Be alert that multiple collisions could cause multiple callbacks and some potentially undefined
+      // result state
+      //if (entity->get_place_ref().collide(&pla->get_placement_ref())); //player_x, player_y, 0, 0, 0, 0))
+      if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
+      {
+         entity->on_collides_with_player(player_controlled_entity);
       }
    }
    return;

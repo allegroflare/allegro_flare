@@ -745,6 +745,7 @@
     "AllegroFlare/CameraControlStrategies2D/SmoothSnap",
     "AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect",
     "AllegroFlare/CameraControlStrategies2D/Snap",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
