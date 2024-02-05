@@ -893,6 +893,12 @@ methods:
       return;
 
 
+  - name: draw_hud
+    virtual: true
+    body: |
+      return;
+ 
+
   - name: draw
     guards: [ initialized, currently_active_map, get_tile_mesh() ]
     body: |
@@ -1005,6 +1011,7 @@ methods:
     override: true
     body: |
       draw();
+      draw_hud();
       draw_debugging();
       return;
 

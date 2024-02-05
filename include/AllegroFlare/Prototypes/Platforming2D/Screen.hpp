@@ -114,6 +114,7 @@ namespace AllegroFlare
             void update_entities();
             void draw_entities();
             void update();
+            virtual void draw_hud();
             void draw();
             void draw_debugging();
             void toggle_show_collision_tile_mesh();

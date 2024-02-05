@@ -966,6 +966,11 @@ void Screen::update()
    return;
 }
 
+void Screen::draw_hud()
+{
+   return;
+}
+
 void Screen::draw()
 {
    if (!(initialized))
@@ -1085,6 +1090,7 @@ void Screen::primary_update_func(double time_now, double delta_time)
 void Screen::primary_render_func()
 {
    draw();
+   draw_hud();
    draw_debugging();
    return;
 }
