@@ -166,7 +166,19 @@ methods:
                else if (custom_property_type == "object")
                {
                   int custom_property_value = custom_property["value"];
-                  custom_properties.add_int(custom_property_name, custom_property_value);
+                  if (custom_property_value == 0)
+                  {
+                     AllegroFlare::Logger::warn_from(
+                        "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader::load",
+                        "When loading custom properies, the property name \"" + custom_property_type + "\" was parsed "
+                           "with value of \"0\", indicating that it is empty (or unset) in Tiled. The loader will skip "
+                           "over including this property internally."
+                     );
+                  }
+                  else
+                  {
+                     custom_properties.add_int(custom_property_name, custom_property_value);
+                  }
                }
                else
                {
