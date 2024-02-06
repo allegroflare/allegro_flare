@@ -192,6 +192,12 @@ void* Screen::get_create_entities_from_map_callback_user_data() const
 }
 
 
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> &Screen::get_entity_pool_ref()
+{
+   return entity_pool;
+}
+
+
 AllegroFlare::Physics::TileMapCollisionStepper &Screen::get_collision_stepper_ref()
 {
    return collision_stepper;

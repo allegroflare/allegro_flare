@@ -44,6 +44,7 @@ properties:
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     init_with: '{}'
     setter: true
+    getter_ref: true
 
   - name: map_dictionary
     type: std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing>
