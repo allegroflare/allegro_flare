@@ -409,19 +409,33 @@ void Screen::initialize_maps()
    }
 
    // Post-process the map
+   post_process_loaded_maps();
 
    // Validate linked doors
-   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
-   for (auto &primary_door : collection_helper.select_doors())
-   {
+   //AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
+   //for (auto &primary_door : collection_helper.select_doors())
+   //{
       //int other_door = primary_door->exists(;
       //for (auto &primary_main : collection_helper.select_doors())
       //{
       //}
-   }
+   //}
 
    maps_initialized = true;
 
+   return;
+}
+
+void Screen::post_process_loaded_maps(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool)
+{
+   //AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
+   //for (auto &primary_door : collection_helper.select_doors())
+   //{
+      //int other_door = primary_door->exists(;
+      //for (auto &primary_main : collection_helper.select_doors())
+      //{
+      //}
+   //}
    return;
 }
 
