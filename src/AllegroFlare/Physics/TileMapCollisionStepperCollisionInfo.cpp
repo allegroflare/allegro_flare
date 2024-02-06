@@ -127,6 +127,14 @@ bool TileMapCollisionStepperCollisionInfo::infer_is_a_ground_land()
    return (stopped_by_this_collision && event == EVENT_COLLIDED_AGAINST && collided_against_block_edge == EDGE_TOP);
 }
 
+bool TileMapCollisionStepperCollisionInfo::infer_is_a_horizontal_wall_collide()
+{
+   return (stopped_by_this_collision
+         && event == EVENT_COLLIDED_AGAINST
+         && ((collided_against_block_edge == EDGE_RIGHT) || (collided_against_block_edge == EDGE_LEFT))
+      );
+}
+
 std::string TileMapCollisionStepperCollisionInfo::build_event_name(int event)
 {
    switch(event)

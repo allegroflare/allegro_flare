@@ -131,6 +131,15 @@ functions:
       return (stopped_by_this_collision && event == EVENT_COLLIDED_AGAINST && collided_against_block_edge == EDGE_TOP);
 
 
+  - name: infer_is_a_horizontal_wall_collide
+    type: bool
+    body: |
+      return (stopped_by_this_collision
+            && event == EVENT_COLLIDED_AGAINST
+            && ((collided_against_block_edge == EDGE_RIGHT) || (collided_against_block_edge == EDGE_LEFT))
+         );
+
+
   - name: build_event_name
     static: true
     type: std::string
