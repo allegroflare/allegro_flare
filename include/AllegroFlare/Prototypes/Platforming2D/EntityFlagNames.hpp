@@ -27,6 +27,7 @@ namespace AllegroFlare
 
             std::string const TMJ_OBJECT_TYPE = "tmj_object_type";
             std::string const TMJ_OBJECT_ID = "tmj_object_id";
+            std::string const TARGET_DOOR_ID = "target_door_id"; // Value used in Tiled maps to specify ids
             std::string const TYPE = "type";
             std::string const GOALPOST = "goalpost";
             std::string const DOOR = "door";
@@ -34,7 +35,8 @@ namespace AllegroFlare
             std::string const TRACKS_PLAYER_CHARACTER_XY = "tracks_player_character_xy";
 
             std::string const TARGET_DOOR_NAME = "target_door_name";
-            std::string const TARGET_DOOR_TMJ_ID = "target_door_tmj_id";
+            std::string const TARGET_DOOR_TMJ_ID = "target_door_tmj_id"; // Key used internally to represent which
+                                                                         // door tmj_object_id is the target
 
             std::string const ON_MAP_NAME = "on_map_name"; // Used to set which map the current entity is in
             std::string const MAP_NAME = "map_name"; // Use to set a map name on the map(?)
