@@ -23,6 +23,7 @@ namespace AllegroFlare
             std::string const COLLECTABLE_BY_PLAYER = "collectable_by_player";
             std::string const COLLIDES_WITH_PLAYER = "collides_with_player";
             std::string const INVISIBLE = "invisible";
+            std::string const DEAD = "dead";
 
             std::string const TMJ_OBJECT_TYPE = "tmj_object_type";
             std::string const TYPE = "type";

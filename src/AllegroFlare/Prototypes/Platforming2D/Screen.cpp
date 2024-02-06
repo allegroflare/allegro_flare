@@ -47,6 +47,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , camera_baseline_zoom({4.8f, 4.5f})
    , player_controlled_entity(nullptr)
    , show_tile_mesh(true)
+   , last_activated_save_point(nullptr)
    , show_collision_tile_mesh(false)
    , show_visual_hint_on_suspended_gameplay(false)
    , entity_control_connector(nullptr)
@@ -152,6 +153,12 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Screen::get_player_c
 bool Screen::get_show_tile_mesh() const
 {
    return show_tile_mesh;
+}
+
+
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Screen::get_last_activated_save_point() const
+{
+   return last_activated_save_point;
 }
 
 
@@ -785,7 +792,12 @@ void Screen::update_entities()
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_goalposts();
 
+   // Evaluate player collisions on save_points
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+   if (player_controlled_entity) update_player_collisions_with_save_points();
 
+   // Evaluate player collisions on entities tagged with COLLIDES_WITH_PLAYER
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_COLLIDES_WITH_PLAYER();
 
 
@@ -797,6 +809,28 @@ void Screen::update_entities()
 
    // Update the camera
    if (camera_control_strategy) camera_control_strategy->update();
+
+   // Check for player death
+   if (player_controlled_entity) check_and_respond_if_player_death();
+
+   return;
+}
+
+void Screen::check_and_respond_if_player_death()
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::check_and_respond_if_player_death]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::check_and_respond_if_player_death: error: guard \"player_controlled_entity\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   if (player_controlled_entity->exists(AllegroFlare::Prototypes::Platforming2D::EntityFlagNames::DEAD))
+   {
+      event_emitter->emit_game_event(AllegroFlare::GameEvent("player_has_died"));
+   }
 
    return;
 }
@@ -932,6 +966,35 @@ void Screen::update_player_collisions_with_collectables()
       if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
       {
          entity->set(PLEASE_DELETE);
+         // NOTE: typically will do something here as a result of picking up the item
+      }
+   }
+   return;
+}
+
+void Screen::update_player_collisions_with_save_points()
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::update_player_collisions_with_save_points]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::update_player_collisions_with_save_points: error: guard \"player_controlled_entity\" not met");
+   }
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+   float player_x = player_controlled_entity->get_place_ref().position.x;
+   float player_y = player_controlled_entity->get_place_ref().position.y + 16;
+
+   for (auto &entity : collection_helper.select_save_points())
+   {
+      if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
+      {
+         last_activated_save_point = entity;
+         //entity->set(PLEASE_DELETE);
          // NOTE: typically will do something here as a result of picking up the item
       }
    }

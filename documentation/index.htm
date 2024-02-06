@@ -23819,6 +23819,9 @@ table td
   <td class="method">select_goalposts()</td>
 </tr>
 <tr>
+  <td class="method">select_save_points()</td>
+</tr>
+<tr>
   <td class="method">select_doors()</td>
 </tr>
 <tr>
@@ -24018,6 +24021,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">last_activated_save_point</td>
+  <td class="property">AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*</td>
+</tr>
+<tr>
   <td class="property">show_collision_tile_mesh</td>
   <td class="property">bool</td>
 </tr>
@@ -24112,6 +24119,9 @@ table td
   <td class="method">update_entities()</td>
 </tr>
 <tr>
+  <td class="method">check_and_respond_if_player_death()</td>
+</tr>
+<tr>
   <td class="private_method">cleanup_entities_flagged_for_deletion()</td>
 </tr>
 <tr>
@@ -24122,6 +24132,9 @@ table td
 </tr>
 <tr>
   <td class="private_method">update_player_collisions_with_collectables()</td>
+</tr>
+<tr>
+  <td class="private_method">update_player_collisions_with_save_points()</td>
 </tr>
 <tr>
   <td class="private_method">update_player_collisions_with_goalposts()</td>

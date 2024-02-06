@@ -53,6 +53,7 @@ namespace AllegroFlare
             AllegroFlare::Vec2D camera_baseline_zoom;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity;
             bool show_tile_mesh;
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point;
             bool show_collision_tile_mesh;
             bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector;
@@ -67,6 +68,7 @@ namespace AllegroFlare
             void check_player_collisions_with_doors();
             void update_player_collisions_with_COLLIDES_WITH_PLAYER();
             void update_player_collisions_with_collectables();
+            void update_player_collisions_with_save_points();
             void update_player_collisions_with_goalposts();
 
          protected:
@@ -91,6 +93,7 @@ namespace AllegroFlare
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_player_controlled_entity() const;
             bool get_show_tile_mesh() const;
+            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_last_activated_save_point() const;
             bool get_show_collision_tile_mesh() const;
             bool get_show_visual_hint_on_suspended_gameplay() const;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
@@ -113,6 +116,7 @@ namespace AllegroFlare
             void player_emit_projectile(float magnitude=3.0f);
             void reverse_gravity();
             void update_entities();
+            void check_and_respond_if_player_death();
             void draw_entities();
             void update();
             virtual void draw_hud();
