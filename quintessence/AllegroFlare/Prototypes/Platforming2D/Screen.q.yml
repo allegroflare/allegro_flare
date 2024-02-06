@@ -365,6 +365,18 @@ methods:
          entity_pool.insert(entity_pool.end(), map_loaded_entity_pool.begin(), map_loaded_entity_pool.end());
       }
 
+      // Post-process the map
+
+      // Validate linked doors
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
+      for (auto &primary_door : collection_helper.select_doors())
+      {
+         //int other_door = primary_door->exists(;
+         //for (auto &primary_main : collection_helper.select_doors())
+         //{
+         //}
+      }
+
       maps_initialized = true;
 
       return;
