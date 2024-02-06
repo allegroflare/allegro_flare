@@ -26,6 +26,7 @@ namespace AllegroFlare
             std::string const DEAD = "dead";
 
             std::string const TMJ_OBJECT_TYPE = "tmj_object_type";
+            std::string const TMJ_OBJECT_ID = "tmj_object_id";
             std::string const TYPE = "type";
             std::string const GOALPOST = "goalpost";
             std::string const DOOR = "door";

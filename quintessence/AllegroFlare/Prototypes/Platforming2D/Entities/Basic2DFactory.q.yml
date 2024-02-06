@@ -721,6 +721,7 @@ functions:
       {
          entity_pool->push_back(basic2dfactory->create_enemy_move_left("unset-map-name", x, y));
          entity_pool->back()->set(TMJ_OBJECT_TYPE, "hopper");
+         entity_pool->back()->set(TMJ_OBJECT_ID, id);
       }
       else if (object_type == "door")
       {
@@ -732,6 +733,7 @@ functions:
             basic2dfactory->create_door("unset-map-name", x, y, target_map_name, target_spawn_x, target_spawn_y)
          );
          entity_pool->back()->set(TMJ_OBJECT_TYPE, "door");
+         entity_pool->back()->set(TMJ_OBJECT_ID, id);
       }
       else // An unrecognized object type
       {
@@ -788,6 +790,7 @@ functions:
          float,
          float,
          float,
+         int,
          AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
          std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
          AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
@@ -823,6 +826,7 @@ functions:
          y,
          width,
          height,
+         id,
          custom_properties,
          entity_pool,
          basic2dfactory,
@@ -848,6 +852,7 @@ functions:
                float,
                float,
                float,
+               int,
                AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
                std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
