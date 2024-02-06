@@ -688,6 +688,9 @@ functions:
       - name: height
         type: float
         default_argument: 0.0f
+      - name: id
+        type: int
+        default_argument: 0
       - name: custom_properties
         type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
         default_argument: '{}'
@@ -763,6 +766,9 @@ functions:
       - name: height
         type: float
         default_argument: 0.0f
+      - name: id
+        type: int
+        default_argument: 0
       - name: custom_properties
         type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
         default_argument: '{}'

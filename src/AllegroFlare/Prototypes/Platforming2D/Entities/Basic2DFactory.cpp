@@ -471,7 +471,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    return created_map;
 }
 
-void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std::string object_type, float x, float y, float width, float height, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
+void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std::string object_type, float x, float y, float width, float height, int id, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
 {
    if (!(data))
    {
@@ -529,7 +529,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    return;
 }
 
-void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type, float x, float y, float width, float height, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
+void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type, float x, float y, float width, float height, int id, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
 {
    if (!(data))
    {
