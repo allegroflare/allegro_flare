@@ -28,11 +28,13 @@ namespace AllegroFlare
             std::string const TYPE = "type";
             std::string const GOALPOST = "goalpost";
             std::string const DOOR = "door";
+            std::string const SAVE_POINT = "save_point";
             std::string const TRACKS_PLAYER_CHARACTER_XY = "tracks_player_character_xy";
 
-            std::string const ON_MAP_NAME = "on_map_name";
-            std::string const MAP_NAME = "map_name";
-            std::string const EPHEMERAL = "ephemeral";
+            std::string const ON_MAP_NAME = "on_map_name"; // Used to set which map the current entity is in
+            std::string const MAP_NAME = "map_name"; // Use to set a map name on the map(?)
+
+            std::string const EPHEMERAL = "ephemeral"; // Means pure effect
 
 
 

@@ -60,6 +60,22 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: select_save_points
+    type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
+    guards: [ entities ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(TYPE, SAVE_POINT)) result.push_back(entity);
+      }
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: select_doors
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     guards: [ entities ]
