@@ -92,6 +92,61 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: find_door_by_tmj_object_id
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*
+    parameters:
+      - name: tmj_object_id
+        type: int
+        default_argument: 0
+    guards: [ entities ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (
+                  entity->exists(TYPE, DOOR)
+               && entity->exists(TMJ_OBJECT_ID)
+               && (entity->get_as_int(TMJ_OBJECT_ID) == tmj_object_id)
+               //&& entity->is_type(...) // TODO: Consider validating entity type as Doors::Basic2D::TYPE
+            )
+         {
+            return static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
+         }
+      }
+      return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
+  - name: find_door_by_target_door_name
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*
+    parameters:
+      - name: target_door_name
+        type: std::string
+        default_argument: '"[unset-target_door_name]"'
+    guards: [ entities ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (
+                  entity->exists(TYPE, DOOR)
+               && entity->exists(TARGET_DOOR_NAME, target_door_name)
+               //&& entity->is_type(...) // TODO: Consider validating entity type as Doors::Basic2D::TYPE
+            )
+         {
+            return static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
+         }
+      }
+      return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: select_on_map
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     parameters:
@@ -174,5 +229,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp ]
 
 

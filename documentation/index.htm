@@ -23825,6 +23825,12 @@ table td
   <td class="method">select_doors()</td>
 </tr>
 <tr>
+  <td class="method">find_door_by_tmj_object_id(int tmj_object_id=0)</td>
+</tr>
+<tr>
+  <td class="method">find_door_by_target_door_name(std::string target_door_name=&quot;[unset-target_door_name]&quot;)</td>
+</tr>
+<tr>
   <td class="method">select_on_map(std::string on_map_name=&quot;[on-map-name-not-set]&quot;)</td>
 </tr>
 <tr>
@@ -23844,6 +23850,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -39472,6 +39481,7 @@ table td
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D": [

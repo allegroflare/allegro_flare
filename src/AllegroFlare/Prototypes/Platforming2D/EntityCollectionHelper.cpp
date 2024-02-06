@@ -134,6 +134,59 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    return result;
 }
 
+AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* EntityCollectionHelper::find_door_by_tmj_object_id(int tmj_object_id)
+{
+   if (!(entities))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityCollectionHelper::find_door_by_tmj_object_id]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityCollectionHelper::find_door_by_tmj_object_id: error: guard \"entities\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+   for (auto &entity : (*entities))
+   {
+      if (
+               entity->exists(TYPE, DOOR)
+            && entity->exists(TMJ_OBJECT_ID)
+            && (entity->get_as_int(TMJ_OBJECT_ID) == tmj_object_id)
+            //&& entity->is_type(...) // TODO: Consider validating entity type as Doors::Basic2D::TYPE
+         )
+      {
+         return static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
+      }
+   }
+   return nullptr;
+}
+
+AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* EntityCollectionHelper::find_door_by_target_door_name(std::string target_door_name)
+{
+   if (!(entities))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityCollectionHelper::find_door_by_target_door_name]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityCollectionHelper::find_door_by_target_door_name: error: guard \"entities\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+   for (auto &entity : (*entities))
+   {
+      if (
+               entity->exists(TYPE, DOOR)
+            && entity->exists(TARGET_DOOR_NAME, target_door_name)
+            //&& entity->is_type(...) // TODO: Consider validating entity type as Doors::Basic2D::TYPE
+         )
+      {
+         return static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
+      }
+   }
+   return nullptr;
+}
+
 std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityCollectionHelper::select_on_map(std::string on_map_name)
 {
    if (!(entities))
