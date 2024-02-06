@@ -33,6 +33,9 @@ namespace AllegroFlare
             std::string const SAVE_POINT = "save_point";
             std::string const TRACKS_PLAYER_CHARACTER_XY = "tracks_player_character_xy";
 
+            std::string const TARGET_DOOR_NAME = "target_door_name";
+            std::string const TARGET_DOOR_TMJ_ID = "target_door_tmj_id";
+
             std::string const ON_MAP_NAME = "on_map_name"; // Used to set which map the current entity is in
             std::string const MAP_NAME = "map_name"; // Use to set a map name on the map(?)
 

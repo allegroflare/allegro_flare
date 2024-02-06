@@ -343,6 +343,8 @@ methods:
          std::string map_tile_atlas_bitmap_identifier = map_dictionary_listing.get_tile_atlas_bitmap_identifier();
          //std::string map_tile_atlas_bitmap_identifier = std::get<1>(map_dictionary_entry);
 
+         std::cout << "Loading map named \"" << map_name << "\" from file \"" << map_filename << "\"." << std::endl;
+
          // Create the tile map
          AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =
             factory.create_tile_map(

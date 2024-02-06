@@ -2,7 +2,8 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp>
 
-
+#include <set>
+#include <sstream>
 
 
 namespace AllegroFlare
@@ -74,6 +75,26 @@ std::map<std::string, float> TMJObjectLoaderObjectCustomProperties::get_float_pr
    return float_properties;
 }
 
+
+std::string TMJObjectLoaderObjectCustomProperties::get_keys_in_list()
+{
+   // TODO: Test this method
+   std::set<std::string> result;
+   for (auto &string_property : string_properties) result.insert("\"" + string_property.first + "\" (string)");
+   for (auto &int_property : int_properties) result.insert("\"" + int_property.first + "\" (int)");
+   for (auto &float_property : float_properties) result.insert("\"" + float_property.first + "\" (float)");
+   for (auto &bool_property : bool_properties) result.insert("\"" + bool_property.first + "\" (bool)");
+
+   std::stringstream result_str;
+   result_str << "[";
+   for (auto& res : result)
+   {
+      result_str << res << ", ";
+   }
+   result_str << "]";
+
+   return result_str.str();
+}
 
 void TMJObjectLoaderObjectCustomProperties::clear()
 {
