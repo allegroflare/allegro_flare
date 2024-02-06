@@ -203,7 +203,7 @@ void TMJObjectLoader::load()
             else if (custom_property_type == "object")
             {
                int custom_property_value = custom_property["value"];
-               custom_properties.add_bool(custom_property_name, custom_property_value);
+               custom_properties.add_int(custom_property_name, custom_property_value);
             }
             else
             {
