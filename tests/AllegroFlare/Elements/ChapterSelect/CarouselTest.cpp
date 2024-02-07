@@ -44,7 +44,7 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixtu
 
 
 TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__render__will_render_the_elements)
+   CAPTURE__render__will_render_the_elements)
 {
    using namespace AllegroFlare::Elements::ChapterSelect::CarouselElements;
 
