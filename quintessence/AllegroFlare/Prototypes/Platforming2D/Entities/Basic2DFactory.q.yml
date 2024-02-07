@@ -691,6 +691,9 @@ functions:
       - name: id
         type: int
         default_argument: 0
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
       - name: custom_properties
         type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
         default_argument: '{}'
@@ -722,6 +725,7 @@ functions:
          entity_pool->push_back(basic2dfactory->create_enemy_move_left("unset-map-name", x, y));
          entity_pool->back()->set(TMJ_OBJECT_TYPE, "hopper");
          entity_pool->back()->set(TMJ_OBJECT_ID, id);
+         entity_pool->back()->set(TMJ_OBJECT_NAME, name); // probably empty in the test data
       }
       else if (object_type == "door")
       {
@@ -734,6 +738,7 @@ functions:
          );
          entity_pool->back()->set(TMJ_OBJECT_TYPE, "door");
          entity_pool->back()->set(TMJ_OBJECT_ID, id);
+         entity_pool->back()->set(TMJ_OBJECT_NAME, name); // probably empty in the test data
       }
       else // An unrecognized object type
       {
@@ -771,6 +776,9 @@ functions:
       - name: id
         type: int
         default_argument: 0
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
       - name: custom_properties
         type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
         default_argument: '{}'

@@ -27,6 +27,7 @@ namespace AllegroFlare
 
             std::string const TMJ_OBJECT_TYPE = "tmj_object_type";
             std::string const TMJ_OBJECT_ID = "tmj_object_id";
+            std::string const TMJ_OBJECT_NAME = "tmj_object_name";
             std::string const TARGET_DOOR_ID = "target_door_id"; // Value used in Tiled maps to specify ids
             std::string const TYPE = "type";
             std::string const GOALPOST = "goalpost";

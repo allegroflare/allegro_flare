@@ -33,7 +33,7 @@ TMJObjectLoader::~TMJObjectLoader()
 }
 
 
-void TMJObjectLoader::set_object_parsed_callback(std::function<void(std::string, float, float, float, float, int, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> object_parsed_callback)
+void TMJObjectLoader::set_object_parsed_callback(std::function<void(std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> object_parsed_callback)
 {
    this->object_parsed_callback = object_parsed_callback;
 }
@@ -45,7 +45,7 @@ void TMJObjectLoader::set_object_parsed_callback_user_data(void* object_parsed_c
 }
 
 
-std::function<void(std::string, float, float, float, float, int, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> TMJObjectLoader::get_object_parsed_callback() const
+std::function<void(std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> TMJObjectLoader::get_object_parsed_callback() const
 {
    return object_parsed_callback;
 }
@@ -150,6 +150,7 @@ void TMJObjectLoader::load()
       if (object_json.value().contains("class")) type_property = object_json.value()["class"].get<std::string>();
       else if (object_json.value().contains("type")) type_property = object_json.value()["type"].get<std::string>();
 
+      std::string name_property = object_json.value()["name"].get<std::string>();
       int id_property = object_json.value()["id"].get<int>();
       float x_property = object_json.value()["x"].get<float>();
       float y_property = object_json.value()["y"].get<float>();
@@ -238,6 +239,7 @@ void TMJObjectLoader::load()
             width_property,
             height_property,
             id_property,
+            name_property,
             custom_properties,
             object_parsed_callback_user_data
          );

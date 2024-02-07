@@ -471,7 +471,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    return created_map;
 }
 
-void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std::string object_type, float x, float y, float width, float height, int id, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
+void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std::string object_type, float x, float y, float width, float height, int id, std::string name, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
 {
    if (!(data))
    {
@@ -503,6 +503,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       entity_pool->push_back(basic2dfactory->create_enemy_move_left("unset-map-name", x, y));
       entity_pool->back()->set(TMJ_OBJECT_TYPE, "hopper");
       entity_pool->back()->set(TMJ_OBJECT_ID, id);
+      entity_pool->back()->set(TMJ_OBJECT_NAME, name); // probably empty in the test data
    }
    else if (object_type == "door")
    {
@@ -515,6 +516,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
       );
       entity_pool->back()->set(TMJ_OBJECT_TYPE, "door");
       entity_pool->back()->set(TMJ_OBJECT_ID, id);
+      entity_pool->back()->set(TMJ_OBJECT_NAME, name); // probably empty in the test data
    }
    else // An unrecognized object type
    {
@@ -531,7 +533,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    return;
 }
 
-void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type, float x, float y, float width, float height, int id, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
+void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type, float x, float y, float width, float height, int id, std::string name, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, void* data)
 {
    if (!(data))
    {

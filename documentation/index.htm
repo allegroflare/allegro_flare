@@ -23089,10 +23089,10 @@ table td
   <td class="method">create_tile_map(std::string map_name=&quot;[map-name-not-set]&quot;, std::string map_json_filename=&quot;[a-map-tmj-filename-that-is-not-set]&quot;, std::string tile_atlas_bitmap_identifier=&quot;[unset-tile_atlas_bitmap_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">create_entities_from_map__tmj_obj_loader_callback_func(std::string object_type=&quot;[unset-object_type]&quot;, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, int id=0, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties={}, void* data=nullptr)</td>
+  <td class="method">create_entities_from_map__tmj_obj_loader_callback_func(std::string object_type=&quot;[unset-object_type]&quot;, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, int id=0, std::string name=&quot;[unset-name]&quot;, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties={}, void* data=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type=&quot;[unset-object_type]&quot;, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, int id=0, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties={}, void* data=nullptr)</td>
+  <td class="method">create_entities_from_map__tmj_obj_loader_with_callback_provided_func(std::string object_type=&quot;[unset-object_type]&quot;, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, int id=0, std::string name=&quot;[unset-name]&quot;, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties={}, void* data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">create_entities_from_map(std::string map_tmj_filename=&quot;[unset-map_tmj_filename]&quot;, std::string map_name=&quot;[unset-map_name]&quot;, std::function&lt;void( std::string, float, float, float, float, int, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector&lt;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*&gt;*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) &gt; callback={}, void* callback_data=nullptr)</td>
@@ -24591,7 +24591,7 @@ table td
 </tr>
 <tr>
   <td class="property">object_parsed_callback</td>
-  <td class="property">std::function&lt;void(std::string, float, float, float, float, int, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)&gt;</td>
+  <td class="property">std::function&lt;void(std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)&gt;</td>
 </tr>
 <tr>
   <td class="property">object_parsed_callback_user_data</td>

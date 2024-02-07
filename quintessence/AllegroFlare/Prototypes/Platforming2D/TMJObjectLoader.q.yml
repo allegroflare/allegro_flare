@@ -7,7 +7,7 @@ properties:
     constructor_arg: true
 
   - name: object_parsed_callback
-    type: std::function<void(std::string, float, float, float, float, int, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)>
+    type: std::function<void(std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)>
     init_with: '{}'
     getter: true
     setter: true
@@ -113,6 +113,7 @@ methods:
          if (object_json.value().contains("class")) type_property = object_json.value()["class"].get<std::string>();
          else if (object_json.value().contains("type")) type_property = object_json.value()["type"].get<std::string>();
 
+         std::string name_property = object_json.value()["name"].get<std::string>();
          int id_property = object_json.value()["id"].get<int>();
          float x_property = object_json.value()["x"].get<float>();
          float y_property = object_json.value()["y"].get<float>();
@@ -201,6 +202,7 @@ methods:
                width_property,
                height_property,
                id_property,
+               name_property,
                custom_properties,
                object_parsed_callback_user_data
             );
