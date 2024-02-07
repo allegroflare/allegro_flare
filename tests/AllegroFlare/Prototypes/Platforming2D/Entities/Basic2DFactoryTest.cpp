@@ -25,6 +25,7 @@ static void my_tmj_loader_callback(
    float width,
    float height,
    int id,
+   std::string name,
    AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool,
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory,
@@ -38,6 +39,7 @@ static void my_tmj_loader_callback(
       entity_pool->push_back(basic2dfactory->create_enemy_move_left("unset-map-name", x, y));
       entity_pool->back()->set(TMJ_OBJECT_TYPE, "hopper");
       entity_pool->back()->set(TMJ_OBJECT_ID, id);
+      entity_pool->back()->set(TMJ_OBJECT_NAME, "some_name"); // probably empty in the test data
    }
    else if (object_type == "door")
    {
@@ -50,6 +52,7 @@ static void my_tmj_loader_callback(
       );
       entity_pool->back()->set(TMJ_OBJECT_TYPE, "door");
       entity_pool->back()->set(TMJ_OBJECT_ID, id);
+      entity_pool->back()->set(TMJ_OBJECT_NAME, "some_name"); // probably empty in the test data
    }
    else // An unrecognized object type
    {
@@ -142,7 +145,9 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
 
    // TODO: Add this test
    ASSERT_EQ(true, entity1.exists(TMJ_OBJECT_ID));
+   ASSERT_EQ(true, entity1.exists(TMJ_OBJECT_NAME));
    //EXPECT_EQ(999, entity1.get_as_int(TMJ_OBJECT_ID));
+   EXPECT_EQ("some_name", entity1.get_as_string(TMJ_OBJECT_NAME));
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D &entity2 = *entities[1];
    EXPECT_EQ(true, entity2.exists(TMJ_OBJECT_TYPE, "hopper"));

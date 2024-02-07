@@ -122,6 +122,7 @@ properties:
            float,
            float,
            int,
+           std::string,
            AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*)

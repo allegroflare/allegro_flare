@@ -554,6 +554,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_prov
       float,
       float,
       int,
+      std::string,
       AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*,
@@ -590,6 +591,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_prov
       width,
       height,
       id,
+      name,
       custom_properties,
       entity_pool,
       basic2dfactory,
@@ -599,7 +601,7 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_prov
    return;
 }
 
-std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name, std::function<void( std::string, float, float, float, float, int, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > callback, void* callback_data)
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Basic2DFactory::create_entities_from_map(std::string map_tmj_filename, std::string map_name, std::function<void( std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > callback, void* callback_data)
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result_entity_pool;
