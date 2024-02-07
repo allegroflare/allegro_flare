@@ -177,7 +177,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* EntityCollect
    {
       if (
                entity->exists(TYPE, DOOR)
-            && entity->exists(TARGET_DOOR_NAME, target_door_name)
+            && entity->exists(TMJ_OBJECT_NAME, target_door_name)
             //&& entity->is_type(...) // TODO: Consider validating entity type as Doors::Basic2D::TYPE
          )
       {
