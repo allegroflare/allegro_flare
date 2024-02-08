@@ -55,6 +55,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , camera_control_strategy(nullptr)
    , create_entities_from_map_callback({})
    , create_entities_from_map_callback_user_data(nullptr)
+   , show_debugging_info(false)
    , initialized(false)
    , maps_initialized(false)
 {
@@ -111,6 +112,12 @@ void Screen::set_create_entities_from_map_callback(std::function<void( std::stri
 void Screen::set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data)
 {
    this->create_entities_from_map_callback_user_data = create_entities_from_map_callback_user_data;
+}
+
+
+void Screen::set_show_debugging_info(bool show_debugging_info)
+{
+   this->show_debugging_info = show_debugging_info;
 }
 
 
@@ -189,6 +196,12 @@ std::function<void( std::string, float, float, float, float, int, std::string, A
 void* Screen::get_create_entities_from_map_callback_user_data() const
 {
    return create_entities_from_map_callback_user_data;
+}
+
+
+bool Screen::get_show_debugging_info() const
+{
+   return show_debugging_info;
 }
 
 
@@ -1186,8 +1199,8 @@ void Screen::draw()
 
 void Screen::draw_debugging()
 {
-   bool draw_debugging_info = true;
-   if (draw_debugging_info)
+   //bool draw_debugging_info = true;
+   if (show_debugging_info)
    {
       ALLEGRO_FONT *font = obtain_debug_font();
 

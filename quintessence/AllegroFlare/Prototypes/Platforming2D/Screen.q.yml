@@ -137,6 +137,12 @@ properties:
     getter: true
     setter: true
 
+  - name: show_debugging_info
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool 
     init_with: false
@@ -1101,8 +1107,8 @@ methods:
 
   - name: draw_debugging
     body: |
-      bool draw_debugging_info = true;
-      if (draw_debugging_info)
+      //bool draw_debugging_info = true;
+      if (show_debugging_info)
       {
          ALLEGRO_FONT *font = obtain_debug_font();
 

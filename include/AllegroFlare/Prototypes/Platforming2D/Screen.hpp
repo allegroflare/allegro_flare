@@ -61,6 +61,7 @@ namespace AllegroFlare
             AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy;
             std::function<void( std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback;
             void* create_entities_from_map_callback_user_data;
+            bool show_debugging_info;
             bool initialized;
             bool maps_initialized;
             void initialize_camera();
@@ -86,6 +87,7 @@ namespace AllegroFlare
             void set_entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector);
             void set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback);
             void set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data);
+            void set_show_debugging_info(bool show_debugging_info);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::EventEmitter* get_event_emitter() const;
@@ -99,6 +101,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
             std::function<void( std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > get_create_entities_from_map_callback() const;
             void* get_create_entities_from_map_callback_user_data() const;
+            bool get_show_debugging_info() const;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> &get_entity_pool_ref();
             AllegroFlare::Physics::TileMapCollisionStepper &get_collision_stepper_ref();
             void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary={});
