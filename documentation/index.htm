@@ -22882,6 +22882,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">bitmap_blend_mode</td>
+  <td class="property">AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode</td>
+</tr>
+<tr>
   <td class="property">movement_strategy</td>
   <td class="property">AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base*</td>
 </tr>
@@ -22948,6 +22952,12 @@ table td
   <td class="method">on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;* collision_step_result={})</td>
 </tr>
 <tr>
+  <td class="private_method">set_blending_mode_if_not_normal()</td>
+</tr>
+<tr>
+  <td class="private_method">restore_blending_mode()</td>
+</tr>
+<tr>
   <td class="method">draw()</td>
 </tr>
 <tr>
@@ -23012,6 +23022,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -39435,6 +39448,9 @@ table td
   "AllegroFlare/FrameAnimation/Book": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D/BlendMode": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/vec2d": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",

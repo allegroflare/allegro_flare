@@ -29,6 +29,7 @@ Basic2D::Basic2D(AllegroFlare::FrameAnimation::Book* animation_book)
    , bitmap_placement({})
    , bitmap_alignment_strategy("top_left")
    , bitmap_flip_h(false)
+   , bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode::NORMAL)
    , movement_strategy(nullptr)
    , animation_book(animation_book)
    , animation({})
@@ -76,6 +77,12 @@ void Basic2D::set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement)
 void Basic2D::set_bitmap_flip_h(bool bitmap_flip_h)
 {
    this->bitmap_flip_h = bitmap_flip_h;
+}
+
+
+void Basic2D::set_bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode bitmap_blend_mode)
+{
+   this->bitmap_blend_mode = bitmap_blend_mode;
 }
 
 
@@ -136,6 +143,12 @@ std::string Basic2D::get_bitmap_alignment_strategy() const
 bool Basic2D::get_bitmap_flip_h() const
 {
    return bitmap_flip_h;
+}
+
+
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode Basic2D::get_bitmap_blend_mode() const
+{
+   return bitmap_blend_mode;
 }
 
 
@@ -270,6 +283,56 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, A
    return;
 }
 
+void Basic2D::set_blending_mode_if_not_normal()
+{
+   switch (bitmap_blend_mode)
+   {
+      case NORMAL: {
+         // Do nothing
+      } break;
+
+      case MULTIPLY: {
+         // NOTE: The manual recommends ALLEGRO_ZERO as the last argument:
+         //al_set_blender(ALLEGRO_ADD, ALLEGRO_DEST_COLOR, ALLEGRO_ZERO);
+         // NOTE: However, It was modified to ALLEGRO_INVERSE_ALPHA to respect the alpha of the drawing bitmap,
+         // but it's unsure if there are side effects
+         al_set_blender(ALLEGRO_ADD, ALLEGRO_DEST_COLOR, ALLEGRO_INVERSE_ALPHA);
+      } break;
+
+      case ADDITIVE: {
+         al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
+      } break;
+
+      default: {
+         // TODO: Figure out what to do in this case, maybe throw?
+      } break;
+   };
+   return;
+}
+
+void Basic2D::restore_blending_mode()
+{
+   switch (bitmap_blend_mode)
+   {
+      case NORMAL: {
+         // Do nothing
+      } break;
+
+      case MULTIPLY: {
+         al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
+      } break;
+
+      case ADDITIVE: {
+         al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
+      } break;
+
+      default: {
+         // TODO: Figure out what to do in this case, maybe throw?
+      } break;
+   };
+   return;
+}
+
 void Basic2D::draw()
 {
    if (!(al_is_primitives_addon_initialized()))
@@ -308,7 +371,15 @@ void Basic2D::draw()
       // draw the bitmap
 
       bitmap_placement.start_transform();
+
+      // Set the blending mode
+      set_blending_mode_if_not_normal();
+
+      // Draw the sprite
       al_draw_bitmap(bitmap, 0, 0, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
+      // Restore the blending mode
+      restore_blending_mode();
 
       // draw the boundary rectangle for the bitmap
 

@@ -27,6 +27,15 @@ namespace AllegroFlare
             public:
                static constexpr char* TYPE = (char*)"Entities/Basic2D";
 
+            public:
+
+               enum BlendMode
+               {
+                  UNDEFINED = 0,
+                  NORMAL,
+                  MULTIPLY,
+                  ADDITIVE,
+               };
             private:
                AllegroFlare::Placement2D place;
                AllegroFlare::Placement2D velocity;
@@ -34,11 +43,14 @@ namespace AllegroFlare
                AllegroFlare::Placement2D bitmap_placement;
                std::string bitmap_alignment_strategy;
                bool bitmap_flip_h;
+               AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode bitmap_blend_mode;
                AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy;
                AllegroFlare::FrameAnimation::Book* animation_book;
                AllegroFlare::FrameAnimation::Animation animation;
                bool draw_debug;
                ALLEGRO_COLOR debug_box_color;
+               void set_blending_mode_if_not_normal();
+               void restore_blending_mode();
                static void assign_alignment_strategy_values(AllegroFlare::Placement2D* parent_placement=nullptr, ALLEGRO_BITMAP* bitmap=nullptr, float* bitmap_x=nullptr, float* bitmap_y=nullptr, float* bitmap_align_x=nullptr, float* bitmap_align_y=nullptr, std::string bitmap_alignment_strategy="centered");
 
             protected:
@@ -59,6 +71,7 @@ namespace AllegroFlare
                void set_bitmap(ALLEGRO_BITMAP* bitmap);
                void set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement);
                void set_bitmap_flip_h(bool bitmap_flip_h);
+               void set_bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode bitmap_blend_mode);
                void set_movement_strategy(AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy);
                void set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book);
                void set_draw_debug(bool draw_debug);
@@ -69,6 +82,7 @@ namespace AllegroFlare
                AllegroFlare::Placement2D get_bitmap_placement() const;
                std::string get_bitmap_alignment_strategy() const;
                bool get_bitmap_flip_h() const;
+               AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode get_bitmap_blend_mode() const;
                AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* get_movement_strategy() const;
                AllegroFlare::FrameAnimation::Book* get_animation_book() const;
                bool get_draw_debug() const;

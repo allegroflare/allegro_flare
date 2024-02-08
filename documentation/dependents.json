@@ -3205,6 +3205,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D/BlendMode": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+  ],
   "AllegroFlare/vec2d": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",

@@ -48,6 +48,12 @@ properties:
     getter: true
     setter: true
 
+  - name: bitmap_blend_mode
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode
+    init_with: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode::NORMAL
+    getter: true
+    setter: true
+
   - name: movement_strategy
     type: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base*
     init_with: nullptr
@@ -113,6 +119,18 @@ properties:
     init_with: '(char*)"Entities/Basic2D"'
     static: true
     constexpr: true
+
+
+enums:
+
+
+  - name: BlendMode
+    scope: public
+    enumerators:
+      - UNDEFINED
+      - NORMAL
+      - MULTIPLY
+      - ADDITIVE
 
 
 functions:
@@ -232,6 +250,58 @@ functions:
       return;
 
 
+  - name: set_blending_mode_if_not_normal
+    private: true
+    body: |
+      switch (bitmap_blend_mode)
+      {
+         case NORMAL: {
+            // Do nothing
+         } break;
+
+         case MULTIPLY: {
+            // NOTE: The manual recommends ALLEGRO_ZERO as the last argument:
+            //al_set_blender(ALLEGRO_ADD, ALLEGRO_DEST_COLOR, ALLEGRO_ZERO);
+            // NOTE: However, It was modified to ALLEGRO_INVERSE_ALPHA to respect the alpha of the drawing bitmap,
+            // but it's unsure if there are side effects
+            al_set_blender(ALLEGRO_ADD, ALLEGRO_DEST_COLOR, ALLEGRO_INVERSE_ALPHA);
+         } break;
+
+         case ADDITIVE: {
+            al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
+         } break;
+
+         default: {
+            // TODO: Figure out what to do in this case, maybe throw?
+         } break;
+      };
+      return;
+
+
+  - name: restore_blending_mode
+    private: true
+    body: |
+      switch (bitmap_blend_mode)
+      {
+         case NORMAL: {
+            // Do nothing
+         } break;
+
+         case MULTIPLY: {
+            al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
+         } break;
+
+         case ADDITIVE: {
+            al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
+         } break;
+
+         default: {
+            // TODO: Figure out what to do in this case, maybe throw?
+         } break;
+      };
+      return;
+
+
   - name: draw
     virtual: true
     override: true
@@ -266,7 +336,15 @@ functions:
          // draw the bitmap
 
          bitmap_placement.start_transform();
+
+         // Set the blending mode
+         set_blending_mode_if_not_normal();
+
+         // Draw the sprite
          al_draw_bitmap(bitmap, 0, 0, bitmap_flip_h ? ALLEGRO_FLIP_HORIZONTAL : 0);
+
+         // Restore the blending mode
+         restore_blending_mode();
 
          // draw the boundary rectangle for the bitmap
 
@@ -494,6 +572,8 @@ dependencies:
   - symbol: AllegroFlare::FrameAnimation::Book
     headers: [ AllegroFlare/FrameAnimation/Book.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
 
 
