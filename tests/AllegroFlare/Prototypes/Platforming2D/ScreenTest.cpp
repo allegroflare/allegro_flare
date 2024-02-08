@@ -78,12 +78,16 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
 
+   // Player entity here:
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity =
       factory.create_for_aabb2d("map_a", 16-1, 32-1);
    created_entity->get_place_ref().position.x = 400/2;
    created_entity->get_place_ref().position.y = 240/2;
 
    platforming_2d.add_entity_to_pool(created_entity);
+   platforming_2d.position_entity_bottom_most_edge(created_entity, "map_a", 112.0, 176.0);
+
+
 
 
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =

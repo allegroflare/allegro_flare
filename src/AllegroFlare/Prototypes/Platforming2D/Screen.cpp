@@ -895,10 +895,11 @@ void Screen::position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platform
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::position_entity_bottom_most_edge: error: guard \"entity\" not met");
    }
-   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    // TODO: Test this
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    entity->set(ON_MAP_NAME, map_name);
-   entity->x = x; // TODO: Make this centered(?)
+   entity->x = x;
    entity->get_place_ref().set_bottommost_coordinate(y-y_offset);
    return;
 }
@@ -1187,7 +1188,7 @@ void Screen::draw()
 
 void Screen::draw_debugging()
 {
-   bool draw_debugging_info = false;
+   bool draw_debugging_info = true;
    if (draw_debugging_info)
    {
       ALLEGRO_FONT *font = obtain_debug_font();
@@ -1204,6 +1205,9 @@ void Screen::draw_debugging()
          );
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_y: %f", 
             player_controlled_entity->get_place_ref().position.y
+         );
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  bottom_most_edge: %f", 
+            player_controlled_entity->get_place_ref().get_bottommost_coordinate()
          );
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_x: %f", 
             player_controlled_entity->get_velocity_ref().position.x
