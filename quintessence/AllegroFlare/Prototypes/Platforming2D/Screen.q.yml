@@ -825,6 +825,35 @@ methods:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: position_entity_bottom_most_edge
+    parameters:
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: map_name
+        type: std::string
+        default_argument: '"[unset-map_name]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: y_offset
+        type: float
+        default_argument: 0.01f
+    guards: [ entity ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+      // TODO: Test this
+      entity->set(ON_MAP_NAME, map_name);
+      entity->x = x; // TODO: Make this centered(?)
+      entity->get_place_ref().set_bottommost_coordinate(y-y_offset);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: check_player_collisions_with_doors
     private: true
     guards: [ player_controlled_entity, event_emitter ]
@@ -864,6 +893,12 @@ methods:
                player_controlled_entity->set(ON_MAP_NAME, map_target_name);
                player_controlled_entity->get_place_ref().position.x = target_spawn_x;
                player_controlled_entity->get_place_ref().position.y = target_spawn_y;
+               position_entity_bottom_most_edge(
+                     player_controlled_entity,
+                     map_target_name,
+                     target_spawn_x,
+                     target_spawn_y
+                  );
 
                // set current map
                set_currently_active_map(map_target_name);

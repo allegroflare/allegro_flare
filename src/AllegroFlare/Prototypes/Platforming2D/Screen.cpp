@@ -886,6 +886,23 @@ void Screen::cleanup_entities_flagged_for_deletion()
    return;
 }
 
+void Screen::position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, std::string map_name, float x, float y, float y_offset)
+{
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::position_entity_bottom_most_edge]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::position_entity_bottom_most_edge: error: guard \"entity\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+   // TODO: Test this
+   entity->set(ON_MAP_NAME, map_name);
+   entity->x = x; // TODO: Make this centered(?)
+   entity->get_place_ref().set_bottommost_coordinate(y-y_offset);
+   return;
+}
+
 void Screen::check_player_collisions_with_doors()
 {
    if (!(player_controlled_entity))
@@ -937,6 +954,12 @@ void Screen::check_player_collisions_with_doors()
             player_controlled_entity->set(ON_MAP_NAME, map_target_name);
             player_controlled_entity->get_place_ref().position.x = target_spawn_x;
             player_controlled_entity->get_place_ref().position.y = target_spawn_y;
+            position_entity_bottom_most_edge(
+                  player_controlled_entity,
+                  map_target_name,
+                  target_spawn_x,
+                  target_spawn_y
+               );
 
             // set current map
             set_currently_active_map(map_target_name);

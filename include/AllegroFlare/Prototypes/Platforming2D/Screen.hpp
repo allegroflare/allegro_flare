@@ -119,6 +119,7 @@ namespace AllegroFlare
             void reverse_gravity();
             void update_entities();
             void check_and_respond_if_player_death();
+            void position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float y_offset=0.01f);
             void draw_entities();
             void update();
             virtual void draw_hud();
