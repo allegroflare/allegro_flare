@@ -948,13 +948,11 @@ void Screen::check_player_collisions_with_doors()
             float target_spawn_y = door->get_target_spawn_y();
 
             // find the target map
+            // TODO: Is this step necessary?
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
                find_map_by_name(map_target_name);
 
             // reposition player in map
-            player_controlled_entity->set(ON_MAP_NAME, map_target_name);
-            player_controlled_entity->get_place_ref().position.x = target_spawn_x;
-            player_controlled_entity->get_place_ref().position.y = target_spawn_y;
             position_entity_bottom_most_edge(
                   player_controlled_entity,
                   map_target_name,
