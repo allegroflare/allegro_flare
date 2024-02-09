@@ -99,24 +99,43 @@ void TMJObjectLoader::load()
 
    // get first j["layers"] that is a ["type"] == "objectgroup"
    bool object_layer_type_found = false;
-   nlohmann::json object_layer_json;
+   std::vector<nlohmann::json> object_layers_json;
    for (auto &layer : source_json["layers"].items())
    {
       if (layer.value()["type"] == "objectgroup")
       {
-         object_layer_json = layer.value();
+         object_layers_json.push_back(layer.value());
+         //object_layer_json = layer.value();
          object_layer_type_found = true;
-         break;
+         //break;
       }
    }
+
+   // Validate object layers found
    if (!object_layer_type_found)
    {
       // TODO: Swap this error message with AllegroFlare::Errors
+      //AllegroFlare::Logger::throw_error(
+       //headers: [ AllegroFlare/Logger.hpp ]
       throw std::runtime_error("TMJObjectLoader: error: layer of type \"objectgroup\" not found.");
    }
 
 
    // load the objects one by one
+
+   for (auto &object_layer_json : object_layers_json)
+   {
+       if (!object_layer_json.contains("name"))
+       {
+          AllegroFlare::Logger::throw_error(
+             "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader::load",
+             "When parsing an \"objectgroup\" type layer, expecting a property of type \"name\" but it does not "
+                "exist."
+          );
+       }
+       std::string object_layer_name = object_layer_json["name"].get<std::string>();
+       std::cout << "TMJObjectLoader: loading layer named \"" << object_layer_name << "\"." << std::endl;
+       //if (object_layer_name
 
    if (!object_layer_json.contains("objects"))
    {
@@ -245,7 +264,7 @@ void TMJObjectLoader::load()
          );
       }
    }
-
+   }
 
 
    return;
