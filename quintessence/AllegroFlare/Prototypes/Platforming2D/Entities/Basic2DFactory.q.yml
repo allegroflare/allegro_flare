@@ -694,6 +694,9 @@ functions:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
+      - name: object_layer_name
+        type: std::string
+        default_argument: '"[unset-object_layer_name]"'
       - name: custom_properties
         type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
         default_argument: '{}'
@@ -779,6 +782,9 @@ functions:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
+      - name: object_layer_name
+        type: std::string
+        default_argument: '"[unset-object_layer_name]"'
       - name: custom_properties
         type: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
         default_argument: '{}'
@@ -799,6 +805,7 @@ functions:
          float,
          float,
          int,
+         std::string,
          std::string,
          AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
          std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
@@ -837,6 +844,7 @@ functions:
          height,
          id,
          name,
+         object_layer_name,
          custom_properties,
          entity_pool,
          basic2dfactory,
@@ -863,6 +871,7 @@ functions:
                float,
                float,
                int,
+               std::string,
                std::string,
                AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
                std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,

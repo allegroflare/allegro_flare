@@ -7,7 +7,7 @@ properties:
     constructor_arg: true
 
   - name: object_parsed_callback
-    type: std::function<void(std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)>
+    type: std::function<void(std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)>
     init_with: '{}'
     getter: true
     setter: true
@@ -225,6 +225,7 @@ methods:
                    height_property,
                    id_property,
                    name_property,
+                   object_layer_name,
                    custom_properties,
                    object_parsed_callback_user_data
                 );

@@ -134,18 +134,6 @@
                  "width":0,
                  "x":344,
                  "y":104
-                }, 
-                {
-                 "height":0,
-                 "id":21,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"spawn_puck",
-                 "visible":true,
-                 "width":0,
-                 "x":112,
-                 "y":152
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -33,7 +33,7 @@ TMJObjectLoader::~TMJObjectLoader()
 }
 
 
-void TMJObjectLoader::set_object_parsed_callback(std::function<void(std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> object_parsed_callback)
+void TMJObjectLoader::set_object_parsed_callback(std::function<void(std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> object_parsed_callback)
 {
    this->object_parsed_callback = object_parsed_callback;
 }
@@ -45,7 +45,7 @@ void TMJObjectLoader::set_object_parsed_callback_user_data(void* object_parsed_c
 }
 
 
-std::function<void(std::string, float, float, float, float, int, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> TMJObjectLoader::get_object_parsed_callback() const
+std::function<void(std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, void*)> TMJObjectLoader::get_object_parsed_callback() const
 {
    return object_parsed_callback;
 }
@@ -262,6 +262,7 @@ void TMJObjectLoader::load()
                 height_property,
                 id_property,
                 name_property,
+                object_layer_name,
                 custom_properties,
                 object_parsed_callback_user_data
              );

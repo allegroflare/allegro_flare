@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="22">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="22">
  <editorsettings>
   <export target="map_with_objects-x.tmj" format="json"/>
  </editorsettings>
@@ -73,7 +73,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="18" class="door" x="720" y="408" width="32" height="40">
+  <object id="18" type="door" x="720" y="408" width="32" height="40">
    <properties>
     <property name="foobar" value="asdfasf"/>
     <property name="target_map_name" value="map_b"/>
@@ -81,10 +81,10 @@
     <property name="target_spawn_y" type="float" value="0"/>
    </properties>
   </object>
-  <object id="19" class="hopper" x="344" y="104">
+  <object id="19" type="hopper" x="344" y="104">
    <point/>
   </object>
-  <object id="21" class="spawn_puck" x="112" y="152">
+  <object id="21" type="spawn_puck" x="112" y="152">
    <point/>
   </object>
  </objectgroup>
