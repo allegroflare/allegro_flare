@@ -63,6 +63,7 @@ properties:
   - name: camera
     type: AllegroFlare::Camera2D
     init_with: ''
+    getter_ref: true
 
   - name: camera_baseline_zoom
     type: AllegroFlare::Vec2D

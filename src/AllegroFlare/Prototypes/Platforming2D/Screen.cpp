@@ -217,6 +217,12 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> &Screen
 }
 
 
+AllegroFlare::Camera2D &Screen::get_camera_ref()
+{
+   return camera;
+}
+
+
 AllegroFlare::Physics::TileMapCollisionStepper &Screen::get_collision_stepper_ref()
 {
    return collision_stepper;
