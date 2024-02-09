@@ -345,7 +345,9 @@ void Screen::set_camera_control_strategy(AllegroFlare::CameraControlStrategies2D
       throw std::runtime_error("Screen::set_camera_control_strategy: error: guard \"(initialized)\" not met");
    }
    // NOTE: Currently, the camera control strategy can only be set after initialization. This is because
-   // the initialization will automatically create a camera control strategy to use.
+   // the initialization will automatically create a camera control strategy to use.  This is just really for
+   // convenience to have an automatic camera control strategy. Proabably, there should be
+   // a Platforming2DScreenFactory where different stuff can be setup.
    // NOTE: If you are using this function to set a custom camera controller, you should delete any currently
    // present one before calling this function.
    this->camera_control_strategy = camera_control_strategy;
