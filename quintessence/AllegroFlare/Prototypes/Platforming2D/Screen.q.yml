@@ -113,6 +113,8 @@ properties:
   - name: camera_control_strategy
     type: AllegroFlare::CameraControlStrategies2D::Base*
     init_with: nullptr
+    getter: true
+    setter: explicit
 
   - name: create_entities_from_map_callback
     type: std::function<void(
@@ -292,6 +294,21 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D
+
+
+  - name: set_camera_control_strategy
+    parameters:
+      - name: camera_control_strategy
+        type: AllegroFlare::CameraControlStrategies2D::Base*
+        default_argument: nullptr
+    guards: [ (initialized) ]
+    body: |
+      // NOTE: Currently, the camera control strategy can only be set after initialization. This is because
+      // the initialization will automatically create a camera control strategy to use.
+      // NOTE: If you are using this function to set a custom camera controller, you should delete any currently
+      // present one before calling this function.
+      this->camera_control_strategy = camera_control_strategy;
+      return;
 
 
   - name: find_map_by_name
@@ -784,6 +801,11 @@ methods:
       cleanup_entities_flagged_for_deletion();
 
       // Update the camera
+      if (!camera_control_strategy && player_controlled_entity)
+      {
+         camera.position.x = player_controlled_entity->x;
+         camera.position.y = player_controlled_entity->y;
+      }
       if (camera_control_strategy) camera_control_strategy->update();
 
       // Check for player death

@@ -187,6 +187,12 @@ AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* Screen::
 }
 
 
+AllegroFlare::CameraControlStrategies2D::Base* Screen::get_camera_control_strategy() const
+{
+   return camera_control_strategy;
+}
+
+
 std::function<void( std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > Screen::get_create_entities_from_map_callback() const
 {
    return create_entities_from_map_callback;
@@ -326,6 +332,23 @@ void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2
 
       entity_control_connector = control_connector;
    }
+   return;
+}
+
+void Screen::set_camera_control_strategy(AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy)
+{
+   if (!((initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_camera_control_strategy]: error: guard \"(initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_camera_control_strategy: error: guard \"(initialized)\" not met");
+   }
+   // NOTE: Currently, the camera control strategy can only be set after initialization. This is because
+   // the initialization will automatically create a camera control strategy to use.
+   // NOTE: If you are using this function to set a custom camera controller, you should delete any currently
+   // present one before calling this function.
+   this->camera_control_strategy = camera_control_strategy;
    return;
 }
 
@@ -855,6 +878,11 @@ void Screen::update_entities()
    cleanup_entities_flagged_for_deletion();
 
    // Update the camera
+   if (!camera_control_strategy && player_controlled_entity)
+   {
+      camera.position.x = player_controlled_entity->x;
+      camera.position.y = player_controlled_entity->y;
+   }
    if (camera_control_strategy) camera_control_strategy->update();
 
    // Check for player death

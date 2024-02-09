@@ -99,6 +99,7 @@ namespace AllegroFlare
             bool get_show_collision_tile_mesh() const;
             bool get_show_visual_hint_on_suspended_gameplay() const;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
+            AllegroFlare::CameraControlStrategies2D::Base* get_camera_control_strategy() const;
             std::function<void( std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > get_create_entities_from_map_callback() const;
             void* get_create_entities_from_map_callback_user_data() const;
             bool get_show_debugging_info() const;
@@ -110,6 +111,7 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
             void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, bool also_set_as_camera_tracked_object=true, bool also_setup_a_basic2d_entity_control_connector=true);
+            void set_camera_control_strategy(AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy=nullptr);
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
             virtual void on_activate() override;
             virtual void on_deactivate() override;
