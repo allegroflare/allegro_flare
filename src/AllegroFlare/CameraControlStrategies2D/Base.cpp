@@ -13,7 +13,7 @@ namespace CameraControlStrategies2D
 {
 
 
-Base::Base(std::string type, AllegroFlare::Placement2D* camera)
+Base::Base(std::string type, AllegroFlare::Camera2D* camera)
    : type(type)
    , camera(camera)
    , initialized(false)
@@ -26,7 +26,7 @@ Base::~Base()
 }
 
 
-void Base::set_camera(AllegroFlare::Placement2D* camera)
+void Base::set_camera(AllegroFlare::Camera2D* camera)
 {
    this->camera = camera;
 }
@@ -38,7 +38,7 @@ std::string Base::get_type() const
 }
 
 
-AllegroFlare::Placement2D* Base::get_camera() const
+AllegroFlare::Camera2D* Base::get_camera() const
 {
    return camera;
 }
@@ -50,7 +50,7 @@ bool Base::get_initialized() const
 }
 
 
-AllegroFlare::Placement2D* &Base::get_camera_ref()
+AllegroFlare::Camera2D* &Base::get_camera_ref()
 {
    return camera;
 }

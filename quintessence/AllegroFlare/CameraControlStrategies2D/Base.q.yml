@@ -14,7 +14,7 @@ properties:
     constexpr: true
 
   - name: camera
-    type: AllegroFlare::Placement2D*
+    type: AllegroFlare::Camera2D*
     init_with: nullptr
     constructor_arg: true
     getter: true
@@ -57,7 +57,7 @@ functions:
 dependencies:
 
 
-  - symbol: AllegroFlare::Placement2D
-    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Camera2D
+    headers: [ AllegroFlare/Camera2D.hpp ]
 
 
