@@ -71,6 +71,7 @@ namespace AllegroFlare
       Placement2D operator*(float f); // mostly used when Placement2D represents a velocity
 
       static Placement2D blend(Placement2D placement1, Placement2D placement2, float normal);
+      void blend(Placement2D other_placement, float normal);
    };
 }
 

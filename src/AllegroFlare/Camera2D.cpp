@@ -69,6 +69,12 @@ AllegroFlare::Vec2D Camera2D::get_inv_zoom()
    return AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
 }
 
+void Camera2D::refresh_zoom_from_scale()
+{
+   this->zoom = AllegroFlare::vec2d(1.0 / scale.x, 1.0 / scale.y);
+   return;
+}
+
 void Camera2D::setup_dimensional_projection(ALLEGRO_BITMAP* bitmap)
 {
    if (!(al_is_system_installed()))
@@ -130,6 +136,28 @@ void Camera2D::setup_dimensional_projection(ALLEGRO_BITMAP* bitmap)
 
    al_use_projection_transform(&view);
    al_restore_state(&previous_bitmap_target_state);
+   return;
+}
+
+void Camera2D::blend_with_other_camera(AllegroFlare::Camera2D* camera_b, float blend_factor)
+{
+   if (!(camera_b))
+   {
+      std::stringstream error_message;
+      error_message << "[Camera2D::blend_with_other_camera]: error: guard \"camera_b\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Camera2D::blend_with_other_camera: error: guard \"camera_b\" not met");
+   }
+   // TODO: Test this
+   //camera_a::Placement2D =
+   //AllegroFlare::Placement2D result_placement = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
+   //*camera_a = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
+   blend(*camera_b, blend_factor);
+   refresh_zoom_from_scale();
+   //*camera_a = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
+
+   //blend((*camera_a)::Placement2D, (*camera_b)::Placement2D, 0.5);
+   //return *camera_a;
    return;
 }
 

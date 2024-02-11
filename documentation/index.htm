@@ -1409,7 +1409,13 @@ table td
   <td class="method">get_inv_zoom()</td>
 </tr>
 <tr>
+  <td class="method">refresh_zoom_from_scale()</td>
+</tr>
+<tr>
   <td class="method">setup_dimensional_projection(ALLEGRO_BITMAP* bitmap=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">blend_with_other_camera(AllegroFlare::Camera2D* camera_b=nullptr, float blend_factor=0.0f)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -1425,6 +1431,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36980,6 +36989,7 @@ table td
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/Camera2D": [
+    "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",

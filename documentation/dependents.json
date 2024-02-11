@@ -733,6 +733,7 @@
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
   "AllegroFlare/Camera2D": [
+    "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",

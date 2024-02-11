@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
@@ -33,7 +34,9 @@ namespace AllegroFlare
       int get_height_num_units() const;
       void set_zoom(AllegroFlare::Vec2D zoom={1.0f, 1.0f});
       AllegroFlare::Vec2D get_inv_zoom();
+      void refresh_zoom_from_scale();
       void setup_dimensional_projection(ALLEGRO_BITMAP* bitmap=nullptr);
+      void blend_with_other_camera(AllegroFlare::Camera2D* camera_b=nullptr, float blend_factor=0.0f);
    };
 }
 
