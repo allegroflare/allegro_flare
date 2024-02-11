@@ -46,7 +46,7 @@ TEST(AllegroFlare_TileMaps_TileMapTest, get_tile__without_initialization__throws
 TEST(AllegroFlare_TileMaps_TileMapTest, set_tile__without_initialization__throws_an_error)
 {
    AllegroFlare::TileMaps::TileMap<int> tile_map;
-   std::string expected_error_message = "[AllegroFlare::TileMaps::TileMap<T>::set_tile()]: error: tile map must be "
+   std::string expected_error_message = "[AllegroFlare::TileMaps::TileMap<T>::set_tile]: error: tile map must be "
       "initialized first.";
    EXPECT_THROW_WITH_MESSAGE(
       tile_map.set_tile(3, 2, 1),

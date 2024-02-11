@@ -263,7 +263,7 @@
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
   ],
-  "AllegroFlare/Stacktracer": [
+  "AllegroFlare/StackTracer": [
     "AllegroFlare/BacktracingException"
   ],
   "AllegroFlare/Placement3D": [
