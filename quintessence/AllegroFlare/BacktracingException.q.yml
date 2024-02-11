@@ -28,9 +28,9 @@ methods:
   - name: generate_stack_trace
     type: std::string
     body: |
-      return AllegroFlare::Stacktracer::generate_stack_trace();
+      return AllegroFlare::StackTracer::generate_stack_trace();
     body_dependency_symbols:
-      - AllegroFlare::Stacktracer
+      - AllegroFlare::StackTracer
 
 
 dependencies:
@@ -38,8 +38,8 @@ dependencies:
 
   - symbol: std::runtime_error
     headers: [ stdexcept ]
-  - symbol: AllegroFlare::Stacktracer
-    headers: [ AllegroFlare/Stacktracer.hpp ]
+  - symbol: AllegroFlare::StackTracer
+    headers: [ AllegroFlare/StackTracer.hpp ]
 
 
 

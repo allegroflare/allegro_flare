@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/BacktracingException.hpp>
 
-#include <AllegroFlare/Stacktracer.hpp>
+#include <AllegroFlare/StackTracer.hpp>
 
 
 namespace AllegroFlare
@@ -23,7 +23,7 @@ BacktracingException::~BacktracingException()
 
 std::string BacktracingException::generate_stack_trace()
 {
-   return AllegroFlare::Stacktracer::generate_stack_trace();
+   return AllegroFlare::StackTracer::generate_stack_trace();
 }
 
 
