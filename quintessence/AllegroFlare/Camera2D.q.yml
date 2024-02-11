@@ -39,6 +39,14 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - notes:
+     - Note that zoom is an additional property on Camera2D, however it could be modified to be a just a getter/setter
+       that modifies/pulls from the scale property directly.
+
+
 functions:
 
 
